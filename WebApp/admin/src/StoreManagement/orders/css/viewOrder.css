@@ -306,7 +306,7 @@
     background-color: #fff4f4;
 } */
 .orderTotalRows{
-    background-color: #fff4f4;
+    background-color: #d5e3ea;
 }
 .totals{
     text-align: center;
@@ -641,7 +641,7 @@
 }
 .orderTable thead tr th{
     padding: 20px 15px;
-    background: #fff4f4;
+    background: #d5e3ea;
     font-size: 16px;
 }
 .tableRowWrapper tr{

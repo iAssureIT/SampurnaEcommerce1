@@ -948,7 +948,7 @@ class IAssureTable extends Component {
 												{/* </td>  */}
 												<td className="textAlignCenter">
 													<span class="displayInline">
-														<a href={"/viewOrder/"+value._id} className="" title="View" data-ID={value._id}>
+														<a href={"/view-order/"+value._id} className="" title="View" data-ID={value._id}>
 															<i className="fa fa-eye" aria-hidden="true"></i>
 														</a>&nbsp; &nbsp;
 														{/* <i className="fa fa-pencil" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 

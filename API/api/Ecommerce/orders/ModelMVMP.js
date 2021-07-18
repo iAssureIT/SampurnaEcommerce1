@@ -73,6 +73,7 @@ const orderSchema = mongoose.Schema({
 												"category"          : String,
 												"subCategory_ID"    : String,
 												"subCategory"       : String,
+												"brand"       		: String,
 												"productStatus"     : String,
 												"returnedDate"      : Date,
 												"isReview"          : Boolean
@@ -99,11 +100,13 @@ const orderSchema = mongoose.Schema({
 											deliveryPerson_id 	: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
 											transactionNumber 	: String,
 										},
-										deliveryStatus            : [{
-											status          	: String,  //Only 4 status to be shown to user: New, Packaging, Dispatched, Delivered
-											timestamp       	: Date,
-											statusUpdatedBy 	: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
-											expDeliveryDate 	: Date,
+										deliveryStatus            	: [{
+											status          		: String,  //Only 4 status to be shown to user: New, Packaging, Dispatched, Delivered
+											timestamp       		: Date,
+											statusUpdatedBy 		: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+											expDeliveryDate 		: Date,
+											allocationRejectReason 	: String,
+											allocationRejectDesc 	: String
 										}], 
 									}
 								],

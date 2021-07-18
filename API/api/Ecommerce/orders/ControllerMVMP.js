@@ -257,7 +257,7 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 						})
 						.exec()
 						.then(updateddata => {
-							console.log("Data => ",updateddata)
+							// console.log("Data => ",updateddata)
 							if (updateddata.nModified === 1) {
 								resolve({
 									"message"	: "Credit Points added successfully in wallet."
@@ -318,7 +318,7 @@ function useCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 	return new Promise((resolve,reject)=>{
 		CreditPoints.findOne({"user_id" : ObjectId(user_id)})
 		.then(async(data)=>{
-			console.log("data => ", data);
+			// console.log("data => ", data);
 			
 			if(data !== null){
 				if (data && data !== null ) { 
@@ -710,7 +710,7 @@ exports.list_orders_by_status = (req, res, next) => {
 			} 
 		})
 	}
-	console.log("selector",selector);
+	// console.log("selector",selector);
 	// console.log("selector => ",selector[0].vendorOrders)
 	Orders.find(selector)
 	// aggregate([
@@ -737,7 +737,7 @@ exports.list_orders_by_status = (req, res, next) => {
 
 /**============ Return Product ===========*/
 exports.returnProduct = (req, res, next) => {
-	console.log("Return Products body => ", req.body);
+	// console.log("Return Products body => ", req.body);
   	Orders.updateOne(
 		{'_id' : ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id},
 		{$set:
@@ -757,19 +757,19 @@ exports.returnProduct = (req, res, next) => {
 			Orders.findOne({ "_id": ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id, 'vendorOrders.products.product_ID' : req.body.product_id })
 			.exec()
 			.then(orderdata => {
-				console.log("orderdata => ",orderdata);
+				// console.log("orderdata => ",orderdata);
 				var vendor = orderdata.vendorOrders.filter(vendorObject => String(vendorObject.vendor_id) === String(req.body.vendor_id));
-				console.log("vendor",vendor);
+				// console.log("vendor",vendor);
 				if(vendor && vendor.length > 0 && vendor[0].products && vendor[0].products.length > 0){
-					console.log("vendor[0].products => ",vendor[0].products);
+					// console.log("vendor[0].products => ",vendor[0].products);
 					// console.log("vendor[0].vendor_numberOfProducts => ",vendor[0].vendor_numberOfProducts);
 					if(vendor[0].products.length > 0){
 						var returnedProduct  = vendor[0].products.filter(product => String(product.product_ID) === String(req.body.product_id));
 					}else{
 						var returnedProduct  = [];
 					}
-					console.log("returnedProduct => ",returnedProduct);
-					console.log("orderdata.orderID => ",orderdata.orderID);
+					// console.log("returnedProduct => ",returnedProduct);
+					// console.log("orderdata.orderID => ",orderdata.orderID);
 					if(returnedProduct && returnedProduct.length > 0){
 						const returnedproducts = new ReturnedProducts({
 							_id 					: new mongoose.Types.ObjectId(),
@@ -956,6 +956,17 @@ function addSplitVendorOrders(orderID) {
 /** =========== Change Vendor Order Status =========== */
 exports.change_vendor_orders_status = (req, res, next) => {
 	// console.log("req.body => ",req.body)
+	var statusObj = {
+		status 				: req.body.changeStatus,
+		timestamp 			: new Date(),
+		statusUpdatedBy 	: req.body.userid
+	}
+	if(req.body.allocationRejectReason && req.body.allocationRejectReason !== undefined && req.body.allocationRejectReason !== ""){
+		statusObj.allocationRejectReason = req.body.allocationRejectReason;
+	}
+	if(req.body.allocationRejectDesc && req.body.allocationRejectDesc !== undefined && req.body.allocationRejectDesc !== ""){
+		statusObj.allocationRejectDesc = req.body.allocationRejectDesc;
+	}
 	Orders.updateOne(
 	{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
 	{
@@ -963,11 +974,7 @@ exports.change_vendor_orders_status = (req, res, next) => {
 			"vendorOrders.$.orderStatus"  : req.body.changeStatus
 		},
 		$push: {	
-			"vendorOrders.$.deliveryStatus" : {
-				status 				: req.body.changeStatus,
-				timestamp 			: new Date(),
-				statusUpdatedBy 	: req.body.userid
-			}
+			"vendorOrders.$.deliveryStatus" : statusObj
 		}
 	})
 	.then(async(updatedata) => {
@@ -975,17 +982,17 @@ exports.change_vendor_orders_status = (req, res, next) => {
 		if (updatedata.nModified === 1) {
 			var vendorOrders 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {vendorOrders : 1});
 			// console.log("OrderStatuses => ",OrderStatuses);
-			console.log("vendorOrders => ",vendorOrders);
+			// console.log("vendorOrders => ",vendorOrders);
 			var count = 0;
 			for(var i=0; i < vendorOrders.vendorOrders.length; i++){
-				console.log("vendorOrders.vendorOrders.orderStatus => ",vendorOrders.vendorOrders[i].orderStatus)
+				// console.log("vendorOrders.vendorOrders.orderStatus => ",vendorOrders.vendorOrders[i].orderStatus)
 				if(vendorOrders.vendorOrders[i].orderStatus === "Delivered" || vendorOrders.vendorOrders[i].orderStatus === "Cancelled"){
 					count += 1;
-					console.log("count 1 => ",count)
+					// console.log("count 1 => ",count)
 				}
 			}
 			if(i >= vendorOrders.vendorOrders.length){
-				console.log("count => ",(count === vendorOrders.vendorOrders.length));
+				// console.log("count => ",(count === vendorOrders.vendorOrders.length));
 				if(count === vendorOrders.vendorOrders.length){
 					Orders.updateOne(
 						{ _id: ObjectId(req.body.order_id)},		
@@ -996,11 +1003,11 @@ exports.change_vendor_orders_status = (req, res, next) => {
 						}
 					)
 					.then(async(updateorderdata) => {
-						console.log("updateorderdata => ",updateorderdata)
+						// console.log("updateorderdata => ",updateorderdata)
 					
 						var orderdata 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {user_ID : 1, deliveryAddress : 1, orderID : 1});
 						var userData 	= await User.findOne({"_id" : ObjectId(orderdata.user_ID)}); 
-						console.log("userData => ",userData)
+						// console.log("userData => ",userData)
 						
 						var userNotificationValues = {
 							"event"				: "OrderStatusChange",
@@ -3224,8 +3231,8 @@ exports.deleteAllOrders = (req, res, next) => {
 
 /**=========== calcUserVendorDist() ===========*/
 function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
-	console.log("vendorLat => ",vendorLat)
-	console.log("vendorLong => ",vendorLong)
+	// console.log("vendorLat => ",vendorLat)
+	// console.log("vendorLong => ",vendorLong)
     return new Promise(function(resolve,reject){
         processDistance()
 
@@ -3336,7 +3343,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 		}	
 	])
 	.then(async(data) => {
-		console.log("data => ",data);
+		// console.log("data => ",data);
 		if(data && data.length > 0){			
 			var location 		= await DriverTracking.aggregate([				
 										{$match : 
@@ -3353,7 +3360,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 											}
 										}
 									])
-			console.log("location => ",location)
+			// console.log("location => ",location)
 			var latitude 	= location[0].lat;
 			var longitude	= location[0].lng;
 
@@ -3388,17 +3395,17 @@ exports.nearest_vendor_orders= (req, res, next) => {
 				}//for end
 				if(i >= data.length){
 					var distanceLimit = await getDistanceLimit();	
-					console.log("distanceLimit => ",distanceLimit)
+					// console.log("distanceLimit => ",distanceLimit)
 					if(distanceLimit){
 						var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
 							return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
 						});
-						console.log("FinalVendorOrders 1 =>",FinalVendorOrders)
+						// console.log("FinalVendorOrders 1 =>",FinalVendorOrders)
 					}else{                                            
 						var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
 							return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
 						});
-						console.log("FinalVendorOrders 2 =>",FinalVendorOrders)
+						// console.log("FinalVendorOrders 2 =>",FinalVendorOrders)
 					}					
 					res.status(200).json(FinalVendorOrders);
 				}
@@ -3452,7 +3459,7 @@ exports.get_single_vendor_order = (req, res, next) => {
   
 // ---------------- Deliver Single Vendor Order ----------------
 exports.deliver_single_vendor_order = (req, res, next) => {
-	console.log("body => ",req.body)
+	// console.log("body => ",req.body)
 	Orders.updateOne(
 		{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
 		{
@@ -3475,32 +3482,32 @@ exports.deliver_single_vendor_order = (req, res, next) => {
 		if (updatedata.nModified === 1) {
 			var vendorOrders 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {vendorOrders : 1});
 			// console.log("OrderStatuses => ",OrderStatuses);
-			console.log("vendorOrders => ",vendorOrders);
+			// console.log("vendorOrders => ",vendorOrders);
 			var count = 0;
 			for(var i=0; i < vendorOrders.vendorOrders.length; i++){
-				console.log("vendorOrders.vendorOrders.orderStatus => ",vendorOrders.vendorOrders[i].orderStatus)
+				// console.log("vendorOrders.vendorOrders.orderStatus => ",vendorOrders.vendorOrders[i].orderStatus)
 				if(vendorOrders.vendorOrders[i].orderStatus === "Delivered" || vendorOrders.vendorOrders[i].orderStatus === "Cancelled"){
 					count += 1;
-					console.log("count 1 => ",count)
+					// console.log("count 1 => ",count)
 				}
 			}
 			if(i >= vendorOrders.vendorOrders.length){
-				console.log("count => ",(count === vendorOrders.vendorOrders.length));
+				// console.log("count => ",(count === vendorOrders.vendorOrders.length));
 				if(count === vendorOrders.vendorOrders.length){
 					Orders.updateOne(
 						{ _id: ObjectId(req.body.order_id)},		
 						{
 							$set:{
-								"orderStatus"  		: "Delivered"								
+								"orderStatus"  : "Delivered"								
 							}
 						}
 					)
 					.then(async(updateorderdata) => {
-						console.log("updateorderdata => ",updateorderdata)
+						// console.log("updateorderdata => ",updateorderdata)
 					
 						var orderdata 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {user_ID : 1, deliveryAddress : 1, orderID : 1});
 						var userData 	= await User.findOne({"_id" : ObjectId(orderdata.user_ID)}); 
-						console.log("userData => ",userData)
+						// console.log("userData => ",userData)
 						
 						var userNotificationValues = {
 							"event"				: "OrderStatusChange",
@@ -3755,7 +3762,7 @@ exports.daily_vendor_orders = (req, res, next) => {
 		}
 	])
 	.then(data => {
-		console.log("data => ",data);
+		// console.log("data => ",data);
 		//   var tableData = data.map((a, i) => {
 		// 	return {
 		// 	   "orderID": a.orderID,
@@ -3778,74 +3785,129 @@ exports.daily_vendor_orders = (req, res, next) => {
 
 // ---------------- Ready to Dispatch Vendor Orders for Dispatch Center ----------------
 exports.list_ready_to_dispatch_orders = (req, res, next) => {
-	console.log("req.body => ",req.body)
-	console.log("req.body => ",req.body)
-	// console.log("start => ", moment(new Date(req.body.deliveryDate)).startOf('day').toDate());
-	// console.log("end => ", moment(new Date(req.body.deliveryDate)).endOf('day').toDate());
-	Orders.aggregate([	   
-		{ "$match": 
-			{"vendorOrders": 
-				{"$elemMatch":
-					{
-						"orderStatus"		: {$in : req.body.status},
-						"deliveryStatus" 	: {
-							"$elemMatch" : {
-								"status" : {$in : req.body.status},								
-							}
-						}
-					}
+		// console.log("req.body => ",req.body)
+		const {status} = req.body;
+		Orders.aggregate([
+			{ "$unwind" : "$vendorOrders"},
+			{ "$lookup" : 
+				{
+					"from"			: "entitymasters",
+					"as"			: "vendorDetails",
+					"localField"	: "vendorOrders.vendor_id",
+					"foreignField"	: "_id"
 				}
-		  	}
-		},
-		{ "$addFields"	: 
-			{ "vendorOrders" : 
-				{ "$filter" : 
-					{
-						"input" : "$vendorOrders",  
-						"as"    : "sa",
-						"cond"  : {
-							"$and" : [
-								{ "$eq" : [ "$$sa.orderStatus", {$in : req.body.status} ] }
-								// {"$$sa.deliveryStatus" 	: 
-								// 	// {"$all": 
-								// 		{"$elemMatch": 	
-								// 			{
-								// 				"$$sa.deliveryStatus.statusUpdatedBy" 	: ObjectId(req.body.user_id), 
-								// 				"$$sa.deliveryStatus.status" 			: req.body.orderStatus,
-								// 				"$$sa.deliveryStatus.timestamp" 		: {
-								// 					$gte 	: moment(new Date(req.body.deliveryDate)).startOf('day').toDate(),
-								// 					$lte 	: moment(new Date(req.body.deliveryDate)).endOf('day').toDate()
-								// 				}
-								// 			}
-								// 		}
-								// 	// }
-								// }] },
-								// { "$eq" : [ "$$sa.deliveryStatus.statusUpdatedBy", ObjectId(req.body.user_id) ] },
-								//  { "$gt": [ { "$size": "$$sa.deliveryStatus" }, 0 ] }
-							]
-						}
-			  		}
+			},
+			{ "$unwind" : "$vendorDetails" },
+			{ $match :
+				{ 
+					"vendorOrders.orderStatus" : {$in :status }
 				}
-		  	}	
-		}
-	])
-	.then(data => {
-		console.log("data => ",data);
-		//   var tableData = data.map((a, i) => {
-		// 	return {
-		// 	   "orderID": a.orderID,
-		// 	   "userFullName": a.userFullName,
-		// 	   "products": ((a.products.map((b, j) => { return '<div><p>Product Name: ' + b.productName + '</p><p>Product Code: ' + b.productDetail.productCode + '-' + b.productDetail.itemCode + '</p><p>Sell Quantity: ' + b.quantity + '</p><p>Price: <span class="ororiginalPrice">' + (b.discountPercent > 0 ? b.originalPrice : '') + '</span>  <span>' + b.discountedPrice + '</span>  <span class="orPercent">' + (b.discountPercent > 0 ? b.discountPercent + '%' : '') + '</span>  </p>' + '</div><br/>' })).toString()).replace(/,/g, " "),
-		// 	   "cartQuantity": a.cartQuantity,
-		// 	   "status": a.status
-		// 	}
-		//   })
-		res.status(200).json(data);
-	})
-	.catch(err => {
-		console.log(err);
-		res.status(500).json({
-		error: err
+			},
+			{ "$project" : 
+				{
+					"_id"								: 1,
+					"orderID"							: 1,
+					"user_ID"							: 1,
+					"userName"							: 1,
+					"userFullName"						: 1,
+					"paymentDetails"					: 1,
+					"vendorOrders"						: 1,
+					// "vendorOrders.vendor_id"			: 1,
+					// "vendorOrders.vendorLocation_id"	: 1,
+					// "vendorOrders.orderStatus"			: 1,
+					"deliveryAddress"					: 1,
+					"vendorDetails.companyName"			: 1,
+					"vendorDetails.companyLogo"			: 1,
+					"vendorDetails.locations"			: 1,
+					"vendorDetails.createdAt"			: 1,
+					"createdAt" 						: 1
+				}
+			}	
+		])
+		// .populate("vendorOrders.vendor_id")
+		.then(async(data) => {
+			// console.log("data => ",data);
+			if(data && data.length > 0){
+				for(var i = 0; i < data.length; i++){
+					if(data[i].vendorDetails && data[i].vendorDetails !== null && data[i].vendorDetails !== undefined){							
+						var vendor_id           = data[i].vendorDetails._id;
+						var vendorLogo          = data[i].vendorDetails.companyLogo[0];
+						var vendorName          = data[i].vendorDetails.companyName;
+					}						
+				}//for end
+				if(i >= data.length){
+					var FinalVendorOrders = data.sort(function (a, b) {
+						// console.log("----> ",a.vendorOrders.deliveryStatus[a.vendorOrders.deliveryStatus.length - 1].timestamp)
+						return (b.vendorOrders.deliveryStatus[b.vendorOrders.deliveryStatus.length - 1].timestamp - a.vendorOrders.deliveryStatus[a.vendorOrders.deliveryStatus.length - 1].timestamp);
+					});
+					// console.log("FinalVendorOrders =>",FinalVendorOrders)
+									
+					res.status(200).json(FinalVendorOrders);
+				}
+			}else{
+				res.status(200).json({
+					message : "No Orders Found"
+				});
+			}			
+		})
+		.catch(err => {
+		   console.log(err);
+		   res.status(500).json({
+			 error: err
+		   });
 		});
-	});
-};
+	};
+
+	// ---------------- Single Vendor Order for Dispatch Center ----------------
+	exports.fetch_vendor_order = (req, res, next) => {
+
+		Orders.aggregate([
+			{ $match :
+				{ 
+					"_id" : ObjectId(req.params.orderID) 
+				}
+			},
+			{ "$unwind" : "$vendorOrders"},
+			{ "$lookup" : 
+				{
+					"from"			: "entitymasters",
+					"as"			: "vendorDetails",
+					"localField"	: "vendorOrders.vendor_id",
+					"foreignField"	: "_id"
+				}
+			},
+			{ $match :
+				{ 
+					"vendorOrders.vendor_id" : ObjectId(req.params.vendor_id) 
+				}
+			},
+			{ "$project" : 
+				{
+					"_id"								: 1,
+					"orderID"							: 1,
+					"user_ID"							: 1,
+					"userName"							: 1,
+					"userFullName"						: 1,
+					"vendorOrders"						: 1,
+					"deliveryAddress"					: 1,
+					"vendorDetails"						: 1,
+					"createdAt" 						: 1
+				}
+			}	
+		])
+		.then(async(data) => {
+			if(data && data.length > 0){
+				res.status(200).json(data);				
+			}else{
+				res.status(200).json({
+					message : "No Order Found"
+				});
+			}			
+		})
+		.catch(err => {
+		   console.log(err);
+		   res.status(500).json({
+			 error: err
+		   });
+		});
+	};

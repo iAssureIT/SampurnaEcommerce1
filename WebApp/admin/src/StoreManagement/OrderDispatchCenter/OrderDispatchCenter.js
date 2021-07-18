@@ -2,7 +2,7 @@ import React, { Component }   	from 'react';
 import axios                  	from 'axios';
 import swal                   	from 'sweetalert';
 import moment                 	from "moment";
-import IAssureTable           	from "../orders/OrderTable/IAssureTable.jsx";
+import IAssureTable           	from "./OrderDispatchCenterTable.js";
 import openSocket               from 'socket.io-client';
 import 'jquery-validation';
 import 'bootstrap/js/tab.js';
@@ -16,14 +16,14 @@ class OrderDispatchCenter extends Component{
 		this.state = {			                  
 			"tableHeading"     	: {
 				orderNumber             : "Order Number",
-				orderDate             	: "Order Date",
-				customer    			: "Customer",
-				totalPrice         		: "Total Price",
+				orderDate             	: "Order Date & Time",
+				customer    			: "Customer Details",
+				// totalPrice         	: "Total Price",
 				// vendors 				: "Vendors",
 				vendorName  			: "Vendor Name",
-				vendorPrice 			: "Vendor Price",
+				orderPrice 				: "Order Price",
 				vendorStatus 			: "Vendor Status",
-				changeVendorStatus 	    : "Change Vendor Status"
+				changeAllocation 	    : "Change Allocation"
 			},
 			"tableObjects"      : {
 				// apiLink             	: '/api/category',
@@ -220,40 +220,32 @@ class OrderDispatchCenter extends Component{
 		// socket.emit('adminOrtderListValues',formValues);
 		// socket.on("adminBookingList", (response)=>{
 		console.log('order tableData', response);		               
-		  	var tableData = response.map((a, i)=>{
-			// var tableData = response.data.reverse().map((a, i)=>{                      
+		  	// var tableData = response.map((a, i)=>{
+			var tableData = response.data.map((a, i)=>{                      
 				return{ 
 					_id             : a._id,
+					vendor_id       : a.vendorOrders.vendor_id,
 					orderNumber     : a.orderID,
 					orderDate       : '<div class=textFloatLeft><div>' + moment(a.createdAt).format("MMMM Do YYYY") + '</div><div>' + moment(a.createdAt).format('h:mm a')
 					+ '</div></div>',
-					customer     	: '<div><b>'+ a.userFullName ? a.userFullName : (a.deliveryAddress.name ? a.deliveryAddress.name : "Guest User")  +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
-					totalPrice  	: this.state.currency + " " + a.paymentDetails.netPayableAmount,					
-					vendors   		: a.vendorOrders && a.vendorOrders.length > 0
-										?
-											a.vendorOrders.map((vendorOrder, index)=>{
-												console.log("vendorOrder => ", vendorOrder)
-												return ({
-													vendorName 			: '<div>'+vendorOrder.vendor_id.companyName+'</div>',
-													vendorPrice 		: '<div>'+ this.state.currency + " " + vendorOrder.vendor_afterDiscountTotal + '</div>',
-													// vendorStatus 		: '<div class="statusDiv ' + (vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 ? vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status : "").replace(/\s+/g, '_').toLowerCase() + '">'+ ( vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 
-													// 						? 
-													// 							(vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status)
-																				
-													// 						: 
-													// 							'') + '</div>',
-													vendorStatus 		: '<div class="statusDiv ' + (vendorOrder.orderStatus ? vendorOrder.orderStatus : "").replace(/\s+/g, '_').toLowerCase() + '">'+ ( vendorOrder.orderStatus 
-																			? 
-																				(vendorOrder.orderStatus)
-																				
-																			: 
-																				'') + '</div>',
-													changeVendorStatus 	: "<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + vendorOrder.vendor_id._id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + vendorOrder.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>",
+					customer     	: '<div><b>'+( a.userFullName ? a.userFullName : (a.deliveryAddress.name ? a.deliveryAddress.name : "Guest User"))  + '</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
+					vendorName 		: '<div>'+a.vendorDetails.companyName+'</div>',
+					orderPrice 		: '<div class="textAlignRight">'+ this.state.currency + " " + (a.vendorOrders.vendor_afterDiscountTotal).toFixed(2) + '</div>',
+					// vendorStatus 		: '<div class="statusDiv ' + (vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 ? vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status : "").replace(/\s+/g, '_').toLowerCase() + '">'+ ( vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 
+					// 						? 
+					// 							(vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status)
+												
+					// 						: 
+					// 							'') + '</div>',
+					vendorStatus 		: '<div class="statusDiv ' + (a.vendorOrders.orderStatus ? a.vendorOrders.orderStatus : "").replace(/\s+/g, '_').toLowerCase() + '">'+ ( a.vendorOrders.orderStatus 
+											? 
+												(a.vendorOrders.orderStatus)
+												
+											: 
+												'') + '</div>',
+					changeAllocation 	: "<div aria-hidden='true' class='changeVendorStatusBtn' title='Change Delivery Person Allocation' id='" + a._id + "-" + a.vendorOrders.vendor_id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + a.vendorOrders.vendor_id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Allocation </div>",
 
-												})
-											})
-										:
-											[],
+				
 
 					// vendorName   	: a.vendorOrders 
 					// 					? 
@@ -427,7 +419,34 @@ class OrderDispatchCenter extends Component{
 						</div>
 					</div>
 				</div>
-				<div className="changeOrderStatusModal modal fade" id="changeOrderStatusModal" role="dialog">
+				<div class="textAlignCenter modal fade" id="changeOrderStatusModal" role="dialog">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Order Delivery Person Re-Allocation</h4>
+							</div>
+							<div class="modal-body">
+								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+									<IAssureTable 
+										tableHeading          = {this.state.tableHeading}
+										twoLevelHeader        = {this.state.twoLevelHeader} 
+										dataCount             = {this.state.dataCount}
+										tableData             = {this.state.tableData}
+										getData               = {this.getData.bind(this)}
+										tableObjects          = {this.state.tableObjects}
+										// getSearchText         = {this.getSearchText.bind(this)} 
+										tableName             = {this.state.tableName}
+									/>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				{/* <div className="changeOrderStatusModal modal fade" id="changeOrderStatusModal" role="dialog">
 					<div className="modal-dialog modal-lg">
 						<div className="modal-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div className="modal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -497,7 +516,7 @@ class OrderDispatchCenter extends Component{
 							</div>
 						</div>
 					</div>
-				</div> 				
+				</div> 				 */}
 			</div>
 		);
 	}

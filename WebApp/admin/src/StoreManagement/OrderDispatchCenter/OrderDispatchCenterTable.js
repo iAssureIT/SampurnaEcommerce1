@@ -8,7 +8,7 @@ import 'bootstrap/js/tab.js';
 import 'font-awesome/css/font-awesome.min.css';
 import $ from "jquery";
 import jQuery 						from 'jquery';
-import './IAssureTable.css';
+// import './IAssureTable.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 import _                      from 'underscore';
@@ -806,9 +806,9 @@ class IAssureTable extends Component {
 	                           		this.state.tableData.map((value, i)=> {	
 										// console.log("value vendors => ",value.vendors);	
 										// console.log("value",value);
-										var vendorArrayLength = value.vendors.length;										
+										// var vendorArrayLength = value.vendors.length;										
 										return(
-											<tr key={i} className="">
+											<tr key={i} className={""}>
 												{/* <td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>	 */}
 												{Object.entries(value).map(([key, value1], i)=> {						
 													if($.type(value1) === 'string'){
@@ -886,7 +886,7 @@ class IAssureTable extends Component {
 												{/* </td>  */}
 												<td className="textAlignCenter">
 													<span class="displayInline">
-														<a href={"/viewOrder/"+value._id} className="" title="View" data-ID={value._id}>
+														<a href={"/view-vendor-order/"+value._id+"/"+value.vendor_id} className="" title="View" data-ID={value._id}>
 															<i className="fa fa-eye" aria-hidden="true"></i>
 														</a>&nbsp; &nbsp;
 														{/* <i className="fa fa-pencil" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 

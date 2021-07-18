@@ -1640,7 +1640,8 @@ exports.set_send_mobileotp_usingID = (req, res, next) => {
 			.exec()
 			.then(async(data) => {
 				// if (data.nModified === 1) {
-					var otpMobile = getRandomInt(1000, 9999);
+					// var otpMobile = getRandomInt(1000, 9999);
+					var otpMobile = 1234;
 					var userNotificationValues = {
 						"event"			: "SendOTP",
 						"toUser_id"		: user._id,
@@ -2419,7 +2420,8 @@ exports.set_send_otp = (req, res, next) => {
 		if(user){
 			console.log('user => ',user)
  			if ((user.profile.status).toLowerCase() === "active") {
- 				var otpMobile = getRandomInt(1000, 9999);
+ 				// var otpMobile = getRandomInt(1000, 9999);
+				 var otpMobile = 1234;
 				// console.log("optEmail", optEmail, req.body);
 				User.updateOne(
 					{ "_id": ObjectID(user._id)},

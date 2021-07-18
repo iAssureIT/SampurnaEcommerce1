@@ -56,7 +56,8 @@ import CouponManagement             from './storeAdmin/CouponManagement/CouponMa
 import BaList                       from './storeAdmin/baManagement/listOfBAs/components/BusinessAssociateList.js';
 import AddNewBA                     from './storeAdmin/baManagement/BAOnboarding/basicInfo/basicInfo.js';
 import ProductDetails               from './StoreManagement/product/ProductDetails/ProductDetails.js';
-import viewOrder                    from './StoreManagement/orders/component/ViewOrderMVMP.js';
+import ViewOrder                    from './StoreManagement/orders/component/ViewOrderMVMP.js';
+import ViewVendorOrder              from './StoreManagement/OrderDispatchCenter/ViewVendorOrder.js';
 
 //================== Reports ===============//
 import Reports                      from './admin/Reports/Reports.js';
@@ -274,7 +275,8 @@ class Layout extends Component  {
                                                         <Route path="/returned-products"                                exact strict component={ReturnedProducts} />
                                                         <Route path="/returned-product/:return_id"                     exact strict component={ViewReturnedProduct} />
 
-                                                        <Route path="/viewOrder/:orderID"                               exact strict component={viewOrder} />
+                                                        <Route path="/view-order/:orderID"                               exact strict component={ViewOrder} />
+                                                        <Route path="/view-vendor-order/:orderID/:vendor_id"             exact strict component={ViewVendorOrder} />
 
                                                         { /*Ba List*/}
                                                         <Route path="/ba-list"                                          exact strict component={BaList} />
