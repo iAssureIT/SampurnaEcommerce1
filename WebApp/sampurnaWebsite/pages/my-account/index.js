@@ -123,13 +123,15 @@ class MyAccount extends Component{
                                 <div className={"nav flex-column nav-pills nav-pills-custom navPillsWrapper "+S.navPillsWrapper} id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     {this.state.authService==="" &&
                                     <div className="col-12 NoPadding">
-                                        <a className={this.state.url==="/my-account"?"nav-link mb-4 p-3  shadow active rounded":"nav-link mb-4 p-3  shadow"}  id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">
+                                        {/* <a className={this.state.url==="/my-account"?"nav-link mb-4 p-3  shadow active rounded":"nav-link mb-4 p-3  shadow"}  id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">
                                             <i className="fa fa-user-circle mr-3"></i>
-                                            <span className=" small text-uppercase">Account Dashboard</span></a>
+                                            <span className=" small text-uppercase">Account Dashboard</span>
+                                        </a> */}
                     
                                         <a className="nav-link mb-4 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                                             <i className="fa fa-info-circle mr-3"></i>
-                                            <span className=" small text-uppercase">Account Information</span></a>
+                                            <span className=" small text-uppercase">Account Information</span>
+                                        </a>
                                     </div>}
                                     <a className="nav-link mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="true">
                                         <i className="fa fa-address-card mr-3"></i>

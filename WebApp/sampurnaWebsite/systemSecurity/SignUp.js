@@ -241,42 +241,33 @@ class SignUp extends Component {
 	hideModal() {
 		$(".modalbg").css("display", "none");
 	}
-	componentDidMount() {
 
-	}
 	//password show hide working
-	showSignUpPass() { 
-		$(".hidePwd").css('display','block');
-		$(".showPwd").css('display','none');
-	
-		$('.showPwd').toggleClass('showPwd1');
-		$('.hidePwd').toggleClass('hidePwd1');
-		return $('#signupPassword').attr('type', 'text');
-	}	
-	hideSignUpPass() {
-		$(".hidePwd").css('display','none');
-		$(".showPwd").css('display','block');
-	
-		$('.showPwd').toggleClass('showPwd1');
-		$('.hidePwd').toggleClass('hidePwd1');
-		return $('#signupPassword').attr('type', 'password');
+	togglePassword(event){
+		event.preventDefault();
+    	// console.log("event.currentTarget==",event.target);
+		var element = event.target;
+		$(element).toggleClass("fa-eye fa-eye-slash");
+		var input = document.getElementById('signupPassword');
+		// console.log("input==",input);
+		if (input.getAttribute("type") == "password") {
+			input.setAttribute("type", "text");
+		} else {
+			input.setAttribute("type", "password");
+		}
 	}
-	//confirm password show hide working
-	showConfirmPass() { 
-		$(".hideConfirmPwd").css('display','block');
-		$(".showConfirmPwd").css('display','none');
-	
-		$('.showConfirmPwd').toggleClass('showConfirmPwd1');
-		$('.hideConfirmPwd').toggleClass('hideConfirmPwd1');
-		return $('#signupConfirmPassword').attr('type', 'text');
-	}	
-	hideConfirmPass() {
-		$(".hidePwd").css('display','none');
-		$(".showPwd").css('display','block');
-	
-		$('.showPwd').toggleClass('showPwd1');
-		$('.hidePwd').toggleClass('hidePwd1');
-		return $('#signupConfirmPassword').attr('type', 'password');
+	toggleConfirmPassword(){
+		event.preventDefault();
+    	// console.log("event.currentTarget==",event.target);
+		var element = event.target;
+		$(element).toggleClass("fa-eye fa-eye-slash");
+		var input = document.getElementById('signupConfirmPassword');
+		// console.log("input==",input);
+		if (input.getAttribute("type") == "password") {
+		input.setAttribute("type", "text");
+		} else {
+		input.setAttribute("type", "password");
+		}
 	}
 	openSignInModal(event){
 		event.preventDefault();
@@ -366,21 +357,37 @@ class SignUp extends Component {
 
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6  mt-4">
 						<label className="blueText">Create Password</label><label className="astricsign">*</label>
-						<input minLength="6" type="password" className="form-control formcontrol1" id="signupPassword" ref="signupPassword" placeholder="" name="signupPassword" onChange={this.handleChange} autoComplete="off" />
+						{/* <input minLength="6" type="password" className="form-control formcontrol1" id="signupPassword" ref="signupPassword" placeholder="" name="signupPassword" onChange={this.handleChange} autoComplete="off" />
 						<div className="showHideSignDiv">
 							<i className="fa fa-eye showPwd showEyeupSign" aria-hidden="true" onClick={this.showSignUpPass.bind(this)}></i>
 							<i className="fa fa-eye-slash hidePwd hideEyeSignup " aria-hidden="true" onClick={this.hideSignUpPass.bind(this)} style={{display:'none'}}></i>
-						</div>
+						</div> */}
+
+						<input id="signupPassword" type="password" class="form-control passswordInput formcontrol1" ref="signupPassword" name="signupPassword" placeholder="Password" 
+							onChange={this.handleChange.bind(this)}
+							value={this.state.signupPassword}  autoComplete="off"
+						/>
+						<span toggle="#signupPassword" class="fa fa-fw fa-eye field-icon toggle-password"
+							onClick={this.togglePassword.bind(this)}>
+						</span>
+
 						<div className="errorMsg mt-1">{this.state.errors.signupPassword}</div>
 
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6  mt-4">
 						<label className="blueText">Confirm Password</label><label className="astricsign">*</label>
-						<input minLength="6" type="password" className="form-control formcontrol1" id="signupConfirmPassword" ref="signupConfirmPassword" placeholder="" name="signupConfirmPassword" onChange={this.handleChange} autoComplete="off"/>
+						{/* <input minLength="6" type="password" className="form-control formcontrol1" id="signupConfirmPassword" ref="signupConfirmPassword" placeholder="" name="signupConfirmPassword" onChange={this.handleChange} autoComplete="off"/>
 						<div className="showHideSignDiv1">
 							<i className="fa fa-eye showConfirmPwd showEyeupSign" aria-hidden="true" onClick={this.showConfirmPass.bind(this)}></i>
 							<i className="fa fa-eye-slash hideConfirmPwd hideEyeSignup " aria-hidden="true" onClick={this.hideConfirmPass.bind(this)} style={{display:'none'}}></i>
-						</div>
+						</div> */}
+						<input id="signupConfirmPassword" type="password" class="form-control passswordInput formcontrol1" ref="signupConfirmPassword" name="signupConfirmPassword" placeholder="Password" 
+							onChange={this.handleChange.bind(this)}
+							value={this.state.signupConfirmPassword}  autoComplete="off"
+						/>
+						<span toggle="#signupConfirmPassword" class="fa fa-fw fa-eye field-icon toggle-password"
+							onClick={this.toggleConfirmPassword.bind(this)}>
+						</span>
 						<div className="errorMsg mt-1">{this.state.errors.signupConfirmPassword}</div>
 					</div>
 					{

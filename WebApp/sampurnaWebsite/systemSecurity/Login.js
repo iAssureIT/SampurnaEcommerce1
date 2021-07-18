@@ -149,23 +149,20 @@ class Login extends Component {
     event.preventDefault();
     this.props.updateFormValue("forgotPassword");   
   }
- 
-  showSignPass() {
-  //   $(".hidePwd").css('display','block');
-  //   $(".showPwd").css('display','none');
 
-  //   $('.showPwd').toggleClass('showPwd1');
-  //   $('.hidePwd').toggleClass('hidePwd1');
-  //   return $('#loginpassword').attr('type', 'text');
-  }
-  hideSignPass() {
-  //   $(".hidePwd").css('display','none');
-  //   $(".showPwd").css('display','block');
-
-  //   $('.showPwd').toggleClass('showPwd1');
-  //   $('.hidePwd').toggleClass('hidePwd1');
-    return $('#loginpassword').attr('type', 'password');
-  }
+  togglePassword(event){
+		event.preventDefault();
+    // console.log("event.currentTarget==",event.target);
+    var element = event.target;
+    $(element).toggleClass("fa-eye fa-eye-slash");
+    var input = document.getElementById('password-field');
+    // console.log("input==",input);
+    if (input.getAttribute("type") == "password") {
+      input.setAttribute("type", "text");
+    } else {
+      input.setAttribute("type", "password");
+    }
+	}
   
   render() {
     return ( 
@@ -193,21 +190,13 @@ class Login extends Component {
                 </div>
 
                 <div className="textAlignLeft frmhgt col-12 NOpadding ">
-                  <input type="password" className="form-control formcontrol1" ref="loginpassword" name="loginpassword" id="loginpassword" placeholder="Password"  onChange={this.handleChange.bind(this)} autoComplete="off"/>
-                  <div className="showHideSignDiv">
-                    <i className="fa fa-eye showEyeSign" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
-                    <i className="fa fa-eye-slash hideEyeSignup " aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
-                  </div>
-
-                  {/* <div className="textAlignLeft frmhgt col-12 NOpadding">
-                      <input id="password-field" type="password" class="form-control passswordInput" name="password" value="secret"
-                        onChange={this.handleChange.bind(this)} autoComplete="off"
-                      />
-                      <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"
-                        onCLick={this.togglePassword.bind(this)}
-                      ></span>
-                  </div> */}
-
+                  <input id="password-field" type="password" class="form-control passswordInput formcontrol1" ref="loginpassword" name="loginpassword" placeholder="Password" 
+                    onChange={this.handleChange.bind(this)}
+                    value={this.state.loginpassword}  autoComplete="off"
+                  />
+                  <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"
+                    onClick={this.togglePassword.bind(this)}
+                  ></span>
                   <div className="errorMsg">{this.state.errors.loginpassword}</div>
                 </div>
 
