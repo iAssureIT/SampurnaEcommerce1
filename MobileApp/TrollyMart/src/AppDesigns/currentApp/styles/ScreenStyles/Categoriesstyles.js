@@ -69,7 +69,8 @@ export default StyleSheet.create({
     color: "#000000",
     opacity: 0.5,
     alignSelf:'flex-end',
-    marginTop:5,
+    // marginTop:5,
+    marginBottom:5,
 	},
   subcatimgbig:{
     height:180,
@@ -657,7 +658,8 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Regular",
     color: "#5B8E7E",
     opacity: 1,
-    fontSize:9
+    fontSize:9,
+    marginBottom:5,
   }
   
 })

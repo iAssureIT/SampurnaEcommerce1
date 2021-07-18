@@ -36,6 +36,8 @@ import { Card }               from 'react-native-elements/dist/card/Card';
 import {HorizontalProductList} from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
 import { getCategoryWiseList } from '../../redux/productList/actions.js';
 import { Dropdown }            from 'react-native-material-dropdown-v2';
+import Feather from 'react-native-vector-icons/Feather';
+
 
 export const SubCatCompView = withCustomerToaster((props)=>{
   const [countofprod,setCounterProd]        = useState(1);
@@ -184,6 +186,9 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     setNumber(parseInt(number));
   }
 
+  const minusIcon = (isDisabled) => {
+    return <Feather name='minus' size={20} color={'#033554'} backgroundColor={'#fff'} bor />
+  };
 
   const handlePressAddCart=()=>{
     if(user_id){
@@ -287,13 +292,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
               <View style={{flex:1,flexDirection:'row',}}>
                   <View style={styles.qtys}>
                     <Counter start={1} min={1}
+                      minusIcon={minusIcon} 
                       buttonStyle={{
-                        borderColor: "#707070",
+                        borderColor: "#033554",
                         borderWidth: 1,
                         borderRadius: 25,
                         width: 33,
                         height: 33,
-                        backgroundColor:"#707070"
+                        backgroundColor:"#033554"
                       }}
                       buttonTextStyle={{
                         color: '#fff',
@@ -358,7 +364,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     <Text  style={[styles.brandname]}>{productdata.brand}</Text>
                     <Text style={[styles.nameprod]}>{productdata.productName}</Text>
                 </View>
-                <View style={styles.flxdirview}>
+                <View style={[styles.flxdirview,{}]}>
                   <Text style={styles.prodcurrency}>{currency} </Text>
                   {productdata.discountPercent > 0 && <Text style={styles.discountpricecut}> {productdata.originalPrice.toFixed()}</Text>}
                   <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}&nbsp;</Text>
@@ -428,9 +434,9 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                 {tab === 0 ?
                 <Text style={styles.detaildetailstxt}>{productdata.productDetails}</Text>
                 :
-                productReview && productReview.length >0 ?
+                productReview && productReview.length >0 ?              
                     productReview.map((item,index)=>{
-                      return(
+                      return(                        
                         <Card containerStyle={{backgroundColor:"#EEEEEE",marginHorizontal:0,margin:0,borderWidth:0,paddingHorizontal:0}} wrapperStyle={{flexDirection:"row",flex:1}}>
                           <View style={{flex:0.25,alignItems:'center'}}>
                           <Avatar

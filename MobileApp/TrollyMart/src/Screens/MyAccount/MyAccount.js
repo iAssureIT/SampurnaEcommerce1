@@ -59,13 +59,13 @@ export const MyAccount =(props)=>{
             {userDetails.authService=="guest" ?
                 <View>
                     <View style={{flexDirection:'row',alignItems:'flex-end'}}>
-                        <Text style={{fontSize:22,fontFamily:"Montserrat-Bold"}}>My Account</Text>
+                        <Text style={{fontSize:22,color:'#000',fontFamily:"Montserrat-Bold"}}>My Account</Text>
                     </View>  
                     <View style={{marginLeft:24,marginTop:15}}>
                         <View style={{flexDirection:'row'}}>
                             <View style={{marginTop:20}}>
-                                <Text style={{fontSize:18,fontFamily:"Montserrat-SemiBold",paddingVertical:5}}>Hello</Text>
-                                <Text style={{fontSize:16,fontFamily:"Montserrat-Medium"}}>Welcome to</Text>
+                                <Text style={{fontSize:18,color:'#000',fontFamily:"Montserrat-SemiBold",paddingVertical:5}}>Hello</Text>
+                                <Text style={{fontSize:16,color:'#000',fontFamily:"Montserrat-Medium"}}>Welcome to</Text>
                             </View>
                             <Image
                                 resizeMode="contain"
@@ -75,7 +75,7 @@ export const MyAccount =(props)=>{
                         </View>
                     </View>
                     <TouchableOpacity style={styles1.signSignUpBox} onPress={()=>logout()}>
-                        <Text>Sign In / Sign Up </Text>
+                        <Text style={{fontSize:12,color:'#000',fontFamily:"Montserrat-Medium"}}>Sign In / Sign Up </Text>
                     </TouchableOpacity> 
                     <SocialMediaLogin/>
                     </View> 
@@ -104,19 +104,22 @@ export const MyAccount =(props)=>{
                 <View style={{flexDirection:'row',justifyContent:'center',paddingHorizontal:30}}>
                     <View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=>navigation.navigate('MyOrder')}>
-                            <Icon size={30} name='shopping-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                            {/* <Icon size={30} name='shopping-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
+                            <Image source={require("../../AppDesigns/currentApp/images/shopping-bag.png")} style={[styles.iconImg],{height:45,width:45}} />
                         </TouchableOpacity>
                         <Text style={styles1.label}>My Orders</Text>
                     </View>
                     {userDetails.authService!=="guest" &&<View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false})} >
-                            <Icon size={30} name='map-marker-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                            {/* <Icon size={30} name='map-marker-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}                           
+                            <Image source={require("../../AppDesigns/currentApp/images/address.png")} style={styles.iconImg} />                            
                         </TouchableOpacity>
                         <Text style={[styles1.label]}>My Address</Text>
                     </View>}
                     {userDetails.authService!=="guest" &&<View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=>navigation.navigate('RewardsPoint')}>
-                            <Icon size={30} name='award' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/>
+                            {/* <Icon size={30} name='award' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/> */}
+                            <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} />
                         </TouchableOpacity>
                         <Text style={[styles1.label]}>Credit Points</Text>
                     </View>}
@@ -125,19 +128,22 @@ export const MyAccount =(props)=>{
                 <View style={{flexDirection:'row',justifyContent:'center'}}>
                     <View style={{alignItems:'center',paddingHorizontal:20}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('AboutUs')}>
-                            <Icon size={20} name='shopping-bag' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
+                            {/* <Icon size={20} name='shopping-bag' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/> */}
+                            <Image source={require("../../AppDesigns/currentApp/images/profile-information.png")} style={[styles.iconImg],{height:20,width:20}} />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>About Us</Text>
                     </View>
                     <View style={{alignItems:'center',paddingHorizontal:20}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=> navigation.navigate('SupportSystem')} >
-                            <Icon size={20} name='card-account-mail-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                            {/* <Icon size={20} name='card-account-mail-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
+                            <Image source={require("../../AppDesigns/currentApp/images/ContactUs.png")} style={[styles.iconImg],{height:20,width:20}} />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Contact Us</Text>
                     </View>
                     <View style={{alignItems:'center',paddingHorizontal:20}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('FAQ')}>
-                            <Icon size={20} name='frequently-asked-questions' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                            {/* <Icon size={20} name='frequently-asked-questions' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
+                            <Image source={require("../../AppDesigns/currentApp/images/FAQ.png")} style={[styles.iconImg],{height:20,width:20}} />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>FAQ</Text>
                     </View>
@@ -145,26 +151,66 @@ export const MyAccount =(props)=>{
                 <View style={{flexDirection:'row',justifyContent:'center',marginTop:30}}>
                     <View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('TermsConditions')}>
-                            <Icon size={20} name='text-box-check-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                            {/* <Icon size={20} name='text-box-check-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
+                            <Image source={require("../../AppDesigns/currentApp/images/compliant.png")} style={[styles.iconImg],{height:20,width:20}} />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Terms and Conditions</Text>
                     </View>
                     <View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=> navigation.navigate('PrivacyPolicy')} >
-                            <Icon size={20} name='book-lock' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                            {/* <Icon size={20} name='book-lock' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
+                            <Image source={require("../../AppDesigns/currentApp/images/PrivacyPolicy.png")} style={[styles.iconImg],{height:20,width:20}} />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Privacy Policy</Text>
                     </View>
                 </View> 
                 <View style={styles1.horizontalLine} />
+                {userDetails.authService=="guest" ?
+                <View style={{flex:1}}>
+                    <View style={{flexDirection:'row',justifyContent:'center'}}>
+                        <View style={{alignItems:'center',paddingHorizontal:5}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> logout()} >
+                                <Icon size={20} name='instagram' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{alignItems:'center',paddingHorizontal:5}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> logout()} >
+                                <Icon size={20} name='facebook' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{alignItems:'center',paddingHorizontal:5}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> logout()} >
+                                <Icon size={20} name='youtube' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{alignItems:'center',paddingHorizontal:5}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> logout()} >
+                                <Icon size={20} name='linkedin' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{alignItems:'center',paddingHorizontal:5}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> logout()} >
+                                <Icon size={20} name='twitter' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                            </TouchableOpacity>
+                        </View>                        
+                    </View>
+                    <View style={{flexDirection:'row',justifyContent:'center'}}>
+                        <View style={{flexDirection:'row',justifyContent:'center'}}>
+                            <Text style={styles.copyRightText}><Icon size={12} name='copyright' type='material-community' color={'#000'}/>&nbsp;2021, Knock Knock</Text>
+                        </View>
+                    </View>
+                </View>
+                :
                 <View style={{flexDirection:'row',justifyContent:'center'}}>
                     <View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1}  onPress={()=> logout()} >
-                            <Icon size={20} name='logout' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                            {/* <Icon size={20} name='logout' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
+                            <Image source={require("../../AppDesigns/currentApp/images/logout.png")} style={[styles.iconImg],{height:20,width:20}} />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Log Out</Text>
                     </View>
                 </View> 
+                }
             </View>
         </ScrollView>
       </View>
@@ -201,6 +247,20 @@ const styles1 = StyleSheet.create({
         borderRadius :100,
         marginVertical:5
     },
+    HorizontalBox3: {
+        alignItems          : "center",
+        justifyContent      : 'center',
+        backgroundColor     : "#000",
+        height              : 40,
+        width              : 40,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 20,
+        elevation: 10,
+        borderRadius :100,
+        marginVertical:5
+    },
     iconStyle:{
         // marginBottom:15
         // width               :50
@@ -224,7 +284,7 @@ const styles1 = StyleSheet.create({
         color:'#000',        
     },
     signSignUpBox:{
-        marginTop:15,height:35,borderWidth:0.5,borderRadius:8,justifyContent:'center',alignItems:'center',width:333,alignSelf:'center'
+        marginTop:15,height:35,borderWidth:0.5,borderRadius:8,justifyContent:'center',alignItems:'center',width:300,alignSelf:'center'
     },
     horizontalLine:{borderWidth:0.5,borderColor:"#e1e1e1",width:300,alignSelf:'center',marginVertical:30}
   });

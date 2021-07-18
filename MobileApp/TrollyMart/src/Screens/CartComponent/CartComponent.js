@@ -248,6 +248,15 @@ const getshippingamount=(startRange, limitRange)=>{
         <SearchSuggetion />
         :
         <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
+          <View style={{paddingVertical:15}}>            
+            <FormButton
+                  title          = {"PROCEED TO CHECKOUT"}
+                onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
+                background  = {true}
+                // loading     = {btnLoading}
+                disabled       = {!disabled}
+              />
+          </View>
         <View style={{flex:1}}>
           {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?
             <View style={styles.cartdetails}>

@@ -314,4 +314,16 @@ export default StyleSheet.create({
     // borderColor:'#ccc',
   },
 
+  iconImg:{
+    height:30,
+    width:30,
+    resizeMode:'cover',
+  },
+
+  copyRightText:{
+    color:'#000',
+    fontSize:12,
+    fontFamily:"Montserrat-Regular",
+  },
+
 })
