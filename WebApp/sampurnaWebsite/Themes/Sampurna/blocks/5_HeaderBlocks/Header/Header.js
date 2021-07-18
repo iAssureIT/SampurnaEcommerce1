@@ -64,7 +64,6 @@ class Header extends React.Component {
                                         />
                                     </a>
                                 </Link>
-                                
                                 </div>
 
                                 <div className="rightNavbar ml-4 mr-4 col-12 col-sm-6 NoPadding tableSearchWrapper">                                

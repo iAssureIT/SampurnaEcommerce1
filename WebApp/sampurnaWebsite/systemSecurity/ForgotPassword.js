@@ -27,29 +27,22 @@ class ForgotPassword extends Component {
         // this.validateForm();
     }
 
-    // validateForm() {
-    //     let fields = this.state.fields;
-    //     let errors = {};
-    //     let formIsValid = true;
+    validateForm() {
+        let fields = this.state.fields;
+        let errors = {};
+        let formIsValid = true;
     
-    //     if (!fields["emailLink"]) {
-    //       formIsValid = false;
-    //       errors["emailLink"] = "Please enter your email.";
-    //     }
-    //     if (typeof fields["emailLink"] !== "undefined") {
-    //       //regular expression for email validation
-    //       var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
-    //       if (!pattern.test(fields["emailLink"])) {
-    //         formIsValid = false;
-    //         errors["emailLink"] = "Please enter valid email.";
-    //       }
-    //     }
+        if (!fields["emailLink"]) {
+          formIsValid = false;
+          errors["emailLink"] = "Please enter your email or mobile number.";
+        }
     
-    //     this.setState({
-    //       errors: errors
-    //     });
-    //     return formIsValid;
-    //   }
+        this.setState({
+          errors: errors
+        });
+        return formIsValid;
+      }
+
     handleChange(e){
         let fields = this.state.fields;
         fields[e.target.name] = e.target.value;
@@ -62,20 +55,24 @@ class ForgotPassword extends Component {
         event.preventDefault();
         var username = this.refs.username.value;
             console.log("formValues==",username);
-            axios.patch('/api/auth/patch/set_send_otp/' + username)
+            axios.patch('/api/auth/patch/set_send_otp/' + username) 
                 .then((forgotPassResponse) => {
                     if(forgotPassResponse.data.message){
                         var userDetails = {
 							userId      : forgotPassResponse.data.ID,
 						}
                         swal(forgotPassResponse.data.message);
-                        this.props.updateFormValue("signupotp");
+                        if(forgotPassResponse.data.message === "OTP sent on registered mobile number"){
+                            // this.props.updateFormValue("signupotp");
+                            this.props.updateFormValue("confirmOtp");
+                            localStorage.setItem('userDetails', JSON.stringify(userDetails));	
+                            // localStorage.setItem("userDetails",userDetails);
+                        }
                     }                  
                 })
                 .catch((error) => {
                     console.log("error===",error);
                 })
-        
     }
 
     openSignInModal(event){

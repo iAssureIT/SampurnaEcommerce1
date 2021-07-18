@@ -190,11 +190,11 @@ class Login extends Component {
                 </div>
 
                 <div className="textAlignLeft frmhgt col-12 NOpadding ">
-                  <input id="password-field" type="password" class="form-control passswordInput formcontrol1" ref="loginpassword" name="loginpassword" placeholder="Password" 
+                  <input id="password-field" type="password" className="form-control passswordInput formcontrol1" ref="loginpassword" name="loginpassword" placeholder="Password" 
                     onChange={this.handleChange.bind(this)}
                     value={this.state.loginpassword}  autoComplete="off"
                   />
-                  <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"
+                  <span toggle="#password-field" className="fa fa-fw fa-eye field-icon toggle-password"
                     onClick={this.togglePassword.bind(this)}
                   ></span>
                   <div className="errorMsg">{this.state.errors.loginpassword}</div>

@@ -20,15 +20,15 @@ class SignUpOTP extends Component {
   handleChange = (otp) => this.setState({ otp });
 
   componentDidMount() {
-      var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
-        if(userDetails){
-          var userID                = userDetails.user_id; 
-          this.setState({
-            userId  : userDetails.userId,
-            phone   : userDetails.mobNumber,
-          })
-        }
+    var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+    var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+    if(userDetails){
+      console.log("userDetails===",userDetails);
+      this.setState({
+        userId  : userDetails.userId,
+        phone   : userDetails.mobNumber,
+      })
+    }
   }
 
   resendOTP(event){
@@ -47,6 +47,7 @@ class SignUpOTP extends Component {
 
   verifyOTP(event){
     event.preventDefault();
+      if(this.state.otp){
         axios.get("/api/auth/get/checkmobileotp/usingID/"+this.state.userId+"/"+this.state.otp)
         .then((verifyOtpResponse)=>{
             if(verifyOtpResponse){
@@ -77,25 +78,27 @@ class SignUpOTP extends Component {
         .catch((error)=>{
             console.log("error while resending otp==",error);
         })
+      }else{
+        swal('Please enter valid OTP.');
+      }
   }
   openSignUpModal(event){
     event.preventDefault();
 		this.props.updateFormValue("login");
 		// $("#pageOpacity").show();
     $('#loginFormModal').show();	 
-}
+  }
+  
   render() {
     return (
         <div className="col-12 NoPadding signUpOtpWrapper">
-              
-              <div className="col-10 offset-1 mt-3 ">
+            <div className="col-10 offset-1 mt-3 ">
              <div className="col-12">
                 <a href='' className="OtpTitleWrapper1" onClick={this.openSignUpModal.bind(this)}><u className="mt-5 pt-5">Back to Login</u></a>
               </div> 
 
               <h5 className=" pb-2 text-center OtpTitleWrapper mt-5 pt-5  font-weight-bold ">OTP</h5>
                 <div className="row">
-                  
                 <OtpInput
                     className="otpInputBox "
                     value={this.state.otp}
@@ -105,8 +108,6 @@ class SignUpOTP extends Component {
                 />
                 </div>
                 <p className="OtpTitleWrapper2 text-center mt-3">Didn't receive code?&nbsp;<a className="OtpTitleWrapper3"href=""onClick={this.resendOTP.bind(this)}>Request again!</a></p>
-                {/* <div className="col-5 otpBtns text-center mr-2" onClick={this.resendOTP.bind(this)}> Resend OTP</div> */}
-
               </div>
               <div className="col-10 offset-1 mt-4">
                 <div className="col-12">

@@ -51,7 +51,7 @@ class ConfirmOTP extends Component {
         axios.get("/api/auth/get/checkmobileotp/usingID/"+this.state.userId+"/"+this.state.otp)
         .then((verifyOtpResponse)=>{
             if(verifyOtpResponse){
-              this.props.updateFormValue("ResetPassword");
+              this.props.updateFormValue("resetPassword");
               swal(verifyOtpResponse.data.message);
                
             }
@@ -59,6 +59,13 @@ class ConfirmOTP extends Component {
         .catch((error)=>{
             console.log("error while resending otp==",error);
         })
+  }
+
+  openSignUpModal(event){
+    event.preventDefault();
+		this.props.updateFormValue("login");
+		// $("#pageOpacity").show();
+    $('#loginFormModal').show();	 
   }
   render() {
     return (

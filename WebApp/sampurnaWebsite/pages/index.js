@@ -14,7 +14,7 @@ export default function App({pageData}) {
   const [userDetails,setUserDetails]           = useState({});
   const [userId,setUserId]           = useState();
   var user_details              =  JSON.parse(localStorage.getItem('userDetails'));
-  console.log("user_details",user_details);
+  // console.log("user_details",user_details);
   const signOut = (e) => {
       var token = localStorage.removeItem("userDetails");
       swal({text:'Thank You. You have been logged out Successfully!'}).then(function(){
@@ -44,7 +44,7 @@ export default function App({pageData}) {
  
   return (
     <div className="col-12">
-      {/* {console.log("userId===",userId)} */}
+      {console.log("userId===",userId)}
       <div className="row">
         {sampurnaWebsiteDetails && sampurnaWebsiteDetails.deliveryLocation  && sampurnaWebsiteDetails.deliveryLocation.address ?	
           <MasterPage pageData = {pageData}/>

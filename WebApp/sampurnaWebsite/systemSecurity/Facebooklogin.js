@@ -74,6 +74,7 @@ render() {
                   scope="public_profile,email"
                   callback={this.responseFacebook}
                   className="facebookBtnWrapper"
+                  language="en_US"
                 />
             </div>
     );

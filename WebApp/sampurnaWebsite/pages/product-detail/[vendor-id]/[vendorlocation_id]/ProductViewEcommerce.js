@@ -484,22 +484,14 @@ class ProductViewEcommerce extends Component {
 				<div className="row">
 					<div className={"col-12 NoPadding pb-2 pt-2 " +Style.productDetailVendorName}> 
 						<div className="col-12  ">
-							{/* <div className="row">
-								<span className="col-10  "> 
-									vendor  - &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
-								</span>
-								<span className={"col-2 text-right pull-right  "+Style.chaneVendorBtn }> 
-									<Link href={"/vendor-list/"+this.state.sectionUrl} className="col-12 NoPadding text-right" >Change Vendor</Link>
-								</span>
-							</div> */}
 							<div className="row">
-                   <span className={"col-6 "+Style.vendorNameWrapper}> 
-                       <b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
-                    </span>
-                    <span className={"col-6   "+Style.chaneVendorBtn }> 
-                        <Link href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 NoPadding t "+Style.changeVendorWrapper} >Change Vendor</Link>
-                    </span>
-                   </div>
+								<span className={"col-6 "+Style.vendorNameWrapper}> 
+									<b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
+								</span>
+								<span className={"col-6   "+Style.chaneVendorBtn }> 
+									<Link href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 NoPadding "+Style.changeVendorWrapper} >Change Vendor</Link>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
