@@ -32,9 +32,9 @@ class ForgotPassword extends Component {
         let errors = {};
         let formIsValid = true;
     
-        if (!fields["emailLink"]) {
+        if (!fields["username"]) {
           formIsValid = false;
-          errors["emailLink"] = "Please enter your email or mobile number.";
+          errors["username"] = "Please enter your email or mobile number.";
         }
     
         this.setState({
@@ -55,7 +55,8 @@ class ForgotPassword extends Component {
         event.preventDefault();
         var username = this.refs.username.value;
             console.log("formValues==",username);
-            axios.patch('/api/auth/patch/set_send_otp/' + username) 
+            if(this.validateForm()){
+                axios.patch('/api/auth/patch/set_send_otp/' + username) 
                 .then((forgotPassResponse) => {
                     if(forgotPassResponse.data.message){
                         var userDetails = {
@@ -73,6 +74,7 @@ class ForgotPassword extends Component {
                 .catch((error) => {
                     console.log("error===",error);
                 })
+            }
     }
 
     openSignInModal(event){
@@ -107,8 +109,8 @@ class ForgotPassword extends Component {
                                             <span className="spinner"><i className="fa fa-refresh fa-spin"></i></span>
                                         </div>
                                         :
-                                        <div className="col-xl-12 col-md-12 col-sm-12 col-12 mt15 forgotPassBtn">
-                                            <button id="sendlink" type="button"  onClick={this.sendLink.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12  btn loginBtn otpBtns mt-2 waves-effect">Send OTP</button>                                                
+                                        <div className="col-xl-12 col-md-12 col-sm-12 col-12 forgotPassBtn">
+                                            <button id="sendlink" type="button"  onClick={this.sendLink.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12  btn loginBtn otpBtns mt-4 waves-effect">Send OTP</button>                                                
                                         </div>
                                 }
                                 <div className="col-xl-12 col-md-12 col-sm-12 col-12 mt-2">

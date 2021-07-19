@@ -205,27 +205,27 @@ class SignUp extends Component {
 			[event.target.name]: event.target.value,
 			formerrors
 		}); 
-		if(event.target.name ==="pincode"){
-			var pinValid = this.validatePIN(event.target.value);
-			this.setState({
-				pinValid : pinValid,
-			}); 
-		}
+		// if(event.target.name ==="pincode"){
+		// 	var pinValid = this.validatePIN(event.target.value);
+		// 	this.setState({
+		// 		pinValid : pinValid,
+		// 	}); 
+		// }
 		let fields = this.state.fields;
 		fields[event.target.name] = event.target.value;
 		this.setState({
 		  fields
 		});
 	}
-	validatePIN (pin) {
-		if(pin.length === 4 ||  pin.length === 6 ) {
-		  if( /[0-9]/.test(pin))  {
-			return true;
-		  }else {return false;}
-		}else {
-			return false;
-			}
-	}
+	// validatePIN (pin) {
+	// 	if(pin.length === 4 ||  pin.length === 6 ) {
+	// 	  if( /[0-9]/.test(pin))  {
+	// 		return true;
+	// 	  }else {return false;}
+	// 	}else {
+	// 		return false;
+	// 		}
+	// }
 	acceptcondition(event){
 		var conditionaccept = event.target.value;
 		if (conditionaccept === "acceptedconditions") {
@@ -304,6 +304,7 @@ class SignUp extends Component {
 						<div className="errorMsg mt-1">{this.state.errors.firstname}</div>
 
 					</div>
+					
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
 						<label className="blueText">Last Name</label><label className="astricsign">*</label>
 						<input type="text" maxLength="25" className="form-control formcontrol1" id="lastname" ref="lastname" name="lastname" placeholder="" onChange={this.handleChange} data-text="lastNameV" />

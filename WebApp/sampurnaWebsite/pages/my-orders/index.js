@@ -171,6 +171,7 @@ export default class MyOrders extends Component {
         })
     }
   }
+  
   cancelButton = (orderDate)=>{
     var min = moment(orderDate).add(this.state.orderData[0].maxDurationForCancelOrder, 'minutes');
     var duration = moment.duration(min.diff(new Date())).asSeconds();

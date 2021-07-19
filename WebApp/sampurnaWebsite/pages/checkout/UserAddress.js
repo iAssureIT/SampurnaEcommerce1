@@ -94,14 +94,15 @@ class UserAddress extends Component {
 			formIsValid = false;
 			errors["mobileNumber"] = "This field is required.";
 		}
-		if (typeof fields["mobileNumber"] !== "undefined") {
-			//regular expression for email validation
-			var pattern = new RegExp(/^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/)
-			if (!pattern.test(fields["mobileNumber"])) {
-			  formIsValid = false;
-			  errors["mobileNumber"] = "Please enter valid mobile number.";
-			}
-		}
+		// if (typeof fields["mobileNumber"] !== "undefined") {
+		// 	//regular expression for email validation
+		// 	var pattern = new RegExp(/^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/)
+		// 	if (!pattern.test(fields["mobileNumber"])) {
+		// 	  formIsValid = false;
+		// 	  errors["mobileNumber"] = "Please enter valid mobile number.";
+		// 	}
+		// }
+
        // for house no
         if (typeof fields["address1"] === "undefined") {           
             if (fields["address1"] === undefined) {
@@ -239,9 +240,9 @@ class UserAddress extends Component {
                                 <div className="errorMsg">{this.state.errors.fullname}</div>
                             </div> 
                             <div className="col-12 shippingInput mb-4">
-                                <label className="col-12 NoPadding">Mobile Number <span className="required">*</span></label>
-                                <input maxLength="10" placeholder="" type="text" ref="mobileNumber" name="mobileNumber"  value={this.state.mobileNumber} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
-                                {/* <PhoneInput
+                                {/* <label className="col-12 NoPadding">Mobile Number <span className="required">*</span></label> */}
+                                {/* <input maxLength="10" placeholder="" type="text" ref="mobileNumber" name="mobileNumber"  value={this.state.mobileNumber} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} /> */}
+                                <PhoneInput
                                     country={'ae'} 
                                     value={this.state.mobileNumber}
                                     inputProps={{
@@ -252,15 +253,15 @@ class UserAddress extends Component {
                                     onChange={mobileNumber => { 
                                         this.setState({ mobileNumber })
                                             
-                                            // this.setState({
-                                            // 	mobNumber : this.state.mobNumber,
-                                            // }); 
-                                            // let fields = this.state.fields;
-                                            // fields["mobNumber"] = this.state.mobNumber;
-                                            // this.setState({
-                                            // fields
-                                            // });
-                                    }} /> */}
+                                            this.setState({
+                                            	mobNumber : this.state.mobileNumber,
+                                            }); 
+                                            let fields = this.state.fields;
+                                            fields["mobileNumber"] = this.state.mobileNumber;
+                                            this.setState({
+                                            fields
+                                            });
+                                    }} />
                                 <div className="errorMsg">{this.state.errors.mobileNumber}</div>
                             </div>
                             <div className="col-12 shippingInput mb-2">

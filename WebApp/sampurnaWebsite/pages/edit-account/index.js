@@ -5,6 +5,7 @@ import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Mess
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Style                  from './index.module.css';
 import swal from 'sweetalert';
+import PhoneInput 			from 'react-phone-input-2';
 
 class EditAccount extends Component{
     constructor(props) {
@@ -23,6 +24,8 @@ class EditAccount extends Component{
             "showPassword": false,
             "showPassword1": false,
             "showPassword2": false,
+            fields: {},
+			errors: {}
         }
     }
     componentDidMount(){
@@ -41,12 +44,107 @@ class EditAccount extends Component{
             })
         }
     }
+    validateFullName() { 
+		let fields = this.state.fields;
+		let errors = {};
+		let formIsValid = true;
+		if (!fields["firstName"]) {
+		  formIsValid = false;
+		  errors["firstName"] = "This field is required.";
+		}
+		if (typeof fields["firstName"] !== "undefined") {
+		  //regular expression for email validation
+		  var pattern = new RegExp(/^[A-Za-z]*$/)
+		  if (!pattern.test(fields["firstName"])) {
+			formIsValid = false;
+			errors["firstName"] = "Name should only contain letters.";
+		  }else{
+			errors["firstName"] = "";
+		  }
+		}
+		
+		if (!fields["lastName"]) {
+			formIsValid = false;
+			errors["lastName"] = "This field is required.";
+		}
+		if (typeof fields["lastName"] !== "undefined") {
+			var pattern = new RegExp(/^[A-Za-z]*$/)
+			if (!pattern.test(fields["lastName"])) {
+			  formIsValid = false;
+			  errors["lastName"] = "Name should only contain letters.";
+			}
+		}
+
+		this.setState({
+		  errors: errors
+		});
+		return formIsValid;
+	}
+
+    validatePhone(){ 
+    let fields = this.state.fields;
+    let errors = {};
+    let formIsValid = true;
+    if (!fields["mobNumber"]) {
+        formIsValid = false;
+        errors["mobNumber"] = "This field is required.";
+    }
+
+    this.setState({
+        errors: errors
+    });
+        return formIsValid;
+    }
+
+      validateEmail() { 
+		let fields = this.state.fields;
+		let errors = {};
+		let formIsValid = true;
+
+		if (!fields["signupEmail"]) {
+			formIsValid = false;
+			errors["signupEmail"] = "Please enter your email.";
+		  }
+		  if (typeof fields["signupEmail"] !== "undefined") {
+			//regular expression for email validation
+			var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
+			if (!pattern.test(fields["signupEmail"])) {
+			  formIsValid = false;
+			  errors["signupEmail"] = "Please enter valid email.";
+			}
+		  }
+	  
+		// if (!fields["signupPassword"]) {
+		//   formIsValid = false;
+		//   errors["signupPassword"] = "This field is required.";
+		// }
+		// if (typeof fields["signupPassword"] !== "undefined") {
+		// 	//regular expression for email validation
+		// 	if (fields["signupPassword"].length >= 6) {
+		// 		errors["signupPassword"] = ""
+		// 	}else{
+		// 		formIsValid = false;
+		// 		errors["signupPassword"] = "Please enter at least 6 characters.";
+		// 	}
+		// }
+
+		// if (!fields["signupConfirmPassword"]) {
+		// 	formIsValid = false;
+		// 	errors["signupConfirmPassword"] = "This field is required.";
+		//   }
+
+		this.setState({
+		  errors: errors
+		});
+		return formIsValid;
+	  }
     accountUpdate(event){
         event.preventDefault();
     }
     getUserData(){
         axios.get('/api/users/get/id/'+this.state.user_ID)
         .then( (res)=>{
+            console.log("user res==",res.data);
             this.setState({
                 "firstName"         : res.data.profile.firstname,
                 "lastName"          : res.data.profile.lastname,
@@ -54,7 +152,17 @@ class EditAccount extends Component{
                 "emailId"           : res.data.profile.email,
                 "newPassword"       : "",
                 "oldPassword"       : "",
+            },()=>{
+                let fields = this.state.fields;
+                    fields["firstName"] = res.data.profile.firstname;
+                    fields["lastName"] = res.data.profile.lastname;
+                    fields["mobNumber"] = res.data.profile.mobNumber,
+                    fields["emailId"] = res.data.profile.emailId,
+                    this.setState({
+                        fields
+                    });
             })
+
         })
         .catch((error)=>{
           console.log("error = ",error);
@@ -75,6 +183,8 @@ class EditAccount extends Component{
             "email"    		    : ""
         }
         if(formvalues){
+            console.log("formvalues==",formvalues);
+            if(this.validateFullName()){
             axios.patch('/api/users/update/user_profile_details', formvalues)
             .then((response)=> {  
                 if(response){  
@@ -83,7 +193,7 @@ class EditAccount extends Component{
                     messageData : {
                         "type" : "outpage",
                         "icon" : "fa fa-check-circle",
-                        "message" : "&nbsp; "+"User data updated successfully",
+                        "message" : "&nbsp; "+response.data.message,
                         "class": "success",
                         "autoDismiss" : true
                     }
@@ -111,6 +221,7 @@ class EditAccount extends Component{
                     })
                 }, 3000);
             });
+        }
        }
     }
 
@@ -120,7 +231,7 @@ class EditAccount extends Component{
         var formValues  =  {
             "user_id"               : this.state.user_ID,
             "newPassword"  	        : this.state.newPassword,
-            "currentPassword"       : this.state.currentPassword,
+            "currentPassword"       : this.state.resetCurrentPassword,
         }
         if(formValues){
             console.log("formValues===",formValues);
@@ -181,7 +292,8 @@ class EditAccount extends Component{
             "email"    		    : ""
         }
         if(formvalues){
-            console.log("formvalues==",formvalues);
+            // console.log("formvalues==",formvalues);
+            if(this.validatePhone()){
             axios.patch('/api/users/update/user_profile_details', formvalues)
             .then((response)=> {  
                 if(response){  
@@ -218,7 +330,8 @@ class EditAccount extends Component{
                     })
                 }, 3000);
             });
-       }
+        }
+        }
     }
     updateUserEmail(event){
         event.preventDefault();
@@ -292,18 +405,30 @@ class EditAccount extends Component{
     }
 
     onChange(event){
+        // console.log("event.target.name===",event.target.name);
         this.setState({
             [event.target.name] : event.target.value
         })
+        let fields = this.state.fields;
+		fields[event.target.name] = event.target.value;
+		this.setState({
+		  fields
+		});
     }
 
-    handleChange(event){
-        var fieldValue=event.currentTarget.value;
-        var fieldKey=event.currentTarget.name;
-        this.setState({
-          [fieldKey]:fieldValue
-        });    
-    }
+    // handleChange(event){
+    //     var fieldValue=event.currentTarget.value;
+    //     var fieldKey=event.currentTarget.name;
+    //     this.setState({
+    //       [fieldKey]:fieldValue
+    //     }); 
+        
+    //     let fields = this.state.fields;
+	// 	fields[event.target.name] = event.target.value;
+	// 	this.setState({
+	// 	  fields
+	// 	});
+    // }
   
     showPassFun=(event)=>{
         event.preventDefault();
@@ -338,6 +463,17 @@ class EditAccount extends Component{
             this.setState({showPassword2:false});
           }
       }
+      showPassFun3 = (event)=>{
+        event.preventDefault();
+        var passwordToggle = document.getElementById("resetCurrentPassword");
+        if (passwordToggle.type === "password") {
+            passwordToggle.type = "text";
+            this.setState({showPassword2:true});
+          } else {
+            passwordToggle.type = "password";
+            this.setState({showPassword2:false});
+          }   
+      }
     render(){
         return(
             <div className="container-flex">
@@ -349,7 +485,6 @@ class EditAccount extends Component{
                         <div className=" col-12  ">
                             <div className="col-12 ">
                                 <form id="editAccount">
-
                                         <div className="col-12">
                                             <div className="row">
                                                 <div className="col-6 mt-4 ">
@@ -359,6 +494,7 @@ class EditAccount extends Component{
                                                         <br />
                                                         <div id="firstName" className={"col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding "+Style.editAccInputWrapper}>
                                                             <input maxLength="25" type="text" name="firstName" ref="firstName" value={this.state.firstName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required/> 
+                                                            <div className="errorMsg mt-1 ">{this.state.errors.firstName}</div>
                                                         </div>
                                                     </div>
                                                     </div>
@@ -370,6 +506,7 @@ class EditAccount extends Component{
                                                             <br />
                                                             <div id="lastName" className={"col-12 NoPadding "+Style.editAccInputWrapper}>
                                                                 <input maxLength="25" type="text" name="lastName" ref="lastName" value={this.state.lastName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required /> </div>
+                                                                <div className="errorMsg mt-1 ">{this.state.errors.lastName}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -391,8 +528,30 @@ class EditAccount extends Component{
                                                             <div className="col-6 mb-2 NoPadding">
                                                                 <label className="mt15">Mobile Number<i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
                                                                 <br />
-                                                                <div id="mobNumber" className={"col-12 "+Style.editAccInputWrapper}>
-                                                                    <input className="col-12 form-control" type="text" maxLength="10" ref="mobNumber" name="mobNumber" id="mobNumber" placeholder="Eg. 9876543210" value={this.state.mobNumber} onChange={this.onChange.bind(this)} required/> </div>
+                                                                {/* <div id="mobNumber" className={"col-12 "+Style.editAccInputWrapper}>
+                                                                    <input className="col-12 form-control" type="text" maxLength="10" ref="mobNumber" name="mobNumber" id="mobNumber" placeholder="Eg. 9876543210" value={this.state.mobNumber} onChange={this.onChange.bind(this)} required/> 
+                                                                </div> */}
+                                                                <PhoneInput
+                                                                    country={'ae'} 
+                                                                    value={this.state.mobNumber}
+                                                                    inputProps={{
+                                                                        name: 'mobNumber',
+                                                                        required: true
+                                                                    }}
+                                                                    onChange={mobileNumber => { 
+                                                                        this.setState({ mobileNumber })
+                                                                            this.setState({
+                                                                                mobNumber : mobileNumber,
+                                                                            },()=>{
+                                                                                console.log("mobNumber==",this.state.mobNumber);
+                                                                            }); 
+                                                                            let fields = this.state.fields;
+                                                                            fields["mobNumber"] = this.state.mobNumber;
+                                                                            this.setState({
+                                                                                fields
+                                                                            });
+                                                                    }} />
+                                                                <div className="col-12 errorMsg mt-1 ">{this.state.errors.mobNumber}</div>
                                                             </div>
                                                             <div className="col-6 float-right">
                                                                 <button className="btn globalCommonBtn editAccount col-6 float-right" onClick={this.updateUserMobile.bind(this)}>Submit</button>
@@ -417,6 +576,7 @@ class EditAccount extends Component{
                                                                 <br />
                                                                 <div id="emailId" className={"col-12  "+Style.editAccInputWrapper}>
                                                                     <input type="email" name="emailId" ref="emailId" value={this.state.emailId} onChange={this.onChange.bind(this)} className="col-12 form-control" /> 
+                                                                    <div className="errorMsg mt-1 ">{this.state.errors.emailId}</div>
                                                                 </div>
                                                             </div> 
                                                             <div className="col-6 mb-2 NoPadding">
@@ -427,6 +587,7 @@ class EditAccount extends Component{
                                                                     <span className=" showHideEyeDiv" onClick={this.showPassFun2.bind(this)}>
                                                                         <i className={this.state.showPassword2 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword2}></i>
                                                                     </span> 
+                                                                    <div className="errorMsg mt-1 ">{this.state.errors.currentPassword}</div>
                                                                 </div>
                                                             </div> 
                                                             <div className="col-12 float-right">
@@ -451,10 +612,11 @@ class EditAccount extends Component{
                                                                 <label className="mt15">Current Password <i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
                                                                 <br />
                                                                 <div id="oldPassword" className={"col-12 "+Style.editAccInputWrapper}>
-                                                                    <input type="text" id="currentPassword" type="password" name="currentPassword" ref="currentPassword" value={this.state.currentPassword} onChange={this.onChange.bind(this)} className="col-12 form-control" /> 
-                                                                    <span className=" showHideEyeDiv" onClick={this.showPassFun2.bind(this)}>
-                                                                        <i className={this.state.showPassword2 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword2}></i>
+                                                                    <input type="text" id="resetCurrentPassword" type="password" name="resetCurrentPassword" ref="resetCurrentPassword" value={this.state.resetCurrentPassword} onChange={this.onChange.bind(this)} className="col-12 form-control" /> 
+                                                                    <span className=" showHideEyeDiv" onClick={this.showPassFun3.bind(this)}>
+                                                                        <i className={this.state.showPassword3 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword3}></i>
                                                                     </span> 
+                                                                    <div className="errorMsg mt-1 ">{this.state.errors.currentPassword}</div>
                                                                 </div>
                                                             </div> 
                                                             <div className="col-4 mb-2 NoPadding">
@@ -464,15 +626,17 @@ class EditAccount extends Component{
                                                                     <input type="password" id="newPass" name="newPassword" ref="newPassword" value={this.state.newPassword} onChange={this.onChange.bind(this)} className="col-12 form-control newPassword" /> <span className=" showHideEyeDiv" onClick={this.showPassFun1.bind(this)}>
                                                                         <i className={this.state.showPassword1 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword1}></i>
                                                                     </span> 
+                                                                    <div className="errorMsg mt-1 ">{this.state.errors.newPassword}</div>
                                                                 </div>
                                                             </div>
                                                             <div className="col-4 mb-2 NoPadding">
                                                                 <label className="mt15 col-12 NoPadding">Confirm New Password <i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
                                                                 <br />
                                                                 <div className={"col-12 "+Style.editAccInputWrapper}>
-                                                                    <input type="password" className="loginPwdField col-12 form-control" id="confirmPassword" name="confirmPassword" value={this.state.confirmPassword} ref="confirmPassword" onChange={this.handleChange.bind(this)} /> <span className=" showHideEyeDiv" onClick={this.showPassFun.bind(this)}>
+                                                                    <input type="password" className="loginPwdField col-12 form-control" id="confirmPassword" name="confirmPassword" value={this.state.confirmPassword} ref="confirmPassword" onChange={this.onChange.bind(this)} /> <span className=" showHideEyeDiv" onClick={this.showPassFun.bind(this)}>
                                                                         <i className={this.state.showPassword ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword}></i>
                                                                     </span> 
+                                                                    <div className="errorMsg mt-1 ">{this.state.errors.confirmPassword}</div>
                                                                 </div>
                                                             </div> 
                                                             <div className="col-12 float-right">

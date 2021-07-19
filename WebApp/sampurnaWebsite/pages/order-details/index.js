@@ -300,13 +300,13 @@ export default class OrderDetails extends Component {
                                 </div>
                                 {this.state.orderData && this.state.orderData.paymentDetails &&
                                   <div className="col-12">
-                                      <div className="col-12"> <i className="fa fa-wallet"></i>&nbsp;{this.state.orderData.paymentDetails.paymentMethod}</div> 
+                                      <div className="col-12"> <i className="fas fa-wallet"></i>&nbsp;{this.state.orderData.paymentDetails.paymentMethod}</div> 
                                   </div>
                                 }
                                 {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.addressLine2 &&
                                   <div className="col-12">
                                       <div className="col-12 orderAddress"> 
-                                      <i className="fa fa-map-marker-alt"></i>  {this.state.orderData.deliveryAddress.addressLine2}, <br/> {this.state.orderData.deliveryAddress.addressLine1}
+                                      <i className="fas fa-map-marker-alt"></i>  {this.state.orderData.deliveryAddress.addressLine2}, <br/> {this.state.orderData.deliveryAddress.addressLine1}
                                       </div> 
                                   </div>
                                 }
@@ -397,11 +397,10 @@ export default class OrderDetails extends Component {
                         })
                         :
                         <div className="col-12 textAlignCenter">
-                          <div className="mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
+                          <div className="mt15 alert alert-warning textAlignCenter"><i className="fas fa-exclamation-circle"> </i>  No Orders Yet</div>
                           <img src="/images/eCommerce/emptyorder.png" alt=""/>
                         </div>
                     }
-                
                   </div>
                 </div>
                </div> 

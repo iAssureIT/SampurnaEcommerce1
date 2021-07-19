@@ -543,7 +543,7 @@ class ProductsView extends Component {
                                 </td>
                                 <td className="textAlignLeft">
                                     {
-                                      <span className="productPrize textAlignRight">{this.props.currency}&nbsp;{productdata.discountedPrice}</span>
+                                      <span className="productPrize textAlignRight">{this.props.currency}&nbsp;{productdata.discountedPrice.toFixed(2)}</span>
                                             
                                     }
                                 </td>
@@ -557,7 +557,7 @@ class ProductsView extends Component {
                                     {
                                       <span className="productPrize textAlignRight">
                                           {this.props.currency}
-                                          &nbsp;{productdata.discountedPrice}
+                                          &nbsp;{productdata.discountedPrice.toFixed(2)}
                                       </span>
                                     }
 

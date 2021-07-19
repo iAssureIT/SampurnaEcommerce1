@@ -58,36 +58,6 @@ class ResetPassword extends Component {
 		// });
 	}
 
-    validation(){
-        // jQuery.validator.setDefaults({
-        //     debug: true,
-        //     success: "valid"
-        // });
-
-        // $("#resetPassword").validate({
-        //     rules: {
-        //         newPassword: {
-        //             required: true,
-        //         },
-        //         confirmPassword: {
-        //             required: true,
-        //             equalTo : "#newPassword"
-        //         },
-        //     },
-        //     messages:{
-        //         confirmPassword:"Passwords do not match"
-        //     },
-        //     errorPlacement: function (error, element) {
-        //         if (element.attr("name") === "newPassword") {
-        //             error.insertAfter("#newPasswordmsg");
-        //         }
-        //         if (element.attr("name") === "confirmPassword") {
-        //             error.insertAfter("#confirmPass");
-        //         }
-        //     }
-        // });
-    }
-
     togglePassword(event){
 		event.preventDefault();
 		var element = event.target;
@@ -129,11 +99,11 @@ class ResetPassword extends Component {
                             <form id="resetPassword">
                             <div className="form-group frmhgt textAlignLeft col-12  mt-4">
                                 <label className="blueText">New Password</label><label className="astricsign">*</label>
-                                <input id="newPassword" type="password" class="form-control passswordInput formcontrol1" ref="newPassword" name="newPassword" placeholder="Password" 
+                                <input id="newPassword" type="password" className="form-control passswordInput formcontrol1" ref="newPassword" name="newPassword" placeholder="Password" 
                                     onChange={this.handleChange.bind(this)}
                                     value={this.state.signupPassword}  autoComplete="off"
                                 />
-                                <span toggle="#newPassword" class="fa fa-fw fa-eye field-icon toggle-password"
+                                <span toggle="#newPassword" className="fa fa-fw fa-eye field-icon toggle-password"
                                     onClick={this.togglePassword.bind(this)}>
                                 </span>
                                 <div className="errorMsg mt-1">{this.state.errors.newPassword}</div>
@@ -141,11 +111,11 @@ class ResetPassword extends Component {
 
                             <div className="form-group frmhgt textAlignLeft col-12 mt-4">
                                 <label className="blueText">Confirm Password</label><label className="astricsign">*</label>
-                                <input id="confirmPassword" type="password" class="form-control passswordInput formcontrol1" ref="confirmPassword" name="confirmPassword" placeholder="Password" 
+                                <input id="confirmPassword" type="password" className="form-control passswordInput formcontrol1" ref="confirmPassword" name="confirmPassword" placeholder="Password" 
                                     onChange={this.handleChange.bind(this)}
                                     value={this.state.signupPassword}  autoComplete="off"
                                 />
-                                <span toggle="#confirmPassword" class="fa fa-fw fa-eye field-icon toggle-password"
+                                <span toggle="#confirmPassword" className="fa fa-fw fa-eye field-icon toggle-password"
                                     onClick={this.toggleConfirmPassword.bind(this)}>
                                 </span>
                                 <div className="errorMsg mt-1">{this.state.errors.confirmPassword}</div>

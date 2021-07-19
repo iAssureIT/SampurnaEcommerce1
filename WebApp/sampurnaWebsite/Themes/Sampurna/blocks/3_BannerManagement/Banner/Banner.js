@@ -90,7 +90,6 @@ export default class Banner extends React.Component {
                     .then((response)=>{
                         if(response.data){
                           // console.log("Banner response.data============",response.data);
-                          
                           this.setState({
                             blocks:response.data,
                             bannerLoading : false,
@@ -113,7 +112,11 @@ export default class Banner extends React.Component {
                                           slideShadows : true,
                                       },                                
                                     grabCursor: true,
-                                    
+                                    autoplay: {
+                                      delay: 3000,
+                                      disableOnInteraction: true,
+                                    },
+                                    loop:true,
                                     navigation: {
                                         nextEl: '.swiper-button-next',
                                         prevEl: '.swiper-button-prev',
@@ -126,19 +129,23 @@ export default class Banner extends React.Component {
                                 }else if(response.data.animationSettings.effect === "flip"){
                                   
                                   this.swiper = new Swiper('.swiper-container', {                                
-                                    effect: 'flip',
-                                    grabCursor: true,                       
-                                    navigation: {
-                                      nextEl: '.swiper-button-next',
-                                      prevEl: '.swiper-button-prev',
-                                    },        
-                                    pagination: {
-                                      el: '.swiper-pagination',
-                                      clickable: true,
-                                    },
-                                  });
+                                      effect: 'flip',
+                                      grabCursor: true,                       
+                                      navigation: {
+                                        nextEl: '.swiper-button-next',
+                                        prevEl: '.swiper-button-prev',
+                                      },    
+                                      autoplay: {
+                                        delay: 3000,
+                                        disableOnInteraction: true,
+                                      },
+                                      loop:true,    
+                                      pagination: {
+                                        el: '.swiper-pagination',
+                                        clickable: true,
+                                      },
+                                    });
                                 }else if(response.data.animationSettings.effect === "fade"){
-                                  
                                   this.swiper = new Swiper('.swiper-container', {                                
                                     spaceBetween: 30,
                                     effect: 'fade',                               
@@ -146,6 +153,11 @@ export default class Banner extends React.Component {
                                       el: '.swiper-pagination',
                                       clickable: true,
                                     },
+                                    autoplay: {
+                                      delay: 3000,
+                                      disableOnInteraction: true,
+                                    },
+                                    loop:true,
                                     navigation: {
                                       nextEl: '.swiper-button-next',
                                       prevEl: '.swiper-button-prev',
@@ -158,6 +170,7 @@ export default class Banner extends React.Component {
                                       delay: 3000,
                                       disableOnInteraction: false,
                                     },
+                                    loop:true,
                                     navigation: {
                                       nextEl: '.swiper-button-next',
                                       prevEl: '.swiper-button-prev',
@@ -185,6 +198,11 @@ export default class Banner extends React.Component {
                                       el: '.swiper-pagination',
                                       clickable: true,
                                     },
+                                    autoplay: {
+                                      delay: 3000,
+                                      disableOnInteraction: true,
+                                    },
+                                    loop:true,
                                     
                                   });
                                 }else if(response.data.animationSettings.effect === "Keyboard Control"){
@@ -198,6 +216,11 @@ export default class Banner extends React.Component {
                                       el: '.swiper-pagination',
                                       clickable: true,
                                     },
+                                    autoplay: {
+                                      delay: 3000,
+                                      disableOnInteraction: true,
+                                    },
+                                    loop:true,
                                     navigation: {
                                       nextEl: '.swiper-button-next',
                                       prevEl: '.swiper-button-prev',
@@ -207,6 +230,11 @@ export default class Banner extends React.Component {
                                   this.swiper = new Swiper('.swiper-container', {                                
                                     effect: 'lazy',
                                     lazy: true,
+                                    autoplay: {
+                                      delay: 3000,
+                                      disableOnInteraction: true,
+                                    },
+                                    loop:true,
                                     navigation: {
                                       nextEl: '.swiper-button-next',
                                       prevEl: '.swiper-button-prev',

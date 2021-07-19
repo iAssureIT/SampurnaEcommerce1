@@ -23,6 +23,7 @@ class ConfirmOTP extends Component {
       var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
+          console.log("userDetails ==",userDetails.userId); 
           this.setState({
             userId  : userDetails.userId,
           })

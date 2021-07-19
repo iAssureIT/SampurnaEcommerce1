@@ -387,7 +387,7 @@ class CartProducts extends Component{
                                                                         <div className="nowrap col-6 col-sm-12 col-sx-12 col-md-4 col-lg-2 col-xl-3 my-4 text-center ">
                                                                         {
                                                                             vendorData.product_ID.availableQuantity > 0 ?
-                                                                                <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent>0?vendorData.product_ID.discountedPrice.toFixed(2) * vendorData.quantity :vendorData.product_ID.originalPrice.toFixed(2) * vendorData.quantity}</span>
+                                                                                <span className={" cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent>0 ? (vendorData.product_ID.discountedPrice.toFixed(2) * vendorData.quantity).toFixed(2) : (vendorData.product_ID.originalPrice.toFixed(2) * vendorData.quantity).toFixed(2)}</span>
                                                                             :
                                                                             <span>-</span>
                                                                         }    

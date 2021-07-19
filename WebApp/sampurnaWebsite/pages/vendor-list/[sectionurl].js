@@ -128,7 +128,7 @@ class VendorList extends Component {
                           
                 </div>
                 <div className={"col-12 h-100 bg-success "+Style.deliveryTimeWrapper}>
-                        <div className="col-12 text-center  "><p className={" "+Style.deliveryTimeWrapperDesc}>Deliivery time <span className={" "+Style.deliveryTimeWrapperDesc1}>9</span>am to <span className={" "+Style.deliveryTimeWrapperDesc2}>11</span>pm or next day delivery</p></div>
+                        <div className="col-12 text-center  "><p className={" "+Style.deliveryTimeWrapperDesc}>Delivery time <span className={" "+Style.deliveryTimeWrapperDesc1}>9</span>am to <span className={" "+Style.deliveryTimeWrapperDesc2}>11</span>pm or next day delivery</p></div>
                    </div>   
                 <Footer />
             </div>
