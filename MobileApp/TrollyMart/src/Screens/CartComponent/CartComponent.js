@@ -4,7 +4,6 @@ import {
   View,
   TouchableOpacity,
   Image,ActivityIndicator,
-  Dimensions
 } from 'react-native';
 import {Button,Icon,Tooltip}              from "react-native-elements";
 import Modal                      from "react-native-modal";
@@ -26,20 +25,15 @@ import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import { getCartCount}                      from '../../redux/productList/actions';
-import { NetWorkError } from '../../../NetWorkError.js';
-import { useIsFocused }       from "@react-navigation/native";
-const window = Dimensions.get('window');
 
 export const CartComponent = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
-  const isFocused = useIsFocused();
-
   const {setToast,navigation,route} = props; 
   const [cartData,setCartData] = useState('');
   const [startRange,setStartRange] = useState(0);
   const [limitRange,setLimitRange] = useState(10);
   const [removefromcart,setRemoveFromCart] =useState(false);
-  const [loading,setLoading] =useState(false);
+  const [loading,setLoading] =useState(true);
   const [userId,setUserId] =useState(''); 
   const [minvalueshipping,setMinValueShipping] = useState('');
   const [cartitemid,setCartItemId] = useState('');
@@ -47,25 +41,27 @@ export const CartComponent = withCustomerToaster((props)=>{
   const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
-    globalSearch    : store.globalSearch,
-    isConnected: store.netWork.isConnected,
-    userDetails:store.userDetails,
+    globalSearch    : store.globalSearch
   }));
-  const {globalSearch,userDetails}=store;
+  const {globalSearch}=store;
   const {currency}=store.preferences;
 
 
 
   useEffect(() => {
     getData()
-  },[store.isConnected,isFocused,userDetails.user_id]); 
+  },[props]); 
 
   const getData=()=>{
-    console.log("userDetails.user_id",userDetails.user_id);
-      if(userDetails.user_id){
-        getCartItems(userDetails?.user_id);
-        setUserId(userDetails.user_id);
+    const {userId} = route.params;
+    if(userId){
+      setLoading(true);
+      getshippingamount(startRange,limitRange);
+      setUserId(userId);
+      if(userId){
+        getCartItems(userId);
       }
+    } 
   }
 
 const getshippingamount=(startRange, limitRange)=>{
@@ -86,8 +82,6 @@ const getshippingamount=(startRange, limitRange)=>{
  }
  
   const getCartItems=(userId)=>{
-    console.log("userId",userId);
-    setLoading(true);
     axios.get('/api/carts/get/cartproductlist/' + userId)
       .then((response) => {
         console.log("response.data",response.data);
@@ -95,7 +89,6 @@ const getshippingamount=(startRange, limitRange)=>{
         if(response.data){
           setCartData(response.data);
         }else{
-          setLoading(false);
           setCartData([]);
         }
       })
@@ -249,39 +242,57 @@ const getshippingamount=(startRange, limitRange)=>{
         navigate={navigation.navigate}
         openControlPanel={() => openControlPanel}
       /> */}
-      {!store.isConnected?
-      <NetWorkError />
-      :
       <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
-      {!loading ?
-       globalSearch.search ?
+      { !loading ?
+      globalSearch.search ?
         <SearchSuggetion />
         :
-        cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?
         <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
-          <View style={{paddingVertical:15}}>            
-            <FormButton
-                  title          = {"PROCEED TO CHECKOUT"}
-                onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
-                background  = {true}
-                // loading     = {btnLoading}
-                disabled       = {!disabled}
-              />
-          </View>
-        <View style={{flex:1}}>
+         <View style={{flex:1}}>
+          {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?
             <View style={styles.cartdetails}>
             {cartData.vendorOrders.map((vendor, i) => {
               return (
-              <View style={{backgroundColor:"#fff",marginBottom:15}}>
-                <View style={{paddingHorizontal:15,borderBottomWidth:1,borderColor:"#eee"}}>
-                  <Text style={[commonStyles.headerText,{alignSelf:"flex-start"}]}>{vendor.vendor_id.companyName}</Text>
+              <View style={{backgroundColor:"#fff",paddingBottom:15}}>
+                <View style={{paddingHorizontal:15}}>
+                  <Text style={[commonStyles.headerText,{alignSelf:"flex-start",fontSize:15,marginBottom:10}]}>{vendor.vendor_id.companyName}</Text>
                 </View>  
                 {vendor.cartItems.map((item,index)=>{
                   return(
                     <View key={index}>
                       <View key={index} style={styles.proddetails}>
                         <View style={styles.flxdir}>
-                          <View style={styles.flxpd}>
+                          <View style={styles.flxmg}>
+                            <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id })}>
+                              {item.product_ID.productNameRlang ?
+                              <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
+                              : 
+                              <Text style={styles.productname}>{item.product_ID.productName}</Text>
+                              }
+                              </TouchableOpacity>
+                            <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
+                              {item.product_ID.availableQuantity > 0 ?
+                                <View style={[styles.flxdir]}>
+                                  <View style={{}}>
+                                    <Text style={styles.currency}>{currency} </Text>                                    
+                                  </View>
+                                  <View>
+                                  {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
+                                  </View>
+                                  <View style={{}}>
+                                      <Text style={styles.currency}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                      </Text>
+                                  </View>
+                                  {item.product_ID.discountPercent > 0 &&<View style={{marginTop:3}}>
+                                      <Text style={styles.offprice}>{item.product_ID.discountPercent} % <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                      </Text>
+                                  </View>}
+                                </View>
+                                :
+                                <Text style={styles.totaldata}>SOLD OUT</Text>
+                              }
+                            </View>                            
+                          </View>
                             <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id})}>
                               {item.product_ID.productImage.length > 0 ?
                                 <Image
@@ -295,66 +306,43 @@ const getshippingamount=(startRange, limitRange)=>{
                                 />
                               }
                             </TouchableOpacity>
-                          </View>
-                          <View style={styles.flxmg}>
-                            <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id })}>
-                              {item.product_ID.productNameRlang ?
-                              <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
-                              : 
-                              <Text style={styles.productname}>{item.product_ID.productName}</Text>
-                              }
-                              </TouchableOpacity>
-                            <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
-                              {item.product_ID.availableQuantity > 0 ?
-                                <View style={[styles.flxdir]}>
-                                  <View style={[styles.flxdir]}>
-                                    <Text style={styles.ogprice}>{currency} </Text>
-                                    {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
-                                  </View>
-                                  <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                      <Text style={styles.ogprice}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                      </Text>
-                                  </View>
-                                  {item.product_ID.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
-                                      <Text style={styles.ogprice}>( {item.product_ID.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                      </Text>
-                                  </View>}
-                                </View>
-                                :
-                                <Text style={styles.totaldata}>SOLD OUT</Text>
-                              }
-                            </View>
+                        </View>
+                        <View style={styles.flxdir}>
+                          <View style={styles.flx5}>
                             <Counter start={item.quantity} min={1} max={100}
-                              buttonStyle={{
-                                borderColor: colors.theme,
-                                borderWidth: 1,
-                                borderRadius: 25,
-                                width: 15,
-                                height: 7
-                              }}
-                              buttonTextStyle={{
-                                color: colors.theme,
-                              }}
-                              countTextStyle={{
-                                color: colors.theme,
-                              }}
-                              size={5}
-                              onChange={(e)=>onChange(e,item.product_ID._id,vendor.vendor_id._id)} 
-                              />
+                                buttonStyle={{
+                                  borderColor: '#033554',
+                                  backgroundColor:'#033554',
+                                  borderWidth: 1,
+                                  borderRadius: 25,
+                                  width: 15,
+                                  height: 7
+                                }}
+                                buttonTextStyle={{
+                                  color: '#fff',
+                                }}
+                                countTextStyle={{
+                                  color: colors.theme,
+                                }}
+                                size={5}
+                                onChange={(e)=>onChange(e,item.product_ID._id,vendor.vendor_id._id)} 
+                                />
                           </View>
-                          <View style={styles.flxmg2}>
-                            <View style={styles.proddeletes}>
-                              <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID._id)} >
-                                <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color="red"/>
-                              </TouchableOpacity>
-                              <Icon
-                                onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)}
-                                name="delete"
-                                type="AntDesign"
-                                size={20}
-                                color="#ff4444"
-                                iconStyle={styles.iconstyle}
-                              />
+                          <View style={[styles.flx5],{justifyContent:'flex-end'}}>
+                            <View style={{justifyContent:'flex-end'}}>
+                              <View style={styles.proddeletes}>
+                                <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID._id)} >
+                                  <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color='#ccc'/>
+                                </TouchableOpacity>
+                                <Icon
+                                  onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)}
+                                  name="delete"
+                                  type="AntDesign"
+                                  size={20}
+                                  color="#ccc"
+                                  iconStyle={styles.iconstyle}
+                                />
+                              </View>
                             </View>
                           </View>
                         </View>
@@ -370,7 +358,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                       <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_beforeDiscountTotal && vendor.vendor_beforeDiscountTotal.toFixed(2)}</Text>
+                          <Text style={styles.totalpriceincart}><Text style={styles.currency1}>{currency}</Text>{vendor.vendor_beforeDiscountTotal && vendor.vendor_beforeDiscountTotal.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
@@ -381,7 +369,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincart}> - </Text>
-                      <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
+                      <Text style={styles.totalpriceincart1}><Text style={styles.currency1}>{currency}</Text> {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
                         </View>
                       </View>
                     </View>
@@ -392,7 +380,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                       <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
+                          <Text style={styles.totalpriceincart}><Text style={styles.currency1}>{currency}</Text> {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
@@ -402,18 +390,18 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View> 
                       <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_taxAmount.toFixed(2)}</Text>
+                      <Text style={styles.totalpriceincart}><Text style={styles.currency1}>{currency}</Text> {vendor.vendor_taxAmount.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>Totals</Text>
+                        <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:16}}>Totals</Text>
                       </View> 
                       <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_netPayableAmount.toFixed(2)}</Text>
+                      <Text style={styles.totalpriceincart}><Text style={styles.currency1}>{currency}</Text> {vendor.vendor_netPayableAmount.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
@@ -491,7 +479,7 @@ const getshippingamount=(startRange, limitRange)=>{
                   <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                   <View style={styles.flxdata}>
                     <View style={{ flex: 0.6 }}>
-                      <Text style={styles.totaldata}>Grand Total</Text>
+                      <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:16}}>Grand Total</Text>
                     </View>
                     <View style={{ flex: 0.35 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -521,24 +509,23 @@ const getshippingamount=(startRange, limitRange)=>{
                   </View>
                 </View>
           </View>
-         
+          :
+          <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
+            <Image
+              source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+            />
+            <View style={{}}>
+              <FormButton
+                  onPress={() => navigation.navigate('Dashboard')}
+                  // title={"Click Here To Continue Shopping"}
+                  title={"Add Products"}
+                  background={true}
+              /> 
+           </View>   
+          </View>   
+        }
         </View>
       </KeyboardAwareScrollView>
-       :
-       <View style={{height:window.height-120,justifyContent:'center',alignItems:'center'}}>
-       <Image
-         source={require("../../AppDesigns/currentApp/images/empty-cart.png")}
-         style={{width:window.width,height:300}}
-         resizeMode='contain'
-       />
-         <View style={{alignItems:'center'}}>
-           <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:22,color:"#DC1919",opacity: 1}}>Your Cart is empty!</Text>
-           <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-             <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
-             <Text style={[CommonStyles.linkText,{textDecoration: "underline",fontFamily:"Montserrat-SemiBold",fontSize:14}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
-           </View>
-         </View> 
-     </View>
       :
       <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
         <ActivityIndicator size="large" color={colors.theme} />
@@ -582,7 +569,7 @@ const getshippingamount=(startRange, limitRange)=>{
           </View>
         </View>
       </Modal>
-    </View>}
+    </View>
   </React.Fragment>
   );
 })

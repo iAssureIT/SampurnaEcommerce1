@@ -57,8 +57,8 @@ export default StyleSheet.create({
   },
   cartdetails:{
     flex:1,
-    paddingHorizontal:15,
-    marginTop:15,marginBottom:"20%",
+    // paddingHorizontal:15,
+    // marginTop:15,marginBottom:"20%",
   },
   minpurchase:{
     color: "#c10000" ,
@@ -74,6 +74,7 @@ export default StyleSheet.create({
   },
   flxdir:{
     flexDirection:'row',
+    flex:1,
   },
 superparent:{
   flex:1,backgroundColor:'#f1f1f1'
@@ -82,7 +83,8 @@ superparent:{
     flex:0.4,padding:20
   },
   imgwdht:{
-    height:80,width:80
+    height:80,width:80,
+    
   },
   cartlogoimg:{
      width:'70%',height:40,
@@ -90,17 +92,31 @@ superparent:{
   cartlogo:{
     height:100,marginTop:10,
   },
+  flx5:{
+    flex:0.5,
+    marginHorizontal:10
+  },
+
+  offprice:{
+    fontSize:10,
+    color:'#5B8E7E',
+    marginTop:7,
+    marginLeft:5
+  },
   flxmg:{
-    flex:0.7,marginTop:10,
+    flex:0.9,
+    marginLeft:10
   },
   flxmg2:{
-    flex:0.3,marginTop:10
+    flex:0.1,
+    justifyContent:'center'
   },
   prodnamedets:{
     flex:1
   },
   productname:{
-    fontSize:14,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap'
+    fontSize:14,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap',
+    color:'#000'
   },
   purchasep:{
     fontSize:8,fontFamily:"Montserrat-SemiBold",marginTop:2,
@@ -187,30 +203,34 @@ superparent:{
     fontSize:14,fontFamily:"Montserrat-Regular", color:'#666'
   },
   totaldata:{
-    fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#333'
+    fontSize:16,fontFamily:"Montserrat-Regular", color:'#333'
   },
   totalsubtxt:{
     fontSize:13,fontFamily:"Montserrat-Regular", color:'#999',
     // textAlign:'center'
   },
   flxdata:{
-    flex:1,flexDirection:"row"
+    flex:1,flexDirection:"row",
+    marginBottom:7
   },
   flxdatalogo:{
     flex:1,flexDirection:"row",
   },
   totaldetails:{
-    backgroundColor:'#fff',
+    backgroundColor:'#EEEEEE',
     borderColor:"#ddd",
-    paddingHorizontal:15,
+    paddingLeft:20,
+    paddingRight:5,
     paddingVertical:15,
+    marginHorizontal:6,
+    borderRadius:7,
     // borderTopWidth:1
   },
   productsoldurl:{
     fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#3090C7'
   },
   iconstyle:{
-    marginTop:3,marginRight:3
+    marginTop:3,marginRight:3,marginLeft:15
   },
   rupeeicn:{
     flexDirection:"row",justifyContent:'flex-end',
@@ -227,8 +247,15 @@ superparent:{
   totalpriceincart:{
     marginTop:-2,
     fontSize:14,
-    fontFamily:"Montserrat-SemiBold", 
+    fontFamily:"Montserrat-Regular", 
     color:'#333',
+  },
+
+  totalpriceincart1:{
+    marginTop:-2,
+    fontSize:14,
+    fontFamily:"Montserrat-Bold", 
+    color:'#3E9D5E',
   },
   discountpr:{
     fontSize:13,fontFamily:"Montserrat-Regular",color:'#c10000',fontStyle:"italic",marginLeft:10
@@ -247,18 +274,25 @@ superparent:{
   },
   proddeletes:{
     flexDirection:'row',
+    justifyContent:'flex-end',
+    marginLeft:200
   },
   wishlisthrt:{
     marginTop:0,
     padding:5,
+    paddingHorizontal:15,
+    borderRightWidth:1,
+    borderColor:'#ccc'
   },
 
   proddetails:{
-    borderBottomWidth:1,borderColor:'#eee',
+    borderWidth:1,borderColor:'#B7B7B7',
     backgroundColor:"#fff",
     minHeight:80,
-    // borderRadius:5,
+    borderRadius:4,
     paddingVertical:10,
+    marginBottom:10,
+    marginHorizontal:6,
   },
   buttonContainer1:{
     marginTop:20,
@@ -298,10 +332,17 @@ superparent:{
 	},
 	ogprice: {
 		fontSize: 12, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
-	},
+  },
+  currency:{
+    fontSize: 20, fontFamily: "Montserrat-SemiBold", color: '#333',
+  },
+  currency1:{
+    fontSize: 14, fontFamily:"Montserrat-Regular", color: '#333',
+  },
 	discountpricecut: {
-		fontSize: 12, fontFamily: "Montserrat-SemiBold",
-		textDecorationLine: 'line-through',
-
+		fontSize: 14, fontFamily: "Montserrat-SemiBold",
+    textDecorationLine: 'line-through',
+    alignItems: 'center',
+    marginTop:3,
 	},
 })
