@@ -686,7 +686,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                       <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
                                   <View style={{flex:.5,alignItems:'flex-end'}}>
-                                      <Text style={styles.ogprice}>{vendor.vendor_discountAmount > 0 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
+                                      <Text style={[styles.ogprice,{color:colors.success}]}>{vendor.vendor_discountAmount > 0 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
                                   </View>
                                 </View>
                               </View>
@@ -716,7 +716,7 @@ const cancelorderbtn = (id,vendor_id) => {
                   <View style={styles.totaldetails}>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>Final Total Amount </Text>
+                        <Text style={styles.totalAmount}>Final Total Amount </Text>
                       </View>
                       <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -726,7 +726,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     </View>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>Total Savings </Text>
+                        <Text style={styles.totalAmount}>Total Savings </Text>
                       </View> 
                       <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -737,7 +737,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     </View>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>Total Tax  </Text>
+                        <Text style={styles.totalAmount}>Total Tax  </Text>
                       </View> 
                       <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -747,7 +747,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     </View>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>Discount Coupon Amount </Text>
+                        <Text style={styles.totalAmount}>Discount Coupon Amount </Text>
                       </View> 
                       <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -757,7 +757,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     </View>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>Total Delivery Charges </Text>
+                        <Text style={styles.totalAmount}>Total Delivery Charges </Text>
                       </View> 
                       <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -778,7 +778,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>Grand Total</Text>
+                        <Text style={styles.totalAmount}>Grand Total</Text>
                       </View>
                       <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>

@@ -72,13 +72,12 @@ const window = Dimensions.get('window');
       ]);
       return true;
     };
-
     
     useEffect(() => {
       BackHandler.addEventListener("hardwareBackPress", backAction);
       return () =>
       BackHandler.removeEventListener("hardwareBackPress", backAction);
-  },[]);
+    },[]);
 
       return (
         <React.Fragment>

@@ -322,7 +322,6 @@ export default StyleSheet.create({
   },
   orderstatus:{
     backgroundColor:'#fff',
-   
   },
   parent:{
     flex:1,

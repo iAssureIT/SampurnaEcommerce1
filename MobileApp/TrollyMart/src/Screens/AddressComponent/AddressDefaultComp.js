@@ -12,25 +12,22 @@ import {Icon}    from "react-native-elements";
 import axios              from "axios";
 import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
 import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
-import Loading            from '../../ScreenComponents/Loading/Loading.js';
 import AsyncStorage       from '@react-native-async-storage/async-storage';
 
-import { connect,useDispatch,useSelector }      from 'react-redux';
-import { useIsFocused } from '@react-navigation/native';
+import { connect,useDispatch,useSelector }from 'react-redux';
+import { useIsFocused }   from '@react-navigation/native';
 import {setToast, 
-  withCustomerToaster}        from '../../redux/AppState.js';
-  import { SET_USER_ADDRESS}          from '../../redux/location/types';
-import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
-import ActionButton from 'react-native-action-button';
-import SearchSuggetion              from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
-import { NetWorkError } from '../../../NetWorkError.js';
+  withCustomerToaster}     from '../../redux/AppState.js';
+  import { SET_USER_ADDRESS} from '../../redux/location/types';
+import CommonStyles       from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {FormButton}       from '../../ScreenComponents/FormButton/FormButton';
+import ActionButton       from 'react-native-action-button';
+import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 
 
   export const AddressDefaultComp = withCustomerToaster((props)=>{
     const {setToast,navigation,route} = props; 
     const isFocused = useIsFocused();
-    console.log("isFocused",isFocused);
     const [isChecked,setIsChecked] = useState(false);
     const [deliveryAddress,setDeliveryAddress]  = useState([]);
     const [addressid,setAddressId]  = useState('');
@@ -43,16 +40,12 @@ import { NetWorkError } from '../../../NetWorkError.js';
       location : store.location,
       globalSearch: store.globalSearch
     }));
-
-    
     
     useEffect(() => {
-      getAddressList()
+      getAddressList();
+      setSelectedIndex(-1)
     },[props]); 
   
-   
-
-    console.log("store",store)
   const getAddressList=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
     .then((data) => {
@@ -244,14 +237,14 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     <FormButton
                       onPress={() => navigation.navigate('OrderSummary', { addData: adddata, user_id: user_id })}
                       title={"CONTINUE"}
-                      disabled={addressid===''?true:false}
+                      disabled={selectedindex===-1?true:false}
                     />
               </View>}
                 {disabled && <View style={styles.continuebtn}>
                  <FormButton
                     onPress={() => navigation.navigate('App')}
                     title={"CONTINUE"}
-                    disabled={addressid===''?true:false}
+                    disabled={selectedindex===-1?true:false}
                   />
               </View>}
             </View>

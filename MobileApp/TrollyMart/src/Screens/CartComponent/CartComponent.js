@@ -244,12 +244,6 @@ const getshippingamount=(startRange, limitRange)=>{
 
   return (
     <React.Fragment>
-      {/* <HeaderBar3
-        goBack={navigation.goBack}
-        headerTitle={'My Cart'}
-        navigate={navigation.navigate}
-        openControlPanel={() => openControlPanel}
-      /> */}
       <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
       { !loading ?
       globalSearch.search ?
@@ -540,7 +534,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>
                   </View>
                   <View>
-                  <View style={{paddingVertical:15}}>
+                  <View style={{paddingVertical:15,marginBottom:60}}>
                       {/* <View>
                         <FormButton
                           onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
@@ -551,9 +545,9 @@ const getshippingamount=(startRange, limitRange)=>{
                         />
                       </View> */}
                       <FormButton
-                           title          = {"PROCEED TO CHECKOUT"}
+                          title          = {"PROCEED TO CHECKOUT"}
                           onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
-                          background  = {true}
+                          background     = {true}
                           // loading     = {btnLoading}
                           disabled       = {!disabled}
                         />

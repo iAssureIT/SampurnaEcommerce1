@@ -16,6 +16,7 @@ import {REACT_APP_BASE_URL} from '@env'
 import GeneralStatusBarColor from './GeneralStatusBarColor.js';
 import { NetWorkError } from './NetWorkError';
 import { Alert } from "react-native";
+import crashlytics from '@react-native-firebase/crashlytics';
 export const NetworkContext = React.createContext({ isConnected: true });
 
 console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);
