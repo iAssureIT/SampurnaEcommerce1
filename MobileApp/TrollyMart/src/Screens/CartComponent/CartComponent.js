@@ -49,11 +49,11 @@ export const CartComponent = withCustomerToaster((props)=>{
 
 
   const minusIcon = (isDisabled) => {
-    return <Feather name='minus' size={20} backgroundColor={'#fff'} color={'#648295'} borderColor={'#648295'} borderWidth={1}  />
+    return <Icon name='minus' type='feather' size={20} color={isDisabled? colors.cartButton : "#fff"} />
   };
   
   const plusIcon = (isPlusDisabled) => {
-    return <Feather name='plus' size={20} color={'#fff'} />
+    return <Icon name='plus' type='feather' size={20} color={"#fff"} />
   };
 
   useEffect(() => {
@@ -269,15 +269,15 @@ const getshippingamount=(startRange, limitRange)=>{
                               {item.product_ID.productNameRlang ?
                               <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
                               : 
-                              <Text style={styles.productname}>{item.product_ID.productName}</Text>
+                              <Text numberOfLines={2} style={styles.productname}>{item.product_ID.productName}</Text>
                               }
                               </TouchableOpacity>
                             <View style={[styles.flx1, styles.prdet,{marginVertical:5}]}>
                               {item.product_ID.availableQuantity > 0 ?
-                                <View style={[styles.flxdir,{}]}>
+                                <View style={[styles.flxdir,{alignItems:'flex-end'}]}>
                                     <Text style={styles.currency}>{currency} </Text>                                    
                                   {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
-                                    <Text style={styles.currency}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                    <Text style={[styles.currency,{fontFamily:"Montserrat-SemiBold"}]}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                     </Text>
                                   {item.product_ID.discountPercent > 0 &&
                                       <Text style={styles.offprice}>{item.product_ID.discountPercent} % <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
@@ -309,13 +309,12 @@ const getshippingamount=(startRange, limitRange)=>{
                                 minusIcon={minusIcon} 
                                 plusIcon={plusIcon} 
                                 buttonStyle={{
-                                  borderColor: '#355D76',
+                                  borderColor: colors.cartButton,
                                   backgroundColor:'#355D76',
                                   elevation:2,
                                   borderWidth: 1,
                                   borderRadius: 25,
-                                  width: 15,
-                                  height: 7
+                                 
                                 }}
                                 buttonTextStyle={{
                                   color: '#fff',
@@ -329,7 +328,7 @@ const getshippingamount=(startRange, limitRange)=>{
                           <View style={[styles.flx5,{alignItems:'flex-end'}]}>
                               <View style={styles.proddeletes}>
                                 <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID._id)} >
-                                  <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color='#ccc'/>
+                                  <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.product_ID.isWish ?'red':'#ccc'}/>
                                 </TouchableOpacity>
                                 <Icon
                                   onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)}
@@ -346,9 +345,13 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>
                     )
                   })}
+                  <View style={{flexDirection:'row',padding:10,marginBottom:5}}>
+                    <Icon name="arrow-left" type="font-awesome" size={14} color={colors.cartButton} iconStyle={{paddingRight:3}}/>
+                    <Text style={[CommonStyles.linkLightText,{alignSelf:'center',color:colors.cartButton}]} onPress={()=>goToProductList(vendor)}>Continue shopping.</Text>
+                  </View>
                   <View style={styles.totaldetails}>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.7,flexDirection:"row" }}>
+                      <View style={{ flex: 0.65,flexDirection:"row" }}>
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                         <Text style={styles.totaldata}>Sub Total</Text>
                       </View>
@@ -364,7 +367,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>                      
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.7 }}>
+                      <View style={{ flex: 0.65 }}>
                         <Text style={styles.totaldata}>You Saved </Text>
                       </View>
                       <View style={{ flex: 0.1 }}>
@@ -380,7 +383,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.7,flexDirection:"row" }}>
+                      <View style={{ flex: 0.65,flexDirection:"row" }}>
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                         <Text style={styles.totaldata}>Total Amount</Text>
                       </View>
@@ -396,7 +399,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.7 }}>
+                      <View style={{ flex: 0.65 }}>
                         <Text style={styles.totaldata}>VAT</Text>
                       </View>
                       <View style={{ flex: 0.1 }}>
@@ -412,7 +415,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.7 }}>
+                      <View style={{ flex: 0.65 }}>
                         <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:16}}>Totals</Text>
                       </View>
                       <View style={{ flex: 0.1 }}>
@@ -432,19 +435,16 @@ const getshippingamount=(startRange, limitRange)=>{
                         :
                         <View style={{}}>
                           <Text style={styles.minpurchase}>Order total amount should be greater than {currency} {cartData.minOrderAmount}. Please add some more products.</Text>
-                          <Text style={[CommonStyles.linkText,{alignSelf:'center'}]} onPress={()=>goToProductList(vendor)}>For continue shopping click here.</Text>
                         </View>
                       }
                     </View>
                   </View>
-                 
                 </View>
                 )
               })}
-              
                 <View style={styles.totaldetails}>
                   <View style={styles.flxdata}>
-                    <View style={{ flex: 0.7 }}>
+                    <View style={{ flex: 0.65 }}>
                       <Text style={styles.totaldata}>Total Amount </Text>
                     </View>
                     <View style={{ flex: 0.1 }}>
@@ -459,7 +459,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>
                   </View>
                   <View style={styles.flxdata}>
-                    <View style={{ flex: 0.7 }}>
+                    <View style={{ flex: 0.65 }}>
                       <Text style={styles.totaldata}>Total Saved </Text>
                     </View>
                     <View style={{ flex: 0.1 }}>
@@ -475,7 +475,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>
                   </View>
                   <View style={styles.flxdata}>
-                    <View style={{ flex: 0.7 }}>
+                    <View style={{ flex: 0.65 }}>
                       <Text style={styles.totaldata}>Total VAT  </Text>
                     </View>
                     <View style={{ flex: 0.1 }}>
@@ -491,7 +491,7 @@ const getshippingamount=(startRange, limitRange)=>{
                   </View>
                   
                   <View style={styles.flxdata}>
-                    <View style={{ flex: 0.7 }}>
+                    <View style={{ flex: 0.65 }}>
                       <Text style={styles.totaldata}>Total Delivery Charges </Text>
                     </View>
                     <View style={{ flex: 0.1 }}>
@@ -513,13 +513,13 @@ const getshippingamount=(startRange, limitRange)=>{
                         popover={tooltipClone}
                         withOverlay={false}
                         >
-                        <Icon name="info-circle" type={"font-awesome"} size={12} />
+                        <Icon name="information-outline" type={"material-community"} size={16}iconStyle={{}} />
                       </Tooltip>
                     </View>  
                   </View>
                   <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                   <View style={styles.flxdata}>
-                    <View style={{ flex: 0.7 }}>
+                    <View style={{ flex: 0.65 }}>
                       <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:16}}>Grand Total</Text>
                     </View>
                     <View style={{ flex: 0.1 }}>

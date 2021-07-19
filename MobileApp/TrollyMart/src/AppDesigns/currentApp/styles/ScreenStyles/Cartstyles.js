@@ -101,6 +101,8 @@ superparent:{
     fontSize:10,
     color:'#5B8E7E',
     marginLeft:5,
+    fontFamily:"Montserrat-Regular",
+    marginBottom:3
   },
   flxmg:{
     flex:0.9,
@@ -114,8 +116,11 @@ superparent:{
     flex:1
   },
   productname:{
-    fontSize:14,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap',
-    color:'#000'
+    fontSize:14,
+    fontFamily:"Montserrat-Medium",
+    flexWrap:'wrap',
+    color:'#000',
+    opacity: 1
   },
   purchasep:{
     fontSize:8,fontFamily:"Montserrat-SemiBold",marginTop:2,
@@ -202,7 +207,7 @@ superparent:{
     fontSize:14,fontFamily:"Montserrat-Regular", color:'#666'
   },
   totaldata:{
-    fontSize:16,fontFamily:"Montserrat-Regular", color:'#333'
+    fontSize:16,fontFamily:"Montserrat-Medium", color:'#333'
   },
   totalsubtxt:{
     fontSize:13,fontFamily:"Montserrat-Regular", color:'#999',
@@ -216,7 +221,7 @@ superparent:{
     flex:1,flexDirection:"row",
   },
   totaldetails:{
-    backgroundColor:'#E7E7E7',
+    backgroundColor:'#F7F7F7',
     borderColor:"#ddd",
     paddingLeft:15,
     paddingRight:15,
@@ -244,10 +249,9 @@ superparent:{
     fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#333',
   },
   totalpriceincart:{
-    marginTop:-2,
-    fontSize:14,
+    fontSize:16,
     fontFamily:"Montserrat-SemiBold", 
-    color:'#333',
+    color:'#000000',
   },
 
   totalpriceincart1:{
@@ -332,14 +336,18 @@ superparent:{
 		fontSize: 12, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
   },
   currency:{
-    fontSize: 20, fontFamily: "Montserrat-SemiBold", color: '#333'
+    fontSize: 20, fontFamily: "Montserrat-Medium", color: '#000'
   },
   currency1:{
-    fontSize: 14, fontFamily:"Montserrat-Regular", color: '#333',
+    fontSize: 14, fontFamily:"Montserrat-Medium", color: '#000000',
   },
 	discountpricecut: {
-		fontSize: 14, fontFamily: "Montserrat-SemiBold",
+		fontSize: 14, 
+    fontFamily: "Montserrat-Medium",
     textDecorationLine: 'line-through',
     alignContent: 'flex-end',
+    color: '#000000',
+    opacity:0.5,
+    marginBottom:2
 	},
 })
