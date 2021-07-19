@@ -3,6 +3,7 @@ import {
   Text, View, 
   TouchableOpacity,
   FlatList,
+  RefreshControl
 } from 'react-native';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles.js';
 import { Card }                 from "react-native-elements";
@@ -31,6 +32,7 @@ export const VendorList = withCustomerToaster((props)=>{
     const [limit,setLimit] = useState(0);
     const index = props.route.params?.index;
     const [vendorList,setVendorList] =useState([]);
+    const [refresh,setRefresh]=useState(false);
     const dispatch 		= useDispatch();
     const store = useSelector(store => ({
         location        : store.location,
@@ -62,6 +64,7 @@ export const VendorList = withCustomerToaster((props)=>{
         axios.post('/api/vendorlist/post/vendor/list',formValues)
         .then(res=>{
             setLoading(false);
+            setRefresh(false);
             // setLimit(limitRange);
             // if(vendorList.length > 0){
             //     setVendorList(vendorList.concat(res.data));
@@ -107,7 +110,11 @@ export const VendorList = withCustomerToaster((props)=>{
             </TouchableOpacity>        
         )
     }
-
+    
+    const refreshControl=()=>{
+        setRefresh(true);
+        getData();
+    }
 
     return (
         <View style={{flex:1,backgroundColor:"#fff"}}>
@@ -149,12 +156,12 @@ export const VendorList = withCustomerToaster((props)=>{
                             offset: 65 * index, 
                         index
                         })}
-                        // refreshControl={
-                        //     <RefreshControl
-                        //     //   refreshing={refresh}
-                        //     //   onRefresh={() => refreshControl()}
-                        //     />
-                        // } 
+                        refreshControl={
+                            <RefreshControl
+                              refreshing={refresh}
+                              onRefresh={() => refreshControl()}
+                            />
+                        } 
                     /> 
                     :
                     <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>

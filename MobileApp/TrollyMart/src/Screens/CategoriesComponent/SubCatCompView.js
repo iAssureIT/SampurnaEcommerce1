@@ -202,7 +202,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     if(user_id){
       const formValues = {
         "user_ID"           : user_id,
-        "product_ID"        : productID,
+        "product_ID"        : productdata._id,
         "vendor_ID"         : productdata.vendor_ID,
         "quantity"          : number === "" || 0 ? 1 : number,
         "userLatitude"      : location?.address?.latlong?.lat,

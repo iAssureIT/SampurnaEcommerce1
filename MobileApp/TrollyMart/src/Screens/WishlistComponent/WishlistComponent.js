@@ -5,40 +5,52 @@ import {
   Image,
   ActivityIndicator,
   Text,
-  Dimensions
+  Dimensions,
+  RefreshControl
 } from 'react-native';
-import { Button,Icon}            from "react-native-elements";
+import { Button,Icon}       from "react-native-elements";
 import styles               from '../../AppDesigns/currentApp/styles/ScreenStyles/Wishliststyles.js';
 import { colors }           from '../../AppDesigns/currentApp/styles/styles.js';
 ;
 import {withCustomerToaster}from '../../redux/AppState.js';
-import { useSelector }      from 'react-redux';
 import {ProductList}        from'../../ScreenComponents/ProductList/ProductList.js';
-import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
-import { NetWorkError } from '../../../NetWorkError.js';
-import { useIsFocused }       from "@react-navigation/native";
+import { NetWorkError }     from '../../../NetWorkError.js';
+import { useIsFocused }     from "@react-navigation/native";
+import {useDispatch,connect,useSelector }   from 'react-redux';
+import { getWishList } 		        from '../../redux/wishDetails/actions';
+
 const window = Dimensions.get('window');
 
 export const WishlistComponent  = withCustomerToaster((props)=>{
   const {navigation}=props;
 const isFocused = useIsFocused();
+const [refreshing,setRefresh]= useState(false)
 
   const store = useSelector(store => ({
     wishList      : store.wishDetails.wishList,
     globalSearch  : store.globalSearch,
     loading        : store.wishDetails.loading,
-    isConnected: store.netWork.isConnected
+    isConnected: store.netWork.isConnected,
+    userDetails : store.userDetails
   }));
   console.log("store",store)
-  const {wishList,globalSearch,loading,isConnected} = store;
+  const {wishList,globalSearch,loading,isConnected,userDetails} = store;
   const [user_id,setUserId] = useState('');
+  const dispatch              = useDispatch();
   useEffect(() => {
     // getData()
   },[isConnected,isFocused]); 
 
   console.log("wishList",wishList);
+
+  const refreshControl=()=>{
+    setRefresh(true);
+    dispatch(getWishList(userDetails.user_id));
+    setRefresh(false);
+  }
   
     return (
       <React.Fragment>
@@ -56,7 +68,13 @@ const isFocused = useIsFocused();
           </View>
           :
           wishList && wishList.length > 0 ?
-          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled"
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={refreshControl}
+              />}
+          >
             <View style={{paddingVertical:24,paddingHorizontal:20}}>
               <Text style={CommonStyles.screenHeader}>My Wishlist</Text>
             </View>

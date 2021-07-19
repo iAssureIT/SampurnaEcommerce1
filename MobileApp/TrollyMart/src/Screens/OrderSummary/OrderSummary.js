@@ -9,7 +9,7 @@ import {
   Linking
 } from 'react-native';
 import { Dropdown }             from 'react-native-material-dropdown-v2';
-import { Button, Icon,Input,Tooltip }   from "react-native-elements";
+import { Button, Icon,Input,Tooltip,CheckBox }   from "react-native-elements";
 import Modal                    from "react-native-modal";
 import axios                    from "axios";
 import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
@@ -605,12 +605,19 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       
                       <View style={styles.margTp20}>
                         <View style={{flexDirection:'row',alignItems:'center'}}>
-                          <RadioButton
+                          {/* <RadioButton
                             style={styles.radiobtn}
                             value="first"
                             status={checked ? 'checked' : 'unchecked'}
                             onPress={() => {setChecked(true)}}
-                          />
+                          /> */}
+                          <CheckBox
+                              style={styles.radiobtn}
+                              center
+                              title=''
+                              checked={checked}
+                              onPress={() => {setChecked(!checked)}}
+                        />
                           <Text style={styles.free}>I agree to <Text style={[CommonStyles.linkText,{fontSize:12}]}  onPress={()=>setModal(true)}>Terms & conditions</Text></Text>
                         </View>
                         <View >

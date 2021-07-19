@@ -205,7 +205,7 @@ export const MyAccount =(props)=>{
                     </View>
                     <View style={{flexDirection:'row',justifyContent:'center',marginTop:9,alignItems:'center'}}>
                         <Icon size={12} name='copyright' type='material-community' color={'#aaa'}/>
-                        <Text style={styles.copyRightText}>&nbsp;2021, Knock Knock</Text>
+                        <Text style={styles.copyRightText}>&nbsp;2021 Knock Knock. All Rights Reserved</Text>
                     </View>
                     <View style={{flexDirection:'row',justifyContent:'center',marginTop:9,alignItems:'center'}}>
                         <Text style={styles.copyRightText}>V {DeviceInfo.getVersion()}</Text>

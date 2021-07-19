@@ -3,7 +3,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Animated
+  Animated,
+  RefreshControl
 }                             from 'react-native';
 import { Icon }               from "react-native-elements";
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles.js';
@@ -21,6 +22,8 @@ import SearchSuggetion        from '../../ScreenComponents/SearchSuggetion/Searc
 import { Dimensions }         from 'react-native';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles';
 import { NetWorkError } from '../../../NetWorkError.js';
+import { getCategoryWiseList }  from '../../redux/productList/actions.js';
+import { ScrollView } from 'react-native';
 
 const scrollY = new Animated.Value(0);
 const diffClamp= Animated.diffClamp(scrollY,0,135)
@@ -28,7 +31,7 @@ const translateY = diffClamp.interpolate({
   inputRange:[0,135],
   outputRange:[0,-135]
 })
-// console.log("diffClamp",diffClamp);
+
 const window = Dimensions.get('window');
 const VendorProducts = (props)=>{
   const isFocused = useIsFocused();
@@ -38,8 +41,9 @@ const VendorProducts = (props)=>{
   const [subCategory,setSubCategory]= useState([]);
   const {navigation,route}=props;
   const [showSort, toggleSort] = useState(false);
+  const [refreshing,setRefresh]= useState(false)
   const {vendor,sectionUrl,section,index,vendorLocation_id,category}=route.params;
-  const dispatch 		= useDispatch();
+  const dispatch = useDispatch();
 
   TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
   
@@ -53,6 +57,14 @@ const VendorProducts = (props)=>{
   useEffect(() => {
     getData();
  },[props,isFocused]);
+
+
+
+ const refreshControl=()=>{
+  setRefresh(true);
+  dispatch(getCategoryWiseList(payload));
+  setRefresh(false);
+}
  
  const getData= async ()=>{
     var user_id = await  AsyncStorage.getItem('user_id') 
@@ -110,7 +122,7 @@ const onScroll=(e)=>{
       {globalSearch.search ?
         <SearchSuggetion />
         :
-        <View style={styles.container}>
+        <View style={styles.container} >
           <Animated.View
             style={{
               transform:[
@@ -120,6 +132,7 @@ const onScroll=(e)=>{
 		          zIndex:100,
               position:"absolute"
             }}
+            
           >
            <View style={[styles.block1]}>
             <MenuCarouselSection  

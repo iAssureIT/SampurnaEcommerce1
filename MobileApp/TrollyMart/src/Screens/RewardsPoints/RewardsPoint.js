@@ -90,7 +90,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                       <Text style={[styles.headerText2]}>Current Balance</Text>
                     </View> 
                     <View style={{flex:0.5}}>
-                    <Text style={[styles.headerText2,{fontWeight:'bold',alignSelf:"flex-end"}]}>{creditPoints.totalPointsValue ? creditPoints.totalPointsValue : 0+" "+currency}</Text>
+                    <Text style={[styles.headerText2,{fontWeight:'bold',alignSelf:"flex-end"}]}>{creditPoints.totalPointsValue ? creditPoints.totalPointsValue : 0+" "} {currency}</Text>
                      </View>
                   </View>
                 </View>

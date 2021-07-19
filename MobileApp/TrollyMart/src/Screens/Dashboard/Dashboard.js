@@ -4,6 +4,7 @@ import {ScrollView,
         FlatList, 
         TouchableOpacity,
         BackHandler,
+        RefreshControl,
         Keyboard}                   from 'react-native';
 import {Icon }                      from "react-native-elements";
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
@@ -42,6 +43,7 @@ const Dashboard = withCustomerToaster((props)=>{
   const [blocks,setBlocks]    = useState([]);
   const [loading,setLoading]  = useState(true);
   const limit                 = 6;
+  const [refreshing,setRefreshing] = useState(false);
 
   const backAction = () => {
     Alert.alert("Confirmation!", "Are you sure you want to exit app?", [
@@ -79,13 +81,16 @@ const Dashboard = withCustomerToaster((props)=>{
     console.log("store",store);
 
   const getBlocks=()=>{
+    console.log("call");
     axios.get('/api/pages/get/page_block/homepage')
     .then(res=>{
       setBlocks(res.data.pageBlocks);
-      setLoading(false)
+      setLoading(false);
+      setRefreshing(false);
     })
     .catch((error)=>{
-      setLoading(false)
+      setLoading(false);
+      setRefreshing(false);
       if (error?.response?.status == 401) {
         setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
         navigation.navigate('App')
@@ -94,6 +99,12 @@ const Dashboard = withCustomerToaster((props)=>{
         setToast({text: 'Something went wrong.', color: 'red'});
       }  
     })
+  }
+
+  const onRefresh =()=>{
+    setRefreshing(true);
+    dispatch(getSectionList());
+    getBlocks();
   }
 
 
@@ -110,7 +121,13 @@ const Dashboard = withCustomerToaster((props)=>{
         globalSearch.search ?
           <SearchSuggetion />
         :
-        <ScrollView contentContainerStyle={[styles.container]} keyboardShouldPersistTaps="handled" >
+        <ScrollView 
+          contentContainerStyle={[styles.container]} 
+          keyboardShouldPersistTaps="handled" refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />} >
           <View  style={[styles.formWrapper]}>
               {globalSearch.searchText ?
                 null

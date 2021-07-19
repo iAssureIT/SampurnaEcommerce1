@@ -1,7 +1,7 @@
 import React ,{useState,useEffect} from 'react';
 import {
   Text, View, 
-  TouchableOpacity, Image, FlatList, Alert,StyleSheet, ImageBackground,Platform
+  TouchableOpacity, Image, FlatList,ImageBackground,RefreshControl
 } from 'react-native';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/ProductListStyles.js';
 import { Icon, Button }       from "react-native-elements";
@@ -36,6 +36,7 @@ export const ProductList = withCustomerToaster((props)=>{
   const [packsizes,setPacksizes]= useState('');
   const [user_id,setUserId]= useState('');
   const [limit,setLimit]= useState(props.limit);
+  const [refreshing,setRefresh]= useState(false);
   // FastImage.preload = (sources: Source[]) =>FastImageViewNativeModule.preload(sources);
   useEffect(() => {
     getData();
@@ -411,9 +412,14 @@ export const ProductList = withCustomerToaster((props)=>{
                   //Call pagination function
             }
           }}
-          // getItemLayout={(data, index) => (
-          //   {length:200, offset: 200 * index, index}
-          // )}
+          // refreshControl={
+          //   <RefreshControl
+          //     refreshing={refreshing}
+          //     onRefresh={refreshControl}
+          //   />}
+          getItemLayout={(data, index) => (
+            {length:200, offset: 200 * index, index}
+          )}
           /> 
       </React.Fragment>
     );
