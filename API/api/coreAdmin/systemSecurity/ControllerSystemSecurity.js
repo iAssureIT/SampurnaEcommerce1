@@ -2434,7 +2434,7 @@ exports.set_send_otp = (req, res, next) => {
 				.exec()
 				.then(async(data) => {
 					console.log("data",data);
-					if (data.nModified === 1) {
+					// if (data.nModified === 1) {
 						var userNotificationValues = {
 							"event"			: "SendOTP",
 							"toUser_id"		: user._id,
@@ -2451,13 +2451,13 @@ exports.set_send_otp = (req, res, next) => {
 							ID 		: user._id,
 							profile : user.profile 
 						})
-					} else {
-						res.status(200).json({ 
-							message : "Failed to send OTP", 
-							ID 		: user._id,
-							profile : user.profile 
-						})
-					}
+					// } else {
+					// 	res.status(200).json({ 
+					// 		message : "Failed to send OTP", 
+					// 		ID 		: user._id,
+					// 		profile : user.profile 
+					// 	})
+					// }
 				})
 				.catch(err => {
 					res.status(500).json({

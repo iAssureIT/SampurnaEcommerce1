@@ -40,21 +40,22 @@ class CategoryManagement extends Component{
 			"tableHeading"             : {
 														section              : "Section",
 														category             : "Category Title",
-														categoryNameRlang    : "Category Name RL",
+														// categoryNameRlang    : "Category Name RL",
 														categoryRank         : "Category Rank",
-														categoryDescription 	: "Category Description",
+														// categoryDescription 	: "Category Description",
 														subCategory         	: "SubCategories"
 			},
 			"tableObjects"          	: {
 														deleteMethod        	: 'delete',
-														apiLink              : '/api/category',
-														paginationApply      : true,
-														searchApply          : true,
-														editUrl              : '/project-master-data/',
-														deleteUrl            : '/project-master-data',
+														apiLink              	: '/api/category',
+														paginationApply      	: true,
+														// searchApply          : true,
+														editUrl              	: '/project-master-data/',
+														deleteUrl            	: '/project-master-data',
 														patchStatusUrl      	: '/api/category/patch/status',
-														type                 : 'Categories',
-														showAction 			 : true
+														type                 	: 'Categories',
+														showAction 			 	: true,
+														checkbox 				: false
 			},
 			"sectionsList"          	: [],
 			"startRange"            	: 0,

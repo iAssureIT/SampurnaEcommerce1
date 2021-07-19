@@ -576,7 +576,7 @@ class IAssureTable extends Component {
 					{/* this.state.tableData && this.state.id && this.state.tableName && this.state.tableData.length !== 0 ? */}
 					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
 
-						<React.Fragment>
+						{/* <React.Fragment>
 							<div className="col-lg-1 col-lg-offset-9 col-md-1 col-xs-12 col-sm-12  NoPadding downloadBtns pull-right "id="pdfWrap" iref={ref}>
 								<button type="button" className=" pull-left tableprintincon" title="Print Table" onClick={this.printTable}><i className="fa fa-print" aria-hidden="true"></i></button>
 								<ReactHTMLTableToExcel
@@ -589,14 +589,14 @@ class IAssureTable extends Component {
 									buttonText={<i class="fa fa-download" aria-hidden="true"></i>}
 								/>
 							</div>
-						</React.Fragment>
+						</React.Fragment> */}
 						{/* : null
 
 					: null
 				} */}
 				{
 					this.state.tableObjects.paginationApply === true ?
-						<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 NOpadding pull-right pagignationDiv">
+						<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 NOpadding pagignationDiv">
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 								<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop8 NOpadding formLable">Data Per Page</label>
 								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding  input-group">

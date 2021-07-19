@@ -188,9 +188,9 @@ exports.count_section = (req,res,next)=>{
 
 exports.get_sections_with_limits = (req,res,next)=>{
     Sections.find()  
+        .sort({"createdAt" : -1})
         .skip(parseInt(req.params.startRange))
         .limit(parseInt(req.params.limitRange))     
-        .exec()
         .then(data=>{
             res.status(200).json(data);
         })

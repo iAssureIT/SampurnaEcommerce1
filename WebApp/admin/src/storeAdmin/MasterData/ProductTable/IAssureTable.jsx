@@ -759,7 +759,7 @@ class IAssureTable extends Component {
 		       	{
 		       		this.state.tableObjects.paginationApply === true ?
 			       		<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 NoPadding">
-							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17 NOpadding">Show</label>
+							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17 NOpadding">Data Per Page</label>
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 								<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">
 									<option value="Not Selected" disabled>Select Limit</option>
@@ -776,8 +776,13 @@ class IAssureTable extends Component {
 		       	}
 				<div className="col-lg-6  col-md-6  col-xs-12 col-sm-12 text-center mt50">
 	        		{/* <label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Filtered Products: <span >{this.state.dataCount}</span> </label> */}
-					<label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Selected {this.state.tableObjects.type} : <span >{this.state.allid ? this.state.allid.length : '0'}</span> </label>
-				</div> 
+					{this.state.tableObjects.checkbox !== false
+					?
+						<label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Selected {this.state.tableObjects.type} : <span >{this.state.allid ? this.state.allid.length : '0'}</span> </label>
+					:
+						null
+					}
+					</div> 
 				{
 		       		this.state.tableObjects.searchApply === true ? 
 			       		<div className="col-lg-4  col-md-4  col-xs-12 col-sm-4 marginTop17 pull-right NoPadding">
@@ -797,7 +802,7 @@ class IAssureTable extends Component {
 						<table className="table iAssureITtable-bordered table-striped table-hover">
 	                        <thead className="tempTableHeader">	     
 		                        <tr className="">
-		                            { 
+									{ 
 		                            	this.state.twoLevelHeader.apply === true ?
 		                            	this.state.twoLevelHeader.firstHeaderData.map((data, index)=>{
 		                            		return(
@@ -809,12 +814,19 @@ class IAssureTable extends Component {
 									}
 	                            </tr>
 	                            <tr className="">
-	                            <th className="umDynamicHeader srpadd paddingLeft0">
-									<div className="uMDetailContainer checkAll">
-										<input type="checkbox" className="allSelector" name="allSelector" onChange={this.checkAll.bind(this)}/>
-								    	{/* <span className="uMDetailCheck"></span> */}
-								    </div>
-								</th>
+								{this.state.tableObjects.checkbox !== false
+								?
+									<th className="umDynamicHeader srpadd paddingLeft0">
+										<div className="uMDetailContainer checkAll">
+											<input type="checkbox" className="allSelector" name="allSelector" onChange={this.checkAll.bind(this)}/>
+											{/* <span className="uMDetailCheck"></span> */}
+										</div>
+									</th>
+								:
+									<th className="umDynamicHeader srpadd text-center">Sr. No.</th>
+		                            
+								}
+
 		                            { this.state.tableHeading ?
 										Object.entries(this.state.tableHeading).map( 
 											([key, value], i)=> {
@@ -845,8 +857,13 @@ class IAssureTable extends Component {
 											// console.log("value",value)											
 											return(
 												<tr key={i} className="">
-													<td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>
+													{this.state.tableObjects.checkbox !== false
+													?
+														<td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>
+													:
+													<td className="textAlignCenter">{this.state.startRange + 1 + i}</td>
 													
+													}
 													{
 														Object.entries(value).map( 
 															([key, value1], i)=> {

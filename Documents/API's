@@ -259,3 +259,6 @@ formValues  = {
     "orderStatus"   : "Delivered" 
 }
 Note : return only matched objects from vendorOrders (remaining)
+
+allocationRejectReason  : "",
+allocationRejectDesc    : ""

@@ -955,7 +955,7 @@ function addSplitVendorOrders(orderID) {
 
 /** =========== Change Vendor Order Status =========== */
 exports.change_vendor_orders_status = (req, res, next) => {
-	// console.log("req.body => ",req.body)
+	console.log("req.body => ",req.body)
 	var statusObj = {
 		status 				: req.body.changeStatus,
 		timestamp 			: new Date(),
@@ -978,14 +978,14 @@ exports.change_vendor_orders_status = (req, res, next) => {
 		}
 	})
 	.then(async(updatedata) => {
-		// console.log("updatedata => ",updatedata);
+		console.log("updatedata => ",updatedata);
 		if (updatedata.nModified === 1) {
 			var vendorOrders 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {vendorOrders : 1});
-			// console.log("OrderStatuses => ",OrderStatuses);
-			// console.log("vendorOrders => ",vendorOrders);
+			console.log("OrderStatuses => ",OrderStatuses);
+			console.log("vendorOrders => ",vendorOrders);
 			var count = 0;
 			for(var i=0; i < vendorOrders.vendorOrders.length; i++){
-				// console.log("vendorOrders.vendorOrders.orderStatus => ",vendorOrders.vendorOrders[i].orderStatus)
+				console.log("vendorOrders.vendorOrders.orderStatus => ",vendorOrders.vendorOrders[i].orderStatus)
 				if(vendorOrders.vendorOrders[i].orderStatus === "Delivered" || vendorOrders.vendorOrders[i].orderStatus === "Cancelled"){
 					count += 1;
 					// console.log("count 1 => ",count)
@@ -1003,11 +1003,11 @@ exports.change_vendor_orders_status = (req, res, next) => {
 						}
 					)
 					.then(async(updateorderdata) => {
-						// console.log("updateorderdata => ",updateorderdata)
+						console.log("updateorderdata => ",updateorderdata)
 					
 						var orderdata 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {user_ID : 1, deliveryAddress : 1, orderID : 1});
 						var userData 	= await User.findOne({"_id" : ObjectId(orderdata.user_ID)}); 
-						// console.log("userData => ",userData)
+						console.log("userData => ",userData)
 						
 						var userNotificationValues = {
 							"event"				: "OrderStatusChange",

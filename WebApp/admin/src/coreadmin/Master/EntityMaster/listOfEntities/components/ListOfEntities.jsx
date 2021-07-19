@@ -675,7 +675,7 @@ class ListOfEntities extends Component {
 											</div>
 											
 											<h5 className="box-title2 col-lg-2 col-md-11 col-sm-11 col-xs-12 nopadding">Total Records :&nbsp;&nbsp;<b>{this.state.entityCount}</b></h5>
-											<h5 className="box-title2 col-lg-2 col-md-11 col-sm-11 col-xs-12 nopadding">Filtered :&nbsp;&nbsp;<b>{this.state.entityList.length}</b></h5>
+											<h5 className="box-title2 col-lg-2 col-md-11 col-sm-11 col-xs-12 nopadding">Filtered Records :&nbsp;&nbsp;<b>{this.state.entityList.length}</b></h5>
 											<div className="col-lg-3 col-md-12 col-sm-12 col-xs-12 pull-right inLOE noPadding" >
 												<span className="blocking-span" >
 													<input type="text" name="search" className="col-lg-8 col-md-8 col-sm-8 col-xs-12 Searchusers searchEntity inputTextSearch outlinebox pull-right texttrans"
@@ -689,7 +689,7 @@ class ListOfEntities extends Component {
 											</div>
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 firstElement filterWrapper">
 												<div className="col-lg-2 col-md-12 col-sm-12 col-xs-12 nopadding">
-													<button type="button" className="reset selheight" onClick={this.resetFilter.bind(this)}>RESET FILTERS</button>
+													<div className="reset selheight" onClick={this.resetFilter.bind(this)}>RESET FILTERS</div>
 												</div>
 												
 												<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12">

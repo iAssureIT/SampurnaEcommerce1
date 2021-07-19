@@ -32,7 +32,8 @@ class SectionManagement extends Component {
                 editUrl         : '/project-master-data/',
                 patchStatusUrl  : '/api/sections/patch/status',
                 type            : 'Sections',
-                showAction 		: true
+                showAction 		: true,
+                checkbox 		: false
             },
             "startRange"    : 0,
             "limitRange"    : 10,
@@ -515,7 +516,7 @@ class SectionManagement extends Component {
                                                     </div>
                                                     <div className="col-lg-5 fieldWrapper">
                                                         <div className="col-lg-12">
-                                                            <label>Section URL <i className="redFont">*</i></label>
+                                                            <label>Section URL {/*<i className="redFont">*</i> */}</label>
                                                             <input disabled value={this.state.sectionUrl} onChange={this.handleChange.bind(this)} id="sectionUrl" name="sectionUrl" type="text" className="form-control sectionUrl" placeholder="Section URL" ref="sectionUrl" />
                                                         </div>                            
                                                     </div>
