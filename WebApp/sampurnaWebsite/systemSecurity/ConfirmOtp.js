@@ -23,7 +23,6 @@ class ConfirmOTP extends Component {
       var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
-          var userID                = userDetails.user_id; 
           this.setState({
             userId  : userDetails.userId,
           })
@@ -47,7 +46,8 @@ class ConfirmOTP extends Component {
 
   verifyOTP(event){
     event.preventDefault();
-        cons
+        console.log("this.state.userId===",this.state.userId,this.state.otp);
+        if(this.state.otp){
         axios.get("/api/auth/get/checkmobileotp/usingID/"+this.state.userId+"/"+this.state.otp)
         .then((verifyOtpResponse)=>{
             if(verifyOtpResponse){
@@ -59,6 +59,9 @@ class ConfirmOTP extends Component {
         .catch((error)=>{
             console.log("error while resending otp==",error);
         })
+      }else{
+        swal("Please enter OTP");
+      }
   }
 
   openSignUpModal(event){

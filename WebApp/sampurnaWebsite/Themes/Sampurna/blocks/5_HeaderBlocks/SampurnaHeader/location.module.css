@@ -173,7 +173,7 @@
     width: 507px!important;
     opacity: 0.72!important;
     box-shadow: -3px 3px 6px #000000e8!important;
-    margin-left:-25px!important;
+    /* margin-left:-25px!important; */
 }
 
 .orline{
@@ -212,7 +212,7 @@
 @media only screen and (min-width: 1440px) {
     /* styles for browsers larger than 1440px; */
     .locationBTN1{
-        margin-left: -106px!important;
+        margin-left: -98px!important;
         background: #033554 0% 0% no-repeat padding-box;
         box-shadow: 0px 3px 6px #000000a6;
         border-radius: 10px;

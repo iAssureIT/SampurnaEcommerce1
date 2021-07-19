@@ -385,7 +385,9 @@ input[type=number] {
   position: relative;
   z-index: 2;
 }
-
+.resetWrapper{
+  color: #033554 !important;
+}
 
 
 @media only screen and (max-device-width: 480px) {

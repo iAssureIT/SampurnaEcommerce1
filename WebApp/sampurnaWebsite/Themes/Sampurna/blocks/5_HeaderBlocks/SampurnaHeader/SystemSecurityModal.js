@@ -101,7 +101,7 @@ class header extends React.Component {
         event.preventDefault();
         var token = localStorage.removeItem("userDetails");
         Router.push('/');
-        window.location.reload();
+        // window.location.reload();
         if (token !== null) {
           this.setState({
             loggedIn: false

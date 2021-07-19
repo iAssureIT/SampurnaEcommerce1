@@ -23,11 +23,12 @@ class DeliveryLocationPopup extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-            address      : "",
-            googleapiKey : "",
+            address             : "",
+            googleapiKey        : "",
             detectCurrentLocation : false,
-            userAddress  : [],
-            country      : "",
+            userAddress         : [],
+            country             : "",
+            searchLocationError : ""
 		}; 
     }
     componentDidMount(){   
@@ -51,7 +52,12 @@ class DeliveryLocationPopup extends React.Component {
          })  
         
          var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-
+        //  var deliveryLocation = sampurnaWebsiteDetails.deliveryLocation;
+        //  if(deliveryLocation){
+        //      this.setState({
+        //          address : sampurnaWebsiteDetails.deliveryLocation.address,
+        //      })
+        //  }
          var user_details           =  JSON.parse(localStorage.getItem('userDetails'));
          if(user_details){
              this.setState({
@@ -69,9 +75,10 @@ class DeliveryLocationPopup extends React.Component {
                 }
                 this.setState({
                     address : sampurnaWebsiteDetails.deliveryLocation.address,
+                    country : sampurnaWebsiteDetails.deliveryLocation.country,
                     latLong :latLongDetails
                 },()=>{
-                    // console.log("latLong===",this.state.latLong);
+                    // console.log("address===",this.state.address);
                 })
             }
         }
@@ -223,12 +230,13 @@ class DeliveryLocationPopup extends React.Component {
                 });
     }
 
-    saveLocation(event) {
+saveLocation(event) {
         event.preventDefault();
         // var address = this.name.address.value;
         // var address = this.refs.address.value;
         // console.log("Address===",address);
         // console.log("savelocation  this.state===",this.state.country);
+        if(this.state.address){
         var deliveryLocation = {
             "address"        : this.state.address,
             "city"           : this.state.city,
@@ -260,7 +268,12 @@ class DeliveryLocationPopup extends React.Component {
         }else{
             swal("Sorry!! Delivery is not possible out of UAE");
         }
+    }else{
+        this.setState({
+            "searchLocationError" : "Please search your location here."
+        })
     }
+}
 
     handleChangePlaces = address => {
         this.setState({ address: address });
@@ -363,7 +376,6 @@ class DeliveryLocationPopup extends React.Component {
     return (
         <div className={"row locationPage locationBg " +Style.locationBg +" "+Style.locationPage} >
             <div className={"col-12  "}>
-
                 {
                     this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
                     <div className="col-3 NoPadding AddressListWrapper">
@@ -431,6 +443,7 @@ class DeliveryLocationPopup extends React.Component {
                                                         );
                                                     })}
                                                 </div>
+                                                <div className="col-12 NoPadding errormsg">{this.state.searchLocationError}</div>
                                             </div>
                                             )}
                                     </PlacesAutocomplete>

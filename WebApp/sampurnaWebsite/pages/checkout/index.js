@@ -145,7 +145,7 @@ class Checkout extends Component {
                                     
                     // fields["pincode"] = response.data.profile.pincode;
                     // fields["addType"] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addType : null ;
-                    fields["paymentmethods"] = 'cod';
+                    fields["paymentmethods"] = 'Cash On Delivery';
                     this.setState({
                         fields
                     });
@@ -775,13 +775,12 @@ class Checkout extends Component {
 
     render() {
         // console.log("this.state.recentCartData===",this.props.recentCartData);
-        console.log("fetchAddressData===",this.props.recentAddressData);
+        // console.log("fetchAddressData===",this.props.recentAddressData);
         return (
             <div className="col-12 NoPadding">
             < Header/>
             <div className="col-12 checkoutWrapper" style={{ backgroundColor: "#ffffff" }}>
                 <Message messageData={this.state.messageData} />
-                
                 <div className="row">
                     {/* <Loader type="fullpageloader" /> */}
                     <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
@@ -1254,7 +1253,6 @@ class Checkout extends Component {
                     </div> 
                     }
                 </div>
-                
             </div>
             <Footer />
             </div>

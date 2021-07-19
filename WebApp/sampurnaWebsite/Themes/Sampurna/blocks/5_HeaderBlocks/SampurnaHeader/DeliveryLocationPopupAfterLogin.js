@@ -28,6 +28,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
             detectCurrentLocation : false,
             userAddress  : [],
             country      : "",
+            searchLocationError : ""
 		}; 
     }
     componentDidMount(){   
@@ -70,9 +71,10 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                 }
                 this.setState({
                     address : sampurnaWebsiteDetails.deliveryLocation.address,
+                    country : sampurnaWebsiteDetails.deliveryLocation.country,
                     latLong :latLongDetails
                 },()=>{
-                    // console.log("latLong===",this.state.latLong);
+                    console.log("address===",this.state.address);
                 })
             }
         }
@@ -184,7 +186,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                     "latitude"       : position.coords.latitude,
                                     "longitude"      : position.coords.longitude,
                                 });
-                                console.log("deliveryLocation.country===",deliveryLocation.country);
+                                // console.log("deliveryLocation.country===",deliveryLocation.country);
                                 if(deliveryLocation.country === "United Arab Emirates"){
                                     if(that.props.sampurnaWebsiteDetails){
                                         // console.log("deliveryLocation=",deliveryLocation);
@@ -220,6 +222,11 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
 
     saveLocation(event) {
         event.preventDefault();
+        // var address = this.name.address.value;
+        // var address = this.refs.address.value;
+        // console.log("Address===",address);
+        // console.log("savelocation  this.state===",this.state.country);
+        if(this.state.address){
         var deliveryLocation = {
             "address"        : this.state.address,
             "city"           : this.state.city,
@@ -232,7 +239,9 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
             "latitude"       : this.state.latitude,
             "longitude"      : this.state.longitude,
         }
-        console.log("this.state.country===",this.state.country);
+
+        console.log("savelocation this.state.country===",this.state.country);
+
         if((this.state.country) === "United Arab Emirates"){     
             if(this.props.sampurnaWebsiteDetails){
                 var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
@@ -249,7 +258,12 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
         }else{
             swal("Sorry!! Delivery is not possible out of UAE");
         }
+    }else{
+        this.setState({
+            "searchLocationError" : "Please search your location here."
+        })
     }
+}
 
     handleChangePlaces = address => {
         this.setState({ address: address });

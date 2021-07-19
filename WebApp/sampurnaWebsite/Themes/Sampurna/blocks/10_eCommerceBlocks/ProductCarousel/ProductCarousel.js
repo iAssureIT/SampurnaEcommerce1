@@ -298,7 +298,7 @@ class ProductCarousel extends Component {
               productApiUrl : productApiUrl,
             })
         }
-        console.log("getProductLIst productApiUrl===",this.state.productApiUrl,"Formvalues==",formValues,"BrandsData==",this.state.brandData,"categoryData==",this.state.subcategoryArray);
+        // console.log("getProductLIst productApiUrl===",this.state.productApiUrl,"Formvalues==",formValues,"BrandsData==",this.state.brandData,"categoryData==",this.state.subcategoryArray);
         this.getProductList(productApiUrl,formValues);
        
       });
@@ -336,7 +336,7 @@ getProductList(productApiUrl,formValues){
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-      console.log("response.data===",response.data);
+      // console.log("response.data===",response.data);
       this.setState({
         newProducts     : response.data,   
         // newProducts     : response.data.concat(this.state.newProducts),                         

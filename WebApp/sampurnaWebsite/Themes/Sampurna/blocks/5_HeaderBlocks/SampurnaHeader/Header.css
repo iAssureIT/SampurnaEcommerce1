@@ -804,3 +804,7 @@ li a{
 .locationText{
     color: #999;
 }
+.errormsg{
+    color: #f00 !important;
+    font-weight: 200 !important;
+}
