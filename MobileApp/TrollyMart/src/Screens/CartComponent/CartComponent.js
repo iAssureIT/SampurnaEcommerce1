@@ -272,21 +272,15 @@ const getshippingamount=(startRange, limitRange)=>{
                               </TouchableOpacity>
                             <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
                               {item.product_ID.availableQuantity > 0 ?
-                                <View style={[styles.flxdir]}>
-                                  <View style={{}}>
+                                <View style={[styles.flxdir,{alignItems:'flex-end'}]}>
                                     <Text style={styles.currency}>{currency} </Text>                                    
-                                  </View>
-                                  <View>
                                   {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
-                                  </View>
-                                  <View style={{}}>
-                                      <Text style={styles.currency}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                      </Text>
-                                  </View>
-                                  {item.product_ID.discountPercent > 0 &&<View style={{marginTop:3}}>
+                                    <Text style={styles.currency}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                    </Text>
+                                  {item.product_ID.discountPercent > 0 &&
                                       <Text style={styles.offprice}>{item.product_ID.discountPercent} % <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                       </Text>
-                                  </View>}
+                                  }
                                 </View>
                                 :
                                 <Text style={styles.totaldata}>SOLD OUT</Text>
@@ -308,7 +302,7 @@ const getshippingamount=(startRange, limitRange)=>{
                             </TouchableOpacity>
                         </View>
                         <View style={styles.flxdir}>
-                          <View style={styles.flx5}>
+                          <View style={[styles.flx5]}>
                             <Counter start={item.quantity} min={1} max={100}
                                 buttonStyle={{
                                   borderColor: '#033554',
@@ -328,10 +322,9 @@ const getshippingamount=(startRange, limitRange)=>{
                                 onChange={(e)=>onChange(e,item.product_ID._id,vendor.vendor_id._id)} 
                                 />
                           </View>
-                          <View style={[styles.flx5],{justifyContent:'flex-end'}}>
-                            <View style={{justifyContent:'flex-end'}}>
+                          <View style={[styles.flx5,{alignItems:'flex-end'}]}>
                               <View style={styles.proddeletes}>
-                                <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID._id)} >
+                                <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID._id)} >
                                   <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color='#ccc'/>
                                 </TouchableOpacity>
                                 <Icon
@@ -344,7 +337,6 @@ const getshippingamount=(startRange, limitRange)=>{
                                 />
                               </View>
                             </View>
-                          </View>
                         </View>
                       </View>
                     </View>

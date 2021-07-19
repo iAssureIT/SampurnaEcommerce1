@@ -100,8 +100,7 @@ superparent:{
   offprice:{
     fontSize:10,
     color:'#5B8E7E',
-    marginTop:7,
-    marginLeft:5
+    marginLeft:5,
   },
   flxmg:{
     flex:0.9,
@@ -274,8 +273,7 @@ superparent:{
   },
   proddeletes:{
     flexDirection:'row',
-    justifyContent:'flex-end',
-    marginLeft:200
+    // justifyContent:'flex-end',
   },
   wishlisthrt:{
     marginTop:0,
@@ -334,7 +332,7 @@ superparent:{
 		fontSize: 12, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
   },
   currency:{
-    fontSize: 20, fontFamily: "Montserrat-SemiBold", color: '#333',
+    fontSize: 20, fontFamily: "Montserrat-SemiBold", color: '#333'
   },
   currency1:{
     fontSize: 14, fontFamily:"Montserrat-Regular", color: '#333',
@@ -343,6 +341,5 @@ superparent:{
 		fontSize: 14, fontFamily: "Montserrat-SemiBold",
     textDecorationLine: 'line-through',
     alignItems: 'center',
-    marginTop:3,
 	},
 })
