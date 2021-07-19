@@ -23,6 +23,7 @@ import {getCartCount } 		              from '../../redux/productList/actions';
 import openSocket               from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
 import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 // import {AppEventsLogger} from 'react-native-fbsdk';    

@@ -26,6 +26,9 @@ import { connect,
 import {USER_LOGOUT} from '../../redux/store';
 import {SocialMediaLogin} from '../SystemSecurity/RootLogIn/SocialMediaLogin.js';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { Linking } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 
 // export default class AccountDashboard extends React.Component{
@@ -35,9 +38,13 @@ export const MyAccount =(props)=>{
   const isFocused = useIsFocused();
   const store = useSelector(store => ({
     userDetails  : store.userDetails,
-    globalSearch  : store.globalSearch
+    globalSearch  : store.globalSearch,
+    isConnected: store.netWork.isConnected
   }));
-  const {userDetails,globalSearch} = store;
+  const {userDetails,globalSearch,isConnected} = store;
+  console.log("store",store);
+
+  console.log("DeviceInfo.getVersion()",DeviceInfo.getVersion());
 
   const logout=()=>{
     AsyncStorage.removeItem('user_id');
@@ -51,7 +58,9 @@ export const MyAccount =(props)=>{
   
   return (
     isFocused &&<View style={{flex:1,backgroundColor:"#fff"}}>
-   {
+   {!isConnected?
+        <NetWorkError />
+    :
     globalSearch.search ?
         <SearchSuggetion />
     :
@@ -106,21 +115,21 @@ export const MyAccount =(props)=>{
                     <View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=>navigation.navigate('MyOrder')}>
                             {/* <Icon size={30} name='shopping-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/shopping-bag.png")} style={[styles.iconImg],{height:45,width:45}} />
+                            <Image source={require("../../AppDesigns/currentApp/images/shopping-bag.png")} style={[styles.iconImg],{height:45,width:45}} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={styles1.label}>My Orders</Text>
                     </View>
                     {userDetails.authService!=="guest" &&<View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false})} >
                             {/* <Icon size={30} name='map-marker-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}                           
-                            <Image source={require("../../AppDesigns/currentApp/images/address.png")} style={styles.iconImg} />                            
+                            <Image source={require("../../AppDesigns/currentApp/images/address.png")} style={styles.iconImg} resizeMode="contain"/>                            
                         </TouchableOpacity>
                         <Text style={[styles1.label]}>My Address</Text>
                     </View>}
                     {userDetails.authService!=="guest" &&<View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=>navigation.navigate('RewardsPoint')}>
                             {/* <Icon size={30} name='award' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} />
+                            <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={[styles1.label]}>Credit Points</Text>
                     </View>}
@@ -130,21 +139,21 @@ export const MyAccount =(props)=>{
                     <View style={{alignItems:'center',paddingHorizontal:20}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('AboutUs')}>
                             {/* <Icon size={20} name='shopping-bag' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/profile-information.png")} style={[styles.iconImg],{height:20,width:20}} />
+                            <Image source={require("../../AppDesigns/currentApp/images/profile-information.png")} style={[styles.iconImg],{height:20,width:20}} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>About Us</Text>
                     </View>
                     <View style={{alignItems:'center',paddingHorizontal:20}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=> navigation.navigate('SupportSystem')} >
                             {/* <Icon size={20} name='card-account-mail-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/ContactUs.png")} style={[styles.iconImg],{height:20,width:20}} />
+                            <Image source={require("../../AppDesigns/currentApp/images/ContactUs.png")} style={[styles.iconImg],{height:20,width:20}} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Contact Us</Text>
                     </View>
                     <View style={{alignItems:'center',paddingHorizontal:20}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('FAQ')}>
                             {/* <Icon size={20} name='frequently-asked-questions' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/FAQ.png")} style={[styles.iconImg],{height:20,width:20}} />
+                            <Image source={require("../../AppDesigns/currentApp/images/FAQ.png")} style={[styles.iconImg],{height:20,width:20}} resizeMode="contain"/>
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>FAQ</Text>
                     </View>
@@ -153,55 +162,56 @@ export const MyAccount =(props)=>{
                     <View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('TermsConditions')}>
                             {/* <Icon size={20} name='text-box-check-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/compliant.png")} style={[styles.iconImg],{height:20,width:20}} />
+                            <Image source={require("../../AppDesigns/currentApp/images/compliant.png")} style={[styles.iconImg],{height:20,width:20}} resizeMode="contain"/>
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Terms and Conditions</Text>
                     </View>
                     <View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=> navigation.navigate('PrivacyPolicy')} >
                             {/* <Icon size={20} name='book-lock' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/PrivacyPolicy.png")} style={[styles.iconImg],{height:20,width:20}} />
+                            <Image source={require("../../AppDesigns/currentApp/images/PrivacyPolicy.png")} style={[styles.iconImg],{height:20,width:20}} resizeMode="contain"/>
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Privacy Policy</Text>
                     </View>
                 </View> 
                 <View style={styles1.horizontalLine} />
-                {userDetails.authService=="guest" ?
                 <View style={{flex:1}}>
                     <View style={{flexDirection:'row',justifyContent:'center'}}>
-                        <View style={{alignItems:'center',paddingHorizontal:5}}>   
-                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> logout()} >
-                                <Icon size={20} name='instagram' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                        <View style={{alignItems:'center',paddingHorizontal:10}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://www.instagram.com/knockknock_eshop/')} >
+                                <Icon size={15} name='instagram' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
                             </TouchableOpacity>
                         </View>
-                        <View style={{alignItems:'center',paddingHorizontal:5}}>   
-                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> logout()} >
-                                <Icon size={20} name='facebook' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                        <View style={{alignItems:'center',paddingHorizontal:10}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://www.facebook.com/Knock-Knock-103575731986682')} >
+                                <Icon size={15} name='facebook' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
                             </TouchableOpacity>
                         </View>
-                        <View style={{alignItems:'center',paddingHorizontal:5}}>   
-                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> logout()} >
-                                <Icon size={20} name='youtube' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                        <View style={{alignItems:'center',paddingHorizontal:10}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://www.instagram.com/knockknock_eshop/')} >
+                                <Icon size={15} name='youtube' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
                             </TouchableOpacity>
                         </View>
-                        <View style={{alignItems:'center',paddingHorizontal:5}}>   
-                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> logout()} >
-                                <Icon size={20} name='linkedin' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                        <View style={{alignItems:'center',paddingHorizontal:10}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://www.instagram.com/knockknock_eshop/')} >
+                                <Icon size={15} name='linkedin' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
                             </TouchableOpacity>
                         </View>
-                        <View style={{alignItems:'center',paddingHorizontal:5}}>   
-                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> logout()} >
-                                <Icon size={20} name='twitter' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                        <View style={{alignItems:'center',paddingHorizontal:10}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://twitter.com/knockknockeshop')} >
+                                <Icon size={15} name='twitter' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
                             </TouchableOpacity>
                         </View>                        
                     </View>
-                    <View style={{flexDirection:'row',justifyContent:'center'}}>
-                        <View style={{flexDirection:'row',justifyContent:'center'}}>
-                            <Text style={styles.copyRightText}><Icon size={12} name='copyright' type='material-community' color={'#000'}/>&nbsp;2021, Knock Knock</Text>
-                        </View>
+                    <View style={{flexDirection:'row',justifyContent:'center',marginTop:9,alignItems:'center'}}>
+                        <Icon size={12} name='copyright' type='material-community' color={'#aaa'}/>
+                        <Text style={styles.copyRightText}>&nbsp;2021, Knock Knock</Text>
+                    </View>
+                    <View style={{flexDirection:'row',justifyContent:'center',marginTop:9,alignItems:'center'}}>
+                        <Text style={styles.copyRightText}>V {DeviceInfo.getVersion()}</Text>
                     </View>
                 </View>
-                :
+                {userDetails.authService !== "guest" &&
                 <View style={{flexDirection:'row',justifyContent:'center'}}>
                     <View style={{alignItems:'center',paddingHorizontal:15}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1}  onPress={()=> logout()} >
@@ -252,8 +262,8 @@ const styles1 = StyleSheet.create({
         alignItems          : "center",
         justifyContent      : 'center',
         backgroundColor     : "#000",
-        height              : 40,
-        width              : 40,
+        height              : 20,
+        width              : 20,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.5,

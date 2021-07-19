@@ -97,9 +97,7 @@ export const NewOrders =(props)=> {
         axios.patch('/api/orders/changevendororderstatus',payload)
         .then(res=>{
             console.log("res",res);
-            
               getList(index);
-
         })
         .catch(err=>{
             console.log("err",err);

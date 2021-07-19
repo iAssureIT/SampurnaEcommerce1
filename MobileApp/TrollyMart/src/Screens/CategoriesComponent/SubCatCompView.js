@@ -37,6 +37,7 @@ import {HorizontalProductList} from '../../ScreenComponents/HorizontalProductLis
 import { getCategoryWiseList } from '../../redux/productList/actions.js';
 import { Dropdown }            from 'react-native-material-dropdown-v2';
 import Feather from 'react-native-vector-icons/Feather';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 
 export const SubCatCompView = withCustomerToaster((props)=>{

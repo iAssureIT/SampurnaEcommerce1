@@ -13,7 +13,9 @@ import location               from './location';
 import section                from './section';
 import storeSettings                from './storeSettings';
 import s3Details              from './s3Details';
+import netWork              from './netWork';
 const appReducer = combineReducers({
+  netWork,
   userDetails,
   productList,
   wishDetails,

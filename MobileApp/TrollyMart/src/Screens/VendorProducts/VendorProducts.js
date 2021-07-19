@@ -20,6 +20,7 @@ import Loading                from '../../ScreenComponents/Loading/Loading.js';
 import SearchSuggetion        from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { Dimensions }         from 'react-native';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 const scrollY = new Animated.Value(0);
 const diffClamp= Animated.diffClamp(scrollY,0,135)

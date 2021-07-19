@@ -15,6 +15,7 @@ import { withCustomerToaster }  from '../../redux/AppState.js';
 import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { ActivityIndicator }    from 'react-native-paper';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 export const RewardsPoint =withCustomerToaster((props)=>{
   const {navigation,setToast}=props;

@@ -10,10 +10,6 @@ import {
   ActivityIndicator}        from 'react-native';
 import Modal                from "react-native-modal";
 import { Button, Icon,Card} from "react-native-elements";
-import StepIndicator        from 'react-native-step-indicator';
-import {Menu}               from '../../ScreenComponents/Menu/Menu.js';
-import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}             from '../../ScreenComponents/Footer/Footer.js';
 import styles               from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import { colors }           from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading              from '../../ScreenComponents/Loading/Loading.js';
@@ -31,6 +27,7 @@ import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyle
 import openSocket           from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 const labels = ["Processing", "Preparing", "On the Way", "Delivered"];
@@ -84,6 +81,7 @@ export const MyOrder = withCustomerToaster((props)=>{
       setMyOrders(response);
       setLoading(false);
     })
+    socket.on('connect_error', err => setLoading(false))
 }, [props,isFocused]);
 
  const getorderlist=()=>{
@@ -186,18 +184,14 @@ export const MyOrder = withCustomerToaster((props)=>{
     } else {
       return (
         <React.Fragment>
-          {/* <HeaderBar3
-            goBack={navigation.goBack}
-            navigate={navigation.navigate}
-            headerTitle={"My Orders"}
-            toggle={() => toggle()}
-            openControlPanel={() => openControlPanel()}
-          /> */}
           <View style={styles.superparent}>
             {globalSearch.search ?
                 <SearchSuggetion />
               :
               <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+                <View style={{paddingVertical:24,paddingHorizontal:20}}>
+                  <Text style={CommonStyles.screenHeader}>My Orders</Text>
+                </View>
               <View style={styles.formWrapper}>
                 {loading?
                 <Loading/>
@@ -218,129 +212,109 @@ export const MyOrder = withCustomerToaster((props)=>{
                           positionOrder = 4;
                         }
                         return(
-                          <View style={[styles.prodinfoparent,]}>
-                            <View style={{flexDirection:'row'}}>
-                              <View style={[styles.orderid]}>
-                                <Text style={styles.orderidinfo}>Order No :</Text>
-                                <Text style={styles.orderidinfo}>{order.orderID}</Text>
-                              </View>
-                              <View style={styles.orderid}>
-                                <Text style={styles.orderidinfo}>Date : </Text>
-                                <Text style={styles.orderidinfo}>{moment(order.createdAt).format("DD/MM/YYYY hh:mm a")}</Text>
-                              </View>
-                           </View> 
-                           <View style={{flexDirection:"row",paddingVertical:15}}>
-                              <View style={[{flex:0.7},]}>
-                                <Text style={styles.totaldata}>Total Amount</Text>
-                                <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
-                              </View>
-                              {positionOrder === 3  &&
-                              <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>
-                                <View style={[styles.vendorStatus,
-                                      (positionOrder === 0 ? 
-                                      {backgroundColor:'#017BFE'}
-                                      :
-                                      positionOrder === 1 ? 
-                                      {backgroundColor:colors.warning}
-                                      :
-                                      positionOrder === 2 ? 
-                                      {backgroundColor:"#EB984E"}
-                                      :
-                                      positionOrder === 3 ?  
-                                      {backgroundColor:colors.success}
-                                      :
-                                      positionOrder === 4 ?  
-                                      {backgroundColor:colors.red}
-                                      :
-                                      "#eee")
-                                    ]}>
-                                <Text style={[styles.totaldata,{padding:5,color:"#fff"}]}>{order.orderStatus}</Text>
-                              </View>
-                            </View>}
-                          </View>   
-                          {order.vendorOrders.map((item,i)=>{
-                            var position = 0;
-                            if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Verified") {
-                              position = 0;
-                            } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Packed" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Inspection" || item.deliveryStatus[item.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
-                              position = 1;
-                            } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Dispatch" || item.deliveryStatus[item.deliveryStatus.length - 1].status ===  "Delivery Initiated") {
-                              position = 2;
-                            }else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Delivered & Paid") {
-                              position = 3;
-                            } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Cancelled") {
-                              position = 4;
-                            }   
-                            return (
-                              <Card containerStyle={styles.orderstatusmgtop}>
-                                <View style={{marginBottom:5}}>
-                                  <Text style={[styles.totaldata]}>{item.vendorName}</Text>
-                                </View>  
-                                  {/* {
-                                    item && item.deliveryStatus
-                                      && item.deliveryStatus[item.deliveryStatus.length - 1].status !== 'Cancelled' ?
-                                      <View style={styles.orderstatus}>
-                                        <StepIndicator
-                                          customStyles={customStyles}
-                                          currentPosition={position}
-                                          labels={labels}
-                                          stepCount={4}
-                                        />
-                                      </View>
-                                      :
-                                      <View style={styles.orderstatus}>
-                                        <Text style={styles.ordercancelled}>Order Cancelled</Text>
-                                      </View>
-                                  } */}
-                                <View style={{flexDirection:'row'}}>
-                                  <View style={{flex:0.6}}>
-                                    <View style={styles.flxdata}>
-                                      <View style={{ flex: 0.35 }}>
-                                        <Text style={styles.totaldata}>Items</Text>
-                                      </View>
-                                      <View style={{ flex: 0.65 }}>
-                                        <View style={{ flexDirection: "row",}}>
-                                          <Text style={styles.totalpriceincart}>: {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
-                                        </View>
-                                      </View>
-                                    </View>
-                                    <View style={styles.flxdata}>
-                                      <View style={{ flex: 0.35 }}>
-                                        <Text style={styles.totaldata}>Amount </Text>
-                                      </View>
-                                      <View style={{ flex: 0.65 }}>
-                                        <View style={{ flexDirection: "row",}}>
-                                          <Text style={styles.totalpriceincart}>: {currency} {item.vendor_afterDiscountTotal && item.vendor_afterDiscountTotal.toFixed(2)}</Text>
-                                        </View>
-                                      </View>
-                                    </View>
+                        <View style={[styles.prodinfoparent]}>
+                          <View style={{paddingHorizontal:15}}>
+                            <View style={{paddingHorizontal:15}}>
+                              <View style={{flexDirection:'row'}}>
+                                <View style={[styles.orderid]}>
+                                  <Text style={styles.orderidinfo}>Order ID : {order.orderID}</Text>
+                                </View>
+                                <View style={styles.orderAmount}>
+                                  <Text style={styles.orderidinfo}>Total Amount {currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)} </Text>
+                                </View>
+                            </View> 
+                            <View style={{flexDirection:"row",marginTop:15,justifyContent:'space-between'}}>
+                                <View style={[{flex:0.44}]}>
+                                  <Text numberOfLines={2} style={styles.totaldata}>Date: {moment(order.createdAt).format('MM/DD/YYYY')}</Text>
+                                </View>
+                                <View style={[{flex:0.54,alignItems:'flex-end'}]}>
+                                  <Text numberOfLines={2} style={styles.totaldata}>{order.paymentDetails.paymentMethod}</Text>
+                                </View>
+                            </View> 
+                            <View style={{flexDirection:"row",marginTop:15,justifyContent:'space-between'}}>
+                                <View style={[{flex:0.44}]}>
+                                  <Text numberOfLines={2} style={styles.totaldata}>Address: {order.deliveryAddress.addressLine1+", "+order.deliveryAddress.addressLine2}</Text>
+                                </View>
+                                <View style={[{flex:0.54,alignItems:'flex-end'}]}>
+                                  <Text numberOfLines={2} style={styles.totaldata}>Credit points earned {order.paymentDetails.creditPointsEarned}</Text>
+                                </View>
+                                {/* {positionOrder === 3  &&
+                                <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>
+                                  <View style={[styles.vendorStatus,
+                                        (positionOrder === 0 ? 
+                                        {backgroundColor:'#017BFE'}
+                                        :
+                                        positionOrder === 1 ? 
+                                        {backgroundColor:colors.warning}
+                                        :
+                                        positionOrder === 2 ? 
+                                        {backgroundColor:"#EB984E"}
+                                        :
+                                        positionOrder === 3 ?  
+                                        {backgroundColor:colors.success}
+                                        :
+                                        positionOrder === 4 ?  
+                                        {backgroundColor:colors.red}
+                                        :
+                                        "#eee")
+                                      ]}>
+                                  <Text style={[styles.totaldata,{padding:5,color:"#fff"}]}>{order.orderStatus}</Text>
+                                </View>
+                              </View>} */}
+                            </View>  
+                           </View>  
+                          <View style={{borderWidth:1,padding:5,borderRadius:5,borderColor:"#D4D4D4",marginTop:15}}>
+                            {order.vendorOrders.map((item,i)=>{
+                              var position = 0;
+                              if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New"){
+                                position = 0;
+                              } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Processing" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Ready to Dispatch" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "On the Way") {
+                                position = 1;
+                              } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Dispatch" || item.deliveryStatus[item.deliveryStatus.length - 1].status ===  "Delivery Initiated") {
+                                position = 2;
+                              }else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Delivered") {
+                                position = 3;
+                              } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Cancelled") {
+                                position = 4;
+                              }   
+                              return (
+                                <View style={styles.orderstatusmgtop}>
+                                  <View style={{flexDirection:'row'}}>
+                                    <Text style={[styles.vendorName,{flex:0.8}]}>{item.vendorName}</Text>
+                                    <View style={{flex:.2,alignSelf:'flex-end',justifyContent:'center',alignItems:'center',borderRadius:2,
+                                       backgroundColor: position === 0 ? 
+                                        colors.info
+                                        :
+                                        position === 1 ? 
+                                       colors.warning
+                                        :
+                                        position === 2 ? 
+                                        "#EB984E"
+                                        :
+                                        position === 3 ?  
+                                        colors.success
+                                        :
+                                        position === 4 ?  
+                                        colors.danger
+                                        :
+                                        "#eee"
+                                      }}>
+                                        <Text style={[styles.statusLabel]}>{item.deliveryStatus[item.deliveryStatus.length - 1].status}</Text>
+                                      </View>  
                                   </View>  
-                                  <View style={{flex:.4,justifyContent:'flex-end'}}>
-                                    <View style={[styles.vendorStatus,]}>
-                                      <Text style={[commonStyles.label,
-                                      (position === 0 ? 
-                                      {color:'#017BFE',alignSelf:'flex-end'}
-                                      :
-                                      position === 1 ? 
-                                      {color:colors.warning,alignSelf:'flex-end'}
-                                      :
-                                      position === 2 ? 
-                                      {color:"#EB984E",alignSelf:'flex-end'}
-                                      :
-                                      position === 3 ?  
-                                      {color:colors.success,alignSelf:'flex-end'}
-                                      :
-                                      position === 4 ?  
-                                      {color:colors.red,alignSelf:'flex-end'}
-                                      :
-                                      "#eee")]}>{item.deliveryStatus[item.deliveryStatus.length - 1].status}</Text>
-                                    </View>  
-                                  </View>
-                                </View>  
-                              </Card>
-                            )
-                            })
-                          }
+                                  <View style={{flexDirection:'row',marginVertical:30}}>
+                                      <View style={{flex:0.49,borderRightWidth:0.5,borderColor:"#0000004F",paddingHorizontal:15}}>
+                                          <Text style={styles.totalpriceincart}>No Of Products : {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
+                                      </View>
+                                      <View style={{flex:0.49,paddingHorizontal:15}}>
+                                          <Text style={styles.totalpriceincart}>Amount : {item.vendor_afterDiscountTotal && item.vendor_afterDiscountTotal.toFixed(2)} {currency}</Text>
+                                      </View>
+                                  </View>  
+                                </View>
+                              )
+                              })
+                            }
+                          </View>  
                           <View style={styles.orderdetsandcancelbtn}>
                             {order ?
                               <View style={[styles.ordercancelstatus,{justifyContent:"flex-end"}]}>
@@ -350,11 +324,9 @@ export const MyOrder = withCustomerToaster((props)=>{
                                   :
                                   <View style={styles.orderdetailsstatus}>
                                     {order.orderStatus && order.orderStatus !== 'Cancelled'&&
-                                    <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40,justifyContent:'center'}]}>
+                                    <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40,alignItems:'center'}]}>
                                     {order.orderStatus && order.orderStatus !== 'Cancelled'&&
-                                      <View style={{justifyContent:'center'}}>
-                                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",alignSelf:'center'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel order before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('hh:mm')}</Text>
-                                      </View>
+                                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",fontSize:13,alignSelf:'center',color:colors.danger}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel order before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('hh:mm')}</Text>
                                     }
                                     </View>}
                                   </View>
@@ -364,10 +336,10 @@ export const MyOrder = withCustomerToaster((props)=>{
                                 <View style={[styles.ordercancelsstatus]}>
                                   <Button
                                     onPress         = {() => navigation.navigate('OrderDetails', { orderid: order._id })}
-                                    titleStyle      = {commonStyles.buttonText1}
-                                    title           = "SHOW DETAILS"
-                                    buttonStyle     = {[commonStyles.button,{height:50}]}
-                                    containerStyle  = {commonStyles.buttonContainer}
+                                    titleStyle      = {styles.buttonText}
+                                    title           = "Show Details"
+                                    buttonStyle     = {[styles.button]}
+                                    containerStyle  = {styles.buttonContainer}
                                   />
                                 </View>
                               </View>
@@ -375,6 +347,13 @@ export const MyOrder = withCustomerToaster((props)=>{
                               <View style={styles.orderstatustxtcancel}></View>
                             }
                           </View>
+                          </View>
+                          {/* <View style={{borderWidth:0.5,marginVertical:15,borderColor:"#999"}}/> */}
+                          <Image
+                            source={require("../../AppDesigns/currentApp/images/order_sepration.png")}
+                            // resizeMode="contain"
+                            style={{width:"100%",marginTop:15}}
+                          />
                         </View>
                         ) 
                       })

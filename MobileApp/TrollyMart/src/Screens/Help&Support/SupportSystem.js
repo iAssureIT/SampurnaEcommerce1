@@ -8,6 +8,8 @@ import {
   TextInput,
   Button,
   View,StyleSheet,
+  TouchableOpacity,
+  Linking
 } from 'react-native';
 import {Footer}                   from '../../ScreenComponents/Footer/Footer.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
@@ -26,6 +28,10 @@ import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyle
 import { Dimensions } from 'react-native';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { useSelector }        from 'react-redux';
+import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
+import { Icon }                 from "react-native-elements";
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 const window = Dimensions.get('window');
 const ValidationSchema = Yup.object().shape({
@@ -36,7 +42,6 @@ const ValidationSchema = Yup.object().shape({
         'Enter a valid email address',
         emailValidator,
       ),
-    mobile_no   : Yup.string().required('This field is required'),
     message     : Yup.string().required('This field is required'),
   });
 
@@ -87,15 +92,8 @@ export const SupportSystem = withCustomerToaster((props)=>{
             onSubmit={(data) => {
                 console.log("data",data);
               setLoading(true);
-              let {username, password} = data;
-              const payload = {
-                name      : username,
-                password  : password,
-                role      : "user"
-              };
-
               const formValues2 = {
-                "email" 	: 'supriya16ghatge@gmail.com',
+                "email" 	: data.email,
                 "text"		: "",
                 "mail"		: 'Dear Admin, <br/>'+
                                 "Following new query/feedback came from website! <br/> <br/>" +
@@ -229,7 +227,6 @@ const FormBody = (props) => {
                         <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingVertical:2}}>
                             <Text>Phone Number</Text>{' '}
                             <Text style={{color: 'red', fontSize: 12}}>
-                            *
                             </Text>
                         </Text>
                         <PhoneInput
@@ -269,6 +266,7 @@ const FormBody = (props) => {
                             onChangeText={handleChange('message')}
                             // defaultValue={text}
                         />
+                        <Text style={CommonStyles.errorText}>{touched['message'] && errors['message'] ? errors['message'] : ''}</Text>
                     </View>
                     <View style={{flex:1,alignItems:'flex-end',marginRight:10}}>
                         <View style={{width:73}}>
@@ -299,16 +297,49 @@ const FormBody = (props) => {
                     </View> */}
                     
                 </View>
-                <View  style={{marginBottom:50,paddingHorizontal:21}}>
-                    <Text onPress={()=>{Linking.openURL('tel:'+companyPhone);}} 
-                        style={[commonStyles.text,{color:'#000000',lineHeight:20}]}>
-                    {companyPhone}
-                    </Text>
-                    <Text onPress={() => Linking.openURL(website_url) } 
-                        style={[commonStyles.text,{color:'#000000',lineHeight:20}]}>
-                        {website_url}
-                    </Text>
+                <View  style={{paddingHorizontal:21}}>
+                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                        <Icon name="phone" type="font-awesome"  size={12} iconStyle={{paddingHorizontal:5}}/>
+                        <Text onPress={()=>{Linking.openURL('tel:'+companyPhone);}} 
+                            style={[commonStyles.linkLightText,{color:'#000000',lineHeight:20}]}>
+                        {companyPhone}
+                        </Text>
+                    </View>
+                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                        <Icon name="globe-asia" type="font-awesome-5"  size={12} iconStyle={{paddingHorizontal:5}}/>
+                        <Text onPress={() => Linking.openURL(website_url) } 
+                            style={[commonStyles.linkLightText,{color:'#000000',lineHeight:20}]}>
+                            {website_url}
+                        </Text>
+                     </View>       
                 </View>
+                <View style={{flexDirection:'row',justifyContent:'center',marginBottom:50,}}>
+                        <View style={{alignItems:'center',paddingHorizontal:10}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://www.instagram.com/knockknock_eshop/')} >
+                                <Icon size={15} name='instagram' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{alignItems:'center',paddingHorizontal:10}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://www.facebook.com/Knock-Knock-103575731986682')} >
+                                <Icon size={15} name='facebook' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{alignItems:'center',paddingHorizontal:10}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://www.instagram.com/knockknock_eshop/')} >
+                                <Icon size={15} name='youtube' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{alignItems:'center',paddingHorizontal:10}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://www.instagram.com/knockknock_eshop/')} >
+                                <Icon size={15} name='linkedin' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{alignItems:'center',paddingHorizontal:10}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://twitter.com/knockknockeshop')} >
+                                <Icon size={15} name='twitter' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                            </TouchableOpacity>
+                        </View>                        
+                    </View>
             </ScrollView>}
         </View>
     );
@@ -335,4 +366,18 @@ const styles1 = StyleSheet.create({
        padding:0,
        backgroundColor:"#fff"
      },
+     HorizontalBox3: {
+        alignItems          : "center",
+        justifyContent      : 'center',
+        backgroundColor     : "#000",
+        height              : 20,
+        width              : 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 20,
+        elevation: 10,
+        borderRadius :100,
+        marginVertical:15
+    },
    });

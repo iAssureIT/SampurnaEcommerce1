@@ -28,10 +28,13 @@ import {HorizontalSecCatList}       from '../../ScreenComponents/HorizontalSecCa
 import {HorizontalProductList}      from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
 import SearchSuggetion              from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { Alert } from 'react-native';
+import { NetWorkError } from '../../../NetWorkError.js';
+
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 const Dashboard = withCustomerToaster((props)=>{
+  console.log("props",props);
   const isFocused             = useIsFocused();
   const dispatch              = useDispatch();
   const {setToast,navigation,productList,wishList,globalSearch,preferences,user_id} = props; 
@@ -52,28 +55,28 @@ const Dashboard = withCustomerToaster((props)=>{
     return true;
   };
 
-  
+  const store = useSelector(store => ({
+    userDetails : store.userDetails,
+    location : store.location,
+    isConnected: store.netWork.isConnected
+  }));
+
     useEffect(() => {
         dispatch(getSectionList());
         dispatch(getPreferences());
         dispatch(getS3Details());
         getBlocks();
-        // BackHandler.addEventListener("hardwareBackPress", backAction);
-        // return () =>
-        // BackHandler.removeEventListener("hardwareBackPress", backAction);
-    },[]);
-    const store = useSelector(store => ({
-      userDetails : store.userDetails,
-      location : store.location,
-    }));
+        let canGoBack = navigation.canGoBack();
+        if(!canGoBack){
+          BackHandler.addEventListener("hardwareBackPress", backAction);
+          return () =>
+          BackHandler.removeEventListener("hardwareBackPress", backAction);
+        }
+       
+    },[store.isConnected]);
+   
 
-    // useEffect(() => {
-    //   if(isFocused){
-    //     dispatch(getList('featured',user_id,limit));
-    //     dispatch(getList('exclusive',user_id,limit));
-    //     dispatch(getList('discounted',user_id,limit));
-    //   }  
-    // },[isFocused]);
+    console.log("store",store);
 
   const getBlocks=()=>{
     axios.get('/api/pages/get/page_block/homepage')
@@ -81,11 +84,12 @@ const Dashboard = withCustomerToaster((props)=>{
       setBlocks(res.data.pageBlocks);
       setLoading(false)
     })
-    .catch(error=>{
-      console.log("error",error);
-      if (error.response.status == 401) {
+    .catch((error)=>{
+      setLoading(false)
+      if (error?.response?.status == 401) {
         setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
         navigation.navigate('App')
+      }else if(error.message === "Network Error"){
       }else{
         setToast({text: 'Something went wrong.', color: 'red'});
       }  
@@ -95,12 +99,9 @@ const Dashboard = withCustomerToaster((props)=>{
 
   return (
     <React.Fragment>
-      {/* <HeaderBar2 
-        navigation={navigation}
-        toggle={setOpen} 
-        openControlPanel={()=>_drawer.open()}
-      />  */}
-      <View style={styles.superparent}>
+      {!store.isConnected?
+      <NetWorkError />
+      :<View style={styles.superparent}>
       {loading ?
           <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
           <Loading/>
@@ -207,7 +208,7 @@ const Dashboard = withCustomerToaster((props)=>{
             } 
           </View>  
         </ScrollView>}
-      </View> 
+      </View> }
     </React.Fragment>
   );  
 })

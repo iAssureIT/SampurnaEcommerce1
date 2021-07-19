@@ -17,6 +17,7 @@ import AsyncStorage             from '@react-native-async-storage/async-storage'
 import HTML from 'react-native-render-html';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { useSelector }        from 'react-redux';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 export const PrivacyPolicy  = (props)=>{
     const {navigation}=props;

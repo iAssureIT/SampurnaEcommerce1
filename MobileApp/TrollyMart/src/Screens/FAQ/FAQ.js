@@ -19,6 +19,7 @@ import {List} from 'react-native-paper';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { useSelector }        from 'react-redux';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 export const FAQ = (props)=>{
     const {navigation}=props;

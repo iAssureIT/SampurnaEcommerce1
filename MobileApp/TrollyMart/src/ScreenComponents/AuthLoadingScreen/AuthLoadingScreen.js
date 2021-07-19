@@ -18,6 +18,9 @@ import {AppContainer,
   AuthContainer,LocationContainer}        from "../../config/routes.js";
 import { SET_USER_ADDRESS}        from '../../redux/location/types';
 import { ActivityIndicator } from 'react-native-paper';
+import {SET_NETWORK_CONNECTION} from '../../redux/netWork/types'
+import NetInfo from '@react-native-community/netinfo';
+import codePush               from 'react-native-code-push';
 
  export const AuthLoadingScreen=(props)=>{
     const {navigation}=props;
@@ -25,10 +28,28 @@ import { ActivityIndicator } from 'react-native-paper';
     const [userToken,setUserToken]= useState(null);
     const [location,setLocation]  = useState(null);
     const [loading,setLoading]  = useState(true);
+    const [isConncted,setConnected]= useState(true);
+    const [isPreConncted,setPrevConnected]= useState(true);
     const dispatch 		            = useDispatch();
+
+
+  const handleConnectivityChange = (state) => {
+    console.log("state",state);
+    dispatch({
+      type: SET_NETWORK_CONNECTION,
+      payload :state.isConnected
+    });
+    setPrevConnected(isConncted);
+    setConnected(state.isConnected);
+  }
+
     useEffect(() => {
+      NetInfo.addEventListener(handleConnectivityChange);
       _bootstrapAsync();
-  }, []);
+      // if(!isPreConncted){
+      //   codePush.restartApp();
+      // }
+  }, [isConncted]);
 
     _bootstrapAsync = async () => {
       const userToken = await AsyncStorage.getItem('token');

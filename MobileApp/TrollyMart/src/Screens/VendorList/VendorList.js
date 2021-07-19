@@ -21,6 +21,7 @@ import Loading                  from '../../ScreenComponents/Loading/Loading.js'
 import {STOP_SCROLL}            from '../../redux/productList/types';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { ImageBackground }      from 'react-native';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 export const VendorList = withCustomerToaster((props)=>{
@@ -122,7 +123,7 @@ export const VendorList = withCustomerToaster((props)=>{
                     index       = {index}
                 />
                 <View style={{flexDirection:'row',justifyContent:'center',height:35,backgroundColor:'#5B8E7E',marginTop:10}}>
-                    <Text style={styles.topText}>Delivery time <Text style={{fontSize:20,color:'#AC3A3A'}}>9</Text>am to <Text style={{fontSize:20,color:'#AC3A3A',paddingVertical:3}}>11</Text>pm or next day delivery</Text>
+                    <Text style={styles.topText}>Delivery time <Text style={{fontSize:20,color:'#AC3A3A'}}>9</Text> am to <Text style={{fontSize:20,color:'#AC3A3A',paddingVertical:3}}>11 </Text>pm or next day delivery</Text>
                 </View>
                 <View style={styles.proddets}>
                 {loading ?

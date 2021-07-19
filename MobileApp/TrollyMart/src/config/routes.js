@@ -6,7 +6,7 @@ import { createDrawerNavigator }  from '@react-navigation/drawer';
 import { Animated, Easing }       from 'react-native';
 import axios                      from 'axios';
 import {AuthLoadingScreen}        from '../ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js';
-import InAppNotification          from '../ScreenComponents/InAppNotification/InAppNotification.js';
+import {InAppNotification}          from '../ScreenComponents/InAppNotification/InAppNotification.js';
 import {Menu}                     from '../ScreenComponents/Menu/Menu.js';
 
 /*----SystemSecurity -----*/
@@ -205,10 +205,10 @@ const LocationStack = () => (
   </LocationMain.Navigator>
 );
 
-export const AppContainer = () => {
+export const AppContainer = (props) => {
   return (
     <NavigationContainer>
-        <AppStack/>
+        <AppStack />
     </NavigationContainer>
   );
 };  

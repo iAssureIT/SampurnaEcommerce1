@@ -108,12 +108,12 @@ export const getCategoryWiseList = (payload) => {
             });
             console.log("category",category);
             payload.categoryUrl = category?.data?.categoryList[0]?.categoryUrl;
-            if(category?.data?.categoryList[0].subCategory && category?.data?.categoryList[0].subCategory.length >0){
-                payload.subCategoryUrl = [category?.data?.categoryList[0].subCategory[0]?.subCategoryUrl];
-                payload.subCategory = [category?.data?.categoryList[0].subCategory[0]?.subCategoryTitle];
-            }else{
-                payload.subCategoryUrl = []
-            }
+            // if(category?.data?.categoryList[0].subCategory && category?.data?.categoryList[0].subCategory.length >0){
+            //     payload.subCategoryUrl = [category?.data?.categoryList[0].subCategory[0]?.subCategoryUrl];
+            //     payload.subCategory = [category?.data?.categoryList[0].subCategory[0]?.subCategoryTitle];
+            // }else{
+            //     payload.subCategoryUrl = []
+            // }
         }
         console.log("payload",payload);
             axios.post("/api/products/get/list/lowestprice",payload)

@@ -27,7 +27,8 @@ import { SafeAreaView }         from 'react-native';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { RadioButton }        from 'react-native-paper';
 import HTML from 'react-native-render-html';
-import {KeyboardAwareScrollView}  from 'react-native-keyboard-aware-scroll-view'
+import {KeyboardAwareScrollView}  from 'react-native-keyboard-aware-scroll-view';
+import { NetWorkError } from '../../../NetWorkError.js';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{

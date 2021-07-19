@@ -22,6 +22,7 @@ import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyle
 import {FormInput}          from '../../ScreenComponents/FormInput/FormInput';
 import { CheckBox,Icon}     from "react-native-elements";
 import { useIsFocused } from "@react-navigation/native";
+import { NetWorkError } from '../../../NetWorkError.js';
 
 const window = Dimensions.get('window');
 

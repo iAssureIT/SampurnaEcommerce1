@@ -34,6 +34,7 @@ import ImagePicker              		from 'react-native-image-crop-picker';
 import {PERMISSIONS, request, RESULTS} 	from 'react-native-permissions';
 import { RNS3 }                 		from 'react-native-aws3';
 import HTML from 'react-native-render-html';
+import { NetWorkError } from '../../../NetWorkError.js';
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
   const customStyles = {
     stepIndicatorSize                 : 25,
@@ -485,13 +486,6 @@ const cancelorderbtn = (id,vendor_id) => {
 
     return (
       <React.Fragment>
-        {/* <HeaderBar3
-          goBack={navigation.goBack}
-          navigate={navigation.navigate}
-          headerTitle={"My Orders Details"}
-          toggle={() =>toggle()}
-          openControlPanel={() => openControlPanel()}
-        /> */}
       {loading?
         <Loading/>
         :
@@ -500,20 +494,62 @@ const cancelorderbtn = (id,vendor_id) => {
         :
         <View style={styles.superparent}>
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+            <View style={{paddingVertical:24,paddingHorizontal:20}}>
+              <Text style={CommonStyles.screenHeader}>My Orders Details</Text>
+            </View>
             <View style={styles.formWrapper}>
               <View style={styles.parent}>
-
                 <View style={[styles.prodinfoparent]}>
-                  <View style={{flexDirection:'row'}}>
-                    <View style={styles.orderid}>
-                      <Text style={styles.orderidinfo}>Order No :</Text>
-                      <Text style={styles.orderidinfo}>{order.orderID}</Text>
-                    </View>
-                    <View style={styles.orderid}>
-                      <Text style={styles.orderidinfo}>Date : </Text>
-                      <Text style={styles.orderidinfo}>{moment(order.createdAt).format("DD/MM/YYYY hh:mm a")}</Text>
-                    </View>
-                  </View> 
+                  <View style={{paddingHorizontal:15}}>
+                    <View style={{paddingHorizontal:15}}>
+                      <View style={{flexDirection:'row'}}>
+                        <View style={[styles.orderid]}>
+                          <Text style={styles.orderidinfo}>Order ID : {order.orderID}</Text>
+                        </View>
+                        <View style={styles.orderAmount}>
+                          <Text style={styles.orderidinfo}>Total Amount {currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)} </Text>
+                        </View>
+                    </View> 
+                    <View style={{flexDirection:"row",marginTop:15,justifyContent:'space-between'}}>
+                        <View style={[{flex:0.44}]}>
+                          <Text numberOfLines={2} style={styles.totaldata}>Date: {moment(order.createdAt).format('MM/DD/YYYY')}</Text>
+                        </View>
+                        <View style={[{flex:0.54,alignItems:'flex-end'}]}>
+                          <Text numberOfLines={2} style={styles.totaldata}>{order.paymentDetails.paymentMethod}</Text>
+                        </View>
+                    </View> 
+                    <View style={{flexDirection:"row",marginTop:15,justifyContent:'space-between'}}>
+                        <View style={[{flex:0.44}]}>
+                          <Text numberOfLines={2} style={styles.totaldata}>Address: {order.deliveryAddress.addressLine1+", "+order.deliveryAddress.addressLine2}</Text>
+                        </View>
+                        <View style={[{flex:0.54,alignItems:'flex-end'}]}>
+                          <Text numberOfLines={2} style={styles.totaldata}>Credit points earned {order.paymentDetails.creditPointsEarned}</Text>
+                        </View>
+                        {/* {positionOrder === 3  &&
+                        <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>
+                          <View style={[styles.vendorStatus,
+                                (positionOrder === 0 ? 
+                                {backgroundColor:'#017BFE'}
+                                :
+                                positionOrder === 1 ? 
+                                {backgroundColor:colors.warning}
+                                :
+                                positionOrder === 2 ? 
+                                {backgroundColor:"#EB984E"}
+                                :
+                                positionOrder === 3 ?  
+                                {backgroundColor:colors.success}
+                                :
+                                positionOrder === 4 ?  
+                                {backgroundColor:colors.red}
+                                :
+                                "#eee")
+                              ]}>
+                          <Text style={[styles.totaldata,{padding:5,color:"#fff"}]}>{order.orderStatus}</Text>
+                        </View>
+                      </View>} */}
+                    </View>  
+                  </View>  
                 </View>  
                   {/* <View style={styles.addressdetais}>
                     <Text style={styles.addtitle}>Shipping Address <Text style={styles.addressdets}>: {order.deliveryAddress ? order.deliveryAddress.addressLine2+" "+order.deliveryAddress.addressLine1 : "NA"}</Text></Text>
@@ -545,7 +581,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       return(
                       <View style={styles.prodinfoparent1}>
                         <View style={{marginBottom:5}}>
-                          <Text style={[styles.totaldata]}>{vendor.vendor_id.companyName}</Text>
+                          <Text style={[styles.vendorName]}>{vendor.vendor_id.companyName}</Text>
                         </View> 
                         <View style={styles.orderstatusmgtop}>
                           {
@@ -569,8 +605,8 @@ const cancelorderbtn = (id,vendor_id) => {
                         {vendor.products.map((pitem, index) => {
                           // console.log("pitem===>", pitem);
                           return (
-                            <Card containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
-                              <View style={{flex:0.3}}>
+                            <View style={[styles.prodorders,{flexDirection:"row",flex:1,alignItems:'center'}]}>
+                              <View style={{flex:0.2}}>
                                 {pitem.productImage[0] ?<Image
                                   style={styles.img15}
                                   source={{ uri: pitem.productImage[0] }}
@@ -582,82 +618,78 @@ const cancelorderbtn = (id,vendor_id) => {
                                 />
                               }
                               </View>
-                              <View style={{flex:0.7,paddingHorizontal:5}}>
-                                <Text style={styles.prodinfo}>{pitem.productName}</Text>
-                                <Text style={styles.prodinfo}> {pitem.quantity} Pack </Text>
-                                <View style={styles.flx4}>
-                                  <View style={[styles.flx1, styles.prdet,{marginVertical:5}]}>
-                                    <View style={[styles.flxdir]}>
-                                      <View style={[styles.flxdir]}>
-                                        <Text style={styles.ogprice}>{currency} </Text>
-                                        {pitem.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(pitem.originalPrice * pitem.quantity).toFixed(2)}</Text>}
-                                      </View>
-                                      <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                          <Text style={styles.ogprice}> {(pitem.discountedPrice * pitem.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                          </Text>
-                                      </View>
-                                      {pitem.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
-                                          <Text style={styles.ogprice}>( {pitem.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                          </Text>
-                                      </View>}
-                                    </View>
-                                    {labels.indexOf(vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status) >= 3 &&
-                                        <View style={[styles.flxdir,{alignItems:"center",marginTop:10,flex:1}]}>
-                                        {pitem.productStatus?
-                                         <View style={{flex:.5}}>
-                                         <Text style={[styles.ogprice,]}>{pitem.productStatus}</Text>
-                                       </View>
-                                       :
-                                      <View style={{flex:.5}}>
-                                        <Text style={[styles.ogprice,]} onPress={()=>{setReturnModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Return</Text>
-                                      </View>}  
-                                      <View style={{flex:.5}}>
-                                        {pitem.isReview ?
-                                          <Text style={[styles.ogprice,{alignSelf:'flex-end'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem._id)}}>Edit Review</Text>
-                                          :
-                                          <Text style={[styles.ogprice,{alignSelf:'flex-end'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Review</Text>
-                                        } 
-                                      </View>  
-                                    </View>}
+                              <View style={{flex:0.45,paddingHorizontal:5}}>
+                                <Text numberOfLines={2} style={styles.prodinfo}>{pitem.productName}</Text>
+                                <Text style={{color:"#aaa",marginTop:7}}>
+                                    Qauntity
+                                  <Text style={styles.prodinfo}> {pitem.quantity}</Text> 
+                                </Text>
+                             
+                              </View>
+                              <View style={{flex:0.35}}>
+                                <View style={{flex:1,flexDirection:'row'}}>
+                                  <View style={{flex:.5}}>
+                                      <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                                  </View> 
+                                  <View style={{flex:.5,alignItems:'flex-end'}}>
+                                      <Text style={styles.ogprice}> {(pitem.discountedPrice * pitem.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                      </Text>
                                   </View>
                                 </View>
+                                <View style={[styles.flx1, styles.prdet,{marginVertical:5}]}>
+                                  {labels.indexOf(vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status) >= 3 &&
+                                      <View style={[styles.flxdir,{marginTop:10,flex:1}]}>
+                                        {pitem.productStatus?
+                                        <View style={{flex:.5}}>
+                                          <Text style={[styles.ogprice,{fontSize:12}]}>{pitem.productStatus}</Text>
+                                      </View>
+                                      :
+                                      <View style={{flex:.5}}>
+                                        <Text style={[CommonStyles.linkText,{fontSize:12,alignSelf:'center'}]} onPress={()=>{setReturnModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Return</Text>
+                                      </View>
+                                    }  
+                                    <View style={{flex:.5}}>
+                                      {pitem.isReview ?
+                                        <Text style={[CommonStyles.linkText,{alignSelf:'flex-end',fontSize:12}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem._id)}}>Edit Review</Text>
+                                        :
+                                        <Text style={[CommonStyles.linkText,{alignSelf:'flex-end',fontSize:12}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Review</Text>
+                                      } 
+                                    </View>  
+                                  </View>}
+                                </View>
                               </View>  
-                            </Card>
+                            </View>
                           );
                         })}
                         <View style={styles.totaldetails}>
                           <View style={styles.flxdata}>
-                            <View style={{ flex: 0.6,flexDirection:"row" }}>
-                              <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendorName}</Text>
-                              <Text style={styles.totaldata}>Total</Text>
-                            </View>
-                            <View style={{ flex: 0.35 }}>
-                              <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                                <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
+                            <View style={{ flex: 0.35}} />
+                              <View style={{ flex: 0.35}}>
+                                <Text style={styles.totalAmount}>Total</Text>
                               </View>
+                              <View style={{flex:0.35,flexDirection:'row'}}>
+                                  <View style={{flex:.5}}>
+                                      <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                                  </View> 
+                                  <View style={{flex:.5,alignItems:'flex-end'}}>
+                                      <Text style={styles.ogprice}>{vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
+                                  </View>
+                                </View>
                             </View>
-                          </View>
-                          <View style={styles.flxdata}>
-                            <View style={{ flex: 0.6 }}>
-                              <Text style={styles.totaldata}>You Saved </Text>
-                            </View> 
-                            <View style={{ flex: 0.35 }}>
-                              <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                                <Text style={styles.totalpriceincart}> - </Text>
-                            <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
+                            <View style={styles.flxdata}>
+                              <View style={{ flex: 0.35}} />
+                                <View style={{ flex: 0.35}}>
+                                  <Text style={styles.totalAmount}>You Save </Text>
+                                </View> 
+                                <View style={{flex:0.35,flexDirection:'row'}}>
+                                  <View style={{flex:.5}}>
+                                      <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                                  </View> 
+                                  <View style={{flex:.5,alignItems:'flex-end'}}>
+                                      <Text style={styles.ogprice}>{vendor.vendor_discountAmount > 0 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
+                                  </View>
+                                </View>
                               </View>
-                            </View>
-                          </View>
-                          <View style={styles.flxdata}>
-                            <View style={{ flex: 0.6 }}>
-                              <Text style={styles.totaldata}>Delivery Charges </Text>
-                            </View> 
-                            <View style={{ flex: 0.35 }}>
-                              <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_shippingCharges}</Text>
-                              </View>
-                            </View>
-                          </View>
                           <View>
                           </View>
                         </View>
@@ -771,6 +803,7 @@ const cancelorderbtn = (id,vendor_id) => {
                   }
                 </View>
               </View>
+            </View>
             </View>
           </ScrollView>
         

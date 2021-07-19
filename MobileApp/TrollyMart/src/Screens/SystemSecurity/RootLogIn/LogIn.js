@@ -39,6 +39,7 @@ import {
 } from 'react-native-fbsdk';
 import { ActivityIndicator } from 'react-native';
 import { useIsFocused } from "@react-navigation/native";
+import DeviceInfo from 'react-native-device-info';
 
 GoogleSignin.configure({
   // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -544,7 +545,7 @@ const window = Dimensions.get('window');
                   // loading     = {btnLoading}
               />
             </View>
-            <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold",color:"#aaa"}}>V 0.0.4</Text>
+            <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold",color:"#aaa"}}>V {DeviceInfo.getVersion()}</Text>
           </View>
         <Modal 
           animationType="slide"

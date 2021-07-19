@@ -26,16 +26,20 @@ import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import { getCartCount}                      from '../../redux/productList/actions';
+import { NetWorkError } from '../../../NetWorkError.js';
+import { useIsFocused }       from "@react-navigation/native";
 const window = Dimensions.get('window');
 
 export const CartComponent = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+
   const {setToast,navigation,route} = props; 
   const [cartData,setCartData] = useState('');
   const [startRange,setStartRange] = useState(0);
   const [limitRange,setLimitRange] = useState(10);
   const [removefromcart,setRemoveFromCart] =useState(false);
-  const [loading,setLoading] =useState(true);
+  const [loading,setLoading] =useState(false);
   const [userId,setUserId] =useState(''); 
   const [minvalueshipping,setMinValueShipping] = useState('');
   const [cartitemid,setCartItemId] = useState('');
@@ -43,27 +47,25 @@ export const CartComponent = withCustomerToaster((props)=>{
   const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
-    globalSearch    : store.globalSearch
+    globalSearch    : store.globalSearch,
+    isConnected: store.netWork.isConnected,
+    userDetails:store.userDetails,
   }));
-  const {globalSearch}=store;
+  const {globalSearch,userDetails}=store;
   const {currency}=store.preferences;
 
 
 
   useEffect(() => {
     getData()
-  },[props]); 
+  },[store.isConnected,isFocused,userDetails.user_id]); 
 
   const getData=()=>{
-    const {userId} = route.params;
-    if(userId){
-      setLoading(true);
-      getshippingamount(startRange,limitRange);
-      setUserId(userId);
-      if(userId){
-        getCartItems(userId);
+    console.log("userDetails.user_id",userDetails.user_id);
+      if(userDetails.user_id){
+        getCartItems(userDetails?.user_id);
+        setUserId(userDetails.user_id);
       }
-    } 
   }
 
 const getshippingamount=(startRange, limitRange)=>{
@@ -84,6 +86,8 @@ const getshippingamount=(startRange, limitRange)=>{
  }
  
   const getCartItems=(userId)=>{
+    console.log("userId",userId);
+    setLoading(true);
     axios.get('/api/carts/get/cartproductlist/' + userId)
       .then((response) => {
         console.log("response.data",response.data);
@@ -91,6 +95,7 @@ const getshippingamount=(startRange, limitRange)=>{
         if(response.data){
           setCartData(response.data);
         }else{
+          setLoading(false);
           setCartData([]);
         }
       })
@@ -244,9 +249,12 @@ const getshippingamount=(startRange, limitRange)=>{
         navigate={navigation.navigate}
         openControlPanel={() => openControlPanel}
       /> */}
+      {!store.isConnected?
+      <NetWorkError />
+      :
       <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
-      { !loading ?
-      globalSearch.search ?
+      {!loading ?
+       globalSearch.search ?
         <SearchSuggetion />
         :
         cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?
@@ -574,7 +582,7 @@ const getshippingamount=(startRange, limitRange)=>{
           </View>
         </View>
       </Modal>
-    </View>
+    </View>}
   </React.Fragment>
   );
 })

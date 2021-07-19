@@ -23,6 +23,7 @@ import {USER_LOGOUT} from '../../redux/store';
 import { connect,
   useDispatch,
   useSelector }    from 'react-redux';
+  import { NetWorkError } from '../../../NetWorkError.js';
 
 const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({

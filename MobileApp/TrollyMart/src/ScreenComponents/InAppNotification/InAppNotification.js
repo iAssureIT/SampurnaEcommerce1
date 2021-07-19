@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {Text, View } from "react-native";
 import { ScrollView, Dimensions } from 'react-native';
 import axios from "axios";
@@ -7,31 +7,28 @@ import HTML from 'react-native-render-html';
 import styles from './styles.js';
 import {HeaderBar3} from "../HeaderBar3/HeaderBar3.js";
 import {Footer}             from '../../ScreenComponents/Footer/Footer.js';
+import { NetWorkError } from '../../../NetWorkError.js';
+import { useSelector }      from 'react-redux';
 var moment = require('moment');
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
 
-export default class InAppNotification extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            inAppNotifications: [],
-            user_id: '',
-            activesub: '',
-            loading : true,
-        };
-    }
-    componentDidMount() {
+export const InAppNotification =(props)=> {
+    const [inAppNotifications,setInAppNotifications]=useState('');
+    const [user_id,setUserId]=useState('');
+    const [loading,setLoading]=useState(true);
+    const store = useSelector(store => ({
+        isConnected: store.netWork.isConnected
+      }));
+    useEffect(()=>{
         AsyncStorage.multiGet(['token', 'user_id'])
         .then((data) => {
           var token = data[0][1]
           var user_id = data[1][1]
-          this.setState({ 
-            userId: user_id 
-          })
+          setUserId(user_id)
           axios.get('/api/notifications/get/allList/' + user_id)
           .then(notifications => {
-              this.setState({ inAppNotifications: notifications.data,loading:false })
+              setInAppNotifications(notifications.data);
+              setLoading(false)
           })
           .catch(error => {
             console.log('error', error)
@@ -44,21 +41,13 @@ export default class InAppNotification extends Component {
               console.log('error', error)
           })
         })
-    }
+    },[])
 
-
-
-
-    openControlPanel = () => {
-        this._drawer.open()
-    }
-
-
-    render() {
-        const { goBack,navigate} = this.props.navigation;
-        const {navigation} = this.props;
 
         return (
+            !store.isConnected?
+            <NetWorkError />
+            :
             <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
                 <ScrollView  contentContainerStyle={{}}  style={{flex:1}} keyboardShouldPersistTaps="handled" >
                     {/* <HeaderBar3
@@ -67,9 +56,9 @@ export default class InAppNotification extends Component {
                         navigate={navigate}
                         /> */}
                     <View style={{ flex: 1, backgroundColor: '#fff', padding: 20 }}>
-                        {!this.state.loading?
-                        this.state.inAppNotifications && this.state.inAppNotifications.length > 0 ?
-                                this.state.inAppNotifications.map((data, index) => {
+                        {!loading?
+                        inAppNotifications && inAppNotifications.length > 0 ?
+                                inAppNotifications.map((data, index) => {
                                     return (
                                     <View style={{flexDirection:'row',marginBottom:5,borderWidth:1,borderColor:'#aaa',borderRadius:5,shadowRadius: 5,}}>
                                         <View style={[styles.packageIndex]}>
@@ -99,5 +88,4 @@ export default class InAppNotification extends Component {
                 </ScrollView>
             </View>    
         );
-    }
 }

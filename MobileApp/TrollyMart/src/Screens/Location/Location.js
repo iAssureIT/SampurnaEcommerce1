@@ -19,6 +19,7 @@ import {FormButton}                 from '../../ScreenComponents/FormButton/Form
 import { SET_USER_ADDRESS}          from '../../redux/location/types';
 import { connect,useDispatch,useSelector }      from 'react-redux';
 import { getWishList } 		    from '../../redux/wishDetails/actions';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const window = Dimensions.get('window');
@@ -140,7 +141,7 @@ export const Location = withCustomerToaster((props)=>{
                       // See error code charts below.
                       console.log(error.code, error.message);
                     },
-                    { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+                    {enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
                 );
               break;
             case RESULTS.BLOCKED:

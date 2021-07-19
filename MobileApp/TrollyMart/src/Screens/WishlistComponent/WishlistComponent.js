@@ -17,25 +17,34 @@ import {ProductList}        from'../../ScreenComponents/ProductList/ProductList.
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
+import { NetWorkError } from '../../../NetWorkError.js';
+import { useIsFocused }       from "@react-navigation/native";
 const window = Dimensions.get('window');
 
 export const WishlistComponent  = withCustomerToaster((props)=>{
   const {navigation}=props;
+const isFocused = useIsFocused();
+
   const store = useSelector(store => ({
     wishList      : store.wishDetails.wishList,
     globalSearch  : store.globalSearch,
-    loading        : store.wishDetails.loading
+    loading        : store.wishDetails.loading,
+    isConnected: store.netWork.isConnected
   }));
-  const {wishList,globalSearch,loading} = store;
+  console.log("store",store)
+  const {wishList,globalSearch,loading,isConnected} = store;
   const [user_id,setUserId] = useState('');
   useEffect(() => {
     // getData()
-  },[]); 
+  },[isConnected,isFocused]); 
 
   console.log("wishList",wishList);
   
     return (
       <React.Fragment>
+        {!isConnected?
+        <NetWorkError />
+        :
         <View style={[styles.addsuperparent]}>
         {
           globalSearch.search ?
@@ -108,7 +117,7 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
             </View> 
         </View>
           }
-        </View>
+        </View>}
       </React.Fragment>
     );
 })

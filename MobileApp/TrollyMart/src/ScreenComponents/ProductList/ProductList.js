@@ -261,10 +261,10 @@ export const ProductList = withCustomerToaster((props)=>{
                 <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.heartIcon} />
               </TouchableOpacity>}
               {
-                item.productSmallImage && item.productSmallImage.length > 0 ?
+                item.productImage && item.productImage.length > 0 ?
                   <FastImage
                     source={{ 
-                      uri: item.productSmallImage[0],
+                      uri: item.productImage[0],
                       priority: FastImage.priority.high, 
                       cache: FastImage.cacheControl.immutable,
                     }}
@@ -274,7 +274,6 @@ export const ProductList = withCustomerToaster((props)=>{
                     // resizeMode="stretch"
                     resizeMode={FastImage.resizeMode.contain}
                   >   
-                  
                   </FastImage>
                   :
                   <Image

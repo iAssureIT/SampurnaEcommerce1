@@ -17,6 +17,7 @@ import AsyncStorage             from '@react-native-async-storage/async-storage'
 import HTML from 'react-native-render-html';
 import { connect,useDispatch,useSelector }  from 'react-redux';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 export const AboutUs = (props)=>{
     const {navigation}=props;
@@ -48,6 +49,7 @@ export const AboutUs = (props)=>{
             setPageBlocks(res.data.pageBlocks)
         })
         .catch(error=>{
+            setLoading(false)
             if (error.response.status == 401) {
                 AsyncStorage.removeItem('user_id');
                 AsyncStorage.removeItem('token');

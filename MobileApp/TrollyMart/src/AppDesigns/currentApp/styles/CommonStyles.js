@@ -87,12 +87,6 @@ export default StyleSheet.create({
         width:'100%',
         marginBottom:-15
     },
-    errorText:{
-        color:'#dc3545',
-        fontSize:12,
-        marginTop:3,
-        fontFamily:'Montserrat-Regular'
-    },
     eyeWrapper:{
         width:'30%',
         justifyContent:'center',
@@ -130,8 +124,9 @@ export default StyleSheet.create({
     },
     linkLightText:{
         color: colors.textLight,
-        fontSize: 15,
+        fontSize: 12,
         fontFamily:"Montserrat-Regular",
+        textDecorationLine: 'underline'
     },
     noDataFound :{
         fontSize: 20, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#333"

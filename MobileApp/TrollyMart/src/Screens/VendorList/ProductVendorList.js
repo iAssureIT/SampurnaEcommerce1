@@ -22,6 +22,7 @@ import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {STOP_SCROLL}          from '../../redux/productList/types';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { NetWorkError } from '../../../NetWorkError.js';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 export const ProductVendorList = withCustomerToaster((props)=>{

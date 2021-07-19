@@ -36,6 +36,10 @@ export const getWishList= (user_id) => {
             });
         })
         .catch((error)=>{
+            dispatch({
+                type: SET_LOADING,
+                payload: false,
+            });
             // console.log("error getWishList",error);
             // setToast({text: 'Something went wrong.', color: 'red'});
         })

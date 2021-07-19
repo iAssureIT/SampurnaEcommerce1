@@ -2,7 +2,7 @@ import React,
       { useEffect,useState }  from "react";
 import axios                  from 'axios';
 import codePush               from 'react-native-code-push';
-import {Provider, connect}    from 'react-redux';
+import {Provider, connect,useDispatch}    from 'react-redux';
 import {Provider as ProviderPaper, 
       Snackbar}               from 'react-native-paper';
 import store                  from './src/redux/store';
@@ -14,19 +14,29 @@ import {localNotificationService} from './src/LocalNotificationService';
 import {fcmService} from './src/FCMService';
 import {REACT_APP_BASE_URL} from '@env'
 import GeneralStatusBarColor from './GeneralStatusBarColor.js';
-import { NetworkProvider } from './NetworkProvider';
-import { ExampleComponent } from './ExampleComponent';
-// axios.defaults.baseURL = 'https://devapi.knock-knockeshop.com';
-// axios.defaults.baseURL = 'https://192.168.43.213:3366';
+import { NetWorkError } from './NetWorkError';
+import { Alert } from "react-native";
+export const NetworkContext = React.createContext({ isConnected: true });
+
 console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);
 axios.defaults.baseURL = REACT_APP_BASE_URL;
-// console.log("axios.defaults.baseURL ",axios.defaults.baseURL);
-// StatusBar.setHidden(true);
 
+ const App = (props) => {
+    console.log("props",props);
+    const [token, setToken] = useState('');
+    const [toast, setAppToast] = React.useState(null);
+    const dispatch              = useDispatch();
+  
+  
+  const handleConnectivityChange = (state) => {
+    dispatch({
+      type: SET_NETWORK_CONNECTION,
+      payload :state.isConnected
+    });
+    seConnected(state.isConnected);
+  }
+  
 
- const App = () => {
-  const [token, setToken] = useState('');
-  const [toast, setAppToast] = React.useState(null);
   useEffect(() => {
     LogBox.ignoreAllLogs();
     fcmService.registerAppWithFCM()
@@ -65,7 +75,6 @@ axios.defaults.baseURL = REACT_APP_BASE_URL;
         options
       )
     }
-
     return () => {
       console.log("[App] unRegister")
       unSubscribe();
@@ -75,14 +84,11 @@ axios.defaults.baseURL = REACT_APP_BASE_URL;
   }, []);
 
   return( 
-    <Provider store={store}>
-      <NetworkProvider>
+    <Provider store={store} >
       <GeneralStatusBarColor backgroundColor="#222222"
       barStyle="light-content" />
-        <ExampleComponent />
         <AuthLoadingScreen />
         <ToastProvider toast={toast} />
-    </NetworkProvider>
     </Provider>  
   );
 }
@@ -110,5 +116,9 @@ const ToastProviderComponent = props => {
 const codePushOptions = {
  checkFrequency: codePush.CheckFrequency.ON_APP_START 
 };
-export default codePush(codePushOptions)(App);
-// export default App;
+
+
+
+
+// export default codePush(codePushOptions)(App);
+export default App;
