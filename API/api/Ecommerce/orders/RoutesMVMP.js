@@ -46,7 +46,7 @@ router.post('/get/list', 																		orderController.list_order_with_limit
 
 router.get('/get/one/:orderID', 																orderController.fetch_order);
 
-router.get('/get/one/:orderID/:vendor_id', 														orderController.fetch_vendor_order);
+// router.get('/get/one/:orderID/:vendor_id', 													orderController.fetch_vendor_order);
 
 router.get('/get/one/order/:orderID', 															orderController.fetch_one_order);
 

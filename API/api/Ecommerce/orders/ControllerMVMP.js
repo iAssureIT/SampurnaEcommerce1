@@ -978,14 +978,14 @@ exports.change_vendor_orders_status = (req, res, next) => {
 		}
 	})
 	.then(async(updatedata) => {
-		console.log("updatedata => ",updatedata);
+		// console.log("updatedata => ",updatedata);
 		if (updatedata.nModified === 1) {
 			var vendorOrders 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {vendorOrders : 1});
-			console.log("OrderStatuses => ",OrderStatuses);
-			console.log("vendorOrders => ",vendorOrders);
+			// console.log("OrderStatuses => ",OrderStatuses);
+			// console.log("vendorOrders => ",vendorOrders);
 			var count = 0;
 			for(var i=0; i < vendorOrders.vendorOrders.length; i++){
-				console.log("vendorOrders.vendorOrders.orderStatus => ",vendorOrders.vendorOrders[i].orderStatus)
+				// console.log("vendorOrders.vendorOrders.orderStatus => ",vendorOrders.vendorOrders[i].orderStatus)
 				if(vendorOrders.vendorOrders[i].orderStatus === "Delivered" || vendorOrders.vendorOrders[i].orderStatus === "Cancelled"){
 					count += 1;
 					// console.log("count 1 => ",count)
@@ -1003,11 +1003,11 @@ exports.change_vendor_orders_status = (req, res, next) => {
 						}
 					)
 					.then(async(updateorderdata) => {
-						console.log("updateorderdata => ",updateorderdata)
+						// console.log("updateorderdata => ",updateorderdata)
 					
 						var orderdata 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {user_ID : 1, deliveryAddress : 1, orderID : 1});
 						var userData 	= await User.findOne({"_id" : ObjectId(orderdata.user_ID)}); 
-						console.log("userData => ",userData)
+						// console.log("userData => ",userData)
 						
 						var userNotificationValues = {
 							"event"				: "OrderStatusChange",
@@ -1398,11 +1398,11 @@ exports.count_order = (req, res, next) => {
 };
 
 exports.fetch_order = (req, res, next) => {
-  	Orders.findOne({ _id: req.params.orderID }).sort({ createdAt: -1 })
+  	Orders.findOne({ _id: req.params.orderID })
 	.populate('vendorOrders.vendor_id')
 	.exec()
 	.then(async(data) => {
-		// console.log('data', data);
+		console.log('data', data);
 		// for(var i=0;i<data.length;i++){
 			// for(var j=0;j<data[i].vendorOrders.length;j++){
 				// console.log("data[i].vendorOrders",data[i].vendorOrders);
@@ -1464,6 +1464,8 @@ exports.fetch_order = (req, res, next) => {
 };
 
 exports.fetch_one_order = (req, res, next) => {
+
+	// console.log("orderID in")
 	Orders.findOne({ _id: req.params.orderID })
   	.then(async(data) => {
 	  	// console.log('data', data);

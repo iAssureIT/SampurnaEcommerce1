@@ -59,15 +59,14 @@ class AllOrdersList extends Component{
 			activeStatus 		: ""
 		};
 		this.openChangeStatusModal 		= this.openChangeStatusModal.bind(this);
-		window.openChangeStatusModal  	= this.openChangeStatusModal;
 		this.changeVendorOrderStatus    = this.changeVendorOrderStatus.bind(this);
 	}
-
+	
 	/* ======= handleChange() ========== */
 	handleChange(event){ 
 		const target = event.target;
 		const name   = target.name;
-
+		
 		this.setState({
 			[name]: event.target.value,
 		});
@@ -76,17 +75,18 @@ class AllOrdersList extends Component{
 	/* ======= componentWillReceiveProps() ========== */
 	componentWillReceiveProps(nextProps) {
 		if(nextProps && nextProps.editId && nextProps.editId !== undefined &&  nextProps.history.location.pathname !== "/project-master-data"){      
-		  	this.setState({
-			  	editId : nextProps.editId
-		  	},()=>{
-			 	this.edit(this.state.editId);
-		  	})
+			this.setState({
+				editId : nextProps.editId
+			},()=>{
+				this.edit(this.state.editId);
+			})
 		}
 	}
-  
+	
 	/* ======= componentDidMount() ========== */
-	async componentDidMount(){
-		
+	async componentDidMount(){		
+		window.openChangeStatusModal  	= this.openChangeStatusModal;
+
 		this.getAdminPreferences();
 		var orderStatusData 	= await axios.get('/api/orderstatus/get/list');
 		var orderStatusArray 	= orderStatusData.data;
@@ -142,6 +142,7 @@ class AllOrdersList extends Component{
 
 	/* ======= openChangeStatusModal() ========== */
 	openChangeStatusModal(id){
+		// console.log("id => ",id)
 		var order_id 		= id.split("-")[0];
 		var vendor_id 		= id.split("-")[1];
 		var order_user_id 	= id.split("-")[2];
@@ -173,7 +174,7 @@ class AllOrdersList extends Component{
 						activeStatusRank  	= activeStatusObject[0].statusRank;
 					}
 						// activeStatus 		: activeStatus,
-						console.log("activeStatus => ",activeStatus)
+						// console.log("activeStatus => ",activeStatus)
 					this.setState({
 						activeStatus 		: activeStatus,
 						activeStatusRank 	: activeStatusRank
@@ -252,7 +253,7 @@ class AllOrdersList extends Component{
 					vendors   		: a.vendorOrders && a.vendorOrders.length > 0
 										?
 											a.vendorOrders.map((vendorOrder, index)=>{
-												console.log("vendorOrder => ", vendorOrder)
+												// console.log("vendorOrder => ", vendorOrder)
 												return ({
 													vendorName 			: '<div>'+vendorOrder.vendor_id.companyName+'</div>',
 													vendorPrice 		: '<div>'+ this.state.currency + " " + vendorOrder.vendor_afterDiscountTotal + '</div>',
@@ -393,7 +394,7 @@ class AllOrdersList extends Component{
 				// .then((response)=>{ 
 					this.getOneOrder(this.state.order_id, this.state.vendor_id);
 					// this.getData(this.state.startRange,this.state.limitRange);
-				})
+				// })
 				// .catch((error)=>{
 				// 	console.log('error', error);
 				// 	if(error.message === "Request failed with status code 401"){
@@ -410,7 +411,7 @@ class AllOrdersList extends Component{
 				// 		});
 				// 	}
 				// })
-			// })		
+			})		
 		}
 	}
 
