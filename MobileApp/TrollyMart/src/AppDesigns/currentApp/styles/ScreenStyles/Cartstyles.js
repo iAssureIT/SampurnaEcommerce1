@@ -216,10 +216,10 @@ superparent:{
     flex:1,flexDirection:"row",
   },
   totaldetails:{
-    backgroundColor:'#EEEEEE',
+    backgroundColor:'#E7E7E7',
     borderColor:"#ddd",
-    paddingLeft:20,
-    paddingRight:5,
+    paddingLeft:15,
+    paddingRight:15,
     paddingVertical:15,
     marginHorizontal:6,
     borderRadius:7,
@@ -246,7 +246,7 @@ superparent:{
   totalpriceincart:{
     marginTop:-2,
     fontSize:14,
-    fontFamily:"Montserrat-Regular", 
+    fontFamily:"Montserrat-SemiBold", 
     color:'#333',
   },
 
@@ -284,7 +284,7 @@ superparent:{
   },
 
   proddetails:{
-    borderWidth:1,borderColor:'#B7B7B7',
+    borderWidth:1,borderColor:'#E7E7E7',
     backgroundColor:"#fff",
     minHeight:80,
     borderRadius:4,
@@ -340,6 +340,6 @@ superparent:{
 	discountpricecut: {
 		fontSize: 14, fontFamily: "Montserrat-SemiBold",
     textDecorationLine: 'line-through',
-    alignItems: 'center',
+    alignContent: 'flex-end',
 	},
 })

@@ -13,6 +13,7 @@ import styles                     from '../../AppDesigns/currentApp/styles/Scree
 import {colors}                   from '../../AppDesigns/currentApp/styles/styles.js';
 import axios                      from 'axios';
 import Counter                    from "react-native-counters";
+import Feather from 'react-native-vector-icons/Feather';
 import {withCustomerToaster}      from '../../redux/AppState.js';
 import {getList} 		              from '../../redux/productList/actions';
 import {useDispatch,
@@ -47,6 +48,13 @@ export const CartComponent = withCustomerToaster((props)=>{
   const {currency}=store.preferences;
 
 
+  const minusIcon = (isDisabled) => {
+    return <Feather name='minus' size={20} backgroundColor={'#fff'} color={'#648295'} borderColor={'#648295'} borderWidth={1}  />
+  };
+  
+  const plusIcon = (isPlusDisabled) => {
+    return <Feather name='plus' size={20} color={'#fff'} />
+  };
 
   useEffect(() => {
     getData()
@@ -270,9 +278,9 @@ const getshippingamount=(startRange, limitRange)=>{
                               <Text style={styles.productname}>{item.product_ID.productName}</Text>
                               }
                               </TouchableOpacity>
-                            <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
+                            <View style={[styles.flx1, styles.prdet,{marginVertical:5}]}>
                               {item.product_ID.availableQuantity > 0 ?
-                                <View style={[styles.flxdir,{alignItems:'flex-end'}]}>
+                                <View style={[styles.flxdir,{}]}>
                                     <Text style={styles.currency}>{currency} </Text>                                    
                                   {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
                                     <Text style={styles.currency}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
@@ -304,9 +312,12 @@ const getshippingamount=(startRange, limitRange)=>{
                         <View style={styles.flxdir}>
                           <View style={[styles.flx5]}>
                             <Counter start={item.quantity} min={1} max={100}
+                                minusIcon={minusIcon} 
+                                plusIcon={plusIcon} 
                                 buttonStyle={{
-                                  borderColor: '#033554',
-                                  backgroundColor:'#033554',
+                                  borderColor: '#355D76',
+                                  backgroundColor:'#355D76',
+                                  elevation:2,
                                   borderWidth: 1,
                                   borderRadius: 25,
                                   width: 15,
@@ -318,7 +329,6 @@ const getshippingamount=(startRange, limitRange)=>{
                                 countTextStyle={{
                                   color: colors.theme,
                                 }}
-                                size={5}
                                 onChange={(e)=>onChange(e,item.product_ID._id,vendor.vendor_id._id)} 
                                 />
                           </View>
@@ -344,56 +354,81 @@ const getshippingamount=(startRange, limitRange)=>{
                   })}
                   <View style={styles.totaldetails}>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6,flexDirection:"row" }}>
+                      <View style={{ flex: 0.7,flexDirection:"row" }}>
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                         <Text style={styles.totaldata}>Sub Total</Text>
                       </View>
-                      <View style={{ flex: 0.35 }}>
+                      <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}><Text style={styles.currency1}>{currency}</Text>{vendor.vendor_beforeDiscountTotal && vendor.vendor_beforeDiscountTotal.toFixed(2)}</Text>
+                          <Text style={styles.currency1}>{currency}</Text>
                         </View>
                       </View>
+                      <View style={{ flex: 0.2 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincart}>{vendor.vendor_beforeDiscountTotal && vendor.vendor_beforeDiscountTotal.toFixed(2)}</Text>
+                        </View>
+                      </View>                      
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
+                      <View style={{ flex: 0.7 }}>
                         <Text style={styles.totaldata}>You Saved </Text>
-                      </View> 
-                      <View style={{ flex: 0.35 }}>
+                      </View>
+                      <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}> - </Text>
-                      <Text style={styles.totalpriceincart1}><Text style={styles.currency1}>{currency}</Text> {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
+                          <Text style={styles.currency1}>{currency}</Text>
+                        </View>
+                      </View>
+                      <View style={{ flex: 0.2 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          {/* <Text style={styles.totalpriceincart}> - </Text> */}
+                      <Text style={styles.totalpriceincart1}>{vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
                         </View>
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6,flexDirection:"row" }}>
+                      <View style={{ flex: 0.7,flexDirection:"row" }}>
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                         <Text style={styles.totaldata}>Total Amount</Text>
                       </View>
-                      <View style={{ flex: 0.35 }}>
+                      <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}><Text style={styles.currency1}>{currency}</Text> {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
+                          <Text style={styles.currency1}>{currency}</Text>
+                        </View>
+                      </View>
+                      <View style={{ flex: 0.2 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincart}>{vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
+                      <View style={{ flex: 0.7 }}>
                         <Text style={styles.totaldata}>VAT</Text>
-                      </View> 
-                      <View style={{ flex: 0.35 }}>
+                      </View>
+                      <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}><Text style={styles.currency1}>{currency}</Text> {vendor.vendor_taxAmount.toFixed(2)}</Text>
+                          <Text style={styles.currency1}>{currency}</Text>
+                        </View>
+                      </View>
+                      <View style={{ flex: 0.2 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                      <Text style={styles.totalpriceincart}>{vendor.vendor_taxAmount.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
+                      <View style={{ flex: 0.7 }}>
                         <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:16}}>Totals</Text>
-                      </View> 
-                      <View style={{ flex: 0.35 }}>
+                      </View>
+                      <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}><Text style={styles.currency1}>{currency}</Text> {vendor.vendor_netPayableAmount.toFixed(2)}</Text>
+                          <Text style={styles.currency1}>{currency}</Text>
+                        </View>
+                      </View>
+                      <View style={{ flex: 0.2 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                      <Text style={styles.totalpriceincart}>{vendor.vendor_netPayableAmount.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
@@ -415,44 +450,64 @@ const getshippingamount=(startRange, limitRange)=>{
               
                 <View style={styles.totaldetails}>
                   <View style={styles.flxdata}>
-                    <View style={{ flex: 0.6 }}>
+                    <View style={{ flex: 0.7 }}>
                       <Text style={styles.totaldata}>Total Amount </Text>
                     </View>
-                    <View style={{ flex: 0.35 }}>
+                    <View style={{ flex: 0.1 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.currency1}>{currency}</Text>
+                        </View>
+                      </View>
+                    <View style={{ flex: 0.2 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.afterDiscountTotal && cartData.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
+                        <Text style={styles.totalpriceincart}>{cartData.paymentDetails.afterDiscountTotal && cartData.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
                       </View>
                     </View>
                   </View>
                   <View style={styles.flxdata}>
-                    <View style={{ flex: 0.6 }}>
+                    <View style={{ flex: 0.7 }}>
                       <Text style={styles.totaldata}>Total Saved </Text>
-                    </View> 
-                    <View style={{ flex: 0.35 }}>
+                    </View>
+                    <View style={{ flex: 0.1 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.currency1}>{currency}</Text>
+                        </View>
+                      </View>
+                    <View style={{ flex: 0.2 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}> - </Text>
-                        <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.discountAmount && cartData.paymentDetails.discountAmount.toFixed(2)}</Text>
+                        {/* <Text style={styles.totalpriceincart}> - </Text> */}
+                        <Text style={styles.totalpriceincart1}>{cartData.paymentDetails.discountAmount && cartData.paymentDetails.discountAmount.toFixed(2)}</Text>
                       </View>
                     </View>
                   </View>
                   <View style={styles.flxdata}>
-                    <View style={{ flex: 0.6 }}>
+                    <View style={{ flex: 0.7 }}>
                       <Text style={styles.totaldata}>Total VAT  </Text>
-                    </View> 
-                    <View style={{ flex: 0.35 }}>
+                    </View>
+                    <View style={{ flex: 0.1 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.currency1}>{currency}</Text>
+                        </View>
+                      </View>
+                    <View style={{ flex: 0.2 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                    <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.taxAmount && cartData.paymentDetails.taxAmount.toFixed(2)}</Text>
+                    <Text style={styles.totalpriceincart}>{cartData.paymentDetails.taxAmount && cartData.paymentDetails.taxAmount.toFixed(2)}</Text>
                       </View>
                     </View>
                   </View>
                   
                   <View style={styles.flxdata}>
-                    <View style={{ flex: 0.6 }}>
+                    <View style={{ flex: 0.7 }}>
                       <Text style={styles.totaldata}>Total Delivery Charges </Text>
-                    </View> 
-                    <View style={{ flex: 0.35 }}>
+                    </View>
+                    <View style={{ flex: 0.1 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
+                          <Text style={styles.currency1}>{currency}</Text>
+                        </View>
+                      </View>
+                    <View style={{ flex: 0.2 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
+                        <Text style={styles.totalpriceincart}>{cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
                       </View>
                     </View>
                     <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
@@ -470,12 +525,17 @@ const getshippingamount=(startRange, limitRange)=>{
                   </View>
                   <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                   <View style={styles.flxdata}>
-                    <View style={{ flex: 0.6 }}>
+                    <View style={{ flex: 0.7 }}>
                       <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:16}}>Grand Total</Text>
                     </View>
-                    <View style={{ flex: 0.35 }}>
+                    <View style={{ flex: 0.1 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.currency1}>{currency}</Text>
+                        </View>
+                      </View>
+                    <View style={{ flex: 0.2 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
+                        <Text style={styles.totalpriceincart}>{cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                       </View>
                     </View>
                   </View>
