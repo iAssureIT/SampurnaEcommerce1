@@ -311,7 +311,7 @@ const getshippingamount=(startRange, limitRange)=>{
                                 buttonStyle={{
                                   borderColor: colors.cartButton,
                                   backgroundColor:'#355D76',
-                                  elevation:2,
+                                  // elevation:2,
                                   borderWidth: 1,
                                   borderRadius: 25,
                                  
