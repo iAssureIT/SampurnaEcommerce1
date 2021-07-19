@@ -115,6 +115,12 @@ superparent:{
   prodnamedets:{
     flex:1
   },
+  lastText:{
+    fontSize:12,
+    fontFamily:"Montserrat-Medium",
+    color:'#000',
+    marginVertical:10
+  },
   productname:{
     fontSize:14,
     fontFamily:"Montserrat-Medium",

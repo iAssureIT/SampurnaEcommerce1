@@ -537,6 +537,9 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                     </View>
                   </View>
+                  <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row", justifyContent: 'center' }}>
+                    <Text style={styles.lastText}>Proceed to checkout to add discount coupon</Text>
+                  </View>
                   <View>
                   <View style={{paddingVertical:15,marginBottom:60}}>
                       {/* <View>
@@ -556,8 +559,8 @@ const getshippingamount=(startRange, limitRange)=>{
                           disabled       = {!disabled}
                         />
                     </View>
-                  </View>
-                </View>
+                  </View>                  
+                </View>                
           </View>
           :
           <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
