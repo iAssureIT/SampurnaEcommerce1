@@ -213,23 +213,28 @@ import { NetWorkError } from '../../../NetWorkError.js';
         :
         <View style={styles.addsuperparent}>
             <ScrollView style={styles.formWrapper} keyboardShouldPersistTaps="handled">
-              <View style={{ backgroundColor: '#fff', paddingVertical: 20, paddingHorizontal: 15, marginTop: 15, marginBottom: "5%" }}>
+              <View style={{ backgroundColor: '#fff', paddingHorizontal: 15, marginBottom: "5%" }}>
+              <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row",marginLeft:10, justifyContent: 'flex-start',marginBottom:20 }}>
+                  <Text style={styles.addressTitle}>My Address</Text>
+              </View>
               <FormInput
-                labelName       = "Contact Person Name"
+                labelName       = "Full Name"
+                labelFontSize = {18}
                 // placeholder     = "Contact Person Name"
                 onChangeText    = {handleChange('contactperson')}
                 required        = {true}
                 name            = "contactperson"
                 errors          = {errors}
                 touched         = {touched}
+                // style           = {styles.inputText} 
                 // iconName        = {'user-circle-o'}
                 // iconType        = {'font-awesome'}
                 autoCapitalize  = "none"
                 value           = {values.contactperson}
               />
               <View style={{marginHorizontal:10,marginVertical:5}}>
-                <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
-                    <Text>Phone Number</Text>{' '}
+                <Text style={{fontFamily:'Montserrat-Regular', fontSize: 18,color:'#000',paddingVertical:2}}>
+                    <Text>Mobile Number</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
                     </Text>
@@ -266,7 +271,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     // disabled        = {deliveuuuuuuuuuyyry}       
                   />
                 <View style={[styles.formInputView, styles.marginBottom20]}>
-                  <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 12,paddingVertical:2}}>
+                  <Text style={{fontFamily:'Montserrat-Regular',color:'#000', fontSize: 18,paddingVertical:2}}>
                     <Text>Address Line 2</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
@@ -330,7 +335,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       onSelectionChange : ({ nativeEvent: { selection, text } }) => {setSelection(selection)},
                       clearButtonMode: 'never',
                       editable : !delivery,
-                      style    :  { color: '#999',fontFamily:"Montserrat-Medium",fontSize:18 }
+                      style    :  { color: '#000',fontFamily:"Montserrat-Medium",fontSize:14 }
                     }}
                     getDefaultValue={() => ''}
                     query={{
@@ -423,17 +428,20 @@ import { NetWorkError } from '../../../NetWorkError.js';
                   />
                 </View>
                 <View style={[styles.formInputView, styles.marginBottom20]}>
+                <Text style={{fontFamily:'Montserrat-Regular',color:'#000', fontSize: 18,paddingVertical:2}}>
+                    <Text>Address Line 2</Text>                    
+                </Text>
                   <Dropdown
-                    label               = 'Type of Address'
+                    // label               = 'Type of Address'
                     containerStyle      = {styles.ddContainer}
                     dropdownOffset      = {{ top: 0, left: 0 }}
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
-                    labelHeight         = {10}
+                    // labelHeight         = {10}
                     tintColor           = {colors.button}
-                    labelFontSize       = {sizes.label}
+                    labelFontSize       = {18}
                     baseColor           = {'#666'} 
-                    textColor           = {'#333'}
+                    textColor           = {'#000'}
                     itemTextStyle       = {styles.ddLabelText}
                     style               = {styles.ddStyle}
                     data                = {ShippingType}

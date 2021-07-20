@@ -127,10 +127,10 @@ const [refreshing,setRefresh]= useState(false)
               resizeMode='contain'
             />
             <View style={{alignItems:'center'}}>
-              <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:22,color:"#DC1919",opacity: 1}}>Your Wishlist is empty!</Text>
+              <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>Your Wishlist is empty!</Text>
               <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                 <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
-                <Text style={[CommonStyles.linkText,{textDecoration: "underline",fontFamily:"Montserrat-SemiBold",fontSize:14}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
+                <Text style={[CommonStyles.linkText,{textDecoration: "underline",fontFamily:"Montserrat-SemiBold",fontSize:12}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
               </View>
             </View> 
         </View>

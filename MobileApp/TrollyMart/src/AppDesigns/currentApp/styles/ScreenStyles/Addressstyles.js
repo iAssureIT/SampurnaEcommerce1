@@ -16,7 +16,7 @@ export default StyleSheet.create({
     borderWidth:1,borderColor:'#f1f1f1',borderRadius:5,width: 150, height:85, backgroundColor: '#ccc',marginRight:15
   },
   formWrapper:{
-  	paddingHorizontal:15,
+  	// paddingHorizontal:15,
     marginTop:15
   },
   categoryTitle:{
@@ -241,8 +241,8 @@ export default StyleSheet.create({
     backgroundColor:'#fff',
     height: "auto",
     paddingLeft:4,
-    backgroundColor:"#fff"
-    // fontFamily:"Montserrat-Regular"
+    // backgroundColor:"#fff"
+    fontFamily:"Montserrat-Regular"
   },
   ddItemText:{
     fontFamily:"Montserrat-Regular"
@@ -257,14 +257,14 @@ export default StyleSheet.create({
     top:0,
     left:-15,
     fontFamily:"Montserrat-Regular",
-    fontSize:15,
+    fontSize:18,
     // paddingHorizontal:2
   },
   ddStyle:{
     fontFamily:"Montserrat-Regular",
-    borderColor:"#ccc",
+    // borderColor:"#ccc",
     backgroundColor:"#fff",
-    borderBottomWidth:1,
+    // borderBottomWidth:1,
   },
   addsuperparent:{
     flex:1,
@@ -396,16 +396,26 @@ export default StyleSheet.create({
   addBtnClass:{
     height: 40, 
     width: 40,
-    padding:15,
+    padding:5,
     borderRadius:100,
     elevation:2
   },
 
   addBtnImg:{
-    height: 20, 
-    width: 20,
-    resizeMode:'cover',
-    marginTop:-3,
-    marginLeft:-4,
+    height: 30, 
+    width: 30,
+    resizeMode:'center',
+    // marginTop:-3,
+    // marginLeft:-4,
+  },
+
+  addressTitle:{
+    fontFamily:"Montserrat-Bold",
+    fontSize:18,
+    color:'#000',    
+  },
+
+  inputText:{
+    fontSize:18,
   },
 })

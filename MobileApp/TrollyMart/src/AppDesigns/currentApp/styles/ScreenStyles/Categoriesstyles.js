@@ -260,6 +260,12 @@ export default StyleSheet.create({
     fontSize:13,fontFamily:"Montserrat-SemiBold",color:'#333',
    marginBottom:10,
   },
+  prodnameview12:{
+    flex:0.8,
+    fontSize:13,fontFamily:"Montserrat-SemiBold",color:'#333',
+   marginBottom:10,
+   marginHorizontal:6,
+  },
   disCountLabel: {
 		position: 'absolute',
 		height:40,
@@ -350,6 +356,7 @@ export default StyleSheet.create({
     // alignItems:"center",
     marginVertical:10,
     textAlign:"center",
+    borderRadius:4,
     backgroundColor:"#ff0"
   },
 
@@ -523,7 +530,7 @@ export default StyleSheet.create({
     fontSize:13,fontFamily:"Montserrat-SemiBold",marginBottom:10,marginTop:10
   },
   detailclr:{
-    backgroundColor:'#fff',padding:10,borderRadius:3,marginTop:15
+    backgroundColor:'#fff',padding:10,borderRadius:3,paddingTop:0
   },
   detailcolor:{
     fontSize:16,fontFamily:"Montserrat-SemiBold",color:'#333'
@@ -660,6 +667,49 @@ export default StyleSheet.create({
     opacity: 1,
     fontSize:9,
     marginBottom:5,
-  }
+  },
+  backText:{
+    fontFamily:"Montserrat-SemiBold",
+    color:'#000',
+    fontSize:12,
+    flex:0.7,
+    paddingTop:20,
+    paddingBottom:10,
+    textAlign:'center',
+    borderBottomWidth:0.5, 
+    borderColor:'#6E6E6E'   
+    // backgroundColor:'red',
+  },
+
+  starAvg:{
+    fontSize:11,
+    fontFamily:"Montserrat-Medium",
+    color:'#000',
+  },
+
+  ratingD1T2:{
+    fontFamily:"Montserrat-Medium",
+    fontSize:9,
+    color:'#000'
+  },
+
+  ratingD1T3:{
+    fontFamily:"Montserrat-Medium",
+    fontSize:9,
+    color:'#777777',
+    paddingHorizontal:15,
+    marginTop:15,
+  },
+
+  ratingNumber:{
+    fontFamily:"Montserrat-Medium",
+    fontSize:21,
+    color:'#000',
+  },
+
+  starimg:{
+    height:13,
+    width:14,
+  },
   
 })

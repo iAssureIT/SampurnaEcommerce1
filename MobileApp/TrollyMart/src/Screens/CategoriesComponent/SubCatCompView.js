@@ -15,6 +15,7 @@ import {
         Icon, 
         Rating,
         Avatar }              from "react-native-elements";
+import Stars                  from 'react-native-stars';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
 import {Footer}               from '../../ScreenComponents/Footer/Footer.js';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
@@ -38,6 +39,7 @@ import { getCategoryWiseList } from '../../redux/productList/actions.js';
 import { Dropdown }            from 'react-native-material-dropdown-v2';
 import Feather from 'react-native-vector-icons/Feather';
 import { NetWorkError } from '../../../NetWorkError.js';
+const STAR_IMAGE = require('../../AppDesigns/currentApp/images/star.png')
 
 
 export const SubCatCompView = withCustomerToaster((props)=>{
@@ -169,9 +171,20 @@ export const SubCatCompView = withCustomerToaster((props)=>{
       })
   }
 
+  // const Parent : FC<ParentProps> = props => {
+    // const scrollRef = useRef<ScrollView>();
+
+    // const onFabPress = () => {
+    //     scrollRef.current?.scrollTo({
+    //         y : 0,
+    //         animated : true
+    //     });
+    // }
+
   const getProductReview=(productID)=>{
     axios.get("/api/customerReview/get/list/"+productID)
       .then((response) => {
+        console.log(response.data);
         setProductReview(response.data);
         setLoading(false);
       })
@@ -302,12 +315,12 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     <Counter start={1} min={1}
                       minusIcon={minusIcon} 
                       buttonStyle={{
-                        borderColor: "#033554",
+                        borderColor: "#355D76",
                         borderWidth: 1,
                         borderRadius: 25,
                         width: 33,
                         height: 33,
-                        backgroundColor:"#033554"
+                        backgroundColor:"#355D76"
                       }}
                       buttonTextStyle={{
                         color: '#fff',
@@ -367,11 +380,20 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     resizeMode="contain"
                   />
                 }
-                  
-                <View style={styles.prodnameview}>
-                    <Text  style={[styles.brandname]}>{productdata.brand}</Text>
-                    <Text style={[styles.nameprod]}>{productdata.productName}</Text>
+                <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row"}}>
+                    <View style={styles.prodnameview12}>
+                        <Text  style={[styles.brandname]}>{productdata.brand}</Text>
+                        <Text style={[styles.nameprod]}>{productdata.productName}</Text>
+                    </View>
+                    <View style={{ flex:0.2,justifyContent:'center',marginRight:5, alignItems:'flex-end'}}>                        
+                      <Text style={styles.starAvg}><Image
+                        source={require("../../AppDesigns/currentApp/images/star.png")}
+                        style={styles.starimg}
+                        resizeMode="contain"
+                      />&nbsp;5<Text>(201)</Text></Text>
+                    </View>
                 </View>
+                
                 <View style={[styles.flxdirview,{}]}>
                   <Text style={styles.prodcurrency}>{currency} </Text>
                   {productdata.discountPercent > 0 && <Text style={styles.discountpricecut}> {productdata.originalPrice.toFixed()}</Text>}
@@ -442,8 +464,47 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                 {tab === 0 ?
                 <Text style={styles.detaildetailstxt}>{productdata.productDetails}</Text>
                 :
-                productReview && productReview.length >0 ?              
-                    productReview.map((item,index)=>{
+                
+                productReview && productReview.length >0 ?  
+                 <View>
+                    <View style={{ flex:1,flexDirection:'row'}}>
+                      <View style={{ flex:1,flexDirection:'row',borderBottomWidth:1,borderColor:'#fff', height:60}}>
+                        <View style={{ flex: 0.5,paddingLeft:15,justifyContent:'center'}}>
+                          <Text>
+                          <Stars
+                            half={true}
+                            default={5}
+                            update={(e)=>{this.setState({stars: e})}}
+                            spacing={4}
+                            starSize={14}
+                            count={5}
+                            fullStar={require('../../AppDesigns/currentApp/images/star.png')}
+                            // emptyStar={require('./images/starEmpty.png')}
+                            // halfStar={require('./images/starHalf.png')}
+                            />
+                            {/* <Rating
+                                // showRating
+                                type='custom'
+                                ratingImage={STAR_IMAGE}
+                                ratingBackgroundColor='#EEEEEE'
+                                startingValue={5}
+                                // onFinishRating={(e)=>setRating(e)}
+                                style={{alignSelf:"flex-start",backgroundColor:'#EEEEEE'}}                                
+                                imageSize={14}
+                                readonly
+                              /> */}
+                              <Text style={styles.ratingNumber}>&nbsp;&nbsp;5</Text>
+                          </Text>
+                        </View>                        
+                        <View style={{ flex: 0.5, alignItems:'flex-end',paddingRight:15,justifyContent:'center'}}>
+                          <Text style={styles.ratingD1T2}>Based on 201 ratings</Text>
+                        </View>                        
+                      </View>                                        
+                    </View>
+                    <View style={{ flex:1,flexDirection:'row',height:40}}>
+                      <Text style={styles.ratingD1T3}>There are 201 ratings and 95 customer reviews</Text>
+                    </View>
+                    {productReview.map((item,index)=>{
                       return(                        
                         <Card containerStyle={{backgroundColor:"#EEEEEE",marginHorizontal:0,margin:0,borderWidth:0,paddingHorizontal:0}} wrapperStyle={{flexDirection:"row",flex:1}}>
                           <View style={{flex:0.25,alignItems:'center'}}>
@@ -459,28 +520,48 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                             <Text style={{color:'#000',fontSize:16}}>{item.customerName.split(' ')[0]}</Text>
                             <Text style={[CommonStyles.label,{marginTop:5,fontSize:11}]}>{item.customerReview}</Text>
                           </View>
-                          <View style={{flex:0.75}}>
+                          <View style={{flex:0.4,alignItems:'flex-end',marginRight:5}}>
                             {/* <Text>{item.customerName.split(' ')[0]}</Text> */}
                             <View style={{flexDirection:'row'}}>
-                              <Rating
+                              <Text>
+                              <Stars
+                                half={true}
+                                default={2.5}
+                                update={(val)=>{this.setState({stars: val})}}
+                                spacing={4}
+                                starSize={14}
+                                count={5}
+                                fullStar={require('../../AppDesigns/currentApp/images/star.png')}
+                                // emptyStar={require('./images/starEmpty.png')}
+                                // halfStar={require('./images/starHalf.png')}
+                            />
+                              {/* <Rating
                                 // showRating
+                                type='custom'
+                                ratingImage={STAR_IMAGE}
                                 ratingBackgroundColor='#EEEEEE'
                                 startingValue={item.rating}
                                 // onFinishRating={(e)=>setRating(e)}
-                                style={{alignSelf:"flex-start",backgroundColor:'#EEEEEE'}}
+                                style={{alignSelf:"flex-start",backgroundColor:'#EEEEEE'}}                                
                                 imageSize={12}
                                 readonly
-                              />
-                              <Text style={[CommonStyles.label,{paddingLeft:5,fontSize:7}]}>&nbsp;&nbsp;{item.rating}</Text>
+                              /> */}
+                              <Text style={[CommonStyles.label,{fontSize:7}]}>&nbsp;&nbsp;{item.rating}</Text>
+                              </Text>                              
                             </View>  
                           </View>    
                       </Card>
                       )
-                    })
+                    })}
+                  </View>                  
                     :
                     <Text style={{alignSelf:'center',color:"#333"}}>No review added.</Text>
-                  }  
+                  }
+                 
               </View>  
+              <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row", justifyContent: 'center' }}>
+                  <Text style={styles.backText}>Back To Top</Text>                  
+              </View>
               <View style={styles.detailclr}>
                 <HorizontalProductList 
                     // blockTitle   = {"You May Also Like"}
