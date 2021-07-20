@@ -29,14 +29,16 @@
 .customeBadge{
 	background: #CE6E2E !important;
 }
+
 .orderStatusBadge{
 	height:27px!important;
 	padding:8px!important;
 }
 .orderStatusBadge1{
 	height:27px!important;
+	color: #fff;
 	padding:8px!important;
-	background-color: #033554!important;
+	background-color: #033554;
 }
 .orderStatusBadge2{
 	height:27px!important;

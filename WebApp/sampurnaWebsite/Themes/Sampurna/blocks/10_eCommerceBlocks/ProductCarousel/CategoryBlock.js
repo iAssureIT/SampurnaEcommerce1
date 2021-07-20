@@ -48,6 +48,7 @@ class CategoryBlock extends Component{
       }
       if(url[7] === undefined){
         $('.category_0').addClass('activeCategory');
+        // $('.category_0').toggleClass('activeCategory')
       }
     }
     render(){
@@ -77,15 +78,20 @@ class CategoryBlock extends Component{
                       // console.log("categorydata.categoryUrl===",categorydata.categoryUrl,this.state.sectedCategory,index);
                       {this.state.sectedCategory && this.state.sectedCategory === categorydata.categoryUrl
                         ?
-                          $('.category_'+index).addClass('activeCategory')
+                            
+                              $('.category_'+index).toggleClass('activeCategory')
+                              // $('.category_0').removeClass('activeCategory')
+                            
                         : null
                           // $('.category_'+0).addClass('activeCategory')
                       }
+                      
                       return (
                       <div className={"col-12 productsCategoryBlock "}  key={index}> 
                           <Link href={url} className ={"col-12 "}> 
                             <a className ={"col-12 " +Style.categoryBlock}>
-                              <div className={"itemImg col-12 NoPadding category_"+index +" " +Style.categoryPhoto +" "+Style.itemImg }>
+                              
+                              <div className={ " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" "}>
                                   <Image    
                                     id="prodImg"                                       
                                     src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.jpg"}

@@ -577,7 +577,6 @@ class ProductsView extends Component {
                                         </span>
                                     :null
                                     }
-
                                     {/* Review and Rating */}
                                     <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"reviewModal_"+productdata.product_ID} role="dialog">
                                         <div className="modal-content modalContent " style={{ 'background': '#fff'}}>
