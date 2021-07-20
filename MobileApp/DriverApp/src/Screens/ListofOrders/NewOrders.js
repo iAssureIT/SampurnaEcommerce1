@@ -18,6 +18,9 @@ import {Footer}                     from '../../ScreenComponents/Footer/Footer.j
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native';
 import { useIsFocused } from "@react-navigation/native";
+import {REACT_APP_BASE_URL} from '@env';
+import openSocket           from 'socket.io-client';
+const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 const todoList = [
   { id: '1', text: 'Learn JavaScript' },
   { id: '2', text: 'Learn React' },
@@ -45,19 +48,29 @@ export const NewOrders =(props)=> {
             "user_id" : store.userDetails.user_id
         }
         console.log("payload",payload);
-        axios.post('/api/orders/get/nearest_vendor_orders',payload)
-        .then(res=>{
-            console.log("res1",res);
-            setOrderList(res.data);
-            if (prevOpenedRow && prevOpenedRow !== row[index]) {
-                prevOpenedRow.close();
+        // axios.post('/api/orders/get/nearest_vendor_orders',payload)
+        // .then(res=>{
+        //     console.log("res1",res);
+        //     setOrderList(res.data);
+        //     if (prevOpenedRow && prevOpenedRow !== row[index]) {
+        //         prevOpenedRow.close();
 
-              }
-              prevOpenedRow = row[index];
-              console.log("index",index);
-        })
-        .catch(err=>{
-            console.log("err",err);
+        //       }
+        //       prevOpenedRow = row[index];
+        //       console.log("index",index);
+        // })
+        // .catch(err=>{
+        //     console.log("err",err);
+        // })
+        socket.emit('nearest_vendor_orders',payload);
+        socket.on('getSingleOrder',(response)=>{
+            setOrderList(res);
+                if (prevOpenedRow && prevOpenedRow !== row[index]) {
+                    prevOpenedRow.close();
+    
+                  }
+                  prevOpenedRow = row[index];
+                  console.log("index",index);
         })
     }
 

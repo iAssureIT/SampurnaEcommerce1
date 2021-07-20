@@ -8,7 +8,6 @@ const io = require('socket.io')(server);
 
 var adminOrtderListValues = {};
 io.on('connection', (client) => { 
-    console.log("connection established",client.id);
     client.on('adminOrtderListValues', (payload) => {
         adminOrtderListValues = payload;
         getAdminOrderList(payload);
@@ -73,6 +72,7 @@ io.on('connection', (client) => {
             getUserOrderList(payload.order_user_id);
             getSingleOrder(payload.order_id);
             getAdminOrderList(adminOrtderListValues);
+            getNearestOrders()
         })
         .catch(err=>{
             console.log(err)
@@ -92,7 +92,16 @@ io.on('connection', (client) => {
         })
     }
 
-
+    client.on('nearest_vendor_orders', (payload) => {getNearestOrders(payload)});
+    function getNearestOrders(payload){
+        axios.get('http://localhost:'+globalVariable.port+'/api/orders/get/nearest_vendor_orders',payload)
+        .then(response=>{
+            io.sockets.emit('getVendorOrderList', response.data);
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
  })   
 
 

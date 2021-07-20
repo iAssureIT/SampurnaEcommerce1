@@ -8,19 +8,20 @@ import {
   FlatList,
   TouchableOpacity
 } from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { Header, Icon, Card, Button, colors }       from 'react-native-elements';
-import axios from 'axios';
-import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles';
+import Swipeable                                    from 'react-native-gesture-handler/Swipeable';
+import { Header, Icon, Card, Input, colors }       from 'react-native-elements';
+import axios                                        from 'axios';
+import CommonStyles                                 from '../../AppDesigns/currentApp/styles/CommonStyles';
 import {
     useDispatch,
-    useSelector }           from 'react-redux';
-import {Footer}                     from '../../ScreenComponents/Footer/Footer.js';
-import { useIsFocused } from "@react-navigation/native";
-import Modal                from "react-native-modal";
-import { Dropdown }             from 'react-native-material-dropdown-v2';
-import moment from 'moment';
-import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
+    useSelector }                                   from 'react-redux';
+import {Footer}                                     from '../../ScreenComponents/Footer/Footer.js';
+import { useIsFocused }                             from "@react-navigation/native";
+import Modal                                        from "react-native-modal";
+import { Dropdown }                                 from 'react-native-material-dropdown-v2';
+import moment                                       from 'moment';
+import {FormButton}                                 from '../../ScreenComponents/FormButton/FormButton';
+
 const todoList = [
   { id: '1', text: 'Learn JavaScript' },
   { id: '2', text: 'Learn React' },
@@ -35,6 +36,7 @@ export const AcceptedOrders =(props)=> {
     const [reason,setReason]=useState('');
     const [order_id,setOrderId] = useState('');
     const [vendor_id,setVendorId] = useState('');
+    const [comment, setComment] = useState('')
     const ref =useRef(null);
     let row: Array<any> = [];
     let prevOpenedRow;
@@ -158,21 +160,6 @@ export const AcceptedOrders =(props)=> {
                 prevOpenedRow.close();
               }
               prevOpenedRow = row[index];
-            // var payload = {
-            //     order_id        : order_id,
-            //     vendor_id       : vendor_id,
-            //     userid          : store.userDetails.user_id,
-            //     changeStatus    : "On the Way"
-            // }
-            // console.log("payload",payload);
-            // axios.patch('/api/orders/changevendororderstatus',payload)
-            // .then(res=>{
-            //     console.log("res",res);
-            //     getList();
-            // })
-            // .catch(err=>{
-            //     console.log("err",err);
-            // })
         };
 
        const  handleSubmit=()=>{
@@ -181,6 +168,8 @@ export const AcceptedOrders =(props)=> {
                 vendor_id       : vendor_id,
                 userid          : store.userDetails.user_id,
                 changeStatus    : "Allocation Rejected",
+                allocationRejectReason : reason,
+                allocationRejectDesc : comment,
                 reason          : reason
             }
             console.log("payload",payload);
@@ -188,6 +177,8 @@ export const AcceptedOrders =(props)=> {
             .then(res=>{
                 console.log("res",res);
                 setModal(false);
+                setReason('');
+                setComment('');
                 setOrderId('');
                 setVendorId('');
                 getList();
@@ -308,6 +299,24 @@ export const AcceptedOrders =(props)=> {
                     style               = {styles.ddStyle}
                     disabledLineType    = 'none'
                   />
+                <View style={{paddingVertical:15}}>
+                    <Input
+                        label   = "Comment"   
+                        // placeholder           = "Leave a review..."
+                        onChangeText          = {(text)=>setComment(text)}
+                        autoCapitalize        = "none"
+                        keyboardType          = "email-address"
+                        inputContainerStyle   = {styles.containerStyle}
+                        containerStyle        = {{paddingHorizontal:0}}
+                        placeholderTextColor  = {'#bbb'}
+                        inputStyle            = {{fontSize: 16}}
+                        inputStyle            = {{textAlignVertical: "top"}}
+                        // autoCapitalize        = 'characters'
+                        multiline             = {true}
+                        numberOfLines         = {4}
+                        value                 = {comment}
+                    />
+                </View>
                   <View style={{marginVertical:15}}>
                     <FormButton 
                         onPress    = {()=>{handleSubmit()}}
@@ -351,5 +360,10 @@ export const AcceptedOrders =(props)=> {
     box1:{
         flexDirection:'row',
         paddingVertical:2
-    }
+    },
+    ddStyle:{
+        fontFamily:"Montserrat-Regular",
+        backgroundColor:"#fff",
+        height:50,
+      },
     });

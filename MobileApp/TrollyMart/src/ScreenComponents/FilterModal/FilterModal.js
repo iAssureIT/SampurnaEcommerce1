@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Platform
 } from 'react-native';
+import {StatusBar} from 'react-native';
 import {Header, Button, CheckBox}   from 'react-native-elements';
 import {connect}                    from 'react-redux';
 // import {FormButton} from '../../components/FormButton/FormButton';
@@ -62,6 +63,7 @@ const FilterModal = (props) => {
 
   return (
     <SafeAreaView forceInset={{vertical: 'always'}} >
+    <StatusBar  backgroundColor={"#222222"} />
       <Modal
         onRequestClose={() => {
           return closeModal();
@@ -69,7 +71,7 @@ const FilterModal = (props) => {
         onDismiss={() => {
           return closeModal();
         }}
-        transparent={false}
+        transparent={true}
         visible={visible}>
        <Header
           rightComponent={
