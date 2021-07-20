@@ -23,7 +23,7 @@
 }
 .bgGray{
     background-color:#eee;
-    padding-bottom:15px;
+    /* padding-bottom:15px; */
 }
 
 .bgHeight{
@@ -164,7 +164,7 @@
     }
     .bgGray{
         background-color:#eee;
-        padding-bottom:15px;
+        /* padding-bottom:15px; */
     }
     
     .bgHeight{
