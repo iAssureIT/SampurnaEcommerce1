@@ -64,25 +64,8 @@ export default class Banner extends React.Component {
       }
 
     componentDidMount(){
-      if(this.state.blocks.animationSettings.effect === "flip"){
-      // this.swiper = new Swiper('.swiper-container', {        
-      //   effect: 'flip',
-      //   grabCursor: true,                       
-      //   navigation: {
-      //     nextEl: '.swiper-button-next',
-      //     prevEl: '.swiper-button-prev',
-      //   },        
-      //   pagination: {
-      //     el: '.swiper-pagination',
-      //     clickable: true,
-      //   },
-      // });
-    }
-
       $(document).ready(function(){		
-
             $("#cItemHBpage div:nth-child(1)").addClass("active");
-
         });
               if(this.props.block_id){              
                  axios

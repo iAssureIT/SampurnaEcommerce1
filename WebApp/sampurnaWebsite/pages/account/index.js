@@ -103,7 +103,6 @@ class Account extends Component{
             <div className={ "col-12 NoPadding accountMainWrapper "+Style.accountMainWrapper}> 
                 <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
                     <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
-
                         <div className={"modal-content  pb-0 "+Style.modalContentM}>    
                         <div className={"modal-header globalBgColor col-12 " +Style.modalHeaderM}>
                             <div className={"modal-title col-12 modalheadingcont pb-3  underline " +Style.f14BM }><img className={" "+Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO"/><p>Shipping Address</p></div>
@@ -113,8 +112,8 @@ class Account extends Component{
                                 <UserAddress />
                             </div>
                         </div>
-                        </div>
                     </div>
+                </div>
                 <div className="col-12">
                     <div className={ "col-12 accountDashBoardwrapper py-3 "+Style.accountDashBoardwrapper}>
                         <h4 className="font-weight-bold">Account Dashboard</h4>

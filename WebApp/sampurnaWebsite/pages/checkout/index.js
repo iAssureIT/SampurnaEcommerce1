@@ -64,7 +64,6 @@ class Checkout extends Component {
     }
     async componentDidMount() {
         await this.props.fetchCartData();
-        
         this.setState({
             recentCartData: this.props.recentCartData
         })
@@ -87,6 +86,7 @@ class Checkout extends Component {
             },()=>{
                 this.getCreditData();
                 // this.getAddressWithDistanceLimit();
+                this.getUserAddress();
                 this.props.fetchAddressData();
 
                 axios.get('/api/users/get/' + this.state.user_ID)
@@ -108,7 +108,7 @@ class Checkout extends Component {
         // Reset any parts of state that are tied to that user.
         // In this simple example, that's just the email.
         // if (props.props.recentAddressData !== state.prevPropsUserID) {
-        console.log("props.recentAddressData===",props.recentAddressData);
+        // console.log("props.recentAddressData===",props.recentAddressData);
         if (props.recentAddressData) {
           return {
             deliveryAddress: props.recentAddressData,
@@ -117,45 +117,42 @@ class Checkout extends Component {
         }
         return null;
     }
-    getDerivedStateFromProps(){
-
-    }
-    getAddressWithDistanceLimit(){
-        var formValues = {
-            "user_id"       : this.state.user_ID,
-            "latitude"      : this.state.latitude,
-            "longitude"     : this.state.longitude,
-        }
-        // console.log("formValues=>",formValues);
-        axios.post('/api/ecommusers/myaddresses',formValues)
-        .then(response => {
-            if(response){
-                // console.log("distanceResponse=>",response);
-                this.setState({
-                    "deliveryAddress": response.data.deliveryAddress,
-                    // "username": response.data.profile.fullName,
-                    // "mobileNumber": response.data.profile.mobile,
-                    // "email": response.data.profile.email
-                },()=>{
-                    let fields = this.state.fields;
-                    // fields["username"] = response.data.profile.fullName;
-                    // fields["mobileNumber"] = response.data.profile.mobile;
-                    // fields["email"] = response.data.profile.email;   
-                    // fields["addressLine2 "] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addressLine2 :  null;   
+    // getAddressWithDistanceLimit(){
+    //     var formValues = {
+    //         "user_id"       : this.state.user_ID,
+    //         "latitude"      : this.state.latitude,
+    //         "longitude"     : this.state.longitude,
+    //     }
+    //     // console.log("formValues=>",formValues);
+    //     axios.post('/api/ecommusers/myaddresses',formValues)
+    //     .then(response => {
+    //         if(response){
+    //             // console.log("distanceResponse=>",response);
+    //             this.setState({
+    //                 "deliveryAddress": response.data.deliveryAddress,
+    //                 // "username": response.data.profile.fullName,
+    //                 // "mobileNumber": response.data.profile.mobile,
+    //                 // "email": response.data.profile.email
+    //             },()=>{
+    //                 let fields = this.state.fields;
+    //                 // fields["username"] = response.data.profile.fullName;
+    //                 // fields["mobileNumber"] = response.data.profile.mobile;
+    //                 // fields["email"] = response.data.profile.email;   
+    //                 // fields["addressLine2 "] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addressLine2 :  null;   
                                     
-                    // fields["pincode"] = response.data.profile.pincode;
-                    // fields["addType"] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addType : null ;
-                    fields["paymentmethods"] = 'Cash On Delivery';
-                    this.setState({
-                        fields
-                    });
-                });
-            }
-        })
-        .catch((error)=>{
-            console.log("Error while getting getAddressWithDistanceLimit:",error);
-        })
-    }
+    //                 // fields["pincode"] = response.data.profile.pincode;
+    //                 // fields["addType"] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addType : null ;
+    //                 fields["paymentmethods"] = 'Cash On Delivery';
+    //                 this.setState({
+    //                     fields
+    //                 });
+    //             });
+    //         }
+    //     })
+    //     .catch((error)=>{
+    //         console.log("Error while getting getAddressWithDistanceLimit:",error);
+    //     })
+    // }
     
     validateForm() {
 		let fields = this.state.fields;
@@ -225,12 +222,12 @@ class Checkout extends Component {
                     "email": response.data.profile.email
                 },()=>{
                     let fields = this.state.fields;
-                    fields["username"] = response.data.profile.fullName;
-                    fields["mobileNumber"] = response.data.profile.mobile;
-                    fields["email"] = response.data.profile.email;   
+                    fields["username"] = response.data.profile.fullName?response.data.profile.fullName:null;
+                    fields["mobileNumber"] = response.data.profile.mobile?response.data.profile.mobile:null;
+                    fields["email"] = response.data.profile.email?response.data.profile.email:null;   
                     fields["addressLine2 "] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addressLine2 :  null;   
                                     
-                    fields["pincode"] = response.data.profile.pincode;
+                    fields["pincode"] = response.data.profile.pincode?response.data.profile.pincode:null;
                     fields["addType"] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addType : null ;
                     fields["paymentmethods"] = 'Cash On Delivery';
                     this.setState({
@@ -250,7 +247,6 @@ class Checkout extends Component {
         this.setState({ isChecked }, () => {
            
         });
-
         let fields = this.state.fields;
         // console.log("event.target.value===",isChecked);
 		fields[event.target.name] = isChecked;
@@ -1248,7 +1244,7 @@ class Checkout extends Component {
                         </form>
                     </div>
                     :
-                    <div className="col-12  textAlignCenter">
+                    <div className="col-12  textAlignCenter mt-4 mb-4 " Style={{height:"400px"}}>
                         <img className="col-12 col-md-4 col-sm-6 " src={"/images/eCommerce/emptycart.png"} alt="" />                          
                     </div> 
                     }

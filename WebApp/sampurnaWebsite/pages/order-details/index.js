@@ -306,7 +306,7 @@ export default class OrderDetails extends Component {
                                 {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.addressLine2 &&
                                   <div className="col-12">
                                       <div className="col-12 orderAddress"> 
-                                      <i className="fas fa-map-marker-alt"></i>  {this.state.orderData.deliveryAddress.addressLine2}, <br/> {this.state.orderData.deliveryAddress.addressLine1}
+                                      <i className="fas fa-map-marker-alt"></i>{this.state.orderData.deliveryAddress.addressLine1}, <br/>  {this.state.orderData.deliveryAddress.addressLine2}
                                       </div> 
                                   </div>
                                 }

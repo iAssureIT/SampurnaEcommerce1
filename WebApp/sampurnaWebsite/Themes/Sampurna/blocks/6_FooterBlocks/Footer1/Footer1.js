@@ -114,7 +114,7 @@ export default class Footer1 extends Component{
 					<div className={"col-12 "+S.footerBottomWrapper}>
 						<ul>
 							<li>
-								<span className={S.footerCopyright}>Copyright &copy; 2021</span> &nbsp; &nbsp;
+								<span className={S.footerCopyright +"hhggfg"}>Copyright &copy; 2021</span> &nbsp; &nbsp;
 								<span className={S.footerCompanyName}>iAssure International Technologies Pvt. Ltd.</span> &nbsp; &nbsp;
 								<span className={S.footerAllRightsReserved}>All Rights Reserved.</span>
 							</li>

@@ -101,17 +101,23 @@ export function getCartData() {
           .then((response)=>{ 
             if(response){   
               // console.log("my cart response =",response.data);
-              for(let i=0;i<response.data.vendorOrders.length;i++){
-                  if(response.data.vendorOrders[i].vendor_netPayableAmount < response.data.minOrderAmount){
-                    
-                    var cartBtnDisabled = true;
-                    response.data.vendorOrders[i].invalidOrder = "cartWarning";
-                    response.data.vendorOrders[i].cartBtnDisabled = true;
-                    
-                  }
-              }
-              if(cartBtnDisabled){
-                response.data.cartBtnDisabled = true;
+              if(response.data.vendorOrders.length>0){
+                for(let i=0;i<response.data.vendorOrders.length;i++){
+                    if(response.data.vendorOrders[i].vendor_netPayableAmount < response.data.minOrderAmount){
+                      
+                      var cartBtnDisabled = true;
+                      response.data.vendorOrders[i].invalidOrder = "cartWarning";
+                      response.data.vendorOrders[i].cartBtnDisabled = true;
+                      
+                    }
+                }
+                // dispatch({
+                //   type: 'SET_LOADING',
+                //   loading: true
+                // });
+                if(cartBtnDisabled){
+                  response.data.cartBtnDisabled = true;
+                }
               }
               // console.log("cart response =",response.data);
               dispatch(fetchcartdata(response.data));

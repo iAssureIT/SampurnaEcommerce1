@@ -67,7 +67,7 @@
     color: #fff!important;
 }
 .locationBTN1{
-	margin-left: -62px!important;
+	margin-left: -26px!important;
     background: #033554 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #000000a6;
     border-radius: 10px;
@@ -78,11 +78,12 @@
     height: 46px;
 	position:absolute;
 }
+
 .locationBTN1:hover{
-	color: #fff !important;
+	color: #fff !important; 
 }
 .locationBTNafterLogin1{
-    margin-left: 15px!important;
+    margin-left: 4px!important;
     background: #033554 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #000000a6;
     border-radius: 10px;
@@ -92,6 +93,9 @@
     font-size: 14px;
     height: 46px;
 	position:absolute;
+}
+.locationBTNafterLogin1:hover{
+    color: #fff !important;
 }
 .zindex{
   position: absolute;
@@ -170,8 +174,8 @@
 .locationSearchWrapperAfterLogin input{
 	height: 42px!important;
     border-radius: 10px!important;
-    width: 507px!important;
-    opacity: 0.72!important;
+    /* width: 507px!important; */
+    /* opacity: 0.72!important; */
     box-shadow: -3px 3px 6px #000000e8!important;
     /* margin-left:-25px!important; */
 }
@@ -190,14 +194,17 @@
 .search{
 	position: absolute;
     top: 25%;
-    right: 18%;
+    right: 7%;
     color: #999;
 	z-index: 999;
+}
+.searchBeforLogin{
+    right: 1% !important;
 }
 .searchAfterLogin{
     position: absolute;
     top: 25%;
-    right: 1%;
+    right: 4%;
     color: #999;
 	z-index: 999;
 }

@@ -275,7 +275,7 @@ class Product extends Component{
   
 
     render(){
-      // console.log("products props===",this.props);
+      console.log("products props===",this.props);
 
       var LGCol = 12/this.props.blockSettings.noOfProductPerLGRow;
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;
@@ -350,7 +350,7 @@ class Product extends Component{
                       </div>
                       <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
                         <div className={"col-12 " +Style.innerDiv}>
-                          {this.props.productSettings.displayBrand === true ?
+                          {this.props.productSettings.displayBrand === false?
                             data.brandNameRlang?
                             <div className={"col-12 globalProduct_brand RegionalFont1"} title={data.brandNameRlang}>{data.brandNameRlang}</div>
                             :
@@ -368,7 +368,9 @@ class Product extends Component{
                           :null
                           }
                           <div className={"col-12 globalProductItemName  " } title={data.productName}>
-                            <span className={ Style.ellipsis +" " +Style.globalProdName}>{data.productName} </span>&nbsp;
+                            <span className={ Style.ellipsis +" mt-2 " +Style.globalProdName}>{data.productName} &nbsp;
+                            </span>&nbsp;
+                            <span className={"col-12 mt-2 NoPadding "+Style.sizeUnitName}>{data.size && data.size}&nbsp;{data.unit && data.size && data.unit}</span>
                           </div>
 
                           <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>
@@ -392,7 +394,7 @@ class Product extends Component{
                                   </span>
                                 </div>
                                 :  
-                                <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
+                                <div className={"col-12 NoPadding pb-2 gcf" +Style.priceWrapper +" " +Style.NoPadding}>
                                   <span className={Style.price}>
                                     {this.state.currency} &nbsp;{(data.originalPrice).toFixed(2)} </span> &nbsp;                                      
                                 </div> 

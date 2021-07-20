@@ -47,7 +47,7 @@ class MyCart extends React.Component {
                 </div>
                 :
                 <div className="row cartHeader" >
-                    <div className="col-6 NoPadding ml-4">
+                    <div className="col-8 NoPadding ml-4">
                         <a href="" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
                             <Image
                             src={"/images/eCommerce/cart.png"}

@@ -591,7 +591,7 @@ class CartProducts extends Component{
     }
 }
 const mapStateToProps = state => (
-    // console.log("state in cartProductsdata====",state.data),
+    console.log("state in cartProductsdata====",state.data),
     {
       recentCartData: state.data.recentCartData,
       loading : state.data.loading

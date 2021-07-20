@@ -71,10 +71,10 @@ class SearchProduct extends Component {
           < Header />
           {/* <Message messageData={this.state.messageData} />  */}
           <div className={" container mt-5 "+Style.searchProductWrapper}> 
-            <div className="row">
               {this.props.searchData.data ?
                 <div className="row">
-                  <div className="col-12 text-center mb-5">{ this.props.searchData.data.length +" Results for " +"'"+this.state.searchProduct +"'"}</div>
+                  {/* <div className="col-12 text-center mb-5">{ this.props.searchData.data.length +" Results found " +"'"+this.state.searchProduct +"'"}</div> */}
+                  <div className="col-12 text-center mb-5">{ this.props.searchData.data.length +" Results found "}</div>
                   { Array.isArray(this.props.searchData.data) && this.props.searchData.data.length > 0 ?
                     Array.isArray(this.props.searchData.data) && this.props.searchData.data.map((data, index) => {            
                       return (
@@ -103,7 +103,6 @@ class SearchProduct extends Component {
                     <h6>Opps... Sorry... No Products Available. Please search your product</h6>
                 </div>
               }
-            </div>
             
           </div>
           <Footer />

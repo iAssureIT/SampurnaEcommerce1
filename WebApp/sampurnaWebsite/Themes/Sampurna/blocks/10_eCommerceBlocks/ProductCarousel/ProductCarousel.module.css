@@ -252,8 +252,11 @@ color: #FBBD65!important;
   margin: auto!important;
   /* padding-top: 10px!important; */
   position: relative;
-  top: 10px;
+  top: 25px;
   margin-bottom: 10px!important;
+}
+.sizeUnitName{
+    font-size: 12px;
 }
 .NoAvailableImg1{
   /* width: 100%; */

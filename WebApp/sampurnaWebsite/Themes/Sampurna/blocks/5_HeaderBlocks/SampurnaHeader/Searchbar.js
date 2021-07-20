@@ -70,11 +70,11 @@ class Searchbar extends React.Component {
       }
 
       getProducts(event){
-          event.preventDefault();
+        event.preventDefault();
         var formValues = {
             "searchstr"         : this.state.searchText,
             "user_id"           : this.state.user_ID,
-            "limit"             : 10,
+            "limit"             : 20,
             "userLatitude"      : this.state.latitude,
             "userLongitude"     : this.state.longitude
         }
@@ -168,7 +168,7 @@ class Searchbar extends React.Component {
                             {Array.isArray(this.state.relatedSearches) && 
                                 this.state.relatedSearches.map((data,index)=>{
                                 // console.log("data",data);
-                               return( <option value={data} onSelect={this.getProducts}>{data}</option>)
+                               return( <option value={data}>{data}</option>)
                             })
                             }
                         </datalist>

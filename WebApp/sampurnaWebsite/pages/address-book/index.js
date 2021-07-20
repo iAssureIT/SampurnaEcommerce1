@@ -126,24 +126,23 @@ class AddressBook extends Component{
         return(      
             <div className="container-flex "> 
             <div className=" col-12">
-            <div className="modal col-4 offset-4 " id="checkoutAddressModal" role="dialog">
-                <div className="modal-content-center  loginModalContent " style={{ 'background': '#fff'}}>
-                    <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
-                        <div className="col-4">
-                            < WebsiteLogo /> </div>
-                        <div className="col-7 text-center">
-                            <h6 className="modal-title modalheadingcont">SHIPPING ADDRESS</h6> </div>
-                        <div className="col-1 text-center">
-                            <button type="button" className="close" data-dismiss="modal">&times;</button>
+            
+            <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
+                <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
+                    <div className={"modal-content  pb-0 "+Style.modalContentM}>    
+                    <div className={"modal-header globalBgColor col-12 " +Style.modalHeaderM}>
+                        <div className={"modal-title col-12 modalheadingcont pb-3  underline " +Style.f14BM }><img className={" "+Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO"/><p>Shipping Address</p></div>
+                        <button type="button" className={" close modalclosebut  "+Style.modalCloseButtonWrapperM} data-dismiss="modal">&times;</button>
+                    </div>                      
+                        <div className={"modal-body addressModalBody "+Style.modalBg}>
+                            <UserAddress />
                         </div>
-                    </div>
-                    <div className="modal-body  addressModalBody">
-                        <UserAddress /> 
                     </div>
                 </div>
             </div>
+
             <Message messageData={this.state.messageData} /> </div>
-            <h5 className="font-weight-bold">Default Addresses</h5>
+            <h5 className="font-weight-bold">My Addresses</h5>
             <div className={ "col-12   "+Style.accountDashBoardInnerwrapper}>
                 <div className="row">
                     <div className="col-12 pt-4 ">
@@ -165,34 +164,37 @@ class AddressBook extends Component{
                                     </div> } </div>
                             </div>
                             <div className="col-12 NOpaddingRight ">
-                            <label className="text-center font-weight-bold">Additional Address Entries</label>
-                                <div className="row">
-                                 { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return(
-                                
-                                <div key={ 'address'+index} className="col-12 col-md-6 mx-auto py-3">
-                                <div className="row">
-                                    <div className="col-12 ">
+                                <div className="col-12">
+                                    <label className="text-center font-weight-bold">Additional Address Entries</label>
+                                    <div className="row">
+                                        { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return(
                                         
-                                            <p> {address.name}
-                                                <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {address.addressLine1}
-                                                <br /> {/* {this.state.city},
-                                                <br /> */} {/* {address.state}, {address.country} - {address.pincode}
-                                                <br /> */} Pincode : {address.pincode +"."}
-                                                <br /> Contact Number: {address.mobileNumber} </p>
+                                        <div key={ 'address'+index} className="col-12 col-md-6 mx-auto py-3">
+                                        <div className="row">
+                                            <div className="col-12 ">
                                                 
-                                            <div data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn">Edit Address</div> 
-                                                &nbsp; <i id={address._id} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn globalCommonBtn deleteAdd" style={{ "fontSize": '15px' }}></i> 
+                                                    <p> {address.name}
+                                                        <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {address.addressLine1}
+                                                        <br /> {/* {this.state.city},
+                                                        <br /> */} {/* {address.state}, {address.country} - {address.pincode}
+                                                        <br /> */} Pincode : {address.pincode +"."}
+                                                        <br /> Contact Number: {address.mobileNumber} </p>
+                                                    <div className="col-12">
+                                                        
+                                                        <button data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className=" col-8 btn globalCommonBtn">Edit Address</button> 
+                                                            &nbsp; <i id={address._id} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn deleteAdd" style={{ "fontSize": '15px' }}></i> 
+                                                        </div>
+                                                    </div>
                                             </div>
+                                        </div>
+                                        
+                                        ); } }) :
+                                        <p className="text-justify">You have no other address entries in your address book.</p> }
+                                        <div className="col-12 NOpadding py-4">
+                                            <div data-toggle="modal" data-target="#checkoutAddressModal" id="" className={"btn globalCommonBtn addressSaveBtn " }>Add New Address</div>
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                 ); } }) :
-                                <p className="text-justify">You have no other address entries in your address book.</p> }
-                                <div className="col-12 NOpadding py-4">
-                                    <div data-toggle="modal" data-target="#checkoutAddressModal" id="" className={"btn globalCommonBtn addressSaveBtn " }>Add New Address</div>
-                                </div>
                             </div>
-
                             </div>
                         </div>
                     </div>

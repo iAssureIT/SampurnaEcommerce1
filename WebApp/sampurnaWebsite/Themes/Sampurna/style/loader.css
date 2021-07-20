@@ -1,11 +1,12 @@
 .loaderImg{
     overflow: hidden;
-      height: 185px;
+      /* height: 185px; */
+      height: 400px;
       width: 100%;
       /* background: #eee9; */
   }
   /* Transparent Overlay */
-  .fullpageloader:before {
+  /* .fullpageloader:before {
     content: '';
     display: block;
     position: fixed;
@@ -13,8 +14,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* background-color: rgba(0,0,0,0.3); */
-  }
+    background-color: rgba(0,0,0,0.3);
+  } */
   
   /* :not(:required) hides these rules from IE9 and below */
   .fullpageloader:not(:required) {
