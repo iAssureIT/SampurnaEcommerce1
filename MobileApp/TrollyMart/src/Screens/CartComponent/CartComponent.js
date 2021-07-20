@@ -42,9 +42,10 @@ export const CartComponent = withCustomerToaster((props)=>{
   const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
-    globalSearch    : store.globalSearch
+    globalSearch    : store.globalSearch,
+    location        : store.location
   }));
-  const {globalSearch}=store;
+  const {globalSearch,location}=store;
   const {currency}=store.preferences;
 
 
@@ -148,10 +149,17 @@ const getshippingamount=(startRange, limitRange)=>{
   }
 
 
-  const addToWishList = (productid) => {
+  const addToWishList = (productid,vendor) => {
     const wishValues = {
-      "user_ID": userId,
-      "product_ID": productid,
+      "user_ID"           : userId,
+      "product_ID"        : productid,
+      "userDelLocation"   : {
+        "lat"               : location?.address?.latlong?.lat, 
+        "long"              : location?.address?.latlong?.lng,
+        "delLocation"       : location?.address?.addressLine2
+      },
+      "vendor_id"          : vendor.vendor_id._id,
+      "vendorLocation_id"  : vendor.vendorLocation_id,
     }
     axios.post('/api/wishlist/post', wishValues)
     .then((response) => {
@@ -327,15 +335,15 @@ const getshippingamount=(startRange, limitRange)=>{
                           </View>
                           <View style={[styles.flx5,{alignItems:'flex-end'}]}>
                               <View style={styles.proddeletes}>
-                                <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID._id)} >
-                                  <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.product_ID.isWish ?'red':'#ccc'}/>
+                                <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID._id,vendor)} >
+                                  <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.product_ID.isWish ?'red':'#999'} iconStyle={{}}/>
                                 </TouchableOpacity>
                                 <Icon
                                   onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)}
-                                  name="delete"
-                                  type="AntDesign"
+                                  name="trash-can-outline"
+                                  type="material-community"
                                   size={20}
-                                  color="#ccc"
+                                  color="#000000"
                                   iconStyle={styles.iconstyle}
                                 />
                               </View>
@@ -588,9 +596,10 @@ const getshippingamount=(startRange, limitRange)=>{
       <Modal isVisible={removefromcart}
         onBackdropPress={() => setRemoveFromCart(false)}
         coverScreen={true}
-        hideModalContentWhileAnimating={true}
+        // transparent
+        // hideModalContentWhileAnimating={true}
         style={{ paddingHorizontal: '5%', zIndex: 999 }}
-        animationOutTiming={500}>
+        animationInTiming={1} animationOutTiming={1}>
         <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
           <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
             <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
@@ -612,7 +621,7 @@ const getshippingamount=(startRange, limitRange)=>{
             </View>
             <View style={styles.ordervwbtn}>
                 <Button
-                  onPress={() => deleteItem()}
+                  onPress={() => {setRemoveFromCart(false);deleteItem()}}
                   titleStyle={styles.buttonText1}
                   title="Yes"
                   buttonStyle={styles.button1}

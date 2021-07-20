@@ -74,6 +74,7 @@ const FilterModal = (props) => {
         transparent={true}
         visible={visible}>
        <Header
+         statusBarProps={{ backgroundColor:colors.theme }}
           rightComponent={
             <Text
               style={{color: 'red'}}

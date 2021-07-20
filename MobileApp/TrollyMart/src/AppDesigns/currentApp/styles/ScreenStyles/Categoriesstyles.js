@@ -659,7 +659,7 @@ export default StyleSheet.create({
     height:28,
     opacity: 1,
     fontSize:11,
-    color: "#000000"
+    color: "#000000",
   },
   discountPercent:{
     fontFamily:"Montserrat-Regular",

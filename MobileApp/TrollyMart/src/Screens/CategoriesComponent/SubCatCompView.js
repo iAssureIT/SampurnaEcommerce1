@@ -403,12 +403,11 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                 <View style={{height:60,width:80,marginLeft:30}}>
                   <Text style={{color: "#000000",opacity: 0.5,fontSize:11}}>Size</Text>
                   <Dropdown
-                    underlineColorAndroid ='transparent'
                     onChangeText        = {(value) => filterProductSize(value)}
                     data                = {sizes}
                     value               = {sizes[sizeIndex]?.label}
                     containerStyle      = {styles.ddContainer}
-                    dropdownOffset      = {{ top: 0, left: 0 }}
+                    dropdownOffset      = {{ top: 85, left: 0 }}
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
                     labelHeight         = {10}
@@ -420,6 +419,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     labelTextStyle      = {{ left: 5 }}
                     style               = {styles.ddStyle}
                     disabledLineType    = 'none'
+                    underlineColor      ='transparent'
                   />
                 </View>  
               </View>

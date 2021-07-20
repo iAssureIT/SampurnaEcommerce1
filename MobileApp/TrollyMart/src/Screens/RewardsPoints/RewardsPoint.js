@@ -16,6 +16,7 @@ import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonS
 import { ActivityIndicator }    from 'react-native-paper';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { NetWorkError } from '../../../NetWorkError.js';
+import { colors } from '../../AppDesigns/currentApp/styles/styles';
 
 export const RewardsPoint =withCustomerToaster((props)=>{
   const {navigation,setToast}=props;
@@ -25,7 +26,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
   const [creditPoints,setCreditPoints] =useState();
   useEffect(() => {
     getData();
-  },[props]);
+  },[props,isFocused]);
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
@@ -110,7 +111,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                                 <Text style={[styles.accusermob,{fontSize:11}]}>{moment(item.expiryDate).format('MM/DD/YYYY')} Expiry</Text>
                               </View>  
                               <View style={{flex:.2,justifyContent:'center'}}>
-                                <Text style={[styles.accusermob,{alignSelf:"flex-end",color:'#3E9D5E',fontSize:16,fontFamily:"Montserrat-Medium"}]}><Text>+</Text> {item.earnedPoints}</Text>
+                                <Text style={[styles.accusermob,{alignSelf:"flex-end",color:Math.sign(item.earnedPoints) === 1 ? colors.success:colors.danger,fontSize:16,fontFamily:"Montserrat-Medium"}]}>{Math.sign(item.earnedPoints) === 1 && <Text>+</Text>}{item.earnedPoints}</Text>
                                 </View>   
                             </View>
                             <View style={{borderWidth:0.3,width:280,borderColor:"#ddd",marginTop:15,alignSelf:'center'}} />

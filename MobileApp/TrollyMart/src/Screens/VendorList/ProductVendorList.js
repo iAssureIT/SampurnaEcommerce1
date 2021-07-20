@@ -23,6 +23,7 @@ import Loading                  from '../../ScreenComponents/Loading/Loading.js'
 import {STOP_SCROLL}          from '../../redux/productList/types';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { NetWorkError } from '../../../NetWorkError.js';
+import { useIsFocused }       from '@react-navigation/native';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 export const ProductVendorList = withCustomerToaster((props)=>{
@@ -32,6 +33,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
     const sectionUrl = props.route.params?.sectionUrl;
     const index = props.route.params?.index;
     const product_id = props.route.params?.product_id;
+    const isFocused = useIsFocused();
     const [limit,setLimit] = useState(0);
     const [vendorList,setVendorList] =useState([]);
     const dispatch 		= useDispatch();
@@ -44,10 +46,8 @@ export const ProductVendorList = withCustomerToaster((props)=>{
     const {globalSearch} =store ;
     const {navigation} =props;
     useEffect(() => {
-        setLoading(true);
         getData();
-        return () =>setVendorList([]);
-    },[props]);
+    },[props.route.params?.product_id]);
 
     const getData = ()=>{
         dispatch({

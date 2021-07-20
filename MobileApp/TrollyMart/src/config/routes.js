@@ -175,6 +175,7 @@ const AppStack = () => (
       }} />
       <App.Screen name="Auth"             component={RegisterStack} options={{headerShown: false}}/>
       <App.Screen name="LocationMain"     component={LocationScreen} options={{headerShown: false}} />
+      <App.Screen name="ProductVendorList"           component={ProductVendorList} options={getHeaderConfig("Vendor List",true)}/>
   </App.Navigator>
 );
 
