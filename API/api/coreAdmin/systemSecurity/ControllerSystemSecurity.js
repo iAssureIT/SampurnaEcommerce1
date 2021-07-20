@@ -2047,6 +2047,7 @@ exports.user_signup_social_media = (req, res, next) => {
 										var users = await User.findOne({'authService':'facebook'}).sort({_id:-1}).limit(1) 
 										username = users ? parseInt(users.username)+1 : 1;
 									}
+									console.log("user",user);
 									if (user) {
 										const token = jwt.sign({
 											username: req.body.username,

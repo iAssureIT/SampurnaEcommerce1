@@ -138,6 +138,7 @@ const window = Dimensions.get('window');
               social_media_id : user.id,   
               authService : "facebook",
             }
+            console.log("formValues",formValues);
             sign_in(formValues);
             logoutWithFacebook;
           }
