@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios                from 'axios';
 import Link                 from 'next/link'
+import $                    from 'jquery';
 import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Style                from "./vendor-list.module.css";
@@ -15,7 +16,17 @@ class VendorList extends Component {
       }
       
       componentDidMount() {
-        var url = window.location.href.split('/');
+        $(window).scroll(function() {
+            if ($(this).scrollTop()>670)
+             {
+                $('.myDiv').hide(1000);
+             }
+            else
+             {
+              $('.myDiv').show(1000);
+             }
+         });
+       var url = window.location.href.split('/');
         const sectionurl = url[4];
         if(sectionurl){
             this.setState({
@@ -63,19 +74,23 @@ class VendorList extends Component {
         return(
             <div className={ Style.bgGray}>
                 <Header /> 
-                <div className={"col-12 " +Style.bgHeight}>
+                <div className={"container-flex " +Style.bgHeight}>
+                <div  className={"col-12 myDiv h-100 bg-success "+Style.deliveryTimeWrapper}>
+                    <div className="col-12 text-center  "><p className={"col-12 "+Style.deliveryTimeWrapperDesc}>Delivery time <span className={" "+Style.deliveryTimeWrapperDesc1}>9</span>am to <span className={" "+Style.deliveryTimeWrapperDesc2}>11</span>pm or next day delivery</p></div>
+                </div>
                     {!this.state.loading
                     ?
-                    <div className="col-10 offset-1">
+                    <div className="col-10 offset-1 col-md-8 offset-md-2 col-lg-10 offset-lg-1">
                         <div className="col-12">
                             <div className={" row " }>
+                                
                                 <div className="col-12">
                                     <div className={"text-center  mt-5 mb2 " +Style.vendorlistTitle}> <h4 className="float-left font-weight-bold">Select Shop</h4></div>
                                 </div>
                                 { Array.isArray(this.state.vendorList) && this.state.vendorList.length >0?
                                         this.state.vendorList.map((vendordata, index)=>{
                                             return(
-                                                <div className="col-6" key={index}>
+                                                <div className="col-lg-6 col-12 col-sm-6" key={index}>
                                                     <div className={"col-12 card mt-2 mb-4 " +Style.vendorCard}>
                                                     <Link href={"/products/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+this.state.sectionurl} className={+Style.vedorLink}>
                                                         <div className={"row card-body " +Style.cardBody}>
@@ -127,9 +142,7 @@ class VendorList extends Component {
                     }  
                           
                 </div>
-                <div className={"col-12 h-100 bg-success "+Style.deliveryTimeWrapper}>
-                        <div className="col-12 text-center  "><p className={" "+Style.deliveryTimeWrapperDesc}>Delivery time <span className={" "+Style.deliveryTimeWrapperDesc1}>9</span>am to <span className={" "+Style.deliveryTimeWrapperDesc2}>11</span>pm or next day delivery</p></div>
-                   </div>   
+                  
                 <Footer />
             </div>
         )
