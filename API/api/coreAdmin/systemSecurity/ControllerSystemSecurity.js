@@ -2035,7 +2035,7 @@ exports.user_signup_social_media = (req, res, next) => {
 									$and:[
 											{"profile.email"  :  req.body.email},
 											{"profile.email"  :  {$ne:''}},
-											{"authService"    :  {$ne:''}}
+											{"authService"    :  req.body.authService}
 										]
 									},
 								)
