@@ -283,14 +283,14 @@ class SingleProduct extends Component{
                             <div className={"col-12 " +Style.ellipsis +" " +Style.globalProduct_vendor} title={this.props.data.vendorName}>{this.props.data.vendorName}</div>
                         :   null
                         }    
-                        {this.props.productSettings.displayBrand === true ?
+                        {/* {this.props.productSettings.displayBrand === true ?
                         this.props.data.brandNameRlang?
                         <div className={"col-12 globalProduct_brand RegionalFont1"} title={this.props.data.brandNameRlang}>{this.props.data.brandNameRlang}</div>
                         :
                             <div className={"col-12 globalProduct_brand " +Style.ellipsis} title={this.props.data.brand}>{this.props.data.brand}</div>
 
                         :null
-                        } 
+                        }  */}
                         {this.props.productSettings.displaySection === true ?
                         <div className={"col-12 globalProductItemName"} title={this.props.data.section}>{this.props.data.section}</div>
                         :null
@@ -306,7 +306,8 @@ class SingleProduct extends Component{
                         } */}
 
                         <div className={"col-12 globalProductItemName  " } title={this.props.data.productName}>
-                        <span className={ Style.ellipsis +" " +Style.globalProdName}>{this.props.data.productName} </span>&nbsp;
+                          <span className={ Style.ellipsis +" " +Style.globalProdName}>{this.props.data.productName} </span>&nbsp;
+                          <div className={"col-12  NoPadding "+Style.sizeUnitName}>{this.props.data.size && this.props.data.size}&nbsp;{this.props.data.unit && this.props.data.size && this.props.data.unit}</div>
                         </div>
 
                         <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>

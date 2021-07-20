@@ -664,15 +664,15 @@ submitCart(event) {
                                   </div>
                                   <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
                                     <div className={"col-12 " +Style.innerDiv}>
-                                      {this.state.productSettings.displayBrand === true ?
+                                      {/* {this.state.productSettings.displayBrand === true ?
                                         data.brandNameRlang?
                                         // <div className={"col-12 globalProduct_brand RegionalFont"} title={data.brandNameRlang}>{data.brandNameRlang}</div>
                                         <div className={"col-12"}></div>
                                         :
                                           <div className={"col-12 globalProduct_brand " +Style.ellipsis} title={data.brand}>{data.brand}</div>
 
-                                      :null
-                                      }                                        
+                                        :null
+                                      }                                         */}
                                       
                                       {this.state.productSettings.displaySection === true ?
                                         <div className={"col-12 globalProductItemName"} title={data.section}>{data.section}</div>

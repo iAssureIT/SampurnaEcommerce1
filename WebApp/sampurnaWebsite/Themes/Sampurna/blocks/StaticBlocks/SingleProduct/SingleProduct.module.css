@@ -30,7 +30,7 @@
     text-align: center;
   }
   .ImgWrapper{
-    /* height: 200px; */
+    height: 180px;
   }
   .wishlistBtn{
     /* margin-top: 20px; */
@@ -54,6 +54,9 @@
     outline: 0px;
     width: 100%;
   }
+  .sizeUnitName{
+    font-size: 12px;
+  }
   .NoAvailableImg{
     /* width: 100%; */
     background-image: url("/images/eCommerce/productloader.gif");
@@ -64,7 +67,7 @@
     margin: auto!important;
     /* padding-top: 10px!important; */
     position: relative;
-    top: 10px;
+    top: 25px;
     margin-bottom: 10px!important;
   }
   .hoveractions1 a{
