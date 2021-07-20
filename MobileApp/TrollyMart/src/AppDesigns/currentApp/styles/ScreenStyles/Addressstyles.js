@@ -326,8 +326,8 @@ export default StyleSheet.create({
     backgroundColor:'#fff',
     marginTop:0,marginBottom:15,
     borderRadius:9,
-    borderWidth:1,
-    borderColor:colors.theme
+    borderWidth:2,
+    borderColor:colors.cartButton
   },
   addcmpchkbx:{
     backgroundColor:'#fff',

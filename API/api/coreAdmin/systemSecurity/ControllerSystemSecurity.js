@@ -2034,7 +2034,8 @@ exports.user_signup_social_media = (req, res, next) => {
 							User.findOne({
 									$and:[
 											{"profile.email"  :  req.body.email},
-											{"profile.email"  :  {$ne:''}}
+											{"profile.email"  :  {$ne:''}},
+											{"authService"    :  {$ne:''}}
 										]
 									},
 								)

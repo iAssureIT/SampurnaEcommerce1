@@ -331,18 +331,20 @@ export const AcceptedOrders =(props)=> {
     };
 
     return (
-        <>
-           {orderList  && orderList.length >0?<FlatList
-            data={orderList}
-            keyExtractor={(item) => item.id}
-            renderItem={_renderlist} 
+        <View style={{flex:1}}>
+            <View style={{flex:1,marginBottom:60}}>
+            {orderList  && orderList.length >0?<FlatList
+                    data={orderList}
+                    keyExtractor={(item) => item.id}
+                    renderItem={_renderlist} 
                 />
-            :
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <Text>No Order Found</Text>
-            </View>}
+                :
+                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                    <Text>No Order Found</Text>
+                </View>}
+            </View>  
             <Footer selected={"1"}/>
-        </>
+        </View>
     );
 
     }

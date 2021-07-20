@@ -40,6 +40,7 @@ import {
 import { ActivityIndicator } from 'react-native';
 import { useIsFocused } from "@react-navigation/native";
 import DeviceInfo from 'react-native-device-info';
+import {getCartCount}       from '../../../redux/productList/actions';
 
 GoogleSignin.configure({
   // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -96,6 +97,7 @@ const window = Dimensions.get('window');
                   console.log("res",res);
                   setLoading(false);
                   if(res.data.message === "Login Auth Successful"){
+                    dispatch(getCartCount(res.data.ID));
                     if(res.data.passwordreset === false  ){
                       navigation.navigate('ChangePassword',{user_id:res.data.ID})
                     }else{  
@@ -289,8 +291,9 @@ const window = Dimensions.get('window');
       axios.post('/api/auth/post/signup/social_media',formValues)
       .then((res) => {
         console.log("response",res);
-        setLoading(false)
+        setLoading(false);
         if(res.data.message === "Login Auth Successful"){
+          dispatch(getCartCount(res.data.ID));
           if(res.data.passwordreset === false  ){
             navigation.navigate('ChangePassword',{user_id:res.data.ID})
           }else{  

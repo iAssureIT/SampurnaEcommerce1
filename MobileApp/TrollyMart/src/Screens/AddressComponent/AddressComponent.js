@@ -237,7 +237,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     <PhoneInput
                       ref={phoneInput}
                       defaultValue={values.mobileNumber}
-                      defaultCode={values.countryCode}
+                      defaultCode={values.countryCode ? values.countryCode : "AE"}
                       layout="first"
                       onChangeFormattedText={(text) => {
                         setValue(text);

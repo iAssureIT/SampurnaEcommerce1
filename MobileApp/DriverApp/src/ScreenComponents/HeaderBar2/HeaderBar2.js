@@ -43,7 +43,7 @@ import Geolocation          from 'react-native-geolocation-service';
    
     useEffect(() => {
       getData();
-    },[props]);
+    },[]);
  
   const getData=()=>{
     getNotificationList();

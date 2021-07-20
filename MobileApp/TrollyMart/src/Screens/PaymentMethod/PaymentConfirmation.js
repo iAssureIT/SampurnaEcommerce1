@@ -105,7 +105,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                         <Text style={[CommonStyles.label,{fontFamily:"Montserrat-Regular"}]}>Mobile No</Text>
                     </View>
                     <View style={{flex:0.5,alignItems:'flex-end'}}>
-                        <Text style={[CommonStyles.label]}>{order.deliveryAddress.mobileNumber}</Text>
+                        <Text style={[CommonStyles.label]}>{order?.deliveryAddress?.mobileNumber ? order?.deliveryAddress?.mobileNumber : "NA"}</Text>
                     </View>
                 </View>
                 <View style={{flexDirection:"row",marginTop:16}}>

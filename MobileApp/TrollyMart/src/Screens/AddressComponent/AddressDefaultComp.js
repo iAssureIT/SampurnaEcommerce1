@@ -178,7 +178,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                       )]}>
                     {item.distance<=1 ?
                       <TouchableOpacity onPress={() => {selectedaddress(i,item._id,item)}} >
-                        <View style={{height:24,backgroundColor:"#5B8E7E",borderTopLeftRadius:9,borderTopRightRadius:9,flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15}}>
+                        <View style={{height:24,backgroundColor:colors.cartButton,borderTopLeftRadius:9,borderTopRightRadius:9,flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15,borderWidth:2,borderColor:colors.cartButton}}>
                             <Icon name="home" type="material-community" size={10} iconStyle={{elevation:5}} color={colors.white}/>
                             {!disabled&&<Icon name="delete" type="AntDesign" size={10} iconStyle={{elevation:5}} color={colors.white}  onPress={() => deleteAdress(item._id)}/>}
                         </View>  

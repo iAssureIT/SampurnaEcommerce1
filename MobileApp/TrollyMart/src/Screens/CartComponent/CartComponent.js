@@ -276,8 +276,8 @@ const getshippingamount=(startRange, limitRange)=>{
                               {item.product_ID.availableQuantity > 0 ?
                                 <View style={[styles.flxdir,{alignItems:'flex-end'}]}>
                                     <Text style={styles.currency}>{currency} </Text>                                    
-                                  {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
-                                    <Text style={[styles.currency,{fontFamily:"Montserrat-SemiBold"}]}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                  {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice).toFixed(2)}</Text>}
+                                    <Text style={[styles.currency,{fontFamily:"Montserrat-SemiBold"}]}> {(item.product_ID.discountedPrice).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                     </Text>
                                   {item.product_ID.discountPercent > 0 &&
                                       <Text style={styles.offprice}>{item.product_ID.discountPercent} % <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>

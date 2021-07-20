@@ -250,7 +250,7 @@ export const ProductList = withCustomerToaster((props)=>{
               getCategoryList(item)
             }
           }>
-          <View style={styles.flx5}>
+          <View style={[styles.flx5,{paddingHorizontal:10}]}>
               {item.discountPercent && item.discountPercent >0?
                   <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
                     <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
@@ -289,14 +289,15 @@ export const ProductList = withCustomerToaster((props)=>{
                       <Text style={styles.brandname}>{item.vendorName}</Text>
                     </View>
                   }
-                  <View style={{flexDirection:'row',flex:1}}>
-                    <View style={{flex:.8}}>
-                      {item.brand ?
+                  <View style={{flexDirection:'row',flex:1,marginVertical:5}}>
+                    <View style={{flex:.8,paddingRight:2}}>
+                      {/* {item.brand ?
                     
                         <Text numberOfLines={1} style={[styles.productName]}>{item.brand}</Text>
                         :
                        null
-                      }
+                      } */}
+                      <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text>
                     </View>
                     <View style={{flex:.2}}>
                       <TouchableOpacity 
@@ -312,12 +313,12 @@ export const ProductList = withCustomerToaster((props)=>{
                           :
                           addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
                       }
-                      style={{height:25,width:25,borderWidth:1,borderRadius:100,marginRight:15,justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton}}>
-                        <Icon name="plus" type="material-community" size={20} color={props.disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end'}}/>
+                      style={{height:25,width:25,borderWidth:2,borderRadius:100,marginRight:15,justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton}}>
+                        <Icon name="plus" type="entypo" size={20} color={props.disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/>
                       </TouchableOpacity>  
                     </View>  
                   </View>
-                  <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text>
+                  {/* <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text> */}
                   {/* }                        */}
                 </View>
                 <View style={[styles.textWrapper, styles.prdet]}>

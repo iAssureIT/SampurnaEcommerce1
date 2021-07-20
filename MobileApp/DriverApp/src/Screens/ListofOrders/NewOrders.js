@@ -33,47 +33,27 @@ export const NewOrders =(props)=> {
     const ref =useRef(null);
     let row: Array<any> = [];
     let prevOpenedRow;
-    useEffect(() => {
-        getList()
-    },[props,isFocused]);
 
     const store = useSelector(store => ({
         userDetails     : store.userDetails,
       }));
-
-    const getList =()=>{
-
+    useEffect(() => {
         var payload={
             "status" : "Ready to Dispatch",
             "user_id" : store.userDetails.user_id
         }
-        console.log("payload",payload);
-        // axios.post('/api/orders/get/nearest_vendor_orders',payload)
-        // .then(res=>{
-        //     console.log("res1",res);
-        //     setOrderList(res.data);
-        //     if (prevOpenedRow && prevOpenedRow !== row[index]) {
-        //         prevOpenedRow.close();
-
-        //       }
-        //       prevOpenedRow = row[index];
-        //       console.log("index",index);
-        // })
-        // .catch(err=>{
-        //     console.log("err",err);
-        // })
         socket.emit('nearest_vendor_orders',payload);
         socket.on('getVendorOrderList',(response)=>{
             console.log("response",response);
-            setOrderList(res);
-                if (prevOpenedRow && prevOpenedRow !== row[index]) {
-                    prevOpenedRow.close();
-    
-                  }
-                  prevOpenedRow = row[index];
-                  console.log("index",index);
+            setOrderList(response);
+            if (prevOpenedRow && prevOpenedRow !== row[index]) {
+            prevOpenedRow.close();
+
+            }
+            prevOpenedRow = row[index];
+            console.log("index",index);
         })
-    }
+    },[props,isFocused]);
 
 
     const Separator = () => <View style={styles.itemSeparator} />;
@@ -199,18 +179,21 @@ export const NewOrders =(props)=> {
     };
 
     return (
-        <>
-           {orderList  && orderList.length >0?<FlatList
-            data={orderList}
-            keyExtractor={(item) => item.id}
-            renderItem={_renderlist} 
+        <View style={{flex:1}}>
+            <View style={{flex:1,marginBottom:60}}>
+            {orderList  && orderList.length >0?
+            <FlatList
+                    data={orderList}
+                    keyExtractor={(item) => item.id}
+                    renderItem={_renderlist} 
                 />
-            :
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <Text>No Order Found</Text>
-            </View>}
+                :
+                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                    <Text>No Order Found</Text>
+                </View>}
+            </View>  
             <Footer selected={"0"}/>
-        </>
+        </View>
     );
 
     }

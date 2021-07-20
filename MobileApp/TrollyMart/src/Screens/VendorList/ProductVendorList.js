@@ -46,6 +46,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
     useEffect(() => {
         setLoading(true);
         getData();
+        return () =>setVendorList([]);
     },[props]);
 
     const getData = ()=>{

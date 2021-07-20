@@ -69,6 +69,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
     const [pageBlockes,setPageBlocks]       = useState([]);
     useEffect(() => {
       getData();
+      setChecked(false);
   }, [props]);
 
   const store = useSelector(store => ({
@@ -626,7 +627,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                             onPress={() => paymentMethodsPage()}
                             background  = {true}
                             // loading     = {btnLoading}
-                            // disabled       = {!disabled}
+                            disabled       = {!checked}
                           />
                         </View>
                     </View>
