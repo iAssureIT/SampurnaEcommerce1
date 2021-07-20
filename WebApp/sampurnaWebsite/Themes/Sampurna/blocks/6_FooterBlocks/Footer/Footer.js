@@ -129,11 +129,11 @@ export default class Footer extends Component {
                         <div className={" " +S.aboutClass}><Link href="/terms-and-conditions" passhref={true}><a><span>Terms and Conditions</span></a></Link></div>
                         <div className={" " +S.aboutClass}><Link href="/sitemap"><a ><span>&nbsp;Site Map</span></a></Link></div>  
                     </div>
-                      <div className="col-12 text-center footer3Class">
+                      {/* <div className="col-12 text-center footer3Class">
                           Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
-                      </div>
+                      </div> */}
                       <div className="col-12 text-center">
-                        <p className="footer3Class"><i className="fa fa-copyright footer3Class"></i>2021,knockknockeshop.com</p>
+                        <p className="footer3Class"><i className="fas fa-copyright footer3Class">&nbsp;</i>2021 Knock Knock. All Rights Reserved</p>
                       </div>                      
                   </div>
               </div>

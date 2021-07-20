@@ -415,7 +415,7 @@ class Checkout extends Component {
                         "latitude": deliveryAddress.length > 0 ? deliveryAddress[0].latitude : "",
                         "longitude": deliveryAddress.length > 0 ? deliveryAddress[0].longitude : "",
                     }
-                    console.log("inside if address values====",addressValues);               
+                    // console.log("inside if address values====",addressValues);               
                 } else {
                     addressValues = {
                         "user_ID": this.state.user_ID,
@@ -482,7 +482,7 @@ class Checkout extends Component {
                             paymentDetails            : this.state.recentCartData.paymentDetails,
                             deliveryAddress           : addressValues,
                         }
-                        console.log("OrdersData===",orderData);
+                        // console.log("OrdersData===",orderData);
 
                         if (this.state.isChecked) {                            
                             axios.post('/api/orders/post', orderData)
@@ -807,17 +807,17 @@ class Checkout extends Component {
                                     <div className={"col-12 NoPadding " +Style.paymentMethod}>
                                         <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>Payment Method <span className="required">*</span></div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
+                                            <input name="paymentmethods" type="radio" value="Online Payment" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "Online Payment"} onClick={this.handleChange.bind(this)} />
+                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Online Payment<div className={"col-12 ml-4 " +Style.onlinePayment}>(Credit / Debit Card)</div></span>
+                                        </div>
+                                        <div className={"col-12  " +Style.f14 +" "+Style.cardDelivery}>
+                                            <input name="paymentmethods" type="radio" value="Card On Delivery" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "Card On Delivery"} onClick={this.handleChange.bind(this)} />
+                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Card On Delivery</span>
+                                        </div>
+                                        <div className={"col-12 paymentInput " +Style.f14}>
                                             <input name="paymentmethods" type="radio" value="Cash On Delivery" className="webModelInput codRadio col-2 col-md-1"
                                                 checked={this.state.paymentmethods === "Cash On Delivery"} onClick={this.handleChange.bind(this)} />
                                             <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Cash On Delivery</span>
-                                        </div>
-                                        <div className={"col-12 paymentInput " +Style.f14}>
-                                            <input name="paymentmethods" type="radio" value="Online Payment" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "Online Payment"} onClick={this.handleChange.bind(this)} />
-                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Credit / Debit Card</span>
-                                        </div>
-                                        <div className={"col-12 paymentInput " +Style.f14}>
-                                            <input name="paymentmethods" type="radio" value="Card On Delivery" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "Card On Delivery"} onClick={this.handleChange.bind(this)} />
-                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Card On Delivery</span>
                                         </div>
                                         <div className="errorMsg col-11 ml-2">{this.state.errors.paymentmethods}</div>
                                     </div>
@@ -831,13 +831,6 @@ class Checkout extends Component {
                                             <div className=" col-12 errorMsg mb-2">{this.state.errors.checkoutAddess}</div>
                                                 {this.props.recentAddressData && this.props.recentAddressData.length > 0 ?
                                                     this.props.recentAddressData.map((data, index) => {
-                                                        console.log("address data ==", data);
-                                                        // {data.distance && data.distance >=1
-                                                        // ?   
-                                                        //     $('.addressList_'+data._id).addClass('addressDesabled')
-                                                        // :
-                                                        //     $('.addressList_'+data._id).removeClass('addressDesabled')
-                                                        // }
                                                         return (
                                                             <div key={'check' + index} className={"col-12 NoPadding "+data.addressDisabled }>
                                                                 <div className="row " >
@@ -862,8 +855,8 @@ class Checkout extends Component {
                                                                 </div>
                                                                 <div className="checkoutADDCss mb-4 col-10"><span className="mb-2 "><b>{data.addType} Address&nbsp;</b></span> <br />
                                                                     <span className={"checkoutADDCss " +Style.checkoutADDCss}>Name : {data.name}.</span> <br />
-                                                                    <span className={" " +Style.checkoutADDCss}>{data.addressLine2}, {data.addressLine1},
-                                                                    Mobile: {data.mobileNumber}</span></div>
+                                                                    <span className={" " +Style.checkoutADDCss}>{data.addressLine2}, {data.addressLine1},<br />
+                                                                   {data.mobileNumber ?<span>Mobile: </span>:null} {data.mobileNumber && data.mobileNumber} </span></div>
                                                                 </div>
                                                             </div>
                                                         );

@@ -47,8 +47,8 @@ class CategoryBlock extends Component{
         })
       }
       if(url[7] === undefined){
-        $('.category_0').addClass('activeCategory');
-        // $('.category_0').toggleClass('activeCategory')
+        // $('.category_0').addClass('activeCategory');
+        $('.category_0').toggleClass('activeCategory')
       }
     }
     render(){
@@ -81,6 +81,7 @@ class CategoryBlock extends Component{
                             
                               $('.category_'+index).toggleClass('activeCategory')
                               // $('.category_0').removeClass('activeCategory')
+                              // $('.category_'+0).addClass('activeCategory')
                             
                         : null
                           // $('.category_'+0).addClass('activeCategory')
@@ -90,7 +91,6 @@ class CategoryBlock extends Component{
                       <div className={"col-12 productsCategoryBlock "}  key={index}> 
                           <Link href={url} className ={"col-12 "}> 
                             <a className ={"col-12 " +Style.categoryBlock}>
-                              
                               <div className={ " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" "}>
                                   <Image    
                                     id="prodImg"                                       

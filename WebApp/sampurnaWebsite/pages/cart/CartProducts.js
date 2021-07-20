@@ -475,9 +475,9 @@ class CartProducts extends Component{
                                                 <div className={"col-12  " +Style.cartSummary1}>
                                                     <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                         <div className="row">
-                                                            <div className={"col-7 "+Style.cartInnerTitleWrapper}>Final Total Amount</div>
+                                                            <div className={"col-7 "+Style.cartInnerTitleWrapper}>Final Total Amount</div>   
                                                             <div className={"col-5 "+Style.cartInnerTitleWrapper1}>
-                                                            <span className="col-1 px-1">{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount.toFixed(2) : "00.00"}</span>  </div>
+                                                            <span className="col-1 px-1">{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.afterDiscountTotal > 0 ? this.props.recentCartData.paymentDetails.afterDiscountTotal.toFixed(2) : "00.00"}</span>  </div>
                                                         </div>
                                                     </div>
                                                     <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">

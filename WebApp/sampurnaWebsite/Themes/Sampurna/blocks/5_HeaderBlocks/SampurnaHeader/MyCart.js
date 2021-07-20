@@ -40,10 +40,12 @@ class MyCart extends React.Component {
                             />
                         </a>
                     </div>
-                    <div className="col-2 cartCount NoPadding">
-                        <div className="cartCountCircle">{this.props.cartCount>0? this.props.cartCount : 0 }</div>
-                        &nbsp;                                
-                    </div>
+                    {this.props.cartCount> 0 &&
+                        <div className="col-2 cartCount NoPadding">
+                            <div className="cartCountCircle">{this.props.cartCount>0? this.props.cartCount : 0 }</div>
+                            &nbsp;                                
+                        </div>
+                    }
                 </div>
                 :
                 <div className="row cartHeader" >

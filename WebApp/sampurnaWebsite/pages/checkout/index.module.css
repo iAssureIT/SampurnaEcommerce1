@@ -77,8 +77,15 @@
 .pnHidden{
     color: #fff !important;
 }
+.onlinePayment{
+    font-size: 10px;
+}
+.cardDelivery{
+    margin-top: -13px !important;
+}
 .f14{
 	font-size:14px;
+    white-space: nowrap;
 }
 
 .checkoutADDCss {
