@@ -63,7 +63,8 @@ export const NewOrders =(props)=> {
         //     console.log("err",err);
         // })
         socket.emit('nearest_vendor_orders',payload);
-        socket.on('getSingleOrder',(response)=>{
+        socket.on('getVendorOrderList',(response)=>{
+            console.log("response",response);
             setOrderList(res);
                 if (prevOpenedRow && prevOpenedRow !== row[index]) {
                     prevOpenedRow.close();

@@ -94,8 +94,10 @@ io.on('connection', (client) => {
 
     client.on('nearest_vendor_orders', (payload) => {getNearestOrders(payload)});
     function getNearestOrders(payload){
+        console.log("getNearestOrders payload",payload);
         axios.get('http://localhost:'+globalVariable.port+'/api/orders/get/nearest_vendor_orders',payload)
         .then(response=>{
+            console.log("getNearestOrders response",response);
             io.sockets.emit('getVendorOrderList', response.data);
         })
         .catch(err=>{
