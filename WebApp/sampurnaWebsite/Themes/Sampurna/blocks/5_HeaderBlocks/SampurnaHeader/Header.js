@@ -74,13 +74,11 @@ class Header extends React.Component {
                                                  {this.state.user_ID && this.state.authService!=="guest"?                            
                                                     <div className="col-2 NoPadding ">                                                   
                                                         < Wishlist />                                                
-                                                    </div>   
-                                                   
+                                                    </div>  
                                                 :null}
                                                 <div className="col-4 NoPadding ">
                                                     < MyCart />    
-                                                </div>                                               
-                                                                                            
+                                                </div>                                      
                                             </div>
                                         </div>
                                     </div>

@@ -643,6 +643,9 @@ body{
 .activeSubCategory a{
   color: #fff !important;
 }
+.addressDisabled{
+  opacity: 0.4;
+}
 @media only screen and (max-device-width: 480px) {
   .mobileViewNoPadding{
     padding-left: 0px !important;

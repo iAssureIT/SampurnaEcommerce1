@@ -609,6 +609,7 @@ li a{
 .cartHeader{
     /* background-color: #3174E3; */
     height: 40px;
+    margin-top: -2px;
     font-weight: 600;
     color: #fff;
 }

@@ -14,7 +14,7 @@ import ConfirmOtp     from '../../../../../systemSecurity/ConfirmOtp.js';
 import ResetPassword  from '../../../../../systemSecurity/ResetPassword.js';
 import SignUpOTP      from '../../../../../systemSecurity/SignUpOTP.js';
 import Websitelogo    from './Websitelogo.js';
-import {getForm,updateForm}  from '../../../../../redux/actions';
+import {getForm,updateForm,updateCartCount}  from '../../../../../redux/actions';
 import Style                 from './location.module.css';
 import SystemSecurityPopup   from './SystemSecurityPopup.js';
 
@@ -101,7 +101,8 @@ class header extends React.Component {
         event.preventDefault();
         var token = localStorage.removeItem("userDetails");
         Router.push('/');
-        // window.location.reload();
+        window.location.reload();
+        // this.props.updateCartCount();
         if (token !== null) {
           this.setState({
             loggedIn: false
@@ -200,6 +201,7 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = {
     // getBlockData: getBlockData,
+    updateCartCount  : updateCartCount,
     updateFormValue: updateForm,
 };
 

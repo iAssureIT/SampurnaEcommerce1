@@ -10,26 +10,17 @@ import getConfig            from 'next/config';
 import Image                from 'next/image';
 import Style                  from './product_detail.module.css';
 
-//js-image-zoom
-// var options = {
-//     width: 400,
-//     zoomWidth: 500,
-//     offset: {vertical: 0, horizontal: 10}
-// };
-// new ImageZoom(document.getElementById("img-container"), options);
-
-
 const { publicRuntimeConfig } = getConfig();
 
 const responsive = {
 	desktop: {
 	  breakpoint: { max: 3000, min: 1024 },
-	  items: 5,
+	  items: 3,
 	  slidesToSlide: 1 // optional, default to 1.
 	},
 	tablet: {
 	  breakpoint: { max: 1024, min: 464 },
-	  items: 5,
+	  items: 3,
 	  slidesToSlide: 1 // optional, default to 1.
 	},
 	mobile: {
@@ -38,7 +29,6 @@ const responsive = {
 	  slidesToSlide: 1 // optional, default to 1.
 	}
   };
-  
   
 class ProductZoom extends Component {
 	constructor(props) {
@@ -70,8 +60,7 @@ class ProductZoom extends Component {
 				currency     : sampurnaWebsiteDetails.preferences.currency,
 			})
 		}
-    }
-		
+    }	
 	
 	changeImage = (event) => {
 		this.setState({
@@ -94,7 +83,7 @@ class ProductZoom extends Component {
 		
 		if(this.props.productData ){
 			var productImg = this.props.productData.productImage && this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg';
-			myprops = { width: 200, height: 200, zoomWidth: 500, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage && this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
+			myprops = { width: 400, height: 200, zoomWidth: 500, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage && this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
 			// const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
 		}
 		return (

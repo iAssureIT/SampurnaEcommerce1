@@ -345,7 +345,7 @@ export default class MyOrders extends Component {
                                           {/* <span className="col-6 text-right"></span> */}
                                         </div>
                                         <div className="col-12">
-                                            <div className="col-12"> <i className="fa fa-wallet"></i>&nbsp; {singleOrder.paymentDetails.paymentMethod}</div> 
+                                            <div className="col-12"> <i className="fas fa-wallet"></i>&nbsp; {singleOrder.paymentDetails.paymentMethod}</div> 
                                         </div>
                                         <div className="col-12">
                                             <div className="col-12 orderAddress"> 

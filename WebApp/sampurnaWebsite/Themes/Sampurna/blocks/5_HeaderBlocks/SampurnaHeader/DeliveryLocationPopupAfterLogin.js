@@ -366,15 +366,16 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
     return (
         <div className={"row locationPage locationBg " +Style.locationBg +" "+Style.locationPage} >
             <div className={"col-12  "}>
-                {
+                {/* {
                     this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
                     <div className="col-3 NoPadding AddressListWrapper">
                         <AddressList 
                         userAddress =  {this.state.userAddress}/>
                     </div>
                     :null
-                }
-                <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
+                } */}
+                {/* <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}> */}
+                <div className={"col-12 NoPadding "}>
                 <div className="col-12 offset-0 mobileViewNoPadding">
                     <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryFormAfterLogin}>
                         <div className="col-12 ">

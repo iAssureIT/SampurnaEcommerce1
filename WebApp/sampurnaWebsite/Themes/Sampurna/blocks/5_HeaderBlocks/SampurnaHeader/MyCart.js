@@ -7,7 +7,7 @@ import { connect }            from 'react-redux';
 import  store                 from '../../../../../redux/store.js';
 import { updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }   from '../../../../../redux/actions/index.js'; 
 
-class MyCart extends React.Component {
+class MyCart extends React.Component { 
 	constructor(props) {
 		super(props);
 		 this.state = {
@@ -58,10 +58,12 @@ class MyCart extends React.Component {
                             />
                         </a>
                     </div>
+                    {this.props.cartCount> 0 &&
                     <div className="col-2 cartCount NoPadding">
                         <div className="cartCountCircle ">{this.props.cartCount>0? this.props.cartCount : 0 }</div>
                         &nbsp;                                
                     </div>
+                    }
                 </div>
             }
             </div>

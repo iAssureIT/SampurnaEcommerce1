@@ -770,7 +770,7 @@ class Checkout extends Component {
     }
 
     render() {
-        // console.log("this.state.recentCartData===",this.props.recentCartData);
+        console.log("this.state.recentAddressData===",this.props.recentAddressData);
         // console.log("fetchAddressData===",this.props.recentAddressData);
         return (
             <div className="col-12 NoPadding">
@@ -778,7 +778,6 @@ class Checkout extends Component {
             <div className="col-12 checkoutWrapper" style={{ backgroundColor: "#ffffff" }}>
                 <Message messageData={this.state.messageData} />
                 <div className="row">
-                    {/* <Loader type="fullpageloader" /> */}
                     <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
                     <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
                         <div className={"modal-content  pb-0 "+Style.modalContentM}>    
@@ -833,14 +832,14 @@ class Checkout extends Component {
                                                 {this.props.recentAddressData && this.props.recentAddressData.length > 0 ?
                                                     this.props.recentAddressData.map((data, index) => {
                                                         console.log("address data ==", data);
-                                                        {data.distance.toFixed(2) >=1
-                                                        ?   
-                                                            $('.addressList_'+data._id).addClass('addressDesabled')
-                                                        :
-                                                            $('.addressList_'+data._id).removeClass('addressDesabled')
-                                                        }
+                                                        // {data.distance && data.distance >=1
+                                                        // ?   
+                                                        //     $('.addressList_'+data._id).addClass('addressDesabled')
+                                                        // :
+                                                        //     $('.addressList_'+data._id).removeClass('addressDesabled')
+                                                        // }
                                                         return (
-                                                            <div key={'check' + index} className={"col-12 NoPadding " +"addressList_"+data._id}>
+                                                            <div key={'check' + index} className={"col-12 NoPadding "+data.addressDisabled }>
                                                                 <div className="row " >
                                                                 <div className="form-check col-1">
                                                                     <input type="radio" className="form-check-input" disabled = {data.distance >=1?true:false} name="checkoutAddess" id={"address"+index} value={data._id} 
@@ -891,8 +890,6 @@ class Checkout extends Component {
                                     <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>Order Review</div>
                                     <div className={"col-12 " +Style.orderReviewsWrapper}>
                                         <table className="table table-borderless orderTable">
-                                            
-                                            
                                             <tbody>
                                                 {
                                                    this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length > 0 ?
@@ -915,9 +912,7 @@ class Checkout extends Component {
                                                                                 <th className="textAlignRight font-weight-bold">Quantity</th>
                                                                                 <th className="textAlignRight font-weight-bold">SubTotal</th>
                                                                             </tr>
-                                                                            
                                                                         </thead>
-                                                                        
 
                                                                         {vendorWiseData.cartItems && vendorWiseData.cartItems.map((cartdata, index) => {
                                                                             return(

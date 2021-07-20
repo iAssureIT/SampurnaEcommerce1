@@ -134,7 +134,8 @@ class UserAddress extends Component {
                 "state"             : this.state.state,
                 "countryCode"       : this.state.countryCode,
                 "country"           : this.state.country,
-                "mobileNumber"      : this.state.mobileNumber,
+                "isdCode"           : "971",
+                "mobileNumber"      : (this.state.mobileNumber).split("971")[1],
                 "addType"           : this.state.modaladdType,
                 "latitude"          : this.state.latitude,
                 "longitude"         : this.state.longitude,
@@ -252,10 +253,10 @@ class UserAddress extends Component {
                                     // name = "Mobile"
                                     onChange={mobileNumber => { 
                                         this.setState({ mobileNumber })
-                                            
-                                            this.setState({
-                                            	mobNumber : this.state.mobileNumber,
-                                            }); 
+                                        console.log("mobileNumber==",mobileNumber);
+                                            // this.setState({
+                                            // 	mobNumber : this.state.mobileNumber,
+                                            // }); 
                                             let fields = this.state.fields;
                                             fields["mobileNumber"] = this.state.mobileNumber;
                                             this.setState({
