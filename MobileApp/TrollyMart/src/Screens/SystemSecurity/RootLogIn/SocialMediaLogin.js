@@ -76,6 +76,7 @@ const window = Dimensions.get('window');
         setLoading(true);
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
+        console.log("userInfo",userInfo);
         await GoogleSignin.revokeAccess();
           var formValues = {
             firstname   : userInfo.user.givenName,
@@ -87,7 +88,8 @@ const window = Dimensions.get('window');
             role        : 'user',
             status      : 'active',
             countryCode : "",
-            authService : "google"
+            authService : "google",
+            social_media_id : userInfo.user.id,     
           }
           sign_in(formValues)
         }catch(error){

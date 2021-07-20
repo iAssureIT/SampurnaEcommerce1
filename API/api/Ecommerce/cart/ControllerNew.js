@@ -316,6 +316,7 @@ exports.list_cart_product = (req,res,next)=>{
     .populate('vendorOrders.vendor_id')
     .exec()
     .then(async(data)=>{
+        console.log("data",data);
         if(data){
             
             var vendorOrders                = data.vendorOrders;
