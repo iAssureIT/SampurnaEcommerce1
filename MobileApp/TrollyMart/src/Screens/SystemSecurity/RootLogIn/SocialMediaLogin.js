@@ -24,8 +24,7 @@ import {Formik}             from 'formik';
 import {withCustomerToaster} from '../../../redux/AppState.js';
 import {setUserDetails}     from '../../../redux/user/actions';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
-import {USER_LOGOUT}        from '../../../redux/store';
-import {getCartCount}       from '../../../redux/productList/actions';
+
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -114,7 +113,7 @@ const window = Dimensions.get('window');
     const getInfoFromToken = (token) => {
       const PROFILE_REQUEST_PARAMS = {
         fields: {
-          string: 'id, name,  first_name, last_name',
+          string: 'id, name,  first_name, last_name, email',
         },
       };
       const profileRequest = new GraphRequest(
@@ -125,22 +124,22 @@ const window = Dimensions.get('window');
             console.log('login info has error: ' + error);
           } else {
             console.log("user",user);
-            if(user){
-              setUserInfo(user);  
-              var formValues = {
-                firstname   : user.first_name,
-                lastname    : user.last_name,
-                mobNumber   : "",
-                pincode     : "",
-                email       : user.email,
-                pwd         : user.id,
-                role        : 'user',
-                status      : 'active',
-                countryCode : "",
-                authService : "facebook",
-              }
-            sign_in(formValues);
+            setUserInfo(user);  
+            var formValues = {
+              firstname   : user.first_name,
+              lastname    : user.last_name,
+              mobNumber   : "",
+              pincode     : "",
+              email       : user.email,
+              pwd         : user.id,
+              role        : 'user',
+              status      : 'active',
+              countryCode : "",
+              social_media_id : user.id,   
+              authService : "facebook",
             }
+            sign_in(formValues);
+            logoutWithFacebook;
           }
         },
       );
@@ -172,12 +171,9 @@ const window = Dimensions.get('window');
     const sign_in=(formValues)=>{
       axios.post('/api/auth/post/signup/social_media',formValues)
       .then((res) => {
-        // dispatch({type: USER_LOGOUT});
         console.log("response",res);
         setLoading(false)
         if(res.data.message === "Login Auth Successful"){
-          logoutWithFacebook;
-        dispatch(getCartCount(res.data.ID));
           if(res.data.passwordreset === false  ){
             navigation.navigate('ChangePassword',{user_id:res.data.ID})
           }else{  
@@ -306,7 +302,7 @@ const window = Dimensions.get('window');
                   {/* <Icon name='google' type='font-awesome' size={36} color="#EA4335"/> */}
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={loginWithFacebook}
+                  onPress={()=>loginWithFacebook()}
                   style={{
                     backgroundColor:"#4267B2",
                     alignItems: 'center',

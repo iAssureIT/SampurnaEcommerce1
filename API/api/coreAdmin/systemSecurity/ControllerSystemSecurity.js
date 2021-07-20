@@ -2033,9 +2033,8 @@ exports.user_signup_social_media = (req, res, next) => {
 						if (role) {
 							User.findOne({
 									$and:[
-											{"profile.email"  :  req.body.email},
-											{"profile.email"  :  {$ne:''}},
-											{"authService"    :  req.body.authService}
+											{"social_media_id"  :  req.body.social_media_id},
+											{"authService"    	:  req.body.authService}
 										]
 									},
 								)
@@ -2107,6 +2106,7 @@ exports.user_signup_social_media = (req, res, next) => {
 														},
 														username: username ? username: '',
 														authService : req.body.authService,
+														social_media_id : req.body.social_media_id,
 														profile:
 														{
 															firstname : req.body.firstname,

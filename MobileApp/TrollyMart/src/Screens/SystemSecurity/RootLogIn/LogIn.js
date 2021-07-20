@@ -207,7 +207,8 @@ const window = Dimensions.get('window');
             role        : 'user',
             status      : 'active',
             countryCode : "",
-            authService : "google"
+            authService : "google",
+            social_media_id : userInfo.user.id,  
           }
           sign_in(formValues)
         }catch(error){
@@ -254,6 +255,7 @@ const window = Dimensions.get('window');
               role        : 'user',
               status      : 'active',
               countryCode : "",
+              social_media_id : user.id,  
               authService : "facebook",
             }
             sign_in(formValues);
@@ -517,7 +519,7 @@ const window = Dimensions.get('window');
                   {/* <Icon name='google' type='font-awesome' size={36} color="#EA4335"/> */}
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={loginWithFacebook}
+                  onPress={()=>loginWithFacebook()}
                   style={{
                     backgroundColor:"#4267B2",
                     alignItems: 'center',
