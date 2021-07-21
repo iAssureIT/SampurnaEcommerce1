@@ -517,7 +517,7 @@ class ProductsView extends Component {
                           // console.log("productdata=",productdata);
                             return (
                                 <tr key={index}>
-                                <td><img className="img orderImg" src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg"} /></td>
+                                <td><img className="img orderImg" src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} /></td>
                                 <td>
                                     <a href={"/product-detail/" +this.props.vendorWiseOrderData.vendor_id._id+"/"+this.props.vendorWiseOrderData.vendorLocation_id+"/"+productdata.product_ID}>
                                       {productdata.productNameRlang?
@@ -599,7 +599,7 @@ class ProductsView extends Component {
                                             <div className="col-12 mt-4 ">
                                                 <div className="row">
                                                   <div className="col-3 orderimgsize">
-                                                    <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg" } alt="" />
+                                                    <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png" } alt="" />
                                                   </div>
                                                   <div className="col-5 ">{productdata.productName}</div>
                                                   <div className="col-4 total textAlignRight">{this.props.currency} {productdata.discountedPrice}</div>
@@ -685,7 +685,7 @@ class ProductsView extends Component {
                                               <div className="col-12 mt-4 mb-4">
                                                 <div className="row">
                                                   <div className="col-3 orderimgsize">
-                                                    <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg" } alt="" />
+                                                    <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png" } alt="" />
                                                   </div>
                                                   <div className="col-5 ">{productdata.productName}</div>
                                                   <div className="col-4 total textAlignRight">{this.props.currency} {productdata.discountedPrice}</div>

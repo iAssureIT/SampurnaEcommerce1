@@ -125,7 +125,7 @@ class ProductreviewList extends Component {
                             <div className="col-12 reviewBox h-100 text-center">
                             <div className="row h-100">
                               <div className="col-2 h-75 ">
-                              <img  className="customerPic mt-5"src="/images/eCommerce/notavailable.jpg" alt="Customer-Pic"/>  
+                              <img  className="customerPic mt-5"src="/images/eCommerce/notavailable.png" alt="Customer-Pic"/>  
                               {/* {data.customerName?data.customerName.substring(0, 1):null} */}
                               <div > {data.customerName}</div>
 
@@ -144,8 +144,8 @@ class ProductreviewList extends Component {
                               </div>
                               <div className="col-3">
                                 
-                                <img  className=" ProductPic float-left "src="/images/eCommerce/notavailable.jpg" alt="Product-Pic"/>  
-                                <img  className=" ProductPic "src="/images/eCommerce/notavailable.jpg" alt="Product-Pic"/>                                 
+                                <img  className=" ProductPic float-left "src="/images/eCommerce/notavailable.png" alt="Product-Pic"/>  
+                                <img  className=" ProductPic "src="/images/eCommerce/notavailable.png" alt="Product-Pic"/>                                 
                                
                                 
  

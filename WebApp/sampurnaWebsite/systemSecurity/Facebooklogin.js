@@ -28,7 +28,8 @@ responseFacebook(response){
       role        : 'user',
       status      : 'active',
       countryCode : "",
-      authService : "facebook"
+      authService : "facebook",
+      social_media_id :response.id
     }
     
     window.FB.logout();
@@ -54,7 +55,7 @@ responseFacebook(response){
         // .then(function(){
         //   window.location.reload();
         // });
-        window.location.reload();
+        // window.location.reload();
     }
     })
     .catch((error)=>{

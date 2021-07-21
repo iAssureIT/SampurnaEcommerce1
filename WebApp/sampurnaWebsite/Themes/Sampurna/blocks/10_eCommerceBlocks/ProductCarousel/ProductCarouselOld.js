@@ -882,7 +882,7 @@ class ProductCarousel extends Component {
                                     <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}>
                                     <a className={Style.product_item_photo } tabIndex="-1" >                                      
                                       <Image                                           
-                                        src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
+                                        src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.png"}
                                         alt="ProductImg" 
                                         className={"img-responsive " +Style.NoAvailableImg }
                                         height={300}

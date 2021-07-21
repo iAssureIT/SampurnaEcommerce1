@@ -176,7 +176,7 @@ class Productreview extends Component {
                       <div key={index} className="col-12 reviewborder topspace15">
                         <div className="row">
                           <div className="col-12  col-md-2 col-sm-4">
-                            <img className="img img-responsive reviewProImg" src={data.productDetails.length >0 ? (data.productDetails[0].productImage[0] ? data.productDetails[0].productImage[0] : "/images/eCommerce/notavailable.jpg") : ""} alt="" />
+                            <img className="img img-responsive reviewProImg" src={data.productDetails.length >0 ? (data.productDetails[0].productImage[0] ? data.productDetails[0].productImage[0] : "/images/eCommerce/notavailable.png") : ""} alt="" />
                           </div>
                           <div className="col-12 col-md-10 col-sm-12">
                             <div className="row">
@@ -234,7 +234,7 @@ class Productreview extends Component {
                                             <tbody>{
                                               this.state.oneproductdetails ?
                                                 <tr>
-                                                  <td data-th="Order #" className="col id orderimgsize"><img src={this.state.oneproductdetails.productImage[0] ? this.state.oneproductdetails.productImage[0] : "/images/eCommerce/notavailable.jpg"} alt="" /></td>
+                                                  <td data-th="Order #" className="col id orderimgsize"><img src={this.state.oneproductdetails.productImage[0] ? this.state.oneproductdetails.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" /></td>
                                                   <td data-th="Order #" className="col id">{this.state.oneproductdetails.productName}</td>
                                                   <td data-th="Order Total" className="col total textAlignRight"><span><i className={"fa fa-" + this.state.oneproductdetails.currency}> {this.state.oneproductdetails.discountedPrice}</i></span></td>
                                                 </tr>

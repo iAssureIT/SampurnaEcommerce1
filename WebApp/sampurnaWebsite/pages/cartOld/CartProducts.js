@@ -559,7 +559,7 @@ class CartProducts extends Component{
                                                                <div className="row">
                                                                 <div className="col-4 ForMobile">
                                                                     <a href={"/product-detail/" + data.productDetail.productUrl + "/" +data.product_ID}>
-                                                                        <img className="img  cartProductImg col-12" src={data.productDetail.productImage[0] ? data.productDetail.productImage[0] : "images/eCommerce/notavailable.jpg"} alt="ProductImg"/>
+                                                                        <img className="img  cartProductImg col-12" src={data.productDetail.productImage[0] ? data.productDetail.productImage[0] : "images/eCommerce/notavailable.png"} alt="ProductImg"/>
                                                                     </a>
                                                                 </div>
                                                                 <div className="col-8 cartProductDetail">

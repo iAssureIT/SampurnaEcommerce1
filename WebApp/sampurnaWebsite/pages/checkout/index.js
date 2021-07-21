@@ -910,7 +910,7 @@ class Checkout extends Component {
                                                                         {vendorWiseData.cartItems && vendorWiseData.cartItems.map((cartdata, index) => {
                                                                             return(
                                                                                 <tr>
-                                                                                    <td><img className="img orderImg" src={cartdata.product_ID.productImage[0] ? cartdata.product_ID.productImage[0] : "images/eCommerce/notavailable.jpg"} /></td>
+                                                                                    <td><img className="img orderImg" src={cartdata.product_ID.productImage[0] ? cartdata.product_ID.productImage[0] : "images/eCommerce/notavailable.png"} /></td>
                                                                                     <td>
                                                                                         <a href={"/product-detail/" + vendorWiseData.vendor_id._id + "/"+vendorWiseData.vendorLocation_id +"/" +cartdata.product_ID._id}>
                                                                                         {cartdata.product_ID.productNameRlang?

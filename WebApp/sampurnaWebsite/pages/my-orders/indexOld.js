@@ -522,7 +522,7 @@ export default class MyOrders extends Component {
                                         <div  className="col-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
                                           <div className="row ">
                                            <div className="col-4 col-xl-2 col-md-4 col-sm-4 col-xs-2">
-                                            <img src={pdata.productImage[0]?pdata.productImage[0]:"/images/eCommerce/notavailable.jpg"} style={{width:"100%"}} alt=""/>
+                                            <img src={pdata.productImage[0]?pdata.productImage[0]:"/images/eCommerce/notavailable.png"} style={{width:"100%"}} alt=""/>
                                            </div>
                                             <div className="col-4 NOpadding">
                                               {pdata.productNameRlang?
@@ -650,7 +650,7 @@ export default class MyOrders extends Component {
                             <tbody>{
                               this.state.oneproductdetails ?
                                 <tr>
-                                  <td data-th="Order #" className="col id orderimgsize"><img src={this.state.oneproductdetails.productImage[0] ? this.state.oneproductdetails.productImage[0] : "/images/eCommerce/notavailable.jpg"} alt="" /></td>
+                                  <td data-th="Order #" className="col id orderimgsize"><img src={this.state.oneproductdetails.productImage[0] ? this.state.oneproductdetails.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" /></td>
                                   {this.state.oneproductdetails.productNameRlang?
                                     <td data-th="Order #" className="col id RegionalFont">{this.state.oneproductdetails.productName}</td>
                                   :
@@ -751,7 +751,7 @@ export default class MyOrders extends Component {
                               <tbody>{
                                 this.state.oneproductdetails ?
                                   <tr>
-                                    <td data-th="Order #" className="col id orderimgsize"><img src={this.state.oneproductdetails.productImage[0] ? this.state.oneproductdetails.productImage[0] : "/images/eCommerce/notavailable.jpg" } alt="" /></td>
+                                    <td data-th="Order #" className="col id orderimgsize"><img src={this.state.oneproductdetails.productImage[0] ? this.state.oneproductdetails.productImage[0] : "/images/eCommerce/notavailable.png" } alt="" /></td>
                                     {this.state.oneproductdetails.productNameRlang?                                      
                                       <td data-th="Order #" className="col id RegionalFont">{this.state.oneproductdetails.productNameRlang}</td>
                                     :

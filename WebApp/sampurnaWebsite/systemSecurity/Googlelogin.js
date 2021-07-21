@@ -24,7 +24,8 @@ responseGoogle(response){
       role        : 'user',
       status      : 'active',
       countryCode : "",
-      authService : "google"
+      authService : "google",
+      social_media_id :response.profileObj.googleId
     }
     console.log("formValues===",formValues);
     
@@ -48,7 +49,7 @@ responseGoogle(response){
         // swal({text:'Congratulations! You have been successfully Login, Now you can place your order.'}).then(function(){
         //   window.location.reload();
         // });
-        window.location.reload();
+        // window.location.reload();
     }
     })
     .catch((error)=>{

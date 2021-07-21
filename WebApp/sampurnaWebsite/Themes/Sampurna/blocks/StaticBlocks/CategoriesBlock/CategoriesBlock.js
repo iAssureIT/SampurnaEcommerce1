@@ -109,7 +109,7 @@ componentDidMount(){
                                         : 
                                         // <img src="/images/demobook.png" alt="" loading="lazy" className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 categoryBlockImg lazyload "} height="200" width="100"/>
                                         <Image
-                                            src="/images/notavailable.jpg"
+                                            src="/images/notavailable.png"
                                             className={"categoryBlockImg"}
                                             height ={250}
                                             width={230}

@@ -121,7 +121,7 @@ class ShoppingVerticals extends Component {
                         <div className="col-12 dealsBlock"  key={index}> 
                             <div className="productImg col-12 NoPadding">
                               <a className="product photo product-item-photo collage" tabIndex="-1" href={data.dealUrl}>
-                                <img src={data.dealImg ? data.dealImg : "/images/CMSImages/notavailable.jpg"} alt="dealImg" />
+                                <img src={data.dealImg ? data.dealImg : "/images/CMSImages/notavailable.png"} alt="dealImg" />
                               </a>
                             </div>
                             {/* <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div> */}
@@ -142,7 +142,7 @@ class ShoppingVerticals extends Component {
                               <div className="col-12 NoPadding">
                                 <div className="productImg col-12 NoPadding">
                                   <a className="product photo product-item-photo collage" tabIndex="-1" href={"/vendor-list/"+data.dealUrl}>
-                                    <img src={data.dealImg ? data.dealImg : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" />
+                                    <img src={data.dealImg ? data.dealImg : "/images/eCommerce/notavailable.png"} alt="ProductImg" />
                                   </a>
                                 </div>
                               </div>

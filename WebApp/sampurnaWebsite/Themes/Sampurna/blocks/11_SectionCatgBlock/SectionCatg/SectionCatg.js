@@ -2,7 +2,7 @@ import React, { Component }   from 'react';
 import $                      from 'jquery';
 import axios                  from 'axios';
 import Link                   from 'next/link';
-import Carousel from 'react-multi-carousel';
+import Carousel               from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 class ShoppingVerticals extends Component {
@@ -43,7 +43,7 @@ class ShoppingVerticals extends Component {
       axios.get('/api/blocks/get/'+this.props.block_id)    
       .then((blockresponse)=>{
         if(blockresponse.data){
-        // console.log("groupsettings response data====",blockresponse.data);                
+        console.log("groupsettings response data====",blockresponse.data);                
         this.setState({
            groupSettings    : blockresponse.data.groupSettings,   
            blockTitle       : blockresponse.data.blockTitle,
@@ -157,13 +157,13 @@ class ShoppingVerticals extends Component {
                           <a href={url} className ="secCateblock"> 
                             <div className="itemImg col-12 NoPadding">
                               <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
-                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ItemImg" className={"subImg " } />
+                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.png"} alt="ItemImg" className={"subImg " } />
                               </a>
                               
                                 {/* <Link href={url}>
                                   <a className="product photo product-item-photo collage" >
                                     <Image                                           
-                                      src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"}
+                                      src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.png"}
                                       alt="ItemImg" 
                                       className={"img-responsive NoAvailableImg" }
                                       height={230}
@@ -200,7 +200,7 @@ class ShoppingVerticals extends Component {
                         <a href={url} className ="secCateblock sectionCategoryBlock"> 
                             <div className="productImg col-12 ">
                               <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
-                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" />
+                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.png"} alt="ProductImg" />
                               </a>
                             </div>
                             <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>  

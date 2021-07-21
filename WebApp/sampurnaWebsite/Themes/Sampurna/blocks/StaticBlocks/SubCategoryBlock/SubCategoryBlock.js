@@ -63,7 +63,7 @@ class SubCategoryBlock extends Component{
                             <a className ={"col-12 " +Style.categoryBlock}>
                               <div className={"itemImg col-12 NoPadding " +Style.categoryPhoto +" "+Style.itemImg}>
                                   <Image                                           
-                                    src={categorydata.subCategoryImage ? categorydata.subCategoryImage : "/images/eCommerce/notavailable.jpg"}
+                                    src={categorydata.subCategoryImage ? categorydata.subCategoryImage : "/images/eCommerce/notavailable.png"}
                                     alt="ProductImg" 
                                     className={"img-responsive " +Style.itemImg }
                                     height={100}

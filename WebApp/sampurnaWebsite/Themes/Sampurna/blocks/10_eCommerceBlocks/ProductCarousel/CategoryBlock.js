@@ -95,7 +95,7 @@ class CategoryBlock extends Component{
                               <div className={ " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" "}>
                                   <Image    
                                     id="prodImg"                                       
-                                    src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.jpg"}
+                                    src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.png"}
                                     alt="ProductImg" 
                                     className={"img-responsive " +Style.NoAvailableImg +" " +Style.categoryBlockImg }
                                     height={90}

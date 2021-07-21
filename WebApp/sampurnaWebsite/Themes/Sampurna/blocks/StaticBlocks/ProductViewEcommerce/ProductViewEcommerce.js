@@ -14,7 +14,7 @@ import ReactImageZoom from 'react-image-zoom';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
 // import Loadable from 'react-loadable';
 
-// import notavailable from '../../../sites/currentSite/images/notavailable.jpg';
+// import notavailable from '../../../sites/currentSite/images/notavailable.png';
 // import ProductViewEcommerceDetailsReviewFAQ from "../../blocks/ProductViewEcommerceDetailsReviewFAQ/ProductViewEcommerceDetailsReviewFAQ.js";
 // import {ntc} from '../../ntc/ntc.js';
 const OwlCarousel = Loadable({

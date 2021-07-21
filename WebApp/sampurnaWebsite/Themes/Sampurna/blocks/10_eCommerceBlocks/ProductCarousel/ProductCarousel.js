@@ -651,10 +651,10 @@ submitCart(event) {
                                       <Link href={"/home-to-vendorlist/"+data.section.replace(" ","-").toLowerCase()+"/" +data._id}>
                                       <a className={Style.product_item_photo } tabIndex="-1" >                                      
                                         <img                                           
-                                          src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
+                                          src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.png"}
                                           alt="ProductImg" 
                                           className={"img-responsive " +Style.NoAvailableImg }
-                                          height ="163px"
+                                          height ={ data.productImage[0] ? "163px" : '130px'}
                                           layout={'intrinsic'}
                                         />
                                       </a>
