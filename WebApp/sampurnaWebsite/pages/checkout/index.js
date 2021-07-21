@@ -700,7 +700,7 @@ class Checkout extends Component {
     applyCoupon(event){
         event.preventDefault();
         var couponCode = this.refs.couponCode.value;
-        console.log("couponCode===",couponCode);
+        // console.log("couponCode===",couponCode);
             var payload={
                 "user_ID"     : this.state.user_ID,
                 "couponCode"  : couponCode

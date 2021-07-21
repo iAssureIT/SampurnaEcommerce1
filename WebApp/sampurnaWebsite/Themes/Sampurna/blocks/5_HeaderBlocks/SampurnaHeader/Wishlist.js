@@ -17,25 +17,50 @@ class Wishlist extends React.Component {
         this.setState({
             currentUrl:defaultUrl,
         })
-    }
-    
+        var userDetails    =  JSON.parse(localStorage.getItem('userDetails'));
+        if(userDetails){
+            this.setState({
+                userID : userDetails.user_id,
+                authService : userDetails.authService
+            },()=>{
+            })
+        }
+    }  
 
    render(){
         return(  
             <div className="col-12 NoPadding my-auto">
+            {this.state.userID && this.state.authService !== "guest"?
               <li  className="d-block" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}>
                   <Link className="bottom" href="/my-account#v-pills-settings1-tab">
                      <a title="wishlistIcon " className="leftf ">
                         <Image
                         src={"/images/eCommerce/wishlist.png"}
-                        className={" hidden-x rotateImg " }
+                        className={" hidden-x " }
                         height ={25}
                         width={30}
                         layout={'intrinsic'}
                         />
                     </a>
                    </Link>
-             </li>                               
+             </li>  
+             :
+             <li  className="d-block" >
+                  {/* <Link className="bottom" href="" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login"> */}
+                     {/* <a title="wishlistIcon " className="leftf "> */}
+                     <a href="" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
+                        <Image
+                        src={"/images/eCommerce/wishlist.png"}
+                        className={" hidden-x " }
+                        height ={25}
+                        width={30}
+                        layout={'intrinsic'}
+                        />
+                    </a>
+                   {/* </Link> */}
+             </li> 
+             }
+
             </div>
         );        
     }

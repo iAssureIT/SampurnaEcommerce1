@@ -113,7 +113,7 @@ class MyAccount extends Component{
                 <Header />
                 <div className="container-fluid pb-5 ">
                     <header className="col-12 py-4 text-left text-black">
-                        <h3 className="font-weight-bold  ">MY ACCOUNT</h3>     
+                        <h3 className="font-weight-bold  ">My Account</h3>     
                     </header>
                     <div className="col-12">
                         <div className="row">
@@ -158,12 +158,12 @@ class MyAccount extends Component{
                                     <div className={"nav flex-column nav-pills nav-pills-custom navPillsWrapper "+S.navPillsWrapper} id="v-pills-tab" role="tablist" aria-orientation="vertical">   
                                          <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-4 p-3 shadow active": "nav-link mb-4 p-3 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                                         <i className=" mr-3"></i>
-                                        <span className=" small text-uppercase" > My Orders</span></a>
+                                        <span className=" small text-uppercase " > My Orders</span></a>
                                     </div>
                                 }
                             </div>
                 
-                            <div className={"col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 col-12 myAccountSideWrapper "+S.myAccountSideWrapper}>
+                            <div className={"col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 col-12 "+S.myAccountSideWrapper}>
                                 {/* <!-- Tabs content --> */}
                                 <div className="tab-content" id="v-pills-tabContent">
                                     <div className={this.state.url==="/my-account"?"tab-pane fade shadow rounded bg-white  pb-5 show active":"tab-pane fade shadow rounded bg-white  pb-5"} id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">

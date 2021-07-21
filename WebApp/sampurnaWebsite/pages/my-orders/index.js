@@ -314,7 +314,7 @@ export default class MyOrders extends Component {
                <div className="col-12"> 
                 <div className="col-12 col-xl-12 col-md-12 col-sm-12 pr-0">
                   <div className="col-12">
-                      <h4 className={"table-caption "}>My Orders</h4>
+                      <h4 className={"table-caption mb-2 "}>My Orders</h4>
                   </div>
 
                   <div className="col-12">
@@ -333,9 +333,7 @@ export default class MyOrders extends Component {
                                     <div className="col-12">{"Order ID : "+(singleOrder.orderID)}</div>
                                     <div className="col-12">Total Amount : &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</b></div>
                                     <div className="col-12">
-                                     
-                                   Credits Points : &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</b>
-                                     
+                                      Credits Points : &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</b>
                                     </div>
                                 </div>                       
                                 <div className={"col-6 " +Style.rightside}>

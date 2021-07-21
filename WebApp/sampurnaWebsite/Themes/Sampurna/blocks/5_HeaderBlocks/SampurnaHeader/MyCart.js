@@ -33,7 +33,7 @@ class MyCart extends React.Component {
                         <a href="/cart" className="row cartHeader">
                             <Image
                             src={"/images/eCommerce/cart.png"}
-                            className={"rotateImg" }
+                            className={"rotateImg1" }
                             height ={40}
                             width={60}
                             layout={'intrinsic'}
@@ -53,7 +53,7 @@ class MyCart extends React.Component {
                         <a href="" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
                             <Image
                             src={"/images/eCommerce/cart.png"}
-                            className={"rotateImg" }
+                            className={"rotateImg1" }
                             height ={40}
                             width={60}
                             layout={'intrinsic'}

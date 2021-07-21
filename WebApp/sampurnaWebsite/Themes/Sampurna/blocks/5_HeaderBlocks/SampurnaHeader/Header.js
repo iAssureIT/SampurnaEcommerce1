@@ -50,7 +50,7 @@ class Header extends React.Component {
         if(this.state.user_ID){
             colWithLogin = 3;
         }else{
-          colWithLogin = 2;
+          colWithLogin = 3;
         }
         return(   
             <div className="col-12 headerWrapper NoPadding">
@@ -71,11 +71,11 @@ class Header extends React.Component {
                                                 <div className="col-5 ml-4 ">
                                                     < SystemSecurityModal />
                                                 </div>   
-                                                 {this.state.user_ID && this.state.authService!=="guest"?                            
-                                                    <div className="col-2 NoPadding ">                                                   
-                                                        < Wishlist />                                                
-                                                    </div>  
-                                                :null}
+                                                 {/* {this.state.user_ID && this.state.authService!=="guest"?                             */}
+                                                <div className="col-2 NoPadding ">                                                   
+                                                    < Wishlist />                                                
+                                                </div>  
+                                                {/* :null} */}
                                                 <div className="col-4 NoPadding ">
                                                     < MyCart />    
                                                 </div>                                      

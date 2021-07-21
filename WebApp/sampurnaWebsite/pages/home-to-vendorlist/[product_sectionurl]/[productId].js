@@ -80,7 +80,8 @@ const HomeToVendorList = ()=> {
                                                             <div className={"col-12 mb-2  ellipsis " +Style.vendor_productName +" " +Style.ellipsis}>{vendordata.productName}</div>
                                                             <div className={"col-12 mb-2 " +Style.vendor_price}>AED&nbsp;{vendordata.productPrice.toFixed(2)}</div>
                                                             <div className={"col-12 text-right NoPadding " +Style.deliveryTime}>
-                                                                <span className={Style.HTVdelTime}>{vendordata.expectedDiliveryTime>0?vendordata.expectedDiliveryTime:0} &nbsp;min</span>
+                                                                {/* <span className={Style.HTVdelTime}>{vendordata.expectedDiliveryTime>0?vendordata.expectedDiliveryTime:0} &nbsp;min</span> */}
+                                                                <span className={Style.HTVdelTime}>60 &nbsp;min</span>
                                                                 <img src="/images/eCommerce/time.png" className={"img "+Style.HTVtimeImg}></img>
                                                             </div>
                                                         </div>

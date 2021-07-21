@@ -146,7 +146,7 @@ class Searchbar extends React.Component {
        if(this.state.user_ID && this.state.authService !=="Guest"){
           colWithLogin = 7;
        }else{
-        colWithLogin = 8;
+        colWithLogin = 7;
        }
         return(  
             <div className={"col-12 col-sm-"+colWithLogin}>                                

@@ -6,8 +6,8 @@ import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Sa
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 import {ntc}                from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
-import Style                  from './index.module.css';
-
+import Style                from './index.module.css';
+import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
 class Payment extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +15,7 @@ class Payment extends Component {
         "orderData": {},
 		    "companyInfo": [],
         externalData: null,
+        loading : true,
       };
   }
 
@@ -30,9 +31,10 @@ class Payment extends Component {
         if(this.state.orderID){
           await axios.get("/api/orders/get/one/" + this.state.orderID)
           .then((response) => {
-            console.log('orderData response', response.data)
+            // console.log('orderData response', response.data)
             this.setState({
-              orderData: response.data
+              orderData: response.data,
+              loading : false,
             })
           })
           .catch((error) => {
@@ -53,16 +55,14 @@ class Payment extends Component {
           mobile  : userDetails.mobile,   
           currency     : currency,
       })
-      
-      
   }
   render() {
-    console.log("this.state.orderData.vendorOrders===",this.state.orderData);
+    // console.log("this.state.orderData.vendorOrders===",this.state.orderData);
     return (
       <div className="col-12 ">
         <div className="row">
         <Header />
-        {this.state.orderData?
+        {this.state.loading === false?
           <div className="container h-100 mb-5">
             <div className="col-12 col-xl-12 col-sm-12 col-xs-12  NOpadding h-100">
             <div className={"col-xl-10 offset-xl-1 col-md-10 offset-md-1 col-sm-12 col-xs-12 col-12  mt-5 m-b-5 "+Style.paymentMainWrapper}>
@@ -147,7 +147,7 @@ class Payment extends Component {
 
                 <div className={"backtoMyOrdersDiv col-12 mb-3 mt-5 pt-3 text-center "+Style.backtoMyOrdersDivWrapper}>
                   <Link href="/my-account#v-pills-settings-tab">
-                      <a><i className="fa fa-arrow-circle-left"></i> Go Back To My Orders</a>
+                      <a><i className="fa fa-arrow-circle-left"></i> View My Orders</a>
                   </Link>
                 </div>
                 <div className={"backtoMyOrdersDiv col-12 text-center "+Style.backtoMyOrdersDivWrapper}>
@@ -155,7 +155,6 @@ class Payment extends Component {
                       <a><i className="fa fa-arrow-circle-left"></i> Go Back To HomePage</a>
                   </Link>
                 </div>
-               
               </div>
               :null}
             </div>
@@ -164,7 +163,8 @@ class Payment extends Component {
            </div>
             </div>
           </div>
-        :null  
+        :
+            <Loader type="fullpageloader"/>
         }
         <Footer />
         </div>
