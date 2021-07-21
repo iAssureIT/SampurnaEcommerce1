@@ -388,7 +388,9 @@ input[type=number] {
 .resetWrapper{
   color: #033554 !important;
 }
-
+.facebookLoginBtn span{
+  opacity: 1 !important;
+}
 
 @media only screen and (max-device-width: 480px) {
     
