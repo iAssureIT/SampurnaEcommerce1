@@ -418,7 +418,7 @@ body{
   border:1px solid #033554;
   text-transform: uppercase;
   transition: var(--globalTransition) !important;
-  font-size: 11px !important;
+  font-size: 14px !important;
   /* border-radius: var(--globalborderRadious) !important; */
   text-align:center;
   padding: 10px 15px !important;

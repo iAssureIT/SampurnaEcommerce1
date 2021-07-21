@@ -230,6 +230,7 @@
         font-size: 25px;
         overflow-wrap: break-word;
         max-height:30px ;
+        font-weight: 600!important;
     }
     .delTime{
         font-size: 20px;

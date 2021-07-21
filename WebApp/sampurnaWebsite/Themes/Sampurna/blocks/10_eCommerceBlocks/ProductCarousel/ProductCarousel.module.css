@@ -157,13 +157,14 @@ color: #FBBD65!important;
   color: var(--whiteColor) !important;
   z-index: 10;
   border-radius: 3px;
-  padding-top: 10px;
+  /* padding-top: 10px; */
   width: 50px;
   height: 55px;
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
   margin-top: 0px;
+  text-align: center!important;
 }
 .labelCategory{
   font-size: 12px !important;
@@ -531,9 +532,9 @@ background: #fff;
 }
 /* css for filters */
 .categoryFilterTitle{
-  font-size: 13px;
+  font-size: 14px;
   padding: 20px 28px;
-  /* font-weight: 900; */
+  font-weight: 900!important;
   border-bottom:solid 1px #ddd;
   background-color: #F9F9F9;
   opacity: 1;

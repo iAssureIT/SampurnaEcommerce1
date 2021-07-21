@@ -480,7 +480,7 @@ class ProductViewEcommerce extends Component {
 			tooltipMsg = 'Add To Wishlist';
 		} 
 		return (
-			 <section className={" "+Style.ShopBySubCategories}>
+			 <section className={"SingleProductMainWrapper "+Style.ShopBySubCategories}>
 				<div className="row">
 					<div className={"col-12 NoPadding pb-2 pt-2 " +Style.productDetailVendorName}> 
 						<div className="col-12  ">
@@ -605,7 +605,7 @@ class ProductViewEcommerce extends Component {
 									</div>
 								}
 									<div className={"col-12 globalProduct_brand NoPadding mt-2 "  +Style.brandName} title={this.state.productData.brand}>Brand : {this.state.productData.brand}</div>
-									<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  }>
+									<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "+Style.priceWrapperPD  }>
 										{                                  
 											this.state.productData.discountPercent ?
 											<div className="col-12 NoPadding priceWrapper mb-2">
@@ -614,9 +614,9 @@ class ProductViewEcommerce extends Component {
 												</span>
 											</div>
 											:  
-											<div className={"col-12 NoPadding  priceWrapper NoPadding"}>
-												<span className="price">
-												{this.state.currency} &nbsp;{this.state.productData.originalPrice? (this.state.productData.originalPrice).toFixed(2):0} </span> &nbsp;                                      
+											<div className={"col-12 NoPadding  priceWrapper NoPadding mb-2"}>
+												<span className={"price "+Style.priceColorMain}>
+												Price &nbsp;: {this.state.currency} &nbsp;{this.state.productData.originalPrice? (this.state.productData.originalPrice).toFixed(2):0} </span> &nbsp;                                      
 											</div> 
 										}
 									</div>
@@ -687,9 +687,9 @@ class ProductViewEcommerce extends Component {
 												<div className="row">
 											{
 												this.state.productData.availableQuantity > 0 ?
-													<div className="col-12 NOpadding">
+													<div className={"col-12 NOpadding "+Style.addToCartWrapperPD}>
 														<div className="row">
-															<div className="col-3 NoPadding">
+															<div className="col-3 NoPadding pb-4">
 																<div className={"col-5 NoPadding float-left qtyIncrease  globaleCommLargeBtn " +Style.p17 +" "+Style.marginNo +" "+Style.radiusB1+" "+Style.OrderNumIncWrapper} id="totalQuanity">
 																	1
 																</div>

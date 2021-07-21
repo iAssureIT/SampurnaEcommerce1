@@ -331,7 +331,7 @@ class Product extends Component{
                               <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                           :null
                           }
-                          {data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
+                          {data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)}%<br/>off </div> : null}
                         </div>
                         <div className={Style.ImgWrapper}>
                         <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+data._id}>
@@ -340,8 +340,13 @@ class Product extends Component{
                             src={data.productSmallImage && data.productSmallImage.length>0 ? data.productSmallImage[0] : "/images/eCommerce/notavailable.png"}
                             alt="ProductImg" 
                             className={"img-responsive " +Style.NoAvailableImg }
+<<<<<<< Updated upstream
                             height={data.productImage[0] ? "160px" : '140px'}
                             width={data.productImage[0] ? "180px" : '160px'} 
+=======
+                            height="163px"
+                           
+>>>>>>> Stashed changes
                             layout={'intrinsic'}
                           />
                         </a>

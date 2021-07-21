@@ -75,6 +75,22 @@
     
    
 }
+.SingleProductMainWrapper .react-multiple-carousel__arrow--left::before{
+    content: "\276C" !important;
+    color: gray !important;
+    font-size: 30px!important;
+    z-index: 999!important;
+    top: -18px !important;
+
+}
+.SingleProductMainWrapper .react-multiple-carousel__arrow--right::before{
+    content: "\276D" !important;
+    color: gray !important;
+    font-size: 30px!important;
+    z-index: 999!important;
+    top: -18px !important;
+
+}
 
 /* .active{
 	background-color:#033554 !important;

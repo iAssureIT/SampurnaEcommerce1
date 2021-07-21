@@ -106,7 +106,7 @@ border: none!important;
 	font-size: 14px;
 	font-weight: 700;
 	margin-top: 0px;
-	text-align:end!important;
+	text-align:center!important;
   }
 .wishBTN {
     background-color: #033554;
@@ -204,7 +204,9 @@ border: none!important;
 	text-decoration: line-through;
     text-decoration-color: #DC1919;
 }
-
+.priceColorMain{
+	color: #033554 !important;;
+}
 .brandName{
 	color:#033554 !important;
 	padding-bottom:30px;
@@ -224,6 +226,12 @@ border: none!important;
 	margin: left 1px !important;
 	/* font-family:'Montserrat-Regular.ttf'; */
  font-style: normal!important;
+}
+.priceWrapperPD{
+	border-bottom:1px solid #ccc;
+}
+.addToCartWrapperPD{
+	border-bottom:1px solid #ccc;
 }
 .brandNameColor{
 	color:#033554 !important;

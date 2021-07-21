@@ -95,7 +95,7 @@ class ProductZoom extends Component {
 						<div className=" col-12 stickyDiv">
 							<div className="col-12 imageContainer imgCont">
 								<div className="prod-detail-slider prod-detail-filpCommon col-12 ">
-									{this.props.productData.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discountBadge}>{Math.floor(this.props.productData.discountPercent)} % </div> : null}
+									{this.props.productData.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discountBadge}>{Math.floor(this.props.productData.discountPercent)}% off</div> : null}
 									<div id="react-app" className={"col-12 item productZoomBlock img-responsiveProduct " +Style.zoomImgWrapper}>
 										{this.props.productData &&
 											<ReactImageZoom {...myprops} />

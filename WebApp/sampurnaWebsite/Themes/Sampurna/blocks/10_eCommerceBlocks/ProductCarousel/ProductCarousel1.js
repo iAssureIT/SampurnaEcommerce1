@@ -767,7 +767,7 @@ submitCart(event) {
                   </Carousel>
                   : 
                   <div className={"row NoPadding " +Style.ProductListWrapper }>  
-                   <div className={"col-12 NoPadding p-2 mt-2 " +Style.productDetailVendorName}> 
+                   <div className={"col-12 NoPadding p-2  " +Style.productDetailVendorName}> 
                    <div className="row">
                    <span className={"col-6 "+Style.vendorNameWrapper}> 
                        <b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
