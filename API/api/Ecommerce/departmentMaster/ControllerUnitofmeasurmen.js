@@ -70,10 +70,11 @@ exports.countDepartments = (req, res, next)=>{
 
 
 exports.fetchDepartments = (req, res, next)=>{
+    console.log("unit req. body => ",req.body)
     Unitofmeasurment.find({})
         .sort({createdAt : -1})
-        .skip(req.body.startRange)
-        .limit(req.body.limitRange)
+        .skip(parseInt(req.body.startRange))
+        .limit(parseInt(req.body.limitRange))
         .exec()
         .then(data=>{
            res.status(200).json(data);

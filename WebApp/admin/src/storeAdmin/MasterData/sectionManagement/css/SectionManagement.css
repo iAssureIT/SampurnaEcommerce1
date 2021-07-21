@@ -166,12 +166,24 @@
 .btnSubmit{
     margin-top: 10px;
 }
-.sideways{
-    margin-top: 30px;
-}
+/* .sideways{
+    margin-top: 10px;
+} */
 .btnWrapper{
     /* margin-right: 120px; */
 }
 .adminModal-content{
     margin-top: 150px;
+}
+.imageDiv{
+    overflow: hidden;
+    padding: 15px 10px;
+    text-align: -webkit-center;
+    width: 100%;
+    height: 130px;
+    /* text-align: center; */
+    border: 1px solid #aaa;
+}
+.imageDiv img{
+    height: 100%;
 }

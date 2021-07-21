@@ -46,13 +46,15 @@ router.post('/get/list', 																		orderController.list_order_with_limit
 
 router.get('/get/one/:orderID', 																orderController.fetch_order);
 
-// router.get('/get/one/:orderID/:vendor_id', 													orderController.fetch_vendor_order);
+router.get('/get/one/vendor/order/:orderID/:vendor_id', 									    orderController.fetch_vendor_order);
 
 router.get('/get/one/order/:orderID', 															orderController.fetch_one_order);
 
 router.delete('/delete/:orderID', 																checkAuth, orderController.delete_order);
 
 router.patch('/patch/dispatchOrder', 															checkAuth, orderController.dispatchOrder);
+
+router.get('/dispatchcenter/get/nearby_delivery_persons/:order_id/:vendor_id',                 orderController.get_nearby_delivery_persons);
 
 router.get('/get/listbyba/:ba_ID', 																checkAuth, orderController.list_order_by_ba);
 

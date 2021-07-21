@@ -46,12 +46,13 @@
     border-radius: 1px;
     padding-right: 0px !important;
     cursor: pointer;
+	margin-bottom: 10px;
 }
 .scrollbar{
 	height: 800px;
     overflow-y: scroll;
     margin-left: 22px;
-    padding: 0;
+    /* padding: 0; */
     /* width: 38%; */
 }
 .borderlist12{
@@ -209,8 +210,9 @@
 }
 .listfont{
 	font-size: 12px;
-	margin-left: 10px;
-	margin-bottom: 0px !important;
+	/* margin-left: 10px;
+	margin-bottom: 0px !important; */
+	margin : 0;
 
 }
 .listfont li{
@@ -332,4 +334,11 @@
 	color: #fff;
 	cursor: default;
 	border-radius: 5px;
+}
+.innerLogoDiv{
+	height: 100px;
+}
+.innerLogoDiv img{
+	width: 100%;
+	top: 0;
 }

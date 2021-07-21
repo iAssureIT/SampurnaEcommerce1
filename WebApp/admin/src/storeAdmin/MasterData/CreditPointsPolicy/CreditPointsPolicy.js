@@ -156,8 +156,9 @@ class CreditPointsPolicy extends Component {
 			'creditPointValue'  	: this.state.creditPointValue,
 			'expiryLimitInDays'  	: this.state.expiryLimitInDays
 		}
-		
+		this.validation();
 		// console.log('formValues', formValues);
+		// console.log('condition', ($("#CreditPointsPolicyForm").valid()));
 		if($("#CreditPointsPolicyForm").valid()){        
 			axios.post('/api/creditpointspolicy/post', formValues)
 			.then((response)=>{                
@@ -200,7 +201,7 @@ class CreditPointsPolicy extends Component {
 												<h4 className="weighttitle NOpadding-right"> Credit Points Policy </h4>
 											</div>								
 											<div className="col-lg-12 col-md-12 marginTopp NOpadding">
-												<form id="CreditPointsPolicyForm" className="">
+												<form id="CreditPointsPolicyForm">
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 															<label>Purchase Amount <i className="redFont">*</i></label>
@@ -233,7 +234,7 @@ class CreditPointsPolicy extends Component {
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 															<label>Redemption value of credit point <i className="redFont">*</i></label>
 															<div className="input-group" id = "creditPointValue" >
-																<input className = "form-control" ref = "creditPoint" placeholder = "Add value of each credit point here.."
+																<input className = "form-control" ref = "creditPointValue" placeholder = "Add value of each credit point here.."
 																	type 		= "number" 
 																	name 		= "creditPointValue"
 																	value	 	= {this.state.creditPointValue} 
@@ -247,7 +248,7 @@ class CreditPointsPolicy extends Component {
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 															<label>Credit points expires in <i className="redFont">*</i></label>
 															<div className="input-group" id = "expiryLimitInDays">
-																<input className = "form-control" ref = "creditPoint" placeholder = "Add number of days in which credit points will expire.."
+																<input className = "form-control" ref = "expiryLimitInDays" placeholder = "Add number of days in which credit points will expire.."
 																	type 		= "number"  
 																	name 		= "expiryLimitInDays"
 																	value	 	= {this.state.expiryLimitInDays} 
@@ -257,6 +258,7 @@ class CreditPointsPolicy extends Component {
 															</div>
 														</div>                            
 													</div>
+												</form>
 													<div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
 														<div className="col-lg-12 orderCancellationBtn">
 															<label>&nbsp;</label>
@@ -268,7 +270,6 @@ class CreditPointsPolicy extends Component {
 															}
 														</div>
 													</div>											
-												</form>
 											</div>
 										</div>
 									</div>

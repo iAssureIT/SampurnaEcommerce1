@@ -27,7 +27,7 @@ class OneFieldForm extends React.Component {
         this.state = {
             "user_ID": "",
             "startRange": 0,
-            "limitRange": 10000,
+            "limitRange": 10,
             "editId": '',
             "fieldValue": "",
             "categoryImage": "",
@@ -50,18 +50,59 @@ class OneFieldForm extends React.Component {
         const companyID = localStorage.getItem("companyID")
         //   console.log("companyID",companyID);
         this.setState({
-            apiLink: this.props.tableObjects.apiLink,
-            user_ID: user_ID,
-            companyID: companyID,
-            editId: this.props.editId
+            apiLink     : this.props.tableObjects.apiLink,
+            user_ID     : user_ID,
+            companyID   : companyID,
+            editId      : this.props.editId
         }, () => {
            // console.log("this.state.editId = ", this.state.editId);
+            this.getDataCount()
+            this.getData(this.state.startRange, this.state.limitRange);
         })
 
         //========  Validation  ===========
         
 
 
+        // $.validator.addMethod("regxonefield", function (value, element, regexpr) {
+        //     return regexpr.test(value.trim());
+        // }, "Please enter valid field value");
+
+        // $.validator.addMethod("letterswithspace", function(value, element) {
+        //     return this.optional(element) || /^[a-zA-Z]*$/g.test(value);
+        // }, "Please enter letters only");
+
+        // jQuery.validator.setDefaults({
+        //     debug: true,
+        //     success: "valid"
+        // });
+
+        // $("#" + this.props.fields.attributeName).validate({
+        //     rules: {
+        //         fieldName: {
+        //             required: true,
+        //             regxonefield: /^[-a-zA-Z0-9-()&]+(\s+[-a-zA-Z0-9-()&]+)*$/,
+        //             letterswithspace: true
+        //         },
+        //     },
+           
+        // });
+
+        this.validation();
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.editId !== this.state.editId) {
+            this.setState({ editId: this.props.editId },
+                () => {
+                    //console.log("onefieldform 31 componentDidUpdate editId = ",this.state.editId);                            
+                });
+            this.edit(this.props.editId);
+        }
+    }
+
+    validation(){
+        //========  Validation  ===========
         $.validator.addMethod("regxonefield", function (value, element, regexpr) {
             return regexpr.test(value.trim());
         }, "Please enter valid field value");
@@ -78,42 +119,31 @@ class OneFieldForm extends React.Component {
         $("#" + this.props.fields.attributeName).validate({
             rules: {
                 fieldName: {
-                    required: true,
-                    regxonefield: /^[-a-zA-Z0-9-()&]+(\s+[-a-zA-Z0-9-()&]+)*$/,
-                    letterswithspace: true
+                    required            : true,
+                    regxonefield        : this.props.fields.onlyLetters && this.props.fields.onlyLetters === true ? false : /^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$/,
+                    letterswithspace    : this.props.fields.onlyLetters && this.props.fields.onlyLetters === true ? true  : false
                 },
             },
            
         });
 
-    }
-
-
-    componentDidUpdate(prevProps) {
-        if(this.props.editId !== this.state.editId) {
-            this.setState({ editId: this.props.editId },
-                () => {
-                    //console.log("onefieldform 31 componentDidUpdate editId = ",this.state.editId);                            
-                });
-            this.edit(this.props.editId);
-        }
-    }
-
-    validation(){
-         //========  Validation  ===========
-        $.validator.addMethod("regxonefield", function (value, element, regexpr) {
-            return regexpr.test(value.trim());
-        }, "Please enter valid field value");
-        jQuery.validator.setDefaults({
-            debug: true,
-            success: "valid"
-        });
+        // $.validator.addMethod("regxonefield", function (value, element, regexpr) {
+        //     return regexpr.test(value.trim());
+        // }, "Please enter valid field value");
+        // $.validator.addMethod("letterswithspace", function(value, element) {
+        //     return this.optional(element) || /^[a-zA-Z]*$/g.test(value);
+        // }, "Please enter letters only");
+        // jQuery.validator.setDefaults({
+        //     debug: true,
+        //     success: "valid"
+        // });
 
         $("#" + this.props.fields.attributeName).validate({
             rules: {
                 fieldName: {
-                    required: true,
-                    regxonefield: /^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$/,
+                    required            : true,                    
+                    // regxonefield        : this.props.field.onlyLetters && this.props.field.onlyLetters === true ? false : /^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$/,
+                    // letterswithspace    : this.props.field.onlyLetters && this.props.field.onlyLetters === true ? true : false
                 },
             },
            
@@ -192,6 +222,7 @@ class OneFieldForm extends React.Component {
                         if (this.props.getSecondFieldData) {
                             this.props.getSecondFieldData(this.state.startRange, this.state.limitRange);
                         }
+                        this.getDataCount()
                         this.getData(this.state.startRange, this.state.limitRange);
                         swal(" ", this.props.fields.title + " updated Successfully !");
                     })
@@ -214,7 +245,9 @@ class OneFieldForm extends React.Component {
                     console.log("response",response);                  
                         if (response.data.created) {
                             swal(" ", this.state.fieldName.charAt(0).toUpperCase() + this.state.fieldName.slice(1) + " " +this.props.fields.title + "  Submitted Successfully!");
-                        } else {
+                        }else if(response.data.emptyData){
+                            swal(" ", this.state.fieldName.charAt(0).toUpperCase() + this.state.fieldName.slice(1) + " " +this.props.fields.title + "  is empty, Please Select Option!");
+                        }else {
                             console.log("this.props.tableObjects => ",this.props.tableObjects.showfieldName)
                             if(!this.props.tableObjects.showfieldTitle){
                                 swal(" ", this.props.fields.title + " " + " already exists");                            
@@ -222,6 +255,7 @@ class OneFieldForm extends React.Component {
                                 swal(" ", this.state.fieldName + " " + this.props.fields.title+" already exists");            
                             }
                         }
+                        this.getDataCount()
                         this.getData(this.state.startRange, this.state.limitRange);
                         if (this.props.getSecondFieldData) {
                             this.props.getSecondFieldData(this.state.startRange, this.state.limitRange);
@@ -270,6 +304,7 @@ class OneFieldForm extends React.Component {
                             statusRank      : "",
                             effect          : {}
                         }, () => {
+                            this.getDataCount()
                             this.getData(this.state.startRange, this.state.limitRange);
                             if (this.props.tableObjects.editUrl1) {
                                 this.props.history.push(this.props.tableObjects.editUrl1);
@@ -290,45 +325,54 @@ class OneFieldForm extends React.Component {
     getDataCount() {
         axios.get(this.state.apiLink + 'get/count')
             .then((response) => {
-
+                console.log("count respose => ",response.data)
                 this.setState({
-                    dataCount: response.data.dataCount
+                    dataCount : response.data.count
+                },()=>{
+                    this.getData(this.state.startRange, this.state.limitRange);
                 })
+                // resolve(response.data.dataCount)
 
             })
             .catch((error) => {
 
             });
     }
-    getData(startRange, limitRange) {
-        var data = {
+     getData(startRange, limitRange) {
+        var formValues = {
             startRange: startRange,
             limitRange: limitRange
         }
-        axios.post(this.state.apiLink + 'get/list', data)
-            .then((response) => {
-                console.log("inside response ",response)
-                var tableData = response.data.map((a, i) => {
-                    // console.log("269 onsefield form get data map ==> ",tableData)
-                    console.log("269 onsefield form get data map ==> ",a)
-                    console.log("this.props.fields.attributeName ==> ",this.props.fields.attributeName)
-                    return ({
-                        _id: a._id,
-                        companyID: a.companyID ? a.companyID : this.state.companyID,
-                        [this.props.fields.attributeName]: a[this.props.fields.attributeName],
-                        iconUrl: "<img class='uploadedImage' src=" + a.iconUrl + ">"
-                    })
+        axios.post(this.state.apiLink + 'get/list', formValues)
+        .then((response) => {
+            // this.getDataCount();
+            // console.log("abc => ",abc)
+            console.log("inside response ",response)
+            var tableData = response.data.map((a, i) => {
+                // console.log("269 onsefield form get data map ==> ",tableData)
+                console.log("269 onsefield form get data map ==> ",a)
+                console.log("this.props.fields.attributeName ==> ",this.props.fields.attributeName)
+                return ({
+                    _id: a._id,
+                    // companyID: a.companyID ? a.companyID : this.state.companyID,
+                    [this.props.fields.attributeName]: a[this.props.fields.attributeName],
+                    iconUrl: "<img class='uploadedImage' src=" + a.iconUrl + ">"
                 })
-                var filterByCompanyID = tableData.filter(field => field.companyID == this.state.companyID);
-
-                this.setState({
-                    ["tableData" + this.props.fields.attributeName]: filterByCompanyID
-                }, () => {
-                    console.log("line 219 this.state = ", this.state);
-                })
-
             })
-            .catch((error) => { });
+            // var filterByCompanyID = tableData.filter(field => field.companyID == this.state.companyID);
+            console.log("dATA COUNT",this.state.dataCount)
+            
+            console.log("this.state.datacount => ",this.state.datacount)
+            this.setState({
+                // ["tableData" + this.props.fields.attributeName]: filterByCompanyID
+                ["tableData" + this.props.fields.attributeName] : tableData,
+                dataCount                                       : this.state.dataCount
+            }, () => {
+                console.log("line 219 this.state = ", this.state);
+            })
+            
+        })
+        .catch((error) => { });
     }
     edit(editId) {
         // console.log("hiii");
@@ -588,6 +632,7 @@ class OneFieldForm extends React.Component {
                                                         tableName = {this.props.tableName}
                                                         field="single"
                                                         currentView ={this.props.currentView}
+                                                        id={this.props.tableName}
                                                     />
                                                 </div>
                                             </div>
@@ -608,6 +653,7 @@ class OneFieldForm extends React.Component {
                                                         failedRecordsCount={this.props.failedRecordsCount}
                                                         goodRecordsTable={this.props.goodRecordsTable}
                                                         goodDataCount={this.props.goodDataCount}
+                                                        
                                                     />
                                                 </div>
                                             </div>

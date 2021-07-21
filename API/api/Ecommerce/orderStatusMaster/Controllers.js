@@ -3,40 +3,46 @@ const OrderStatusMaster     = require('./Model.js');
 const FailedRecords         = require('../failedRecords/Model');
 
 exports.insertOrderStatus = (req,res,next)=>{
-   processData();
-    async function processData(){
-    var allOrderStatus = await fetchOrderStatus()
-        var OrderStatusdata = allOrderStatus.filter((data)=>{
-        if (data.OrderStatusdata== req.body.fieldValue && data.companyID == req.body.companyID) {
-            return data;
-        }
-        })
-        
-        if (OrderStatusdata.length > 0) {
-            res.status(200).json({ duplicated : true });
-        }else{
-            const orderStatusMaster = new OrderStatusMaster({
-                            _id                         : new mongoose.Types.ObjectId(),
-                            orderStatus                 : req.body.fieldValue,
-                            statusRank                  : req.body.statusRank,
-                            createdBy                   : req.body.createdBy,
-                            createdAt                   : new Date()
-                        })
-                        orderStatusMaster.save()
-                        .then(data=>{
-                            res.status(200).json({ created : true, fieldID : data._id });
-                        })
-                        .catch(err =>{
-                            console.log("err",err.code)
-                            if (err.code == 11000) {
-                                res.status(200).json({ duplicated : true });
-                            }else{
-                                res.status(500).json({ error: err });
-                            }
-                             
-                        });
-        }
-    }       
+    if(req.body.fieldValue && req.body.fieldValue !== ""){
+        processData();
+        async function processData(){
+            var allOrderStatus  = await fetchOrderStatus();
+            console.log("")
+            var OrderStatusdata = allOrderStatus.filter((data)=>{
+                console.log(" => ",)
+                if (data.orderStatus.toLowerCase() === req.body.fieldValue.toLowerCase()) {
+                    return data;
+                }
+            })
+            
+            if (OrderStatusdata && OrderStatusdata.length > 0) {
+                res.status(200).json({ duplicated : true });
+            }else{
+                const orderStatusMaster = new OrderStatusMaster({
+                    _id                         : new mongoose.Types.ObjectId(),
+                    orderStatus                 : req.body.fieldValue,
+                    statusRank                  : req.body.statusRank,
+                    createdBy                   : req.body.createdBy,
+                    createdAt                   : new Date()
+                })
+                orderStatusMaster.save()
+                .then(data=>{
+                    res.status(200).json({ created : true, fieldID : data._id });
+                })
+                .catch(err =>{
+                    console.log("err",err.code)
+                    if (err.code == 11000) {
+                        res.status(200).json({ duplicated : true });
+                    }else{
+                        res.status(500).json({ error: err });
+                    }
+                        
+                });
+            }
+        }  
+    }else{
+        res.status(200).json({ emptyData : true });
+    }     
 };
 var fetchOrderStatus = async ()=>{
     return new Promise(function(resolve,reject){ 

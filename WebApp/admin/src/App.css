@@ -692,7 +692,7 @@ padding-top: 12px;
   margin-bottom: 30px;
   border: none;
   color: var(--white-color);
-  padding: 10px 0px;
+  padding: 10px 15px;
   /* font-size: 12px !important; */
   text-align: center;
   text-decoration: none;
@@ -824,4 +824,12 @@ text-transform: capitalize;
   color: #333;
   text-align: center;
   border: 1px solid #ddd;
+}
+
+/* =========================================================== */
+.formContent{
+  border : 1px solid #eee;
+}
+.marginBottom30{
+  margin-bottom: 30px;
 }

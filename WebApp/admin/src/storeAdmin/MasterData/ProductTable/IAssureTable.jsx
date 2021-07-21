@@ -301,7 +301,7 @@ class IAssureTable extends Component {
 			// console.log("maxRowsPerPage 299=> ",maxRowsPerPage)
 		var paginationNum = dataLength/maxRowsPerPage;
 			// console.log("paginationNum 301 => ",paginationNum)
-		var pageCount = Math.ceil(paginationNum) > 20? 20 : Math.ceil(paginationNum);
+		var pageCount = Math.ceil(paginationNum)
 			// console.log("Math.ceil(paginationNum)",Math.ceil(paginationNum))
 			// console.log("pageCount 306 => ",pageCount)
 		this.setState({
@@ -311,7 +311,26 @@ class IAssureTable extends Component {
 		},()=>{
 			// console.log("pageCount 308=> ",this.state.pageCount)
 		})
-		this.showPagination(1, pageCount);
+		// this.showPagination(1, pageCount);
+		var paginationArray = [];
+			for (var i = 1; i <= pageCount; i++) {
+				var countNum 	= maxRowsPerPage * i;
+				var startRange 	= countNum - maxRowsPerPage;
+				if (i === 1) {
+					var activeClass = 'activeCircle';
+				} else {
+					var activeClass = '';
+				}
+				paginationArray.push(
+					<li key={i} className={"queDataCircle page-link " + activeClass + " parseIntagination" + i} id={maxRowsPerPage + '|' + startRange} onClick={this.getStartEndNum.bind(this)} title={"Click to jump on " + i + " page"}>{i}</li>
+				);
+			}
+			if (pageCount >= 1) {
+				this.setState({
+					paginationArray : paginationArray,
+				}, () => {});
+			}
+			return paginationArray;
 		
 	}
 	showPagination(valI, pageCount){
@@ -755,10 +774,10 @@ class IAssureTable extends Component {
 	render(){
 		// console.log('productImageArray',this.state.productImageArray)
         return (
-	       	<div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NoPadding">	
+	       	<div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NOPadding">	
 		       	{
 		       		this.state.tableObjects.paginationApply === true ?
-			       		<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 NoPadding">
+			       		<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 NOPadding">
 							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17 NOpadding">Data Per Page</label>
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 								<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">

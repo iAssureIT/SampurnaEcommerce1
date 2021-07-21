@@ -51,7 +51,7 @@ router.patch('/patch/addLocation', 								checkAuth, entityMaster.addLocation);
  
 router.post('/post/singleLocation', 							checkAuth, entityMaster.singleLocation);
 
-router.post('/getAll', 												checkAuth, entityMaster.fetchEntities);
+router.post('/getAll', 												entityMaster.fetchEntities);
 
 router.get('/getAllcompany', 										checkAuth, entityMaster.CompanyfromEntities);
 

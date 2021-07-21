@@ -439,6 +439,7 @@ padding: 5px 5px !important;
 .userIcon{
   height: 25px;
   width:25px;
+
 }
 .onHoverEffect:hover{
   background-color: #367EA8 !important;
@@ -653,8 +654,9 @@ padding: 5px 5px !important;
 .hoverText{
   font-size: 12px;
   font-weight: bold;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  /* padding-top: 12px;
+  padding-bottom: 12px; */
+  padding: 12px;
   color: #fff;
   /*overflow: hidden;*/
   /*text-overflow: ellipsis;*/
@@ -905,7 +907,7 @@ padding: 5px 5px !important;
     position: absolute;
     min-height: 236px;
     width: 275px;
-    left:-106px;
+    margin-left: 15px;
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
@@ -1775,7 +1777,7 @@ padding: 5px 5px !important;
     /* overflow: hidden; */
     /* text-overflow: ellipsis; */
     cursor: pointer;
-    padding-left:5px;
+    padding:8px;
 }
 
 .user-closernoti:hover {

@@ -295,7 +295,9 @@
     
     margin-bottom: 3%;
     outline: 0;
-    letter-spacing: 1px
+    letter-spacing: 1px;
+    white-space: nowrap;
+    width: fit-content;
 }
 .button1:hover {
     color: var(--white-color);
@@ -315,7 +317,9 @@
     cursor: pointer;
     border-radius: 23px;
     outline: 0;
-    letter-spacing: 1px
+    letter-spacing: 1px;
+    white-space: nowrap;
+    width: fit-content;
 }
 .button2:hover {
     box-shadow: 3px 5px 3px #ddd;

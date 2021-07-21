@@ -19,7 +19,7 @@ class SectionManagement extends Component {
         this.state = {
             "addEditMode"   : "",
             "tableHeading"  : {
-                section     : "Section",
+                // section     : "Section",
                 section     : "Section Title",
                 sectionRank : "Section Rank",
                 // actions     : 'Action',
@@ -92,7 +92,11 @@ class SectionManagement extends Component {
         }
         
         $.validator.addMethod("letterswithspace", function(value, element) {
-            return this.optional(element) || /^[a-zA-Z]*$/g.test(value);
+            console.log("element => ",element);
+            var test = /^[a-zA-Z]*$/g.test(value);
+            console.log("test => ",test);
+
+            this.optional(element) || /^[a-z][a-z\s]*$/i.test(value);
         }, "Please enter letters only");
 
         $.validator.addMethod("charactersLength", function(value, element) {
@@ -119,15 +123,18 @@ class SectionManagement extends Component {
             rules: {
                 section: {
                     required            : true,
-                    letterswithspace    : true,
+                    // letterswithspace    : true,
                     // number          : false,
-                    charactersLength    : true
+                    // charactersLength    : true
                 },
                 sectionRank: {
                     required        : true,
                     number          : true,
                     digitsLength    : true,
                     digitsOnly      :true
+                },
+                sectionImage: {
+                    required        : true,
                 },
                 // /^[^-\s][a-zA-Z0-9_\s-]+$/
             },
@@ -137,6 +144,9 @@ class SectionManagement extends Component {
                 }
                 if (element.attr("name") === "sectionRank") {
                     error.insertAfter("#sectionRank");
+                }
+                if (element.attr("name") === "sectionImage") {
+                    error.insertAfter("#sectionImage");
                 }
             }
         });
@@ -148,7 +158,7 @@ class SectionManagement extends Component {
     getDataCount() {
         axios.get('/api/sections/get/count')
         .then((response) => {
-            // console.log('dataCount', response.data);
+            console.log('section dataCount', response.data);
             this.setState({
                 dataCount: response.data.dataCount
             })
@@ -174,9 +184,17 @@ class SectionManagement extends Component {
     getData(startRange, limitRange) {
         axios.get('/api/sections/get/list-with-limits/' + startRange + '/' + limitRange)
         .then((response) => {
-            // console.log('tableData = ', response.data);
+            console.log('tableData = ', response.data);
+            var tableData = response.data.map((a, i)=>{                      
+				return{ 
+                    _id         : a._id,
+                    section     : a.section,
+                    sectionRank : "<div class=textAlignCenter >" + a.sectionRank + "</div>",
+                    status      : a.status,
+                }
+            })
             this.setState({
-                tableData: response.data.reverse()
+                tableData: tableData
             })
         })
         .catch((error) => {
@@ -200,7 +218,8 @@ class SectionManagement extends Component {
     submitsection(event) {
         // console.log("inside submit----");
         event.preventDefault();
-        if ($('#sectionManagement').valid()) {
+        if ($('#sectionManagement').valid()) {            
+            
             var formValues = {
                 "section"       : this.state.section,
                 "sectionRank"   : this.state.sectionRank,
@@ -257,6 +276,10 @@ class SectionManagement extends Component {
             .then((response) => {
                 swal({
                     text: response.data.message,
+                }).then(okay => {
+                    if (okay) {
+                        window.location.href ='/project-master-data';
+                    }
                 });
                 this.getData(this.state.startRange, this.state.limitRange);
                 this.setState({
@@ -266,7 +289,7 @@ class SectionManagement extends Component {
                     "sectionRank"   : '',
                     "sectionImage"  : ''          
                 });                
-                window.location.href ='/project-master-data';
+                
             })
             .catch((error) => {
                 console.log('error', error);
@@ -500,54 +523,53 @@ class SectionManagement extends Component {
                         <div className="formWrapper">
                             <section className="content">
                                 <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 pageContent">
-                                    <div className="row">
+                                    <div className="">
                                         <div className="">
                                             <div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
                                                 <h4 className="weighttitle NOpadding-right">Section Master </h4>
                                             </div>
                                         
-                                            <div className="col-lg-12 col-md-12 marginTopp NOpadding">
+                                            <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding formContent">
                                                 <form id="sectionManagement" className="">
-                                                    <div className="col-lg-5 fieldWrapper">
-                                                        <div className="col-lg-12">
+                                                    <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12 fieldWrapper NOpadding-right">
+                                                        <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                                             <label>Section Title <i className="redFont">*</i></label>
                                                             <input value={this.state.section} name="section" id="section" onChange={this.createsectionUrl.bind(this)} type="text" className="form-control edit-catg-new" placeholder="Section Title" ref="section" />
                                                         </div>
                                                     </div>
-                                                    <div className="col-lg-5 fieldWrapper">
-                                                        <div className="col-lg-12">
+                                                    <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12 fieldWrapper NOpadding-left">
+                                                        <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                                             <label>Section URL {/*<i className="redFont">*</i> */}</label>
                                                             <input disabled value={this.state.sectionUrl} onChange={this.handleChange.bind(this)} id="sectionUrl" name="sectionUrl" type="text" className="form-control sectionUrl" placeholder="Section URL" ref="sectionUrl" />
                                                         </div>                            
                                                     </div>
-                                                    <div className="col-lg-12 fieldWrapperSectionRank">
-                                                        <div className="col-12">
-                                                            <div className="col-lg-5">
-                                                                <label>Section Rank <i className="redFont">*</i></label>                                                                    
-                                                                <input value={this.state.sectionRank} onChange={this.handleChange.bind(this)} id="sectionRank" name="sectionRank" type="number" className="form-control sectionRank" placeholder="Section Rank" ref="sectionRank" min="1"  required/>
-                                                            </div>
-                                                        </div>                           
+                                                    <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 fieldWrapperSectionRank">
+                                                        <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                                                            <label>Section Rank <i className="redFont">*</i></label>                                                                    
+                                                            <input value={this.state.sectionRank} onChange={this.handleChange.bind(this)} id="sectionRank" name="sectionRank" type="number" className="form-control sectionRank" placeholder="Section Rank" ref="sectionRank" min="1"  required/>
+                                                        </div>                          
                                                     </div>
-                                                    <div className="col-lg-10 fieldWrapper">
-                                                        <div className="col-lg-10">
-                                                            <label>Section Image</label>                                                                              
+                                                    <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 fieldWrapper">
+                                                        <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                                                            <label>Section Image <i className="redFont">*</i></label>                                                                              
                                                             {this.state.sectionImage 
                                                             ?
                                                                 null
                                                             :                                                    
                                                                 <div className="divideCatgRows categoryImgWrapper">
                                                                     {/* <label>Category Image</label>                                                                     */}
-                                                                    <input type="file" onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="" accept=".jpg,.jpeg,.png,.webp" />
+                                                                    <input type="file" onChange={this.uploadImage.bind(this)} title="Click to upload section image" className="" accept=".jpg,.jpeg,.png,.webp" id="sectionImage" name="sectionImage" />
                                                                 </div>
                                                             }
                                                             {this.state.sectionImage 
                                                             ? 
                                                                 <div className="row">
-                                                                    <div className="col-lg-4 productImgCol">
-                                                                        <div className="prodImage">
+                                                                    <div className="col-lg-4 col-md-4 col-sm-6 col-xs-12 productImgCol">
+                                                                        <div className="imageDiv">
                                                                             <div className="prodImageInner">
                                                                                 <span className="prodImageCross" title="Delete" data-imageUrl={this.state.sectionImage} onClick={this.deleteImage.bind(this)} >x</span>
                                                                             </div>
+                                                                            {console.log("this.state.sectionImage => ",this.state.sectionImage)}
                                                                             <img title="view Image" alt="Please wait..." src={this.state.sectionImage ? this.state.sectionImage : "/images/notavailable.jpg"} className="img-responsive" />
                                                                         </div>    
                                                                     </div>
@@ -557,21 +579,21 @@ class SectionManagement extends Component {
                                                             }
                                                         </div>
                                                     </div>
-                                                    <div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <div className="col-lg-4">
+                                                    <div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom30">
+                                                        {/* <div className=""> */}
                                                             
                                                             {this.state.editId 
                                                             ?
-                                                                <button onClick={this.updatesection.bind(this)} className="btn button3 col-lg-12">Update</button>
+                                                                <button onClick={this.updatesection.bind(this)} className="btn button3 pull-right">Update</button>
                                                             :
-                                                                <button onClick={this.submitsection.bind(this)} className="btn button3 col-lg-12">Submit</button>
+                                                                <button onClick={this.submitsection.bind(this)} className="btn button3 pull-right">Submit</button>
                                                             }
-                                                        </div>
+                                                        {/* </div> */}
                                                     </div>                                         
                                                 </form>
                                             </div>
 
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
                                                 <IAssureTable
                                                     tableHeading    = {this.state.tableHeading}
                                                     twoLevelHeader  = {this.state.twoLevelHeader}

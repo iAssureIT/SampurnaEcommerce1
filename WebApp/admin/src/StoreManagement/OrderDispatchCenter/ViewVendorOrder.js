@@ -70,7 +70,7 @@ class ViewVendorOrder extends Component{
 	}
 
 	getOneOrder(orderID, vendor_id){
-		axios.get("/api/orders/get/one/"+orderID+"/"+vendor_id)
+		axios.get("/api/orders/get/one/vendor/order/"+orderID+"/"+vendor_id)
 		.then((response)=>{
 			console.log('response.data orderID ====>',response.data);
 			this.setState({

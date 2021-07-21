@@ -19,3 +19,12 @@
 .subBtnDiv{
     margin-top: 30px;
 }
+.swal-button--cancel{
+    
+}
+.swal-button--confirm{
+ /* background-color: #dd4b39; */
+}
+.swal-button--confirm :hover{
+    /* background-color: #dd4b39 !important; */
+}

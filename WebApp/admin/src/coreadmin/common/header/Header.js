@@ -373,6 +373,30 @@ class Header extends Component {
 	}
 
 	render() {
+		window.addEventListener('click', function(e){
+
+			var bellNotificationElement = document.getElementById('bellnotification');
+			if(e.target.id !== "headicon" && e.target.id !== "mySidenav" && e.target.id !== "cogsIcon"){
+				document.getElementById("mySidenav").style.width = "0";
+			}
+
+			if(e.target.id !== "notificationBell" && e.target.id !== "badgecount"){
+				if (bellNotificationElement.style.display === 'block') {
+					bellNotificationElement.style.display = 'none';
+				}
+			}
+
+			var userProfileElement = document.getElementById('user-footer');
+			if(e.target.id !== "profileDiv" && e.target.id !== "userIcon" && e.target.id !== "userProfileName"){
+				
+				var profileDivElement = document.getElementById('profileDiv');
+				if (userProfileElement.style.display === 'block') {
+					userProfileElement.style.display = 'none';
+					profileDivElement.classList.remove("colorbox");
+				}
+			}
+		})
+
 		return (
 			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<header className="main-header newMain-header">
@@ -399,15 +423,15 @@ class Header extends Component {
 							</a>
 						</div>
 						<div className="col-lg-6 col-md-8 col-sm-8 col-xs-8 padd0 pull-right">
-							<div onClick={this.toggleNav.bind(this)} className="col-lg-1 col-md-1 col-sm-1 col-xs-1 pull-right nopadding textAlignCenter onHoverEffect hover">
-								<i className="fa fa-cogs headicon "></i>
+							<div onClick={this.toggleNav.bind(this)} className="col-lg-1 col-md-1 col-sm-1 col-xs-1 pull-right nopadding textAlignCenter onHoverEffect hover" id="cogsIcon">
+								<i className="fa fa-cogs headicon " id="headicon"></i>
 							</div>
 							<div className="col-lg-8 col-md-8 col-sm-8 col-xs-8 pull-right padd0">
 								<div className="col-lg-8 col-md-8 col-sm-8 col-xs-8 pull-right">
 									<div className="col-lg-2 col-md-2 col-sm-2 col-xs-2 bell_Icon">
-										<i className="fa fa-bell btn mt15px" onClick={this.bellNotification.bind(this)} aria-hidden="true"></i>
-										<h1><span class="label label-default badgeClass">{this.state.inAppNotificationsCount}</span></h1>
-										<div className="col-lg-12 col-md-12  bellnotification">
+										<i className="fa fa-bell btn mt15px" onClick={this.bellNotification.bind(this)} aria-hidden="true" style={{"fontSize" : 15}} id="notificationBell"></i>
+										<h1 id="badgecount"><span class="label label-default badgeClass">{this.state.inAppNotificationsCount}</span></h1>
+										<div className="col-lg-12 col-md-12  bellnotification" id="bellnotification">
 											{/* <p>You have {this.state.inAppNotificationsCount} notifications</p> */}
 											<div className="msgnotification col-lg-12 col-md-12 " >
 												<div className="user-notification col-lg-11 col-md-6" >
@@ -419,7 +443,7 @@ class Header extends Component {
                               						</p>
 												</div>
 											</div>
-											<div className="profiledetails">
+											<div className="profiledetails" >
 												{this.state.inAppNotifications && this.state.inAppNotifications.length > 0 
 												?
 													this.state.inAppNotifications.map((data, index) => {
@@ -442,19 +466,19 @@ class Header extends Component {
 										</div>
 									</div>
 									<div className="col-lg-9 col-md-7 col-sm-9 col-xs-12  hover logoutAct pull-right">
-										<div className="row hover" onClick={this.LogoutSectionHover.bind(this)}>
-											<span className="col-lg-12 col-md-12 col-sm-12 col-xs-12 colorboxbefore hoverText onHoverEffect ">
-												<span className="col-lg-11 nopadding ">
+										<div className="row hover colorboxbefore hoverText onHoverEffect" onClick={this.LogoutSectionHover.bind(this)} id="profileDiv">
+											{/* <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12 colorboxbefore hoverText onHoverEffect "> */}
+												{/* <span className="col-lg-11 nopadding "> */}
 													{/*console.log("userImage 366",this.state.userImage)*/}
 
-													<img src={this.state.userImage ? this.state.userImage : "/images/person.png"} className="userIcon" />
-													<label className="mailtext">&nbsp;&nbsp;&nbsp;{this.state.fullname ? this.state.fullname : "No User"}</label>													
-												</span>
-												<span className="textAlignCenter" style={{ "marginTop": "4px" }}>
-												</span>
-											</span>
+													<img src={this.state.userImage ? this.state.userImage : "/images/person.png"} className="userIcon" id="userIcon" />
+													<label className="mailtext" id="userProfileName">&nbsp;&nbsp;&nbsp;{this.state.fullname ? this.state.fullname : "No User"}</label>													
+												{/* </span> */}
+												{/* <span className="textAlignCenter" style={{ "marginTop": "4px" }} id="emptySpace">
+												</span> */}
+											{/* </span> */}
 										</div>
-										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 user-footer showme NOpadding">
+										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 user-footer showme NOpadding" id="user-footer">
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopadding " >
 												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  headerImageContainer padd0 ">
 													<p className="pull-right fntC1" style={{ "cursor": "pointer" }} title="Close" onClick={this.LogoutSectionHover.bind(this)}>X</p><br />

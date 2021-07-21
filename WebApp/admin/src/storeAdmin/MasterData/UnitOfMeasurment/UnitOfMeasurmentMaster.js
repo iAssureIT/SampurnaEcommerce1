@@ -19,7 +19,8 @@ class Department extends Component {
           placeholder     : "Enter Unit Of Measurment..",
           title           : "Unit Of Measurment Master",
           attributeName   : "unit",
-          name            :"vvv"
+          name            :"vvv",
+          onlyLetters : true
       },
       "tableHeading": {
           unit: "Unit Of Measurment",
@@ -30,7 +31,8 @@ class Department extends Component {
           apiLink: '/api/unitofmeasurmentmaster/',
           paginationApply: true,
           searchApply: false,
-          editUrl: '/project-master-data'
+          editUrl: '/project-master-data',
+          
       },
       "startRange": 0,
       "limitRange": 10,

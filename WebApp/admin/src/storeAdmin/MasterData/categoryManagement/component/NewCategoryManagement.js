@@ -29,12 +29,13 @@ class CategoryManagement extends Component{
 														deleteMethod      	: 'delete',
 														apiLink              : '/api/category',
 														paginationApply      : true,
-														searchApply          : true,
+														searchApply          : false,
 														editUrl              : '/project-master-data',
 														deleteUrl            : '/project-master-data',
 														patchStatusUrl       : '/api/category/patch/subcategory/status',
 														type                 : 'SubCategories',
-														showAction 			 : false
+														showAction 			 : false,
+														checkbox 			 : false
 			},
 			/**=============== Category Details ===============*/
 			"tableHeading"             : {
@@ -61,7 +62,7 @@ class CategoryManagement extends Component{
 			"startRange"            	: 0,
 			"limitRange"            	: 10,
 			"editId"                	: this.props.editId ? this.props.editId : '',
-			"section"               	: 'Select Section',
+			"sectionn"               	: "-- Select --",
 			"tableName"             	: 'Category-management',
 			"subtablename" 				: "Subcategory-management",
 			tableData 					: [],
@@ -85,7 +86,7 @@ class CategoryManagement extends Component{
 
 		this.setState({
 			// section     : event.target.value.split('|')[0],
-			section     : event.target.value.split('|')[0],
+			sectionn     : event.target.value.split('|')[0],
 			section_ID  : event.target.value.split('|')[1],
 		},()=>{
 		  // console.log('sectionChange', this.state.section, this.state.section_ID);
@@ -126,12 +127,15 @@ class CategoryManagement extends Component{
 		if(this.state.editId && this.state.editId !== "undefined"){      
 		  	this.edit(this.state.editId);
 		}
-		$.validator.addMethod("regxsection", function (value, element, arg) {
-		  	return arg !== value;
-		}, "Please select the section");		
-		$.validator.addMethod("valueNotEquals", function(value, element, arg){
-		  	return arg !== value;
-		}, "Please select the section");
+		// $.validator.addMethod("regxsection", function (value, element, arg) {
+		//   	return arg !== value;
+		// }, "Please select the section");
+		$.validator.addMethod("regxsection", function (value, element, regexpr) {
+			return regexpr !== value;
+		}, "Please select section");		
+		// $.validator.addMethod("valueNotEquals", function(value, element, arg){
+		//   	return arg !== value;
+		// }, "Please select the section");
 		$.validator.addMethod("letterswithspace", function(value, element) {
 		  	return this.optional(element) || /^[a-zA-Z]*$/g.test(value);
 		}, "Please enter letters only");
@@ -148,18 +152,18 @@ class CategoryManagement extends Component{
   
 		$.validator.setDefaults({
 		  	debug 	: true,
-		  	success 	: "valid"
+		  	success : "valid"
 		});
 
 		$("#categoryManagement").validate({
 		  	rules : {
-			 	section : {
+			 	sectionn : {
 					required 			: true,
-					valueNotEquals 	: "Select Section"
+					regxsection 		: "-- Select --"
 			 	},
 			 	category : {
 					required 			: true,
-					letterswithspace 	: true,
+					// letterswithspace 	: true,
 					charactersLength 	: true
 			 	},
 				categoryRank : {
@@ -172,14 +176,14 @@ class CategoryManagement extends Component{
 			 // },
 			 categoryDescription : {
 					required 			: true,
-					letterswithspace 	: true,
+					// letterswithspace 	: true,
 					charactersLength 	: true 
 			 }
 		  	},
 		  	
 			errorPlacement: function(error, element) {
-			 	if (element.attr("name") === "section"){
-					error.insertAfter("#section");
+			 	if (element.attr("name") === "sectionn"){
+					error.insertAfter("#sectionn");
 				}
 			 	if (element.attr("name") === "category"){
 					error.insertAfter("#category");
@@ -203,7 +207,7 @@ class CategoryManagement extends Component{
 	getDataCount(){
 		axios.get('/api/category/get/count')
 		.then((response)=>{
-		  	// console.log('dataCount', response.data);
+		  	console.log('category dataCount', response.data);
 		  	this.setState({
 			 	dataCount : response.data.dataCount
 		  	})
@@ -238,13 +242,13 @@ class CategoryManagement extends Component{
 		.then((response)=>{
 		  	console.log('category tableData', response.data);
 		  
-		  	var tableData = response.data.reverse().map((a, i)=>{                      
+		  	var tableData = response.data.map((a, i)=>{                      
 				return{ 
 					_id                   : a._id,
 					section               : a.section,
 					category              : a.category,
 					categoryNameRlang     : a.categoryNameRlang,
-					categoryRank          : a.categoryRank,
+					categoryRank          : "<div class=textAlignCenter >" + a.categoryRank + "</div>",
 					categoryDescription   : a.categoryDescription,
 					subCategory           : "<a aria-hidden='true' class='actionLinks' title='Show all SubCategories' id='" + a._id + "'data-toggle='modal' data-target='#subCategoryModal' onclick=window.openSubCategoryModal('"+ a._id + "')> View </a>",
 					status                : a.status,
@@ -365,14 +369,20 @@ class CategoryManagement extends Component{
 				var filteredCategory = this.state.tableData.filter((filteredcategory)=> String(filteredcategory._id) === String(category_id));
 				console.log("filteredCategory => ",filteredCategory);
 				// console.log("filteredCategory[0].subCategories => ",filteredCategory[0].subCategories);
-				if(filteredCategory && filteredCategory.length > 0 && filteredCategory[0].subCategories && filteredCategory[0].subCategories.length > 0){
-					var subcategorytableData = filteredCategory[0].subCategories;
-					this.setState({
-						subcategorytableData 	: subcategorytableData,
-						subcategoryDataCount 	: subcategorytableData.length,
-						category_id 		 	: category_id,
-						categoryName 			: filteredCategory[0].category
-					})
+				if(filteredCategory && filteredCategory.length > 0){
+					if(filteredCategory[0].subCategories && filteredCategory[0].subCategories.length > 0){
+						var subcategorytableData = filteredCategory[0].subCategories;
+						this.setState({
+							subcategorytableData 	: subcategorytableData,
+							subcategoryDataCount 	: subcategorytableData.length,
+							category_id 		 	: category_id,
+							categoryName 			: filteredCategory[0].category
+						})
+					}else{
+						this.setState({
+							categoryName 			: filteredCategory[0].category
+						})
+					}
 				}else{					
 					this.setState({
 						subcategorytableData 	: [],
@@ -536,7 +546,7 @@ class CategoryManagement extends Component{
 
 			 
 				var formValues = {
-					"section"                   : this.state.section,
+					"section"                   : this.state.sectionn,
 					"section_ID"                : this.state.section_ID,
 					"category"                  : this.refs.category.value,
 					"categoryNameRlang"         : this.refs.categoryNameRlang.value,
@@ -556,7 +566,7 @@ class CategoryManagement extends Component{
 				  	swal(" ",(response.data.message ));
 				
 					this.setState({
-						"section"               	: 'Select',
+						"sectionn"               	: '-- Select --',
 						"category"                 : '',
 						"categoryUrl"              : '',
 						"addEditModeCategory"      : '',
@@ -617,7 +627,7 @@ class CategoryManagement extends Component{
 		  
 		  	var formValues = {
 				"category_ID"               : this.state.editId,
-				"section"                   : this.state.section,
+				"section"                   : this.state.sectionn,
 				"section_ID"                : this.state.section_ID,
 				"category"                  : this.refs.category.value,
 				"categoryUrl"               : this.refs.categoryUrl.value,
@@ -687,7 +697,7 @@ class CategoryManagement extends Component{
 					});
 					this.getData(this.state.startRange, this.state.limitRange);
 					this.setState({
-						"section"                       : 'Select',
+						"sectionn"                       : '-- Select --',
 						"category"                      : '',
 						"categoryUrl"                   : '',
 						"categoryRank"                  : '',
@@ -752,7 +762,7 @@ class CategoryManagement extends Component{
 		  	console.log('record to be edit', response.data);
 		  	if(response.data){
 				this.setState({
-					"section"                   : response.data.section,
+					"sectionn"                   : response.data.section,
 					"section_ID"                : response.data.section_ID,
 					"category"                  : response.data.category,
 					"categoryNameRlang"         : response.data.categoryNameRlang,
@@ -764,7 +774,7 @@ class CategoryManagement extends Component{
 					"categoryDescription"       : response.data.categoryDescription,
 					"categoryImage"             : response.data.categoryImage,
 				},()=>{
-					console.log("this.state.section----",this.state.section);
+					console.log("this.state.section----",this.state.sectionn);
 					console.log("this.state.section_ID----",this.state.section_ID);
 					console.log("this.state.category----",this.state.category);
 					console.log("this.state.categoryImage----",this.state.categoryImage);
@@ -983,7 +993,7 @@ class CategoryManagement extends Component{
 			var tableData = response.data.reverse().map((a, i)=>{                      
 				return{ 
 					_id                   : a._id,
-					section               : a.section,
+					sectionn               : a.section,
 					category              : a.category,
 					categoryNameRlang     : a.categoryNameRlang,
 					categoryRank          : a.categoryRank,
@@ -1022,6 +1032,7 @@ class CategoryManagement extends Component{
 		};
 		axios.post("/api/category/searchCategoryCount",formValues)
 		.then((response)=>{ 
+			console.log("category data count => ",response.data)
 			this.setState({
 				dataCount : response.data.dataCount
 			},()=>{
@@ -1091,18 +1102,18 @@ class CategoryManagement extends Component{
 						<div className="formWrapper">
 							<section className="content">
 								<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 pageContent">
-									<div className="row">
+									<div className="">
 										<div className="">
 											<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
 												<h4 className="weighttitle NOpadding-right">Category Master </h4>
 											</div>
-											<div className="col-lg-12 col-md-12 marginTopp">
+											<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 formContent">
 												<form id="categoryManagement" className="">
 													<div className="col-lg-6 col-md-12 col-xs-12 col-sm-12  NOpadding">
-														<div className="col-lg-12 fieldWrapper">
+														<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 fieldWrapper"  >
 															<label>Section <i className="redFont">*</i></label>
-															<select onChange={this.sectionChange.bind(this)} value={this.state.section+'|'+this.state.section_ID}  name="section" className="form-control allProductCategories" aria-describedby="basic-addon1" id="section" ref="section" required>
-																<option selected value="Select Section">Select Section</option>
+															<select onChange={this.sectionChange.bind(this)} value={this.state.sectionn+'|'+this.state.section_ID}  name="sectionn" className="form-control allProductCategories" aria-describedby="basic-addon1" ref="sectionn" id="sectionn">
+																<option>-- Select --</option>
 																{
 																	this.state.sectionsList && this.state.sectionsList.length>0 
 																	?
@@ -1116,20 +1127,20 @@ class CategoryManagement extends Component{
 																}
 															</select>
 														</div>
-														<div className="col-lg-12 fieldWrapper ">
+														<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 fieldWrapper ">
 															<label>Category Short Description </label>                                                                    
 															<input type="text" value={this.state.categoryDescription} onChange={this.handleChange.bind(this)} name="categoryDescription" id="categoryDescription" className="form-control categoryShortDesc" placeholder="Category Short Description" ref="categoryDescription" />
 														</div>
-														<div className="col-lg-6 fieldWrapper">
-															<label>Category URL <i className="redFont">*</i></label>                                                                    
+														<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 fieldWrapper">
+															<label>Category URL {/*<i className="redFont">*</i>*/}</label>                                                                    
 															<input disabled value={this.state.categoryUrl} onChange={this.handleChange.bind(this)} id="categoryUrl" name="categoryUrl" type="text" className="form-control categoryUrl" placeholder="Category URL" ref="categoryUrl"  />
 														</div>
-														<div className="col-lg-6 fieldWrapper">
+														<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 fieldWrapper">
 															<label>Category Rank <i className="redFont">*</i></label>                                                                    
 															<input value={this.state.categoryRank} onChange={this.handleChange.bind(this)} onkeydown="return event.keyCode !== 69" id="categoryRank" name="categoryRank" type="number" className="form-control categoryRank" placeholder="Category Rank" ref="categoryRank"  min="1"/>
 														</div>
 													</div>
-													<div className="col-lg-6">
+													<div className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
 														<div className="divideCatgRows fieldWrapper">
 															<label>Category Title <i className="redFont">*</i></label>
 															<input value={this.state.category} name="category" id="category" onChange={this.createCategoryUrl.bind(this)} type="text" className="form-control edit-catg-new" placeholder="Category Title" ref="category" />
@@ -1166,7 +1177,7 @@ class CategoryManagement extends Component{
 														? 
 															<div className="row">
 																<div className="col-lg-4 productImgCol">
-																	<div className="prodImage">
+																	<div className="imageDiv">
 																		<div className="prodImageInner">
 																			<span className="prodImageCross" title="Delete" id="delete-categoryImage" data-imageUrl={this.state.categoryImage} onClick={this.deleteImage.bind(this)} >x</span>
 																		</div>
@@ -1180,15 +1191,15 @@ class CategoryManagement extends Component{
 														</div>
 														</div>
 													</div>
-													<div className="col-lg-12 subCatAddLabel">
+													<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 subCatAddLabel">
 														<label>Subcategories </label>
 														{this.state.subcatgArr 
 														?
 															this.state.subcatgArr.map((dataRowArray, index)=>{
 																console.log("dataRowArray => ",dataRowArray);
 																return(
-																	<div className="col-lg-12 col-md-12 NOpadding" key={index}>                                                                                  
-																		<div className="col-lg-12 col-md-12 NOpadding newSubCatgArr">   
+																	<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding" key={index}>                                                                                  
+																		<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding newSubCatgArr">   
 																			<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding">             
 																				<input type="text" id={dataRowArray.subCategoryCode} value={this.state['subCategoryTitle'+dataRowArray.subCategoryCode]} name={"subCategoryTitle"+dataRowArray.subCategoryCode} onChange={this.createSubCategoryUrl.bind(this)} className={"form-control newSubCatg"+index} placeholder="Sub Category Title" aria-label="Brand" aria-describedby="basic-addon1" ref={"newSubCatg"+index} />
 																			</div>
@@ -1244,21 +1255,52 @@ class CategoryManagement extends Component{
 														{/*<div className=" col-lg-6">
 															<div onClick={this.cancelCategoryUpdate.bind(this)} className="edit-cancel-catg btn col-lg-12 col-md-12 col-sm-12 col-xs-12">Cancel</div>
 														</div>*/}
-														<div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
-															<div className="row">
-																<div className="col-lg-4">
+														<div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12 marginBottom30">
+															{/* <div className="row">
+																<div className="col-lg-4"> */}
 																	{this.state.editId 
 																	? 
-																		<button onClick={this.updateCategory.bind(this)} className="btn button3 col-lg-12">Update</button>
+																		<button onClick={this.updateCategory.bind(this)} className="btn button3 pull-right">Update</button>
 																	:
-																		<button onClick={this.submitCategory.bind(this)} className="btn button3 col-lg-12">Submit</button>
+																		<button onClick={this.submitCategory.bind(this)} className="btn button3 pull-right">Submit</button>
 																	}
-																</div>											
-															</div>												
+																{/* </div>											
+															</div>												 */}
 														</div>
 												</form>
 											</div>
-											<div className="modal col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12" id={"subCategoryModal"} aria-hidden="false" role="dialog">
+											<div class="modal fade" id={"subCategoryModal"} role="dialog" style={{"textAlign" : "center"}}>
+												<div class="modal-dialog modal-lg">
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal">&times;</button>
+															<h4 className="invoicePaymentModalHeading">SubCategories of {this.state.categoryName}</h4>
+														</div>
+														<div class="modal-body">
+															<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+																<IAssureTable 
+																	tableHeading          = {this.state.subcategorytableHeading}
+																	twoLevelHeader        = {this.state.twoLevelHeader} 
+																	dataCount             = {this.state.subcategoryDataCount}
+																	tableData             = {this.state.subcategorytableData}
+																	getData               = {this.getSubCategoryData.bind(this)}
+																	tableObjects          = {this.state.subcategorytableObjects}
+																	getSearchText         = {this.getSearchText.bind(this)} 
+																	tableName             = {this.state.subtableName}
+																	currentView           = {"SubCategory-Management-table"}
+																	selectedProducts      = {this.selectedProducts.bind(this)}
+																	setunCheckedProducts  = {this.setunCheckedProducts.bind(this)}
+																	unCheckedProducts     = {this.state.unCheckedProducts}
+																/>													
+															</div>
+														</div>
+														<div class="modal-footer" style={{"borderTop" : 0}}>
+															{/* <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> */}
+														</div>
+													</div>
+												</div>
+											</div>
+											{/* <div className="modal col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12" id={"subCategoryModal"} aria-hidden="false" role="dialog">
 												<div className="adminModal adminModal-dialog marginTopModal">
 													<div className="modal-content adminModal-content col-lg-12 col-md-12 col-sm-12 col-xs-12 noPadding">
 														<div className="modal-header adminModal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -1273,7 +1315,7 @@ class CategoryManagement extends Component{
 															{/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 																<h2 className="remainingBalance">Balance : <span className="BalanceAmt"><i className="fa fa-inr faIcon"></i> {this.state.remainingBalance}</span></h2>
 															</div> */}
-															<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															{/*<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 																<IAssureTable 
 																	tableHeading          = {this.state.subcategorytableHeading}
 																	twoLevelHeader        = {this.state.twoLevelHeader} 
@@ -1295,7 +1337,8 @@ class CategoryManagement extends Component{
 													</div>
 												</div>
 											</div>
-											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+											 */}
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  NOPadding">
 												<IAssureTable 
 													tableHeading          = {this.state.tableHeading}
 													twoLevelHeader        = {this.state.twoLevelHeader} 

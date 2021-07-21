@@ -4,9 +4,9 @@ const checkAuth 	= require('../../coreAdmin/middlerware/check-auth.js');
 
 const unitOfMeasurmentMaster = require('./ControllerUnitOfMeasurment.js');
 
+router.post('/get/list', 						checkAuth, unitOfMeasurmentMaster.fetchUnitOfMeasurmentList);
 router.post('/post', 							checkAuth, unitOfMeasurmentMaster.insertUnitOfMeasurment);
 
-router.post('/get/list', 						checkAuth, unitOfMeasurmentMaster.fetchUnitOfMeasurment);
 
 router.get('/get/list', 						checkAuth, unitOfMeasurmentMaster.getAllUnitOfMeasurment);
 

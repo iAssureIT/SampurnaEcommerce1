@@ -33,8 +33,8 @@ class IAssureTable extends Component {
 			"activeClass": 'activeCircle',
 			"paginationArray": [],
 			"startRange": 0,
-			"limitRange": 10000,
-			"activeClass": 'activeCircle',
+			"limitRange": 10,
+			// "activeClass": 'activeCircle',
 			"normalData": true,
 			"printhideArray": [],
 		}
@@ -72,6 +72,7 @@ class IAssureTable extends Component {
 		}
 	}
 	componentDidMount() {
+		console.log("props => ",this.props)
 		axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("token");
 		$("html,body").scrollTop(0);
 		console.log("this.state.date",this.state.date)
@@ -90,6 +91,8 @@ class IAssureTable extends Component {
 			tableName: this.props.tableName,
 			dataCount: this.props.dataCount,
 			id: this.props.id,
+		},()=>{
+			console.log("dataCount did mount => ",this.state.dataCount)
 		});
 		$("#table-to-xls").attr('title', 'Download Table');
 	}
@@ -101,6 +104,7 @@ class IAssureTable extends Component {
 			dataCount: nextProps.dataCount,
 		}, () => {
 			this.paginationFunction();
+			console.log("dataCount => ",this.state.dataCount)
 		})
 		$("#table-to-xls").attr('title', 'Download Table');
 	}
@@ -309,35 +313,34 @@ class IAssureTable extends Component {
 		}
 	}
 	paginationFunction(event) {
-		var dataLen = this.state.dataCount > 20 || this.state.dataCount === 20 ? 20 : this.state.dataCount;
+		// var dataLen = this.state.dataCount > 20 || this.state.dataCount === 20 ? 20 : this.state.dataCount;
 		var dataLength = this.state.dataCount;
 		this.setState({
-			dataLength: dataLen,
+			dataLength : dataLength,
 		}, () => {
-			$('li').removeClass('activeCircle');
-			$(".queDataCircle:first").addClass('activeCircle');
-			const maxRowsPerPage = this.state.limitRange;
-			var paginationNum = dataLength / maxRowsPerPage;
-			var pageCount = Math.ceil(paginationNum) > 20 ? 20 : Math.ceil(paginationNum);
+			// $('li').removeClass('activeCircle');
+			// $(".queDataCircle:first").addClass('activeCircle');
+			const maxRowsPerPage 	= this.state.limitRange;
+			var paginationNum 		= dataLength / maxRowsPerPage;
+			var pageCount 			= Math.ceil(paginationNum);
 
 			var paginationArray = [];
 			for (var i = 1; i <= pageCount; i++) {
-				var countNum = maxRowsPerPage * i;
-				var startRange = countNum - maxRowsPerPage;
+				var countNum 	= maxRowsPerPage * i;
+				var startRange 	= countNum - maxRowsPerPage;
 				if (i === 1) {
 					var activeClass = 'activeCircle';
 				} else {
-					activeClass = '';
+					var activeClass = '';
 				}
 				paginationArray.push(
-					<li key={i} className={"queDataCircle page-link " + activeClass + " parseIntagination" + i} id={countNum + '|' + startRange} onClick={this.getStartEndNum.bind(this)} title={"Click to jump on " + i + " page"}>{i}</li>
+					<li key={i} className={"queDataCircle page-link " + activeClass + " parseIntagination" + i} id={maxRowsPerPage + '|' + startRange} onClick={this.getStartEndNum.bind(this)} title={"Click to jump on " + i + " page"}>{i}</li>
 				);
 			}
 			if (pageCount >= 1) {
 				this.setState({
-					paginationArray: paginationArray,
-				}, () => {
-				});
+					paginationArray : paginationArray,
+				}, () => {});
 			}
 			return paginationArray;
 		});
@@ -617,7 +620,7 @@ class IAssureTable extends Component {
 			    </div>
 				<div className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NOpadding marginTop8">
 					<div className={"table-responsive "+this.state.currentView} id={this.state.currentView ? this.state.currentView :"section-to-print"}>
-						<table className={"table iAssureITtable-bordered table-striped table-hover fixedTable "+this.props.tableDndClass} id={this.state.id}>
+						<table className={"table iAssureITtable-bordered table-striped table-hover fixedTable "+this.props.tableDndClass} id={this.state.id} >
 							<thead className="tempTableHeader fixedHeader">
 								<tr className="tempTableHeader">
 									{this.state.twoLevelHeader.apply === true ?
@@ -753,7 +756,7 @@ class IAssureTable extends Component {
 									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 paginationAdminWrap">
 										<div className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
 											{
-												this.state.limitRange >= this.state.dataLength ?
+												this.state.paginationArray.length < 20 ?
 													null
 													:
 													<div className="btn btn-primary" onClick={this.showFirstTweentyButtons.bind(this)} title="Fast Backward"><i className="fa fa-fast-backward"></i></div>
@@ -761,7 +764,7 @@ class IAssureTable extends Component {
 										</div>
 										<div className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
 											{
-												this.state.limitRange >= this.state.dataLength ?
+												this.state.paginationArray.length < 20 ? 
 													null
 													:
 													<div className="btn btn-primary" onClick={this.showPreviousPaginationButtons.bind(this)} title="Previous"><i className="fa fa-caret-left"></i></div>

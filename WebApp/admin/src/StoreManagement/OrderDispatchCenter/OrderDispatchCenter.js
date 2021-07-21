@@ -32,15 +32,31 @@ class OrderDispatchCenter extends Component{
 				patchStatusUrl      	: '/api/category/patch/status',
 				showAction 			 	: true
 			},
+			// =======================================================
+			"deliveryPersonsTableHeading"     	: {
+				deliveryPersonName      : "Delivery Person Name",
+				distance             	: "Distance From Vendor",
+				contactNumber    		: "Contact Number",
+				allocate 	    		: "Allocate Order"
+			},
+			"deliveryPersonsTableObjects"      : {
+				// apiLink             	: '/api/category',
+				paginationApply      	: false,
+				searchApply          	: true,
+				// patchStatusUrl      	: '/api/category/patch/status',
+				showAction 			 	: false
+			},
+			deliveryPersonsList : [],
+			dataMessage 		: "",
 			"startRange"       	: 0,
 			"limitRange"        : 10,
 			"tableName"         : 'ReadyToDispatchOrders',
 			tableData 			: [],
 			activeStatus 		: ""
 		};
-		this.openChangeStatusModal 		= this.openChangeStatusModal.bind(this);
-		window.openChangeStatusModal  	= this.openChangeStatusModal;
-		this.changeVendorOrderStatus    = this.changeVendorOrderStatus.bind(this);
+		this.nearByDeliveryPersonsModal 	= this.nearByDeliveryPersonsModal.bind(this);
+		window.nearByDeliveryPersonsModal  	= this.nearByDeliveryPersonsModal;
+		this.changeVendorOrderStatus    	= this.changeVendorOrderStatus.bind(this);
 	}
 
 	/* ======= handleChange() ========== */
@@ -120,8 +136,8 @@ class OrderDispatchCenter extends Component{
 		})
 	}
 
-	/* ======= openChangeStatusModal() ========== */
-	openChangeStatusModal(id){
+	/* ======= nearByDeliveryPersonsModal() ========== */
+	nearByDeliveryPersonsModal(id){
 		var order_id 		= id.split("-")[0];
 		var vendor_id 		= id.split("-")[1];
 		var order_user_id 	= id.split("-")[2];
@@ -131,35 +147,44 @@ class OrderDispatchCenter extends Component{
 			order_id 		: order_id,
 			order_user_id	: order_user_id
 		},()=>{
-			this.getOneOrder(this.state.order_id, this.state.vendor_id);
+			this.getNearbyDeliveryPersons(this.state.order_id, this.state.vendor_id);
 			this.getData(this.state.startRange,this.state.limitRange);
 		})		
 	}
 	
 	/* ======= get Single order ========== */
-	getOneOrder(order_id, vendor_id){
-		axios.get('/api/orders/dispatchcenter/one/order/'+order_id + "/" +vendor_id)
+	getNearbyDeliveryPersons(order_id, vendor_id){
+		axios.get('/api/orders/dispatchcenter/get/nearby_delivery_persons/'+order_id + "/" +vendor_id)
 		.then((response) => {
-			// console.log("get one order response ==>",response.data)
-			if (response.data && response.data.vendorOrders && response.data.vendorOrders.length > 0) {
-				var vendorOrder = response.data.vendorOrders.filter(vendorOrder => String(vendorOrder.vendor_id) === String(vendor_id))
+			console.log("get one order response ==>",response.data);
+			if(response.data && response.data.length > 0){
+				this.setState({
+					deliveryPersonsList :  response.data
+				})
+			}else{
+				this.setState({
+					dataMessage :  response.data.message
+				})
+			}
+			// if (response.data && response.data.vendorOrders && response.data.vendorOrders.length > 0) {
+			// 	var vendorOrder = response.data.vendorOrders.filter(vendorOrder => String(vendorOrder.vendor_id) === String(vendor_id))
 				
-				if(vendorOrder[0] && vendorOrder[0].deliveryStatus.length > 0){
-					var activeStatus 		= vendorOrder[0].deliveryStatus[vendorOrder[0].deliveryStatus.length -1].status;
-					var activeStatusObject 	= this.state.orderStatusArray.filter(status => status.orderStatus === activeStatus);
-					var activeStatusRank  	= 0;
+			// 	if(vendorOrder[0] && vendorOrder[0].deliveryStatus.length > 0){
+			// 		var activeStatus 		= vendorOrder[0].deliveryStatus[vendorOrder[0].deliveryStatus.length -1].status;
+			// 		var activeStatusObject 	= this.state.orderStatusArray.filter(status => status.orderStatus === activeStatus);
+			// 		var activeStatusRank  	= 0;
 
-					if(activeStatusObject && activeStatusObject.length > 0){
-						activeStatusRank  	= activeStatusObject[0].statusRank;
-					}
-						// activeStatus 		: activeStatus,
-						console.log("activeStatus => ",activeStatus)
-					this.setState({
-						activeStatus 		: activeStatus,
-						activeStatusRank 	: activeStatusRank
-					},()=>{})
-				}
-			}			
+			// 		if(activeStatusObject && activeStatusObject.length > 0){
+			// 			activeStatusRank  	= activeStatusObject[0].statusRank;
+			// 		}
+			// 		// activeStatus 		: activeStatus,
+			// 		console.log("activeStatus => ",activeStatus)
+			// 		this.setState({
+			// 			activeStatus 		: activeStatus,
+			// 			activeStatusRank 	: activeStatusRank
+			// 		},()=>{})
+			// 	}
+			// }			
 		})
 		.catch((error) => {
 			console.log("Error in orderstatus = ", error);
@@ -243,7 +268,7 @@ class OrderDispatchCenter extends Component{
 												
 											: 
 												'') + '</div>',
-					changeAllocation 	: "<div aria-hidden='true' class='changeVendorStatusBtn' title='Change Delivery Person Allocation' id='" + a._id + "-" + a.vendorOrders.vendor_id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + a.vendorOrders.vendor_id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Allocation </div>",
+					changeAllocation 	: "<div aria-hidden='true' class='changeVendorStatusBtn' title='Change Delivery Person Allocation' id='" + a._id + "-" + a.vendorOrders.vendor_id + "'onclick=window.nearByDeliveryPersonsModal('" + a._id + "-" + a.vendorOrders.vendor_id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Allocation </div>",
 
 				
 
@@ -277,7 +302,7 @@ class OrderDispatchCenter extends Component{
 					// 							// url = url.replace(/\s+/g, '-').toLowerCase();
 												
 					// 							return(
-					// 									"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + b.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>"
+					// 									"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "'onclick=window.nearByDeliveryPersonsModal('" + a._id + "-" + b.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>"
 													 
 					// 							)
 					// 						})).join(' ')
@@ -363,7 +388,7 @@ class OrderDispatchCenter extends Component{
 			socket.on("changeStatus", (response)=>{
 				// axios.patch("/api/orders/changevendororderstatus",formValues)
 				// .then((response)=>{ 
-					this.getOneOrder(this.state.order_id, this.state.vendor_id);
+					this.getNearbyDeliveryPersons(this.state.order_id, this.state.vendor_id);
 					// this.getData(this.state.startRange,this.state.limitRange);
 				})
 				// .catch((error)=>{
@@ -429,12 +454,12 @@ class OrderDispatchCenter extends Component{
 							<div class="modal-body">
 								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 									<IAssureTable 
-										tableHeading          = {this.state.tableHeading}
+										tableHeading          = {this.state.deliveryPersonsTableHeading}
 										twoLevelHeader        = {this.state.twoLevelHeader} 
-										dataCount             = {this.state.dataCount}
-										tableData             = {this.state.tableData}
-										getData               = {this.getData.bind(this)}
-										tableObjects          = {this.state.tableObjects}
+										dataCount             = {this.state.deliveryPersonsList.length}
+										tableData             = {this.state.deliveryPersonsList}
+										getData               = {this.getNearbyDeliveryPersons(this.state.order_id, this.state.vendor_id)}
+										tableObjects          = {this.state.deliveryPersonsTableObjects}
 										// getSearchText         = {this.getSearchText.bind(this)} 
 										tableName             = {this.state.tableName}
 									/>

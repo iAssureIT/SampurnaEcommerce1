@@ -6,39 +6,48 @@ const Products  = require('../products/Model');
 
 exports.insert_section = (req,res,next)=>{
 	var sectionUrl = req.body.section.replace(/\s+/g, '-').toLowerCase();
-    Sections.find({"section"    :  { "$regex": req.body.section, $options: "i"}  })
-        .exec()
-        .then(data =>{
-            if (data.length == 0) {
-        	const SectionObj = new Sections({
-                        _id                       : new mongoose.Types.ObjectId(),                    
-                        section                   : req.body.section,
-                        sectionUrl                : sectionUrl,
-                        sectionRank               : req.body.sectionRank,
-                        createdBy 				  : req.body.createdBy, 
-                        status                    : "Published", 	
-                        createdAt                 : new Date(),
-                        sectionImage              : req.body.sectionImage
-                    });
 
-                    SectionObj
-                    .save()
-                    .then(data=>{
-                        res.status(200).json({
-                    		"message": "Section is submitted successfully!"
-                		});
-                    })
-                    .catch(err =>{
-                    	res.status(500).json({
-		                    error: err
-		                });
-                    });
-            }else{
+    Sections.find({"section"    :  { "$regex": req.body.section, $options: "i"}  })
+    .exec()
+    .then(async(data) =>{
+        if (data.length === 0) {
+            var sectionRankExist = await Sections.findOne({"sectionRank" : req.body.sectionRank})
+            // console.log("sectionRankExist =>",sectionRankExist)
+            if(sectionRankExist && sectionRankExist !== null){ 
                 res.status(200).json({
-                            "message": "Section already exists!"
-                        });
+                    "message": "Section Rank already exists!"
+                });
+            }else{
+                const SectionObj = new Sections({
+                    _id                       : new mongoose.Types.ObjectId(),                    
+                    section                   : req.body.section,
+                    sectionUrl                : sectionUrl,
+                    sectionRank               : req.body.sectionRank,
+                    createdBy 				  : req.body.createdBy, 
+                    status                    : "Published", 	
+                    createdAt                 : new Date(),
+                    sectionImage              : req.body.sectionImage
+                });
+    
+                SectionObj
+                .save()
+                .then(data=>{
+                    res.status(200).json({
+                        "message": "Section is submitted successfully!"
+                    });
+                })
+                .catch(err =>{
+                    res.status(500).json({
+                        error: err
+                    });
+                });
             }
-        })
+        }else{
+            res.status(200).json({
+                "message": "Section already exists!"
+            });
+        }
+    })
 };        
 
 exports.get_sections = (req,res,next)=>{
@@ -81,47 +90,58 @@ exports.get_single_section = (req,res,next)=>{
 };
 
 exports.update_section = (req,res,next)=>{
-    // console.log("Update Body = ", req.body);
-    var sectionUrl = req.body.section.replace(/\s+/g, '-').toLowerCase();
-    Sections.updateOne(
-            { _id:req.body.sectionID},  
-            {
-                $set:{
-                section                   : req.body.section,
-                sectionRank               : req.body.sectionRank,
-                sectionUrl                : sectionUrl,
-                sectionImage              : req.body.sectionImage
-                }
-            }
-        )
-        .exec()
-        .then(data=>{
-            Category.updateOne(
-                {section_ID : req.body.sectionID},
-                { $set:{ section : req.body.section}
-                })
-                .exec()
-                .then(data=>{
-                    // console.log(data);
-                }) 
-                .catch(err =>{console.log(err);})
-       
-            // if(data.nModified == 1){
-                res.status(200).json({
-                    "message": "Section Updated Successfully!"
-                });
-            // }else{
-            //     res.status(401).json({
-            //         "message": "Section Not Found"
-            //     });
-            // }
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
+    console.log("Update Body = ", req.body);
+    processData();
+    async function processData(){
+        var sectionRankExist = await Sections.findOne({"sectionRank" : req.body.sectionRank})
+        console.log("sectionRankExist =>",sectionRankExist)
+        if(sectionRankExist && sectionRankExist !== null && String(req.body.sectionID) !== String(sectionRankExist._id)){ 
+            res.status(200).json({
+                "message": "Section Rank already exists!"
             });
-        });
+        }else{
+            var sectionUrl = req.body.section.replace(/\s+/g, '-').toLowerCase();
+            Sections.updateOne(
+                { _id:req.body.sectionID},  
+                {
+                    $set:{
+                    section                   : req.body.section,
+                    sectionRank               : req.body.sectionRank,
+                    sectionUrl                : sectionUrl,
+                    sectionImage              : req.body.sectionImage
+                    }
+                }
+            )
+            .exec()
+            .then(data=>{
+                Category.updateOne(
+                    {section_ID : req.body.sectionID},
+                    { $set:{ section : req.body.section}
+                    })
+                    .exec()
+                    .then(data=>{
+                        // console.log(data);
+                    }) 
+                    .catch(err =>{console.log(err);})
+        
+                // if(data.nModified == 1){
+                    res.status(200).json({
+                        "message": "Section Updated Successfully!"
+                    });
+                // }else{
+                //     res.status(401).json({
+                //         "message": "Section Not Found"
+                //     });
+                // }
+            })
+            .catch(err =>{
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+        }
+    }
 };
 
 exports.delete_section = (req,res,next)=>{
@@ -252,7 +272,7 @@ exports.deleteAllSections = (req, res, next) => {
 /**=========== get_list_for_section_category_block() =========== */
 exports.get_list_for_section_category_block = (req,res,next)=>{
     // console.log("secreq.body => ",req.body);
-    var startRange = 0;
+    var startRange      = 0;
     var selector        = {}; 
     selector['$and']    = [];
 
@@ -282,7 +302,7 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
             }
         },
     ])
-    .exec()
+    .exec()    
     .then(sectiondata=>{
         // console.log("section data => ", sectiondata);
         var returnData = [];

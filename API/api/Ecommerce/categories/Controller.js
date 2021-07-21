@@ -10,42 +10,50 @@ exports.insert_category = (req,res,next)=>{
     // console.log("req.body => ",req.body);
 	Category.find({"category":req.body.category, "section":req.body.section})
 		.exec()
-		.then(data =>{
+		.then(async(data) =>{
             // console.log("insert category body",req.body)
             if(data && data.length > 0){
                 res.status(200).json({
                     "message": "Category already exists.!"
                 });
             }else{
-                const category = new Category({
-                    _id                       : new mongoose.Types.ObjectId(),                    
-                    category                  : req.body.category,
-                    categoryNameRlang         : req.body.categoryNameRlang,
-                    categoryUrl               : req.body.categoryUrl,
-                    categoryRank              : req.body.categoryRank,
-                    subCategory               : req.body.subCategory,
-                    categoryDescription       : req.body.categoryDescription,
-                    categoryImage             : req.body.categoryImage,
-                    categoryIcon              : req.body.categoryIcon,
-                    section                   : req.body.section,
-                    section_ID                : req.body.section_ID,
-                    status                    : "Published",
-                    createdAt                 : new Date()
-                });
-                // console.log("Category:",category);
-                category.save()
-                .then(data=>{
-                    // console.log("data => ",data);
+                var categoryRankExist = await Category.findOne({"categoryRank" : req.body.categoryRank})
+                // console.log("sectionRankExist =>",sectionRankExist)
+                if(categoryRankExist && categoryRankExist !== null){ 
                     res.status(200).json({
-                        "message": "Category Submitted Successfully!"
+                        "message": "Category Rank already exists!"
                     });
-                })
-                .catch(err =>{
-                    console.log(err);
-                    res.status(500).json({
-                        error: err
+                }else{
+                    const category = new Category({
+                        _id                       : new mongoose.Types.ObjectId(),                    
+                        category                  : req.body.category,
+                        categoryNameRlang         : req.body.categoryNameRlang,
+                        categoryUrl               : req.body.categoryUrl,
+                        categoryRank              : req.body.categoryRank,
+                        subCategory               : req.body.subCategory,
+                        categoryDescription       : req.body.categoryDescription,
+                        categoryImage             : req.body.categoryImage,
+                        categoryIcon              : req.body.categoryIcon,
+                        section                   : req.body.section,
+                        section_ID                : req.body.section_ID,
+                        status                    : "Published",
+                        createdAt                 : new Date()
                     });
-                });
+                    // console.log("Category:",category);
+                    category.save()
+                    .then(data=>{
+                        // console.log("data => ",data);
+                        res.status(200).json({
+                            "message": "Category Submitted Successfully!"
+                        });
+                    })
+                    .catch(err =>{
+                        console.log(err);
+                        res.status(500).json({
+                            error: err
+                        });
+                    });
+                }
             }
 	})
 	.catch(err =>{
@@ -59,42 +67,53 @@ exports.update_category = (req,res,next)=>{
     
     // console.log("subCategory:" ,req.body.subCategory);
     // console.log("Data:" ,req.body);
-    Category.updateOne(
-            { _id:req.body.category_ID},  
-            {
-                $set:{
-                category                  : req.body.category,
-                categoryUrl               : req.body.categoryUrl,
-                categoryRank              : req.body.categoryRank,
-                categoryNameRlang         : req.body.categoryNameRlang,
-                subCategory               : req.body.subCategory,
-                categoryDescription       : req.body.categoryDescription,
-                categoryImage             : req.body.categoryImage,
-                categoryIcon              : req.body.categoryIcon,
-                section                   : req.body.section,
-                section_ID                : req.body.section_ID,
-                createdAt                 : new Date()
-                }
-            }
-        )
-        .exec()
-        .then(data=>{
-            if(data.nModified === 1){
-                res.status(200).json({
-                    "message": "Category Updated Successfully!"
-                });
-            }else{
-                res.status(401).json({
-                    "message": "Category Not Found"
-                });
-            }
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
+    processData();
+    async function processData(){
+        var categoryRankExist = await Category.findOne({"categoryRank" : req.body.categoryRank})
+        console.log("categoryRankExist =>",categoryRankExist)
+        if(categoryRankExist && categoryRankExist !== null && String(req.body.category_ID) !== String(categoryRankExist._id)){ 
+            res.status(200).json({
+                "message": "Category Rank already exists!"
             });
-        });
+        }else{
+            Category.updateOne(
+                { _id:req.body.category_ID},  
+                {
+                    $set:{
+                    category                  : req.body.category,
+                    categoryUrl               : req.body.categoryUrl,
+                    categoryRank              : req.body.categoryRank,
+                    categoryNameRlang         : req.body.categoryNameRlang,
+                    subCategory               : req.body.subCategory,
+                    categoryDescription       : req.body.categoryDescription,
+                    categoryImage             : req.body.categoryImage,
+                    categoryIcon              : req.body.categoryIcon,
+                    section                   : req.body.section,
+                    section_ID                : req.body.section_ID,
+                    createdAt                 : new Date()
+                    }
+                }
+            )
+            .exec()
+            .then(data=>{
+                if(data.nModified === 1){
+                    res.status(200).json({
+                        "message": "Category Updated Successfully!"
+                    });
+                }else{
+                    res.status(401).json({
+                        "message": "Category Not Found"
+                    });
+                }
+            })
+            .catch(err =>{
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+        }
+    }
 };
 exports.list_section = (req,res,next)=>{
     Category.find().sort({"categoryRank": 1})       
@@ -128,7 +147,7 @@ exports.list_category_with_limits = (req,res,next)=>{
     Category.find()
     .skip(parseInt(req.body.startRange))
     .limit(parseInt(req.body.limitRange))
-    .exec()
+    .sort({"createdAt" : -1})
     .then(data=>{
         // console.log('data', data);
         // var allData = data.map((x, i)=>{

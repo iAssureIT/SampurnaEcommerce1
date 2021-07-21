@@ -185,8 +185,8 @@
 
 .prodImageInner {
     position: absolute;
-    right: 15px;
-    top: 5px;
+    right: 5px;
+    top: -10px;
 }
 .prodImageInnerAdjm{
     right: 4px;

@@ -775,26 +775,28 @@ class ListOfEntities extends Component {
 										</div>
 										:
 										this.state.entityList && this.state.entityList.length > 0 ?
-											<div className="col-lg-4 col-md-6 col-sm-6 col-xs-6 scrollbar" id="style-2">
-												<div className="borderlist12">
+											<div className="col-lg-4 col-md-6 col-sm-6 col-xs-6 scrollbar" id="style-2" style={{"marginLeft" : 0}}>
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 borderlist12">
 													{
 														this.state.entityList.map((data, index) => {
 															return (
-																<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 borderlist selected lists" key={index} onClick={this.ShowForm.bind(this)} name={index} data-child={data._id + '-' + index} id={data._id}>
-																	<div className="col-lg-2 col-md-2 col-sm-2 col-xs-2 supplierLogoDiv">
-																		<img alt="companyLogo" src={data.companyLogo.length > 0 ? data.companyLogo[0]:"/images/noImagePreview.png"} className="supplierLogoImage"></img>															
+																<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 borderlist selected lists NOPadding" key={index} onClick={this.ShowForm.bind(this)} name={index} data-child={data._id + '-' + index} id={data._id}>
+																	<div className="col-lg-2 col-md-2 col-sm-2 col-xs-2 noRightPadding">
+																		<div className="innerLogoDiv"> 
+																			<img alt="companyLogo" src={data.companyLogo.length > 0 ? data.companyLogo[0]:"/images/noImagePreview.png"} className="supplierLogoImage"></img>															
+																		</div>
 																	</div>
-																	<div className="col-lg-8 col-md-10 col-sm-10 col-xs-10 listprofile">
+																	<div className="col-lg-8 col-md-10 col-sm-10 col-xs-10 listprofile noRightPadding">
 																		<h5 className="titleprofile">{data.companyName}</h5>
-																		<ul className="col-lg-9 col-md-9 col-sm-9 col-xs-9 listfont">
+																		<ul className="col-lg-12 col-md-12 col-sm-12 col-xs-12 listfont NOPadding">
 																			<li><i className="fa fa-user-o " aria-hidden="true"></i>&nbsp;{data.groupName}</li>
 																			<li><i className="fa fa-globe " aria-hidden="true"></i>&nbsp;{data.website? data.website: " - "}</li>
 																			<li><i className="fa fa-envelope " aria-hidden="true"></i>&nbsp;{data.companyEmail}</li>
 																			<li><i className="fa fa-phone " aria-hidden="true"></i>&nbsp;{data.companyPhone}</li>
 																		</ul>
 																	</div>
-																	<div className="col-lg-2 noRightPadding">
-																		<div className="addedDiv col-lg-10 col-lg-offset-2">
+																	<div className="col-lg-2 col-md-2 col-sm-2 col-xs-2 NOPadding">
+																		<div className="addedDiv col-lg-10 col-lg-offset-2">																			
 																			<img  alt="leftArrow" src="/images/leftArrow.png"/>
 																		</div>
 																	</div>

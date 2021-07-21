@@ -7,6 +7,7 @@
     outline: none;
     border: 0px;
     font-weight: 500 !important;
+    width: fit-content;
 }
 .resetinp{
     margin-bottom: 9%;

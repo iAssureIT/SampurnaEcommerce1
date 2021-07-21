@@ -288,7 +288,7 @@ class BannerImages extends Component{
                                         this.state.bannerimages ? 
                                         <div className="row">
                                           <div className="col-lg-4 productImgCol">
-                                            <div className="prodImage">
+                                            <div className="imageDiv">
                                               <div className="prodImageInner">
                                                   <span className="prodImageCross" title="Delete" data-imageUrl={this.state.bannerimages} onClick={this.deleteImage.bind(this)} >x</span>
                                               </div>

@@ -206,15 +206,33 @@ class OrderDeliveryPolicy extends Component {
 		console.log('subCategory Id',id);
 		// console.log("serviseChargesByDistance before => ",this.state.serviseChargesByDistance);
 		let arrLength 	= this.state.serviseChargesByDistance ? this.state.serviseChargesByDistance : null;
+		console.log("arrLength => ",arrLength)
 		var index 		= id.split("-")[1];
 		console.log('index =>',index);
-		
-		arrLength.splice(index, 1);
-		this.setState({
-			serviseChargesByDistance : arrLength
-		},()=>{
-			console.log("serviseChargesByDistance after => ",this.state.serviseChargesByDistance);
-		});
+		// swal({  
+		// 	title : "Are You Sure ?",                
+		// 	text  : "You want to delete..",
+		// 	buttons: ["Cancel", "Delete"],
+		// })
+		// .then(Stop => {
+		// 	console.log("Stop => ",Stop)
+		// 	if (Stop) {
+				arrLength.splice(index, 1);
+				this.setState({
+					serviseChargesByDistance : arrLength
+				},()=>{
+					console.log("serviseChargesByDistance after => ",this.state.serviseChargesByDistance);
+				});
+			// 	swal({  
+			// 		text : "Deleted !",
+			// 	})
+			// }else{
+			// 	swal({  
+			// 		// title : "Don't worry !",
+			// 		text  : "Distance range is safe"
+			// 	})
+			// }			
+		// });
 	}
 
 	/**=========== submit() ===========*/
@@ -369,7 +387,8 @@ class OrderDeliveryPolicy extends Component {
 																						required
 																					/>
 																					<span class="input-group-addon addontext">{this.state.unitOfDistance + (dataRowArray.minDistance > 1 ? "s" : "")}</span>   
-																				</div>   
+																				</div>  
+																				<label className="error">{this.state.error+'-minDistance-'+index}</label>
 																			</div>
 																			<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">            
 																				<div className="input-group"> 
@@ -382,6 +401,7 @@ class OrderDeliveryPolicy extends Component {
 																					/>
 																					<span class="input-group-addon addontext">{this.state.unitOfDistance + (dataRowArray.maxDistance > 1 ? "s" : "")}</span>   
 																				</div> 
+																				<label className="error">{this.state.error +'-maxDistance-'+index}</label>
 																			</div>
 																			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12"> 
 																				<div className="input-group">            
@@ -393,7 +413,8 @@ class OrderDeliveryPolicy extends Component {
 																						required
 																					/>
 																					<span class="input-group-addon addontext">{this.state.currency}</span>   
-																				</div> 
+																				</div>
+																				<label className="error">{this.state.error+'-serviceCharges-'+index}</label> 
 																			</div>
 																			<div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 deleteDistanceRange fa fa-trash" id={"distance-"+index} onClick={this.deleteDistanceRange.bind(this)}>
 																			</div>

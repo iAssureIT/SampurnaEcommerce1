@@ -95,7 +95,7 @@ class BasicInfo extends Component {
         },
         companyPhone: {
           required: true,
-          notEqual:"+91"
+          notEqual:"+971"
         },
       /*  CIN: {
           regxA8: /^([L|U|l|u]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$|^$/,
@@ -313,8 +313,12 @@ class BasicInfo extends Component {
     //     console.log("companyPhoneAvailable false")
     //   })
     // }
-
-    if ($('#BasicInfo').valid() && this.state.companyPhone) {
+	if(this.state.companyPhone){
+		// this.setState({
+		// 	companyPhoneAvailable : false
+		// })
+	}
+    if ($('#BasicInfo').valid() && this.state.companyPhoneAvailable) {
       var formValues = {
         "supplierOf": this.props.vendorID ? this.props.vendorID : localStorage.getItem("user_ID"),
         "profileStatus":"New",
@@ -387,6 +391,9 @@ class BasicInfo extends Component {
       $('input.error:first').focus();
 
     }
+// }else{
+	
+// }
 
   }
   imgBrowse(event) {
@@ -734,7 +741,7 @@ class BasicInfo extends Component {
     }, () => {
       if (this.state.companyPhone) {
         this.setState({
-          companyPhoneAvailable: this.state.companyPhone === "+" || this.state.companyPhone.length<15 ? false : true
+          companyPhoneAvailable: this.state.companyPhone === "+" || this.state.companyPhone.length < 15 ? false : true
         },()=>{
         })
       }
@@ -829,7 +836,7 @@ class BasicInfo extends Component {
                                 <div className="col-lg-12 col-md-3 col-sm-12 col-xs-12">
                                   <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding " id="hide">
                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 uploadImageClient" id="LogoImageUpOne" title="Upload Image">
-                                      <div><i className="fa fa-camera"></i></div>
+                                      <div><i className="fa fa-image"></i></div>
                                       <input multiple onChange={this.imgBrowse.bind(this)} id="LogoImageUp" type="file" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" title="" name="companyLogo" />
                                     </div>
                                   </div>
@@ -877,26 +884,28 @@ class BasicInfo extends Component {
                                 <input  type="email" id="companyEmail" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.companyEmail} ref="companyEmail" name="companyEmail" onChange={this.handleChange} required />
                               </div>
 
-                              <div className=" col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                              <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+							  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding" id="companyPhone">  
                                 <label className="labelform  NOpadding-left">Contact Number<i className="astrick">*</i></label>
                                 <PhoneInput
-                                  country={'in'}
-                                  value={this.state.companyPhone}
-                                  name="companyPhone"
+                                  country = {'ae'}
+                                  value   = {this.state.companyPhone}
+                                  name    = "companyPhone"
                                   inputProps={{
                                     name: 'companyPhone',
                                     required: true
                                   }}
                                   onChange={this.changeMobile.bind(this)}
+								  
                                 />
 
-                                {/* {this.state.companyPhone ? null : <label className="error">Please enter valid number</label>} */}
-                                
+                                {/* {this.state.companyPhoneAvailable ? null : <label className="error">Please enter valid number</label>} */}
+                                </div>
                               </div>                                 
                             
                               <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
                                 <label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding-left">Website
-                                  <a href="#" data-tip data-for='basicInfo4Tooltip' className="pull-right"> <i title="Eg. www.abc.xyz" className="fa fa-question-circle"></i> </a>
+                                  {/* <a href="#" data-tip data-for='basicInfo4Tooltip' className="pull-right"> <i title="Eg. www.abc.xyz" className="fa fa-question-circle"></i> </a> */}
                                 </label>
                                 <input type="text" id="website" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12 inputText" onKeyDown={this.keyPressWeb} value={this.state.website} ref="website" name="website" onChange={this.handleChange} />
                               </div>
@@ -909,13 +918,13 @@ class BasicInfo extends Component {
                         <div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12 pdcls ">
                         <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 panerror" >
                                 <label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding-left">Tax Deduction Account Number
-                                  <a href="#" data-tip data-for='basicInfo2Tooltip' className="pull-right"> <i title="Eg. NGPO02911G" className="fa fa-question-circle"></i> </a>
+                                  {/* <a href="#" data-tip data-for='basicInfo2Tooltip' className="pull-right"> <i title="Eg. NGPO02911G" className="fa fa-question-circle"></i> </a> */}
                                 </label>
                                 <input maxLength="10" type="text" id="TAN" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12 inputText UpperCase" value={this.state.TAN} ref="TAN" name="TAN" onChange={this.handleChange} placeholder="NGPO02911G" />
                               </div>
                           <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12" >
                             <label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding-left">Corporate Identification Number
-                              <a href="#" data-tip data-for='basicInfo7Tooltip' className="pull-right"> <i title="Eg. L12345MH2019PTC123456" className="fa fa-question-circle"></i> </a>
+                              {/* <a href="#" data-tip data-for='basicInfo7Tooltip' className="pull-right"> <i title="Eg. L12345MH2019PTC123456" className="fa fa-question-circle"></i> </a> */}
                             </label>
                             <input type="text" id="CIN" maxLength="21" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12 UpperCase inputText" placeholder="L12345MH2019PTC123456" value={this.state.CIN} ref="CIN" name="CIN" onChange={this.handleChange} />
                           </div>

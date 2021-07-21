@@ -200,7 +200,7 @@ class orderStatus extends Component {
               history={this.props.history}
               tableDnd ={true} 
               masterFieldForm = {true}
-              bulkRequired={true}
+              bulkRequired={false}
               url="/api/orderstatus/bulkuploadorderstatus" 
               data={{ "createdBy" : localStorage.getItem("user_ID"),  }} 
               uploadedData={this.uploadedData} 
