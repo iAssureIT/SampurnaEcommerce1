@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Image,
+  Dimensions,
   Alert,
   ActivityIndicator}        from 'react-native';
 import Modal                from "react-native-modal";
@@ -28,6 +29,7 @@ import openSocket           from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { NetWorkError } from '../../../NetWorkError.js';
+const window = Dimensions.get('window');
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 const labels = ["Processing", "Preparing", "On the Way", "Delivered"];
@@ -189,7 +191,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                 <SearchSuggetion />
               :
               <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
-                <View style={{paddingVertical:24,paddingHorizontal:20}}>
+                <View style={{paddingVertical:24,paddingHorizontal:6}}>
                   <Text style={CommonStyles.screenHeader}>My Orders</Text>
                 </View>
               <View style={styles.formWrapper}>
@@ -213,8 +215,9 @@ export const MyOrder = withCustomerToaster((props)=>{
                         }
                         return(
                         <View style={[styles.prodinfoparent]}>
-                          <View style={{paddingHorizontal:15}}>
-                            <View style={{paddingHorizontal:15}}>
+                          <View style={{paddingHorizontal:0}}>                            
+                            <View style={{paddingHorizontal:20}}>
+                            <View style={{marginBottom:20}}><Text>Delivered</Text></View>
                               <View style={{flexDirection:'row'}}>
                                 <View style={[styles.orderid]}>
                                   <Text style={styles.orderidinfo}>Order ID : {order.orderID}</Text>
@@ -222,16 +225,8 @@ export const MyOrder = withCustomerToaster((props)=>{
                                 <View style={styles.orderAmount}>
                                   <Text style={styles.orderidinfo}>Total Amount {currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)} </Text>
                                 </View>
-                            </View> 
-                            <View style={{flexDirection:"row",marginTop:15,justifyContent:'space-between'}}>
-                                <View style={[{flex:0.44}]}>
-                                  <Text numberOfLines={2} style={styles.totaldata}>Date: {moment(order.createdAt).format('MM/DD/YYYY')}</Text>
-                                </View>
-                                <View style={[{flex:0.54,alignItems:'flex-end'}]}>
-                                  <Text numberOfLines={2} style={styles.totaldata}>{order.paymentDetails.paymentMethod}</Text>
-                                </View>
-                            </View> 
-                            <View style={{flexDirection:"row",marginTop:15,justifyContent:'space-between'}}>
+                            </View>                             
+                            <View style={{flexDirection:"row",marginTop:5,justifyContent:'space-between'}}>
                                 <View style={[{flex:0.44}]}>
                                   <Text numberOfLines={2} style={styles.totaldata}>Address: {order.deliveryAddress.addressLine1+", "+order.deliveryAddress.addressLine2}</Text>
                                 </View>
@@ -262,8 +257,16 @@ export const MyOrder = withCustomerToaster((props)=>{
                                 </View>
                               </View>} */}
                             </View>  
+                            <View style={{flexDirection:"row",marginTop:5,justifyContent:'space-between'}}>
+                                <View style={[{flex:0.44}]}>
+                                  <Text numberOfLines={2} style={styles.totaldata}>Date: {moment(order.createdAt).format('MM/DD/YYYY')}</Text>
+                                </View>
+                                <View style={[{flex:0.54,alignItems:'flex-end'}]}>
+                                  <Text numberOfLines={2} style={styles.totaldata}>{order.paymentDetails.paymentMethod}</Text>
+                                </View>
+                            </View> 
                            </View>  
-                          <View style={{borderWidth:1,padding:5,borderRadius:5,borderColor:"#D4D4D4",marginTop:15}}>
+                          <View style={{borderWidth:1,marginHorizontal:6,padding:5,borderRadius:5,borderColor:"#D4D4D4",marginTop:15}}>
                             {order.vendorOrders.map((item,i)=>{
                               var position = 0;
                               if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New"){
@@ -281,7 +284,15 @@ export const MyOrder = withCustomerToaster((props)=>{
                                 <View style={styles.orderstatusmgtop}>
                                   <View style={{flexDirection:'row'}}>
                                     <Text style={[styles.vendorName,{flex:0.8}]}>{item.vendorName}</Text>
-                                    <View style={{flex:.2,alignSelf:'flex-end',justifyContent:'center',alignItems:'center',borderRadius:2,
+                                      
+                                  </View>  
+                                  <View style={{flexDirection:'row',marginVertical:30}}>
+                                      <View style={{flex:0.7,borderRightWidth:0.5,borderColor:"#0000004F",paddingHorizontal:15}}>
+                                          <Text style={styles.totalpriceincart}>No Of Products : {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
+                                          <Text style={styles.totalpriceincart}>Amount : {item.vendor_afterDiscountTotal && item.vendor_afterDiscountTotal.toFixed(2)} {currency}</Text>
+                                      </View>
+                                      <View style={{flex:0.49,paddingHorizontal:15}}>
+                                      <View style={{alignSelf:'center',marginTop:12,justifyContent:'center',alignItems:'center',borderRadius:2,
                                        backgroundColor: position === 0 ? 
                                         colors.info
                                         :
@@ -300,14 +311,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                                         "#eee"
                                       }}>
                                         <Text style={[styles.statusLabel]}>{item.deliveryStatus[item.deliveryStatus.length - 1].status}</Text>
-                                      </View>  
-                                  </View>  
-                                  <View style={{flexDirection:'row',marginVertical:30}}>
-                                      <View style={{flex:0.49,borderRightWidth:0.5,borderColor:"#0000004F",paddingHorizontal:15}}>
-                                          <Text style={styles.totalpriceincart}>No Of Products : {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
                                       </View>
-                                      <View style={{flex:0.49,paddingHorizontal:15}}>
-                                          <Text style={styles.totalpriceincart}>Amount : {item.vendor_afterDiscountTotal && item.vendor_afterDiscountTotal.toFixed(2)} {currency}</Text>
                                       </View>
                                   </View>  
                                 </View>
@@ -333,15 +337,20 @@ export const MyOrder = withCustomerToaster((props)=>{
                                   :
                                   null
                                 }
-                                <View style={[styles.ordercancelsstatus]}>
-                                  <Button
-                                    onPress         = {() => navigation.navigate('OrderDetails', { orderid: order._id })}
-                                    titleStyle      = {styles.buttonText}
-                                    title           = "Show Details"
-                                    buttonStyle     = {[styles.button]}
-                                    containerStyle  = {styles.buttonContainer}
-                                  />
-                                </View>
+                                <View style={{flex:1,flexDirection:'row',marginHorizontal:15}}>
+                                  <View style={{flex:0.6,alignItems:'flex-start',marginLeft:10}}>
+                                    <Text style={styles.cancelText}>Cancel before 01.05 am</Text>
+                                  </View>
+                                  <View style={[styles.ordercancelsstatus]}>
+                                    <Button
+                                      onPress         = {() => navigation.navigate('OrderDetails', { orderid: order._id })}
+                                      titleStyle      = {styles.buttonText}
+                                      title           = "Show Details"
+                                      buttonStyle     = {[styles.button]}
+                                      containerStyle  = {styles.buttonContainer}
+                                    />
+                                  </View>                                  
+                                </View>                                
                               </View>
                               :
                               <View style={styles.orderstatustxtcancel}></View>
@@ -359,11 +368,20 @@ export const MyOrder = withCustomerToaster((props)=>{
                       })
                       
                       :
-                      <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
+                      <View style={{height:window.height-120,justifyContent:'center',alignItems:'center'}}>
                         <Image
-                          source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+                          source={require("../../AppDesigns/currentApp/images/empty_wishlist.png")}
+                          style={{width:window.width,height:300}}
+                          resizeMode='contain'
                         />
-                      </View>
+                        <View style={{alignItems:'center'}}>
+                          <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>No Order Yet</Text>
+                          <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                            <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
+                            <Text style={[CommonStyles.linkText,{textDecorationLine: "underline",fontFamily:"Montserrat-SemiBold",fontSize:12}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
+                          </View>
+                        </View> 
+                      </View> 
                     :
 
                     <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>

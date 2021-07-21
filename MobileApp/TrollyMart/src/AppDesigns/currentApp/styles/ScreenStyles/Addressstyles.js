@@ -248,8 +248,8 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Regular"
   },
   ddInputContainer:{
-    borderBottomColor: '#fff',
-    backgroundColor:"#fff"
+    // borderBottomColor: '#fff',
+    backgroundColor:"#fff",
     // paddingLeft:5
   },
   ddLabelText:{
@@ -262,9 +262,12 @@ export default StyleSheet.create({
   },
   ddStyle:{
     fontFamily:"Montserrat-Regular",
-    // borderColor:"#ccc",
+    borderColor:"#707070",
     backgroundColor:"#fff",
-    // borderBottomWidth:1,
+    borderWidth:0.5,
+    borderRadius:3,
+    height:41,
+    borderBottomWidth:0,
   },
   addsuperparent:{
     flex:1,
@@ -394,16 +397,23 @@ export default StyleSheet.create({
   },
 
   addBtnClass:{
-    height: 40, 
-    width: 40,
+    height: 32, 
+    width: 32,
     padding:5,
     borderRadius:100,
-    elevation:2
+    backgroundColor:'#fff',    
+  //   shadowColor: '#000',
+  // shadowOffset: { width: 5, height: 2 },
+  // shadowOpacity: 0.5,
+  // shadowRadius: 2,
+    // elevation:2,
+    borderWidth:0.5,
+    borderColor:'#033554',
   },
 
   addBtnImg:{
-    height: 30, 
-    width: 30,
+    height: 20, 
+    width: 20,
     resizeMode:'center',
     // marginTop:-3,
     // marginLeft:-4,
@@ -413,6 +423,11 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Bold",
     fontSize:18,
     color:'#000',    
+  },
+
+  btnSave:{
+    paddingHorizontal:30,
+    flex:0.5,
   },
 
   inputText:{

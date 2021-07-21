@@ -233,7 +233,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                 value           = {values.contactperson}
               />
               <View style={{marginHorizontal:10,marginVertical:5}}>
-                <Text style={{fontFamily:'Montserrat-Regular', fontSize: 18,color:'#000',paddingVertical:2}}>
+                <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 12,color:'#000',paddingVertical:2}}>
                     <Text>Mobile Number</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
@@ -271,7 +271,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     // disabled        = {deliveuuuuuuuuuyyry}       
                   />
                 <View style={[styles.formInputView, styles.marginBottom20]}>
-                  <Text style={{fontFamily:'Montserrat-Regular',color:'#000', fontSize: 18,paddingVertical:2}}>
+                  <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingVertical:2}}>
                     <Text>Address Line 2</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
@@ -428,8 +428,8 @@ import { NetWorkError } from '../../../NetWorkError.js';
                   />
                 </View>
                 <View style={[styles.formInputView, styles.marginBottom20]}>
-                <Text style={{fontFamily:'Montserrat-Regular',color:'#000', fontSize: 18,paddingVertical:2}}>
-                    <Text>Address Line 2</Text>                    
+                <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingVertical:2,marginBottom:10}}>
+                    <Text>Type of Address</Text>                    
                 </Text>
                   <Dropdown
                     // label               = 'Type of Address'
@@ -439,7 +439,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     inputContainerStyle = {styles.ddInputContainer}
                     // labelHeight         = {10}
                     tintColor           = {colors.button}
-                    labelFontSize       = {18}
+                    labelFontSize       = {14}
                     baseColor           = {'#666'} 
                     textColor           = {'#000'}
                     itemTextStyle       = {styles.ddLabelText}
@@ -450,13 +450,16 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     // onChangeText={(addresstype) => { this.setState({ addresstype }) }}
                     onChangeText={handleChange('addresstype')}
                   />
-                 </View> 
+                 </View>
+                 <View style={{marginHorizontal:30,}}>
                     <FormButton
-                    title       = {'SAVE'}
+                    title       = {'Save Address'}
                     onPress     = {handleSubmit}
                     background  = {true}
                     loading     = {btnLoading}
-                  />
+                    style       = {styles.btnSave}
+                   />
+                  </View>
               </View>
           </ScrollView>
           {/* */}

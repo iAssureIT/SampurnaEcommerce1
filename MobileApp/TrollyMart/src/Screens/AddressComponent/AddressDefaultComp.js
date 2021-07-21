@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Alert,ActivityIndicator,
 } from 'react-native';
-import {Icon}    from "react-native-elements";
+import {Icon,Button}    from "react-native-elements";
 import axios              from "axios";
 import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
 import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
@@ -161,9 +161,30 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
         :
         <View style={styles.addsuperparent}>
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
-            <View style={{paddingVertical:24,paddingHorizontal:20}}>
-              <Text style={CommonStyles.screenHeader}>My Address</Text>
-            </View>
+            <View style={{flexDirection:'row',paddingVertical:24,paddingHorizontal:20}}>
+              <View style={{flex:0.6}}>
+                <Text style={CommonStyles.screenHeader}>My Address</Text>
+              </View>
+              <View style={{flex:0.6,alignItems:'flex-end'}}>
+                <Button
+                  buttonStyle={styles.addBtnClass}
+                  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery})}
+                  icon={<View style={styles.addBtnClass}>
+                    <Image source={require("../../AppDesigns/currentApp/images/addressNew.png")} style={styles.addBtnImg} />
+                  </View>}
+                />
+              </View>
+              
+              {/* {!disabled && <ActionButton 
+                buttonColor="#fff" 
+                style={{marginTop:9,marginRight:-20,padding:0}} 
+                // icon={<Icon name="plus-circle-outline" type="material-community" size={30} iconStyle={{elevation:5}} color={colors.cartButton}/>}
+                icon={<View style={styles.addBtnClass}>
+                  <Image source={require("../../AppDesigns/currentApp/images/addressNew.png")} style={styles.addBtnImg} />
+                </View>}
+                onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery})}
+              />} */}
+            </View>            
             <View style={styles.padhr15}>
               {deliveryAddress ?
                 deliveryAddress.length > 0 ?
@@ -251,15 +272,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
           </ScrollView>
         </View>}
 
-        {!disabled && <ActionButton 
-          buttonColor="#fff" 
-          style={{marginBottom:20,marginRight:-20,padding:0}} 
-          // icon={<Icon name="plus-circle-outline" type="material-community" size={30} iconStyle={{elevation:5}} color={colors.cartButton}/>}
-          icon={<View style={styles.addBtnClass}>
-            <Image source={require("../../AppDesigns/currentApp/images/addAddress.png")} style={styles.addBtnImg} />
-          </View>}
-          onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery})}
-        />}
+        
       </React.Fragment>
     );
 })

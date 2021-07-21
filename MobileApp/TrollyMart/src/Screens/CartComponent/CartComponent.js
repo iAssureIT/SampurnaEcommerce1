@@ -3,6 +3,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Dimensions,
   Image,ActivityIndicator,
 } from 'react-native';
 import {Button,Icon,Tooltip}              from "react-native-elements";
@@ -24,6 +25,7 @@ import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/Sea
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import { getCartCount}                      from '../../redux/productList/actions';
 import { Platform } from 'react-native';
+const window = Dimensions.get('window');
 
 export const CartComponent = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
@@ -555,18 +557,20 @@ const getshippingamount=(startRange, limitRange)=>{
                 </View>                
           </View>
           :
-          <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
+          <View style={{height:window.height-120,justifyContent:'center',alignItems:'center'}}>
             <Image
-              source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+              source={require("../../AppDesigns/currentApp/images/empty_wishlist.png")}
+              style={{width:window.width,height:300}}
+              resizeMode='contain'
             />
-            <View style={{}}>
-              <FormButton
-                  onPress={() => navigation.navigate('Dashboard')}
-                  title={"Add Products"}
-                  background={true}
-              /> 
-           </View>   
-          </View>   
+            <View style={{alignItems:'center'}}>
+              <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>Your cart is empty!</Text>
+              <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
+                <Text style={[CommonStyles.linkText,{textDecorationLine: "underline",fontFamily:"Montserrat-SemiBold",fontSize:12}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
+              </View>
+            </View> 
+          </View> 
         }
          
         </View>

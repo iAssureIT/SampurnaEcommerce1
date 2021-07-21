@@ -494,14 +494,14 @@ const cancelorderbtn = (id,vendor_id) => {
         :
         <View style={styles.superparent}>
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
-            <View style={{paddingVertical:24,paddingHorizontal:20}}>
+            <View style={{paddingVertical:24,paddingHorizontal:6}}>
               <Text style={CommonStyles.screenHeader}>My Orders Details</Text>
             </View>
             <View style={styles.formWrapper}>
               <View style={styles.parent}>
                 <View style={[styles.prodinfoparent]}>
                   <View style={{paddingHorizontal:15}}>
-                    <View style={{paddingHorizontal:15}}>
+                    <View style={{paddingHorizontal:5}}>
                       <View style={{flexDirection:'row'}}>
                         <View style={[styles.orderid]}>
                           <Text style={styles.orderidinfo}>Order ID : {order.orderID}</Text>
@@ -510,7 +510,7 @@ const cancelorderbtn = (id,vendor_id) => {
                           <Text style={styles.orderidinfo}>Total Amount {currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)} </Text>
                         </View>
                     </View> 
-                    <View style={{flexDirection:"row",marginTop:15,justifyContent:'space-between'}}>
+                    <View style={{flexDirection:"row",marginTop:5,justifyContent:'space-between'}}>
                         <View style={[{flex:0.44}]}>
                           <Text numberOfLines={2} style={styles.totaldata}>Date: {moment(order.createdAt).format('MM/DD/YYYY')}</Text>
                         </View>
@@ -518,7 +518,7 @@ const cancelorderbtn = (id,vendor_id) => {
                           <Text numberOfLines={2} style={styles.totaldata}>{order.paymentDetails.paymentMethod}</Text>
                         </View>
                     </View> 
-                    <View style={{flexDirection:"row",marginTop:15,justifyContent:'space-between'}}>
+                    <View style={{flexDirection:"row",marginTop:5,justifyContent:'space-between'}}>
                         <View style={[{flex:0.44}]}>
                           <Text numberOfLines={2} style={styles.totaldata}>Address: {order.deliveryAddress.addressLine1+", "+order.deliveryAddress.addressLine2}</Text>
                         </View>
@@ -580,8 +580,13 @@ const cancelorderbtn = (id,vendor_id) => {
                       
                       return(
                       <View style={styles.prodinfoparent1}>
-                        <View style={{marginBottom:5}}>
-                          <Text style={[styles.vendorName]}>{vendor.vendor_id.companyName}</Text>
+                        <View style={{flexDirection:'row',marginBottom:5}}>
+                          <View style={{flex:0.8,alignItems:'flex-start'}}>
+                            <Text style={[styles.vendorName]}>{vendor.vendor_id.companyName}</Text>
+                          </View>
+                          <View style={{flex:0.4,alignItems:'flex-end'}}>
+                            <Text style={styles.cancelOrderText}>Cancel this Order</Text>
+                          </View>
                         </View> 
                         <View style={styles.orderstatusmgtop}>
                           {
@@ -620,7 +625,7 @@ const cancelorderbtn = (id,vendor_id) => {
                               </View>
                               <View style={{flex:0.45,paddingHorizontal:5}}>
                                 <Text numberOfLines={2} style={styles.prodinfo}>{pitem.productName}</Text>
-                                <Text style={{color:"#aaa",marginTop:7}}>
+                                <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:14,marginTop:7}}>
                                     Qauntity
                                   <Text style={styles.prodinfo}> {pitem.quantity}</Text> 
                                 </Text>
@@ -712,58 +717,75 @@ const cancelorderbtn = (id,vendor_id) => {
                     :
                     null
                   }
-                <View style={styles.prodinfoparent1}>
+                <View style={styles.prodinfoparent13}>
                   <View style={styles.totaldetails}>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totalAmount}>Final Total Amount </Text>
+                        <Text style={styles.totalAmount}>Final Total </Text>
                       </View>
-                      <View style={{ flex: 0.35 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
-                        </View>
+                      <View style={{ flex: 0.4,flexDirection:'row' }}>
+                        <View style={{flex:.5}}>
+                            <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                        </View> 
+                        <View style={{flex:.5,alignItems:'flex-end'}}>
+                            <Text style={styles.ogprice}>{order.paymentDetails && order.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
+                        </View>                        
                       </View>
                     </View>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totalAmount}>Total Savings </Text>
                       </View> 
-                      <View style={{ flex: 0.35 }}>
+                      <View style={{ flex: 0.4,flexDirection:'row' }}>
+                        <View style={{flex:.5}}>
+                            <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                        </View> 
+                        <View style={{flex:.5,alignItems:'flex-end'}}>
+                            <Text style={styles.ogpriceG1}>{order.paymentDetails && order.paymentDetails.discountAmount.toFixed(2)}</Text>
+                        </View>                        
+                      </View>
+                      {/* <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincart}> - </Text>
                           <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.discountAmount.toFixed(2)}</Text>
                         </View>
-                      </View>
+                      </View> */}
                     </View>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totalAmount}>Total Tax  </Text>
+                        <Text style={styles.totalAmount}>Total VAT  </Text>
                       </View> 
-                      <View style={{ flex: 0.35 }}>
+                      <View style={{ flex: 0.4,flexDirection:'row' }}>
+                        <View style={{flex:.5}}>
+                            <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                        </View> 
+                        <View style={{flex:.5,alignItems:'flex-end'}}>
+                            <Text style={styles.ogprice}>{order.paymentDetails && order.paymentDetails.taxAmount.toFixed(2)}</Text>
+                        </View>                        
+                      </View>
+                      {/* <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                       <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.taxAmount.toFixed(2)}</Text>
                         </View>
-                      </View>
-                    </View>
-                    <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totalAmount}>Discount Coupon Amount </Text>
-                      </View> 
-                      <View style={{ flex: 0.35 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
-                        </View>
-                      </View>
-                    </View>
+                      </View> */}
+                    </View>                    
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totalAmount}>Total Delivery Charges </Text>
                       </View> 
-                      <View style={{ flex: 0.35 }}>
+                      <View style={{ flex: 0.3,flexDirection:'row' }}>
+                        <View style={{flex:.5}}>
+                            <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                        </View> 
+                        <View style={{flex:.5,alignItems:'flex-end'}}>
+                            <Text style={styles.ogprice}>{order.paymentDetails && order.paymentDetails.shippingCharges.toFixed(2)}</Text>
+                        </View>                        
+                      </View>
+                      {/* <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                       <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.shippingCharges.toFixed(2)}</Text>
                         </View>
-                      </View>
+                      </View> */}
                       <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
                       <Tooltip 
                         containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
@@ -771,20 +793,56 @@ const cancelorderbtn = (id,vendor_id) => {
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
                         popover={tooltipClone}>
-                          <Icon name="info-circle" type={"font-awesome"} size={11} />
+                          <Icon name="info-circle" type={"font-awesome"} size={11} color={'#A6B7C2'} />
                         </Tooltip>
                     </View>  
                     </View>
-                    <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totalAmount}>Grand Total</Text>
+                        <Text style={styles.totalAmount}>Discount Coupon</Text>
                       </View>
-                      <View style={{ flex: 0.35 }}>
+                      <View style={{ flex: 0.4,flexDirection:'row' }}>
+                        <View style={{flex:.5}}>
+                            <Text style={[styles.ogprice,{opacity: 0.5,color:'#EF9A9A'}]}>{currency} </Text>
+                        </View> 
+                        <View style={{flex:.5,alignItems:'flex-end'}}>
+                            <Text style={styles.ogpriceR}>{order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
+                        </View>                        
+                      </View>
+                      {/* <View style={{ flex: 0.35 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                      <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
+                        </View>
+                      </View> */}
+                      <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
+                      <Tooltip 
+                        containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
+                        width={300} 
+                        height={tooltipSize.h + 30}
+                        backgroundColor={colors.theme}
+                        popover={tooltipClone}>
+                          <Icon name="trash" type={"font-awesome"} size={11} color={'#A6B7C2'} />
+                        </Tooltip>
+                    </View>  
+                    </View>
+                    <View style={{marginVertical:5,borderColor:"#ddd"}} />
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.6 }}>
+                        <Text style={styles.totalAmountG}>Grand Total</Text>
+                      </View>
+                      <View style={{ flex: 0.4,flexDirection:'row' }}>
+                        <View style={{flex:.5}}>
+                            <Text style={[styles.ogpriceG,{opacity: 0.5}]}>{currency} </Text>
+                        </View> 
+                        <View style={{flex:.5,alignItems:'flex-end'}}>
+                            <Text style={styles.totalAmountG}>{order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
+                        </View>                        
+                      </View>
+                      {/* <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                         </View>
-                      </View>
+                      </View> */}
                     </View>
                   </View>
                   {cancelButton(order.createdAt) ?
