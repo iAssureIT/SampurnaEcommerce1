@@ -55,7 +55,7 @@ export default class OrderDetails extends Component {
         // this.getAllorderStatus();
         var labels=[
           {
-            label: 'New Order',
+            label: 'New',
             name: 'step 1',
           },
           {
@@ -79,40 +79,40 @@ export default class OrderDetails extends Component {
       })
   }
 
+  // getMyOrders() {
+  //     axios.get("/api/orders/get/one/" +this.props.order_id)
+  //     .then((response) => {
+  //       if(response){
+  //         console.log("socket response.data=>",response);
+  //         this.setState({
+  //           orderData: response.data,
+  //           loading: false
+  //         }, () => {
+  //           console.log("orderDetails orderData after setstate=>",this.state.orderData);
+  //         })
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log('error', error);
+  //     })
+
+  // }
+  
   getMyOrders() {
-
-      // axios.get("/api/orders/get/one/" +this.props.order_id)
-      // .then((response) => {
-      //   if(response){
-      //     console.log("socket response.data=>",response);
-      //     this.setState({
-      //       orderData: response.data,
-      //       loading: false
-      //     }, () => {
-      //       console.log("orderDetails orderData after setstate=>",this.state.orderData);
-      //     })
-      //   }
-      // })
-
-        socket.emit('room',this.props.order_id);
-        socket.emit('signle_order',this.props.order_id);
-        socket.on('getSingleOrder',(response)=>{
-          if(response){
-            // console.log("socket response.data=>",response);
-            this.setState({
-              orderData: response,
-              loading: false
-            }, () => {
-              // console.log("orderDetails orderData after setstate=>",this.state.orderData);
-            })
-          }
-      })
-
-      // .catch((error) => {
-      //   console.log('error', error);
-      // })
-
-  }
+      socket.emit('room',this.props.order_id);
+      socket.emit('signle_order',this.props.order_id);
+      socket.on('getSingleOrder',(response)=>{
+        if(response){
+          console.log("socket response.data=>",response);
+          this.setState({
+            orderData: response,
+            loading: false
+          }, () => {
+            // console.log("orderDetails orderData after setstate=>",this.state.orderData);
+          })
+        }
+    })
+}
 
 
   getAllorderStatus(){
@@ -326,16 +326,16 @@ export default class OrderDetails extends Component {
                           // console.log( " Order details this.state.orderData:",this.state.orderData);
                           var labels = this.state.labelsArray;
                           // labels.splice(2, 1);
-                          // console.log("vendordata.orderStatus",vendordata.orderStatus);
+                          console.log("vendordata.orderStatus",vendordata.orderStatus);
                           // console.log("this.state.labels[2].label",this.state.labels[2].label);
-                          // console.log("this.state.labels",this.state.labels);
+                          console.log("this.state.labels",this.state.labels);
 
-                          
+
                             var index1 = this.state.labels.map(e=>e.label).indexOf(vendordata.orderStatus);
                           // if(index1===1){
                             
                           // }
-                          // console.log("index1",index1)
+                          console.log("index1",index1)
                           return (
                             <div key={index} style={{marginBottom:"0px"}} className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>   
                               <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">
@@ -356,7 +356,8 @@ export default class OrderDetails extends Component {
                               { vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
                                 <div className="col-12 NoPadding ">
                                     <StepProgressBar
-                                      startingStep={index1 === -1 ? 3 : index1}
+                                      startingStep={index1 === -1 ? 2 : index1}
+                                      // startingStep={index1}
                                       steps={labels}
                                     />
                                 </div> :null
