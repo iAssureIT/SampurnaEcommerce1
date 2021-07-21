@@ -17,7 +17,7 @@ class Facebooklogin extends Component {
 }
 responseFacebook(response){
   if(response){
-    console.log('response==',response);
+    // console.log('response==',response);
     var formValues = {
       firstname   : response.name && response.name.split(' ')[0],
       lastname    : response.name && response.name.split(' ')[1],
@@ -55,7 +55,7 @@ responseFacebook(response){
         // .then(function(){
         //   window.location.reload();
         // });
-        // window.location.reload();
+        window.location.reload();
     }
     })
     .catch((error)=>{

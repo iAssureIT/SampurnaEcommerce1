@@ -101,7 +101,7 @@ export function getCartData() {
           .then((response)=>{ 
             if(response){   
               // console.log("my cart response =",response.data);
-              if(response.data.vendorOrders.length>0){
+              if(response.data && response.data.vendorOrders && response.data.vendorOrders.length>0){
                 for(let i=0;i<response.data.vendorOrders.length;i++){
                     if(response.data.vendorOrders[i].vendor_netPayableAmount < response.data.minOrderAmount){
                       

@@ -27,11 +27,11 @@ responseGoogle(response){
       authService : "google",
       social_media_id :response.profileObj.googleId
     }
-    console.log("formValues===",formValues);
+    // console.log("formValues===",formValues);
     
     axios.post('/api/auth/post/signup/social_media',formValues)
     .then((signupResponse)=>{
-      console.log("signup===",signupResponse);
+      // console.log("signup===",signupResponse);
       if(signupResponse?.data){
         var userDetails = {
           firstname   : signupResponse.data.userDetails.firstName,
@@ -49,7 +49,7 @@ responseGoogle(response){
         // swal({text:'Congratulations! You have been successfully Login, Now you can place your order.'}).then(function(){
         //   window.location.reload();
         // });
-        // window.location.reload();
+        window.location.reload();
     }
     })
     .catch((error)=>{
