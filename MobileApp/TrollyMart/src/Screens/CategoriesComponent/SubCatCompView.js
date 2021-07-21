@@ -1,5 +1,5 @@
 
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import {
   ScrollView,
   Text,
@@ -61,7 +61,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const {navigation,route,setToast} =props;
   const {productID,currency,vendorLocation_id,index,vendor_id,category,subCategory}=route.params;
   const [sizes,setSizes] = useState([])
-
+  const scroll =useRef()
 
   const store = useSelector(store => ({
     location:store.location,
@@ -274,6 +274,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     }
   };
 
+
   console.log("productData",productdata);
     return (
       <View style={{backgroundColor:"#fff",flex:1}}>
@@ -282,7 +283,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
           <Loading/>
           :
           productdata && productdata.productName  && productdata.discountedPrice ?
-          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" ref={scroll} >
             <View style={[styles.vendorNameBox,{}]}>
                 <Text numberOfLines={1} style={[CommonStyles.text,{fontSize:14,fontFamily:"Montserrat-Medium",color:"#000"}]}>Vendor - {productdata.vendorName}</Text>
             </View> 
@@ -337,7 +338,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     <Button
                         onPress={() => handlePressAddCart()}
                         title={"ADD TO CART"}
-                        buttonStyle={[CommonStyles.addBtnStyle1]}
+                        buttonStyle={[CommonStyles.addBtnStyle1,{backgroundColor:colors.cartButton}]}
                       /> 
                   </View>
                 </View>
@@ -361,13 +362,13 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         style={styles.saleimg}
                         resizeMode={FastImage.resizeMode.contain}
                     >
-                      <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
+                      <TouchableOpacity style={[styles.wishlisthrtproductview]}
                         onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
-                        <Icon size={18} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{backgroundColor:"#E6E6E6",padding:8,borderRadius:100}}/>
+                        <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
                       </TouchableOpacity>
-                      <TouchableOpacity style={[styles.flx1, styles.share]}
+                      <TouchableOpacity style={[styles.share]}
                         onPress={() =>onShare()} >
-                        <Icon size={16} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",padding:8,borderRadius:100}} />
+                        <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} />
                       </TouchableOpacity>
                     </FastImage>
                     );
@@ -394,7 +395,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     </View>
                 </View>
                 
-                <View style={[styles.flxdirview,{}]}>
+                <View style={[styles.flxdirview,{alignItems:'flex-end'}]}>
                   <Text style={styles.prodcurrency}>{currency} </Text>
                   {productdata.discountPercent > 0 && <Text style={styles.discountpricecut}> {productdata.originalPrice.toFixed()}</Text>}
                   <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}&nbsp;</Text>
@@ -559,9 +560,12 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   }
                  
               </View>  
-              <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row", justifyContent: 'center' }}>
+              <TouchableOpacity 
+                style={{ flex:1,backgroundColor:'#fff',flexDirection: "row", justifyContent: 'center' }}
+                onPress={()=>scroll.current.scrollTo(0)}
+              >
                   <Text style={styles.backText}>Back To Top</Text>                  
-              </View>
+              </TouchableOpacity>
               <View style={styles.detailclr}>
                 <HorizontalProductList 
                     // blockTitle   = {"You May Also Like"}

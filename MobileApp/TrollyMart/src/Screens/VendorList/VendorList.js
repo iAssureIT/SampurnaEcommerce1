@@ -23,6 +23,7 @@ import {STOP_SCROLL}            from '../../redux/productList/types';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { ImageBackground }      from 'react-native';
 import { NetWorkError } from '../../../NetWorkError.js';
+import FastImage              from 'react-native-fast-image';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 export const VendorList = withCustomerToaster((props)=>{
@@ -94,15 +95,29 @@ export const VendorList = withCustomerToaster((props)=>{
             <TouchableOpacity  style={{paddingLeft:20,paddingRight:15,marginBottom:5,justifyContent:'flex-end'}} onPress={()=>goToProductList(item)} activeOpacity={1}>                
                 <Card containerStyle={{padding:0,borderRadius:7,height:65,marginRight:0,elevation:5}} wrapperStyle={{alignItems:'center',flexDirection:'row'}}>
                     <View style={styles.logoBox}>
-                        {item.vendorLogo ? <ImageBackground source={{uri:item.vendorLogo}} style={{height:54,width:54}} imageStyle={{borderRadius:100,borderWidth:0.5,borderColor:  '#033554'}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></ImageBackground> :null}
+                        {item.vendorLogo ? 
+                        <FastImage 
+                            source          =   {{
+                                                    uri:item.vendorLogo,
+                                                    priority: FastImage.priority.high, 
+                                                    cache: FastImage.cacheControl.immutable,
+                                                }} 
+                            style      =   {{
+                                borderRadius:100,
+                                borderWidth:0.5,
+                                borderColor:'#033554',
+                                height:54,
+                                width:54
+                            }} resizeMode="cover" 
+                            PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :null}
                     </View>
                     <View style={{flex:1,height:65,justifyContent:'center'}}>
                          <Text numberOfLines={1} style={[CommonStyles.headerText,{color:"#000",paddingLeft:40,alignSelf:"flex-start",fontSize:17}]}>{item.vendorName}</Text >
                     </View> 
                     <ImageBackground 
-                        source={require("../../AppDesigns/currentApp/images/Time.png")} 
-                        style={{height:20,justifyContent:"center",alignSelf:"flex-end",marginBottom:5}} 
-                        resizeMode="contain" 
+                        source      = {require("../../AppDesigns/currentApp/images/Time.png")} 
+                        style       =   {{height:20,justifyContent:"center",alignSelf:"flex-end",marginBottom:5}} 
+                        resizeMode  = "contain" 
                         PlaceholderContent={<ActivityIndicator color={colors.theme}/>}>
                             <Text style={[{color:"#000",opacity:1,marginRight:25,fontSize:10}]}>60 Mins </Text>
                     </ImageBackground>
@@ -129,7 +144,7 @@ export const VendorList = withCustomerToaster((props)=>{
                     boxHeight   = {40}
                     index       = {index}
                 />
-                <View style={{flexDirection:'row',justifyContent:'center',height:35,backgroundColor:'#5B8E7E',marginTop:10}}>
+                <View style={{flexDirection:'row',justifyContent:'center',height:35,backgroundColor:colors.cartButton,marginTop:10}}>
                     <Text style={styles.topText}>Delivery time <Text style={{fontSize:20,color:'#AC3A3A'}}>9</Text> am to <Text style={{fontSize:20,color:'#AC3A3A',paddingVertical:3}}>11 </Text>pm or next day delivery</Text>
                 </View>
                 <View style={styles.proddets}>
@@ -137,39 +152,39 @@ export const VendorList = withCustomerToaster((props)=>{
                     <Loading />
                     :
                     vendorList && vendorList.length >0 ?
-                    <FlatList
-                        data                          = {vendorList}
-                        showsVerticalScrollIndicator  = {false}
-                        renderItem                    = {_renderlist} 
-                        nestedScrollEnabled           = {true}
-                        // keyExtractor                  = {item => item._id.toString()}
-                        initialNumToRender            = {6}
-                        ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
-                        onEndReachedThreshold         = {0.01}
-                        onEndReached={({ distanceFromEnd }) => {
-                            if(distanceFromEnd >= 0 && limit > 6) {
-                                getData();
-                            }
-                        }}
-                        getItemLayout={(data, index) => ({
-                            length: 65, 
-                            offset: 65 * index, 
-                        index
-                        })}
-                        refreshControl={
-                            <RefreshControl
-                              refreshing={refresh}
-                              onRefresh={() => refreshControl()}
-                            />
-                        } 
-                    /> 
+                        <FlatList
+                            data                          = {vendorList}
+                            showsVerticalScrollIndicator  = {false}
+                            renderItem                    = {_renderlist} 
+                            nestedScrollEnabled           = {true}
+                            // keyExtractor                  = {item => item._id.toString()}
+                            initialNumToRender            = {6}
+                            ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
+                            onEndReachedThreshold         = {0.01}
+                            onEndReached={({ distanceFromEnd }) => {
+                                if(distanceFromEnd >= 0 && limit > 6) {
+                                    getData();
+                                }
+                            }}
+                            getItemLayout={(data, index) => ({
+                                length: 65, 
+                                offset: 65 * index, 
+                            index
+                            })}
+                            refreshControl={
+                                <RefreshControl
+                                refreshing={refresh}
+                                onRefresh={() => refreshControl()}
+                                />
+                            } 
+                        /> 
                     :
                     <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
                         <Text style={CommonStyles.noDataFound}>No Vendor Found</Text>
                     </View>    
-            }
+                }
              </View>
-        </View>}
+            </View>}
         </View>
     );
 })

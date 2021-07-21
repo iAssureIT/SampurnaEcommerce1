@@ -28,10 +28,28 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1092872667868832</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>1092872667868832</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -53,6 +71,8 @@
 	<string>The e-commerce app identify the user location and define the nearby vendor to supply the ordered items. Hence locatioin of the user is required.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>The e-commerce app we are using photos uploading feature for return and review product.</string>
+	<key>TrollyMart</key>
+	<string>TrollyMart</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

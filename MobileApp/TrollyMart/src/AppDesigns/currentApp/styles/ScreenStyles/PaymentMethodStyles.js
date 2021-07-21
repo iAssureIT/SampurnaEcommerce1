@@ -21,7 +21,7 @@ export default StyleSheet.create({
     width: 160
   },
   orderbrdr:{
-    flex:1,
+    // flex:1,
     // flexDirection:"row",
     // backgroundColor: "red",
     // borderBottomWidth: 1,

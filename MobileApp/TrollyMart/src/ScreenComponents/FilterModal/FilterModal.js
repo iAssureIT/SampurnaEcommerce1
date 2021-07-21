@@ -71,7 +71,7 @@ const FilterModal = (props) => {
         onDismiss={() => {
           return closeModal();
         }}
-        transparent={true}
+        // transparent={true}
         visible={visible}>
        <Header
          statusBarProps={{ backgroundColor:colors.theme }}

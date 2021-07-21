@@ -33,6 +33,8 @@ target 'TrollyMart' do
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
   target 'TrollyMartTests' do
     inherit! :complete
     # Pods for testing

@@ -62,7 +62,10 @@ export default StyleSheet.create({
   },
   minpurchase:{
     color: "#c10000" ,
-    marginVertical:10,
+    fontSize:12,
+    color: "#DC1919",
+    opacity: 1,
+    fontFamily:"Montserrat-Medium",
   },
   minpurchaseadd:{
     color: "#c10000" ,

@@ -7,13 +7,10 @@ import {
 } from 'react-native';
 import {Button,Icon,Tooltip}              from "react-native-elements";
 import Modal                      from "react-native-modal";
-import {HeaderBar3}               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}                   from '../../ScreenComponents/Footer/Footer.js';
 import styles                     from '../../AppDesigns/currentApp/styles/ScreenStyles/Cartstyles.js';
 import {colors}                   from '../../AppDesigns/currentApp/styles/styles.js';
 import axios                      from 'axios';
 import Counter                    from "react-native-counters";
-import Feather from 'react-native-vector-icons/Feather';
 import {withCustomerToaster}      from '../../redux/AppState.js';
 import {getList} 		              from '../../redux/productList/actions';
 import {useDispatch,
@@ -26,6 +23,7 @@ import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import { getCartCount}                      from '../../redux/productList/actions';
+import { Platform } from 'react-native';
 
 export const CartComponent = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
@@ -353,11 +351,22 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>
                     )
                   })}
-                  <View style={{flexDirection:'row',padding:10,paddingTop:0,marginBottom:5}}>
-                    <Icon name="arrow-left" type="font-awesome" size={14} color={colors.cartButton} iconStyle={{paddingRight:3}}/>
-                    <Text style={[CommonStyles.linkLightText,{alignSelf:'center',fontSize:14,color:colors.cartButton,fontFamily: "Montserrat-Medium",}]} onPress={()=>goToProductList(vendor)}>Continue shopping</Text>
+                  <View style={{flexDirection:'row',padding:10,paddingTop:0,marginBottom:5,alignItems:'center'}}>
+                    <View style={{flex:0.5,flexDirection:'row'}}>
+                      <Icon name="arrow-left" type="font-awesome" size={14} color={colors.cartButton} iconStyle={{paddingRight:3}}/>
+                      <Text style={[CommonStyles.linkLightText,{fontSize:14,color:colors.cartButton,fontFamily: "Montserrat-Medium",}]} onPress={()=>goToProductList(vendor)}>Continue shopping</Text>
+                    </View>
+                    <View style={{flex:0.5}}>
+                      {cartData.minOrderAmount <= vendor.vendor_afterDiscountTotal ?
+                          null
+                          :
+                          <View style={{marginVertical:10}}>
+                            <Text style={styles.minpurchase}>{vendor.vendor_id.companyName}, Minimum shopping amount is {cartData.minOrderAmount}</Text>
+                          </View>
+                        }
+                     </View>   
                   </View>
-                  <View style={styles.totaldetails}>
+                  <View style={[styles.totaldetails,{backgroundColor:cartData.minOrderAmount <= vendor.vendor_afterDiscountTotal?"#F7F7F7":"#F3C2C2"}]}>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.65,flexDirection:"row" }}>
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
@@ -438,13 +447,6 @@ const getshippingamount=(startRange, limitRange)=>{
                         </View>
                       </View>
                     <View>
-                      {cartData.minOrderAmount <= vendor.vendor_afterDiscountTotal ?
-                        null
-                        :
-                        <View style={{}}>
-                          <Text style={styles.minpurchase}>Order total amount should be greater than {currency} {cartData.minOrderAmount}. Please add some more products.</Text>
-                        </View>
-                      }
                     </View>
                   </View>
                 </View>
@@ -549,24 +551,6 @@ const getshippingamount=(startRange, limitRange)=>{
                     <Text style={styles.lastText}>Proceed to checkout to add discount coupon</Text>
                   </View>
                   <View>
-                  <View style={{paddingVertical:15,marginBottom:60}}>
-                      {/* <View>
-                        <FormButton
-                          onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
-                          title          = {"PROCEED TO CHECKOUT"}
-                          buttonStyle    = {styles.button1}
-                          containerStyle = {styles.buttonContainer1}
-                          disabled       = {!disabled}
-                        />
-                      </View> */}
-                      <FormButton
-                          title          = {"PROCEED TO CHECKOUT"}
-                          onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
-                          background     = {true}
-                          // loading     = {btnLoading}
-                          disabled       = {!disabled}
-                        />
-                    </View>
                   </View>                  
                 </View>                
           </View>
@@ -578,21 +562,20 @@ const getshippingamount=(startRange, limitRange)=>{
             <View style={{}}>
               <FormButton
                   onPress={() => navigation.navigate('Dashboard')}
-                  // title={"Click Here To Continue Shopping"}
                   title={"Add Products"}
                   background={true}
               /> 
            </View>   
           </View>   
         }
+         
         </View>
+       
       </KeyboardAwareScrollView>
       :
       <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
         <ActivityIndicator size="large" color={colors.theme} />
       </View>}
-      
-
       <Modal isVisible={removefromcart}
         onBackdropPress={() => setRemoveFromCart(false)}
         coverScreen={true}
@@ -632,6 +615,18 @@ const getshippingamount=(startRange, limitRange)=>{
         </View>
       </Modal>
     </View>
+    {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?<View style={{marginBottom:Platform.OS ==='ios'?60: 45,flexDirection:'row'}}>
+         <View style={{flex:0.5,height:60,backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
+            <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Total Amount</Text>
+            <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
+         </View>
+         <TouchableOpacity style={{flex:0.5,height:60,backgroundColor:!disabled?"#5F6C74":colors.cartButton,justifyContent:'center',alignItems:'center'}}
+         disabled       = {!disabled}
+         onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
+         >
+          <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>Checkout</Text>
+         </TouchableOpacity>
+      </View>:null}
   </React.Fragment>
   );
 })

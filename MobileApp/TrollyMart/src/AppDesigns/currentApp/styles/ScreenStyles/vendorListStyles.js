@@ -162,7 +162,7 @@ export default StyleSheet.create({
 		// minHeight:Dimensions.get('window').height,
 		flexDirection: 'row',
 		marginBottom:55,
-		paddingHorizontal:5,
+		paddingHorizontal:15,
 		// backgroundColor:"#ff0"
 	},
 	nameprod: {

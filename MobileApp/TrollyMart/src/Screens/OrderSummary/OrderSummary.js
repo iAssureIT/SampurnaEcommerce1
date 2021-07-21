@@ -254,12 +254,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
 
     return (
       <React.Fragment>
-        {/* <HeaderBar3
-          goBack={navigation.goBack}
-          headerTitle={'Order Summary'}
-          navigate={navigation.navigate}
-        /> */}
-        <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1,marginBottom:Platform.OS === "ios" ?90:'15%'}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
+        <KeyboardAwareScrollView contentContainerStyle={{}}  keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
             <View style={styles.padhr15}>
               <View style={styles.addcmporder}>
                 <View style={styles.orderaddchkbx}>
@@ -621,15 +616,6 @@ import { NetWorkError } from '../../../NetWorkError.js';
                         />
                           <Text style={styles.free}>I agree to <Text style={[CommonStyles.linkText,{fontSize:12}]}  onPress={()=>setModal(true)}>Terms & conditions</Text></Text>
                         </View>
-                        <View >
-                          <FormButton
-                            title          = {"PROCEED TO BUY"}
-                            onPress={() => paymentMethodsPage()}
-                            background  = {true}
-                            // loading     = {btnLoading}
-                            disabled       = {!checked}
-                          />
-                        </View>
                     </View>
                     <View>
                   </View>
@@ -674,6 +660,18 @@ import { NetWorkError } from '../../../NetWorkError.js';
             </ScrollView>
           </View>
         </Modal>
+        <View style={{marginBottom:Platform.OS ==='ios'?60: 45,flexDirection:'row'}}>
+         <View style={{flex:0.5,height:60,backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
+            <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Total Amount</Text>
+            <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
+         </View>
+         <TouchableOpacity style={{flex:0.5,height:60,backgroundColor:checked ?colors.cartButton: "#5F6C74",justifyContent:'center',alignItems:'center'}}
+         disabled       = {!checked}
+         onPress        = {() => paymentMethodsPage()}
+         >
+          <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>Checkout</Text>
+         </TouchableOpacity>
+      </View>
     </React.Fragment>
   );
 })
