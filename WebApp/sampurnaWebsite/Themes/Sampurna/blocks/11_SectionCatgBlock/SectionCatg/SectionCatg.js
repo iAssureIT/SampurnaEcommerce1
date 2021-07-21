@@ -56,7 +56,8 @@ class ShoppingVerticals extends Component {
             for(var i=0;i<blockApiResponse.data.length;i++){ 
                   itemList.push({
                     "itemImg" : blockApiResponse.data[i].itemImg?blockApiResponse.data[i].itemImg:"",
-                    "itemUrl" : blockApiResponse.data[i].itemUrl,
+                    // "itemUrl" : blockApiResponse.data[i].itemUrl,
+                    "itemUrl" : blockresponse.data.groupSettings.sectionUrl,
                     "item"    : blockApiResponse.data[i].itemName,
                   })      
             } 

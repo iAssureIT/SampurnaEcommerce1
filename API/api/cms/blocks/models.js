@@ -79,6 +79,7 @@ const blocksSchema = mongoose.Schema({
 		displayItemInCarousel : Number,  
 		totalProducts 	      : Number,
 		showTitle             : Boolean,
+		sectionUrl            : String,
 		section               : String,
 		category              : String, 
 		subCategory           : String,
