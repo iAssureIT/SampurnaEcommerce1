@@ -340,8 +340,8 @@ class Product extends Component{
                             src={data.productSmallImage && data.productSmallImage.length>0 ? data.productSmallImage[0] : "/images/eCommerce/notavailable.png"}
                             alt="ProductImg" 
                             className={"img-responsive " +Style.NoAvailableImg }
-                            height={data.productImage[0] ? "160px" : '140px'}
-                            width={data.productImage[0] ? "180px" : '160px'} 
+                            height={data.productImage[0] ? "163px" : '140px'}
+                            // width={data.productImage[0] ? "180px" : '160px'} 
                             layout={'intrinsic'}
                           />
                         </a>
