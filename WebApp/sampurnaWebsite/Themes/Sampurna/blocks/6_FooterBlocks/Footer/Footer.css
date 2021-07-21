@@ -350,9 +350,8 @@
 }
 
 .appleCard{
-  width: 124px;
+  /* width: 124px; */
   height: 42px;
-  float: left;
   background-size: 124px;  
   background-image:url("/images/eCommerce/1.gif");
   background-repeat:no-repeat;
@@ -369,8 +368,7 @@
   height: 100%;
 }
 .androidCard{
-  width: 124px;
-  float: left;
+  /* width: 124px; */
   height: 42px;
   cursor: pointer;
   background-size: 124px;
