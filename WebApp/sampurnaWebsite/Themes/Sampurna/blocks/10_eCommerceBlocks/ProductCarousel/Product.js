@@ -340,13 +340,8 @@ class Product extends Component{
                             src={data.productSmallImage && data.productSmallImage.length>0 ? data.productSmallImage[0] : "/images/eCommerce/notavailable.png"}
                             alt="ProductImg" 
                             className={"img-responsive " +Style.NoAvailableImg }
-<<<<<<< Updated upstream
                             height={data.productImage[0] ? "160px" : '140px'}
                             width={data.productImage[0] ? "180px" : '160px'} 
-=======
-                            height="163px"
-                           
->>>>>>> Stashed changes
                             layout={'intrinsic'}
                           />
                         </a>
