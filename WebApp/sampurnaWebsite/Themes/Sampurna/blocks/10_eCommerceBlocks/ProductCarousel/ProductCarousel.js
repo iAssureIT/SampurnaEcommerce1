@@ -650,12 +650,11 @@ submitCart(event) {
                                       {/* <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}> */}
                                       <Link href={"/home-to-vendorlist/"+data.section.replace(" ","-").toLowerCase()+"/" +data._id}>
                                       <a className={Style.product_item_photo } tabIndex="-1" >                                      
-                                        <Image                                           
+                                        <img                                           
                                           src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
                                           alt="ProductImg" 
                                           className={"img-responsive " +Style.NoAvailableImg }
-                                          height={200}
-                                          width={265} 
+                                          height ="163px"
                                           layout={'intrinsic'}
                                         />
                                       </a>
@@ -684,33 +683,33 @@ submitCart(event) {
                                       }
                                       {data.productNameRlang?
                                       <div className={"col-12 globalProductItemName RegionalFont " } title={data.productNameRlang}>
-                                        <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName}>{data.productNameRlang} </span>&nbsp;                                        
+                                        <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName}>{data.productNameRlang} </span>                                       
                                       </div>
                                       :
                                       <div className={"col-12 globalProductItemName  " } title={data.productName}>
-                                      <span className={ Style.ellipsis +" " +Style.globalProdName}>{data.productName} </span>&nbsp;</div>
+                                      <span className={ Style.ellipsis +" " +Style.globalProdName}>{data.productName} </span></div>
                                       }
                                       <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>
                                         {
                                           localStorage.getItem("websiteModel")=== "FranchiseModel"?                                  
                                             data.discountPercent ?    
-                                            <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>  
+                                            <div className={"col-12 mt-2  " +Style.priceWrapper +" " +Style.NoPadding}>  
                                               <span className={Style.price}><span className={Style.oldprice}><i className="fas fa-rupee-sign "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fas fa-rupee-sign"></i> {data.discountedPrice}</span>    
                                             </div>   
                                             :
-                                              <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>
+                                              <div className={"col-12 mt-2  " +Style.priceWrapper +" " +Style.NoPadding}>
                                                 <span className={Style.price}>{this.state.currency}&nbsp;{data.originalPrice} {data.size? "/ " +data.size:null}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span> &nbsp;                                       
                                               </div>
                                           :                                    
                                             data.discountPercent ?
-                                            <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
+                                            <div className={"col-12 mt-2 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
                                               <span className={Style.price}><span className={Style.oldprice }>&nbsp;
                                               {this.state.currency}&nbsp;{(data.originalPrice).toFixed(2)}&nbsp;</span>&nbsp;
                                               {this.state.currency}&nbsp;{(data.discountedPrice).toFixed(2)} 
                                               </span>
                                             </div>
                                             :  
-                                            <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
+                                            <div className={"col-12 mt-2 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
                                               <span className={Style.price}>{this.state.currency}&nbsp;{data.originalPrice} </span> &nbsp;                                      
                                             </div> 
                                         }

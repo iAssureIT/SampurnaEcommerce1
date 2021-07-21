@@ -25,11 +25,37 @@
     z-index: 999!important;
     
 }
-.react-multiple-carousel__arrow--right::before{
+.sectionCarousel .react-multiple-carousel__arrow--right::before{
     content: "\276D" !important;
     color: gray !important;
     font-size: 30px!important;
     z-index: 999!important;
+    top: -18px!important;
+   
+}
+
+.react-multiple-carousel__arrow--left {
+    position: absolute!important;
+    left: calc(-1.3% + 1px)!important;
+    background:none !important;
+    z-index: 999!important;
+    
+}
+.sectionCarousel .react-multiple-carousel__arrow--left::before{
+    content: "\276C" !important;
+    color: gray !important;
+    font-size: 30px!important;
+    z-index: 999!important;
+    top: -18px!important;
+    
+   
+}
+ .react-multiple-carousel__arrow--right::before{
+    content: "\276D" !important;
+    color: gray !important;
+    font-size: 30px!important;
+    z-index: 999!important;
+   
    
 }
 
@@ -45,8 +71,11 @@
     color: gray !important;
     font-size: 30px!important;
     z-index: 999!important;
+    
+    
    
 }
+
 /* .active{
 	background-color:#033554 !important;
 	color:#fff !important;
