@@ -490,7 +490,7 @@ class Checkout extends Component {
                                     if(result.data && result.data.order_id){
                                         // console.log("Order response ===",result.data);
                                         if (this.state.paymentmethods === 'Cash On Delivery' || this.state.paymentmethods === 'Card On Delivery') {
-                                            console.log("this.state.paymentmethods==",this.state.paymentmethods);
+                                            // console.log("this.state.paymentmethods==",this.state.paymentmethods);
                                             this.setState({paymethods : true})
                                             this.props.fetchCartData();
                                             this.setState({
@@ -1097,7 +1097,7 @@ class Checkout extends Component {
                                                     &nbsp; &nbsp;<i className={"fa fa-info-circle "+Style.infoCircle}></i>
                                                     </a>
                                                     <ReactTooltip id="vendorTooltip" className={"pb-2 pt-2 " +Style.tooltipWrapper} place="left" effect="solid">
-                                                                {this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
+                                                                {this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
                                                                     // console.log("this.props.recentCartData.vendorOrders.length===",this.props.recentCartData.vendorOrders.length);
                                                                         return(
                                                                             <div className={"row mb-2 text-left font-weight-bold container pt-4  " +Style.tooltipVendorCharges} key={index}>
@@ -1121,7 +1121,7 @@ class Checkout extends Component {
                                                                         <div className="container pb-4">
                                                                         <div className="row">
                                                                           <div className="col-6 text-left">Total Delivery Charges&nbsp; :</div>&nbsp;&nbsp;
-                                                                          <div className="col-5 text-right NoPadding font-weight-bold ">&nbsp;&nbsp;&nbsp;{this.props.recentCartData.paymentDetails.shippingCharges.toFixed(2)} &nbsp;{this.state.currency}</div>
+                                                                          <div className="col-5 text-right NoPadding font-weight-bold ">&nbsp;&nbsp;&nbsp;{this.props.recentCartData && this.props.recentCartData.paymentDetails && this.props.recentCartData.paymentDetails.shippingCharges.toFixed(2)} &nbsp;{this.state.currency}</div>
                                                                         </div>
                                                                        </div>
                                                                     
@@ -1164,20 +1164,20 @@ class Checkout extends Component {
                                                         </select>
                                                     </div>
                                         <div className="col-12 pt-3">
-                                    {
-                                        !this.state.paymentMethods ?
-                                        <button className={"btn  col-12 float-right  " +Style.eCommTitle +" "+Style.addBTN +" "+Style.f16} onClick={this.placeOrder.bind(this)}><b>Place Order</b></button>
-                                        :
-                                        <div className="col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12" >
-                                                <Loaderspinner
-                                                type="ThreeDots"
-                                                color="#80b435"
-                                                height={40}
-                                                width={40}
-                                                // timeout={5000} //3 secs
-                                            />
-                                        </div>
-                                    }
+                                            
+                                            {
+                                                !this.state.paymentMethods ?
+                                                <button className={"btn  col-12 float-right  " +Style.eCommTitle +" "+Style.addBTN +" "+Style.f16} onClick={this.placeOrder.bind(this)}><b>Place Order</b></button>
+                                                :
+                                                <div className="col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12" >
+                                                        <Loaderspinner
+                                                        type="ThreeDots"
+                                                        color="#80b435"
+                                                        height={40}
+                                                        width={40}
+                                                    />
+                                                </div>
+                                            }
                                         
                                     </div>
 

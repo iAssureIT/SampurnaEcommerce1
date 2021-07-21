@@ -54,7 +54,7 @@ class UserAddress extends Component {
                 this.setState({
                     "deliveryAddress": response.data.deliveryAddress?response.data.deliveryAddress:null,
                     "fullname": response.data.profile.fullName,
-                    "mobileNumber": response.data.profile.mobile,
+                    "mobileNumber": "971" +response.data.profile.mobile,
                     "email": response.data.profile.email
                 },()=>{
                     let fields = this.state.fields;
@@ -253,7 +253,7 @@ class UserAddress extends Component {
                                     // name = "Mobile"
                                     onChange={mobileNumber => { 
                                         this.setState({ mobileNumber })
-                                        console.log("mobileNumber==",mobileNumber);
+                                        // console.log("mobileNumber==",mobileNumber);
                                             // this.setState({
                                             // 	mobNumber : this.state.mobileNumber,
                                             // }); 

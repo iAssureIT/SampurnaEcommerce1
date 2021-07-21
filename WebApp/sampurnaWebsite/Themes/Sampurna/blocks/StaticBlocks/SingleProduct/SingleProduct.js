@@ -269,8 +269,8 @@ class SingleProduct extends Component{
                         src={Array.isArray(this.props.data.productImage) && this.props.data.productImage > 0 && this.props.data.productImage[0] ? this.props.data.productImage[0] : "/images/eCommerce/notavailable.png"}
                         alt="ProductImg" 
                         className={"img-responsive " +Style.NoAvailableImg }
-                        height={150}
-                        width={180} 
+                        height={this.props.data.productImage[0] ? "150px" : '130px'} 
+                        width={this.props.data.productImage[0] ? "180px" : '140px'} 
                         layout={'intrinsic'}
                         />
                     </a>
