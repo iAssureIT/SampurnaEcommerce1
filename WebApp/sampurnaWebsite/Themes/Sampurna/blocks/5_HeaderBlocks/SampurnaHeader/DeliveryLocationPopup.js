@@ -402,7 +402,7 @@ saveLocation(event) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={" col-7 NoPadding"}>
+                                <div className={" col-6 NoPadding"}>
                                     <PlacesAutocomplete 
                                         value={this.state.address}
                                         onChange={this.handleChangePlaces}
@@ -411,17 +411,19 @@ saveLocation(event) {
                                             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                             <div className={"col-12 NoPadding "+Style.locationSearchWrapper}>
                                                 {/* <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label> */}
-                                                <input
+                                                <div class="barraContainer1">
+                                                    <input type="text"  placeholder="Ingrese su nombre de papu"
                                                     {...getInputProps({
-                                                        placeholder: 'Search your Location',
-                                                        className: 'location-search-input mt-2 form-control',
+                                                        placeholder: 'Search your Location ',
+                                                        className: 'location-search-input mt-2 form-control buscar',
                                                         id: "address",
                                                         name: "address",
-                                                        refs:"address",
                                                         required: true
                                                     })}
-                                                />
-                                                <span className={" " +Style.search}><i className="fas fa-search " aria-hidden="true"></i></span>
+                                                    />
+                                                    <i class="fas fa-search"></i>
+                                                </div>
+                                                {/* <span className={" " +Style.search}><i className="fas fa-search " aria-hidden="true"></i></span> */}
                                                 <div className="autocomplete-dropdown-container SearchListContainer">
                                                     {loading && <div>Loading...</div>}
                                                     {suggestions.map(suggestion => {
