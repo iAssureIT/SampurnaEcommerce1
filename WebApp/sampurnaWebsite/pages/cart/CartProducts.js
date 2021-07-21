@@ -427,7 +427,7 @@ class CartProducts extends Component{
                                                             <tbody>
                                                                 <tr>
                                                                     <td>Sub Total</td>
-                                                                    <td className={"col-6 "+Style.tdCartWrapper}>
+                                                                    <td className={"pull-right "+Style.tdCartWrapper}>
                                                                         <span className="col-3 pr-0"><b>{this.state.currency}</b></span><span className="col-3 pl-0"><b> {vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal.toFixed(2) : "0.00"} </b></span>
                                                                     </td>
                                                                 </tr>
@@ -454,7 +454,7 @@ class CartProducts extends Component{
                                                                     <b>{this.state.currency}  {vendorWiseCartData.vendor_netPayableAmount}</b>
                                                                     </td> */}
 
-                                                                    <td className={"col-6 "+Style.tdCartWrapper}>
+                                                                    <td className={"pull-right "+Style.tdCartWrapper}>
                                                                         <span className="col-3 pr-0"><b>{this.state.currency}</b></span><span className="col-3 pl-0"><b> {vendorWiseCartData.vendor_netPayableAmount.toFixed(2)}</b></span>
                                                                     </td>
                                                                 </tr>

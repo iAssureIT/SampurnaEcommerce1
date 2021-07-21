@@ -47,8 +47,9 @@ class CategoryBlock extends Component{
         })
       }
       if(url[7] === undefined){
+        console.log("url[7]==",url[7]);
         // $('.category_0').addClass('activeCategory');
-        $('.category_0').toggleClass('activeCategory')
+        $('.category_0').addClass('activeCategory')
       }
     }
     render(){
@@ -79,7 +80,7 @@ class CategoryBlock extends Component{
                       {this.state.sectedCategory && this.state.sectedCategory === categorydata.categoryUrl
                         ?
                             
-                              $('.category_'+index).toggleClass('activeCategory')
+                              $('.category_'+index).addClass('activeCategory')
                               // $('.category_0').removeClass('activeCategory')
                               // $('.category_'+0).addClass('activeCategory')
                             

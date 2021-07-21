@@ -74,7 +74,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                     country : sampurnaWebsiteDetails.deliveryLocation.country,
                     latLong :latLongDetails
                 },()=>{
-                    console.log("address===",this.state.address);
+                    // console.log("address===",this.state.address);
                 })
             }
         }
@@ -240,7 +240,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
             "longitude"      : this.state.longitude,
         }
 
-        console.log("savelocation this.state.country===",this.state.country);
+        // console.log("savelocation this.state.country===",this.state.country);
 
         if((this.state.country) === "United Arab Emirates"){     
             if(this.props.sampurnaWebsiteDetails){

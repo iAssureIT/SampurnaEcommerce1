@@ -67,7 +67,7 @@
     background-color: #3E9D5E!important;
     height: 45px !important; 
     color: #fff !important;  
-    position: fixed;
+    /* position: fixed; */
     z-index: 10!important;
     margin-top: -1px!important;
 }
@@ -203,7 +203,7 @@
         background-color: #3E9D5E!important;
         height: 45px !important; 
         color: #fff !important;  
-        position: fixed !important;
+        /* position: fixed !important; */
         z-index: 10!important;
         margin-top: -1px!important;
        

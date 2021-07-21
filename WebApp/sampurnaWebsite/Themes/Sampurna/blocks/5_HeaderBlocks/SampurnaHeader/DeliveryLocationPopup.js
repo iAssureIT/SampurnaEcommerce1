@@ -250,7 +250,7 @@ saveLocation(event) {
             "longitude"      : this.state.longitude,
         }
 
-        console.log("savelocation this.state.country===",this.state.country);
+        // console.log("savelocation this.state.country===",this.state.country);
 
         if((this.state.country) === "United Arab Emirates"){     
             if(this.props.sampurnaWebsiteDetails){
