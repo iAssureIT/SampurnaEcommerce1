@@ -97,13 +97,13 @@ class SystemSecurityPopup extends React.Component {
     
    render() {
     return (
-        <div id="loginFormModal" className={"modal in pb-4 " +Style.loginBGImg}  data-keyboard="false" >
+        <div id="loginFormModal" className={"modal in loginMainWrapperr pb-4 " +Style.loginBGImg}  data-keyboard="false" >
                     <div className="modal-dialog modal-xl">                                        
                         <div className={"modal-content loginModalContent  loginBackImageHeight " +Style.signinBG} style={{'background': '#fff'}}>                            
                             <div className="modal-body LoginModalBody">  
                                 <button type="button" className="close"  data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>  
                                 <div className="row"> 
-                                    <div className="col-7 NoPadding pb-4 modalImgBlock">
+                                    <div className="col-lg-7 d-none d-lg-block NoPadding pb-4 modalImgBlock">
                                         <div className="col-12 mx-auto">
                                         <div className={"modal-title col-12 pt-5 modalheadingcont pb-2 text-center underline " +Style.f14B }><img className={" "+Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" height="120px" alt="T&C MODAL-LOGO"/></div>
                                         </div>
@@ -119,7 +119,7 @@ class SystemSecurityPopup extends React.Component {
                                             </div>
                                         </div>*/}
                                     </div>   
-                                    <div className="col-5 pl-0 pt-2 pb50 modalForm">                                                      
+                                    <div className="col-lg-5 col-12 pl-lg-0 pt-2 pb50 modalForm">                                                      
                                         {this.props.formToShow === "login" ?
                                             <div className="col-12 NoPadding loginForm mobileViewNoPadding">
                                                 <Login />
@@ -127,7 +127,7 @@ class SystemSecurityPopup extends React.Component {
                                         : null
                                         }  
                                         {this.props.formToShow === "signUp" ?
-                                            <div className="col-12 signupForm mobileViewNoPadding">
+                                            <div className="col-12 signupForm ">
                                                 <SignUp />
                                             </div>  
                                         : null

@@ -646,11 +646,21 @@ body{
 .addressDisabled{
   opacity: 0.4;
 }
-@media only screen and (max-device-width: 480px) {
+.loginMainWrapperr{
+  padding-right: 0!important;
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
   .mobileViewNoPadding{
     padding-left: 0px !important;
     padding-right: 0px !important;
   }
+ }
+@media only screen and (max-device-width: 480px) {
+  /* .mobileViewNoPadding{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  } */
   .mobileViewPaddingLeft{
     padding-left: 10px !important;
   }
