@@ -57,6 +57,7 @@ import VendorLocationDetails from '../Master/VendorMaster/VendorLocationDetails.
 import VendorContactDetails from '../Master/VendorMaster/VendorContactDetails.js';
 import VendorListOfEntities from '../Master/VendorMaster/VendorListOfEntities.js';
 import BulkUpload           from '../Master/BulkUpload/BulkUpload.js';
+import FileWiseVendorList   from '../../coreadmin/Master/EntityMaster/listOfEntities/components/FileWiseVendorList.js';
 
 import CompanyProfile       from '../CompanyProfile/CompanyProfile.js';
 //============= Supplier Master ====================
@@ -254,6 +255,7 @@ class CoreLayout extends Component {
                 <Route path="/vendor/contact-details/:entityID/:contactID" exact strict component={VendorContactDetails} />
                 <Route path="/vendor/list" exact strict component={VendorListOfEntities} /> 
                 <Route path="/vendor-bulk-upload" exact strict component={BulkUpload} />
+                <Route path="/file-wise-vendor-list" exact strict component={FileWiseVendorList} />
 
                 { /* Supplier Master */}
                 <Route path="/supplier" exact strict component={SelectVendor} />

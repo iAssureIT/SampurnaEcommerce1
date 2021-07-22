@@ -384,7 +384,7 @@ class IAssureTable extends Component {
     }
 	render() {
 		return (
-	       	<div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+	       	<div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NOPadding" style={{"marginTop" : 0}}>
 				{this.state.tableObjects.paginationApply === true ?
 					<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 paddingLeftCss">
 						<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12  NOpadding">Data Per Page</label>

@@ -318,6 +318,9 @@ class BulkUpload extends Component{
 									<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12">
 										<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-left" >
 											<h4 className="weighttitle NOpadding-right">Vendor Bulk Upload</h4>
+										</div>
+										<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right" >
+											<a className="bulklistbtn pull-right" href="/file-wise-vendor-list">File Wise Vedor List</a>
 										</div>														
 									</div> 
 			 						<Loader type="fullpageloader" percentage={this.state.percentage}/>
@@ -380,18 +383,23 @@ class BulkUpload extends Component{
 															} bad 
 															{this.state.fileDetails.failedRecords && this.state.fileDetails.failedRecords.length > 1 ? " records were " : " record was " }found.
 														</h5>
-														<div className="text-right">
-															<br/>
-															<ReactHTMLTableToExcel
-																id 			= "test-table-xls-button"
-																className 	= "download-table-xls-button"
-																table 		= {"failedtable"+this.state.failedRecordsCount}
-																filename 	= "tablexls"
-																sheet 		= "tablexls"
-																buttonText 	= "Download as XLS"
-															/>
-															<br/>
-														</div>  
+														{this.state.failedRecordsCount && this.state.failedRecordsCount > 0
+															?
+																<div className="text-right">
+																	<br/>
+																	<ReactHTMLTableToExcel
+																		id 			= "test-table-xls-button"
+																		className 	= "download-table-xls-button"
+																		table 		= {"failedtable"+this.state.failedRecordsCount}
+																		filename 	= "tablexls"
+																		sheet 		= "tablexls"
+																		buttonText 	= "Download as XLS"
+																	/>
+																	<br/>
+																</div>
+															:
+																null  
+														}
 														<div style={{overflowX: "auto"}}>
 															<IAssureTable 
 																tableHeading 	= {this.state.failedtableHeading}
@@ -446,19 +454,24 @@ class BulkUpload extends Component{
 																0
 															} { this.state.fileDetails && this.state.fileDetails.totalRecords > 1 ? " records" : " record"} Added Successfully.
 														</h5>
-														<div className="text-right">
-															<br/>
-															{console.log(this.state.goodRecordsHeading)}
-															<ReactHTMLTableToExcel
-																id 			= "test-table-xls-button1"
-																className 	= "download-table-xls-button"
-																table 		= {"gooddata"+this.state.goodDataCount}
-																filename 	= "tablexls"
-																sheet 		= "tablexls"
-																buttonText 	= "Download as XLS"
-															/>
-															<br/>
-														</div>  
+														{this.state.goodDataCount && this.state.goodDataCount > 0
+														?
+															<div className="text-right">
+																<br/>
+																{console.log(this.state.goodRecordsHeading)}
+																<ReactHTMLTableToExcel
+																	id 			= "test-table-xls-button1"
+																	className 	= "download-table-xls-button"
+																	table 		= {"gooddata"+this.state.goodDataCount}
+																	filename 	= "tablexls"
+																	sheet 		= "tablexls"
+																	buttonText 	= "Download as XLS"
+																/>
+																<br/>
+															</div>  
+														:
+															null
+														}
 														<div style={{overflowX: "auto"}}>  
 															<IAssureTable 
 																tableHeading 	= {this.state.goodRecordsHeading}

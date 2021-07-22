@@ -394,6 +394,7 @@ class CreateUser extends Component {
                 "companyID": this.state.companyID,
                 "workLocation": this.state.workLocation,
                 "companyName": companyName,
+                "authService" : "",
                 //"status"          : this.state.role ? "active" :"blocked",
                 "status"          : this.state.role ==="corporateadmin" || this.state.role ==="vendoradmin" ? "active" :"blocked",
               }
@@ -891,7 +892,7 @@ class CreateUser extends Component {
                               className="form-control"
                               id="states" ref="states"
                               name="states" data-text="states"
-                              onChange={this.handleChange} disabled
+                              onChange={this.handleChange}
                               value={this.state.states} placeholder="State Name"
                             />
                           </div>

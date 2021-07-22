@@ -19,6 +19,13 @@
 	font-size: 16px !important;
 	font-weight: 700;
 }
+.bulklistbtn{
+	background-color: #337ab7 ! important;
+	color: #ffffff;
+	padding: 10px;
+	font-size: 12px !important;
+	font-weight: 700;
+}
 
 .marginTop21 {
 	margin-top: -12px !important;

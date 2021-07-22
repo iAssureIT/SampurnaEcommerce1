@@ -12,11 +12,12 @@ class OrderDeliveryPolicy extends Component {
 			"editId"           			: "",
 			"maxRadius" 				: "",
 			"minOrderValue"      		: "",
-			"maxServiceCharges" 	: "", 		
+			"maxServiceCharges" 		: "", 		
 			"serviseChargesByDistance" 	: [{
 				minDistance 	: 0,
 				maxDistance 	: 0,
 			}],
+			isServiceByDistanceValid 	: false
 		};
 	}
 
@@ -54,20 +55,20 @@ class OrderDeliveryPolicy extends Component {
 			}
 		})
 		.catch(error=>{
-				console.log("Error in preferences = ", error);
-				if(error.message === "Request failed with status code 401"){
-					var userDetails =  localStorage.removeItem("userDetails");
-					localStorage.clear();
-					swal({  
-							title : "Your Session is expired.",                
-							text  : "You need to login again. Click OK to go to Login Page"
-					})
-					.then(okay => {
+			console.log("Error in preferences = ", error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
 					if (okay) {
-							window.location.href = "/login";
+						window.location.href = "/login";
 					}
-					});
-				}
+				});
+			}
 		})
 	}
 
@@ -152,9 +153,7 @@ class OrderDeliveryPolicy extends Component {
 		//event.preventDefault();
 		const target 	= event.target;
 		const name 		= target.name;
-		console.log("target => ",target);
-		console.log("name => ",name);
-		console.log("VALUE => ",event.target.value);
+		
 		this.setState({
 			[name] : event.target.value
 		});  	
@@ -196,7 +195,79 @@ class OrderDeliveryPolicy extends Component {
         }
         this.setState({
             serviseChargesByDistance : serviseChargesByDistance,  
-        },()=>{});
+			isServiceByDistanceValid : true
+        },()=>{
+			if(this.state.serviseChargesByDistance && this.state.serviseChargesByDistance.length > 0){
+				var newServiceByDistanceArray = [];
+
+				for(var i=0; i < this.state.serviseChargesByDistance.length; i++){
+					if(newServiceByDistanceArray && newServiceByDistanceArray.length > 0){
+						console.log("in if => ",i, " ",this.state.serviseChargesByDistance[i].minDistance)
+						for (let j = 0; j < newServiceByDistanceArray.length; j++) {
+							let min = newServiceByDistanceArray[j].minDistance;
+							let max = newServiceByDistanceArray[j].maxDistance;	
+							console.log("min => ",min," ",max)	
+
+							if(this.state.serviseChargesByDistance[i].minDistance > this.state.maxRadius){
+								this.setState({
+									["error-minDistance-"+i] : "Please enter distance less than " + this.state.maxRadius,
+									isServiceByDistanceValid : false
+								})
+							}else if(this.state.serviseChargesByDistance[i].minDistance >= min && this.state.serviseChargesByDistance[i].minDistance <= max){
+								this.setState({
+									["error-minDistance-"+i] : "This distance already included in previous range",
+									isServiceByDistanceValid : false
+								})
+							}
+
+							if(this.state.serviseChargesByDistance[i].maxDistance > this.state.maxRadius){
+								this.setState({
+									["error-minDistance-"+i] : "Please enter distance less than " + this.state.maxRadius,
+									isServiceByDistanceValid : false
+								})
+							}else if(this.state.serviseChargesByDistance[i].maxDistance >= min && this.state.serviseChargesByDistance[i].maxDistance <= max){
+								this.setState({
+									["error-maxDistance-"+i] : "This distance already included in previous range",
+									isServiceByDistanceValid : false
+								})
+							}
+
+							if(this.state.isServiceByDistanceValid){
+								newServiceByDistanceArray.push(this.state.serviseChargesByDistance[i])
+							}
+						}
+					}else{
+						console.log("in else => ",i, " ",this.state.serviseChargesByDistance[i].minDistance)
+						if(this.state.serviseChargesByDistance[i].minDistance > this.state.maxRadius){
+							this.setState({
+								["error-minDistance-"+i] : "Please enter distance less than " + this.state.maxRadius,
+								isServiceByDistanceValid : false
+							})
+						}
+
+						if(this.state.serviseChargesByDistance[i].maxDistance > this.state.maxRadius){
+							this.setState({
+								["error-maxDistance-"+i] : "Please enter distance less than " + this.state.maxRadius,
+								isServiceByDistanceValid : false
+							})
+						}
+
+						if(this.state.isServiceByDistanceValid){
+							newServiceByDistanceArray.push(this.state.serviseChargesByDistance[i])
+						}
+					}
+					// console.log("this.state.serviseChargesByDistance => ",this.state.serviseChargesByDistance[i])
+				}
+				if(i >= this.state.serviseChargesByDistance.length){
+					
+					this.setState({
+						serviseChargesByDistance : newServiceByDistanceArray
+					},()=>{
+						console.log("serviseChargesByDistance => ",serviseChargesByDistance)
+					})
+				}
+			}
+		});
 	}
 
 	/**=========== deleteDistanceRange() ===========*/
@@ -247,35 +318,115 @@ class OrderDeliveryPolicy extends Component {
 		}
 		
 		console.log('formValues', formValues);
-		console.log("condition => ",($("#OrderDeliveryPolicyForm").valid()));
-		if($("#OrderDeliveryPolicyForm").valid()){        
-			axios.post('/api/storepreference/post', formValues)
-			.then((response)=>{                
-					console.log("response after insert webapp:",response.data.message); 
-					swal({
-						text : response.data.message
-					}) 
-										
-			// window.location.reload();
-			})
-			.catch((error)=>{
-				console.log("error => ",error);
-				if(error.message === "Request failed with status code 401"){
-				    
-					localStorage.removeItem("userDetails");
-				    localStorage.clear();
-				    swal({  
-				        title : "Your Session is Expired.",                
-				        text  : "You need to Login Again. Click OK to Go to Login Page"
-				    })
-				    .then(okay => {
-				        if (okay) {
-				            window.location.href = "/login";
-				        }
-				    });
-				}					 
-			})
-		}        
+		console.log("condition => ",(this.state.serviseChargesByDistance && this.state.serviseChargesByDistance.length > 0));
+		if(this.state.serviseChargesByDistance && this.state.serviseChargesByDistance.length > 0){
+			if(this.state.serviseChargesByDistance && this.state.serviseChargesByDistance.length > 0){
+				var newServiceByDistanceArray = [];
+
+				for(var i=0; i < this.state.serviseChargesByDistance.length; i++){
+					if(newServiceByDistanceArray && newServiceByDistanceArray.length > 0){
+						console.log("in if => ",i, " ",this.state.serviseChargesByDistance[i].minDistance)
+						for (let j = 0; j < newServiceByDistanceArray.length; j++) {
+							let min = newServiceByDistanceArray[j].minDistance;
+							let max = newServiceByDistanceArray[j].maxDistance;	
+							console.log("min => ",min," ",max)	
+
+							if(this.state.serviseChargesByDistance[i].minDistance > this.state.maxRadius){
+								this.setState({
+									["error-minDistance-"+i] : "Please enter distance less than " + this.state.maxRadius,
+									isServiceByDistanceValid : false
+								})
+							}else if(this.state.serviseChargesByDistance[i].minDistance >= min && this.state.serviseChargesByDistance[i].minDistance <= max){
+								this.setState({
+									["error-minDistance-"+i] : "This distance already included in previous range",
+									isServiceByDistanceValid : false
+								})
+							}
+
+							if(this.state.serviseChargesByDistance[i].maxDistance > this.state.maxRadius){
+								this.setState({
+									["error-minDistance-"+i] : "Please enter distance less than " + this.state.maxRadius,
+									isServiceByDistanceValid : false
+								})
+							}else if(this.state.serviseChargesByDistance[i].maxDistance >= min && this.state.serviseChargesByDistance[i].maxDistance <= max){
+								this.setState({
+									["error-maxDistance-"+i] : "This distance already included in previous range",
+									isServiceByDistanceValid : false
+								})
+							}
+
+							if(this.state.isServiceByDistanceValid){
+								newServiceByDistanceArray.push(this.state.serviseChargesByDistance[i])
+							}
+						}
+					}else{
+						console.log("in else => ",i, " ",this.state.serviseChargesByDistance[i].minDistance)
+						if(this.state.serviseChargesByDistance[i].minDistance > this.state.maxRadius){
+							this.setState({
+								["error-minDistance-"+i] : "Please enter distance less than " + this.state.maxRadius,
+								isServiceByDistanceValid : false
+							})
+						}
+
+						if(this.state.serviseChargesByDistance[i].maxDistance > this.state.maxRadius){
+							this.setState({
+								["error-maxDistance-"+i] : "Please enter distance less than " + this.state.maxRadius,
+								isServiceByDistanceValid : false
+							})
+						}
+
+						if(this.state.isServiceByDistanceValid){
+							newServiceByDistanceArray.push(this.state.serviseChargesByDistance[i])
+						}
+					}
+					// console.log("this.state.serviseChargesByDistance => ",this.state.serviseChargesByDistance[i])
+				}
+				if(i >= this.state.serviseChargesByDistance.length){
+					
+					this.setState({
+						serviseChargesByDistance : newServiceByDistanceArray
+					},()=>{
+						console.log("serviseChargesByDistance => ",this.state.serviseChargesByDistance)
+					})
+				}
+			}
+			if($("#OrderDeliveryPolicyForm").valid()){        
+				axios.post('/api/storepreference/post', formValues)
+				.then((response)=>{                
+						console.log("response after insert webapp:",response.data.message); 
+						swal({
+							text : response.data.message
+						}) 
+											
+				// window.location.reload();
+				})
+				.catch((error)=>{
+					console.log("error => ",error);
+					if(error.message === "Request failed with status code 401"){
+						
+						localStorage.removeItem("userDetails");
+						localStorage.clear();
+						swal({  
+							title : "Your Session is Expired.",                
+							text  : "You need to Login Again. Click OK to Go to Login Page"
+						})
+						.then(okay => {
+							if (okay) {
+								window.location.href = "/login";
+							}
+						});
+					}					 
+				})
+			}else{
+				
+			}  
+		}else{
+			this.setState({
+				"error-serviseChargesByDistance" : "Please add different distance ranges"
+			 },()=>{
+				 console.log("=> ",this.state["error-serviseChargesByDistance"])
+			 })
+		}      
 	}
 	
 	/**=========== render() ===========*/
@@ -353,7 +504,8 @@ class OrderDeliveryPolicy extends Component {
 														</div>                            
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
-														<label className="col-lg-12 col-md-12 com-sm-12 col-xs-12 headLabel">Distance wise service charges</label>
+														<label className="col-lg-12 col-md-12 com-sm-12 col-xs-12 headLabel">Distance wise service charges <i className="redFont">*</i></label>
+														<label className="col-lg-12 col-md-12 com-sm-12 col-xs-12 error">{this.state["error-serviseChargesByDistance"]}</label>
 														{this.state.serviseChargesByDistance 
 														?
 															this.state.serviseChargesByDistance.map((dataRowArray, index)=>{
@@ -388,12 +540,12 @@ class OrderDeliveryPolicy extends Component {
 																					/>
 																					<span class="input-group-addon addontext">{this.state.unitOfDistance + (dataRowArray.minDistance > 1 ? "s" : "")}</span>   
 																				</div>  
-																				<label className="error">{this.state.error+'-minDistance-'+index}</label>
+																				<label className="error">{this.state['error-minDistance-'+index]}</label>
 																			</div>
 																			<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">            
 																				<div className="input-group"> 
 																					<input type="number" className={"form-control maxDistance"+index} placeholder="Enter Maximum Distance" aria-label="Maximum Distance" aria-describedby="basic-addon1" ref={"maxDistance-"+index}
-																						id 			= {"minDistance-"+index} 
+																						id 			= {"maxDistance-"+index} 
 																						value 		= {dataRowArray.maxDistance} 
 																						name 		= {"maxDistance-"+index} 
 																						onChange 	= {this.handleChangeDistanceRange.bind(this)} 
@@ -401,7 +553,7 @@ class OrderDeliveryPolicy extends Component {
 																					/>
 																					<span class="input-group-addon addontext">{this.state.unitOfDistance + (dataRowArray.maxDistance > 1 ? "s" : "")}</span>   
 																				</div> 
-																				<label className="error">{this.state.error +'-maxDistance-'+index}</label>
+																				<label className="error">{this.state['error-maxDistance-'+index]}</label>
 																			</div>
 																			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12"> 
 																				<div className="input-group">            
@@ -414,7 +566,7 @@ class OrderDeliveryPolicy extends Component {
 																					/>
 																					<span class="input-group-addon addontext">{this.state.currency}</span>   
 																				</div>
-																				<label className="error">{this.state.error+'-serviceCharges-'+index}</label> 
+																				<label className="error">{this.state['error-serviceCharges-'+index]}</label> 
 																			</div>
 																			<div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 deleteDistanceRange fa fa-trash" id={"distance-"+index} onClick={this.deleteDistanceRange.bind(this)}>
 																			</div>
@@ -426,6 +578,7 @@ class OrderDeliveryPolicy extends Component {
 														:
 															null
 														}
+														
 													</div>												
 													<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">

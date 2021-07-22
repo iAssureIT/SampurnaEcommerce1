@@ -26,7 +26,7 @@ exports.insert_preferences = (req, res, next) => {
             .exec()
             .then(data=>{
                 res.status(200).json({
-                    "message": "Store Preferences Updated Successfully."
+                    "message": "Order Delivery Policy Updated Successfully."
                 });
             })
             .catch(err =>{
@@ -49,7 +49,7 @@ exports.insert_preferences = (req, res, next) => {
             storePreference.save()
             .then(storePreference=>{
                 res.status(200).json({
-                    "message"   : "Store Preferences Saved Successfully.",
+                    "message"   : "Order Delivery Policy Saved Successfully.",
                     "data"      : storePreference
                 });
             })

@@ -77,7 +77,9 @@ router.post('/bulkUploadEntity',                                entityMaster.bul
 
 router.get('/get/filedetails/:fileName',                        entityMaster.filedetails);
 
+router.post('/get/files',                                        entityMaster.fetch_file);
 
+router.post('/get/searchfile', 									entityMaster.search_file);
 // router.get('/get/checkBAExists/:emailID', baController.check_ba_exists);
 
 router.delete('/delete/:entityID', 								checkAuth, entityMaster.deleteEntity);

@@ -9,6 +9,7 @@ const FailedRecords     = require('../failedRecords/ModelFailedRecords');
 var ObjectId 		    = require('mongodb').ObjectID;
 const globalVariable    = require("../../../nodemon.js");
 const axios             = require('axios');
+const _                    = require("underscore");
 // var request = require('request-promise');
 // const gloabalVariable = require('../../nodemon.js');
 exports.insertEntity = (req,res,next)=>{
@@ -2090,4 +2091,121 @@ exports.filedetails = (req,res,next)=>{
             error: err
         });
     });
+};
+
+exports.fetch_file = (req,res,next)=>{
+	EntityMaster.find()
+	.exec()
+	.then(data=>{
+		var x = _.unique(_.pluck(data, "fileName"));
+		var z = [];
+        x = x.filter(function( element ) {
+            return element !== undefined;
+         });
+		for(var i=0; i<x.length; i++){
+			var y = data.filter((a)=> a.fileName === x[i]);
+            console.log("x => ",x)
+            console.log("y => ",y)
+			z.push({
+				"fileName"      : x[i],
+				'vendorCount'   : y.length,
+				"_id"           : x[i]
+			})
+		}
+        console.log("z => ",z)
+		res.status(200).json(z.slice(req.body.startRange, req.body.limitRange));
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+	
+};
+exports.search_file = (req,res,next)=>{
+	// console.log("search_file ",req.body);
+	EntityMaster.find(
+		{
+			"$and" : [
+			{ "$or": 
+				[{"fileName" : {'$regex' : req.body.filename , $options: "i"} }]
+			}]
+		})
+	.exec()
+	.then(data=>{
+		// res.status(200).json(data);
+		var x = _.unique(_.pluck(data, "fileName"));
+		var z = [];
+        x = x.filter(function( element ) {
+            return element !== undefined;
+         });
+		for(var i=0; i<x.length; i++){
+			var y = data.filter((a)=> a.fileName == x[i]);
+			z.push({
+				"fileName"      : x[i],
+				'productCount'  : y.length,
+				"_id"           : x[i]
+			})
+		}
+		res.status(200).json(z.slice(req.body.startRange, req.body.limitRange));
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+	
+};
+
+exports.fetch_vendor_file = (req,res,next)=>{
+	Products.find({"vendor_ID" : req.body.vendor_ID})
+	.exec()
+	.then(data=>{
+		var x = _.unique(_.pluck(data, "fileName"));
+		var z = [];
+		for(var i=0; i<x.length; i++){
+			var y = data.filter((a)=> a.fileName == x[i]);
+			z.push({
+				"fileName": (x[i] ? x[i].replace(/\s+/, "") : "-").split('.')[0],
+				'productCount': y.length != NaN ? "<p>"+y.length+"</p>" : "a",
+				"_id" : x[i] != null ? x[i].replace(/\s+/, "")  : "-"
+			})
+			
+		}
+		res.status(200).json(z.slice(req.body.startRange, req.body.limitRange));
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+	
+};
+
+exports.fetch_file_count = (req,res,next)=>{
+	Products.find()
+	.exec()
+	.then(data=>{
+		var x = _.unique(_.pluck(data, "fileName"));
+		var z = [];
+		for(var i=0; i<x.length; i++){
+			var y = data.filter((a)=> a.fileName == x[i]);
+			z.push({
+				"fileName": x[i],
+				'productCount': y.length,
+				"_id" : x[i]
+			})
+		}
+		res.status(200).json(z.length);
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+	
 };

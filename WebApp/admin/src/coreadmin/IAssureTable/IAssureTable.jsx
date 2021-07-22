@@ -563,7 +563,7 @@ class IAssureTable extends Component {
 			<div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 				{
 					this.state.tableObjects.searchApply === true ?
-						<div className="col-lg-4 col-md-4  col-xs-12 col-sm-12 marginTop8 NOpadding pull-left">
+						<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12 marginTop8 NOpadding pull-right">
 
 							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding labelform">Search</label>
 							<div className="input-group">
@@ -577,7 +577,7 @@ class IAssureTable extends Component {
 				{/* {console.log("T",this.state.tableName)} */}
 				{/* {this.state.tableObjects.downloadApply === true ? */}
 					{/* this.state.tableData && this.state.id && this.state.tableName && this.state.tableData.length !== 0 ? */}
-					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
+					{/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"> */}
 
 						{/* <React.Fragment>
 							<div className="col-lg-1 col-lg-offset-9 col-md-1 col-xs-12 col-sm-12  NoPadding downloadBtns pull-right "id="pdfWrap" iref={ref}>
@@ -599,10 +599,10 @@ class IAssureTable extends Component {
 				} */}
 				{
 					this.state.tableObjects.paginationApply === true ?
-						<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 NOpadding pagignationDiv">
+						<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12 NOpadding pagignationDiv">
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 								<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop8 NOpadding formLable">Data Per Page</label>
-								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding  input-group">
+								<div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 NOpadding  input-group">
 									<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12 noPadding  form-control">
 										<option value="Not Selected" disabled>Select Limit</option>
 										<option value={10}>10</option>
@@ -617,7 +617,7 @@ class IAssureTable extends Component {
 						:
 						null
 				}
-			    </div>
+			    {/* </div> */}
 				<div className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NOpadding marginTop8">
 					<div className={"table-responsive "+this.state.currentView} id={this.state.currentView ? this.state.currentView :"section-to-print"}>
 						<table className={"table iAssureITtable-bordered table-striped table-hover fixedTable "+this.props.tableDndClass} id={this.state.id} >
@@ -644,7 +644,9 @@ class IAssureTable extends Component {
 													);
 												} else {
 													return (
-														<th key={i} className="umDynamicHeader srpadd textAlignLeft">{value} <span onClick={this.sort.bind(this)} id={key} className="fa fa-sort tableSort"></span></th>
+														<th key={i} className="umDynamicHeader srpadd textAlignLeft">{value} 
+															{/* <span onClick={this.sort.bind(this)} id={key} className="fa fa-sort tableSort"></span> */}
+														</th>
 													);
 												}
 
