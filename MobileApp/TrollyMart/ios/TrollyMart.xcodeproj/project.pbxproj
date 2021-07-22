@@ -29,7 +29,7 @@
 		7C2E61C1266E7434001C5D72 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009689266D1CD2008C2278 /* SimpleLineIcons.ttf */; };
 		7C2E61C2266E7434001C5D72 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009690266D1CD2008C2278 /* Zocial.ttf */; };
 		7C34B64A266E58EA0078724F /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C34B649266E58EA0078724F /* GoogleMaps.framework */; };
-		7C34B64D266E590B0078724F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C34B64B266E590B0078724F /* AppDelegate.m */; };
+		7C34B64D266E590B0078724F /* §.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C34B64B266E590B0078724F /* §.m */; };
 		7C34B650266E593E0078724F /* libPods-TrollyMart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C34B64F266E593E0078724F /* libPods-TrollyMart.a */; };
 		7C34B652266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C34B651266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a */; };
 		7C43CF122671E8B6004E3DB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38EC266F3605004A4ED2 /* Images.xcassets */; };
@@ -79,7 +79,7 @@
 		7C2E6181266E5EE7001C5D72 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "TrollyMart/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C2E618A266E67BE001C5D72 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Pods/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		7C34B649266E58EA0078724F /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Maps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
-		7C34B64B266E590B0078724F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = TrollyMart/AppDelegate.m; sourceTree = "<group>"; };
+		7C34B64B266E590B0078724F /* §.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "§.m"; path = "TrollyMart/§.m"; sourceTree = "<group>"; };
 		7C34B64C266E590B0078724F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TrollyMart/main.m; sourceTree = "<group>"; };
 		7C34B64F266E593E0078724F /* libPods-TrollyMart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-TrollyMart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C34B651266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-TrollyMart-TrollyMartTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,7 +219,7 @@
 				7C6A38E7266F3605004A4ED2 /* TrollyMart */,
 				7C2E6181266E5EE7001C5D72 /* GoogleService-Info.plist */,
 				7C2E618A266E67BE001C5D72 /* GoogleMaps.bundle */,
-				7C34B64B266E590B0078724F /* AppDelegate.m */,
+				7C34B64B266E590B0078724F /* §.m */,
 				7C34B64C266E590B0078724F /* main.m */,
 				223D6B615D3B4179909DA51C /* Resources */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -557,7 +557,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C34B64D266E590B0078724F /* AppDelegate.m in Sources */,
+				7C34B64D266E590B0078724F /* §.m in Sources */,
 				7C68E7D82694B449004C7F19 /* File.swift in Sources */,
 				7C6A38F1266F3605004A4ED2 /* main.m in Sources */,
 			);

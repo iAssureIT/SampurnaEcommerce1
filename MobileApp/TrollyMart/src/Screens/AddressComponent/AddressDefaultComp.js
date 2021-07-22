@@ -131,25 +131,25 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
     setAddData(adddata);
     setSelectedIndex(selectedindex);
     console.log("adddata",adddata);
-    var address = {
-      'addressLine1'      : adddata.addressLine1,
-      'addressLine2'      : adddata.addressLine2,
-      'area'              : adddata.area,
-      'city'              : adddata.city,
-      'state'             : adddata.state,
-      'country'           : adddata.country,
-      'pincode'           : adddata.pincode,
-      'latlong'           : {
-        "lat"               : adddata.latitude,
-        "lng"               : adddata.longitude
-      }
-    }
-    console.log("address",address);
-      AsyncStorage.setItem('location',JSON.stringify(address));
-      dispatch({
-          type: SET_USER_ADDRESS,
-          payload:address
-      })
+    // var address = {
+    //   'addressLine1'      : adddata.addressLine1,
+    //   'addressLine2'      : adddata.addressLine2,
+    //   'area'              : adddata.area,
+    //   'city'              : adddata.city,
+    //   'state'             : adddata.state,
+    //   'country'           : adddata.country,
+    //   'pincode'           : adddata.pincode,
+    //   'latlong'           : {
+    //     "lat"               : adddata.latitude,
+    //     "lng"               : adddata.longitude
+    //   }
+    // }
+    // console.log("address",address);
+    //   AsyncStorage.setItem('location',JSON.stringify(address));
+    //   dispatch({
+    //       type: SET_USER_ADDRESS,
+    //       payload:address
+    //   })
   }
 
   console.log("addressid",addressid);

@@ -183,7 +183,8 @@ export default StyleSheet.create({
   wishlisthrtproductview:{
     position:'absolute',
     bottom:"5%",
-    top: 10,right:6,
+    alignSelf:"flex-end",
+    top: 10,
     height:30,
     width:30,
     backgroundColor:"#E6E6E6",
@@ -193,7 +194,8 @@ export default StyleSheet.create({
   share:{
     position:'absolute',
     bottom:"5%",
-    top: 50,right:6,
+    top: 50,
+    alignSelf:"flex-end",
     height:30,
     width:30,
     backgroundColor:"#E6E6E6",

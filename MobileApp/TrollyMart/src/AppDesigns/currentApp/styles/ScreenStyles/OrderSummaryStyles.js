@@ -160,8 +160,11 @@ superparent:{
   productsoldby:{
     fontSize:12,fontFamily:"Montserrat-Regular", color:'#666'
   },
+  totaldata1:{
+    fontSize:15,fontFamily:"Montserrat-Bold", color:'#000'
+  },
   totaldata:{
-    fontSize:13,fontFamily:"Montserrat-SemiBold", color:'#333'
+    fontSize:15,fontFamily:"Montserrat-Medium", color:'#000'
   },
   totalsubtxt:{
     fontSize:13,fontFamily:"Montserrat-Regular", color:'#999',
@@ -181,10 +184,23 @@ superparent:{
     flex:1,flexDirection:"row",
     marginTop:15,
   },
+  totaldetails1:{
+    backgroundColor:'#FFF',
+    borderColor:"#ddd",
+    paddingLeft:6,
+    paddingRight:6,
+    paddingVertical:15,
+    borderRadius:7,
+    // borderTopWidth:1
+  },
   totaldetails:{
     backgroundColor:'#fff',
-    borderColor:"#f1f1f1",
-    paddingHorizontal:15,paddingVertical:15
+    borderColor:"#ddd",
+    // paddingLeft:15,
+    // paddingRight:15,
+    marginHorizontal:6,
+    borderRadius:7,
+    // borderTopWidth:1
   },
   productsoldurl:{
     fontSize:12,fontFamily:"Montserrat-SemiBold", color:'#3090C7'
@@ -245,11 +261,13 @@ superparent:{
   },
 
   proddetails:{
-    borderBottomWidth:1,borderColor:'#eee',
+    borderWidth:1,borderColor:'#E7E7E7',
     backgroundColor:"#fff",
     minHeight:80,
-    // borderRadius:5,
-    marginTop:10,
+    borderRadius:4,
+    paddingVertical:10,
+    marginBottom:10,
+    marginHorizontal:6,
   },
   buttonContainer1:{
 
@@ -295,7 +313,7 @@ superparent:{
     // flex:0.8,
   },
   addcmporder:{
-    backgroundColor:'#fff',marginTop:10,marginBottom:15,paddingHorizontal:15
+    backgroundColor:'#fff',marginTop:30,paddingHorizontal:5
   },
   flx8:{
     flex:0.8,
@@ -327,11 +345,19 @@ superparent:{
     flexDirection:'row'
   },
   addname:{
-    fontSize:14,fontFamily:"Montserrat-SemiBold",marginTop:15,
-    flex:0.7,alignItems:"flex-start"
+    fontSize:15,
+    fontFamily:"Montserrat-Medium",
+    marginTop:15,
+    flex:0.7,
+    alignItems:"flex-start",
+    color:"#000000",
+    opacity: 1
   },
   address:{
-    fontSize:13,fontFamily:"Montserrat-Regular",color:'#666'
+    fontSize:15,
+    fontFamily:"Montserrat-Regular",
+    color:'#000000',
+    opacity: 0.5
   },
   mobflx:{
     flexDirection:'row',marginTop:8,marginBottom:18
@@ -466,7 +492,7 @@ superparent:{
       alignItems:'center',
     },
     inputWrapper : {
-      width:'100%',
+     flex:0.6,
       // marginLeft:10,
       // borderColor:'#666',
       borderColor:colors.theme,
@@ -552,6 +578,7 @@ superparent:{
     ddInputContainer:{
       borderBottomColor: 'transparent',
       borderWidth: 0,
+      width:20
     },
     ddLabelText:{
       backgroundColor:'#fff',
@@ -611,6 +638,26 @@ superparent:{
       borderColor:"#ccc",
       paddingHorizontal: 0,
       height:43,
+    },
+    radiobtn:{
+      // height:15,
+    },
+    currency:{
+      fontSize: 20, fontFamily: "Montserrat-Medium", color: '#000'
+    },
+    currency1:{
+      fontSize: 14, fontFamily:"Montserrat-Medium", color: '#000000',
+    },
+    totalpriceincartTotal:{
+      fontSize:15,
+      fontFamily:"Montserrat-Bold", 
+      color:'#000000',
+    },
+  
+    totalpriceincartTotalG:{
+      fontSize:15,
+      fontFamily:"Montserrat-Bold", 
+      color:'#3E9D5E',
     },
   
 })

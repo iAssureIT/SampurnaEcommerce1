@@ -312,40 +312,55 @@ const getshippingamount=(startRange, limitRange)=>{
                             </TouchableOpacity>
                         </View>
                         <View style={styles.flxdir}>
-                          <View style={[styles.flx5]}>
+                          <View style={[styles.flx5,]}>
                             <Counter start={item.quantity} min={1} max={100}
                                 minusIcon={minusIcon} 
                                 plusIcon={plusIcon} 
                                 buttonStyle={{
                                   borderColor: colors.cartButton,
-                                  backgroundColor:'#355D76',
-                                  // elevation:2,
                                   borderWidth: 1,
                                   borderRadius: 25,
-                                 
+                                  minWidth: 30,
+                                  minHeight: 30,
+                                  backgroundColor: colors.cartButton,
                                 }}
                                 buttonTextStyle={{
                                   color: '#fff',
+                                  fontSize:20
+                                }}
+                                countTextStyle={{
+                                  color: colors.theme,
                                 }}
                                 countTextStyle={{
                                   color: colors.theme,
                                 }}
                                 onChange={(e)=>onChange(e,item.product_ID._id,vendor.vendor_id._id)} 
-                                />
+                                /> 
+                                {/* <CounterInput
+                                  onChange={(counter) => {
+                                    console.log("onChange Counter:", counter);
+                                  }}
+                                  horizontal={true}
+                                  style={{
+                                    borderWidth
+                                  }}
+                              /> */}
                           </View>
                           <View style={[styles.flx5,{alignItems:'flex-end'}]}>
                               <View style={styles.proddeletes}>
                                 <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID._id,vendor)} >
                                   <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.product_ID.isWish ?'red':'#999'} iconStyle={{}}/>
                                 </TouchableOpacity>
+                                <TouchableOpacity  onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)} >
                                 <Icon
-                                  onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)}
+                                  // onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)}
                                   name="trash-can-outline"
                                   type="material-community"
                                   size={20}
                                   color="#000000"
                                   iconStyle={styles.iconstyle}
                                 />
+                                </TouchableOpacity>
                               </View>
                             </View>
                         </View>
@@ -355,7 +370,7 @@ const getshippingamount=(startRange, limitRange)=>{
                   })}
                   <View style={{flexDirection:'row',padding:10,paddingTop:0,marginBottom:5,alignItems:'center'}}>
                     <View style={{flex:0.5,flexDirection:'row'}}>
-                      <Icon name="arrow-left" type="font-awesome" size={14} color={colors.cartButton} iconStyle={{paddingRight:3}}/>
+                      <Icon name="reply" type="ionic" size={18} color={colors.cartButton} iconStyle={{}}/>
                       <Text style={[CommonStyles.linkLightText,{fontSize:14,color:colors.cartButton,fontFamily: "Montserrat-Medium",}]} onPress={()=>goToProductList(vendor)}>Continue shopping</Text>
                     </View>
                     <View style={{flex:0.5}}>
@@ -404,7 +419,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.65,flexDirection:"row" }}>
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
-                        <Text style={styles.totaldata}>Total Amount</Text>
+                        <Text style={styles.totaldata}>Final Amount</Text>
                       </View>
                       <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -435,7 +450,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.65 }}>
-                          <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:16}}>Totals</Text>
+                          <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:15}}>Totals</Text>
                         </View>
                         <View style={{ flex: 0.1 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -456,7 +471,7 @@ const getshippingamount=(startRange, limitRange)=>{
               })}
 
                 <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row", justifyContent: 'flex-start' }}>
-                  <Text style={styles.billText}>Total Bill</Text>
+                  <Text style={styles.billText}>Total Amount</Text>
                 </View>
                 <View style={styles.totaldetails1}>
                   <View style={styles.flxdata}>                    

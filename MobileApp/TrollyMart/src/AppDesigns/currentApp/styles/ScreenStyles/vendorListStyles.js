@@ -11,7 +11,9 @@ export default StyleSheet.create({
 	logoBox:{
 		flex:0.2,
 		position:"absolute",
-		backgroundColor:"#fff",
+		justifyContent:'center',
+		alignItems:'center',
+		height:75,
 		// height:80,
 		// width:80,
 		left:-25,
@@ -20,6 +22,7 @@ export default StyleSheet.create({
 		flex:0.2,
 		position:"absolute",
 		backgroundColor:"#fff",
+		height:75,
 		// height:80,
 		// width:80,
 		left:-35,

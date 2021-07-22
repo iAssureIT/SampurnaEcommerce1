@@ -3,7 +3,8 @@ import {
   Text, View, 
   TouchableOpacity,
   FlatList,
-  RefreshControl
+  RefreshControl,
+  Image
 } from 'react-native';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles.js';
 import { Card }                 from "react-native-elements";
@@ -93,34 +94,37 @@ export const VendorList = withCustomerToaster((props)=>{
     const _renderlist = ({ item, index })=>{
         return (
             <TouchableOpacity  style={{paddingLeft:20,paddingRight:15,marginBottom:5,justifyContent:'flex-end'}} onPress={()=>goToProductList(item)} activeOpacity={1}>                
-                <Card containerStyle={{padding:0,borderRadius:7,height:65,marginRight:0,elevation:5}} wrapperStyle={{alignItems:'center',flexDirection:'row'}}>
-                    <View style={styles.logoBox}>
-                        {item.vendorLogo ? 
-                        <FastImage 
-                            source          =   {{
-                                                    uri:item.vendorLogo,
-                                                    priority: FastImage.priority.high, 
-                                                    cache: FastImage.cacheControl.immutable,
-                                                }} 
-                            style      =   {{
-                                borderRadius:100,
-                                borderWidth:0.5,
-                                borderColor:'#033554',
-                                height:54,
-                                width:54
-                            }} resizeMode="cover" 
-                            PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :null}
-                    </View>
-                    <View style={{flex:1,height:65,justifyContent:'center'}}>
-                         <Text numberOfLines={1} style={[CommonStyles.headerText,{color:"#000",paddingLeft:40,alignSelf:"flex-start",fontSize:17}]}>{item.vendorName}</Text >
-                    </View> 
-                    <ImageBackground 
-                        source      = {require("../../AppDesigns/currentApp/images/Time.png")} 
-                        style       =   {{height:20,justifyContent:"center",alignSelf:"flex-end",marginBottom:5}} 
-                        resizeMode  = "contain" 
-                        PlaceholderContent={<ActivityIndicator color={colors.theme}/>}>
-                            <Text style={[{color:"#000",opacity:1,marginRight:25,fontSize:10}]}>60 Mins </Text>
-                    </ImageBackground>
+                <Card containerStyle={{padding:0,borderRadius:7,height:75,marginRight:0,elevation:5}} wrapperStyle={{}}>
+                        <View style={styles.logoBox}>
+                            {item.vendorLogo ? 
+                            <FastImage 
+                                source          =   {{
+                                                        uri:item.vendorLogo,
+                                                        priority: FastImage.priority.high, 
+                                                        cache: FastImage.cacheControl.immutable,
+                                                    }} 
+                                style      =   {{
+                                    borderRadius:100,
+                                    borderWidth:0.5,
+                                    borderColor:'#033554',
+                                    height:56,
+                                    width:56,
+                                    backgroundColor:"#fff",
+                                }} resizeMode="cover" 
+                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :null}
+                        </View>
+                        <View style={{justifyContent:'center',alignItems:'center',marginTop:25}}>
+                            <Text numberOfLines={1} style={[{color:"#000",paddingLeft:40,alignSelf:"flex-start",fontSize:15,fontFamily:"Montserrat-Bold"}]}>{item.vendorName} {item.vendorName}</Text >
+                        </View> 
+                        <View style={{height:20,flexDirection:'row',alignItems:'center',justifyContent:'flex-end',marginRight:5}}>
+                            <Text style={[{color:"#000",opacity:1,fontSize:10,marginTop:5}]}>60 Mins </Text>
+                            <Image
+                                source      = {require("../../AppDesigns/currentApp/images/Time.png")} 
+                                style       =   {{height:15,marginTop:8,width:15}} 
+                                resizeMode  = "contain" 
+                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}/>
+                        </View>    
+                    
                 </Card>   
             </TouchableOpacity>        
         )

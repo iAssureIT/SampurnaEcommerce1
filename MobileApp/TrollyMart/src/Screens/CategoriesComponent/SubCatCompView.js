@@ -207,10 +207,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     setNumber(parseInt(number));
   }
 
+ 
   const minusIcon = (isDisabled) => {
-    return <Feather name='minus' size={20} color={'#033554'} backgroundColor={'#fff'} bor />
+    return <Icon name='minus' type='feather' size={20} color={isDisabled? colors.cartButton : "#fff"} />
   };
-
+  
+  const plusIcon = (isPlusDisabled) => {
+    return <Icon name='plus' type='feather' size={20} color={"#fff"} />
+  };
   const handlePressAddCart=()=>{
     if(user_id){
       const formValues = {
@@ -287,7 +291,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
             <View style={[styles.vendorNameBox,{}]}>
                 <Text numberOfLines={1} style={[CommonStyles.text,{fontSize:14,fontFamily:"Montserrat-Medium",color:"#000"}]}>Vendor - {productdata.vendorName}</Text>
             </View> 
-            
             <View style={styles.formWrapper}>  
                 <CategoryList
                   navigation        = {navigation}
@@ -315,13 +318,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   <View style={styles.qtys}>
                     <Counter start={1} min={1}
                       minusIcon={minusIcon} 
+                      plusIcon={plusIcon} 
                       buttonStyle={{
-                        borderColor: "#355D76",
+                        borderColor: colors.cartButton,
                         borderWidth: 1,
                         borderRadius: 25,
-                        width: 33,
-                        height: 33,
-                        backgroundColor:"#355D76"
+                        minWidth: 30,
+                        minHeight: 30,
+                        backgroundColor: colors.cartButton,
                       }}
                       buttonTextStyle={{
                         color: '#fff',
@@ -362,6 +366,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         style={styles.saleimg}
                         resizeMode={FastImage.resizeMode.contain}
                     >
+                      
                       <TouchableOpacity style={[styles.wishlisthrtproductview]}
                         onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
                         <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>

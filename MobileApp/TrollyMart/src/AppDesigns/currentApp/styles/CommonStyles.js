@@ -168,4 +168,8 @@ export default StyleSheet.create({
         // alignSelf:'fl'
         // alignSelf:'center',
     },
+    imgwdht:{
+        height:80,width:80,
+        
+      },
 });

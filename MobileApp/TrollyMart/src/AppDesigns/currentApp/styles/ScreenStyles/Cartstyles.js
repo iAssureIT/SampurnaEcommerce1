@@ -216,10 +216,10 @@ superparent:{
     fontSize:14,fontFamily:"Montserrat-Regular", color:'#666'
   },
   totaldata1:{
-    fontSize:17,fontFamily:"Montserrat-Bold", color:'#000'
+    fontSize:15,fontFamily:"Montserrat-Bold", color:'#000'
   },
   totaldata:{
-    fontSize:16,fontFamily:"Montserrat-Medium", color:'#000'
+    fontSize:15,fontFamily:"Montserrat-Medium", color:'#000'
   },
   totalsubtxt:{
     fontSize:13,fontFamily:"Montserrat-Regular", color:'#999',
@@ -234,7 +234,7 @@ superparent:{
     flex:1,flexDirection:"row",
   },
   billText:{
-    fontSize:22,
+    fontSize:18,
     fontFamily:"Montserrat-Bold",
     color:'#000',
     marginHorizontal:6,
@@ -263,7 +263,7 @@ superparent:{
     fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#3090C7'
   },
   iconstyle:{
-    marginTop:3,marginRight:3,marginLeft:15
+    marginTop:3,marginRight:3,marginLeft:15,
   },
   rupeeicn:{
     flexDirection:"row",justifyContent:'flex-end',
@@ -278,19 +278,19 @@ superparent:{
     fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#333',
   },
   totalpriceincart:{
-    fontSize:16,
+    fontSize:15,
     fontFamily:"Montserrat-SemiBold", 
     color:'#000000',
   },
 
   totalpriceincartTotal:{
-    fontSize:17,
+    fontSize:15,
     fontFamily:"Montserrat-Bold", 
     color:'#000000',
   },
 
   totalpriceincartTotalG:{
-    fontSize:17,
+    fontSize:15,
     fontFamily:"Montserrat-Bold", 
     color:'#3E9D5E',
   },
