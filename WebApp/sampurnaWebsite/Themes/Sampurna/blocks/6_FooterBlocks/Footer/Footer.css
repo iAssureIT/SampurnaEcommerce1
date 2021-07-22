@@ -242,7 +242,7 @@
   font-size: 12px;
   letter-spacing:0!important;
   opacity: 1;
-  height:260px!important;
+  /* height:260px!important; */
   position: absolute !important;
 }
 .footernabbar a{
@@ -276,6 +276,7 @@
   padding-right: 0px;
   /*margin-top: 20px;*/
   color:#ffffff;
+  padding-bottom: 1px!important;
   background-color: var(--color) !important;  
   /*background-color: #f3f3f3 !important;*/
   /*background-image: url("/images/eCommerce/footerBgImg.webp");*/
@@ -350,9 +351,10 @@
 }
 
 .appleCard{
-  /* width: 124px; */
+  width: 124px;
   height: 42px;
-  background-size: 124px;  
+  float: left;
+  background-size: 120px;  
   background-image:url("/images/eCommerce/1.gif");
   background-repeat:no-repeat;
   cursor: pointer;
@@ -368,10 +370,11 @@
   height: 100%;
 }
 .androidCard{
-  /* width: 124px; */
+  width: 124px;
+  float: left;
   height: 42px;
   cursor: pointer;
-  background-size: 124px;
+  background-size: 120px;
   background-image:url("/images/eCommerce/1_grpEUqlOJE6Fysw7ErWIBQ.gif");
   background-repeat:no-repeat;
   /*background: transparent url("/images/eCommerce/1_grpEUqlOJE6Fysw7ErWIBQ.gif") 100% 100% no-repeat padding-box;*/

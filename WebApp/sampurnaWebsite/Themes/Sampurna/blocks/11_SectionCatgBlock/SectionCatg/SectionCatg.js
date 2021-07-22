@@ -98,12 +98,12 @@ class ShoppingVerticals extends Component {
       },
       tablet: {
         breakpoint: { max: 1024, min: 464 },
-        items: 3,
+        items: 2,
         slidesToSlide: 1 // optional, default to 1.
       },
       mobile: {
-        breakpoint: { max: 464, min: 0 },
-        items: XSCol,
+        breakpoint: { max: 465, min: 0 },
+        items: 1,
         slidesToSlide: 1 // optional, default to 1.
       }
     };
@@ -117,7 +117,7 @@ class ShoppingVerticals extends Component {
               <div className="col-12 productcomponentheading text-center">
                 <div className="producttextclass  col-12 ">
                   <h5 className="row mb-3">
-                    <b className={"titleFont " }>{this.state.blockTitle}<span className={"line " }></span></b> 
+                    <b className={"titleFont " }>{this.state.blockTitle}<span className={"line d-none d-lg-block " }></span></b> 
                   </h5> 
                 </div>            
               </div>
@@ -139,7 +139,9 @@ class ShoppingVerticals extends Component {
                   keyBoardControl={true}
                   customTransition="all .20"
                   transitionDuration={500}                      
-                  removeArrowOnDeviceType={["mobile"]}
+                  // removeArrowOnDeviceType={["mobile"]}
+                  removeArrowOnDeviceType={["tablet", "mobile"]}
+
                   deviceType={this.props.deviceType}  
                   containerClass="carousel-container">
                     {this.state.itemList.map((data, index) => {  

@@ -277,6 +277,7 @@
   padding-right: 0px;
   margin-top: 20px;
   color:#ffffff;
+  padding-bottom: 1px!important;
   background-color: var(--color) !important;  
   /*background-color: #f3f3f3 !important;*/
   /*background-image: url("/images/eCommerce/footerBgImg.webp");*/
