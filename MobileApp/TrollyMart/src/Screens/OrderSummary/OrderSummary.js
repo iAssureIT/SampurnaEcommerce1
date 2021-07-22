@@ -255,21 +255,23 @@ import { NetWorkError } from '../../../NetWorkError.js';
     return (
       <React.Fragment>
         <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:"#fff"}}  keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
-              <View style={styles.addcmporder}>
+              <View style={styles.addcmporder}> 
                 <View style={{backgroundColor:"#fff",flexDirection:"row",justifyContent:'space-between',alignItems:'center'}}>
                     <Text style={{fontSize:15,fontFamily:"Montserrat-SemiBold",color: "#000000"}}>Address</Text>
                     <TouchableOpacity 
-                        style={{height:34,width:34,elevation:5,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50}}
+                        style={{height:34,width:34,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50}}
                         onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
                       >
                         <Icon name="edit" type="font-awesome" size={15}/>
                     </TouchableOpacity>
                 </View>  
-                <View style={{borderWidth:0.5,marginTop:6,borderRadius:15,borderColor:"#707070",paddingHorizontal:15}}>
+                <View style={{borderWidth:0.5,borderColor:'#707070',marginTop:10,borderRadius:9,borderColor:"#707070",paddingHorizontal:10}}>
                   <View style={styles.orderaddchkbx}>
-                    <Text style={styles.addname}>{addDataName}</Text>
+                    <View style={{flex:0.05,justifyContent:'flex-end',marginBottom:7}}><Text style={styles.blueDot}></Text></View>
+                    <View style={{flex:0.7}}><Text style={styles.addname}>{addDataName}</Text></View>                    
+                    
                   </View>
-                  <View style={{}}>
+                  <View style={{paddingHorizontal:15}}>
                     <Text style={styles.address}>{addDataAddressLine1+", "+addDataAddressLine2}</Text>
                     <View style={styles.mobflx}>
                       <Text style={styles.address}>Mobile:</Text>
@@ -278,7 +280,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                   </View>                  
                 </View>                 
               </View>
-              <View style={{paddingHorizontal:15}}>
+              <View style={{paddingHorizontal:30}}>
                 <View style={{flexDirection:"row",marginVertical:10,alignItems:'center'}}>
                     <Icon name="sale" type="material-community" size={13} color="green"/>
                     <Text style={{color: "#3E9D5E"}}> Apply Discount</Text>
@@ -287,10 +289,10 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     cartData && cartData.paymentDetails ?
                     <View style={styles.totaldetails}>
                       <View style={styles.flxdata}>                    
-                      <View style={{ flex: 0.65 }}>
-                        <Text style={styles.totaldata1}>Total Amount </Text>
+                      <View style={{ flex: 0.55 }}>
+                        <Text style={styles.totaldata1}>Final Total</Text>
                       </View>
-                      <View style={{ flex: 0.1 }}>
+                      <View style={{ flex: 0.2 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.currency1}>{currency}</Text>
                           </View>
@@ -302,10 +304,10 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.65 }}>
-                        <Text style={styles.totaldata1}>Total Saved </Text>
+                      <View style={{ flex: 0.55 }}>
+                        <Text style={styles.totaldata1}>Total Saving </Text>
                       </View>
-                      <View style={{ flex: 0.1 }}>
+                      <View style={{ flex: 0.2 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.currency1}>{currency}</Text>
                           </View>
@@ -318,10 +320,10 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.65 }}>
+                      <View style={{ flex: 0.55 }}>
                         <Text style={styles.totaldata1}>Total VAT  </Text>
                       </View>
-                      <View style={{ flex: 0.1 }}>
+                      <View style={{ flex: 0.2 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.currency1}>{currency}</Text>
                           </View>
@@ -333,10 +335,10 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.65 }}>
+                      <View style={{ flex: 0.55 }}>
                         <Text style={styles.totaldata1}>Total Delivery Charges </Text>
                       </View>
-                      <View style={{ flex: 0.1 }}>
+                      <View style={{ flex: 0.2 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
                             <Text style={styles.currency1}>{currency}</Text>
                           </View>
@@ -355,7 +357,34 @@ import { NetWorkError } from '../../../NetWorkError.js';
                           popover={tooltipClone}
                           withOverlay={false}
                           >
-                          <Icon name="information-outline" type={"material-community"} size={16}iconStyle={{}} />
+                          <Icon name="information-outline" type={"material-community"} size={12}iconStyle={{color:'#648295'}} />
+                        </Tooltip>
+                      </View>  
+                    </View>
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.55 }}>
+                        <Text style={styles.totaldata1}>Discount Coupon</Text>
+                      </View>
+                      <View style={{ flex: 0.2 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
+                            <Text style={[styles.currency1],{opacity: 0.7,color:'#EF9A9A'}}>{currency}</Text>
+                          </View>
+                        </View>
+                      <View style={{ flex: 0.2 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincartTotalR}>{cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
+                        </View>
+                      </View>
+                      <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
+                        <Tooltip 
+                          containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
+                          width={300} 
+                          height={tooltipSize.h + 30}
+                          backgroundColor={colors.theme}
+                          popover={tooltipClone}
+                          withOverlay={false}
+                          >
+                          <Icon name="trash" type={"font-awesome"} size={12} iconStyle={{color:'#648295'}} />
                         </Tooltip>
                       </View>  
                     </View>
@@ -449,34 +478,37 @@ import { NetWorkError } from '../../../NetWorkError.js';
                         <Text style={[styles.totaldata,{color:"red",alignSelf:"flex-end",paddingBottom:5}]} onPress={()=>getCartData(user_id)}>Remove Value</Text>
                         </SafeAreaView>
                       }
-                    <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
+                    <View style={{marginVertical:5}} />
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.65 }}>
-                        <Text style={[styles.totaldata1]}>Grand Total</Text>
+                      <View style={{ flex: 0.57 }}>
+                        <Text style={[styles.totaldata1G]}>Grand Total</Text>
                       </View>
-                      <View style={{ flex: 0.1 }}>
+                      <View style={{ flex: 0.2 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Text style={styles.currency1}>{currency}</Text>
+                            <Text style={styles.currency1G}>{currency}</Text>
                           </View>
                         </View>
                       <View style={{ flex: 0.2 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
+                          <Text style={styles.totalpriceincartTotalGT}>{cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
-                        <View style={styles.margTp20}>
+                        <View style={styles.margTp10}>
                           <View style={{flexDirection:'row',alignItems:'center'}}>
                             <CheckBox
                                 containerStyle={styles.radiobtn}
                                 checkedIcon='dot-circle-o'
+                                checkedColor='#033554'                              
                                 uncheckedIcon='circle-o'
+                                uncheckedColor='#033554'
+                                size={12}
                                 center
                                 title=''
                                 checked={checked}
                                 onPress={() => {setChecked(!checked)}}
                           />
-                            <Text style={styles.free}>I agree to <Text style={[CommonStyles.linkText,{fontSize:12,marginTop:-5}]}  onPress={()=>setModal(true)}>Terms & conditions</Text><Text style={[commonStyles.errorText,{fontSize:20,}]}>*</Text></Text>
+                            <Text style={styles.free}>I agree to <Text style={[CommonStyles.linkText,{fontSize:12,marginTop:-5}]}  onPress={()=>setModal(true)}>terms & conditions</Text><Text style={[commonStyles.errorText,{fontSize:20,}]}>*</Text></Text>
                           </View>
                       </View>
                       <View>
@@ -486,7 +518,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                   null
                 }
                 <View style={[styles.confirmbtn, styles.marginBottom20,{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}]}>
-                  <Text style={{flex:0.6}}>Select Delivery Time</Text>
+                  <Text style={{flex:0.6,marginLeft:10}}>Select Delivery Time</Text>
                   <View style={[styles.inputWrapper]}>
                     <View style={styles.inputTextWrapper}>
                       <Dropdown
@@ -501,8 +533,8 @@ import { NetWorkError } from '../../../NetWorkError.js';
                         inputContainerStyle = {styles.ddInputContainer}
                         labelHeight         = {10}
                         tintColor           = {'#FF8800'}
-                        labelFontSize       = {15}
-                        fontSize            = {15}
+                        labelFontSize       = {10}
+                        fontSize            = {10}
                         baseColor           = {'#666'}
                         textColor           = {'#333'}
                         labelTextStyle      = {{ left: 5 }}
@@ -522,125 +554,96 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     return (
                       <View style={{backgroundColor:"#fff",marginBottom:15}}>
                          <View style={{paddingHorizontal:15}}>
-                          <Text style={[commonStyles.headerText,{alignSelf:"flex-start",fontSize:15,marginBottom:10}]}>{vendor.vendor_id.companyName}</Text>
-                        </View> 
-                      {vendor.cartItems && vendor.cartItems.length>0 && vendor.cartItems.map((item,index)=>{
-                        return(
-                          <View key={index}>
-                            <View key={index} style={styles.proddetails}>
-                              <View style={styles.flxdir}>
-                                <View style={[styles.flxpd]}>
-                                  <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
-                                    {item.product_ID.productImage.length > 0 ?
-                                      <Image
-                                      style={styles.imgwdht}
-                                      source={{ uri: item.product_ID.productImage[0] }}
-                                    />
-                                    :
-                                    <Image
-                                      style={styles.imgwdht}
-                                      source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                                    />
-                                    }
-                                  </TouchableOpacity>
-                                  
-                                </View>
-                                <View style={styles.flxmg}>
-                                  <TouchableOpacity onPress={() => navigation.navigate('', { productID: item.product_ID })}>
-                                    {item.product_ID.productNameRlang ?
-                                    <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
-                                    : 
-                                    <Text style={styles.productname}>{item.product_ID.productName}</Text>
-                                    }
-                                    </TouchableOpacity>
-                                  <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
-                                    {item.product_ID.availableQuantity > 0 ?
-                                      <View style={[styles.flxdir]}>
-                                        <View style={[styles.flxdir]}>
-                                          <Text style={styles.ogprice}>{currency} </Text>
-                                          {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
-                                        </View>
-                                        <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                            <Text style={styles.ogprice}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                            </Text>
-                                        </View>
-                                        {item.product_ID.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
-                                            <Text style={styles.ogprice}>( {item.product_ID.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                            </Text>
-                                        </View>}
+                          <Text style={[commonStyles.headerText,{alignSelf:"flex-start",fontSize:15,marginBottom:10,fontFamily:'Montserrat-Bold'}]}>{vendor.vendor_id.companyName}</Text>
+                        </View>
+                        <View style={styles.proddetails1}>
+                            {vendor.cartItems && vendor.cartItems.length>0 && vendor.cartItems.map((item,index)=>{
+                            return(
+                              <View key={index}>
+                                <View key={index} style={styles.proddetails}>
+                                  <View style={styles.flxdir}>
+                                    <View style={[styles.flxpd]}>
+                                      <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
+                                        {item.product_ID.productImage.length > 0 ?
+                                          <Image
+                                          style={styles.imgwdht}
+                                          source={{ uri: item.product_ID.productImage[0] }}
+                                        />
+                                        :
+                                        <Image
+                                          style={styles.imgwdht}
+                                          source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                                        />
+                                        }
+                                      </TouchableOpacity>
                                       
+                                    </View>
+                                    <View style={{flex:0.4,marginTop:10}}>
+                                      <TouchableOpacity onPress={() => navigation.navigate('', { productID: item.product_ID })}>
+                                        {item.product_ID.productNameRlang ?
+                                        <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
+                                        : 
+                                        <Text style={styles.productname1}>{item.product_ID.productName}</Text>
+                                        }
+                                        </TouchableOpacity>
+                                      <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>                                     
+                                      <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                          <Text style={[styles.QText]}>Quantity : <Text style={styles.QNum}>{item.quantity}</Text><Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                          </Text>
+                                      </View>                                      
                                       </View>
-                                      :
-                                      <Text style={styles.totaldata}>SOLD OUT</Text>
-                                    }
-                                   <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                      <Text style={[styles.ogprice]}>Qty : {item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                      </Text>
                                   </View>
-                                      
+                                  <View style={{flexDirection:'row',flex:0.3,marginTop:10}}>
+                                      <View style={{flex:0.5}}>
+                                        <Text style={styles.currency1Iteam}>{currency} </Text>
+                                      </View>
+                                      <View style={{flex:0.5}}>
+                                        <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                            <Text style={styles.priceIteam}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                            </Text>
+                                        </View>
+                                      </View>
                                   </View>
+                                </View>
                               </View>
                             </View>
-                          </View>
-                        </View>
-                        )
-                      })}
-                    <View style={styles.totaldetails}>
+                            )
+                          })}
+                        </View>                       
+                    <View style={styles.vendorTotal}>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.6,flexDirection:"row" }}>
+                        <View style={{ flex: 0.6,alignItems:'flex-end'}}>
                           {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
-                          <Text style={styles.totaldata}>Sub Total</Text>
+                          <Text style={styles.vendorTotalText}>{vendor.vendor_id.companyName}</Text>
                         </View>
-                        <View style={{ flex: 0.35 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_beforeDiscountTotal && vendor.vendor_beforeDiscountTotal.toFixed(2)}</Text>
+                        <View style={{flexDirection:'row',flex:0.3}}>
+                            <View style={{flex:0.4}}>
+                              <Text style={styles.currency1Iteam}>{currency} </Text>
+                            </View>
+                            <View style={{flex:0.6,alignItems:'flex-end'}}>
+                              <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                  <Text style={styles.priceIteam}>{vendor.vendor_netPayableAmount.toFixed(2)}
+                                  </Text>
+                              </View>
+                            </View>
+                        </View>                        
+                      </View>
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.6,alignItems:'flex-end' }}>
+                        <Text style={styles.vendorTotalText}>You Saved </Text>
+                      </View>
+                      <View style={{flexDirection:'row',flex:0.3}}>
+                          <View style={{flex:0.4}}>
+                            <Text style={styles.currency1Iteam}>{currency} </Text>
                           </View>
-                        </View>
-                      </View>
-                    <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>You Saved </Text>
-                      </View> 
-                      <View style={{ flex: 0.35 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}> - </Text>
-                      <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
-                        </View>
+                          <View style={{flex:0.6,alignItems:'flex-end'}}>
+                            <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                <Text style={styles.priceIteamG}>{vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}
+                                </Text>
+                            </View>
+                          </View>
                       </View>
                     </View>
-                    <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6,flexDirection:"row" }}>
-                        {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
-                        <Text style={styles.totaldata}>Final Total</Text>
-                      </View>
-                      <View style={{ flex: 0.35 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
-                        </View>
-                      </View>
-                    </View>
-                    <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>VAT</Text>
-                      </View> 
-                      <View style={{ flex: 0.35 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_taxAmount.toFixed(2)}</Text>
-                        </View>
-                      </View>
-                    </View>
-                    <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
-                    <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>Totals</Text>
-                      </View> 
-                      <View style={{ flex: 0.35 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_netPayableAmount.toFixed(2)}</Text>
-                        </View>
-                      </View>
-                    </View>
-                   
                     <View>
                     </View>
                      </View>
