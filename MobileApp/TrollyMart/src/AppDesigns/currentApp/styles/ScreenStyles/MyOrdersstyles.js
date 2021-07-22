@@ -437,7 +437,7 @@ export default StyleSheet.create({
   },
   totalpriceincart:{
     fontSize:15,
-    fontFamily:"Montserrat-Medium", 
+    fontFamily:"Montserrat-Medium",
     color:'#000',
   },
   ogprice: {
@@ -455,7 +455,6 @@ export default StyleSheet.create({
   	discountpricecut: {
 		fontSize: 12, fontFamily: "Montserrat-SemiBold",
 		textDecorationLine: 'line-through',
-
 	},
   cancelButton:{
     backgroundColor:colors.white,

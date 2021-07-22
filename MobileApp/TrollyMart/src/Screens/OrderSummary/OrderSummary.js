@@ -275,10 +275,8 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       <Text style={styles.address}>Mobile:</Text>
                       <Text style={styles.address}>{addDataMobileNumber}</Text>
                     </View>
-                  </View>
-                  
-                </View> 
-                
+                  </View>                  
+                </View>                 
               </View>
               <View style={{paddingHorizontal:15}}>
                 <View style={{flexDirection:"row",marginVertical:10,alignItems:'center'}}>
