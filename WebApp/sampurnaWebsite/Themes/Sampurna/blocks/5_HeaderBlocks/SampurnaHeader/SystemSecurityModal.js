@@ -101,6 +101,7 @@ class header extends React.Component {
         event.preventDefault();
         var token = localStorage.removeItem("userDetails");
         Router.push('/');
+        window.location.href('/');
         // window.location.reload();
         // this.props.updateCartCount();
         if (token !== null) {

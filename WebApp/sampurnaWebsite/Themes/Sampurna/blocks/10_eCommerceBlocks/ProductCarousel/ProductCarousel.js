@@ -336,12 +336,12 @@ getProductList(productApiUrl,formValues){
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-      // console.log("response.data===",response.data);
+      console.log("response.data===",response.data);
       this.setState({
         newProducts     : response.data,   
         // newProducts     : response.data.concat(this.state.newProducts),                         
       },()=>{
-        // console.log("newProducts=>",this.state.newProducts.length);
+        console.log("newProducts=>",this.state.newProducts.length);
         if(this.state.newProducts.length>0){
           this.setState({
             ProductsLoading : true,
@@ -552,13 +552,14 @@ submitCart(event) {
         "sortProductBy"  : '',
         "brand"          : this.state.brandArray 
       }  
-      // console.log("formValues=",formValues);
+      console.log("formValues=",formValues);
         $("html, body").animate({ scrollTop: 0 }, 800);
         this.getProductList(this.state.productApiUrl,formValues);
     })
   }
 
   render() {
+    // console.log("brand ===",this.state.brandData);
     const { effect } = this.state;
     const { displayProducts } = this.state;
 
@@ -830,8 +831,9 @@ submitCart(event) {
                       //   startRange         = {this.state.startRange}
                       //   limitRange         = {this.state.limitRange}
                       // />   
-                      <div className="panel-group" >     
-                        {this.state.brandData.length && this.state.brandData[0].brand!=' '>0?                 
+                      <div className="panel-group" >   
+                        
+                        {this.state.brandData.length > 0  && this.state.brandData[0].brand!==''?                 
                           <div className={Style.categoryFilterTitle}> Brands </div>  
                         :null}
                         {
@@ -905,7 +907,6 @@ submitCart(event) {
                           </div>
                         </div>
                     </div>
-                    
                     </div>                  
                   </div>                    
                   :
