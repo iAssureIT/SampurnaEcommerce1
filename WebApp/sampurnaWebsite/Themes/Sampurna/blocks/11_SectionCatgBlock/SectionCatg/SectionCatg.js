@@ -42,22 +42,22 @@ class ShoppingVerticals extends Component {
       axios.get('/api/blocks/get/'+this.props.block_id)    
       .then((blockresponse)=>{
         if(blockresponse.data){
-        console.log("groupsettings response data====",blockresponse.data);                
+        // console.log("groupsettings response data====",blockresponse.data);                
         this.setState({
            groupSettings    : blockresponse.data.groupSettings,   
            blockTitle       : blockresponse.data.blockTitle,
         },()=>{
-          console.log("after setstate groupSettings===",this.state.groupSettings);
+          // console.log("after setstate groupSettings===",this.state.groupSettings);
           axios.post(this.state.groupSettings.blockApi, this.state.groupSettings)      
           .then((blockApiResponse)=>{
-            console.log("blockApiResponse = > ",blockApiResponse)
+            // console.log("blockApiResponse = > ",blockApiResponse)
             if(blockApiResponse.data){   
-              // console.log("blockApiResponse.data===",blockApiResponse.data); 
+              console.log("blockApiResponse.data===",blockApiResponse.data); 
             for(var i=0;i<blockApiResponse.data.length;i++){ 
                   itemList.push({
-                    "itemImg" : blockApiResponse.data[i].itemImg?blockApiResponse.data[i].itemImg:"",
+                    "itemImg" : blockApiResponse.data[i].itemImg && blockApiResponse.data[i].itemImg,
                     // "itemUrl" : blockApiResponse.data[i].itemUrl,
-                    "itemUrl" : blockresponse.data.groupSettings.sectionUrl,
+                    "itemUrl" : blockresponse.data.groupSettings.showOnlySection === true ?  blockApiResponse.data[i].itemUrl : blockresponse.data.groupSettings.sectionUrl,
                     "item"    : blockApiResponse.data[i].itemName,
                   })      
             } 
@@ -143,7 +143,7 @@ class ShoppingVerticals extends Component {
                   deviceType={this.props.deviceType}  
                   containerClass="carousel-container">
                     {this.state.itemList.map((data, index) => {  
-                      // console.log(" itemList data=>",data);
+                      console.log(" itemList data=>",data);
                       { if(this.state.groupSettings.showOnlySection){
                           url = "/vendor-list/"+data.itemUrl;
                         }else if(this.state.groupSettings.showOnlyCategory){

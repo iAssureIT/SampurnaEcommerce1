@@ -404,8 +404,8 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                                 {/* <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label> */}
                                              
   
-                                                <div class="barraContainer">
-                                                    <input type="text"  
+                                                <div className="barraContainer">
+                                                    <input type="text"  placeholder="Ingrese su nombre de papu"
                                                     {...getInputProps({
                                                         placeholder: 'Search your Location ',
                                                         className: 'location-search-input mt-2 form-control buscar',
@@ -414,7 +414,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                                         required: true
                                                     })}
                                                     />
-                                                    <i class="fas fa-search"></i>
+                                                    <i className="fas fa-search"></i>
                                                 </div>
                                             
                                           

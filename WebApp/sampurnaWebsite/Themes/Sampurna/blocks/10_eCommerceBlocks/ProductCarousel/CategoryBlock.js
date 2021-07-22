@@ -46,14 +46,21 @@ class CategoryBlock extends Component{
           sectedCategory  : url[7],
         })
       }
-      if(url[7] === undefined){
+
+      if(!url[7]){
         console.log("url[7]==",url[7]);
-        // $('.category_0').addClass('activeCategory');
         $('.category_0').addClass('activeCategory')
       }
+
     }
     render(){
-      // console.log("props category ====",this.props.categoryData);
+      // console.log("this.props.categoryUrl-",this.props.categoryUrl);
+      // if(this.props.categoryUrl){
+      //   console.log("this.props.categoryUrl-",this.props.categoryUrl);
+      //   $('.category_0').addClass('activeCategory')
+      // }else{
+      //   $('.category_0').removeClass('activeCategory')
+      // }
       return (
         <div className={"container-fluid NoPadding " +Style.categoryCarousel}>
           <div className="col-12">
@@ -102,8 +109,7 @@ class CategoryBlock extends Component{
                                     width={90} 
                                     layout={'intrinsic'}
                                   />
-                              <div className={"col-12 text-center mt-2 " +Style.categoryName} title={categorydata.category}>{categorydata.category}</div>
-
+                                <div className={"col-12 text-center mt-2 " +Style.categoryName} title={categorydata.category}>{categorydata.category}</div>
                               </div>
                             </a>
                           </Link>
