@@ -100,10 +100,8 @@ class header extends React.Component {
     signOut(event) {
         event.preventDefault();
         var token = localStorage.removeItem("userDetails");
-        Router.push('/');
-        window.location.href('/');
-        // window.location.reload();
-        // this.props.updateCartCount();
+        // Router.push('/');
+        window.location.href = '/';
         if (token !== null) {
           this.setState({
             loggedIn: false

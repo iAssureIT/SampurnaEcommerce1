@@ -133,7 +133,7 @@ export default class Footer extends Component {
                           Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
                       </div> */}
                       <div className="col-12 text-center">
-                        <p className="footer3Class"><i className="fa fa-copyright footer3Class"></i> &nbsp;2021 Knock Knock. All Rights Reserved</p>
+                        <p className="footer3Class"><i className="fas fa-copyright footer3Class"></i> &nbsp;2021 Knock Knock. All Rights Reserved</p>
                       </div>                      
                   </div>
               </div>
