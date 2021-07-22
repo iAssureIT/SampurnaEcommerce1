@@ -119,6 +119,7 @@ class UserAddress extends Component {
           });
           return formIsValid;
         }
+        
         saveAddress(event){
             event.preventDefault(); 
             var formValues = {
