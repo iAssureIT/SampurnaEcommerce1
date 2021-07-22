@@ -449,7 +449,7 @@ class CartProducts extends Component{
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td className="cartTotal"> <b>Totals</b> </td>
+                                                                    <td className="cartTotal"> <b>Total</b> </td>
                                                                     {/* <td className="textAlignRight cartTotal">&nbsp; 
                                                                     <b>{this.state.currency}  {vendorWiseCartData.vendor_netPayableAmount}</b>
                                                                     </td> */}

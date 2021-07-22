@@ -943,7 +943,7 @@ class Checkout extends Component {
                                                                                         {
                                                                                             cartdata.product_ID.availableQuantity > 0 ?
                                                                                                 // <span className="productPrize textAlignRight"><i className={"fa fa-" + cartdata.product_ID.currency}></i> &nbsp;{parseInt(cartdata.product_ID.discountedPrice).toFixed(2)}</span>
-                                                                                                <span className={"productPrize textAlignRight " +Style.f11N +" "+Style.bold}><span className={"  " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{parseInt(cartdata.product_ID.discountedPrice).toFixed(2)}</span>
+                                                                                                <span className={"productPrize textAlignRight " +Style.f11N +" "+Style.bold}><span className={"  " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{cartdata.product_ID.discountedPrice.toFixed(2)}</span>
                                                                                                 :
                                                                                                 <span>-</span>
                                                                                         }
@@ -962,7 +962,10 @@ class Checkout extends Component {
                                                                                                 <span className={"abc productPrize textAlignRight " +Style.f11N +" "+Style.bold}>
                                                                                                     <span className={" " +Style.currencyColor}>{this.state.currency}</span>
                                                                                                     {/* {cartdata.product_ID.currency} */}
-                                                                                                    &nbsp;{cartdata.product_ID.discountedPrice.toFixed(2)}</span>
+                                                                                                    {/* &nbsp;{cartdata.product_ID.discountedPrice.toFixed(2) * cartdata.product_ID.quantity}  */}
+                                                                                                    &nbsp;{cartdata.product_ID.discountPercent>0 ? (cartdata.product_ID.discountedPrice.toFixed(2) * cartdata.quantity).toFixed(2) : (cartdata.product_ID.originalPrice.toFixed(2) * cartdata.quantity).toFixed(2)}
+                                                                                                    
+                                                                                                    </span>
                                                                                                 :
                                                                                                 <span>-</span>
                                                                                         }

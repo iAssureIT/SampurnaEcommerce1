@@ -120,7 +120,7 @@ export default class Footer extends Component {
                     <div className="socialMediaIcons"><Link href="https://www.linkedin.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
                     <div className="socialMediaIcons"><Link href="https://twitter.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                    
                 </div> 
-                <div className="col-12 col-sx-12 col-xl-12 col-lg-12 col-md-12 text_Center">
+                <div className="col-12 col-sx-12 col-xl-12 col-lg-12 col-md-12 text_Center mt-4 ">
                     <div className={"col-12 text-center footer3Class " +S.aboutHeight}>
                         <div className={" " +S.aboutClass}><Link href="/about-us" passhref={true}><a ><span>&nbsp;About Us</span></a></Link></div>
                         <div className={" " +S.aboutClass}><Link href="/contact-us" passhref={true}><a ><span>&nbsp;Contact Us</span></a></Link></div>   
@@ -129,11 +129,11 @@ export default class Footer extends Component {
                         <div className={" " +S.aboutClass}><Link href="/terms-and-conditions" passhref={true}><a><span>Terms and Conditions</span></a></Link></div>
                         <div className={" " +S.aboutClass}><Link href="/sitemap"><a ><span>&nbsp;Site Map</span></a></Link></div>  
                     </div>
-                      <div className="col-12 text-center footer3Class">
+                      {/* <div className="col-12 text-center footer3Class">
                           Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
-                      </div>
+                      </div> */}
                       <div className="col-12 text-center">
-                        <p className="footer3Class"><i className="fa fa-copyright footer3Class"></i>2021,Trollymart.com</p>
+                        <p className="footer3Class"><i className="fa fa-copyright footer3Class"></i> &nbsp;2021 Knock Knock. All Rights Reserved</p>
                       </div>                      
                   </div>
               </div>
