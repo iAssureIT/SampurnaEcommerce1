@@ -113,10 +113,10 @@ class Wishlist extends Component {
   render() {
     return (
       <div>
-      <div className={"col-12 " +Style.wishlistProduct}>
+      <div className={"col-12 NoPadding " +Style.wishlistProduct}>
         <Message messageData={this.state.messageData} />
           <div className="row">
-            <div className={"col-12"}>
+            <div className={"col-12 NoPadding"}>
               <div className="col-12 mt-2 table-caption">
                   <div className="col-12">
                     <h4 className="table-caption"> <b>My Wishlist</b></h4>
@@ -144,7 +144,16 @@ class Wishlist extends Component {
                    )
                  })
                  :
-                 <div className="col-12 mt15 textAlignCenter"> Wishlist is empty </div>
+                 <div className="col-8 offset-2 mt15 textAlignCenter"> 
+                        <img                                           
+                          src={"/images/eCommerce/EmptyWishlist.png"}
+                          alt="ProductImg" 
+                          className={"img-responsive " +Style.NoAvailableImg }
+                          height={"200px"} 
+                          width={"260px"} 
+                          layout={'intrinsic'}
+                        />
+                 </div>
               }
             </div>          
           </div>

@@ -533,7 +533,7 @@ class ProductViewEcommerce extends Component {
 							null
 						}
 
-						{this.state.brandData && this.state.brandData.length>0?  
+						{/* {this.state.brandData && this.state.brandData.length>0?  
 							<div className="panel-group NoPadding" >     
 								{this.state.brandData.length && this.state.brandData[0].brand!=' '>0?                 
 								<div className={" " +style.categoryFilterTitle}> Brand </div>  
@@ -563,7 +563,7 @@ class ProductViewEcommerce extends Component {
 								}
 							</div>  
 						:' '
-						}
+						} */}
 					</div>
 
 					<div className="col-12 col-lg-10 col-xl-10 col-md-10 col-sm-12 col-xs-12 boxBorderInner mobileViewNoPadding mt50 ">
