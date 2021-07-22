@@ -593,7 +593,7 @@ input[type=number] {
 }*/
 
 .form-control:focus {
-  border: none !important;
+  /* border: none !important; */
   outline:none !important;
   -webkit-box-shadow:none !important;
   /*border-color: #fff !important;*/

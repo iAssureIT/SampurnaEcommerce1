@@ -151,7 +151,9 @@ input[type='text']:focus {
     border-bottom: 2px solid #333 !important;
     }
 
-   
+select:focus {
+    border: 1px solid lightgrey!important;
+}   
 
 .css-yk16xz-control {
     background:#C2C1C1!important;

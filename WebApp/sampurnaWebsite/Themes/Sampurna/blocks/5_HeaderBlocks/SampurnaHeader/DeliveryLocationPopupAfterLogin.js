@@ -405,7 +405,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                              
   
                                                 <div class="barraContainer">
-                                                    <input type="text"  placeholder="Ingrese su nombre de papu"
+                                                    <input type="text"  
                                                     {...getInputProps({
                                                         placeholder: 'Search your Location ',
                                                         className: 'location-search-input mt-2 form-control buscar',

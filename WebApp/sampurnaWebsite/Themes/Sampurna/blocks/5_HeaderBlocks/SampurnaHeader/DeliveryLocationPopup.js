@@ -412,7 +412,7 @@ saveLocation(event) {
                                             <div className={"col-12 NoPadding "+Style.locationSearchWrapper}>
                                                 {/* <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label> */}
                                                 <div class="barraContainer1">
-                                                    <input type="text"  placeholder="Ingrese su nombre de papu"
+                                                    <input type="text"  
                                                     {...getInputProps({
                                                         placeholder: 'Search your Location ',
                                                         className: 'location-search-input mt-2 form-control buscar',
