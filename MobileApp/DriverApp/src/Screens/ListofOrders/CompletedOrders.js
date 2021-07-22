@@ -35,6 +35,7 @@ export const CompletedOrders =(props)=> {
     const [datePicker,openDatePicker] = useState(false);
     const new_date=props?.route?.params?.new_date;
     useEffect(() => {
+        console.log("new_date",new_date);
         if(new_date!==undefined){
             setDate(new Date(new_date));
         }

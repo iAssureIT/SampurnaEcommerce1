@@ -88,8 +88,9 @@ const window = Dimensions.get('window');
               const payload = {
                 username  : username,
                 password  : password,
-                role      : "user"
+                role      : "deliveryperson"
               };
+              console.log("payload",payload);
               axios
                 .post('/api/auth/post/login/mob_email', payload)
                 .then((res) => {

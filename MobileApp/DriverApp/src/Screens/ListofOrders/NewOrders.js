@@ -8,18 +8,19 @@ import {
   FlatList,
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { Header, Icon, Card, Button }       from 'react-native-elements';
-import axios from 'axios';
-import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles';
+import { Header, Icon, Card, Button }   from 'react-native-elements';
+import axios                            from 'axios';
+import CommonStyles                     from '../../AppDesigns/currentApp/styles/CommonStyles';
 import {
     useDispatch,
-    useSelector }           from 'react-redux';
-import {Footer}                     from '../../ScreenComponents/Footer/Footer.js';
-import moment from 'moment';
-import { TouchableOpacity } from 'react-native';
-import { useIsFocused } from "@react-navigation/native";
-import {REACT_APP_BASE_URL} from '@env';
-import openSocket           from 'socket.io-client';
+    useSelector }                       from 'react-redux';
+import {Footer}                         from '../../ScreenComponents/Footer/Footer.js';
+import moment                           from 'moment';
+import { TouchableOpacity }             from 'react-native';
+import { useIsFocused }                 from "@react-navigation/native";
+import {REACT_APP_BASE_URL}             from '@env';
+import openSocket                       from 'socket.io-client';
+
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 const todoList = [
   { id: '1', text: 'Learn JavaScript' },
@@ -38,29 +39,16 @@ export const NewOrders =(props)=> {
         userDetails     : store.userDetails,
       }));
     useEffect(() => {
-        var payload={
-            "status" : "Ready to Dispatch",
-            "user_id" : store.userDetails.user_id
-        }
-        socket.emit('nearest_vendor_orders',payload);
-        socket.on('getVendorOrderList',(response)=>{
-            console.log("response",response);
-            setOrderList(response);
-            if (prevOpenedRow && prevOpenedRow !== row[index]) {
-            prevOpenedRow.close();
-
-            }
-            prevOpenedRow = row[index];
-            console.log("index",index);
-        })
+       getList();
     },[props,isFocused]);
 
 
     const Separator = () => <View style={styles.itemSeparator} />;
-    const LeftSwipeActions = () => {
+    const LeftSwipeActions = (key) => {
     return (
         <View
         style={{ flex: 1, backgroundColor: '#ccffbd', justifyContent: 'center' }}
+        key = {key}
         >
         <Text
             style={{
@@ -77,9 +65,22 @@ export const NewOrders =(props)=> {
     );
     };
 
+    const getList=()=>{
+        setOrderList([]);
+        var payload={
+            "status" : "Ready to Dispatch",
+            "user_id" : store.userDetails.user_id
+        }
+        socket.emit('nearest_vendor_orders',payload);
+        socket.on('getVendorOrderList',(response)=>{
+            console.log("response",response);
+            setOrderList(response);
+        })
+    }
+
  
   
-    const swipeFromLeftOpen = (order_id,vendor_id,index) => {
+    const swipeFromLeftOpen = (order_id,vendor_id) => {
        
         var payload = {
             order_id        : order_id,
@@ -91,7 +92,7 @@ export const NewOrders =(props)=> {
         axios.patch('/api/orders/changevendororderstatus',payload)
         .then(res=>{
             console.log("res",res);
-              getList(index);
+              getList();
         })
         .catch(err=>{
             console.log("err",err);
@@ -111,7 +112,8 @@ export const NewOrders =(props)=> {
                  leftThreshold={80}
                  rightThreshold={40}
                  renderLeftActions={LeftSwipeActions}
-                onSwipeableLeftOpen={()=>swipeFromLeftOpen(item._id,item.vendorOrders.vendor_id,)}
+                 onSwipeableClose={LeftSwipeActions}
+                onSwipeableLeftOpen={()=>swipeFromLeftOpen(item._id,item.vendorOrders.vendor_id)}
             >
                 {/* <View
                 style={{

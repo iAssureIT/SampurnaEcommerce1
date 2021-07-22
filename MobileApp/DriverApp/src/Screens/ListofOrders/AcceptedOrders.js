@@ -49,6 +49,7 @@ export const AcceptedOrders =(props)=> {
       }));
 
     const getList =()=>{
+        setOrderList([]);
         var payload={
             "status" : "Allocated",
             "user_id" : store.userDetails.user_id
