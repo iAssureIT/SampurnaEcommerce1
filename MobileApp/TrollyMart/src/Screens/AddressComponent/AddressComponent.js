@@ -433,6 +433,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                 </Text>
                   <Dropdown
                     // label               = 'Type of Address'
+                    placeholder         = {"-- Select Address Type --"}
                     containerStyle      = {styles.ddContainer}
                     dropdownOffset      = {{ top: 0, left: 0 }}
                     itemTextStyle       = {styles.ddItemText}
@@ -445,7 +446,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     itemTextStyle       = {styles.ddLabelText}
                     style               = {styles.ddStyle}
                     data                = {ShippingType}
-                    value               = {values.addresstype}
+                    // value               = {values.addresstype}
                     underlineColorAndroid ='transparent'
                     // onChangeText={(addresstype) => { this.setState({ addresstype }) }}
                     onChangeText={handleChange('addresstype')}

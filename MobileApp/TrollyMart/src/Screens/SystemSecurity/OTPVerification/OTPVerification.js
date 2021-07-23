@@ -136,19 +136,21 @@ const FormBody = (props) => {
     })
   }
 
-  return (
-    // <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyle.container} resizeMode="cover" >
-      <View style={{flex:1,paddingHorizontal:20}}>
-          <View style={[styles.boxOpacity,{flex:1}]}>
-          <Image
-            style={{height: 220, width: 150, alignSelf: 'center'}}
-            source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
-            resizeMode="contain"
-          />
-           <View style={styles.textTitleWrapper}><Text style={commonStyle.headerText}>OTP Verification</Text></View>
-           <View style={styles.textTitleWrapper}><Text style={{ fontSize: 15, fontFamily: 'Montserrat-Regular',alignSelf:'center' }}>Please Enter Verification Code</Text></View>
+  return (    
+      <View style={{flex:1,backgroundColor:'#fff'}}>        
+          <View style={[styles.boxOpacity,{flex:1,paddingHorizontal:30}]}>
+          <View style={{height: 300}}>
+            <Image
+              style={{height: 220, width: 150, alignSelf: 'flex-start'}}
+              source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
+              resizeMode="contain"
+            />
+          </View>
+          <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.jpg")} style={[]} resizeMode="cover" >
+           <View style={{marginHorizontal:10}}><Text style={styles.otpTitle}>OTP</Text></View>
+           {/* <View style={styles.textTitleWrapper}><Text style={{ fontSize: 15, fontFamily: 'Montserrat-Regular',alignSelf:'center' }}>Please Enter Verification Code</Text></View> */}
          <OTPInputView
-            style={{width: '60%', height: 100,alignSelf:"center"}}
+            style={{width: '80%', height: 100,alignSelf:"center"}}
             pinCount={4}
             placeholderTextColor={'#333'}
             autoFocusOnLoad
@@ -160,7 +162,10 @@ const FormBody = (props) => {
             // clearInputs={isEmptyString(values.otp)}  
             />
            <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
-            <View style={{flexDirection:"row",justifyContent:"space-between"}}>
+           <View>
+             <Text style={styles.otpLastText}>Didn't receive code?<Text onPress={handleResend} style={styles.otpLastText1}>Request again!</Text></Text>
+           </View>
+            {/* <View style={{flexDirection:"row",justifyContent:"space-between"}}>
               <View style={{width:"45%"}}>
                 <FormButton
                     title       = {'Verify'}
@@ -177,8 +182,8 @@ const FormBody = (props) => {
                     loading     = {resendLoading}
                 />
              </View>   
-            </View>    
-          <View
+            </View>     */}
+          {/* <View
             style={[
               {
                 flexDirection   : 'row',
@@ -191,9 +196,9 @@ const FormBody = (props) => {
             <Text style={commonStyle.linkLightText}>
               Version 1.0.3
             </Text>
-          </View>
+          </View> */}
+          </ImageBackground>
         </View>
-      </View>
-    // </ImageBackground>
+      </View>   
   );
 };

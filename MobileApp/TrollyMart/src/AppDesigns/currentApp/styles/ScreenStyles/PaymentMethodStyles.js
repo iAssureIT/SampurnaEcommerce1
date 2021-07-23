@@ -10,12 +10,13 @@ export default StyleSheet.create({
   },
   superparent: {
     flex: 1, 
-    backgroundColor: '#f1f1f1'
+    backgroundColor: '#f1f1f1',
+    // paddingBottom:70,
   },
   parent: {
     backgroundColor: '#fff', 
     marginBottom: "15%",
-    height: 650,
+    minHeight: 650,
   },
   width160: {
     width: 160
@@ -27,14 +28,21 @@ export default StyleSheet.create({
     // borderBottomWidth: 1,
     // borderBottomColor: '#ccc',
     // paddingBottom:15,
-    paddingLeft:15,
+    paddingHorizontal:25,
   },
   flx7:{
     flex:0.9
   },
   flx3:{
     // flex:0.9,
-    flexDirection:"row"
+    flexDirection:"row",
+    height:71,
+    paddingHorizontal:5,
+    backgroundColor:'#F9F9F9',
+    marginBottom:10,
+    borderRadius:5,
+    alignItems:'center',
+    elevation:1
   },
   catimg: {
     height: 200, width: 160,
@@ -62,10 +70,13 @@ export default StyleSheet.create({
     fontSize: 12, fontFamily: "Montserrat-SemiBold", color: '#333'
   },
   free: {
-    fontSize: 12, fontFamily: "Montserrat-SemiBold", color: '#333',marginTop:8
+    fontSize: 17, fontFamily: "Montserrat-SemiBold", color: '#000',marginLeft:30
+  },
+  freeL2: {
+    fontSize: 12, fontFamily: "Montserrat-Regular", color: '#A6A6A6',marginLeft:30
   },
   radiobtn: {
-    fontSize: 12,padding:0,margin:0,height:10,flex: 1, 
+    fontSize: 14,padding:0,margin:0,flex: 1, 
   },
   prodname: {
     flex: 1, fontSize: 13, flexWrap: "wrap", fontFamily: "Montserrat-Regular", color: '#666', paddingVertical: 5
@@ -101,7 +112,8 @@ export default StyleSheet.create({
     marginBottom: '10%',
     alignItems:"center",
      marginTop: 15,
-   
+     height:340,
+    justifyContent:'center'
   },
   totaldata: {
     fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#333',
@@ -180,6 +192,11 @@ export default StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 13
 
+  },
+  iconImg:{
+    height:16,
+    width:18,
+    resizeMode:'cover'
   },
   buttonContainer1: {
     padding:25,

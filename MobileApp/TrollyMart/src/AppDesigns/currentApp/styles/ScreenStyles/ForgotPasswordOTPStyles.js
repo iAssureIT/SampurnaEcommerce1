@@ -160,7 +160,7 @@ export default StyleSheet.create({
         fontFamily:"Montserrat-Regular",
     },
     textTitleWrapper:{
-        paddingHorizontal: 15, marginTop: 15, marginBottom:15,textAlign:'center',
+        paddingHorizontal: 15, marginBottom:15,
     },
     textStyle:{
         textAlign:'center',
@@ -179,11 +179,29 @@ export default StyleSheet.create({
     borderRadius:50
   },
   underlineStyleBase: {
-    width: 40,
+    width: 45,
     height: 45,
     borderWidth: 0,
     borderBottomWidth: 1,
-    color:"#333"
+    borderColor:'#000',
+    color:"#000"
+  },
+
+  otpLastText:{
+    color: '#CFCFCF',
+    fontSize: 12,
+    fontFamily: "Montserrat-Regular",
+  },
+  otpLastText1:{
+    color: '#033554',
+    fontSize: 14,
+    fontFamily: "Montserrat-Bold",
+  },
+
+  otpTitle:{
+    color: '#033554',
+    fontSize: 22,
+    fontFamily: "Montserrat-Bold",
   },
 
   underlineStyleHighLighted: {

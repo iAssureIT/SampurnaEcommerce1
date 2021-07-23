@@ -7,6 +7,7 @@ import {
   Alert,ActivityIndicator,
 } from 'react-native';
 import { Button, Icon,}       from "react-native-elements";
+import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import Modal                  from "react-native-modal";
 import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}               from '../../ScreenComponents/Footer/Footer.js';
@@ -233,51 +234,86 @@ export const PaymentMethod = withCustomerToaster((props)=>{
             headerTitle={"Payment Methods"}
           /> */}
           <View style={styles.superparent}>
-            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid >
               <View style={styles.formWrapper}>
                 <View style={styles.parent}>
+                <View style={{paddingVertical:20,paddingHorizontal:6}}>
+                  <Text style={CommonStyles.screenHeader}>Payment Method</Text>
+                </View>
                   <View style={styles.vwwishlist}>
                     <Image
                       style={styles.imgwdht}
                       source={require("../../AppDesigns/currentApp/images/paymentmethod.png")}
                     />
                   </View>
-                 <View style={styles.orderbrdr}>
-                    <View style={styles.flx3}>
-                      <RadioButton
-                        style={styles.radiobtn}
-                        value="Cash on Delivary"
-                        color={colors.theme}
-                        status={checked === 'first' ? 'checked' : 'unchecked'}
-                        onPress={() => {setChecked('first');setPaymentMethods('Cash On Delivery')}}
-                      />
-                      <Text style={styles.free}>Cash on Delivary</Text>
-                    </View>
-                  </View>
-                  <View style={styles.orderbrdr}>
-                    <View style={styles.flx3}>
-                      <RadioButton
-                        style={styles.radiobtn}
-                        color={colors.theme}
-                        value="second"
-                        status={checked === 'second' ? 'checked' : 'unchecked'}
-                        onPress={() => {setChecked('second');setPaymentMethods('Card On Delivery')}}
-                      />
-                      <Text style={styles.free}>Card on Delivary</Text>
-                    </View>
-                  </View>
                   <View style={styles.orderbrdr}>
                     <View style={styles.flx3}>
                       <RadioButton
                         value="third"
-                        color={colors.theme}
-                        // disabled
+                        checkedIcon='dot-circle-o'
+                        checkedColor='#033554'                              
+                        uncheckedIcon='circle-o'
+                        uncheckedColor='#033554'
+                        size={14}
+                        // color={colors.theme}
                         status={checked === 'third' ? 'checked' : 'unchecked'}
-                        onPress={() => paymentgateway()}
+                        onPress={() => {setChecked('third');setPaymentMethods('Online Payment')}}
+
                       />
-                      <Text style={styles.free}>Credit/Debit Card</Text>
+                      <View style={{flex:0.8}}>
+                        <Text style={styles.free}>Online Payment </Text>
+                        <Text style={styles.freeL2}> (Credit/Debit Card) </Text>
+                      </View>  
+                      <View style={{flex:0.1,alignItems:'flex-end'}}>                        
+                        <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} resizeMode="contain" />
+                      </View>                    
                     </View>
                   </View>
+                  <View style={styles.orderbrdr}>
+                    <View style={styles.flx3}>
+                      <RadioButton
+                        style={styles.radiobtn}
+                        checkedIcon='dot-circle-o'
+                        checkedColor='#033554'                              
+                        uncheckedIcon='circle-o'
+                        uncheckedColor='#033554'
+                        size={14}
+                        // color={colors.theme}
+                        value="second"
+                        status={checked === 'second' ? 'checked' : 'unchecked'}
+                        onPress={() => {setChecked('second');setPaymentMethods('Card On Delivery')}}
+                      />
+                      <View style={{flex:0.8}}>
+                        <Text style={styles.free}>Card on Delivary</Text>
+                      </View>  
+                      <View style={{flex:0.1,alignItems:'flex-end'}}>                        
+                        <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} resizeMode="contain" />
+                      </View>                         
+                    </View>
+                  </View>
+                  <View style={styles.orderbrdr}>
+                    <View style={styles.flx3}>
+                      <RadioButton
+                        style={styles.radiobtn}
+                        checkedIcon='dot-circle-o'
+                        checkedColor='#033554'                              
+                        uncheckedIcon='circle-o'
+                        uncheckedColor='#033554'
+                        size={14}
+                        value="Cash on Delivary"
+                        // color={colors.theme}
+                        status={checked === 'first' ? 'checked' : 'unchecked'}
+                        onPress={() => {setChecked('first');setPaymentMethods('Cash On Delivery')}}
+                      />
+                      <View style={{flex:0.8}}>
+                        <Text style={styles.free}>Cash on Delivary</Text>
+                      </View>  
+                      <View style={{flex:0.1,alignItems:'flex-end'}}>                        
+                        <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} resizeMode="contain" />
+                      </View>                       
+                    </View>
+                  </View>
+                  
                   {/* <View style={styles.orderbrdr}>
                     <View style={styles.flx3}>
                       <RadioButton

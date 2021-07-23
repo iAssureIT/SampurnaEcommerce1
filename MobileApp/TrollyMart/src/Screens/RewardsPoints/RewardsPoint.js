@@ -121,7 +121,9 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                 })
                     
                 :
-                []
+                <View style={{alignSelf:'center',height:350,justifyContent:'center'}}>
+                  <Text style={styles.noPointsText}>Sorry Your Credit Points is 0</Text>
+                </View>
             }
             </View>}
           </ScrollView>}

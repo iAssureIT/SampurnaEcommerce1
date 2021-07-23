@@ -327,4 +327,11 @@ export default StyleSheet.create({
     opacity: 0.5,
   },
 
+  noPointsText:{
+    color:'#DC1919',
+    fontSize:22,
+    fontFamily:"Montserrat-Medium",
+    textAlign:'center'
+  },
+
 })
