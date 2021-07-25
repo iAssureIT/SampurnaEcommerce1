@@ -10,7 +10,7 @@ import StepWizard           from '../../Themes/Sampurna/blocks/StaticBlocks/Wiza
 import OrderStatusWizard    from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/OrderStatusWizard.js';
 import ProductsView         from './ProductsView.js';
 import Style                from './index.module.css';
-import openSocket               from 'socket.io-client';
+import openSocket           from 'socket.io-client';
 import getConfig            from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
@@ -295,8 +295,10 @@ export default class OrderDetails extends Component {
                         <div className={"col-6 " +Style.rightside}>
                             <div className="row">
                                 <div className="col-12">
-                                  <span className="col-12 text-right">Date - {moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm A")}</span>
+                                  <span className="col-12 text-right d-lg-block d-xl-block d-none">Date - {moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm A")}</span>
                                   {/* <span className="col-6 text-right"></span> */}
+                                  <span className="col-12 text-right d-block d-lg-none d-xl-none">{moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm A")}</span>
+
                                 </div>
                                 {this.state.orderData && this.state.orderData.paymentDetails &&
                                   <div className="col-12">
@@ -306,7 +308,7 @@ export default class OrderDetails extends Component {
                                 {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.addressLine2 &&
                                   <div className="col-12">
                                       <div className="col-12 orderAddress"> 
-                                      <i className="fas fa-map-marker-alt"></i>{this.state.orderData.deliveryAddress.addressLine1}, <br/>  {this.state.orderData.deliveryAddress.addressLine2}
+                                      <i className="fas fa-map-marker-alt"></i>&nbsp;{this.state.orderData.deliveryAddress.addressLine1}, <br/>  {this.state.orderData.deliveryAddress.addressLine2}
                                       </div> 
                                   </div>
                                 }
@@ -377,15 +379,16 @@ export default class OrderDetails extends Component {
                                 <div  className="col-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
                                   <div className="row ">                                      
                                       <div className="col-12 NOpadding">
-                                        <div className={"col-8 offset-2 text-right font-weight-bold "+Style.orderDetaiAmount}>
-                                            <span className="col-7 title">&nbsp; <b>Amount</b></span>
-                                            <span className="col-5 textAlignRight title">&nbsp; 
+                                        <div className={"col-lg-8 offset-lg-2 col-sm-8 offset-sm-2 col-12 text-lg-right font-weight-bold "+Style.orderDetaiAmount}>
+                                            <span className="col-lg-7 col-5 title">&nbsp; <b>Amount</b></span>
+                                            <span className="col-lg-5 col-7 textAlignRight title">&nbsp; 
                                                 <span className="currencyColor">{this.state.currency}</span> &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
                                             </span>
                                         </div>
-                                        <div className={"col-8 offset-2 text-right font-weight-bold "+Style.orderDetaiAmount}>
-                                            <span className="col-8 title">&nbsp; Number Of Items</span>
-                                            <span className="col-4 textAlignRight title">&nbsp; 
+                                        <div className={"col-lg-8 offset-lg-2 col-sm-8 offset-sm-2 col-12 text-lg-right font-weight-bold "+Style.orderDetaiAmount}>
+                                            <span className="col-lg-8 col-sm-8 col-10 title">&nbsp; Number Of Items</span>
+                                            
+                                            <span className="col-lg-4 col-sm-4 col-2 textAlignRight title">&nbsp; 
                                                 {vendordata.vendor_numberOfProducts} 
                                             </span>
                                         </div>

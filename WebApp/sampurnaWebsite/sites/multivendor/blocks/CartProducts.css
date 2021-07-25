@@ -240,7 +240,7 @@
 }
 .cartColor{
     color: #878787;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 500;
 }
 .cartPrice{
@@ -274,3 +274,11 @@
     border-bottom: solid 1px #eee;
     padding-bottom: 10px;
 }
+
+@media (min-width: 1200px) { 
+	.cartColor{
+        color: #878787!important;
+        font-size: 12px!important;
+        font-weight: 500!important;
+    }
+  }

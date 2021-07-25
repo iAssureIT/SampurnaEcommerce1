@@ -311,13 +311,13 @@ export default class MyOrders extends Component {
             this.state.loading ?
               <div className="col-12 loaderHeight"><Loader type="fullpageloader" /></div> 
               :
-               <div className="col-12"> 
-                <div className="col-12 col-xl-12 col-md-12 col-sm-12 pr-0">
+              //  <div className="col-12"> 
+                <div className="col-12 col-xl-12 col-md-12 col-sm-12 px-0">
                   <div className="col-12">
                       <h4 className={"table-caption mb-2 "}>My Orders</h4>
                   </div>
 
-                  <div className="col-12">
+                  <div className="container-flex">
                     {this.state.orderData && this.state.orderData.length > 0 ? 
                       this.state.orderData.map((singleOrder, index) => {
                         // console.log("singleOrder=",singleOrder);
@@ -333,21 +333,23 @@ export default class MyOrders extends Component {
                                     <div className="col-12">{"Order ID : "+(singleOrder.orderID)}</div>
                                     <div className="col-12">Total Amount : &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</b></div>
                                     <div className="col-12">
-                                      Credits Points : &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</b>
+                                      Credits Points :<b>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</b>
                                     </div>
                                 </div>                       
                                 <div className={"col-6 " +Style.rightside}>
                                     <div className="row">
                                         <div className="col-12">
-                                          <span className="col-12 text-right">Date : {moment(singleOrder.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(singleOrder.createdAt).format("hh:mm A")}</span>
+                                          <span className="col-12 text-right d-lg-block d-xl-block d-none">Date : {moment(singleOrder.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(singleOrder.createdAt).format("hh:mm A")}</span>
                                           {/* <span className="col-6 text-right"></span> */}
+                                          <span className="col-12 text-right d-block d-lg-none d-xl-none">{moment(singleOrder.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(singleOrder.createdAt).format("hh:mm A")}</span>
+
                                         </div>
                                         <div className="col-12">
                                             <div className="col-12"> <i className="fas fa-wallet"></i>&nbsp; {singleOrder.paymentDetails.paymentMethod}</div> 
                                         </div>
                                         <div className="col-12">
                                             <div className="col-12 orderAddress"> 
-                                            <i className="fa fa-map-marker-alt-alt"></i> {singleOrder.deliveryAddress.addressLine1} , <br/>{singleOrder.deliveryAddress.addressLine2} 
+                                            <i className="fas fa-map-marker-alt"></i> {singleOrder.deliveryAddress.addressLine1} , <br/>{singleOrder.deliveryAddress.addressLine2} 
                                             </div> 
                                         </div>
                                     </div>
@@ -366,40 +368,40 @@ export default class MyOrders extends Component {
                                           <div className={"col-4 NoPadding "}>
                                               <span className={" "+Style.myOrderVendorNameWrapper}><b>{vendordata.vendorName}</b></span> &nbsp;
                                           </div>           
-                                          <div className={"col-6 " +Style.middleText}>
+                                          <div className={"col-lg-6 col-8 col-sm-4 mb-2 " +Style.middleText}>
                                               <div className="row ">                                                           
                                                   <div className="col-12">
                                                       <div className="row">
-                                                        <span className="col-12 mx-5 ">Amount =   {vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} {this.state.currency}
+                                                        <span className="col-12 mx-lg-5 ">Amount =   {vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} {this.state.currency}
                                                         </span>
                                                        
                                                       </div>
                                                   </div>
                                                   <div className="col-12 title NoPadding">
                                                     
-                                                        <span className="col-12 mx-5 ">No.Of products : {vendordata.vendor_numberOfProducts} </span>
+                                                        <span className="col-12 mx-lg-5 ">No.Of products : {vendordata.vendor_numberOfProducts} </span>
                                                     
                                                   </div>       
                                               </div>
                                           </div>
 
                                           {vendordata.orderStatus=== "Cancelled"&&
-                                            <span className={" col-2  orderStatusBadge badge badge-danger NoPadding "+Style.orderStatusBadge2}>{vendordata.orderStatus}</span>
+                                            <span className={" col-lg-2 col-sm-4 orderStatusBadge badge badge-danger NoPadding "+Style.orderStatusBadge2}>{vendordata.orderStatus}</span>
                                           }
                                           {vendordata.orderStatus=== "New"&&
-                                            <span className={" col-2  orderStatusBadge badge  NoPadding "+Style.orderStatusBadge1}>{"Processing"}</span>
+                                            <span className={" col-lg-2 col-sm-4 orderStatusBadge badge  NoPadding "+Style.orderStatusBadge1}>{"Processing"}</span>
                                           }
                                           {vendordata.orderStatus=== "Processing"&&
-                                            <span className={" col-2  orderStatusBadge badge  NoPadding "+Style.orderStatusBadge1}>{"Processing"}</span>
+                                            <span className={" col-lg-2 col-sm-4 orderStatusBadge badge  NoPadding "+Style.orderStatusBadge1}>{"Processing"}</span>
                                           }
                                           {vendordata.orderStatus=== "On the Way" &&
-                                            <span className={" col-2  orderStatusBadge badge badge-primary NoPadding "+Style.orderStatusBadge1 +" " +Style.customeBadge +" " +Style.ontheWayBadge}>On the Way</span>
+                                            <span className={" col-lg-2 col-sm-4 orderStatusBadge badge badge-primary NoPadding "+Style.orderStatusBadge1 +" " +Style.customeBadge +" " +Style.ontheWayBadge}>On the Way</span>
                                           }
                                           {vendordata.orderStatus=== "Ready to Dispatch"&&
-                                            <span className={" col-2  orderStatusBadge badge badge-primary  NoPadding "+Style.orderStatusBadge1 +" " +Style.customeBadge +" " +Style.ontheWayBadge}>On the Way</span>
+                                            <span className={" col-lg-2 col-sm-4 orderStatusBadge badge badge-primary  NoPadding "+Style.orderStatusBadge1 +" " +Style.customeBadge +" " +Style.ontheWayBadge}>On the Way</span>
                                           }
                                           {vendordata.orderStatus=== "Delivered"&&
-                                            <span className={" col-2  orderStatusBadge badge badge-success NoPadding "+Style.orderStatusBadge}>{vendordata.orderStatus}</span>
+                                            <span className={" col-lg-2 col-sm-4 orderStatusBadge badge badge-success NoPadding "+Style.orderStatusBadge}>{vendordata.orderStatus}</span>
                                           }
                                           
                                         </div>
@@ -422,9 +424,9 @@ export default class MyOrders extends Component {
                                           </div>
                                         }
                                       </div>
-                                    <div className="col-7  pull-right orderBtnWrapper">
-                                      <button className=" btn col-6 float-right " onClick={()=>this.props.getOrderId(singleOrder._id)}>
-                                        <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-9 float-right showDetailsBtn "} >Show Details</a>
+                                    <div className="col-lg-7  pull-right orderBtnWrapper">
+                                      <button className=" btn col-lg-6 col-6 col-sm-4 float-right " onClick={()=>this.props.getOrderId(singleOrder._id)}>
+                                        <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-lg-9 float-right showDetailsBtn "} >Show Details</a>
                                       </button>
                                     </div>
                                   </div>
@@ -440,7 +442,7 @@ export default class MyOrders extends Component {
                     }
                   </div>
                 </div>
-               </div> 
+              
           }
         </div>
         </div>

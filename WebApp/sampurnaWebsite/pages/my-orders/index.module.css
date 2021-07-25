@@ -16,7 +16,7 @@
 }
 .ptb15{
 	padding:15px 0px !important;
-	font-size:11px !important;
+	font-size:8px !important;
 }
 
 .vendorRow{
@@ -81,3 +81,11 @@
 .mAuto{
 	margin:auto;
 }
+
+@media (min-width: 1200px) { 
+
+	.ptb15{
+		padding:15px 0px !important;
+		font-size:11px !important;
+	}
+  }

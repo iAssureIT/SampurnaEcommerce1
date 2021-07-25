@@ -4,7 +4,7 @@
 }
 
 .container1{
-	padding:0px 25px 25px 25px;
+	padding: 0px !important;;
 }
 
 .rightside{
@@ -13,7 +13,7 @@
 
 .ptb15{
 	padding:15px 0px !important;
-	font-size:11px !important;
+	font-size:8px !important;
 }
 .pnHIdden{
 	color: #fff!important;
@@ -26,7 +26,7 @@
 	padding:10px;
 }
 .orderDetaiAmount{
-	margin-left: 37%!important;
+	margin-left: 20%!important;
 }
 .middleText{
 	font-size:11px;
@@ -90,3 +90,26 @@
 .returnForm{
 	border-top: solid 1px #eee;
 }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+	.container1{
+		padding:0px 25px 25px 25px !important;
+	}
+
+	.ptb15{
+		padding:15px 0px !important;
+		font-size:11px !important;
+	}
+
+	.orderDetaiAmount{
+		margin-left: 37%!important;
+	}
+  }
+  /*  large devices (, 640px and up) */
+@media (min-width: 640px) { 
+	
+	.orderDetaiAmount{
+		margin-left: 37%!important;
+	}
+  }
