@@ -239,7 +239,7 @@ exports.fetch_page_block = (req,res,next)=>{
         .populate('pageBlocks.block_id')
         .exec()
         .then(data=>{
-            // console.log('fetch_page_block : ',data.blocks.blockSubTitle);
+            console.log('fetch_page_block : ',data);
             if(data){
                 res.status(200).json(data);
             }else{

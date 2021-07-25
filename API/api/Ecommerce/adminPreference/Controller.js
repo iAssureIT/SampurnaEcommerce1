@@ -1,5 +1,7 @@
 const mongoose	        = require("mongoose");
 const Adminpreference   = require('../adminPreference/Model');
+const EntityMaster      = require('../../coreAdmin/entityMaster/ModelEntityMaster');
+
 
 exports.insert_preferences = (req, res, next) => {
     // console.log("res:",res);
@@ -80,7 +82,24 @@ exports.get_preferences = (req, res, next) => {
     .exec()
     .then(data=>{
         //console.log("=============data found===========",data);
-        res.status(200).json(data);
+        // if(data[0].websiteModel === "SingleOwner"){
+        //     EntityMaster.findOne({companyID: 1})
+        //                 .then(singleVendor=>{
+        //                     var singleVendor_id = singleVendor._id;
+        //                     var prefAndVendorId = [{...data[0]._doc, singleVendor_id: singleVendor_id}];
+        //                     // console.log("prefAndVendorId => ",prefAndVendorId);
+                            
+        //                     res.status(200).json(prefAndVendorId);
+        //                 })
+        //                 .catch(err =>{
+        //                     console.log(err);
+        //                     res.status(500).json({
+        //                         error: err
+        //                     });
+        //                 });   
+        // }else{
+            res.status(200).json(data);
+        // }
     })
     .catch(err =>{
         console.log(err);
