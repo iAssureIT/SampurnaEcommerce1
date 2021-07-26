@@ -1,0 +1,12 @@
+.item_Name{
+    font-size: 12px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 10px;
+}
+
+.dealsBlock img{
+    height: 250px;
+    width: 100%;
+    cursor: pointer;
+}

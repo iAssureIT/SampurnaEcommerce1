@@ -1,0 +1,34 @@
+.creditWrapper{
+    
+    /* border: solid 1px #033554; */
+    height: 440px;
+    border-radius: 20px;
+    height:fit-content! important;
+    margin-top: -45px! important;
+    
+
+}
+.accountMainWrapper{
+    /* border: solid 1px #033554; */
+    border-radius: 20px;
+    min-height: 500px! important;
+    height: auto !important;
+}
+.creditHeader{
+    padding: 15px;
+    background: #033554;
+    color: #fff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    
+}
+
+.creditRow{
+    border-bottom: solid 1px #eee;
+    
+}
+.creditHeaderBottom{
+    border: solid 1px #033554;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}

@@ -1,0 +1,115 @@
+.accUserDetails h6{
+    font-size: 14px !important;
+}
+
+.accUserDetails p{
+    font-size: 14px !important;
+}
+
+.contactInformationWrapper{
+    border: 1px solid #033554;
+    border-radius: 19px;
+}
+
+.accountDashBoardwrapper{
+    min-height: 300px;
+    /* background-color: aqua; */
+}
+
+.addressBookMainWrapper{
+    min-height:300px;
+    /* background-color:red; */
+}
+
+.accountDashBoardInnerwrapper{
+    min-height:230px;
+    background-color: white;
+    border: 1px solid #033554;
+    border-radius: 19px;
+}
+
+
+.box {
+   
+    background-color: white;
+    border: 1px solid #033554;
+    border-radius: 19px;
+    width: 100%;
+    min-height: 259px!important;
+    height:auto;
+    color: black;
+  }
+  .modalLogoWrapperM{
+      height: 35px;
+  }
+  .f14BM p{
+	font-size: 12px !important;
+    /* font-weight: bold; */
+    margin-top: 15px;
+    margin-left: 71%;
+    position: absolute;
+
+}
+.modalCloseButtonWrapper{
+    margin-left: -27px !important;
+    cursor: pointer!important;
+    margin-top: -25px!important;
+}
+.modalCloseButtonWrapperM{
+    margin-left: -27px !important;
+    cursor: pointer!important;
+    margin-top: -25px!important;
+    font-size: 24px!important;
+}
+.modalLogoWrapper{
+    position: absolute;
+    height: 29px!important;
+    margin-left: -128px;
+    margin-top: -4px !important;
+}
+.modalLogoWrapperM{
+    position: absolute;
+    height: 29px!important;
+    margin-left: -10px;
+    margin-top: 11px !important;
+}
+
+
+.modalHeader{
+    background-color:#033554;
+    border-bottom:0px !important;
+    border-top-left-radius: 19px!important;
+    border-top-right-radius: 19px!important;
+}
+.modalHeaderM{
+    background-color:#033554;
+    border-bottom:0px !important;
+    border-top-left-radius: 19px!important;
+    border-top-right-radius: 19px!important;
+    padding-bottom: 45px!important;
+}
+.modalBodyRadius{
+    border-radius:0px 0px 6px 6px;
+    border-radius:19px!important;
+  }
+
+.modalContent{
+    border-radius: 25px !important;
+}
+.modalContentM{
+    border-radius: 25px !important;
+    margin-bottom: 45px!important;
+}
+  .modal-content {
+    border-radius:3px !important;
+  }
+
+
+
+.modalBg{
+    background-color:#eee;
+    background-color:#fff;
+    padding-bottom:50px !important;
+    border-bottom-left-radius: 19px!important;
+    border-bottom-right-radius: 19px !important;
+}

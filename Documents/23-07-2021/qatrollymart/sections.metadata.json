@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"key":{"sectionUrl":{"$numberDouble":"1.0"}},"name":"sectionUrl_1"},{"v":{"$numberInt":"2"},"key":{"status":{"$numberDouble":"1.0"}},"name":"status_1"}],"uuid":"773f439a42aa4e018ca22fc1ac052d09","collectionName":"sections"}

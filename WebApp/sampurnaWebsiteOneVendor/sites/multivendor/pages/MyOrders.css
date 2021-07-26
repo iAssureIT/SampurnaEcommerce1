@@ -1,0 +1,57 @@
+.vendorwiseOrderHistory{
+	/* border: solid 1px #ccc; */
+	font-size: 13px;
+
+}
+.orderStatus{
+	/* border: solid 1px #ccc; */
+	font-size: 14px;
+	padding: 5px 10px;
+	text-align: center;
+	height: 30px;
+}
+.orderIdborder{
+	border-bottom: solid 1px #707070;
+}
+.orderNowrapper{
+	border-bottom: solid 1px #ddd;
+    background: #033554;
+    color: #fff;
+    border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	font-size: 14px;
+}
+.totalOrderBlock{
+	border-bottom: solid 1px #ddd;
+}
+.orderIdborder{
+	margin-bottom: 10px;
+}
+.showDetailsBtn{
+	color: #033554 !important;
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	box-shadow: -2px 2px 6px #00000054;
+	border: 0.5px solid #033554;
+	border-radius: 4px;
+	opacity: 1;
+	padding: 5px;
+	font-size: 13px;
+}
+.orderStatusBadge{
+	/* height: 17px; */
+	padding:8px;
+}
+.cancelOrderStatus{
+	color: #f00;
+}
+.cancelbtn{
+	/* font-size: var(--globalBtnFont) !important; */
+	font-size: 12px !important;
+}
+.showDetailsBtn:hover{
+	text-decoration: none;
+}
+.dv-star-rating{
+	font-size: 40px !important;
+	height: 30px;
+}

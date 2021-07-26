@@ -1,0 +1,13 @@
+.stdBlockFGImage{
+    width:75%;
+    border-radius: 10px;
+}
+.stdBlockWrapper{
+    margin-top: -80px !important;
+}
+
+.blockDescWrapper p{
+    font-size: 20px!important;
+    color: black;
+    text-align: justify;
+}

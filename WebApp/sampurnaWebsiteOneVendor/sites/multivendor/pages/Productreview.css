@@ -1,0 +1,41 @@
+.reviewProImg{
+    height: 100px !important;
+    font-size: 14px ! important;
+}
+.customerPic{
+    height: 70px; 
+    width: 70px; 
+    /* display: inline-block; */
+    /* padding: 20px 26px; */
+    border-radius: 100%;
+    /* border:solid 1px #ccc; */
+    text-align: center;
+}
+.ProductPic{
+    height: 70px; 
+    width: 70px; 
+    /* display: inline-block; */
+    /* padding: 20px 26px; */
+    border-radius: 100%;
+    /* border:solid 1px #ccc; */
+    text-align: center;
+    margin-top: 100px!important;
+}
+.reviewBox{
+    /* border: solid 1px #ddd ; */
+    border-radius: 10px;
+    padding: 15px;  
+    margin-bottom: 20px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: -3px 3px 6px #00000066;
+border: 0.5px solid #707070!important;
+opacity: 1;
+}
+.ratingCount{
+    position:absolute;
+    top:20px;
+    font-size: 10px;
+}
+.starRatingBlock{
+
+}

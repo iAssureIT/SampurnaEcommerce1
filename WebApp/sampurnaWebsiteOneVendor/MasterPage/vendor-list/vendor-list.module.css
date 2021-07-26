@@ -1,0 +1,275 @@
+.vendorCard{
+    height: 70px;
+    box-shadow: 2px 2px 3px #dddddd;
+    cursor: pointer;
+    background-image: url("/images/eCommerce/vendorCard.jpg");
+    background-position: 100%;
+    border: solid 2px #000;
+}
+.vendorLogoImg{
+    border-radius: 100% !important;
+    /* border: solid 2px #ccc */
+    height: 40px;
+    width: 40px;
+}
+.vendorCard::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.8);
+}
+.bgGray{
+    background-color:#eee;
+    /* padding-bottom:15px; */
+}
+
+.bgHeight{
+    /* min-height:1000px; */
+    padding-bottom: 25px!important;
+    height: auto !important;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url(/images/eCommerce/vendorListBg.jpg)!important;
+    background-attachment: static!important;
+    background-position: center!important;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+}
+
+.deliveryTime{
+    margin-top: -33px !important;
+    /* margin-right: 2px; */
+    right: -56px;
+}
+.timeImg{
+    height: 79px !important;
+}
+.cardBody{
+    color: #fff;
+    z-index: 1;
+}
+.vendorLogo{
+    /* height: 100px; */
+    /* width: 50px; */
+    margin-bottom: 20px;
+}
+.vendorlistTitle{
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* border-bottom: solid 1px #eee; */
+}
+.noVendor{
+    margin-top: 100px;
+}
+.deliveryTimeWrapper{
+    background-color: #3E9D5E!important;
+    height: 45px !important; 
+    color: #fff !important;  
+    /* position: fixed; */
+    z-index: 10!important;
+    margin-top: -1px!important;
+}
+.deliveryTimeWrapperDesc{
+    position: absolute;
+    text-align: center;
+    top: 10px;
+    /* left: 13%; */
+    font-size: 12px;
+}
+
+.deliveryTimeWrapperDesc1{
+    color: red!important;
+    font-size: 20px;
+    font-weight: 900!important;
+}
+.deliveryTimeWrapperDesc2{
+    color: red!important;
+    font-size: 20px;
+    font-weight: 900!important;
+}
+.vendorName{
+    font-size: 12px;
+    overflow-wrap: break-word;
+    max-height:15px ;
+}
+.delTime{
+    position: absolute;
+    top: 39px;
+    right: 33px;
+    font-size: 9px;
+}
+.vendorLogo{
+    /* height: 100%; */
+    margin-top: -7px;
+    height: 115px;
+    border-radius:100%;
+    /* border:solid 2px #fff; */
+    border-radius: 100%;
+    background-position: 100%;
+}
+.vendorCard a{
+    text-decoration: none !important;
+}
+.vendorListWrapper{
+    cursor: pointer;
+}
+.vedorLink{
+    cursor: pointer;
+}
+
+.moreBtn{
+    text-align:right;
+    margin-bottom:15px !important;
+}
+
+.blueBTN{
+    color: #fff;
+    background-color: #033554;
+    border-color: #033554;
+}
+
+
+/*
+ #############################################################################################################
+                                M E D I A  Q U E R I E S  R E S P O N S I V E
+##############################################################################################################
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+    
+    .vendorCard{
+        height: 140px;
+        box-shadow: 2px 2px 3px #dddddd;
+        cursor: pointer;
+        background-image: url("/images/eCommerce/vendorCard.jpg");
+        background-position: 100%;
+        border: solid 2px #000;
+    }
+    .vendorLogoImg{
+        border-radius: 100% !important;
+        height: 110px;
+        width: 110px !important;
+        /* border: solid 2px #ccc */
+    }
+    .vendorCard::before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgba(0,0,0,0.8);
+    }
+    .bgGray{
+        background-color:#eee;
+        /* padding-bottom:15px; */
+    }
+    
+    .bgHeight{
+        /* min-height:1000px; */
+        padding-bottom: 100px!important;
+        height: auto !important;
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url(/images/eCommerce/vendorListBg.jpg)!important;
+        background-attachment: static!important;
+        background-position: center!important;
+        background-repeat: no-repeat!important;
+        background-size: cover!important;
+    }
+    
+    .deliveryTime{
+        margin-top: -10px !important;
+    }
+    .cardBody{
+        color: #fff;
+        z-index: 1;
+    }
+    .vendorLogo{
+        /* height: 100px; */
+        /* width: 50px; */
+        margin-bottom: 20px;
+    }
+    .vendorlistTitle{
+        font-size: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        /* border-bottom: solid 1px #eee; */
+    }
+    .noVendor{
+        margin-top: 100px;
+    }
+    .deliveryTimeWrapper{
+        background-color: #3E9D5E!important;
+        height: 45px !important; 
+        color: #fff !important;  
+        /* position: fixed !important; */
+        z-index: 10!important;
+        margin-top: -1px!important;
+       
+    }
+    .deliveryTimeWrapperDesc{
+        position: absolute;
+        text-align: center;
+        top: 10px;
+        /* left: 36%; */
+        font-size: 18px;
+    }
+    
+    .deliveryTimeWrapperDesc1{
+        color: red!important;
+        font-size: 20px;
+        font-weight: 900!important;
+    }
+    .deliveryTimeWrapperDesc2{
+        color: red!important;
+        font-size: 20px;
+        font-weight: 900!important;
+    }
+    .vendorName{
+        font-size: 23px;
+        overflow-wrap: break-word;
+        max-height:30px ;
+        font-weight: 600!important;
+    }
+    .delTime{
+        font-size: 20px;
+        position: absolute;
+        top: 50px;
+        right: 50px;
+    }
+    .timeImg{
+        height: 109px!important;
+    }
+    .vendorLogo{
+        /* height: 100%; */
+        margin-top: -9px;
+        height: 115px;
+        border-radius:100%;
+        /* border:solid 2px #fff; */
+        border-radius: 100%;
+        background-position: 100%;
+    }
+    .vendorCard a{
+        text-decoration: none !important;
+    }
+    .vendorListWrapper{
+        cursor: pointer;
+    }
+    .vedorLink{
+        cursor: pointer;
+    }
+    
+    .moreBtn{
+        text-align:right;
+        margin-bottom:15px !important;
+    }
+    
+    .blueBTN{
+        color: #fff;
+        background-color: #033554;
+        border-color: #033554;
+    }
+    
+    
+}

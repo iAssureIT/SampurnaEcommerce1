@@ -1,0 +1,81 @@
+.aboutbannerwrapp{
+	height: 740px;
+	background-color: #fff!important; 
+	
+}
+
+.ABOUTbanerheight{
+	height: 735px;
+	background-size: 100% 100%;
+}
+.logoBox{
+	position: absolute;
+	/* z-index: 50; */
+
+}
+/* .logoab{
+	position: absolute;
+    top: 30px;
+    height: 56px;
+    left: 130px;
+} */
+.aboutwannerwrpp{
+	height: 400px;
+	/* background-color: burlywood; */
+	margin-top: 150px;
+}
+.h1Titleus{
+	font-size: 60px;
+	font-family: 'Montserrat-Medium-Medium', sans-serif;
+    line-height: 1;
+	letter-spacing: 2.5px;
+	color: #f1f1f1;
+	font-weight: 1000;
+	margin-left: 92px;
+	margin-top: 134px;
+}
+.h2Titleus{
+	font-size: 29px;
+	font-family: 'Montserrat-Medium-Medium', sans-serif;
+    line-height: 1;
+    letter-spacing: 2.5px;
+	margin-left: 92px;
+	color: #f1f1f1;
+
+}
+.aboutfgwrapp{
+	height: 425px;
+	/* background-color: cadetblue; */
+	margin-top: 102px;
+}
+.rightIMGUS{
+	height: 443px;
+	margin-top: 23px;
+	margin-right: 0px;
+}
+.abbannerImg{
+	height: 485px;
+	margin-top: 135px;
+}
+.mtop305{
+    margin-top: 305px;
+    margin-right: 30px;
+    color: #fff;
+}
+.h1Title{
+	font-size: 36px;
+	letter-spacing: 1px;
+}
+.h2Title{
+	font-size: 82px;
+	font-family: 'Montserrat-Medium-Medium', sans-serif;
+    line-height: 1;
+    letter-spacing: 2.5px;
+    font-weight: 1000;
+}
+.h3Title{
+	font-size: 27px;
+	font-family: 'Montserrat-Medium-Medium', sans-serif;
+    letter-spacing: 1px;
+}
+

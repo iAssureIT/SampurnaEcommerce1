@@ -1,0 +1,54 @@
+.orderDetailsTop{
+	background: #033554;
+	color: #fff;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	padding: 10px;
+}
+.orderDetailsTopBlock{
+	/* border-top-left-radius: 10px; */
+	/* border-top-right-radius: 10px; */
+	padding-bottom: 30px !important;
+	border-radius: 10px;
+	/*border:solid 1px #033554;*/
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	box-shadow: -3px 3px 6px #00000029;
+	border-radius: 19px;
+	opacity: 1;
+}
+.orderDetails{
+	border: solid 1px #ccc;
+	border-radius: 10px;
+}
+.orderDetails .vendorName{
+	border-bottom: none !important;
+}
+.orderDetailsVendorName{
+	font-size: 20px;
+	font-weight: 700;
+}
+._1hzhf {
+	font-size: 10px;
+}
+._3uApM {
+	display: none !important;
+}
+._53Ji7{
+	padding: 0px !important;
+}
+.statusWizard{
+	margin-left: -45px;
+}
+
+.secondaryBtnClass{
+	background: "#ff0";
+}
+
+
+/* statusbar css */
+._2Jtxm._2ZUAI ._2JvrO {
+	background-color: #3E9D5E !important;
+}
+._2Jtxm._35Ago ._2kL0S{
+	background-color: #CE6E2E !important;
+}

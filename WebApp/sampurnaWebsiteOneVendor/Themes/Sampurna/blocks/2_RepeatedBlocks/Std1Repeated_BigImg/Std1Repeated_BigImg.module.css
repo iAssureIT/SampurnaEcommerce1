@@ -1,0 +1,39 @@
+.Mappdevwrapp{
+    height:1000px;
+    background-color: #fff!important;
+}
+.stdRepDescrption{
+    height: auto;
+}
+.devimagewrapp{
+    height:auto;
+}
+.reptedblockwrapp{
+    height:auto;
+    
+}
+.std1RepBlk{
+    height: auto;    
+}
+.std1RepSubBlk{
+    height: auto;
+    width: 240px;
+    border: 1px solid #ccc;
+    border-radius: 4%;
+    align-self: flex-end;
+    box-shadow: 2px 2px 20px 6px #dad6d6;
+}
+.std1RepSubBlk img{
+    height:auto;
+    width:100%;
+}
+.std1Title{
+    color: #333333;
+}
+.stdBigImage{
+    width: 30%;
+
+}
+.reptedblockwrapp{
+    height: auto;
+}

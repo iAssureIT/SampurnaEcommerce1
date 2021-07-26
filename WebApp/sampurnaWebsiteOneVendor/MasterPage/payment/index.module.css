@@ -1,0 +1,55 @@
+.paymentMainWrapper{
+    height: 480px;
+    /* background-color: aquamarine; */
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    /* padding-bottom: 20px; */
+}
+
+.paymentLeftSideWrapper{
+    height: 479px;
+    background-color:  #3E9D5E;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.paymentRightSideWrapper{
+    height: 450px;
+    background-color:#fff;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    /* background-image: url("/images/eCommerce/Face.png");
+    background-size:100% 100%;
+    background-repeat: no-repeat; */
+}
+.paymentBgWrapper{
+    position: absolute;
+    /* margin: auto; */
+    height: 250px;
+    top: 100px;
+    left: 140px;
+    /* margin-top: 54px; */
+}
+.paymentLogoWrapper{
+    height:35px;
+}
+.backtoMyOrdersDivWrapper a{
+color: #033554 !important;
+}
+
+.paymentAlertWrapper i{
+    font-size:40px;
+    color: #fff;
+}
+
+.paymentAlertWrapper h6{
+    color: #fff;
+}
+
+.paymentLockWrapper i{
+    color:#fff;
+}
+.paymentLockWrapper{
+    color: #fff;
+    font-size: 14px;
+}

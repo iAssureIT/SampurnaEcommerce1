@@ -1,0 +1,44 @@
+.NoAvailableImg{
+	/*width:214px !important;*/
+	height:100%;
+}
+
+.itemImg{
+	min-width:100% !important;
+	max-width:0%;
+	min-height:80% !important;
+	border: solid 1px #ddd;
+	border-radius: 20px;
+}
+
+.categoryName{
+	position:absolute;
+	top:196px;
+	text-align: center;
+	color: #000;
+    font-weight: 900;
+} 
+
+.itemImg div{
+	min-width:100% !important;
+}
+.outerBox{
+	min-width:100% !important;
+}
+
+.itemImg img{
+	background-size:100% 100% !important;
+	min-width:100% !important;
+	border-radius: 18px!important;
+}
+
+.react-multi-carousel-item::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    /*background-color: rgba(0,0,0,0.7);*/
+    background-color: rgba(0,0,0,0.25);
+}

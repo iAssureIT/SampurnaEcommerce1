@@ -1,0 +1,81 @@
+.HomePageBanner2{
+    position: relative;
+    z-index: 999;
+    margin-top: -150px;
+    /* margin-bottom: 40px; */
+    /* background: #fff !important; */
+}
+.homeRow{
+    background-color: #fff;
+}
+.container.container-ver2 {
+    width: 1200px;
+    padding: 0 15px;
+}
+.hover-images img{
+    border-radius: 5px;
+}
+.HomePageBanner2 img {
+    border-radius: 5px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+.zoomImg {
+    transition: all 0.6s ease-in-out;
+    cursor: pointer;
+    /* box-shadow: 0px 8px 33px 0px rgba(0, 0, 0, 0.13); */
+    box-shadow: 8px 16px 32px 0px rgba(0, 0, 0, 0.13);
+    z-index: 100;
+    border:solid 2px #333;
+    background-color: #fff;
+    /* height: 200px; */
+    margin-bottom: 20px;
+}
+.zoomImg:hover{
+    transform: scale(1.1);
+}
+.imageBlock{
+    /* height: 200px; */
+    margin-top: 80px;
+    margin-bottom: 15px;
+}
+.imageBlock .zoomImg{
+    border: solid 1px #aaa !important;
+}
+.imgTitle {
+    color: #333;
+    font-size: 18px;
+    margin-top: 12px;
+    position: absolute;
+    z-index: 100;
+    text-align: center;
+    font-weight: 600;
+    margin-left: 15px;
+}
+@media only screen and (max-device-width: 480px) {   
+.imageBlock{
+    margin-top: 130px;
+}
+.HomePageBanner2 .hover-images{
+    padding: 0px;
+}
+.HomePageBanner2{
+    margin-bottom: 0px;
+}
+.freshFood{
+    margin-top: -130px;
+}
+.freshfoodImgWrapper{
+    padding: 0px 90px;
+}
+}
+/* @media only screen and (min-device-width: 481px)and(max-device-width: 768px) {    */
+    @media only screen and (min-width: 481px) and (max-width: 768px) { 
+    .imageBlock{
+        /* margin-top: 80px; */
+    }
+    .HomePageBanner2{
+        margin-top: -100px;
+        margin-bottom: 0px;
+    }
+}

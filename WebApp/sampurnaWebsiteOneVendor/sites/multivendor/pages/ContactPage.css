@@ -1,0 +1,340 @@
+
+.contactcontent1-wrap{
+	margin-top: 30px;
+}
+.contactcontent2-wrap{
+  margin-top: 70px;
+  color: #fff;
+  margin-bottom: 70px;
+}
+.contactcontent{
+  padding: 0px 0px;
+  font-family: arial;
+}
+
+.contactcontent h6,h3{
+ text-transform: capitalize;
+ font-weight: bold;
+ }
+.contactcontent hr{
+  width: 35px;
+  border:3px solid #C8B476;
+  
+}
+
+.bw{
+  background-color: #f0f;
+}
+
+.contactcontbackimg{
+  background-image: url("/images/contactcontimg.jpg");
+  background-size: 100%;
+  height: 375px;
+  margin-top: 45px;
+  background-color: #555;
+}
+.contactpageform{
+  background-color: #ddd;
+  height: 500px;
+  color: #555;
+}
+
+.contacticon1{
+  font-size: 45px;
+  color: #fbbd65;
+
+}
+
+.contacticon2{
+  color: #fff;
+  font-size: 25px;
+  position: absolute;
+  right: 27px;
+  top: 10px;
+
+}
+.contacticon21{
+  color: #fff;
+    font-size: 20px;
+    position: absolute;
+    right: 27px;
+    top: 14px;
+
+}.contacticon22{
+  color: #fff;
+    font-size: 20px;
+    position: absolute;
+    right: 25px;
+    top: 12px;
+
+}.contacticon23{
+  color: #fff;
+    font-size: 20px;
+    position: absolute;
+    right: 25px;
+    top: 13px;
+
+}
+.contacttextmargin{
+  margin-top: 70px;
+} 
+.contacttextmargin2{
+  margin-top: 100px;
+} 
+.contacttextmargin h4{
+  text-transform: capitalize;
+  
+} 
+.contactformbtn{
+  border-radius:0px;
+  font-size: 12px;
+  font-weight: 600;
+  padding:10px 20px;
+}
+
+
+#message{
+  resize: none;
+}
+
+.formcontent{
+  height: 90px;
+}
+.formcontent1{
+  height: 120px;
+}
+
+/* css for contactusShoppinglist */
+
+.cshoplistwrap{
+	/* min-height: 725px */
+}
+.boxOfShop{
+	margin: 15px 10px 15px 10px;
+	height: 200px;
+	background-color: #fff;
+	box-shadow: #ccc 0px 0px 6px 0px;
+	border-radius: 10px;
+}
+.mtop10a{
+	margin-top: 15px;
+}
+.mtop10bqa{
+	margin-top: 15px;
+	margin-left: 49%;
+}
+.boxmtop{
+	margin-top: 3%;
+}
+.franchiseName{
+	font-weight: 600;
+	font-size: 16px;
+}
+
+/* css for contactus Banner */
+.bannercusweapper{
+	height: 275px;
+	background-color: #fff;
+	padding: 35px 40px;
+}
+.bgImageTextonBCUS{
+	background-image: url("/images/header3.jpg");
+	background-size: 100% 100%;
+	height: 100%;
+	width: 100%;
+	background-size: cover !important;
+}
+.margTop5p25per{
+	padding-top: 5.25%;
+}
+.fs40CU{
+	font-size: 40px;
+	font-weight: 600;
+}
+
+/* css for contact form */
+.containerCon{
+  /*margin-left: 55px;*/
+  padding: 0px;
+  /* padding-left: 42px; */
+  /*width: 1200px;*/
+  max-width: 100%;
+  background-color: #fff;
+  
+  /*height: 500px;*/
+}
+.conatctform{
+/*border: 1px solid #ccc;
+border-radius: 10px;
+box-shadow: 2px 2px 20px 0px #999;*/
+}
+.nopadding{
+  padding: 0px;
+}
+.conatctMap{
+  height: 500px;	
+  background-color: #aaa;	
+}
+.xsheight{
+  /* height: 500px;	 */
+  background-color: #fff;
+
+}
+.conatctform{
+  margin: 25px;
+  height: 430px;	
+  box-shadow: #eee 0px 0px 10px 3px;
+  background-color: #fff;
+
+}
+.labelmargin{
+  text-align: right;
+  margin-top: 6px;
+}
+.bt30{
+  margin-bottom:  10px;
+}
+.cName{
+  padding: 22px;
+  margin-left: 25px;
+  height: 63px;
+  font-size: 15px;
+  width: 75%;
+  border: 2px solid #eee;
+  height: auto;
+}
+.compaddress{
+  padding: 22px;
+  margin-left: 25px;
+  padding-left: 13.5%;
+  height: 150px;
+  width: 75%;
+  border: 2px solid #eee;
+  height: auto;
+}
+.ml25{
+margin-left: 15px;
+}
+
+.formControl {
+  display: block;
+  width: 100%;
+  height: 50px !important;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+textarea.form-control {
+  height: auto !important;
+}
+.mtop30cf{
+margin-top: 40px;
+margin-left: 15%;
+
+}
+.bt20{
+margin-top: 20px;
+}
+
+.sbtn{
+    /*background: -webkit-linear-gradient(left,#ffc600 0%,#ff4200 50%,#ffc600 100%);*/
+    height: 50px;
+    /*background-color: #18ccf7;*/
+    /*color: #fff;*/
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.gettopLine{
+
+}
+.gettopLine1{
+width: 35px;
+height: 4px;
+background-color: #666;
+}
+.gettopLine2{
+margin-left: 5px;
+width: 10px;
+height: 4px;
+background-color: #666;
+}
+
+/* css for contactMap */
+.cuMapwrapper{
+	height: 610px;
+	background-color: #fff;
+	padding: 40px 40px;
+}
+.bgImageTextonCuMap{
+	/*background-image: url("/images/header3.jpg");*/
+	background-size: 100% 100%;
+	height: 100%;
+	width: 100%;
+}
+.margTop5p25per{
+	padding-top: 5.25%;
+}
+.fs40CU{
+	font-size: 40px;
+	font-weight: 600;
+}
+/*=====================================================================================================*/
+.gmapwrapper{
+	/*height: 500px !important;*/
+	width: 100%;
+	/*background-color: #ddd !important;*/
+}
+.mapouterxs{
+	position:relative;
+	text-align:right;
+	/*height:500px;*/
+	width:1000px;
+}
+.gmap_canvas{
+	overflow:hidden;
+	background:none!important;
+/*	height:500px;
+	width:900px;*/
+}
+.demogmap_canvasxs{
+	overflow:hidden;
+	/*background:#aaa !important;*/
+	/*background-image: url("/images/demomap.png");*/
+	/*opacity: 0.3;*/
+
+	height:400px;
+	width: 100%;
+
+	padding: 15px 4px;
+
+}
+@media only screen and (max-device-width: 480px) {   
+.conatctform{
+  margin: 25px 0px;
+}
+.conatctform h3{
+  font-size: 16px;
+}
+.containerCon{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.para__1KK11{
+  font-size: 12px;
+}
+.label__3Zllp{
+  font-size: medium;
+}
+.rotateImg{
+  height: 30px;
+}
+}

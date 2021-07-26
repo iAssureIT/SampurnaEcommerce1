@@ -1,0 +1,21 @@
+
+.addressSaveBtn{
+    border-radius: 25px;
+    padding: 10px 20px;
+}
+.addressModal{
+    top: 25px;
+    overflow-y: hidden !important;
+}
+.addressModalBody{
+    padding: 0px 15px 15px 15px;
+}
+.modalBtn{
+	background-color: #80b435;
+	color: #fff;
+}
+.modalheadingcont,
+.modalclosebut{
+    font-weight: 600;
+    color: #fff !important;
+}

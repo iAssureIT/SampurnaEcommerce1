@@ -1,0 +1,101 @@
+.vendorCard{
+    height: 140px;
+    box-shadow: 2px 2px 3px #dddddd;
+    /* background: rgba(0, 15, 0, 0.3); */
+    cursor: pointer;
+    background-image: url("/images/eCommerce/vendorCard.jpg");
+    background-position: 100%;
+    border: solid 2px ;
+}
+
+.vendorLogoImg{
+    border-radius: 100% !important;
+    height: 110px;
+    width: 110px !important;
+    margin-top: -10px;
+    /* border: solid 2px #ccc */
+}
+.vendorCard::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.7);
+    /*background-color: rgba(0,0,0,0.25);*/
+}
+.HTVtimeImg{
+    margin-top: -60px;
+}
+.bgGray{
+    background-color:#eee;
+    padding-bottom:15px;
+}
+
+.HTVdelTime{
+    margin-top: 0px !important;
+}
+.cardBody{
+    color: #fff;
+    z-index: 1;
+}
+.vendorLogo{
+    /* height: 100px; */
+    /* width: 50px; */
+    margin-bottom: 20px;
+}
+.vendorlistTitle{
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* border-bottom: solid 1px #eee; */
+}
+.noVendor{
+    margin-top: 100px;
+}
+.vendorName{
+    font-size: 25px;
+}
+.vendor_price{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.HTVdelTime{
+    position: absolute;
+    top: -10px;
+    right: 50px;
+}
+.vendorLogo{
+    /* height: 100%; */
+    border-radius:100%;
+    /* border:solid 1px #ccc; */
+    border-radius: 100%;
+    /* background-image: url("/images/eCommerce/loader.gif"); */
+    background-position: 100%;
+}
+.vendorCard a{
+    text-decoration: none !important;
+}
+.vendorListWrapper{
+    cursor: pointer;
+}
+.vedorLink{
+    cursor: pointer;
+}
+
+.bgHeight{
+    min-height:1000px;
+    height:auto;
+}
+
+.moreBtn{
+    text-align:right;
+    margin-bottom:15px !important;
+}
+
+.blueBTN{
+    color: #fff;
+    background-color: #033554;
+    border-color: #033554;
+}

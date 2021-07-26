@@ -1,0 +1,333 @@
+.shippingAddressTitle{
+    padding: 9px;
+}
+.shippingAddress{
+    word-break: break-all;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 40px;
+    border: 1px solid #ddd;
+    /* height: 936px; */
+    /* overflow: auto; */
+}
+.saveAddressBtn{
+
+}
+.deleteCoupon i{
+    cursor: pointer;
+    color: #f00;
+}
+.addressDesabled{
+    opacity: 0.4;
+}
+.checkoutAddressModalHeader{
+    background-color: #033554;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+.addressModalBody{
+    padding-top: 0px !important;
+}
+::placeholder {
+    font-size: 14px !important;
+  }
+.shippingInput label{
+    font-size: 15px;
+}
+.discountValue{
+    color: #f00 !important;
+}
+.discountValue span, .faPercent{
+    color: #f00 !important;
+}
+.modalContent{
+    border-radius: 10px !important;
+}
+.closeModal{
+    color: #fff !important;
+}
+.addressWrapper{
+    height: 560px;
+    /* height: 533px; */
+    overflow: auto;
+}
+.termConditionErrorMsg {
+    margin-left: 20px;
+    margin-top: -13px;
+}
+.orderReviewsWrapper{
+    /* height:650px; */
+    /* overflow:auto; */
+    margin-bottom: 20px;
+}
+.shippingInput{
+    /* margin-top: 20px; */
+    margin-bottom: 10px;
+}
+.shippingtimes{
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.mgbtm20{
+    margin-bottom: 40px;
+}
+.orderConfirmation {
+    text-align: right;
+    border-radius: 15px;
+    color:  #999;
+    font-size: 26px;
+    cursor: pointer;
+}
+.orderConfirmation:hover{
+    color: #A2632C !important
+}
+.shippingLogin{
+    border-radius: 25px;
+}
+.shipLog{
+    margin-top: 15px;
+    color: #999;
+}
+.shipLog label{
+    margin-top: 6px;
+}
+.shippingMethod{
+    margin-top: 50px;
+    padding-bottom: 50px;
+    border: 1px solid #ddd; 
+}
+.shippingMethodTitle{
+    padding: 9px;
+    margin-bottom: 10px;
+}
+.shippingMethod label{
+    margin-top: 15px;
+}
+.shippingMethod input{
+    margin-top: 10px;
+}
+.paymentMethod{
+    margin-top: 30px;
+    padding-bottom: 50px;
+    border: 1px solid #ddd; 
+}
+.paymentMethodTitle{
+    padding: 9px;
+    margin-bottom: 10px;
+}
+.paymentInput{
+    margin-top: 15px;
+}
+.orderImg{
+    /* height: 100px; */
+    width: 100px;
+}
+.orderTable .table th,
+.orderTable .table td{
+    border-top: 0px !important;
+    border-bottom: 0px !important;
+}
+.orderTable .table tr{
+    margin-bottom: 20px;
+}
+.orderTable>tbody>tr>td {
+    padding: 12px 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #fff;
+}
+.orderTable>tbody>tr>td {
+    vertical-align: middle !important;
+}
+.orderTable>thead>tr>th{
+    padding-bottom: 25px;
+    border-bottom: 1px solid #ccc;
+}
+.crossOrder{
+    cursor: pointer;
+    color: #9d9d9d;
+}
+.checkoutBorder{
+    height: 1px;
+    background: #f5f5f5;
+}
+.quantityInput{
+    padding: 5px 10px;
+    border: 1px solid #333;
+}
+.orderReviews{
+    margin-top: 30px;
+    padding-bottom: 30px;
+    border: 1px solid #ddd; 
+    margin-bottom: 20px;
+}
+.orderReviewsTitle{
+    padding: 9px;
+    margin-bottom: 10px;
+}
+.orderReviews span{
+    /* font-weight: 700; */
+    margin-top: 10px;
+    color: #333;
+    font-size: 15px;
+}
+.tableRowWrapper{
+    display: contents;
+}
+.cuponBtn{
+    padding: 5px;
+    font-size: 12px;
+    height: 37px;
+    
+}
+.textAlignRight{
+    text-align: right !important;
+}
+.productName{
+    font-weight: 700 !important;
+    color: #333 !important;
+}
+.productPrize{
+    white-space: nowrap;
+    color: #333 !important;
+    /*font-weight: 900;*/
+    font-size: 13px;
+}
+.couponCode{
+    color: #999;
+}
+.discountCode{
+    cursor: pointer;
+}
+.price{
+    font-size: 13px;   
+}
+.orderTotalText{
+    font-size: 17px !important;
+    font-weight: bold;
+    text-align: left;
+    color: #4b4a4a;
+}
+.transactionpageText{
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    color: #4b4a4a;
+    
+}
+.transaction{
+    margin-top: 300px;
+}
+.loadercircle{
+    margin-top: 100px;
+    align-content: center;
+}
+.orderTotalPrize{
+    color: #80b435 !important;
+    font-size: 18px;
+    font-weight: bold;
+}
+.giftBtn{
+    border-radius: 25px;
+}
+.giftWrapPrize{
+    color: #A2632C !important;
+}
+.placeOrder{
+    border-radius: 25px;
+}
+.notplaceOrder{
+    border-radius: 25px;
+    background-color: #999 !important;
+    
+}
+.required{
+    color: red !important;
+}
+.checkoutAddressModal{
+    /* overflow: hidden; */
+}
+.termsNconditionsmodal{
+    margin-top: -10px;
+    cursor: pointer;
+}
+.listStyle li{
+    list-style: disc;
+}
+.orderReviewsWrapper tr td{
+    /* padding: 0px; */
+}
+.termsNconditionsmodal:hover{
+    color: #80b435;   
+}
+.close{
+    font-size: 26px;
+    font-weight: 600;
+    opacity: 1;
+}
+.checkoutADDCss{
+    word-break: break-word;
+}
+.codRadio{
+    height: 15px !important;
+    width: 15px !important;
+    margin-right: 5px !important;
+}
+.termsWrapper{
+    margin-top: -16px;
+}
+.acceptTerms{
+    height: 20px;
+    width: 20px;
+    margin-top: -15px !important;
+}
+.notAvailable{
+    color: #f00;
+    font-size: 12px;
+    margin-bottom: 5px;
+    display: none;
+    padding-left: 0px;
+}
+.DeliveryNotPoss{
+    color: #f00;
+    font-size: 12px;
+    margin-bottom: 5px;
+    display: none;
+    padding-left: 0px;
+}
+.title{
+    display: inline-block;
+}
+.manageHeight{
+    height : 49px;
+}
+.checkoutADDCss{
+    font-size: 14px ! important;
+}
+.tableRow{
+    padding-top: 20px;
+    border-top: solid 1px #ddd;
+    border-bottom: solid 1px #ddd;
+}
+
+@media only screen and (max-device-width: 480px) {   
+.orderImg{
+    width: 60px;
+}
+.termConditionErrorMsg{
+    margin-top: 0px;
+    margin-left: 4px;
+}
+.checkOutTerms{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.termsWrapper{
+    margin-top: -17px !important;
+    font-size: 12px;
+    padding-right: 0px;
+}
+.orderReviews span{
+    font-size: 9px;
+}
+}

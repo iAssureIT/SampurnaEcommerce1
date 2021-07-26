@@ -1,0 +1,147 @@
+
+/*Wizard css*/
+.pt106{
+    padding-top: 106px !important;
+}
+.garmentTWizard .nav-tabs > li {
+    width: 25%;
+}
+/*.garmentTWizard li.active span.round-tab{
+    background: #d58980;
+    border: 2px solid #d58980;
+}
+.garmentTWizard li.active span.round-tab i {
+    color: #fff;
+}*/
+.bgcolor{
+    background: #3f9090!important;
+    border: 2px solid #d58980;
+    color: #fff!important;
+}
+.neworderstatus{
+    background: #777 !important;
+    border: 2px solid #d58980;
+    color: #fff!important;
+}
+.neworderstatus i {
+    color: #fff !important
+}
+.backcolor{
+    background-color: #000 important;
+}
+
+.wizard .nav-tabs, .garmentTWizard .nav-tabs {
+    position: relative;
+    margin: 1px auto;
+    margin-bottom: 0;
+    border-bottom-color: #e0e0e0;
+}
+.connecting-line {
+    height: 2px;
+    background: #e0e0e0;
+    position: absolute;
+    width: 72%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 25%;
+    /* z-index: 1; */
+}
+.garmentTWizard > div.wizard-inner {
+    position: relative;
+    margin-top:1%;
+}
+.garmentTWizard {
+    /* margin: 10px auto; */
+   /* background: #fff;*/
+}
+.garmentTWizard .nav-tabs {
+    position: relative;
+    /* margin: 10px auto; */
+    margin-bottom: 0;
+    border: none;
+}
+.garmentTWizard .nav-tabs > li a {
+    width: 30px;
+    height: 30px;
+    margin: 10px auto;
+    border-radius: 100%;
+    padding: 0;
+}
+span.round-tab {
+    width: 30px;
+    height: 30px;
+    line-height: 27px;
+    display: inline-block;
+    border-radius: 100px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    /* z-index: 2; */
+    position: absolute;
+    left: 0;
+    text-align: center;
+    font-size: 15px;
+}
+span.round-tab i {
+    color: #555555;
+}
+.addresstotalwrap{
+    margin-top: 5%;
+}
+
+.prodaddressFooterTotalVal {
+    background: #d58980;
+    padding: 11px 28px;
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
+}
+
+.prodprocessContCheckout {
+    background: #7B943F;
+    color: #fff;
+    /* padding: 8px 20px; */
+    padding: 5% 20%;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'poppins';
+    /* width: 50%; */
+    text-align: center;
+}
+.prodaddressBackToShop {
+    background: #777;
+    color: #fff;
+    /* padding: 8px 20px; */
+    border-radius: 20px;
+    /*margin-right: 10px;*/
+    cursor: pointer;
+    padding: 5% 38.6%;
+    /* width: 49%; */
+    text-align: center;
+}
+.addrebackbtn{
+    margin-bottom: 9%;
+    padding: 0%;
+}
+.prodaddressFooterBtns{
+    margin-top:10%;
+    margin-left: 14%;
+    padding: 0%;
+}
+.prodprocessContCheckout:hover{
+    color: #fff!important;
+}
+.noLpad{
+    padding-left: 0%!important;
+}
+.wiztext{
+    text-align: center;
+    color: #333;
+
+
+}
+.wiztextcontainer{
+    /*position: relative;*/
+    /*top:14px;*/
+}
