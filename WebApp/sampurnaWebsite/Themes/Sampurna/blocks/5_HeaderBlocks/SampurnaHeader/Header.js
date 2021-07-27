@@ -59,26 +59,26 @@ class Header extends React.Component {
                         <nav className="navbar navbar-expand-md navbar-dark megamenu">
                             <div className="col-12 NoPadding ">
                                 <div className="col-12 top-header">
-                                    <div className="row logoWrap"> 
-                                        <div className="col-2">
-                                            <Websitelogo />
-                                        </div>
+                                    <div className="col-12 logoWrap"> 
+                                        <div className="row">
+                                            <div className="col-4 col-lg-2 col-sm-2">
+                                                <Websitelogo />
+                                            </div>
 
-                                        <SearchBar />
-                                        
-                                        <div className={"col-8 col-lg-"+colWithLogin+" col-sm-"+colWithLogin +" mt-1 systemSecurity"}> 
-                                            <div className="row">   
-                                                <div className="col-5 ml-4 ">
-                                                    < SystemSecurityModal />
-                                                </div>   
-                                                 {/* {this.state.user_ID && this.state.authService!=="guest"?                             */}
-                                                <div className="col-2 NoPadding ">                                                   
-                                                    < Wishlist />                                                
-                                                </div>  
-                                                {/* :null} */}
-                                                <div className="col-4 NoPadding ">
-                                                    < MyCart />    
-                                                </div>                                      
+                                            <SearchBar />
+                                            
+                                            <div className={"col-8 col-lg-"+colWithLogin+" col-sm-"+colWithLogin +" mt-1 systemSecurity"}> 
+                                                <div className="row">   
+                                                    <div className="col-5 ml-4 systemSecurityModal">
+                                                        < SystemSecurityModal />
+                                                    </div>                             
+                                                    <div className="col-2 NoPadding ">                                                   
+                                                        < Wishlist />                                                
+                                                    </div>  
+                                                    <div className="col-3 col-lg-4 col-sm-4 NoPadding ">
+                                                        < MyCart />    
+                                                    </div>                                      
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

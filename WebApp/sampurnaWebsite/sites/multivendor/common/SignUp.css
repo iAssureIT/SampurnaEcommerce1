@@ -402,7 +402,7 @@ input[type=number] {
       height: 920px;
     }
     .loginModalContent .close{
-      margin-right: -23px;
+      margin-right: 10px;
     }
     .loginSignupBtn{
       text-align: center;

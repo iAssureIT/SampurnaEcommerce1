@@ -29,7 +29,7 @@ class MyCart extends React.Component {
             <div className="col-12 NoPadding">
             {this.state.userID?
                 <div className="row cartHeader">  
-                    <div className="col-5 ml-4 topCart NoPadding">
+                    <div className="col-6 col-lg-8 col-sm-8 ml-4 topCart NoPadding">
                         <a href="/cart" className="row cartHeader">
                             <Image
                             src={"/images/eCommerce/cart.png"}
@@ -49,7 +49,7 @@ class MyCart extends React.Component {
                 </div>
                 :
                 <div className="row cartHeader" >
-                    <div className="col-8 NoPadding ml-4">
+                    <div className="col-6 col-lg-8 col-sm-8 NoPadding ml-4">
                         <a href="" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
                             <Image
                             src={"/images/eCommerce/cart.png"}

@@ -621,57 +621,11 @@ li a{
     color: #fff !important;
     font-size: 9px;
 }
-@media only screen and (max-device-width: 480px) {
-    .navbar-toggle .icon-bar{
-        width: 18px !important;
-    }
-    .sectionForMobile{
-        color: #FFF;
-        text-align: left !important;
-    }
-    .tableSearch{
-        height: 35px !important;
-    }
-    .searchIcon{
-        height: 31px;
-    }
-    .rightNavbar{
-        margin-left: 0px !important;
-        margin-bottom: 10px;
-        margin-top: 0px !important;
-    }
-    .top-header{
-        padding-left: 0px !important;
-        padding-right: 0px !important;
-    }
-    .cart-count{
-        left:40px;
-    }
-    .loginView{
-        font-size: 8px;
-        padding: 7px 0px;
-    }
-    .myaccDropdown{
-        padding-right: 0px !important;
-        padding-left: 15px !important;
-        display: inline-block;
-    }
-    .beforeLogin{
-        display: inline-block;
-    }
-    .systemSecurity{
-        position: absolute !important;
-        top: 0px;
-    }
-    input::-webkit-input-placeholder{
-        font-size: 10px !important;
-    }
-}
 
 /* DElivery Location css */
 .DisplayLocation{
     background-color: #fff;
-    /*padding: 10px 15px;*/
+    padding: 5px 0px;
     border-bottom: solid 1px #eee;
     margin-top: 5px;
 }
@@ -808,4 +762,74 @@ li a{
 .errormsg{
     color: #f00 !important;
     font-weight: 200 !important;
+}
+
+@media only screen and (max-device-width: 480px) {
+   .systemSecurityModal{
+       padding-left: 0px;
+       padding-right: 0px;
+   }
+   .navbarToggleBtn{
+       margin-left: 7px;
+       height: 30px;
+       margin-top: -2px;
+       border: solid 1px #fff;
+   }
+   .userName,
+   .userEmail{
+       font-size: 10px;
+   }
+   .userEmail{
+       padding-top: -5px;
+   }
+    .navbar-header{
+        margin-bottom: 5px;
+        margin-left: 5px;
+    }
+    .navbar-toggler-icon{
+        font-size: 10px !important;
+    }
+    .sectionForMobile{
+        color: #FFF;
+        text-align: left !important;
+    }
+    .tableSearch{
+        height: 30px !important;
+    }
+    .searchIcon{
+        height: 30px;
+    }
+    .rightNavbar{
+        margin-left: 0px !important;
+        margin-bottom: 10px;
+        margin-top: 0px !important;
+    }
+    .top-header{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .cart-count{
+        left:40px;
+    }
+    .loginView{
+        font-size: 8px;
+        padding: 7px 0px;
+    }
+    .myaccDropdown{
+        padding-right: 0px !important;
+        padding-left: 15px !important;
+        display: inline-block;
+    }
+    .beforeLogin{
+        display: inline-block;
+    }
+    .systemSecurity{
+        position: absolute !important;
+        top: -15px;
+        /* left: 64px; */
+        right: 0px;
+    }
+    input::-webkit-input-placeholder{
+        font-size: 10px !important;
+    }
 }

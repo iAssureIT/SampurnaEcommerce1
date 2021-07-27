@@ -657,10 +657,13 @@ body{
   }
  }
 @media only screen and (max-device-width: 480px) {
-  /* .mobileViewNoPadding{
+  .mobileNoPadding{
     padding-left: 0px !important;
     padding-right: 0px !important;
-  } */
+  }
+  .mobileViewSearch{
+    margin-left: 50px;
+  }
   .mobileViewPaddingLeft{
     padding-left: 10px !important;
   }

@@ -496,7 +496,7 @@
   text-align: right;
 }
 .logoTop{
-  margin-top: 62px!important;
+  /* margin-top: 62px!important; */
 }
 @media only screen and (max-device-width: 480px) {    
   .categoryFooterWrapper{
@@ -504,9 +504,15 @@
   }
   .aboutusFooterWrapper{
     margin-bottom: 20px;
-}
-
-
+  }
+  .logoTop{
+    margin-top: 10px;
+  }
+  .footerBottom{
+    height: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
 .copyrighttxt p,
 .footernabbar span{
   font-size: 11px !important;
@@ -556,7 +562,7 @@
 
 @media only screen and (min-device-width: 700px) {    
   .logoTop{
-    margin-top: 90px;
+    margin-top: 60px;
   }
   .aboutClass{
   color:#fff;
@@ -588,11 +594,7 @@
   display: grid;
     justify-content: center;
       }
-
-
 }
-
-
 .footerSection{
   padding-left: 30px ! important;
 }

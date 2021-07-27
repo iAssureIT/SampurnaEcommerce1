@@ -393,7 +393,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={" col-7 NoPadding"}>
+                                <div className={" col-12 col-lg-7 col-sm-7 NoPadding"}>
                                     <PlacesAutocomplete 
                                         value={this.state.address}
                                         onChange={this.handleChangePlaces}
@@ -454,11 +454,10 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                     </PlacesAutocomplete>
                                 </div>
                                 <div className="col-12 NoPadding">
-                                    <div className="col-2 offset-9 mt-3 NoPadding ">
+                                    <div className="col-6 col-lg-2 col-sm-2 offset-9 mt-3 NoPadding ">
                                         <button type="button" className={" btn col-12 NoPadding pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
                                     </div>
                                 </div>
-                                
                             </div>
                             {/* <div className={"col-sm-12 col-xs-12 col-md-12 col-lg-8 mt-4 " +Style.ma}>
                                 <div className="col-12">

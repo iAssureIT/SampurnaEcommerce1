@@ -31,7 +31,7 @@ class WebsiteLogo extends React.Component {
 
    render(){
         return(  
-            <div className="col-12 mr-6 mt-2 logoBlock ">
+            <div className="col-12 mr-6 mt-2 logoBlock mobileNoPadding ">
                 <a href="/" title="navbar-brand Sitelogo ">
                     <Image
                         src={this.state.CompanyLogo ? this.state.CompanyLogo : "/images/eCommerce/TrollyLogo.png"}

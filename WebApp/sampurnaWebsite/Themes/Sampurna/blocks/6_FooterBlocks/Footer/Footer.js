@@ -102,14 +102,13 @@ export default class Footer extends Component {
                </div> 
             </div>
             </div>
-           {/* </div>              */}
         </div>
         </div>
         :null}
         <div className="footer3 col-12">
             <div className="col-12 footer_bottom">
               <div className={"row " +S.footerBottom}>
-              <div className={"col-12 col-sm-6 mx-auto col-xl-3 col-lg-3 col-md-12  " +S.logoTop}>
+              <div className={"col-6 col-sm-3 mx-auto col-xl-3 col-lg-3 col-md-12  " +S.logoTop}>
                  <img src="/images/eCommerce/TrollyLogo.png" className="col-12" alt="FooterLogo" width="" height="75px"/>
               </div>
               <div className={"col-12 col-sx-12 col-xl-6 col-lg-6 col-md-12 text_Center mx-0 " }>

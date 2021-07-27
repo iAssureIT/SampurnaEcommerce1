@@ -411,7 +411,7 @@ saveLocation(event) {
                                             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                             <div className={"col-12 NoPadding "+Style.locationSearchWrapper}>
                                                 {/* <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label> */}
-                                                <div class="barraContainer1">
+                                                <div className="barraContainer1">
                                                     <input type="text"  
                                                     {...getInputProps({
                                                         placeholder: 'Search your Location ',
@@ -421,7 +421,7 @@ saveLocation(event) {
                                                         required: true
                                                     })}
                                                     />
-                                                    <i class="fas fa-search"></i>
+                                                    <i className="fas fa-search"></i>
                                                 </div>
                                                 {/* <span className={" " +Style.search}><i className="fas fa-search " aria-hidden="true"></i></span> */}
                                                 <div className="autocomplete-dropdown-container SearchListContainer">

@@ -36,23 +36,23 @@ class DisplayLocation extends React.Component {
     
    render() {
     return (
-		<div className="container-fluid DisplayLocation ">
-      <div className="col-12 NoPadding">
-			<div  className="col-12 NoPadding" >
-          
-          {
-            this.props.sampurnaWebsiteDetails
+		<div className="container-fluid DisplayLocation mobileNoPadding ">
+      <div className="col-12 ">
+			<div  className="row" >
+            {this.props.sampurnaWebsiteDetails
             ?
               this.props.sampurnaWebsiteDetails.deliveryLocation
               ?
-                <span className="row">
-                  <span className="col-10 ml-4 mt-1 deliveryAddress"> 
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>
-                  Your current location is - </b><span className="locationText ">{this.props.sampurnaWebsiteDetails.deliveryLocation.address}</span></span>  
-                  <div className="col-2 changelocationBtn1Wrapper">
-                    <button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Location &nbsp;&nbsp;<i className="fas fa-map-marker-alt" aria-hidden="true"></i></button>
+                <div className="col-12 mobileNoPadding ">
+                  <div className="col-12 mobileNoPadding">
+                    <span className="col-12 col-sm-10 col-lg-10 mt-1 deliveryAddress"> 
+                      <b>Your current location is - </b><span className="locationText ">{this.props.sampurnaWebsiteDetails.deliveryLocation.address}</span>
+                    </span>  
+                    <div className="col-8 col-sm-2 col-lg-2 pull-right changelocationBtn1Wrapper">
+                      <button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Location &nbsp;&nbsp;<i className="fas fa-map-marker-alt" aria-hidden="true"></i></button>
+                    </div>
                   </div>
-                </span>
+                </div>
               :
                 <span className="row">
                   <span className=" col-10 deliveryAddress">  &nbsp; Your Delivery Location is not available </span>  

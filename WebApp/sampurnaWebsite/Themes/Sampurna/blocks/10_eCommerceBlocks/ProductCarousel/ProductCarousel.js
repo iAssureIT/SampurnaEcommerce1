@@ -332,7 +332,7 @@ showMoreProduct(event){
   this.getProductList(productApiUrl,formValues);
 }
 getProductList(productApiUrl,formValues){
-    // console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
+    console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     

@@ -1,0 +1,601 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20210612.031531.3664.0.001.json",
+    "dumpEventTime": "2021-06-12T03:15:31Z",
+    "dumpEventTimeStamp": "1623447931565",
+    "processId": 3664,
+    "cwd": "/home/iassureit/PriyaiAssureITWork/Sampurna Ecommerce/SampurnaEcommerce1/WebApp/sampurnaWebsite",
+    "commandLine": [
+      "node",
+      "/home/iassureit/PriyaiAssureITWork/Sampurna Ecommerce/SampurnaEcommerce1/WebApp/sampurnaWebsite/node_modules/.bin/next",
+      "dev"
+    ],
+    "nodejsVersion": "v12.11.0",
+    "glibcVersionRuntime": "2.27",
+    "glibcVersionCompiler": "2.17",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "linux",
+    "componentVersions": {
+      "node": "12.11.0",
+      "v8": "7.7.299.11-node.12",
+      "uv": "1.32.0",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.39.2",
+      "napi": "5",
+      "llhttp": "1.1.4",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1c",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019a",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "headersUrl": "https://nodejs.org/download/release/v12.11.0/node-v12.11.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.11.0/node-v12.11.0.tar.gz"
+    },
+    "osName": "Linux",
+    "osRelease": "5.4.0-73-generic",
+    "osVersion": "#82~18.04.1-Ubuntu SMP Fri Apr 16 15:10:02 UTC 2021",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i3-5005U CPU @ 2.00GHz",
+        "speed": 1895,
+        "user": 240531500,
+        "nice": 4365000,
+        "sys": 40313200,
+        "idle": 1097764300,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i3-5005U CPU @ 2.00GHz",
+        "speed": 1895,
+        "user": 225341800,
+        "nice": 4258900,
+        "sys": 42216600,
+        "idle": 51052800,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i3-5005U CPU @ 2.00GHz",
+        "speed": 1895,
+        "user": 234647000,
+        "nice": 4486300,
+        "sys": 35963400,
+        "idle": 50915700,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i3-5005U CPU @ 2.00GHz",
+        "speed": 1895,
+        "user": 232517300,
+        "nice": 4425500,
+        "sys": 37094300,
+        "idle": 50914200,
+        "irq": 0
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "lo",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "wlp6s0",
+        "internal": false,
+        "mac": "2c:6e:85:db:4f:02",
+        "address": "192.168.0.167",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "lo",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "::1",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "wlp6s0",
+        "internal": false,
+        "mac": "2c:6e:85:db:4f:02",
+        "address": "2001:8f8:1761:c9af:2864:a91f:e3c7:6d73",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "wlp6s0",
+        "internal": false,
+        "mac": "2c:6e:85:db:4f:02",
+        "address": "2001:8f8:1761:c9af:f308:d3b8:a914:29f1",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "wlp6s0",
+        "internal": false,
+        "mac": "2c:6e:85:db:4f:02",
+        "address": "fe80::6864:c985:609b:6f4d",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 3
+      }
+    ],
+    "host": "iassureit-Inspiron-3558"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x0000000000afd2a5",
+      "symbol": "report::TriggerNodeReport(v8::Isolate*, node::Environment*, char const*, char const*, std::string const&, v8::Local<v8::String>) [node]"
+    },
+    {
+      "pc": "0x00000000009d41d3",
+      "symbol": "node::OnFatalError(char const*, char const*) [node]"
+    },
+    {
+      "pc": "0x0000000000b3281e",
+      "symbol": "v8::Utils::ReportOOMFailure(v8::internal::Isolate*, char const*, bool) [node]"
+    },
+    {
+      "pc": "0x0000000000b32b99",
+      "symbol": "v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, bool) [node]"
+    },
+    {
+      "pc": "0x0000000000cddeb5",
+      "symbol": " [node]"
+    },
+    {
+      "pc": "0x0000000000cde546",
+      "symbol": "v8::internal::Heap::RecomputeLimits(v8::internal::GarbageCollector) [node]"
+    },
+    {
+      "pc": "0x0000000000cea3da",
+      "symbol": "v8::internal::Heap::PerformGarbageCollection(v8::internal::GarbageCollector, v8::GCCallbackFlags) [node]"
+    },
+    {
+      "pc": "0x0000000000ceb2e5",
+      "symbol": "v8::internal::Heap::CollectGarbage(v8::internal::AllocationSpace, v8::internal::GarbageCollectionReason, v8::GCCallbackFlags) [node]"
+    },
+    {
+      "pc": "0x0000000000cedcf8",
+      "symbol": "v8::internal::Heap::AllocateRawWithRetryOrFail(int, v8::internal::AllocationType, v8::internal::AllocationAlignment) [node]"
+    },
+    {
+      "pc": "0x0000000000cb4627",
+      "symbol": "v8::internal::Factory::NewFillerObject(int, bool, v8::internal::AllocationType) [node]"
+    },
+    {
+      "pc": "0x0000000000fea55b",
+      "symbol": "v8::internal::Runtime_AllocateInYoungGeneration(int, unsigned long*, v8::internal::Isolate*) [node]"
+    },
+    {
+      "pc": "0x000000000136cf99",
+      "symbol": " [node]"
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 2153156608,
+    "totalCommittedMemory": 2151548576,
+    "usedMemory": 2101757920,
+    "availableMemory": 46733528,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 32568,
+        "capacity": 261872,
+        "used": 32296,
+        "available": 229576
+      },
+      "new_space": {
+        "memorySize": 2097152,
+        "committedMemory": 1428896,
+        "capacity": 1047488,
+        "used": 413080,
+        "available": 634408
+      },
+      "old_space": {
+        "memorySize": 1527623680,
+        "committedMemory": 1527277016,
+        "capacity": 1484508320,
+        "used": 1484344952,
+        "available": 163368
+      },
+      "code_space": {
+        "memorySize": 7241728,
+        "committedMemory": 6905856,
+        "capacity": 5962368,
+        "used": 5962368,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 7868416,
+        "committedMemory": 7840752,
+        "capacity": 6112320,
+        "used": 6112320,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 606867456,
+        "committedMemory": 606867456,
+        "capacity": 603795144,
+        "used": 603795144,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 1196032,
+        "committedMemory": 1196032,
+        "capacity": 1097760,
+        "used": 1097760,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 1047488,
+        "used": 0,
+        "available": 1047488
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 7020.25,
+    "kernelCpuSeconds": 266.72,
+    "cpuConsumptionPercent": 17.5159,
+    "maxRss": 4290351104,
+    "pageFaults": {
+      "IORequired": 42,
+      "IONotRequired": 19669576
+    },
+    "fsActivity": {
+      "reads": 114560,
+      "writes": 8060992
+    }
+  },
+  "uvthreadResourceUsage": {
+    "userCpuSeconds": 2248.37,
+    "kernelCpuSeconds": 97.0545,
+    "cpuConsumptionPercent": 5.63776,
+    "fsActivity": {
+      "reads": 14672,
+      "writes": 0
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "npm_config_cache_lock_stale": "60000",
+    "npm_config_ham_it_up": "",
+    "npm_package_dependencies_react_geocode": "^0.2.3",
+    "npm_config_legacy_bundling": "",
+    "npm_config_sign_git_tag": "",
+    "USER": "iassureit",
+    "LANGUAGE": "en_IN:en",
+    "npm_config_user_agent": "npm/6.11.3 node/v12.11.0 linux x64",
+    "npm_config_always_auth": "",
+    "TEXTDOMAIN": "im-config",
+    "XDG_SEAT": "seat0",
+    "npm_config_bin_links": "true",
+    "npm_config_key": "",
+    "SSH_AGENT_PID": "4019",
+    "XDG_SESSION_TYPE": "x11",
+    "npm_config_allow_same_version": "",
+    "npm_config_description": "true",
+    "npm_config_fetch_retries": "2",
+    "npm_config_heading": "npm",
+    "npm_config_if_present": "",
+    "npm_config_init_version": "1.0.0",
+    "npm_config_user": "",
+    "npm_node_execpath": "/usr/local/bin/node",
+    "SHLVL": "1",
+    "npm_config_prefer_online": "",
+    "npm_config_noproxy": "",
+    "QT4_IM_MODULE": "xim",
+    "HOME": "/home/iassureit",
+    "npm_package_dependencies_localstorage_polyfill": "^1.0.1",
+    "npm_config_force": "",
+    "DESKTOP_SESSION": "ubuntu",
+    "npm_package_dependencies_react_dependent_script": "^1.1.2",
+    "npm_package_dependencies_react_id_swiper": "^4.0.0",
+    "npm_package_dependencies_react_multi_carousel": "^2.5.5",
+    "npm_config_only": "",
+    "npm_config_read_only": "",
+    "npm_package_dependencies_react_collapsible": "^2.8.1",
+    "npm_package_dependencies_underscore": "^1.12.0",
+    "npm_config_cache_min": "10",
+    "npm_config_init_license": "ISC",
+    "GNOME_SHELL_SESSION_MODE": "ubuntu",
+    "GTK_MODULES": "gail:atk-bridge",
+    "npm_package_scripts_find_unused": "next-unused",
+    "npm_package_dependencies_react_moment": "^1.0.0",
+    "npm_package_dependencies_validator": "^13.5.1",
+    "npm_config_editor": "vi",
+    "npm_config_rollback": "true",
+    "npm_config_tag_version_prefix": "v",
+    "MANAGERPID": "3897",
+    "npm_package_dependencies_react_geolocated": "^3.2.0",
+    "npm_package_dependencies_react_icons": "^4.2.0",
+    "npm_package_dependencies_react_star_rating_component": "^1.4.1",
+    "npm_package_dependencies_redux_thunk": "^2.3.0",
+    "npm_config_cache_max": "Infinity",
+    "npm_config_timing": "",
+    "npm_config_userconfig": "/home/iassureit/.npmrc",
+    "DBUS_STARTER_BUS_TYPE": "session",
+    "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/1000/bus,guid=35a3e0c6654a0895d040a65d60abe43b",
+    "npm_package_dependencies_dotenv": "^8.2.0",
+    "npm_package_dependencies_moment": "^2.29.1",
+    "npm_config_engine_strict": "",
+    "npm_config_init_author_name": "",
+    "npm_config_init_author_url": "",
+    "npm_config_preid": "",
+    "npm_config_tmp": "/tmp",
+    "COLORTERM": "truecolor",
+    "npm_package_dependencies_next_offline": "^5.0.2",
+    "npm_package_dependencies_react_router_dom": "^5.2.0",
+    "npm_package_description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+    "npm_config_depth": "Infinity",
+    "npm_config_package_lock_only": "",
+    "npm_config_save_dev": "",
+    "npm_config_usage": "",
+    "npm_package_dependencies_google_map_react": "^2.1.9",
+    "npm_package_dependencies_jsdom": "^16.4.0",
+    "npm_package_dependencies_react_places_autocomplete": "^7.3.0",
+    "npm_package_readmeFilename": "README.md",
+    "npm_config_metrics_registry": "https://registry.npmjs.org/",
+    "npm_config_cafile": "",
+    "npm_config_otp": "",
+    "npm_config_package_lock": "true",
+    "npm_config_progress": "true",
+    "npm_config_https_proxy": "",
+    "npm_config_save_prod": "",
+    "IM_CONFIG_PHASE": "2",
+    "npm_package_scripts_dev": "next dev",
+    "npm_package_dependencies_sweetalert": "^2.1.2",
+    "npm_config_audit": "true",
+    "npm_config_cidr": "",
+    "npm_config_onload_script": "",
+    "npm_config_sso_type": "oauth",
+    "LOGNAME": "iassureit",
+    "GTK_IM_MODULE": "ibus",
+    "npm_package_dependencies_next_babel_minify": "^1.0.0",
+    "npm_config_rebuild_bundle": "true",
+    "npm_config_save_bundle": "",
+    "npm_config_shell": "/bin/bash",
+    "JOURNAL_STREAM": "9:47835",
+    "_": "/usr/local/bin/npm",
+    "npm_package_private": "true",
+    "npm_package_dependencies_gsap": "^3.6.1",
+    "npm_package_dependencies_redux_devtools_extension": "^2.13.8",
+    "npm_package_dependencies_uglifyjs_webpack_plugin": "^2.2.0",
+    "npm_config_dry_run": "",
+    "npm_config_prefix": "/usr/local",
+    "npm_config_scope": "",
+    "npm_config_browser": "",
+    "npm_config_cache_lock_wait": "10000",
+    "npm_config_ignore_prepublish": "",
+    "npm_config_registry": "https://registry.npmjs.org/",
+    "npm_config_save_optional": "",
+    "npm_config_searchopts": "",
+    "npm_config_versions": "",
+    "USERNAME": "iassureit",
+    "XDG_SESSION_ID": "3",
+    "TERM": "xterm-256color",
+    "npm_package_dependencies__loadable_component": "^5.14.1",
+    "npm_package_dependencies_font_awesome": "^4.7.0",
+    "npm_package_dependencies_react_countup": "^4.3.3",
+    "npm_config_cache": "/home/iassureit/.npm",
+    "npm_config_proxy": "",
+    "npm_config_send_metrics": "",
+    "GNOME_DESKTOP_SESSION_ID": "this-is-deprecated",
+    "npm_package_scripts_start": "next start",
+    "npm_package_dependencies_jquery_validation": "^1.19.3",
+    "npm_config_global_style": "",
+    "npm_config_ignore_scripts": "",
+    "npm_config_version": "",
+    "WINDOWPATH": "2",
+    "npm_package_dependencies_axios": "^0.21.1",
+    "npm_config_local_address": "",
+    "npm_config_viewer": "man",
+    "npm_config_node_gyp": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js",
+    "PATH": "/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/home/iassureit/PriyaiAssureITWork/Sampurna Ecommerce/SampurnaEcommerce1/WebApp/sampurnaWebsite/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+    "INVOCATION_ID": "4f1c0f89d65943dc8a7c9ed385f67cdd",
+    "SESSION_MANAGER": "local/iassureit-Inspiron-3558:@/tmp/.ICE-unix/3926,unix/iassureit-Inspiron-3558:/tmp/.ICE-unix/3926",
+    "npm_package_name": "sampurna",
+    "npm_package_dependencies_popper_js": "^1.16.1",
+    "npm_package_dependencies_swiper": "^6.3.5",
+    "npm_config_audit_level": "low",
+    "npm_config_prefer_offline": "",
+    "NODE": "/usr/local/bin/node",
+    "XDG_MENU_PREFIX": "gnome-",
+    "GNOME_TERMINAL_SCREEN": "/org/gnome/Terminal/screen/323a72e0_ba73_470a_b49f_31be8aac38ec",
+    "XDG_RUNTIME_DIR": "/run/user/1000",
+    "npm_package_dependencies_react_geocode_multi_language": "^0.1.6",
+    "npm_package_dependencies_react_redux": "^7.2.2",
+    "npm_config_color": "true",
+    "npm_config_sign_git_commit": "",
+    "DISPLAY": ":0",
+    "npm_config_fetch_retry_mintimeout": "10000",
+    "npm_config_maxsockets": "50",
+    "npm_config_offline": "",
+    "npm_config_sso_poll_frequency": "500",
+    "LANG": "en_IN",
+    "XDG_CURRENT_DESKTOP": "ubuntu:GNOME",
+    "npm_package_dependencies_react_dom": "^17.0.1",
+    "npm_package_dependencies_react_owl_carousel": "^2.3.3",
+    "npm_package_dependencies_redux": "^4.0.5",
+    "npm_package_devDependencies_webpack": "^5.35.0",
+    "npm_config_umask": "0022",
+    "XDG_SESSION_DESKTOP": "ubuntu",
+    "XMODIFIERS": "@im=ibus",
+    "GNOME_TERMINAL_SERVICE": ":1.86",
+    "XAUTHORITY": "/run/user/1000/gdm/Xauthority",
+    "npm_package_dependencies_sweetalert2": "^10.15.7",
+    "npm_config_fetch_retry_maxtimeout": "60000",
+    "npm_config_loglevel": "notice",
+    "npm_config_logs_max": "10",
+    "npm_config_message": "%s",
+    "npm_lifecycle_script": "next dev",
+    "SSH_AUTH_SOCK": "/run/user/1000/keyring/ssh",
+    "npm_package_dependencies_react_image_zoom": "^1.3.1",
+    "npm_config_ca": "",
+    "npm_config_cert": "",
+    "npm_config_global": "",
+    "npm_config_link": "",
+    "SHELL": "/bin/bash",
+    "npm_package_version": "0.1.0",
+    "npm_package_dependencies_jquery": "^3.5.1",
+    "npm_package_dependencies_react_loader_spinner": "^3.1.14",
+    "npm_config_access": "",
+    "npm_config_also": "",
+    "npm_config_save": "true",
+    "npm_config_unicode": "",
+    "npm_lifecycle_event": "dev",
+    "QT_ACCESSIBILITY": "1",
+    "GDMSESSION": "ubuntu",
+    "npm_package_scripts_build": "next build",
+    "npm_package_dependencies_react_phone_input_2": "^2.13.9",
+    "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"dev\"],\"original\":[\"run\",\"dev\"]}",
+    "npm_config_before": "",
+    "npm_config_long": "",
+    "npm_config_production": "",
+    "npm_config_searchlimit": "20",
+    "npm_config_unsafe_perm": "true",
+    "npm_config_update_notifier": "true",
+    "npm_package_dependencies_file_loader": "^6.2.0",
+    "npm_config_auth_type": "legacy",
+    "npm_config_node_version": "12.11.0",
+    "npm_config_tag": "latest",
+    "npm_package_dependencies_react_validation": "^3.0.7",
+    "npm_package_dependencies_url_loader": "^4.1.1",
+    "npm_config_git_tag_version": "true",
+    "npm_config_commit_hooks": "true",
+    "npm_config_script_shell": "",
+    "npm_config_shrinkwrap": "true",
+    "TEXTDOMAINDIR": "/usr/share/locale/",
+    "GPG_AGENT_INFO": "/run/user/1000/gnupg/S.gpg-agent:0:1",
+    "npm_package_dependencies_child_process": "^1.0.2",
+    "npm_package_dependencies_html_react_parser": "^0.14.2",
+    "npm_package_dependencies_react_bootstrap": "^0.32.4",
+    "npm_config_fetch_retry_factor": "10",
+    "npm_config_save_exact": "",
+    "npm_config_strict_ssl": "true",
+    "XDG_VTNR": "2",
+    "QT_IM_MODULE": "xim",
+    "npm_package_dependencies_firebase": "^8.2.6",
+    "npm_package_dependencies_react_select": "^3.1.1",
+    "npm_config_dev": "",
+    "npm_config_globalconfig": "/usr/local/etc/npmrc",
+    "npm_config_init_module": "/home/iassureit/.npm-init.js",
+    "npm_config_parseable": "",
+    "PWD": "/home/iassureit/PriyaiAssureITWork/Sampurna Ecommerce/SampurnaEcommerce1/WebApp/sampurnaWebsite",
+    "npm_package_dependencies_bootstrap": "^4.6.0",
+    "npm_config_globalignorefile": "/usr/local/etc/npmignore",
+    "npm_execpath": "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+    "CLUTTER_IM_MODULE": "xim",
+    "XDG_DATA_DIRS": "/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop",
+    "DBUS_STARTER_ADDRESS": "unix:path=/run/user/1000/bus,guid=35a3e0c6654a0895d040a65d60abe43b",
+    "XDG_CONFIG_DIRS": "/etc/xdg/xdg-ubuntu:/etc/xdg",
+    "npm_package_dependencies_react_countdown": "^2.3.2",
+    "npm_config_cache_lock_retries": "10",
+    "npm_config_searchstaleness": "900",
+    "npm_package_dependencies_styled_components": "^5.3.0",
+    "npm_config_node_options": "",
+    "npm_config_save_prefix": "^",
+    "npm_config_scripts_prepend_node_path": "warn-only",
+    "npm_package_dependencies_next": "^10.1.2",
+    "npm_config_group": "1000",
+    "npm_config_init_author_email": "",
+    "npm_config_searchexclude": "",
+    "VTE_VERSION": "5202",
+    "npm_config_git": "git",
+    "npm_config_optional": "true",
+    "npm_package_dependencies_next_compose_plugins": "^2.2.1",
+    "npm_package_dependencies_nprogress": "^0.2.0",
+    "npm_package_dependencies_react": "^17.0.1",
+    "npm_config_json": "",
+    "INIT_CWD": "/home/iassureit/PriyaiAssureITWork/Sampurna Ecommerce/SampurnaEcommerce1/WebApp/sampurnaWebsite",
+    "NODE_ENV": "development",
+    "TRACE_ID": "096b870244dda2f7"
+  },
+  "userLimits": {
+    "core_file_size_blocks": {
+      "soft": 0,
+      "hard": "unlimited"
+    },
+    "data_seg_size_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "file_size_blocks": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "max_locked_memory_bytes": {
+      "soft": 16777216,
+      "hard": 16777216
+    },
+    "max_memory_size_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "open_files": {
+      "soft": 4096,
+      "hard": 4096
+    },
+    "stack_size_bytes": {
+      "soft": 8388608,
+      "hard": "unlimited"
+    },
+    "cpu_time_seconds": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "max_user_processes": {
+      "soft": 63503,
+      "hard": 63503
+    },
+    "virtual_memory_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    }
+  },
+  "sharedObjects": [
+    "linux-vdso.so.1",
+    "/lib/x86_64-linux-gnu/libdl.so.2",
+    "/lib/x86_64-linux-gnu/librt.so.1",
+    "/usr/lib/x86_64-linux-gnu/libstdc++.so.6",
+    "/lib/x86_64-linux-gnu/libm.so.6",
+    "/lib/x86_64-linux-gnu/libgcc_s.so.1",
+    "/lib/x86_64-linux-gnu/libpthread.so.0",
+    "/lib/x86_64-linux-gnu/libc.so.6",
+    "/lib64/ld-linux-x86-64.so.2",
+    "/lib/x86_64-linux-gnu/libnss_files.so.2",
+    "/lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2",
+    "/lib/x86_64-linux-gnu/libnss_dns.so.2",
+    "/lib/x86_64-linux-gnu/libresolv.so.2"
+  ]
+}
