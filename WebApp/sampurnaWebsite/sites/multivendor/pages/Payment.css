@@ -212,7 +212,7 @@ text-align:right ! important;
     font-size: 12px ! important;
   }
 .orderTable h5{
-    font-size: 15px  ! important;
+    font-size: 10px  ! important;
 }  
  .cartColor span{
     font-size: 14px ! important;
@@ -228,7 +228,7 @@ text-align:right ! important;
 }
 @media only screen and (max-device-width: 480px) {
   .orderTable h5{
-    height: 35px ! important;
+    height: 45px ! important;
     overflow: hidden;
     font-size: 10px!important;
     }    
@@ -238,6 +238,9 @@ text-align:right ! important;
 	.orderTable>thead>tr>th{
         font-size: 14px ! important;
       }
+      .orderTable h5{
+        font-size: 15px  ! important;
+    }  
   }
 
   

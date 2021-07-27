@@ -309,3 +309,9 @@ ul.Featured-Brands li {
     border-radius:6px!important;
     -moz-border-radius:6px;
 }
+
+.accountDashBoardInnerwrapper .react-tel-input input{
+    border: none!important;
+    border-radius: none !important;
+    border-bottom: 2px solid lightgrey!important;
+}

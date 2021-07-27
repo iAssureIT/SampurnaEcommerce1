@@ -102,7 +102,7 @@ class Account extends Component{
         return(
             <div className={ "col-12 NoPadding accountMainWrapper "+Style.accountMainWrapper}> 
                 <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
-                    <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
+                    <div className={"col-lg-5 col-12 col-sm-8 offset-sm-2 mx-auto NoPadding "+Style.modalMainWrapper}>
                         <div className={"modal-content  pb-0 "+Style.modalContentM}>    
                         <div className={"modal-header globalBgColor col-12 " +Style.modalHeaderM}>
                             <div className={"modal-title col-12 modalheadingcont pb-3  underline " +Style.f14BM }><img className={" "+Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO"/><p>Shipping Address</p></div>
@@ -122,18 +122,22 @@ class Account extends Component{
                                 <label className="col-12 mt-3"><b>Hello {this.state.firstName}</b></label>
                             </p>
                             <div className="row">
-                                <div className="col-12 col-lg-12 offset-1 col-md-12">
+                                <div className="col-12 col-lg-12 offset-lg-1 col-md-12">
                                 <div className="row">
-                                    <div className="col-12"><b>Contact Information</b></div>
+                                    <div className="col-12 mx-sm-3 d-none d-lg-block d-xl-block d-sm-block d-md-block"><b>Contact Information</b></div>
+                                    <div className="col-12 text-center d-block d-lg-none d-xl-none d-sm-none d-md-none "><b>Contact Information</b></div>
+
                                     <div className="col-12 mt-3 ">
                                         <div className={ "col-12 "+Style.accUserDetails}>
                                             <h6 className="col-12 textwrap">{this.state.fullName}</h6>
                                             <h6 className="col-12 ">{this.state.emailId}</h6>
                                             <h6 className="col-12 ">{this.state.mobileNumber}</h6> </div>
-                                        <div className="col-5 py-4 float-right">
-                                            <button className="btn globalCommonBtn mx-5 col-12 col-sm-7  " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp; </div>
+                                        {/* <div className="col-lg-5 col-12 col-sm-5 col-md-5 py-4 float-right">
+                                            <button className="btn globalCommonBtn mx-lg-5  col-12 col-sm-12  " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp; 
+                                            </div> */}
+                                           
                                     </div>
-                                    </div>
+                                   
                                 </div>
                                 {/* <div className="col-12 col-lg-6 col-md-12">
                                     <div className="col-12 accountDivHeader">Newsletters</div>
@@ -147,6 +151,13 @@ class Account extends Component{
                                 </div> */}
                             </div>
                         </div>
+                        <div className="col-12  ">
+                                            <div id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" className="btn globalCommonBtn float-right"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT </div>
+                                        </div>
+                                        {/* <div className="col-lg-5 col-12 col-sm-5 col-md-5 py-4 float-right">
+                                            <button className="btn globalCommonBtn mx-lg-5  col-12 col-sm-12  " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp; 
+                                            </div> */}
+                                    </div>
                     </div>
                     <div className={ "col-12 addressBookMainWrapper container "+Style.addressBookMainWrapper}>
                         <h6 className="font-weight-bold">Address Book</h6>
@@ -198,7 +209,9 @@ class Account extends Component{
                                     <div className="col-12 float-right ">
                                         <p className="col-12" style={{wordBreak : "break-word"}}>You have not set a default shipping/billing address.</p>
                                         <div className="col-12 float-right">
+                                            
                                             <button data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn col-12 col-sm-7 float-right"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
+                                           
                                         </div>
                                     </div> } </div>
                             </div>

@@ -1,9 +1,9 @@
 .accUserDetails h6{
-    font-size: 14px !important;
+    font-size: 11px !important;
 }
 
 .accUserDetails p{
-    font-size: 14px !important;
+    font-size: 11px !important;
 }
 
 .contactInformationWrapper{
@@ -113,3 +113,14 @@
     border-bottom-left-radius: 19px!important;
     border-bottom-right-radius: 19px !important;
 }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+	.accUserDetails h6{
+        font-size: 14px !important;
+    }
+    
+    .accUserDetails p{
+        font-size: 14px !important;
+    }
+  }

@@ -264,7 +264,7 @@ render() {
                                 }   
                                 var categoryUrl = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;                  
                             return (
-                              <div className={" col-3 " +Style.mobileViewPadding }  key={index}> 
+                              <div className={"col-lg-3  col-12 col-sm-6 col-md-4  " +Style.mobileViewPadding }  key={index}> 
                                 {data
                                 ?
                                   < SingleProduct 
