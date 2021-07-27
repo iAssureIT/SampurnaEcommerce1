@@ -2,7 +2,7 @@
     min-height: 400px;
 }
 .cartProduct{
-    margin-top: 40px;
+    margin-top: 0px;
     overflow: hidden!important;
 }
 .cartProductImg{
@@ -280,5 +280,9 @@
         color: #878787!important;
         font-size: 12px!important;
         font-weight: 500!important;
+    }
+    .cartProduct{
+        margin-top: 0px;
+        overflow: hidden!important;
     }
   }

@@ -303,4 +303,9 @@ ul.Featured-Brands li {
     color: darkgray;
     font-size: 18px;
   }
-  
+ .cartHeight table {
+    border-collapse:separate;
+    /* border:solid black 1px!important; */
+    border-radius:6px!important;
+    -moz-border-radius:6px;
+}

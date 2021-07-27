@@ -292,16 +292,17 @@ class CartProducts extends Component{
     render(){
         // console.log("this.props.recentCartData===",this.props.recentCartData);
         return(            
-            <div className="container-fluid">
+            <div className="container-flex">
             <div className="col-12 cartHeight">
                 {this.props.loading ?
                     <Loader type="fullpageloader"/>
                 :
                     <div className="row">
                     <Message messageData={this.state.messageData} />
+                    
                     {   
                     this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length>0? 
-                    <div className="col-12 pl-0" style={{"marginBottom":"20px"}}>
+                    <div className="col-12 pr-0 " style={{"marginBottom":"20px"}}>
                         <div className="col-12">  
                             <div className="col-12 col-xl-12 col-md-12 table-responsive cartProduct">
                                 <div className="table">                                   
@@ -311,29 +312,125 @@ class CartProducts extends Component{
                                         // console.log("vendorWiseCartData==",vendorWiseCartData);
                                             return( 
                                                 <div className={"row " +Style.singleRow} key={index}>
-                                                    <div className="col-12 mt-2 mb-3 mx-2"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
+                                                    <div className="col-12 mt-2 mb-3 d-lg-none d-xl-none "><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
+                {/* <div className={"" +Style.table}> */}
+                <table className={"table table-borderless orderTable d-lg-none d-xl-none "+Style.table}>
+                    <thead>
+                        <tr>
+                            <th className="font-weight-bold">Product</th>
+                            <th className={"d-none d-lg-block "+Style.pnHIdden}>Products Name</th>
+                            {/* <th className="textAlignLeft">Price</th> */}
+                            <th className="textAlignCenter">Quantity</th>
+                            <th className="textAlignCenter">Total</th>
+
+                        </tr>
+                    </thead>
+                
+                <tbody>
+                    {
+                    vendorWiseCartData.cartItems.map((vendorData, index) => {
+                          // console.log("productdata=",productdata);
+                            return (
+                                <tr key={index}>
+                                    <td>
+                                        <img className="img mt-1 cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.png"} alt="ProductImg"/>
+                                        <h5 className="productName d-lg-none d-xl-none mt-2  ">{vendorData.product_ID.productName}</h5>
+                                        
+                                        {/* {
+                                    vendorData.product_ID.discountPercent  ?
+                                        <div className="col-12 NoPadding ">
+                                            <span className="cartOldprice">{this.state.currency}&nbsp;{vendorData.product_ID.originalPrice.toFixed(2)}</span> &nbsp; &nbsp;
+                                            <span className="cartPrice">{this.state.currency}&nbsp;{vendorData.product_ID.discountedPrice.toFixed(2)}</span> &nbsp; &nbsp;
+                                            <span className="cartDiscountPercent">( {Math.floor(vendorData.product_ID.discountPercent)}% Off )</span>
+                                        </div>
+                                        :
+                                        <div className="col-12 NoPadding">
+                                            <span className="price">
+                                            {this.state.currency}&nbsp;{vendorData.product_ID.originalPrice.toFixed(2)}</span>
+                                        </div>
+                                    } */}
+                                    </td>
+
+                                    <td>
+                                    {
+                                        vendorData.product_ID.availableQuantity > 0 ?
+                                        <div className="quantityWrapper my-4 pt-1 text-center mx-5">
+                                            <span className="  fa fa-minus cartPrice cursor-pointer" id={vendorData.product_ID._id} vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
+                                                onClick={this.cartquantitydecrease.bind(this)}></span>&nbsp;
+                                            <span className="">{this.state['quantityAdded|'+vendorData._id] ? this.state['quantityAdded|'+vendorData._id] : vendorData.quantity}</span>&nbsp;
+                                            <span className={"  fa fa-plus cartPrice "} vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID._id} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
+                                                onClick={this.cartquantityincrease.bind(this)}></span><br/>   
+                                            { this.state.websiteModel === 'FranchiseModel'?                                                                 
+                                                <span className ="productUnit" id={vendorData.product_ID._id}> Of {vendorData.product_ID.size}&nbsp;<span className="CapsUnit">{vendorData.product_ID.unit}</span></span>
+                                            :null
+                                            }
+                                        </div>
+                                        :
+                                        <span className="sold textAlignCenter">SOLD OUT</span>
+                                    }
+                                    </td>
+
+                                    <td className="text-center">
+                                    {
+                                    vendorData.product_ID.discountPercent  ?
+                                        <div className="col-12 NoPadding">
+                                            <span className="cartOldprice">{this.state.currency}&nbsp;{vendorData.product_ID.originalPrice.toFixed(2)}</span> &nbsp; &nbsp;
+                                            <span className="cartPrice">{this.state.currency}&nbsp;{vendorData.product_ID.discountedPrice.toFixed(2)}</span> &nbsp; &nbsp;
+                                            <span className="cartDiscountPercent">( {Math.floor(vendorData.product_ID.discountPercent)}% Off )</span>
+
+                                        </div>
+                                        :
+                                        <div className="col-12 NoPadding">
+                                            <span className="price">
+                                            {this.state.currency}&nbsp;{vendorData.product_ID.originalPrice.toFixed(2)}</span>
+
+                                        </div>
+                                    }
+                                    </td>
+                                    <td className="text-center">
+                                    <span className="fa fa-trash trashIcon" id={vendorData._id} vendorid={vendorWiseCartData.vendor_id._id} onClick={this.Removefromcart.bind(this)}><a href="/" style={{color:"#337ab7"}} > </a></span>
+                                    </td>
+                                    
+                               </tr>
+                               
+                            );
+                        })
+                    }
+                  <div className="col-12">
+                    <Link href={"/products/"+vendorWiseCartData.vendor_id._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"}>
+                        <a className={"shoppingLink " +Style.shopping}><i class="fa fa-arrow-left"></i>&nbsp;Continue Shopping</a>
+                    </Link>
+                </div>
+                </tbody>
+                </table>
+                {/* </div> */}
+                                                    <div className="col-12 mt-2 mb-3 mx-2 d-none d-lg-block d-xl-block"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
 
                                                     <div className="col-12 col-sm-12 col-sx-12 col-md-12 col-lg-8 col-xl-8 ">
-                                                        <div className={"col-12 " +Style.singleVendorBox}>
+                                                        <div className={"col-12 d-none d-lg-block d-xl-block " +Style.singleVendorBox}>
                                                             <div className="row ">
-                                                                <div className="col-6 font-weight-bold text-left">Product</div>
-                                                                <div className="col-2 font-weight-bold">Quantity</div>
-                                                                <div className="col-3 font-weight-bold text-center">Total Price</div>
+                                                                <div className="col-6 d-none d-lg-block d-xl-block font-weight-bold text-left">Product</div>
+                                                                <div className="col-2 d-none d-lg-block d-xl-block font-weight-bold">Quantity</div>
+                                                                <div className="col-3 d-none d-lg-block d-xl-block font-weight-bold text-center">Total Price</div>
                                                             </div>
-                                                            <div className={"col-12 pt-1 "+Style.cardHeadingWrapper}></div>
+                                                          
+                                                            <div className={"col-12 d-none d-lg-block d-xl-block pt-1 "+Style.cardHeadingWrapper}></div>
 
                                
                                                            
                                                         { vendorWiseCartData.cartItems.map((vendorData, index)=>{
                                                         return(
                                                             <div key={index}>
-                                                                <div className="col-12">
+                                                              
+                                                                <div className="col-12 d-none d-lg-block d-xl-block ">
                                                                     
                                                                     <div className={"row mb-4 "}>
                                                                         <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-2 col-xl-2 ForMobile">
                                                                             <div className="row">
                                                                             <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/"+vendorWiseCartData.vendorLocation_id +"/" +vendorData.product_ID._id}>
                                                                                 <img className="img mt-1 cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.png"} alt="ProductImg"/>
+
+                                                                                {/* <h5 className="productName d-lg-none d-xl-none  ">{vendorData.product_ID.productName}</h5> */}
                                                                             </a>
                                                                             </div>
                                                                         </div>
@@ -420,7 +517,7 @@ class CartProducts extends Component{
                                             }
                                         </div>
                                                     
-                                                    <div className={"col-12 col-sm-12 col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-3 offset-xl-1 col-xl-3 vendorWiseSummury pull-right " +Style.summaryClass +" " +vendorWiseCartData.invalidOrder}>
+                                                    <div className={"col-12 col-sm-8 mx-auto col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-3 offset-xl-1 col-xl-3 vendorWiseSummury pull-right " +Style.summaryClass +" " +vendorWiseCartData.invalidOrder}>
                                                         {/* <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong> */}
                                                             {/* < OrderSummury  vendorWiseCartData= {vendorWiseCartData} /> */}                                            
                                                         <table className="table table-responsive summaryTable">
@@ -472,7 +569,7 @@ class CartProducts extends Component{
                                             <div className="col-12 col-sm-12 col-sx-12 col-md-12 col-lg-8 col-xl-8  mt-1 mb-3 text-center">
                                               
                                             </div>
-                                            <div className="col-12 col-sm-12 col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-3 offset-xl-1 col-xl-3 NoPadding">
+                                            <div className="col-12 col-sm-8 mx-auto col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-3 offset-xl-1 col-xl-3 NoPadding">
                                                 <div className={"col-12  " +Style.cartSummary1}>
                                                     <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                         <div className="row">

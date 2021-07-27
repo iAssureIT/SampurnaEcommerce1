@@ -44,7 +44,7 @@ class Cart extends Component{
             <div className="col-12">
                 <div className="row">                    
                     {/*<SmallBanner bannerData={this.state.bannerData}/>*/}
-                    <div className={"col-10 offset-1 " +Style.cartTitle}>Shopping Cart</div>
+                    <div className={"col-lg-10 offset-lg-1 " +Style.cartTitle}>Shopping Cart</div>
                     <CartProducts />
                     { this.props.pageDatapop.pageBlocks && this.props.pageDatapop.pageBlocks.length > 0 ?
 						          this.props.pageDatapop.pageBlocks.map((result, index)=>{                      

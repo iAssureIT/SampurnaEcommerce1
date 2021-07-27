@@ -200,7 +200,7 @@
     cursor: pointer;
 }
 .price{
-    font-size: 13px;   
+    font-size: 12px;   
 }
 .orderTotalText{
     font-size: 17px !important;
@@ -331,3 +331,8 @@
     font-size: 9px;
 }
 }
+@media (min-width: 1200px) { 
+	.price{
+        font-size: 13px;   
+    }
+  }

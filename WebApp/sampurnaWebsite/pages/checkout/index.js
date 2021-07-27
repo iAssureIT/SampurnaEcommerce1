@@ -779,7 +779,7 @@ class Checkout extends Component {
                 <Message messageData={this.state.messageData} />
                 <div className="row">
                     <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
-                    <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
+                    <div className={"col-sm-10 offset-sm-1 mx-auto col-lg-5 mx-auto NoPadding "+Style.modalMainWrapper}>
                         <div className={"modal-content  pb-0 "+Style.modalContentM}>    
                         <div className={"modal-header globalBgColor col-12 " +Style.modalHeaderM}>
                             <div className={"modal-title col-12 modalheadingcont pb-3  underline " +Style.f14BM }><img className={" "+Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO"/><p>Shipping Address</p></div>
@@ -1208,7 +1208,7 @@ class Checkout extends Component {
                                         </div>
 
                                         <div className={"modal NoPadding mt-5 " } id="termsNconditionsmodal" role="dialog">
-                                            <div className={"col-4 mx-auto NoPadding "+Style.modalMainWrapper}>
+                                            <div className={"col-lg-4 col-10 offset-1 mx-auto NoPadding "+Style.modalMainWrapper}>
                                                 <div className={"modal-content  col-md NoPadding "+Style.modalContent }>
                                                     <div className={"modal-header globalBgColor col-12 " +Style.modalHeader}>
                                                         <div className={"modal-title col-12 modalheadingcont pb-2 text-center underline " +Style.f14B }><img className={" "+Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO"/><u>TERMS AND CONDITIONS</u></div>

@@ -19,7 +19,10 @@
     line-height: 1.2;
     font-size:14px !important;
 }
-
+.table{
+    border:1px solid lightgray;
+   border-radius:9px;
+}
 .summaryClass{
 	max-height:200px;
 	padding:15px;
@@ -99,8 +102,18 @@
 }
 
 .cartTitle{
-    font-size: 36px;
+    font-size: 20px;
     margin-left: 41px;
     margin-top: 15px;
     font-weight: bold;
 }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+	.cartTitle{
+        font-size: 36px;
+        margin-left: 41px;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+  }
