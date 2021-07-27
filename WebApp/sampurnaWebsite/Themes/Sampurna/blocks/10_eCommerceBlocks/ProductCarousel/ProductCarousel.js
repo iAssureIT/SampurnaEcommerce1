@@ -798,7 +798,7 @@ submitCart(event) {
                   {/* Fitters code */}
                   {this.state.blockSettings.leftSideFilters === true?
                   <div className={"row " +Style.NoPadding +" " +Style.productListWrapper}>  
-                  <div className={"col-xs-12 col-2 NoPadding  filterWrapper " +Style.filterBlockWrapper}>
+                  <div className={"col-xs-12 col-lg-2 col-xl-2 NoPadding  filterWrapper " +Style.filterBlockWrapper}>
 
                     {this.state.categoryData && this.state.categoryData.length>0?   
                       < CategoryFilters 
@@ -819,19 +819,8 @@ submitCart(event) {
 
                     }
                     {this.state.brandData && this.state.brandData.length>0?  
-                      // < BrandFilters 
-                      //   blockSettings      = {this.state.blockSettings}
-                      //   brandData          = {this.state.brandData}
-                      //   vendor_ID          = {this.state.vendor_ID}
-                      //   vendorlocation_ID  = {this.state.vendorlocation_ID}
-                      //   sectionUrl         = {this.state.sectionUrl}
-                      //   categoryUrl        = {this.state.categoryUrl}
-                      //   userLatitude       = {this.state.userLatitude}
-                      //   userLongitude      = {this.state.userLongitude}
-                      //   startRange         = {this.state.startRange}
-                      //   limitRange         = {this.state.limitRange}
-                      // />   
-                      <div className="panel-group" >   
+                     
+                      <div className="panel-group d-none d-lg-block d-xl-block" >   
                         
                         {this.state.brandData.length > 0  && this.state.brandData[0].brand!==''?                 
                           <div className={Style.categoryFilterTitle}> Brands </div>  
@@ -862,15 +851,59 @@ submitCart(event) {
                     </div>  
                     :' '
                     }
+
+                    {this.state.brandData && this.state.brandData.length>0?  
+                       <nav class="navbar navbar-expand-lg navbar-light bg-light d-block d-lg-none d-xl-none">
+                       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                         <span class="navbar-toggler-icon"></span>
+                          &nbsp; &nbsp;&nbsp;Brands
+                       </button>
+                       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                      <div className="panel-group" >   
+                        
+                        {/* {this.state.brandData.length > 0  && this.state.brandData[0].brand!==''?                 
+                          <div className={Style.categoryFilterTitle}> Brands </div>  
+                        :null} */}
+                        {
+                          this.state.brandData && this.state.brandData.length > 0
+                          ?
+                              this.state.brandData.map((brand,index)=>{
+                              var i = index+1;
+                              if(brand === ""){
+                                return true;
+                              }else{
+                                return(
+                                  <div className="col-12 noPadding panelCategory paneldefault" key={index}>
+                                      <div className={"panel-heading row "+Style.panelHeading}>
+                                          <div className={"col-1 NoPadding  centreDetailContainerEcommerce "+Style.brandInput}>
+                                            <input className="" type="checkbox" name="brands[]" className={Style.brandFilterInput} onChange={this.getBrandWiseData.bind(this)} value={brand} />
+                                          </div>
+                                          <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
+                                      </div>                              
+                                  </div>
+                                )
+                              }
+                            })   
+                          :
+                            null
+                        }
+                    </div> 
+                    </div>
+                    </nav> 
+                    :' '
+                    }
+
+
                  </div>
-                  <div className={"col-10 col-xs-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
+                  <div className={"col-lg-10 col-xl-10 col-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
                     <div className="row">
                       <div className={"col-12 " +Style.rightSidefilter}>
-                        <div className ="row">
+                        {/* <div className ="row"> */}
                           <div className={"col-12 "}>
-                            <div className={"col-6 col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding  "+Style.sortPbWrapper}>     
-                              <div className="form-group float -right">
-                                  <label className={"labelform col-12 NoPadding  " +Style.f14}>Sort Product By<span className="astrick"></span></label>
+                            <div className={"col-6 float-right col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding  "+Style.sortPbWrapper}>     
+                              <div className="form-group">
+                                  <label className={"labelform d-block d-lg-block d-xl-block d-sm-block col-12 NoPadding  " +Style.f14}>Sort Product By<span className="astrick"></span></label>
+
                                   <Select
                                       value={effect}
                                       onChange={this.sortProducts}
@@ -879,7 +912,7 @@ submitCart(event) {
                                       className={" " +Style.labelCategory}
                                   />
                               </div> 
-                            </div>
+                            {/* </div> */}
                           </div>                        
                         </div>
                       </div>
@@ -903,7 +936,7 @@ submitCart(event) {
                         }
                         <div className="col-12 seeMoreBtnWrapper">
                           <div className="row">
-                            <button className={"btn btn-secondary col-2 offset-5 pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
+                            <button className={"btn btn-secondary col-lg-2 offset-lg-5 col-xl-2 offset-xl-5 col-sm-2 col-4 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
                           </div>
                         </div>
                     </div>

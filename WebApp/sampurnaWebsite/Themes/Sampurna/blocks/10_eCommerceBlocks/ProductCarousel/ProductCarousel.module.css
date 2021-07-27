@@ -29,7 +29,7 @@
 
 /* ---------- rightside flter -----------  */
 .rightSidefilter{
-  margin-top: 20px;
+  margin-top: 33px;
 }
 .sortProducts,
 .limitProducts{
@@ -634,9 +634,7 @@ background: #fff;
  /* margin-left: 72px!important; */
  
 }
-.sortPbWrapper{
-  margin-left: 82%!important;
-}
+
 .vendorNameWrapper b{
   margin-left: 58px;
 }
@@ -780,5 +778,12 @@ background: #fff;
     margin-top:40px !important;
     margin-bottom:60px !important;
     text-align: left!important;
+  }
+  .sortPbWrapper{
+    margin-left: 82%!important;
+  }
+
+  .rightSidefilter{
+    margin-top: 28px;
   }
 }

@@ -66,6 +66,22 @@
     z-index: 999!important;
     
 }
+
+.categoryCarousel .react-multiple-carousel__arrow--left {
+    position: absolute!important;
+    left: calc(-2.3% + 1px)!important;
+    background:none !important;
+    z-index: 999!important;
+    
+}
+
+.categoryCarousel .react-multiple-carousel__arrow--right {
+    position: absolute!important;
+    right: calc(-2.3% + 1px)!important;
+    background:none !important;
+    z-index: 999!important;
+    
+}
 .react-multiple-carousel__arrow--left::before{
     content: "\276C" !important;
     color: gray !important;

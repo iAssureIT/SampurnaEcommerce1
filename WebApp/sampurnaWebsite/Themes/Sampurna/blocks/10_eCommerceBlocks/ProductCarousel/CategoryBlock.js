@@ -62,7 +62,7 @@ class CategoryBlock extends Component{
       //   $('.category_0').removeClass('activeCategory')
       // }
       return (
-        <div className={"container-fluid NoPadding " +Style.categoryCarousel}>
+        <div className={"container-fluid NoPadding categoryCarousel " +Style.categoryCarousel}>
           <div className="col-12">
           <div className="col-12">
             <Carousel 

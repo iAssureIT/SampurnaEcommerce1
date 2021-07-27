@@ -300,7 +300,7 @@ class Product extends Component{
                 var categoryUrl = (data.category?data.category:"").replace(/\s+/g, '-').toLowerCase();;                    
               return (
                 // <div className={" col-sm-"+LGCol+"  col-"+XSCol +" " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
-                <div className={" col-sm-3  col-3  " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
+                <div className={" col-sm-6 col-12  col-lg-3 col-xl-3  " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
                   {/* <div className={" col-12 " +Style.mobileViewPadding }  key={index}> 
                     {data
                     ?

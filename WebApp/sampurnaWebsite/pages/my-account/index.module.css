@@ -5,7 +5,13 @@
     border-radius: 10px !important;
 }
 /* .myAccountSideWrapper{
-    margin-top: -35px;
+    margin-top: -36px;
 } */
 
 
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+	.myAccountSideWrapper{
+        margin-top: -36px;
+    }
+  }

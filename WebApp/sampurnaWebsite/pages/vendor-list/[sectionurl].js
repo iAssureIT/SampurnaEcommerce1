@@ -80,7 +80,7 @@ class VendorList extends Component {
                 </div>
                     {!this.state.loading
                     ?
-                    <div className="col-10 offset-1 col-md-8 offset-md-2 col-lg-10 offset-lg-1">
+                    <div className="col-10 offset-1 col-md-8 offset-md-2 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1">
                         <div className="col-12">
                             <div className={" row " }>
                                 

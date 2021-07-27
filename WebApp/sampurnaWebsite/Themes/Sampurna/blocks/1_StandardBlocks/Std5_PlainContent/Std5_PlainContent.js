@@ -81,19 +81,20 @@ export default class Std5_PlainContent extends Component{
                     </div>
                             <div className="col-12 stdBlockContentWrapper">
                                 <h3 className="stdBlockSubTitleWhite">{this.state.blocks.blockSubTitle}</h3>
-                                <p className="mt-5 TrollyMartDescrWrapper" dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
+                                <p className={"mt-5 TrollyMartDescrWrapper "+S.TrollyMartDescrWrapper} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
                             </div>
                             
                         </section>
                     :
-                        <section className="col-12 stdBlockWrapper">
-                            <StdBlockSeparatorBlue />
-                            <StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} />
-                            <div className="col-12 stdBlockContentWrapper">
-                                <h3 className="stdBlockSubTitleBlack">{this.state.blocks.blockSubTitle}</h3>
-                                <p className="mt-5 TrollyMartDescrWrapper" dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
-                            </div>
-                        </section>
+                    null
+                        // <section className="col-12 stdBlockWrapper">
+                        //     <StdBlockSeparatorBlue />
+                        //     <StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} />
+                        //     <div className="col-12 stdBlockContentWrapper">
+                        //         <h3 className="stdBlockSubTitleBlack">{this.state.blocks.blockSubTitle}</h3>
+                        //         <p className="mt-5 TrollyMartDescrWrapper" dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
+                        //     </div>
+                        // </section>
                 }
             </div>
         )
