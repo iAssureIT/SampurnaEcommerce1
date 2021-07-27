@@ -910,58 +910,53 @@ const cancelorderbtn = (id,vendor_id) => {
           onRequestClose={() => setModal(false)}
           coverScreen={true}
           hideModalContentWhileAnimating={true}
-          style={{ paddingHorizontal: '5%', zIndex: 999 }}
+          style={{zIndex: 999 }}
           animationOutTiming={500}>
-          <View style={{ backgroundColor: "#fff",borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
-          {vendorDetails&&<Card containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
+          <ScrollView style={{ backgroundColor: "#EBEBEB", borderRadius: 15,paddingVertical: 30}}>
+          {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1}}>
               <View style={{flex:0.3}}>
                 { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
-                  style={styles.img15}
+                  style={styles.img151}
                   source={{ uri: vendorDetails.products[productIndex].productImage[0] }}
                   resizeMode="contain"
                 />:
                 <Image
                   source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                  style={styles.img15}
+                  style={styles.img151}
                 />
               }
               </View>
-              <View style={{flex:0.7,paddingHorizontal:5}}>
+              <View style={{flex:0.7,paddingLeft:15,marginBottom:20}}>
+                <Text style={styles.vendorName1}>Vandor Name</Text>
                 <Text style={styles.prodinfo}>{vendorDetails.products[productIndex].productName}</Text>
                 <View style={styles.flx4}>
                   <View style={[styles.flx1, styles.prdet]}>
-                    <View style={[styles.flxdir]}>
+                    <View style={[styles.flxdir]}>                      
                       <View style={[styles.flxdir]}>
-                        <Text style={styles.ogprice}>{currency} </Text>
-                        {vendorDetails.products[productIndex].discountPercent > 0 &&<Text style={styles.discountpricecut}>{(vendorDetails.products[productIndex].originalPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}</Text>}
-                      </View>
-                      <View style={[styles.flxdir,{alignItems:"center"}]}>
-                          <Text style={styles.ogprice}> {(vendorDetails.products[productIndex].discountedPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                          </Text>
-                      </View>
-                      {vendorDetails.products[productIndex].discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
-                          <Text style={styles.ogprice}>( {vendorDetails.products[productIndex].discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                          </Text>
-                      </View>}
+                        <Text style={styles.ogpriceModal}> {(vendorDetails.products[productIndex].discountedPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                        </Text>
+                        <Text style={[styles.ogpriceModal1]}>{currency} </Text>                        
+                      </View>                    
                     </View>
                   </View>
                 </View>
               </View>  
-            </Card>}
+            </View>}
             <Rating
               // showRating
               startingValue={rating}
               onFinishRating={(e)=>setRating(e)}
-              style={{ paddingVertical: 10 }}
+              style={{ paddingVertical: 10 , marginBottom:10,backgroundColor:'#EBEBEB'}}
             />
               <Input
-                label   = "Leave a review"   
+                label   = "Leave a Feedback."   
+                labelStyle = {styles.labelDrop} 
                 // placeholder           = "Leave a review..."
                 onChangeText          = {(text)=>setReview(text)}
                 autoCapitalize        = "none"
                 keyboardType          = "email-address"
                 inputContainerStyle   = {styles.containerStyle}
-                containerStyle        = {{paddingHorizontal:0}}
+                containerStyle        = {{paddingHorizontal:20}}
                 placeholderTextColor  = {'#bbb'}
                 inputStyle            = {{fontSize: 16}}
                 inputStyle            = {{textAlignVertical: "top"}}
@@ -970,10 +965,15 @@ const cancelorderbtn = (id,vendor_id) => {
                 numberOfLines         = {4}
                 value                 = {review}
               />
-              <View style={{flexDirection:'row',justifyContent:"flex-end",marginBottom:15}}>
-                <Icon name="plus" size={15}  type="font-awesome" iconStyle={{paddingHorizontal:5}}  onPress={() => chooseFromLibrary('openCamera','Review')}/>
-                <Icon name="image" size={15}  type="font-awesome" onPress={() => chooseFromLibrary('openPicker','Review')}/>
-              </View>
+              <View style={{flexDirection:'row',justifyContent:"flex-end",marginHorizontal:20}}>
+                <TouchableOpacity 
+                    style={{height:34,width:34,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50}}
+                    onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
+                  >
+                  {/* <Icon name="plus" size={12}  type="font-awesome" iconStyle={{paddingHorizontal:5}}  onPress={() => chooseFromLibrary('openCamera','Return')}/> */}
+                  <Icon name="image" size={12}  type="font-awesome" onPress={() => chooseFromLibrary('openPicker','Return')}/>
+                </TouchableOpacity>                
+              </View>              
               <View style={{flexDirection:"row",marginBottom:15}}>
                 {
                   reviewProductImages && reviewProductImages.length > 0 ?
@@ -991,13 +991,15 @@ const cancelorderbtn = (id,vendor_id) => {
                   null
                 }
                </View> 
-               
-             <FormButton 
-                onPress    = {()=>submitReview()}
-                title       = {'Submit'}
-                background  = {true}
-              /> 
-          </View>
+               <View style = {{marginHorizontal:40}}>
+                <FormButton 
+                  onPress    = {()=>submitReview()}
+                  title       = {'Submit'}                  
+                  background  = {true}
+                /> 
+               </View>
+             
+          </ScrollView>
         </Modal>
 
         <Modal isVisible={returnModal}
@@ -1007,49 +1009,44 @@ const cancelorderbtn = (id,vendor_id) => {
           hideModalContentWhileAnimating={true}
           style={{ zIndex: 999 }}
           animationOutTiming={500}>
-          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
-          {vendorDetails&&<Card containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
+          <ScrollView style={{ backgroundColor: "#EBEBEB", borderRadius: 15,paddingVertical: 30}}>
+          {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1}}>
               <View style={{flex:0.3}}>
                 { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
-                  style={styles.img15}
+                  style={styles.img151}
                   source={{ uri: vendorDetails.products[productIndex].productImage[0] }}
                   resizeMode="contain"
                 />:
                 <Image
                   source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                  style={styles.img15}
+                  style={styles.img151}
                 />
               }
               </View>
-              <View style={{flex:0.7,paddingHorizontal:5}}>
+              <View style={{flex:0.7,paddingLeft:15,marginBottom:20}}>
+                <Text style={styles.vendorName1}>Vandor Name</Text>
                 <Text style={styles.prodinfo}>{vendorDetails.products[productIndex].productName}</Text>
                 <View style={styles.flx4}>
                   <View style={[styles.flx1, styles.prdet]}>
-                    <View style={[styles.flxdir]}>
+                    <View style={[styles.flxdir]}>                      
                       <View style={[styles.flxdir]}>
-                        <Text style={styles.ogprice}>{currency} </Text>
-                        {vendorDetails.products[productIndex].discountPercent > 0 &&<Text style={styles.discountpricecut}>{(vendorDetails.products[productIndex].originalPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}</Text>}
-                      </View>
-                      <View style={[styles.flxdir,{alignItems:"center"}]}>
-                          <Text style={styles.ogprice}> {(vendorDetails.products[productIndex].discountedPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                          </Text>
-                      </View>
-                      {vendorDetails.products[productIndex].discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
-                          <Text style={styles.ogprice}>( {vendorDetails.products[productIndex].discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                          </Text>
-                      </View>}
+                        <Text style={styles.ogpriceModal}> {(vendorDetails.products[productIndex].discountedPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                        </Text>
+                        <Text style={[styles.ogpriceModal1]}>{currency} </Text>                        
+                      </View>                    
                     </View>
                   </View>
                 </View>
               </View>  
-            </Card>}
-               <View style={[styles.confirmbtn, styles.marginBottom20]}>
-              <Text style={[CommonStyles.errorText,{marginBottom:15}]}>All fields are madetory</Text>
-              <View style={[styles.inputWrapper]}>
-                <View style={styles.inputTextWrapper}>
+            </View>}
+               <View style={[styles.marginBL20]}>
+               <View style={[styles.labelDrop],{marginBottom:10,fontSize:13,fontFamily:"Montserrat-Bold",color:'#000000',}}><Text>Reason for Return</Text></View>
+              <Text style={[CommonStyles.errorText]}>All fields are madetory</Text>              
+              <View style={[styles.inputWrapper]}>              
+                <View style={styles.inputTextWrapper}>                  
                   <Dropdown
                   underlineColorAndroid ='transparent'
-                    placeholder         = {"Reason for Return..."}
+                    // placeholder         = {"Reason for Return..."}
                     onChangeText        = {(value) => setReason(value)}
                     data                = {getReasons}
                     value               = {reason}
@@ -1073,13 +1070,14 @@ const cancelorderbtn = (id,vendor_id) => {
             </View>
               
               <Input
-                label   = "Comment"   
+                label   = "Comment"  
+                labelStyle = {styles.labelDrop} 
                 // placeholder           = "Leave a review..."
                 onChangeText          = {(text)=>setComment(text)}
                 autoCapitalize        = "none"
                 keyboardType          = "email-address"
                 inputContainerStyle   = {styles.containerStyle}
-                containerStyle        = {{paddingHorizontal:0}}
+                containerStyle        = {{paddingHorizontal:0,marginHorizontal:20,marginRight:20}}
                 placeholderTextColor  = {'#bbb'}
                 inputStyle            = {{fontSize: 16}}
                 inputStyle            = {{textAlignVertical: "top"}}
@@ -1088,9 +1086,14 @@ const cancelorderbtn = (id,vendor_id) => {
                 numberOfLines         = {4}
                 value                 = {comment}
               />
-              <View style={{flexDirection:'row',justifyContent:"flex-end"}}>
-                <Icon name="plus" size={15}  type="font-awesome" iconStyle={{paddingHorizontal:5}}  onPress={() => chooseFromLibrary('openCamera','Return')}/>
-                <Icon name="image" size={15}  type="font-awesome" onPress={() => chooseFromLibrary('openPicker','Return')}/>
+              <View style={{flexDirection:'row',justifyContent:"flex-end",marginHorizontal:20}}>
+                <TouchableOpacity 
+                    style={{height:34,width:34,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50}}
+                    onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
+                  >
+                  {/* <Icon name="plus" size={12}  type="font-awesome" iconStyle={{paddingHorizontal:5}}  onPress={() => chooseFromLibrary('openCamera','Return')}/> */}
+                  <Icon name="image" size={12}  type="font-awesome" onPress={() => chooseFromLibrary('openPicker','Return')}/>
+                </TouchableOpacity>                
               </View>
               <View style={{flexDirection:"row"}}>
                 {
@@ -1109,12 +1112,17 @@ const cancelorderbtn = (id,vendor_id) => {
                   null
                 }
                </View> 
-              <View style={{paddingVertical:15}}>
-                <Text style={CommonStyles.label}>Refunded To:</Text>
+              <View style={{paddingVertical:15,marginHorizontal:20,}}>
+                <Text style={[styles.refundedText],{}}>Refund to :</Text>
                 <View style={{flexDirection:'row',alignItems:'center'}}>
                   <RadioButton
                     style={styles.radiobtn}
                     value="first"
+                    checkedIcon='dot-circle-o'
+                    checkedColor='#033554'                              
+                    uncheckedIcon='circle-o'
+                    uncheckedColor='#033554'
+                    size={10}
                     status={checked === 'first' ? 'checked' : 'unchecked'}
                     onPress={() => {setChecked('first');setRefund('source')}}
                   />
@@ -1124,16 +1132,26 @@ const cancelorderbtn = (id,vendor_id) => {
                   <RadioButton
                     style={styles.radiobtn}
                     value="second"
+                    checkedIcon='dot-circle-o'
+                    checkedColor='#033554'                              
+                    uncheckedIcon='circle-o'
+                    uncheckedColor='#033554'
+                    size={10}
                     status={checked === 'second' ? 'checked' : 'unchecked'}
                     onPress={() => {setChecked('second');setRefund('credit')}}
                   />
                   <Text style={styles.free}>Add to Credit Points</Text>
                 </View>
               </View>
-              <View style={{flexDirection:'row',alignItems:'center',paddingVertical:5}}>
+              <View style={{flexDirection:'row',alignItems:'center',paddingVertical:5,marginHorizontal:20,}}>
                 <RadioButton
                   style={styles.radiobtn}
                   value={checked}
+                  checkedIcon='dot-circle-o'
+                  checkedColor='#033554'                              
+                  uncheckedIcon='circle-o'
+                  uncheckedColor='#033554'
+                  size={10}
                   status={checkedTerms ? 'checked' : 'unchecked'}
                   onPress={() => {setTermsChecked(true)}}
                 />
@@ -1144,7 +1162,7 @@ const cancelorderbtn = (id,vendor_id) => {
                 title       = {'Submit'}
                 background  = {true}
               />
-          </View>
+          </ScrollView>
         </Modal>
         <Modal isVisible={modalTerms}
           onBackdropPress={() => setTermsModal(false)}

@@ -183,7 +183,9 @@ export default StyleSheet.create({
   prodorders:{
     flexDirection:"row",
     margin:0,
+    paddingHorizontal:15,
     marginVertical:15,
+    // paddingHorizontal:15,    
   },
   flx7:{
     flex:0.6,
@@ -276,6 +278,21 @@ export default StyleSheet.create({
   },
   img15:{
     width: 60,height:60
+  },
+  img151:{
+    width:76,height:81,backgroundColor:'#EBEBEB',
+    borderWidth:2,
+    borderColor:'#033554',
+    borderRadius:15,
+    marginLeft:20,
+    marginTop:10,
+  },
+
+  labelDrop:{
+    fontSize:13,
+    fontFamily:"Montserrat-Bold",
+    color:'#000000',
+    marginBottom:10,
   },
   productqtyty:{
     flex:0.8,backgroundColor:'#f1f1f1',borderWidth:1,
@@ -440,6 +457,12 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Medium",
     color:'#000',
   },
+  ogpriceModal1: {
+		fontSize: 12, fontFamily: "Montserrat-Bold",color: '#000',marginLeft:5, alignItems: 'center',
+  },
+  ogpriceModal: {
+		fontSize: 12, fontFamily: "Montserrat-Bold",color: '#000', alignItems: 'center',
+  },
   ogprice: {
 		fontSize: 16, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
   },
@@ -468,12 +491,19 @@ export default StyleSheet.create({
     flexDirection:'row',marginTop:20,justifyContent:'space-between'
   },
   containerStyle:{
-    borderWidth:1,
-    borderRadius:3,
+    borderWidth:0.5,
+    borderRadius:5,
     // marginVertical:5,
-    borderColor:"#ccc",
+    borderColor:"#707070",
+    backgroundColor:'#fff',
+    fontFamily:'Montserrat-Medium',
     paddingHorizontal: 0,
     // height:43,
+  },
+  refundedText:{
+    fontSize:12,
+    fontFamily:'Montserrat-Regular',
+    color:"#033554",
   },
 
   msgContainerStyle:{
@@ -500,6 +530,10 @@ export default StyleSheet.create({
   marginBottom20:{
     marginBottom: 20
   },
+  marginBL20:{
+    marginBottom: 20,
+    marginHorizontal:20,
+  },
   inputWrapper : {
     width:'100%',
     // marginLeft:10,
@@ -510,7 +544,7 @@ export default StyleSheet.create({
     borderRadius: 5,
   },
   inputTextWrapper : {
-    width:'88%'
+    width:'100%'
   },
   ddContainer:{
     backgroundColor:'transparent',
@@ -656,6 +690,15 @@ export default StyleSheet.create({
     color:"#E88686",
     marginTop:5,
     textDecorationLine:'underline',
+  },
+
+  vendorName1:{
+    fontFamily:'Montserrat-SemiBold',
+    fontSize:14,
+    color:'#000',
+    alignSelf:'flex-end',
+    marginBottom:20,
+    marginRight:20,
   },
 
   cancelOrderText:{
