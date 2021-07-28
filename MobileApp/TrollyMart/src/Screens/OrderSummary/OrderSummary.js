@@ -205,6 +205,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
           // setToast({text: res.data.message, color:res.data.message === "Reee Applied Successfully!" ? 'green':colors.warning});
           setCartData(res.data);
           setRedeemPoints(0);
+          setCouponModal(false);
           // setCouponCode('');
       })
       .catch(err=>{
@@ -384,53 +385,25 @@ import { NetWorkError } from '../../../NetWorkError.js';
                           <Icon name="trash" type={"font-awesome"} size={17} iconStyle={{color:'#648295'}} />
                       </TouchableOpacity>  
                     </View>}
-                   
-                      {cartData.paymentDetails.afterDiscountCouponAmount === 0 && cartData.paymentDetails.creditPointsUsed === 0?
-                      //  <View style={{marginTop:15}}>
-                      //     <Text style={[CommonStyles.label]}>Credit Points Available {cartData.totalCreditPoints} Points.</Text>
-                      //     <Text style={[CommonStyles.textLight]}>Total Balanace Available {cartData.totalCreditPointsValue} {currency}.</Text>
-                      //     <View style={{flex:1,flexDirection:"row",height:50}}>
-                      //       <View style={{flex:.7}}>
-                      //         <Input
-                      //           placeholder           = "Enter credit value..."
-                      //           onChangeText          = {(text)=>onCheckLimit(text)}
-                      //           autoCapitalize        = "none"
-                      //           keyboardType          = "email-address"
-                      //           inputContainerStyle   = {styles.containerStyle}
-                      //           containerStyle        = {{paddingHorizontal:0}}
-                      //           placeholderTextColor  = {'#bbb'}
-                      //           inputStyle            = {{fontSize: 16}}
-                      //           inputStyle            = {{textAlignVertical: "top"}}
-                      //           autoCapitalize        = 'characters'
-                      //           value                 = {creditPointsUsed.toString()}
-                      //           keyboardType          = 'numeric'
-                      //         />
-                      //       </View>  
-                      //       <View style={{flex:.3,marginTop:10}}>
-                      //         <FormButton 
-                      //           onPress    = {()=>redeemPoints()}
-                      //           title       = {'Apply'}
-                      //           background  = {true}
-                      //         /> 
-                      //       </View>  
-                      //     </View>
-                      //   </View>  
-                      null
-                        :
-                        cartData.paymentDetails.creditPointsUsed > 0 &&<SafeAreaView>
-                        <View style={styles.flxdata}>
-                          <View style={{ flex: 0.6 }}>
-                            <Text style={styles.totaldata}>Redeem Value  </Text>
-                          </View> 
-                          <View style={{ flex: 0.35 }}>
-                            <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                              <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.creditPointsValueUsed.toFixed(2)}</Text>
-                            </View>
+                    {cartData.paymentDetails.creditPointsUsed > 0 &&<View style={styles.flxdata}>
+                      <View style={{ flex: 0.5 }}>
+                        <Text style={styles.totaldata1}>Redeem Value</Text>
+                      </View>
+                      <View style={{ flex: 0.2 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
+                            <Text style={[styles.currency1,{opacity: 0.7,color:'#EF9A9A'}]}>{currency}</Text>
                           </View>
                         </View>
-                        <Text style={[styles.totaldata,{color:"red",alignSelf:"flex-end",paddingBottom:5}]} onPress={()=>getCartData(user_id)}>Remove Value</Text>
-                        </SafeAreaView>
-                      }
+                      <View style={{ flex: 0.2 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincartTotalR}>{cartData.paymentDetails.creditPointsValueUsed.toFixed(2)}</Text>
+                        </View>
+                      </View>
+                      <TouchableOpacity style={{flex:0.1,justifyContent:"center",alignItems:"center"}} onPress={()=>getCartData(user_id)}>
+                          <Icon name="trash" type={"font-awesome"} size={17} iconStyle={{color:'#648295'}} />
+                      </TouchableOpacity>  
+                    </View>}
+                  
                     <View style={{marginVertical:5}} />
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.5 }}>
