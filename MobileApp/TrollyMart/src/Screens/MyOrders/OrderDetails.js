@@ -584,9 +584,20 @@ const cancelorderbtn = (id,vendor_id) => {
                           <View style={{flex:0.8,alignItems:'flex-start'}}>
                             <Text style={[styles.vendorName]}>{vendor.vendor_id.companyName}</Text>
                           </View>
-                          <View style={{flex:0.4,alignItems:'flex-end'}}>
-                            <Text style={styles.cancelOrderText}>Cancel this Order</Text>
-                          </View>
+                           {cancelButton(order.createdAt) ?
+                          order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
+                          null
+                          :
+                          <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40,alignItems:'flex-end'}]}>
+                            {order.orderStatus && order.orderStatus !== 'Cancelled'&&
+                            <View style={{justifyContent:'center'}}>
+                              <Text style={styles.cancelOrderText} onPress={()=>cancelorderbtn(order._id,'')}>Cancel this order</Text>
+                              </View>
+                            }
+                            </View>
+                          :
+                          null
+                        }
                         </View> 
                         <View style={styles.orderstatusmgtop}>
                           {
@@ -666,9 +677,9 @@ const cancelorderbtn = (id,vendor_id) => {
                             </View>
                           );
                         })}
-                        <View style={styles.totaldetails}>
+                        <View style={[styles.totaldetails,{paddingHorizontal:15}]}>
                           <View style={styles.flxdata}>
-                            <View style={{ flex: 0.35}} />
+                              <View style={{ flex: 0.35}}/>
                               <View style={{ flex: 0.35}}>
                                 <Text style={styles.totalAmount}>Total</Text>
                               </View>
@@ -682,7 +693,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                 </View>
                             </View>
                             <View style={styles.flxdata}>
-                              <View style={{ flex: 0.35}} />
+                                <View style={{ flex: 0.35}}/>
                                 <View style={{ flex: 0.35}}>
                                   <Text style={styles.totalAmount}>You Save </Text>
                                 </View> 
@@ -698,19 +709,7 @@ const cancelorderbtn = (id,vendor_id) => {
                           <View>
                           </View>
                         </View>
-                        {cancelButton(order.createdAt) ?
-                            vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled'  && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Delivered & Paid" ?
-                            null
-                            :
-                            order.vendorOrders.length>1 && 
-                            <View style={[{paddingRight:0,height:30,width:150,alignSelf:'flex-end',marginBottom:15}]}>
-                              {vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled'&&
-                                  <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",alignSelf:'flex-end'}]} onPress={()=>cancelorderbtn(order._id,vendor.vendor_id._id)}>Cancel this order</Text>
-                              }
-                              </View>
-                            :
-                            null
-                          }
+                        
                       </View>
                       )
                     })
@@ -793,15 +792,15 @@ const cancelorderbtn = (id,vendor_id) => {
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
                         popover={tooltipClone}>
-                          <Icon name="info-circle" type={"font-awesome"} size={11} color={'#A6B7C2'} />
+                          <Icon name="info-circle" type={"font-awesome"} size={17} color={'#A6B7C2'} />
                         </Tooltip>
                     </View>  
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
+                      <View style={{ flex: 0.57 }}>
                         <Text style={styles.totalAmount}>Discount Coupon</Text>
                       </View>
-                      <View style={{ flex: 0.4,flexDirection:'row' }}>
+                      <View style={{ flex: 0.38,flexDirection:'row' }}>
                         <View style={{flex:.5}}>
                             <Text style={[styles.ogprice,{opacity: 0.5,color:'#EF9A9A'}]}>{currency} </Text>
                         </View> 
@@ -814,27 +813,17 @@ const cancelorderbtn = (id,vendor_id) => {
                       <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
                         </View>
                       </View> */}
-                      <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
-                      <Tooltip 
-                        containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                        width={300} 
-                        height={tooltipSize.h + 30}
-                        backgroundColor={colors.theme}
-                        popover={tooltipClone}>
-                          <Icon name="trash" type={"font-awesome"} size={11} color={'#A6B7C2'} />
-                        </Tooltip>
-                    </View>  
                     </View>
                     <View style={{marginVertical:5,borderColor:"#ddd"}} />
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.57 }}>
+                      <View style={{ flex: 0.55 }}>
                         <Text style={styles.totalAmountG}>Grand Total</Text>
                       </View>
-                      <View style={{ flex: 0.4,flexDirection:'row' }}>
-                        <View style={{flex:.45}}>
+                      <View style={{ flex: 0.45,flexDirection:'row'}}>
+                        <View style={{flex:.5}}>
                             <Text style={[styles.ogpriceG,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
-                        <View style={{flex:.5,alignItems:'flex-end'}}>
+                        <View style={{flex:.5}}>
                             <Text style={styles.totalAmountG}>{order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                         </View>                        
                       </View>
@@ -845,20 +834,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View> */}
                     </View>
                   </View>
-                  {cancelButton(order.createdAt) ?
-                    order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
-                    null
-                    :
-                     <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40}]}>
-                      {order.orderStatus && order.orderStatus !== 'Cancelled'&&
-                       <View style={{justifyContent:'center'}}>
-                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",alignSelf:'center'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel order before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('hh:mm')}</Text>
-                        </View>
-                      }
-                      </View>
-                    :
-                    null
-                  }
+                 
                 </View>
               </View>
             </View>

@@ -120,20 +120,25 @@ const [refreshing,setRefresh]= useState(false)
               </View>
           </ScrollView>
           :
-          <View style={{height:window.height-120,justifyContent:'center',alignItems:'center'}}>
-            <Image
-              source={require("../../AppDesigns/currentApp/images/empty_wishlist.png")}
-              style={{width:window.width,height:300}}
-              resizeMode='contain'
-            />
-            <View style={{alignItems:'center'}}>
-              <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>Your Wishlist is empty!</Text>
-              <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
-                <Text style={[CommonStyles.linkText,{textDecoration: "underline",fontFamily:"Montserrat-SemiBold",fontSize:12}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
-              </View>
-            </View> 
-        </View>
+          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+            <View style={{paddingVertical:24,paddingHorizontal:6}}>
+              <Text style={CommonStyles.screenHeader}>My Wishlist</Text>
+            </View>
+            <View style={{height:window.height-230,justifyContent:'center',alignItems:'center'}}>
+              <Image
+                source={require("../../AppDesigns/currentApp/images/empty_wishlist.png")}
+                style={{width:window.width,height:300}}
+                resizeMode='contain'
+              />
+              <View style={{alignItems:'center'}}>
+                <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>Your Wishlist is empty!</Text>
+                <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                  <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
+                  <Text style={[CommonStyles.linkText,{textDecoration: "underline",fontFamily:"Montserrat-SemiBold",fontSize:12}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
+                </View>
+              </View> 
+          </View>
+        </ScrollView>
           }
         </View>}
       </React.Fragment>

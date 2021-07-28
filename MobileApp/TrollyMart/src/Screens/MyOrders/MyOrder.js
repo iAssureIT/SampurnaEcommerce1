@@ -321,26 +321,20 @@ export const MyOrder = withCustomerToaster((props)=>{
                           </View>  
                           <View style={styles.orderdetsandcancelbtn}>
                             {order ?
-                              <View style={[styles.ordercancelstatus,{justifyContent:"flex-end"}]}>
+                              <View style={[styles.ordercancelstatus]}>
                                 {cancelButton(order.createdAt) ?
                                   order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
                                   null
                                   :
                                   <View style={styles.orderdetailsstatus}>
                                     {order.orderStatus && order.orderStatus !== 'Cancelled'&&
-                                    <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40,alignItems:'center'}]}>
-                                    {order.orderStatus && order.orderStatus !== 'Cancelled'&&
-                                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",fontSize:13,alignSelf:'center',color:colors.danger}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel order before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('hh:mm')}</Text>
-                                    }
+                                    <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40}]}>
+                                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",fontSize:13,color:colors.danger,textDecorationLine:'underline'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('LT')}</Text>
                                     </View>}
                                   </View>
                                   :
-                                  null
+                                  <View style={styles.orderdetailsstatus} />
                                 }
-                                <View style={{flex:1,flexDirection:'row',marginHorizontal:15}}>
-                                  <View style={{flex:0.6,alignItems:'flex-start',marginLeft:10}}>
-                                    <Text style={styles.cancelText}>Cancel before 01.05 am</Text>
-                                  </View>
                                   <View style={[styles.ordercancelsstatus]}>
                                     <Button
                                       onPress         = {() => navigation.navigate('OrderDetails', { orderid: order._id })}
@@ -350,7 +344,6 @@ export const MyOrder = withCustomerToaster((props)=>{
                                       containerStyle  = {styles.buttonContainer}
                                     />
                                   </View>                                  
-                                </View>                                
                               </View>
                               :
                               <View style={styles.orderstatustxtcancel}></View>
@@ -368,14 +361,14 @@ export const MyOrder = withCustomerToaster((props)=>{
                       })
                       
                       :
-                      <View style={{height:window.height-120,justifyContent:'center',alignItems:'center'}}>
+                      <View style={{height:window.height-230,justifyContent:'center',alignItems:'center'}}>
                         <Image
-                          source={require("../../AppDesigns/currentApp/images/empty_wishlist.png")}
+                          source={require("../../AppDesigns/currentApp/images/empty-order.png")}
                           style={{width:window.width,height:300}}
                           resizeMode='contain'
                         />
                         <View style={{alignItems:'center'}}>
-                          <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>No Order Yet</Text>
+                          <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>No Orders Yet</Text>
                           <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                             <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
                             <Text style={[CommonStyles.linkText,{textDecorationLine: "underline",fontFamily:"Montserrat-SemiBold",fontSize:12}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>

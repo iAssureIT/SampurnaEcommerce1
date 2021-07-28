@@ -572,20 +572,25 @@ const getshippingamount=(startRange, limitRange)=>{
                 </View>                
           </View>
           :
-          <View style={{height:window.height-120,justifyContent:'center',alignItems:'center'}}>
-            <Image
-              source={require("../../AppDesigns/currentApp/images/empty_wishlist.png")}
-              style={{width:window.width,height:300}}
-              resizeMode='contain'
-            />
-            <View style={{alignItems:'center'}}>
-              <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>Your cart is empty!</Text>
-              <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
-                <Text style={[CommonStyles.linkText,{textDecorationLine: "underline",fontFamily:"Montserrat-SemiBold",fontSize:12}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
-              </View>
-            </View> 
-          </View> 
+          <View>
+            <View style={{paddingVertical:24,paddingHorizontal:6}}>
+              <Text style={CommonStyles.screenHeader}>My Cart</Text>
+            </View>
+            <View style={{height:window.height-230,justifyContent:'center',alignItems:'center'}}>
+              <Image
+                source={require("../../AppDesigns/currentApp/images/empty-cart.png")}
+                style={{width:window.width,height:300}}
+                resizeMode='contain'
+              />
+              <View style={{alignItems:'center'}}>
+                <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>Your cart is empty!</Text>
+                <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                  <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
+                  <Text style={[CommonStyles.linkText,{textDecorationLine: "underline",fontFamily:"Montserrat-SemiBold",fontSize:12}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
+                </View>
+              </View> 
+            </View>
+          </View>           
         }
          
         </View>

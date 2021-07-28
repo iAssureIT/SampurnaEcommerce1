@@ -33,9 +33,9 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   const {navigation,route,setToast}=props;
 
   const dispatch = useDispatch();
-  const [checked,setChecked]                = useState('first');
+  const [checked,setChecked]                = useState('third');
   const [btnLoading,setBtnLoading]          = useState(false);
-  const [paymentmethods,setPaymentMethods]  = useState("Cash On Delivery");
+  const [paymentmethods,setPaymentMethods]  = useState("third");
   // const [environment,setEnvironment]        = useState(false);
   const [namepayg,setNamePayg]              = useState('');
   const [partnerid,setPartnerId]            = useState('');
@@ -265,7 +265,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         <Text style={styles.freeL2}> (Credit/Debit Card) </Text>
                       </View>  
                       <View style={{flex:0.1,alignItems:'flex-end'}}>                        
-                        <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} resizeMode="contain" />
+                        <Image source={require("../../AppDesigns/currentApp/images/online-payment.png")} style={styles.iconImg} resizeMode="contain" />
                       </View>                    
                     </View>
                   </View>
@@ -287,7 +287,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         <Text style={styles.free}>Card on Delivary</Text>
                       </View>  
                       <View style={{flex:0.1,alignItems:'flex-end'}}>                        
-                        <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} resizeMode="contain" />
+                        <Image source={require("../../AppDesigns/currentApp/images/pos-terminal.png")} style={styles.iconImg} resizeMode="contain" />
                       </View>                         
                     </View>
                   </View>
@@ -300,7 +300,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         uncheckedIcon='circle-o'
                         uncheckedColor='#033554'
                         size={14}
-                        value="Cash on Delivary"
+                        value="first"
                         // color={colors.theme}
                         status={checked === 'first' ? 'checked' : 'unchecked'}
                         onPress={() => {setChecked('first');setPaymentMethods('Cash On Delivery')}}
@@ -309,7 +309,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         <Text style={styles.free}>Cash on Delivary</Text>
                       </View>  
                       <View style={{flex:0.1,alignItems:'flex-end'}}>                        
-                        <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} resizeMode="contain" />
+                        <Image source={require("../../AppDesigns/currentApp/images/cash-on-delivery.png")} style={styles.iconImg} resizeMode="contain" />
                       </View>                       
                     </View>
                   </View>

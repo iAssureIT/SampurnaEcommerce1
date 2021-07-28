@@ -119,7 +119,7 @@ export const VendorList = withCustomerToaster((props)=>{
                         <View style={{height:20,flexDirection:'row',alignItems:'center',justifyContent:'flex-end',marginRight:5}}>
                             <Text style={[{color:"#000",opacity:1,fontSize:10,marginTop:5}]}>60 Mins </Text>
                             <Image
-                                source      = {require("../../AppDesigns/currentApp/images/Time.png")} 
+                                source      = {require("../../AppDesigns/currentApp/images/time.png")} 
                                 style       =   {{height:15,marginTop:8,width:15}} 
                                 resizeMode  = "contain" 
                                 PlaceholderContent={<ActivityIndicator color={colors.theme}/>}/>

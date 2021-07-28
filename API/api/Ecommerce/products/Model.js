@@ -32,7 +32,7 @@ const productsSchema = mongoose.Schema({
     originalPrice             : Number,
     discountPercent           : Number,
     discountedPrice           : Number,
-    // availableQuantity         : Number,
+    availableQuantity         : Number,
     productImage              : Array,
     productSmallImage         : Array,
     productVideo              : Array,

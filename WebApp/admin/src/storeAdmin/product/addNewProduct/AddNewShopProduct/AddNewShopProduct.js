@@ -102,6 +102,10 @@ class AddNewShopProduct extends Component {
 	 		const user_ID     = userDetails.user_id;
 	 		const companyID   = userDetails.companyID;
 	 		var websiteModel 	= localStorage.getItem('websiteModel');
+
+	 		this.setState({
+	 			user_ID : user_ID
+	 		})
 	 		
 			axios.get("/api/adminPreference/get")
 			.then(preference =>{
@@ -586,7 +590,7 @@ class AddNewShopProduct extends Component {
   edit(id) {
 	 axios.get('/api/products/get/one/' + id)
 		.then((response) => {
-			// console.log("edit response----",response.data);
+			console.log("edit response----",response.data);
 		  this.getCategories();
 		  this.getSubCategories(response.data.category_ID);
 		//   console.log('response.data.category +++++',response.data.category);
@@ -730,6 +734,7 @@ class AddNewShopProduct extends Component {
 		"featured": productFeatured,
 		"exclusive": productExclusive,
 		"fileName": "Manual",
+		createdBy : this.state.user_ID
 	 }
 	 console.log("productDimentionArray => ", productDimentionArray);
 	 if(productDimentionArray.length > 0){
@@ -947,6 +952,7 @@ class AddNewShopProduct extends Component {
 		"status"            : this.refs.status.value,
 		"featured"          : productFeatured,
 		"exclusive"         : productExclusive,
+		createdBy : this.state.user_ID
 	 }
 
 	 console.log("formValues for update",formValues);

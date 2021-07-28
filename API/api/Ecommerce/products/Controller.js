@@ -14,8 +14,8 @@ var ObjectId               = require('mongodb').ObjectID;
 var UnitOfMeasurmentMaster = require('../departmentMaster/ModelUnitofmeasurment');
 const franchisegoods       = require('../distributionManagement/Model');
 const EntityMaster         = require('../../coreAdmin/entityMaster/ModelEntityMaster');
-const haversine             = require('haversine-distance')
-var subcategoryArray=[];
+const haversine            = require('haversine-distance')
+var subcategoryArray       = [];
 
 
 exports.insert_product = (req,res,next)=>{
@@ -58,7 +58,7 @@ exports.insert_product = (req,res,next)=>{
 				offeredPrice              : req.body.offeredPrice,
 				originalPrice             : req.body.originalPrice,
 				discountedPrice           : req.body.discountedPrice,
-				availableQuantity         : req.body.availableQuantity,
+				// availableQuantity         : req.body.availableQuantity,
 				status                    : req.body.status,
 				tags                      : req.body.tags,
 				offered                   : req.body.offered,
@@ -72,13 +72,48 @@ exports.insert_product = (req,res,next)=>{
 				taxRate                   : req.body.taxRate, 
 				type                      : req.body.type,
 				fileName                  : req.body.fileName,
+				createdBy 						: req.body.createdBy,
 				createdAt                 : new Date()
 			});
 			products.save()
 			.then(data=>{
+				const productInventory = new ProductInventory({
+						_id                       : new mongoose.Types.ObjectId(), 
+						vendor_ID                 : ObjectId(req.body.vendor_ID), 
+						universalProductCode      : req.body.universalProductCode ? req.body.universalProductCode : "",
+						productCode               : req.body.productCode ? req.body.productCode : "",
+						itemCode                  : req.body.itemCode ? req.body.itemCode : "",
+						productName               : req.body.productName,
+						shortDescription          : req.body.shortDescription ? req.body.shortDescription : "",
+						productReturnable         : req.body.productReturnable ? req.body.productReturnable : "",
+						currentQuantity           : req.body.availableQuantity ? req.body.availableQuantity : "",
+						originalPrice             : req.body.originalPrice,
+						discountPercent           : req.body.discountPercent,
+						discountedPrice           : req.body.discountedPrice, 
+						inwardDetails             : [ 
+														{
+															date                : new Date(),
+															qty                 : req.body.availableQuantity,
+															originalPrice       : req.body.originalPrice,
+															discountPercent     : req.body.discountPercent,
+															discountedPrice     : req.body.discountedPrice, 
+															addedBy             : ObjectId(req.body.createdBy),
+														}
+						],
+						createdBy                 : ObjectId(req.body.createdBy),
+						createdAt                 : new Date()
+					});
+					productInventory.save()
+					.then(iventoryData=>{
+						// console.log("iventoryData---------",iventoryData);
+					})
+					.catch(err =>{
+						console.log("error---------",err);
+						reject(err);
+					});
 				res.status(200).json({
-					"message": "Product Submitted Successfully.",
-					"product_ID" : data._id
+					"message" 		: "Product Submitted Successfully.",
+					"product_ID" 	: data._id
 				});
 			})
 			.catch(err =>{
@@ -1030,8 +1065,8 @@ exports.update_product = (req,res,next)=>{
 			}
 		)
 		.exec()
-		.then(data=>{
-			if(data.nModified == 1){
+		.then(updatedData=>{
+			if(updatedData.nModified === 1){				
 				res.status(200).json({
 					"message": "Product Updated Successfully.",
 					"product_ID" : data._id
@@ -1690,11 +1725,13 @@ exports.fetch_product = (req,res,next)=>{
 exports.fetch_One_product = (req,res,next)=>{
 	Products.findOne({_id : req.params.productID})
 	.exec()
-	.then(product=>{
+	.then(async(product)=>{
 		if(product){
 			// console.log("user_ID",user_ID);
-			
-				res.status(200).json(product);
+			var inventoryData               = await ProductInventory.findOne({productCode : product.productCode, itemCode : product.itemCode, vendor_ID : ObjectId(product.vendor_ID._id)},{currentQuantity : 1});
+			// console.log("inventoryData => ",inventoryData);
+			product.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 
+			res.status(200).json(product);
 			 
 		}else{
 			res.status(200).json(product);

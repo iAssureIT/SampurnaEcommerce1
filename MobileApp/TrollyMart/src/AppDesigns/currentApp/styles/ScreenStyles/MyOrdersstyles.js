@@ -193,17 +193,19 @@ export default StyleSheet.create({
   ordercancelstatus:{
     flex:1,
     flexDirection:'row',
+    alignItems:'center',
+    paddingHorizontal:15
     // marginTop:80,
     
   },
   ordercancelsstatus:{
     flex:0.4,
     paddingLeft:10,
-    alignItems:'flex-end'
   },
   orderdetailsstatus:{
     flex:0.6,
     paddingRight:10,
+    justifyContent:'center'
   },
   mrp:{
     fontSize:13,fontFamily:"Montserrat-Regular",
