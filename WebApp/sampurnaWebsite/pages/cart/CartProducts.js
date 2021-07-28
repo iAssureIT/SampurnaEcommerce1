@@ -312,9 +312,9 @@ class CartProducts extends Component{
                             // console.log("vendorWiseCartData==",vendorWiseCartData);
                                 return( 
                                     <div className={"row " +Style.singleRow} key={index}>
-            <div className="col-12 mt-2 mb-3 d-lg-none d-xl-none "><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
+    <div className="col-12 mt-2 mb-3 d-lg-none d-xl-none "><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
 
-                                          <table className={"table table-borderless orderTable d-lg-none d-xl-none "+Style.table}>
+    <table className={"table table-borderless orderTable d-lg-none d-xl-none "+Style.table}>
         <thead>
             <tr>
                 <th className="font-weight-bold">Product</th>

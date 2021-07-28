@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import $, { post }          from 'jquery';
 import jQuery               from 'jquery';
+import Link                   from 'next/link';
+
 import axios                from 'axios';
 import Router               from 'next/router';
 import Loaderspinner        from 'react-loader-spinner';
@@ -793,8 +795,142 @@ class Checkout extends Component {
                     </div>
 
                     {/*<SmallBanner bannerData={this.state.bannerData} />*/}
+                    {/* =====================res======================== */}
+  
+        
+    <div className={"col-12 d-block d-lg-none d-xl-none font-weight-bold"}>Order Summary</div>
 
-                    <div className={"col-10 offset-1 " +Style.cartTitle}>Order Summary</div>
+      {     this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length > 0 ?
+                                                        this.state.recentCartData.vendorOrders.map((vendorWiseData, index) => {  
+
+                            // console.log("vendorWiseCartData==",vendorWiseCartData);
+                                return( 
+                                    <div className={"col-12 " +Style.singleRow} key={index}>
+    <div className="col-12 mt-2 mb-3 d-lg-none d-xl-none "><b>{vendorWiseData.vendor_id.companyName}</b></div>
+
+    <table className={"table table-border orderTable d-lg-none d-xl-none "+Style.table}>
+        <thead>
+            <tr>
+                <th className="font-weight-bold">Product</th>
+                <th className={"d-none d-lg-block "+Style.pnHIdden}>Products Name</th>
+                {/* <th className="textAlignLeft">Price</th> */}
+                <th className="textAlignCenter">Quantity</th>
+                <th className="textAlignCenter">SubTotal</th>
+
+            </tr>
+        </thead>
+    
+        <tbody>
+        {vendorWiseData.cartItems && vendorWiseData.cartItems.map((cartdata, index) => {
+              // console.log("productdata=",productdata);
+                return (
+                    
+                    <tr key={index}>
+                        <td>
+                            <img className="img orderImg" src={cartdata.product_ID.productImage[0] ? cartdata.product_ID.productImage[0] : "images/eCommerce/notavailable.png"} />
+
+                            <a  href={"/product-detail/" + vendorWiseData.vendor_id._id + "/"+vendorWiseData.vendorLocation_id +"/" +cartdata.product_ID._id}>
+                            {cartdata.product_ID.productNameRlang?
+                                <h5 className="RegionalFont mt-2">{cartdata.product_ID.productNameRlang}</h5>
+                            :
+                                <h5 className="productName mt-2">{cartdata.product_ID.productName}</h5>
+                            }
+                            </a>
+
+                            {cartdata.product_ID.discountPercent ?
+                                <div className={"col-12 NoPadding " +Style.f11N}>
+                                    <span className={"cartOldprice " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;{cartdata.product_ID.originalPrice.toFixed(2)}</span>&nbsp;
+                                <span className={"cartPrice " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{cartdata.product_ID.discountedPrice.toFixed(2)}</span> &nbsp; &nbsp;
+                                <span className={"cartDiscountPercent " +Style.f11N}>( {Math.floor(cartdata.product_ID.discountPercent)}% Off ) </span>
+                                </div>
+                                :
+                                <span className={"price " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{cartdata.product_ID.originalPrice.toFixed(2)}</span>
+                            }
+                            <div>
+                                {cartdata.product_ID.color ? <span className={"cartColor " +Style.f11N}>Color : <span style={{ backgroundColor: cartdata.product_ID.color, padding: '0px 5px' }}>&nbsp;</span> {ntc.name(cartdata.product_ID.color)[1]}, </span> : null}
+                                {cartdata.product_ID.size ? <span className={"cartColor " +Style.f11N}>Size : {cartdata.product_ID.size} &nbsp; {cartdata.product_ID.unit}</span> : null}
+                            </div>
+                        </td>
+
+                         <td className="text-center">
+                         {
+                            cartdata.product_ID.availableQuantity > 0 ?
+                                <span className={"textAlignRight " +Style.f11N +" "+Style.bold}>{cartdata.quantity}</span>
+                                :
+                                <span className={"textAlignCenter sold " +Style.f11N +" "+Style.bold}>SOLD OUT</span>
+                        }
+                         </td>
+
+                        <td>
+                        {
+                            cartdata.product_ID.availableQuantity > 0 ?
+                                <span className={"abc productPrize textAlignRight " +Style.f11N +" "+Style.bold}>
+                                    <span className={" " +Style.currencyColor}>{this.state.currency}</span>
+                                    {/* {cartdata.product_ID.currency} */}
+                                    {/* &nbsp;{cartdata.product_ID.discountedPrice.toFixed(2) * cartdata.product_ID.quantity}  */}
+                                    &nbsp;{cartdata.product_ID.discountPercent>0 ? (cartdata.product_ID.discountedPrice.toFixed(2) * cartdata.quantity).toFixed(2) : (cartdata.product_ID.originalPrice.toFixed(2) * cartdata.quantity).toFixed(2)}
+                                    
+                                    </span>
+                                :
+                                <span>-</span>
+                        }
+                        </td>
+                            
+                        
+                        
+
+                        
+                        
+                   </tr>
+                   
+                   
+                );
+            })
+        }
+      
+    </tbody>
+    
+    </table>
+    <div className={"col-12 d-bolck d-lg-none d-xl-none"}>
+        <tr className={" col-10  col-sm-6 float-right tableRow "+Style.tableBorderNone}>
+        <td className={" " +Style.f13N +" "+Style.bold +" "} colSpan="5"> 
+            <div className="col-12  float-right pb-2">
+                <span className="col-8 title">{vendorWiseData.vendorName}&nbsp; Total</span>
+                <span className="col-4 textAlignRight title NoPadding">&nbsp; 
+                    <span className={"col-1 px-1 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 p-0">{vendorWiseData.vendor_beforeDiscountTotal > 0 ? (vendorWiseData.vendor_netPayableAmount).toFixed(2) : 0.00}</span> 
+
+                </span>
+            </div>
+            <div className="col-12 float-right">
+                <span className="col-8 title">You Saved</span>
+                <span className="col-4 textAlignRight title NoPadding">&nbsp; 
+                    <span className={"col-1 px-1 " +Style.currencyColor}>{this.state.currency}</span><span className={" "+Style.currencyColor1}>{vendorWiseData.total > 0 ? vendorWiseData.vendor_discountAmount : "0.00"} </span>
+                </span>
+                
+            </div>
+                                                                            
+        </td>
+    </tr>
+    </div>
+   
+
+
+                                    </div>
+                                   
+                                    ) //end return   
+                                })// end fechcartData map
+        
+    
+                            
+        
+    
+        :
+        <div className="col-12  textAlignCenter">
+            <img className="col-12 col-md-4 col-sm-6 " src={"/images/eCommerce/emptycart.png"} alt="" />                          
+        </div> 
+    }
+
+                    <div className={"col-10 offset-1 d-none d-lg-block d-xl-block " +Style.cartTitle}>Order Summary</div>
                     {this.props.loading ?
                         <Loader type="fullpageloader"/>
                     :
@@ -883,7 +1019,166 @@ class Checkout extends Component {
                                         </div>
                                 }
                             </div>
-                            <div className="col-12 col-xl-9 col-md-12 col-lg-8 col-sm-12">
+{/* =======================================mb respnsve=================== */}
+                            <div className="col-10 d-block d-lg-none d-xl-none mx-auto">
+                            <div className="row mt-2 couponWrapper ">
+                                <label className={" " +Style.f13N}>Enter Discount Coupon Here <span className={" "+Style.dumySpan}>dumy span</span></label>
+                                <div className={"form-group col-8 NoPadding " +Style.border1}>                                                        
+                                    <input type="text" className={"form-control couponCode " +Style.border1} ref="couponCode" id="couponCode" label="couponCode" value={this.state.couponCode}  name="couponCode" placeholder="Enter Discount Coupon Here..." />
+                                </div>
+                                <div className="col-4 NoPadding">
+                                    <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCoupon.bind(this)}>Apply</button>
+                                </div>
+                            </div>
+
+                            
+
+                            <div className="row mt-2 mb-5 creditWrapper">
+                                {this.state.creditdataTotalPoints > 0?
+                                    <label className={" " +Style.f13N}>Credit Points Available [{this.state.creditdataTotalPoints}] Points.  <span className={" " +Style.AEDColor}> Total Balance Available [{this.state.creditdataValue}] {this.state.currency}</span></label>
+                                :
+                                <label className={" " +Style.f13N}>"You haven't earned any credit points yet"</label>
+                                }
+                                <div className={"form-group col-8 NoPadding " +Style.border1}>
+                                    <input type="text" className={"form-control couponCode " +Style.border1} ref="creaditPoint" id="creaditPoint" name="creaditPoint" value={this.state.creaditPoint}placeholder="" />
+                                </div>
+                                <div className="col-4 NoPadding">
+                                    <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCreditPoint.bind(this)}>Apply</button>
+                                </div>
+                                <div className={Style.errorMsg +" col-12 "}>{this.state.creaditPointError}</div>
+                                
+                            </div>
+                                  
+                                  
+                            
+                             <div className={"col-12 col-sm-8 mx-auto "+Style.GrandTotalBoxMobileView}>
+                                <div className="row">
+                                    <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{fontSize: "12px"}}>Final Total Amount :</div>
+                                    <div className={"col-6 mb-1 pr-0 "}>
+                                        <span className={"col-3 pr-0 "+Style.currencyColor} style={{fontSize: "12px"}}>{this.state.currency}</span><span className="col-3 pl-0 " style={{fontSize: "12px"}}> {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : "0.00" }</span>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{fontSize: "12px"}}>Total Saving Amount  :</div>
+                                    <div className={"col-6 mb-1 pr-0"}>
+                                        <span className={"col-3 pr-0 "+Style.currencyColor} style={{fontSize: "12px"}}>{this.state.currency}</span><span className="col-3 pl-0 " style={{fontSize: "12px"}}> {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount.toFixed(2) : "0.00"}</span>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{fontSize: "12px"}}>Total Tax  :</div>
+                                    <div className={"col-6 mb-1 pr-0"}>
+                                        <span className={"col-3 pr-0 "+Style.currencyColor} style={{fontSize: "12px"}}>{this.state.currency}</span><span className="col-3 pl-0 " style={{fontSize: "12px"}}> {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount.toFixed(2) : "0.00"}</span>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{fontSize: "12px"}}>Discount Coupon :</div>
+                                    <div className={"col-6 mb-1 pr-0 "}>
+                                        <span className={"col-3 pr-0 "+Style.currencyColor} style={{fontSize: "12px"}}>{this.state.currency}</span><span className="col-3 pl-0 " style={{fontSize: "12px"}}> {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0? this.state.recentCartData.paymentDetails.afterDiscountCouponAmount.toFixed(2) : "0.00"}</span>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{fontSize: "12px"}}>Total Credit Points :</div>
+                                    <div className={"col-6 mb-1 pr-0"}>
+                                        <span className={"col-3 pr-0 "+Style.currencyColor} style={{fontSize: "12px"}}>{this.state.currency}</span><span className="col-3 pl-0 " style={{fontSize: "12px"}}> {this.state.recentCartData.paymentDetails.creditPointsValueUsed>0? this.state.recentCartData.paymentDetails.creditPointsValueUsed.toFixed(2) : "0.00"}</span>
+                                    </div>
+                                </div>
+                                
+                                <div className="row">
+                                    <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{fontSize: "12px"}}>Total Delivery Charges :</div>
+                                    <div className={"col-6 mb-1 pr-0"}>
+                                        <span className={"col-3 pr-0 "+Style.currencyColor} style={{fontSize: "12px"}}>{this.state.currency}</span><span className="col-3 pl-0 " style={{fontSize: "12px"}}> {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : "0.00" }</span>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className={"col-6 mb-1 pl-0 pr-0 mt-2 "+Style.f1612+" "+Style.bold} style={{fontSize: "12px"}}>Grand Total :</div>
+                                    <div className={"col-6 mb-1 mt-2 pl-0 pr-0 "+Style.f161+" "+Style.bold}>
+                                        <span className={"col-3 pr-0 "+Style.currencyColor} style={{fontSize: "12px"}}>{this.state.currency}</span><span className="col-3 pl-0 " style={{fontSize: "12px"}}> {(this.state.recentCartData.paymentDetails.netPayableAmount).toFixed(2) }</span>
+                                    </div>
+                                </div>
+
+                                <div className="col-12 mt-5 shippingtimes">
+                                        <div className={"row " +Style.f13N}>
+                                            <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" />  
+                                            <div className="col-11 col-xl-11 col-md-11 termsWrapper">
+                                                <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree to terms & conditions</span> <span className="required">*</span>
+                                            </div>
+                                            <div className="col-11 pt-3">
+                                                <div className="errorMsg termConditionErrorMsg col-12 ">{this.state.errors.termsNconditions}</div>
+                                            </div>
+                                        </div> 
+                                  </div>
+
+
+                                  <div className={"col-12 " +Style.f13N}>
+                                        <span className="col-12 col-xl-12 nopadding my-5 ">Select Shipping Time<span className="required"></span></span>
+                                        <select onChange={this.selectedTimings.bind(this)} className={"col-12 mt-2 float-right  noPadding  form-control " +Style.f13N} ref="shippingtime" name="shippingtime" >
+                                            <option name="shippingtime" disabled="disabled" selected="true">-- Select --</option>
+                                            {
+                                                this.state.gettimes && this.state.gettimes.length > 0 ?
+                                                    this.state.gettimes.map((data, index) => {
+                                                        return (
+                                                            <option key={index} value={data._id}>{data.fromtime}-{data.totime}</option>
+                                                        );
+                                                    })
+                                                    :
+                                                    <option value='user'>No Timings available</option>
+                                            }
+                                        </select>
+                                </div>
+
+                                <div className="col-12 pt-3 ">
+                                            
+                                            {
+                                                !this.state.paymentMethods ?
+                                                <button className={"btn  mt-2 mb-2 col-12 float-right  " +Style.eCommTitle +" "+Style.addBTN +" "+Style.f16+" "+Style.f13N} onClick={this.placeOrder.bind(this)}><b>Place Order</b></button>
+                                                :
+                                                <div className="col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12" >
+                                                        <Loaderspinner
+                                                        type="ThreeDots"
+                                                        color="#80b435"
+                                                        height={40}
+                                                        width={40}
+                                                    />
+                                                </div>
+                                            }
+                                        
+                                </div>
+                                  
+                                        
+                            </div>
+
+                            </div>
+                            
+                            <div className={"modal NoPadding mt-5 " } id="termsNconditionsmodal" role="dialog">
+                                            <div className={"col-lg-4 col-12 col-sm-10 offset-sm-1 mx-auto NoPadding "+Style.modalMainWrapper}>
+                                                <div className={"modal-content  col-md NoPadding "+Style.modalContent }>
+                                                    <div className={"modal-header globalBgColor col-12 " +Style.modalHeader}>
+                                                        <div className={"modal-title col-12 modalheadingcont pb-2 text-center underline " +Style.f14B }><img className={" "+Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO"/><u>TERMS AND CONDITIONS</u></div>
+                                                        <button type="button" className={" close modalclosebut  "+Style.modalCloseButtonWrapper} data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div className={"modal-body col-12  "+Style.modalBodyRadius}>
+                                                        <ul className={"listStyle " +Style.listColor}>
+                                                            <li>The price of products is as quoted on the site from time to time.</li>
+                                                            <li>Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.</li>
+                                                            <li>Products marked as 'non-returnable' on the product detail page cannot be returned.</li>
+                                                            <li>Products may not be eligible for return in some cases, including cases of buyer's remorse such as incorrect model or color of product ordered or incorrect product ordered.</li>
+                                                            <li>The price of products is as quoted on the site from time to time.</li>
+                                                            <li>Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.</li>
+                                                            <li>Products marked as 'non-returnable' on the product detail page cannot be returned.</li>
+                                                            <li>Products may not be eligible for return in some cases, including cases of buyer's remorse such as incorrect model or color of product ordered or incorrect product ordered.</li>
+                                                            <li>The price of products is as quoted on the site from time to time.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+
+                            <div className="col-12 col-xl-9 col-md-12 col-lg-8 col-sm-12 d-none d-lg-block d-xl-block">
                                 <div className={"col-12 NoPadding table-responsive " +Style.orderReviews}>
                                     <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>Order Review</div>
                                     <div className={"col-12 " +Style.orderReviewsWrapper}>
@@ -894,11 +1189,11 @@ class Checkout extends Component {
                                                         this.state.recentCartData.vendorOrders.map((vendorWiseData, index) => {
                                                             // console.log("ceckout vendorWiseData.products=",vendorWiseData.products);
                                                             return (
-                                                                <div className="col-12 tableRowWrapper" key={'cartData' + index}>
+                                                                <div className="col-12 tableRowWrapper " key={'cartData' + index}>
                                                                 <tr  className="col-12">
                                                                     <td colSpan="5">
                                                                         <table className="table ">
-                                                                        <thead>
+                                                                        <thead >
                                                                             <tr>
                                                                                 <th colSpan="5">{vendorWiseData.vendor_id.companyName}</th>
                                                                                 
@@ -906,7 +1201,7 @@ class Checkout extends Component {
                                                                             <tr className={" "+Style.productHeaderWrapper}>
                                                                                 <th className="font-weight-bold">Product</th>
                                                                                 <th className={" "+Style.pnHidden}>Products Name</th>
-                                                                                <th className="font-weight-bold">Price</th>
+                                                                                <th className={" font-weight-bold  "+Style.pnHidden1}>Price</th>
                                                                                 <th className="textAlignRight font-weight-bold">Quantity</th>
                                                                                 <th className="textAlignRight font-weight-bold">SubTotal</th>
                                                                             </tr>
@@ -917,6 +1212,7 @@ class Checkout extends Component {
                                                                                 <tr>
                                                                                     <td><img className="img orderImg" src={cartdata.product_ID.productImage[0] ? cartdata.product_ID.productImage[0] : "images/eCommerce/notavailable.png"} /></td>
                                                                                     <td>
+                                                                                        <div className="d-none d-lg-block d-xl-block">
                                                                                         <a href={"/product-detail/" + vendorWiseData.vendor_id._id + "/"+vendorWiseData.vendorLocation_id +"/" +cartdata.product_ID._id}>
                                                                                         {cartdata.product_ID.productNameRlang?
                                                                                             <h5 className="RegionalFont">{cartdata.product_ID.productNameRlang}</h5>
@@ -938,8 +1234,9 @@ class Checkout extends Component {
                                                                                             {cartdata.product_ID.color ? <span className={"cartColor " +Style.f11N}>Color : <span style={{ backgroundColor: cartdata.product_ID.color, padding: '0px 5px' }}>&nbsp;</span> {ntc.name(cartdata.product_ID.color)[1]}, </span> : null}
                                                                                             {cartdata.product_ID.size ? <span className={"cartColor " +Style.f11N}>Size : {cartdata.product_ID.size} &nbsp; {cartdata.product_ID.unit}</span> : null}
                                                                                         </div>
+                                                                                        </div>
                                                                                     </td>
-                                                                                    <td className="textAlignLeft">
+                                                                                    <td className="textAlignLeft d-none d-lg-block d-xl-block">
                                                                                         {
                                                                                             cartdata.product_ID.availableQuantity > 0 ?
                                                                                                 // <span className="productPrize textAlignRight"><i className={"fa fa-" + cartdata.product_ID.currency}></i> &nbsp;{parseInt(cartdata.product_ID.discountedPrice).toFixed(2)}</span>

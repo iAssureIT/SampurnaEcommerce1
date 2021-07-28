@@ -228,7 +228,7 @@ text-align:right ! important;
 }
 @media only screen and (max-device-width: 480px) {
   .orderTable h5{
-    height: 45px ! important;
+    height: fit-content ! important;
     overflow: hidden;
     font-size: 10px!important;
     }    
