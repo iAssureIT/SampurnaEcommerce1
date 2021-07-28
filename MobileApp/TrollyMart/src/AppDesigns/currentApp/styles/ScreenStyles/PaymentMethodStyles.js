@@ -115,6 +115,11 @@ export default StyleSheet.create({
      height:340,
     justifyContent:'center'
   },
+  imgwdht:{
+    width: 425,
+    height: 340,
+    resizeMode:'contain',
+  },
   totaldata: {
     fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#333',
   },

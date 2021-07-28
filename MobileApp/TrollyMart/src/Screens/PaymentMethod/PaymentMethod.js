@@ -243,7 +243,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                   <View style={styles.vwwishlist}>
                     <Image
                       style={styles.imgwdht}
-                      source={require("../../AppDesigns/currentApp/images/paymentmethod.png")}
+                      source={require("../../AppDesigns/currentApp/images/PaymentMethod.png")}
                     />
                   </View>
                   <View style={styles.orderbrdr}>
@@ -325,7 +325,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                       <Text style={styles.free}>Net Banking</Text>
                     </View>
                   </View> */}
-                  <View style={{padding:15}}>
+                  <View style={{padding:25}}>
                     <FormButton
                       onPress={() => continuepage()}
                       title={"CONFIRM ORDER"}
