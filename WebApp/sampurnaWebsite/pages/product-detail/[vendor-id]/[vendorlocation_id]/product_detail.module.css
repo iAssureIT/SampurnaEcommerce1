@@ -22,11 +22,11 @@
 	width:110px !important;
 }
 .vendorNameWrapper b{
-	margin-left: 58px;
+	/* margin-left: 58px; */
   }
   .chaneVendorBtn a{
 	text-decoration: underline;
-	margin-left: 74.9%;
+	/* margin-left: 74.9%; */
 	color: #033554!important;
   }
   .chaneVendorBtn a:hover{
@@ -280,3 +280,8 @@ margin-left: 23px!important;
 	margin-top: 60px;
 }
 
+@media only screen and (max-device-width: 480px) {
+.productDetailVendorName{
+	font-size: 10px;
+}
+}

@@ -765,199 +765,200 @@ submitCart(event) {
                     }
                   </Carousel>
                   : 
-                  <div className={"row NoPadding " +Style.ProductListWrapper }>  
-                   <div className={"col-12 NoPadding p-2  " +Style.productDetailVendorName}> 
-                   <div className="row">
-                   <span className={"col-6 "+Style.vendorNameWrapper}> 
-                       <b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
-                    </span>
-                    <span className={"col-6   "+Style.chaneVendorBtn }> 
-                        <Link href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 NoPadding t "+Style.changeVendorWrapper} >Change Vendor</Link>
-                    </span>
-                   </div>
-                    
-                  
-                   </div>              
-                  <div className={"col-12" }>
-
-                   
-                 
-                  {this.state.blockSettings.showCarousel === false?
-                      < CategoryBlock 
-                        categoryData       = {this.state.categoryData}
-                        vendor_ID          = {this.state.vendor_ID}
-                        vendorlocation_ID  = {this.state.vendorlocation_ID}
-                        userLatitude       = {this.state.userLongitude}
-                        userLongitude      = {this.state.userLongitude}
-                        sectionUrl         = {this.state.sectionUrl}
-                        subCategoryUrl     = {this.state.subCategoryUrl}
-                        categoryUrl        = {this.state.categoryUrl}
-                      />
-                  :null
-                  }   
-                  {/* Fitters code */}
-                  {this.state.blockSettings.leftSideFilters === true?
-                  <div className={"row " +Style.NoPadding +" " +Style.productListWrapper}>  
-                  <div className={"col-xs-12 col-lg-2 col-xl-2 NoPadding  filterWrapper " +Style.filterBlockWrapper}>
-
-                    {this.state.categoryData && this.state.categoryData.length>0?   
-                      < CategoryFilters 
-                        categoryData       = {this.state.subCategoryData}
-                        blockSettings      = {this.state.blockSettings}
-                        vendor_ID          = {this.state.vendor_ID}
-                        vendorlocation_ID  = {this.state.vendorlocation_ID}
-                        sectionUrl         = {this.state.sectionUrl}
-                        subCategoryUrl     = {this.state.subCategoryUrl}
-                        categoryUrl        = {this.state.categoryUrl}
-                        userLatitude       = {this.state.userLatitude}
-                        userLongitude      = {this.state.userLongitude}
-                        startRange         = {this.state.startRange}
-                        limitRange         = {this.state.limitRange}
-                      />
-                    
-                    :' '
-
-                    }
-                    {this.state.brandData && this.state.brandData.length>0?  
-                     
-                      <div className="panel-group d-none d-lg-block d-xl-block" >   
-                        
-                        {this.state.brandData.length > 0  && this.state.brandData[0].brand!==''?                 
-                          <div className={Style.categoryFilterTitle}> Brands </div>  
-                        :null}
-                        {
-                          this.state.brandData && this.state.brandData.length > 0
-                          ?
-                              this.state.brandData.map((brand,index)=>{
-                              var i = index+1;
-                              if(brand === ""){
-                                return true;
-                              }else{
-                                return(
-                                  <div className="col-12 noPadding panelCategory paneldefault" key={index}>
-                                      <div className={"panel-heading row "+Style.panelHeading}>
-                                          <div className={"col-1 NoPadding  centreDetailContainerEcommerce "+Style.brandInput}>
-                                            <input className="" type="checkbox" name="brands[]" className={Style.brandFilterInput} onChange={this.getBrandWiseData.bind(this)} value={brand} />
-                                          </div>
-                                          <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
-                                      </div>                              
-                                  </div>
-                                )
-                              }
-                            })   
-                          :
-                            null
-                        }
-                    </div>  
-                    :' '
-                    }
-
-                    {this.state.brandData && this.state.brandData.length>0?  
-                       <nav class="navbar navbar-expand-lg navbar-light bg-light d-block d-lg-none d-xl-none">
-                       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                         <span class="navbar-toggler-icon"></span>
-                          &nbsp; &nbsp;&nbsp;Brands
-                       </button>
-                       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                      <div className="panel-group" >   
-                        
-                        {/* {this.state.brandData.length > 0  && this.state.brandData[0].brand!==''?                 
-                          <div className={Style.categoryFilterTitle}> Brands </div>  
-                        :null} */}
-                        {
-                          this.state.brandData && this.state.brandData.length > 0
-                          ?
-                              this.state.brandData.map((brand,index)=>{
-                              var i = index+1;
-                              if(brand === ""){
-                                return true;
-                              }else{
-                                return(
-                                  <div className="col-12 noPadding panelCategory paneldefault" key={index}>
-                                      <div className={"panel-heading row "+Style.panelHeading}>
-                                          <div className={"col-1 NoPadding  centreDetailContainerEcommerce "+Style.brandInput}>
-                                            <input className="" type="checkbox" name="brands[]" className={Style.brandFilterInput} onChange={this.getBrandWiseData.bind(this)} value={brand} />
-                                          </div>
-                                          <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
-                                      </div>                              
-                                  </div>
-                                )
-                              }
-                            })   
-                          :
-                            null
-                        }
-                    </div> 
-                    </div>
-                    </nav> 
-                    :' '
-                    }
-
-
-                 </div>
-                  <div className={"col-lg-10 col-xl-10 col-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
-                    <div className="row">
-                      <div className={"col-12 " +Style.rightSidefilter}>
-                        {/* <div className ="row"> */}
-                          <div className={"col-12 "}>
-                            <div className={"col-6 float-right col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding  "+Style.sortPbWrapper}>     
-                              <div className="form-group">
-                                  <label className={"labelform d-block d-lg-block d-xl-block d-sm-block col-12 NoPadding  " +Style.f14}>Sort Product By<span className="astrick"></span></label>
-
-                                  <Select
-                                      value={effect}
-                                      onChange={this.sortProducts}
-                                      options={sortOptions}
-                                      autoFocus = {false}
-                                      className={" " +Style.labelCategory}
-                                  />
-                              </div> 
-                            {/* </div> */}
-                          </div>                        
-                        </div>
-                      </div>
-                    </div> 
-
-                    <div className="col-12">
-                        {this.state.newProducts.length>=1?
-                          <Product newProducts={this.state.newProducts}
-                                productSettings    = {this.state.productSettings}
-                                blockSettings      = {this.state.blockSettings}
-                                vendor_ID          = {this.state.vendor_ID}
-                                vendorlocation_ID  = {this.state.vendorlocation_ID}
-                                userLatitude       = {this.state.userLatitude}
-                                userLongitude      = {this.state.userLongitude}
-                          />
-                        :
-                        <div className="col-2 offset-5 ">   
-                            loading....       
-                            <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
-                        </div>
-                        }
-                        <div className="col-12 seeMoreBtnWrapper">
+                  <div className={"row " +Style.ProductListWrapper }>  
+                    <div className={"col-12 mobileNoPadding " +Style.productDetailVendorName}> 
+                      <div className="col-12 mobileNoPadding ">
+                        <div className="col-12">
                           <div className="row">
-                            <button className={"btn btn-secondary col-lg-2 offset-lg-5 col-xl-2 offset-xl-5 col-sm-2 col-4 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
+                              <span className={"col-8 col-lg-9 col-sm-9 col-xl-9 pb-2 pt-2 "+Style.vendorNameWrapper}> 
+                                <b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
+                              </span>
+                              <span className={"col-4 col-lg-3 col-sm-3 col-xl-3 text-right   "+Style.chaneVendorBtn }> 
+                                  <Link href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 NoPadding t "+Style.changeVendorWrapper} >Change Vendor</Link>
+                              </span>
                           </div>
                         </div>
-                    </div>
-                    </div>                  
-                  </div>                    
-                  :
-                  // if left side filters are not available in product block
-                    <div >
-                    {this.state.newProducts.length>=1?
-                        <Product newProducts={this.state.newProducts}
-                            productSettings = {this.state.productSettings}
-                            blockSettings   = {this.state.blockSettings}
+                      </div>
+                    </div>   
+
+                    <div className={"col-12" }>
+                    {this.state.blockSettings.showCarousel === false?
+                        < CategoryBlock 
+                          categoryData       = {this.state.categoryData}
+                          vendor_ID          = {this.state.vendor_ID}
+                          vendorlocation_ID  = {this.state.vendorlocation_ID}
+                          userLatitude       = {this.state.userLongitude}
+                          userLongitude      = {this.state.userLongitude}
+                          sectionUrl         = {this.state.sectionUrl}
+                          subCategoryUrl     = {this.state.subCategoryUrl}
+                          categoryUrl        = {this.state.categoryUrl}
                         />
-                    :
-                        <div className="col-2 offset-5 ">          
-                            <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
-                        </div>
-                    }
-                    </div>
-                  }  
+                    :null
+                    }   
+                    {/* Fitters code */}
+                    {this.state.blockSettings.leftSideFilters === true?
+                    <div className={"row " +Style.NoPadding +" " +Style.productListWrapper}>  
+                    <div className={"col-xs-12 col-lg-2 col-xl-2 NoPadding  filterWrapper " +Style.filterBlockWrapper}>
+
+                      {this.state.categoryData && this.state.categoryData.length>0?   
+                        < CategoryFilters 
+                          categoryData       = {this.state.subCategoryData}
+                          blockSettings      = {this.state.blockSettings}
+                          vendor_ID          = {this.state.vendor_ID}
+                          vendorlocation_ID  = {this.state.vendorlocation_ID}
+                          sectionUrl         = {this.state.sectionUrl}
+                          subCategoryUrl     = {this.state.subCategoryUrl}
+                          categoryUrl        = {this.state.categoryUrl}
+                          userLatitude       = {this.state.userLatitude}
+                          userLongitude      = {this.state.userLongitude}
+                          startRange         = {this.state.startRange}
+                          limitRange         = {this.state.limitRange}
+                        />
+                      
+                      :' '
+
+                      }
+                      {this.state.brandData && this.state.brandData.length>0?  
+                      
+                        <div className="panel-group d-none d-lg-block d-xl-block" >   
+                          
+                          {this.state.brandData.length > 0  && this.state.brandData[0].brand!==''?                 
+                            <div className={Style.categoryFilterTitle}> Brands </div>  
+                          :null}
+                          {
+                            this.state.brandData && this.state.brandData.length > 0
+                            ?
+                                this.state.brandData.map((brand,index)=>{
+                                var i = index+1;
+                                if(brand === ""){
+                                  return true;
+                                }else{
+                                  return(
+                                    <div className="col-12 noPadding panelCategory paneldefault" key={index}>
+                                        <div className={"panel-heading row "+Style.panelHeading}>
+                                            <div className={"col-1 NoPadding  centreDetailContainerEcommerce "+Style.brandInput}>
+                                              <input className="" type="checkbox" name="brands[]" className={Style.brandFilterInput} onChange={this.getBrandWiseData.bind(this)} value={brand} />
+                                            </div>
+                                            <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
+                                        </div>                              
+                                    </div>
+                                  )
+                                }
+                              })   
+                            :
+                              null
+                          }
+                      </div>  
+                      :' '
+                      }
+
+                      {this.state.brandData && this.state.brandData.length>0?  
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light d-block d-lg-none d-xl-none">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                            &nbsp; &nbsp;&nbsp;Brands
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <div className="panel-group" >   
+                          
+                          {/* {this.state.brandData.length > 0  && this.state.brandData[0].brand!==''?                 
+                            <div className={Style.categoryFilterTitle}> Brands </div>  
+                          :null} */}
+                          {
+                            this.state.brandData && this.state.brandData.length > 0
+                            ?
+                                this.state.brandData.map((brand,index)=>{
+                                var i = index+1;
+                                if(brand === ""){
+                                  return true;
+                                }else{
+                                  return(
+                                    <div className="col-12 noPadding panelCategory paneldefault" key={index}>
+                                        <div className={"panel-heading row "+Style.panelHeading}>
+                                            <div className={"col-1 NoPadding  centreDetailContainerEcommerce "+Style.brandInput}>
+                                              <input className="" type="checkbox" name="brands[]" className={Style.brandFilterInput} onChange={this.getBrandWiseData.bind(this)} value={brand} />
+                                            </div>
+                                            <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
+                                        </div>                              
+                                    </div>
+                                  )
+                                }
+                              })   
+                            :
+                              null
+                          }
+                      </div> 
+                      </div>
+                      </nav> 
+                      :' '
+                      }
+
+
                   </div>
+                    <div className={"col-lg-10 col-xl-10 col-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
+                      <div className="row">
+                        <div className={"col-12 " +Style.rightSidefilter}>
+                          {/* <div className ="row"> */}
+                            <div className={"col-12 "}>
+                              <div className={"col-6 float-right col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding  "+Style.sortPbWrapper}>     
+                                <div className="form-group">
+                                    <label className={"labelform d-block d-lg-block d-xl-block d-sm-block col-12 NoPadding  " +Style.f14}>Sort Product By<span className="astrick"></span></label>
+
+                                    <Select
+                                        value={effect}
+                                        onChange={this.sortProducts}
+                                        options={sortOptions}
+                                        autoFocus = {false}
+                                        className={" " +Style.labelCategory}
+                                    />
+                                </div> 
+                              {/* </div> */}
+                            </div>                        
+                          </div>
+                        </div>
+                      </div> 
+
+                      <div className="col-12">
+                          {this.state.newProducts.length>=1?
+                            <Product newProducts={this.state.newProducts}
+                                  productSettings    = {this.state.productSettings}
+                                  blockSettings      = {this.state.blockSettings}
+                                  vendor_ID          = {this.state.vendor_ID}
+                                  vendorlocation_ID  = {this.state.vendorlocation_ID}
+                                  userLatitude       = {this.state.userLatitude}
+                                  userLongitude      = {this.state.userLongitude}
+                            />
+                          :
+                          <div className="col-2 offset-5 ">   
+                              loading....       
+                              <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
+                          </div>
+                          }
+                          <div className="col-12 seeMoreBtnWrapper">
+                            <div className="row">
+                              <button className={"btn btn-secondary col-lg-2 offset-lg-5 col-xl-2 offset-xl-5 col-sm-2 col-4 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
+                            </div>
+                          </div>
+                      </div>
+                      </div>                  
+                    </div>                    
+                    :
+                    // if left side filters are not available in product block
+                      <div >
+                      {this.state.newProducts.length>=1?
+                          <Product newProducts={this.state.newProducts}
+                              productSettings = {this.state.productSettings}
+                              blockSettings   = {this.state.blockSettings}
+                          />
+                      :
+                          <div className="col-2 offset-5 ">          
+                              <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
+                          </div>
+                      }
+                      </div>
+                    }  
+                    </div>
+                 
                   </div>
                 }           
                 </div>

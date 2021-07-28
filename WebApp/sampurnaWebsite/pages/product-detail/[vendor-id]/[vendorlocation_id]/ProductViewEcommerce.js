@@ -481,20 +481,20 @@ class ProductViewEcommerce extends Component {
 		} 
 		return (
 			 <section className={"SingleProductMainWrapper "+Style.ShopBySubCategories}>
-				<div className="row">
-					<div className={"col-12 NoPadding pb-2 pt-2 " +Style.productDetailVendorName}> 
+					<div className={"col-12 pb-2 pt-2 mobileNoPadding " +Style.productDetailVendorName}> 
 						<div className="col-12  ">
 							<div className="row">
-								<span className={"col-6 "+Style.vendorNameWrapper}> 
-									<b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
-								</span>
-								<span className={"col-6   "+Style.chaneVendorBtn }> 
-									<Link href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 NoPadding "+Style.changeVendorWrapper} >Change Vendor</Link>
-								</span>
+								<div className={"col-8 col-sm-9 col-lg-9 col-xl-9 "+Style.vendorNameWrapper}> 
+									<div className={"col-12 mobileNoPadding "}>
+										<b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
+									</div>
+								</div>
+								<div className={"col-4 col-lg-3 col-sm-3 col-xl-3 text-right   "+Style.chaneVendorBtn }> 
+									<a href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 mobileNoPadding "} >Change Vendor</a>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 				<div className="col-12">
 					{this.state.categoryData && this.state.categoryData.length>0
 					?

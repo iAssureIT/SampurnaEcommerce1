@@ -58,7 +58,7 @@ class Header extends React.Component {
                     <header>
                         <nav className="navbar navbar-expand-md navbar-dark megamenu">
                             <div className="col-12 NoPadding ">
-                                <div className="col-12 top-header">
+                                <div className="col-12 top-header NoPadding">
                                     <div className="col-12 logoWrap"> 
                                         <div className="row">
                                             <div className="col-4 col-lg-2 col-sm-2">

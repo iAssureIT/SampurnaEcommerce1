@@ -425,7 +425,7 @@ background: #fff;
   /* height: 300px; */
 }
 .productDetailVendorName{
-  font-size: 13px !important;
+  font-size: 13px;
   background-color: #f6f6f6 !important;
 }
 .vendorName{
@@ -433,7 +433,7 @@ background: #fff;
 }
 .chaneVendorBtn a{
   text-decoration: underline;
-  margin-left: 74.9%;
+  /* margin-left: 74.9%; */
   color: #033554!important;
 }
 .chaneVendorBtn a:hover{
@@ -636,7 +636,7 @@ background: #fff;
 }
 
 .vendorNameWrapper b{
-  margin-left: 58px;
+  /* margin-left: 58px; */
 }
 .changeVendorWrapper{
   margin-left: 10px;
@@ -716,6 +716,9 @@ background: #fff;
 .mobileViewPadding{
   padding-left: 5px !important;
   padding-right: 5px !important;
+}
+.productDetailVendorName{
+  font-size: 10px;
 }
 }
 

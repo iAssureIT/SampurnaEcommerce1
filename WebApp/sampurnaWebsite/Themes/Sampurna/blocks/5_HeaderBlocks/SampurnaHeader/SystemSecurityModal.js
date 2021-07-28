@@ -125,12 +125,12 @@ class header extends React.Component {
                                 <div className={"mtm10 "+Style.systemSecurityModalWrapper}>  
                                     {this.state.authService === "guest" && this.state.userId ?
                                         <span className="my-auto">
-                                            <span style={{float: "right"}} className="faIcon col-12 NoPadding pb-1"><span className="userName ">Hello Guest!</span></span>
+                                            <span style={{float: "right"}} className="faIcon col-12 NoPadding pt-1 "><span className="userName ">Hello Guest!</span></span>
                                             <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span>
                                         </span>
                                     :
                                     <span className="my-auto">
-                                        <span style={{float: "right"}} className="faIcon col-12 NoPadding pb-1"><span className="userName ">Hello&nbsp; {this.state.userName}!</span></span>
+                                        <span style={{float: "right"}} className="faIcon col-12 NoPadding pt-1"><span className="userName ">Hello&nbsp; {this.state.userName}!</span></span>
                                         <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span>
                                     </span>
                                     }
