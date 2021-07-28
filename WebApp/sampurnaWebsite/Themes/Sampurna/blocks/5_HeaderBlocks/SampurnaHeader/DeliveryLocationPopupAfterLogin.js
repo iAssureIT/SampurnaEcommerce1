@@ -387,9 +387,9 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                                 <button type="button" className={"btn pull-center mt-1 " +Style.locationBTNafterLogin}  onClick={this.takeCurrentLocation.bind(this)}><i className="fa fa-map-marker-alt-alt" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
                                             </div>
                                             <div className={"text-center NoPadding orText1 col-12 col-md-12 col-lg-3 col-xl-3 mt-3 " +Style.tw +" "+Style.f12afterLogin}>
-                                                <div className={"col-5 col-sm-5 col-md-5 col-lg-2 col-xl-2 NoPadding " +Style.orlineAfterLOgin}></div>
+                                                <div className={"col-4 col-sm-4 col-md-5 col-lg-2 col-xl-2 NoPadding " +Style.orlineAfterLOgin}></div>
                                                 <span className={"col-2 col-sm-2 col-md-2 col-lg-8 col-xl-8 " +Style.MapOrAfterLogin}>OR</span>
-                                                <div className={"col-5 col-sm-5 col-md-4 col-lg-2 col-xl-2 NoPadding " +Style.orline}></div>
+                                                <div className={"col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 NoPadding " +Style.orline}></div>
                                             </div>
 
                                             {/*<div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12}>

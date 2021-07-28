@@ -94,7 +94,7 @@
     /* height: 46px; */
     padding: 10px 20px;
 	position:absolute;
-    right: 0px;
+    right: 70px;
 }
 .locationBTNafterLogin1:hover{
     color: #fff !important;
@@ -133,7 +133,6 @@
 	color:#fff;
 	font-size:12px;
 }
-
 .loginBGImg{
 	background-image:url("/images/eCommerce/visa-logo.png") 100% 100% no-repeat;
 }
@@ -221,10 +220,19 @@
 .deliveryFormAfterLogin{
     top:90px;
 }
+.locationBTNafterLogin1{
+    right: -5px;
+}
 }
 @media (min-device-width: 768px) and (max-device-width: 1024px) {
+    .orlineAfterLOgin{
+        margin-top: 0px;
+    }
     .deliveryFormAfterLogin{
         top:110px;
+    }
+    .locationBTNafterLogin1{
+        right: -5px;
     }
     .MapOrAfterLogin{
         margin-top: 0px;
