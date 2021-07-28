@@ -82,7 +82,8 @@ const window = Dimensions.get('window');
                   status      : 'unverified',
                   countryCode : countryCode,
                   username    : "MOBILE",
-                  isdCode     : callingCode
+                  isdCode     : callingCode,
+                  authService : ""
                 }
                 // console.log("formValues",formValues); 
                 axios.post('/api/auth/post/signup/user/otp',formValues)
