@@ -68,12 +68,12 @@ const Dashboard = withCustomerToaster((props)=>{
         dispatch(getPreferences());
         dispatch(getS3Details());
         getBlocks();
-        let canGoBack = navigation.canGoBack();
-        if(!canGoBack){
-          BackHandler.addEventListener("hardwareBackPress", backAction);
-          return () =>
-          BackHandler.removeEventListener("hardwareBackPress", backAction);
-        }
+        // let canGoBack = navigation.canGoBack();
+        // if(!canGoBack){
+        //   BackHandler.addEventListener("hardwareBackPress", backAction);
+        //   return () =>
+        //   BackHandler.removeEventListener("hardwareBackPress", backAction);
+        // }
        
     },[store.isConnected]);
    

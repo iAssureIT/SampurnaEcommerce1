@@ -6,11 +6,13 @@ import {
   TouchableOpacity,
   Image,
   Alert,ActivityIndicator,
-  Linking
+  Linking,
+  Modal,
+  StyleSheet
 } from 'react-native';
 import { Dropdown }             from 'react-native-material-dropdown-v2';
 import { Button, Icon,Input,Tooltip,CheckBox }   from "react-native-elements";
-import Modal                    from "react-native-modal";
+import Modal1                    from "react-native-modal";
 import axios                    from "axios";
 import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}                 from '../../ScreenComponents/Footer/Footer.js';
@@ -67,7 +69,8 @@ import { NetWorkError } from '../../../NetWorkError.js';
     const [modal,setModal] = useState(false);
     const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
     const [pageBlockes,setPageBlocks]       = useState([]);
-    const [returnModal,setCouponModal]=useState(false);
+    const [couponModal,setCouponModal] = useState(false);
+    const [tab,selectedTab] = useState(true);
     useEffect(() => {
       getData();
       setChecked(false);
@@ -177,6 +180,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
           setToast({text: res.data.message, color:res.data.message === "Coupon Applied Successfully!" ? 'green':colors.warning});
           setCartData(res.data.data);
           setCouponCode('');
+          setCouponModal(false);
       })
       .catch(err=>{
         setCouponCode('');
@@ -281,16 +285,16 @@ import { NetWorkError } from '../../../NetWorkError.js';
                   </View>                  
                 </View>                 
               </View>
-              <View style={{paddingHorizontal:30}}>
-                <View style={{flexDirection:"row",marginVertical:10,alignItems:'center'}}>
+              <View style={{paddingLeft:30}}>
+                <TouchableOpacity style={{flexDirection:"row",marginVertical:10,alignItems:'center'}} onPress={()=>{setCouponModal(true)}}>
                     <Icon name="sale" type="material-community" size={13} color="green"/>
                     <Text style={{color: "#3E9D5E"}}> Apply Discount</Text>
-                </View>  
+                </TouchableOpacity>  
                 {
                     cartData && cartData.paymentDetails ?
                     <View style={styles.totaldetails}>
                       <View style={styles.flxdata}>                    
-                      <View style={{ flex: 0.55 }}>
+                      <View style={{ flex: 0.5 }}>
                         <Text style={styles.totaldata1}>Final Total</Text>
                       </View>
                       <View style={{ flex: 0.2 }}>
@@ -305,7 +309,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.55 }}>
+                      <View style={{ flex: 0.5 }}>
                         <Text style={styles.totaldata1}>Total Saving </Text>
                       </View>
                       <View style={{ flex: 0.2 }}>
@@ -321,7 +325,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.55 }}>
+                      <View style={{ flex: 0.5 }}>
                         <Text style={styles.totaldata1}>Total VAT  </Text>
                       </View>
                       <View style={{ flex: 0.2 }}>
@@ -336,7 +340,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.55 }}>
+                      <View style={{ flex: 0.5 }}>
                         <Text style={styles.totaldata1}>Total Delivery Charges </Text>
                       </View>
                       <View style={{ flex: 0.2 }}>
@@ -349,7 +353,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                           <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
                         </View>
                       </View>
-                      <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
+                      <View style={{flex:0.1,justifyContent:"center",alignItems:"center"}} >
                         <Tooltip 
                           containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
                           width={300} 
@@ -358,89 +362,29 @@ import { NetWorkError } from '../../../NetWorkError.js';
                           popover={tooltipClone}
                           withOverlay={false}
                           >
-                          <Icon name="information-outline" type={"material-community"} size={12}iconStyle={{color:'#648295'}} />
+                          <Icon name="information-outline" type={"material-community"} size={17}iconStyle={{color:'#648295',paddingHorizontal:2}} />
                         </Tooltip>
                       </View>  
                     </View>
-                    <View style={styles.flxdata}>
-                      <View style={{ flex: 0.55 }}>
+                    {cartData.paymentDetails.afterDiscountCouponAmount > 0 &&<View style={styles.flxdata}>
+                      <View style={{ flex: 0.5 }}>
                         <Text style={styles.totaldata1}>Discount Coupon</Text>
                       </View>
                       <View style={{ flex: 0.2 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
-                            <Text style={[styles.currency1],{opacity: 0.7,color:'#EF9A9A'}}>{currency}</Text>
+                            <Text style={[styles.currency1,{opacity: 0.7,color:'#EF9A9A'}]}>{currency}</Text>
                           </View>
                         </View>
                       <View style={{ flex: 0.2 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincartTotalR}>{cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
+                          <Text style={styles.totalpriceincartTotalR}>{cartData.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
                         </View>
                       </View>
-                      <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
-                        <Tooltip 
-                          containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                          width={300} 
-                          height={tooltipSize.h + 30}
-                          backgroundColor={colors.theme}
-                          popover={tooltipClone}
-                          withOverlay={false}
-                          >
-                          <Icon name="trash" type={"font-awesome"} size={12} iconStyle={{color:'#648295'}} />
-                        </Tooltip>
-                      </View>  
-                    </View>
-
-                    {/* <SortModal
-                      onBackdropPress={() => setCouponModal(false)}
-                      onRequestClose={() => setCouponModal(false)}
-                      sortOptions={sortOptions}
-                      closeModal={() => toggleSort(false)}
-                      visible={showSort}
-                    /> */}
-                    {cartData.paymentDetails.afterDiscountCouponAmount === 0 &&  cartData.paymentDetails.creditPointsUsed === 0?
-                        // <View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
-                        //   <View style={{flex:.7}}>
-                        //     <Input
-                        //       // label                 = "Enter promotional code"
-                        //       placeholder           = "Enter promotional code"
-                        //       onChangeText          = {(text)=>setCouponCode(text)}
-                        //       autoCapitalize        = "none"
-                        //       keyboardType          = "email-address"
-                        //       inputContainerStyle   = {styles.containerStyle}
-                        //       containerStyle        = {{paddingHorizontal:0}}
-                        //       placeholderTextColor  = {'#bbb'}
-                        //       inputStyle            = {{fontSize: 16}}
-                        //       inputStyle            = {{textAlignVertical: "top"}}
-                        //       autoCapitalize        = 'characters'
-                        //       value                 = {couponCode}
-                        //     />
-                        //   </View>  
-                        //   <View style={{flex:.3,marginTop:10}}>
-                          
-                        //     <FormButton 
-                        //       onPress    = {()=>applyCoupen()}
-                        //       title       = {'Apply'}
-                        //       background  = {true}
-                        //     /> 
-                        //   </View>  
-                        // </View>
-                        null
-                        :
-                        cartData.paymentDetails.afterDiscountCouponAmount > 0 &&<SafeAreaView>
-                      <View style={styles.flxdata}>
-                          <View style={{ flex: 0.6 }}>
-                            <Text style={styles.totaldata}>Discount Coupon Amount  </Text>
-                          </View> 
-                          <View style={{ flex: 0.35 }}>
-                            <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                              <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
-                            </View>
-                          </View>
-                        </View>
-                        <Text style={[styles.totaldata,{color:"red",alignSelf:"flex-end",paddingBottom:5}]} onPress={()=>getCartData(user_id)}>Remove Coupon</Text>
-                        </SafeAreaView>
-                      }
-                      
+                      <TouchableOpacity style={{flex:0.1,justifyContent:"center",alignItems:"center"}} onPress={()=>getCartData(user_id)}>
+                          <Icon name="trash" type={"font-awesome"} size={17} iconStyle={{color:'#648295'}} />
+                      </TouchableOpacity>  
+                    </View>}
+                   
                       {cartData.paymentDetails.afterDiscountCouponAmount === 0 && cartData.paymentDetails.creditPointsUsed === 0?
                       //  <View style={{marginTop:15}}>
                       //     <Text style={[CommonStyles.label]}>Credit Points Available {cartData.totalCreditPoints} Points.</Text>
@@ -489,7 +433,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       }
                     <View style={{marginVertical:5}} />
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.57 }}>
+                      <View style={{ flex: 0.5 }}>
                         <Text style={[styles.totaldata1G]}>Grand Total</Text>
                       </View>
                       <View style={{ flex: 0.2 }}>
@@ -511,7 +455,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                                 checkedColor='#033554'                              
                                 uncheckedIcon='circle-o'
                                 uncheckedColor='#033554'
-                                size={12}
+                                size={15}
                                 center
                                 title=''
                                 checked={checked}
@@ -527,7 +471,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                   null
                 }
                 <View style={[styles.confirmbtn, styles.marginBottom20,{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}]}>
-                  <Text style={{flex:0.6,marginLeft:10}}>Select Delivery Time</Text>
+                  <Text style={{flex:0.6,marginLeft:10,fontFamily:"Montserrat-Medium",color:"#000000",opacity: 1,fontSize:14}}>Select Delivery Time</Text>
                   <View style={[styles.inputWrapper]}>
                     <View style={styles.inputTextWrapper}>
                       <Dropdown
@@ -603,14 +547,12 @@ import { NetWorkError } from '../../../NetWorkError.js';
                                       </View>
                                   </View>
                                   <View style={{flexDirection:'row',flex:0.3,marginTop:10}}>
-                                      <View style={{flex:0.5}}>
+                                      <View style={{flex:0.5,alignItems:"flex-end"}}>
                                         <Text style={styles.currency1Iteam}>{currency} </Text>
                                       </View>
-                                      <View style={{flex:0.5}}>
-                                        <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                            <Text style={styles.priceIteam}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                            </Text>
-                                        </View>
+                                      <View style={{flex:0.5,alignItems:"flex-end"}}>
+                                          <Text style={styles.priceIteam}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                          </Text>
                                       </View>
                                   </View>
                                 </View>
@@ -621,12 +563,12 @@ import { NetWorkError } from '../../../NetWorkError.js';
                         </View>                       
                     <View style={styles.vendorTotal}>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.6,alignItems:'flex-end'}}>
+                        <View style={{ flex: 0.75,alignItems:'flex-end'}}>
                           {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                           <Text style={styles.vendorTotalText}>{vendor.vendor_id.companyName}</Text>
                         </View>
-                        <View style={{flexDirection:'row',flex:0.3}}>
-                            <View style={{flex:0.4}}>
+                        <View style={{flexDirection:'row',flex:0.25}}>
+                            <View style={{flex:0.4,alignItems:'flex-end'}}>
                               <Text style={styles.currency1Iteam}>{currency} </Text>
                             </View>
                             <View style={{flex:0.6,alignItems:'flex-end'}}>
@@ -638,11 +580,11 @@ import { NetWorkError } from '../../../NetWorkError.js';
                         </View>                        
                       </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6,alignItems:'flex-end' }}>
+                      <View style={{ flex: 0.75,alignItems:'flex-end' }}>
                         <Text style={styles.vendorTotalText}>You Saved </Text>
                       </View>
-                      <View style={{flexDirection:'row',flex:0.3}}>
-                          <View style={{flex:0.4}}>
+                      <View style={{flexDirection:'row',flex:0.25}}>
+                          <View style={{flex:0.4,alignItems:'flex-end'}}>
                             <Text style={styles.currency1Iteam}>{currency} </Text>
                           </View>
                           <View style={{flex:0.6,alignItems:'flex-end'}}>
@@ -666,7 +608,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
             </View>
           </View>
         </KeyboardAwareScrollView>
-      <Modal isVisible={modal}
+      <Modal1 isVisible={modal}
           onBackdropPress={() => setModal(false)}
           onRequestClose={() => setModal(false)}
           coverScreen={true}
@@ -698,7 +640,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                 }
             </ScrollView>
           </View>
-        </Modal>
+        </Modal1>
         <View style={{marginBottom:Platform.OS ==='ios'?60: 45,flexDirection:'row'}}>
          <View style={{flex:0.5,height:60,backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
             <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Total Amount</Text>
@@ -711,6 +653,167 @@ import { NetWorkError } from '../../../NetWorkError.js';
           <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>Checkout</Text>
          </TouchableOpacity>
       </View>
+      <SafeAreaView style={{flex: 1}}>
+      <Modal
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setCouponModal(false)}
+        onDismiss={() =>  setCouponModal(false)}
+        visible={couponModal}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => setCouponModal(false)}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0,0,0,0.4)',
+            justifyContent: 'flex-end',
+            padding: 0,
+          }}>
+          <View style={styles1.topContainer}>
+            <SafeAreaView forceInset={{bottom: 'always',height:500}}>
+              {/* <View style={styles1.titleContainer}>
+                <Text style={CommonStyles.label}>Sort By</Text>
+                <Icon name="md-close-circle" type="ionicon" color="#f00" />
+              </View> */}
+             <View style={styles1.titleContainer}>
+                <TouchableOpacity style={tab ? styles1.tab : styles1.tab1} onPress={()=>selectedTab(true)}>
+                    <Text style={tab ? styles1.tabText : styles1.tabText1}>Coupon Code</Text>
+                </TouchableOpacity> 
+                <TouchableOpacity style={!tab ? styles1.tab : styles1.tab1} onPress={()=>selectedTab(false)}>
+                    <Text style={!tab ? styles1.tabText : styles1.tabText1}>Credit Points {cartData?.totalCreditPoints}</Text>
+                </TouchableOpacity>
+             </View>  
+            <View style={{height:140,backgroundColor:"#E2E2E2",paddingHorizontal:28}}>
+              {tab?
+              <View style={{flexDirection:"row",height:45,marginTop:25}}>
+                  <View style={{flex:.7}}>
+                    <Input
+                    // label                 = "Enter promotional code"
+                    placeholder           = "Apply Coupon code"
+                    onChangeText          = {(text)=>setCouponCode(text)}
+                    autoCapitalize        = "none"
+                    keyboardType          = "email-address"
+                    inputContainerStyle   = {styles.containerStyle}
+                    containerStyle        = {{paddingHorizontal:0}}
+                    placeholderTextColor  = {'#707070'}
+                    inputStyle            = {{fontSize: 16}}
+                    inputStyle            = {{textAlignVertical: "top"}}
+                    autoCapitalize        = 'characters'
+                    value                 = {couponCode}
+                  />
+                </View>  
+                <View style={{flex:.3,elevation:5}}>
+                  <Button 
+                    onPress    = {()=>applyCoupen()}
+                    title       = {'Apply'}
+                    // background  = {true}
+                    buttonStyle={{height:45,backgroundColor:"#FFFFFF"}}
+                    titleStyle={{color: "#000000",opacity: 0.5}}
+                  /> 
+                </View>  
+              </View>
+              :
+              <View >
+                <View style={{flexDirection:"row",height:45,marginTop:25}}>
+                  <View style={{flex:.7}}>
+                    <Input
+                      placeholder           = "Enter credit value..."
+                      onChangeText          = {(text)=>onCheckLimit(text)}
+                      autoCapitalize        = "none"
+                      keyboardType          = "email-address"
+                      inputContainerStyle   = {styles.containerStyle}
+                      containerStyle        = {{paddingHorizontal:0}}
+                      placeholderTextColor  = {'#707070'}
+                      inputStyle            = {{fontSize: 16}}
+                      inputStyle            = {{textAlignVertical: "top"}}
+                      autoCapitalize        = 'characters'
+                      value                 = {creditPointsUsed.toString()}
+                      keyboardType          = 'numeric'
+                    />
+                    </View>  
+                    <View style={{flex:.3,elevation:5}}>
+                      <Button 
+                        onPress    = {()=>redeemPoints()}
+                        title       = {'Apply'}
+                        // background  = {true}
+                        buttonStyle={{height:45,backgroundColor:"#FFFFFF"}}
+                        titleStyle={{color: "#000000",opacity: 0.5}}
+                      />   
+                  </View> 
+                </View> 
+                <Text style={[{color:"#000000",fontSize:14,fontFamily:"Montserrat-Medium"}]}>Total Balanace {currency} <Text style={{fontFamily:"Montserrat-SemiBold",color:'#033554'}}>{cartData.totalCreditPointsValue}</Text></Text>
+               </View>
+              }
+            </View>
+             
+            </SafeAreaView>
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    </SafeAreaView>
     </React.Fragment>
   );
 })
+
+
+const styles1 = StyleSheet.create({
+  sortText: {
+    // ...getFontStyleObject(),
+    fontSize: 14,
+  },
+  topContainer: {
+    backgroundColor: '#fff',
+    width: '100%',
+    // height: '30%',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    borderTopColor: '#ccc',
+    borderTopWidth: 0.8,
+    borderLeftWidth: 0.8,
+    borderRightWidth: 0.8,
+    // padding:5
+  },
+  titleContainer: {
+    // paddingHorizontal: `${5}%`,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 0.6,
+    // paddingVertical: `${2}%`,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  body: {
+    paddingHorizontal: `${5}%`,
+    paddingVertical: `${5}%`,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  tab:{
+    flex:0.5,
+    justifyContent:'center',
+    alignItems:'center',
+    height:50,
+    backgroundColor:"#E2E2E2",
+    borderTopLeftRadius:11,
+    borderTopRightRadius:11,
+  },
+  tab1:{
+    flex:0.5,
+    justifyContent:'center',
+    alignItems:'center',
+    height:50,
+  },
+  tabText:{
+    fontFamily:"Montserrat-Bold",
+    color: "#000000",
+    opacity: 1,
+    fontSize:14,
+  },
+  tabText1:{
+    fontFamily:"Montserrat-Regular",
+    color: "#000000",
+    opacity: 1,
+    fontSize:14,
+  }
+});

@@ -1,8 +1,8 @@
 module.exports = {
-    "project"           : "eCommv3",
+    "project"           : "TrollyMart",
     "JWT_KEY"           : "secret",
     "port"              : 3366,
-    "dbname"            : "ecommv3",
+    "dbname"            : "TrollyMart",
     "emailHost"         : "smtp.gmail.com",
     "emailPort"         : 587,
     "user"              : "iassureitmail@gmail.com",

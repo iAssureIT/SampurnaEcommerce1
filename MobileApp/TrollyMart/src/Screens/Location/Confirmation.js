@@ -35,27 +35,27 @@ export const Confirmation = withCustomerToaster((props)=>{
       userDetails   : store.userDetails
     }));
     const {location,userDetails} = store;
-    let canGoBack = navigation.canGoBack();
-    useEffect(() => {
-      console.log("canGoBack",canGoBack);
-      if(!canGoBack){
-        BackHandler.addEventListener("hardwareBackPress", backAction);
-          return () =>
-          BackHandler.removeEventListener("hardwareBackPress", backAction);
-      }
-  },[canGoBack]);
+  //   let canGoBack = navigation.canGoBack();
+  //   useEffect(() => {
+  //     console.log("canGoBack",canGoBack);
+  //     if(!canGoBack){
+  //       BackHandler.addEventListener("hardwareBackPress", backAction);
+  //         return () =>
+  //         BackHandler.removeEventListener("hardwareBackPress", backAction);
+  //     }
+  // },[canGoBack]);
 
-  const backAction = () => {
-    Alert.alert("Confirmation!", "Are you sure you want to log out?", [
-      {
-        text: "Cancel",
-        onPress: () => null,
-        style: "cancel"
-      },
-      { text: "YES", onPress: () => logout() }
-    ]);
-    return true;
-  };
+  // const backAction = () => {
+  //   Alert.alert("Confirmation!", "Are you sure you want to log out?", [
+  //     {
+  //       text: "Cancel",
+  //       onPress: () => null,
+  //       style: "cancel"
+  //     },
+  //     { text: "YES", onPress: () => logout() }
+  //   ]);
+  //   return true;
+  // };
 
     const getPermission = ()=>{
         request(Platform.OS ==='android' ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
@@ -107,7 +107,8 @@ export const Confirmation = withCustomerToaster((props)=>{
         <View>
             <ImageBackground source={require("../../AppDesigns/currentApp/images/LocationBg.jpg")} style={{height:window.height, justifyContent:"flex-end"}}>
                 <View style={{alignItems:"flex-start",paddingTop:15,paddingLeft:15}}>
-                  <TouchableOpacity onPress={()=> navigation.canGoBack() ?  navigation.goBack() : backAction()}>
+                  {/* <TouchableOpacity onPress={()=> navigation.canGoBack() ?  navigation.goBack() : backAction()}> */}
+                <TouchableOpacity onPress={()=>navigation.goBack()}>
                     <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
                   </TouchableOpacity> 
                     
