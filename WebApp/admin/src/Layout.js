@@ -60,7 +60,8 @@ import ViewOrder                    from './StoreManagement/orders/component/Vie
 import ViewVendorOrder              from './StoreManagement/OrderDispatchCenter/ViewVendorOrder.js';
 
 //================== Reports ===============//
-import Reports                      from './admin/Reports/Reports.js';
+import SalesReport                      from './admin/Reports/SalesReport.js';
+// import Reports                      from './admin/Reports/Reports.js';
 import CategoryWiseReports          from './admin/categoryWiseReports/Reports.js';
 import Productreview                from './storeAdmin/ProductReview/ProductReview.js';
 import ViewProductReview            from './storeAdmin/ProductReview/ViewProductReview.js';
@@ -297,7 +298,7 @@ class Layout extends Component  {
 
 
                                                         {/*Report*/}
-                                                        <Route path="/report"                                           exact strict component={Reports} />
+                                                        <Route path="/report"                                           exact strict component={SalesReport} />
 
                                                         <Route path="/category-wise-reports"                            exact strict component={CategoryWiseReports} />
 
