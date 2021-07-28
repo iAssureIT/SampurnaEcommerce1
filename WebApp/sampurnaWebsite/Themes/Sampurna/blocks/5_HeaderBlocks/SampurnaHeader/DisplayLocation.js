@@ -45,23 +45,23 @@ class DisplayLocation extends React.Component {
               ?
                 <div className="col-12 mobileNoPadding ">
                   <div className="col-12 mobileNoPadding">
-                    <span className="col-12 col-sm-10 col-lg-10 mt-1 deliveryAddress"> 
+                    <span className="col-12 col-sm-9 col-lg-10 col-xl-10 mt-1 deliveryAddress"> 
                       <b>Your current location is - </b><span className="locationText ">{this.props.sampurnaWebsiteDetails.deliveryLocation.address}</span>
                     </span>  
-                    <div className="col-8 col-sm-2 col-lg-2 pull-right changelocationBtn1Wrapper">
+                    <div className="col-8 col-sm-3 col-lg-2 col-xl-2 pull-right changelocationBtn1Wrapper">
                       <button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Location &nbsp;&nbsp;<i className="fas fa-map-marker-alt" aria-hidden="true"></i></button>
                     </div>
                   </div>
                 </div>
               :
                 <span className="row">
-                  <span className=" col-10 deliveryAddress">  &nbsp; Your Delivery Location is not available </span>  
-                  <button type="button" className="col-2 pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
+                  <span className=" col-9 deliveryAddress">  &nbsp; Your Delivery Location is not available </span>  
+                  <button type="button" className="col-3 pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
                 </span>
             :
               <span className="row">
-                <span className=" col-10 deliveryAddress">  &nbsp; Your Delivery Location is not available </span>  
-                <button type="button" className="col-2 pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
+                <span className=" col-9 deliveryAddress">  &nbsp; Your Delivery Location is not available </span>  
+                <button type="button" className="col-3 pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
               </span>
           }     
       </div>  

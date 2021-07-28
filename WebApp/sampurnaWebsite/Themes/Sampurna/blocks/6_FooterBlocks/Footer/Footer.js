@@ -51,7 +51,7 @@ export default class Footer extends Component {
     render(){
        return(
         <div className="col-12 NoPadding footerWrapper" >
-        <div className="col-12 footerNew d-none d-lg-block">
+        <div className="col-12 footerNew ">
             <div className="col-12 col-xl-8 col-lg-8 float-right ">
                 <div className="col-12 textEnd "><i className="fas fa-phone-alt fIcon "></i><span className="phoneT">Phone &nbsp;&nbsp;:&nbsp;&nbsp;</span>  +971 04 591 1186 &nbsp;&nbsp;&nbsp;&nbsp; <i className="fas fa-envelope fIcon"></i><span className="phoneT">Mail Us &nbsp;&nbsp;:&nbsp;&nbsp; </span> support@knock-knockeshop.com</div>
             </div>
@@ -108,7 +108,7 @@ export default class Footer extends Component {
         <div className="footer3 col-12">
             <div className="col-12 footer_bottom">
               <div className={"row " +S.footerBottom}>
-              <div className={"col-6 col-sm-3 mx-auto col-xl-3 col-lg-3 col-md-12  " +S.logoTop}>
+              <div className={"col-6 col-sm-3 mx-auto col-xl-3 col-lg-3 col-md-6  " +S.logoTop}>
                  <img src="/images/eCommerce/TrollyLogo.png" className="col-12" alt="FooterLogo" width="" height="75px"/>
               </div>
               <div className={"col-12 col-sx-12 col-xl-6 col-lg-6 col-md-12 text_Center mx-0 " }>
@@ -136,17 +136,14 @@ export default class Footer extends Component {
                       </div>                      
                   </div>
               </div>
-              <div className={"col-12 col-sm-12 col-xl-3 col-lg-3 col-md-12 text_Center " +S.payDiv}>
-                  <div className={"col-12 col-sm-6 float-left  col-lg-12 col-md-12 md-mt-5  " +S.aboutHeight1}>
+                <div className={"col-12 col-sm-12 col-xl-3 col-lg-3 col-md-12 text_Center " +S.payDiv}>
+                    <div className={"col-12 col-sm-6 float-left  col-lg-12 col-md-12 md-mt-5  " +S.aboutHeight1}>
                         <div className={"col-12  "+S.footerTitleWrapper}>Payment card</div>
                         <div className={"col-12 col-sm-12 col-lg-12 col-md-12 mt-lg-2 mt-sm-2 mt-4 " }>
                             <div className="payCard1 "></div>  
                             <div className="payCard2 "></div>  
                         </div>
                     </div> 
-     
-                   
-
                     <div className={"col-12 col-sm-6 float-left  col-lg-12 col-md-12   " +S.aboutHeight2}>
                         <div className={"col-12  "+S.footerTitleWrapper}>We are in</div>
                         <div className={"col-12 col-sm-12 col-lg-12 col-md-12 mt-lg-2 mt-sm-2 mt-4" }>

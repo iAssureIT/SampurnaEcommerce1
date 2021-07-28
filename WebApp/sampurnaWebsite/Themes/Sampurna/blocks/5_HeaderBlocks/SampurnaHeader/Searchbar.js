@@ -149,7 +149,8 @@ class Searchbar extends React.Component {
         colWithLogin = 7;
        }
         return(  
-            <div className={"col-10 mobileViewSearch col-sm-"+colWithLogin}>                                
+            // <div className={"col-10 mobileViewSearch col-sm-"+colWithLogin}>     
+            <div className={"col-10 mobileViewSearch col-lg-6 col-xl-7 col-sm-5"}>                              
                 <div className="col-12 NoPadding">  
                     <div className="row mt3 tableSearchWrapper"> 
                         <input type="text" placeholder="Search the items" id="browsers"

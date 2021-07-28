@@ -380,31 +380,35 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                     <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryFormAfterLogin}>
                         <div className="col-12 ">
                             <div className="row">
-                                <div className={"col-4 NoPadding "}>
+                                <div className={"col-12 col-md-12 col-lg-4 col-xl-4 NoPadding "}>
                                     <div className="col-12">
                                         <div className={"row " +Style.ma}>
-                                            <div className=" col-9 NoPadding detectLocationBtn">
+                                            <div className=" col-12 col-md-12 col-lg-9 col-xl-9 NoPadding detectLocationBtn">
                                                 <button type="button" className={"btn pull-center mt-1 " +Style.locationBTNafterLogin}  onClick={this.takeCurrentLocation.bind(this)}><i className="fa fa-map-marker-alt-alt" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
                                             </div>
-                                            <div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12afterLogin}><div className={"col-2 NoPadding " +Style.orlineAfterLOgin}></div><span className={"col-8 " +Style.MapOrAfterLogin}>OR</span><div className={"col-2 NoPadding " +Style.orline}></div></div>
+                                            <div className={"text-center NoPadding orText1 col-12 col-md-12 col-lg-3 col-xl-3 mt-3 " +Style.tw +" "+Style.f12afterLogin}>
+                                                <div className={"col-5 col-sm-5 col-md-5 col-lg-2 col-xl-2 NoPadding " +Style.orlineAfterLOgin}></div>
+                                                <span className={"col-2 col-sm-2 col-md-2 col-lg-8 col-xl-8 " +Style.MapOrAfterLogin}>OR</span>
+                                                <div className={"col-5 col-sm-5 col-md-4 col-lg-2 col-xl-2 NoPadding " +Style.orline}></div>
+                                            </div>
 
                                             {/*<div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12}>
                                                 <div className="col-1 " id="line"><hr /></div><span className={"col-8 " +Style.MapOr}>OR</span><div className="col-1 " id="line"><hr /></div></div>*/}
                                         </div>
                                     </div>
                                 </div>
-                                <div className={" col-12 col-lg-7 col-sm-7 NoPadding"}>
+                                <div className={" col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 NoPadding"}>
                                     <PlacesAutocomplete 
                                         value={this.state.address}
                                         onChange={this.handleChangePlaces}
                                         onSelect={this.handleSelect}
                                         highlightFirstSuggestion={true}>
                                             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                            <div className={"col-12 NoPadding "+Style.locationSearchWrapperAfterLogin}>
+                                            <div className={"col-12 "+Style.locationSearchWrapperAfterLogin}>
                                                 {/* <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label> */}
                                              
   
-                                                <div className="barraContainer">
+                                                <div className="barraContainer col-12 NoPadding">
                                                     <input type="text"  placeholder="Ingrese su nombre de papu"
                                                     {...getInputProps({
                                                         placeholder: 'Search your Location ',
@@ -454,17 +458,16 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                     </PlacesAutocomplete>
                                 </div>
                                 <div className="col-12 NoPadding">
-                                    <div className="col-6 col-lg-2 col-sm-2 offset-9 mt-3 NoPadding ">
-                                        <button type="button" className={" btn col-12 NoPadding pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                                    <div className="col-12 mt-3 ">
+                                        <div className="col-12 ">
+                                            <div className="col-12 ">
+                                                <button type="button" className={" btn pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                                            </div>
+                                        </div>
+                                        {/* <button type="button" className={" btn pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button> */}
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className={"col-sm-12 col-xs-12 col-md-12 col-lg-8 mt-4 " +Style.ma}>
-                                <div className="col-12">
-                                        <button type="button" className={"btn col-4  changelocationBtn pull-right " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
-                                    
-                                </div>
-                            </div> */}
                             <div className="col-12 pull-right mt-2 ">
                             </div>
                         </div>

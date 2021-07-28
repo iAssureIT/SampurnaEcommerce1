@@ -67,7 +67,7 @@ class Header extends React.Component {
 
                                             <SearchBar />
                                             
-                                            <div className={"col-8 col-lg-"+colWithLogin+" col-sm-"+colWithLogin +" mt-1 systemSecurity"}> 
+                                            <div className={"col-8 col-lg-4 " +"col-xl-"+colWithLogin+" col-sm-5" +" mt-1 systemSecurity"}> 
                                                 <div className="row">   
                                                     <div className="col-5 ml-4 systemSecurityModal">
                                                         < SystemSecurityModal />
