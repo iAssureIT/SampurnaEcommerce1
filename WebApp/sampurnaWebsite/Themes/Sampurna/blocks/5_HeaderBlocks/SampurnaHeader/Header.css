@@ -61,7 +61,10 @@
 .multilevelType2MenuWrapper .navbar{
     background: transparent;
     margin-bottom: 0px;
-    padding: 0px !important;
+    /* padding-top: 10px; */
+    padding-bottom: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 .logoWrap{
     margin-top: 20px;
@@ -769,6 +772,9 @@ li a{
 }
 
 @media only screen and (max-device-width: 480px) {
+    .multilevelType2MenuWrapper .navbar{
+        padding-top: 10px !important;
+    }
    .systemSecurityModal{
        padding-left: 0px;
        padding-right: 0px;
@@ -790,7 +796,7 @@ li a{
        font-size: 10px;
    }
    .cartCount{
-       margin-left: -12px;
+       margin-left: -0px;
    }
    .userEmail{
        padding-top: -5px;
