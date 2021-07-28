@@ -321,26 +321,20 @@ export const MyOrder = withCustomerToaster((props)=>{
                           </View>  
                           <View style={styles.orderdetsandcancelbtn}>
                             {order ?
-                              <View style={[styles.ordercancelstatus,{justifyContent:"flex-end"}]}>
+                              <View style={[styles.ordercancelstatus]}>
                                 {cancelButton(order.createdAt) ?
                                   order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
                                   null
                                   :
                                   <View style={styles.orderdetailsstatus}>
                                     {order.orderStatus && order.orderStatus !== 'Cancelled'&&
-                                    <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40,alignItems:'center'}]}>
-                                    {order.orderStatus && order.orderStatus !== 'Cancelled'&&
-                                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",fontSize:13,alignSelf:'center',color:colors.danger}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel order before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('hh:mm')}</Text>
-                                    }
+                                    <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40}]}>
+                                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",fontSize:13,color:colors.danger,textDecorationLine:'underline'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('LT')}</Text>
                                     </View>}
                                   </View>
                                   :
-                                  null
+                                  <View style={styles.orderdetailsstatus} />
                                 }
-                                <View style={{flex:1,flexDirection:'row',marginHorizontal:15}}>
-                                  <View style={{flex:0.6,alignItems:'flex-start',marginLeft:10}}>
-                                    <Text style={styles.cancelText}>Cancel before 01.05 am</Text>
-                                  </View>
                                   <View style={[styles.ordercancelsstatus]}>
                                     <Button
                                       onPress         = {() => navigation.navigate('OrderDetails', { orderid: order._id })}
@@ -350,7 +344,6 @@ export const MyOrder = withCustomerToaster((props)=>{
                                       containerStyle  = {styles.buttonContainer}
                                     />
                                   </View>                                  
-                                </View>                                
                               </View>
                               :
                               <View style={styles.orderstatustxtcancel}></View>

@@ -187,7 +187,7 @@ superparent:{
     // textAlign:'center'
   },
   flxdata:{
-    flex:1,flexDirection:"row"
+    flex:1,flexDirection:"row",paddingVertical:5
   },
   orderbrdr:{
     flex:1,flexDirection:"row",
@@ -213,7 +213,8 @@ superparent:{
     flex:0.8,
     justifyContent:'flex-end',
     alignItems:'flex-end',
-    marginHorizontal:6
+    marginHorizontal:6,
+    marginRight:15
   },
   totaldetails:{
     backgroundColor:'#fff',
@@ -679,12 +680,14 @@ superparent:{
   
     },
     containerStyle:{
-      borderBottomWidth:1,
-      borderRadius:3,
+      borderWidth:1,
+      borderTopLeftRadius:6,
+      borderBottomLeftRadius:6,
+      backgroundColor:'#CBD0D4',
       // marginVertical:5,
       borderColor:"#ccc",
       paddingHorizontal: 0,
-      height:43,
+      height:45,
     },
     radiobtn:{
       // alignItems:'center',
