@@ -368,14 +368,14 @@ export const MyOrder = withCustomerToaster((props)=>{
                       })
                       
                       :
-                      <View style={{height:window.height-120,justifyContent:'center',alignItems:'center'}}>
+                      <View style={{height:window.height-230,justifyContent:'center',alignItems:'center'}}>
                         <Image
-                          source={require("../../AppDesigns/currentApp/images/empty_wishlist.png")}
+                          source={require("../../AppDesigns/currentApp/images/empty-order.png")}
                           style={{width:window.width,height:300}}
                           resizeMode='contain'
                         />
                         <View style={{alignItems:'center'}}>
-                          <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>No Order Yet</Text>
+                          <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>No Orders Yet</Text>
                           <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                             <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
                             <Text style={[CommonStyles.linkText,{textDecorationLine: "underline",fontFamily:"Montserrat-SemiBold",fontSize:12}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>

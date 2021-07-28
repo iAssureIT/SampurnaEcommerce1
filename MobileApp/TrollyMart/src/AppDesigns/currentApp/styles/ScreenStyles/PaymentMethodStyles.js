@@ -194,8 +194,8 @@ export default StyleSheet.create({
 
   },
   iconImg:{
-    height:16,
-    width:18,
+    height:27,
+    width:17,
     resizeMode:'cover'
   },
   buttonContainer1: {
