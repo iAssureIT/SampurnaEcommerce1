@@ -1,4 +1,3 @@
-
 import React,{useState,useEffect}      from 'react';
 import axios                           from 'axios';
 import MasterPage                      from '../MasterPage/MasterPage.js';
@@ -44,7 +43,7 @@ export default function App({pageData}) {
  
   return (
     <div className="col-12">
-      {console.log("userId===",userId)}
+      {/* {console.log("userId===",userId)} */}
       <div className="row">
         {sampurnaWebsiteDetails && sampurnaWebsiteDetails.deliveryLocation  && sampurnaWebsiteDetails.deliveryLocation.address ?	
           <MasterPage pageData = {pageData}/>
@@ -55,30 +54,33 @@ export default function App({pageData}) {
                     <header>
                         <nav className="navbar navbar-expand-md navbar-dark megamenu">
                             <div className="col-12 NoPadding ">
-                                <div className="col-12 top-header">
-                                    <div className="row headeLogoWrap mt-4">  
-                                          <div className="col-2">
+                                <div className="col-12 top-header mobileNoPadding">
+                                    <div className="col-12 headeLogoWrap mt-4"> 
+                                      <div className="row"> 
+                                          <div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">
                                               <Websitelogo />
                                           </div>  
-                                          <div className="col-9 text-center searchTitle"></div>
-                                          {userId ?
-                                          <div className=" col-1 NoPadding signInBlock" >
-                                              <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" onClick={()=>signOut()}  id="loginModal" area-hidden ="true"> 
-                                                  <span className="col-12 loginView">Sign Out &nbsp;
-                                                      <img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
-                                                  </span>
-                                              </a>          
-                                          </div> 
-                                          :
-                                          <div className=" col-1 NoPadding signInBlock" >
-                                              <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
-                                                  <span className="col-12 loginView">Sign in &nbsp;
-                                                      <img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
-                                                  </span>
-                                              </a>          
-                                          </div> 
-                                          }
+                                          <div className="col-8 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                                            {userId ?
+                                            <div className=" col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 NoPadding signInBlock pull-right" >
+                                                <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" onClick={()=>signOut()}  id="loginModal" area-hidden ="true"> 
+                                                    <span className="col-12 loginView">Sign Out &nbsp;
+                                                        <img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
+                                                    </span>
+                                                </a>          
+                                            </div> 
+                                            :
+                                            <div className=" col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 NoPadding signInBlock pull-right" >
+                                                <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
+                                                    <span className="col-12 loginView">Sign in &nbsp;
+                                                        <img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
+                                                    </span>
+                                                </a>          
+                                            </div> 
+                                            }
+                                          </div>
                                           < SystemSecurityPopup />
+                                      </div>
                                     </div>
                                 </div>                                                    
                             </div>
@@ -86,7 +88,6 @@ export default function App({pageData}) {
                     </header>
                 </div>
               </div> 
-
               < DeliveryLocationPopup />
               <div className="row"> 
                   <Footer />

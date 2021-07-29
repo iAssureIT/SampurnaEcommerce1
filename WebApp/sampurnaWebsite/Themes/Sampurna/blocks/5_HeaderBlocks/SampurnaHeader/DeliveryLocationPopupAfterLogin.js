@@ -391,9 +391,6 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                                 <span className={"col-2 col-sm-2 col-md-2 col-lg-8 col-xl-8 " +Style.MapOrAfterLogin}>OR</span>
                                                 <div className={"col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 NoPadding " +Style.orline}></div>
                                             </div>
-
-                                            {/*<div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12}>
-                                                <div className="col-1 " id="line"><hr /></div><span className={"col-8 " +Style.MapOr}>OR</span><div className="col-1 " id="line"><hr /></div></div>*/}
                                         </div>
                                     </div>
                                 </div>
@@ -464,7 +461,6 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                                 <button type="button" className={" btn pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
                                             </div>
                                         </div>
-                                        {/* <button type="button" className={" btn pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button> */}
                                     </div>
                                 </div>
                             </div>

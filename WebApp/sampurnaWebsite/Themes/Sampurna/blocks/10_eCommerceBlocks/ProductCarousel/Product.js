@@ -269,11 +269,9 @@ class Product extends Component{
               messageData: {},
             })
           }, 2000);
-        
       }
     }
   
-
     render(){
       // console.log("products props===",this.props);
 

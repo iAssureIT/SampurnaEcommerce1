@@ -488,6 +488,9 @@
   .categoryFooterWrapper{
     margin-bottom: 20px;
   }
+  .footerNew{
+    font-size: 11px !important;
+  }
   .aboutusFooterWrapper{
     margin-bottom: 20px;
 }
