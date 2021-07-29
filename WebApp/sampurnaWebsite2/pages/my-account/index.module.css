@@ -1,0 +1,16 @@
+
+.navPillsWrapper a{
+    background-color: #e9e9e9;
+    color:black;
+    border-radius: 10px !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: #ff4157 !important;
+}
+.myAccountPills{
+    background-color: #ff4157 !important;
+}
+.myAccountPills:hover{
+    background-color: rgb(236, 96, 96) !important;
+}

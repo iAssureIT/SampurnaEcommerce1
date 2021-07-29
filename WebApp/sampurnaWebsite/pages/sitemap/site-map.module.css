@@ -1,8 +1,6 @@
-
 .sitemappWrapper{
     margin-bottom: 15px;
 }
-
 .siteCat{
     font-weight: 500;
     margin-top: 25px;
@@ -10,7 +8,7 @@
 .siteCat a{
     color: #333 !important;
 }
-.siteSubCat {
+.siteSubCat{
     color: #333 !important;
     
 }
@@ -26,14 +24,35 @@
     font-weight: bold;
     color:#333333ed
 }
-@media only screen and (max-device-width: 480px) {
-.subTitles{
-    font-size: 15px;
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+@media (max-width: 575px){
+    /* No media query for 'xs' since this is the default in Bootstrap 4 */
 }
-.siteCat{
-    font-size: 13px;
+
+/* (sm) Small Devices (Landscape Phones, 576px and up) */
+@media (min-width: 576px){
+
 }
-.pageTitle h2{
-    font-size: 20px;
+
+/* (md) Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px){
+
 }
+
+/* (lg) Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px){
+
 }
+
+/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px){
+
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

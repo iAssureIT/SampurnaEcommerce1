@@ -1,51 +1,39 @@
 .paymentMainWrapper{
-    height: 480px;
-    /* background-color: aquamarine; */
+    height: auto;
     border: 1px solid lightgray;
     border-radius: 12px;
-    /* padding-bottom: 20px; */
 }
-
 .paymentLeftSideWrapper{
-    height: 479px;
-    background-color:  #3E9D5E;
+    height: auto;
+    background-color: #3E9D5E;
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
 }
-
 .paymentRightSideWrapper{
-    height: 450px;
+    height: auto;
     background-color:#fff;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
-    /* background-image: url("/images/eCommerce/Face.png");
-    background-size:100% 100%;
-    background-repeat: no-repeat; */
 }
 .paymentBgWrapper{
     position: absolute;
-    /* margin: auto; */
     height: 250px;
     top: 100px;
     left: 140px;
-    /* margin-top: 54px; */
 }
 .paymentLogoWrapper{
     height:35px;
 }
 .backtoMyOrdersDivWrapper a{
-color: #033554 !important;
+    color: #033554 !important;
 }
-
 .paymentAlertWrapper i{
     font-size:40px;
     color: #fff;
 }
-
 .paymentAlertWrapper h6{
     color: #fff;
 }
-
 .paymentLockWrapper i{
     color:#fff;
 }
@@ -53,3 +41,61 @@ color: #033554 !important;
     color: #fff;
     font-size: 14px;
 }
+
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+@media (max-width: 575px){
+    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+}
+
+/* (sm) Small Devices (Landscape Phones, 576px and up) */
+@media (min-width: 576px){
+
+}
+
+/* (md) Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px){
+
+}
+
+/* (lg) Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px){
+
+}
+
+/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px){
+
+    .paymentMainWrapper{
+        height: 482px;
+        border: 1px solid lightgray;
+        border-radius: 12px;
+    }
+    .paymentLeftSideWrapper{
+        height: 480px;
+    }
+    .paymentRightSideWrapper{
+        height: 480px;
+    }
+    .paymentBgWrapper{
+        height: 250px;
+        top: 100px;
+        left: 140px;
+    }
+    .paymentLogoWrapper{
+        height:35px;
+    }
+    .paymentAlertWrapper i{
+        font-size:40px;
+    }
+    .paymentLockWrapper{
+        font-size: 14px;
+    }
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

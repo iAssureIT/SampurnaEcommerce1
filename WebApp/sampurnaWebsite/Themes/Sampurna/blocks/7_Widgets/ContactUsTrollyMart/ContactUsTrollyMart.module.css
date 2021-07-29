@@ -7,162 +7,261 @@
   src: url('../../../fonts/Montserrat-SemiBold.ttf');
 }
 
-.contactUsTrollyBreadcumWrapper{
-  /* background-color: brown; */
-  height: 350px !important;;
-  background-size: 100% 100% !important;;
-}
 .contactUsTrollyMainWrapper{
-  height:750px !important;
-  /* height: auto; */
-  margin-bottom: 250px;
-  /* background-color: brown; */
+	height: 1220px;
+	/* background-color: brown; */
+}
+.contactUsTrollyBreadcumWrapper{
+	height: 300px;
+	background-size: 170% 100%;
 }
 .getInTouchBtnMainWrapper{
-  margin-left: 13px!important;
+	margin-left: 13px;
+}
+.contactusFormWrapperMain{
+	min-height: 970px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	position: absolute;
+	margin-top: 227px;
+	border-radius: 4px;
+	/* background: lightcoral; */
 }
 .contactusFormWrapperLeftSide{
-  min-height: 450px !important;;
-  height: auto;
-  background-color:white !important;;
-  border-bottom-left-radius: 4px;
-  border-top-left-radius: 4px;
+	height: 550px;
+	background-color: #fff;
+	border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
 }
 .emailWrapperContactUs{
-  margin-top: -25px!important;
-  margin-left: 10px!important;
+	margin-top: -25px;
+	margin-left: 10px;
 }
-
 .contactusFormWrapperRightSide{
-  min-height: 450px !important;;
-  height: auto;
-  background-color:#033554 !important;;
-  opacity: 1;
-  border-radius: 4px !important;;
-  border-bottom-right-radius: 4px !important;;
-  border-top-right-radius: 4px !important;;
-}
-
-.contactusFormWrapperMain{
-  position: absolute;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;;
-  min-height:450px !important;;
-  height: auto;
-  /* background-color: blueviolet; */
-  margin-top: 227px;
-  border-radius: 4px;
+	height: 300px;
+	background-color: #033554;
+	opacity: 1;
+	border-radius: 4px;
 }
 .contactusFormInputInsideWrapper{
-  border:none !important;;
-  border-bottom: 1px solid lightgray !important;;
-  box-shadow: none !important;
-  background-color: transparent!important;
+	border: none;
+	border-bottom: 1px solid lightgray;
+	box-shadow: none;
+	background-color: transparent;
 }
-
-
 .contactusFormInputWrapper{
-  color:#033554 !important;;
-  font-size: 14px !important;;
-  /* font-family:'Montserrat-SemiBold' !important;; */
+	color:#033554;
+	font-size: 14px;
 }
-
-.getInTouchBtnWrapper {
-  height: 32px !important;;
-  width: 82px !important;;
-  border-bottom-right-radius: 1px !important;
-  border-radius: 10px;
-  background-color: #033554;
-  outline:none;
-  border: none;
-  color:#fff;
-  font-size: 14px;
+.getInTouchBtnWrapper{
+	height: 32px;
+	width: 82px;
+	border-bottom-right-radius: 1px;
+	border-radius: 10px;
+	background-color: #033554;
+	outline: none;
+	border: none;
+	color: #fff;
+	font-size: 14px;
+	margin-top: 20px;
 }
 .error{
-  color: red !important;
+	color: red;
 }
-
-.getInTouchBtnWrapper:hover {
-  height: 32px !important;;
-  width: 82px !important;;
-  border-bottom-right-radius: 1px !important;
-  border-radius: 10px;
-  background-color: #033554;
-  outline:none;
-  border: none;
-  color: #fff;
+.getInTouchBtnWrapper:hover{
+	height: 32px;
+	width: 82px;
+	border-bottom-right-radius: 1px;
+	border-radius: 10px;
+	background-color: #033554;
+	outline: none;
+	border: none;
+	color: #fff;
 }
 .getInTouchSubTitle{
-  color:white !important;
-  font-family: "Montserrat-SemiBold"!important;
-  font-size: 18px;
+	color: #fff;
+	font-family: "Montserrat-SemiBold";
+	font-size: 18px;
 }
 .phoneFontAwesomeWrapper label{
-  color:white;
-  font-family:'Montserrat-Thin'!important;
-  font-size: 14px;
-  cursor: pointer;
+	color: #fff;
+	font-family:'Montserrat-Thin';
+	font-size: 14px;
+	cursor: pointer;
 }
-.phoneFontAwesomeWrapper {
-  color:white;
-  font-family:'Montserrat-Thin'!important;
-  font-size: 14px;
-  cursor: pointer;
+.phoneFontAwesomeWrapper{
+	color: #fff;
+	font-family:'Montserrat-Thin';
+	font-size: 14px;
+	cursor: pointer;
 }
-
-.hero {
-  height: 35px !important;;
-  background: #033554 !important;;
-  /* display: flex; */
-  align-items: center !important;;
-  flex-direction: column !important;;
-  justify-content: center !important;;
+.hero{
+	height: 35px;
+	background: #033554;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
 }
-
-.social_links {
-  display: flex;
-  margin-left: -8px;
-
+.social_links{
+	display: flex;
+	margin-left: -8px;
 }
-
-.social_links a {
-  width: 28px;
-  height: 28px;
-  text-align: center;
-  text-decoration: none;
-  color: #033554;
-  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
-  margin: 0 5px;
-  border: 1px solid #c0ccd4;
-  background-color: #c0ccd4;
-  border-radius: 50%;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.5s;
-  font-size: 14px;
+.social_links a{
+	width: 28px;
+	height: 28px;
+	text-align: center;
+	text-decoration: none;
+	color: #033554;
+	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
+	margin: 0 5px;
+	border: 1px solid #c0ccd4;
+	background-color: #c0ccd4;
+	border-radius: 50%;
+	position: relative;
+	overflow: hidden;
+	transition: transform 0.5s;
+	font-size: 14px;
 }
-
-.social_links a .fab {
-  margin-top: 7px !important;
-  text-align:center ;
-  line-height: 80px;
-  position: relative;
-  z-index: 10;
-  transition: color 0.5s;
-  color: black;
+.social_links a .fab{
+	margin-top: 7px;
+	text-align:center;
+	line-height: 80px;
+	position: relative;
+	z-index: 10;
+	transition: color 0.5s;
+	color: black;
 }
 .social_links i{
-  margin-top: 6px;
+	margin-top: 6px;
 }
 .contactUsTrollyMainWrapper input[type='number']::-webkit-inner-spin-button, 
-.contactUsTrollyMainWrapper input[type='number']::-webkit-outer-spin-button { 
-    -webkit-appearance: none;    
-    appearance: none;
-    margin: 0;  
+.contactUsTrollyMainWrapper input[type='number']::-webkit-outer-spin-button{
+	-webkit-appearance: none;    
+	appearance: none;
+	margin: 0;  
 }
 .contactUsTrollyMainWrapper input[type='number'], 
 .contactUsTrollyMainWrapper input[type='number']:hover,
-.contactUsTrollyMainWrapper input[type='number']:focus {
-  -moz-appearance: textfield;
+.contactUsTrollyMainWrapper input[type='number']:focus{
+	-moz-appearance: textfield;
 }
 
 
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+@media (max-width: 575px){
+    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+}
+
+/* (sm) Small Devices (Landscape Phones, 576px and up) */
+@media (min-width: 576px){
+
+}
+
+/* (md) Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px){
+
+}
+
+/* (lg) Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px){
+
+	.contactUsTrollyMainWrapper{
+		height: 870px;
+	}
+	.contactUsTrollyBreadcumWrapper{
+		height: 350px;
+		background-size: 100% 100%;
+	}
+	.getInTouchBtnMainWrapper{
+		margin-left: 13px;
+	}
+	.contactusFormWrapperLeftSide{
+		min-height: 450px;
+		height: auto;
+		border-bottom-left-radius: 4px;
+		border-top-left-radius: 4px;
+	}
+	.emailWrapperContactUs{
+		margin-top: -25px;
+		margin-left: 25px;
+	}
+	.contactusFormWrapperRightSide{
+		min-height: 450px;
+		height: auto;
+		border-bottom-right-radius: 10px;
+		border-top-right-radius: 10px;
+	}
+	.contactusFormWrapperMain{
+		min-height: 450px;
+		height: auto;
+		margin-top: 227px;
+	}
+	.contactusFormInputWrapper{
+		font-size: 14px;
+	}
+	.getInTouchBtnWrapper{
+		height: 32px;
+		width: 82px;
+		font-size: 14px;
+		margin-top: 0px;
+	}
+	.getInTouchBtnWrapper:hover{
+		height: 32px;
+		width: 82px;
+	}
+	.getInTouchSubTitle{
+		font-size: 18px;
+	}
+	.phoneFontAwesomeWrapper label{
+		font-size: 14px;
+	}
+	.phoneFontAwesomeWrapper{
+		font-size: 14px;
+	}
+	.hero{
+		height: 35px;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+	}
+	.social_links{
+		display: flex;
+		margin-left: -8px;
+	}
+	.social_links a{
+		width: 28px;
+		height: 28px;
+		text-align: center;
+		margin: 0 5px;
+		font-size: 14px;
+	}
+	.social_links a .fab{
+		margin-top: 7px;
+		text-align:center;
+		line-height: 80px;
+	}
+	.social_links i{
+		margin-top: 6px;
+	}
+	.contactUsTrollyMainWrapper input[type='number']::-webkit-inner-spin-button, 
+	.contactUsTrollyMainWrapper input[type='number']::-webkit-outer-spin-button{
+		-webkit-appearance: none;    
+		appearance: none;
+		margin: 0;  
+	}
+	.contactUsTrollyMainWrapper input[type='number'], 
+	.contactUsTrollyMainWrapper input[type='number']:hover,
+	.contactUsTrollyMainWrapper input[type='number']:focus{
+		-moz-appearance: textfield;
+	}
+}
+
+/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px){
+
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

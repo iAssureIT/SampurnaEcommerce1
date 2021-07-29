@@ -1,32 +1,15 @@
 .simplePageBanner{
 	height: 250px;
-	text-align: center;
 	background-size: 250% 100%;
-	background-position: -270px 0px;
 	background-repeat: no-repeat;
-	margin-top: -0px !important;
+	padding-top: 0.1px;
 }
 .simplePageBannerTitle{
-	font-size: 45px;
+	font-size: 40px;
 	font-weight: 700;
+    margin-top: 100px;
 	color: #fff;
-    padding-top: 100px;
-}
-.simplePageBanner ul{
-	list-style: none;
-	margin: auto;
-}
-.simplePageBanner ul li{
-	display: inline-block;
-	color: #fff;
-}
-.simplePageBanner ul li a{
-	font-size: 18px;
-	color: #fff;
-}
-.simplePageBanner ul li a:hover{
-	color: #86a844;
-	text-decoration: none;
+	text-align: center;
 }
 
 
@@ -41,23 +24,29 @@
 /* (sm) Small Devices (Landscape Phones, 576px and up) */
 @media (min-width: 576px){
 
-	.simplePageBanner{
-		background-size: 190% 100%;
-		background-position: -270px 0px;
+	.simplePageBannerTitle{
+		font-size: 35px;
 	}
 }
 
 /* (md) Medium Devices (Tablets, 768px and up) */
 @media (min-width: 768px){
 
+	.simplePageBannerTitle{
+		font-size: 40px;
+	}
 }
 
 /* (lg) Large Devices (Desktops, 992px and up) */
 @media (min-width: 992px){
 
 	.simplePageBanner{
-		background-size: 150% 100%;
-		background-position: -150px 0px;
+		background-size: 100% 100%;
+	}
+	.simplePageBannerTitle{
+		font-size: 45px;
+		margin-left: 50px;
+		text-align: left;
 	}
 }
 
@@ -65,9 +54,13 @@
 @media (min-width: 1200px){
 
 	.simplePageBanner{
-		margin-top: 85px;
-		background-size: 115% 100%;
-		background-position: -50px 0px;
+		background-size: 100% 100%;
+	}
+	.simplePageBannerTitle{
+		font-size: 45px;
+		margin-top: 100px;
+		margin-left: 50px;
+		text-align: left;
 	}
 }
 

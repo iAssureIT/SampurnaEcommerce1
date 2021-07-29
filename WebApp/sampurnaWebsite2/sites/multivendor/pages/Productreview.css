@@ -1,0 +1,27 @@
+.reviewProImg{
+    height: 100px !important;
+    font-size: 14px ! important;
+}
+.customerPic{
+    /* height: 70px; */
+    /* width: 70px; */
+    display: inline-block;
+    padding: 20px 26px;
+    border-radius: 100%;
+    border:solid 1px #ccc;
+    text-align: center;
+}
+.reviewBox{
+    border: solid 1px #ddd ;
+    border-radius: 10px;
+    padding: 15px;  
+    margin-bottom: 20px;
+}
+.ratingCount{
+    position:absolute;
+    top:20px;
+    font-size: 10px;
+}
+.starRatingBlock{
+
+}

@@ -1,191 +1,65 @@
 .stdBlockFGImage{
-    width:75%;
-    height: 125%;
+	height: 190px;
+    width: 100%;
     border-radius: 10px;
+	margin-top: 30px;
 }
-
-.stdBlockWrapper{
-   min-height: 350px;
-   height: auto;
-}
-
 .stdBlockDescriptionBlack{
-    font-size: 20px!important;
-    color: black;
-    text-align: justify;
+    font-size: 20px !important;
+    color: #000;
+	text-align: justify;
+	margin-top: 20px;
 }
 
-.stdBlockDescriptionBlack strong{
-    font-size: 32px!important;
-    color: black;
-    text-align: justify;
-}
-/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
 
-/* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2) { 
 
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+@media (max-width: 575px){
+    /* No media query for 'xs' since this is the default in Bootstrap 4 */
 }
 
-/* Portrait */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) { 
-    .stdBlockFGImage{
-        width:84%;
-        height: 94%;
-        border-radius: 10px;
-    }
+/* (sm) Small Devices (Landscape Phones, 576px and up) */
+@media (min-width: 576px){
+
+	.stdBlockFGImage{
+		height: 300px;
+		width: 75%;
+	}
+}
+
+/* (md) Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px){
 
 }
 
-/* Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) { 
-    .stdBlockFGImage{
-        width:81%;
-        height: 99%;
-        border-radius: 10px;
-    }
-    .stdBlockDescriptionBlack{
-        font-size: 20px!important;
-        color: black;
-        margin-left: 84px;
-    }
+/* (lg) Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px){
 
+	.stdBlockFGImage{
+		height: 220px;
+		margin-left: -100px;
+	}
 }
 
-/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px){
 
-/* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3) { 
-
+	.stdBlockFGImage{
+		height: 300px;
+		width: 75%;
+		margin-left: 0px;
+	}
+	.stdBlockDescriptionBlack{
+		font-size: 20px !important;
+		margin-top: 50px;
+		margin-left: 50px;
+		margin-right: 80px;
+		text-align: right;
+	}
 }
 
-/* Portrait */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: portrait) { 
 
-}
-
-/* Landscape */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: landscape) { 
-    .stdBlockFGImage{
-        width:81%;
-        height: 99%;
-        border-radius: 10px;
-    }
-    .stdBlockDescriptionBlack{
-        font-size: 20px!important;
-        color: black;
-        margin-left: 125px;
-    }
-
-}
-
-/* ----------- iPhone X ----------- */
-
-/* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 812px) 
-  and (-webkit-min-device-pixel-ratio: 3) { 
-
-}
-
-/* Portrait */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 812px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: portrait) { 
-
-}
-
-/* Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 812px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: landscape) { 
-    .stdBlockFGImage{
-        width:81%;
-        height: 99%;
-        border-radius: 10px;
-    }
-    .stdBlockDescriptionBlack{
-        font-size: 20px!important;
-        color: black;
-        margin-left: 125px;
-        text-align: justify;
-    }
-
-}
-
-/* ----------- iPad 3, 4 and Pro 9.7" ----------- */
-
-/* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 768px) 
-  and (max-device-width: 1024px) 
-  and (-webkit-min-device-pixel-ratio: 2) {
-
-}
-
-/* Portrait */
-@media only screen 
-  and (min-device-width: 768px) 
-  and (max-device-width: 1024px) 
-  and (orientation: portrait) 
-  and (-webkit-min-device-pixel-ratio: 2) {
-    .stdBlockFGImage{
-        width:81%;
-        height: 99%;
-        border-radius: 10px;
-    }
-    .stdBlockDescriptionBlack{
-        font-size: 20px!important;
-        color: black;
-        margin-left: 125px;
-        text-align: justify;
-    }
-
-}
-
-/* Landscape */
-@media only screen 
-  and (min-device-width: 768px) 
-  and (max-device-width: 1024px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 2) {
-    .stdBlockFGImage{
-        width:81%;
-        height: 50%;
-        border-radius: 10px;
-    }
-    .stdBlockDescriptionBlack{
-        font-size: 20px!important;
-        color: black;
-        margin-left: 125px;
-        text-align: justify;
-    }
-
-}
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

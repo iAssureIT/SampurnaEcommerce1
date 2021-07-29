@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import axios              from 'axios';
 
 
-
-
 import S from './Aboutusbanner.module.css';
 
 
@@ -13,11 +11,11 @@ export default class Aboutusbanner extends Component{
         super(props);
         this.state = {
             blocks:{
-                "blockTitle"         : "ABOUT US",
-                "blockSubTitle"      : "HOME / ",
-                "blockDescription"   : "ABOUT US",
-                "blockComponentName" : "Aboutusbanner",
                 "blockType"          : "7_Widgets",
+                "blockComponentName" : "Aboutusbanner",
+                "blockTitle"         : "Banner Title",
+                "blockSubTitle"      : "",
+                "blockDescription"   : "",
                 "bgImage"            : "/images/CMSBlockType/7_Widgets/Aboutusbanner.jpg",
                 "fgImage1"           : "",
                 "fgImage2"           : "",
@@ -31,8 +29,6 @@ export default class Aboutusbanner extends Component{
                         BGImage      : "",
                         Link         : "" 
                     },
-                    
-
                 ],
                 "bgVideo"            : "",
                 "fgVideo"            : "",
@@ -62,28 +58,13 @@ export default class Aboutusbanner extends Component{
         this.setState({
             block_id:this.props.block_id
         });
-
-        
-
     }
-
-
-
- 
 
     render(){
         return(
-            // <div className="row">
             <section className={"col-12 "+S.simplePageBanner} style={{backgroundImage:"url("+this.state.blocks.bgImage+")"}}>
-          <div className="col-12"><div className="col-12"> <h4 className={"text-left  col-12 "+S.simplePageBannerTitle} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockTitle} }></h4></div></div> 
-            {/* <ul className="col-12">
-                <li><a href="/" dangerouslySetInnerHTML={{ __html: this.state.blocks.blockSubTitle} }></a></li>
-                <li>&nbsp;/&nbsp;</li>
-                <li dangerouslySetInnerHTML={{ __html: this.state.blocks.blockDescription} }></li>
-            </ul> */}
-        </section>
-            //  </div>
-             
+                <h4 className={S.simplePageBannerTitle} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockTitle} }></h4>
+            </section>
         );
     }
 }

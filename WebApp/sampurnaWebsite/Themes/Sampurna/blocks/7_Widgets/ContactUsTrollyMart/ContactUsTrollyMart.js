@@ -1,14 +1,13 @@
-import React, {Component}	      from 'react';
-import axios				      from 'axios';
-import $					      from 'jquery';
-import jQuery				      from 'jquery';
-import validate                   from "jquery-validation";
-import Swal					      from 'sweetalert2';
-import Link                   from 'next/link';
+import React, {Component}		from 'react';
+import axios					from 'axios';
+import $						from 'jquery';
+import jQuery					from 'jquery';
+import validate					from "jquery-validation";
+import Swal						from 'sweetalert2';
+import Link 					from 'next/link';
 
 
-
-import S 					      from './ContactUsTrollyMart.module.css';
+import S						from './ContactUsTrollyMart.module.css';
 
 
 export default class ContactUsTrollyMart extends Component{
@@ -30,9 +29,8 @@ export default class ContactUsTrollyMart extends Component{
 				"blockSubTitle"       : "Contact Us",
 				"blockDescription"    : "Mauris lobortis ullamcorper sagittis. Mauris lobortis ullamcorper sagittis. Integer eleifend sagittis fringilla nam dapibus libero.",
 				"bgImage" 			  : "/images/CMSImages/Sampurna/GetInTouch.png",
-				"blockContact"        : "9000900000 / 8000800000",
-				"blockEmail"          : "admin@iassureit.com",
-
+				"blockContact"        : "",
+				"blockEmail"          : "",
 			},
 			"blockID" 	: "",
 			"block_id" 	: ""
@@ -41,11 +39,8 @@ export default class ContactUsTrollyMart extends Component{
 	}
 
 	componentDidMount(){
-	  	this.dynamicvalidation();
 
-
-
-
+		this.dynamicvalidation();
 
 		{
             axios.get('/api/blocks/get/'+this.props.block_id)
@@ -69,8 +64,6 @@ export default class ContactUsTrollyMart extends Component{
 		this.setState({
 			block_id:this.props.block_id
 		});
-
-
 	}
 
 	dynamicvalidation(){
@@ -85,26 +78,21 @@ export default class ContactUsTrollyMart extends Component{
             return regexpr !== value;
         }, "Please enter appropriate message");
 
-
-
         jQuery.validator.setDefaults({
             debug: true,
             success: "valid"
         });
-        $("#ContactUs").validate({
-            rules: {
 
+		$("#ContactUs").validate({
+            rules: {
                 name: {
-                	regxName:  /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
+                	regxName: /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
                     required: true
                 },
-
-
                 email: {
+					regxEmail: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$|^$)/,
                     required: true,
-                    regxEmail: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$|^$)/,
                 },
-
                 message: {
                 	regxMessage:  /^[A-Za-z][A-Za-z0-9\-\s]/,
                     required: true
@@ -113,7 +101,6 @@ export default class ContactUsTrollyMart extends Component{
                 	regxMessage: /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/,
                     required: true
                 },
-
             },
             errorPlacement: function (error, element) {
                 if (element.attr("name") === "name") {
@@ -128,14 +115,8 @@ export default class ContactUsTrollyMart extends Component{
                 if (element.attr("name") === "message") {
                     error.insertAfter("#message");
                 }
-
-
-
-
-
             }
         });
-
     }
 
 	handleChange(event){
@@ -167,32 +148,26 @@ export default class ContactUsTrollyMart extends Component{
 		};
 
 		console.log("formValues2" , formValues2);
-			     if ($('#ContactUs').valid()){
-			    //   Swal("Thank you for contacting us. We will get back to you shortly.")
-				Swal.fire({
-					position: 'center',
-					icon: 'success',
-					title: 'Great!!',
-					text: 'Thank you for contacting us!!',
-					footer: 'We will get back to you shortly!!',
-					showConfirmButton: false,
 
-				  })
-
-			     }
-			     else{
-			    //   Swal.fire("Please fill the details!")
-				Swal.fire({
-					position: 'center',
-					icon: 'error',
-					title: 'Oops!!',
-					text: 'Please fill the details!',
-					// footer: 'We will get back to you shortly!!',
-					showConfirmButton: false,
-				  })
-			  	 }
-
-
+		if ($('#ContactUs').valid()){
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: 'Great!!',
+				text: 'Thank you for contacting us!!',
+				footer: 'We will get back to you shortly!!',
+				showConfirmButton: false,
+			})
+		}else{
+			Swal.fire({
+				position: 'center',
+				icon: 'error',
+				title: 'Oops!!',
+				text: 'Please fill the details!',
+				// footer: 'We will get back to you shortly!!',
+				showConfirmButton: false,
+			})
+		}
 
 		this.setState({
 			name    : "",
@@ -203,54 +178,60 @@ export default class ContactUsTrollyMart extends Component{
 	}
 
 	render(){
+
 		console.log("state ===", this.state.name,  + " |" + this.state.email  + "|" + this.state.message )
-		// console.log("this.state.blocks.bgImage ===", response.data )
 
 		return(
-			<section className={ "col-12 pt-3 contactUsTrollyMainWrapper "+S.contactUsTrollyMainWrapper}>
+			<section className={"col-12 pt-3 contactUsTrollyMainWrapper "+S.contactUsTrollyMainWrapper}>
 				<div className="row">
-					<div className={ "col-lg-12  contactUsTrollyBreadcumWrapper "+S.contactUsTrollyBreadcumWrapper} style={{backgroundImage: "url("+this.state.blocks.bgImage+ ")"}}></div>
-					<div className={ "col-lg-8 offset-lg-2 contactusFormWrapperMain "+S.contactusFormWrapperMain}>
+					<div className={"col-12 contactUsTrollyBreadcumWrapper "+S.contactUsTrollyBreadcumWrapper} style={{backgroundImage: "url("+this.state.blocks.bgImage+ ")"}}></div>
+					<div className={"col-12 col-lg-8 offset-lg-2 contactusFormWrapperMain "+S.contactusFormWrapperMain}>
 						<div className="row">
-							<div className={ "col-lg-8 mb-4 mb-lg-0 contactusFormWrapperLeftSide "+S.contactusFormWrapperLeftSide}>
-								<div className="row"> {/*
-									<div className="col-lg-10 offset-lg-1 mt-5 pt-5" id="ContactUs"> */}
-										<form className={ "col-lg-10 offset-lg-1 mt-5 pt-5 "} id="ContactUs">
-											<div className="form-group">
-												<label for="name" className={ "control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Your Name</label>
-												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="name" name="name" type="text" id="name" ref="name" required value={this.state.name} onChange={this.handleChange.bind(this)} /> </div>
-											<div className="form-group mt-5">
-												<label for="name" className={ "control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Email</label>
-												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="email" name="email" type="email" id="email" data-text="clientEmail" ref="email" required value={this.state.email} onChange={this.handleChange.bind(this)} /> </div>
-											<div className="form-group mt-5">
-												<label for="name" className={ "control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Phone</label>
-												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="mobile" type="number" name="mobile" id="mobile" ref="mobile" required value={this.state.mobile} value={this.state.mobile} onChange={this.handleChange.bind(this)} /> </div>
-											<div className="form-group mt-5">
-												<label for="name" className={ "control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>How we can help you?</label>
-												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} /> </div>
-											<div className={ "col-lg-12 pb-lg-5 pb-0 "+S.getInTouchBtnMainWrapper}>
-												<button type="button" className={ "btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="far fa-paper-plane" aria-hidden="true"></i></button>
-											</div>
-										</form> {/* </div> */} </div>
+							<div className={"col-12 col-lg-8 mb-4 mb-lg-0 contactusFormWrapperLeftSide "+S.contactusFormWrapperLeftSide}>
+								<div className="row">
+									<form className="col-12 col-lg-10 offset-lg-1 mt-5 pt-5" id="ContactUs">
+										<div className="form-group">
+											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Your Name</label>
+											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="name" name="name" type="text" id="name" ref="name" required value={this.state.name} onChange={this.handleChange.bind(this)} /> </div>
+										<div className="form-group mt-5">
+											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Email</label>
+											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="email" name="email" type="email" id="email" data-text="clientEmail" ref="email" required value={this.state.email} onChange={this.handleChange.bind(this)} /> </div>
+										<div className="form-group mt-5">
+											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Phone</label>
+											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="mobile" type="number" name="mobile" id="mobile" ref="mobile" required value={this.state.mobile} value={this.state.mobile} onChange={this.handleChange.bind(this)} /> </div>
+										<div className="form-group mt-5">
+											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>How we can help you?</label>
+											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} /> </div>
+										<div className={"col-lg-12 pb-lg-5 pb-0 "+S.getInTouchBtnMainWrapper}>
+											<button type="button" className={"btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="far fa-paper-plane" aria-hidden="true"></i></button>
+										</div>
+									</form>
+								</div>
 							</div>
-							<div className={ "col-lg-4  mt-5 mt-lg-0 contactusFormWrapperRightSide "+S.contactusFormWrapperRightSide}>
-								<h3 className={ "col-lg-12 pt-lg-5 mt-lg-5  mt-4 pt-3 getInTouchSubTitle "+S.getInTouchSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h3>
-								<div className={ "col-lg-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-phone-alt"}></i>&nbsp;&nbsp;&nbsp;
+							<div className={"col-12 col-lg-4 mt-5 mt-lg-0 contactusFormWrapperRightSide "+S.contactusFormWrapperRightSide}>
+								<div className="col-12">
+									<h3 className={"pt-lg-5 mt-lg-5 mt-4 pt-3 getInTouchSubTitle "+S.getInTouchSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h3>
+								</div>
+								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-phone-alt"}></i>&nbsp;&nbsp;&nbsp;
 									<label>+971 04 591 1186 </label>
 								</div>
-								<div className={ "col-lg-12 pt-lg-4 pt-4  phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>
-									<label className={"col-12 "+S.emailWrapperContactUs}>support@knock-knockeshop.com</label>
+								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>
+									<label className={S.emailWrapperContactUs}>support@knock-knockeshop.com</label>
 								</div>
-								<div className={ "hero "+S.hero}>
-									<div className={ "social_links col-lg-12 pt-lg-4 pt-4 "+S.social_links}> <a href="https://www.instagram.com/knockknock_eshop/" target="_blank"><i className="fab fa-instagram"></i></a> <a href="https://www.facebook.com/Knock-Knock-103575731986682" target="_blank"><i className="fab fa-facebook-f"></i></a> <a href="https://www.youtube.com/knockknockeshop" target="_blank"><i className="fab fa-youtube" target="_blank"></i></a> <a href="https://www.linkedin.com/knockknockeshop" target="_blank"><i className="fab fa-linkedin"></i></a> <a href="https://twitter.com/knockknockeshop" target="_blank"><i className="fab fa-twitter"></i></a> </div>
+								<div className={"col-12 hero "+S.hero}>
+									<div className={"social_links pt-lg-4 pt-4 "+S.social_links}>
+										<a href="https://www.instagram.com/knockknock_eshop/" target="_blank"><i className="fab fa-instagram"></i></a>
+										<a href="https://www.facebook.com/Knock-Knock-103575731986682" target="_blank"><i className="fab fa-facebook-f"></i></a>
+										<a href="https://www.youtube.com/knockknockeshop" target="_blank"><i className="fab fa-youtube" target="_blank"></i></a>
+										<a href="https://www.linkedin.com/knockknockeshop" target="_blank"><i className="fab fa-linkedin"></i></a>
+										<a href="https://twitter.com/knockknockeshop" target="_blank"><i className="fab fa-twitter"></i></a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
-
-
 		);
 	}
-} 
+}

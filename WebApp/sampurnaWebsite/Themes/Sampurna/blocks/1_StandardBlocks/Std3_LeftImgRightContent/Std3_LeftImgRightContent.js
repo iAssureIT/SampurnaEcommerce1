@@ -78,7 +78,7 @@ export default class Std3_LeftImgRightContent extends Component{
                             <div className="col-12 stdBlockContentWrapper">
                                 <div className="row">
                                     <div className="col-12 col-lg-6 stdBlockImageWrapper">
-                                        <img className="mt-lg-4 mt-xl-0 stdBlockFGImage" src={this.state.blocks.fgImage1} alt="iAssureIT-Standard Block Image" title="iAssureIT-Standard Block Image" />
+                                        <img className="mt-lg-4 mt-xl-0 stdBlockFGImage" src={this.state.blocks.fgImage1} alt="" title="" />
                                     </div>
                                     <div className="col-12 col-lg-6 stdBlockDescriptionWrapper">
                                         <p className="mt-5 mt-lg-3 mt-xl-0 stdBlockDescriptionWhite" dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
@@ -87,16 +87,16 @@ export default class Std3_LeftImgRightContent extends Component{
                             </div>
                         </section>
                     :
-                        <section className={"col-12  stdBlockWrapper "+S.stdBlockWrapper}>
+                        <section className={"col-12 stdBlockWrapper "+S.stdBlockWrapper}>
                             {/* <StdBlockSeparatorBlue /> */}
                             <StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} />
                             <div className="col-12 stdBlockContentWrapper">
                                 <div className="row">
-                                    <div className="col-12 col-lg-6 my-auto stdBlockImageWrapper">
-                                    <img className={"mt-5 mt-lg-3 my-auto mt-xl-0 img-fluid stdBlockFGImage "+S.stdBlockFGImage} src={this.state.blocks.fgImage1} alt="iAssureIT-Standard Block Image" title="iAssureIT-Standard Block Image" />
+                                    <div className="col-12 col-lg-6 stdBlockImageWrapper">
+                                    <img className={"stdBlockFGImage "+S.stdBlockFGImage} src={this.state.blocks.fgImage1} alt="" title="" />
                                     </div>
-                                    <div className="col-12 mt-5  col-lg-6 my-auto stdBlockDescriptionWrapper">
-                                        <p className={"mt-5 pt-5  mt-xl-0 stdBlockDescriptionBlack "+S.stdBlockDescriptionBlack} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
+                                    <div className="col-12 col-lg-6 stdBlockDescriptionWrapper">
+                                        <p className={"stdBlockDescriptionBlack "+S.stdBlockDescriptionBlack} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
                                     </div>
                                 </div>
                             </div>

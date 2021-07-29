@@ -1,0 +1,28 @@
+.estimate{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    padding-top: 15px;
+    border: 1px solid #f6f6f6;
+}
+.estimate h5{
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+.estimate label{
+    padding-left: 0px;
+    font-weight: 500;
+    color: #666;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+.estimate select{
+    height: 32px;
+    border: 1px solid #c2c2c2;
+    border-radius: 5px;
+}
+.border{
+    height: 1px;
+    background:  #f6f6f6;
+}

@@ -1,13 +1,54 @@
 .stdBlockFGImage{
-    width:75%;
+    width: 100%;
     border-radius: 10px;
 }
-.stdBlockWrapper{
-    margin-top: -80px !important;
-}
-
-.blockDescWrapper p{
-    font-size: 20px!important;
-    color: black;
+.stdBlockDescriptionBlack{
+    font-size: 20px !important;
+    color: #000;
     text-align: justify;
 }
+
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+@media (max-width: 575px){
+    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+}
+
+/* (sm) Small Devices (Landscape Phones, 576px and up) */
+@media (min-width: 576px){
+
+    .stdBlockFGImage{
+        width: 75%;
+    }
+}
+
+/* (md) Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px){
+
+}
+
+/* (lg) Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px){
+
+}
+
+/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px){
+
+    .stdBlockFGImage{
+        width: 75%;
+    }
+    .stdBlockDescriptionBlack{
+        font-size: 20px !important;
+        margin-top: 50px;
+        margin-left: 80px;
+        text-align: left;
+    }
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

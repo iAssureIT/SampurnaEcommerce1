@@ -34,7 +34,6 @@ input[type=number] {
 .googleBgColor{
   background-color: #DB4437!important;
   height: 39px !important;
-  
 }
 .googleBgColor svg{
   display:none !important;
@@ -43,10 +42,10 @@ input[type=number] {
   display: none!important;
 }
 .gooogleTextWrapper{
-  font-size: 14px;
+    font-size: 14px;
     color: #fff;
     font-weight: 600;
-    margin-left: 132px;
+    margin-left: 75px;
 }
 
 .modalImgBlock::before {
@@ -518,14 +517,16 @@ input[type=number] {
   color: #033554 !important;
 }
 .otpInputBox{
-  display: inline-block !important;
-  margin-left: 17px!important;
+  margin: auto !important;
+  /* display: inline-block !important; */
+  /* margin-left: 17px!important; */
 }
 
 .otpInputBox input{
   width: 50px !important;
   height: 60px !important;
-  margin-left: 15px !important;
+  margin: auto !important;
+  /* margin-left: 15px !important; */
   border: none!important;
   border-bottom: 2px solid #333 !important;
 }
@@ -644,3 +645,50 @@ input.middle:focus {
     margin-bottom: 5px !important;
   }
 }
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+@media (max-width: 575px){
+    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+}
+
+/* (sm) Small Devices (Landscape Phones, 576px and up) */
+@media (min-width: 576px){
+
+  .gooogleTextWrapper{
+    margin-left: 145px;
+  }
+}
+
+/* (md) Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px){
+
+  .gooogleTextWrapper{
+    margin-left: 145px;
+  }
+}
+
+/* (lg) Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px){
+
+  .gooogleTextWrapper{
+    margin-left: 60px;
+  }
+  .otpInputBox{
+    margin-left: -3px!important;
+  }
+}
+
+/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px){
+
+  .gooogleTextWrapper{
+    margin-left: 145px;
+  }
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

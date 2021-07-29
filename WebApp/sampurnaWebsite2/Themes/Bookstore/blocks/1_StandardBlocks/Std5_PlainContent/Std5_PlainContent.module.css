@@ -1,0 +1,18 @@
+.TrollyMartDescrWrapper{
+    font-size: 16px !important;
+}
+
+.simplePageBanner{
+	height: 250px;
+	text-align: center;
+	background-size: 250% 100%;
+	background-position: -270px 0px;
+	background-repeat: no-repeat;
+  margin-top: 0px !important;
+}
+.simplePageBannerTitle{
+	font-size: 45px;
+	font-weight: 700;
+	color: #fff;
+    padding-top: 100px;
+}

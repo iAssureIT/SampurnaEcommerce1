@@ -1,0 +1,85 @@
+.singleVendorBox{
+	margin-bottom:25px;
+	border:1px solid #ddd;
+	border-radius:19px;
+	padding:15px;
+}
+
+.singleRow{
+	margin-bottom:20px;
+	height:auto;
+}
+.discMsgColor{
+    color:black;
+    font-size: 12px;
+}
+.productName{
+	margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size:14px !important;
+}
+
+.summaryClass{
+	max-height:240px;
+	padding:15px;
+	height:auto;
+	margin-top:0px !important;
+	border:none;
+	display: inline-block;
+    background: #eee;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+.bbBox{
+	border-bottom:1px solid #ccc;
+	padding-bottom:15px !important;
+}
+
+.shopping{
+	color:#033554 !important;
+	text-decoration: underline; 
+}
+.cardHeadingWrapper{
+    border-bottom: 1px solid #ddd;
+    
+}
+.cartSummary1 {
+    display: inline-block;
+    margin-top: 15px;
+    background: #eee;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 5px;
+    /* height: 170px; */
+}
+
+.checkoutBtn{
+    background-color: #ff4157 !important;
+    color: var(--globaleCommBtnColor) !important;
+    border-radius: var(--globaleCommBtnBorderRadius) !important;
+    border: #033554 !important;
+    padding: var(--globaleCommBtnPadding)!important;
+    -webkit-transition: var(--globalTransition) !important;
+    transition: var(--globalTransition) !important;
+    margin-top: var(--globaleCommBtnMarginTop) !important;
+    font-size: var(--globaleCommBtnfontSize) !important;
+}
+.infoCircle{
+    color: #999 !important;
+}
+.vendorNameTooltip{
+    font-size: 18px;
+}
+.tooltipWrapper{
+    border-radius: 10px !important;
+    font-weight: 500 !important;
+}
+
+.cartTitle{
+    font-size: 36px;
+    margin-left: 15px;
+    margin-top: 15px;
+    font-weight: bold;
+}

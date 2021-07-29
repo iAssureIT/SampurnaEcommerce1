@@ -1,0 +1,44 @@
+.NoAvailableImg{
+	/*width:214px !important;*/
+	height:100%;
+}
+
+.itemImg{
+	/*min-width:214px !important;*/
+	min-width:100% !important;
+	max-width:0%;
+	min-height:80% !important;
+}
+
+.categoryName{
+	position:absolute;
+	top:120px;
+	color:#fff;
+} 
+
+.itemImg div{
+	min-width:100% !important;
+}
+.outerBox{
+	min-width:100% !important;
+}
+
+.itemImg img{
+	background-size:100% 100% !important;
+	min-width:100% !important;
+}
+
+.react-multi-carousel-item img{
+	min-width:100% !important;
+}
+
+.react-multi-carousel-item::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    /*background-color: rgba(0,0,0,0.7);*/
+    background-color: rgba(0,0,0,0.25);
+}

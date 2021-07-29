@@ -1,0 +1,30 @@
+.alertMessage{
+	position: fixed;
+	z-index: 1000;
+	top: 25px !important;
+	right: 42px !important;
+	display: block;
+}
+.outpageMessage{
+	z-index: 1000;
+}
+.inpagemessage{
+	line-height: 20px;
+}
+
+/* .alert{
+    position: absolute !important;
+}
+
+.alertMessage{
+	position:absolute !important;
+    z-index: 1000;
+    top: -270px !important;
+    right: 25px !important;
+}
+.outpageMessage{
+	z-index: 1000;
+}
+.inpagemessage{
+	line-height: 20px;
+} */
