@@ -284,7 +284,7 @@ exports.list_customer_review_for_product = (req,res,next)=>{
 			res.status(200).json({
 				reviewlist 			: data,
 				totalNumOfReviews : totalNumOfReviews,
-				avgRating 			: avg Rating
+				avgRating 			: avgRating
 			});
 		}
 	})
