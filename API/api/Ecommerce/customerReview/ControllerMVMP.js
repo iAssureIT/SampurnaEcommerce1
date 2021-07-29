@@ -19,7 +19,7 @@ exports.insertCustomerReview = (req,res,next)=>{
 			vendor_id 				: req.body.vendor_id,
 			section_id 				: product.section_ID,
 			category_id 			: product.category_ID,
-			vendorLocation_id 		: req.body.vendorLocation_id,
+			vendorLocation_id 	: req.body.vendorLocation_id,
 			rating          		: req.body.rating,
 			customerReview  		: req.body.customerReview,
 			reviewProductImages 	: req.body.reviewProductImages,
@@ -318,14 +318,16 @@ exports.updateCustomerReview = (req, res, next) => {
 		{ _id: req.body.review_id},
 		{
 			$set: {
-					"rating"            : req.body.rating,
-					"customerReview"    : req.body.customerReview,
+					"rating"            		: req.body.rating,
+					"customerReview"    		: req.body.customerReview,
+					"reviewProductImages" 	: req.body.reviewProductImages,
+					"status"          		: 'New',
 			}
 		}
 	)
 	.exec()
 	.then(data => {
-		console.log("data => ",data)
+		// console.log("data => ",data)
 		if(data.nModified === 1){
 			res.status(200).json({
 				"message": "Your review updated successfully."

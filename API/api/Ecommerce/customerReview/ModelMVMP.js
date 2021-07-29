@@ -5,7 +5,7 @@ const customerReviewSchema = mongoose.Schema({
 	customer_id          	: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
 	customerName         	: String,
 	customerReview       	: String,
-	reviewProductImages 	: Array,
+	reviewProductImages 		: Array,
 	vendor_id            	: { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },
 	vendorLocation_id    	: { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' }, 
 	order_id          		: { type: mongoose.Schema.Types.ObjectId, ref: 'orders' },

@@ -1970,12 +1970,13 @@ class ContactDetails extends Component {
 				},
 				phone : {
 					required: true,
+					notEqual:"+971"
 					// tenDigitsOnly : true
 				},
-				altPhone: {
-					required: true,
-					// tenDigitsOnly : true
-				},
+				// altPhone: {
+				// 	required: true,
+				// 	// tenDigitsOnly : true
+				// },
 				approvingAuthorityId1: {
 					required: true,
 				},
@@ -2027,9 +2028,9 @@ class ContactDetails extends Component {
 				if (element.attr("name") === "phone") {
 					error.insertAfter("#phone");
 				}
-				if (element.attr("name") === "altPhone") {
-					error.insertAfter("#altPhone");
-				}
+				// if (element.attr("name") === "altPhone") {
+				// 	error.insertAfter("#altPhone");
+				// }
 				if (element.attr("name") === "approvingAuthorityId1") {
 					error.insertAfter("#approvingAuthorityId1");
 				}
@@ -2094,6 +2095,19 @@ class ContactDetails extends Component {
 		// var value = event.target.value;
 		// var valuewithComa = this.numberWithCommas(value);
 	}
+	changeMobile(event) {
+		console.log("phone event => ",event)
+    this.setState({
+      phone: event
+    }, () => {
+      if (this.state.companyPhone) {
+        this.setState({
+          phoneAvailable: this.state.phone === "+" || (this.state.phone.length < 11 && this.state.phone.length > 12) ? false : true
+        },()=>{
+        })
+      }
+    })
+  }
 	
 	handleChange(event) {
 		const target = event.target;
@@ -3390,7 +3404,7 @@ class ContactDetails extends Component {
 															</div>
 														    <div className=" valid_box col-lg-4 col-md-4 col-sm-12 col-xs-12">
 												                <div className="" id="phone">
-												                  <label className="labelform" >Contact Number</label>
+												                  <label className="labelform" >Contact Number <sup className="astrick">*</sup></label>
 												                    <PhoneInput
 												                      country={'ae'}
 												                      value={this.state.phone} 
@@ -3400,8 +3414,10 @@ class ContactDetails extends Component {
 																		required: true,
 																		// min:10
 												                      }}
-																	  onChange={phone=>{this.setState({phone})}}
+												                      onChange={this.changeMobile.bind(this)}
+																	  // onChange={phone=>{this.setState({phone})}}
 												                  />
+												                  {this.state.phoneAvailable ? null : <label className="error">Please enter valid mobile number</label>}
 												                </div> 
 											              	</div>
 											              	 <div className=" valid_box col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -3413,11 +3429,13 @@ class ContactDetails extends Component {
 												                      name="altPhone"
 												                      inputProps={{
 																		name: 'altPhone',
-																		required: true,
+																		// required: true,
 																		// min:10
 												                      }}
-																	  onChange={altPhone=>{this.setState({altPhone})}}
+												                      onChange={this.changeAltMobile.bind(this)}												                      
+																	  // onChange={altPhone=>{this.setState({altPhone})}}
 												                  />
+												                  {this.state.altPhoneAvailable ? null : <label className="error">Please enter valid mobile number</label>}
 												                </div> 
 											              	</div>
 														</div>

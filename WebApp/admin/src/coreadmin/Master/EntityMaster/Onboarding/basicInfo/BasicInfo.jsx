@@ -741,7 +741,7 @@ class BasicInfo extends Component {
     }, () => {
       if (this.state.companyPhone) {
         this.setState({
-          companyPhoneAvailable: this.state.companyPhone === "+" || this.state.companyPhone.length < 15 ? false : true
+          companyPhoneAvailable: this.state.companyPhone === "+" || (this.state.companyPhone.length < 11 && this.state.companyPhone.length > 12) ? false : true
         },()=>{
         })
       }
@@ -898,8 +898,7 @@ class BasicInfo extends Component {
                                   onChange={this.changeMobile.bind(this)}
 								  
                                 />
-
-                                {/* {this.state.companyPhoneAvailable ? null : <label className="error">Please enter valid number</label>} */}
+                                {this.state.companyPhoneAvailable ? null : <label className="error">Please enter valid mobile number</label>}
                                 </div>
                               </div>                                 
                             
