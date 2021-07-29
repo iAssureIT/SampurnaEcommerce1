@@ -361,7 +361,7 @@ exports.list_cart_product = (req,res,next)=>{
                     var inventoryData             	= await ProductInventory.findOne({productCode : data.vendorOrders[i].cartItems[j].product_ID.productCode, itemCode : data.vendorOrders[i].cartItems[j].product_ID.itemCode, vendor_ID : ObjectId(data.vendorOrders[i].cartItems[j].product_ID.vendor_ID)},{currentQuantity : 1});
 				    console.log("inventoryData => ",inventoryData);
                     
-                    data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0;                      
+                    data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0;                      
                     vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
                     if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
                         vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
@@ -1051,7 +1051,7 @@ exports.apply_coupon = (req,res,next)=>{
                 // console.log("vendorOrders[i].cartItems",i, " ",vendorOrders[i].cartItems);
                 for(var j = 0; j < vendorOrders[i].cartItems.length; j++){
                     var inventoryData             	= await ProductInventory.findOne({productCode : data.vendorOrders[i].cartItems[j].product_ID.productCode, itemCode : data.vendorOrders[i].cartItems[j].product_ID.itemCode, vendor_ID : ObjectId(data.vendorOrders[i].cartItems[j].product_ID.vendor_ID)},{currentQuantity : 1});
-				    data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 						
+				    data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 						
 
                     vendor_beforeDiscountTotal += (vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);                    
                     if(vendorOrders[i].cartItems[j].product_ID.discountPercent !== 0){
@@ -1240,7 +1240,7 @@ exports.apply_credit_points = (req,res,next)=>{
                 
                 for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
                     var inventoryData             	= await ProductInventory.findOne({productCode : data.vendorOrders[i].cartItems[j].product_ID.productCode, itemCode : data.vendorOrders[i].cartItems[j].product_ID.itemCode, vendor_ID : ObjectId(data.vendorOrders[i].cartItems[j].product_ID.vendor_ID)},{currentQuantity : 1});
-				    data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 						
+				    data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 						
                     
                     vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
                     if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
