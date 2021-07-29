@@ -400,7 +400,9 @@ superparent:{
     // opacity: 0.5
   },
   mobflx:{
-    flexDirection:'row',marginTop:8,marginBottom:18
+    flexDirection:'row',
+    // marginTop:8,
+    marginBottom:18
   },
   addoffice:{
     flex:0.3,alignItems:'flex-end',
@@ -691,7 +693,8 @@ superparent:{
     },
     radiobtn:{
       // alignItems:'center',
-      marginLeft:-10
+      paddingHorizontal:0,
+      marginLeft:-1,
     },
     priceIteam:{
       fontSize: 16, fontFamily:"Montserrat-SemiBold", color: '#000000'

@@ -23,8 +23,10 @@ const styles = StyleSheet.create({
   },
   buttonStyle:{
     backgroundColor:"#033554",
+    height:35,
+    borderRadius: 8,
     // backgroundColor:colors.theme,
-    borderBottomRightRadius:0
+    // borderBottomRightRadius:0
   },
    buttonStyle1:{
     backgroundColor:colors.white,
@@ -39,8 +41,9 @@ const styles = StyleSheet.create({
     borderRadius:4,
   },
   titleStyle:{
-    fontSize:12,
-    color:colors.white
+    fontSize:14,
+    color:colors.white,
+    opacity: 1
   },
   titleStyle1:{
     fontSize:18,

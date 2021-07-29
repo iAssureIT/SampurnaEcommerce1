@@ -466,6 +466,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                         labelTextStyle      = {{ left: 5 }}
                         style               = {styles.ddStyle}
                         disabledLineType    = 'none'
+                        underlineColor      ='transparent'
                       />
                     </View>
                   </View>
@@ -536,11 +537,11 @@ import { NetWorkError } from '../../../NetWorkError.js';
                         </View>                       
                     <View style={styles.vendorTotal}>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.7,alignItems:'flex-end'}}>
+                        <View style={{ flex: 0.65,alignItems:'flex-end'}}>
                           {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                           <Text style={styles.vendorTotalText}>{vendor.vendor_id.companyName}</Text>
                         </View>
-                        <View style={{flexDirection:'row',flex:0.3}}>
+                        <View style={{flexDirection:'row',flex:0.35}}>
                             <View style={{flex:0.4,alignItems:'flex-start'}}>
                               <Text style={styles.currency1Iteam}>{currency} </Text>
                             </View>
@@ -553,10 +554,10 @@ import { NetWorkError } from '../../../NetWorkError.js';
                         </View>                        
                       </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.7,alignItems:'flex-end' }}>
+                      <View style={{ flex: 0.65,alignItems:'flex-end' }}>
                         <Text style={styles.vendorTotalText}>You Saved </Text>
                       </View>
-                      <View style={{flexDirection:'row',flex:0.3}}>
+                      <View style={{flexDirection:'row',flex:0.35}}>
                           <View style={{flex:0.4,alignItems:'flex-start'}}>
                             <Text style={styles.currency1Iteam}>{currency} </Text>
                           </View>

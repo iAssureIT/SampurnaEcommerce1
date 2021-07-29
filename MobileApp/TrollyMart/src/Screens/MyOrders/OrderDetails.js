@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  TextInput,
+  TextInput,Dimensions
 }                       from 'react-native';
 import { Icon, Card,Button,Input,Tooltip,CheckBox } from "react-native-elements";
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -37,7 +37,7 @@ import { RNS3 }                 		from 'react-native-aws3';
 import HTML from 'react-native-render-html';
 import { NetWorkError } from '../../../NetWorkError.js';
 const WATER_IMAGE = require("../../AppDesigns/currentApp/images/star.png")
-
+const window = Dimensions.get('window');
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
   const customStyles = {
     stepIndicatorSize                 : 25,
@@ -89,7 +89,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [refund, setRefund] = useState('source')
   const [returnProductImages, setReturnProductImages] = useState([]);
   const [reviewProductImages, setReviewProductImages] = useState([]);
-  const [imageLoading,setImageLoading] = useState([]);
+  const [imageLoading,setImageLoading] = useState(false);
   const [modalTerms,setTermsModal] = useState(false);
   const [pageBlockes,setPageBlocks]       = useState([]);
   const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
@@ -270,7 +270,8 @@ const cancelorderbtn = (id,vendor_id) => {
         "review_id"           : review_id,
         "rating"          		: rating,
         "customerReview"  		: review,
-        // "status"          		: "New"
+        "reviewProductImages" : reviewProductImages,
+        "status"          		: "New"
       }
       axios.patch ('/api/customerReview/patch/customer/review',formValues)
       .then(res=>{
@@ -357,8 +358,10 @@ const cancelorderbtn = (id,vendor_id) => {
       "order_id"        		: orderid,
       "product_id"      		: product_id
     }
+    console.log("formValues",formValues);
     axios.post('/api/customerReview/get/single/customer/review',formValues)
     .then(res=>{
+      console.log("res",res);
       // setModal(false);
       // setVendorDetails();
       // setProductIndex('');
@@ -371,6 +374,14 @@ const cancelorderbtn = (id,vendor_id) => {
     .catch(err=>{
       console.log("err",err);
     })
+  }
+
+
+  const clearReview=()=>{
+      setReviewId()
+      setReview('')
+      setRating(1);
+      setReviewProductImages([])
   }
 
 
@@ -486,7 +497,7 @@ const cancelorderbtn = (id,vendor_id) => {
     </View>,
     { onLayout: (e) => setTooltipSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height }) }
   )
-
+    console.log("vendorDetails",vendorDetails);
     return (
       <React.Fragment>
       {loading?
@@ -622,7 +633,7 @@ const cancelorderbtn = (id,vendor_id) => {
                         </View>
                         
                         {vendor.products.map((pitem, index) => {
-                          // console.log("pitem===>", pitem);
+                          console.log("pitem===>", pitem);
                           return (
                             <View style={[styles.prodorders,{flexDirection:"row",flex:1,alignItems:'center'}]}>
                               <View style={{flex:0.2}}>
@@ -637,7 +648,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                 />
                               }
                               </View>
-                              <View style={{flex:0.45,paddingHorizontal:5}}>
+                              <View style={{flex:0.4,paddingHorizontal:5}}>
                                 <Text numberOfLines={2} style={styles.prodinfo}>{pitem.productName}</Text>
                                 <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:14,marginTop:7}}>
                                     Qauntity
@@ -645,7 +656,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                 </Text>
                              
                               </View>
-                              <View style={{flex:0.35}}>
+                              <View style={{flex:0.4}}>
                                 <View style={{flex:1,flexDirection:'row'}}>
                                   <View style={{flex:.5}}>
                                       <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
@@ -660,18 +671,18 @@ const cancelorderbtn = (id,vendor_id) => {
                                       <View style={[styles.flxdir,{marginTop:10,flex:1}]}>
                                         {pitem.productStatus?
                                         <View style={{flex:.5}}>
-                                          <Text style={[styles.ogprice,{fontSize:12}]}>{pitem.productStatus}</Text>
+                                          <Text style={[styles.ogprice,{fontSize:12,color:colors.cartButton}]}>{pitem.productStatus.split(" ")[1]}</Text>
                                       </View>
                                       :
                                       <View style={{flex:.5}}>
-                                        <Text style={[CommonStyles.linkText,{fontSize:12,alignSelf:'center'}]} onPress={()=>{setReturnModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Return</Text>
+                                        <Text style={[CommonStyles.linkText,{fontSize:12,alignSelf:'center',textDecorationLine:'underline'}]} onPress={()=>{setReturnModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Return</Text>
                                       </View>
                                     }  
                                     <View style={{flex:.5}}>
                                       {pitem.isReview ?
-                                        <Text style={[CommonStyles.linkText,{alignSelf:'flex-end',fontSize:12}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem._id)}}>Edit Review</Text>
+                                        <Text style={[CommonStyles.linkText,{alignSelf:'flex-end',fontSize:12,textDecorationLine:'underline'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem.product_ID)}}>Feedback</Text>
                                         :
-                                        <Text style={[CommonStyles.linkText,{alignSelf:'flex-end',fontSize:12}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Review</Text>
+                                        <Text style={[CommonStyles.linkText,{alignSelf:'flex-end',fontSize:12,textDecorationLine:'underline'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);clearReview();}}>Feedback</Text>
                                       } 
                                     </View>  
                                   </View>}
@@ -889,11 +900,14 @@ const cancelorderbtn = (id,vendor_id) => {
           onRequestClose={() => setModal(false)}
           coverScreen={true}
           hideModalContentWhileAnimating={true}
-          style={{zIndex: 999 }}
+          style={{ zIndex: 999,marginHorizontal:0,marginBottom:0}}
           animationOutTiming={500}>
-          <ScrollView style={{ backgroundColor: "#EBEBEB", borderRadius: 15,paddingVertical: 30,marginTop:150}}>
+          <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 30,marginTop:150}}>
+          <View style={{alignItems:'flex-end',padding:15}}>
+              <Text style={CommonStyles.errorText} onPress={()=>setModal(false)}>Close</Text>
+            </View>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1}}>
-          <View style={{flex:0.3,marginBottom:20}}>
+              <View style={{flex:0.3,marginBottom:20}}>
                 <View style={[styles.img151]}>
                   { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
                     style={styles.imgMain}
@@ -908,7 +922,7 @@ const cancelorderbtn = (id,vendor_id) => {
                 </View>
               </View>
               <View style={{flex:0.7,paddingLeft:15,marginBottom:20}}>
-                <Text style={styles.vendorName1}>Vandor Name</Text>
+                <Text style={styles.vendorName1}>{vendorDetails?.vendorName}</Text>
                 <Text style={styles.prodinfo}>{vendorDetails.products[productIndex].productName}</Text>
                 <View style={styles.flx4}>
                   <View style={[styles.flx1, styles.prdet]}>
@@ -927,7 +941,8 @@ const cancelorderbtn = (id,vendor_id) => {
               // showRating
               type='custom'
               // ratingImage={WATER_IMAGE}
-              ratingBackgroundColor='#EBEBEB'
+              // ratingBackgroundColor='#EBEBEB'
+              tintColor= '#EBEBEB'
               startingValue={rating}
               onFinishRating={(e)=>setRating(e)}
               style={{ paddingVertical: 10 , marginBottom:10,backgroundColor:'#EBEBEB'}}
@@ -952,13 +967,13 @@ const cancelorderbtn = (id,vendor_id) => {
               <View style={{flexDirection:'row',justifyContent:"flex-end",marginHorizontal:20}}>
                 <TouchableOpacity 
                     style={{height:34,width:34,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50}}
-                    onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
+                    onPress={() => chooseFromLibrary('openPicker','Review')}
                   >
                   {/* <Icon name="plus" size={12}  type="font-awesome" iconStyle={{paddingHorizontal:5}}  onPress={() => chooseFromLibrary('openCamera','Return')}/> */}
-                  <Icon name="image" size={12}  type="font-awesome" onPress={() => chooseFromLibrary('openPicker','Return')}/>
+                  <Icon name="image" size={12}  type="font-awesome" />
                 </TouchableOpacity>                
               </View>              
-              <View style={{flexDirection:"row",marginBottom:15}}>
+              <View style={{flexDirection:"row",margin:20}}>
                 {
                   reviewProductImages && reviewProductImages.length > 0 ?
                   reviewProductImages.map((item,index)=>{
@@ -989,12 +1004,15 @@ const cancelorderbtn = (id,vendor_id) => {
         <Modal isVisible={returnModal}
           onBackdropPress={() => setReturnModal(false)}
           onRequestClose={() => setReturnModal(false)}
-          coverScreen={true}
+          coverScreen={false}
           hideModalContentWhileAnimating={true}
-          style={{ zIndex: 999 }}
+          style={{ zIndex: 999,marginHorizontal:0,marginBottom:0,flex:1,paddingBottom:45,}}
           animationOutTiming={500}>
-          <ScrollView style={{ backgroundColor: "#EBEBEB", borderRadius: 15,paddingVertical: 30}}>
-          {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1}}>
+          <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 30}}>
+            <View style={{alignItems:'flex-end',padding:15}}>
+              <Text style={CommonStyles.errorText} onPress={()=>setReturnModal(false)}>Close</Text>
+            </View>
+          {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1,borderTopLeftRadius: 15,borderTopRightRadius: 15,}}>
               <View style={{flex:0.3,marginBottom:20}}>
                 <View style={[styles.img151]}>
                   { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
@@ -1011,7 +1029,7 @@ const cancelorderbtn = (id,vendor_id) => {
               </View>
               
               <View style={{flex:0.7,paddingLeft:15,marginBottom:20}}>
-                <Text style={styles.vendorName1}>Vandor Name</Text>
+              <Text style={styles.vendorName1}>{vendorDetails?.vendorName}</Text>
                 <Text style={styles.prodinfo}>{vendorDetails.products[productIndex].productName}</Text>
                 <View style={styles.flx4}>
                   <View style={[styles.flx1, styles.prdet]}>
@@ -1027,8 +1045,7 @@ const cancelorderbtn = (id,vendor_id) => {
               </View>  
             </View>}
                <View style={[styles.marginBL20]}>
-               <View style={[styles.labelDrop]}><Text style={{fontSize:13,fontFamily:"Montserrat-Bold",color:'#000000',}}>Reason for Return</Text></View>
-              <Text style={[CommonStyles.errorText]}>All fields are madetory</Text>              
+               <View style={[styles.labelDrop]}><Text style={{fontSize:13,fontFamily:"Montserrat-Bold",color:'#000000',}}>Reason for Return<Text style={[CommonStyles.errorText,{fontSize:12}]}>*</Text></Text></View>
               <View style={[styles.inputWrapper]}>              
                 <View style={styles.inputTextWrapper}>                  
                   <Dropdown
@@ -1056,7 +1073,7 @@ const cancelorderbtn = (id,vendor_id) => {
               {/* <Text style={styles.tomorroworder}>Your order will be delivered to you by in 60 Minutes.</Text> */}
             </View>           
               <View style={{marginHorizontal:20,}}>
-                <View style={[styles.labelDrop]}><Text style={{fontSize:13,fontFamily:"Montserrat-Bold",color:'#000000',}}>Comment</Text></View>
+                <View style={[styles.labelDrop]}><Text style={{fontSize:13,fontFamily:"Montserrat-Bold",color:'#000000',}}>Comment<Text style={[CommonStyles.errorText,{fontSize:12}]}>*</Text></Text></View>
                 <Input
                   // label   = "Comment"  
                   labelStyle = {styles.labelDrop} 
@@ -1081,10 +1098,10 @@ const cancelorderbtn = (id,vendor_id) => {
                     onPress={() => chooseFromLibrary('openPicker','Return')}
                   >
                   {/* <Icon name="plus" size={12}  type="font-awesome" iconStyle={{paddingHorizontal:5}}  onPress={() => chooseFromLibrary('openCamera','Return')}/> */}
-                  <Icon name="image" size={12}  type="font-awesome" onPress={() => chooseFromLibrary('openPicker','Return')}/>
+                  <Icon name="image" size={12}  type="font-awesome" />
                 </TouchableOpacity>                
               </View>
-              <View style={{flexDirection:"row"}}>
+              <View style={{flexDirection:"row",margin:20}}>
                 {
                   returnProductImages && returnProductImages.length > 0 ?
                   returnProductImages.map((item,index)=>{
@@ -1101,9 +1118,8 @@ const cancelorderbtn = (id,vendor_id) => {
                   null
                 }
                </View> 
-              <View style={{paddingVertical:15,}}>
                 <Text style={{fontSize:12,fontFamily:'Montserrat-Regular',color:"#033554",marginHorizontal:20,}}>Refund to :</Text>
-                <View style={{flexDirection:'row',alignItems:'center'}}>
+                <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}} onPress={() => {setChecked('first');setRefund('source')}}>
                   <CheckBox
                     value="first"
                     checkedIcon='dot-circle-o'
@@ -1111,12 +1127,13 @@ const cancelorderbtn = (id,vendor_id) => {
                     uncheckedIcon='circle-o'
                     uncheckedColor='#033554'
                     size={10}
-                    status={checked === 'first' ? 'checked' : 'unchecked'}
+                    checked={checked === 'first' ? true : false}
+                    disabled={order?.paymentDetails?.paymentMethod === "creditdebitcard" ?false : true}
                     onPress={() => {setChecked('first');setRefund('source')}}
                   />
                   <Text style={styles.free}>The Source (Valid for card payments only)</Text>
-                </View>
-                <View style={{flexDirection:'row',alignItems:'center'}}>
+                </TouchableOpacity>
+                <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}} onPress={() => {setChecked('second');setRefund('credit')}}>
                   <CheckBox
                     style={styles.radiobtn}
                     value="second"
@@ -1125,32 +1142,32 @@ const cancelorderbtn = (id,vendor_id) => {
                     uncheckedIcon='circle-o'
                     uncheckedColor='#033554'
                     size={10}
-                    status={checked === 'second' ? 'checked' : 'unchecked'}
+                    checked={checked === 'second' ? true : false}
                     onPress={() => {setChecked('second');setRefund('credit')}}
                   />
                   <Text style={styles.free}>Add to Credit Points</Text>
-                </View>
-                <View style={{flexDirection:'row',alignItems:'center'}}>
+                </TouchableOpacity>
+                <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}}  onPress={()=>setTermsChecked(true)}>
                   <CheckBox
                     style={styles.radiobtn}
-                    value={checked}
                     checkedIcon='dot-circle-o'
                     checkedColor='#033554'                              
                     uncheckedIcon='circle-o'
                     uncheckedColor='#033554'
                     size={10}
-                    status={checkedTerms ? 'checked' : 'unchecked'}
-                    onPress={() => {setTermsChecked(true)}}
+                    checked={checkedTerms}
+                    onPress={()=>setTermsChecked(!checkedTerms)}
                   />
-                  <Text style={styles.free1}>I agree to <Text style={{textDecorationLine:'underline'}}  onPress={()=>setTermsModal(true)}>Return Policy</Text></Text>
-                </View>
-              </View>
-              
-             <FormButton 
-                onPress    = {()=>submitReturn()}
-                title       = {'Submit'}
-                background  = {true}
-              />
+                  <Text style={styles.free1}>I agree to <Text style={{textDecorationLine:'underline'}} onPress={()=>setTermsModal(true)}>Return Policy</Text></Text>
+              </TouchableOpacity>
+              <View style = {{marginHorizontal:40,marginBottom:25}}>
+                <FormButton 
+                    onPress    = {()=>submitReturn()}
+                    title       = {'Submit'}
+                    background  = {true}
+                    disabled    = {!checkedTerms}
+                  />
+             </View>   
           </ScrollView>
         </Modal>
         <Modal isVisible={modalTerms}
@@ -1182,6 +1199,13 @@ const cancelorderbtn = (id,vendor_id) => {
                 }
             </ScrollView>
           </View>
+        </Modal>
+        <Modal isVisible={imageLoading}
+          coverScreen={true}
+          hideModalContentWhileAnimating={true}
+          style={{ zIndex: 999 }}
+          animationOutTiming={500}>
+              <Loading />
         </Modal>
       </React.Fragment>
     );

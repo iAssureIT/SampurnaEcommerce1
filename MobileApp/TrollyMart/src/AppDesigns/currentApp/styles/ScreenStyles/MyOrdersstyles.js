@@ -119,7 +119,7 @@ export default StyleSheet.create({
     borderWidth:1,
     marginTop:15,
     paddingVertical:15,
-    paddingHorizontal:5,
+    // paddingHorizontal:5,
     borderRadius:5,
     marginHorizontal:6
   },
@@ -183,7 +183,7 @@ export default StyleSheet.create({
   prodorders:{
     flexDirection:"row",
     margin:0,
-    paddingHorizontal:15,
+    paddingHorizontal:5,
     marginVertical:15,
     // paddingHorizontal:15,    
   },
@@ -522,13 +522,13 @@ export default StyleSheet.create({
     fontSize:12,
     fontFamily:'Montserrat-Medium',
     color:'#000',
-    marginTop:-5,
+    // marginTop:-5,
   },
   free1:{
     fontSize:12,
     fontFamily:'Montserrat-Medium',
     color:'#033554',
-    marginTop:-5,
+    // marginTop:-5,
   },
 
   msgContainerStyle:{

@@ -35,7 +35,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
   const [checked,setChecked]                = useState('third');
   const [btnLoading,setBtnLoading]          = useState(false);
-  const [paymentmethods,setPaymentMethods]  = useState("creditdebitcard");
+  const [paymentmethods,setPaymentMethods]  = useState("Credit/Debit Card");
   // const [environment,setEnvironment]        = useState(false);
   const [namepayg,setNamePayg]              = useState('');
   const [partnerid,setPartnerId]            = useState('');
@@ -90,7 +90,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
 
   const paymentgateway=()=>{
     setChecked('second');
-    setPaymentMethods("creditdebitcard");
+    setPaymentMethods("Credit/Debit Card");
   }
 
   const continuepage=(id)=>{
@@ -251,9 +251,9 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                       <RadioButton
                         value="third"
                         checkedIcon='dot-circle-o'
-                        checkedColor='#033554'                              
+                        color={colors.cartButton}                             
                         uncheckedIcon='circle-o'
-                        uncheckedColor='#033554'
+                        uncheckedColor={colors.cartButton}  
                         size={14}
                         // color={colors.theme}
                         status={checked === 'third' ? 'checked' : 'unchecked'}
@@ -274,7 +274,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                       <RadioButton
                         style={styles.radiobtn}
                         checkedIcon='dot-circle-o'
-                        checkedColor='#033554'                              
+                        color='#033554'                              
                         uncheckedIcon='circle-o'
                         uncheckedColor='#033554'
                         size={14}
@@ -296,7 +296,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                       <RadioButton
                         style={styles.radiobtn}
                         checkedIcon='dot-circle-o'
-                        checkedColor='#033554'                              
+                        color='#033554'                              
                         uncheckedIcon='circle-o'
                         uncheckedColor='#033554'
                         size={14}

@@ -184,7 +184,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const getProductReview=(productID)=>{
     axios.get("/api/customerReview/get/list/"+productID)
       .then((response) => {
-        console.log(response.data);
+        console.log("getProductReview",response.data);
         setProductReview(response.data);
         setLoading(false);
       })
