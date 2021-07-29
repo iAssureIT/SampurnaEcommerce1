@@ -1650,6 +1650,8 @@ class ContactDetails extends Component {
 			'designation'  				:"",
 			'editData' 					: null,
 			'role'  				    :"",
+			phoneAvailable : true,
+			altPhoneAvailable : true,
 			tableHeading:{
 	            empName              :"Emp Name & ID",
 				contactDetails       :"Contact Details",
@@ -1973,10 +1975,11 @@ class ContactDetails extends Component {
 					notEqual:"+971"
 					// tenDigitsOnly : true
 				},
-				// altPhone: {
-				// 	required: true,
-				// 	// tenDigitsOnly : true
-				// },
+				altPhone: {
+					// required: true,
+					// tenDigitsOnly : true
+					notEqual:"+971"
+				},
 				approvingAuthorityId1: {
 					required: true,
 				},
@@ -2028,9 +2031,9 @@ class ContactDetails extends Component {
 				if (element.attr("name") === "phone") {
 					error.insertAfter("#phone");
 				}
-				// if (element.attr("name") === "altPhone") {
-				// 	error.insertAfter("#altPhone");
-				// }
+				if (element.attr("name") === "altPhone") {
+					error.insertAfter("#altPhone");
+				}
 				if (element.attr("name") === "approvingAuthorityId1") {
 					error.insertAfter("#approvingAuthorityId1");
 				}
@@ -2100,9 +2103,22 @@ class ContactDetails extends Component {
     this.setState({
       phone: event
     }, () => {
-      if (this.state.companyPhone) {
+      if (this.state.phone) {
         this.setState({
           phoneAvailable: this.state.phone === "+" || (this.state.phone.length < 11 && this.state.phone.length > 12) ? false : true
+        },()=>{
+        })
+      }
+    })
+  }
+	changeAltMobile(event) {
+		console.log("phone event => ",event)
+    this.setState({
+      altPhone: event
+    }, () => {
+      if (this.state.altPhone) {
+        this.setState({
+          altPhoneAvailable: this.state.phone === "+" || (this.state.phone.length < 11 && this.state.phone.length > 12) ? false : true
         },()=>{
         })
       }

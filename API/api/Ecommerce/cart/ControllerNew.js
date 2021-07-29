@@ -1123,7 +1123,7 @@ exports.apply_coupon = (req,res,next)=>{
                                                                                 : 
                                                                                     discountInPercent;
     
-                            
+                            console.log("discoutAfterCouponApply 1 => ",discoutAfterCouponApply);
                             data.paymentDetails.disocuntCoupon_id           = isCouponValid.dataObj._id;
                             data.paymentDetails.discountCouponPercent       = isCouponValid.dataObj.couponvalue;
                             data.paymentDetails.afterDiscountCouponAmount   = (discoutAfterCouponApply).toFixed(2);
@@ -1146,10 +1146,10 @@ exports.apply_coupon = (req,res,next)=>{
                                                                                         isCouponValid.dataObj.maxDiscountAmount 
                                                                                 : 
                                                                                     (isCouponValid.dataObj.couponvalue).toFixed(2);
-                            
+                            console.log("discoutAfterCouponApply 2 => ",discoutAfterCouponApply);
                             data.paymentDetails.disocuntCoupon_id           = isCouponValid.dataObj._id;
                             data.paymentDetails.discountCouponAmount        = isCouponValid.dataObj.couponvalue;
-                            data.paymentDetails.afterDiscountCouponAmount   = (discoutAfterCouponApply).toFixed(2);
+                            data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
                             data.paymentDetails.netPayableAmount            = ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges).toFixed(2);
                             
                             res.status(200).json({
