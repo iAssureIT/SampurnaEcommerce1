@@ -310,7 +310,8 @@ exports.insert_cartid = (req,res,next)=>{
 
 /**=========== Vendorwise List of Cart Items for Particular User ===========*/
 exports.list_cart_product = (req,res,next)=>{    
-    console.log("req.params.user_ID==",req.params.user_ID);
+    console.log("req.params.user_ID *==* ",req.params.user_ID);
+    
     Carts.findOne({user_ID:ObjectId(req.params.user_ID)})
     .populate('vendorOrders.cartItems.product_ID')
     .populate('vendorOrders.vendor_id')
