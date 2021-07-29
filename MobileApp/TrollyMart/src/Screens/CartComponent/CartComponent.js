@@ -281,20 +281,16 @@ const getshippingamount=(startRange, limitRange)=>{
                               }
                               </TouchableOpacity>
                             <View style={[styles.flx1, styles.prdet,{marginVertical:5}]}>
-                              {item.product_ID.availableQuantity > 0 ?
-                                <View style={[styles.flxdir,{alignItems:'flex-end'}]}>
-                                    <Text style={styles.currency}>{currency} </Text>                                    
-                                  {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice).toFixed(2)}</Text>}
-                                    <Text style={[styles.currency,{fontFamily:"Montserrat-SemiBold"}]}> {(item.product_ID.discountedPrice).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                              <View style={[styles.flxdir,{alignItems:'flex-end'}]}>
+                                  <Text style={styles.currency}>{currency} </Text>                                    
+                                {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice).toFixed(2)}</Text>}
+                                  <Text style={[styles.currency,{fontFamily:"Montserrat-SemiBold"}]}> {(item.product_ID.discountedPrice).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                  </Text>
+                                {item.product_ID.discountPercent > 0 &&
+                                    <Text style={styles.offprice}>{item.product_ID.discountPercent} % <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                     </Text>
-                                  {item.product_ID.discountPercent > 0 &&
-                                      <Text style={styles.offprice}>{item.product_ID.discountPercent} % <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                      </Text>
-                                  }
-                                </View>
-                                :
-                                <Text style={styles.totaldata}>SOLD OUT</Text>
-                              }
+                                }
+                              </View>
                             </View>                            
                           </View>
                             <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id})}>

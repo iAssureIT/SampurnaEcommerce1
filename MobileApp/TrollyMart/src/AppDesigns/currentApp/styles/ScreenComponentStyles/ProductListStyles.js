@@ -523,6 +523,15 @@ export default StyleSheet.create({
 		backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme 
 	 },
 
+	 soldout:{
+		alignSelf:'center',
+		marginTop:130,
+		height:60,
+		width:75,
+		position:'absolute',
+		zIndex:1
+	 },
+
 	buttonContainer1: {
 
 		marginTop: 15,

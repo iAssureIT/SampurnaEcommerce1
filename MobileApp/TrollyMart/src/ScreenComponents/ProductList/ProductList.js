@@ -52,26 +52,6 @@ export const ProductList = withCustomerToaster((props)=>{
   const {currency}=store.preferences;
   const {stop_scroll,userDetails,location,stop_scroll_search}=store;
   const getData=async()=>{
-    for (var i = 0; i < props.newProducts.length; i++) {
-      var availableSizes = [];
-      if (props.newProducts[i].size) {
-        availableSizes.push(
-          {
-            "productSize": props.newProducts[i].size * 1,
-            "packSize": 1,
-          },
-          {
-            "productSize": props.newProducts[i].size * 2,
-            "packSize": 2,
-          },
-          {
-            "productSize": props.newProducts[i].size * 4,
-            "packSize": 4,
-          },
-        )
-        props.newProducts[i].availableSizes = availableSizes;
-      }
-    }
     setProductDetails(props.newProducts);
     // setLimit(props.limit)
     var data =  await AsyncStorage.multiGet(['user_id', 'token']);
@@ -79,11 +59,6 @@ export const ProductList = withCustomerToaster((props)=>{
   }
 
  
-
-  const handleTypeChange = (value, availablessiz) => {
-    const result = availablessiz.filter(product => product.value == value);
-    setPacksizes(result[0].size)
-  }
 
   const addToCart=(productid,vendor_ID)=>{
     if(user_id){
@@ -231,12 +206,11 @@ export const ProductList = withCustomerToaster((props)=>{
 }
 
   const _renderlist = ({ item, index })=>{
-    var availablessiz = [];
-    availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
-    const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
+    console.log("item.availableQuantity",item.availableQuantity);
+    console.log("props.disabled",props.disabled);
     return (
       <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
-        <TouchableOpacity  disabled={props.disabled} onPress={() => 
+        <TouchableOpacity style={{opacity:item.availableQuantity === 0 ? 0.5:1,backgroundColor: 'white',borderRadius:20}} disabled={item.availableQuantity === 0 ?  true : props.disabled ? props.disabled : false} onPress={() => 
           {navigation.navigate('SubCatCompView', { 
               productID           : item._id,
               currency            : currency,
@@ -258,9 +232,11 @@ export const ProductList = withCustomerToaster((props)=>{
                   </ImageBackground> :null
                 } 
               {userDetails.authService!=="guest" &&
-              <TouchableOpacity style={[styles.textWrapper, styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} >
+              
+              <TouchableOpacity style={[styles.textWrapper, styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} disabled={item.availableQuantity === 0 ? true : false}>
                 <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.heartIcon} />
-              </TouchableOpacity>}
+              </TouchableOpacity>
+              }
               {
                 item.productImage && item.productImage.length > 0 ?
                   <FastImage
@@ -274,7 +250,8 @@ export const ProductList = withCustomerToaster((props)=>{
                     style={styles.subcatimg}
                     // resizeMode="stretch"
                     resizeMode={FastImage.resizeMode.contain}
-                  >   
+                  >
+                
                   </FastImage>
                   :
                   <Image
@@ -282,6 +259,11 @@ export const ProductList = withCustomerToaster((props)=>{
                     style={styles.subcatimg}
                   />
               }
+                {item.availableQuantity === 0 &&
+                  <Image 
+                    source={require("../../AppDesigns/currentApp/images/soldout1.png")}
+                    style={styles.soldout}
+                  />}
           
                 <View style={[styles.textWrapper, styles.protxt]}>
                   {props.vendorName && 
@@ -290,33 +272,38 @@ export const ProductList = withCustomerToaster((props)=>{
                     </View>
                   }
                   <View style={{flexDirection:'row',flex:1,marginVertical:5}}>
-                    <View style={{flex:.8,paddingRight:2}}>
+                    <View style={{flex:1,paddingRight:2}}>
                       {/* {item.brand ?
                     
                         <Text numberOfLines={1} style={[styles.productName]}>{item.brand}</Text>
                         :
                        null
                       } */}
+                       {item.availableQuantity === 0 
+                       ?
+                       <View style={{height:30}} />
+                        :
+                        <View style={{flex:.2,alignSelf:'flex-end',marginBottom:5}}>
+                          <TouchableOpacity 
+                          disabled={props.disabled}
+                            onPress={() => vendorLocation_id ?
+                              item.vendor_ID ? 
+                              addToCart(item._id,item.vendor_ID) 
+                                : 
+                                addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
+                            :
+                            item.vendor_ID ? 
+                              addToCartWish(item._id,item.vendor_ID,item.vendorLocation_id,item.vendorName)
+                              :
+                              addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
+                          }
+                          style={{height:25,width:25,borderWidth:2,borderRadius:100,justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton}}>
+                            <Icon name="plus" type="entypo" size={20} color={props.disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/>
+                          </TouchableOpacity>  
+                        </View>}
                       <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text>
                     </View>
-                    <View style={{flex:.2}}>
-                      <TouchableOpacity 
-                      disabled={props.disabled}
-                        onPress={() => vendorLocation_id ?
-                          item.vendor_ID ? 
-                          addToCart(item._id,item.vendor_ID) 
-                            : 
-                            addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
-                        :
-                        item.vendor_ID ? 
-                          addToCartWish(item._id,item.vendor_ID,item.vendorLocation_id,item.vendorName)
-                          :
-                          addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
-                      }
-                      style={{height:25,width:25,borderWidth:2,borderRadius:100,marginRight:15,justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton}}>
-                        <Icon name="plus" type="entypo" size={20} color={props.disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/>
-                      </TouchableOpacity>  
-                    </View>  
+                     
                   </View>
                   {/* <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text> */}
                   {/* }                        */}

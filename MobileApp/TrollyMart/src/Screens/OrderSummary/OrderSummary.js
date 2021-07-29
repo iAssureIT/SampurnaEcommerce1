@@ -519,11 +519,11 @@ import { NetWorkError } from '../../../NetWorkError.js';
                                       </View>                                      
                                       </View>
                                   </View>
-                                  <View style={{flexDirection:'row',flex:0.3,marginTop:10}}>
-                                      <View style={{flex:0.5,alignItems:"flex-end"}}>
+                                  <View style={{flexDirection:'row',flex:0.35,marginTop:10}}>
+                                      <View style={{flex:0.4,alignItems:"flex-start"}}>
                                         <Text style={styles.currency1Iteam}>{currency} </Text>
                                       </View>
-                                      <View style={{flex:0.5,alignItems:"flex-end"}}>
+                                      <View style={{flex:0.6,alignItems:"flex-end"}}>
                                           <Text style={styles.priceIteam}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                           </Text>
                                       </View>
@@ -536,12 +536,12 @@ import { NetWorkError } from '../../../NetWorkError.js';
                         </View>                       
                     <View style={styles.vendorTotal}>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.75,alignItems:'flex-end'}}>
+                        <View style={{ flex: 0.7,alignItems:'flex-end'}}>
                           {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                           <Text style={styles.vendorTotalText}>{vendor.vendor_id.companyName}</Text>
                         </View>
-                        <View style={{flexDirection:'row',flex:0.25}}>
-                            <View style={{flex:0.4,alignItems:'flex-end'}}>
+                        <View style={{flexDirection:'row',flex:0.3}}>
+                            <View style={{flex:0.4,alignItems:'flex-start'}}>
                               <Text style={styles.currency1Iteam}>{currency} </Text>
                             </View>
                             <View style={{flex:0.6,alignItems:'flex-end'}}>
@@ -553,11 +553,11 @@ import { NetWorkError } from '../../../NetWorkError.js';
                         </View>                        
                       </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.75,alignItems:'flex-end' }}>
+                      <View style={{ flex: 0.7,alignItems:'flex-end' }}>
                         <Text style={styles.vendorTotalText}>You Saved </Text>
                       </View>
-                      <View style={{flexDirection:'row',flex:0.25}}>
-                          <View style={{flex:0.4,alignItems:'flex-end'}}>
+                      <View style={{flexDirection:'row',flex:0.3}}>
+                          <View style={{flex:0.4,alignItems:'flex-start'}}>
                             <Text style={styles.currency1Iteam}>{currency} </Text>
                           </View>
                           <View style={{flex:0.6,alignItems:'flex-end'}}>

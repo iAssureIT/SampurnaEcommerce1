@@ -58,7 +58,7 @@ superparent:{
   flex:1,backgroundColor:'#f1f1f1'
   },
   flxpd:{
-    flex:0.3,paddingHorizontal:5
+    flex:0.25,paddingHorizontal:5
   },
   imgwdht:{
     width: 80, height:80,
@@ -177,7 +177,7 @@ superparent:{
     fontSize:13,fontFamily:"Montserrat-Bold", color:'#000'
   },
   totaldata1G:{
-    fontSize:20,fontFamily:"Montserrat-Bold", color:'#000'
+    fontSize:16,fontFamily:"Montserrat-Bold", color:'#000'
   },
   totaldata:{
     fontSize:15,fontFamily:"Montserrat-Medium", color:'#000'
@@ -694,10 +694,10 @@ superparent:{
       marginLeft:-10
     },
     priceIteam:{
-      fontSize: 16, fontFamily:"Montserrat-Bold", color: '#000000'
+      fontSize: 16, fontFamily:"Montserrat-SemiBold", color: '#000000'
     },
     priceIteamG:{
-      fontSize: 16, fontFamily:"Montserrat-Bold", color: '#3E9D5E'
+      fontSize: 16, fontFamily:"Montserrat-SemiBold", color: '#3E9D5E'
     },
     currency:{
       fontSize: 20, fontFamily: "Montserrat-Medium", color: '#000'
@@ -709,11 +709,11 @@ superparent:{
       fontSize: 16, fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
     },
     currency1G:{
-      fontSize: 20, fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
+      fontSize: 16, fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
     },
     totalpriceincartTotal:{
       fontSize:13,
-      fontFamily:"Montserrat-Bold", 
+      fontFamily:"Montserrat-SemiBold", 
       color:'#000000',
     },
 
@@ -725,14 +725,14 @@ superparent:{
     },
 
     totalpriceincartTotalGT:{
-      fontSize:20,
+      fontSize:16,
       fontFamily:"Montserrat-Bold", 
       color:'#000000',
     },
   
     totalpriceincartTotalG:{
       fontSize:15,
-      fontFamily:"Montserrat-Bold", 
+      fontFamily:"Montserrat-SemiBold", 
       color:'#3E9D5E',
     },
 
