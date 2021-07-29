@@ -263,12 +263,35 @@ exports.list_customer_review_for_product = (req,res,next)=>{
 	CustomerReview.find({"product_id" : req.params.product_id, "status": "Published"})
 	.exec()
 	.then(data=>{
-		res.status(200).json(data);
+		var totalNumOfReviews 	= data.length;
+		var totalOfRatings 		= 0;
+		var avgRating 			 	= 0;
+
+		if (data && data.length > 0) {
+			for (var i = 0; i < data.length; i++) {
+				totalOfRatings += data[i].rating;
+			}
+			if (i >= data.length) {
+				avgRating = totalOfRatings / totalNumOfReviews;
+
+				res.status(200).json({
+					reviewlist 			: data,
+					totalNumOfReviews : totalNumOfReviews,
+					avgRating 			: avgRating
+				});
+			}
+		}else{
+			res.status(200).json({
+				reviewlist 			: data,
+				totalNumOfReviews : totalNumOfReviews,
+				avgRating 			: avg Rating
+			});
+		}
 	})
 	.catch(err =>{
 		console.log(err);
 		res.status(500).json({
-			error: err
+			error : err
 		});
 	});
 };

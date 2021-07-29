@@ -357,16 +357,19 @@ exports.list_cart_product = (req,res,next)=>{
                 
                 for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
                     var inventoryData             	= await ProductInventory.findOne({productCode : data.vendorOrders[i].cartItems[j].product_ID.productCode, itemCode : data.vendorOrders[i].cartItems[j].product_ID.itemCode, vendor_ID : ObjectId(data.vendorOrders[i].cartItems[j].product_ID.vendor_ID)},{currentQuantity : 1});
-				    data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 						
-				
+				    console.log("inventoryData => ",inventoryData);
+                    
+                    data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0;                      
                     vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
                     if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
                         vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
                     }
+
                     vendor_afterDiscountTotal+=(vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
                     if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
                         vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
-                    }    
+                    } 
+
                     data.vendorOrders[i].cartItems[j].product_ID.isWish = false;
                     if(wish.length > 0){
                         for(var k=0; k<wish.length; k++){

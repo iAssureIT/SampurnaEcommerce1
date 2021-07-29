@@ -237,7 +237,7 @@ app.use("api/expenseItemMaster",			expenseItemMaster);
 app.use("/api/expensetypemaster", 		expenseTypeRoutes);
 
 app.post('/send-email', (req, res)=> {
-	// console.log("inside app.js req:", req.body);
+	console.log("inside app.js req:", req.body);
 	let transporter = nodeMailer.createTransport({
 		host: globalVariable.emailHost,
 		port: globalVariable.emailPort,
@@ -274,7 +274,7 @@ app.post('/send-email', (req, res)=> {
 
 
 app.post('/send-email-mobile', (req, res)=> {
-	// console.log("inside app.js req:", req.body);
+	console.log("inside app.js req:", req.body);
 	let transporter = nodeMailer.createTransport({
 		host: globalVariable.emailHost,
 		port: globalVariable.emailPort,
