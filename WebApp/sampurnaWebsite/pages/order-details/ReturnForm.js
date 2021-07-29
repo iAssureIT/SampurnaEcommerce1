@@ -15,11 +15,11 @@ export default function ReturnForm() {
     setWidth(width);
     setHeight(height);
     setImageUrl(url);
-    console.log("Image url==",url);
+    console.log("Image url==", url);
   };
 
   return (
-    <div className={"col-12 mt-4 mb-4 pt-4 " +Style.ReturnImg} >
+    <div className={"col-12 mt-4 mb-4 pt-4 " + Style.ReturnImg} >
 
       <FileInput onChange={handleFileChange} />
 

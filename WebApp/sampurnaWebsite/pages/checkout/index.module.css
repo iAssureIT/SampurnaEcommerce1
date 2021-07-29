@@ -90,13 +90,13 @@
 }
 
 .checkoutADDCss {
-    font-size: 12px ! important;
+    font-size: 12px !important;
     line-height: 2;
     /*margin-top:100px !important;*/
 }
 
 .f11N{
-	font-size: 11px ! important;
+	font-size: 9px !important;
 	font-weight: 500;
 }
 
@@ -399,6 +399,11 @@
         height: 29px!important;
         margin-left: -128px;
         margin-top: -4px !important;
+    }
+
+    .f11N{
+        font-size: 11px !important;
+        font-weight: 500;
     }
  }
 

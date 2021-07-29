@@ -107,3 +107,5 @@ export default class Std1_RightImgLeftContent extends Component{
         )
     }
 }
+
+

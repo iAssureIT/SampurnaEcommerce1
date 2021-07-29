@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
-class OrderSummury extends Component{
+class OrderSummury extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            vendorWiseCartData : {},
-            discountdata : "Percent",
-            discountdata : 5,
+        this.state = {
+            vendorWiseCartData: {},
+            discountdata: "Percent",
+            discountdata: 5,
             discountvalue: 5
 
         }
     }
 
-// static getDerivedStateFromProps(props, state) {
-//     console.log("props ===",props.vendorWiseCartData );
-//         return {
-//             vendorWiseCartData: props.vendorWiseCartData,
-//         };
-//     // Return null if the state hasn't changed
-//     return null;
-// }
-rendor(){
-    // console.log("vendorWiseCartData===",this.state.vendorWiseCartData);
-    return(
-        <div className="col-12 cartSummary">
-            <strong className="cartSummaryTitle"> vendor wise Summary</strong>
-            <div className="col-12">
-                <div className="row">
-                    <table className="table table-responsive summaryTable">
-                        <tbody>
-                            {/* <tr>
+    // static getDerivedStateFromProps(props, state) {
+    //     console.log("props ===",props.vendorWiseCartData );
+    //         return {
+    //             vendorWiseCartData: props.vendorWiseCartData,
+    //         };
+    //     // Return null if the state hasn't changed
+    //     return null;
+    // }
+    rendor() {
+        // console.log("vendorWiseCartData===",this.state.vendorWiseCartData);
+        return (
+            <div className="col-12 cartSummary">
+                <strong className="cartSummaryTitle"> vendor wise Summary</strong>
+                <div className="col-12">
+                    <div className="row">
+                        <table className="table table-responsive summaryTable">
+                            <tbody>
+                                {/* <tr>
                                 <td>Cart Total</td>
                                 <td className="textAlignRight">&nbsp; <i className={"fa fa-inr"}></i> {vendorWiseCartData.cartTotal > 0 ? parseInt(vendorWiseCartData.cartTotal) : 0.00} </td>
                             </tr>
@@ -48,7 +48,7 @@ rendor(){
                                     }
                                 </td>
                             </tr> */}
-                            {/* <tr>
+                                {/* <tr>
                                 <td>Discount {this.state.discountin === "Percent"?
                                                 <span>  ({this.state.discountvalue > 1 ? this.state.discountvalue:null} %) </span>                                                                      
                                             :null
@@ -78,7 +78,7 @@ rendor(){
                                 :"0.00"}
                                 </td>
                             </tr> */}
-                            {/* <tr>
+                                {/* <tr>
                                 <td>Tax</td>  
                                 <td className="textAlignRight saving">&nbsp; 
                                     <span>
@@ -98,7 +98,7 @@ rendor(){
                                     </span>
                                 </td>
                             </tr> */}
-                            {/* <tr>
+                                {/* <tr>
                                 <td className="cartTotal">Grand Total</td>
                                 <td className="textAlignRight cartTotal">&nbsp; <i className={"fa fa-inr"}></i>
                                 {
@@ -132,14 +132,14 @@ rendor(){
                                     }                                 
                                 </td>
                             </tr> */}
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
             </div>
-            
-        </div>
-    )
-}
+        )
+    }
 }
 
 export default OrderSummury;

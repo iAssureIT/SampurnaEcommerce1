@@ -143,13 +143,13 @@ class AddressBook extends Component{
 
             <Message messageData={this.state.messageData} /> </div>
             <h5 className="font-weight-bold">My Addresses</h5>
-            <div className={ "col-12   "+Style.accountDashBoardInnerwrapper}>
+            <div className={ "container-flex"+Style.accountDashBoardInnerwrapper}>
                 <div className="row">
                     <div className="col-12 pt-4 ">
                         <div className="row">
                             <div className="col-12 col-lg-6 py-4">
                                 <div className="col-12"> { this.state.addressLine1 ?
-                                    <div className="row">
+                                    <div className="">
                                         <label className="font-weight-bold">Default Shipping / Billing Address</label>
                                         <p> {this.state.name}
                                             <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {this.state.addressLine1} - {this.state.pincode}.
@@ -169,20 +169,20 @@ class AddressBook extends Component{
                                     <div className="row">
                                         { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return(
                                         
-                                        <div key={ 'address'+index} className="col-12 col-md-6 mx-auto py-3">
+                                        <div key={ 'address'+index} className="col-12 col-md-6  py-3">
                                         <div className="row">
-                                            <div className="col-12 ">
+                                            <div className="col-12 text-center">
                                                 
-                                                    <p> {address.name}
+                                                    <p className="text-justify"> {address.name}
                                                         <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {address.addressLine1}
                                                         <br /> {/* {this.state.city},
                                                         <br /> */} {/* {address.state}, {address.country} - {address.pincode}
                                                         <br /> */} Pincode : {address.pincode +"."}
                                                         <br /> Contact Number: {address.mobileNumber} </p>
-                                                    <div className="col-12">
+                                                    <div className="col-12 pl-lg-0 pl-xl-0 pl-md-0 pl-sm-0 float-left">
                                                         
-                                                        <button data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className=" col-8 btn globalCommonBtn">Edit Address</button> 
-                                                            &nbsp; <i id={address._id} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn deleteAdd" style={{ "fontSize": '15px' }}></i> 
+                                                        <button data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className=" col-lg-8 col-xl-8 col-12 btn globalCommonBtn float-left">Edit Address</button> 
+                                                            &nbsp; <i id={address._id} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn deleteAdd  " style={{ "fontSize": '14px' }}></i> 
                                                         </div>
                                                     </div>
                                             </div>

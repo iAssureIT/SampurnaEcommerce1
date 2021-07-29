@@ -1,91 +1,97 @@
-.mainTitle{
-	font-size:32px;
-	margin: 0px 0px 20px 0px;
+.mainTitle {
+	font-size: 32px;
+	margin   : 0px 0px 20px 0px;
 }
 
-.container1{
-	padding:0px 25px 25px 25px;
+.container1 {
+	padding: 0px 25px 25px 25px;
 }
 
-.rightside{
-	text-align:right;
-}
-.myOrderVendorNameWrapper{
-	font-size:14px!important;
-	color: black!important;
-}
-.ptb15{
-	padding:15px 0px !important;
-	font-size:8px !important;
+.rightside {
+	text-align: right;
 }
 
-.vendorRow{
-	padding:30px;
+.myOrderVendorNameWrapper {
+	font-size: 14px !important;
+	color    : black !important;
 }
 
-.middleText{
-	font-size:11px;
+.ptb15 {
+	padding  : 15px 0px !important;
+	font-size: 8px !important;
 }
-.customeBadge{
+
+.vendorRow {
+	padding: 30px;
+}
+
+.middleText {
+	font-size: 11px;
+}
+
+.customeBadge {
 	background: #CE6E2E !important;
 }
 
-.orderStatusBadge{
-	height:27px!important;
-	padding:8px!important;
+.orderStatusBadge {
+	height : 27px !important;
+	padding: 8px !important;
 }
-.orderStatusBadge1{
-	height:27px!important;
-	color: #fff;
-	padding:8px!important;
+
+.orderStatusBadge1 {
+	height          : 27px !important;
+	color           : #fff;
+	padding         : 8px !important;
 	background-color: #033554;
 }
-.orderStatusBadge2{
-	height:27px!important;
-	padding:8px!important;
-	background-color: #e88686!important;
+
+.orderStatusBadge2 {
+	height          : 27px !important;
+	padding         : 8px !important;
+	background-color: #e88686 !important;
 }
 
-.orderIdborderNew{
-	background:#ffffff !important;
-	height:auto;
-	/*padding:20px !important;*/
-	margin-bottom:30px !important;
-	border-bottom-left-radius:10px;
-	border-bottom-right-radius:10px;
+.orderIdborderNew {
+	background                : #ffffff !important;
+	height                    : auto;
+	/*padding                 :20px !important;*/
+	margin-bottom             : 30px !important;
+	border-bottom-left-radius : 10px;
+	border-bottom-right-radius: 10px;
 }
 
-.vendorRowBottom{
-	margin:25px 0px;
+.vendorRowBottom {
+	margin: 25px 0px;
 }
-.vendorRowBottom button{
+
+.vendorRowBottom button {
 	outline: none !important;
-	border:none !important;
+	border : none !important;
 }
 
-.detailBtn{
-	font-size: var(--globalBtnFont);
-	background-color:#fff;
-	color:#033554 !important;
-	box-shadow: -2px 2px 6px #00000054;
-	border: 0.5px solid #033554;
-	border-radius: 5px;
-	padding:6px 25px;
-	float:right;
+.detailBtn {
+	font-size       : var(--globalBtnFont);
+	background-color: #fff;
+	color           : #033554 !important;
+	box-shadow      : -2px 2px 6px #00000054;
+	border          : 0.5px solid #033554;
+	border-radius   : 5px;
+	padding         : 6px 25px;
+	float           : right;
 }
 
-.cancelBtn{
-	color:#E88686 !important;	
+.cancelBtn {
+	color: #E88686 !important;
 }
 
-.mAuto{
-	margin:auto;
+.mAuto {
+	margin: auto;
 }
 
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
 
-	.ptb15{
-		padding:15px 0px !important;
-		font-size:11px !important;
+	.ptb15 {
+		padding  : 15px 0px !important;
+		font-size: 11px !important;
 	}
-  }
+}
