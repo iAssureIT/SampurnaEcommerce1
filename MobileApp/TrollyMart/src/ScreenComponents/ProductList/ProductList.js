@@ -257,6 +257,7 @@ export const ProductList = withCustomerToaster((props)=>{
                   <Image
                     source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                     style={styles.subcatimg}
+                    resizeMode="contain"
                   />
               }
                 {item.availableQuantity === 0 &&

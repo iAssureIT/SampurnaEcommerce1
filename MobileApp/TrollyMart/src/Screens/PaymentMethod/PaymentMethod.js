@@ -35,7 +35,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
   const [checked,setChecked]                = useState('third');
   const [btnLoading,setBtnLoading]          = useState(false);
-  const [paymentmethods,setPaymentMethods]  = useState("third");
+  const [paymentmethods,setPaymentMethods]  = useState("creditdebitcard");
   // const [environment,setEnvironment]        = useState(false);
   const [namepayg,setNamePayg]              = useState('');
   const [partnerid,setPartnerId]            = useState('');
@@ -164,39 +164,39 @@ export const PaymentMethod = withCustomerToaster((props)=>{
             .then((res) => {
               console.log(" PaymentCosnfirmation res",res);
               dispatch(getCartCount(userID))
-              if (paymentmethods === 'Cash On Delivery' || paymentmethods === 'Card On Delivery') {
+              // if (paymentmethods === 'Cash On Delivery' || paymentmethods === 'Card On Delivery') {
                 // navigation.popToTop();
                 navigation.navigate('PaymentConfirmation', { order: res.data })
                 setPaymentMethods("Cash On Delivery");
                 setBtnLoading(false);
                 // setPaymentMode(true);
                 setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
-            } else {
-                setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
-                navigation.navigate('OrderDetails', { orderid: result._id })
-                var paymentdetails = {
-                    MERCHANT_ID           : partnerid,
-                    MERCHANT_ACCESS_CODE  : secretkey,
-                    REFERENCE_NO          : result.order_ID,
-                    AMOUNT                : totalamountpay,
-                    CUSTOMER_MOBILE_NO    : mobile,
-                    CUSTOMER_EMAIL_ID     : email,
-                    PRODUCT_CODE          : "testing",
-                }
-                // console.log('paymentdetails in result==>>>', paymentdetails)
-                axios.post('/api/orders/pgcall/post', paymentdetails)
-                .then((payurl) => {
-                    if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
-                      // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
-                      setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
-                    }
-                    setBtnLoading(false);
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setBtnLoading(false);
-                })
-            }
+            // } else {
+            //     setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
+            //     navigation.navigate('OrderDetails', { orderid: result._id })
+            //     var paymentdetails = {
+            //         MERCHANT_ID           : partnerid,
+            //         MERCHANT_ACCESS_CODE  : secretkey,
+            //         REFERENCE_NO          : result.order_ID,
+            //         AMOUNT                : totalamountpay,
+            //         CUSTOMER_MOBILE_NO    : mobile,
+            //         CUSTOMER_EMAIL_ID     : email,
+            //         PRODUCT_CODE          : "testing",
+            //     }
+            //     // console.log('paymentdetails in result==>>>', paymentdetails)
+            //     axios.post('/api/orders/pgcall/post', paymentdetails)
+            //     .then((payurl) => {
+            //         if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
+            //           // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
+            //           setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
+            //         }
+            //         setBtnLoading(false);
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //         setBtnLoading(false);
+            //     })
+            // }
               // =================== Notification OTP ==================
               var sendData = {
                 "event": "3",

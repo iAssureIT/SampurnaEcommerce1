@@ -76,13 +76,13 @@ export const HorizontalSecCatList =(props)=>{
                 <Image
                   source = {{ uri: item.itemImg }}
                   style={styles.subcatimg}
-                  resizeMode="cover"
+                  resizeMode="contain"
                 />
                 :
                 <Image
                   source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                   style={styles.subcatimg}
-                  resizeMode="cover"
+                  resizeMode="contain"
                 />
             }
             {
