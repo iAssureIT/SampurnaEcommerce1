@@ -380,11 +380,21 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   })}
                   </Carousel>
                   :
-                  <Image
-                    source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                    style={styles.saleimg}
-                    resizeMode="contain"
-                  />
+                  <View>
+                    <Image
+                      source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                      style={styles.saleimg}
+                      resizeMode='contain'
+                    />
+                    <TouchableOpacity style={[styles.wishlisthrtproductview]}
+                      onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
+                      <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.share]}
+                      onPress={() =>onShare()} >
+                      <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} />
+                    </TouchableOpacity>
+                  </View>
                 }
                 <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row"}}>
                     <View style={styles.prodnameview12}>
@@ -396,7 +406,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         source={require("../../AppDesigns/currentApp/images/star.png")}
                         style={styles.starimg}
                         resizeMode="contain"
-                      />&nbsp;5<Text>(201)</Text></Text>
+                      />&nbsp;{productReview.avgRating}<Text>({productReview.reviewlist.length})</Text></Text>
                     </View>
                 </View>
                 
@@ -451,7 +461,12 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                 </View>
               </View>    
               <View style={{marginTop:15,flexDirection:'row'}}>
-                <Icon color="#5B8E7E" name="clipboard-arrow-left" type="material-community" size={15}/>
+                {/* <Icon color="#5B8E7E" name="clipboard-arrow-left" type="material-community" size={15}/> */}
+                <Image
+                      source={require("../../AppDesigns/currentApp/images/return.png")}
+                      style={styles.saleimgRe}
+                      resizeMode='contain'
+                    />
                 {productdata.productReturnable &&  productdata.productReturnable === "returnable" ?
                   <Text style={{color:"#000000",fontSize:12,fontFamily:"Montserrat-SemiBold"}}>&nbsp;&nbsp;Product return available.</Text>
                   :
@@ -469,9 +484,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
               <View style={{backgroundColor:"#EEEEEE",padding:5}}>
                 {tab === 0 ?
                 <Text style={styles.detaildetailstxt}>{productdata.productDetails}</Text>
-                :
-                
-                productReview && productReview.length >0 ?  
+                :                
+                productReview.reviewlist && productReview.reviewlist.length >0 ?  
                  <View>
                     <View style={{ flex:1,flexDirection:'row'}}>
                       <View style={{ flex:1,flexDirection:'row',borderBottomWidth:1,borderColor:'#fff', height:60}}>
@@ -483,6 +497,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                             update={(e)=>{this.setState({stars: e})}}
                             spacing={4}
                             starSize={14}
+                            display={productReview.avgRating}
                             count={5}
                             fullStar={require('../../AppDesigns/currentApp/images/star.png')}
                             // emptyStar={require('./images/starEmpty.png')}
@@ -499,20 +514,20 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                                 imageSize={14}
                                 readonly
                               /> */}
-                              <Text style={styles.ratingNumber}>&nbsp;&nbsp;5</Text>
+                              <Text style={styles.ratingNumber}>&nbsp;&nbsp;{productReview.avgRating}</Text>
                           </Text>
                         </View>                        
                         <View style={{ flex: 0.5, alignItems:'flex-end',paddingRight:15,justifyContent:'center'}}>
-                          <Text style={styles.ratingD1T2}>Based on 201 ratings</Text>
+                          <Text style={styles.ratingD1T2}>Based on {productReview.reviewlist.length} ratings</Text>
                         </View>                        
                       </View>                                        
                     </View>
                     <View style={{ flex:1,flexDirection:'row',height:40}}>
-                      <Text style={styles.ratingD1T3}>There are 201 ratings and 95 customer reviews</Text>
+                      <Text style={styles.ratingD1T3}>There are {productReview.reviewlist.length} ratings and 2 customer reviews</Text>
                     </View>
-                    {productReview.map((item,index)=>{
+                    {productReview.reviewlist.map((item,index)=>{
                       return(                        
-                        <Card containerStyle={{backgroundColor:"#EEEEEE",marginHorizontal:0,margin:0,borderWidth:0,paddingHorizontal:0}} wrapperStyle={{flexDirection:"row",flex:1}}>
+                        <Card containerStyle={{backgroundColor:"#EEEEEE",marginHorizontal:0,margin:0,borderWidth:0,paddingHorizontal:0,marginBottom:10}} wrapperStyle={{flexDirection:"row",flex:1}}>
                           <View style={{flex:0.25,alignItems:'center'}}>
                           <Avatar
                             size="small"
@@ -522,12 +537,12 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                             activeOpacity={0.7}
                           />
                           </View>  
-                          <View style={{flex:0.75}}>
+                          <View style={{flex:0.65}}>
                             <Text style={{color:'#000',fontSize:16}}>{item.customerName.split(' ')[0]}</Text>
                             <Text style={[CommonStyles.label,{marginTop:5,fontSize:11}]}>{item.customerReview}</Text>
                           </View>
-                          <View style={{flex:0.4,alignItems:'flex-end',marginRight:5}}>
-                            {/* <Text>{item.customerName.split(' ')[0]}</Text> */}
+                          <View style={{flex:0.5,alignItems:'flex-end',marginRight:5}}>
+                            <Text style={styles.date}>{item.createdAt}</Text>
                             <View style={{flexDirection:'row'}}>
                               <Text>
                               <Stars
@@ -536,6 +551,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                                 update={(val)=>{this.setState({stars: val})}}
                                 spacing={4}
                                 starSize={14}
+                                display={item.rating}
                                 count={5}
                                 fullStar={require('../../AppDesigns/currentApp/images/star.png')}
                                 // emptyStar={require('./images/starEmpty.png')}

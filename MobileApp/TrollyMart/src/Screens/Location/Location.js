@@ -365,7 +365,7 @@ export const Location = withCustomerToaster((props)=>{
             </View>        
         </View>
         {region&&<View pointerEvents="none" style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0,zIndex:30, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
-            <Image pointerEvents="none" source={require("../../AppDesigns/currentApp/images/marker.png")} style={{height:55,width:35}}/>
+            <Image pointerEvents="none" source={require("../../AppDesigns/currentApp/images/pin.png")} style={{height:55,width:35,resizeMode:'contain'}}/>
         </View>}    
          {region&&<MapView
                 provider={PROVIDER_GOOGLE}

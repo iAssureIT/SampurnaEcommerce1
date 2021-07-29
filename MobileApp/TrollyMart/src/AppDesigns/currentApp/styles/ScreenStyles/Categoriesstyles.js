@@ -722,5 +722,17 @@ export default StyleSheet.create({
     height:13,
     width:14,
   },
+
+  date:{
+    fontFamily:"Montserrat-Medium",
+    fontSize:11,
+    color:'#000',
+  },
+
+  saleimgRe:{
+    width: 14,
+    height: 12,
+    marginTop:3,
+  },
   
 })
