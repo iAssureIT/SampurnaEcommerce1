@@ -8,7 +8,8 @@ import {
   ActivityIndicator,
   TextInput,
 }                       from 'react-native';
-import { Icon, Card,Button,Rating,Input,Tooltip } from "react-native-elements";
+import { Icon, Card,Button,Input,Tooltip,CheckBox } from "react-native-elements";
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import styles           from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import { colors }       from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading          from '../../ScreenComponents/Loading/Loading.js';
@@ -35,6 +36,8 @@ import {PERMISSIONS, request, RESULTS} 	from 'react-native-permissions';
 import { RNS3 }                 		from 'react-native-aws3';
 import HTML from 'react-native-render-html';
 import { NetWorkError } from '../../../NetWorkError.js';
+const WATER_IMAGE = require("../../AppDesigns/currentApp/images/star.png")
+
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
   const customStyles = {
     stepIndicatorSize                 : 25,
@@ -888,19 +891,21 @@ const cancelorderbtn = (id,vendor_id) => {
           hideModalContentWhileAnimating={true}
           style={{zIndex: 999 }}
           animationOutTiming={500}>
-          <ScrollView style={{ backgroundColor: "#EBEBEB", borderRadius: 15,paddingVertical: 30}}>
+          <ScrollView style={{ backgroundColor: "#EBEBEB", borderRadius: 15,paddingVertical: 30,marginTop:150}}>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1}}>
-              <View style={{flex:0.3}}>
-                { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
-                  style={styles.img151}
-                  source={{ uri: vendorDetails.products[productIndex].productImage[0] }}
-                  resizeMode="contain"
-                />:
-                <Image
-                  source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                  style={styles.img151}
-                />
-              }
+          <View style={{flex:0.3,marginBottom:20}}>
+                <View style={[styles.img151]}>
+                  { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
+                    style={styles.imgMain}
+                    source={{ uri: vendorDetails.products[productIndex].productImage[0] }}
+                    resizeMode='stretch'
+                  />:
+                  <Image
+                    source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                    style={styles.img151}
+                  />
+                }
+                </View>
               </View>
               <View style={{flex:0.7,paddingLeft:15,marginBottom:20}}>
                 <Text style={styles.vendorName1}>Vandor Name</Text>
@@ -920,6 +925,9 @@ const cancelorderbtn = (id,vendor_id) => {
             </View>}
             <Rating
               // showRating
+              type='custom'
+              // ratingImage={WATER_IMAGE}
+              ratingBackgroundColor='#EBEBEB'
               startingValue={rating}
               onFinishRating={(e)=>setRating(e)}
               style={{ paddingVertical: 10 , marginBottom:10,backgroundColor:'#EBEBEB'}}
@@ -987,18 +995,21 @@ const cancelorderbtn = (id,vendor_id) => {
           animationOutTiming={500}>
           <ScrollView style={{ backgroundColor: "#EBEBEB", borderRadius: 15,paddingVertical: 30}}>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1}}>
-              <View style={{flex:0.3}}>
-                { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
-                  style={styles.img151}
-                  source={{ uri: vendorDetails.products[productIndex].productImage[0] }}
-                  resizeMode="contain"
-                />:
-                <Image
-                  source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                  style={styles.img151}
-                />
-              }
+              <View style={{flex:0.3,marginBottom:20}}>
+                <View style={[styles.img151]}>
+                  { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
+                    style={styles.imgMain}
+                    source={{ uri: vendorDetails.products[productIndex].productImage[0] }}
+                    resizeMode='stretch'
+                  />:
+                  <Image
+                    source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                    style={styles.img151}
+                  />
+                }
+                </View>
               </View>
+              
               <View style={{flex:0.7,paddingLeft:15,marginBottom:20}}>
                 <Text style={styles.vendorName1}>Vandor Name</Text>
                 <Text style={styles.prodinfo}>{vendorDetails.products[productIndex].productName}</Text>
@@ -1016,7 +1027,7 @@ const cancelorderbtn = (id,vendor_id) => {
               </View>  
             </View>}
                <View style={[styles.marginBL20]}>
-               <View style={[styles.labelDrop],{marginBottom:10,fontSize:13,fontFamily:"Montserrat-Bold",color:'#000000',}}><Text>Reason for Return</Text></View>
+               <View style={[styles.labelDrop]}><Text style={{fontSize:13,fontFamily:"Montserrat-Bold",color:'#000000',}}>Reason for Return</Text></View>
               <Text style={[CommonStyles.errorText]}>All fields are madetory</Text>              
               <View style={[styles.inputWrapper]}>              
                 <View style={styles.inputTextWrapper}>                  
@@ -1043,29 +1054,31 @@ const cancelorderbtn = (id,vendor_id) => {
                 </View>
               </View>
               {/* <Text style={styles.tomorroworder}>Your order will be delivered to you by in 60 Minutes.</Text> */}
-            </View>
-              
-              <Input
-                label   = "Comment"  
-                labelStyle = {styles.labelDrop} 
-                // placeholder           = "Leave a review..."
-                onChangeText          = {(text)=>setComment(text)}
-                autoCapitalize        = "none"
-                keyboardType          = "email-address"
-                inputContainerStyle   = {styles.containerStyle}
-                containerStyle        = {{paddingHorizontal:0,marginHorizontal:20,marginRight:20}}
-                placeholderTextColor  = {'#bbb'}
-                inputStyle            = {{fontSize: 16}}
-                inputStyle            = {{textAlignVertical: "top"}}
-                // autoCapitalize        = 'characters'
-                multiline             = {true}
-                numberOfLines         = {4}
-                value                 = {comment}
-              />
+            </View>           
+              <View style={{marginHorizontal:20,}}>
+                <View style={[styles.labelDrop]}><Text style={{fontSize:13,fontFamily:"Montserrat-Bold",color:'#000000',}}>Comment</Text></View>
+                <Input
+                  // label   = "Comment"  
+                  labelStyle = {styles.labelDrop} 
+                  // placeholder           = "Leave a review..."
+                  onChangeText          = {(text)=>setComment(text)}
+                  autoCapitalize        = "none"
+                  keyboardType          = "email-address"
+                  inputContainerStyle   = {styles.containerStyle}
+                  containerStyle        = {{paddingHorizontal:0}}
+                  placeholderTextColor  = {'#bbb'}
+                  inputStyle            = {{fontSize: 16}}
+                  inputStyle            = {{textAlignVertical: "top"}}
+                  // autoCapitalize        = 'characters'
+                  multiline             = {true}
+                  numberOfLines         = {4}
+                  value                 = {comment}
+                />
+              </View>
               <View style={{flexDirection:'row',justifyContent:"flex-end",marginHorizontal:20}}>
                 <TouchableOpacity 
                     style={{height:34,width:34,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50}}
-                    onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
+                    onPress={() => chooseFromLibrary('openPicker','Return')}
                   >
                   {/* <Icon name="plus" size={12}  type="font-awesome" iconStyle={{paddingHorizontal:5}}  onPress={() => chooseFromLibrary('openCamera','Return')}/> */}
                   <Icon name="image" size={12}  type="font-awesome" onPress={() => chooseFromLibrary('openPicker','Return')}/>
@@ -1088,11 +1101,10 @@ const cancelorderbtn = (id,vendor_id) => {
                   null
                 }
                </View> 
-              <View style={{paddingVertical:15,marginHorizontal:20,}}>
-                <Text style={[styles.refundedText],{}}>Refund to :</Text>
+              <View style={{paddingVertical:15,}}>
+                <Text style={{fontSize:12,fontFamily:'Montserrat-Regular',color:"#033554",marginHorizontal:20,}}>Refund to :</Text>
                 <View style={{flexDirection:'row',alignItems:'center'}}>
-                  <RadioButton
-                    style={styles.radiobtn}
+                  <CheckBox
                     value="first"
                     checkedIcon='dot-circle-o'
                     checkedColor='#033554'                              
@@ -1105,7 +1117,7 @@ const cancelorderbtn = (id,vendor_id) => {
                   <Text style={styles.free}>The Source (Valid for card payments only)</Text>
                 </View>
                 <View style={{flexDirection:'row',alignItems:'center'}}>
-                  <RadioButton
+                  <CheckBox
                     style={styles.radiobtn}
                     value="second"
                     checkedIcon='dot-circle-o'
@@ -1118,21 +1130,22 @@ const cancelorderbtn = (id,vendor_id) => {
                   />
                   <Text style={styles.free}>Add to Credit Points</Text>
                 </View>
+                <View style={{flexDirection:'row',alignItems:'center'}}>
+                  <CheckBox
+                    style={styles.radiobtn}
+                    value={checked}
+                    checkedIcon='dot-circle-o'
+                    checkedColor='#033554'                              
+                    uncheckedIcon='circle-o'
+                    uncheckedColor='#033554'
+                    size={10}
+                    status={checkedTerms ? 'checked' : 'unchecked'}
+                    onPress={() => {setTermsChecked(true)}}
+                  />
+                  <Text style={styles.free1}>I agree to <Text style={{textDecorationLine:'underline'}}  onPress={()=>setTermsModal(true)}>Return Policy</Text></Text>
+                </View>
               </View>
-              <View style={{flexDirection:'row',alignItems:'center',paddingVertical:5,marginHorizontal:20,}}>
-                <RadioButton
-                  style={styles.radiobtn}
-                  value={checked}
-                  checkedIcon='dot-circle-o'
-                  checkedColor='#033554'                              
-                  uncheckedIcon='circle-o'
-                  uncheckedColor='#033554'
-                  size={10}
-                  status={checkedTerms ? 'checked' : 'unchecked'}
-                  onPress={() => {setTermsChecked(true)}}
-                />
-                <Text style={styles.free}>I agree to <Text style={[CommonStyles.linkText,{fontSize:12}]}  onPress={()=>setTermsModal(true)}>Terms & conditions</Text></Text>
-              </View>
+              
              <FormButton 
                 onPress    = {()=>submitReturn()}
                 title       = {'Submit'}

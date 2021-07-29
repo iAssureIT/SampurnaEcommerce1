@@ -281,11 +281,21 @@ export default StyleSheet.create({
   img15:{
     width: 60,height:60
   },
+  imgMain:{
+    width:60,
+    height:60,
+    resizeMode:'center',
+    backgroundColor:'#EBEBEB',
+    alignSelf:'center',
+    marginTop:9,
+  },
   img151:{
-    width:76,height:81,backgroundColor:'#EBEBEB',
+    width:76,
+    height:81,
+    backgroundColor:'#EBEBEB',
     borderWidth:2,
     borderColor:'#033554',
-    borderRadius:15,
+    borderRadius:9,
     marginLeft:20,
     marginTop:10,
   },
@@ -506,6 +516,19 @@ export default StyleSheet.create({
     fontSize:12,
     fontFamily:'Montserrat-Regular',
     color:"#033554",
+  },
+
+  free:{
+    fontSize:12,
+    fontFamily:'Montserrat-Medium',
+    color:'#000',
+    marginTop:-5,
+  },
+  free1:{
+    fontSize:12,
+    fontFamily:'Montserrat-Medium',
+    color:'#033554',
+    marginTop:-5,
   },
 
   msgContainerStyle:{
