@@ -87,7 +87,7 @@ superparent:{
   },
   imgwdht:{
     height:80,width:80,
-    
+    backgroundColor:"#eee"
   },
   cartlogoimg:{
      width:'70%',height:40,

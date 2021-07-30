@@ -636,8 +636,8 @@ export default StyleSheet.create({
     resizeMode:'cover',
   },
 
-  outerFaq:{
-    
+  surface:{
+    elevation:2
   },
   queBox:{
     height  :42,
@@ -645,9 +645,8 @@ export default StyleSheet.create({
     marginBottom:15,
     paddingVertical:0,
     marginHorizontal:15,
-  //  borderWidth:0.5,
+   borderWidth:0.5,
     // borderColor:"#aaa",
-    elevation:2
   },
   queAns:{
     minHeight:118,

@@ -39,6 +39,7 @@ import { getCategoryWiseList } from '../../redux/productList/actions.js';
 import { Dropdown }            from 'react-native-material-dropdown-v2';
 import Feather from 'react-native-vector-icons/Feather';
 import { NetWorkError } from '../../../NetWorkError.js';
+import moment from 'moment';
 const STAR_IMAGE = require('../../AppDesigns/currentApp/images/star.png')
 
 
@@ -406,7 +407,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         source={require("../../AppDesigns/currentApp/images/star.png")}
                         style={styles.starimg}
                         resizeMode="contain"
-                      />&nbsp;{productReview.avgRating}<Text>({productReview.reviewlist.length})</Text></Text>
+                      />&nbsp;{productReview.avgRating}<Text>({productReview?.reviewlist?.length})</Text></Text>
                     </View>
                 </View>
                 
@@ -542,7 +543,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                             <Text style={[CommonStyles.label,{marginTop:5,fontSize:11}]}>{item.customerReview}</Text>
                           </View>
                           <View style={{flex:0.5,alignItems:'flex-end',marginRight:5}}>
-                            <Text style={styles.date}>{item.createdAt}</Text>
+                            <Text style={styles.date}>{moment(item.createdAt).format('DD/MM/YYYY')}</Text>
                             <View style={{flexDirection:'row'}}>
                               <Text>
                               <Stars

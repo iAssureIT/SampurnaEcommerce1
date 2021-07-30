@@ -24,6 +24,7 @@ import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import { getCartCount}                      from '../../redux/productList/actions';
+import FastImage              from 'react-native-fast-image';
 import { Platform } from 'react-native';
 const window = Dimensions.get('window');
 
@@ -85,7 +86,7 @@ const getshippingamount=(startRange, limitRange)=>{
         setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
         navigation.navigate('Auth')
       }else{
-        setToast({text: 'Something went wrong1.', color: 'red'});
+        // setToast({text: 'Something went wrong1.', color: 'red'});
       }  
     });
  }
@@ -110,7 +111,7 @@ const getshippingamount=(startRange, limitRange)=>{
           setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
           navigation.navigate('Auth')
         }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
+          // setToast({text: 'Something went wrong.', color: 'red'});
         }  
       })
   }
@@ -137,7 +138,7 @@ const getshippingamount=(startRange, limitRange)=>{
           setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
           navigation.navigate('Auth')
         }else{
-          setToast({text: 'Something went wrong3.', color: 'red'});
+          // setToast({text: 'Something went wrong3.', color: 'red'});
         }  
       });
   }
@@ -179,7 +180,7 @@ const getshippingamount=(startRange, limitRange)=>{
         setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
         navigation.navigate('Auth')
       }else{
-        setToast({text: 'Something went wrong4.', color: 'red'});
+        // setToast({text: 'Something went wrong4.', color: 'red'});
       }  
     })
   }
@@ -205,7 +206,7 @@ const getshippingamount=(startRange, limitRange)=>{
           setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
           navigation.navigate('Auth')
         }else{
-          setToast({text: 'Something went wrong5.', color: 'red'});
+          // setToast({text: 'Something went wrong5.', color: 'red'});
         }  
       })
   }
@@ -295,12 +296,16 @@ const getshippingamount=(startRange, limitRange)=>{
                           </View>
                             <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id})}>
                               {item.product_ID.productImage.length > 0 ?
-                                <Image
+                                <FastImage
                                   style={styles.imgwdht}
-                                  source={{ uri: item.product_ID.productImage[0] }}
+                                  source={{ 
+                                    uri: item.product_ID.productImage[0],
+                                    priority: FastImage.priority.high, 
+                                    cache: FastImage.cacheControl.immutable,
+                                  }}
                                 />
                                 :
-                                <Image
+                                <FastImage
                                   style={styles.imgwdht}
                                   source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                                 />

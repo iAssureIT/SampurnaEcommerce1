@@ -15,7 +15,7 @@ import Axios                    from 'axios';
 import { colors,website_url }   from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
 import HTML from 'react-native-render-html';
-import {List} from 'react-native-paper';
+import {List, Surface} from 'react-native-paper';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { useSelector }        from 'react-redux';
@@ -91,13 +91,11 @@ export const FAQ = (props)=>{
                                     const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
                                     console.log("result",item.block_id.fgImage1)
                                     return(
-                                        <View style={[styles.outerFaq]}>
-                                            <List.Accordion style={[styles.queBox]} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:18,color:"#333"}]}>
-                                                <View style={[styles.queAns,{marginHorizontal:30}]}>
-                                                    <Text style={CommonStyles.normalText}>Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.</Text>
-                                                </View>
-                                            </List.Accordion>
-                                        </View>                                    
+                                    <List.Accordion style={[styles.queBox]} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:18,color:"#333",elevation:2}]}>
+                                        <View style={[styles.queAns,{marginHorizontal:30}]}>
+                                            <Text style={CommonStyles.normalText}>Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.</Text>
+                                        </View>
+                                    </List.Accordion>
                                     )
                                 })
                             :

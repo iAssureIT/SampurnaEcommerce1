@@ -116,14 +116,14 @@ export const VendorList = withCustomerToaster((props)=>{
                         <View style={{justifyContent:'center',alignItems:'center',marginTop:25}}>
                             <Text numberOfLines={1} style={[{color:"#000",paddingLeft:40,alignSelf:"flex-start",fontSize:15,fontFamily:"Montserrat-Bold"}]}>{item.vendorName} {item.vendorName}</Text >
                         </View> 
-                        <View style={{height:20,flexDirection:'row',alignItems:'center',justifyContent:'flex-end',marginRight:5}}>
+                        {/* <View style={{height:20,flexDirection:'row',alignItems:'center',justifyContent:'flex-end',marginRight:5}}>
                             <Text style={[{color:"#000",opacity:1,fontSize:10,marginTop:5}]}>60 Mins </Text>
                             <Image
                                 source      = {require("../../AppDesigns/currentApp/images/time.png")} 
                                 style       =   {{height:15,marginTop:8,width:15}} 
                                 resizeMode  = "contain" 
                                 PlaceholderContent={<ActivityIndicator color={colors.theme}/>}/>
-                        </View>    
+                        </View>     */}
                     
                 </Card>   
             </TouchableOpacity>        
