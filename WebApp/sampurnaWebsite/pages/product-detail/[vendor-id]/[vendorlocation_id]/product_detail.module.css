@@ -6,6 +6,7 @@
 
 .f123{
 	font-size:12px !important;
+	margin-left: 20px;
 }
 
 .FilterBlkBox{
@@ -73,7 +74,7 @@ height: 53px;
 background: #033554 0% 0% no-repeat padding-box;
 border-radius: 7px;
 opacity: 1;
-margin-left: -72px;
+margin-left: 0px;
 border: none!important;
 }
 .productInformationWrapper{
@@ -213,7 +214,7 @@ border: none!important;
 	margin-bottom:20px;
 	border-bottom:1px solid #ccc;
 	font-size: 12px!important;
-	margin: left 1px !important;
+	margin: 20px !important;
 	/* font-family:'Montserrat-Regular.ttf'; */
  font-style: normal!important;
 }
@@ -223,7 +224,7 @@ border: none!important;
 	margin-bottom:20px;
 	/* border-bottom:1px solid #ccc; */
 	font-size: 12px!important;
-	margin: left 1px !important;
+	margin: 20px !important;
 	/* font-family:'Montserrat-Regular.ttf'; */
  font-style: normal!important;
 }
@@ -239,7 +240,7 @@ border: none!important;
 	margin-bottom:20px;
 	/* border-bottom:1px solid #ccc; */
 	font-size: 12px!important;
-	margin-left: -14px !important;
+	margin-left: 7px !important;
 	/* font-family:'Montserrat-Regular.ttf'; */
  font-style: normal!important;
  margin-top: -30px !important;
@@ -285,3 +286,53 @@ margin-left: 23px!important;
 	font-size: 10px;
 }
 }
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+@media (max-width: 575px){
+    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+}
+
+/* (sm) Small Devices (Landscape Phones, 576px and up) */
+@media (min-width: 576px){
+
+}
+
+/* (md) Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px){
+
+}
+
+/* (lg) Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px){
+
+}
+
+/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px){
+
+	.productNameClassNew{
+		margin-left: 0px !important;
+	}
+	.brandName{
+		margin-left: 0px !important;
+	}
+	.brandName1{
+		margin-left: 0px !important;
+	}
+	.brandNameColor{
+		margin-left: -14px !important;
+	}
+	.f123{
+		margin-left: 0px !important;
+	}
+	.cartBTN{
+		margin-left: -72px;
+	}
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

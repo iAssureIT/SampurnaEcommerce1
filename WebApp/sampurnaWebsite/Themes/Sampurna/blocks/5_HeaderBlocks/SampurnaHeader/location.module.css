@@ -216,6 +216,7 @@
 
 
 /* =========================Media Query============================================== */
+
 @media only screen and (max-device-width: 480px) {
 .deliveryFormAfterLogin{
     top:90px;
@@ -257,3 +258,118 @@
     }
 }
 
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+@media (max-width: 575px){
+
+    .locationBTNafterLogin{
+        margin-top: -130px !important;
+        margin-left: -55px !important;
+        margin-bottom: 20px;
+    }
+    .f12afterLogin{
+        margin-left: -10px !important;
+        margin-top: -20px !important;
+    }
+    .barraContainer1{
+        margin-left: -10px !important;
+        margin-top: 30px !important;
+    }
+    .locationBTNafterLogin1{
+        left: 5px !important;
+        top: 20px !important;
+    }
+}
+
+/* (sm) Small Devices (Landscape Phones, 576px and up) */
+@media (min-width: 576px){
+
+    .locationBTNafterLogin{
+        margin-top: -50px !important;
+        margin-left: -45px !important;
+        margin-bottom: 20px;
+    }
+    .f12afterLogin{
+        margin-left: 20px !important;
+        margin-top: 30px !important;
+    }
+    .barraContainer1{
+        margin-left: -10px !important;
+        margin-top: 30px !important;
+    }
+    .locationBTNafterLogin1{
+        left: 130px !important;
+    }
+}
+
+/* (md) Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px){
+
+    .locationBTNafterLogin{
+        margin-top: -50px !important;
+        margin-left: 195px !important;
+        margin-bottom: 50px;
+    }
+    .f12afterLogin{
+        margin-left: 185px !important;
+        margin-top: -20px !important;
+    }
+    .barraContainer1{
+        margin-left: -10px !important;
+        margin-top: 70px !important;
+    }
+    .locationBTNafterLogin1{
+        left: 180px !important;
+        top: 15px !important;
+    }
+}
+
+/* (lg) Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px){
+
+    .locationBTNafterLogin{
+        margin-top: -50px !important;
+        margin-left: 300px !important;
+        margin-bottom: 50px;
+    }
+    .f12afterLogin{
+        margin-left: 300px !important;
+        margin-top: -20px !important;
+    }
+    .barraContainer1{
+        margin-left: -200px !important;
+        margin-top: 70px !important;
+    }
+    .locationBTNafterLogin1{
+        left: 280px !important;
+        top: 15px !important;
+    }
+}
+
+/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px){
+
+    .locationBTNafterLogin{
+        margin-top: 6px !important;
+        margin-left: 50px !important;
+        margin-bottom: 50px;
+    }
+        .f12afterLogin{
+        margin-left: 250px !important;
+        margin-top: -80px !important;
+    }
+    .barraContainer1{
+        margin-left: 0px !important;
+        margin-top: 0px !important;
+    }
+    .locationBTNafterLogin1{
+        left: 800px !important;
+        top: -50px !important;
+    }
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

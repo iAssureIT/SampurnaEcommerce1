@@ -12,141 +12,122 @@ import GoogleMap         from './Googlemap.js';
 import store             from '../../../../../redux/store.js';
 import AddressList       from './AddressList.js';
 import Geocode           from "react-geocode"; 
-import Websitelogo            from './Websitelogo.js';
+import Websitelogo       from './Websitelogo.js';
+
 
 import {setDeliveryLocation,setSampurnaWebsiteDetails }    from '../../../../../redux/actions/index.js'; 
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 
+
 import Style                  from './location.module.css';
 
-class DeliveryLocationPopup extends React.Component {
-	constructor(props) {
+
+class DeliveryLocationPopup extends React.Component{
+
+    constructor(props){
 		super(props);
 		this.state = { 
-            address             : "",
-            googleapiKey        : "",
-            detectCurrentLocation : false,
-            userAddress         : [],
-            country             : "",
-            searchLocationError : ""
-		}; 
+            address                 : "",
+            googleapiKey            : "",
+            detectCurrentLocation   : false,
+            userAddress             : [],
+            country                 : "",
+            searchLocationError     : ""
+		};
     }
-    componentDidMount(){   
-        var windowHeight  = window.innerHeight;
-        // console.log("windowHeight=",windowHeight);
-        var mapBlockheight        = windowHeight - 200;
+
+    componentDidMount(){
+        var windowHeight    = window.innerHeight;
+        var mapBlockheight  = windowHeight - 200;
         $('.locationBg').css({
             'height': (mapBlockheight)
         });
 
         axios.get("/api/projectSettings/get/GOOGLE",)
-         .then((response) => {
-              if(response.data){         
-                this.setState({
-                    "googleapiKey" : response.data.googleapikey,
-                })
-              }
-         })
-         .catch((error) =>{
-            console.log(error)
-         })  
-        
-         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-        //  var deliveryLocation = sampurnaWebsiteDetails.deliveryLocation;
-        //  if(deliveryLocation){
-        //      this.setState({
-        //          address : sampurnaWebsiteDetails.deliveryLocation.address,
-        //      })
-        //  }
-         var user_details           =  JSON.parse(localStorage.getItem('userDetails'));
-         if(user_details){
-             this.setState({
-                 userDetails : user_details
-             },()=>{
-                 this.getUserAddress(this.state.userDetails.user_id);
-             })
-         }
-         if(sampurnaWebsiteDetails){
-            //  console.log("sampurnaWebsiteDetails=",sampurnaWebsiteDetails);
-            if(sampurnaWebsiteDetails.deliveryLocation){
-                var latLongDetails = {
-                    lat : sampurnaWebsiteDetails.deliveryLocation.latitude,
-                    lng : sampurnaWebsiteDetails.deliveryLocation.longitude
-                }
-                this.setState({
-                    address : sampurnaWebsiteDetails.deliveryLocation.address,
-                    country : sampurnaWebsiteDetails.deliveryLocation.country,
-                    latLong :latLongDetails
-                },()=>{
-                    // console.log("address===",this.state.address);
-                })
-            }
-        }
-
-    }
-    getUserAddress(userId) {
-        if(userId){
-        axios.get("/api/ecommusers/" +userId)
-            .then((response) => {
-                // console.log('userData address res', response.data.deliveryAddress);
-                if(response.data){
+             .then((response) => {
+                if(response.data){         
                     this.setState({
-                        "userAddress"    : response.data.deliveryAddress,
-                        "username"       : response.data.profile.fullName,
-                        "mobileNumber"   : response.data.profile.mobile,
-                        "email"          : response.data.profile.email
-                    },()=>{
-                        // console.log("userAddress=",this.state.userAddress);
-                    });
+                        "googleapiKey" : response.data.googleapikey,
+                    })
                 }
             })
-            .catch((error) => {
-                console.log('error', error);
-            }); 
+            .catch((error) =>{
+                console.log(error)
+            })  
+    
+            var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+            var user_details           =  JSON.parse(localStorage.getItem('userDetails'));
+    
+            if(user_details){
+                this.setState({
+                    userDetails : user_details
+                },()=>{
+                    this.getUserAddress(this.state.userDetails.user_id);
+                })
+            }
+    
+            if(sampurnaWebsiteDetails){
+                if(sampurnaWebsiteDetails.deliveryLocation){
+                    var latLongDetails = {
+                        lat : sampurnaWebsiteDetails.deliveryLocation.latitude,
+                        lng : sampurnaWebsiteDetails.deliveryLocation.longitude
+                    }
+                    this.setState({
+                        address : sampurnaWebsiteDetails.deliveryLocation.address,
+                        country : sampurnaWebsiteDetails.deliveryLocation.country,
+                        latLong : latLongDetails
+                    },()=>{
+
+                    })
+                }
+            }
+    }
+
+    getUserAddress(userId){
+        if(userId){
+            axios.get("/api/ecommusers/" +userId)
+                .then((response) => {
+                    if(response.data){
+                        this.setState({
+                            "userAddress"    : response.data.deliveryAddress,
+                            "username"       : response.data.profile.fullName,
+                            "mobileNumber"   : response.data.profile.mobile,
+                            "email"          : response.data.profile.email
+                        },()=>{
+
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.log('error', error);
+                }); 
         } 
     }
+
     takeCurrentLocation(){
         var that=this;
-                // console.log("google api key ===",that.state.googleapiKey);
-                Geocode.setApiKey(that.state.googleapiKey);
-
-                // set response language. Defaults to english.
-                Geocode.setLanguage('en');
-
-                // set response region. Its optional.
-                // A Geocoding request with region=es (Spain) will return the Spanish city.
-                // Geocode.setRegion("es");
-
-                // set location_type filter . Its optional.
-                // google geocoder returns more that one address for given lat/lng.
-                // In some case we need one address as response for which google itself provides a location_type filter.
-                // So we can easily parse the result for fetching address components
-                // ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE are the accepted values.
-                // And according to the below google docs in description, ROOFTOP param returns the most accurate result.
-                Geocode.setLocationType("ROOFTOP");
-
-                // Enable or disable logs. Its optional.
-                Geocode.enableDebug();     
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
+        Geocode.setApiKey(that.state.googleapiKey);
+        Geocode.setLanguage('en');
+        Geocode.setLocationType("ROOFTOP");
+        Geocode.enableDebug();     
+        navigator.geolocation.getCurrentPosition(function(position){
+            Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
                     .then((response) => {
-                        // console.log("location response=>",response.results.results);
-                            const address = response.results[0].formatted_address;
-                           var latLongDetails = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                            }
-                            if(latLongDetails){
-                                that.setState({
-                                    latLong   : latLongDetails,
-                                    detectCurrentLocation : true
-                                })
-                            }
-                            var details = response.results[0];
-                            // console.log("details",details);
-                            for (var i = 0; i < details.address_components.length; i++) {
-                                for (var b = 0; b < details.address_components[i].types.length; b++) {
-                                    switch (details.address_components[i].types[b]) {
+                        const address = response.results[0].formatted_address;
+                        var latLongDetails = {
+                            lat : position.coords.latitude,
+                            lng : position.coords.longitude
+                        }
+                        if(latLongDetails){
+                            that.setState({
+                                latLong                 : latLongDetails,
+                                detectCurrentLocation   : true
+                            })
+                        }
+                        var details = response.results[0];
+                        for(var i = 0; i < details.address_components.length; i++){
+                            for(var b = 0; b < details.address_components[i].types.length; b++){
+                                switch(details.address_components[i].types[b]){
                                     case 'sublocality_level_2':
                                         var detailAddress = details.address_components[i].long_name;
                                         break;
@@ -165,78 +146,65 @@ class DeliveryLocationPopup extends React.Component {
                                     case 'postal_code':
                                         var pincode = details.address_components[i].long_name;
                                         break;
-                                    }
                                 }
                             }
-                            that.setState({
-                                "address"        : response.results[0].formatted_address,
-                                "city"           : city,
-                                "area"           : area,
-                                "district"       : response.results[0].district,
-                                "pincode"        : pincode,
-                                "country"        : country,
-                                "latitude"       : position.coords.latitude,
-                                "longitude"      : position.coords.longitude,
-                            });
-                            var deliveryLocation = {
-                                "address"        : response.results[0].formatted_address,
-                                "city"           : city,
-                                "area"           : area,
-                                "district"       : response.results[0].district,
-                                "pincode"        : pincode,
-                                "country"        : country,
-                                "latitude"       : position.coords.latitude,
-                                "longitude"      : position.coords.longitude,
-                            }
-
-                            if(deliveryLocation){
-                                that.setState({
-                                    "address"        : response.results[0].formatted_address,
-                                    "city"           : city,
-                                    "area"           : area,
-                                    "district"       : response.results[0].district,
-                                    "pincode"        : pincode,
-                                    "country"        : country,
-                                    "latitude"       : position.coords.latitude,
-                                    "longitude"      : position.coords.longitude,
-                                });
-                                if(deliveryLocation.country === "United Arab Emirates"){
-                                    if(that.props.sampurnaWebsiteDetails){
-                                        var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
-                                        sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-                      
-                                        // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
-                                    }else{
-                                        var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
-                                    }
-
-                                    localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
-                                    // console.log("localstorage sampurnaWebsiteDetails=>",localStorage.getItem('sampurnaWebsiteDetails'));          
-                                    store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
-                                    
-                                    // Router.push("/");
-                                    // window.location.reload();
-                                }else{
-                                    swal("Sorry!! Delivery is not possible out of UAE");
-                                }
-
-                            }
-                            that.setState({ address: deliveryLocation.address });                              
-                        },
-                        (error) => {
-                            console.error(error);
                         }
-                    );
-                });
-    }
+                        that.setState({
+                            "address"   : response.results[0].formatted_address,
+                            "city"      : city,
+                            "area"      : area,
+                            "district"  : response.results[0].district,
+                            "pincode"   : pincode,
+                            "country"   : country,
+                            "latitude"  : position.coords.latitude,
+                            "longitude" : position.coords.longitude,
+                        });
+                        var deliveryLocation = {
+                            "address"   : response.results[0].formatted_address,
+                            "city"      : city,
+                            "area"      : area,
+                            "district"  : response.results[0].district,
+                            "pincode"   : pincode,
+                            "country"   : country,
+                            "latitude"  : position.coords.latitude,
+                            "longitude" : position.coords.longitude,
+                        }
+                        if(deliveryLocation){
+                            that.setState({
+                                "address"    : response.results[0].formatted_address,
+                                "city"       : city,
+                                "area"       : area,
+                                "district"   : response.results[0].district,
+                                "pincode"    : pincode,
+                                "country"    : country,
+                                "latitude"   : position.coords.latitude,
+                                "longitude"  : position.coords.longitude,
+                            });
+                            if(deliveryLocation.country === "United Arab Emirates"){
+                                if(that.props.sampurnaWebsiteDetails){
+                                    var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
+                                    sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                                }else{
+                                    var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                                }
+                                localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
+                                store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                            }else{
+                                swal("Sorry!! Delivery is not possible out of UAE");
+                            }
+                        }
+                            that.setState({ address: deliveryLocation.address });                              
+                    },
+                    (error) => {
+                        console.error(error);
+                    }
+                );
+        });
+}
 
-saveLocation(event) {
-        event.preventDefault();
-        // var address = this.name.address.value;
-        // var address = this.refs.address.value;
-        // console.log("Address===",address);
-        // console.log("savelocation  this.state===",this.state.country);
-        if(this.state.address){
+saveLocation(event){
+    event.preventDefault();
+    if(this.state.address){
         var deliveryLocation = {
             "address"        : this.state.address,
             "city"           : this.state.city,
@@ -250,8 +218,6 @@ saveLocation(event) {
             "longitude"      : this.state.longitude,
         }
 
-        // console.log("savelocation this.state.country===",this.state.country);
-
         if((this.state.country) === "United Arab Emirates"){     
             if(this.props.sampurnaWebsiteDetails){
                 var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
@@ -259,7 +225,6 @@ saveLocation(event) {
             }else{
                 var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
             }
-            
             localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
             store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
             $('#locationModal').modal('hide'); 
@@ -275,223 +240,211 @@ saveLocation(event) {
     }
 }
 
-    handleChangePlaces = address => {
-        this.setState({ address: address });
-    };
+handleChangePlaces = address => {
+    this.setState({ address: address });
+};
 
-    handleSelect = address => {
-        geocodeByAddress(address)
-            .then((results) => {
-                if (results) {
-                    // console.log("result ===",results);
-                    for (var i = 0; i < results[0].address_components.length; i++) {
-                        for (var b = 0; b < results[0].address_components[i].types.length; b++) {
-                            switch (results[0].address_components[i].types[b]) {
-                                case 'sublocality_level_1':
-                                    var area = results[0].address_components[i].long_name;
-                                    break;
-                                case 'sublocality_level_2':
-                                    area = results[0].address_components[i].long_name;
-                                    break;
-                                case 'locality':
-                                    var city = results[0].address_components[i].long_name;
-                                    break;
-                                case 'administrative_area_level_1':
-                                    var state = results[0].address_components[i].long_name;
-                                    var stateCode = results[0].address_components[i].short_name;
-                                    break;
-                                case 'administrative_area_level_2':
-                                    var district = results[0].address_components[i].long_name;
-                                    break;
-                                case 'country':
-                                    var country = results[0].address_components[i].long_name;
-                                    var countryCode = results[0].address_components[i].short_name;
-                                    break;
-                                case 'postal_code':
-                                    var pincode = results[0].address_components[i].long_name;
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
+handleSelect = address => {
+    geocodeByAddress(address)
+    .then((results) => {
+        if(results){
+            for(var i = 0; i < results[0].address_components.length; i++){
+                for(var b = 0; b < results[0].address_components[i].types.length; b++){
+                    switch(results[0].address_components[i].types[b]){
+                        case 'sublocality_level_1':
+                            var area = results[0].address_components[i].long_name;
+                            break;
+                        case 'sublocality_level_2':
+                            area = results[0].address_components[i].long_name;
+                            break;
+                        case 'locality':
+                            var city = results[0].address_components[i].long_name;
+                            break;
+                        case 'administrative_area_level_1':
+                            var state = results[0].address_components[i].long_name;
+                            var stateCode = results[0].address_components[i].short_name;
+                            break;
+                        case 'administrative_area_level_2':
+                            var district = results[0].address_components[i].long_name;
+                            break;
+                        case 'country':
+                            var country = results[0].address_components[i].long_name;
+                            var countryCode = results[0].address_components[i].short_name;
+                            break;
+                        case 'postal_code':
+                            var pincode = results[0].address_components[i].long_name;
+                            break;
+                        default:
+                            break;
                     }
-                    this.setState({
-                        address :results[0].formatted_address,
-                        area: area,
-                        city: city,
-                        district: district,
-                        state: state,
-                        country: country,
-                        pincode: pincode,
-                        stateCode: stateCode,
-                        countryCode: countryCode,
-                    })
-
-                    // console.log("setstate on select:", this.state.address);
-
-                   
                 }
-            })
-            if(address){
-            geocodeByAddress(address)
-            .then(results => getLatLng(results[0]))
-                .then(({ lat, lng }) => {
-                    if(lat && lng){
-                        var latLongDetails = {
-                            lat: lat,
-                            lng: lng
-                        }
-                        this.setState({
-                            latlong : latLongDetails,
-                            latitude : lat,
-                            longitude : lng
-                        },()=>{
-                            // console.log("getting latlong ====",this.state.latlong);
-                        })
-                    }
-                })
-            .catch(error => console.error('Error', error));
             }
+            this.setState({
+                address :results[0].formatted_address,
+                area: area,
+                city: city,
+                district: district,
+                state: state,
+                country: country,
+                pincode: pincode,
+                stateCode: stateCode,
+                countryCode: countryCode,
+            })
+        }
+    })
+    if(address){
+        geocodeByAddress(address)
+        .then(results => getLatLng(results[0]))
+        .then(({ lat, lng }) => {
+            if(lat && lng){
+                var latLongDetails = {
+                    lat: lat,
+                    lng: lng
+                }
+                this.setState({
+                    latlong : latLongDetails,
+                    latitude : lat,
+                    longitude : lng
+                },()=>{
 
-        this.setState({ addressLine1: address });
-    }; //end google api   
+                })
+            }
+        })
+        .catch(error => console.error('Error', error));
+    }
+    this.setState({ addressLine1: address });
+};
     
-   render() {
-       const ref = React.createRef();
-    //    console.log("latlong=>",this.props.getLatlong);
-       if(this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0){
-           var xlCol =  9;
-           var offset = 3
-           var xlForm = 12;
-           var formOffset = 0;
-           var class1 = "zindex";
-       }else{
-        var xlCol =  12;
-        var offset = 0;
-        var xlForm = 10;
-        var formOffset = 1;
-        var class1 = "zindex1"
-       }
-       
-    return (
-        <div className={"row locationPage locationBg " +Style.locationBg +" "+Style.locationPage} >
-            <div className={"col-12  "}>
-                {/* {
-                    this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
-                    <div className="col-3 NoPadding AddressListWrapper">
-                        <AddressList 
-                        userAddress =  {this.state.userAddress}/>
-                    </div>
-                    :null
-                } */}
-                <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
-                <div className="col-12 offset-0 mobileViewNoPadding">
-                    <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryForm}>
-                        <div className="col-12 ">
-                            <div className="row">
-                                <div className={"col-12 col-sm-12 col-lg-4 col-md-4 col-xl-4  NoPadding "}>
-                                    <div className={"row " +Style.ma}>
-                                        <div className=" col-12 col-md-12 col-lg-9 col-xl-9 NoPadding detectLocationBtn">
-                                            <button type="button" className={"btn pull-center mt-1 " +Style.locationBTNafterLogin}  onClick={this.takeCurrentLocation.bind(this)}><i className="fa fa-map-marker-alt-alt" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
-                                        </div>
-                                        <div className={"text-center NoPadding orText1 col-12 col-md-12 col-lg-3 col-xl-3 mt-3 " +Style.tw +" "+Style.f12afterLogin}>
-                                            <div className={"col-4 col-sm-4 col-md-5 col-lg-2 col-xl-2 NoPadding " +Style.orlineAfterLOgin}></div>
-                                            <span className={"col-2 col-sm-2 col-md-2 col-lg-8 col-xl-8 " +Style.MapOrAfterLogin}>OR</span>
-                                            <div className={"col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 NoPadding " +Style.orline}></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className={" col-12 col-sm-12 col-md-4 col-lg-7 col-xl-7 NoPadding"}>
-                                    <PlacesAutocomplete 
-                                        value={this.state.address}
-                                        onChange={this.handleChangePlaces}
-                                        onSelect={this.handleSelect}
-                                        highlightFirstSuggestion={true}>
-                                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                            <div className={"col-12 NoPadding "+Style.locationSearchWrapper}>
-                                                {/* <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label> */}
-                                                <div className="barraContainer1">
-                                                    <input type="text"  
-                                                    {...getInputProps({
-                                                        placeholder: 'Search your Location ',
-                                                        className: 'location-search-input mt-2 form-control buscar',
-                                                        id: "address",
-                                                        name: "address",
-                                                        required: true
-                                                    })}
-                                                    />
-                                                    <i className="fas fa-search"></i>
+render(){
+    const ref = React.createRef();
+        if(this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0){
+            var xlCol =  9;
+            var offset = 3
+            var xlForm = 12;
+            var formOffset = 0;
+            var class1 = "zindex";
+        }else{
+            var xlCol =  12;
+            var offset = 0;
+            var xlForm = 10;
+            var formOffset = 1;
+            var class1 = "zindex1"
+        }
+        return(
+            <div className={"row locationPage locationBg "+Style.locationBg+" "+Style.locationPage}>
+                <div className={"col-12"}>
+                    <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
+                        <div className="col-12 offset-0 mobileViewNoPadding">
+                            <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryForm}>
+                                <div className="col-12 ">
+                                    <div className="row">
+                                        <div className={"col-12 col-md-4 NoPadding "}>
+                                            <div className={"row "+Style.ma}>
+                                                <div className="col-12 col-lg-9 NoPadding detectLocationBtn">
+                                                    <button
+                                                        type="button"
+                                                        className={"btn pull-center mt-1 "+Style.locationBTNafterLogin}
+                                                        onClick={this.takeCurrentLocation.bind(this)}
+                                                    >
+                                                        <i className="fa fa-map-marker-alt-alt" aria-hidden="true"></i>Current Location
+                                                    </button>
                                                 </div>
-                                                {/* <span className={" " +Style.search}><i className="fas fa-search " aria-hidden="true"></i></span> */}
-                                                <div className="autocomplete-dropdown-container SearchListContainer">
-                                                    {loading && <div>Loading...</div>}
-                                                    {suggestions.map(suggestion => {
-                                                        const className = suggestion.active
-                                                            ? 'suggestion-item--active'
-                                                            : 'suggestion-item';
-                                                        const style = suggestion.active
-                                                            ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                            : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                                        return (
-                                                            <div
-                                                                {...getSuggestionItemProps(suggestion, {
-                                                                    className,
-                                                                    style,
+                                                <div className={"text-center NoPadding orText1 col-12 col-lg-8 col-xl-4 mt-3 " +Style.tw +" "+Style.f12afterLogin}>
+                                                    <div className={"col-4 col-lg-4 col-xl-2 NoPadding " +Style.orlineAfterLOgin}></div>
+                                                    <span className={"col-2 col-lg-8 " +Style.MapOrAfterLogin}>OR</span>
+                                                    <div className={"col-4 col-lg-4 col-xl-2 NoPadding " +Style.orline}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={"col-12 col-md-4 col-lg-7 NoPadding"}>
+                                            <PlacesAutocomplete
+                                                value={this.state.address}
+                                                onChange={this.handleChangePlaces}
+                                                onSelect={this.handleSelect}
+                                                highlightFirstSuggestion={true}>
+                                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                                    <div className={"col-12 NoPadding "+Style.locationSearchWrapper}>
+                                                        <div className={"barraContainer1 "+Style.barraContainer1}>
+                                                            <input type="text"  
+                                                                {...getInputProps({
+                                                                    placeholder : 'Search your Location ',
+                                                                    className   : 'location-search-input mt-2 form-control buscar',
+                                                                    id          : "address",
+                                                                    name        : "address",
+                                                                    required    : true
                                                                 })}
-                                                            >
-                                                                <span>{suggestion.description}</span>
-                                                            </div>
-                                                        );
-                                                    })}
+                                                            />
+                                                                <i className="fas fa-search"></i>
+                                                        </div>
+                                                        <div className="autocomplete-dropdown-container SearchListContainer">
+                                                            {loading && <div>Loading...</div>}
+                                                            {suggestions.map(suggestion => {
+                                                                const className = suggestion.active
+                                                                ?
+                                                                    'suggestion-item--active'
+                                                                :
+                                                                    'suggestion-item';
+                                                                const style = suggestion.active
+                                                                ?
+                                                                    { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                                :
+                                                                    { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                                return(
+                                                                    <div
+                                                                        {...getSuggestionItemProps(suggestion, {
+                                                                            className,
+                                                                            style,
+                                                                        })}
+                                                                    >
+                                                                        <span>{suggestion.description}</span>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                        <div className="col-12 NoPadding errormsg">{this.state.searchLocationError}</div>
+                                                    </div>
+                                                )}
+                                            </PlacesAutocomplete>
+                                        </div>
+                                        <div className="col-12 NoPadding">
+                                            <div className="col-12 mt-3 ">
+                                                <div className="col-12 ">
+                                                    <div className="col-12 ">
+                                                        <button type="button" className={" btn pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                                                    </div>
                                                 </div>
-                                                <div className="col-12 NoPadding errormsg">{this.state.searchLocationError}</div>
-                                            </div>
-                                            )}
-                                    </PlacesAutocomplete>
-                                </div>
-                                <div className="col-12 NoPadding">
-                                    <div className="col-12 mt-3 ">
-                                        <div className="col-12 ">
-                                            <div className="col-12 ">
-                                                <button type="button" className={" btn pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
                                             </div>
                                         </div>
                                     </div>
+                                    <div className="col-12 pull-right mt-2"></div>
                                 </div>
-                                {/* <div className="col-12 NoPadding">
-                                    <div className="col-2 offset-9 mt-3 NoPadding ">
-                                        <button type="button" className={" btn col-12 NoPadding pull-right " +Style.locationBTN1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
-                                    </div>
-                                </div> */}
-                            </div>
-                            <div className="col-12 pull-right mt-2 ">
-                            </div>
-                        </div>
-                    </form>
-                    {this.state.latLong?
-                        < GoogleMap
-                            googleapiKey = {this.state.googleapiKey}
-                            latLongDetails = {this.state.latLong}
-                        />
-                    :null}
-
-                </div>                                                     
+                            </form>
+                            {
+                                this.state.latLong
+                                ?
+                                    <GoogleMap
+                                        googleapiKey    = {this.state.googleapiKey}
+                                        latLongDetails  = {this.state.latLong}
+                                    />
+                                :
+                                    null
+                            }
+                        </div>                                                     
+                    </div>
+                </div>
             </div>
-            </div>
-        </div>
-    );
-  }
+        );
+    }
 }
 
 const mapStateToProps = state => (
-    {
-        sampurnaWebsiteDetails : state.data.sampurnaWebsiteDetails,
-        getLatlong             : state.data.getLatlong,
-    });
+{
+    sampurnaWebsiteDetails : state.data.sampurnaWebsiteDetails,
+    getLatlong             : state.data.getLatlong,
+});
   
-    const mapDispatchToProps = {    
-        setSampurnaWebsiteDetails : setSampurnaWebsiteDetails,    
-    };
+const mapDispatchToProps = {    
+    setSampurnaWebsiteDetails : setSampurnaWebsiteDetails,    
+};
   
 export default connect(mapStateToProps, mapDispatchToProps)(DeliveryLocationPopup);
-
