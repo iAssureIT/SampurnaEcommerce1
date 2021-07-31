@@ -219,4 +219,20 @@ export default StyleSheet.create({
     })
   },
 
+  label:{
+    color:"#F9F9F9",fontFamily:"Montserrat-Regular",fontSize:18,opacity:0.7
+  },
+  label1:{
+    color:"#F9F9F9",fontFamily:"Montserrat-Regular",fontSize:18
+  },
+  text:{
+    color:"#F9F9F9",fontFamily:"Montserrat-SemiBold",fontSize:18
+  },
+  label2:{
+    fontFamily:"Montserrat-Medium",color: "#000000",fontSize:16
+  },
+  label3:{
+    fontFamily:"Montserrat-Bold",color: "#000000",fontSize:16
+  }
+
 })

@@ -288,7 +288,10 @@ import { NetWorkError } from '../../../NetWorkError.js';
               </View>
               <View style={{paddingLeft:30}}>
                 <TouchableOpacity style={{flexDirection:"row",marginVertical:10,alignItems:'center'}} onPress={()=>{setCouponModal(true)}}>
-                    <Icon name="sale" type="material-community" size={13} color="green"/>
+                    <Image source={require('../../AppDesigns/currentApp/images/coupon.png')}
+                      resizeMode="contain"
+                      style={{height:13,width:13}}
+                    />
                     <Text style={{color: "#3E9D5E"}}> Apply Discount</Text>
                 </TouchableOpacity>  
                 {
@@ -617,7 +620,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
         </Modal1>
         <View style={{marginBottom:Platform.OS ==='ios'?60: 45,flexDirection:'row'}}>
          <View style={{flex:0.5,height:60,backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
-            <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Total Amount</Text>
+            <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
             <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
          </View>
          <TouchableOpacity style={{flex:0.5,height:60,backgroundColor:checked ?colors.cartButton: "#5F6C74",justifyContent:'center',alignItems:'center'}}
@@ -656,7 +659,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     <Text style={tab ? styles1.tabText : styles1.tabText1}>Coupon Code</Text>
                 </TouchableOpacity> 
                 <TouchableOpacity style={!tab ? styles1.tab : styles1.tab1} onPress={()=>selectedTab(false)}>
-                    <Text style={!tab ? styles1.tabText : styles1.tabText1}>Credit Points {cartData?.totalCreditPoints}</Text>
+                    <Text style={!tab ? styles1.tabText : styles1.tabText1}>Credit Points <Text style={{color:colors.cartButton}}>{cartData?.totalCreditPoints}</Text></Text>
                 </TouchableOpacity>
              </View>  
             <View style={{height:140,backgroundColor:"#E2E2E2",paddingHorizontal:28}}>
@@ -671,7 +674,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     keyboardType          = "email-address"
                     inputContainerStyle   = {styles.containerStyle}
                     containerStyle        = {{paddingHorizontal:0}}
-                    placeholderTextColor  = {'#707070'}
+                    placeholderTextColor  = {'#909090'}
                     inputStyle            = {{fontSize: 16}}
                     inputStyle            = {{textAlignVertical: "top"}}
                     autoCapitalize        = 'characters'
@@ -693,13 +696,13 @@ import { NetWorkError } from '../../../NetWorkError.js';
                 <View style={{flexDirection:"row",height:45,marginTop:25}}>
                   <View style={{flex:.7}}>
                     <Input
-                      placeholder           = "Enter credit value..."
+                      placeholder           = "Apply AED"
                       onChangeText          = {(text)=>onCheckLimit(text)}
                       autoCapitalize        = "none"
                       keyboardType          = "email-address"
                       inputContainerStyle   = {styles.containerStyle}
                       containerStyle        = {{paddingHorizontal:0}}
-                      placeholderTextColor  = {'#707070'}
+                      placeholderTextColor  = {'#909090'}
                       inputStyle            = {{fontSize: 16}}
                       inputStyle            = {{textAlignVertical: "top"}}
                       autoCapitalize        = 'characters'
@@ -717,7 +720,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       />   
                   </View> 
                 </View> 
-                <Text style={[{color:"#000000",fontSize:14,fontFamily:"Montserrat-Medium"}]}>Total Balanace {currency} <Text style={{fontFamily:"Montserrat-SemiBold",color:'#033554'}}>{cartData.totalCreditPointsValue}</Text></Text>
+                <Text style={[{color:"#000000",fontSize:14,fontFamily:"Montserrat-Medium"}]}>Total balance {currency} <Text style={{fontFamily:"Montserrat-SemiBold",color:'#033554'}}>{cartData.totalCreditPointsValue}</Text></Text>
                </View>
               }
             </View>

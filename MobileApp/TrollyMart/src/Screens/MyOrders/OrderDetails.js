@@ -648,7 +648,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                 />
                               }
                               </View>
-                              <View style={{flex:0.4,paddingHorizontal:5}}>
+                              <View style={{flex:0.45,paddingHorizontal:5}}>
                                 <Text numberOfLines={2} style={styles.prodinfo}>{pitem.productName}</Text>
                                 <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:14,marginTop:7}}>
                                     Qauntity
@@ -656,7 +656,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                 </Text>
                              
                               </View>
-                              <View style={{flex:0.4}}>
+                              <View style={{flex:0.35}}>
                                 <View style={{flex:1,flexDirection:'row'}}>
                                   <View style={{flex:.5}}>
                                       <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>

@@ -108,7 +108,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                               <View style={{flex:.5,paddingHorizontal:5}}>
                                <Text style={[styles.accusermob,{fontSize:12,color:'#000',fontFamily:"Montserrat-Medium"}]}>{item.typeOfTransaction ? item.typeOfTransaction:""}</Text>
                                 <Text style={[styles.accusermob,{fontSize:11}]}>{item.orderID ? "#"+item.orderID:""}</Text>
-                                <Text style={[styles.accusermob,{fontSize:11}]}>{moment(item.expiryDate).format('MM/DD/YYYY')} Expiry</Text>
+                                <Text style={[styles.accusermob,{fontSize:11}]}>{moment(item.expiryDate).format('DD/MM/YYYY')} Expiry</Text>
                               </View>  
                               <View style={{flex:.2,justifyContent:'center'}}>
                                 <Text style={[styles.accusermob,{alignSelf:"flex-end",color:Math.sign(item.earnedPoints) === 1 ? colors.success:colors.danger,fontSize:16,fontFamily:"Montserrat-Medium"}]}>{Math.sign(item.earnedPoints) === 1 && <Text>+</Text>}{item.earnedPoints}</Text>

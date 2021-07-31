@@ -127,7 +127,7 @@ const [refreshing,setRefresh]= useState(false)
             <View style={{height:window.height-230,justifyContent:'center',alignItems:'center'}}>
               <Image
                 source={require("../../AppDesigns/currentApp/images/empty_wishlist.png")}
-                style={{width:window.width,height:300}}
+                style={{width:window.width,height:300,opacity:0.5}}
                 resizeMode='contain'
               />
               <View style={{alignItems:'center'}}>

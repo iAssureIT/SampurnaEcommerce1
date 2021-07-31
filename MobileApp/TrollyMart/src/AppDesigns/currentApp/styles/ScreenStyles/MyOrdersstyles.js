@@ -150,7 +150,7 @@ export default StyleSheet.create({
   },
   orderidinfo:{
     fontSize:14,
-    fontFamily:"Montserrat-SemiBold",
+    fontFamily:"Montserrat-Medium",
     color: "#000000"
   },
   orderdets:{
@@ -457,6 +457,9 @@ export default StyleSheet.create({
   },
   totaldata:{
     fontSize:14,fontFamily:"Montserrat-Regular", color:'#000000',opacity: 0.4
+  },
+  creditPoints:{
+    fontSize:14,fontFamily:"Montserrat-Regular", color:'#000000',opacity: 0.8
   },
   totalAmount:{
     fontSize:15,fontFamily:"Montserrat-SemiBold", color:'#000000',fontWeight:'600'

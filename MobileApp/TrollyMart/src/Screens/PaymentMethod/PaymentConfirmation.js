@@ -57,71 +57,77 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                     <View style={{flex:0.4,alignItems:'flex-end'}}>
                         <Image
                             resizeMode="contain"
-                            source={require("../../AppDesigns/currentApp/images/trollymart-black.png")}
+                            source={require("../../AppDesigns/currentApp/images/Logo.png")}
                             style={{height:50,width:80}}
                             />
                     </View>    
                 </View>  
                 <View style={{alignItems:"center"}}>
-                    <Text style={[CommonStyles.label,{color:"#fff"}]}>Thank you your order</Text>
-                    <Text style={[CommonStyles.label,{color:"#fff"}]}>has been received</Text>
+                    <Text style={[CommonStyles.label,{color:"#fff"}]}>Thank you!</Text>
+                    <Text style={[CommonStyles.text,{color:"#fff"}]}>Your order has been received</Text>
                 </View> 
-                <View style={{flexDirection:"row",marginTop:45,justifyContent:'center'}}>
-                    <View style={{flex:0.4}}>
-                        <Text style={[CommonStyles.label,{color:"#fff",fontFamily:"Montserrat-Regular"}]}>Receipt from</Text>
+                <View style={{flexDirection:"row",marginTop:25,justifyContent:'center'}}>
+                    <View style={{flex:0.45}}>
+                        <Text style={styles.label}>Receipt from</Text>
                     </View>
-                    <View style={{flex:0.4}}>
-                        <Text style={[CommonStyles.label,{color:"#fff"}]}>Knock Knock</Text>
+                    <View style={{flex:0.45}}>
+                        <Text style={styles.text}>Knock Knock</Text>
                     </View>
                 </View> 
                 <View style={{flexDirection:"row",marginTop:25,justifyContent:'center'}}>
-                    <View style={{flex:0.4,flexDirection:'row'}}>
-                        <Icon name="wallet" type='material-community' size={18} color="#fff" iconStyle={{paddingHorizontal:3}}/>
-                        <Text style={[CommonStyles.label,{color:"#fff",fontFamily:"Montserrat-Regular"}]}>Amount</Text>
+                    <View style={{flex:0.45,flexDirection:'row',alignItems:'center'}}>
+                    <Image source={require('../../AppDesigns/currentApp/images/wallet.png')}
+                      resizeMode="contain"
+                      style={{height:19,width:23,marginRight:15}}
+                    />
+                        <Text style={styles.label}>Amount</Text>
                     </View>
-                    <View style={{flex:0.4}}>
-                        <Text style={[CommonStyles.label,{color:"#fff"}]}>{currency} : {order.paymentDetails.netPayableAmount}/-</Text>
+                    <View style={{flex:0.45,flexDirection:'row',height:25,alignItems:'center'}}>
+                        <Text style={[styles.label,{fontSize:14}]}>{currency} : </Text><Text style={[styles.label1]}>{order.paymentDetails.netPayableAmount}</Text>
                     </View>
                 </View> 
-                <View style={{flexDirection:"row",marginTop:15,justifyContent:'center'}}>
-                    <View style={{flex:0.4,flexDirection:'row'}}>
-                        <Icon name="calendar" type='material-community' size={18} color="#fff" iconStyle={{paddingHorizontal:3}}/>
-                        <Text style={[CommonStyles.label,{color:"#fff",fontFamily:"Montserrat-Regular"}]}>Date</Text>
+                <View style={{flexDirection:"row",marginTop:15,justifyContent:'center',height:25}}>
+                    <View style={{flex:0.45,flexDirection:'row',alignItems:'center'}}>
+                    <Image source={require('../../AppDesigns/currentApp/images/calendar.png')}
+                      resizeMode="contain"
+                      style={{height:19,width:23,marginRight:15}}
+                    />
+                        <Text style={styles.label}>Date</Text>
                     </View>
-                    <View style={{flex:0.4}}>
-                        <Text style={[CommonStyles.label,{color:"#fff"}]}>{moment(order.createdAt).format('ll')}</Text>
+                    <View style={{flex:0.45}}>
+                        <Text style={styles.label}>{moment(order.createdAt).format('ll')}</Text>
                     </View>
                 </View>  
                 <View style={{flexDirection:"row",marginTop:50}}>
                     <View style={{flex:0.5}}>
-                        <Text style={[CommonStyles.label,{fontFamily:"Montserrat-Regular"}]}>Order No</Text>
+                        <Text style={styles.label2}>Order No</Text>
                     </View>
                     <View style={{flex:0.5,alignItems:'flex-end'}}>
-                        <Text style={[CommonStyles.label]}>{order.orderID}</Text>
+                        <Text style={styles.label3}>{order.orderID}</Text>
                     </View>
                 </View>
                 <View style={{flexDirection:"row",marginTop:16}}>
                     <View style={{flex:0.5}}>
-                        <Text style={[CommonStyles.label,{fontFamily:"Montserrat-Regular"}]}>Mobile No</Text>
+                        <Text style={styles.label2}>Mobile No</Text>
                     </View>
                     <View style={{flex:0.5,alignItems:'flex-end'}}>
-                        <Text style={[CommonStyles.label]}>{order?.deliveryAddress?.mobileNumber ? order?.deliveryAddress?.mobileNumber : "NA"}</Text>
+                        <Text style={styles.label3}>{order?.deliveryAddress?.mobileNumber ? order?.deliveryAddress?.mobileNumber : "NA"}</Text>
                     </View>
                 </View>
                 <View style={{flexDirection:"row",marginTop:16}}>
                     <View style={{flex:0.5}}>
-                        <Text style={[CommonStyles.label,{fontFamily:"Montserrat-Regular"}]}>Total</Text>
+                        <Text style={styles.label2}>Total</Text>
                     </View>
                     <View style={{flex:0.5,alignItems:'flex-end'}}>
-                        <Text style={[CommonStyles.label]}>{order.paymentDetails.netPayableAmount} {currency}</Text>
+                        <Text style={styles.label3}>{order.paymentDetails.netPayableAmount} {currency}</Text>
                     </View>
                 </View>
                 <View style={{flexDirection:"row",marginTop:16}}>
                     <View style={{flex:0.5}}>
-                        <Text style={[CommonStyles.label,{fontFamily:"Montserrat-Regular"}]}>Payment Method</Text>
+                        <Text style={styles.label2}>Payment Method</Text>
                     </View>
                     <View style={{flex:0.5,alignItems:'flex-end'}}>
-                        <Text style={[CommonStyles.label]}>{order.paymentDetails.paymentMethod}</Text>
+                        <Text style={styles.label3}>{order.paymentDetails.paymentMethod}</Text>
                     </View>
                 </View>
                 <TouchableOpacity style={{flexDirection:'row',marginTop:50,justifyContent:'center',alignItems:'center'}}  onPress  = {() => navigation.navigate('OrderDetails', { orderid: order._id })}>

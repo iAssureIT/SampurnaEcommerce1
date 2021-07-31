@@ -208,7 +208,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                           positionOrder = 1;
                         } else if (order.orderStatus === "Dispatch" || order.orderStatus ===  "Delivery Initiated") {
                           positionOrder = 2;
-                        }else if (order.orderStatus === "Delivered & Paid") {
+                        }else if (order.orderStatus === "Delivered") {
                           positionOrder = 3;
                         } else if (order.orderStatus === "Cancelled") {
                           positionOrder = 4;
@@ -217,7 +217,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                         <View style={[styles.prodinfoparent]}>
                           <View style={{paddingHorizontal:0}}>                            
                             <View style={{paddingHorizontal:20}}>
-                            <View style={{marginBottom:20}}><Text>Delivered</Text></View>
+                            <View style={{marginBottom:20}}><Text style={{fontSize:14,fontFamily:"Montserrat-Bold",color:order.orderStatus === "New" ? colors.cartButton : order.orderStatus === "Delivered" ? colors.success :colors.danger}}>{order.orderStatus}</Text></View>
                               <View style={{flexDirection:'row'}}>
                                 <View style={[styles.orderid]}>
                                   <Text style={styles.orderidinfo}>Order ID : {order.orderID}</Text>
@@ -231,7 +231,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                                   <Text numberOfLines={2} style={styles.totaldata}>Address: {order.deliveryAddress.addressLine1+", "+order.deliveryAddress.addressLine2}</Text>
                                 </View>
                                 <View style={[{flex:0.54,alignItems:'flex-end'}]}>
-                                  <Text numberOfLines={2} style={styles.totaldata}>Credit points earned {order.paymentDetails.creditPointsEarned}</Text>
+                                  <Text numberOfLines={2} style={styles.creditPoints}>Credit points earned {order.paymentDetails.creditPointsEarned}</Text>
                                 </View>
                                 {/* {positionOrder === 3  &&
                                 <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>
@@ -288,8 +288,8 @@ export const MyOrder = withCustomerToaster((props)=>{
                                   </View>  
                                   <View style={{flexDirection:'row',marginVertical:30}}>
                                       <View style={{flex:0.7,borderRightWidth:0.5,borderColor:"#0000004F",paddingHorizontal:15}}>
-                                          <Text style={styles.totalpriceincart}>No Of Products : {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
                                           <Text style={styles.totalpriceincart}>Amount : {item.vendor_afterDiscountTotal && item.vendor_afterDiscountTotal.toFixed(2)} {currency}</Text>
+                                          <Text style={styles.totalpriceincart}>No Of Products : {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
                                       </View>
                                       <View style={{flex:0.49,paddingHorizontal:15}}>
                                       <View style={{alignSelf:'center',marginTop:12,justifyContent:'center',alignItems:'center',borderRadius:2,

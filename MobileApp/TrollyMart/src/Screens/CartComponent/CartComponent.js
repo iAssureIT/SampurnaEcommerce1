@@ -581,7 +581,7 @@ const getshippingamount=(startRange, limitRange)=>{
             <View style={{height:window.height-230,justifyContent:'center',alignItems:'center'}}>
               <Image
                 source={require("../../AppDesigns/currentApp/images/empty-cart.png")}
-                style={{width:window.width,height:300}}
+                style={{width:window.width,height:300, opacity: 0.5}}
                 resizeMode='contain'
               />
               <View style={{alignItems:'center'}}>
