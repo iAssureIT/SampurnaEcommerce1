@@ -303,6 +303,7 @@ const getshippingamount=(startRange, limitRange)=>{
                                     priority: FastImage.priority.high, 
                                     cache: FastImage.cacheControl.immutable,
                                   }}
+                                  resizeMode="contain" 
                                 />
                                 :
                                 <FastImage
@@ -420,7 +421,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.65,flexDirection:"row" }}>
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
-                        <Text style={styles.totaldata}>Final Amount</Text>
+                        <Text style={styles.totaldata}>Total Amount</Text>
                       </View>
                       <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -508,7 +509,7 @@ const getshippingamount=(startRange, limitRange)=>{
                   </View>
                   <View style={styles.flxdata}>
                     <View style={{ flex: 0.65 }}>
-                      <Text style={styles.totaldata1}>Total VAT  </Text>
+                      <Text style={styles.totaldata1}>Total Tax  </Text>
                     </View>
                     <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -642,7 +643,7 @@ const getshippingamount=(startRange, limitRange)=>{
     </View>
     {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?<View style={{marginBottom:Platform.OS ==='ios'?60: 45,flexDirection:'row'}}>
          <View style={{flex:0.5,height:60,backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
-            <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Total Amount</Text>
+            <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
             <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
          </View>
          <TouchableOpacity style={{flex:0.5,height:60,backgroundColor:!disabled?"#5F6C74":colors.cartButton,justifyContent:'center',alignItems:'center'}}
