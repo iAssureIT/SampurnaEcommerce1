@@ -4,7 +4,8 @@ import {
   View,
   TouchableOpacity,
   Animated,
-  RefreshControl
+  RefreshControl,
+  Image
 }                             from 'react-native';
 import { Icon }               from "react-native-elements";
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles.js';
@@ -102,7 +103,12 @@ const VendorProducts = (props)=>{
 
   const SortButton = () => (
     <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-      <Icon color={"#333"} name="sort" />
+      {/* <Icon color={"#333"} name="sort" /> */}
+      <Image
+      resizeMode="contain"
+      source={require("../../AppDesigns/currentApp/images/sort.png")}
+      style={{height:50,width:80}}
+      />
     </View>
   );
   const FilterButton = () => (
@@ -156,10 +162,19 @@ const onScroll=(e)=>{
               </View> 
               <View style={{justifyContent:"flex-end",flexDirection:'row',flex:0.3}}>
                 <TouchableOpacity style={{width:26,height:24,elevation:1,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>setShowFilters(true)}>
-                    <Icon name="filter" type="material-community" color={"#333"} size={20} />
+                  <Image
+                    resizeMode="contain"
+                    source={require("../../AppDesigns/currentApp/images/filter.png")}
+                    style={{height:25,width:25}}
+                    />
                 </TouchableOpacity>
                 <TouchableOpacity style={{width:26,height:24,elevation:1,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>toggleSort(true)}>
-                  <Icon name="sort" type="material-community" color={"#333"} size={20} />
+                  {/* <Icon name="sort" type="material-community" color={"#333"} size={20} /> */}
+                  <Image
+                  resizeMode="contain"
+                  source={require("../../AppDesigns/currentApp/images/sort.png")}
+                  style={{height:17,width:17}}
+                  />
                 </TouchableOpacity>
               </View>  
             </View>

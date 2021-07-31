@@ -352,7 +352,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   <View style={styles.addBTN}>
                     <Button
                         onPress={() => handlePressAddCart()}
-                        title={"ADD TO CART"}
+                        title={"Add To Cart"}
                         buttonStyle={[CommonStyles.addBtnStyle1,{backgroundColor:colors.cartButton}]}
                       /> 
                   </View>
@@ -364,6 +364,9 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     loop={false}
                     index={0}
                     pageSize={370}
+                    pageIndicatorStyle={{width:20,height:3,backgroundColor:"#eee"}}
+            activePageIndicatorStyle={{width:20,height:3,backgroundColor:"#999"}}
+            pageIndicatorOffset={30}
                     >
                      
                     {productdata.productImage.map((image, index) => {
@@ -487,7 +490,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
               </View>
               <View style={{flexDirection:'row',height:32,marginTop:12}}>
                   <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 0 ? "#EEEEEE" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(0)}>
-                      <Text style={CommonStyles.label,{color:colors.cartButton}}>Product Information</Text>
+                      <Text style={CommonStyles.label,{color:colors.cartButton}}>Overview</Text>
                   </TouchableOpacity>  
                   <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 1 ? "#EEEEEE" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(1)}>
                       <Text style={CommonStyles.label,{color:colors.cartButton}}>Rating & Feedback</Text>
