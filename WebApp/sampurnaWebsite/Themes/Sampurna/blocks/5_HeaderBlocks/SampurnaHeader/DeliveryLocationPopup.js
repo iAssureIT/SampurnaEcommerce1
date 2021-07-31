@@ -376,7 +376,7 @@ render(){
                                                             />
                                                                 <i className="fas fa-search"></i>
                                                         </div>
-                                                        <div className="autocomplete-dropdown-container SearchListContainer">
+                                                        <div className={"autocomplete-dropdown-container SearchListContainer "+Style.SearchListContainer}>
                                                             {loading && <div>Loading...</div>}
                                                             {suggestions.map(suggestion => {
                                                                 const className = suggestion.active

@@ -282,6 +282,12 @@
         left: 5px !important;
         top: 20px !important;
     }
+    .SearchListContainer{
+        width: 100%;
+        position: absolute;
+        top: 50px !important;
+        left: -17px;
+    }
 }
 
 /* (sm) Small Devices (Landscape Phones, 576px and up) */
@@ -302,6 +308,12 @@
     }
     .locationBTNafterLogin1{
         left: 130px !important;
+    }
+    .SearchListContainer{
+        width: 100%;
+        position: absolute;
+        top: 50px !important;
+        left: -19px;
     }
 }
 
@@ -347,6 +359,12 @@
         left: 280px !important;
         top: 15px !important;
     }
+    .SearchListContainer{
+        width: 100%;
+        position: absolute;
+        top: 50px !important;
+        left: -110px;
+    }
 }
 
 /* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
@@ -368,6 +386,12 @@
     .locationBTNafterLogin1{
         left: 800px !important;
         top: -50px !important;
+    }
+    .SearchListContainer{
+        width: 100%;
+        position: absolute;
+        top: 50px !important;
+        left: -13px;
     }
 }
 
