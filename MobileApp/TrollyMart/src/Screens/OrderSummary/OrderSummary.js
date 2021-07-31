@@ -242,7 +242,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
         return (
           <View style={{paddingVertical:5}}>
               <Text style={[commonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
-              <View style={{flexDirection:"row"}}>
+              <View style={{flexDirection:"row",justifyContent:'space-between'}}>
                 <Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text>
                 <Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingCharges} {currency}</Text>
               </View>  
@@ -250,7 +250,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
         )
     })  
     }
-    <View style={{marginTop:30,flexDirection:'row'}}>
+    <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
       <Text style={[commonStyles.label,{color:"#fff"}]}>Total Delivey Charges :</Text>
       <Text style={[commonStyles.label,{color:"#fff"}]}>{cartData?.paymentDetails?.shippingCharges} {currency}</Text>
     </View>  

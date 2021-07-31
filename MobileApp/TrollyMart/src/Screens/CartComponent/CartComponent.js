@@ -235,7 +235,7 @@ const getshippingamount=(startRange, limitRange)=>{
         return (
           <View style={{paddingVertical:5}}>
               <Text style={[commonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
-              <View style={{flexDirection:"row"}}>
+              <View style={{flexDirection:"row",justifyContent:'space-between'}}>
                 <Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text>
                 <Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingCharges} {currency}</Text>
               </View>  
@@ -243,9 +243,9 @@ const getshippingamount=(startRange, limitRange)=>{
         )
     })  
     }
-    <View style={{marginTop:30,flexDirection:'row'}}>
-      <Text style={[commonStyles.label,{color:"#fff"}]}>Total Delivey Charges :</Text>
-      <Text style={[commonStyles.label,{color:"#fff"}]}>{cartData?.paymentDetails?.shippingCharges} {currency}</Text>
+    <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
+      <Text style={[commonStyles.text,{color:"#fff"}]}>Total Delivey Charges :</Text>
+      <Text style={[commonStyles.text,{color:"#fff"}]}>{cartData?.paymentDetails?.shippingCharges} {currency}</Text>
     </View>  
     </View>,
     { onLayout: (e) => setTooltipSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height }) }
@@ -546,7 +546,7 @@ const getshippingamount=(startRange, limitRange)=>{
                         popover={tooltipClone}
                         withOverlay={false}
                         >
-                        <Icon name="information-outline" type={"material-community"} size={16}iconStyle={{}} />
+                        <Icon name="information-outline" type={"material-community"} size={16}iconStyle={{}} color="#0335548C" />
                       </Tooltip>
                     </View>  
                   </View>

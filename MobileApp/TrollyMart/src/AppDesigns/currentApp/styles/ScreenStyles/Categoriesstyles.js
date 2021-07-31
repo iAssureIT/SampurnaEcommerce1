@@ -734,5 +734,30 @@ export default StyleSheet.create({
     height: 12,
     marginTop:3,
   },
+  accessory: {
+    width: 24,
+    height: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  triangle: {
+    width: 8,
+    height: 8,
+    transform: [{
+      translateY: -4,
+    }, {
+      rotate: '45deg',
+    }],
+  },
+
+  triangleContainer: {
+    width: 12,
+    height: 6,
+    overflow: 'hidden',
+    alignItems: 'center',
+
+    backgroundColor: 'transparent', /* XXX: Required */
+  },
   
 })

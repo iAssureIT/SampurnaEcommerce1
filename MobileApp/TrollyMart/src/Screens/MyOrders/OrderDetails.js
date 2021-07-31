@@ -482,7 +482,7 @@ const cancelorderbtn = (id,vendor_id) => {
         return (
           <View style={{paddingVertical:5}}>
               <Text style={[CommonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
-              <View style={{flexDirection:"row"}}>
+              <View style={{flexDirection:"row",justifyContent:'space-between'}}>
                 <Text style={[CommonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text>
                 <Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingCharges} {currency}</Text>
               </View>  
@@ -490,7 +490,7 @@ const cancelorderbtn = (id,vendor_id) => {
         )
     })  
     }
-    <View style={{marginTop:30,flexDirection:'row'}}>
+    <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
       <Text style={[CommonStyles.label,{color:"#fff"}]}>Total Delivey Charges :</Text>
       <Text style={[CommonStyles.label,{color:"#fff"}]}>{order?.paymentDetails?.shippingCharges} {currency}</Text>
     </View>  

@@ -279,6 +279,16 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     }
   };
 
+  const renderAccessory=()=>{
+    return (
+        <View style={styles.accessory}>
+            <View style={styles.triangleContainer}>
+                <View style={[styles.triangle]} />
+            </View>
+        </View>
+    );
+}
+
 
   console.log("productData",productdata);
     return (
@@ -437,6 +447,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     style               = {styles.ddStyle}
                     disabledLineType    = 'none'
                     underlineColor      ='transparent'
+                    // renderAccessory={<Icon name="user" type="font-awesome"/>}
                   />
                 </View>  
               </View>
