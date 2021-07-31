@@ -184,9 +184,10 @@ export const MyAccount =(props)=>{
                             </TouchableOpacity>
                             <Text style={[styles1.label1]}>Log Out</Text>
                         </View>
+                        <View style={styles1.horizontalLine} />
                     </View> 
                     }
-                <View style={styles1.horizontalLine} />
+                
                 <View style={{flex:1}}>
                     <View style={{flexDirection:'row',justifyContent:'center'}}>
                         <View style={{alignItems:'center',paddingHorizontal:10}}>   

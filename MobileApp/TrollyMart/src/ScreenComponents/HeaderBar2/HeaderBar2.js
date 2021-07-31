@@ -132,7 +132,7 @@ import { useNavigation }      from '@react-navigation/native';
           
         </View>
           <TouchableOpacity style={styles.location} onPress={()=>navigation.push('LocationMain')}>
-              <Icon name="map-marker" type="material-community" size={11} color={colors.black} iconStyle={{marginTop:2.5}}/>
+              <Icon name="crosshairs-gps" type="material-community" size={11} color={colors.black} iconStyle={{marginTop:2.5}}/>
               <Text numberOfLines={2} style={{flex:.98,color:colors.textLight,fontSize:11}}>{location?.address.addressLine2}</Text>
           </TouchableOpacity>
       </View>

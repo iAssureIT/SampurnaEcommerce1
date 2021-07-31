@@ -138,7 +138,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                           // loading     = {btnLoading}
                           />
                     </View>
-                    {userDetails && userDetails.user_id && userDetails.user_id!=="" ?
+                    {userDetails.authService !== "guest" ?
                       <View style={{paddingHorizontal:30,marginBottom:15}}>
                         <FormButton
                           title       = {'Choose From Addresses'}

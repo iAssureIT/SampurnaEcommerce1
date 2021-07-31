@@ -94,7 +94,7 @@ export const Footer =(props)=>{
                   onPress={() => navigation.navigate('CartComponent', { userId: userDetails.user_id })} >
                  {/* <Icon name="shopping-cart" type="feather" size={25} color={props?.state?.index === 2 ? colors.footerText :colors.theme}  /> */}
                  <Image source={require("../../AppDesigns/currentApp/images/cart.png")} style={{height:25,width:25}} />
-                 <Text  style={[styles.footerTitle,{color:props?.state?.index === 2 ? colors.footerText :colors.theme}]}>My Cart</Text>
+                 <Text  style={[styles.footerTitle,{color:props?.state?.index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
                 {
                   cartCount > 0 ?
                     <Text style={styles.notificationText}>{cartCount}</Text>
