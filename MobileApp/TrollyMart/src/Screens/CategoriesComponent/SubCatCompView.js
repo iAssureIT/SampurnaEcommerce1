@@ -354,6 +354,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         onPress={() => handlePressAddCart()}
                         title={"Add To Cart"}
                         buttonStyle={[CommonStyles.addBtnStyle1,{backgroundColor:colors.cartButton}]}
+                        titleStyle={{fontFamily:'Montserrat-Regular',fontSize:13}}
+                        buttonStyle={[CommonStyles.addBtnStyle1,{backgroundColor:colors.cartButton,}]}
                       /> 
                   </View>
                 </View>
@@ -380,11 +382,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         style={styles.saleimg}
                         resizeMode={FastImage.resizeMode.contain}
                     >
-                      
+                      {productdata.authService !== "guest" ?
                       <TouchableOpacity style={[styles.wishlisthrtproductview]}
                         onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
                         <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
                       </TouchableOpacity>
+                      :
+                        null
+                      }
                       <TouchableOpacity style={[styles.share]}
                         onPress={() =>onShare()} >
                         <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} />
@@ -490,19 +495,20 @@ export const SubCatCompView = withCustomerToaster((props)=>{
               </View>
               <View style={{flexDirection:'row',height:32,marginTop:12}}>
                   <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 0 ? "#EEEEEE" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(0)}>
-                      <Text style={CommonStyles.label,{color:colors.cartButton}}>Overview</Text>
+                      <Text style={CommonStyles.label,{color:colors.cartButton,fontFamily:"Montserrat-SemiBold"}}>Overview</Text>
+
                   </TouchableOpacity>  
                   <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 1 ? "#EEEEEE" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(1)}>
-                      <Text style={CommonStyles.label,{color:colors.cartButton}}>Rating & Feedback</Text>
+                      <Text style={CommonStyles.label,{color:colors.cartButton,fontFamily:"Montserrat-SemiBold"}}>Rating & Feedback</Text>
                   </TouchableOpacity>  
               </View>
-              <View style={{backgroundColor:"#EEEEEE",padding:5}}>
+              <View style={{backgroundColor:"#EEEEEE",paddingVertical:5}}>
                 {tab === 0 ?
                 <Text style={styles.detaildetailstxt}>{productdata.productDetails}</Text>
                 :                
                 productReview.reviewlist && productReview.reviewlist.length >0 ?  
-                 <View>
-                    <View style={{ flex:1,flexDirection:'row'}}>
+                 <View style={{backgroundColor:"#fff",}}>
+                    <View style={{ flex:1,flexDirection:'row',backgroundColor:"#EEEEEE",}}>
                       <View style={{ flex:1,flexDirection:'row',borderBottomWidth:1,borderColor:'#fff', height:60}}>
                         <View style={{ flex: 0.5,paddingLeft:15,justifyContent:'center'}}>
                           <Text>
@@ -537,7 +543,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         </View>                        
                       </View>                                        
                     </View>
-                    <View style={{ flex:1,flexDirection:'row',height:40}}>
+                    <View style={{ flex:1,flexDirection:'row',height:40,backgroundColor:"#EEEEEE",}}>
                       <Text style={styles.ratingD1T3}>There are {productReview.reviewlist.length} ratings and 2 customer reviews</Text>
                     </View>
                     {productReview.reviewlist.map((item,index)=>{

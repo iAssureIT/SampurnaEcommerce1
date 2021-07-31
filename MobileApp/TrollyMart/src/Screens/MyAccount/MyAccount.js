@@ -175,7 +175,7 @@ export const MyAccount =(props)=>{
                     </View>
                 </View> 
                 <View style={styles1.horizontalLine} />
-                    {userDetails.authService !== "guest" &&
+                    {userDetails.authService !== "guest" ?
                     <View style={{flexDirection:'row',justifyContent:'center'}}>
                         <View style={{alignItems:'center',paddingHorizontal:15}}>   
                             <TouchableOpacity style={styles1.HorizontalBox1}  onPress={()=> logout()} >
@@ -183,11 +183,16 @@ export const MyAccount =(props)=>{
                                 <Image source={require("../../AppDesigns/currentApp/images/logout.png")} style={[styles.iconImg],{height:20,width:20}} />
                             </TouchableOpacity>
                             <Text style={[styles1.label1]}>Log Out</Text>
-                        </View>
-                        <View style={styles1.horizontalLine} />
-                    </View> 
+                        </View>                        
+                    </View>
+                    :
+                        null
                     }
-                
+                {userDetails.authService !== "guest" ?
+                    <View style={styles1.horizontalLine} />
+                    :
+                     null
+                }
                 <View style={{flex:1}}>
                     <View style={{flexDirection:'row',justifyContent:'center'}}>
                         <View style={{alignItems:'center',paddingHorizontal:10}}>   

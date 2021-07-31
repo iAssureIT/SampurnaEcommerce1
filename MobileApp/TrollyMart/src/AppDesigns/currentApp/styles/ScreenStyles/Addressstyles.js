@@ -357,6 +357,7 @@ export default StyleSheet.create({
   },
   nameofcontact:{
     flex:1,
+    marginTop:10
   },
   addchkbx:{
     flex:1,flexDirection:'row',paddingHorizontal:15,paddingVertical:2,alignItems:"center",

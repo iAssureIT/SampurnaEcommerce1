@@ -225,7 +225,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                             {!disabled&&<Icon name="delete" type="AntDesign" size={10} iconStyle={{elevation:5}} color={colors.textLight}  onPress={() => deleteAdress(item._id)}/>}
                         </View>
                         <View style={styles.addchkbx}>
-                          <View style={[styles.nameofcontact]}>
+                          <View style={[styles.nameofcontact]}> 
                             <Text style={CommonStyles.label}> {item.name}</Text>
                           </View>
                           <View style={styles.chkvw}>

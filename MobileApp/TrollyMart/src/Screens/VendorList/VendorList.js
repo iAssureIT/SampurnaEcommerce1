@@ -149,7 +149,7 @@ export const VendorList = withCustomerToaster((props)=>{
                     index       = {index}
                 />
                 <View style={{flexDirection:'row',justifyContent:'center',height:35,backgroundColor:colors.cartButton,marginTop:10}}>
-                    <Text style={styles.topText}>Delivery time <Text style={{fontSize:20,color:'#AC3A3A'}}>9</Text> am to <Text style={{fontSize:20,color:'#AC3A3A',paddingVertical:3}}>11 </Text>pm or next day delivery</Text>
+                    <Text style={styles.topText}>Delivery time <Text style={{fontSize:20,fontFamily:'Montserrat-Bold'}}>9</Text><Text style={{fontFamily:'Montserrat-Bold'}}>am</Text> to <Text style={{fontSize:20,paddingVertical:3,fontFamily:'Montserrat-Bold'}}>11</Text><Text style={{fontFamily:'Montserrat-Bold'}}>pm</Text> or next day delivery</Text>
                 </View>
                 <View style={styles.proddets}>
                 {loading ?

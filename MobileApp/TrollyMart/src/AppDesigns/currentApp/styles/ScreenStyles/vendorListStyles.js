@@ -531,7 +531,7 @@ export default StyleSheet.create({
 
 	topText:{
 		fontSize:14,
-		fontFamily: "Montserrat-SemiBold", 
+		fontFamily: "Montserrat-Regular", 
 		color:'#fff',
 		
 	}
