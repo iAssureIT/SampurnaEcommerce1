@@ -16,7 +16,7 @@ class SalesReports extends Component{
 										'yearlyFilter' 			: false,
 										'customizedDateFilter' 	: false
 			},
-			'currentTabView' 		: "Daily",
+			'currentTabView' 		: "",
 			'tableDatas'        	: [],
 			'reportData'        	: {},
 			'tableData'         	: [],

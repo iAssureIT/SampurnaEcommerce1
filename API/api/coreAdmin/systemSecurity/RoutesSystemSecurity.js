@@ -12,6 +12,7 @@ router.get('/get/checkemailotp/usingID/:ID/:emailotp',UserController.check_userI
 router.get('/get/checkemailotp/usingUsername/:username/:emailotp',UserController.check_username_EmailOTP);
 router.post('/post/loginwithcompanyid',UserController.user_login_with_companyID); //Working
 router.patch('/patch/change_password_withoutotp/username/:username',UserController.user_update_password_withoutotp_username);
+
 router.patch('/patch/setsendemailotpusingID/:ID',UserController.set_send_emailotp_usingID);
 router.patch('/patch/setsendemailotpusingEmail/:emailId',UserController.set_send_emailotp_usingEmail);
 
@@ -37,6 +38,7 @@ router.post('/post/signup/guest_login',UserController.user_signup_guest_login);
 router.patch('/patch/set_send_otp/:username',           UserController.set_send_otp); 
 
 router.patch('/patch/setsendmobileotpusingID/:user_id', UserController.set_send_mobileotp_usingID);//working
+router.patch('/patch/change_password_withoutotp/id/:user_id', UserController.set_send_mobileotp_usingID);//working
 
 
 module.exports = router;

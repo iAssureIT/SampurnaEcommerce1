@@ -21,7 +21,7 @@ class Reports extends Component{
 			"startRange"        	: 0,
 			"limitRange"        	: 10,
 			"dataApiUrl"        	: props && props.dataApiUrl ? props.dataApiUrl : "",		
-		  	"currentView" 			: props.currentView,
+		  	"currentView" 			: props.currentTabView,
 		  	"dataCount"				: props && props.dataCount ? props.dataCount : [],
 		  	"tableData"				: props && props.tableData ? props.tableData : [],
 		  	"tableName"				: props && props.tableName ? props.tableName : [],
@@ -125,7 +125,8 @@ class Reports extends Component{
 							  this.state.currentTabView === "Weekly"  ? <WeeklyReport  twoLevelHeader={this.state.twoLevelHeader} tableHeading={this.state.tableHeading} tableDatas={this.state.tableDatas} /> : 
 							  this.state.currentTabView === "Monthly" ? <MonthlyReport twoLevelHeader={this.state.twoLevelHeader} tableHeading={this.state.tableHeading} tableDatas={this.state.tableDatas} /> :  
 							  this.state.currentTabView === "Yearly"  ? <YearlyReport  twoLevelHeader={this.state.twoLevelHeader} tableHeading={this.state.tableHeading} tableDatas={this.state.tableDatas} /> : 
-							  <CustomisedReport twoLevelHeader={this.state.twoLevelHeader} tableHeading={this.state.tableHeading} tableDatas={this.state.tableDatas} />  
+							  this.state.currentTabView === "Customised"  ? <CustomisedReport twoLevelHeader={this.state.twoLevelHeader} tableHeading={this.state.tableHeading} tableDatas={this.state.tableDatas} /> :
+							  null
 							}
 							
 						  </div>

@@ -826,7 +826,7 @@ exports.user_login_using_email = (req, res, next) => {
 
 	User.findOne({
 		"username" 	: emailId,
-		"roles" 	: role,
+		"roles" 		: role,
 	})
 	.exec()
 	.then(user => {
@@ -1733,10 +1733,10 @@ exports.set_send_emailotp_usingEmail = (req, res, next) => {
 	User.findOne({ "profile.email": req.params.emailId })
 	.then(user => {
 		if(user){
-			// console.log('user status====',user.profile.status)
+			console.log('user status====',user.profile.status)
  			if ((user.profile.status).toLowerCase() === "active") {
  				var optEmail = getRandomInt(1000, 9999);
-				// console.log("optEmail", optEmail, req.body);
+				console.log("optEmail", optEmail, req.body);
 				User.updateOne(
 					{ "profile.email": req.params.emailId },
 					{
@@ -1747,6 +1747,7 @@ exports.set_send_emailotp_usingEmail = (req, res, next) => {
 				)
 				.exec()
 				.then(data => {
+					console.log("data => ", data);
 					if (data.nModified === 1) {
 						User.findOne({ "profile.email": req.params.emailId })
 							.then(user => {
