@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
   titleStyle:{
     fontSize:14,
     color:colors.white,
-    opacity: 1
+    opacity: 1,
+    fontFamily:"Montserrat-Regular",
   },
   titleStyle1:{
     fontSize:18,
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
   },
   titleStyle2:{
     fontSize:12,
+    fontFamily:"Montserrat-Regular",
     color:colors.white
   }
   

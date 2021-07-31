@@ -188,14 +188,14 @@ export default StyleSheet.create({
   },
 
   otpLastText:{
-    color: '#CFCFCF',
+    color: '#aaa',
     fontSize: 12,
     fontFamily: "Montserrat-Regular",
   },
   otpLastText1:{
     color: '#033554',
     fontSize: 14,
-    fontFamily: "Montserrat-Bold",
+    fontFamily: "Montserrat-Regular",
   },
 
   otpTitle:{

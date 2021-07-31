@@ -3,9 +3,11 @@ import {
   Text,
   View,
   Image, TextInput,
+  TouchableOpacity,
   ImageBackground
 } from 'react-native';
 import * as Yup             from 'yup';
+import {Icon }                      from "react-native-elements";
 import {withCustomerToaster} from '../../../redux/AppState.js';
 import styles  from '../../../AppDesigns/currentApp/styles/ScreenStyles/ForgotPasswordOTPStyles.js';
 import {useDispatch}        from 'react-redux';
@@ -138,19 +140,22 @@ const FormBody = (props) => {
 
   return (    
       <View style={{flex:1,backgroundColor:'#fff'}}>        
-          <View style={[styles.boxOpacity,{flex:1,paddingHorizontal:30}]}>
-          <View style={{height: 300}}>
+          <View style={[styles.boxOpacity,{flex:1,paddingHorizontal:0}]}>
+          <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:15,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
+              <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+          </TouchableOpacity>
+          <View style={{height: 160,paddingHorizontal:30,justifyContent:'flex-start'}}>
             <Image
-              style={{height: 220, width: 150, alignSelf: 'flex-start'}}
+              style={{height: 60, width: 150,backgroundColor:'white', alignSelf: 'flex-start'}}
               source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
               resizeMode="contain"
             />
           </View>
-          <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.jpg")} style={[]} resizeMode="cover" >
-           <View style={{marginHorizontal:10}}><Text style={styles.otpTitle}>OTP</Text></View>
+          <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.jpg")} style={{paddingHorizontal:30}} resizeMode="cover" >
+           <View style={{marginHorizontal:5}}><Text style={styles.otpTitle}>OTP</Text></View>
            {/* <View style={styles.textTitleWrapper}><Text style={{ fontSize: 15, fontFamily: 'Montserrat-Regular',alignSelf:'center' }}>Please Enter Verification Code</Text></View> */}
          <OTPInputView
-            style={{width: '80%', height: 100,alignSelf:"center"}}
+            style={{width: '95%', height: 100,alignSelf:"center",marginHorizontal:20}}
             pinCount={4}
             placeholderTextColor={'#333'}
             autoFocusOnLoad
@@ -162,7 +167,7 @@ const FormBody = (props) => {
             // clearInputs={isEmptyString(values.otp)}  
             />
            <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
-           <View>
+           <View style={{marginHorizontal:10}}>
              <Text style={styles.otpLastText}>Didn't receive code?<Text onPress={handleResend} style={styles.otpLastText1}>Request again!</Text></Text>
            </View>
             {/* <View style={{flexDirection:"row",justifyContent:"space-between"}}>

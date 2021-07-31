@@ -200,7 +200,7 @@ const window = Dimensions.get('window');
                       style={styles.syslogoimg1}
                       />
                   </View>
-                      <View style={{marginBottom:30,}}><Text style={styles.signupTitle}>Create a account..!</Text></View>
+                      <View style={{marginBottom:30,}}><Text style={styles.signupTitle}>Create an account..!</Text></View>
                   <View style={commonStyles.formWrapper}>
                   <FormInput
                     labelName       = "First Name"
@@ -248,7 +248,7 @@ const window = Dimensions.get('window');
                   /> */}
                   <View style={{marginHorizontal:10,marginVertical:5}}>
                     <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
-                        <Text>Phone Number</Text>{' '}
+                        <Text style={{fontFamily:'Montserrat-Regular', fontSize: 12,color:'#000'}}>Phone Number</Text>{' '}
                         <Text style={{color: 'red', fontSize: 12}}>
                         *
                         </Text>
@@ -362,7 +362,7 @@ const window = Dimensions.get('window');
                       <TouchableOpacity
                         onPress={() => navigation.navigate('LogIn')} style={{flexDirection:"row"}}>
                           {/* <Icon name="chevron-double-left" type="material-community" size={22} color={colors.textLight} style={{}} /> */}
-                        <Text style={commonStyles.linkText}>Sign In</Text>
+                        <Text style={{fontFamily:"Montserrat-Regular",fontSize: 12,color:'#033554'}}>Sign In</Text>
                       </TouchableOpacity>
                   </View>
                 </View>

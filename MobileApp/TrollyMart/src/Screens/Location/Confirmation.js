@@ -34,6 +34,7 @@ export const Confirmation = withCustomerToaster((props)=>{
       location      : store.location,
       userDetails   : store.userDetails
     }));
+    console.log("userDetails",userDetails);
     const {location,userDetails} = store;
   //   let canGoBack = navigation.canGoBack();
   //   useEffect(() => {
@@ -115,8 +116,8 @@ export const Confirmation = withCustomerToaster((props)=>{
                 </View>  
                 <View style={{flex:.7,justifyContent:"flex-end",paddingHorizontal:40,paddingBottom:20}}>
                     {/* <Image source={require("../../AppDesigns/currentApp/images/delivery.jpeg")} style={{height:300,width:300}}/> */}
-                    <Text style={{color:"#000000",fontFamily:"Montserrat-Bold",fontSize:12}}>Delivery Location</Text>
-                    <Text style={{color:"#EF4D4D",fontSize:9}}>Set your delivery location to browse stores around you.</Text>
+                    <Text style={{color:"#000000",fontFamily:"Montserrat-Regular",fontSize:12}}>Delivery Location</Text>
+                    <Text style={{color:"#EF4D4D",fontFamily:"Montserrat-Regular",fontSize:9}}>Set your delivery location to browse stores around you.</Text>
                 </View>    
                 <View style={{flex:.3}}>
                     <View style={{paddingHorizontal:30,marginBottom:15}}>

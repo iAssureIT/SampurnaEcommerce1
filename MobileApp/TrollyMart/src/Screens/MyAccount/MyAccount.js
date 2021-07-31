@@ -131,7 +131,7 @@ export const MyAccount =(props)=>{
                             {/* <Icon size={30} name='award' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/> */}
                             <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} resizeMode="contain" />
                         </TouchableOpacity>
-                        <Text style={[styles1.label]}>Credit Points</Text>
+                        <Text style={[styles1.label]}>My Credit Points</Text>
                     </View>}
                 </View>    
                 <View style={styles1.horizontalLine} />
@@ -175,6 +175,18 @@ export const MyAccount =(props)=>{
                     </View>
                 </View> 
                 <View style={styles1.horizontalLine} />
+                    {userDetails.authService !== "guest" &&
+                    <View style={{flexDirection:'row',justifyContent:'center'}}>
+                        <View style={{alignItems:'center',paddingHorizontal:15}}>   
+                            <TouchableOpacity style={styles1.HorizontalBox1}  onPress={()=> logout()} >
+                                {/* <Icon size={20} name='logout' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
+                                <Image source={require("../../AppDesigns/currentApp/images/logout.png")} style={[styles.iconImg],{height:20,width:20}} />
+                            </TouchableOpacity>
+                            <Text style={[styles1.label1]}>Log Out</Text>
+                        </View>
+                    </View> 
+                    }
+                <View style={styles1.horizontalLine} />
                 <View style={{flex:1}}>
                     <View style={{flexDirection:'row',justifyContent:'center'}}>
                         <View style={{alignItems:'center',paddingHorizontal:10}}>   
@@ -210,18 +222,7 @@ export const MyAccount =(props)=>{
                     <View style={{flexDirection:'row',justifyContent:'center',marginTop:9,alignItems:'center'}}>
                         <Text style={styles.copyRightText}>V {DeviceInfo.getVersion()}</Text>
                     </View>
-                </View>
-                {userDetails.authService !== "guest" &&
-                <View style={{flexDirection:'row',justifyContent:'center'}}>
-                    <View style={{alignItems:'center',paddingHorizontal:15}}>   
-                        <TouchableOpacity style={styles1.HorizontalBox1}  onPress={()=> logout()} >
-                            {/* <Icon size={20} name='logout' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/logout.png")} style={[styles.iconImg],{height:20,width:20}} />
-                        </TouchableOpacity>
-                        <Text style={[styles1.label1]}>Log Out</Text>
-                    </View>
-                </View> 
-                }
+                </View>                
             </View>
         </ScrollView>}
       </View>

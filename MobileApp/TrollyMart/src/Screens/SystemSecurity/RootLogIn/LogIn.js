@@ -409,8 +409,8 @@ const window = Dimensions.get('window');
                   />
               </View>
               <View style={styles.textTitleWrapper}>
-                <Text style={{fontSize:10,color:"#bbb"}}>Welcome to</Text>
-                <Text style={{fontSize:15,fontWeight:'bold',color:"#000000"}}>Knock Knock</Text>
+                <Text style={{fontSize:14,color:"#bbb",fontFamily:"Montserrat-Medium",}}>Welcome to</Text>
+                <Text style={{fontSize:18,fontWeight:'bold',color:"#000000"}}>Knock Knock</Text>
               </View>
             
             <View style={commonStyles.formWrapper}>
@@ -460,7 +460,7 @@ const window = Dimensions.get('window');
               </TouchableOpacity>
             </View>
             <FormButton
-              title       = {'Login'}
+              title       = {'Sign In'}
               onPress     = {handleSubmit}
               background  = {true}
               // loading     = {btnLoading}
@@ -478,7 +478,7 @@ const window = Dimensions.get('window');
                 <View style={{flexDirection:"row",paddingHorizontal:15}}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                  <Text style={{fontSize:10}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:10}]}> Sign Up</Text></Text>                  
+                  <Text style={{fontSize:10,fontFamily:"Montserrat-Medium",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:10,fontFamily:"Montserrat-Medium",}]}> Sign Up</Text></Text>                  
                 </TouchableOpacity>                
                 </View>
             </View>

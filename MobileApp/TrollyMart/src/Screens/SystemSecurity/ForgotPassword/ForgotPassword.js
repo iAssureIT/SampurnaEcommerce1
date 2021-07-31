@@ -119,12 +119,13 @@ const window = Dimensions.get('window');
                 />
             </View>
             <View style={styles.textTitleWrapper}>
-              <Text style={{fontSize:10,color:"#bbb"}}>Knock Knock</Text>
-              <Text style={{fontSize:15,fontWeight:'bold',color:"#000000"}}>Forgot your password?</Text>
+              <Text style={{fontSize:12,color:"#bbb",fontFamily:"Montserrat-Medium",}}>Knock Knock</Text>
+              <Text style={{fontSize:14,color:"#000000",fontFamily:"Montserrat-Regular",}}>Forgot your password?</Text>
             </View>
             <View style={styles.textTitleWrapper}>
-              <Text style={commonStyles.label}>Enter your email address and we'll send</Text>
-            <Text style={commonStyles.label}>you a link to reset your password.</Text></View>
+              <Text style={styles.textLine1}>Enter your email address/mobile no. and we'll send you a link to reset your password.</Text>
+            {/* <Text style={styles.textLine1}>send you a link to reset your password.</Text> */}
+            </View>
             <View style={commonStyles.formWrapper}>
             <FormInput
               labelName       = "Mobile No / Email Id"
@@ -168,7 +169,7 @@ const window = Dimensions.get('window');
                 <View style={{flexDirection:"row",paddingHorizontal:15}}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                  <Text style={{fontSize:10}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:10}]}> Sign Up</Text></Text>                  
+                  <Text style={{fontSize:10,fontFamily:"Montserrat-Regular",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:14,fontFamily:"Montserrat-Regular"}]}> Sign Up</Text></Text>                  
                 </TouchableOpacity>                
                 </View>
             </View>

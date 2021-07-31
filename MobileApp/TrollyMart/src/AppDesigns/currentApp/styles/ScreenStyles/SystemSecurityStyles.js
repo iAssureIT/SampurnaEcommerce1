@@ -45,7 +45,7 @@ export default StyleSheet.create({
     signupTitle:{
         fontSize:22,
         marginHorizontal:25,
-        fontWeight:'bold',
+        fontFamily:"Montserrat-Bold",
         color:"#000000",
         position:'absolute',
         top:-40,
@@ -60,6 +60,11 @@ export default StyleSheet.create({
     },
     syslogo:{
         flexDirection: 'row', alignItems: "flex-start", marginHorizontal:20,height:200
+    },
+    textLine1:{
+        fontFamily:"Montserrat-Regular",
+        fontSize: 14,
+        color:'#000',
     },
     syslogoimg:{
         width: '50%',
