@@ -15,11 +15,19 @@
     font-size: 12px;
 }
 
+.cartTotalLineWrapper {
+    border     : 1px solid lightgrey !important;
+    position   : absolute;
+    margin-left: -17px;
+    width      : 100%;
+}
+
 .productName {
     margin-bottom: 0.5rem;
     font-weight  : 500;
     line-height  : 1.2;
     font-size    : 14px !important;
+    color        : black;
 }
 
 .table {
@@ -88,7 +96,7 @@
     color      : #648295 !important;
     position   : absolute;
     margin-left: 3% !important;
-    margin-top : 2px !important;
+    margin-top : 3px !important;
     cursor     : pointer !important;
 }
 
