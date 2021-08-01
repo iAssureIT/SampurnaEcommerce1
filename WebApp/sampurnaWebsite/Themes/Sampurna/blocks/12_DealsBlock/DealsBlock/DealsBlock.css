@@ -1,8 +1,11 @@
 .item_Name{
-    font-size: 12px;
+    font-size: 15px;
     padding-left: 0px;
     padding-right: 0px;
     margin-top: 10px;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .dealsBlock img{

@@ -317,3 +317,6 @@ ul.Featured-Brands li {
 }
 
 
+.swiper-container .swiper-pagination-bullet-active{
+    background-color: #033554!important;
+}

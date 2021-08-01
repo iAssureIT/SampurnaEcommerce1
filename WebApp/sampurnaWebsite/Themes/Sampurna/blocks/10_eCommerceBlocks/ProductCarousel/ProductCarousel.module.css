@@ -902,11 +902,12 @@
   }
 
   .titleFont {
-    font-size    : 30px !important;
+    font-size    : 36px !important;
     margin-top   : 40px !important;
     margin-bottom: 60px !important;
     text-align   : left !important;
     overflow     : hidden!important;
+    color        :#000!important;
   }
 
   .sortPbWrapper {
