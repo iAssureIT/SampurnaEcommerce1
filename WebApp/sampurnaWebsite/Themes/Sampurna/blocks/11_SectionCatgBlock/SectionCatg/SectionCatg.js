@@ -123,8 +123,8 @@ class ShoppingVerticals extends Component {
                   </h5> 
                 </div>             */}
 
-<div className={ "col-12 mt-4 " +Style.title4}>
-                    <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont } data-trans="#blog_1554730795823_title">{this.state.blockTitle} <span className={"line " +Style.line}></span></h1>
+              <div className={ "col-12 mt-4 " +Style.title4}>
+                    <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont1 } data-trans="#blog_1554730795823_title">{this.state.blockTitle} <span className={"line " +Style.line}></span></h1>
                     <span className={"hide "+Style.span} id="blog_1554730795823_title"></span>
                     {/*/<div className={"line "+Style.line}></div>*/}
                     {/*<div className={"line "+Style.line}><span className={Style.span}></span></div>*/}
