@@ -51,6 +51,7 @@ export const ResetPassword = withCustomerToaster((props) => {
               };
               axios.patch('/api/auth/patch/change_password_withoutotp/id/'+user_id,formValues)
               .then((response)=>{  
+                console.log("response",response);
                 if(response.data === "PASSWORD_RESET"){
                   setToast({
                     text: "Password Changed",
@@ -106,15 +107,14 @@ export const ResetPassword = withCustomerToaster((props) => {
     const [image, setImage] = useState({profile_photo: '', image: ''});
   
     return (
-      <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyle.container} resizeMode="cover" >
-          <View style={{paddingHorizontal:20}}>
+          <View style={{paddingHorizontal:20,justifyContent:'center',flex:1}}>
           <View style={styles.boxOpacity}>
           <Image
             style={{height: 120, width: 150, alignSelf: 'center'}}
             source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
             resizeMode="contain"
           />
-           <View style={styles.textTitleWrapper}><Text style={commonStyle.headerText}>OTP Verification</Text></View>
+           <View style={styles.textTitleWrapper}><Text style={commonStyle.headerText}>Reset Password</Text></View>
             <FormInput
               labelName     = "Password"
               placeholder   = "Password"
@@ -165,6 +165,5 @@ export const ResetPassword = withCustomerToaster((props) => {
             />
         </View>  
         </View>
-     </ImageBackground> 
     );
   };

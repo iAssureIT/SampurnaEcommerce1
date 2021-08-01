@@ -8,7 +8,9 @@ import {
   Image,
   ScrollView,
   Alert,
-  StyleSheet
+  StyleSheet,
+  Modal,
+  ActivityIndicator
 } from 'react-native';
 import { Icon }             from "react-native-elements";
 import axios                from "axios";
@@ -346,7 +348,7 @@ const window = Dimensions.get('window');
                     title       = {'Sign Up'}
                     onPress     = {handleSubmit}
                     background  = {true}
-                    loading     = {btnLoading}
+                    // loading     = {btnLoading}
                   />
                 </View>  
                  <View
@@ -370,6 +372,21 @@ const window = Dimensions.get('window');
             </View>
         </View>
         </ScrollView>
+        <Modal 
+          animationType="slide"
+          transparent={true}
+          visible={btnLoading}
+        >
+        <View 
+          style={{
+            backgroundColor: 'rgba(0,0,0,0)',
+            flex:1,
+            justifyContent:'center',
+            alignItems:'center'
+          }}>
+            <ActivityIndicator color={colors.theme} size={40}/>
+        </View>
+        </Modal>
     </ImageBackground>
   );
 };

@@ -63,7 +63,7 @@ const window = Dimensions.get('window');
     const isFocused = useIsFocused();
 
     const backAction = () => {
-      Alert.alert("Are you sure you want to exit app?", [
+      Alert.alert("","Are you sure you want to exit app?", [
         {
           text: "Cancel",
           onPress: () => null,

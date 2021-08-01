@@ -44,7 +44,7 @@ const window = Dimensions.get('window');
                   .then(response => {
                     console.log("response",response);
                       setLoading(false);
-                        if(response.data.message == 'OTP_UPDATED') {
+                        if(response.data.message == 'OTP sent on registered mobile number') {
                           // var sendData = {
                           //   "event": "5",
                           //   "toUser_id": response.data.ID,
@@ -63,8 +63,8 @@ const window = Dimensions.get('window');
                           navigation.navigate('ForgotPasswordOTP',{user_id:response.data.ID});
                           setToast({text: 'OTP sent successfully!', color: 'green'});
                           navigation.navigate('ForgotPasswordOTP',{user_id:response.data.ID})
-                      }else if(response.data.message == 'NOT_REGISTER'){
-                          setToast({text: "This username is not registered.", color: colors.warning});
+                      }else if(response.data.message == 'User is not registered'){
+                          setToast({text: response.data.message, color: colors.warning});
                       }else if(response.data.message == 'OTP_NOT_UPDATED'){
                           setToast({text: 'Something went wrong.', color: 'red'});
                       }

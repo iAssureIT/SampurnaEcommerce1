@@ -142,7 +142,7 @@ export const BottomNavScreen = () => (
 
 const RegisterRoutes = createStackNavigator();
 export const RegisterStack = () => (
-  <RegisterRoutes.Navigator headerMode="none" >
+  <RegisterRoutes.Navigator headerMode="none"  initialRouteName="LogIn">
     <RegisterRoutes.Screen name={"LogIn"}             component={LogIn} />
     <RegisterRoutes.Screen name={"RootLogIn"}         component={RootLogIn} />
     <RegisterRoutes.Screen name={"ResetPassword"}     component={ResetPassword} />

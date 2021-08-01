@@ -165,11 +165,11 @@ const getshippingamount=(startRange, limitRange)=>{
     axios.post('/api/wishlist/post', wishValues)
     .then((response) => {
       if(userId){
-        getCartItems(userId);
+        // getCartItems(userId);
       }
-      dispatch(getList('featured',userId,6));
-      dispatch(getList('exclusive',userId,6));
-      dispatch(getList('discounted',userId,10));
+      // dispatch(getList('featured',userId,6));
+      // dispatch(getList('exclusive',userId,6));
+      // dispatch(getList('discounted',userId,10));
       // dispatch(getWishList(user_id));
       setToast({text: response.data.message, color: 'green'});
     })
@@ -352,7 +352,8 @@ const getshippingamount=(startRange, limitRange)=>{
                           </View>
                           <View style={[styles.flx5,{alignItems:'flex-end'}]}>
                               <View style={styles.proddeletes}>
-                                <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID._id,vendor)} >
+    
+                                <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => {addToWishList(item.product_ID._id,vendor),cartData.vendorOrders[i].cartItems[index].product_ID.isWish = !cartData.vendorOrders[i].cartItems[index].product_ID.isWish}} >
                                   <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.product_ID.isWish ?'red':'#999'} iconStyle={{}}/>
                                 </TouchableOpacity>
                                 <TouchableOpacity  onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)} >

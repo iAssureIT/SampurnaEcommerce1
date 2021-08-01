@@ -286,7 +286,7 @@ export const Location = withCustomerToaster((props)=>{
                 GoogleReverseGeocodingQuery
                 query={{key: googleapikey,language: 'en',components: 'country:ae',}}
                 listViewDisplayed={true}
-                currentLocation={true}
+                currentLocation={false}
                 renderDescription={row => row.description || row.formatted_address || row.name}
                 currentLocationLabel='Current Location'
                 nearbyPlacesAPI="GoogleReverseGeocoding"

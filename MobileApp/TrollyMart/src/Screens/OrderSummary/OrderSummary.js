@@ -31,6 +31,7 @@ import { RadioButton }        from 'react-native-paper';
 import HTML from 'react-native-render-html';
 import {KeyboardAwareScrollView}  from 'react-native-keyboard-aware-scroll-view';
 import { NetWorkError } from '../../../NetWorkError.js';
+import FastImage              from 'react-native-fast-image';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{
@@ -193,7 +194,11 @@ import { NetWorkError } from '../../../NetWorkError.js';
   }
 
   const redeemPoints=()=>{
-    // if(creditPointsUsed === 0){
+    if(parseFloat(creditPointsUsed) === 0){
+      setCouponModal(false);
+      setRedeemPoints(0);
+      setToast({text: "Oops! Credit points is invalied", color:colors.warning});
+    }else{  
       var payload={
           "user_ID"     : user_id,
           "creditPointsValueUsed"  : parseFloat(creditPointsUsed)
@@ -212,7 +217,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
         setRedeemPoints(0);
         console.log("err",err);
       })
-    // } 
+    }  
   }
 
   const onCheckLimit = (value) => {
@@ -287,13 +292,13 @@ import { NetWorkError } from '../../../NetWorkError.js';
                 </View>                 
               </View>
               <View style={{paddingLeft:30}}>
-                <TouchableOpacity style={{flexDirection:"row",marginVertical:10,alignItems:'center'}} onPress={()=>{setCouponModal(true)}}>
+                {cartData?.paymentDetails?.afterDiscountCouponAmount === 0 && cartData?.paymentDetails?.creditPointsUsed === 0 ? <TouchableOpacity style={{flexDirection:"row",marginVertical:10,alignItems:'center'}} onPress={()=>{setCouponModal(true)}}>
                     <Image source={require('../../AppDesigns/currentApp/images/coupon.png')}
                       resizeMode="contain"
                       style={{height:13,width:13}}
                     />
                     <Text style={{color: "#3E9D5E"}}> Apply Discount</Text>
-                </TouchableOpacity>  
+                </TouchableOpacity>: null}
                 {
                     cartData && cartData.paymentDetails ?
                     <View style={styles.totaldetails}>
@@ -495,15 +500,21 @@ import { NetWorkError } from '../../../NetWorkError.js';
                                     <View style={[styles.flxpd]}>
                                       <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
                                         {item.product_ID.productImage.length > 0 ?
-                                          <Image
+                                        <FastImage
                                           style={styles.imgwdht}
-                                          source={{ uri: item.product_ID.productImage[0] }}
+                                          source={{ 
+                                            uri: item.product_ID.productImage[0],
+                                            priority: FastImage.priority.high, 
+                                            cache: FastImage.cacheControl.immutable,
+                                          }}
+                                          resizeMode="contain" 
                                         />
                                         :
-                                        <Image
-                                          style={styles.imgwdht}
-                                          source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                                        />
+                                        <FastImage
+                                        style={styles.imgwdht}
+                                        source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                                        resizeMode="contain" 
+                                      />
                                         }
                                       </TouchableOpacity>
                                       

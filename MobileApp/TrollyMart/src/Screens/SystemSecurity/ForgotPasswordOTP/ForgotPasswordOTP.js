@@ -3,9 +3,11 @@ import {
   Text,
   View,
   Image, TextInput,
+  TouchableOpacity,
   ImageBackground
 } from 'react-native';
 import * as Yup             from 'yup';
+import {Icon }                      from "react-native-elements";
 import {withCustomerToaster} from '../../../redux/AppState.js';
 import styles  from '../../../AppDesigns/currentApp/styles/ScreenStyles/ForgotPasswordOTPStyles.js';
 import {useDispatch}        from 'react-redux';
@@ -16,6 +18,8 @@ import OTPInputView         from '@twotalltotems/react-native-otp-input';
 import {FormButton}         from '../../../ScreenComponents/FormButton/FormButton';
 import axios from "axios";
 import { colors, sizes } from '../../../AppDesigns/currentApp/styles/styles.js';
+import AsyncStorage         from '@react-native-async-storage/async-storage';
+import {setUserDetails}     from '../../../redux/user/actions';
 const LoginSchema = Yup.object().shape({
   otp: Yup.string()
   .required('This field is required')
@@ -26,19 +30,22 @@ export const ForgotPasswordOTP = withCustomerToaster((props) => {
   const [btnLoading, setLoading] = useState(false);
   const {setToast,navigation,route} = props; //setToast function bhetta
   const {user_id}=route.params;
-  // const dispatch = useDispatch();
-  
+  const dispatch = useDispatch();
+  // console.log("user_id",userID);
   return (
     <React.Fragment>
       <Formik
-        onSubmit={(data) => {
+        onSubmit={(values,fun) => {
             setLoading(true);
-            let { otp } = data;
-            axios.get('/api/auth/get/checkemailotp/usingID/'+user_id+"/"+otp)
+            fun.resetForm(values);
+            let { otp } = values;
+            console.log("otp",otp);
+            axios.get('/api/auth/get/checkmobileotp/usingID/'+user_id+"/"+otp)
             .then(response => {
+              console.log("response",response);
                 setLoading(false);
-                if (response.data.message == 'SUCCESS') {
-                   navigation.navigate('ResetPassword',{user_id:user_id});
+                if (response.data.message == 'Login Auth Successful') {
+                  navigation.navigate('ResetPassword',{user_id:user_id});
                 }else{
                     setToast({text: 'Please enter correct OTP.', color: colors.warning});
                 }
@@ -89,12 +96,7 @@ const FormBody = (props) => {
   const handleResend = () => {
     setResendLoading(true);
     setFieldValue('otp','');
-    var formValues = {
-      username : "email",
-      "emailSubject"	: "Email Verification", 
-      "emailContent"  : "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
-    }
-    axios.patch('/api/auth/patch/setsendemailotpusingID/'+user_id,formValues)
+    axios.patch('/api/auth/patch/setsendemailotpusingID/'+user_id)
     .then(response => {
         setResendLoading(false)
         if(response.data.message == 'OTP_UPDATED') {
@@ -114,19 +116,24 @@ const FormBody = (props) => {
     })
   }
 
-  return (
-    <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyle.container} resizeMode="cover" >
-      <View style={{paddingHorizontal:20}}>
-          <View style={styles.boxOpacity}>
-          <Image
-            style={{height: 120, width: 150, alignSelf: 'center'}}
-            source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
-            resizeMode="contain"
-          />
-           <View style={styles.textTitleWrapper}><Text style={commonStyle.headerText}>OTP Verification</Text></View>
-           <View style={styles.textTitleWrapper}><Text style={{ fontSize: 17, fontFamily: 'Montserrat-Regular',alignSelf:'center' }}>Please Enter Verification Code</Text></View>
+  return (    
+      <View style={{flex:1,backgroundColor:'#fff'}}>        
+          <View style={[styles.boxOpacity,{flex:1,paddingHorizontal:0}]}>
+          <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:15,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
+              <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+          </TouchableOpacity>
+          <View style={{height: 160,paddingHorizontal:30,justifyContent:'flex-start'}}>
+            <Image
+              style={{height: 60, width: 150,backgroundColor:'white', alignSelf: 'flex-start'}}
+              source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
+              resizeMode="contain"
+            />
+          </View>
+          <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.jpg")} style={{paddingHorizontal:30}} resizeMode="cover" >
+           <View style={{marginHorizontal:5}}><Text style={styles.otpTitle}>OTP</Text></View>
+           {/* <View style={styles.textTitleWrapper}><Text style={{ fontSize: 15, fontFamily: 'Montserrat-Regular',alignSelf:'center' }}>Please Enter Verification Code</Text></View> */}
          <OTPInputView
-            style={{width: '60%', height: 100,alignSelf:"center"}}
+            style={{width: '95%', height: 100,alignSelf:"center",marginHorizontal:20}}
             pinCount={4}
             placeholderTextColor={'#333'}
             autoFocusOnLoad
@@ -134,24 +141,32 @@ const FormBody = (props) => {
             codeInputHighlightStyle={styles.underlineStyleHighLighted}
             onCodeFilled = {handleSubmit}
             onCodeChanged = {handleChange('otp')}
-            // clearInputs
+            code={values.otp}
+            // clearInputs={isEmptyString(values.otp)}  
             />
            <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
-            <View style={{flexDirection:"row",justifyContent:"space-between"}}>
+           <View style={{marginHorizontal:10}}>
+             <Text style={styles.otpLastText}>Didn't receive code?<Text onPress={handleResend} style={styles.otpLastText1}>Request again!</Text></Text>
+           </View>
+            {/* <View style={{flexDirection:"row",justifyContent:"space-between"}}>
+              <View style={{width:"45%"}}>
                 <FormButton
                     title       = {'Verify'}
                     onPress     = {handleSubmit}
                     background  = {btnLoading}
                     loading     = {btnLoading}
                 />
+              </View>
+              <View style={{width:"45%"}}>
                 <FormButton
                     title       = {'Resend OTP'}
                     onPress     = {handleResend}
-                    background  = {resendLoading}
+                    // background  = {resendLoading}
                     loading     = {resendLoading}
                 />
-            </View>    
-          <View
+             </View>   
+            </View>     */}
+          {/* <View
             style={[
               {
                 flexDirection   : 'row',
@@ -164,9 +179,9 @@ const FormBody = (props) => {
             <Text style={commonStyle.linkLightText}>
               Version 1.0.3
             </Text>
-          </View>
+          </View> */}
+          </ImageBackground>
         </View>
-      </View>
-    </ImageBackground>
+      </View>   
   );
 };
