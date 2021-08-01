@@ -784,7 +784,9 @@ class Checkout extends Component {
                             <div className={"col-sm-10 offset-sm-1 mx-auto col-lg-5 mx-auto NoPadding " + Style.modalMainWrapper}>
                                 <div className={"modal-content  pb-0 " + Style.modalContentM}>
                                     <div className={"modal-header globalBgColor col-12 " + Style.modalHeaderM}>
-                                        <div className={"modal-title col-12 modalheadingcont pb-3  underline " + Style.f14BM}><img className={" " + Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO" /><p>Shipping Address</p></div>
+                                        <div className={"modal-title col-12 modalheadingcont pb-3  underline " + Style.f14BM}><img className={" " + Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO" />
+                                        {/* <p>Shipping Address</p> */}
+                                    </div>
                                         <button type="button" className={" close modalclosebut  " + Style.modalCloseButtonWrapperM} data-dismiss="modal">&times;</button>
                                     </div>
                                     <div className={"modal-body addressModalBody " + Style.modalBg}>
@@ -798,7 +800,7 @@ class Checkout extends Component {
                         {/* =====================res======================== */}
 
                         {/* =======================================mb respnsve START=================== */}
-                        <div className={"col-12 d-block d-lg-none d-xl-none font-weight-bold"}>Order Summary</div>
+                        <div className={"col-12 NoPadding d-block d-lg-none d-xl-none font-weight-bold"}>Order Summary</div>
 
                         {this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length > 0 ?
                             this.state.recentCartData.vendorOrders.map((vendorWiseData, index) => {
@@ -931,13 +933,14 @@ class Checkout extends Component {
                         }
                         {/* =======================================mb respnsve END=================== */}
 
-                        <div className={"col-10 offset-1 d-none d-lg-block d-xl-block " + Style.cartTitle}>Order Summary</div>
+                        <div className={"col-10 NoPadding offset-1 d-none d-lg-block d-xl-block " + Style.cartTitle}>Order Summary</div>
                         {this.props.loading ?
                             <Loader type="fullpageloader" />
                             :
                             this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length > 0 ?
                                 <div className="container-fluid">
-                                    <form className="col-12 " id="checkout">
+                                    <div className="col-12">
+                                        <form className="col-12 " id="checkout">
                                         <div className="row">
                                             <div className="col-12 col-xl-3 col-md-12 col-lg-4 col-sm-12">
                                                 <div className="col-12 NoPadding">
@@ -1032,11 +1035,9 @@ class Checkout extends Component {
                                                     </div>
                                                 </div>
 
-
-
                                                 <div className="row mt-2 mb-5 creditWrapper">
                                                     {this.state.creditdataTotalPoints > 0 ?
-                                                        <label className={" " + Style.f13N}>Credit Points Available [{this.state.creditdataTotalPoints}] Points.  <span className={" " + Style.AEDColor}> Total Balance Available [{this.state.creditdataValue}] {this.state.currency}</span></label>
+                                                        <label className={"col-12 " + Style.f13N}>Credit Points Available [{this.state.creditdataTotalPoints}] Points.  <span className={" " + Style.AEDColor}> Total Balance Available [{this.state.creditdataValue}] {this.state.currency}</span></label>
                                                         :
                                                         <label className={" " + Style.f13N}>"You haven't earned any credit points yet"</label>
                                                     }
@@ -1159,7 +1160,7 @@ class Checkout extends Component {
                                                 <div className={"col-lg-4 col-12 col-sm-10 offset-sm-1 mx-auto NoPadding " + Style.modalMainWrapper}>
                                                     <div className={"modal-content  col-md NoPadding " + Style.modalContent}>
                                                         <div className={"modal-header globalBgColor col-12 " + Style.modalHeader}>
-                                                            <div className={"modal-title col-12 modalheadingcont pb-2 text-center underline " + Style.f14B}><img className={" " + Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO" /><u>TERMS AND CONDITIONS</u></div>
+                                                            <div className={"modal-title col-12 modalheadingcont pb-2 text-center underline " + Style.f14B}><img className={" " + Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO" /><u>Terms & Conditions</u></div>
                                                             <button type="button" className={" close modalclosebut  " + Style.modalCloseButtonWrapper} data-dismiss="modal">&times;</button>
                                                         </div>
                                                         <div className={"modal-body col-12  " + Style.modalBodyRadius}>
@@ -1321,7 +1322,9 @@ class Checkout extends Component {
                                                                         <div className="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 ">
                                                                             <div className="col-12 col-lg-11 col-xl-9 col-md-10 col-sm-12 col-xs-12 mb-2 mt-2 couponCreditWrapper">
                                                                                 <div className="row mt-5 couponWrapper ">
-                                                                                    <label className={" " + Style.f13N}>Enter Discount Coupon Here</label>
+                                                                                    <div className="col-12">
+                                                                                        <label className={"col-12 " + Style.f13N}>Enter Discount Coupon Here</label>
+                                                                                    </div>
                                                                                     <div className={"form-group col-8 NoPadding " + Style.border1}>
                                                                                         <input type="text" className={"form-control couponCode " + Style.border1} ref="couponCode" id="couponCode" label="couponCode" value={this.state.couponCode} name="couponCode" placeholder="Enter Discount Coupon Here..." />
                                                                                     </div>
@@ -1332,7 +1335,9 @@ class Checkout extends Component {
                                                                                 <div className={"col-12 mt-2 " + Style.f11N + " " + Style.grey}><div className={"col-4 NoPadding " + Style.orline}></div><span className={"col-1 font-weight-bold " + Style.orclass}>OR</span><div className={"col-4 ml-4 NoPadding " + Style.orline}></div></div>
                                                                                 <div className="row mt-4 mb-5 creditWrapper">
                                                                                     {this.state.creditdataTotalPoints > 0 ?
-                                                                                        <label className={" " + Style.f13N}>Credit Points Available [{this.state.creditdataTotalPoints}] Points.  <span className={" " + Style.AEDColor}> Total Balance Available [{this.state.creditdataValue}] {this.state.currency}</span></label>
+                                                                                        <div className="col-12 ">
+                                                                                            <label className={"col-12 " + Style.f13N}>Credit Points Available [{this.state.creditdataTotalPoints}] Points.  <span className={" " + Style.AEDColor}> Total Balance Available [{this.state.creditdataValue}] {this.state.currency}</span></label>
+                                                                                        </div>
                                                                                         :
                                                                                         <label className={" " + Style.f13N}>"You haven't earned any credit points yet"</label>
                                                                                     }
@@ -1536,6 +1541,7 @@ class Checkout extends Component {
                                             </div>
                                         </div>
                                     </form>
+                                    </div>
                                 </div>
                                 :
                                 <div className="col-12  textAlignCenter mt-4 mb-4 " Style={{ height: "400px" }}>

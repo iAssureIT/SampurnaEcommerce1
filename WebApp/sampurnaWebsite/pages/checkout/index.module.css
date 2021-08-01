@@ -306,8 +306,7 @@
     border-radius: 6px!important;
 
 }
-
-  .addBTN{
+.addBTN{
     background-color: #033554 !important;
     height: 55px;
     font-size: 12px;
@@ -320,6 +319,10 @@
     -webkit-transition: 0.6s ease !important;
     transition: 0.6s ease !important;
     font-weight: 600 !important;
+  }
+  .form-control{
+    border: none !important;
+    border-bottom: solid 1px #ced4da !important ;
   }
   .addBTN1{
     background-color: #033554 !important;
@@ -411,8 +414,8 @@
     .modalLogoWrapper{
         position: absolute;
         height: 29px!important;
-        margin-left: -128px;
-        margin-top: -4px !important;
+        /* margin-left: -128px; */
+        margin-top: -2px !important;
     }
     .GrandTotalBoxMobileView{
     min-height: 420px !important;
