@@ -89,7 +89,7 @@ export default StyleSheet.create({
       },
       android: {
         position: 'absolute',
-        right: 2,
+        right: -5,
         top: -10,
         borderRadius: 9,
         width: 16,
