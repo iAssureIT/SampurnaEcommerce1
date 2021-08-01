@@ -87,7 +87,7 @@
 .infoCircle {
     color      : #648295 !important;
     position   : absolute;
-    margin-left: 7% !important;
+    margin-left: 3% !important;
     margin-top : 2px !important;
     cursor     : pointer !important;
 }
@@ -136,7 +136,7 @@
     }
 
     .cartInnerTitleWrapper h5 strong {
-        font-size: 20px !important;
+        font-size: 17px !important;
     }
 
     .cartSummary1 {

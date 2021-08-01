@@ -773,7 +773,7 @@ submitCart(event) {
                               <span className={"col-8 col-lg-9 col-sm-9 col-xl-9 pb-2 pt-2 "+Style.vendorNameWrapper}> 
                                 <b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
                               </span>
-                              <span className={"col-4 col-lg-3 col-sm-3 col-xl-3 text-right   "+Style.chaneVendorBtn }> 
+                              <span className={"col-4 col-lg-3 col-sm-3 col-xl-3 text-right pt-1   "+Style.chaneVendorBtn }> 
                                   <Link href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 NoPadding t "+Style.changeVendorWrapper} >Change Vendor</Link>
                               </span>
                           </div>
@@ -929,14 +929,13 @@ submitCart(event) {
                                   userLongitude      = {this.state.userLongitude}
                             />
                           :
-                          <div className="col-2 offset-5 ">   
-                              loading....       
+                          <div className="col-2 mx-auto ">  
                               <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
                           </div>
                           }
                           <div className="col-12 seeMoreBtnWrapper">
                             <div className="row">
-                              <button className={"btn btn-secondary col-lg-2 offset-lg-5 col-xl-2 offset-xl-5 col-sm-2 col-4 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
+                              <button className={"btn btn-secondary col-lg-2 col-xl-1 col-sm-2 col-3 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
                             </div>
                           </div>
                       </div>

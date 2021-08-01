@@ -19,20 +19,13 @@ class Cart extends Component{
     constructor(props) {
         super(props);
         this.state={
-            bannerData : {
-                title : "MY SHOPPING CART",
-                breadcrumb : 'My Shopping Cart',
-                backgroungImage : '/images/eCommerce/cartBanner.png',
-            },
-            wishlistProductsloading: true,
             products : [],
         }
     } 
     componentDidMount(){
-        this.getWishlistData();
+        // this.getWishlistData();
     }
     getWishlistData() {
-        // $('.fullpageloader').show();
         var user_ID = localStorage.getItem('user_ID');  
         var productApi = "/api/wishlist/get/userwishlist/"+user_ID;
         store.dispatch(setProductApiUrl(productApi));
@@ -44,9 +37,9 @@ class Cart extends Component{
             <div className="col-12">
                 <div className="row">                    
                     {/*<SmallBanner bannerData={this.state.bannerData}/>*/}
-                    <div className={"col-lg-10 offset-lg-1 " +Style.cartTitle}>Shopping Cart</div>
+                    <div className={"col-lg-10 offset-lg-1 NoPadding " +Style.cartTitle}>Shopping Cart</div>
                     <CartProducts />
-                    { this.props.pageDatapop.pageBlocks && this.props.pageDatapop.pageBlocks.length > 0 ?
+                    {/* { this.props.pageDatapop.pageBlocks && this.props.pageDatapop.pageBlocks.length > 0 ?
 						          this.props.pageDatapop.pageBlocks.map((result, index)=>{                      
 						          var component = result._id ? result.blockComponentName : "TitleDesc";
                       var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
@@ -59,15 +52,15 @@ class Cart extends Component{
                           </div> 
                       }
                       ); 
-                      // console.log("component",component);
+                      console.log("component",component);
 						          return(
                         <div className="col-12 NoPadding" key={index}>
-                          {/* <OtherComponent block_id={block_id} key={index}/> */}
+                          <OtherComponent block_id={block_id} key={index}/>
                         </div>
 						            )
 				              })
 					          : null
-					          }
+					          } */}
                 </div>
               </div>
             <Footer/>

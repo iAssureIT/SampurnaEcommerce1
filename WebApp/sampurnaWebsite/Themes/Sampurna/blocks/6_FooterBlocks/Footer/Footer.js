@@ -5,7 +5,6 @@ import Websitelogo          from '../../5_HeaderBlocks/SampurnaHeader/Websitelog
 import axios from 'axios';
 import S from './Footer.module.css';
 
-
 export default class Footer extends Component {
 
     constructor(props){
