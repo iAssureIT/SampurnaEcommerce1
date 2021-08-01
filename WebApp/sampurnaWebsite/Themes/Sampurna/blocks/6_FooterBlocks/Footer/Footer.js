@@ -52,7 +52,7 @@ export default class Footer extends Component {
         <div className="col-12 NoPadding footerWrapper" >
         <div className="col-12 footerNew ">
             <div className="col-12 col-xl-8 col-lg-8 float-right ">
-                <div className="col-12 textEnd "><i className="fas fa-phone-alt fIcon "></i><span className="phoneT">Phone &nbsp;&nbsp;:&nbsp;&nbsp;</span>  +971 04 591 1186 &nbsp;&nbsp;&nbsp;&nbsp; <i className="fas fa-envelope fIcon"></i><span className="phoneT">Mail Us &nbsp;&nbsp;:&nbsp;&nbsp; </span> support@knock-knockeshop.com</div>
+                <div className="col-12 textEnd "><i className="fa fa-phone fIcon "></i><span className="phoneT">Phone &nbsp;&nbsp;:&nbsp;&nbsp;</span>  +971 04 591 1186 &nbsp;&nbsp;&nbsp;&nbsp; <i className="fas fa-envelope fIcon"></i><span className="phoneT">Mail Us &nbsp;&nbsp;:&nbsp;&nbsp; </span> support@knock-knockeshop.com</div>
             </div>
         </div>
         {this.state.deliveryLocation?
@@ -130,7 +130,7 @@ export default class Footer extends Component {
                           Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
                       </div> */}
                       <div className="col-12 text-center">
-                        <p className="footer3Class"><i className="fas fa-copyright footer3Class">&nbsp;</i>2021 Knock Knock. All Rights Reserved</p>
+                        <p className="footer3Class"><i className="far fa-copyright ">&nbsp;</i>2021 Knock Knock. All Rights Reserved</p>
                       </div>                      
                   </div>
               </div>
