@@ -258,7 +258,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                   <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                 </View>   
                 <FormInput
-                    labelName       = "Address Line 1"
+                    labelName       = "House No/Street Name"
                     // placeholder     = "Please Enter Address..."
                     onChangeText    = {handleChange('addressLine1')}
                     required        = {true}
@@ -271,9 +271,23 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     value           = {values.addressLine1}  
                     // disabled        = {deliveuuuuuuuuuyyry}       
                   />
+                  <FormInput
+                    labelName       = "Area / Street Name"
+                    // placeholder     = "Area"
+                    onChangeText    = {handleChange('fromarea')}
+                    required        = {false}
+                    name            = "fromarea"
+                    errors          = {errors}
+                    touched         = {touched}
+                    // iconName        = {'user-circle-o'}
+                    // iconType        = {'font-awesome'}
+                    autoCapitalize  = "none"
+                    value           = {values.fromarea}  
+                    disabled        = {delivery}       
+                  />
                 <View style={[styles.formInputView, styles.marginBottom20]}>
                   <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingVertical:2}}>
-                    <Text>Address Line 2</Text>{' '}
+                    <Text>Address</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
                     </Text>
@@ -359,20 +373,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     }}/>
               </View>
                <View>
-               <FormInput
-                    labelName       = "Area"
-                    // placeholder     = "Area"
-                    onChangeText    = {handleChange('fromarea')}
-                    required        = {false}
-                    name            = "fromarea"
-                    errors          = {errors}
-                    touched         = {touched}
-                    // iconName        = {'user-circle-o'}
-                    // iconType        = {'font-awesome'}
-                    autoCapitalize  = "none"
-                    value           = {values.fromarea}  
-                    disabled        = {delivery}       
-                  />
+
                 <FormInput
                     labelName       = "City"
                     // placeholder     = "City"
@@ -387,7 +388,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     autoCapitalize  = "none"
                     disabled        = {delivery}  
                   />
-                   <FormInput
+                   {/* <FormInput
                     labelName       = "Emirate"
                     // placeholder     = "Emirate"
                     onChangeText    = {handleChange('fromstate')}
@@ -400,7 +401,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
                     disabled        = {delivery}  
-                  />
+                  /> */}
                    <FormInput
                     labelName       = "Country"
                     // placeholder     = "Country"
@@ -416,7 +417,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     disabled        = {delivery}  
                   />
                   <FormInput
-                    labelName       = "Postal code"
+                    labelName       = "Zip/Postal Code"
                     // placeholder     = "Postal Code"
                     onChangeText    = {handleChange('fromPincode')}
                     required        = {false}
@@ -430,11 +431,11 @@ import { NetWorkError } from '../../../NetWorkError.js';
                 </View>
                 <View style={[styles.formInputView, styles.marginBottom20]}>
                 <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingVertical:2,marginBottom:10}}>
-                    <Text>Type of Address</Text>                    
+                    <Text>Address type</Text>                    
                 </Text>
                   <Dropdown
                     // label               = 'Type of Address'
-                    placeholder         = {"-- Select Address Type --"}
+                    placeholder         = {"-- Select Address Type --"}                    
                     containerStyle      = {styles.ddContainer}
                     dropdownOffset      = {{ top: 0, left: 0 }}
                     itemTextStyle       = {styles.ddItemText}

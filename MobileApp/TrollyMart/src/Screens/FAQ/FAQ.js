@@ -81,7 +81,7 @@ export const FAQ = (props)=>{
                         <View style={[styles.aboutUsHeader]}>
                             <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                                     colors={['#ffffff','#03355480']}
-                                    radius={220}>
+                                    radius={350}>
                                     <Text style={[styles.HeaderText]}>FAQ</Text>
                             </RadialGradient>
                         </View>
@@ -91,9 +91,9 @@ export const FAQ = (props)=>{
                                     const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
                                     console.log("result",item.block_id.fgImage1)
                                     return(
-                                    <List.Accordion style={[styles.queBox]} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:18,color:"#333",elevation:2}]}>
+                                    <List.Accordion style={[styles.queBox]} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:18,color:"#000000",fontFamily:"Montserrat-Regular",}]}>
                                         <View style={[styles.queAns,{marginHorizontal:30}]}>
-                                            <Text style={CommonStyles.normalText}>Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.</Text>
+                                            <Text style={{fontSize:12,color:'#000000',fontFamily:"Montserrat-Regular",}}>Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.</Text>
                                         </View>
                                     </List.Accordion>
                                     )

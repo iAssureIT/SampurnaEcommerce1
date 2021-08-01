@@ -77,7 +77,7 @@ export const TermsAndConditions  = (props)=>{
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                                 colors={['#ffffff','#03355480']}
-                                radius={220}>
+                                radius={350}>
                                 <Text style={[styles.HeaderText]}>Terms and Conditions</Text>
                         </RadialGradient>
                     </View>
@@ -87,7 +87,7 @@ export const TermsAndConditions  = (props)=>{
                                 const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
                                 return(
                                     <View style={{flex:1,paddingHorizontal:15,fontSize:12,color:'#000'}}>
-                                        {result!=="" && <HTML style={{fontSize:12,color:'#000'}} ignoredTags={['br']} html={item.block_id.blockDescription}/>}
+                                        {result!=="" && <HTML baseFontStyle={styles.htmlText1} style={{fontSize:12,color:'#000'}} ignoredTags={['br']} html={item.block_id.blockDescription}/>}
                                         {item.block_id.fgImage1 &&<Image
                                             source={{uri:item.block_id.fgImage1}}
                                             style={{height:200,width:"100%"}}

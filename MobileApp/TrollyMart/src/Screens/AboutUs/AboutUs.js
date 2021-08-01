@@ -79,7 +79,7 @@ export const AboutUs = (props)=>{
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                             colors={['#ffffff','#03355480']}
-                            radius={220}>
+                            radius={350}>
                             <Text style={[styles.HeaderText]}>About Us</Text>
                         </RadialGradient>
                     </View>
@@ -95,7 +95,7 @@ export const AboutUs = (props)=>{
                                                 resizeMode={"stretch"}
                                             />}
                                             {index!==0 &&<View style={[styles.textBox]}>
-                                                {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription} containerStyle={{paddingLeft:15}}/>}                                        
+                                                {result!=="" && <HTML baseFontStyle={styles.htmlText} ignoredTags={['br']} html={item.block_id.blockDescription} containerStyle={{paddingLeft:15}}/>}                                        
                                             </View>}                                        
                                         </View>                                    
                                     )

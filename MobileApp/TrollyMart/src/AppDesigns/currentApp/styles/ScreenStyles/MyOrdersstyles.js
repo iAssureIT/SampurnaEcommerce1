@@ -619,12 +619,23 @@ export default StyleSheet.create({
     zIndex:999,
     color:'#000',     
   },
+  htmlText1:{
+    fontSize:12,
+    fontFamily:"Montserrat-Regular",
+    color:'#000',
+  },
+  htmlText:{
+    fontSize:12,
+    fontFamily:"Montserrat-Regular",
+    color:'#10344A',
+  },
   textBox:{
     marginHorizontal:21,
     borderRadius:9,
     color:'#10344A',
     fontSize:12,
     minHeight:95,
+    fontFamily:"Montserrat-Regular",
     // // position:'absolute',
     top:-25,
     backgroundColor:'#F5F5F5',

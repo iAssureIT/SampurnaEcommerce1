@@ -72,7 +72,7 @@ export const SearchList  = withCustomerToaster((props)=>{
                     :
                     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
                       <Image
-                        source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+                        source={require("../../AppDesigns/currentApp/images/No-Products-Available.png")}
                       />
                       {/* <Button
                           onPress={() => navigation.navigate('Dashboard')}

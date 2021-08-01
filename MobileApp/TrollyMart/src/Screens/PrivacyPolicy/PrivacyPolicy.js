@@ -86,7 +86,7 @@ export const PrivacyPolicy  = (props)=>{
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                                 colors={['#ffffff','#03355480']}
-                                radius={220}>
+                                radius={400}>
                                 <Text style={[styles.HeaderText]}>Privacy Policy</Text>
                         </RadialGradient>
                     </View>
@@ -96,7 +96,7 @@ export const PrivacyPolicy  = (props)=>{
                                 const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
                                 return(
                                     <View style={{flex:1,paddingHorizontal:15}}>
-                                        {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription}/>}
+                                        {result!=="" && <HTML baseFontStyle={styles.htmlText1} ignoredTags={['br']} html={item.block_id.blockDescription}/>}
                                         {item.block_id.fgImage1 &&<Image
                                             source={{uri:item.block_id.fgImage1}}
                                             style={{height:200,width:"100%"}}
