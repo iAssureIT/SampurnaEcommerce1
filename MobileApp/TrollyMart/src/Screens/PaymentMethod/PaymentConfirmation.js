@@ -43,6 +43,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
     preferences     : store.storeSettings.preferences,
   }));
   const {currency}=store.preferences;
+  console.log("order",order);
       return (
         <View style={{backgroundColor:"#fff",minHeight:window.height}}>
             <ScrollView style={{minHeight:window.height}}>
@@ -119,7 +120,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                         <Text style={styles.label2}>Total</Text>
                     </View>
                     <View style={{flex:0.5,alignItems:'flex-end'}}>
-                        <Text style={styles.label3}>{order.paymentDetails.netPayableAmount} {currency}</Text>
+                        <Text style={styles.label3}>{currency} {order.paymentDetails.netPayableAmount} </Text>
                     </View>
                 </View>
                 <View style={{flexDirection:"row",marginTop:16}}>

@@ -27,7 +27,6 @@ export const getSearchResult = (searchText,user_id,limit,scroll) => {
         axios.post("/api/products/get/search/website" ,payload)
         .then((response) => {
             if(response.data <= 10){
-                Alert.alert("STOP SCROLL")
                 dispatch({
                     type: STOP_SCROLL,
                     payload: true,

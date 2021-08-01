@@ -27,6 +27,7 @@ export const Confirmation = withCustomerToaster((props)=>{
     const [btnLoading,setBtnLoading] = useState(false);
     const [showModal,toggleModal] = useState(false);
     const [selection,setSelection] = useState({start:0,end:0});
+    const [deliveryAddress,setDeliveryAddress]  = useState([]);
     const dispatch = useDispatch();
     const mapStyle = [];
     const ref = useRef();
@@ -34,7 +35,7 @@ export const Confirmation = withCustomerToaster((props)=>{
       location      : store.location,
       userDetails   : store.userDetails
     }));
-    console.log("userDetails",userDetails);
+    console.log("userDetails",store.userDetails);
     const {location,userDetails} = store;
   //   let canGoBack = navigation.canGoBack();
   //   useEffect(() => {
@@ -57,6 +58,39 @@ export const Confirmation = withCustomerToaster((props)=>{
   //   ]);
   //   return true;
   // };
+
+  useEffect(() => {
+    getAddressList();
+  },[props]); 
+
+
+  const getAddressList=()=>{
+      var formValues = {
+        "user_id"       : store?.userDetails?.user_id,
+        "latitude"      : store.location?.address?.latlong?.lat,
+        "longitude"     : store.location?.address?.latlong?.lng,
+      }
+      console.log("formValues",formValues);
+      axios.post('/api/ecommusers/myaddresses',formValues)
+        .then((response) => {
+          console.log("response",response);
+          if (response.data.deliveryAddress.length > 0) {
+            var deliveryAddress = response.data.deliveryAddress;
+            setDeliveryAddress(deliveryAddress);
+          }
+        })
+        .catch((error) => {
+          console.log("error",error);
+          if (error.response.status == 401) {
+            AsyncStorage.removeItem('user_id');
+            AsyncStorage.removeItem('token');
+            setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+            navigation.navigate('Auth')
+          }else{
+            setToast({text: 'Something went wrong.', color: 'red'});
+          }  
+        })
+  }
 
     const getPermission = ()=>{
         request(Platform.OS ==='android' ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
@@ -138,7 +172,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                           // loading     = {btnLoading}
                           />
                     </View>
-                    {userDetails.authService !== "guest" ?
+                    {deliveryAddress.length > 0?
                       <View style={{paddingHorizontal:30,marginBottom:15}}>
                         <FormButton
                           title       = {'Choose From Addresses'}

@@ -118,14 +118,6 @@ export const PaymentMethod = withCustomerToaster((props)=>{
       }
     }
     if(i>=vendorOrders.length){
-      var value = addData.mobileNumber;
-      var mobile = "";
-      value = value.replace(/\s/g, '');
-      if(value.startsWith("+")){
-        var temp = value.substring(3, value.length);
-        mobile = temp;
-        console.log(mobile);
-      }
 
       var deliveryAddress = {
         "name"          : addData.name,
@@ -134,7 +126,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         "pincode"       : addData.pincode,
         "city"          : addData.city,
         "state"         : addData.state,
-        "mobileNumber"  : mobile,
+        "mobileNumber"  : addData.mobileNumber,
         "district"      : addData.district,
         "country"       : addData.country,
         "addType"       : addData.addType,

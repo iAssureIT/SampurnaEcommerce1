@@ -96,7 +96,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
         <React.Fragment>
           {isFocused ?<Formik
             onSubmit={(data) => {
-              const {addressLine1,fromaddress,contactperson,fromarea,fromPincode,fromcity,fromstate,fromcountry,fromlatlong,mobileNumber,addresstype}=data;
+              const {addressLine1,fromaddress,contactperson,fromarea,fromPincode,fromcity,fromstate,fromcountry,fromlatlong,mobileNumber,addresstype,callingCode}=data;
               var formValues = {
                 "user_ID"       : userDetails.user_id,
                 "name"          : contactperson,
@@ -146,6 +146,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
               fromcity            : location?.address?.city,
               fromstate           : location?.address?.state,
               fromcountry         : location?.address?.country, 
+              callingCode         : ""
             }}>
             {(formProps) => (
               <FormBody
@@ -249,6 +250,8 @@ import { NetWorkError } from '../../../NetWorkError.js';
                         setValue(text);
                         setFieldValue('mobileNumber',text)
                         const checkValid = phoneInput.current?.isValidNumber(text);
+                        const callingCode = phoneInput.current?.getCallingCode(text);
+                        setFieldValue('callingCode',callingCode)
                         setValid(checkValid)
                       }}
                       containerStyle= {styles1.containerStyle}

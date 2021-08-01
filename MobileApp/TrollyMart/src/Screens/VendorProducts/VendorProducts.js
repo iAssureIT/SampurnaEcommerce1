@@ -143,7 +143,7 @@ const onScroll=(e)=>{
            <View style={[styles.block1]}>
              <View style={{elevation:5,backgroundColor:"#fff"}}>
                 <View style={{backgroundColor:"#EEEEEE",marginTop:3,height:20}}>
-                    <Text numberOfLines={1} style={[{paddingHorizontal:5,fontWeight:"bold",fontSize:14,color:"#333"}]}>{vendor?.vendorName}</Text>
+                    <Text numberOfLines={1} style={[{paddingHorizontal:5,fontWeight:"bold",fontSize:14,color:"#333"}]}>{vendor?.vendorName ? vendor?.vendorName : vendor?.companyName}</Text>
                 </View> 
                 <View style={{height:70}}>
                   <MenuCarouselSection  

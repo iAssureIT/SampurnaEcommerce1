@@ -213,14 +213,15 @@ const getshippingamount=(startRange, limitRange)=>{
 
   const goToProductList=(vendor,sectionUrl)=>{
     var payload ={
-        "vendorID"          : vendor.vendor_id._id,
+        "vendor_ID"          : vendor.vendor_id._id,
         "sectionUrl"        : vendor.cartItems[0].product_ID.section.toLowerCase(),
         "startRange"        : 0,
         "limitRange"        : 8,
       } 
+      console.log("payload",payload);
+      console.log("vendor",vendor);
     dispatch(getCategoryWiseList(payload));
-    
-    navigation.navigate('VendorProducts',{vendor:vendor,sectionUrl:vendor.cartItems[0].product_ID.section.toLowerCase(),section:vendor.cartItems[0].product_ID.section,vendorLocation_id:vendor.vendorLocation_id});
+    navigation.navigate('VendorProducts',{vendor:vendor.vendor_id,sectionUrl:vendor.cartItems[0].product_ID.section.toLowerCase(),section:vendor.cartItems[0].product_ID.section,vendorLocation_id:vendor.vendorLocation_id});
 }
 
   if(cartData && cartData.vendorOrders && cartData.vendorOrders.length>0){
@@ -273,13 +274,13 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View key={index}>
                       <View key={index} style={styles.proddetails}>
                         <View style={styles.flxdir}>
-                          <View style={styles.flxmg}>
+                          <View style={[styles.flxmg,{paddingRight:5}]}>
                             <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id })}>
-                              {item.product_ID.productNameRlang ?
+                              {/* {item.product_ID.productNameRlang ?
                               <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
-                              : 
+                              :  */}
                               <Text numberOfLines={2} style={styles.productname}>{item.product_ID.productName}</Text>
-                              }
+                              {/* } */}
                               </TouchableOpacity>
                             <View style={[styles.flx1, styles.prdet,{marginVertical:5}]}>
                               <View style={[styles.flxdir,{alignItems:'flex-end'}]}>
@@ -309,6 +310,7 @@ const getshippingamount=(startRange, limitRange)=>{
                                 <FastImage
                                   style={styles.imgwdht}
                                   source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                                  resizeMode="contain" 
                                 />
                               }
                             </TouchableOpacity>

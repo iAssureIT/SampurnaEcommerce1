@@ -24,7 +24,6 @@ import {Formik}             from 'formik';
 import {withCustomerToaster} from '../../../redux/AppState.js';
 import {setUserDetails}     from '../../../redux/user/actions';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
-
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -38,6 +37,8 @@ import {
   LoginManager
 } from 'react-native-fbsdk';
 import { ActivityIndicator } from 'react-native';
+import {USER_LOGOUT} from '../../../redux/store';
+import { getCartCount} from '../../../redux/productList/actions';
 
 GoogleSignin.configure({
   // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -174,9 +175,11 @@ const window = Dimensions.get('window');
     const sign_in=(formValues)=>{
       axios.post('/api/auth/post/signup/social_media',formValues)
       .then((res) => {
+        dispatch({type: USER_LOGOUT});
         console.log("response",res);
         setLoading(false)
         if(res.data.message === "Login Auth Successful"){
+          dispatch(getCartCount(res.data.ID));
           if(res.data.passwordreset === false  ){
             navigation.navigate('ChangePassword',{user_id:res.data.ID})
           }else{  

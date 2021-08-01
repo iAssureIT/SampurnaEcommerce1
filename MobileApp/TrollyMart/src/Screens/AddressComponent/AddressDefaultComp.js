@@ -131,25 +131,25 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
     setAddData(adddata);
     setSelectedIndex(selectedindex);
     console.log("adddata",adddata);
-    // var address = {
-    //   'addressLine1'      : adddata.addressLine1,
-    //   'addressLine2'      : adddata.addressLine2,
-    //   'area'              : adddata.area,
-    //   'city'              : adddata.city,
-    //   'state'             : adddata.state,
-    //   'country'           : adddata.country,
-    //   'pincode'           : adddata.pincode,
-    //   'latlong'           : {
-    //     "lat"               : adddata.latitude,
-    //     "lng"               : adddata.longitude
-    //   }
-    // }
-    // console.log("address",address);
-    //   AsyncStorage.setItem('location',JSON.stringify(address));
-    //   dispatch({
-    //       type: SET_USER_ADDRESS,
-    //       payload:address
-    //   })
+    var address = {
+      'addressLine1'      : adddata.addressLine1,
+      'addressLine2'      : adddata.addressLine2,
+      'area'              : adddata.area,
+      'city'              : adddata.city,
+      'state'             : adddata.state,
+      'country'           : adddata.country,
+      'pincode'           : adddata.pincode,
+      'latlong'           : {
+        "lat"               : adddata.latitude,
+        "lng"               : adddata.longitude
+      }
+    }
+    console.log("address",address);
+      AsyncStorage.setItem('location',JSON.stringify(address));
+      dispatch({
+          type: SET_USER_ADDRESS,
+          payload:address
+      })
   }
 
   console.log("addressid",addressid);
@@ -197,7 +197,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                       :
                           styles.addcmpchkbx
                       )]}>
-                    {item.distance<=1 ?
+                    {disabled || item.distance<=1 ?
                       <TouchableOpacity onPress={() => {selectedaddress(i,item._id,item)}} >
                         <View style={{height:24,backgroundColor:colors.cartButton,borderTopLeftRadius:9,borderTopRightRadius:9,flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15,borderWidth:2,borderColor:colors.cartButton}}>
                             {/* <Icon name="home" type="material-community" size={10} iconStyle={{elevation:5}} color={colors.white}/> */}
