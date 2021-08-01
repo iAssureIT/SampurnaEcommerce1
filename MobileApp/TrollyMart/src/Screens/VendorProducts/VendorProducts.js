@@ -27,10 +27,10 @@ import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import { ScrollView } from 'react-native';
 
 const scrollY = new Animated.Value(0);
-const diffClamp= Animated.diffClamp(scrollY,0,135)
+const diffClamp= Animated.diffClamp(scrollY,0,185)
 const translateY = diffClamp.interpolate({
-  inputRange:[0,135],
-  outputRange:[0,-135]
+  inputRange:[0,185],
+  outputRange:[0,-185]
 })
 
 const window = Dimensions.get('window');
@@ -141,26 +141,32 @@ const onScroll=(e)=>{
             
           >
            <View style={[styles.block1]}>
-            <MenuCarouselSection  
-                navigation  = {navigation}   
-                showImage   = {true} 
-                boxHeight   = {40} 
-                selected    = {section}
-                index       = {index}
-            />
-            <CategoryList 
-              navigation      = {navigation}  
-              showImage       = {true} 
-              boxHeight       = {30} 
-              setSubCategory = {setSubCategory}
-              category       = {category? category : ''}
-              // setCategory = {setCategory}
-            />
-            <View style={{flexDirection:"row",marginTop:2,alignItems:'center'}}>
-              <View style={{paddingVertical:2,flex:0.7}}>
-                  <Text numberOfLines={1} style={[CommonStyles.label,{paddingHorizontal:5,fontWeight:"bold"}]}>{vendor?.vendorName}</Text>
-              </View> 
-              <View style={{justifyContent:"flex-end",flexDirection:'row',flex:0.3}}>
+             <View style={{elevation:5,backgroundColor:"#fff"}}>
+                <View style={{backgroundColor:"#EEEEEE",marginTop:3,height:20}}>
+                    <Text numberOfLines={1} style={[{paddingHorizontal:5,fontWeight:"bold",fontSize:14,color:"#333"}]}>{vendor?.vendorName}</Text>
+                </View> 
+                <View style={{height:70}}>
+                  <MenuCarouselSection  
+                      navigation  = {navigation}   
+                      showImage   = {true} 
+                      boxHeight   = {40} 
+                      selected    = {section}
+                      index       = {index}
+                  />
+                </View>  
+            </View>         
+            <View style={{height:60,marginTop:2}}>
+              <CategoryList 
+                navigation      = {navigation}  
+                showImage       = {false} 
+                boxHeight       = {30} 
+                setSubCategory = {setSubCategory}
+                category       = {category? category : ''}
+                // setCategory = {setCategory}
+              />
+            </View>
+            <View style={{marginTop:2,height:40}}>
+              <View style={{justifyContent:"flex-end",flexDirection:'row',flex:1}}>
                 <TouchableOpacity style={{width:26,height:24,elevation:1,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>setShowFilters(true)}>
                   <Image
                     resizeMode="contain"
@@ -198,7 +204,7 @@ const onScroll=(e)=>{
                   vendorLocation_id     = {vendorLocation_id}
                   onEndReachedThreshold = {0.01}
                   onScroll              = {onScroll}
-                  marginTop             = {160}
+                  marginTop             = {185}
                   paddingBottom         = {250}
                   category              = {category}
                   subCategory           = {subCategory}

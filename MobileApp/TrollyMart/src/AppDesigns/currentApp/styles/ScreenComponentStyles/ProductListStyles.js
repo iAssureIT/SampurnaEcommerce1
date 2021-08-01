@@ -489,7 +489,7 @@ export default StyleSheet.create({
 		
 	},
 	subcatimg: {
-		marginTop:30,
+		marginTop:20,
 		height:120,
 		width:120,
 		alignSelf:'center',

@@ -81,12 +81,14 @@ export default StyleSheet.create({
 		fontSize: 15,
 		marginTop: 30,	
 	},
-    subcatimg: {
-		height:120,
-		width:"100%",
-		elevation:5,
-		borderTopRightRadius:20,
-		borderTopLeftRadius:20,
+	subcatimg: {
+		marginTop:15,
+		height:100,
+		width:120,
+		alignSelf:'center',
+		borderTopRightRadius:15,
+		borderTopLeftRadius:15,
+			// borderWidth: 1, borderBottomColor: '#ccc',
 	},
     nameprod: {
 		fontSize: 12, 

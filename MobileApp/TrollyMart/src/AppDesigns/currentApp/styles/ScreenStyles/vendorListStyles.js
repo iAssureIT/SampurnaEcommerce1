@@ -39,10 +39,8 @@ export default StyleSheet.create({
 		top:0,
 		left:0,
 		right:0,
-		height:170,
+		height:185,
 		backgroundColor:"#fff",
-		justifyContent:"center",
-		elevation:5
 	},
 	regionalProductName:{
 		fontFamily:'aps_dev_priyanka',

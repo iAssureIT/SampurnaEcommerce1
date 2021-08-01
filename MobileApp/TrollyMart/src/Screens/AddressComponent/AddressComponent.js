@@ -62,7 +62,6 @@ import { NetWorkError } from '../../../NetWorkError.js';
   const isFocused = useIsFocused();
     const {setToast,navigation,route} = props; //setToast function bhetta
     const dispatch = useDispatch();
-    
     const [googleapikey,setGoogleAPIKey] = useState('');
     const store = useSelector(store => ({
       userDetails : store.userDetails,
@@ -71,7 +70,9 @@ import { NetWorkError } from '../../../NetWorkError.js';
 
     const {userDetails,location}= store;
     console.log("store",store);
-    const {delivery}=route.params;  
+    const {delivery,address_id}=route.params;  
+    console.log("address_id",address_id);
+
     useEffect(() => {
       var type = 'GOOGLE';
       axios.get('/api/projectsettings/get/'+type)
