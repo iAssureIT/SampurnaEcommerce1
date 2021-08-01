@@ -86,7 +86,7 @@ class CategoryBlock extends Component{
                       // console.log("categorydata.categoryUrl===",categorydata.categoryUrl,this.state.sectedCategory,index);
                       {this.state.sectedCategory && this.state.sectedCategory === categorydata.categoryUrl
                         ?
-                            
+                              // console.log("active category===",index)
                               $('.category_'+index).addClass('activeCategory')
                               // $('.category_0').removeClass('activeCategory')
                               // $('.category_'+0).addClass('activeCategory')

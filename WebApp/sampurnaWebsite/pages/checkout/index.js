@@ -877,12 +877,6 @@ class Checkout extends Component {
                                                                         <span>-</span>
                                                                 }
                                                             </td>
-
-
-
-
-
-
                                                         </tr>
 
 
@@ -921,14 +915,9 @@ class Checkout extends Component {
 
                                 ) //end return   
                             })// end fechcartData map
-
-
-
-
-
                             :
                             <div className="col-12  textAlignCenter">
-                                <img className="col-12 col-md-4 col-sm-6 " src={"/images/eCommerce/emptycart.png"} alt="" />
+                                {/* <img className="col-12 col-md-4 col-sm-6 " src={"/images/eCommerce/emptycart.png"} alt="" /> */}
                             </div>
                         }
                         {/* =======================================mb respnsve END=================== */}

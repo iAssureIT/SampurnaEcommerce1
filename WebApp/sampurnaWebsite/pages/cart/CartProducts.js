@@ -337,18 +337,18 @@ class CartProducts extends Component {
                                                                                             <h5 className="productName d-lg-none d-xl-none mt-2  ">{vendorData.product_ID.productName}</h5>
 
                                                                                             {/* {
-                                vendorData.product_ID.discountPercent  ?
-                                    <div className="col-12 NoPadding ">
-                                        <span className="cartOldprice">{this.state.currency}&nbsp;{vendorData.product_ID.originalPrice.toFixed(2)}</span> &nbsp; &nbsp;
-                                        <span className="cartPrice">{this.state.currency}&nbsp;{vendorData.product_ID.discountedPrice.toFixed(2)}</span> &nbsp; &nbsp;
-                                        <span className="cartDiscountPercent">( {Math.floor(vendorData.product_ID.discountPercent)}% Off )</span>
-                                    </div>
-                                    :
-                                    <div className="col-12 NoPadding">
-                                        <span className="price">
-                                        {this.state.currency}&nbsp;{vendorData.product_ID.originalPrice.toFixed(2)}</span>
-                                    </div>
-                                } */}
+                                                                                            vendorData.product_ID.discountPercent  ?
+                                                                                                <div className="col-12 NoPadding ">
+                                                                                                    <span className="cartOldprice">{this.state.currency}&nbsp;{vendorData.product_ID.originalPrice.toFixed(2)}</span> &nbsp; &nbsp;
+                                                                                                    <span className="cartPrice">{this.state.currency}&nbsp;{vendorData.product_ID.discountedPrice.toFixed(2)}</span> &nbsp; &nbsp;
+                                                                                                    <span className="cartDiscountPercent">( {Math.floor(vendorData.product_ID.discountPercent)}% Off )</span>
+                                                                                                </div>
+                                                                                                :
+                                                                                                <div className="col-12 NoPadding">
+                                                                                                    <span className="price">
+                                                                                                    {this.state.currency}&nbsp;{vendorData.product_ID.originalPrice.toFixed(2)}</span>
+                                                                                                </div>
+                                                                                            } */}
                                                                                         </td>
 
                                                                                         <td>
@@ -557,7 +557,19 @@ class CartProducts extends Component {
                                                                                                             <div className="nowrap col-6 col-sm-12 col-sx-12 col-md-4 col-lg-2 col-xl-3 my-4 text-center ">
                                                                                                                 {
                                                                                                                     vendorData.product_ID.availableQuantity > 0 ?
-                                                                                                                        <span className={" cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent > 0 ? (vendorData.product_ID.discountedPrice.toFixed(2) * vendorData.quantity).toFixed(2) : (vendorData.product_ID.originalPrice.toFixed(2) * vendorData.quantity).toFixed(2)}</span>
+                                                                                                                        // <span className={"abc cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent > 0 ? (vendorData.product_ID.discountedPrice.toFixed(2) * vendorData.quantity).toFixed(2) : (vendorData.product_ID.originalPrice.toFixed(2) * vendorData.quantity).toFixed(2)}</span>
+                                                                                                                        <span>
+                                                                                                                        {vendorData.product_ID.discountPercent > 0?
+                                                                                                                            <span className={"abc cartProductPrize "}> 
+                                                                                                                                <span>{this.state.currency}&nbsp;</span>&nbsp;&nbsp;
+                                                                                                                                <span className="cartOldprice" > {(vendorData.product_ID.originalPrice.toFixed(2) * vendorData.quantity).toFixed(2)}</span>&nbsp;&nbsp;
+                                                                                                                                <span>{(vendorData.product_ID.discountedPrice.toFixed(2) * vendorData.quantity).toFixed(2) }</span>
+                                                                                                                            </span>
+                                                                                                                        :
+                                                                                                                            <span className={" cartProductPrize "}> {this.state.currency}&nbsp;{ (vendorData.product_ID.originalPrice.toFixed(2) * vendorData.quantity).toFixed(2)}</span>
+                                                                                                                        }
+                                                                                                                        </span>
+                                                                                                                        
                                                                                                                         :
                                                                                                                         <span>-</span>
                                                                                                                 }
@@ -733,7 +745,7 @@ class CartProducts extends Component {
                                             </div>
                                             :
                                             <div className="col-12  textAlignCenter">
-                                                <img className="col-12 col-md-4 col-sm-6 " src={"/images/eCommerce/emptycart.png"} alt="" />
+                                                {/* <img className="col-12 col-md-4 col-sm-6 " src={"/images/eCommerce/emptycart.png"} alt="" /> */}
                                             </div>
                                     }
                                 </div>
