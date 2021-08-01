@@ -1,63 +1,61 @@
-.item_Name{
-    font-size: 18px;
-    margin-top: 10px;
+.item_Name {
+    font-size    : 18px;
+    margin-top   : 10px;
     margin-bottom: 10px;
 }
 
-.sectionCategoryBlock img{
-    height: 120px;
+.sectionCategoryBlock img {
+    height       : 120px;
     border-radius: 10px;
-    width: 100%;
-}
-.producttextclass{
-    margin-top: 20px;
-    text-transform: capitalize;
-    font-size: 22px;
-}
-.secCateblock .itemImg img{
-    background-image: url(/images/eCommerce/productloader.gif);
-    background-size: cover;
-    background-repeat: no-repeat;
-    box-shadow: -3px 3px 6px #00000029;
-    border-radius: 24px;
-    height: 150px;
+    width        : 100%;
 }
 
-.titleFont{
-  font-size:30px !important;  
-  margin-top:40px !important;
-  /*margin-bottom:20px !important;*/
+.producttextclass {
+    margin-top    : 20px;
+    text-transform: capitalize;
+    font-size     : 22px;
+}
+
+.secCateblock .itemImg img {
+    background-image : url(/images/eCommerce/productloader.gif);
+    background-size  : cover;
+    background-repeat: no-repeat;
+    box-shadow       : -3px 3px 6px #00000029;
+    border-radius    : 24px;
+    height           : 150px;
+}
+
+.titleFont {
+    font-size       : 36px !important;
+    margin-top      : 40px !important;
+    /* margin-bottom: 20px !important; */
+    color           : black;
 }
 
 .line {
-  position: absolute;
-  height: 2px;
-  width:100%;
-  background-color: #000;
-  /*background-color: #ff4157;*/
-  /*margin:0 auto;*/
-  /*margin-bottom: 45px;*/
-  bottom: 0;
-  top : 30;
+    position          : absolute;
+    height            : 2px;
+    width             : 100%;
+    background-color  : #000;
+    /*background-color: #ff4157;*/
+    /*margin          :0 auto;*/
+    /*margin-bottom   : 45px;*/
+    bottom            : 0;
+    top               : 30;
 }
 
-.secCateblock{
+.secCateblock {
     text-decoration: none !important;
-    color: #000;
-    transition: 0.6s ease;
-    margin-bottom: 15px;
+    color          : #000;
+    transition     : 0.6s ease;
+    margin-bottom  : 15px;
 }
-.secCateblock:hover{
+
+.secCateblock:hover {
     color: lightcoral;
 }
 
-.rowPadding{
-    padding:20px 40px 0px 40px;
+.rowPadding {
+    padding: 20px 40px 0px 40px;
 }
 
-.react-multiple-carousel__arrow{
-    /* display: none !important; */
-}
-.react-multiple-carousel__arrow--left{
-
-}

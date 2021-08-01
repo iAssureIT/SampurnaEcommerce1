@@ -906,7 +906,7 @@
     margin-top   : 40px !important;
     margin-bottom: 60px !important;
     text-align   : left !important;
-    overflow     : hidden!important;
+    /* overflow     : hidden!important; */
     color        :#000!important;
   }
 

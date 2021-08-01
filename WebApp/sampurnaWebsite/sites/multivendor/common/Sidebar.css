@@ -320,3 +320,8 @@ ul.Featured-Brands li {
 .swiper-container .swiper-pagination-bullet-active{
     background-color: #033554!important;
 }
+
+.swiper-container .swiper-pagination-bullet{
+    background-color: #fff;
+    border:2px solid #033554!important;
+}

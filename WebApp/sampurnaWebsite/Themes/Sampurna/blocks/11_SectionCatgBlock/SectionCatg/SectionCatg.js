@@ -2,6 +2,8 @@ import React, { Component }   from 'react';
 import $                      from 'jquery';
 import axios                  from 'axios';
 import Link                   from 'next/link';
+import Style                  from '../../10_eCommerceBlocks/ProductCarousel/ProductCarousel.module.css';
+
 import Carousel               from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 class ShoppingVerticals extends Component {
@@ -114,12 +116,19 @@ class ShoppingVerticals extends Component {
       <div className="col-12 mt20">
           {this.state.groupSettings.showTitle?
             <div className="col-12">
-              <div className="col-12 productcomponentheading text-center">
-                <div className="producttextclass  col-12 ">
-                  <h5 className="row mb-3">
-                    <b className={"titleFont " }>{this.state.blockTitle}<span className={"line d-none d-lg-block " }></span></b> 
+              <div className="col-12 productcomponentheading text-center text-lg-left">
+                {/* <div className="producttextclass  col-12 ">
+                  <h5 className="col-12 mb-3 titleFont ">
+                    {this.state.blockTitle}<span className={"line d-none d-lg-block " }></span>
                   </h5> 
-                </div>            
+                </div>             */}
+
+<div className={ "col-12 mt-4 " +Style.title4}>
+                    <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont } data-trans="#blog_1554730795823_title">{this.state.blockTitle} <span className={"line " +Style.line}></span></h1>
+                    <span className={"hide "+Style.span} id="blog_1554730795823_title"></span>
+                    {/*/<div className={"line "+Style.line}></div>*/}
+                    {/*<div className={"line "+Style.line}><span className={Style.span}></span></div>*/}
+			        	</div>
               </div>
             </div>
           :null}   
