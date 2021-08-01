@@ -140,7 +140,7 @@
     vertical-align: middle !important;
 }
 .orderTable>thead>tr>th{
-    padding-bottom: 25px;
+    padding-bottom: 0px;
     border-bottom: 1px solid #ccc;
 }
 .crossOrder{
@@ -335,4 +335,9 @@
 	.price{
         font-size: 13px;   
     }
+    .orderTable>thead>tr>th{
+        padding-bottom: 25px;
+        border-bottom: 1px solid #ccc;
+    }
+    
   }

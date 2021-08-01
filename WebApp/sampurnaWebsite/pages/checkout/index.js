@@ -808,7 +808,7 @@ class Checkout extends Component {
                                 // console.log("vendorWiseCartData==",vendorWiseCartData);
                                 return (
                                     <div className={"col-12 " + Style.singleRow} key={index}>
-                                        <div className="col-12 mt-2 mb-3 d-lg-none d-xl-none "><b>{vendorWiseData.vendor_id.companyName}</b></div>
+                                        <div className={"col-12 mt-2  d-lg-none d-xl-none "+Style.vendorBgColorSM}><b>{vendorWiseData.vendor_id.companyName}</b></div>
 
                                         <table className={"table table-border orderTable d-lg-none d-xl-none " + Style.table}>
                                             <thead>
