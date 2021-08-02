@@ -390,6 +390,7 @@ exports.list_cart_product = (req,res,next)=>{
                     data.vendorOrders[i].vendor_discountAmount      = (vendor_discountAmount).toFixed(2);
                     data.vendorOrders[i].vendor_taxAmount           = (vendor_taxAmount).toFixed(2);
                     data.vendorOrders[i].vendor_shippingCharges     = (vendor_shippingCharges).toFixed(2);
+                    data.vendorOrders[i].vendor_shippingChargesAfterDiscount     = (0).toFixed(2);
                     // data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges).toFixed(2);
                     data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount).toFixed(2);
 
@@ -406,6 +407,7 @@ exports.list_cart_product = (req,res,next)=>{
                 data.paymentDetails.discountAmount              = (order_discountAmount).toFixed(2);
                 data.paymentDetails.taxAmount                   = (order_taxAmount).toFixed(2);
                 /*----------- Apply Shipping charges not greter than max Shipping Charges -----------*/
+                data.paymentDetails.shippingChargesBeforeDiscount = (order_shippingCharges).toFixed(2);
                 data.paymentDetails.shippingCharges             = maxServiceCharges && maxServiceCharges > 0 
                                                                     ? maxServiceCharges > order_shippingCharges 
                                                                         ? 
@@ -427,6 +429,12 @@ exports.list_cart_product = (req,res,next)=>{
                                                                                                                         (order_shippingCharges)
                                                                                                                 )).toFixed(2);
                 data.minOrderAmount                             = minOrderAmount;
+                if(maxServiceCharges && maxServiceCharges > 0 && maxServiceCharges < order_shippingCharges){
+                    for(var k = 0; k<vendorOrders.length;k++){ 
+                       var shippingChargesDiscountPercent     = ((data.vendorOrders[k].vendor_shippingCharges * 100) / order_shippingCharges).toFixed(2); 
+                       data.vendorOrders[k].vendor_shippingChargesAfterDiscount = ((maxServiceCharges * shippingChargesDiscountPercent) / 100).toFixed(2);
+                    }
+                }
                 if(creditPointsData && creditPointsData !== null){
                     var creditPolicyData = await CreditPointsPolicy.findOne();
 
@@ -1069,6 +1077,7 @@ exports.apply_coupon = (req,res,next)=>{
                     data.vendorOrders[i].vendor_discountAmount      = (vendor_discountAmount).toFixed(2);
                     data.vendorOrders[i].vendor_taxAmount           = (vendor_taxAmount).toFixed(2);
                     data.vendorOrders[i].vendor_shippingCharges     = (vendor_shippingCharges).toFixed(2);
+                    data.vendorOrders[i].vendor_shippingChargesAfterDiscount     = (0).toFixed(2);
                     data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges).toFixed(2);
                     
                     order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
@@ -1086,6 +1095,7 @@ exports.apply_coupon = (req,res,next)=>{
                 data.paymentDetails.creditPointsUsed        = 0;
                 data.paymentDetails.creditPointsValueUsed   = (0).toFixed(2);
                 /*----------- Apply Shipping charges not greter than max Shipping Charges -----------*/
+                data.paymentDetails.shippingChargesBeforeDiscount = (order_shippingCharges).toFixed(2);
                 data.paymentDetails.shippingCharges             = maxServiceCharges && maxServiceCharges > 0 
                                                                     ? maxServiceCharges > order_shippingCharges 
                                                                         ? 
@@ -1095,6 +1105,12 @@ exports.apply_coupon = (req,res,next)=>{
                                                                     : 
                                                                         (order_shippingCharges).toFixed(2);
                 
+                if(maxServiceCharges && maxServiceCharges > 0 && maxServiceCharges < order_shippingCharges){
+                    for(var k = 0; k<vendorOrders.length;k++){ 
+                       var shippingChargesDiscountPercent     = ((data.vendorOrders[k].vendor_shippingCharges * 100) / order_shippingCharges).toFixed(2); 
+                       data.vendorOrders[k].vendor_shippingChargesAfterDiscount = ((maxServiceCharges * shippingChargesDiscountPercent) / 100).toFixed(2);
+                    }
+                }
                 if (isCouponValid.code === "FAILED") {
                     errMessage                                      = isCouponValid.message;
                     data.paymentDetails.afterDiscountCouponAmount   = 0;
@@ -1268,6 +1284,7 @@ exports.apply_credit_points = (req,res,next)=>{
                     data.vendorOrders[i].vendor_discountAmount      = (vendor_discountAmount).toFixed(2);
                     data.vendorOrders[i].vendor_taxAmount           = (vendor_taxAmount).toFixed(2);
                     data.vendorOrders[i].vendor_shippingCharges     = (vendor_shippingCharges).toFixed(2);
+                    data.vendorOrders[i].vendor_shippingChargesAfterDiscount     = (0).toFixed(2);
                     // data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges).toFixed(2);
                     data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount).toFixed(2);
 
@@ -1284,6 +1301,7 @@ exports.apply_credit_points = (req,res,next)=>{
                 data.paymentDetails.discountAmount              = (order_discountAmount).toFixed(2);
                 data.paymentDetails.taxAmount                   = (order_taxAmount).toFixed(2);
                 /*----------- Apply Shipping charges not greter than max Shipping Charges -----------*/
+                data.paymentDetails.shippingChargesBeforeDiscount = (order_shippingCharges).toFixed(2);
                 data.paymentDetails.shippingCharges             = maxServiceCharges && maxServiceCharges > 0 
                                                                     ? maxServiceCharges > order_shippingCharges 
                                                                         ? 
@@ -1305,7 +1323,12 @@ exports.apply_credit_points = (req,res,next)=>{
                                                                                                                         (order_shippingCharges)
                                                                                                                 ) - (req.body.creditPointsValueUsed)).toFixed(2);
                 data.minOrderAmount                             = minOrderAmount;
-
+                if(maxServiceCharges && maxServiceCharges > 0 && maxServiceCharges < order_shippingCharges){
+                    for(var k = 0; k<vendorOrders.length;k++){ 
+                       var shippingChargesDiscountPercent                           = ((data.vendorOrders[k].vendor_shippingCharges * 100) / order_shippingCharges).toFixed(2); 
+                       data.vendorOrders[k].vendor_shippingChargesAfterDiscount    = ((maxServiceCharges * shippingChargesDiscountPercent) / 100).toFixed(2);
+                    }
+                }
                 console.log("order_afterDiscountTotal  => ",order_afterDiscountTotal );
                 console.log("order_taxAmount  => ",order_taxAmount );
                 console.log("creditPointsValueUsed  => ",req.body.creditPointsValueUsed );

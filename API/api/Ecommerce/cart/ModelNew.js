@@ -31,6 +31,7 @@ const cartSchema = mongoose.Schema({
             vendor_afterDiscountTotal : Number,
             vendor_netPayableAmount   : Number,  //vendor_netPayableAmount = vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges
             vendor_taxAmount          : Number,
+            vendor_shippingChargesAfterDiscount    : Number,
             vendor_shippingCharges    : Number,
         }                         
     ],
@@ -45,6 +46,7 @@ const cartSchema = mongoose.Schema({
         creditPointsUsed          : Number,
         creditPointsValueUsed     : Number,
         taxAmount                 : Number,
+        shippingChargesBeforeDiscount           : Number,
         shippingCharges           : Number,
         netPayableAmount          : Number,  //NetPayableAmount = afterDiscountCouponAmount + taxAmount + shippingCharges
         currency                  : String,
