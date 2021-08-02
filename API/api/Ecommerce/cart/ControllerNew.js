@@ -1182,7 +1182,15 @@ exports.apply_coupon = (req,res,next)=>{
                             data.paymentDetails.disocuntCoupon_id           = isCouponValid.dataObj._id;
                             data.paymentDetails.discountCouponAmount        = isCouponValid.dataObj.couponvalue;
                             data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
-                            data.paymentDetails.netPayableAmount            = ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges).toFixed(2);
+                            data.paymentDetails.netPayableAmount            = ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + (maxServiceCharges && maxServiceCharges > 0 
+                                                                                                                                                            ? maxServiceCharges > order_shippingCharges 
+                                                                                                                                                                ? 
+                                                                                                                                                                    (order_shippingCharges)
+                                                                                                                                                                : 
+                                                                                                                                                                    maxServiceCharges 
+                                                                                                                                                            : 
+                                                                                                                                                                (order_shippingCharges)
+                                                                                                                                                        )).toFixed(2);
                             
                             res.status(200).json({
                                 data    : data,
@@ -1191,7 +1199,15 @@ exports.apply_coupon = (req,res,next)=>{
                         }    
                     }else{
                         data.paymentDetails.afterDiscountCouponAmount   = 0;
-                        data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);
+                        data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + (maxServiceCharges && maxServiceCharges > 0 
+                                                                                                                            ? maxServiceCharges > order_shippingCharges 
+                                                                                                                                ? 
+                                                                                                                                    (order_shippingCharges)
+                                                                                                                                : 
+                                                                                                                                    maxServiceCharges 
+                                                                                                                            : 
+                                                                                                                                (order_shippingCharges)
+                                                                                                                        )).toFixed(2);
                         res.status(200).json({
                             data    : data,
                             message : "This Coupon Code is Only Applicable if Minimum Cart Amount is "+ isCouponValid.dataObj.minPurchaseAmount
