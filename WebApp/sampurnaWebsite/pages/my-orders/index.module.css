@@ -87,6 +87,10 @@
 .mAuto {
 	margin: auto;
 }
+.myOrderMainTitle{
+	font-family: 'Montserrat-Bold';
+    color: #000000;
+}
 
 @media (min-width: 1200px) {
 

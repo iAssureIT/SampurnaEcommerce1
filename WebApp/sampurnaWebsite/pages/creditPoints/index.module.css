@@ -1,52 +1,127 @@
-.creditWrapper{
-    
+.creditWrapper {
+
     /* border: solid 1px #033554; */
-    height: 440px;
+    height       : 440px;
     border-radius: 20px;
-    height:fit-content! important;
-    margin-top: -45px! important;
-    
+    height       : fit-content ! important;
+    margin-top   : -51px ! important;
+
 
 }
-.accountMainWrapper{
+
+.accountMainWrapper {
     /* border: solid 1px #033554; */
     border-radius: 20px;
-    min-height: 500px! important;
-    height: auto !important;
+    min-height   : 500px ! important;
+    height       : auto !important;
 }
-.creditHeader{
-    padding: 15px;
-    background: #033554;
-    color: #fff;
-    border-top-left-radius: 10px;
+
+.creditHeader {
+    padding                : 15px;
+    background             : #033554;
+    color                  : #fff;
+    border-top-left-radius : 10px;
     border-top-right-radius: 10px;
-    font-size:11px!important;
-    
+    font-size              : 11px !important;
+
 }
 
-.creditRow{
+.creditRow {
     border-bottom: solid 1px #eee;
-    
+
 }
-.creditHeaderBottom{
-    border: solid 1px #033554;
-    border-bottom-left-radius: 12px;
+
+.creditHeaderBottom {
+    /* border: solid 1px #033554; */
+    border-bottom-left-radius : 12px;
     border-bottom-right-radius: 12px;
 }
 
+.CreditPointInnerBox {
+    background   : #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow   : -3px 3px 6px #00000059;
+    border-radius: 10px;
+    opacity      : 1;
+}
+
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { 
-	.creditHeader{
-        padding: 15px;
-        background: #033554;
-        color: #fff;
-        border-top-left-radius: 10px;
+@media (min-width: 1200px) {
+    .creditHeader {
+        padding                : 15px;
+        background             : #033554;
+        color                  : #fff;
+        border-top-left-radius : 10px;
         border-top-right-radius: 10px;
-        font-size: 14px!important;
-        
+        font-size              : 14px !important;
+
     }
 
-    .creditPointTitleWrapper{
-        margin-top: -26px! important;
+    .creditPointTitleWrapper {
+        margin-top : -23px ! important;
+        font-family: 'Montserrat-Bold';
+        color         : #000000;
     }
-  }
+
+    .CreditPointInnerBox {
+        background   : #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow   : -3px 3px 6px #00000059;
+        border-radius: 10px;
+        opacity      : 1;
+    }
+
+    .CreditTotalPtTitle {
+        font-size     : 18px;
+        font-family   : Montserrat-Medium;
+        opacity       : 1;
+        color         : #ffff;
+        letter-spacing: 0px;
+    }
+
+    .CreditDataPtTitle {
+        font-size     : 18px;
+        font-family   : Montserrat-Bold;
+        opacity       : 1;
+        color         : #ffff;
+        letter-spacing: 0px;
+    }
+
+    .CreditCurrentBalTitle {
+        font-size     : 14px;
+        font-family   : Montserrat-Medium;
+        opacity       : 1;
+        color         : #ffff;
+        letter-spacing: 0px;
+    }
+
+    .CreditTotalBalTitle {
+        font-size     : 14px;
+        font-family   : Montserrat-Bold;
+        opacity       : 1;
+        color         : #ffff;
+        letter-spacing: 0px;
+    }
+
+    .CreditCurrentBalTitle1 {
+        font-size     : 14px;
+        font-family   : Montserrat-Medium;
+        opacity       : 1;
+        color         : #000000;
+        letter-spacing: 0px;
+    }
+
+    .CreditEarnedBalTitle1 {
+        font-size     : 14px;
+        font-family   : Montserrat-Medium;
+        opacity       : 1;
+        color         : #3E9D5E;
+        letter-spacing: 0px;
+    }
+
+    .CreditCurrentBalTitle2 {
+        font-size     : 12px;
+        font-family   : Montserrat-Medium;
+        opacity       : 0.5;
+        color         : #000000;
+        letter-spacing: 0px;
+    }
+}

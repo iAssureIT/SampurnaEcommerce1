@@ -124,7 +124,7 @@ class AddressBook extends Component{
     }
     render(){
         return(      
-            <div className="container-flex "> 
+            <div className="col-lg-10 col-12 "> 
             <div className=" col-12">
             
             <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
@@ -142,38 +142,49 @@ class AddressBook extends Component{
             </div>
 
             <Message messageData={this.state.messageData} /> </div>
-            <h5 className="font-weight-bold">My Addresses</h5>
-            <div className={ "container-flex"+Style.accountDashBoardInnerwrapper}>
-                <div className="row">
+            <h4 className={"font-weight-bold "+ Style.accountDashBoardMainTitle}>My Addresses</h4>
+            <div className={ "container-flex "+Style.accountDashBoardInnerwrapper}>
+            <div className={"col-12 "+Style.creditHeader}>
+                        <div className="row">
+                            <div className={"col-12 px-lg-5 text-lg-left text-center "+Style.CreditTotalPtTitle}>Default Address</div>
+                        </div>
+                        
+            </div>
+                {/* <div className="row"> */}
                     <div className="col-12 pt-4 ">
                         <div className="row">
-                            <div className="col-12 col-lg-6 py-4">
+                            <div className="col-12 col-lg-12 py-4">
                                 <div className="col-12"> { this.state.addressLine1 ?
-                                    <div className="">
-                                        <label className="font-weight-bold">Default Shipping / Billing Address</label>
-                                        <p> {this.state.name}
+                                    <div className="col-12">
+                                        <label className={" "+ Style.defaultBillingAddTitle}>Default Shipping / Billing Address</label>
+                                        <p className={"text-justify "+Style.addressInnerDescWrapper} > {this.state.name}
                                             <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {this.state.addressLine1} - {this.state.pincode}.
                                             <br /> {/* {this.state.city},
                                             <br /> */} {/* {this.state.state}, {this.state.country} - {this.state.pincode}
-                                            <br /> */} Contact Number: {this.state.mobileNumber} </p>
+                                            <br /> */} Contact Number: {this.state.mobileNumber}
+                                        </p>
                                         <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.state.deliveryAddressID} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn ">Change Billing Address</div> {/* <i id={this.state.deliveryAddressID} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn anasBtn deleteAdd"></i> */} </div> :
                                     <div className="col-12">
-                                        <label>Default Billing Address</label>
-                                        <p>You have not set a default billing address.</p>
-                                        <div data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn mt-2">Add Billing Address</div>
+                                        <label className={" "+ Style.defaultBillingAddTitle}>Default Billing Address</label>
+                                        <p className={" "+Style.addressInnerDescWrapper}>You have not set a default billing address.</p>
+                                        <div data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn mt-2  mt-0 float-lg-right float-md-right">Add Billing Address</div>
                                     </div> } </div>
                             </div>
-                            <div className="col-12 NOpaddingRight ">
-                                <div className="col-12">
-                                    <label className="text-center font-weight-bold">Additional Address Entries</label>
-                                    <div className="row">
-                                        { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return(
+
+                            <div className="col-12 col-lg-12 py-4">
+                            <div className="col-12">
+                               <div className="col-12">
+                                   <label className={" "+ Style.defaultBillingAddTitle}>Additional Address Entries</label>
+                               </div>
+                               <div className="row">
+                            { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return(
                                         
-                                        <div key={ 'address'+index} className="col-12 col-md-6  py-3">
-                                        <div className="row">
+                                        <div key={ 'address'+index} className="col-12 col-lg-6 col-md-6  py-3">
+
+                                       
                                             <div className="col-12 text-center">
                                                 
-                                                    <p className="text-justify"> {address.name}
+                                                    <p className={"text-justify "+Style.addressInnerDescWrapper}> {address.name}
                                                         <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {address.addressLine1}
                                                         <br /> {/* {this.state.city},
                                                         <br /> */} {/* {address.state}, {address.country} - {address.pincode}
@@ -181,26 +192,32 @@ class AddressBook extends Component{
                                                         <br /> Contact Number: {address.mobileNumber} </p>
                                                     <div className="col-12 pl-lg-0 pl-xl-0 pl-md-0 pl-sm-0 float-left">
                                                         
-                                                        <button data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className=" col-lg-8 col-xl-8 col-12 btn globalCommonBtn float-left">Edit Address</button> 
+                                                        <button data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className=" col-lg-8 col-xl-8 col-8 mx-auto btn globalCommonBtn float-left">Edit Address</button> 
                                                             &nbsp; <i id={address._id} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn deleteAdd  " style={{ "fontSize": '14px' }}></i> 
                                                         </div>
                                                     </div>
                                             </div>
-                                        </div>
+                                        
                                         
                                         ); } }) :
-                                        <p className="text-justify">You have no other address entries in your address book.</p> }
-                                        <div className="col-12 NOpadding py-4">
-                                            <div data-toggle="modal" data-target="#checkoutAddressModal" id="" className={"btn globalCommonBtn addressSaveBtn " }>Add New Address</div>
+                                        <div className="col-12">
+                                        <div className="col-12">
+                                        <p className={"text-justify "+Style.addressInnerDescWrapper}>You have no other address entries in your address book.</p> 
                                         </div>
-                                    </div>
+                                        </div>
+                            }             <div className="col-12">
+                                        <div className="col-12 NOpadding py-4 py-lg-0">
+                                            <div data-toggle="modal" data-target="#checkoutAddressModal" id="" className={"btn globalCommonBtn addressSaveBtn float-lg-right float-md-right" }>Add New Address</div>
+                                        </div>
+                                        </div>
+                                        </div>
                             </div>
-                            </div>
-                        </div>
+                            
+                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+         </div>
         
        
         )

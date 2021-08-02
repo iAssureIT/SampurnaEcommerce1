@@ -1,126 +1,170 @@
-.accUserDetails h6{
+.accUserDetails h6 {
     font-size: 11px !important;
 }
 
-.accUserDetails p{
+.accUserDetails p {
     font-size: 11px !important;
 }
 
-.contactInformationWrapper{
-    border: 1px solid #033554;
+.contactInformationWrapper {
+    border       : 1px solid #033554;
     border-radius: 19px;
 }
 
-.accountDashBoardwrapper{
-    min-height: 300px;
+.accountDashBoardwrapper {
+    min-height         : 300px;
     /* background-color: aqua; */
 }
 
-.addressBookMainWrapper{
-    min-height:300px;
+.accountDashBoardwrapper h4 {
+    font-family: 'Montserrat-Bold';
+    color      : #000000;
+}
+
+.addressBookMainWrapper {
+    min-height         : 300px;
     /* background-color:red; */
 }
 
-.accountDashBoardInnerwrapper{
-    min-height:230px;
+.addressBookMainWrapper h6 {
+    font-family: 'Montserrat-Bold';
+    color      : #000000;
+}
+
+.accountDashBoardInnerwrapper p {
+    font-family: 'Montserrat-Bold';
+    color      : #000000;
+}
+
+.contactInfoTitle {
+    font-family: "Montserrat-Regular";
+    color      : #000000;
+    font-weight: 600;
+    font-size  : 16px;
+}
+
+.contactInfoTitle1 {
+    font-family: "Montserrat-Regular";
+    color      : #000000;
+    font-weight: 300;
+    font-size  : 16px;
+}
+
+.contactDefaultInfoTitle {
+    font-family: 'Montserrat-Bold';
+    color      : #000000;
+}
+
+.accountDashBoardInnerwrapper {
+    min-height      : 230px;
     background-color: white;
-    border: 1px solid #033554;
-    border-radius: 19px;
+    border          : 1px solid #033554;
+    border-radius   : 19px;
 }
 
 
 .box {
-   
+
     background-color: white;
-    border: 1px solid #033554;
-    border-radius: 19px;
-    width: 100%;
-    min-height: 259px!important;
-    height:auto;
-    color: black;
-  }
-  .modalLogoWrapperM{
-      height: 35px;
-  }
-  .f14BM p{
-	font-size: 12px !important;
+    border          : 1px solid #033554;
+    border-radius   : 19px;
+    width           : 100%;
+    min-height      : 259px !important;
+    height          : auto;
+    color           : black;
+}
+
+.modalLogoWrapperM {
+    height: 35px;
+}
+
+.f14BM p {
+    font-size     : 12px !important;
     /* font-weight: bold; */
-    margin-top: 15px;
-    margin-left: 71%;
-    position: absolute;
+    margin-top    : 15px;
+    margin-left   : 71%;
+    position      : absolute;
 
 }
-.modalCloseButtonWrapper{
+
+.modalCloseButtonWrapper {
     margin-left: -27px !important;
-    cursor: pointer!important;
-    margin-top: -25px!important;
+    cursor     : pointer !important;
+    margin-top : -25px !important;
 }
-.modalCloseButtonWrapperM{
+
+.modalCloseButtonWrapperM {
     margin-left: -27px !important;
-    cursor: pointer!important;
-    margin-top: -25px!important;
-    font-size: 24px!important;
+    cursor     : pointer !important;
+    margin-top : -25px !important;
+    font-size  : 24px !important;
 }
-.modalLogoWrapper{
-    position: absolute;
-    height: 29px!important;
+
+.modalLogoWrapper {
+    position   : absolute;
+    height     : 29px !important;
     margin-left: -128px;
-    margin-top: -4px !important;
+    margin-top : -4px !important;
 }
-.modalLogoWrapperM{
-    position: absolute;
-    height: 29px!important;
+
+.modalLogoWrapperM {
+    position   : absolute;
+    height     : 29px !important;
     margin-left: -10px;
-    margin-top: 11px !important;
+    margin-top : 11px !important;
 }
 
 
-.modalHeader{
-    background-color:#033554;
-    border-bottom:0px !important;
-    border-top-left-radius: 19px!important;
-    border-top-right-radius: 19px!important;
+.modalHeader {
+    background-color       : #033554;
+    border-bottom          : 0px !important;
+    border-top-left-radius : 19px !important;
+    border-top-right-radius: 19px !important;
 }
-.modalHeaderM{
-    background-color:#033554;
-    border-bottom:0px !important;
-    border-top-left-radius: 19px!important;
-    border-top-right-radius: 19px!important;
-    padding-bottom: 45px!important;
-}
-.modalBodyRadius{
-    border-radius:0px 0px 6px 6px;
-    border-radius:19px!important;
-  }
 
-.modalContent{
+.modalHeaderM {
+    background-color       : #033554;
+    border-bottom          : 0px !important;
+    border-top-left-radius : 19px !important;
+    border-top-right-radius: 19px !important;
+    padding-bottom         : 45px !important;
+}
+
+.modalBodyRadius {
+    border-radius: 0px 0px 6px 6px;
+    border-radius: 19px !important;
+}
+
+.modalContent {
     border-radius: 25px !important;
 }
-.modalContentM{
+
+.modalContentM {
     border-radius: 25px !important;
-    margin-bottom: 45px!important;
+    margin-bottom: 45px !important;
 }
-  .modal-content {
-    border-radius:3px !important;
-  }
+
+.modal-content {
+    border-radius: 3px !important;
+}
 
 
 
-.modalBg{
-    background-color:#eee;
-    background-color:#fff;
-    padding-bottom:50px !important;
-    border-bottom-left-radius: 19px!important;
+.modalBg {
+    background-color          : #eee;
+    background-color          : #fff;
+    padding-bottom            : 50px !important;
+    border-bottom-left-radius : 19px !important;
     border-bottom-right-radius: 19px !important;
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { 
-	.accUserDetails h6{
+@media (min-width: 1200px) {
+    .accUserDetails h6 {
         font-size: 14px !important;
     }
-    
-    .accUserDetails p{
+
+    .accUserDetails p {
         font-size: 14px !important;
     }
-  }
+}

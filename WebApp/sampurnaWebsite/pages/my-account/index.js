@@ -113,7 +113,7 @@ class MyAccount extends Component{
                 <Header />
                 <div className="container-fluid pb-5 ">
                     <header className="col-12 py-4 text-left text-black">
-                        <h3 className="font-weight-bold  ">My Account</h3>     
+                        <h3 className={"  "+ S.myAccountTitleWrapper}>My Account</h3>     
                     </header>
                     <div className="col-12">
                         <div className="row">
@@ -130,12 +130,12 @@ class MyAccount extends Component{
                     
                                         <a className="nav-link mb-4 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                                             <i className="fa fa-info-circle mr-3"></i>
-                                            <span className=" small text-uppercase">Account Information</span>
+                                            <span className=" small text-uppercase">My Profile</span>
                                         </a>
                                     </div>}
-                                    <a className="nav-link mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="true">
-                                        <i className="fa fa-address-card mr-3"></i>
-                                        <span className=" small text-uppercase">Address Book</span></a>
+                                    <a className="nav-link mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                        <i className="fas fa-map-marker-alt mr-3"></i>
+                                        <span className=" small text-uppercase">My Addresses</span></a>
                 
                                     <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-4 p-3 shadow active": "nav-link mb-4 p-3 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                                         <i className=" fa fa-shopping-cart mr-3"></i>
@@ -166,7 +166,7 @@ class MyAccount extends Component{
                             <div className={"col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 col-12 "+S.myAccountSideWrapper}>
                                 {/* <!-- Tabs content --> */}
                                 <div className="tab-content" id="v-pills-tabContent">
-                                    <div className={this.state.url==="/my-account"?"tab-pane fade shadow rounded bg-white  pb-5 show active":"tab-pane fade shadow rounded bg-white  pb-5"} id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <div className={this.state.url==="/my-account"?"tab-pane fade  bg-white  pb-5 show active":"tab-pane fade shadow rounded bg-white  pb-5"} id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                        <Account/>                          
                                     </div>
                                     
@@ -174,7 +174,7 @@ class MyAccount extends Component{
                                     <EditAccount/>
                                     </div>
                                     
-                                    <div className="tab-pane fade shadow rounded bg-white p-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                    <div className="tab-pane fade  rounded bg-white pb-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                                     <AddressBook/>
                                     </div>
                                     

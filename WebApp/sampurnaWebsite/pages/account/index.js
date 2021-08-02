@@ -100,7 +100,7 @@ class Account extends Component{
     }
     render(){
         return(
-            <div className={ "col-12 NoPadding accountMainWrapper "+Style.accountMainWrapper}> 
+            <div className={ "col-12 col-lg-10 NoPadding accountMainWrapper "+Style.accountMainWrapper}> 
                 <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
                     <div className={"col-lg-5 col-12 col-sm-8 offset-sm-2 mx-auto NoPadding "+Style.modalMainWrapper}>
                         <div className={"modal-content  pb-0 "+Style.modalContentM}>    
@@ -115,7 +115,7 @@ class Account extends Component{
                     </div>
                 </div>
                 <div className="col-12">
-                    <div className={ "col-12 accountDashBoardwrapper py-3 "+Style.accountDashBoardwrapper}>
+                    <div className={ "col-12 accountDashBoardwrapper py-1 "+Style.accountDashBoardwrapper}>
                         <h4 className="font-weight-bold">Account Dashboard</h4>
                         <div className={ "col-12 accountDashBoardInnerwrapper "+Style.accountDashBoardInnerwrapper}>
                             <p>
@@ -124,10 +124,10 @@ class Account extends Component{
                             <div className="row">
                                 <div className="col-12 col-lg-12 offset-lg-1 col-md-12">
                                 <div className="row">
-                                    <div className="col-12 mx-sm-3 d-none d-lg-block d-xl-block d-sm-block d-md-block"><b>Contact Information</b></div>
-                                    <div className="col-12 text-center d-block d-lg-none d-xl-none d-sm-none d-md-none "><b>Contact Information</b></div>
+                                    <div className={"col-12 mx-sm-3 d-none d-lg-block d-xl-block d-sm-block d-md-block "+Style.contactInfoTitle}>Contact Information</div>
+                                    <div className={"col-12 text-center d-block d-lg-none d-xl-none d-sm-none d-md-none "+Style.contactInfoTitle}>Contact Information</div>
 
-                                    <div className="col-12 mt-3 ">
+                                    <div className={"col-12 mt-3 "+Style.contactInfoTitle1}>
                                         <div className={ "col-12 "+Style.accUserDetails}>
                                             <h6 className="col-12 textwrap">{this.state.fullName}</h6>
                                             <h6 className="col-12 ">{this.state.emailId}</h6>
@@ -160,7 +160,7 @@ class Account extends Component{
                                     </div>
                     </div>
                     <div className={ "col-12 addressBookMainWrapper container "+Style.addressBookMainWrapper}>
-                        <h6 className="font-weight-bold">Address Book</h6>
+                        <h6 className=" ">Address Book</h6>
                         <div className="row">
                             {/* <div className="col-12 col-lg-6">
                                 <div className={ "box "+Style.box}> 
@@ -191,14 +191,14 @@ class Account extends Component{
                             <div className="col-12 col-lg-12">
                                 <div className={ "box  "+Style.box}> {/*
                                     <p>className="col-xs-12 col-sm-6"</P> */}
-                                    <div className="col-12 pt-2">
-                                        <div className="col-12 font-weight-bold pb-2">Default Shipping Address</div>
+                                    <div className="col-12 pt-3">
+                                        <div className={"col-12  pb-2 "+Style.contactDefaultInfoTitle}>Default Shipping Address</div>
                                     </div> { this.state.addressLine1 ?
-                                    <div className="col-12">
-                                        <div className={ "col-12   "+Style.accUserDetails}>
+                                    <div className={"col-12 "+Style.contactInfoTitle1}>
+                                        <div className={ "col-12 mx-lg-3  "+Style.accUserDetails}>
                                         <p className="col-12 my-0">{this.state.name}</p>
                                             <p className="col-12"> {this.state.addressLine2 ? this.state.addressLine2+"-" : null} &nbsp; {this.state.addressLine1} {this.state.pincode && <span>- &nbsp; {this.state.pincode}</span>}
-                                                {this.state.emailId && <span>Email: {this.state.emailId}</span>}
+                                            <br />  {this.state.emailId && <span>Email: {this.state.emailId}</span>}
                                                 <br /> Contact Number: {this.state.mobileNumber} 
                                             </p>
                                         </div>
@@ -206,7 +206,7 @@ class Account extends Component{
                                             <div data-toggle="modal" data-target="#checkoutAddressModal" onClick={this.getAddressId.bind(this)} id={this.state.deliveryAddressID} className="btn globalCommonBtn float-right"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT ADDRESS</div>
                                         </div>
                                     </div> :
-                                    <div className="col-12 float-right ">
+                                    <div className={"col-12 float-right "+Style.contactInfoTitle1}>
                                         <p className="col-12" style={{wordBreak : "break-word"}}>You have not set a default shipping/billing address.</p>
                                         <div className="col-12 float-right">
                                             

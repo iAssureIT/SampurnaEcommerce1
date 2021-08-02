@@ -105,6 +105,10 @@
 	border-top: solid 1px #eee;
 }
 
+.savingaMTcOLOR {
+    color: #3e9d5e !important;
+}
+
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 	.container1 {

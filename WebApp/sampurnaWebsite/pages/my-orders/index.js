@@ -313,7 +313,7 @@ export default class MyOrders extends Component {
               :
               //  <div className="col-12"> 
               <div className="col-12 col-xl-12 col-md-12 col-sm-12 px-0">
-                <div className="col-12">
+                <div className={"col-12 "+ Style.myOrderMainTitle}>
                   <h4 className={"table-caption mb-2 "}>My Orders</h4>
                 </div>
 

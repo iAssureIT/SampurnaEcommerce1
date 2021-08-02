@@ -54,56 +54,62 @@ class CreditPoints extends Component{
     }
     render(){
         return(
-            <div className={ "col-lg-10 offset-lg-1 col-12 NoPadding accountMainWrapper pb-4 mt-4 "+Style.accountMainWrapper}> 
+            <div className={ "col-lg-9 float-lg-left col-12 NoPadding accountMainWrapper pb-4 mt-4 "+Style.accountMainWrapper}> 
               <div className="col-12">
-                      <h4 className={"table-caption mb-2 "+Style.creditPointTitleWrapper}>Credit Points</h4>
+                      <h4 className={"table-caption mb-2 "+Style.creditPointTitleWrapper}>My Credit Points</h4>
                   </div>
-                <div className={"col-12 NoPadding pt-5  "+Style.creditWrapper}>
+                <div className={"col-12  pt-5  "+Style.creditWrapper}>
                     <div className={"col-12 "+Style.creditHeader}>
                         <div className="row">
-                            <div className="col-6 text-left">Total Points</div>
-                            <div className="col-6 text-right">{this.state.creditdata&&this.state.creditdata.totalPoints}&nbsp; points</div>
+                            <div className={"col-4 px-lg-5 text-lg-left text-center "+Style.CreditTotalPtTitle}>Total Points</div>
+                            <div className="col-4 text-left"></div>
+
+                            <div className={"col-4 px-lg-5 text-lg-right text-center "+Style.CreditDataPtTitle}>{this.state.creditdata&&this.state.creditdata.totalPoints} Points</div>
                         </div>
                         <div className="row">
-                            <div className="col-6 text-left">Currunt Balance</div>
-                            <div className="col-6 text-right">{this.state.currency}&nbsp;{this.state.creditdata&&this.state.creditdata.totalPoinsValue}&nbsp;</div>
+                            <div className={"col-4 px-lg-5 text-lg-left text-center "+Style.CreditCurrentBalTitle}>Current Balance</div>
+                            <div className="col-4 text-left"></div>
+
+                            <div className={"col-4 px-lg-5 text-lg-right text-center "+Style.CreditTotalBalTitle}>{this.state.currency}&nbsp;{this.state.creditdata&&this.state.creditdata.totalPoinsValue}&nbsp;</div>
                         </div>
                     </div>
                     {this.state.creditdata && this.state.creditdata.transactions && this.state.creditdata.transactions.length>0
                     ?
-                    <div className={"col-12 "+Style.creditHeaderBottom}>
+                    <div className={"col-12 pl-0 pr-0 "+Style.creditHeaderBottom}>
                     <table className="table table-borderless orderTable">
-                        <thead>
+                        <thead className="d-none">
                             <tr>
                                 <th className="text-center">Transaction Date</th>
                                 <th className="text-center">Transaction Details</th>
                                 <th className="text-center">Credit Points</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <div className="container-flex">
                             {this.state.creditdata.transactions && this.state.creditdata.transactions.length>0 && this.state.creditdata.transactions.map((data,index)=>{
                                 // console.log("credit data===",this.state.creditdata.transactions);
                                 return(
                                     data &&
-                                    <tr key={index}>
-                                        <td className="text-center">{data.transactionDate ? moment(data.transactionDate).format('MM/DD/YYYY'):null}</td>
-                                        <td className="text-center">
+                                    <div className={"col-12 mt-4 py-2 "+ Style.CreditPointInnerBox}key={index}>
+                                        <div className="row">
+                                        <div className={"col-4 px-lg-5 my-auto text-lg-left text-center "+Style.CreditCurrentBalTitle1}>{data.transactionDate ? moment(data.transactionDate).format('MM/DD/YYYY'):null}</div>
+                                        <div className="col-4 px-lg-5 text-lg-left text-center">
                                             
-                                            <div ><b>{data.typeOfTransaction}</b></div>
-                                            <div >Order ID - {data.orderID}</div>
-                                            <div >Expiry Date - {moment(data.expiryDate).format('MM/DD/YYYY')}</div>
-                                        </td>
+                                            <div className={" "+Style.CreditCurrentBalTitle1}><b>{data.typeOfTransaction}</b></div>
+                                            <div className={" "+Style.CreditCurrentBalTitle2}>[Order ID - {data.orderID}]</div>
+                                            <div className={" "+Style.CreditCurrentBalTitle2}>[Expiry Date]  [{moment(data.expiryDate).format('MM/DD/YYYY')}]</div>
+                                        </div>
                                         
-                                        <td className="text-center">{data.earnedPoints}</td>
-                                    </tr>
+                                        <div className={"col-4 my-auto px-lg-5 text-lg-right text-center "+Style.CreditEarnedBalTitle1}>+{data.earnedPoints}</div>
+                                    </div>
+                                    </div> 
                                 )}
                                 )
                             }
-                        </tbody>
+                        </div>
                     </table>
                     </div>
                     :
-                    <div className="col-12">Your Wallet is empty</div>
+                    <div className="col-12 text-center my-auto">Your Wallet is empty</div>
                  }
                     
                </div>
