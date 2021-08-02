@@ -214,7 +214,7 @@ class DailyReport extends Component{
               </div>
             </div>
           </div>
-          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt formLable boxHeightother reportTable" >
+          {/*<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt formLable boxHeightother reportTable" >
             <div className="row">  
               {<IAssureTable 
                 tableHeading={this.state.tableHeading}
@@ -226,7 +226,7 @@ class DailyReport extends Component{
                  tableName ={this.state.tableName}
               />}
             </div>
-          </div> 
+          </div> */}
         </div>
       </div>
     );

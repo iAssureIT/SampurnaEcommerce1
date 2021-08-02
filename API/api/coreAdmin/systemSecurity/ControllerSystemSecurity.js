@@ -823,14 +823,15 @@ exports.user_login_using_email = (req, res, next) => {
 	
 	var emailId = (req.body.email).toLowerCase(); 
 	var role  	= (req.body.role).toLowerCase();
-
+	// console.log("emailId => ", emailId);
+	// console.log("role => ", role);
 	User.findOne({
 		"username" 	: emailId,
 		"roles" 		: role,
 	})
 	.exec()
 	.then(user => {
-		console.log("user",user)
+		// console.log("user",user)
 		if (user) {
 			if ((user.profile.status).toLowerCase() === "active") {
 				var pwd = user.services.password.bcrypt;
@@ -1529,6 +1530,53 @@ exports.user_update_password_with_emailOTP_ID = (req, res, next) => {
 		});
 };
 
+exports.user_update_password_with_mobileOTP_ID = (req, res, next) => {
+	// User.findOne({
+	// 	"_id" : req.params.ID,
+	// })
+	// 	.exec()
+	// 	.then(user => {
+	// 		if (user) {
+				bcrypt.hash(req.body.pwd, 10, (err, hash) => {
+					User.updateOne(
+						{ _id: req.params.user_id },
+						{
+							$set: {
+								services: {
+									password: {
+										bcrypt: hash
+									},
+								},
+							}
+						}
+					)
+					.exec()
+					.then(data => {
+						if (data.nModified ==0 1) {
+							res.status(200).json("PASSWORD_RESET");
+						} else {
+							res.status(401).json("PASSWORD_NOT_RESET");
+						}
+					})
+					.catch(err => {
+						console.log(err);
+						res.status(500).json({
+							error: err
+						});
+					});
+				});
+		// 	} else {
+		// 		res.status(404).json({ message: "User Not Found or Otp Didnt match" });
+		// 	}
+		// })
+		// .catch(err => {
+		// 	// console.log('update user status error ',err);
+		// 	res.status(500).json({
+		// 		error: err
+		// 	});
+		// });
+};
+
 exports.user_update_password_with_emailOTP_username = (req, res, next) => {
 	User.findOne({
 		"username": req.params.username,
@@ -1656,7 +1704,7 @@ exports.set_send_mobileotp_usingID = (req, res, next) => {
 						
 					res.status(201).json({ 
 						message 	: "OTP sent on your registered mobile id", 
-						userID 		: user._id 
+						userID 	: user._id 
 					})
 				// } else {
 				// 	res.status(200).json({ message: "OTP_NOT_UPDATED" })

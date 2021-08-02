@@ -39,6 +39,7 @@ router.patch('/patch/set_send_otp/:username',           UserController.set_send_
 
 router.patch('/patch/setsendmobileotpusingID/:user_id', UserController.set_send_mobileotp_usingID);//working
 router.patch('/patch/change_password_withoutotp/id/:user_id', UserController.set_send_mobileotp_usingID);//working
+router.patch('/patch/change_password_using_otp/id/:user_id', UserController.user_update_password_with_mobileOTP_ID);//working
 
 
 module.exports = router;
