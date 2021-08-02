@@ -49,7 +49,7 @@ export const ResetPassword = withCustomerToaster((props) => {
               var formValues = {
                 pwd: data.password,
               };
-              axios.patch('/api/auth/patch/change_password_withoutotp/id/'+user_id,formValues)
+              axios.patch('/api/auth/patch/change_password_using_otp/id/'+user_id,formValues)
               .then((response)=>{  
                 console.log("response",response);
                 if(response.data === "PASSWORD_RESET"){
@@ -58,7 +58,7 @@ export const ResetPassword = withCustomerToaster((props) => {
                     color: 'green',
                   });
                   setLoading(false);
-                  navigation.navigate('RootLogIn');
+                  navigation.navigate('LogIn');
                 }else{
                   setToast({
                     text: "Password not changed",
@@ -117,13 +117,13 @@ export const ResetPassword = withCustomerToaster((props) => {
            <View style={styles.textTitleWrapper}><Text style={commonStyle.headerText}>Reset Password</Text></View>
             <FormInput
               labelName     = "Password"
-              placeholder   = "Password"
+              // placeholder   = "Password"
               onChangeText  = {handleChange('password')}
               errors        = {errors}
               name          = "password"
               required      = {true}
               touched       = {touched}
-              iconName      = {'lock'}
+              // iconName      = {'lock'}
               iconType      = {'font-awesome'}
               rightIcon={
                   <TouchableOpacity  style={{paddingHorizontal:'5%'}} onPress={() => togglePassword(!showPassword)}>
@@ -138,13 +138,13 @@ export const ResetPassword = withCustomerToaster((props) => {
             />
             <FormInput
               labelName     = "Confirm Password"
-              placeholder   = "Confirm Password"
+              // placeholder   = "Confirm Password"
               onChangeText  = {handleChange('confirm_password')}
               errors        = {errors}
               name          = "confirm_password"
               required      = {true}
               touched       = {touched}
-              iconName      = {'lock'}
+              // iconName      = {'lock'}
               iconType      = {'font-awesome'}
               rightIcon={
                   <TouchableOpacity  style={{paddingHorizontal:'5%'}} onPress={() => toggleConfPassword(!showConfPassword)}>
@@ -157,12 +157,14 @@ export const ResetPassword = withCustomerToaster((props) => {
                 }
                 secureTextEntry={!showConfPassword}
             />
-            <FormButton
-              title       = {"Change"}
-              onPress     = {handleSubmit}
-              background  = {true}
-              loading     = {btnLoading}
-            />
+            <View style={{marginVertical:30}}>
+              <FormButton
+                title       = {"Change"}
+                onPress     = {handleSubmit}
+                background  = {true}
+                loading     = {btnLoading}
+              />
+            </View>            
         </View>  
         </View>
     );
