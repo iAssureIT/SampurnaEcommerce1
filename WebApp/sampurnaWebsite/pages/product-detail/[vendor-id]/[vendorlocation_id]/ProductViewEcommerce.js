@@ -588,20 +588,28 @@ class ProductViewEcommerce extends Component{
 																<div className={"col-12 globalProductItemName NoPadding NoPadding" } title={this.state.productData.productName}>
 																	{/* <div><span className={Style.productNameClassNew}>{this.state.productData.productName}</span><span className="productCode">{this.state.productData.productCode+'-'+this.state.productData.itemCode}</span></div> */}
 																	<div className="col-12">
-																		<span className={Style.productNameClassNew}>{this.state.productData.productName}</span>
+																		<span className={Style.productNameClassNew}>{this.state.productData.productName}</span>&nbsp;
 																		<span className="productCode">{this.state.productData.itemCode}</span>
 																	</div>
 																</div>
 														}
-														<div className={"col-12 globalProduct_brand NoPadding mt-2 "+Style.brandName} title={this.state.productData.brand}>Brand : {this.state.productData.brand}</div>
-															<div className={"col-12 NoPadding "+Style.priceWrapperPD}>
+														{this.state.productData.brand &&
+															<div className={"col-12 globalProduct_brand NoPadding mt-2 "+Style.brandName} title={this.state.productData.brand}>Brand : {this.state.productData.brand}</div>
+														}
+														<div className={"col-12 NoPadding "+Style.priceWrapperPD}>
 															{                                  
 																this.state.productData.discountPercent
 																?
 																	<div className="col-12 NoPadding priceWrapper mb-2">
 																		<span className={" " +Style.f123}>Price &nbsp;:&nbsp;&nbsp; <strike className={" " +Style.disPriceColor}>&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</strike>&nbsp;&nbsp;&nbsp;
-																		<span className={" " +Style.priceColor}>{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)}</span>
+																			<span className={Style.percentOff}>{this.state.productData.discountPercent}% </span>
+																			<span className={Style.percentOffTxt}>OFF</span> &nbsp;
+																			<span className={" " +Style.priceColor}>{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)}</span>
 																		</span>
+																		<div className="col-12">
+																			<span className={"pl-4  " +Style.priceColor}>{this.state.currency} &nbsp;{( this.state.productData.originalPrice - this.state.productData.discountedPrice).toFixed(2)}</span> &nbsp;
+																			<span>You saved</span>
+																		</div>
 																	</div>
 																:
 																	<div className={"col-12 NoPadding priceWrapper NoPadding mb-2"}>
@@ -619,10 +627,12 @@ class ProductViewEcommerce extends Component{
 															}
 														</div>
 														<div className={"col-12 NoPadding"}>
-															<div className={"col-12 NoPadding pt-4 mt-4 "+Style.productSize}>
-																<span className={Style.brandName1}>Size : </span>&nbsp; 
-																<span className={Style.brandName2}>{this.state.productData.size}</span>&nbsp;{this.state.productData.unit} 
-															</div>
+															{this.state.productData.size && 
+																<div className={"col-12 NoPadding pt-4 mt-4 "+Style.productSize}>
+																	<span className={Style.brandName1}>Size : </span>&nbsp; 
+																	<span className={Style.brandName2}>{this.state.productData.size}</span>&nbsp;{this.state.productData.unit} 
+																</div>
+															}
 															<div className={"container NoPadding mt-3 "+Style.ProductSize1}>
 																<ul className="nav nav-tabs">
 																	{
@@ -649,6 +659,7 @@ class ProductViewEcommerce extends Component{
 																</ul>
 																<div className="tab-content">
 																	{
+																		this.state.productData.color &&
 																		Array.isArray(this.state.variants) && this.state.variants.map((productItem,productIndex)=>{
 																			return(
 																				<div id={productItem.size} className={"container tab-pane "+(productItem.size === this.state.activeSize ? 'active ': 'fade')} key={productIndex}><br/>

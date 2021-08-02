@@ -120,7 +120,7 @@ class ProductZoom extends Component {
 										customTransition="all .20"
 										transitionDuration={500}
 										// containerClass="carousel-container"
-										removeArrowOnDeviceType={["Desktop","tablet", "mobile"]}
+										// removeArrowOnDeviceType={["Desktop","tablet", "mobile"]}
 										deviceType={this.props.deviceType}
 										//dotListClass="custom-dot-list-style"
 										itemClass={"carousel-item-padding-10-px " +Style.smallBoxImg}>

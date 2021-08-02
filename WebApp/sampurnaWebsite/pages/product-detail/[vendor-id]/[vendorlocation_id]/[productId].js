@@ -8,14 +8,10 @@ import Header               from '../../../../Themes/Sampurna/blocks/5_HeaderBlo
 import Footer               from '../../../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Style                from './product_detail.module.css';
 
-
-
 const { publicRuntimeConfig } = getConfig();
 var SITE_NAME =  publicRuntimeConfig.SITE_NAME;
 
-
 class ProductDetailsEcommerce extends Component{
-
 	constructor(props){
     super(props);
 	    this.state = {
