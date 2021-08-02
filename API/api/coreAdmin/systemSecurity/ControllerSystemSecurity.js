@@ -1552,7 +1552,7 @@ exports.user_update_password_with_mobileOTP_ID = (req, res, next) => {
 					)
 					.exec()
 					.then(data => {
-						if (data.nModified ==0 1) {
+						if (data.nModified === 1) {
 							res.status(200).json("PASSWORD_RESET");
 						} else {
 							res.status(401).json("PASSWORD_NOT_RESET");
