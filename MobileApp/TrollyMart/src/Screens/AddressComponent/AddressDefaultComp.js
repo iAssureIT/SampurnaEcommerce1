@@ -131,25 +131,27 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
     setAddData(adddata);
     setSelectedIndex(selectedindex);
     console.log("adddata",adddata);
-    var address = {
-      'addressLine1'      : adddata.addressLine1,
-      'addressLine2'      : adddata.addressLine2,
-      'area'              : adddata.area,
-      'city'              : adddata.city,
-      'state'             : adddata.state,
-      'country'           : adddata.country,
-      'pincode'           : adddata.pincode,
-      'latlong'           : {
-        "lat"               : adddata.latitude,
-        "lng"               : adddata.longitude
+    if(!delivery){
+      var address = {
+        'addressLine1'      : adddata.addressLine1,
+        'addressLine2'      : adddata.addressLine2,
+        'area'              : adddata.area,
+        'city'              : adddata.city,
+        'state'             : adddata.state,
+        'country'           : adddata.country,
+        'pincode'           : adddata.pincode,
+        'latlong'           : {
+          "lat"               : adddata.latitude,
+          "lng"               : adddata.longitude
+        }
       }
+      console.log("address",address);
+        AsyncStorage.setItem('location',JSON.stringify(address));
+        dispatch({
+            type: SET_USER_ADDRESS,
+            payload:address
+        })
     }
-    console.log("address",address);
-      AsyncStorage.setItem('location',JSON.stringify(address));
-      dispatch({
-          type: SET_USER_ADDRESS,
-          payload:address
-      })
   }
 
   console.log("addressid",addressid);
@@ -168,7 +170,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
               <View style={{flex:0.6,alignItems:'flex-end'}}>
                 <Button
                   buttonStyle={styles.addBtnClass}
-                  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery})}
+                  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,address:undefined})}
                   icon={<View style={styles.addBtnClass}>
                     <Image source={require("../../AppDesigns/currentApp/images/addressNew.png")} style={styles.addBtnImg} />
                   </View>}
@@ -222,7 +224,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                           <Text style={CommonStyles.text}>{item.addressLine1+", "+item.addressLine2}</Text>
                           <View style={styles.mobflx}>
                             <Text style={CommonStyles.text}>Mobile : </Text>
-                            <Text style={CommonStyles.text}>{item.mobileNumber}</Text>
+                            <Text style={CommonStyles.text}>{item.isdCode ? "+"+item.isdCode : ""}{item.mobileNumber}</Text>
                           </View>
                         </View>
                       </TouchableOpacity>

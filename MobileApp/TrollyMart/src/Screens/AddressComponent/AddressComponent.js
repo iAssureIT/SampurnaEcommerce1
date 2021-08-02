@@ -71,7 +71,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
     const {userDetails,location}= store;
     console.log("store",store);
     const {delivery,address}=route.params;  
-    console.log("address",address);
+    console.log("address",route.params);
 
     useEffect(() => {
       var type = 'GOOGLE';
@@ -113,7 +113,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                 "mobileNumber"  : mobileNumber,
                 "isdCode"       : callingCode,
                 "addType"       : addresstype,
-                "deliveryAddressID" :address._id 
+                "deliveryAddressID" :address?._id 
               }
               console.log("formValues",formValues);
               if(address){
@@ -162,7 +162,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
               fromlatlong         :  address ? {lat:address.latitude,lng:address.longitude} : location?.address?.latlong,
               fromcity            : address ? address.city  : location?.address?.city,
               fromstate           : address ? address.state  :location?.address?.state,
-              fromcountry         : address ? address.country  :ocation?.address?.country, 
+              fromcountry         : address ? address.country  :location?.address?.country, 
               callingCode         : address ? address.isdCode  :"+971"
             }}>
             {(formProps) => (
