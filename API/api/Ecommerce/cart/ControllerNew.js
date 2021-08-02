@@ -1114,7 +1114,15 @@ exports.apply_coupon = (req,res,next)=>{
                 if (isCouponValid.code === "FAILED") {
                     errMessage                                      = isCouponValid.message;
                     data.paymentDetails.afterDiscountCouponAmount   = 0;
-                    data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);
+                    data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + (maxServiceCharges && maxServiceCharges > 0 
+                                                                                                                        ? maxServiceCharges > order_shippingCharges 
+                                                                                                                            ? 
+                                                                                                                                (order_shippingCharges)
+                                                                                                                            : 
+                                                                                                                                maxServiceCharges 
+                                                                                                                        : 
+                                                                                                                            (order_shippingCharges)
+                                                                                                                    )).toFixed(2);
                     
                     res.status(200).json({
                         data    : data,
@@ -1143,7 +1151,15 @@ exports.apply_coupon = (req,res,next)=>{
                             data.paymentDetails.disocuntCoupon_id           = isCouponValid.dataObj._id;
                             data.paymentDetails.discountCouponPercent       = isCouponValid.dataObj.couponvalue;
                             data.paymentDetails.afterDiscountCouponAmount   = (discoutAfterCouponApply).toFixed(2);
-                            data.paymentDetails.netPayableAmount            = ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges).toFixed(2);
+                            data.paymentDetails.netPayableAmount            = ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + (maxServiceCharges && maxServiceCharges > 0 
+                                                                                                                                                            ? maxServiceCharges > order_shippingCharges 
+                                                                                                                                                                ? 
+                                                                                                                                                                    (order_shippingCharges)
+                                                                                                                                                                : 
+                                                                                                                                                                    maxServiceCharges 
+                                                                                                                                                            : 
+                                                                                                                                                                (order_shippingCharges)
+                                                                                                                                                        )).toFixed(2);
                             
                             res.status(200).json({
                                 data    : data,
