@@ -207,7 +207,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                               style={{height:15,width:15}}
                             />
                             <View style={{flexDirection:'row'}}>
-                            {!disabled&&<Icon name="edit" type="font-awesome-5" size={15} iconStyle={{elevation:5,paddingHorizontal:5}} color={"#bbb"}  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address_id":item._id})}/>}
+                            {!disabled&&<Icon name="edit" type="font-awesome-5" size={15} iconStyle={{elevation:5,paddingHorizontal:5}} color={"#bbb"}  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})}/>}
                             {!disabled&&<Icon name="delete" type="AntDesign" size={15} iconStyle={{elevation:5}} color={"#bbb"}  onPress={() => deleteAdress(item._id)}/>} 
                             </View>  
                         </View>  

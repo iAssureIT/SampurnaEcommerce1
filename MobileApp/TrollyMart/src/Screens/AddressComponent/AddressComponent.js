@@ -70,8 +70,8 @@ import { NetWorkError } from '../../../NetWorkError.js';
 
     const {userDetails,location}= store;
     console.log("store",store);
-    const {delivery,address_id}=route.params;  
-    console.log("address_id",address_id);
+    const {delivery,address}=route.params;  
+    console.log("address",address);
 
     useEffect(() => {
       var type = 'GOOGLE';
@@ -111,41 +111,58 @@ import { NetWorkError } from '../../../NetWorkError.js';
                 "latitude"      : fromlatlong.lat,
                 "longitude"     : fromlatlong.lng,
                 "mobileNumber"  : mobileNumber,
+                "isdCode"       : callingCode,
                 "addType"       : addresstype,
+                "deliveryAddressID" :address._id 
               }
-              axios.patch('/api/ecommusers/patch/address', formValues)
-              .then((response) => {
-                // if(delivery){
-                  // navigation.navigate('OrderSummary', { 'addData': formValues, 'user_id': userDetails.user_id })
-                // }else{
-                  navigation.navigate('AddressDefaultComp',{"delivery":delivery});
-                // }
-              })
-              .catch((error) => {
-                console.log('error', error)
-              });
+              console.log("formValues",formValues);
+              if(address){
+                axios.patch('/api/ecommusers/updateuseraddress', formValues)
+                .then((response) => {
+                  // if(delivery){
+                    // navigation.navigate('OrderSummary', { 'addData': formValues, 'user_id': userDetails.user_id })
+                  // }else{
+                    navigation.navigate('AddressDefaultComp',{"delivery":delivery});
+                  // }
+                })
+                .catch((error) => {
+                  console.log('error', error)
+                });
+              }else{
+                axios.patch('/api/ecommusers/patch/address', formValues)
+                .then((response) => {
+                  // if(delivery){
+                    // navigation.navigate('OrderSummary', { 'addData': formValues, 'user_id': userDetails.user_id })
+                  // }else{
+                    navigation.navigate('AddressDefaultComp',{"delivery":delivery});
+                  // }
+                })
+                .catch((error) => {
+                  console.log('error', error)
+                });
+              }
             }}
             validationSchema={LoginSchema}
             initialValues={{
               inputFocusColor     : colors.textLight,
               isOpen              : false,
               starCount           : 2.5,
-              mobileNumber        : userDetails.mobile,
+              mobileNumber        : address ? address.mobileNumber : userDetails.mobile,
               countryCode         : userDetails.countryCode,
               pincodenotexist     : '',
-              contactperson       : (userDetails.firstName+" "+userDetails.lastName).trim(),
-              addresstype         : 'Home',
+              contactperson       : address ? address.name  : (userDetails.firstName+" "+userDetails.lastName).trim(),
+              addresstype         : address ? address.addType  :'Home',
               addsaved            : false,
               validpincodeaddress : false,
               pincodeExists       : false,
-              addressLine1        : "",
-              fromaddress         : location?.address?.addressLine2,
-              fromarea            : location?.address?.area,
+              addressLine1        : address ? address.addressLine1 : "",
+              fromaddress         : address ? address.addressLine2  : location?.address?.addressLine2,
+              fromarea            : address ? address.area  :  location?.address?.area,
               fromPincode         : '',
-              fromlatlong         : location?.address?.latlong,
-              fromcity            : location?.address?.city,
-              fromstate           : location?.address?.state,
-              fromcountry         : location?.address?.country, 
+              fromlatlong         :  address ? {lat:address.latitude,lng:address.longitude} : location?.address?.latlong,
+              fromcity            : address ? address.city  : location?.address?.city,
+              fromstate           : address ? address.state  :location?.address?.state,
+              fromcountry         : address ? address.country  :ocation?.address?.country, 
               callingCode         : ""
             }}>
             {(formProps) => (
@@ -155,6 +172,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                 setToast        = {setToast}
                 googleapikey    = {googleapikey}
                 delivery        = {delivery}
+                address          = {address}
                 {...formProps}
               />
             )}
@@ -176,6 +194,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
         setToast,
         googleapikey,
         delivery,
+        address
       } = props;
       const [value, setValue] = useState("");
       const [valid, setValid] = useState(false);
@@ -246,7 +265,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                       defaultValue={values.mobileNumber}
                       defaultCode={values.countryCode ? values.countryCode : "AE"}
                       layout="first"
-                      onChangeFormattedText={(text) => {
+                      onChangeText={(text) => {
                         setValue(text);
                         setFieldValue('mobileNumber',text)
                         const checkValid = phoneInput.current?.isValidNumber(text);
@@ -459,7 +478,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                  </View>
                  <View style={{marginHorizontal:30,}}>
                     <FormButton
-                    title       = {'Save Address'}
+                    title       = {address ? 'Update Address' :'Save Address'}
                     onPress     = {handleSubmit}
                     background  = {true}
                     loading     = {btnLoading}

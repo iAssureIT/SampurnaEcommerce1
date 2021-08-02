@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		334D892EDC428A590558AA47 /* Pods_TrollyMartTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4A76DF35C12D2AA9153F173 /* Pods_TrollyMartTests.framework */; };
 		7C0C2C55266E381000D83162 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009616266CF52A008C2278 /* Montserrat-Medium.ttf */; };
 		7C0C2C57266E381000D83162 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7CED594A263C9ABF00A70AD0 /* Montserrat-Bold.otf */; };
 		7C0C2C58266E381000D83162 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CED5949263C9ABF00A70AD0 /* Montserrat-Regular.ttf */; };
@@ -30,8 +31,6 @@
 		7C2E61C2266E7434001C5D72 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009690266D1CD2008C2278 /* Zocial.ttf */; };
 		7C34B64A266E58EA0078724F /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C34B649266E58EA0078724F /* GoogleMaps.framework */; };
 		7C34B64D266E590B0078724F /* §.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C34B64B266E590B0078724F /* §.m */; };
-		7C34B650266E593E0078724F /* libPods-TrollyMart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C34B64F266E593E0078724F /* libPods-TrollyMart.a */; };
-		7C34B652266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C34B651266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a */; };
 		7C43CF122671E8B6004E3DB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38EC266F3605004A4ED2 /* Images.xcassets */; };
 		7C46EF13266E536A001EFAF2 /* TrollyMartTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TrollyMartTests.m */; };
 		7C68E7D82694B449004C7F19 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C68E7D72694B449004C7F19 /* File.swift */; };
@@ -40,6 +39,7 @@
 		7C6A38F1266F3605004A4ED2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C6A38EB266F3605004A4ED2 /* main.m */; };
 		7C90279B2694DB7800E9AC10 /* Icon-App-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C90279A2694DB7800E9AC10 /* Icon-App-60x60@2x.png */; };
 		7CFF629B2695A75B00B1EFD5 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CFF629A2695A75B00B1EFD5 /* AppCenter-Config.plist */; };
+		D2237C40099BB12D72BD78A4 /* Pods_TrollyMart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C49A8A421720B4BBB4D8BF63 /* Pods_TrollyMart.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +58,7 @@
 		00E356F21AD99517003FC87E /* TrollyMartTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrollyMartTests.m; sourceTree = "<group>"; };
 		1070D0C083692586D4DADFFC /* Pods-TrollyMart-TrollyMartTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMart-TrollyMartTests.release.xcconfig"; path = "Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TrollyMart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrollyMart.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		182E3BEB03A1A6783B6B5634 /* Pods-TrollyMartTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMartTests.release.xcconfig"; path = "Target Support Files/Pods-TrollyMartTests/Pods-TrollyMartTests.release.xcconfig"; sourceTree = "<group>"; };
 		72C5A81AB5E516BB491819A5 /* Pods-TrollyMart-TrollyMartTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMart-TrollyMartTests.debug.xcconfig"; path = "Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7C009616266CF52A008C2278 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Medium.ttf"; path = "../assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		7C009681266D1CD2008C2278 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -81,8 +82,6 @@
 		7C34B649266E58EA0078724F /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Maps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		7C34B64B266E590B0078724F /* §.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "§.m"; path = "TrollyMart/§.m"; sourceTree = "<group>"; };
 		7C34B64C266E590B0078724F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TrollyMart/main.m; sourceTree = "<group>"; };
-		7C34B64F266E593E0078724F /* libPods-TrollyMart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-TrollyMart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C34B651266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-TrollyMart-TrollyMartTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C43CF132671EA81004E3DB2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C68E7D62694B448004C7F19 /* TrollyMart-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TrollyMart-Bridging-Header.h"; sourceTree = "<group>"; };
 		7C68E7D72694B449004C7F19 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -97,7 +96,10 @@
 		7CED594A263C9ABF00A70AD0 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.otf"; path = "../../eCommApp/android/app/src/main/assets/fonts/Montserrat-Bold.otf"; sourceTree = "<group>"; };
 		7CED594B263C9ABF00A70AD0 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../../eCommApp/android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		7CFF629A2695A75B00B1EFD5 /* AppCenter-Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
+		BE39BD8E2B3D4599EAF3BEED /* Pods-TrollyMartTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMartTests.debug.xcconfig"; path = "Target Support Files/Pods-TrollyMartTests/Pods-TrollyMartTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C49A8A421720B4BBB4D8BF63 /* Pods_TrollyMart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrollyMart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6D636CFB416CE9C52A7F4EF /* Pods-TrollyMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMart.debug.xcconfig"; path = "Target Support Files/Pods-TrollyMart/Pods-TrollyMart.debug.xcconfig"; sourceTree = "<group>"; };
+		E4A76DF35C12D2AA9153F173 /* Pods_TrollyMartTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrollyMartTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC8C99BD1BA77C745226BDE0 /* Pods-TrollyMart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMart.release.xcconfig"; path = "Target Support Files/Pods-TrollyMart/Pods-TrollyMart.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -107,7 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C34B652266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a in Frameworks */,
+				334D892EDC428A590558AA47 /* Pods_TrollyMartTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,8 +117,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C34B650266E593E0078724F /* libPods-TrollyMart.a in Frameworks */,
 				7C34B64A266E58EA0078724F /* GoogleMaps.framework in Frameworks */,
+				D2237C40099BB12D72BD78A4 /* Pods_TrollyMart.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +149,8 @@
 				EC8C99BD1BA77C745226BDE0 /* Pods-TrollyMart.release.xcconfig */,
 				72C5A81AB5E516BB491819A5 /* Pods-TrollyMart-TrollyMartTests.debug.xcconfig */,
 				1070D0C083692586D4DADFFC /* Pods-TrollyMart-TrollyMartTests.release.xcconfig */,
+				BE39BD8E2B3D4599EAF3BEED /* Pods-TrollyMartTests.debug.xcconfig */,
+				182E3BEB03A1A6783B6B5634 /* Pods-TrollyMartTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -181,10 +185,10 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7C34B651266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a */,
-				7C34B64F266E593E0078724F /* libPods-TrollyMart.a */,
 				7C34B649266E58EA0078724F /* GoogleMaps.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				C49A8A421720B4BBB4D8BF63 /* Pods_TrollyMart.framework */,
+				E4A76DF35C12D2AA9153F173 /* Pods_TrollyMartTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -254,8 +258,6 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				4355F65007B2747084657E57 /* [CP] Embed Pods Frameworks */,
-				EB24A6DD76BA2448A71B2539 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -277,10 +279,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				341C4D9464D68352988D98A1 /* [CP] Embed Pods Frameworks */,
-				CCD67FEEA99F2FD9C730509B /* [CP] Copy Pods Resources */,
-				FA3FB519464EA3922BDE4D07 /* [CP-User] [RNFB] Core Configuration */,
-				BAF4229633264E2550165C5C /* [CP-User] [RNFB] Crashlytics Configuration */,
 			);
 			buildRules = (
 			);
@@ -400,28 +398,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TrollyMart-TrollyMartTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-TrollyMartTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		341C4D9464D68352988D98A1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TrollyMart/Pods-TrollyMart-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TrollyMart/Pods-TrollyMart-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TrollyMart/Pods-TrollyMart-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3A086D6A0F7424A6F0B68C87 /* [CP] Check Pods Manifest.lock */ = {
@@ -445,83 +426,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		4355F65007B2747084657E57 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BAF4229633264E2550165C5C /* [CP-User] [RNFB] Crashlytics Configuration */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			name = "[CP-User] [RNFB] Crashlytics Configuration";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\nif [[ ${PODS_ROOT} ]]; then\n  echo \"info: Exec FirebaseCrashlytics Run from Pods\"\n  \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nelse\n  echo \"info: Exec FirebaseCrashlytics Run from framework\"\n  \"${PROJECT_DIR}/FirebaseCrashlytics.framework/run\"\nfi\n";
-		};
-		CCD67FEEA99F2FD9C730509B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 8;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TrollyMart/Pods-TrollyMart-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EB24A6DD76BA2448A71B2539 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FA3FB519464EA3922BDE4D07 /* [CP-User] [RNFB] Core Configuration */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			name = "[CP-User] [RNFB] Core Configuration";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    _JSON_OUTPUT_BASE64=$(python -c 'import json,sys,base64;print(base64.b64encode(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"').read())['${_JSON_ROOT}'])))' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -576,7 +480,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72C5A81AB5E516BB491819A5 /* Pods-TrollyMart-TrollyMartTests.debug.xcconfig */;
+			baseConfigurationReference = BE39BD8E2B3D4599EAF3BEED /* Pods-TrollyMartTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -610,7 +514,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1070D0C083692586D4DADFFC /* Pods-TrollyMart-TrollyMartTests.release.xcconfig */;
+			baseConfigurationReference = 182E3BEB03A1A6783B6B5634 /* Pods-TrollyMartTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
