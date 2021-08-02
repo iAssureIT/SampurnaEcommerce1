@@ -43,6 +43,7 @@ export const OTPVerification = withCustomerToaster((props) => {
             axios.get('/api/auth/get/checkmobileotp/usingID/'+userID+"/"+otp)
             .then(res => {
                 setLoading(false);
+                console.log("REs============>",res.data);
                 if(res.data.message == 'Login Auth Successful') {
                     AsyncStorage.multiSet([
                       ['user_id', res.data.ID],
@@ -118,8 +119,9 @@ const FormBody = (props) => {
   const handleResend = () => {
     setResendLoading(true);
     setFieldValue('otp','');
-    axios.patch('/api/auth/patch/setsendemailotpusingID/'+user_id)
+    axios.patch('/api/auth/patch/setsendmobileotpusingID/'+user_id)
     .then(response => {
+      console.log("REs============>",response);
         setResendLoading(false)
         if(response.data.message == 'OTP_UPDATED') {
           // navigation.navigate('OTPVerification');

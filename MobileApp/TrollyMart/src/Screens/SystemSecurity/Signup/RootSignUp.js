@@ -264,7 +264,7 @@ const window = Dimensions.get('window');
                           const checkValid = phoneInput.current?.isValidNumber(text);
                           const callingCode = phoneInput.current?.getCallingCode(text);
                           const countryCode = phoneInput.current?.getCountryCode(text);
-                          // console.log("callingCode",callingCode);
+                          console.log("callingCode",callingCode);
                           var mobileNumber = text;
                           setValue(text);
                           setFieldValue('mobileNumber',mobileNumber)
