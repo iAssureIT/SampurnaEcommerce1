@@ -83,23 +83,18 @@ class CategoryBlock extends Component{
                   containerClass="carousel-container">
                     {this.props.categoryData && this.props.categoryData.map((categorydata, index) => {
                       var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+categorydata.categoryUrl;
-                      // console.log("categorydata.categoryUrl===",categorydata.categoryUrl,this.state.sectedCategory,index);
-                      {this.state.sectedCategory && this.state.sectedCategory === categorydata.categoryUrl
-                        ?
-                              // console.log("active category===",index)
-                              $('.category_'+index).addClass('activeCategory')
-                              // $('.category_0').removeClass('activeCategory')
-                              // $('.category_'+0).addClass('activeCategory')
-                            
-                        : null
-                          // $('.category_'+0).addClass('activeCategory')
+                      // {index === 0 &&
+                      //   $('.category_'+index).toggleClass('activeCategory')
+                      //   console.log("active 0");
+                      // }
+                      {this.state.sectedCategory && this.state.sectedCategory === categorydata.categoryUrl &&
+                          $('.category_'+index).toggleClass('activeCategory')
                       }
-                      
                       return (
                       <div className={"col-12 productsCategoryBlock "}  key={index}> 
-                          <Link href={url} className ={"col-12 "}> 
-                            <a className ={"col-12 " +Style.categoryBlock}>
-                              <div className={ " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" "}>
+                          {/* <Link href={url} className ={"col-12 "}>  */}
+                            <a href={url} className ={"col-12 " +Style.categoryBlock}>
+                              <div className={ " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " }>
                                   <Image    
                                     id="prodImg"                                       
                                     src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.png"}
@@ -112,7 +107,7 @@ class CategoryBlock extends Component{
                                 <div className={"col-12 text-center mt-2 " +Style.categoryName} title={categorydata.category}>{categorydata.category}</div>
                               </div>
                             </a>
-                          </Link>
+                          {/* </Link> */}
                       </div>                            
                       );
                     })

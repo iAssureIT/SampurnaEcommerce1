@@ -933,11 +933,13 @@ submitCart(event) {
                               <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
                           </div>
                           }
-                          <div className="col-12 seeMoreBtnWrapper">
-                            <div className="row">
-                              <button className={"btn btn-secondary col-lg-2 col-xl-1 col-sm-2 col-3 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
+                          {this.state.newProducts.length>=28 &&
+                            <div className="col-12 seeMoreBtnWrapper">
+                              <div className="row">
+                                <button className={"btn btn-secondary col-lg-2 col-xl-1 col-sm-2 col-3 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
+                              </div>
                             </div>
-                          </div>
+                          }
                       </div>
                       </div>                  
                     </div>                    

@@ -80,9 +80,12 @@ class CategoryFilters extends Component{
                   {this.props.subCategoryUrl === subcategory.subCategoryUrl?
                     <div className={"panel-heading panel-title_"+index +" " +Style.panelHeading}>
                         <h4  className={"panel-title panel-title_"+index} > 
-                          <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
+                          {/* <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
                               <a >{subcategory.subCategoryTitle}</a>
-                          </Link>
+                          </Link> */}
+                           <a href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
+                              {subcategory.subCategoryTitle}
+                          </a>
                         </h4>
                     </div>
                   :
