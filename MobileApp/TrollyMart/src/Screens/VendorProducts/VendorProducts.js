@@ -26,12 +26,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import { ScrollView } from 'react-native';
 
-const scrollY = new Animated.Value(0);
-const diffClamp= Animated.diffClamp(scrollY,0,185)
-const translateY = diffClamp.interpolate({
-  inputRange:[0,185],
-  outputRange:[0,-185]
-})
+
 
 const window = Dimensions.get('window');
 const VendorProducts = (props)=>{
@@ -54,6 +49,12 @@ const VendorProducts = (props)=>{
   ];
 
   const {productList,brandList,payload,globalSearch} = props;
+  var scrollY = new Animated.Value(0);
+    var diffClamp= Animated.diffClamp(scrollY,0,185)
+    var translateY = diffClamp.interpolate({
+      inputRange:[0,185],
+      outputRange:[0,-185]
+    })
 
   useEffect(() => {
     getData();
@@ -122,6 +123,8 @@ const VendorProducts = (props)=>{
 const onScroll=(e)=>{
   scrollY.setValue(e.nativeEvent.contentOffset.y);
 }
+
+console.log("translateY",translateY);
 
   return (
     <View style={{flex:1}}>

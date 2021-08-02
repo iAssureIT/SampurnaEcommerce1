@@ -17,6 +17,7 @@ const initialUserState = {
   fullName    : '',
   status      : '',
   authService : "",
+  isdCode     : "",
 };
 export default (state = initialUserState, {type, payload}) => {
   switch (type) {
@@ -36,7 +37,8 @@ export default (state = initialUserState, {type, payload}) => {
         companyID   : payload.companyID,
         status      : payload.status,
         role        : payload.role,
-        authService : payload.authService
+        authService : payload.authService,
+        isdCode     : payload.isdCode
       };
     case SET_LOADING:
       return {

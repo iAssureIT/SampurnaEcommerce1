@@ -23,7 +23,10 @@ import {FormInput}          from '../../ScreenComponents/FormInput/FormInput';
 import { CheckBox,Icon}     from "react-native-elements";
 import { useIsFocused } from "@react-navigation/native";
 import { NetWorkError } from '../../../NetWorkError.js';
-
+import {getUserDetails}           from '../../redux/user/actions';
+import { 
+  useDispatch,
+   }    from 'react-redux';
 const window = Dimensions.get('window');
 
 const intialSchema =Yup.object().shape({
@@ -54,6 +57,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
   const [checkedMobNo,setCheckedMobNo] = useState(false);
   const [checkedEmailId,setCheckedEmailId] = useState(false);
   const [ schema, updateSchema ] = React.useState(intialSchema);
+  const dispatch = useDispatch();
   useEffect(() => {
     getData();
     setCheckedMobNo(false);
@@ -63,7 +67,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
   const getData=async()=>{
     axios.get('/api/ecommusers/' + await AsyncStorage.getItem('user_id'))
     .then((response) => {
+      console.log("getData response",response);
       setUserDetails(response.data.profile);
+     
       setUserId(response.data._id);
       setLoading(false);
     })
@@ -85,7 +91,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
       <React.Fragment>
        {isFocused && <Formik
           onSubmit={(values,fun) => {
-            fun.resetForm(values);
+            // fun.resetForm(values);
               // setBtnLoading(true);
               let {firstName, lastName,mobileNumber,email_id,current_password,isdCode,mobileChange,emailChange} = values;
               var formValues={
@@ -103,9 +109,10 @@ export const AccountInformation=withCustomerToaster((props)=>{
               console.log("formValues",formValues);
               axios.patch('/api/users/update/user_profile_details',formValues)
               .then((response) => {
+                console.log("response",response);
                 if(response.data.messageCode === true){
                   setToast({text: response.data.message, color: 'green'});
-                  getData();
+                  dispatch(getUserDetails(user_id));
                 }else{
                   setToast({text: response.data.message, color: colors.warning});
                 }
@@ -125,8 +132,8 @@ export const AccountInformation=withCustomerToaster((props)=>{
             mobileNumber      : userDetails && userDetails.mobile? userDetails.mobile:'',
             email_id          : userDetails && userDetails.email ?userDetails.email:'',
             current_password  : '',
-            isdCode           : '',
-            countryCode      :  'AE',
+            isdCode           : userDetails && userDetails.isdCode ?userDetails.isdCode:"",
+            countryCode      :  userDetails && userDetails.countryCode ?userDetails.countryCode:"AE",
           }}
           enableReinitialize
           >

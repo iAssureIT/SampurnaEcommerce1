@@ -242,6 +242,7 @@ import FastImage              from 'react-native-fast-image';
 
   const tooltipClone = React.cloneElement(
     <View style={{width:"100%"}}>
+      <Icon name="close" type="material-community" color="#fff" iconStyle={{alignSelf:"flex-end"}}/>
     { cartData.vendorOrders && cartData.vendorOrders.length > 0&&
     cartData.vendorOrders.map((vendor, i) => {
         return (

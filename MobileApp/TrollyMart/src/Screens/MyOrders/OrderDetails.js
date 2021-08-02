@@ -477,6 +477,7 @@ const cancelorderbtn = (id,vendor_id) => {
 
   const tooltipClone = React.cloneElement(
     <View style={{width:"100%"}}>
+       <Icon name="close" type="material-community" color="#fff" iconStyle={{alignSelf:"flex-end"}}/>
     { order.vendorOrders && order.vendorOrders.length > 0&&
     order.vendorOrders.map((vendor, i) => {
         return (

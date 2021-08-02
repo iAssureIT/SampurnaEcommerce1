@@ -88,7 +88,7 @@ export const VendorList = withCustomerToaster((props)=>{
             "limitRange"        : 8,
         } 
         dispatch(getCategoryWiseList(payload));
-        navigation.navigate('VendorProducts',{vendor:vendor,sectionUrl:sectionUrl,section:section,index:index,vendorLocation_id:vendor.vendorLocation_id});
+        navigation.push('VendorProducts',{vendor:vendor,sectionUrl:sectionUrl,section:section,index:index,vendorLocation_id:vendor.vendorLocation_id});
     }
 
     const _renderlist = ({ item, index })=>{

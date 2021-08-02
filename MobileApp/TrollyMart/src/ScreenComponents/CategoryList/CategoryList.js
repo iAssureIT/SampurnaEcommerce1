@@ -13,7 +13,8 @@ import {SET_CATEGORY_WISE_LIST}             from '../../redux/productList/types'
 import { Alert } from 'react-native';
 
 export const CategoryList = (props)=>{
-  const {navigation,boxHeight}=props;
+  const {navigation,boxHeight,showImage}=props;
+  console.log("showImage",showImage);
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const [selected,setSelected]=useState('');
   const dispatch 		= useDispatch();
@@ -83,13 +84,19 @@ export const CategoryList = (props)=>{
                   vendorLocation_id : props.vendorLocation_id,
                 });
             }}>
+            {showImage === true? 
             <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#333",height:boxHeight}]} imageStyle={{opacity:0.6,borderRadius: 5}}>
               <Text style={[styles.sectionTitle,{color:item.categoryImage?"#fff":"#333"}]}>{item.category}</Text>
             </ImageBackground>
+            :
+            <View  style={[styles.sectionImages,{height:boxHeight}]}>
+              <Text style={[styles.sectionTitle,{color:item.categoryImage?"#333":"#aaa"}]}>{item.category}</Text>
+            </View>}
         </TouchableOpacity>
         :
+        showImage === true? 
           <View>
-            <TouchableOpacity style={{borderWidth:1,borderRadius:5,borderColor:colors.cartButton }} onPress={()=>{  setSelected(item.category);
+             <TouchableOpacity style={{borderWidth:1,borderRadius:5,borderColor:colors.cartButton }} onPress={()=>{  setSelected(item.category);
               var subCategoryArray = item.subCategory.map((a, i)=>{
                 return {
                     label :a.subCategoryTitle,        
@@ -117,12 +124,46 @@ export const CategoryList = (props)=>{
                   vendorLocation_id:props.vendorLocation_id,
                 });
             }}>
-              <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{borderRadius: 5}}>
-              </ImageBackground>
-            </TouchableOpacity>
-            <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
+            <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{borderRadius: 5}}>
+                </ImageBackground>
+                </TouchableOpacity>
+              <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
           </View>  
-        }
+          :
+          <View>
+          <TouchableOpacity style={{borderWidth:1,borderRadius:5,borderColor:colors.cartButton }} onPress={()=>{  setSelected(item.category);
+           var subCategoryArray = item.subCategory.map((a, i)=>{
+             return {
+                 label :a.subCategoryTitle,        
+                 value :item.categoryUrl+"^"+a.subCategoryUrl,        
+             } 
+           })
+           if(props.setSubCategory){
+             props.setSubCategory(subCategoryArray);
+           }
+           payload.categoryUrl     = item.categoryUrl;
+           payload.subCategoryUrl  = item.subCategoryUrl ? item.subCategoryUrl : [] ;
+           payload.scroll          = false;
+           payload.startRange      = 0;
+           payload.limitRange      = 10;
+           dispatch({
+             type : SET_CATEGORY_WISE_LIST,
+             payload : []
+           })
+           dispatch(getCategoryWiseList(payload));
+             navigation.navigate('VendorProducts',
+             {
+               category:item.category,
+               section:props.section,
+               index:props.index,
+               vendorLocation_id:props.vendorLocation_id,
+             });
+         }}>
+         <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{borderRadius: 5}}>
+             </ImageBackground>
+             </TouchableOpacity>
+           <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
+       </View>} 
       </View>
     )
   }

@@ -114,6 +114,7 @@ const window = Dimensions.get('window');
                           lastName    : res.data.userDetails.lastName,
                           email       : res.data.userDetails.email,
                           mobile      : res.data.userDetails.mobile,
+                          isdCode      : res.data.userDetails.isdCode,
                           countryCode : res.data.userDetails.countryCode,
                           fullName    : res.data.userDetails.fullName,
                           company_id  : res.data.userDetails.company_id,
@@ -416,7 +417,7 @@ const window = Dimensions.get('window');
             <View style={commonStyles.formWrapper}>
             <FormInput
               // style={[styles.inputBoxStyle]}
-              labelName       = "Mobile No / Email Id"
+              labelName       = "Phone No / Email Id"
               // placeholder     = "Enter Mobile No / Email Id..."
               onChangeText    = {handleChange('username')}
               required        = {true}
@@ -542,7 +543,7 @@ const window = Dimensions.get('window');
             <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
                 <FormButton
-                  title       = {'Continue As a Guest'}
+                  title       = {'Continue as a Guest'}
                   // onPress     = {()=>navigation.navigate('LocationMain')}
                   onPress     = {()=>login_guest()}
                   background  = {true}
