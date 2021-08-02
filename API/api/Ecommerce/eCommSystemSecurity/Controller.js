@@ -433,7 +433,7 @@ exports.add_user_address = (req, res, next) => {
 				"deliveryAddress.$.state": req.body.state,
 				"deliveryAddress.$.stateCode": req.body.stateCode,
 				"deliveryAddress.$.mobileNumber": req.body.mobileNumber,
-				"deliveryAddress.$.isdCode": req.body.mobileNumber,
+				"deliveryAddress.$.isdCode": req.body.isdCode,
 				"deliveryAddress.$.addType": req.body.addType,
 			}
 			
