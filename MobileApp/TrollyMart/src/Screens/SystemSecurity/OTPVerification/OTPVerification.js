@@ -153,7 +153,7 @@ const FormBody = (props) => {
               resizeMode="contain"
             />
           </View>
-          <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.jpg")} style={{paddingHorizontal:30}} resizeMode="cover" >
+          <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.jpg")} style={{paddingHorizontal:30, height:500}} resizeMode="cover" >
            <View style={{marginHorizontal:5}}><Text style={styles.otpTitle}>OTP</Text></View>
            {/* <View style={styles.textTitleWrapper}><Text style={{ fontSize: 15, fontFamily: 'Montserrat-Regular',alignSelf:'center' }}>Please Enter Verification Code</Text></View> */}
          <OTPInputView

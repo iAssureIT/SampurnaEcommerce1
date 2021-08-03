@@ -158,12 +158,12 @@ const window = Dimensions.get('window');
       <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
       <View style={{paddingHorizontal:20}}>
           <View style={styles.boxOpacity}>
-              <View style={styles.syslogo}>
-                  <Image
+              <View style={styles.syslogoLogin}>
+                  {/* <Image
                   resizeMode="contain"
                   source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
-                  style={styles.syslogoimg}
-                  />
+                  style={styles.syslogoimgLogin}
+                  /> */}
               </View>
               <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
             

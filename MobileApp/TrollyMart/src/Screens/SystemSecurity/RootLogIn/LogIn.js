@@ -403,11 +403,11 @@ const window = Dimensions.get('window');
         style={commonStyles.container} 
         resizeMode="contain" >
         <ScrollView style={{}}>
-              <View style={styles.syslogo}>
+              <View style={styles.syslogoLogin}>
                   <Image
                   resizeMode="contain"
                   source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
-                  style={styles.syslogoimg}
+                  style={styles.syslogoimgLogin}
                   />
               </View>
               <View style={styles.textTitleWrapper}>

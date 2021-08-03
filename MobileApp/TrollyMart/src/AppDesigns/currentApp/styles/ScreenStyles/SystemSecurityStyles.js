@@ -62,6 +62,9 @@ export default StyleSheet.create({
     syslogo:{
         flexDirection: 'row', alignItems: "flex-start",alignSelf:'flex-start', marginHorizontal:20,height:100,
     },
+    syslogoLogin:{
+        flexDirection: 'row',marginTop:15,marginHorizontal:20,height:170,
+    },
     textLine1:{
         fontFamily:"Montserrat-Regular",
         fontSize: 14,
@@ -70,5 +73,9 @@ export default StyleSheet.create({
     syslogoimg:{
         width: '50%',
         height:80,        
+    },
+    syslogoimgLogin:{
+        width: '50%',
+        height:100,        
     },
 });
