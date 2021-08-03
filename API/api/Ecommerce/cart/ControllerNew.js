@@ -1078,7 +1078,8 @@ exports.apply_coupon = (req,res,next)=>{
                     data.vendorOrders[i].vendor_taxAmount           = (vendor_taxAmount).toFixed(2);
                     data.vendorOrders[i].vendor_shippingCharges     = (vendor_shippingCharges).toFixed(2);
                     data.vendorOrders[i].vendor_shippingChargesAfterDiscount     = (0).toFixed(2);
-                    data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges).toFixed(2);
+                    // data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges).toFixed(2);
+                    data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount).toFixed(2);
                     
                     order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
                     order_afterDiscountTotal    += vendor_afterDiscountTotal;
