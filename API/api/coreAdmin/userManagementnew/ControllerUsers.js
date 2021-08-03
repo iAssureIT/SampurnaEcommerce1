@@ -2526,7 +2526,7 @@ exports.update_user_profile = (req,res,next)=>{
 									});
 								} else {
 									res.status(200).json({
-										message 	: "Failed to update email",
+										message 	: "It seems that you didn't change anything",
 										messageCode : false
 									});
 								}
@@ -2574,7 +2574,7 @@ exports.update_user_profile = (req,res,next)=>{
 						});
 					} else {
 						res.status(200).json({
-							message 	: "Failed to update profile",
+							message 	: "It seems that you didn't change anything",
 							messageCode : false
 						});
 					}
@@ -2612,7 +2612,7 @@ exports.verify_user_otp = (req, res, next) => {
 						{$set: {
 								"profile.otpMobile" 	: 0,
 								"profile.mobile" 		: req.body.mobile,
-								"profile.isdCode" 		: req.body.isdCode,
+								"profile.isdCode" 	: req.body.isdCode,
 								"profile.status" 		: "active",
 							}
 						}
@@ -2627,7 +2627,7 @@ exports.verify_user_otp = (req, res, next) => {
 						} else {
 							res.status(200).json({ 
 								messageCode : false,	
-								message 	: "Failed to update Mobile Number" 
+								message 	: "It seems that you didn't change anything" 
 							});
 						}
 					})
