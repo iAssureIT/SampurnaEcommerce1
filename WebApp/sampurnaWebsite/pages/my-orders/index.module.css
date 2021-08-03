@@ -28,6 +28,7 @@
 
 .middleText {
 	font-size: 11px;
+	color: black;
 }
 
 .customeBadge {
@@ -171,5 +172,6 @@
 
 	.middleText {
 		font-size: 14px;
+		color: black;
 	}
 }

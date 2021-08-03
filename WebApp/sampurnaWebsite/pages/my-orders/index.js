@@ -391,13 +391,13 @@ export default class MyOrders extends Component {
                                         </div>
 
                                         {vendordata.orderStatus === "Cancelled" &&
-                                          <span className={"  orderStatusBadge badge badge-danger NoPadding " + Style.orderStatusBadge2}><span>{vendordata.orderStatus}</span></span>
+                                          <span className={"  orderStatusBadge badge badge-danger NoPadding " + Style.orderStatusBadge2}><span className={" "+Style.statusTextWrapper}>{vendordata.orderStatus}</span></span>
                                         }
                                         {vendordata.orderStatus === "New" &&
                                           <span className={"  orderStatusBadge badge  NoPadding " + Style.orderStatusBadge1}><span className={" "+Style.statusTextWrapper}>{"Processing"}</span></span>
                                         }
                                         {vendordata.orderStatus === "Processing" &&
-                                          <span className={"  orderStatusBadge badge  NoPadding " + Style.orderStatusBadge1}><span>{"Processing"}</span></span>
+                                          <span className={"  orderStatusBadge badge  NoPadding " + Style.orderStatusBadge1}><span className={" "+Style.statusTextWrapper}>{"Processing"}</span></span>
                                         }
                                         {vendordata.orderStatus === "On the Way" &&
                                           <span className={"  orderStatusBadge badge badge-primary NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
@@ -406,7 +406,7 @@ export default class MyOrders extends Component {
                                           <span className={"  orderStatusBadge badge badge-primary  NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
                                         }
                                         {vendordata.orderStatus === "Delivered" &&
-                                          <span className={"  orderStatusBadge badge badge-success NoPadding " + Style.orderStatusBadge}>{vendordata.orderStatus}</span>
+                                          <span className={"  orderStatusBadge badge badge-success NoPadding " + Style.orderStatusBadge}><span className={" "+Style.statusTextWrapper}>{vendordata.orderStatus}</span></span>
                                         }
 
                                       </div>
