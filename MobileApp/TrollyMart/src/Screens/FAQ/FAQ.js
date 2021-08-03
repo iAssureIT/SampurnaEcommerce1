@@ -26,6 +26,9 @@ export const FAQ = (props)=>{
     const [user_id,setUserId]               = useState('');
     const [pageBlockes,setPageBlocks]       = useState([])
     const [loading,setLoading]              = useState(true);
+    const [expanded, setExpanded] = React.useState(true);
+    const handlePress = () => setExpanded(!expanded);
+
     
     const store = useSelector(store => ({
     globalSearch    : store.globalSearch
@@ -81,17 +84,18 @@ export const FAQ = (props)=>{
                         <View style={[styles.aboutUsHeader]}>
                             <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                                     colors={['#ffffff','#03355480']}
-                                    radius={350}>
+                                    radius={500}>
                                     <Text style={[styles.HeaderText]}>FAQ</Text>
                             </RadialGradient>
                         </View>
+                        <List.Section title="">
                         {
                             pageBlockes && pageBlockes.length>0?
                                 pageBlockes.map((item,index)=>{
                                     const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
                                     console.log("result",item.block_id.fgImage1)
                                     return(
-                                    <List.Accordion style={[styles.queBox]} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:18,color:"#000000",fontFamily:"Montserrat-Regular",}]}>
+                                    <List.Accordion style={[styles.queBox]} onPress={handlePress} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:18,color:"#000000",fontFamily:"Montserrat-Regular",}]}>
                                         <View style={[styles.queAns,{marginHorizontal:30}]}>
                                             <Text style={{fontSize:12,color:'#000000',fontFamily:"Montserrat-Regular",}}>Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.</Text>
                                         </View>
@@ -101,6 +105,7 @@ export const FAQ = (props)=>{
                             :
                             []
                         }
+                        </List.Section>
                     </ScrollView>
                 </View>}
             </View>

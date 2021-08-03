@@ -480,7 +480,7 @@ const window = Dimensions.get('window');
                 <View style={{flexDirection:"row",paddingHorizontal:15}}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                  <Text style={{fontSize:10,fontFamily:"Montserrat-Medium",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:10,fontFamily:"Montserrat-Medium",}]}> Sign Up</Text></Text>                  
+                  <Text style={{fontSize:10,fontFamily:"Montserrat-Medium",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:10,fontFamily:"Montserrat-SemiBold",}]}> Sign Up</Text></Text>                  
                 </TouchableOpacity>                
                 </View>
             </View>

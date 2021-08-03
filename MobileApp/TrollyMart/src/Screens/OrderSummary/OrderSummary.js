@@ -463,7 +463,7 @@ import FastImage              from 'react-native-fast-image';
                         data                = {getTimes}
                         value               = {shippingTiming}
                         containerStyle      = {styles.ddContainer}
-                        dropdownOffset      = {{ top: 0, left: 0 }}
+                        dropdownOffset      = {{ top: 73, left: 0 }}
                         itemTextStyle       = {styles.ddItemText}
                         inputContainerStyle = {styles.ddInputContainer}
                         labelHeight         = {10}

@@ -276,7 +276,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         onPress={() => {setChecked('second');setPaymentMethods('Card On Delivery')}}
                       />
                       <View style={{flex:0.8}}>
-                        <Text style={styles.free}>Card on Delivary</Text>
+                        <Text style={styles.free}>Card on Delivery</Text>
                       </View>  
                       <View style={{flex:0.1,alignItems:'flex-end'}}>                        
                         <Image source={require("../../AppDesigns/currentApp/images/pos-terminal.png")} style={styles.iconImg} resizeMode="contain" />
@@ -298,7 +298,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         onPress={() => {setChecked('first');setPaymentMethods('Cash On Delivery')}}
                       />
                       <View style={{flex:0.8}}>
-                        <Text style={styles.free}>Cash on Delivary</Text>
+                        <Text style={styles.free}>Cash on Delivery</Text>
                       </View>  
                       <View style={{flex:0.1,alignItems:'flex-end'}}>                        
                         <Image source={require("../../AppDesigns/currentApp/images/cash-on-delivery.png")} style={styles.iconImg} resizeMode="contain" />

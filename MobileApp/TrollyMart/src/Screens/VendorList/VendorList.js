@@ -121,7 +121,7 @@ export const VendorList = withCustomerToaster((props)=>{
                                     height:56,
                                     width:56,
                                     backgroundColor:"#fff",
-                                }} resizeMode="cover" 
+                                }} resizeMode="center" 
                                 PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :null}
                         </View>
                         <View style={{justifyContent:'center',alignItems:'center',marginTop:25}}>

@@ -79,7 +79,7 @@ export const AboutUs = (props)=>{
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                             colors={['#ffffff','#03355480']}
-                            radius={350}>
+                            radius={500}>
                             <Text style={[styles.HeaderText]}>About Us</Text>
                         </RadialGradient>
                     </View>

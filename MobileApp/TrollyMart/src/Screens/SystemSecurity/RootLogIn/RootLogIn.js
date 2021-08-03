@@ -159,11 +159,11 @@ const window = Dimensions.get('window');
       <View style={{paddingHorizontal:20}}>
           <View style={styles.boxOpacity}>
               <View style={styles.syslogoLogin}>
-                  {/* <Image
+                  <Image
                   resizeMode="contain"
                   source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
                   style={styles.syslogoimgLogin}
-                  /> */}
+                  />
               </View>
               <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
             

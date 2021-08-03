@@ -77,7 +77,7 @@ export const TermsAndConditions  = (props)=>{
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                                 colors={['#ffffff','#03355480']}
-                                radius={350}>
+                                radius={500}>
                                 <Text style={[styles.HeaderText]}>Terms and Conditions</Text>
                         </RadialGradient>
                     </View>

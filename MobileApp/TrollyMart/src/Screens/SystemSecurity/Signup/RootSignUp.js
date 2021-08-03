@@ -235,8 +235,7 @@ const window = Dimensions.get('window');
                   />
                  {/* <FormPhoneInput 
                     ref={phoneInput}
-                    labelName       = "Phone Number"
-                    placeholder     = "Phone Number"
+                    
                     onChangeFormattedText={(text) => {
                       console.log("text",text);
                       console.log("phoneInput",phoneInput);
@@ -252,8 +251,8 @@ const window = Dimensions.get('window');
                     name            = "mobileNumber"
                   /> */}
                   <View style={{marginHorizontal:10,marginVertical:5}}>
-                    <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
-                        <Text style={{fontFamily:'Montserrat-Regular', fontSize: 12,color:'#000'}}>Phone Number</Text>{' '}
+                    <Text style={{ fontSize: 14,paddingVertical:2}}>
+                        <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 12,color:'#000'}}>Phone Number</Text>{' '}
                         <Text style={{color: 'red', fontSize: 12}}>
                         *
                         </Text>
@@ -262,6 +261,7 @@ const window = Dimensions.get('window');
                         ref={phoneInput}
                         defaultCode="AE"
                         layout="first"
+                        placeholder='Phone Number'
                         value={values.mobileNumber}
                         onChangeText={(text) => {
                           const checkValid = phoneInput.current?.isValidNumber(text);

@@ -328,7 +328,7 @@ export default StyleSheet.create({
   },
   prodcurrency:{
     fontSize:20,
-    fontFamily:"Montserrat-SemiBold",
+    fontFamily:"Montserrat-Re",
     color:"#000000",
     opacity:1
   },
@@ -458,9 +458,11 @@ export default StyleSheet.create({
 	  },
 	  ddContainer:{
 		backgroundColor:'transparent',
-		height: "auto",
+		// height: "auto",
 		paddingLeft:2,
-		height:30,
+    height:40,
+    borderWidth: 1,
+    borderRadius:4
 	  },
 	 
   cancelbtn:{
@@ -650,10 +652,10 @@ export default StyleSheet.create({
   },
   ddContainer:{
     backgroundColor:'transparent',
-    paddingLeft:4,
+    paddingHorizontal:4,
     borderWidth: 1,
-    borderRadius:4
-    // fontFamily:"Montserrat-Regular"
+    borderRadius:4,
+    fontFamily:"Montserrat-Regular"
   },
   ddItemText:{
     fontFamily:"Montserrat-Regular",
