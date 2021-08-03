@@ -1,54 +1,74 @@
-.accUserDetails h6{
+.accUserDetails h6 {
     font-size: 14px !important;
 }
 
-.accUserDetails p{
+.accUserDetails p {
     font-size: 14px !important;
 }
 
-.contactInformationWrapper{
-    border: 1px solid #033554;
+.contactInformationWrapper {
+    border       : 1px solid #033554;
     border-radius: 19px;
 }
 
-.accountDashBoardwrapper{
-    min-height: 300px;
+.accountDashBoardwrapper {
+    min-height         : 300px;
     /* background-color: aqua; */
 }
 
-.addressBookMainWrapper{
-    min-height:300px;
+.addressBookMainWrapper {
+    min-height         : 300px;
     /* background-color:red; */
 }
 
-.accountDashBoardInnerwrapper{
-    min-height:230px;
+.accountDashBoardInnerwrapper {
+    min-height      : 230px;
     background-color: white;
-    border: 1px solid #033554;
-    border-radius: 19px;
-}
-.reqSignWrapper{
-    color: red!important;
-}
-.editAccInputWrapper input{
-    border: none !important;
-    border-radius: 0px!important;
-    border-bottom: 0.5px solid lightgrey!important;
-}
-.editAccInputWrapper input:focus{
-    border: none !important;
-    border-radius: 0px!important;
-    border-bottom: 0.5px solid lightgrey!important;
+    border          : 1px solid #033554;
+    border-radius   : 19px;
 }
 
-.horizontalLine{
-    border-bottom: solid 1px #ddd;
+.reqSignWrapper {
+    color: #DC1919 !important;
 }
+
+.editAccInputWrapper input {
+    border       : none !important;
+    border-radius: 0px !important;
+    border-bottom: 0.5px solid lightgrey !important;
+}
+
+.editAccInputWrapper input:focus {
+    border       : none !important;
+    border-radius: 0px !important;
+    border-bottom: 0.5px solid lightgrey !important;
+}
+
+.emailPwdWrapper {
+    position: absolute;
+    top     : 55px;
+    left    : 93%;
+}
+
+.accountInformationMainWrapper h4 {
+    font-family: 'Montserrat-Bold';
+    color      : #000000;
+}
+
+.editAccInputWrapperInner i {
+    position: absolute;
+    left    : 20px;
+    top     : 4px;
+}
+
+/* .horizontalLine{
+    border-bottom: solid 1px #ddd;
+} */
 .box {
     background-color: white;
-    border: 2px solid #033554;
-    border-radius: 12px;
-    width: 100%;
-    min-height: 250px;
-    color: black;
-  }
+    border          : 2px solid #033554;
+    border-radius   : 12px;
+    width           : 100%;
+    min-height      : 250px;
+    color           : black;
+}

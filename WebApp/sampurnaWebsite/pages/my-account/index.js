@@ -170,11 +170,11 @@ class MyAccount extends Component{
                                        <Account/>                          
                                     </div>
                                     
-                                    <div className="tab-pane fade shadow rounded bg-white p-5" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                    <div className="tab-pane fade  bg-white pb-5" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                     <EditAccount/>
                                     </div>
                                     
-                                    <div className="tab-pane fade  rounded bg-white pb-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                    <div className="tab-pane fade   bg-white pb-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                                     <AddressBook/>
                                     </div>
                                     

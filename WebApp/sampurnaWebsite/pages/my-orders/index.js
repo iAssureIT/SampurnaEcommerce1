@@ -412,7 +412,7 @@ export default class MyOrders extends Component {
                               })
                               :
                               <div className="col-12 textAlignCenter">
-                                <div className="mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
+                                <div className="mt-2 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
                                 <img src="/images/eCommerce/emptyorder.png" alt="" />
                               </div>
                           }
@@ -437,7 +437,7 @@ export default class MyOrders extends Component {
                     })
                     :
                     <div className="col-12 textAlignCenter">
-                      <div className="mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
+                      <div className="mt-2 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
                       <img src="/images/eCommerce/emptyorder.png" alt="" />
                     </div>
                   }

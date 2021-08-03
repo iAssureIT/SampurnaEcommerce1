@@ -144,13 +144,15 @@ class Wishlist extends Component {
                    )
                  })
                  :
-                 <div className="col-8 offset-2 mt15 textAlignCenter"> 
+                 <div className="col-12  textAlignCenter"> 
+                    <div className=" alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Items In Wishlist</div>
+
                         <img                                           
                           src={"/images/eCommerce/EmptyWishlist.png"}
                           alt="ProductImg" 
-                          className={"img-responsive " +Style.NoAvailableImg }
-                          height={"200px"} 
-                          width={"260px"} 
+                          className={"img-responsive "}
+                          height={"300px"} 
+                          
                           layout={'intrinsic'}
                         />
                  </div>
