@@ -55,7 +55,7 @@ export const CategoryList = (props)=>{
     return (
       <View key={i} style={[styles.mainrightside]}>
        {selected===item.category ? 
-       <TouchableOpacity style={{borderWidth:2,borderRadius:5,borderColor:colors.cartButton,marginTop:5}} onPress={()=>{
+       <TouchableOpacity style={{borderWidth:2,borderRadius:5,borderColor:colors.cartButton,marginTop:showImage === true ? 5 :0}} onPress={()=>{
               setSelected(item.category);
               var subCategoryArray = item.subCategory.map((a, i)=>{
                 return {
@@ -159,10 +159,10 @@ export const CategoryList = (props)=>{
                vendorLocation_id:props.vendorLocation_id,
              });
          }}>
-         <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{borderRadius: 5}}>
-             </ImageBackground>
+          <View  style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]}>
+              <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
+          </View>
              </TouchableOpacity>
-           <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
        </View>} 
       </View>
     )

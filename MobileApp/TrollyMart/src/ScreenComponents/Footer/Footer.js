@@ -21,7 +21,8 @@ import AntDesign from "react-native-vector-icons/AntDesign"
 
 export const Footer =(props)=>{
   const navigation = useNavigation();
-  // console.log("props",props);
+  console.log("props",props);
+  const [index,setIndex]=useState(0);
   const dispatch = useDispatch();
   const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);
   const store = useSelector(store => ({
@@ -49,7 +50,7 @@ export const Footer =(props)=>{
 
   const {userDetails,cartCount} = store;
   TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
-  // console.log("props?.state?.index",props?.state?.index);
+  // console.log("index",index);
     return (
         <ImageBackground source={require("../../AppDesigns/currentApp/images/Footer.png")} style={styles.footer}>
           <View style={{ flexDirection: 'row', flex: 1 }}>
@@ -59,17 +60,19 @@ export const Footer =(props)=>{
                 dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
                 dispatch({type : SET_SERACH_LIST,    payload  : []});
                 dispatch({type : SET_SEARCH_CALL,    payload  : false});
-                navigation.navigate('Dashboard')}
+                navigation.navigate('Dashboard');
+                setIndex(0);
+              }
                } >
-                <Icon name={props?.state?.index === 0 ? "home":"home-outline"} type="material-community" size={20} color={props?.state?.index === 0 ? colors.footerText :colors.theme}  />
-                <Text style={[styles.footerTitle,{color:props?.state?.index === 0 ? colors.footerText :colors.theme}]}>Home</Text>
+                <Icon name={index === 0 ? "home":"home-outline"} type="material-community" size={20} color={index === 0 ? colors.footerText :colors.theme}  />
+                <Text style={[styles.footerTitle,{color:index === 0 ? colors.footerText :colors.theme}]}>Home</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() => navigation.navigate('MyAccount', { userId: userDetails.user_id })} >
-                <Icon name={props?.state?.index === 1 ? "account":"account-outline"} type="material-community" size={20} color={props?.state?.index === 1 ? colors.footerText :colors.theme}  />
-                <Text  style={[styles.footerTitle,{color:props?.state?.index === 1 ? colors.footerText :colors.theme}]}>My Account</Text>
+              <TouchableOpacity onPress={() => {navigation.navigate('MyAccount', { userId: userDetails.user_id });setIndex(1)}} >
+                <Icon name={index === 1 ? "account":"account-outline"} type="material-community" size={20} color={index === 1 ? colors.footerText :colors.theme}  />
+                <Text  style={[styles.footerTitle,{color:index === 1 ? colors.footerText :colors.theme}]}>My Account</Text>
               </TouchableOpacity>
             </View>
 
@@ -91,10 +94,13 @@ export const Footer =(props)=>{
                   alignItems:'center',
                   borderColor:"#eee"
                 }}
-                  onPress={() => navigation.navigate('CartComponent', { userId: userDetails.user_id })} >
-                 {/* <Icon name="shopping-cart" type="feather" size={25} color={props?.state?.index === 2 ? colors.footerText :colors.theme}  /> */}
+                  onPress={() => {
+                    navigation.navigate('CartComponent', { userId: userDetails.user_id });
+                    setIndex(2)
+                  }} >
+                 {/* <Icon name="shopping-cart" type="feather" size={25} color={index === 2 ? colors.footerText :colors.theme}  /> */}
                  <Image source={require("../../AppDesigns/currentApp/images/cart.png")} style={{height:25,width:25}} />
-                 <Text  style={[styles.footerTitle,{color:props?.state?.index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
+                 <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
                 {
                   cartCount > 0 ?
                     <Text style={styles.notificationText}>{cartCount}</Text>
@@ -105,15 +111,15 @@ export const Footer =(props)=>{
               
             </View>
             {<View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() =>{dispatch(getWishList(userDetails.user_id));navigation.navigate(userDetails.authService!=="guest" ? 'WishlistComponent' :"Auth")}}>
-                <Icon name={props?.state?.index === 3 ? "heart":"heart-outline"} type="material-community" size={20} color={props?.state?.index === 3 ? colors.footerText :colors.theme}  />
-                <Text  style={[styles.footerTitle,{color:props?.state?.index === 3 ? colors.footerText :colors.theme}]}>Wishlist</Text>
+              <TouchableOpacity onPress={() =>{dispatch(getWishList(userDetails.user_id));navigation.navigate(userDetails.authService!=="guest" ? 'WishlistComponent' :"Auth");setIndex(3)}}>
+                <Icon name={index === 3 ? "heart":"heart-outline"} type="material-community" size={20} color={index === 3 ? colors.footerText :colors.theme}  />
+                <Text  style={[styles.footerTitle,{color:index === 3 ? colors.footerText :colors.theme}]}>Wishlist</Text>
               </TouchableOpacity>
             </View>}
              <View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() => navigation.navigate('InAppNotification')} >
-                <Icon name={props?.state?.index === 4 ? "bell":"bell-outline"} type="material-community" size={20} color={props?.state?.index === 4 ? colors.footerText :colors.theme}  />
-                <Text  style={[styles.footerTitle,{color:props?.state?.index === 4 ? colors.footerText :colors.theme}]}>Notification</Text>
+              <TouchableOpacity onPress={() => {navigation.navigate('InAppNotification');setIndex(4)}} >
+                <Icon name={index === 4 ? "bell":"bell-outline"} type="material-community" size={20} color={index === 4 ? colors.footerText :colors.theme}  />
+                <Text  style={[styles.footerTitle,{color:index === 4 ? colors.footerText :colors.theme}]}>Notification</Text>
                 {inAppNotificationsCount >0 &&<Text style={styles.notificationText}>{inAppNotificationsCount}</Text>}
               </TouchableOpacity>
             </View>

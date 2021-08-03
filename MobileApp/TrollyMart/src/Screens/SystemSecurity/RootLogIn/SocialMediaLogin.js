@@ -175,7 +175,7 @@ const window = Dimensions.get('window');
     const sign_in=(formValues)=>{
       axios.post('/api/auth/post/signup/social_media',formValues)
       .then((res) => {
-        dispatch({type: USER_LOGOUT});
+        // dispatch({type: USER_LOGOUT});
         console.log("response",res);
         setLoading(false)
         if(res.data.message === "Login Auth Successful"){

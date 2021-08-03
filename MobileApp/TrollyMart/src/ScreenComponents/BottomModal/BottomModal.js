@@ -33,12 +33,12 @@ export const BottomModal = (props) => {
       <Modal
         transparent={true}
         animationType="slide"
-        // onRequestClose={() => {
-        //   return closeModal();
-        // }}
-        // onDismiss={() => {
-        //   return closeModal();
-        // }}
+        onRequestClose={() => {
+          return closeModal();
+        }}
+        onDismiss={() => {
+          return closeModal();
+        }}
         transparent={true}
         visible={visible}>
           <TouchableOpacity

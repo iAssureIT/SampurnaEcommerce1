@@ -25,6 +25,11 @@ import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/Sea
 import { ImageBackground }      from 'react-native';
 import { NetWorkError } from '../../../NetWorkError.js';
 import FastImage              from 'react-native-fast-image';
+import { CommonActions } from "@react-navigation/native";
+import {SET_CATEGORY_LIST,
+    SET_CATEGORY_WISE_LIST}  from '../../redux/productList/types';
+
+
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 export const VendorList = withCustomerToaster((props)=>{
@@ -43,10 +48,12 @@ export const VendorList = withCustomerToaster((props)=>{
       }));
     const {globalSearch} =store;
     const {navigation} =props;
+    
 
     useEffect(() => {
         setLoading(true);
         getData();
+      
     },[props]);
 
     const getData = ()=>{
@@ -81,6 +88,10 @@ export const VendorList = withCustomerToaster((props)=>{
     }
 
     const goToProductList=(vendor)=>{
+        dispatch({
+            type : SET_CATEGORY_WISE_LIST,
+            payload : []
+        })
         var payload ={
             "vendor_ID"         : vendor.vendor_ID,
             "sectionUrl"        : sectionUrl,

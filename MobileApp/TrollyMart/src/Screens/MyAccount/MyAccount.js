@@ -25,6 +25,8 @@ import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchS
 import { Linking } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { NetWorkError } from '../../../NetWorkError.js';
+import { CommonActions } from '@react-navigation/native';
+
 
 
 export const MyAccount =(props)=>{
@@ -47,7 +49,15 @@ export const MyAccount =(props)=>{
     AsyncStorage.removeItem('location');
     dispatch({type: USER_LOGOUT});
     // navigation.closeDrawer();
-    navigation.navigate('Auth');
+
+    navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            { name: 'Auth' },
+          ],
+        })
+      );
   };
   console.log("userDetails",userDetails)
   
@@ -95,14 +105,14 @@ export const MyAccount =(props)=>{
                     </View>
                     <View style={{flexDirection:'row',alignItems:'flex-end'}}>
                         <Text style={CommonStyles.screenHeader}>Profile</Text>
-                        <TouchableOpacity  onPress={()=>navigation.navigate('AccountInformation')}>
+                        {userDetails.authService===""&&<TouchableOpacity  onPress={()=>navigation.navigate('AccountInformation')}>
                             <Icon size={15} name='edit' type='font-awesome' color={colors.textLight} iconStyle={[styles1.iconStyle,{marginLeft:12}]}/>
-                        </TouchableOpacity>
+                        </TouchableOpacity>}
                     </View>  
                     <View style={{marginLeft:20,marginTop:15}}>
                         <Text style={[CommonStyles.label,{paddingVertical:5}]}>{userDetails.firstName+" "+userDetails.lastName}</Text>
                         {userDetails.email ?<Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color:"#aaa"}}>{userDetails.email}</Text>: null}
-                        {userDetails.mobile ?<Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color:"#aaa"}}>{"+"+userDetails.isdCode+""+userDetails.mobile}</Text>: null}
+                        {userDetails.mobile ?<Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color:"#aaa"}}>{"+"+userDetails?.isdCode+""+userDetails.mobile}</Text>: null}
                     </View>       
                 </View>}    
                 <View style={styles1.horizontalLine} /> 

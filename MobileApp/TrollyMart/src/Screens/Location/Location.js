@@ -20,6 +20,7 @@ import { SET_USER_ADDRESS}          from '../../redux/location/types';
 import { connect,useDispatch,useSelector }      from 'react-redux';
 import { getWishList } 		    from '../../redux/wishDetails/actions';
 import { NetWorkError } from '../../../NetWorkError.js';
+import { CommonActions } from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const window = Dimensions.get('window');
@@ -48,7 +49,8 @@ export const Location = withCustomerToaster((props)=>{
             await setGoogleAPIKey(response.data.googleapikey);
             await Geocoder.init(response.data.googleapikey);
             if(type==="Auto"){
-                await getCurrentPosition();
+                
+                setTimeout(function(){getCurrentPosition();}, 1000);
             }    
             if(location && location.address!="" && location.coords!==""){
                 setRegion({
@@ -226,7 +228,14 @@ export const Location = withCustomerToaster((props)=>{
         if(userDetails && userDetails.user_id){
             dispatch(getWishList(userDetails.user_id))
         }    
-        navigation.navigate('App');
+        navigation.dispatch(
+        CommonActions.reset({
+            index: 1,
+            routes: [
+            { name: 'App' },
+            ],
+        })
+        );
     }  
 
     return (

@@ -115,6 +115,7 @@ const window = Dimensions.get('window');
                           email       : res.data.userDetails.email,
                           mobile      : res.data.userDetails.mobile,
                           isdCode      : res.data.userDetails.isdCode,
+                          authService  : res.data.authService,
                           countryCode : res.data.userDetails.countryCode,
                           fullName    : res.data.userDetails.fullName,
                           company_id  : res.data.userDetails.company_id,
