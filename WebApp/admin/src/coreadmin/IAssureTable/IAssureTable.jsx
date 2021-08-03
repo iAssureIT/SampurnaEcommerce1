@@ -72,10 +72,10 @@ class IAssureTable extends Component {
 		}
 	}
 	componentDidMount() {
-		console.log("props => ",this.props)
+		// console.log("props => ",this.props)
 		axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("token");
 		$("html,body").scrollTop(0);
-		console.log("this.state.date",this.state.date)
+		// console.log("this.state.date",this.state.date)
 		const center_ID = localStorage.getItem("center_ID");
 		const centerName = localStorage.getItem("centerName");
 		this.setState({
@@ -92,7 +92,7 @@ class IAssureTable extends Component {
 			dataCount: this.props.dataCount,
 			id: this.props.id,
 		},()=>{
-			console.log("dataCount did mount => ",this.state.dataCount)
+			// console.log("dataCount did mount => ",this.state.dataCount)
 		});
 		$("#table-to-xls").attr('title', 'Download Table');
 	}
@@ -104,7 +104,7 @@ class IAssureTable extends Component {
 			dataCount: nextProps.dataCount,
 		}, () => {
 			this.paginationFunction();
-			console.log("dataCount => ",this.state.dataCount)
+			// console.log("dataCount => ",this.state.dataCount)
 		})
 		$("#table-to-xls").attr('title', 'Download Table');
 	}
@@ -558,7 +558,7 @@ class IAssureTable extends Component {
 	
 	render() {
 		const ref = React.createRef();
-		console.log("currentView",this.state.currentView)
+		// console.log("currentView",this.state.currentView)
 		return (
 			<div id="tableComponent" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
 				{
@@ -803,7 +803,7 @@ class IAssureTable extends Component {
 				{/*Export To Excel*/}
 					<div className="table-responsive" id="HideTable">
 						<table className="table iAssureITtable-bordered table-striped table-hover fixedTable" id={"Download-"+this.state.currentView}>
-						{	console.log("this.state.id",this.state.id)}
+						{/*{	console.log("this.state.id",this.state.id)}*/}
 							<thead className="tempTableHeader fixedHeader">
 								<tr className="tempTableHeader">
 									{this.state.twoLevelHeader.apply === true ?

@@ -318,6 +318,9 @@ exports.list_cart_product = (req,res,next)=>{
     .exec()
     .then(async(data)=>{
         console.log("data *=======> ",data);
+        for (var i = 0; i < data.vendorOrders.length; i++) {
+            console.log("data.vendorOrders[i].vendor_id *=======> ",i ," => ",data.vendorOrders[i].vendor_id);
+        }
         if(data && data !== null && data !== undefined){
             
             var vendorOrders                = data.vendorOrders;
@@ -357,7 +360,7 @@ exports.list_cart_product = (req,res,next)=>{
                 }                    
                 
                 for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
-                    console.log("data.vendorOrders[i].cartItems[j] => ",data.vendorOrders[i].cartItems[j])
+                    // console.log("data.vendorOrders[i].cartItems[j] => ",data.vendorOrders[i].cartItems[j])
                     var inventoryData             	= await ProductInventory.findOne({productCode : data.vendorOrders[i].cartItems[j].product_ID.productCode, itemCode : data.vendorOrders[i].cartItems[j].product_ID.itemCode, vendor_ID : ObjectId(data.vendorOrders[i].cartItems[j].product_ID.vendor_ID)},{currentQuantity : 1});
 				    console.log("inventoryData => ",inventoryData);
                     
