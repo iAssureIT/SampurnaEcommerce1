@@ -318,10 +318,10 @@ exports.list_cart_product = (req,res,next)=>{
     .exec()
     .then(async(data)=>{
         console.log("data *=======> ",data);
+        if(data && data !== null && data !== undefined){
         for (var i = 0; i < data.vendorOrders.length; i++) {
             console.log("data.vendorOrders[i].vendor_id *=======> ",i ," => ",data.vendorOrders[i].vendor_id);
         }
-        if(data && data !== null && data !== undefined){
             
             var vendorOrders                = data.vendorOrders;
             var order_beforeDiscountTotal   = 0;
