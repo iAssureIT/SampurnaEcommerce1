@@ -125,40 +125,40 @@ class MyAccount extends Component{
                                     <div className="col-12 NoPadding">
                                         {/* <a className={this.state.url==="/my-account"?"nav-link mb-4 p-3  shadow active rounded":"nav-link mb-4 p-3  shadow"}  id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">
                                             <i className="fa fa-user-circle mr-3"></i>
-                                            <span className=" small text-uppercase">Account Dashboard</span>
+                                            <span className=" small ">Account Dashboard</span>
                                         </a> */}
                     
                                         <a className="nav-link mb-4 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                                             <i className="fa fa-info-circle mr-3"></i>
-                                            <span className=" small text-uppercase">My Profile</span>
+                                            <span className=" small ">My Profile</span>
                                         </a>
                                     </div>}
                                     <a className="nav-link mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
                                         <i className="fas fa-map-marker-alt mr-3"></i>
-                                        <span className=" small text-uppercase">My Addresses</span></a>
+                                        <span className=" small ">My Addresses</span></a>
                 
                                     <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-4 p-3 shadow active": "nav-link mb-4 p-3 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                                         <i className=" fa fa-shopping-cart mr-3"></i>
-                                        <span className=" small text-uppercase" > My Orders</span></a>
+                                        <span className=" small " > My Orders</span></a>
 
                                     <a className={this.state.url1==="#v-pills-settings1-tab" ?"nav-link mb-4 p-3 shadow active":"nav-link mb-4 p-3 shadow"} id="v-pills-settings1-tab" data-toggle="pill" href="#v-pills-settings1" role="tab" aria-controls="v-pills-settings1" aria-selected="false">
                                     <i className="fa fa-heart mr-3"></i>
-                                    <span className=" small text-uppercase"> My Wishlist</span></a>
+                                    <span className=" small "> My Wishlist</span></a>
 
                                     <a className={this.state.url1==="#v-pills-settings3-tab"?"nav-link mb-4 p-3 shadow active":"nav-link mb-4 p-3 shadow"} id="v-pills-settings3-tab" data-toggle="pill" href="#v-pills-settings3" role="tab" aria-controls="v-pills-settings3" aria-selected="false">
                                     <i className="fa fa-money-bill mr-3"></i>
-                                    <span className=" small text-uppercase"> Credit Points</span></a>
+                                    <span className=" small "> Credit Points</span></a>
 
                                     {/* <a className="nav-link mb-5 p-3 shadow" id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false">
                                     <i className="fa fa-star mr-3"></i>
-                                    <span className=" small text-uppercase">My Product Reviews</span></a> */}
+                                    <span className=" small ">My Product Reviews</span></a> */}
                                 </div>
                                 }
                                 { this.state.authService==="guest"&&
                                     <div className={"nav flex-column nav-pills nav-pills-custom navPillsWrapper "+S.navPillsWrapper} id="v-pills-tab" role="tablist" aria-orientation="vertical">   
                                          <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-4 p-3 shadow active": "nav-link mb-4 p-3 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                                         <i className=" mr-3"></i>
-                                        <span className=" small text-uppercase " > My Orders</span></a>
+                                        <span className=" small  " > My Orders</span></a>
                                     </div>
                                 }
                             </div>

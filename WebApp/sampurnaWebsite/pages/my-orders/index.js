@@ -329,28 +329,32 @@ export default class MyOrders extends Component {
                               singleOrder.orderStatus === "Cancelled" && '#E88686'
                           }}>
                             <div className={"row " + Style.ptb15}>
-                              <div className="col-6">
-                                <div className="col-12"><b>{singleOrder.orderStatus}</b></div>
-                                <div className="col-12">{"Order ID : " + (singleOrder.orderID)}</div>
-                                <div className="col-12">Total Amount : &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</b></div>
+                              <div className={"col-6 "+ Style.leftSideMyOrderHeaderWrapper}>
+
                                 <div className="col-12">
-                                  Credits Points :<b>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</b>
+                                  <div className="col-12">{singleOrder.orderStatus}</div>
+                                  <div className="col-12">{"Order ID : " + (singleOrder.orderID)}</div>
+                                  <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</span></div>
+                                  <div className="col-12">
+                                    Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</span>
+                                  </div>
                                 </div>
+                                
                               </div>
                               <div className={"col-6 " + Style.rightside}>
-                                <div className="row">
-                                  <div className="col-12">
-                                    <span className="col-12 text-right d-lg-block d-xl-block d-none">Date : {moment(singleOrder.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(singleOrder.createdAt).format("hh:mm A")}</span>
-                                    {/* <span className="col-6 text-right"></span> */}
+                                <div className="">
+                                  <div className={"col-12 "+Style.rightSideDateWrapper}>
+                                    <span className="col-12 text-right d-lg-block d-xl-block d-none">Date : {moment(singleOrder.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;<span className={" "+ Style.rightSideDateWrapper2}></span>&nbsp;&nbsp;{moment(singleOrder.createdAt).format("hh:mm a")}</span>
+
                                     <span className="col-12 text-right d-block d-lg-none d-xl-none">{moment(singleOrder.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(singleOrder.createdAt).format("hh:mm A")}</span>
 
                                   </div>
-                                  <div className="col-12">
+                                  <div className={"col-12 "+Style.rightSideDateWrapper1}>
                                     <div className="col-12"> <i className="fas fa-wallet"></i>&nbsp; {singleOrder.paymentDetails.paymentMethod}</div>
                                   </div>
-                                  <div className="col-12">
+                                  <div className={"col-12 "+Style.rightSideDateWrapper1}>
                                     <div className="col-12 orderAddress">
-                                      <i className="fas fa-map-marker-alt"></i> {singleOrder.deliveryAddress.addressLine1} , <br />{singleOrder.deliveryAddress.addressLine2}
+                                      <i className="fas fa-map-marker-alt"></i>&nbsp; {singleOrder.deliveryAddress.addressLine1} , <br />{singleOrder.deliveryAddress.addressLine2}
                                     </div>
                                   </div>
                                 </div>
@@ -367,7 +371,7 @@ export default class MyOrders extends Component {
                                     <div className="col-12" >
                                       <div key={index} className={"row "}>
                                         <div className={"col-4 NoPadding "}>
-                                          <span className={" " + Style.myOrderVendorNameWrapper}><b>{vendordata.vendorName}</b></span> &nbsp;
+                                          <span className={" " + Style.myOrderVendorNameWrapper}>{vendordata.vendorName}</span> &nbsp;
                                         </div>
                                         <div className={"col-lg-6 col-8 col-sm-4 mb-2 " + Style.middleText}>
                                           <div className="row ">
@@ -387,22 +391,22 @@ export default class MyOrders extends Component {
                                         </div>
 
                                         {vendordata.orderStatus === "Cancelled" &&
-                                          <span className={" col-lg-2 col-sm-4 orderStatusBadge badge badge-danger NoPadding " + Style.orderStatusBadge2}>{vendordata.orderStatus}</span>
+                                          <span className={"  orderStatusBadge badge badge-danger NoPadding " + Style.orderStatusBadge2}><span>{vendordata.orderStatus}</span></span>
                                         }
                                         {vendordata.orderStatus === "New" &&
-                                          <span className={" col-lg-2 col-sm-4 orderStatusBadge badge  NoPadding " + Style.orderStatusBadge1}>{"Processing"}</span>
+                                          <span className={"  orderStatusBadge badge  NoPadding " + Style.orderStatusBadge1}><span className={" "+Style.statusTextWrapper}>{"Processing"}</span></span>
                                         }
                                         {vendordata.orderStatus === "Processing" &&
-                                          <span className={" col-lg-2 col-sm-4 orderStatusBadge badge  NoPadding " + Style.orderStatusBadge1}>{"Processing"}</span>
+                                          <span className={"  orderStatusBadge badge  NoPadding " + Style.orderStatusBadge1}><span>{"Processing"}</span></span>
                                         }
                                         {vendordata.orderStatus === "On the Way" &&
-                                          <span className={" col-lg-2 col-sm-4 orderStatusBadge badge badge-primary NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
+                                          <span className={"  orderStatusBadge badge badge-primary NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
                                         }
                                         {vendordata.orderStatus === "Ready to Dispatch" &&
-                                          <span className={" col-lg-2 col-sm-4 orderStatusBadge badge badge-primary  NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
+                                          <span className={"  orderStatusBadge badge badge-primary  NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
                                         }
                                         {vendordata.orderStatus === "Delivered" &&
-                                          <span className={" col-lg-2 col-sm-4 orderStatusBadge badge badge-success NoPadding " + Style.orderStatusBadge}>{vendordata.orderStatus}</span>
+                                          <span className={"  orderStatusBadge badge badge-success NoPadding " + Style.orderStatusBadge}>{vendordata.orderStatus}</span>
                                         }
 
                                       </div>
