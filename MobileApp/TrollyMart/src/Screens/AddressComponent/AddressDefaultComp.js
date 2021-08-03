@@ -61,10 +61,9 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
       axios.post('/api/ecommusers/myaddresses',formValues)
         .then((response) => {
           console.log("response",response);
-          if (response.data.deliveryAddress.length > 0) {
-            var deliveryAddress = response.data.deliveryAddress;
-            setDeliveryAddress(deliveryAddress);
-          }else{
+          var deliveryAddress = response.data.deliveryAddress;
+          setDeliveryAddress(deliveryAddress);
+          if(response.data.deliveryAddress.length == 0) {
             navigation.navigate('AddressComponent',{"delivery":delivery})
           }
         })
@@ -210,7 +209,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                             />
                             <View style={{flexDirection:'row'}}>
                             {!disabled&&<Icon name="edit" type="font-awesome-5" size={15} iconStyle={{elevation:5,paddingHorizontal:5}} color={"#bbb"}  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})}/>}
-                            {!disabled&&<Icon name="delete" type="AntDesign" size={15} iconStyle={{elevation:5}} color={"#bbb"}  onPress={() => deleteAdress(item._id)}/>} 
+                            {!disabled&&<Icon name="delete" type="AntDesign" size={15} iconStyle={{elevation:5,paddingHorizontal:5}} color={"#bbb"}  onPress={() => deleteAdress(item._id)}/>} 
                             </View>  
                         </View>  
                         <View style={styles.addchkbx}>

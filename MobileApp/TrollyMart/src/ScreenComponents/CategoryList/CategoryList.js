@@ -85,7 +85,7 @@ export const CategoryList = (props)=>{
                 });
             }}>
             {showImage === true? 
-            <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#333",height:boxHeight}]} imageStyle={{opacity:0.6,borderRadius: 5}}>
+            <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#333",height:boxHeight}]} imageStyle={{opacity:0.6,borderRadius: 5,elevation:5}}>
               <Text style={[styles.sectionTitle,{color:item.categoryImage?"#fff":"#333"}]}>{item.category}</Text>
             </ImageBackground>
             :

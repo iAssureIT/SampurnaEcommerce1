@@ -40,6 +40,7 @@ import { Dropdown }            from 'react-native-material-dropdown-v2';
 import Feather from 'react-native-vector-icons/Feather';
 import { NetWorkError } from '../../../NetWorkError.js';
 import moment from 'moment';
+const window = Dimensions.get('window');
 const STAR_IMAGE = require('../../AppDesigns/currentApp/images/star.png')
 
 
@@ -314,7 +315,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   category          = {category ? category : productdata.category}
                 />
               <View >
-                <View style={styles.formWrapper}>  
                 <SubCategoryList
                   navigation        = {navigation}
                   showImage         = {true}
@@ -324,7 +324,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   category          = {category ? category : productdata.category}
                   vendorLocation_id ={vendorLocation_id}
                 />
-              </View>
               <View style={{flex:1,flexDirection:'row',}}>
                   <View style={styles.qtys}>
                     <Counter start={1} min={1}
@@ -365,10 +364,10 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     autoplayTimeout={10000}
                     loop={false}
                     index={0}
-                    pageSize={370}
+                    pageSize={window.width}
                     pageIndicatorStyle={{width:20,height:3,backgroundColor:"#eee"}}
-            activePageIndicatorStyle={{width:20,height:3,backgroundColor:"#999"}}
-            pageIndicatorOffset={30}
+                    activePageIndicatorStyle={{width:20,height:3,backgroundColor:"#999"}}
+                    pageIndicatorOffset={30}
                     >
                      
                     {productdata.productImage.map((image, index) => {
@@ -383,14 +382,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         resizeMode={FastImage.resizeMode.contain}
                     >
                       {productdata.authService !== "guest" ?
-                      <TouchableOpacity style={[styles.wishlisthrtproductview]}
+                      <TouchableOpacity style={[styles.wishlisthrtproductview,{right:10}]}
                         onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
                         <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
                       </TouchableOpacity>
                       :
                         null
                       }
-                      <TouchableOpacity style={[styles.share]}
+                      <TouchableOpacity style={[styles.share,{right:10}]}
                         onPress={() =>onShare()} > 
                         <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} />
                       </TouchableOpacity>
@@ -399,12 +398,11 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   })}
                   </Carousel>
                   :
-                  <View>
-                    <Image
+                    <ImageBackground
                       source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                      style={styles.saleimgNo}
-                      resizeMode='center'
-                    />
+                      style={styles.saleimg}
+                      resizeMode="contain"
+                    >
                     <TouchableOpacity style={[styles.wishlisthrtproductview]}
                       onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
                       <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
@@ -413,7 +411,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                       onPress={() =>onShare()} >
                       <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} />
                     </TouchableOpacity>
-                  </View>
+                    </ImageBackground>
                 }
                 <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row"}}>
                     <View style={styles.prodnameview12}>

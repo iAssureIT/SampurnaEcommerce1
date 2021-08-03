@@ -340,7 +340,7 @@ export default StyleSheet.create({
   },
   saleimg:{
     height:200,
-    width:320 ,
+    width:"100%" ,
     alignSelf:'center',
     marginBottom:20,
   },

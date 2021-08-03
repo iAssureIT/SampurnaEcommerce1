@@ -29,7 +29,8 @@ navigator.geolocation = require('react-native-geolocation-service');
 export const Location = withCustomerToaster((props)=>{
     const {navigation,route}=props;
     const {type}=route.params;
-    const [region,setRegion]=useState()
+    const [region,setRegion]=useState();
+    const [delivery,notDelivered] = useState(false);
     const [googleapikey,setGoogleAPIKey] = useState('');
     const [address,setAddress] = useState('');
     const [coords,setCoords] = useState('');
@@ -124,17 +125,22 @@ export const Location = withCustomerToaster((props)=>{
                                     }
                                 }
                             }
-                            var address = {
-                                'addressLine2'     : details.formatted_address,
-                                'area'              : area,
-                                'city'              : city,
-                                'state'             : state,
-                                'country'           : country,
-                                'pincode'           : pincode,
-                                'latlong'           : details.geometry.location
-                            }
-                            console.log("address",address);
-                            setAddress(address);
+                            if(country === "United Arab Emirates"){
+                                notDelivered(false);
+                                var address = {
+                                    'addressLine2'     : details.formatted_address,
+                                    'area'              : area,
+                                    'city'              : city,
+                                    'state'             : state,
+                                    'country'           : country,
+                                    'pincode'           : pincode,
+                                    'latlong'           : details.geometry.location
+                                }
+                                console.log("address",address);
+                                setAddress(address);
+                            }else{
+                                notDelivered(true);
+                            }    
                             // ref.current?.setAddressText(address);
                         })
                         .catch(error => console.warn(error));
@@ -200,17 +206,22 @@ export const Location = withCustomerToaster((props)=>{
                             }
                         }
                     }
-                    var address = {
-                        'addressLine2'     : details.formatted_address,
-                        'area'              : area,
-                        'city'              : city,
-                        'state'             : state,
-                        'country'           : country,
-                        'pincode'           : pincode,
-                        'latlong'           : details.geometry.location
-                    }
-                    setAddress(address);
-                setBtnLoading(false);
+                    if(country === "United Arab Emirates"){
+                        notDelivered(false);
+                        var address = {
+                            'addressLine2'     : details.formatted_address,
+                            'area'              : area,
+                            'city'              : city,
+                            'state'             : state,
+                            'country'           : country,
+                            'pincode'           : pincode,
+                            'latlong'           : details.geometry.location
+                        }
+                        setAddress(address);
+                    }else{
+                        notDelivered(true);
+                    } 
+                     setBtnLoading(false);
                 // ref.current?.setAddressText(address);
             },
             error => {
@@ -247,6 +258,9 @@ export const Location = withCustomerToaster((props)=>{
             <GooglePlacesAutocomplete
                 ref={ref}
                 placeholder='Search for area street name...'
+                onSubmitEditing     = {()=>updateSearch()}
+                returnKeyType       = 'search'
+                setAddressText={(val)=>console.log("val",val)}
                 onPress={(data, details = null) => {
                     // 'details' is provided when fetchDetails = true
                     for (var i = 0; i < details.address_components.length; i++) {
@@ -273,24 +287,30 @@ export const Location = withCustomerToaster((props)=>{
                             }
                         }
                     }
-                    var address = {
-                        'addressLine2'      : details.formatted_address,
-                        'area'              : area,
-                        'city'              : city,
-                        'state'             : state,
-                        'country'           : country,
-                        'pincode'           : pincode,
-                        'latlong'           : details.geometry.location
-                    }
-                    setAddress(address);
-                    setCoords({"latitude": details.geometry.location.lat,"longitude":details.geometry.location.lng});
-                    ref.current?.setAddressText(details.formatted_address);
-                    setRegion({
-                        latitude: details.geometry.location.lat,
-                        longitude: details.geometry.location.lng,
-                        latitudeDelta: details.geometry.location.lat * 0.0001,
-                        longitudeDelta: details.geometry.location.lng * 0.0001 
-                    })
+                    console.log("country",country);
+                    if(country === "United Arab Emirates"){
+                        notDelivered(false);
+                        var address = {
+                            'addressLine2'      : details.formatted_address,
+                            'area'              : area,
+                            'city'              : city,
+                            'state'             : state,
+                            'country'           : country,
+                            'pincode'           : pincode,
+                            'latlong'           : details.geometry.location
+                        }
+                        setAddress(address);
+                        setCoords({"latitude": details.geometry.location.lat,"longitude":details.geometry.location.lng});
+                        ref.current?.setAddressText(details.formatted_address);
+                        setRegion({
+                            latitude: details.geometry.location.lat,
+                            longitude: details.geometry.location.lng,
+                            latitudeDelta: details.geometry.location.lat * 0.0001,
+                            longitudeDelta: details.geometry.location.lng * 0.0001 
+                        })
+                    }else{
+                        notDelivered(true);
+                    }    
                 }}
                 GoogleReverseGeocodingQuery
                 query={{key: googleapikey,language: 'en',components: 'country:ae',}}
@@ -358,17 +378,24 @@ export const Location = withCustomerToaster((props)=>{
         </View>    
         <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:window.height-160,backgroundColor:"#fff",minHeight:160,padding:15}}>
             <Text style={{fontFamily:"Montserrat-Regular",marginBottom:5}}>Delivery Location</Text>
+            {delivery ?
             <View style={{flexDirection:"row",justifyContent:"space-between",height:60,paddingVertical:5}}>
                 <Icon name="crosshairs-gps" type='material-community' size={20} color="black" />
-                <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold"}}>{region? address.addressLine2 : "-"}</Text>
-            </View>   
+                <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold"}}>Sorry, we don't deliver at this location.</Text>
+            </View>
+            :
+            <View style={{flexDirection:"row",justifyContent:"space-between",height:60,paddingVertical:5}}>
+                <Icon name="crosshairs-gps" type='material-community' size={20} color="black" />
+                <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold"}}>{region? address?.addressLine2 : "-"}</Text>
+            </View>
+            }   
             <View style={{justifyContent:"flex-end"}}>
                 <FormButton
                     title       = {'Confirm Location'}
                     onPress     = {()=>confirmLocation()}
                     background  = {true}
                     icon        = {{name: "crosshairs-gps",type : 'material-community',size: 18,color: "white"}}
-                    disabled    = {region?false:true}
+                    disabled    = {delivery ? true : region?false:true}
                     // loading     = {btnLoading}
                     />
             </View>        

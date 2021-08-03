@@ -28,6 +28,7 @@ TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delay
 
 export const ProductList = withCustomerToaster((props)=>{
   console.log("props",props);
+  console.log("vendorLocation_id",vendorLocation_id);
   const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id,vendor,onEndReachedThreshold,type,subCategory} = props; 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -71,6 +72,7 @@ export const ProductList = withCustomerToaster((props)=>{
         "userLongitude"     : store.location?.address?.latlong?.lng,
         "vendorLocation_id" : vendorLocation_id,
       }
+      console.log("formValues",formValues);
       axios
         .post('/api/carts/post', formValues)
         .then((response) => {
@@ -102,6 +104,7 @@ export const ProductList = withCustomerToaster((props)=>{
         "userLongitude"     : store.location?.address?.latlong?.lng,
         "vendorLocation_id" : vendorLocation_id,
       }
+      console.log("formValues",formValues);
       axios
         .post('/api/carts/post', formValues)
         .then((response) => {
@@ -206,15 +209,13 @@ export const ProductList = withCustomerToaster((props)=>{
 }
 
   const _renderlist = ({ item, index })=>{
-    console.log("item.availableQuantity",item.availableQuantity);
-    console.log("props.disabled",props.disabled);
     return (
       <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
         <TouchableOpacity style={{opacity:item.availableQuantity === 0 ? 0.5:1,backgroundColor: 'white',borderRadius:20}} disabled={item.availableQuantity === 0 ?  true : props.disabled ? props.disabled : false} onPress={() => 
           {navigation.navigate('SubCatCompView', { 
               productID           : item._id,
               currency            : currency,
-              vendorLocation_id   : vendorLocation_id,
+              vendorLocation_id   : vendorLocation_id ? vendorLocation_id : item.vendorLocation_id,
               location            : store.location,
               index               : index,
               vendor_id           : item.vendor_id?item.vendor_id:item.vendor_ID,
@@ -316,11 +317,11 @@ export const ProductList = withCustomerToaster((props)=>{
                       {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice}</Text>:null}
                     </View>
                     <View style={[styles.flxdir12]}>
-                      {item.discountPercent > 0 ?
-                            <Text style={styles.disprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                      {item?.discountPercent > 0 ?
+                            <Text style={styles.disprice}>{item?.discountedPrice?.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                             </Text>
                           :
-                          <Text style={styles.ogprice}>{item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                          <Text style={styles.ogprice}>{item?.originalPrice?.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
                         }
                     </View>
                   </View>
@@ -382,7 +383,7 @@ export const ProductList = withCustomerToaster((props)=>{
           nestedScrollEnabled           = {true}
           numColumns                    = {2}
           bounces={false}
-          keyExtractor                  = {item => item._id.toString()}
+          keyExtractor                  = {item => item?._id?.toString()}
           initialNumToRender            = {6}
           ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
           onEndReachedThreshold          = {onEndReachedThreshold}

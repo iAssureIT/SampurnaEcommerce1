@@ -165,6 +165,7 @@ console.log("translateY",translateY);
                 boxHeight       = {30} 
                 setSubCategory = {setSubCategory}
                 category       = {category? category : ''}
+                vendorLocation_id = {vendorLocation_id}
                 // setCategory = {setCategory}
               />
             </View>

@@ -83,7 +83,7 @@ export const SubCategoryList =(props)=>{
               vendorLocation_id:props.vendorLocation_id,
             });
         }}>
-            <Text style={[styles.sectionTitle,{color:"#848586",fontSize:11,fontFamily:"Montserrat-SemiBold"}]}>{item.label}</Text>
+            <Text style={[styles.sectionTitle,{color:"#848586",fontSize:11,fontFamily:"Montserrat-Bold"}]}>{item.label}</Text>
           </TouchableOpacity>  
         }
       </View>
