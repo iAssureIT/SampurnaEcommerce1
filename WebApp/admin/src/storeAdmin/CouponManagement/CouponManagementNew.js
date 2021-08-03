@@ -1184,7 +1184,7 @@ render() {
 					<div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
 							  <div className="col-lg-12">
 								 <label>Applicable For Number of Orders</label>
-								 <input value={this.state.numOfOrders} name="numOfOrders" id="numOfOrders" maxLength="6"  onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Number of Orders" ref="numOfOrders" />
+								 <input value={this.state.numOfOrders} name="numOfOrders" id="numOfOrders" min="1" maxLength="6"  onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Number of Orders" ref="numOfOrders" />
 							  </div>
 						 </div>
 					

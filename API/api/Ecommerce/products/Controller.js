@@ -4448,7 +4448,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
 						} 
 					}    
 				}else{
-					res.status(200).json('Product Details not found');
+					res.status(200).json(products);
 				}
 			}
 		})

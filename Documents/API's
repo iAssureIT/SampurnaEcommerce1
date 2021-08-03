@@ -105,7 +105,7 @@ API         => http://localhost:3368/api/carts/redeem/creditpoints
 MethodType  => Patch
 formValues  = {
     "user_ID"           : "60ade5ce4da4d2153ff7a608",
-    "creditPointsUsed"  : 20
+    "creditPointsValueUsed"  : 20
 }
 
 ================================= Return Product =========================================
@@ -262,3 +262,14 @@ Note : return only matched objects from vendorOrders (remaining)
 
 allocationRejectReason  : "",
 allocationRejectDesc    : ""
+
+================================= Contact Us =========================================
+1. Send Mail (Contact Us Page)
+API         => http://localhost:3366/send-email
+MethodType  => Post
+formValues  = {
+    "email"     : "jyoti.khedkar@iassureit.com",
+    "subject"   : "Testing",
+    "text"      : "Testing Email",
+    "mail"      : "<pre>This is testing mail . .  .. . . . . Thank you </pre>"
+}
