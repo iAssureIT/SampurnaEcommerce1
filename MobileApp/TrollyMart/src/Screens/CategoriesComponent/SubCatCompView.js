@@ -433,20 +433,20 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}&nbsp;</Text>
                   {productdata.discountPercent > 0 && <Text style={styles.discountPercent}> {productdata.discountPercent}%</Text>}
                 </View>
-                <View style={{height:60,width:80,marginLeft:30}}>
+                <View style={{height:50,width:80,marginLeft:30}}>
                   <Text style={{color: "#000000",opacity: 0.5,fontSize:11}}>Size</Text>
                   <Dropdown
                     onChangeText        = {(value) => filterProductSize(value)}
                     data                = {sizes}
                     value               = {sizes[sizeIndex]?.label}
                     containerStyle      = {styles.ddContainer}
-                    dropdownOffset      = {{ top: 85, left: 0 }}
+                    dropdownOffset      = {{ top: 83, left: 0 }}
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
                     labelHeight         = {10}
                     tintColor           = {'#FF8800'}
                     labelFontSize       = {15}
-                    fontSize            = {15}
+                    fontSize            = {12}
                     baseColor           = {'#666'}
                     textColor           = {'#333'}
                     labelTextStyle      = {{ left: 5 }}

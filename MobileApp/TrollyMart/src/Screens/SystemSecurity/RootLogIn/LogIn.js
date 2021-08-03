@@ -526,6 +526,7 @@ const window = Dimensions.get('window');
                     backgroundColor:"#4267B2",
                     alignItems: 'center',
                     justifyContent: 'center',
+                    alignContent:'center',
                     width: 40, 
                     height: 40,
                     borderRadius:100,
@@ -538,7 +539,7 @@ const window = Dimensions.get('window');
                     shadowRadius: 3.84,
                     elevation: 5,
                   }}>
-                  <Icon name='facebook' type='font-awesome' size={36} color="#fff"/>
+                  <Icon style={{alignSelf:'center'}} name='facebook' type='font-awesome' size={25} color="#fff"/>
                 </TouchableOpacity>
             </View>
             <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
