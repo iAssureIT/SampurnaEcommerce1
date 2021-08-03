@@ -118,17 +118,17 @@ class Wishlist extends Component {
           <div className="row">
             <div className={"col-12 NoPadding"}>
               <div className="col-12 mt-2 table-caption">
-                  <div className="col-12">
-                    <h4 className="table-caption"> <b>My Wishlist</b></h4>
+                  <div className="col-12 pl-lg-0">
+                    <h4 className="table-caption wishListMainTitle "> My Wishlist</h4>
                   </div>
               </div>
               {
                 Array.isArray(this.state.wishlistData) && this.state.wishlistData.length > 0 ?
                  this.state.wishlistData.map((areaWiseWishlist, index) => {  
                    return(
-                      <div className="col-12" key={index}> 
-                          <div className="col-12 areaName mt-4 pb-4">{areaWiseWishlist.areaName}</div>
-                          <div className="col-12">
+                      <div className="col-12 mb-4" key={index}> 
+                          <div className="col-12 areaName mt-lg-1 mt-4 pb-1 pl-lg-0"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>    &nbsp;&nbsp;{areaWiseWishlist.areaName}</div>
+                          <div className={"col-12 py-2 "+Style.wishlistBlockBorder}>
                                 {areaWiseWishlist && areaWiseWishlist.products && areaWiseWishlist.products.length > 0
                                 ?
                                   <ProductListView 

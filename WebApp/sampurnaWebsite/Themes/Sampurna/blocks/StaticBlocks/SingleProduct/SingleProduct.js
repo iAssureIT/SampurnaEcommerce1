@@ -315,7 +315,10 @@ class SingleProduct extends Component{
                             this.state.websiteModel === "FranchiseModel"?                                  
                             this.props.data.discountPercent ?    
                             <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>  
-                                <span className={Style.price}><span className={Style.oldprice}>
+                            {/* <span style={{color: "red" , textDecoration:"line-through" }}>
+                              <span style={{color: "black"}}>black with red strikethrough</span>
+                            </span> */}
+                                <span className={Style.price}><span className={Style.oldprice} style={{color: "red" , textDecoration:"line-through" }}>
                                 {this.state.currency}&nbsp;{this.props.data.originalPrice} </span>&nbsp; {this.state.currency} {this.props.data.discountedPrice}</span>    
                             </div>   
                             :
@@ -326,7 +329,10 @@ class SingleProduct extends Component{
                             :                                    
                             this.props.data.discountPercent ?
                             <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
-                                <span className={Style.price}><span className={Style.oldprice }>&nbsp;{this.state.currency} &nbsp;{this.props.data.originalPrice}&nbsp;</span>&nbsp;
+                              <span style={{color: "red" , textDecoration:"line-through" }}>
+                              <span className={" "+Style.lineThroughPrice}>&nbsp;{this.state.currency} &nbsp;{this.props.data.originalPrice}</span>
+                            </span>
+                                <span className={Style.price}>&nbsp;
                                 {this.state.currency} &nbsp;{(this.props.data.discountedPrice).toFixed(2)} 
                                 </span>
                             </div>

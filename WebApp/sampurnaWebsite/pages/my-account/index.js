@@ -182,7 +182,7 @@ class MyAccount extends Component{
                                         <MyOrders getOrderId={this.getOrderId.bind(this)}/>
                                     </div>
 
-                                    <div className={this.state.url1==="#v-pills-settings1-tab"?"tab-pane fade shadow rounded bg-white pb-5 show active":"tab-pane fade shadow rounded bg-white pb-5"} id="v-pills-settings1" role="tabpanel" aria-labelledby="v-pills-settings1-tab">
+                                    <div className={this.state.url1==="#v-pills-settings1-tab"?"tab-pane  bg-white pb-5 show active":"tab-pane   bg-white pb-5"} id="v-pills-settings1" role="tabpanel" aria-labelledby="v-pills-settings1-tab">
                                         <Wishlist/>
                                     </div>
                                     <div className={this.state.url1==="#v-pills-settings3-tab"?"tab-pane  bg-white pb-5 show active":"tab-pane  bg-white pb-5"} id="v-pills-settings3" role="tabpanel" aria-labelledby="v-pills-settings3-tab">

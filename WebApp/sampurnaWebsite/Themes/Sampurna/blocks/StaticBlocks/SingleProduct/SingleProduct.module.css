@@ -139,15 +139,28 @@
     height: 25px;
   }
   .price{
-    font-size: 14px;
-    font-weight: 600;
-    color: #555 !important;
-    height: 30px;
+    font-size: 12px;
+    font-family: 'Montserrat-Regular';
+    letter-spacing: 0px;
+color: #000000;
+opacity: 1;
+font-weight: 800;
+    /* height: 30px; */
   }
   .oldprice{
     font-size: 12px;
-    color: #aaa !important;
+    font-family: 'Montserrat-Regular';
     text-decoration: line-through;
+    letter-spacing: 0px;
+color: #000000;
+opacity: 0.5;
+  }
+  .lineThroughPrice{
+    font-size: 12px;
+    font-family: 'Montserrat-Regular';
+    letter-spacing: 0px;
+color: #000000;
+opacity: 0.5;
   }
   .product_brand{
     color: #555;
@@ -286,11 +299,14 @@
     margin-top: -15px;
   }
   .ellipsis{
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      display: block;
-      font-size: 14px;
+    font-family: 'Montserrat-Regular';
+    color: black;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    font-size: 14px!important;
+    font-weight: 600;
   }
   .wishIcon{ 
     margin-top: 5px;
