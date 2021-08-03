@@ -447,6 +447,9 @@ export default StyleSheet.create({
 	ogprice: {
 		fontSize: 12, fontFamily: "Montserrat-Bold", color: '#000',
 	},
+	ogpriceC: {
+		fontSize: 12, fontFamily: "Montserrat-Bold", color: '#aaa',
+	},
 	
 	discountpricecut: {
 		fontSize: 12, fontFamily: "Montserrat-Bold",

@@ -391,7 +391,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         null
                       }
                       <TouchableOpacity style={[styles.share]}
-                        onPress={() =>onShare()} >
+                        onPress={() =>onShare()} > 
                         <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} />
                       </TouchableOpacity>
                     </FastImage>
@@ -402,8 +402,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   <View>
                     <Image
                       source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                      style={styles.saleimg}
-                      resizeMode='contain'
+                      style={styles.saleimgNo}
+                      resizeMode='center'
                     />
                     <TouchableOpacity style={[styles.wishlisthrtproductview]}
                       onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >

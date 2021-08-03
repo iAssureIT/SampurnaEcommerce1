@@ -687,7 +687,7 @@ import FastImage              from 'react-native-fast-image';
                     inputContainerStyle   = {styles.containerStyle}
                     containerStyle        = {{paddingHorizontal:0}}
                     placeholderTextColor  = {'#909090'}
-                    inputStyle            = {{fontSize: 16}}
+                    inputStyle            = {{fontSize: 16,fontFamily:"Montserrat-Regular"}}
                     inputStyle            = {{textAlignVertical: "top"}}
                     autoCapitalize        = 'characters'
                     value                 = {couponCode}
@@ -699,7 +699,7 @@ import FastImage              from 'react-native-fast-image';
                     title       = {'Apply'}
                     // background  = {true}
                     buttonStyle={{height:45,backgroundColor:"#FFFFFF"}}
-                    titleStyle={{color: "#000000",opacity: 0.5}}
+                    titleStyle={{color: "#000000",opacity: 0.5,fontFamily:"Montserrat-Bold",}}
                   /> 
                 </View>  
               </View>

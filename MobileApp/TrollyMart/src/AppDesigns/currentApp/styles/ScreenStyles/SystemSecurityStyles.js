@@ -52,14 +52,15 @@ export default StyleSheet.create({
     },
 
     syslogo1:{
-        flexDirection: 'row', alignItems: "center",justifyContent:"center", marginHorizontal:20,height:180
+        flexDirection: 'row', alignItems: "center",justifyContent:"center", marginHorizontal:20,height:180,
     },
     syslogoimg1:{
         width: '50%',
-        height:100,
+        height:80,
+        alignSelf:'flex-start'
     },
     syslogo:{
-        flexDirection: 'row', alignItems: "flex-start", marginHorizontal:20,height:200
+        flexDirection: 'row', alignItems: "flex-start",alignSelf:'flex-start', marginHorizontal:20,height:100,
     },
     textLine1:{
         fontFamily:"Montserrat-Regular",
@@ -68,6 +69,6 @@ export default StyleSheet.create({
     },
     syslogoimg:{
         width: '50%',
-        height:150
+        height:80,        
     },
 });

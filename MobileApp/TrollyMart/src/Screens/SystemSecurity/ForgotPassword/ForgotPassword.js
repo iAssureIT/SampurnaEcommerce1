@@ -108,9 +108,12 @@ const window = Dimensions.get('window');
     const [image, setImage] = useState({profile_photo: '', image: ''});
     
   return (
-      <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.jpg")} style={commonStyles.container} resizeMode="cover" >
+      <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.jpg")} style={commonStyles.container} resizeMode='cover' >
       <View style={{flex:1}}>
           <View style={[styles.boxOpacity]}>
+            <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:15,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
+                <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+            </TouchableOpacity>
             <View style={styles.syslogo}>
                 <Image
                 resizeMode="contain"

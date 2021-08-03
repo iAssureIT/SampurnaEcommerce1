@@ -527,14 +527,6 @@ const cancelorderbtn = (id,vendor_id) => {
                     </View> 
                     <View style={{flexDirection:"row",marginTop:5,justifyContent:'space-between'}}>
                         <View style={[{flex:0.44}]}>
-                          <Text numberOfLines={2} style={styles.totaldata}>Date: {moment(order.createdAt).format('MM/DD/YYYY')}</Text>
-                        </View>
-                        <View style={[{flex:0.54,alignItems:'flex-end'}]}>
-                          <Text numberOfLines={2} style={styles.totaldata}>{order.paymentDetails.paymentMethod}</Text>
-                        </View>
-                    </View> 
-                    <View style={{flexDirection:"row",marginTop:5,justifyContent:'space-between'}}>
-                        <View style={[{flex:0.44}]}>
                           <Text numberOfLines={2} style={styles.totaldata}>Address: {order.deliveryAddress.addressLine1+", "+order.deliveryAddress.addressLine2}</Text>
                         </View>
                         <View style={[{flex:0.54,alignItems:'flex-end'}]}>
@@ -563,7 +555,15 @@ const cancelorderbtn = (id,vendor_id) => {
                           <Text style={[styles.totaldata,{padding:5,color:"#fff"}]}>{order.orderStatus}</Text>
                         </View>
                       </View>} */}
-                    </View>  
+                    </View>
+                    <View style={{flexDirection:"row",marginTop:5,justifyContent:'space-between'}}>
+                        <View style={[{flex:0.44}]}>
+                          <Text numberOfLines={2} style={styles.totaldata}>Date: {moment(order.createdAt).format('MM/DD/YYYY')}</Text>
+                        </View>
+                        <View style={[{flex:0.54,alignItems:'flex-end'}]}>
+                          <Text numberOfLines={2} style={styles.totaldata}>{order.paymentDetails.paymentMethod}</Text>
+                        </View>
+                    </View>                       
                   </View>  
                 </View>  
                   {/* <View style={styles.addressdetais}>
@@ -646,6 +646,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                 <Image
                                   source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                                   style={styles.img15}
+                                  resizeMode="contain"
                                 />
                               }
                               </View>

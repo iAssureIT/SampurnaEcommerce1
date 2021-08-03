@@ -279,7 +279,9 @@ export default StyleSheet.create({
     color:'#c10000',marginRight:10
   },
   img15:{
-    width: 60,height:60
+    width: 60,height:60,
+    resizeMode:'contain',
+    
   },
   imgMain:{
     width:60,
@@ -298,6 +300,7 @@ export default StyleSheet.create({
     borderRadius:9,
     marginLeft:20,
     marginTop:10,
+    resizeMode:'contain'
   },
 
   labelDrop:{
@@ -613,7 +616,7 @@ export default StyleSheet.create({
     marginBottom:15,
     // backgroundImage: 'radial-gradient(circle, #ffffff, #e2e3ea, #c3c9d5, #a1b0c0, #7d98aa)',
   },
-  HeaderText:{
+  HeaderText:{ 
     fontSize:15,
     fontWeight:'bold',
     zIndex:999,

@@ -185,7 +185,7 @@ export default StyleSheet.create({
     bottom:"5%",
     alignSelf:"flex-end",
     top: 10,
-    right:30,
+    // right:30,
     height:30,
     width:30,
     backgroundColor:"#E6E6E6",
@@ -196,7 +196,7 @@ export default StyleSheet.create({
     position:'absolute',
     bottom:"5%",
     top: 50,
-    right:30,
+    // right:30,
     alignSelf:"flex-end",
     height:30,
     width:30,
@@ -340,7 +340,14 @@ export default StyleSheet.create({
   },
   saleimg:{
     height:200,
-    width:370 ,
+    width:320 ,
+    alignSelf:'center',
+    marginBottom:20,
+  },
+  saleimgNo:{
+    height:200,
+    width:200 ,
+    alignSelf:'center',
     marginBottom:20,
   },
   mg10:{

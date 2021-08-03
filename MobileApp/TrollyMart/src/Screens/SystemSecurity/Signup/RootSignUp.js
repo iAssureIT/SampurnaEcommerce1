@@ -195,6 +195,9 @@ const window = Dimensions.get('window');
           <View contentContainerStyle={[commonStyles.container,{flex:1}]} keyboardShouldPersistTaps="always" >
               <View style={{}}>
                 <View style={styles.boxOpacity}>
+                <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:15,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
+                    <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+                </TouchableOpacity>
                   <View style={styles.syslogo1}>
                       <Image
                       resizeMode="contain"

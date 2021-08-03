@@ -312,7 +312,7 @@ export const ProductList = withCustomerToaster((props)=>{
                 <View style={[styles.textWrapper, styles.prdet]}>
                   <View style={[styles.flxdir,{justifyContent:'flex-start',alignContent:'flex-start'}]}>
                     <View style={[styles.flxdir]}>
-                      <Text style={styles.ogprice}>{currency} </Text>
+                      <Text style={styles.ogpriceC}>{currency} </Text>
                       {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice}</Text>:null}
                     </View>
                     <View style={[styles.flxdir12]}>
