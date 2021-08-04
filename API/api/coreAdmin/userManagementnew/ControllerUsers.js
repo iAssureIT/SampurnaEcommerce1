@@ -2467,7 +2467,7 @@ exports.update_user_profile = (req,res,next)=>{
 				.exec()
 				.then(async(data)=>{
 					console.log("data => ",data)
-					if(data.nModified === 1){
+					// if(data.nModified === 1){
 						var userNotificationValues = {
 							"event"			: "SendOTP",
 							"toUser_id"		: req.body.user_id,
@@ -2483,13 +2483,13 @@ exports.update_user_profile = (req,res,next)=>{
 							messageCode	: true,
 							message 	: "OTP sent on your mobile number"
 						});
-					}else{
-						res.status(200).json({ 
-							messageCode : false, 
-							message   	: "Failed to send OTP on mobile number", 
-						});
-						// res.status(401).status("USER_NOT_UPDATED")
-					}
+					// }else{
+					// 	res.status(200).json({ 
+					// 		messageCode : false, 
+					// 		message   	: "Failed to send OTP on mobile number", 
+					// 	});
+					// 	// res.status(401).status("USER_NOT_UPDATED")
+					// }
 				})
 				.catch(err =>{
 					res.status(500).json({

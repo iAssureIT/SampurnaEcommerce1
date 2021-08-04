@@ -246,12 +246,12 @@ export const AccountInformation=withCustomerToaster((props)=>{
 
      const ref = useRef();
 
-     if(otpModal){
-       console.log("ref123",ref);
-        setTimeout(() => {
-          ref.current.focusField(0);
-        }, 500);
-     }
+    //  if(otpModal){
+    //    console.log("ref123",ref);
+    //     setTimeout(() => {
+    //       ref.current.focusField(0);
+    //     }, 500);
+    //  }
     if (loading) {
       return (
         <Loading />
