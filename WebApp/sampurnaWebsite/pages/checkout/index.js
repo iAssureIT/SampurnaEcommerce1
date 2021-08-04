@@ -928,7 +928,7 @@ class Checkout extends Component {
                             :
                             this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length > 0 ?
                                 <div className="container-fluid">
-                                    <div className="col-12">
+                                    <div className="col-12 checkoutRadioWrapper">
                                         <form className="col-12 " id="checkout">
                                         <div className="row">
                                             <div className="col-12 col-xl-3 col-md-12 col-lg-4 col-sm-12">

@@ -130,7 +130,7 @@
     margin-top: 20px
 }
 
-input[type='radio']:after {
+.checkoutRadioWrapper input[type='radio']:after {
     width           : 20px;
     height          : 20px;
     border-radius   : 15px;
@@ -145,7 +145,7 @@ input[type='radio']:after {
     cursor          : pointer;
 }
 
-input[type='radio']:checked:after {
+.checkoutRadioWrapper input[type='radio']:checked:after {
     width           : 20px;
     height          : 20px;
     border-radius   : 15px;
