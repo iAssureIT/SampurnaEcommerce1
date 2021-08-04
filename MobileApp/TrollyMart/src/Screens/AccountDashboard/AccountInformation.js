@@ -5,7 +5,7 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  Dimensions,StyleSheet
+  Dimensions,StyleSheet,Image,ActivityIndicator
 } from 'react-native';
 import axios              from "axios";
 import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
@@ -29,6 +29,7 @@ import {
    }    from 'react-redux';
  import Modal  from "react-native-modal";
  import OTPInputView         from '@twotalltotems/react-native-otp-input';
+ import { RadioButton }        from 'react-native-paper';
 
 const window = Dimensions.get('window');
 
@@ -96,7 +97,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
        {isFocused && <Formik
           onSubmit={(values,fun) => {
             // fun.resetForm(values);
-              // setBtnLoading(true);
+              setBtnLoading(true);
             var {firstName, lastName,mobileNumber,email_id,current_password,isdCode,mobileChange,emailChange,otp} = values;
             if(otp!==''){
               var formValues={
@@ -109,8 +110,10 @@ export const AccountInformation=withCustomerToaster((props)=>{
               .then((response) => {
                 console.log("response1234",response);
                 if(response.data.messageCode === true){
+                  setModal(false);
                   setToast({text: response.data.message, color: 'green'});
                   dispatch(getUserDetails(user_id));
+                  fun.resetForm(values);
                 }else{
                   setToast({text: response.data.message, color: colors.warning});
                 }
@@ -119,6 +122,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
               })
               .catch((error) => {
                 console.log("error",error);
+                
                 setBtnLoading(false);
                 setToast({text: 'Something went wrong.', color: 'red'});
               })
@@ -140,7 +144,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
               .then((response) => {
                 console.log("response123",response);
                 if(response.data.messageCode === true){
-                  setModal(true);
+                  if(checkedMobNo){
+                    setModal(true);
+                  }
                   setToast({text: response.data.message, color: 'green'});
                   dispatch(getUserDetails(user_id));
                 }else{
@@ -214,35 +220,31 @@ export const AccountInformation=withCustomerToaster((props)=>{
     } = props;
     const [showPassword, togglePassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
-    const [value, setValue] = useState("");
     const [formattedValue, setFormattedValue] = useState("");
-    const [valid, setValid] = useState(false);
+    const [valid, setValid] = useState(true);
     const [countryCode, setCountryCode] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
-
+    const [value, setValue] = useState(values.mobileNumber);
     const [showCurrentPassword, toggleCurrentPassword] = useState(false);
     const phoneInput = useRef(null);
 
     const handleMob = ()=>{
-      updateSchema(Yup.object().shape(
-        {mobileNumber: Yup.string()
-        .required('This field is required'),
-      }))
-      setFieldValue("mobileChange",true)
-      handleSubmit();
+      if(values.mobileNumber === ""){
+        setToast({text: "Please fill all mandetory fields", color: colors.warning});
+      }else{
+        handleSubmit();
+        setFieldValue("mobileChange",true);
+      }
     }
     const handleEmail = ()=>{
-      updateSchema(Yup.object().shape({email_id: Yup.string()
-        .required('This field is required'),
-        // test(
-        //   'email validation test',
-        //   'Enter a valid email address',
-        //   emailValidator,
-        // )
-      }))
-      setFieldValue("emailChange",true);
-      handleSubmit();
+      if(values.email === "" || values.current_password === ""){
+        setToast({text: "Please fill all mandetory fields", color: colors.warning});
+      }else{
+        handleSubmit();
+        setFieldValue("emailChange",true);
+      }
      }
+
 
      const ref = useRef();
 
@@ -298,13 +300,14 @@ export const AccountInformation=withCustomerToaster((props)=>{
                           title       = {'Update Profile'}
                           onPress     = {handleSubmit}
                           background  = {true}
-                          loading     = {btnLoading}
+                          // loading     = {btnLoading}
                         />
                         <CheckBox
                           title='Change Mobile No'
                           checked={checkedMobNo}
-                          onPress={() => setCheckedMobNo(!checkedMobNo)}
+                          onPress={() => {setCheckedMobNo(!checkedMobNo),setCheckedEmailId(false)}}
                         />
+                        
                         {checkedMobNo && <View style={{marginHorizontal:10,marginVertical:5}}>
                         <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
                             <Text>Phone Number</Text>{' '}
@@ -322,12 +325,11 @@ export const AccountInformation=withCustomerToaster((props)=>{
                                 const checkValid = phoneInput.current?.isValidNumber(text);
                                 const callingCode = phoneInput.current?.getCallingCode(text);
                                 const countryCode = phoneInput.current?.getCountryCode(text);
-                                var mobileNumber = "+"+callingCode+" "+text;
+                                var mobileNumber =text;
                                 setValue(text);
                                 setFieldValue('mobileNumber',mobileNumber)
                                 setFieldValue('countryCode',countryCode)
                                 setValid(checkValid);
-
                               }}
                               containerStyle= {styles1.containerStyle}
                               textContainerStyle={styles1.textContainerStyle}
@@ -335,16 +337,16 @@ export const AccountInformation=withCustomerToaster((props)=>{
                             />
                           <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                           <FormButton
-                          title       = {'Update Mobile No'}
-                          onPress     = {handleMob}
-                          background  = {true}
-                          loading     = {btnLoading}
+                            title       = {'Update Mobile No'}
+                            onPress     = {handleMob}
+                            background  = {true}
+                          // loading     = {btnLoading}
                         />
                         </View> }
                         <CheckBox
                           title='Change Email Id'
                           checked={checkedEmailId}
-                          onPress={() => setCheckedEmailId(!checkedEmailId)}
+                          onPress={() => {setCheckedEmailId(!checkedEmailId),setCheckedMobNo(false)}}
                         />
                               
                         {checkedEmailId &&
@@ -383,12 +385,13 @@ export const AccountInformation=withCustomerToaster((props)=>{
                               </TouchableOpacity>
                             }
                           secureTextEntry={!showCurrentPassword}
+                          value           = {values.current_password}
                         />
                         <FormButton
                           title       = {'Update Email ID'}
                           onPress     = {handleEmail}
                           background  = {true}
-                          loading     = {btnLoading}
+                          // loading     = {btnLoading}
                         />
                         </>
                         }
@@ -405,30 +408,54 @@ export const AccountInformation=withCustomerToaster((props)=>{
             hideModalContentWhileAnimating={true}
             style={{ zIndex: 999 }}
             animationOutTiming={500}>
-            <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: 30, paddingHorizontal: 10}}>
-            {/* <TouchableOpacity style={{flexDirection:"row",justifyContent:"flex-end"}} onPress={()=>setModal(false)}>
-                  <Icon name="close" type="material-community" size={20} color={colors.red} />
-              </TouchableOpacity>   */}
-              <View style={{marginHorizontal:5}}><Text style={styles.otpTitle}>OTP</Text></View>
-              <OTPInputView
-                  ref={ref}
-                  style={{width: '95%', height: 100,alignSelf:"center",marginHorizontal:20}}
-                  pinCount={4}
-                  placeholderTextColor={'#333'}
-                  autoFocusOnLoad={false}
-                  codeInputFieldStyle={styles.underlineStyleBase}
-                  codeInputHighlightStyle={styles.underlineStyleHighLighted}
-                  onCodeFilled = {handleSubmit}
-                  onCodeChanged = {handleChange('otp')}
-                  code={values.otp}
-                  // clearInputs={isEmptyString(values.otp)}  
+            <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: 30, padding :10,height:500}}>
+              <TouchableOpacity style={{flexDirection:"row",justifyContent:"flex-end"}} onPress={()=>setModal(false)}>
+                  <Icon name="close" type="material-community" size={25} color={"#333"} />
+              </TouchableOpacity>
+              <View style={{justifyContent:'center'}}>
+                <View style={{height: 160,paddingHorizontal:10,justifyContent:'flex-start'}}>
+                  <Image
+                    style={{height: 60, width: 150,backgroundColor:'white', alignSelf: 'flex-start'}}
+                    source={require("../../AppDesigns/currentApp/images/trollymart-black.png")}
+                    resizeMode="contain"
                   />
-                  <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
-                    <View style={{marginHorizontal:10}}>
-                      <Text style={styles.otpLastText}>Didn't receive code?<Text onPress={()=>handleSubmit()} style={styles.otpLastText1}>Request again!</Text></Text>
-                    </View>
+                </View>
+                <View style={{marginHorizontal:5}}><Text style={styles.otpTitle}>OTP</Text></View>
+                <OTPInputView
+                    ref={ref}
+                    style={{width: '95%', height: 100,alignSelf:"center",marginHorizontal:20}}
+                    pinCount={4}
+                    placeholderTextColor={'#333'}
+                    autoFocusOnLoad={false}
+                    codeInputFieldStyle={styles.underlineStyleBase}
+                    codeInputHighlightStyle={styles.underlineStyleHighLighted}
+                    onCodeFilled = {handleSubmit}
+                    onCodeChanged = {handleChange('otp')}
+                    code={values.otp}
+                    // clearInputs={isEmptyString(values.otp)}  
+                    />
+                    <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
+                  <View style={{marginHorizontal:10}}>
+                    <Text style={styles.otpLastText}>Didn't receive code?<Text onPress={()=>handleSubmit()} style={styles.otpLastText1}>Request again!</Text></Text>
+                  </View>
+                </View>
             </View>
           </Modal>
+          <Modal 
+          animationType="slide"
+          transparent={true}
+          visible={btnLoading}
+        >
+        <View 
+          style={{
+            backgroundColor: 'rgba(0,0,0,0)',
+            flex:1,
+            justifyContent:'center',
+            alignItems:'center'
+          }}>
+            <ActivityIndicator color={colors.theme} size={40}/>
+        </View>
+        </Modal>
         </React.Fragment>
       );
     }

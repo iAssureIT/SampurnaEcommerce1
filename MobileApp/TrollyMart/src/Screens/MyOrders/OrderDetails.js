@@ -485,7 +485,7 @@ const cancelorderbtn = (id,vendor_id) => {
               <Text style={[CommonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
               <View style={{flexDirection:"row",justifyContent:'space-between'}}>
                 <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text></View>
-                <View style={{flex:.1}}><Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text></View>
+                {/* <View style={{flex:.1}}><Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text></View> */}
                 <View style={{flex:.2}}><Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingChargesAfterDiscount} {currency}</Text></View>
               </View>  
           </View> 
@@ -494,7 +494,7 @@ const cancelorderbtn = (id,vendor_id) => {
     }
     <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
       <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Total Delivey Charges :</Text></View>
-      <View style={{flex:.1}}><Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{order?.paymentDetails?.shippingChargesBeforeDiscount}</Text></View>
+      {/* <View style={{flex:.1}}><Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{order?.paymentDetails?.shippingChargesBeforeDiscount}</Text></View> */}
       <View style={{flex:.2}}><Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{order?.paymentDetails?.shippingCharges} {currency}</Text></View>
     </View>  
     </View>,
@@ -807,7 +807,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
                       <Tooltip 
                         containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                        width={250} 
+                        width={350} 
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
                         popover={tooltipClone}>

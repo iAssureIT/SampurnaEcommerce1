@@ -251,7 +251,10 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
               <Text style={[commonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
               <View style={{flexDirection:"row",justifyContent:'space-between'}}>
                 <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text></View>
-                <View style={{flex:.1}}><Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text></View>
+                <View style={{flex:.1}}>{
+                  vendor.vendor_shippingChargesAfterDiscount !== vendor.vendor_shippingCharges &&
+                    <Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text>
+                }</View>
                 <View style={{flex:.2}}><Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingChargesAfterDiscount} {currency}</Text></View>
               </View>  
           </View> 
@@ -260,7 +263,11 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
     }
     <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
       <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Total Delivey Charges :</Text></View>
-      <View style={{flex:.1}}><Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{cartData?.paymentDetails?.shippingChargesBeforeDiscount}</Text></View>
+      <View style={{flex:.1}}>{
+          cartData?.paymentDetails?.shippingChargesBeforeDiscount !== cartData?.paymentDetails?.shippingCharges &&
+          <Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{cartData?.paymentDetails?.shippingChargesBeforeDiscount}</Text>
+      }
+      </View>
       <View style={{flex:.2}}><Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{cartData?.paymentDetails?.shippingCharges} {currency}</Text></View>
     </View>  
     </View>,

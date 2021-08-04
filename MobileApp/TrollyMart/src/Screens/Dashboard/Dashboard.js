@@ -177,7 +177,7 @@ const Dashboard = withCustomerToaster((props)=>{
                   "subCategoryUrl"    : item.block_id?.blockSettings?.subCategory!=="all" ? item.block_id?.blockSettings?.subCategory?.replace(/\s/g, '-').toLowerCase() : 'all',
                   // "subCategoryUrl"    : e.subCategory[0]?.subCategoryUrl,
                   "startRange"        : 0,
-                  "limitRange"        : 20,
+                  "limitRange"        : item.block_id?.blockSettings?.limitRange,
                   "user_id"           : user_id,
                   "userLatitude"      : store.location?.address?.latlong?.lat,
                   "userLongitude"     : store.location?.address?.latlong?.lng,
@@ -194,7 +194,7 @@ const Dashboard = withCustomerToaster((props)=>{
                   item.blockComponentName === "SectionCatg" && !item.block_id?.groupSettings?.showOnlySection?
                   <View style={{paddingHorizontal:5}}>
                     <HorizontalSecCatList 
-                      blockTitle          = {item.block_id?.blockTitle }
+                      blockTitle          = {item.block_id?.blockTitle}
                       section             = {item.block_id?.groupSettings.section}
                       category            = {item.block_id?.groupSettings.category}
                       subCategory         = {item.block_id?.groupSettings.subCategory}
