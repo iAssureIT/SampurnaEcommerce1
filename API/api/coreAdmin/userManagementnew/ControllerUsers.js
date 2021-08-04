@@ -2454,7 +2454,8 @@ exports.update_user_profile = (req,res,next)=>{
 		if(user){
 			console.log("user => ",user)
 			if(req.body.mobileChange){
-				var otpMobile = getRandomInt(1000, 9999);
+				// var otpMobile = getRandomInt(1000, 9999);
+				var otpMobile = 1234;
 
 				User.updateOne(
 					{_id : req.body.user_id},
@@ -2474,7 +2475,7 @@ exports.update_user_profile = (req,res,next)=>{
 							"toMobileNumber": req.body.isdCode + req.body.mobile,								
 							"variables" 	: {
 								subject 	: "Change Mobile Number",
-								OTP 		: 1234
+								OTP 		: otpMobile
 							}
 						}
 						var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
