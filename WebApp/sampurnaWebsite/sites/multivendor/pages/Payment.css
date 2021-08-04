@@ -120,7 +120,7 @@ table > tfoot > tr > td:last-of-type {
 }
 
 .orderimgsize img{
-	height: 80px;
+	/* height: 80px; */
     width: 100%;
     border: solid 2px #033554;
     border-radius: 5px;
