@@ -214,8 +214,13 @@ console.log("translateY",translateY);
                   subCategory           = {subCategory}
                 />
             :
-            <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
-              <Text style={CommonStyles.noDataFound}>No Product Found</Text>
+            <View style={{height:window.height,justifyContent:"center",alignItems:'center'}}>
+              <Image 
+                source={require('../../AppDesigns/currentApp/images/No-Products-Available.png')}
+                style={{height:300,width:300}}
+                resizeMode="contain"
+              />
+              <Text style={CommonStyles.noDataFound}>No Product Available</Text>
             </View> 
           } 
         <SortModal
@@ -229,6 +234,8 @@ console.log("translateY",translateY);
             visible         = {showFilters}
             subCategory     = {subCategory}
             category        = {category}
+            section         = {section}
+            vendorLocation_id = {vendorLocation_id}
             brandsArray     = {brandList && brandList.length > 0 ? brandList.map((a, i)=>{return {label :a,value :a}}): []}
             // sizeArray       = {[]}
         />

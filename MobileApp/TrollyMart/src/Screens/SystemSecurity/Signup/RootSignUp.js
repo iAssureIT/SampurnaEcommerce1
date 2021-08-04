@@ -36,14 +36,14 @@ const window = Dimensions.get('window');
     .required('This field is required')
     .test(
       'special character test',
-      'This field cannot contain only special characters or numbers',
+      'This field cannot contain only characters',
       specialCharacterValidator,
     ),
     lastName: Yup.string()
     .required('This field is required')
     .test(
       'special character test',
-      'This field cannot contain only special characters or numbers',
+      'This field cannot contain only characters',
       specialCharacterValidator,
     ),
     mobileNumber: Yup.string()
@@ -293,7 +293,7 @@ const window = Dimensions.get('window');
                     // iconName        = {'email'}
                     iconType        = {'material-community'}
                     autoCapitalize  = "none"
-                    keyboardType    = "email-address"
+                    // keyboardType    = "email-address"
                   />
                  
                   <FormInput

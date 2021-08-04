@@ -333,5 +333,35 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Medium",
     textAlign:'center'
   },
+  underlineStyleBase: {
+    width: 45,
+    height: 45,
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderColor:'#000',
+    color:"#000"
+  },
 
+  otpLastText:{
+    color: '#aaa',
+    fontSize: 12,
+    fontFamily: "Montserrat-Regular",
+  },
+  otpLastText1:{
+    color: '#033554',
+    fontSize: 14,
+    fontFamily: "Montserrat-Regular",
+  },
+
+  otpTitle:{
+    color: '#033554',
+    fontSize: 22,
+    fontFamily: "Montserrat-Bold",
+  },
+
+  underlineStyleHighLighted: {
+    // borderColor: "#03DAC6",
+    borderColor: "#033554",
+
+  },
 })

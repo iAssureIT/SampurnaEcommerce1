@@ -2474,7 +2474,7 @@ exports.update_user_profile = (req,res,next)=>{
 							"toMobileNumber": req.body.isdCode + req.body.mobile,								
 							"variables" 	: {
 								subject 	: "Change Mobile Number",
-								OTP 		: otpMobile
+								OTP 		: 1234
 							}
 						}
 						var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							

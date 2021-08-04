@@ -84,6 +84,7 @@ const Dashboard = withCustomerToaster((props)=>{
     console.log("call");
     axios.get('/api/pages/get/page_block/homepage')
     .then(res=>{
+      console.log("res.data.pageBlocks",res.data.pageBlocks);
       setBlocks(res.data.pageBlocks);
       setLoading(false);
       setRefreshing(false);
@@ -169,14 +170,15 @@ const Dashboard = withCustomerToaster((props)=>{
             blocks && blocks.length > 0 ?
               blocks.map((item,index)=>{
                 var payload ={
-                  "vendorID"          : '',
+                  "vendor_ID"          : '',
+                  "vendorLocation_id" : "",
                   "sectionUrl"        :item.block_id?.blockSettings?.section!=="all" ? item.block_id?.blockSettings?.section?.replace(/\s/g, '-').toLowerCase() : 'all',
                   "categoryUrl"       : item.block_id?.blockSettings?.category!=="all" ? item.block_id?.blockSettings?.category?.replace(/\s/g, '-').toLowerCase() : 'all',
                   "subCategoryUrl"    : item.block_id?.blockSettings?.subCategory!=="all" ? item.block_id?.blockSettings?.subCategory?.replace(/\s/g, '-').toLowerCase() : 'all',
                   // "subCategoryUrl"    : e.subCategory[0]?.subCategoryUrl,
                   "startRange"        : 0,
                   "limitRange"        : 20,
-                  "user_id"           : store.userDetails.user_id,
+                  "user_id"           : user_id,
                   "userLatitude"      : store.location?.address?.latlong?.lat,
                   "userLongitude"     : store.location?.address?.latlong?.lng,
                 } 
@@ -196,7 +198,6 @@ const Dashboard = withCustomerToaster((props)=>{
                       section             = {item.block_id?.groupSettings.section}
                       category            = {item.block_id?.groupSettings.category}
                       subCategory         = {item.block_id?.groupSettings.subCategory}
-                      subCategory         = {item.block_id?.groupSettings.subCategory}
                       showOnlySection     = {item.block_id?.groupSettings.showOnlySection}
                       showOnlyCategory    = {item.block_id?.groupSettings.showOnlyCategory}
                       showOnlyBrand       = {item.block_id?.groupSettings.showOnlyBrand}
@@ -209,7 +210,7 @@ const Dashboard = withCustomerToaster((props)=>{
                     item.blockComponentName === "ProductCarousel" && item.block_id ?
                     <HorizontalProductList 
                       blockTitle   = {item.block_id?.blockTitle}
-                      blockApi     = {item.block_id?.blockSettings.blockApi}
+                      blockApi     = {item.block_id?.blockSettings?.blockApi}
                       payload      = {payload}
                       currency     = {preferences.currency}
                       addToCart   = {false}

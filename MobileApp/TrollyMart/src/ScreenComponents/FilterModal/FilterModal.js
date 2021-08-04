@@ -34,7 +34,9 @@ const FilterModal = (props) => {
         subCategory,
         brandsArray,
         sizeArray,
-        category
+        category,
+        section,
+        vendorLocation_id
     } = props;
   const [activeTab, setActiveTab] = useState(filterOptions[0]);
   const [current_category, setCategory] = useState(filterOptions[0]);
@@ -204,6 +206,14 @@ const FilterModal = (props) => {
                 })
                 dispatch(getCategoryWiseList(payload));
                 closeModal();
+                navigation.push('VendorProducts',
+                {
+                  category          : category,
+                  sectionUrl        : section?.replace(/\s/g, '-').toLowerCase(),
+                  section           : section,
+                  // index             : props.index,
+                  vendorLocation_id : vendorLocation_id,
+                });
               }}
               disabled={localFilters.subCategory.length>0||localFilters.brandsArray.length>0?false:true}
               titleStyle={{color: colors.theme}}

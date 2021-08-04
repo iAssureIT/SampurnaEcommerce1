@@ -32,6 +32,7 @@ import HTML from 'react-native-render-html';
 import {KeyboardAwareScrollView}  from 'react-native-keyboard-aware-scroll-view';
 import { NetWorkError } from '../../../NetWorkError.js';
 import FastImage              from 'react-native-fast-image';
+import Loading from '../../ScreenComponents/Loading/Loading.js';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{
@@ -249,24 +250,28 @@ import FastImage              from 'react-native-fast-image';
           <View style={{paddingVertical:5}}>
               <Text style={[commonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
               <View style={{flexDirection:"row",justifyContent:'space-between'}}>
-                <Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text>
-                <Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingCharges} {currency}</Text>
+                <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text></View>
+                <View style={{flex:.1}}><Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text></View>
+                <View style={{flex:.2}}><Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingChargesAfterDiscount} {currency}</Text></View>
               </View>  
           </View> 
         )
     })  
     }
     <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
-      <Text style={[commonStyles.label,{color:"#fff"}]}>Total Delivey Charges :</Text>
-      <Text style={[commonStyles.label,{color:"#fff"}]}>{cartData?.paymentDetails?.shippingCharges} {currency}</Text>
+      <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Total Delivey Charges :</Text></View>
+      <View style={{flex:.1}}><Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{cartData?.paymentDetails?.shippingChargesBeforeDiscount}</Text></View>
+      <View style={{flex:.2}}><Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{cartData?.paymentDetails?.shippingCharges} {currency}</Text></View>
     </View>  
     </View>,
     { onLayout: (e) => setTooltipSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height }) }
   )
 
+
     return (
-      <React.Fragment>
-        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:"#fff"}}  keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
+      <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
+      { !loading ?
+        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:"#fff"}}keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
               <View style={styles.addcmporder}> 
                 <View style={{backgroundColor:"#fff",flexDirection:"row",justifyContent:'space-between',alignItems:'center'}}>
                     <Text style={{fontSize:15,fontFamily:"Montserrat-SemiBold",color: "#000000"}}>Address</Text>
@@ -366,7 +371,7 @@ import FastImage              from 'react-native-fast-image';
                       <View style={{flex:0.1,justifyContent:"center",alignItems:"center"}} >
                         <Tooltip 
                           containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                          width={300} 
+                          width={350} 
                           height={tooltipSize.h + 30}
                           backgroundColor={colors.theme}
                           popover={tooltipClone}
@@ -414,21 +419,21 @@ import FastImage              from 'react-native-fast-image';
                     </View>}
                   
                     <View style={{marginVertical:5}} />
-                    <View style={styles.flxdata}>
-                      <View style={{ flex: 0.5 }}>
-                        <Text style={[styles.totaldata1G]}>Grand Total</Text>
-                      </View>
-                      <View style={{ flex: 0.2 }}>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.5 }}>
+                          <Text style={[styles.totaldata1G]}>Grand Total</Text>
+                        </View>
+                        <View style={{ flex: 0.2 }}>
+                            <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                              <Text style={styles.currency1G}>{currency}</Text>
+                            </View>
+                          </View>
+                        <View style={{ flex: 0.2 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Text style={styles.currency1G}>{currency}</Text>
+                            <Text style={styles.totalpriceincartTotalGT}>{cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                           </View>
                         </View>
-                      <View style={{ flex: 0.2 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincartTotalGT}>{cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
-                        </View>
                       </View>
-                    </View>
                         <View style={styles.margTp10}>
                           <View style={{flexDirection:'row',alignItems:'center'}}>
                             <CheckBox
@@ -597,6 +602,11 @@ import FastImage              from 'react-native-fast-image';
             </View>
           </View>
         </KeyboardAwareScrollView>
+         :
+         <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
+           <ActivityIndicator size="large" color={colors.theme} />
+         </View>}
+   
       <Modal1 isVisible={modal}
           onBackdropPress={() => setModal(false)}
           onRequestClose={() => setModal(false)}
@@ -630,18 +640,7 @@ import FastImage              from 'react-native-fast-image';
             </ScrollView>
           </View>
         </Modal1>
-        <View style={{marginBottom:Platform.OS ==='ios'?60: 45,flexDirection:'row'}}>
-         <View style={{flex:0.5,height:60,backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
-            <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
-            <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
-         </View>
-         <TouchableOpacity style={{flex:0.5,height:60,backgroundColor:checked ?colors.cartButton: "#5F6C74",justifyContent:'center',alignItems:'center'}}
-         disabled       = {!checked}
-         onPress        = {() => paymentMethodsPage()}
-         >
-          <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>Checkout</Text>
-         </TouchableOpacity>
-      </View>
+        
       <SafeAreaView style={{flex: 1}}>
       <Modal
         transparent={true}
@@ -742,7 +741,19 @@ import FastImage              from 'react-native-fast-image';
         </TouchableOpacity>
       </Modal>
     </SafeAreaView>
-    </React.Fragment>
+    <View style={{marginBottom:Platform.OS ==='ios'?60: 45,flexDirection:'row',alignSelf:"flex-end"}}>
+         <View style={{flex:0.5,height:60,backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
+            <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
+            <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
+         </View>
+         <TouchableOpacity style={{flex:0.5,height:60,backgroundColor:checked ?colors.cartButton: "#5F6C74",justifyContent:'center',alignItems:'center'}}
+         disabled       = {!checked}
+         onPress        = {() => paymentMethodsPage()}
+         >
+          <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>Checkout</Text>
+         </TouchableOpacity>
+      </View>
+   </View>
   );
 })
 

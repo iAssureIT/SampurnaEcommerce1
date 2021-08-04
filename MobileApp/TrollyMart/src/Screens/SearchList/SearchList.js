@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  Dimensions
 } from 'react-native';
 import {  Icon,Button}          from "react-native-elements";
 import Modal                    from "react-native-modal";
@@ -24,6 +25,8 @@ import { useIsFocused } from "@react-navigation/native";
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 
+
+const window = Dimensions.get('window');
 export const SearchList  = withCustomerToaster((props)=>{
   // console.log("props",props);
   const {navigation,route}=props;
@@ -70,18 +73,14 @@ export const SearchList  = withCustomerToaster((props)=>{
                         paddingBottom   = {0}
                     />
                     :
-                    <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-                      <Image
-                        source={require("../../AppDesigns/currentApp/images/No-Products-Available.png")}
-                      />
-                      {/* <Button
-                          onPress={() => navigation.navigate('Dashboard')}
-                          // title={"Click Here To Continue Shopping"}
-                          title={"Add Products"}
-                          buttonStyle={styles.buttonshopping}
-                          containerStyle={styles.continueshopping}
-                      />  */}
-                    </View>
+                    <View style={{justifyContent:"center",alignItems:'center',marginTop:'40%'}}>
+                    <Image 
+                      source={require('../../AppDesigns/currentApp/images/No-Products-Available.png')}
+                      style={{height:300,width:300}}
+                      resizeMode="contain"
+                    />
+                    <Text style={CommonStyles.noDataFound}>No Results Found</Text>
+                  </View> 
                 }
                 </View>
             </View>

@@ -1,7 +1,7 @@
 export const specialCharacterValidator = (val = '') => {
     if (val) {
       //FIXME: change to ASCII Range
-      if (!/^[|@₹#$%^&+*!=() ?0-9]*$/.test(val)) {
+      if (/^[A-z]*$|^[A-z]+\s[A-z]*$/.test(val)) {
         return true;
       } else return false;
     } else return true;

@@ -27,6 +27,9 @@ import {getUserDetails}           from '../../redux/user/actions';
 import { 
   useDispatch,
    }    from 'react-redux';
+ import Modal  from "react-native-modal";
+ import OTPInputView         from '@twotalltotems/react-native-otp-input';
+
 const window = Dimensions.get('window');
 
 const intialSchema =Yup.object().shape({
@@ -56,7 +59,8 @@ export const AccountInformation=withCustomerToaster((props)=>{
   const [user_id,setUserId]=useState('');
   const [checkedMobNo,setCheckedMobNo] = useState(false);
   const [checkedEmailId,setCheckedEmailId] = useState(false);
-  const [ schema, updateSchema ] = React.useState(intialSchema);
+  const [otpModal,setModal]=useState(false);
+  const [schema, updateSchema ] = React.useState(intialSchema);
   const dispatch = useDispatch();
   useEffect(() => {
     getData();
@@ -93,23 +97,17 @@ export const AccountInformation=withCustomerToaster((props)=>{
           onSubmit={(values,fun) => {
             // fun.resetForm(values);
               // setBtnLoading(true);
-              let {firstName, lastName,mobileNumber,email_id,current_password,isdCode,mobileChange,emailChange} = values;
+            var {firstName, lastName,mobileNumber,email_id,current_password,isdCode,mobileChange,emailChange,otp} = values;
+            if(otp!==''){
               var formValues={
-                "user_id"           : user_id,
-                "firstname"         : firstName,
-                "lastname"          : lastName,
-                "image"     	      : [],
-                "isdCode"           : isdCode,
-                "mobile"     	      : mobileNumber,
-                "mobileChange"      : mobileChange,
-                "emailChange"       : emailChange,
-                "currentPassword"   : current_password,
-                "email"    		      : email_id
+                  "user_id"       : user_id,
+                  "isdCode"       : isdCode,
+                  "mobile"     	  : mobileNumber,
+                  "otp"           : otp
             }
-              console.log("formValues",formValues);
-              axios.patch('/api/users/update/user_profile_details',formValues)
+              axios.patch('/api/users/update/verify_user_otp',formValues)
               .then((response) => {
-                console.log("response",response);
+                console.log("response1234",response);
                 if(response.data.messageCode === true){
                   setToast({text: response.data.message, color: 'green'});
                   dispatch(getUserDetails(user_id));
@@ -124,6 +122,39 @@ export const AccountInformation=withCustomerToaster((props)=>{
                 setBtnLoading(false);
                 setToast({text: 'Something went wrong.', color: 'red'});
               })
+            }else{
+              var formValues={
+                "user_id"           : user_id,
+                "firstname"         : firstName,
+                "lastname"          : lastName,
+                "image"     	      : [],
+                "isdCode"           : isdCode,
+                "mobile"     	      : mobileNumber,
+                "mobileChange"      : mobileChange,
+                "emailChange"       : emailChange,
+                "currentPassword"   : current_password,
+                "email"    		      : email_id,
+            }
+              console.log("formValues",formValues);
+              axios.patch('/api/users/update/user_profile_details',formValues)
+              .then((response) => {
+                console.log("response123",response);
+                if(response.data.messageCode === true){
+                  setModal(true);
+                  setToast({text: response.data.message, color: 'green'});
+                  dispatch(getUserDetails(user_id));
+                }else{
+                  setToast({text: response.data.message, color: colors.warning});
+                }
+                setBtnLoading(false);
+                // this.setState({profileupdated:true});
+              })
+              .catch((error) => {
+                console.log("error",error);
+                setBtnLoading(false);
+                setToast({text: 'Something went wrong.', color: 'red'});
+              })
+            }  
           }}
           validationSchema={schema}
           initialValues={{
@@ -134,6 +165,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
             current_password  : '',
             isdCode           : userDetails && userDetails.isdCode ?userDetails.isdCode:"",
             countryCode      :  userDetails && userDetails.countryCode ?userDetails.countryCode:"AE",
+            otp               : ''
           }}
           enableReinitialize
           >
@@ -148,6 +180,8 @@ export const AccountInformation=withCustomerToaster((props)=>{
               checkedEmailId={checkedEmailId}
               setCheckedEmailId={setCheckedEmailId}
               updateSchema={updateSchema}
+              otpModal={otpModal}
+              setModal={setModal}
               {...formProps}
             />
           )}
@@ -174,9 +208,10 @@ export const AccountInformation=withCustomerToaster((props)=>{
       setCheckedMobNo,
       checkedEmailId,
       setCheckedEmailId,
-      updateSchema
+      updateSchema,
+      otpModal,
+      setModal
     } = props;
-    const [openModal, setModal] = useState(false);
     const [showPassword, togglePassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
     const [value, setValue] = useState("");
@@ -207,6 +242,15 @@ export const AccountInformation=withCustomerToaster((props)=>{
       }))
       setFieldValue("emailChange",true);
       handleSubmit();
+     }
+
+     const ref = useRef();
+
+     if(otpModal){
+       console.log("ref123",ref);
+        setTimeout(() => {
+          ref.current.focusField(0);
+        }, 500);
      }
     if (loading) {
       return (
@@ -309,14 +353,14 @@ export const AccountInformation=withCustomerToaster((props)=>{
                           labelName       = "Email Id"
                           placeholder     = "Email Id"
                           onChangeText    = {handleChange('email_id')}
-                          required        = {false}
+                          required        = {true}
                           name            = "email_id"
                           errors          = {errors}
                           touched         = {touched}
                           // iconName        = {'email'}
                           // iconType        = {'material-community'}
                           autoCapitalize  = "none"
-                          keyboardType    = "email-address"
+                          // keyboardType    = "email-address"
                           value           = {values.email_id}
                         />
                         <FormInput
@@ -354,6 +398,37 @@ export const AccountInformation=withCustomerToaster((props)=>{
             </ScrollView>
           </View>
           </View>
+          <Modal isVisible={otpModal}
+            onBackdropPress={() => setModal(false)}
+            onRequestClose={() => setModal(false)}
+            coverScreen={true}
+            hideModalContentWhileAnimating={true}
+            style={{ zIndex: 999 }}
+            animationOutTiming={500}>
+            <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: 30, paddingHorizontal: 10}}>
+            {/* <TouchableOpacity style={{flexDirection:"row",justifyContent:"flex-end"}} onPress={()=>setModal(false)}>
+                  <Icon name="close" type="material-community" size={20} color={colors.red} />
+              </TouchableOpacity>   */}
+              <View style={{marginHorizontal:5}}><Text style={styles.otpTitle}>OTP</Text></View>
+              <OTPInputView
+                  ref={ref}
+                  style={{width: '95%', height: 100,alignSelf:"center",marginHorizontal:20}}
+                  pinCount={4}
+                  placeholderTextColor={'#333'}
+                  autoFocusOnLoad={false}
+                  codeInputFieldStyle={styles.underlineStyleBase}
+                  codeInputHighlightStyle={styles.underlineStyleHighLighted}
+                  onCodeFilled = {handleSubmit}
+                  onCodeChanged = {handleChange('otp')}
+                  code={values.otp}
+                  // clearInputs={isEmptyString(values.otp)}  
+                  />
+                  <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
+                    <View style={{marginHorizontal:10}}>
+                      <Text style={styles.otpLastText}>Didn't receive code?<Text onPress={()=>handleSubmit()} style={styles.otpLastText1}>Request again!</Text></Text>
+                    </View>
+            </View>
+          </Modal>
         </React.Fragment>
       );
     }

@@ -120,6 +120,7 @@ import { useNavigation }      from '@react-navigation/native';
             value               = {searchText}
             onSubmitEditing     = {()=>updateSearch()}
             returnKeyType       = 'search'
+            searchIcon          = {<Icon name="search" type="font-awesome" size={15} color={"#000"}/>}
             onClear              ={()=>{ 
               dispatch({type : SET_SUGGETION_LIST, payload  : []});
               dispatch({type : SET_SEARCH_TEXT,    payload  : ''});

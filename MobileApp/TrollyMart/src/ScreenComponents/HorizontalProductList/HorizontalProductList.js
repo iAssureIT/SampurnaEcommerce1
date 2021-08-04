@@ -43,8 +43,11 @@ export const HorizontalProductList =(props)=>{
   }));
 
   const getData=()=>{
+    console.log("props.blockApi",props.blockApi);
+    console.log("props.payload",props.payload);
     axios.post(props.blockApi,props.payload)
       .then((response) => {
+        console.log("getData response",response);
         setProductList(response.data);
       })
       .catch((error) => {

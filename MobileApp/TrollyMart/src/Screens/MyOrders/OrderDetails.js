@@ -477,27 +477,30 @@ const cancelorderbtn = (id,vendor_id) => {
 
   const tooltipClone = React.cloneElement(
     <View style={{width:"100%"}}>
-       <Icon name="close" type="material-community" color="#fff" iconStyle={{alignSelf:"flex-end"}}/>
+      <Icon name="close" type="material-community" color="#fff" iconStyle={{alignSelf:"flex-end"}}/>
     { order.vendorOrders && order.vendorOrders.length > 0&&
     order.vendorOrders.map((vendor, i) => {
         return (
           <View style={{paddingVertical:5}}>
               <Text style={[CommonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
               <View style={{flexDirection:"row",justifyContent:'space-between'}}>
-                <Text style={[CommonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text>
-                <Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingCharges} {currency}</Text>
+                <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text></View>
+                <View style={{flex:.1}}><Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text></View>
+                <View style={{flex:.2}}><Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingChargesAfterDiscount} {currency}</Text></View>
               </View>  
           </View> 
         )
     })  
     }
     <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
-      <Text style={[CommonStyles.label,{color:"#fff"}]}>Total Delivey Charges :</Text>
-      <Text style={[CommonStyles.label,{color:"#fff"}]}>{order?.paymentDetails?.shippingCharges} {currency}</Text>
+      <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Total Delivey Charges :</Text></View>
+      <View style={{flex:.1}}><Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{order?.paymentDetails?.shippingChargesBeforeDiscount}</Text></View>
+      <View style={{flex:.2}}><Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{order?.paymentDetails?.shippingCharges} {currency}</Text></View>
     </View>  
     </View>,
     { onLayout: (e) => setTooltipSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height }) }
   )
+
     console.log("vendorDetails",vendorDetails);
     return (
       <React.Fragment>
@@ -653,7 +656,7 @@ const cancelorderbtn = (id,vendor_id) => {
                               <View style={{flex:0.45,paddingHorizontal:5}}>
                                 <Text numberOfLines={2} style={styles.prodinfo}>{pitem.productName}</Text>
                                 <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:14,marginTop:7}}>
-                                    Qauntity
+                                    Quantity
                                   <Text style={styles.prodinfo}> {pitem.quantity}</Text> 
                                 </Text>
                              
@@ -804,7 +807,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
                       <Tooltip 
                         containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                        width={300} 
+                        width={250} 
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
                         popover={tooltipClone}>

@@ -238,16 +238,18 @@ const getshippingamount=(startRange, limitRange)=>{
           <View style={{paddingVertical:5}}>
               <Text style={[commonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
               <View style={{flexDirection:"row",justifyContent:'space-between'}}>
-                <Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text>
-                <Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingCharges} {currency}</Text>
+                <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text></View>
+                <View style={{flex:.1}}><Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text></View>
+                <View style={{flex:.2}}><Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingChargesAfterDiscount} {currency}</Text></View>
               </View>  
           </View> 
         )
     })  
     }
     <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
-      <Text style={[commonStyles.text,{color:"#fff"}]}>Total Delivey Charges :</Text>
-      <Text style={[commonStyles.text,{color:"#fff"}]}>{cartData?.paymentDetails?.shippingCharges} {currency}</Text>
+      <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Total Delivey Charges :</Text></View>
+      <View style={{flex:.1}}><Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{cartData?.paymentDetails?.shippingChargesBeforeDiscount}</Text></View>
+      <View style={{flex:.2}}><Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{cartData?.paymentDetails?.shippingCharges} {currency}</Text></View>
     </View>  
     </View>,
     { onLayout: (e) => setTooltipSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height }) }
@@ -418,7 +420,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       <View style={{ flex: 0.2 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           {/* <Text style={styles.totalpriceincart}> - </Text> */}
-                      <Text style={styles.totalpriceincart1}>{vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
+                      <Text style={styles.totalpriceincart1}>{vendor.vendor_discountAmount > 0 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
                         </View>
                       </View>
                     </View>
@@ -544,7 +546,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
                       <Tooltip 
                         containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                        width={300} 
+                        width={350} 
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
                         popover={tooltipClone}

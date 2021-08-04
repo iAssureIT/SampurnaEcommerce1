@@ -428,7 +428,7 @@ const window = Dimensions.get('window');
               // iconName        = {'email'}
               iconType        = {'material-community'}
               autoCapitalize  = "none"
-              keyboardType    = "email-address"
+              // keyboardType    = "email-address"
               value           = {values.username}
             />
             <FormInput

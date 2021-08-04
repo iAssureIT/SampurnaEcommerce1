@@ -259,8 +259,7 @@ export const Location = withCustomerToaster((props)=>{
                 ref={ref}
                 placeholder='Search for area street name...'
                 onSubmitEditing     = {()=>updateSearch()}
-                returnKeyType       = 'search'
-                setAddressText={(val)=>console.log("val",val)}
+                
                 onPress={(data, details = null) => {
                     // 'details' is provided when fetchDetails = true
                     for (var i = 0; i < details.address_components.length; i++) {
@@ -320,9 +319,12 @@ export const Location = withCustomerToaster((props)=>{
                 currentLocationLabel='Current Location'
                 nearbyPlacesAPI="GoogleReverseGeocoding"
                 textInputProps={{ 
+                    returnKeyType :'search',
+                    blurOnSubmit:true,
                     selection:selection,
                     onSelectionChange : ({ nativeEvent: { selection, text } }) => {setSelection(selection)},
                     clearButtonMode: 'never',
+                    onSubmitEditing : ({ nativeEvent: { text } }) => {notDelivered(true)},
                 }}
 
                 renderLeftButton={() => (

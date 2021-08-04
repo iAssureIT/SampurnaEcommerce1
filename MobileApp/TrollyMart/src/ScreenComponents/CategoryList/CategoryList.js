@@ -76,7 +76,7 @@ export const CategoryList = (props)=>{
                 payload : []
               })
               dispatch(getCategoryWiseList(payload));
-                navigation.navigate('VendorProducts',
+                navigation.push('VendorProducts',
                 {
                   category          : item.category,
                   section           : props.section,
@@ -116,7 +116,7 @@ export const CategoryList = (props)=>{
                 payload : []
               })
               dispatch(getCategoryWiseList(payload));
-                navigation.navigate('VendorProducts',
+                navigation.push('VendorProducts',
                 {
                   category:item.category,
                   section:props.section,
@@ -151,7 +151,7 @@ export const CategoryList = (props)=>{
              payload : []
            })
            dispatch(getCategoryWiseList(payload));
-             navigation.navigate('VendorProducts',
+             navigation.push('VendorProducts',
              {
                category:item.category,
                section:props.section,

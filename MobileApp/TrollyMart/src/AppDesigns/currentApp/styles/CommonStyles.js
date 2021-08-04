@@ -129,7 +129,7 @@ export default StyleSheet.create({
         textDecorationLine: 'underline'
     },
     noDataFound :{
-        fontSize: 20, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#333"
+        fontSize: 20, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#DC1919"
     },
     screenHeader:{
         fontSize:18,
