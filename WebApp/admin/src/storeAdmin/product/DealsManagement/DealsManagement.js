@@ -493,7 +493,7 @@ class DealsManagement extends React.Component {
 		});
 	 } 
 
-	 uploadImage(event){
+	 /*uploadImage(event){
 		event.preventDefault();
 		var dealImg = "";
 		if (event.currentTarget.files && event.currentTarget.files[0]) {
@@ -539,11 +539,12 @@ class DealsManagement extends React.Component {
 					return Promise.resolve(formValues);
 				}
 				function s3upload(image,configuration){
+					console.log("image => ",image)
+					console.log("configuration => ",configuration)
 		
 					return new Promise(function(resolve,reject){
-						S3FileUpload
-							.uploadFile(image,configuration)
-							.then((Data)=>{
+						S3FileUpload.uploadFile(image,configuration)
+						.then((Data)=>{
 								resolve(Data.location);
 							})
 							.catch((error)=>{
@@ -600,7 +601,130 @@ class DealsManagement extends React.Component {
 				}        
 			}
 		}
-	  }
+	  }*/
+
+	uploadImage(event){
+        event.preventDefault();
+        var dealImg = "";
+
+        if (event.currentTarget.files && event.currentTarget.files[0]) {
+            // for(var i=0; i<event.currentTarget.files.length; i++){
+                var file = event.currentTarget.files[0];
+                if (file) {
+                    var fileName    = file.name; 
+                    var ext         = fileName.split('.').pop(); 
+
+                    if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="webp" || ext==="WEBP" || ext==="JPG" || ext==="PNG" || ext==="JPEG"){
+                        if (file) {
+                            var objTitle = { fileInfo :file }
+                            dealImg = objTitle ;
+                            
+                        }else{          
+                            swal("Images not uploaded");  
+                        }//file
+                    }else{ 
+                        swal("Allowed images formats are (jpg,png,jpeg,webp)");   
+                    }//file types
+                }//file
+            // }//for 
+
+            if(event.currentTarget.files){
+                this.setState({
+                    dealImg : dealImg
+                });  
+                main().then(formValues=>{
+                	console.log("formValues => ",formValues)
+                    this.setState({
+                        dealImg : formValues.dealImg
+                    })
+                });
+
+                async function main(){
+                    var config  = await getConfig();
+                    console.log("config => ",config)
+                    var s3url   = await s3upload(dealImg.fileInfo, config, this);
+                    console.log("s3url => ",s3url)
+                    const formValues = {
+                        "dealImg"    : s3url,
+                        "status"     : "New"
+                    };    
+                    return Promise.resolve(formValues);
+                }
+
+                function s3upload(image,configuration){
+                	console.log("image => ",image)
+                	console.log("configuration => ",configuration)
+                    return new Promise(function(resolve,reject){
+                        S3FileUpload
+                        .uploadFile(image,configuration)
+                        .then((Data)=>{
+                            resolve(Data.location);
+                        })
+                        .catch((error)=>{
+                            console.log("error => ",error);
+                            if(error.message === "Request failed with status code 401"){
+                                var userDetails =  localStorage.removeItem("userDetails");
+                                localStorage.clear();
+                                swal({  
+                                    title : "Your Session is Expired.",                
+                                    text  : "You need to Login Again. Click 'OK' to Go to Login Page"
+                                })
+                                .then(okay => {
+                                    if (okay) {
+                                        window.location.href = "/login";
+                                    }
+                                });
+                            }
+                        })
+                    })
+                }  
+
+                function getConfig(){
+                    return new Promise(function(resolve,reject){
+                        axios
+                        // .get('/api/projectSettings/get/one/s3')
+                        .get('/api/projectSettings/get/S3')
+                        .then((response)=>{
+                        // console.log("s3 response :",response.data);
+                            const config = {
+                                bucketName      : response.data.bucket,
+                                // dirName         : process.env.ENVIRONMENT,
+                                dirName         : "DealsImages",
+                                region          : response.data.region,
+                                accessKeyId     : response.data.key,
+                                secretAccessKey : response.data.secret,
+                            }
+                            resolve(config);                           
+                        })
+                        .catch(function(error){
+                            console.log(error);
+                            if(error.message === "Request failed with status code 401"){
+                                localStorage.removeItem("userDetails");
+                                localStorage.clear();
+                                swal({  
+                                    title : "Your Session is Expired.",                
+                                    text  : "You need to Login Again. Click 'OK' to Go to Login Page"
+                                })
+                                .then(okay => {
+                                    if (okay) {
+                                        window.location.href = "/login";
+                                    }
+                                });
+                            }
+                        })        
+                    })
+                }        
+            }
+        }
+    }
+
+    deleteImage(event){
+		event.preventDefault();
+		this.setState({
+		  dealImg : ""
+		})
+	}
+
 	 radioBoxClick(event){
 		 console.log("name => ",event.target.name);
 		 var name = event.target.name;

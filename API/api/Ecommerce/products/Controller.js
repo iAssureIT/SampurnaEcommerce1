@@ -2410,7 +2410,7 @@ exports.search_product = (req,res,next)=>{
 		var userLat         = req.body.userLatitude;
 		var userLong        = req.body.userLongitude;
 		
-		if(products){
+		if(products && products.length > 0){
 			var FinalVendorSequence = [];
 			if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
 				const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID._id)))];
