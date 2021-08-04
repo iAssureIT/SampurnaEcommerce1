@@ -9,6 +9,9 @@ import { bindActionCreators }   from 'redux';
 import {getForm,updateForm} 	from '../redux/actions';
 
 
+import S from './systemSecurity.module.css';
+
+
 class ConfirmOTP extends Component{
 
 	constructor(props){
@@ -72,28 +75,50 @@ class ConfirmOTP extends Component{
 		$('#loginFormModal').show();	 
 	}
 
+	openSignInModal(event){
+		event.preventDefault();
+		this.props.updateFormValue("login");
+      	$('#loginFormModal').show();	
+	}
+
 	render(){
 		return(
 			<div className="col-12 NoPadding signUpOtpWrapper">
 				<div className="col-10 offset-1 mt-3">
-					<div className="col-12">
-						<a href='' className="OtpTitleWrapper1" onClick={this.openSignUpModal.bind(this)}><u className="mt-5 pt-5">Back to Login</u></a>
-					</div> 
-					<h5 className="pb-2 text-center OtpTitleWrapper mt-5 pt-5 font-weight-bold">Confirm OTP</h5>
-                	<div className="col-12">
+					{/* <div className="col-12">
+						<a href='' className="OtpTitleWrapper1" onClick={this.openSignUpModal.bind(this)}>
+							<u className="mt-5 pt-5">Back to Login</u>
+						</a>
+					</div> */}
+					<div className={"col-12 "+S.signTextWrapper}>
+						<div className="row">
+							<a href="" className="" onClick={this.openSignInModal.bind(this)}><u>Back to Login</u></a>
+						</div>
+					</div>
+					{/* <h5 className="pb-2 text-center OtpTitleWrapper mt-5 pt-5 font-weight-bold">OTP</h5> */}
+					<div className={"col-12 "+S.signTitleWrapper}>
+						<span className={"font-weight-bolder border-0 "+S.signTitle}>OTP</span>
+					</div>
+                	<div className="col-12 mt-5">
 						<OtpInput
 							className="otpInputBox"
 							value={this.state.otp}
 							onChange={this.handleChange}
 							numInputs={4}
-							separator={<span>__</span>}
+							separator={<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}
 						/>
 					</div>
-					<p className="OtpTitleWrapper2 text-center mt-4">Didn't receive code?&nbsp;<a className="OtpTitleWrapper3"href=""onClick={this.resendOTP.bind(this)}>Request again!</a></p>
+					{/* <p className="OtpTitleWrapper2 text-center mt-4">Didn't receive code?&nbsp;<a className="OtpTitleWrapper3"href=""onClick={this.resendOTP.bind(this)}>Request again!</a></p> */}
+					<div className={"col-12 "+S.signTextWrapper}>
+						<div className="row">
+							<span className="ml-4 mt-n3">Didn't receive code?</span>&nbsp;&nbsp;
+							<a href="" className="mt-n3" onClick={this.resendOTP.bind(this)}>Request again!</a>
+						</div>
+					</div>
 				</div>
 				<div className="col-10 offset-1 mt-4">
 					<div className="col-12">
-						<div className="col-12 otpBtns text-center" onClick={this.verifyOTP.bind(this)}> Verifiy OTP</div>
+						<button className="col-12 otpBtns text-center" onClick={this.verifyOTP.bind(this)}> Verifiy OTP</button>
 					</div>
 				</div>
 			</div>

@@ -8,6 +8,9 @@ import { bindActionCreators }   from 'redux';
 import {getForm,updateForm}     from '../redux/actions';
 
 
+import S from './systemSecurity.module.css';
+
+
 class ForgotPassword extends Component{
 
 	constructor(props){
@@ -87,17 +90,19 @@ class ForgotPassword extends Component{
 	render(){
         return(
             <div className="col-12 mobileViewNoPadding">
-                <div className="col-12 mt-5">
+                <div className={"col-12 "+S.signTitleWrapper}>
+                    <span className={S.signTitle}>FORGOT PASSWORD</span>
                 </div>
-                
-                <div className="col-12 innloginwrap1">
+                {/* <div className="col-12 mt-5">
+                </div> */}
+                {/* <div className="col-12 innloginwrap1">
                     <h4 className="blueText signinText">Forgot Password</h4>
-                </div>
+                </div> */}
                 {
                     this.state.showMessage === false
 					?
                         <div className="col-12 NoPadding">
-                            <p className="col-12 infoText">Please enter your registered email address or Mobile Number below to receive an OTP.</p>
+                            <p className="col-12 mt-5 infoText">Please enter your registered email address or Mobile Number below to receive an OTP.</p>
                             <form id="resetPass" className="mt-5">
                                 <div className="col-12 textAlignLeft frmhgt mt25">
                                     <label className="formLabel ">Email ID / Mobile Number</label><label className="astricsign">*</label>

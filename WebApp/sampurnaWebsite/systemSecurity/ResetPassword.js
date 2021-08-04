@@ -9,6 +9,9 @@ import { bindActionCreators }   from 'redux';
 import {getForm,updateForm} 	from '../redux/actions';
 
 
+import S from './systemSecurity.module.css';
+
+
 const { publicRuntimeConfig } = getConfig();
 
 
@@ -82,32 +85,41 @@ class ResetPassword extends Component{
 		}
 	}
 
-    openSignInModal(event){
+	openSignInModal(event){
 		event.preventDefault();
-		this.props.updateFormValue("login");	
+		this.props.updateFormValue("login");
+      	$('#loginFormModal').show();	
 	}
 
 	render(){
         return(
             <div className="col-12 resetWrapper mobileViewNoPadding">
                 <div className="col-12 mobileViewNoPadding">
-                    <div className="col-12 innloginwrap">
+					<div className={"col-12 "+S.signTextWrapper}>
+						<div className="row">
+							<a href="" className="" onClick={this.openSignInModal.bind(this)}><u>Back to Login</u></a>
+						</div>
+					</div>
+					<div className={"col-12 "+S.signTitleWrapper}>
+						<span className={"font-weight-bolder border-0 "+S.signTitle}>RESET PASSWORD</span>
+					</div>
+                    {/* <div className="col-12 innloginwrap">
                         <h4>Reset Password</h4>
-                    </div>
+                    </div> */}
                     {
                         this.state.showMessage === false
 						?
 							<div>
 								<form id="resetPassword">
 									<div className="form-group frmhgt textAlignLeft col-12 mt-4">
-										<label className="blueText">New Password</label><label className="astricsign">*</label>
+										{/* <label className="blueText">New Password</label><label className="astricsign">*</label> */}
 										<input
 											id="newPassword"
 											type="password"
 											className="form-control passswordInput formcontrol1"
 											ref="newPassword"
 											name="newPassword"
-											placeholder="Password" 
+											placeholder="New Password" 
 											onChange={this.handleChange.bind(this)}
 											value={this.state.signupPassword}
 											autoComplete="off"
@@ -121,14 +133,14 @@ class ResetPassword extends Component{
 										<div className="errorMsg mt-1">{this.state.errors.newPassword}</div>
 									</div>
 									<div className="form-group frmhgt textAlignLeft col-12 mt-4">
-										<label className="blueText">Confirm Password</label><label className="astricsign">*</label>
+										{/* <label className="blueText">Confirm Password</label><label className="astricsign">*</label> */}
 										<input
 											id="confirmPassword"
 											type="password"
 											className="form-control passswordInput formcontrol1"
 											ref="confirmPassword"
 											name="confirmPassword"
-											placeholder="Password" 
+											placeholder="Confirm Password" 
 											onChange={this.handleChange.bind(this)}
 											value={this.state.signupPassword}  autoComplete="off"
 										/>
