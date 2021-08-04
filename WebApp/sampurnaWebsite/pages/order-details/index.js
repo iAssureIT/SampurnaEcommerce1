@@ -262,13 +262,13 @@ export default class OrderDetails extends Component {
         <div className={" " + Style.container1}>
           <Message messageData={this.state.messageData} />
           {
-            this.state.orderData &&
+            this.state.orderData && this.state.orderData.paymentDetails &&
             <div className="col-12 NoPadding">
               <br />
               <div className="row">
                 <div className="col-12 col-12 col-md-12">
                   <div className="col-12">
-                    <h4 className={"table-caption " + Style.mainTitle}>Orders Details</h4>
+                    <h4 className={"table-caption mb-1 mt-4 " + Style.mainTitle}>My Order Details</h4>
                   </div>
                   <div className={"col-12 NoPadding orderDetailsTopBlock"}>
                     <div className="col-12 NoPadding orderDetailsTop " style={{
@@ -276,52 +276,40 @@ export default class OrderDetails extends Component {
                         this.state.orderData.orderStatus === "Delivered" && '#3E9D5E' ||
                         this.state.orderData.orderStatus === "Cancelled" && '#E88686'
                     }}>
-                      <div className={"row " + Style.ptb15}>
-                        <div className="col-6 ">
-                          <div className="col-12">{"Order Status : " + (this.state.orderData.orderStatus)}</div>
-                          <div className="col-12">{"Order ID : " + (this.state.orderData.orderID)}</div>
-                          {this.state.orderData && this.state.orderData.paymentDetails &&
-                            <div className="col-12">Total Amount : <b>{this.state.orderData.paymentDetails.netPayableAmount} {this.state.currency}</b></div>
-                          }
-                          <div className="col-12">
+                      
 
-                            {/* {this.state.orderData && this.state.orderData.paymentDetails &&
-                                "Credit Points  "+this.state.orderData.paymentDetails.creditPointsEarned +" ( "+this.state.currency+" "+this.state.orderData.paymentDetails.creditPointsValueEarned +" )"
-                              } */}
-                            {this.state.orderData && this.state.orderData.paymentDetails &&
-                              <span>Credits Points : &nbsp;<b>{this.state.currency} {this.state.orderData.paymentDetails.creditPointsEarned}{this.state.orderData.paymentDetails.creditPointsValueEarned}</b></span>
-                            }
-                          </div>
-                        </div>
-                        <div className={"col-6 " + Style.rightside}>
-                          <div className="row">
-                            <div className="col-12">
-                              <span className="col-12 text-right d-lg-block d-xl-block d-none">Date - {moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm A")}</span>
-                              {/* <span className="col-6 text-right"></span> */}
-                              <span className="col-12 text-right d-block d-lg-none d-xl-none">{moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm A")}</span>
+                    <div className={"row " + Style.ptb15}>
+                              <div className={"col-6 "+ Style.leftSideMyOrderHeaderWrapper}>
 
-                            </div>
-                            {this.state.orderData && this.state.orderData.paymentDetails &&
-                              <div className="col-12">
-                                <div className="col-12"> <i className="fas fa-wallet"></i>&nbsp;{this.state.orderData.paymentDetails.paymentMethod}</div>
+                                <div className="col-12">
+                                  <div className="col-12">{"Order Status : " + (this.state.orderData.orderStatus === "New"?"New Order":this.state.orderData.orderStatus)}</div>
+                                  <div className="col-12">{"Order ID : " + (this.state.orderData.orderID)}</div>
+                                  <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.netPayableAmount}</span></div>
+                                  <div className="col-12">
+                                    Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.creditPointsEarned}{this.state.orderData.paymentDetails.creditPointsValueEarned}</span>
+                                  </div>
+                                </div>
+                                
                               </div>
-                            }
-                            {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.addressLine2 &&
-                              <div className="col-12">
-                                <div className="col-12 orderAddress">
-                                  <i className="fas fa-map-marker-alt"></i>&nbsp;{this.state.orderData.deliveryAddress.addressLine1}, <br />  {this.state.orderData.deliveryAddress.addressLine2}
+                              <div className={"col-6 " + Style.rightside}>
+                                <div className="">
+                                  <div className={"col-12 "+Style.rightSideDateWrapper}>
+                                    <span className="col-12 text-right d-lg-block d-xl-block d-none">Date : {moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;<span className={" "+ Style.rightSideDateWrapper2}></span>&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm a")}</span>
+
+                                    <span className="col-12 text-right d-block d-lg-none d-xl-none">{moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm A")}</span>
+
+                                  </div>
+                                  <div className={"col-12 "+Style.rightSideDateWrapper1}>
+                                    <div className="col-12"> <i className="fas fa-wallet"></i>&nbsp; {this.state.orderData.paymentDetails.paymentMethod}</div>
+                                  </div>
+                                  <div className={"col-12 "+Style.rightSideDateWrapper1}>
+                                    <div className="col-12 orderAddress">
+                                      <i className="fas fa-map-marker-alt"></i>&nbsp; {this.state.orderData.deliveryAddress.addressLine1} , <br />{this.state.orderData.deliveryAddress.addressLine2}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                            }
-                          </div>
-                        </div>
-                        {/* <div className="col-6 NOpadding">
-                          <div className="actionbtn col-12   NOpadding">
-                            { this.state.orderData.deliveryStatus[this.state.orderData.deliveryStatus.length - 1].status !== 'Cancelled' ? 
-                              <a className="btn filterallalphab" target="_blank" rel="noopener noreferrer" href={"/view-order/" + this.state.orderData._id} title="View Order">
-                              <span> Invoice</span></a> : <div className="pull-right"><span className="cancelledtext"> Cancelled</span></div>
-                            }*/}
-                      </div>
+                            </div>
                     </div>
                     {
                       this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?
@@ -358,12 +346,14 @@ export default class OrderDetails extends Component {
                               </div>
                               {vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
                                 <div className="col-12 NoPadding ">
+                                 
                                   <StepProgressBar
                                     startingStep={index1 === -1 ? 2 : index1}
                                     // startingStep={index1}
                                     steps={labels}
                                   />
-                                </div> : null
+                                  </div>
+                                : null
                               }
 
                               <ProductsView
@@ -387,18 +377,18 @@ export default class OrderDetails extends Component {
                                         </span>
                                       </div>
                                       <div className={"col-lg-8 offset-lg-2 col-sm-8 offset-sm-2 col-12 text-lg-right font-weight-bold " + Style.orderDetaiAmount}>
-                                        <span className="col-lg-7 col-5 title">&nbsp; <b>You Saved</b>&nbsp;</span>
+                                        <span className="col-lg-7 col-5 title"><b>You Save</b>&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                         <span className="col-lg-5 col-7 textAlignRight title">&nbsp;
                                           <span className="currencyColor">{this.state.currency}</span> &nbsp;<span className={" "+Style.savingaMTcOLOR}>{vendordata.vendor_discountAmount > 0 ? vendordata.vendor_discountAmount.toFixed(2) : "00.00"}</span>
                                         </span>
                                       </div>
-                                      <div className={"col-lg-8 offset-lg-2 col-sm-8 offset-sm-2 col-12 text-lg-right font-weight-bold " + Style.orderDetaiAmount}>
+                                      {/* <div className={"col-lg-8 offset-lg-2 col-sm-8 offset-sm-2 col-12 text-lg-right font-weight-bold " + Style.orderDetaiAmount}>
                                         <span className="col-lg-8 col-sm-8 col-10 title">&nbsp; Number Of Items</span>
 
                                         <span className="col-lg-4 col-sm-4 col-2 textAlignRight title">&nbsp;
                                           {vendordata.vendor_numberOfProducts}
                                         </span>
-                                      </div>
+                                      </div> */}
                                     </div>
                                   </div>
                                 </div>

@@ -1,6 +1,8 @@
 .mainTitle {
-	font-size: 32px;
-	margin   : 0px 0px 20px 0px;
+	font-size  : 24px;
+	margin     : 0px 0px 20px 0px;
+	font-family: 'Montserrat-Bold';
+	color      : #000000;
 }
 
 .container1 {
@@ -23,6 +25,30 @@
 
 .orderDetailMainWrapper {
 	/* margin-top: -545px!important; */
+}
+
+.rightSideDateWrapper2 {
+	font-family: 'Montserrat-Regular';
+	opacity    : 0.4 !important;
+	border-left: 1px solid #ffffff;
+
+}
+
+.singleProductDetail {
+	font-family   : 'Montserrat-Bold';
+	color         : #000000;
+	opacity       : 1;
+	letter-spacing: 0px;
+	font-size     : 14px !important;
+}
+
+.productNameOrderDetail {
+	font-family   : 'Montserrat-Regular';
+	color         : #000000!important;
+	opacity       : 0.5;
+	letter-spacing: 0px;
+	font-size     : 14px !important;
+
 }
 
 .vendorRow {
@@ -53,9 +79,9 @@
 }
 
 .errormsg {
-	color: #f00;
-	font-size: 11px;
-    margin-top: -1px;
+	color     : #f00;
+	font-size : 11px;
+	margin-top: -1px;
 }
 
 .reviewImg {
@@ -80,90 +106,111 @@
 	padding         : 6px 25px;
 	float           : right;
 }
+
 .cancelBtn {
 	color: #E88686 !important;
 }
+
 .mAuto {
 	margin: auto;
 }
+
 .rightText {
 	text-align: right;
 }
+
 .ReturnImg {
 	height: 100px;
 	border: solid 1px #ddd !important;
 }
+
 .errorMsg {
 	font-size: 11px;
 	color    : #f00;
-}.returnForm {
+}
+
+.returnForm {
 	/* border-top: solid 1px #eee; */
 }
-.returnRadioBtn{
+
+.returnRadioBtn {
 	margin-top: 3px;
 }
+
 .savingaMTcOLOR {
-    color: #3e9d5e !important;
+	color: #3e9d5e !important;
 }
-.reviewProName{
-	font-size: 11px;
+
+.reviewProName {
+	font-size  : 11px;
 	font-weight: 600;
 }
-.reviewProPrice{
+
+.reviewProPrice {
 	font-size: 10px;
 }
-.feedbackLable{
-	color: #033554;
-	font-size: 11px;
+
+.feedbackLable {
+	color      : #033554;
+	font-size  : 11px;
 	font-weight: bold;
 }
-.feedbackBtn{
+
+.feedbackBtn {
 	background: #033554 !important;
-	font-size: 12px;
+	font-size : 12px;
 }
-.reviewVendorName{
-	font-size: 11px;
+
+.reviewVendorName {
+	font-size  : 11px;
 	font-weight: 900;
 }
-.feedbackBox{
-	border: solid 1px #ccc !important;
+
+.feedbackBox {
+	border       : solid 1px #ccc !important;
 	border-radius: 3px !important;
 }
-.reviewModalFooter{
+
+.reviewModalFooter {
 	border-top: none;
-    margin-top: -15px;
+	margin-top: -15px;
 }
+
 .inputWrapper {
-	overflow: hidden;
-	position: relative;
-	cursor: pointer;
+	overflow           : hidden;
+	position           : relative;
+	cursor             : pointer;
 	/* background-color: #DDF; */
-	/* border: 1px gray dashed; */
-	background: url('/images/eCommerce/plus.png') no-repeat center;
-	text-indent: -9999em;
-	height: 25px;
-	margin-top: -25px;
+	/* border          : 1px gray dashed; */
+	background         : url('/images/eCommerce/plus.png') no-repeat center;
+	text-indent        : -9999em;
+	height             : 25px;
+	margin-top         : -25px;
 }
-.uploadReviewImg{
-	background: url('/images/eCommerce/notavailable.png') no-repeat center;
+
+.uploadReviewImg {
+	background     : url('/images/eCommerce/notavailable.png') no-repeat center;
 	background-size: contain;
-	height: 30px;
-	width: 25px;
-	float: right;
+	height         : 30px;
+	width          : 25px;
+	float          : right;
 }
+
 .fileInput {
-	cursor: pointer;
-	height: 100%;
-	position:absolute;
-	top: 0;
-	right: 0;
-	font-size:50px;
+	cursor   : pointer;
+	height   : 100%;
+	position : absolute;
+	top      : 0;
+	right    : 0;
+	font-size: 50px;
 }
+
 .hidden {
-	opacity: 0;
+	opacity     : 0;
 	-moz-opacity: 0;
-	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+	filter      : progid:DXImageTransform.Microsoft.Alpha(opacity=0)
 }
+
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 	.container1 {
@@ -178,6 +225,60 @@
 
 	.orderDetaiAmount {
 		margin-left: 37% !important;
+	}
+
+	.leftSideMyOrderHeaderWrapper {
+		font-family   : 'Montserrat-Regular';
+		letter-spacing: 0px;
+		color         : #FFFFFF;
+		opacity       : 1;
+	}
+
+	.leftSideMyOrderTotalWrapper {
+		font-family   : 'Montserrat-Bold';
+		letter-spacing: 0px;
+		color         : #FFFFFF;
+		opacity       : 1;
+	}
+
+	.rightSideDateWrapper {
+		font-family   : 'Montserrat-Regular';
+		letter-spacing: 0px;
+		color         : #FFFFFF;
+		opacity       : 1;
+	}
+
+	.rightSideDateWrapper1 {
+		font-family   : 'Montserrat-Regular';
+		letter-spacing: 0px;
+		color         : #FFFFFF;
+		opacity       : 0.6;
+	}
+
+	.rightSideDateWrapper1 div i {
+		font-size: 10px;
+	}
+
+	.rightSideDateWrapper2 {
+		font-family: 'Montserrat-Regular';
+		opacity    : 0.4 !important;
+		border-left: 1px solid #ffffff;
+
+	}
+
+	.statusTextWrapper {
+		position      : relative;
+		top           : -2px;
+		opacity       : 1 !important;
+		letter-spacing: 0px;
+		color         : #F9F9F9;
+		opacity       : 1;
+		font-family   : 'Montserrat-Regular';
+	}
+
+	.middleText {
+		font-size: 14px;
+		color    : black;
 	}
 }
 

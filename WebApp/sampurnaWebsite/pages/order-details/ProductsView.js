@@ -510,17 +510,29 @@ uploadImage(event) {
     console.log("productdetails this.props ===",this.props);
     return (
       <div className="col-12 ">
+      <div className="col-12 ">
+     
         <Message messageData={this.state.messageData} />
         <table className={"table table-borderless orderTable " + Style.table}>
           <thead>
             <tr>
+              <th className="font-weight-bold pb-1">Product</th>
+              <th className={"d-none d-lg-block pb-1 " + Style.pnHIdden}>Products Name</th>
+              <th className="textAlignLeft pb-1">Price</th>
+              <th className="textAlignCenter pb-1">Quantity</th>
+              <th className="textAlignRight pb-1">SubTotal</th>
+            </tr>
+          </thead>
+          
+          {/* <thead className="d-block d-lg-none d-xl-none">
+            <tr>
               <th className="font-weight-bold">Product</th>
               <th className={"d-none d-lg-block " + Style.pnHIdden}>Products Name</th>
-              {/* <th className="textAlignLeft">Price</th> */}
+            
               <th className="textAlignCenter">Quantity</th>
               <th className="textAlignRight">SubTotal</th>
             </tr>
-          </thead>
+          </thead> */}
 
           <tbody>
             {
@@ -533,26 +545,30 @@ uploadImage(event) {
                       {productdata.size ? <span className="cartColor d-lg-none d-xl-none ">Size : {productdata.size} &nbsp; {productdata.unit}</span> : null}
                     </td>
                     <td className="mt-lg-4 d-none d-lg-block d-xl-block">
+
+                    {
+                      <div className={" singleProductDetail "+Style.singleProductDetail}>        
+                        <span className="">Brand</span>
+                      </div>           
+                            
+                    }
                       <a href={"/product-detail/" + this.props.vendorWiseOrderData.vendor_id._id + "/" + this.props.vendorWiseOrderData.vendorLocation_id + "/" + productdata.product_ID}>
                         {productdata.productNameRlang ?
                           <h5 className="RegionalFont">{productdata.productNameRlang}</h5>
                           :
-                          <h5 className="productName">{productdata.productName}</h5>
+                          <h5 className={"productName "+Style.productNameOrderDetail}>{productdata.productName}</h5>
                         }
                       </a>
 
 
-                      <div>
-                        {productdata.color ? <span className="cartColor">Color : <span style={{ backgroundColor: productdata.color, padding: '0px 5px' }}>&nbsp;</span>  </span> : null}
-                        {productdata.size ? <span className="cartColor">Size : {productdata.size} &nbsp; {productdata.unit}</span> : null}
-                      </div>
+                     
                     </td>
-                    {/* <td className="textAlignLeft">
-                                    {
-                                      <span className="productPrize textAlignRight">{this.props.currency}&nbsp;{productdata.discountedPrice.toFixed(2)}</span>
-                                            
-                                    }
-                                </td> */}
+                    <td className="textAlignLeft ">
+                          {
+                            <span className="productPrize textAlignRight">{this.props.currency}&nbsp;{productdata.discountedPrice.toFixed(2)}</span>
+                                  
+                          }
+                      </td>
                     <td className="textAlignCenter">
                       {
                         <span className=" textAlignRight">{productdata.quantity}</span>
@@ -820,6 +836,8 @@ uploadImage(event) {
           </tbody>
         </table>
       </div>
+      </div>
+      
     );
   }
 }

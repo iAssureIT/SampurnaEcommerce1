@@ -52,7 +52,7 @@
 
 .modalContent {
     border-radius: 15px !important;
-    border: none !important;
+    border       : none !important;
 }
 
 .closeModal {
@@ -235,10 +235,14 @@
 }
 
 .productPrize {
-    white-space  : nowrap;
-    color        : #333 !important;
-    /*font-weight: 900;*/
-    font-size    : 13px;
+    white-space   : nowrap;
+    color         : #000000 !important;
+    font-weight : 900;
+    font-size     : 13px;
+    font-family   : 'Montserrat-Regular';
+    letter-spacing: 0px;
+
+    opacity: 1;
 }
 
 .couponCode {

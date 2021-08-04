@@ -355,3 +355,20 @@ ul.Featured-Brands li {
 .accountInformationMainWrapper .special-label {
     display: none !important;
 }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    ._1Lo2h {
+        margin: 0px 0px 1rem -54px!important;
+        padding: 0;
+        display: -moz-box;
+        display: flex;
+        -moz-box-align: center;
+        align-items: center;
+        -moz-box-pack: center;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+        width: 113%;
+    }
+}
