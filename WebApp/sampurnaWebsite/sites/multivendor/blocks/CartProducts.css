@@ -1,6 +1,4 @@
-.cartHeight{
-    min-height: 400px;
-}
+
 .cartProduct{
     margin-top: 0px;
     overflow: hidden!important;
@@ -56,12 +54,14 @@
     background: #eee;
 }
 .cartProductPrize{
-    color: #5f5f5f;
+    color: #000000;
     text-align: center;
     font-weight: 600;
     line-height: 30px;
     margin-top: 15px;
     font-size: 12px !important;
+    opacity: 1;
+    font-family: 'Montserrat-Medium';
 }
 .totalAmounts{
     font-size: 14px;
@@ -161,6 +161,7 @@
     vertical-align: top;
     border-top: none !important;
     color: black!important;
+    font-family: 'Montserrat-Bold';
 }
 .cartCheckout{
     font-weight: 700;
@@ -248,9 +249,12 @@
     font-weight: 600;
 }
 .cartOldprice{
-    font-size: 13px;
-    color: #878787;
+    font-size: 12px;
+    font-family: 'Montserrat-Medium';
     text-decoration: line-through;
+    opacity: 0.5;
+    color:#000000;
+    font-weight: 500;
 }
 .CapsUnit{
     text-transform: uppercase !important;
@@ -284,5 +288,9 @@
     .cartProduct{
         margin-top: 0px;
         overflow: hidden!important;
+    }
+
+    .cartHeight{
+        min-height: 400px;
     }
   }
