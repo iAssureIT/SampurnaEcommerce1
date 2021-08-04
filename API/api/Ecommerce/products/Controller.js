@@ -2406,7 +2406,7 @@ exports.search_product = (req,res,next)=>{
 	// .limit(parseInt(req.body.limit))
 	.populate("vendor_ID")
 	.then(async(products)=>{
-		// console.log("products",products);
+		console.log("products",products);
 		var userLat         = req.body.userLatitude;
 		var userLong        = req.body.userLongitude;
 		
@@ -2415,7 +2415,7 @@ exports.search_product = (req,res,next)=>{
 			if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
 				const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID._id)))];
 				
-				// console.log("uniqueVendors=> ",uniqueVendors);     
+				console.log("uniqueVendors=> ",uniqueVendors);     
 				FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
 			}
 			for (let k = 0; k < products.length; k++) {
