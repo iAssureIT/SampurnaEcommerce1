@@ -3,7 +3,7 @@ import $ from 'jquery';
 import jQuery from 'jquery';
 import axios from 'axios';
 import swal from 'sweetalert';
-import Swal         from 'sweetalert2';
+// import Swal         from 'sweetalert2';
 
 import { withRouter } from 'react-router-dom';
 import S3FileUpload from 'react-s3';
@@ -13,13 +13,13 @@ import 'bootstrap/js/tab.js';
 import Select from 'react-select';
 import './OneField.css'
 
-const formValid = formerrors=>{
-  let valid = true;
-  Object.values(formerrors).forEach(val=>{
-  val.length>0 && (valid = false);
-  })
-  return valid;
-  }
+// const formValid = formerrors=>{
+//   let valid = true;
+//   Object.values(formerrors).forEach(val=>{
+//   val.length>0 && (valid = false);
+//   })
+//   return valid;
+//   }
 
 class OneFieldForm extends React.Component {
     constructor(props) {
@@ -44,7 +44,7 @@ class OneFieldForm extends React.Component {
     }
     componentDidMount() {
         // console.log("this.props.getFileDetails",this.props.getFileDetails);
-        console.log("this.props",this.props);
+        // console.log("this.props",this.props);
         //console.log("this.props.fields.attributeName",this.props.fields.attributeName);
         const user_ID = localStorage.getItem("user_ID")
         const companyID = localStorage.getItem("companyID")
@@ -168,9 +168,9 @@ class OneFieldForm extends React.Component {
     }
     handleChange(event) {
         event.preventDefault();
-        const target = event.target;
-        const name = target.name;
-        var fieldName = this.props.fields.attributeName
+        // const target = event.target;
+        // const name = target.name;
+        // var fieldName = this.props.fields.attributeName
         this.setState({
             fieldName: event.target.value
         }, () => {
@@ -232,7 +232,7 @@ class OneFieldForm extends React.Component {
         } else {
             var formValues = {
                 "companyID"     : this.state.companyID,
-                "fieldValue"    : this.state.fieldName? this.state.fieldName.trim() : this.state.fieldName,
+                "fieldValue"    : this.state.fieldName ? this.state.fieldName.trim() : this.state.fieldName,
                 "iconUrl"       : this.state.categoryImage,
                 "statusRank"    : this.state.statusRank,
                 "createdBy"     : this.state.user_ID
@@ -252,7 +252,7 @@ class OneFieldForm extends React.Component {
                             if(!this.props.tableObjects.showfieldTitle){
                                 swal(" ", this.props.fields.title + " " + " already exists");                            
                             }else{
-                                swal(" ", this.state.fieldName + " " + this.props.fields.title+" already exists");            
+                                swal(" ", this.state.fieldName + " " + this.props.fields.title + " already exists");            
                             }
                         }
                         this.getDataCount()
@@ -325,7 +325,7 @@ class OneFieldForm extends React.Component {
     getDataCount() {
         axios.get(this.state.apiLink + 'get/count')
             .then((response) => {
-                console.log("count respose => ",response.data)
+                // console.log("count respose => ",response.data)
                 this.setState({
                     dataCount : response.data.count
                 },()=>{
@@ -347,11 +347,11 @@ class OneFieldForm extends React.Component {
         .then((response) => {
             // this.getDataCount();
             // console.log("abc => ",abc)
-            console.log("inside response ",response)
+            // console.log("inside response ",response)
             var tableData = response.data.map((a, i) => {
                 // console.log("269 onsefield form get data map ==> ",tableData)
-                console.log("269 onsefield form get data map ==> ",a)
-                console.log("this.props.fields.attributeName ==> ",this.props.fields.attributeName)
+                // console.log("269 onsefield form get data map ==> ",a)
+                // console.log("this.props.fields.attributeName ==> ",this.props.fields.attributeName)
                 return ({
                     _id: a._id,
                     // companyID: a.companyID ? a.companyID : this.state.companyID,
@@ -360,15 +360,15 @@ class OneFieldForm extends React.Component {
                 })
             })
             // var filterByCompanyID = tableData.filter(field => field.companyID == this.state.companyID);
-            console.log("dATA COUNT",this.state.dataCount)
+            // console.log("dATA COUNT",this.state.dataCount)
             
-            console.log("this.state.datacount => ",this.state.datacount)
+            // console.log("this.state.datacount => ",this.state.datacount)
             this.setState({
                 // ["tableData" + this.props.fields.attributeName]: filterByCompanyID
                 ["tableData" + this.props.fields.attributeName] : tableData,
                 dataCount                                       : this.state.dataCount
             }, () => {
-                console.log("line 219 this.state = ", this.state);
+                // console.log("line 219 this.state = ", this.state);
             })
             
         })
@@ -510,7 +510,7 @@ class OneFieldForm extends React.Component {
     render() {
         // console.log("this.props.editId = ",this.props.editId);
         // console.log("typeof this.props.editId = ",typeof this.props.editId);
-        const { effect } = this.state;
+        // const { effect } = this.state;
         return (
             <div className="">
                 <div className="pageContent">
@@ -557,10 +557,10 @@ class OneFieldForm extends React.Component {
                                                                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 brdlogosOF" id="categoryImage">
                                                                                     {
                                                                                         this.state.categoryImage.split('.').pop() === "pdf" || this.state.categoryImage.split('.').pop() === "PDF" ?
-                                                                                            <img src="/images/pdfImg.png" className="img-responsive profileImageDivlogoStyleOF" />
+                                                                                            <img src="/images/pdfImg.png" alt="" className="img-responsive profileImageDivlogoStyleOF" />
 
                                                                                             :
-                                                                                            <img src={this.state.categoryImage} className="img-responsive profileImageDivlogoStyleOF" />
+                                                                                            <img src={this.state.categoryImage} alt="" className="img-responsive profileImageDivlogoStyleOF" />
                                                                                     }
                                                                                 </div>
                                                                             </div>
@@ -570,7 +570,7 @@ class OneFieldForm extends React.Component {
                                                                             <div className="col-lg-12 col-md-2 col-sm-12 col-xs-12 nopadding CustomImageUploadOF">
                                                                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding marginsBottom" id="hide">
                                                                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 brdlogosOF" id="categoryImage">
-                                                                                        <img src="/images/loading.gif" className="img-responsive profileImageDivlogoStyleOF" />
+                                                                                        <img src="/images/loading.gif" alt="" className="img-responsive profileImageDivlogoStyleOF" />
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -595,8 +595,8 @@ class OneFieldForm extends React.Component {
                                                             <div className="form-margin col-lg-8 col-lg-offset-2 col-md-6 col-sm-12 col-xs-12 pdcls">
                                                                 <div id="OneFieldInput">
                                                                     <label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding-left">{this.props.fields.title} <i className="astrick">*</i></label>
-                                                                    {console.log("effect => ",effect)}
-                                                                    {console.log("this.props.options => ",this.props.options)}
+                                                                    {/*{console.log("effect => ",effect)}*/}
+                                                                    {/*{console.log("this.props.options => ",this.props.options)}*/}
                                                                     {this.props.inputType === "selectBox"?
 
                                                                     <Select
