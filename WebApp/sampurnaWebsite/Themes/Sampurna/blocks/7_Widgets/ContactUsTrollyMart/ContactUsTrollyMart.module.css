@@ -144,7 +144,11 @@
 .contactUsTrollyMainWrapper input[type='number']:focus{
 	-moz-appearance: textfield;
 }
-
+.contactUsRightLogo{
+	width: 50%;
+	margin-top: 80px;
+	margin-left: 50px;
+}
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 

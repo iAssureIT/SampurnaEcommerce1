@@ -72,29 +72,21 @@ export default class Std5_PlainContent extends Component{
                 {
                     this.state.blocks.bgImage
                     ?
-                        <section className="container-flex stdBlockWrapper" >
-                            <div className="row">
-                              <div className={"col-12  "+S.simplePageBanner} style={{backgroundImage:"url("+this.state.blocks.bgImage+")"}}>
-                  <h4 className={"text-center  col-10 offset-1 "+S.simplePageBannerTitle} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockTitle} }></h4>
-           
-                    </div>
-                    </div>
+                        <section className="col-12 stdBlockWrapper">
                             <div className="col-12 stdBlockContentWrapper">
                                 <h3 className="stdBlockSubTitleWhite">{this.state.blocks.blockSubTitle}</h3>
-                                <p className={"mt-5 TrollyMartDescrWrapper "+S.TrollyMartDescrWrapper} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
+                                <p className={"mt-5 "+S.TrollyMartDescrWrapper} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
                             </div>
-                            
                         </section>
                     :
-                    null
-                        // <section className="col-12 stdBlockWrapper">
-                        //     <StdBlockSeparatorBlue />
-                        //     <StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} />
-                        //     <div className="col-12 stdBlockContentWrapper">
-                        //         <h3 className="stdBlockSubTitleBlack">{this.state.blocks.blockSubTitle}</h3>
-                        //         <p className="mt-5 TrollyMartDescrWrapper" dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
-                        //     </div>
-                        // </section>
+                        <section className="col-12 stdBlockWrapper">
+                            {/* <StdBlockSeparatorBlue /> */}
+                            {/* <StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} /> */}
+                            <div className="col-12 stdBlockContentWrapper">
+                                <h3 className="stdBlockSubTitleBlack">{this.state.blocks.blockSubTitle}</h3>
+                                <p className={"mt-5 "+S.TrollyMartDescrWrapper} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
+                            </div>
+                        </section>
                 }
             </div>
         )

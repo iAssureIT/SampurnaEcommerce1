@@ -182,7 +182,7 @@ export default class ContactUsTrollyMart extends Component{
 		console.log("state ===", this.state.name,  + " |" + this.state.email  + "|" + this.state.message )
 
 		return(
-			<section className={"col-12 pt-3 contactUsTrollyMainWrapper "+S.contactUsTrollyMainWrapper}>
+			<section className={"col-12 contactUsTrollyMainWrapper "+S.contactUsTrollyMainWrapper}>
 				<div className="row">
 					<div className={"col-12 contactUsTrollyBreadcumWrapper "+S.contactUsTrollyBreadcumWrapper} style={{backgroundImage: "url("+this.state.blocks.bgImage+ ")"}}></div>
 					<div className={"col-12 col-lg-8 offset-lg-2 contactusFormWrapperMain "+S.contactusFormWrapperMain}>
@@ -192,16 +192,40 @@ export default class ContactUsTrollyMart extends Component{
 									<form className="col-12 col-lg-10 offset-lg-1 mt-5 pt-5" id="ContactUs">
 										<div className="form-group">
 											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Your Name</label>
-											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="name" name="name" type="text" id="name" ref="name" required value={this.state.name} onChange={this.handleChange.bind(this)} /> </div>
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+												</div>
+												<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="name" name="name" type="text" id="name" ref="name" required value={this.state.name} onChange={this.handleChange.bind(this)} />
+											</div>
+										</div>
 										<div className="form-group mt-5">
 											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Email</label>
-											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="email" name="email" type="email" id="email" data-text="clientEmail" ref="email" required value={this.state.email} onChange={this.handleChange.bind(this)} /> </div>
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
+												</div>
+												<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="email" name="email" type="email" id="email" data-text="clientEmail" ref="email" required value={this.state.email} onChange={this.handleChange.bind(this)} />
+											</div>
+										</div>
 										<div className="form-group mt-5">
 											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Phone</label>
-											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="mobile" type="number" name="mobile" id="mobile" ref="mobile" required value={this.state.mobile} value={this.state.mobile} onChange={this.handleChange.bind(this)} /> </div>
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1"><i class="fa fa-phone-alt"></i></span>
+												</div>
+												<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="mobile" type="number" name="mobile" id="mobile" ref="mobile" required value={this.state.mobile} value={this.state.mobile} onChange={this.handleChange.bind(this)} />
+											</div>
+										</div>
 										<div className="form-group mt-5">
 											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>How we can help you?</label>
-											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} /> </div>
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1"><i class="fa fa-question-circle"></i></span>
+												</div>
+												<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} />
+											</div>
+										</div>
 										<div className={"col-lg-12 pb-lg-5 pb-0 "+S.getInTouchBtnMainWrapper}>
 											<button type="button" className={"btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="far fa-paper-plane" aria-hidden="true"></i></button>
 										</div>
@@ -226,6 +250,9 @@ export default class ContactUsTrollyMart extends Component{
 										<a href="https://www.linkedin.com/knockknockeshop" target="_blank"><i className="fab fa-linkedin"></i></a>
 										<a href="https://twitter.com/knockknockeshop" target="_blank"><i className="fab fa-twitter"></i></a>
 									</div>
+								</div>
+								<div className="col-12">
+									<img className={S.contactUsRightLogo} src="/images/eCommerce/Face.png" alt=""></img>
 								</div>
 							</div>
 						</div>

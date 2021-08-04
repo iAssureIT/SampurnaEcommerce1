@@ -75,16 +75,33 @@ class Payment extends Component{
                    									<h6>Thank you your order has been received.</h6> 
                 								</div>
 												<div className={"mx-4 "+Style.paymentAlertWrapper}>
-													<h6>Receipt From
-													<h6 className="mx-4 mt-2">Knock Knock</h6></h6><hr/>
+													<h6>Receipt From</h6>
+													<h6 className="mx-4 font-weight-bold">Knock Knock</h6>
 												</div>
-												<div className={"mx-4 mt-2 "+Style.paymentLockWrapper}>
-													<i className="fa fa-lock"></i>&nbsp;&nbsp;Amount : {this.state.currency}&nbsp;{this.state.orderData.paymentDetails? this.state.orderData.paymentDetails.netPayableAmount:null} <br/><hr/>
+												<div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
+													<h6>
+														<i className="fa fa-wallet"></i>&nbsp; Amount :
+													</h6>
+													<h6 className="mx-4">
+														{this.state.currency}&nbsp;{this.state.orderData.paymentDetails ? this.state.orderData.paymentDetails.netPayableAmount : null} /-
+													</h6>
 												</div>
-												<div className={"mx-4 mt-2 "+Style.paymentLockWrapper}>
-													<i className="fa fa-calendar"></i>&nbsp;&nbsp;Date <br/>
-													<p className="mt-2 mx-3">{moment(this.state.orderData.createdAt).format("DD MMMM")}  | OrderID -  {this.state.orderData.orderID}    {this.state.orderData.shippingtime?<span className="pull-right hidden-xs">Shipping Time : {this.state.orderData.shippingtime}</span>:null}</p><hr/>
+												<div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
+													<h6>
+														<i className="fa fa-calendar"></i>&nbsp; Date :
+													</h6>
+													<h6 className="mx-4">
+														{moment(this.state.orderData.createdAt).format("DD MMMM")}
+													</h6>
 												</div>
+												{/* <div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
+													<h6>
+														<i className="fa fa-sort-numeric-up-alt"></i>&nbsp; OrderID :
+													</h6>
+													<h6 className="mx-4">
+														{this.state.orderData.orderID}&nbsp;{this.state.orderData.shippingtime ? <span className="pull-right hidden-xs">Shipping Time : {this.state.orderData.shippingtime}</span> : null}
+													</h6>
+												</div> */}
 												{/* <div className={"mx-4 mt-2 "+Style.paymentLockWrapper}>
 													<i className="fa fa-clipboard"></i>&nbsp;&nbsp;Confirmation No <br/>
 													<p className="mt-2 mx-3">12345678989784554</p>
@@ -98,7 +115,7 @@ class Payment extends Component{
 														this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length> 0
 														?
 															<div className="row">
-																<div className="col-12 mb-3 ">
+																<div className="col-12 mb-3">
                           											<div className="row">
                            												<span className="col-6">Order No : </span> 
 																		<p className="col-6 text-right invoiceOrderTotal"> 
@@ -144,30 +161,27 @@ class Payment extends Component{
 																		</p>
 																	</div>
 																</div>
-																<div className="col-12 mb50">
-																	<div className="row">
-																		<div className="col-12  "><span>Total : </span></div>
-																			<div className="col-12  NOpadding text-right">
-																				<span className="invoiceOrderTotal">
-																					<i className={"fa fa-" + this.state.orderData.currency}></i>
-																					{(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2)} &nbsp;
-																					{this.state.currency}&nbsp;
-																				</span>
-																			</div>
-																		</div>  
-																	</div>
-
-																	<div className={"backtoMyOrdersDiv col-12 mb-3 mt-4 text-center "+Style.backtoMyOrdersDivWrapper}>
-																		<Link href="/my-account#v-pills-settings-tab">
-																			<a><i className="fa fa-arrow-circle-left"></i> View My Orders</a>
-																		</Link>
-																	</div>
-																	<div className={"backtoMyOrdersDiv col-12 text-center "+Style.backtoMyOrdersDivWrapper}>
-																		<Link href="/">
-																			<a><i className="fa fa-arrow-circle-left"></i> Go Back To HomePage</a>
-																		</Link>
+																<div className="col-12 mb-3">
+                          											<div className="row">
+                           												<span className="col-6">Total : </span> 
+																		<p className="col-6 text-right invoiceOrderTotal"> 
+																			<i className={"fa fa-" + this.state.orderData.currency}></i>
+																			{(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2)} &nbsp;
+																			{this.state.currency}&nbsp;
+                            											</p>
 																	</div>
 																</div>
+																<div className={"backtoMyOrdersDiv col-12 mb-3 mt-4 text-center "+Style.backtoMyOrdersDivWrapper}>
+																	<Link href="/my-account#v-pills-settings-tab">
+																		<a><i className="fa fa-eye"></i> <u>View My Orders</u></a>
+																	</Link>
+																</div>
+																<div className={"backtoMyOrdersDiv col-12 text-center "+Style.backtoMyOrdersDivWrapper}>
+																	<Link href="/">
+																		<a><i className="fa fa-arrow-circle-left"></i> <u>Go Back To HomePage</u></a>
+																	</Link>
+																</div>
+															</div>
 														:
 															null
 													}
