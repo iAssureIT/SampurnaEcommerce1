@@ -67,7 +67,7 @@ class Wishlist extends Component {
     axios.post('/api/wishlist/get/userwishlist', formValues)    
       .then((response) => {
         if(response){
-          // console.log('wishlist data', response.data);
+          console.log('wishlist data', response.data);
           this.setState({
             wishlistData: response.data
           })
@@ -127,7 +127,7 @@ class Wishlist extends Component {
                  this.state.wishlistData.map((areaWiseWishlist, index) => {  
                    return(
                       <div className="col-12 mb-4" key={index}> 
-                          <div className="col-12 areaName mt-lg-1 mt-4 pb-1 pl-lg-0"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>    &nbsp;&nbsp;{areaWiseWishlist.areaName}</div>
+                          <div className="col-12 areaName mt-lg-1 mt-4 pb-1 pl-lg-0"><i className="fas fa-map-marker-alt" aria-hidden="true"></i>    &nbsp;&nbsp;{areaWiseWishlist.areaName}</div>
                           <div className={"col-12 py-2 "+Style.wishlistBlockBorder}>
                                 {areaWiseWishlist && areaWiseWishlist.products && areaWiseWishlist.products.length > 0
                                 ?

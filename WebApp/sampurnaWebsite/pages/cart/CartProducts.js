@@ -524,11 +524,11 @@ class CartProducts extends Component {
                                                                                                             </div>
                                                                                                             <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-4 col-xl-4 cartProductDetail my-3">
                                                                                                                 <div className="row">
-                                                                                                                    {
+                                                                                                                    {vendorData.product_ID.brand?
                                                                                                                       <div className=" singleProductDetail">        
-                                                                                                                        <span className="">Brand</span>
+                                                                                                                        <span className="">{vendorData.product_ID.brand}</span>
                                                                                                                      </div>           
-                                                                                                                            
+                                                                                                                    :null
                                                                                                                     }
                                                                                                                     <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/" + vendorWiseCartData.vendorLocation_id + "/" + vendorData.product_ID._id}>
                                                                                                                         {vendorData.product_ID.productNameRlang ?

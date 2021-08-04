@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import $, { data, event } from 'jquery';
-import moment from "moment";
+import axios                from 'axios';
+import $, { data, event }   from 'jquery';
+import moment               from "moment";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Message from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
@@ -196,6 +196,7 @@ export default class MyOrders extends Component {
         "vendor_id": '',
       }
     }
+
     if (formValues) {
       console.log("formValues=", formValues);
       swal({
@@ -332,7 +333,7 @@ export default class MyOrders extends Component {
                               <div className={"col-6 "+ Style.leftSideMyOrderHeaderWrapper}>
 
                                 <div className="col-12">
-                                  <div className="col-12">{singleOrder.orderStatus}</div>
+                                  <div className="col-12">{singleOrder.orderStatus==="New"?"New Order":singleOrder.orderStatus}</div>
                                   <div className="col-12">{"Order ID : " + (singleOrder.orderID)}</div>
                                   <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</span></div>
                                   <div className="col-12">
