@@ -2413,7 +2413,7 @@ exports.search_product = (req,res,next)=>{
 		if(products && products.length > 0){
 			var FinalVendorSequence = [];
 			if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
-				const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID._id)))];
+				const uniqueVendors = [...new Set(products.filter(product => product.vendor_ID !== null).map(item => String(item.vendor_ID._id)))];
 				
 				console.log("uniqueVendors=> ",uniqueVendors);     
 				FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
