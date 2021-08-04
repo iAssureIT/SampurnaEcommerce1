@@ -14,11 +14,13 @@
 .faqImage{
     width: 100%;
     border-radius: 10px;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 20px;
 }
 .faqImage1{
     width: 100%;
     border-radius: 10px;
+    margin-top: 15px;
 }
 .faqCard{
     border: none;
@@ -78,12 +80,38 @@
 
 /* (lg) Large Devices (Desktops, 992px and up) */
 @media (min-width: 992px){
-
+    
+    .faqImage{
+        height: 190px;
+        width: 100%;
+    }
+    .faqImage1{
+        height: 190px;
+        width: 100%;
+    }
 }
 
 /* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
 @media (min-width: 1200px){
 
+    .faqImage{
+        margin-left: -20px;
+        height: auto;
+        margin-bottom: 0px;
+    }
+    .faqImage1{
+        margin-left: -20px;
+        height: auto;
+    }
+    .faqRepeatedBlockQuestion{
+        font-size: 16px;
+        margin-left: 30px !important;
+    }
+    .faqRepeatedBlockAnswer{
+        font-size: 16px;
+        padding: 10px 5px 0px 5px;
+        text-align: justify !important;
+    }
 }
 
 

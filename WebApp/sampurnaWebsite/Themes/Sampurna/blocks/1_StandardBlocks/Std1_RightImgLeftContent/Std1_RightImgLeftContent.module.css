@@ -34,6 +34,15 @@
 /* (lg) Large Devices (Desktops, 992px and up) */
 @media (min-width: 992px){
 
+    .stdBlockFGImage{
+        width: 100%;
+        margin-top: -70px;
+    }
+    .stdBlockDescriptionBlack{
+        font-size: 20px !important;
+        margin-top: 0px;
+        text-align: left;
+    }
 }
 
 /* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
@@ -41,10 +50,11 @@
 
     .stdBlockFGImage{
         width: 75%;
+        margin-top: -70px;
     }
     .stdBlockDescriptionBlack{
         font-size: 20px !important;
-        margin-top: 50px;
+        margin-top: 0px;
         margin-left: 80px;
         text-align: left;
     }

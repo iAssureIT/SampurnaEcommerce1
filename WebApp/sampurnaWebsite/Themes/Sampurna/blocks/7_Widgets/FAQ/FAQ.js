@@ -162,7 +162,7 @@ export default class FAQ extends Component{
         return(
             <section className={"col-12 "+S.faqWrapper}>
 				<div className={"col-12 accordion md-accordion "+S.faqRepeatedBlockWrapper} id="accordionEx" role="tablist" aria-multiselectable="true">
-					<div className="col-12 col-lg-10 offset-lg-1 my-5">
+					<div className="col-12 col-xl-10 offset-xl-1 my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6">
 								<div className="col-12 col-lg-12">
@@ -180,7 +180,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading7">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
@@ -194,7 +194,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 									
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading8">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
@@ -208,7 +208,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading9">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
@@ -222,7 +222,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 									
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading10">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
@@ -238,17 +238,17 @@ export default class FAQ extends Component{
 								</div>
 							</div>
 							<div className="col-12 col-lg-6">
-								<div className={"col-12 my-auto pt-4 col-lg-10 mx-auto "+S.faqImageWrapper}>
+								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage1} src={this.state.blocks.repeatedBlocks[0] ? this.state.blocks.repeatedBlocks[0].FGImage1 : ""} alt="" />
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div className="col-12 col-lg-10 offset-lg-1 my-5">
+					<div className="col-12 col-xl-10 offset-xl-1 my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6">
-								<div className={"col-12 my-auto pt-4 col-lg-10 mx-auto "+S.faqImageWrapper}>
+								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage} src={this.state.blocks.repeatedBlocks[1] ? this.state.blocks.repeatedBlocks[1].FGImage1 : ""} alt="" />
 								</div>
 							</div>	
@@ -270,7 +270,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading2">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
@@ -284,7 +284,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading3">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
@@ -298,7 +298,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 									
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading4">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
@@ -312,7 +312,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading5">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
@@ -330,7 +330,7 @@ export default class FAQ extends Component{
 						</div>
 					</div>
 
-					<div className="col-12 col-lg-10 offset-lg-1 my-5">
+					<div className="col-12 col-xl-10 offset-xl-1 my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6">
 								<div className="col-12 col-lg-12">
@@ -348,7 +348,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading17">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse17" aria-expanded="false" aria-controls="collapse17">
@@ -362,7 +362,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 									
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading18">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse18" aria-expanded="false" aria-controls="collapse18">
@@ -376,7 +376,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading19">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse19" aria-expanded="false" aria-controls="collapse19">
@@ -390,7 +390,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 									
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading20">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse20" aria-expanded="false" aria-controls="collapse20">
@@ -406,17 +406,17 @@ export default class FAQ extends Component{
 								</div>
 							</div>
 							<div className="col-12 col-lg-6">
-								<div className={"col-12 my-auto pt-4 col-lg-10 mx-auto "+S.faqImageWrapper}>
+								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage1} src={this.state.blocks.repeatedBlocks[2] ? this.state.blocks.repeatedBlocks[2].FGImage1 : ""} alt="" />
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div className="col-12 col-lg-10 offset-lg-1 my-5">
+					<div className="col-12 col-xl-10 offset-xl-1 my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6">
-								<div className={"col-12 my-auto pt-4 col-lg-10 mx-auto "+S.faqImageWrapper}>
+								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage} src={this.state.blocks.repeatedBlocks[3] ? this.state.blocks.repeatedBlocks[3].FGImage1 : ""} alt="" />
 								</div>
 							</div>
@@ -436,7 +436,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading12">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse12" aria-expanded="false" aria-controls="collapse12">
@@ -450,7 +450,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading13">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse13" aria-expanded="false" aria-controls="collapse13">
@@ -464,7 +464,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 									
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading14">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse14" aria-expanded="false" aria-controls="collapse14">
@@ -478,7 +478,7 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 
-									<div className={"col-12 card mt-2 "+S.faqCard}>
+									<div className={"col-12 card "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading15">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse15" aria-expanded="false" aria-controls="collapse15">

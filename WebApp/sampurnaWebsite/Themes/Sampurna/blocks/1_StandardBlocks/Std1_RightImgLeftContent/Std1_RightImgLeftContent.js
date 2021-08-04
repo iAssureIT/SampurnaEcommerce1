@@ -82,7 +82,7 @@ export default class Std1_RightImgLeftContent extends Component{
                                         <p className="stdBlockDescriptionWhite" dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
                                     </div>
                                     <div className="col-12 col-lg-6 stdBlockImageWrapper">
-                                        <img className="mt-5 mt-lg-3 mt-xl-0 stdBlockFGImage" src={this.state.blocks.fgImage1} alt="" title="" />
+                                        <img className={"stdBlockFGImage "+S.stdBlockFGImage} src={this.state.blocks.fgImage1} alt="" title="" />
                                     </div>
                                 </div>
                             </div>
@@ -90,10 +90,10 @@ export default class Std1_RightImgLeftContent extends Component{
                     :
                         <section className={"col-12 stdBlockWrapper "+S.stdBlockWrapper}>
                             {/* <StdBlockSeparatorBlue /> */}
-                            <StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} />
+                            {/* <StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} /> */}
                             <div className="col-12 stdBlockContentWrapper">
                                 <div className="row">
-                                    <div className={"col-12 col-lg-6 stdBlockDescriptionWrapper "+S.blockDescWrapper}>
+                                    <div className="col-12 col-lg-6 stdBlockDescriptionWrapper">
                                         <p className={"stdBlockDescriptionBlack "+S.stdBlockDescriptionBlack} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
                                     </div>
                                     <div className="col-12 col-lg-6 stdBlockImageWrapper">

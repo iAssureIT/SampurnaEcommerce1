@@ -38,15 +38,27 @@
 /* (lg) Large Devices (Desktops, 992px and up) */
 @media (min-width: 992px){
 
+	.stdBlockWrapper{
+		height: 430px;
+	}
 	.stdBlockFGImage{
-		height: 220px;
-		margin-left: -100px;
+		width: 100%;
+	}
+	.stdBlockDescriptionBlack{
+		font-size: 20px !important;
+		margin-top: 90px;
+		margin-left: 40px;
+		margin-right: 0px;
+		text-align: right;
 	}
 }
 
 /* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
 @media (min-width: 1200px){
 
+	.stdBlockWrapper{
+		height: 430px;
+	}
 	.stdBlockFGImage{
 		height: 300px;
 		width: 75%;
@@ -54,7 +66,7 @@
 	}
 	.stdBlockDescriptionBlack{
 		font-size: 20px !important;
-		margin-top: 50px;
+		margin-top: 90px;
 		margin-left: 50px;
 		margin-right: 80px;
 		text-align: right;
