@@ -446,9 +446,9 @@ const window = Dimensions.get('window');
                   style={{paddingRight: '5%'}}
                   onPress={() => togglePassword(!showPassword)}>
                   {showPassword ? (
-                    <Icon name="eye-with-line" type="entypo" size={18} />
+                    <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={18} />
                   ) : (
-                    <Icon name="eye" type="entypo" size={18} />
+                    <Icon style={{color:'#000'}} name="eye" type="entypo" size={18} />
                   )}
                 </TouchableOpacity>
               }
@@ -480,11 +480,11 @@ const window = Dimensions.get('window');
                 <View style={{flexDirection:"row",paddingHorizontal:15}}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                  <Text style={{fontSize:10,fontFamily:"Montserrat-Medium",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:10,fontFamily:"Montserrat-SemiBold",}]}> Sign Up</Text></Text>                  
+                  <Text style={{fontSize:10,fontFamily:"Montserrat-Medium",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:12,fontFamily:"Montserrat-SemiBold",}]}> Sign Up</Text></Text>                  
                 </TouchableOpacity>                
                 </View>
             </View>
-           <Text style={{paddingVertical:10,alignSelf:"center",fontSize:9,fontFamily:"Montserrat-Bold"}}>OR</Text>
+           <Text style={{paddingVertical:10,alignSelf:"center",fontSize:9,color:'#000',fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",flexDirection:'row'}}>
               {/* <GoogleSigninButton
                 style={{ width: 41, height: 41,borderRadius:100,marginRight:15}}
@@ -542,7 +542,7 @@ const window = Dimensions.get('window');
                   <Icon style={{alignSelf:'center'}} name='facebook' type='font-awesome' size={25} color="#fff"/>
                 </TouchableOpacity>
             </View>
-            <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
+            <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",color:'#000',fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
                 <FormButton
                   title       = {'Continue as a Guest'}

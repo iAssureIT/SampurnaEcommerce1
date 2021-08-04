@@ -528,7 +528,7 @@ export default StyleSheet.create({
 
 	 soldout:{
 		alignSelf:'center',
-		marginTop:130,
+		marginTop:118,
 		height:60,
 		width:75,
 		position:'absolute',

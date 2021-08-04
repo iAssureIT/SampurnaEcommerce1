@@ -126,6 +126,7 @@ export const SupportSystem = withCustomerToaster((props)=>{
             //     message : "",
             //     mobile  : ""
             // });
+            window.location.reload(false);
              
             }}          
 

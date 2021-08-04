@@ -325,7 +325,7 @@ const window = Dimensions.get('window');
                     shadowRadius: 3.84,
                     elevation: 5,
                   }}>
-                  <Icon name='facebook' type='font-awesome' size={36} color="#fff"/>
+                  <Icon name='facebook' type='font-awesome' size={20} color="#fff"/>
                 </TouchableOpacity>
             </View>
         <Modal 

@@ -313,9 +313,9 @@ const window = Dimensions.get('window');
                         style={{paddingHorizontal: '5%'}}
                         onPress={() => togglePassword(!showPassword)}>
                         {showPassword ? (
-                          <Icon name="eye-with-line" type="entypo" size={18} />
+                          <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={18} />
                         ) : (
-                          <Icon name="eye" type="entypo" size={18} />
+                          <Icon style={{color:'#000'}} name="eye" type="entypo" size={18} />
                         )}
                       </TouchableOpacity>
                     }
@@ -338,9 +338,9 @@ const window = Dimensions.get('window');
                         style={{paddingHorizontal: '5%'}}
                         onPress={() => togglePassword(!showPassword)}>
                         {showPassword ? (
-                          <Icon name="eye-with-line" type="entypo" size={18} />
+                          <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={18} />
                         ) : (
-                          <Icon name="eye" type="entypo" size={18} />
+                          <Icon style={{color:'#000'}} name="eye" type="entypo" size={18} />
                         )}
                       </TouchableOpacity>
                     }

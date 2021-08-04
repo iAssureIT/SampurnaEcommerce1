@@ -73,6 +73,7 @@ export const SearchList  = withCustomerToaster((props)=>{
                         paddingBottom   = {0}
                     />
                     :
+<<<<<<< Updated upstream
                     <View style={{justifyContent:"center",alignItems:'center',marginTop:'40%'}}>
                     <Image 
                       source={require('../../AppDesigns/currentApp/images/No-Products-Available.png')}
@@ -81,6 +82,22 @@ export const SearchList  = withCustomerToaster((props)=>{
                     />
                     <Text style={CommonStyles.noDataFound}>No Results Found</Text>
                   </View> 
+=======
+                    <View style={{ flex: 1, alignItems: 'center', marginTop: '30%'}}>
+                      <Image
+                        source={require("../../AppDesigns/currentApp/images/No-Products-Available.png")}
+                        resizeMode='contain'
+                        style={{height:200}}
+                      />
+                      {/* <Button
+                          onPress={() => navigation.navigate('Dashboard')}
+                          // title={"Click Here To Continue Shopping"}
+                          title={"Add Products"}
+                          buttonStyle={styles.buttonshopping}
+                          containerStyle={styles.continueshopping}
+                      />  */}
+                    </View>
+>>>>>>> Stashed changes
                 }
                 </View>
             </View>
