@@ -1,0 +1,24 @@
+/* Sign In Form */
+
+.signWrapper{
+    height: 500px;
+}
+.signTitleWrapper{
+    text-align: center;
+    padding-top: 40px;
+}
+.signTitle{
+    border-bottom: 1px solid #033554;
+    color: #033554;
+}
+.signTextWrapper{
+    padding-top: 40px;
+}
+.signTextWrapper span{
+    font-size: 10px;
+    color: #033554;
+}
+.signTextWrapper a{
+    font-size: 10px;
+    color: #2E92CF;
+}

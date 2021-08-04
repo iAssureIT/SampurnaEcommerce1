@@ -4,27 +4,29 @@ import Link                   from 'next/link';
 import swal 		          from 'sweetalert';
 import Image                  from 'next/image';
 
-class WebsiteLogo extends React.Component {
-	constructor(props) {
+
+class WebsiteLogo extends React.Component{
+
+	constructor(props){
 		super(props);
 		 this.state = {
             CompanyLogo : '',
          }
     }    
+
     componentDidMount(){
         axios.get("/api/entitymaster/getCompany/1")
             .then((response) => {
                 if(response.data){
-                    // console.log("CompanySettings--",response.data);
                     this.setState({
                         CompanyLogo : response.data.companyLogo[0]
                     },()=>{
-                        // console.log("CompanyLogo==",this.state.CompanyLogo);
+
                     });
                 }
             })
             .catch((error) => {
-            console.log("get comapany deatails error",error);
+                console.log("get comapany deatails error",error);
             })
 
     }
@@ -44,5 +46,6 @@ class WebsiteLogo extends React.Component {
             </div>
         );        
     }
-} 
-  export default WebsiteLogo;
+}
+ 
+export default WebsiteLogo;

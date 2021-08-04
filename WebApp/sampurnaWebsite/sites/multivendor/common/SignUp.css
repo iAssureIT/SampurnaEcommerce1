@@ -27,13 +27,13 @@ input[type=number] {
     font-weight: 900;
 }
 .kep-login-facebook{
-  height: 39px !important;
+  height: 30px !important;
   font-weight: 600!important;
-  font-size: 14px;
+  font-size: 11px;
 }
 .googleBgColor{
   background-color: #DB4437!important;
-  height: 39px !important;
+  height: 30px !important;
 }
 .googleBgColor svg{
   display:none !important;
@@ -42,10 +42,11 @@ input[type=number] {
   display: none!important;
 }
 .gooogleTextWrapper{
-    font-size: 14px;
+    font-size: 11px;
     color: #fff;
     font-weight: 600;
-    margin-left: 75px;
+    margin-left: 95px;
+    font-family: 'Montserrat-Regular' !important;
 }
 
 .modalImgBlock::before {
@@ -390,6 +391,14 @@ input[type=number] {
 .facebookLoginBtn span{
   opacity: 1 !important;
 }
+.special-label{
+  display: none;
+}
+input, input::-webkit-input-placeholder{
+  font-size: 12px !important;
+  font-family: 'Montserrat-Regular' !important;
+  color: #033554;
+}
 
 @media only screen and (max-device-width: 480px) {
     
@@ -443,9 +452,10 @@ input[type=number] {
     -webkit-transition: var(--globalTransition) !important;
     transition: var(--globalTransition) !important;
     margin-top: var(--globaleCommBtnMarginTop) !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     font-weight:bold;
-    height: 39px !important;
+    height: 38px !important;
+    font-family: 'Montserrat-Regular' !important;
 }
 
 .blueText{
@@ -454,9 +464,10 @@ input[type=number] {
 }
 
 .forgotText{
-  color: #2E92CF !important;
-  font-size:12px !important;
+  color: #0087DB !important;
+  font-size:10px !important;
   text-decoration: none!important;
+  font-family: 'Montserrat-Regular' !important;
 }
 
 .whiteClr{
@@ -491,11 +502,11 @@ input[type=number] {
 .facebookBtn{
   background-color:#3B5998 !important;
   color:#fff !important;
-  font-size:14px;
+  font-size:11px;
 }
 
 .googleBtn{
-  font-size:14px;
+  font-size:11px;
 }
 
 .mt10{
@@ -503,11 +514,13 @@ input[type=number] {
 }
 
 .guestBtn{
+  height: 30px !important;
   background-color:transparent !important;
   border:1px solid #033554;
   color: #033554 !important;
-  font-size:14px;
-  letter-spacing:0 !important
+  font-size:11px;
+  letter-spacing:0 !important;
+  font-family: 'Montserrat-Regular' !important;
 }
 /* signup OTP */
 .signUpOtpWrapper{
@@ -531,13 +544,16 @@ input[type=number] {
   border-bottom: 2px solid #333 !important;
 }
 .otpBtns{
-  padding: 10px;
+  height: 40px;
+  /* padding: 10px; */
   border:solid 1px #fff !important;
   border-radius: 5px!important;
   background: #033554 !important;
   color: #fff !important;
   font-weight: bold !important;
   cursor: pointer;
+  font-size: 14px;
+  font-family: 'Montserrat-Regular' !important;
 }
 .OtpTitleWrapper2{
   color:#666!important;
@@ -554,18 +570,18 @@ input[type=number] {
 /* facebook login */
 .facebookLoginBtn button{
   /* display: inline-block; */
-  font-size: 12px !important;
+  font-size: 11px !important;
   width: 100% !important;
   padding: 6px !important;
   text-align: center;
   border-radius: 5px !important;
   text-transform: capitalize !important;
-  font-size: 14px !important;
+  font-family: 'Montserrat-Regular' !important;
 }
 
 .googleLoginBtn button{
   /* display: block !important; */
-  font-size: 12px !important;
+  font-size: 11px !important;
   width: 100% !important;
   /* padding: 6px !important; */
   text-align: center !important;
@@ -667,7 +683,7 @@ input.middle:focus {
 @media (min-width: 768px){
 
   .gooogleTextWrapper{
-    margin-left: 145px;
+    /* margin-left: 130px; */
   }
 }
 
@@ -675,7 +691,7 @@ input.middle:focus {
 @media (min-width: 992px){
 
   .gooogleTextWrapper{
-    margin-left: 60px;
+    margin-left: 70px;
   }
   .otpInputBox{
     margin-left: -3px!important;
@@ -686,7 +702,7 @@ input.middle:focus {
 @media (min-width: 1200px){
 
   .gooogleTextWrapper{
-    margin-left: 145px;
+    margin-left: 103px;
   }
 }
 

@@ -91,7 +91,6 @@
     color: #fff;
 	font-weight:bold;
     font-size: 14px;
-    /* height: 46px; */
     padding: 10px 20px;
 	position:absolute;
     right: 70px;
@@ -110,7 +109,6 @@
     top: 220px;
     z-index: 999 !important;
     vertical-align: middle !important;
-	/*margin-top: 14%;*/
 }
 .deliveryFormAfterLogin{
     position: absolute;
@@ -129,7 +127,6 @@
 }
 
 .signinBG{
-	/*background-color:#033554 !important;*/
 	color:#fff;
 	font-size:12px;
 }
@@ -167,7 +164,6 @@
 .locationSearchWrapper input{
 	height: 42px!important;
     border-radius: 10px!important;
-    /* width: 585px!important; */
     opacity: 0.72!important;
     box-shadow: -3px 3px 6px #000000e8!important;
     margin-left:-14px!important;
@@ -175,10 +171,7 @@
 .locationSearchWrapperAfterLogin input{
 	height: 42px!important;
     border-radius: 10px!important;
-    /* width: 507px!important; */
-    /* opacity: 0.72!important; */
     box-shadow: -3px 3px 6px #000000e8!important;
-    /* margin-left:-25px!important; */
 }
 
 .orline{
@@ -209,8 +202,8 @@
     color: #999;
 	z-index: 999;
 }
-.systemSecurityModalWrapper{
-    /* margin-right: 9px !important; */
+.systemSecurityPopupRightFormWrapper{
+    background-color: #fff;
 }
 
 
@@ -267,26 +260,43 @@
 
     .locationBTNafterLogin{
         margin-top: -130px !important;
-        margin-left: -55px !important;
+        margin-left: -50px !important;
         margin-bottom: 20px;
     }
     .f12afterLogin{
-        margin-left: -10px !important;
         margin-top: -20px !important;
+        margin-left: -5px !important;
     }
     .barraContainer1{
-        margin-left: -10px !important;
         margin-top: 30px !important;
+        margin-left: -5px !important;
     }
     .locationBTNafterLogin1{
-        left: 5px !important;
         top: 20px !important;
+        left: 10px !important;
     }
     .SearchListContainer{
         width: 100%;
         position: absolute;
         top: 50px !important;
         left: -17px;
+    }
+    .systemSecurityPopupWrapper{
+        margin-top: 40px;
+        padding: 0px;
+    }
+    .systemSecurityPopupModalBody{
+        height: 500px;
+        padding: 0px;
+        background-color: #ff0;
+    }
+    .systemSecurityPopupLeftImageWrapper{
+        height: 500px;
+        display: none;
+        background-color: lightcoral;
+    }
+    .systemSecurityPopupRightFormWrapper{
+        height: 500px;
     }
 }
 
@@ -295,25 +305,42 @@
 
     .locationBTNafterLogin{
         margin-top: -50px !important;
-        margin-left: -45px !important;
+        margin-left: -40px !important;
         margin-bottom: 20px;
     }
     .f12afterLogin{
-        margin-left: 20px !important;
         margin-top: 30px !important;
+        margin-left: 25px !important;
     }
     .barraContainer1{
-        margin-left: -10px !important;
         margin-top: 30px !important;
+        margin-left: -5px !important;
     }
     .locationBTNafterLogin1{
-        left: 130px !important;
+        left: 135px !important;
     }
     .SearchListContainer{
         width: 100%;
         position: absolute;
         top: 50px !important;
-        left: -19px;
+        left: -15px;
+    }
+    .systemSecurityPopupWrapper{
+        margin-top: 0px;
+        padding: 0px;
+    }
+    .systemSecurityPopupModalBody{
+        height: 500px;
+        padding: 0px;
+        background-color: #ff0;
+    }
+    .systemSecurityPopupLeftImageWrapper{
+        height: 500px;
+        display: none;
+        background-color: lightcoral;
+    }
+    .systemSecurityPopupRightFormWrapper{
+        height: 500px;
     }
 }
 
@@ -326,16 +353,31 @@
         margin-bottom: 50px;
     }
     .f12afterLogin{
-        margin-left: 185px !important;
         margin-top: -20px !important;
+        margin-left: 185px !important;
     }
     .barraContainer1{
-        margin-left: -10px !important;
         margin-top: 70px !important;
+        margin-left: -10px !important;
     }
     .locationBTNafterLogin1{
-        left: 180px !important;
         top: 15px !important;
+        left: 180px !important;
+    }
+    .systemSecurityPopupWrapper{
+        margin-top: 50px;
+        padding: 0px;
+    }
+    .systemSecurityPopupModalBody{
+        height: 500px;
+        padding: 0px;
+    }
+    .systemSecurityPopupLeftImageWrapper{
+        height: 500px;
+        display: none;
+    }
+    .systemSecurityPopupRightFormWrapper{
+        height: 500px;
     }
 }
 
@@ -344,26 +386,51 @@
 
     .locationBTNafterLogin{
         margin-top: -50px !important;
-        margin-left: 300px !important;
+        margin-left: 290px !important;
         margin-bottom: 50px;
     }
     .f12afterLogin{
-        margin-left: 300px !important;
         margin-top: -20px !important;
+        margin-left: 290px !important;
     }
     .barraContainer1{
-        margin-left: -200px !important;
         margin-top: 70px !important;
+        margin-left: -210px !important;
     }
     .locationBTNafterLogin1{
-        left: 280px !important;
         top: 15px !important;
+        left: 280px !important;
     }
     .SearchListContainer{
         width: 100%;
         position: absolute;
         top: 50px !important;
         left: -110px;
+    }
+    .systemSecurityPopupWrapper{
+        margin-top: 50px;
+        padding: 0px;
+    }
+    .systemSecurityPopupModalBody{
+        height: 500px;
+        padding: 0px;
+    }
+    .systemSecurityPopupLeftImageWrapper{
+        height: 500px;
+        display: block;
+        background-image: url("/images/eCommerce/loginBackground.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        text-align: center;
+        /* filter: brightness(60%); */
+    }
+    .systemSecurityPopupLeftImageLogoWrapper{
+        width: 65%;
+        margin: auto;
+        margin-top: 210px;
+    }
+    .systemSecurityPopupRightFormWrapper{
+        height: 500px;
     }
 }
 
@@ -375,23 +442,38 @@
         margin-left: 50px !important;
         margin-bottom: 50px;
     }
-        .f12afterLogin{
-        margin-left: 250px !important;
+    .f12afterLogin{
         margin-top: -80px !important;
+        margin-left: 250px !important;
     }
     .barraContainer1{
-        margin-left: 0px !important;
         margin-top: 0px !important;
+        margin-left: 0px !important;
     }
     .locationBTNafterLogin1{
-        left: 800px !important;
         top: -50px !important;
+        left: 800px !important;
     }
     .SearchListContainer{
         width: 100%;
         position: absolute;
         top: 50px !important;
         left: -13px;
+    }
+    .systemSecurityPopupWrapper{
+        margin-top: 40px;
+        padding: 0px;
+    }
+    .systemSecurityPopupModalBody{
+        height: 500px;
+        padding: 0px;
+    }
+    .systemSecurityPopupLeftImageWrapper{
+        height: 500px;
+    }
+    .systemSecurityPopupRightFormWrapper{
+        height: 500px;
+        background-color: #fff;
     }
 }
 

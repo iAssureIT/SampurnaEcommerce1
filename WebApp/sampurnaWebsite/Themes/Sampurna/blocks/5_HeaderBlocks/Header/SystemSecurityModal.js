@@ -147,7 +147,7 @@ class header extends React.Component {
                   </span> 
             }
             </div>
-			<div id="loginFormModal" className="modal in"  data-keyboard="false" >
+			<div id="loginFormModal" className="col-10 offset-1 modal in"  data-keyboard="false" >
 				<div className="modal-dialog" >                                        
 					<div className="modal-content loginModalContent  loginBackImageHeight" style={{'background': '#fff'}}>                            
                         <div className="modal-body">  
