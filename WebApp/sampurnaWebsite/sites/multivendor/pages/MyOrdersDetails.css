@@ -44,7 +44,9 @@
 	background: "#ff0";
 }
 
-
+.dv-star-rating{
+	margin-left: 45px !important;
+}
 /* statusbar css */
 ._2Jtxm._2ZUAI ._2JvrO {
 	background-color: #3E9D5E !important;

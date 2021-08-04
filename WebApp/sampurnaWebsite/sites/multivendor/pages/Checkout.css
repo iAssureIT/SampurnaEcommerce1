@@ -51,7 +51,8 @@
 }
 
 .modalContent {
-    border-radius: 10px !important;
+    border-radius: 15px !important;
+    border: none !important;
 }
 
 .closeModal {
@@ -326,7 +327,7 @@
 }
 
 .close {
-    font-size  : 26px;
+    font-size  : 20px;
     font-weight: 600;
     opacity    : 1;
 }
