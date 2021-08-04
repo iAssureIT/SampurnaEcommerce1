@@ -89,18 +89,19 @@ export const SupportSystem = withCustomerToaster((props)=>{
     return (
         <React.Fragment>
           <Formik
-            onSubmit={(data) => {
-                console.log("data",data);
+             onSubmit={(values,fun) => {
+                console.log("values",values);
+                fun.resetForm(values);
               setLoading(true);
               const formValues2 = {
-                "email" 	: data.email,
+                "email" 	: values.email,
                 "text"		: "",
                 "mail"		: 'Dear Admin, <br/>'+
                                 "Following new query/feedback came from website! <br/> <br/>" +
                                 "============================  <br/> <br/>" + 
-                                "<b>Client Name: </b>"   + data.name + '<br/>'+
-                                "<b>Client Email: </b>"  + data.email + '<br/><br/>'+
-                                "<pre> " + data.message + "</pre>" + 
+                                "<b>Client Name: </b>"   + values.name + '<br/>'+
+                                "<b>Client Email: </b>"  + values.email + '<br/><br/>'+
+                                "<pre> " + values.message + "</pre>" + 
                                 "<br/><br/> ============================ " + 
                                 "<br/><br/> This is a system generated email! " ,
             };
@@ -111,7 +112,7 @@ export const SupportSystem = withCustomerToaster((props)=>{
                 .post('/send-email-mobile',formValues2)
                 .then((response)=>{
                 	console.log("res=-0-0",response);
-                                
+
 				})           
                 .catch(function(error){
 					console.log(error);
@@ -168,7 +169,8 @@ const FormBody = (props) => {
         companyName,
         companyEmail,
         companyPhone,
-        website_url
+        website_url,
+        values
     } = props;
     const phoneInput = useRef(null);
     const [value, setValue] = useState("");
@@ -205,6 +207,7 @@ const FormBody = (props) => {
                             name            = "name"
                             errors          = {errors}
                             touched         = {touched}
+                            value           = {values.name}
                             // iconName        = {'user'}
                             iconType        = {'font-awesome'}
                         />
@@ -218,10 +221,11 @@ const FormBody = (props) => {
                             name            = "email"
                             errors          = {errors}
                             touched         = {touched}
+                            value           = {values.email}
                             // iconName        = {'email'}
                             iconType        = {'material-community'}
                             autoCapitalize  = "none"
-                            keyboardType    = "email-address"
+                            // keyboardType    = "email-address"
                         />
                     </View>    
                     <View style={{marginHorizontal:10,marginBottom:5}}>
@@ -234,6 +238,7 @@ const FormBody = (props) => {
                             ref={phoneInput}
                             defaultValue={value}
                             defaultCode="AE"
+                            value           = {values.mobile_no}
                             layout="first"
                             onChangeText={(text) => {
                             const checkValid = phoneInput.current?.isValidNumber(text);
@@ -262,6 +267,7 @@ const FormBody = (props) => {
                             style={[styles.msgContainerStyle,{textAlignVertical:'top',paddingLeft:10, paddingTop: 5, paddingBottom:5}]}
                             multiline={true}
                             numberOfLines={5}
+                            value           = {values.message}
                             label="Message"
                             // placeholder="Type here to translate!"
                             onChangeText={handleChange('message')}

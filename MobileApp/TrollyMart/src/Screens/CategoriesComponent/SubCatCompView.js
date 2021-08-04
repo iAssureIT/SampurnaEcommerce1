@@ -40,6 +40,7 @@ import { Dropdown }            from 'react-native-material-dropdown-v2';
 import Feather from 'react-native-vector-icons/Feather';
 import { NetWorkError } from '../../../NetWorkError.js';
 import moment from 'moment';
+import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 const window = Dimensions.get('window');
 const STAR_IMAGE = require('../../AppDesigns/currentApp/images/star.png')
 
@@ -68,8 +69,9 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const store = useSelector(store => ({
     location:store.location,
     payload     : store.productList.searchPayload,
+    globalSearch    : store.globalSearch
   }));
-  const {location,payload} = store;
+  const {location,payload,globalSearch} = store;
 
   useEffect(() => {
     setLoading(true);
@@ -290,11 +292,12 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     );
 }
 
-
-  console.log("productData",productdata);
     return (
       <View style={{backgroundColor:"#fff",flex:1}}>
-        <View style={styles.prodviewcatsuperparent}>
+         {globalSearch.search ?
+          <SearchSuggetion />
+          :
+         <View style={styles.prodviewcatsuperparent}>
         {loading ?
           <Loading/>
           :
@@ -653,7 +656,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
               <ActivityIndicator size="large" color={colors.theme} />
         </View>
         }
-        </View>
+        </View>}
     </View>
   );
 })
