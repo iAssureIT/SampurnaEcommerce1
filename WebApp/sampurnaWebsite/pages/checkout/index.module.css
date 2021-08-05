@@ -5,15 +5,17 @@
 
 .orderReviewsWrapper {
     margin-bottom             : 20px;
-    border                    : 1px solid #ddd;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 0.5px solid #ededed;
     margin-top                : -10px;
-    border-bottom-left-radius : 19px;
-    border-bottom-right-radius: 19px;
+    border-bottom-left-radius : 6px;
+    border-bottom-right-radius: 6px;
 }
 
 .checkOutTerms {
-    border       : 1px solid #ddd;
-    border-radius: 19px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 0.5px solid #ededed;
+    border-radius: 6px;
 }
 
 .ma {
@@ -33,7 +35,28 @@
 }
 
 .productHeaderWrapper th {
-    font-size: 12px ! important;
+    font-size  : 12px ! important;
+    font-family: 'Montserrat-Bold';
+    color      : #000000;
+}
+
+.productHeaderWrapper1 {
+    font-family: 'Montserrat-Bold';
+    color      : #000000;
+}
+.checkoutBrandTitle{
+    letter-spacing: 0px !important;
+    color         : #000000 !important;
+    opacity       : 1 !important;
+    font-family   : 'Montserrat-Medium' !important;
+    font-size: 14px!important;
+}
+.checkoutProductName {
+    letter-spacing: 0px !important;
+    color         : #000000 !important;
+    opacity       : 0.5 !important;
+    font-family   : 'Montserrat-Regular' !important;
+    font-size: 12px!important;
 }
 
 .modalMainWrapper {
@@ -53,7 +76,8 @@
 .paymentMethod {
     margin-top    : 30px;
     padding-bottom: 50px;
-    border        : 1px solid #ddd;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 0.5px solid #ededed;
     border-radius : 6px;
 }
 
@@ -62,7 +86,8 @@
     margin-top    : 20px;
     margin-bottom : 20px;
     padding-bottom: 20px;
-    border        : 1px solid #ddd;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 0.5px solid #ededed;
     /*height      : 936px;*/
     height        : auto;
     border-radius : 6px;
@@ -122,8 +147,13 @@
 }
 
 .AEDColor {
-    color    : #aaa;
-    font-size: 10px;
+    letter-spacing: 0px;
+    color: #000000!important;
+    text-transform: capitalize;
+    opacity: 0.6;
+    font-family: 'Montserrat-Medium';
+    font-weight: 500;
+    font-size: 12px;
 }
 
 .deleteCredit {
@@ -143,7 +173,7 @@
 }
 
 .totalAmountWrapper {
-    margin-left: 70px !important;
+    margin-left: 70px ;
 }
 
 .f13N {
@@ -246,8 +276,26 @@
 }
 
 .currencyColor {
-    color     : #878787;
+    color     : #000000;
     text-align: left;
+    font-family: 'Montserrat-Medium';
+}
+.currencyColor11 {
+    color     : #000000;
+    text-align: left;
+    opacity: 0.4;
+    font-family: 'Montserrat-Medium';
+    font-weight: 600;
+}
+.currencyColor12{
+    letter-spacing: 0px;
+    color: #E88686;
+    opacity: 1;
+}
+.currencyColor121{
+    letter-spacing: 0px;
+    color: #E88686;
+    opacity: 0.4;
 }
 
 .currencyColor1 {
@@ -396,10 +444,13 @@
 }
 
 .cartTitle {
-    font-size  : 36px;
-    margin-left: 41px;
-    margin-top : 15px;
-    font-weight: bold;
+    font-size     : 36px;
+    margin-left   : 41px;
+    margin-top    : 15px;
+    font-family   : 'Montserrat-Bold';
+    color         : #000000;
+    opacity       : 1;
+    letter-spacing: 0px;
 }
 
 .errorMsg {
@@ -429,7 +480,7 @@
     }
 
     .pnHidden1 {
-        color: #212529 !important;
+        color: #000000 !important;
 
     }
 
@@ -452,7 +503,11 @@
 
     .f11N {
         font-size  : 11px !important;
-        font-weight: 500;
+        font-family: 'Montserrat-Medium';
+        letter-spacing: 0px;
+        opacity: 1;
+        color: #000000!important;
+        
     }
 }
 
@@ -476,7 +531,24 @@
         margin-top : -6px;
         margin-left: -29px !important;
     }
-
+    .f13NTerms{
+        font-size  : 12px ! important;
+        color      : #000;
+        margin-top : -6px;
+        margin-left: 0px !important;
+    }
+    .f13N1 {
+        font-size  : 12px ! important;
+        color      : #000;
+        margin-top : -6px;
+        margin-left: 11px !important;
+    }
+    .f13N2 {
+        font-size  : 12px ! important;
+        color      : #000;
+        margin-top : -6px;
+        margin-left: 0px !important;
+    }
     .addBTN {
         background-color  : #033554 !important;
         height            : 55px;
@@ -490,6 +562,51 @@
         -webkit-transition: 0.6s ease !important;
         transition        : 0.6s ease !important;
         font-weight       : 600 !important;
-        margin-right      : 29px !important;
+        margin-right      : 0px !important;
     }
+}
+
+.disccountCoupnWrapper{
+letter-spacing: 0px;
+color: #000000!important;
+text-transform: capitalize;
+opacity: 0.6;
+font-family: 'Montserrat-Medium';
+font-weight: 500;
+}
+
+.creditColorCheckout{
+    letter-spacing: 0px;
+color: #DC1919;
+text-transform: capitalize;
+}
+
+.selectShippingTitle{
+    margin-left: -6px !important;
+}
+
+@media only screen and (min-width: 1200px) {
+    .totalAmountWrapper {
+        margin-left: 56px;
+    }
+
+}
+
+@media only screen and (min-width: 1300px) {
+    .totalAmountWrapper {
+        margin-left: 70px;
+    }
+
+}
+@media only screen and (min-width: 1600px) {
+    .totalAmountWrapper {
+        margin-left: 90px;
+    }
+
+}
+@media only screen and (min-width: 1920px) {
+    .totalAmountWrapper {
+        margin-left: 102px;
+    }
+
 }
