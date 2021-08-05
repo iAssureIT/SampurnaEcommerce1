@@ -42,26 +42,9 @@ class CategoryFilters extends Component{
       var url = window.location.href.split('/');
       // console.log("url[8]===",url[8]);
       if(url[8] === undefined){
-        // console.log("sucategory===",url[8]);
         $('.panel-title_0').addClass('activeSubCategory');
       }
     }
-  componentDidUpdate(prevProps, prevState) {
-    // if(this.props.subCategoryUrl){
-    //   $('.panel-title').addClass('activeSubCategory');
-    // }
-  }
-
-    // static getDerivedStateFromProps(nextProps, prevState) {
-      // console.log("props--",nextProps);
-      // if (nextProps.newProducts) {
-        // return ({ 
-        //   categoryData: nextProps.categoryData,
-        //   vendor_ID   : nextProps.vendor_ID,
-        // }) // <- this is setState equivalent
-      // }
-      // return null
-    // }
 
     render(){
       // console.log("category filter this.props.categoryData===",this.props);

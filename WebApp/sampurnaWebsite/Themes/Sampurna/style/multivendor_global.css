@@ -236,7 +236,10 @@ body {
   border              : 18px solid var(--globalColor);
   /* background-color : var(--globalWishlistBorderColor) !important; */
 }
-
+.cartWishlistColor{
+  color     : #aaa !important;
+  transition: 0.5s ease;
+}
 .wishListIconColor {
   color     : var(--globalWishlistColor) !important;
   transition: 0.5s ease;

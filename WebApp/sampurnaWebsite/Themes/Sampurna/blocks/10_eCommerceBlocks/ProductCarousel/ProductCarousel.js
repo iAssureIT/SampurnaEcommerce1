@@ -586,7 +586,7 @@ submitCart(event) {
           : null
           } 
 
-        <div className={"col-12 NoPadding mb-5 "}>
+        <div className={"col-12 NoPadding "}>
           {this.state.newProducts && this.state.newProducts.length > 0 ?
             <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
               <div className={"col-12 mt-50 mb-50 " +Style.carouselWraper}>
@@ -934,7 +934,7 @@ submitCart(event) {
                           </div>
                           }
                           {this.state.newProducts.length>=28 &&
-                            <div className="col-12 seeMoreBtnWrapper">
+                            <div className="col-12 seeMoreBtnWrapper pb-2">
                               <div className="row">
                                 <button className={"btn btn-secondary col-lg-2 col-xl-1 col-sm-2 col-3 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
                               </div>

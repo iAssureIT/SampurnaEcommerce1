@@ -8,7 +8,10 @@
 	font-size:12px !important;
 	margin-left: 20px;
 }
-
+.boxBorderInner{
+	box-shadow: 4px 8px 3px 6px #00000029;
+	/* border-left:solid 1px #ccc; */
+}
 .FilterBlkBox{
 	/* box-shadow: 0 2px 4px 2px rgba(0,0,0,.1); */
 	padding-bottom:30px;
@@ -50,7 +53,7 @@
 .wishClass{
 	cursor: pointer;
 	font-size:16px;
-    padding: 15px 10px;
+    padding: 15px 0px;
     border-radius: 4px;
 	color:red;
     /* background-color:red; */
@@ -217,7 +220,6 @@ border: none!important;
 	font-weight:bold;
 	font-size:14px;
 }
-
 .disPriceColor{
 	color:#999;
 	text-decoration: line-through;
@@ -362,7 +364,7 @@ margin-left: 23px!important;
 		margin-left: 0px !important;
 	}
 	.cartBTN{
-		margin-left: -50px;
+		margin-left: -43px;
 	}
 }
 

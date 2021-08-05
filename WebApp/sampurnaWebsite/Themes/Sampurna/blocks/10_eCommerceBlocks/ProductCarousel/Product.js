@@ -329,7 +329,7 @@ class Product extends Component{
                               <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                           :null
                           }
-                          {data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)}%<br/>off </div> : null}
+                          {data.discountPercent ? <div className={"col-3 pt-1 "  +Style.discounttag}>{Math.floor(data.discountPercent)}%<br/><span className={Style.offTxt}>off</span> </div> : null}
                         </div>
                         <div className={Style.ImgWrapper}>
                         <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+data._id}>

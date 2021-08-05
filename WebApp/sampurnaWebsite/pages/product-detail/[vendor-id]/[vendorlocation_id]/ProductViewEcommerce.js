@@ -485,7 +485,7 @@ class ProductViewEcommerce extends Component{
 				</div>
 				<div className="col-12 mt20 mb20 boxBorder mobileViewNoPadding">
 					<div className="row">
-						<div className={"col-12 col-lg-2 col-xl-2 col-md-2 col-sm-12 col-xs-12 mt-2 FiltersBlock NoPadding" +Style.FilterBlkBox}>
+						<div className={"col-12 col-lg-2 col-xl-2 col-md-2 col-sm-12 col-xs-12 mt-2 NoPadding FiltersBlock NoPadding" +Style.FilterBlkBox}>
 							{
 								this.state.subCategoryData && this.state.subCategoryData.length > 0
 								?
@@ -546,7 +546,7 @@ class ProductViewEcommerce extends Component{
 							} */}
 						</div>
 
-						<div className="col-12 col-lg-10 col-xl-10 col-md-10 col-sm-12 col-xs-12 boxBorderInner mobileViewNoPadding mt50 ">
+						<div className={"col-12 col-lg-10 col-xl-10 col-md-10 col-sm-12 col-xs-12  mobileViewNoPadding mt50 " +Style.boxBorderInner}>
 							<div className="row mb-5">
 								{
 									this.state.productData
@@ -557,7 +557,7 @@ class ProductViewEcommerce extends Component{
 									:
 										null
 								}
-								<div className={"col-12 col-xl-7 col-lg-7 col-md-12 col-sm-12 " +Style.topSpace}>
+								<div className={"col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 " +Style.topSpace}>
 									<Message messageData={this.state.messageData} />
 										{
 											this.state.productData
@@ -649,7 +649,7 @@ class ProductViewEcommerce extends Component{
 																			return(
 																				productItem.size !=="" && productItem.size !== "undefined" && productItem.size !== null &&
 																					<li className="nav-item col-4 col-sm-3 col-xl-2 sizeVariantTab NoPadding ml-2 mb-4" key={index}>
-																						<a className={"nav-link "+productItem.size === this.state.currentSize ? 'active ' :' '+Style.sizeBox} data-toggle="tab" href={"#"+productItem.size}
+																						<a className={"col-12 nav-link  "+productItem.size === this.state.currentSize ? 'active ' :' '+Style.sizeBox} data-toggle="tab" href={"#"+productItem.size}
 																							onClick={()=>{
 																								this.setState({
 																									currentSize : productItem.size

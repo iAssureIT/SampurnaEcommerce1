@@ -55,12 +55,6 @@ class CategoryBlock extends Component{
     }
     render(){
       // console.log("this.props.categoryUrl-",this.props.categoryUrl);
-      // if(this.props.categoryUrl){
-      //   console.log("this.props.categoryUrl-",this.props.categoryUrl);
-      //   $('.category_0').addClass('activeCategory')
-      // }else{
-      //   $('.category_0').removeClass('activeCategory')
-      // }
       return (
         <div className={"container-fluid NoPadding categoryCarousel " +Style.categoryCarousel}>
           <div className="col-12">
@@ -94,7 +88,7 @@ class CategoryBlock extends Component{
                       <div className={"col-12 productsCategoryBlock "}  key={index}> 
                           {/* <Link href={url} className ={"col-12 "}>  */}
                             <a href={url} className ={"col-12 " +Style.categoryBlock}>
-                              <div className={ " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " }>
+                              <div className={ " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " +(index===0?'activeCategory':'')}>
                                   <Image    
                                     id="prodImg"                                       
                                     src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.png"}

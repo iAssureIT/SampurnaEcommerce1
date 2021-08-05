@@ -43,7 +43,8 @@ class CartProducts extends Component {
         var userDetails = JSON.parse(localStorage.getItem("userDetails"));
         if (userDetails) {
             this.setState({
-                user_ID: userDetails.user_id,
+                user_ID           : userDetails.user_id,
+                authService       : userDetails.authService
             })
         }
         if (sampurnaWebsiteDetails) {
@@ -52,6 +53,14 @@ class CartProducts extends Component {
                 currency: sampurnaWebsiteDetails.preferences.currency
             })
         }
+        if(sampurnaWebsiteDetails.deliveryLocation){
+            this.setState({
+              "userLongitude" : sampurnaWebsiteDetails.deliveryLocation.latitude,
+              "userLongitude" : sampurnaWebsiteDetails.deliveryLocation.longitude,
+              "delLocation"   : sampurnaWebsiteDetails.deliveryLocation.address,
+            })
+          }
+       
         await this.props.fetchCartData();
         if (this.props.recentCartData && this.props.recentCartData.vendorOrders) {
             for (let i = 0; i < this.props.recentCartData.vendorOrders.length; i++) {
@@ -288,9 +297,67 @@ class CartProducts extends Component {
                 console.log("error => ", error);
             })
     }
-
+    addtowishlist(event) {
+        event.preventDefault();
+        if (this.state.user_ID) {
+          var id = event.target.id;
+          console.log("vendorId",event.target.getAttribute('vendorid'));
+          console.log("vendorLocationId",event.target.getAttribute('vendorLocation_id'));
+          var formValues = {
+            "user_ID"             : this.state.user_ID,
+            "userDelLocation"     : {
+                                        "lat"             : this.state.userLongitude, 
+                                        "long"            : this.state.userLongitude,
+                                        "delLocation"     : this.state.delLocation,
+                                    },
+            "vendor_id"           : event.target.getAttribute('vendorid'),
+            "vendorLocation_id"   : event.target.getAttribute('vendorLocation_id'),
+            "product_ID"          : id
+        }
+          
+          console.log("inside wishlist==",formValues);
+          axios.post('/api/wishlist/post', formValues)
+            .then((response) => {
+              this.setState({
+                messageData: {
+                  "type": "outpage",
+                  "icon": "fa fa-check-circle",
+                  "message": "&nbsp; " + response.data.message,
+                  "class": "success",
+                  "autoDismiss": true
+                }
+              })
+              setTimeout(() => {
+                this.setState({
+                  messageData: {},
+                })
+              }, 2000);
+              this.props.fetchCartData();
+            })
+            .catch((error) => {
+              console.log('error', error);
+            })
+        }
+        else {
+            this.setState({
+              messageData: {
+                "type": "outpage",
+                "icon": "fa fa-exclamation-circle",
+                // "message": "Need To Sign In, Please <a href='/login'>Sign In</a> First.",
+                "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",          
+                "class": "warning",
+                "autoDismiss": true
+              }
+            })
+            setTimeout(() => {
+              this.setState({
+                messageData: {},
+              })
+            }, 2000);
+        }
+      }
     render() {
-        // console.log("this.props.recentCartData===",this.props.recentCartData);
+        console.log("this.props.recentCartData===",this.props.recentCartData);
         return (
             <div className="col-12 ">
                 <div className="col-12  ">
@@ -371,15 +438,9 @@ class CartProducts extends Component {
                                                                                         </td>
 
                                                                                         <td className="text-center">
-
-
                                                                                             <span className="price">
                                                                                                 {this.state.currency}&nbsp;{vendorData.product_ID.originalPrice.toFixed(2)}</span>
                                                                                             &nbsp; <span className="fa fa-trash trashIcon" id={vendorData._id} vendorid={vendorWiseCartData.vendor_id._id} onClick={this.Removefromcart.bind(this)}><a href="/" style={{ color: "#337ab7" }} > </a></span>
-
-
-
-
                                                                                         </td>
 
 
@@ -507,6 +568,7 @@ class CartProducts extends Component {
 
 
                                                                                         {vendorWiseCartData.cartItems.map((vendorData, index) => {
+                                                                                            console.log("vendorData===",vendorData);
                                                                                             return (
                                                                                                 <div key={index}>
 
@@ -559,7 +621,7 @@ class CartProducts extends Component {
                                                                                                                 </div>
                                                                                                             </div>
 
-                                                                                                            <div className="nowrap col-12 col-sm-12 col-sx-12 col-md-4 col-lg-3 col-xl-2 mb-3 ">
+                                                                                                            <div className="nowrap col-12 col-sm-12 col-sx-12 col-md-4 col-lg-3 col-xl-2 mb-3 pr-0 ">
                                                                                                                 {
                                                                                                                     vendorData.product_ID.availableQuantity > 0 ?
                                                                                                                         <div className="quantityWrapper my-3 pt-1 text-left mx-2">
@@ -604,6 +666,12 @@ class CartProducts extends Component {
                                                                                                                 }
                                                                                                             </div>
                                                                                                             <div className="col-6 col-sm-12 col-sx-12 col-md-4 col-lg-1 col-xl-1 text-center my-3 ">
+                                                                                                                {vendorData.product_ID.isWish===true?
+                                                                                                                    <span className="fa fa-heart cartWishlistColor" id={vendorData.product_ID._id} vendorid={vendorWiseCartData.vendor_id._id} vendorLocation_id={vendorWiseCartData.vendorLocation_id} onClick={this.addtowishlist.bind(this)}></span>
+                                                                                                                :
+                                                                                                                <span className="far fa-heart cartWishlistColor" id={vendorData.product_ID._id} vendorid={vendorWiseCartData.vendor_id._id} vendorLocation_id={vendorWiseCartData.vendorLocation_id} onClick={this.addtowishlist.bind(this)}></span>
+                                                                                                                    // <span className=""><img src="/images/eCommerce/heart.png" id={vendorData.product_ID._id} vendorid={vendorWiseCartData.vendor_id._id} vendorLocation_id={vendorWiseCartData.vendorLocation_id} onClick={this.addtowishlist.bind(this)}></img></span>
+                                                                                                                }
                                                                                                                 <span className="fa fa-trash trashIcon" id={vendorData._id} vendorid={vendorWiseCartData.vendor_id._id} onClick={this.Removefromcart.bind(this)}><a href="/" style={{ color: "#337ab7" }} > </a></span>
                                                                                                             </div>
                                                                                                         </div>
@@ -802,7 +870,7 @@ class CartProducts extends Component {
     }
 }
 const mapStateToProps = state => (
-    console.log("state in cartProductsdata====", state.data),
+    // console.log("state in cartProductsdata====", state.data),
     {
         recentCartData: state.data.recentCartData,
         loading: state.data.loading
