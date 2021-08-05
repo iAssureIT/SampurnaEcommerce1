@@ -401,20 +401,21 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   })}
                   </Carousel>
                   :
-                    <ImageBackground
-                      source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                      style={styles.saleimg}
-                      resizeMode="contain"
-                    >
-                    <TouchableOpacity style={[styles.wishlisthrtproductview]}
-                      onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
-                      <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.share]}
-                      onPress={() =>onShare()} >
-                      <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} />
-                    </TouchableOpacity>
-                    </ImageBackground>
+                    <View style={styles.saleimg}>
+                      <ImageBackground
+                        source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                        style={styles.saleimgNo}
+                        resizeMode='center'>                      
+                      </ImageBackground>
+                      <TouchableOpacity style={[styles.wishlisthrtproductview]}
+                        onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
+                        <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={[styles.share]}
+                        onPress={() =>onShare()} >
+                        <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} />
+                      </TouchableOpacity>
+                    </View>
                 }
                 <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row"}}>
                     <View style={styles.prodnameview12}>
@@ -503,7 +504,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                       <Text style={CommonStyles.label,{color:colors.cartButton,fontFamily:"Montserrat-SemiBold"}}>Rating & Feedback</Text>
                   </TouchableOpacity>  
               </View>
-              <View style={{backgroundColor:"#EEEEEE",paddingVertical:5}}>
+              <View style={{backgroundColor:"#EEEEEE",paddingTop:5}}>
                 {tab === 0 ?
                 <Text style={styles.detaildetailstxt}>{productdata.productDetails}</Text>
                 :                

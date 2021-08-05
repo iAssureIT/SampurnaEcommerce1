@@ -198,7 +198,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
     if(parseFloat(creditPointsUsed) === 0){
       setCouponModal(false);
       setRedeemPoints(0);
-      setToast({text: "Oops! Credit points is invalied", color:colors.warning});
+      setToast({text: "Oops! Credit points are invalid", color:colors.warning});
     }else{  
       var payload={
           "user_ID"     : user_id,

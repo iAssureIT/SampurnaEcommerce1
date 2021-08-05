@@ -111,9 +111,15 @@ export const SupportSystem = withCustomerToaster((props)=>{
             Axios
                 .post('/send-email-mobile',formValues2)
                 .then((response)=>{
-                	console.log("res=-0-0",response);
-
-				})           
+                    console.log("res=-0-0",response);
+                    this.setState({
+                            name    : '',
+                            email   : '',                            
+                            mobileNumber  : '',
+                            message : '',
+                        });
+                                
+				}) 
                 .catch(function(error){
 					console.log(error);
                     if(error.message === "Request failed with status code 401"){

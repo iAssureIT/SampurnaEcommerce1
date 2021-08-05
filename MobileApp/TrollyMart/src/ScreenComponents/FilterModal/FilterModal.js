@@ -127,7 +127,7 @@ const FilterModal = (props) => {
                 );
               })}
             </View>
-            <View style={{flex: 0.6, backgroundColor: '#fff'}}>
+            <View style={{flex: 0.6, backgroundColor: '#fff',fontFamily:'Montserrat-SemiBold',}}>
               {
                 {
                   "Sub Category": (
@@ -253,8 +253,8 @@ const MultiSelectComponent = (props) => {
         data={options}
         keyExtractor={(item, index) => `${index}`}
         ListEmptyComponent={
-          <Text >
-           No data. Try selecting Vehicle Category and vehicle Brand
+          <Text style={{fontFamily:'Montserrat-Regular',color:'#000', fontSize: 12,paddingVertical:5,paddingHorizontal:5}}>
+           No data available.
           </Text>
         }
         renderItem={({item, index}) => (
