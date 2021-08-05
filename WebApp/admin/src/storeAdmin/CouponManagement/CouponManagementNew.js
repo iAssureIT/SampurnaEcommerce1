@@ -215,7 +215,7 @@ class CouponManagement extends Component {
 			  },
 			  couponvalue :{
 				 required  : true,
-				 min       : this.state.couponin  === 'Percent' ? 100 : 1
+				 // min       : this.state.couponin  === 'Percent' ? 100 : 9999
 			  },
 			  // section : {
 				//     required            : true,
@@ -245,10 +245,17 @@ class CouponManagement extends Component {
 				 required : true
 			  },
 			  maxDiscountAmount : {
-				 required : true
+				 required : true,
+				 min : 1,
+				 
 			  },
 			  minPurchaseAmount : {
-				 required : true
+				 required : true,
+				 min : 1
+			  },
+			  numOfOrders : {
+				 required : true,
+				 min : 1
 			  }
 			},
 
@@ -310,6 +317,9 @@ class CouponManagement extends Component {
 
 			  if (element.attr("name") === "enddate") {
 				 error.insertAfter("#enddate");
+			  }
+			  if (element.attr("name") === "numOfOrders") {
+				 error.insertAfter("#numOfOrders");
 			  }
 
 
@@ -1139,7 +1149,7 @@ render() {
 						 <div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
 							  <div className="col-lg-12">
 								 <label>Discount value<i className="redFont">*</i></label>
-								 <input value={this.state.couponvalue} name="couponvalue" id="couponvalue" maxLength="6" onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Discount Value" ref="couponvalue" required/>
+								 <input value={this.state.couponvalue} name="couponvalue" id="couponvalue" min="1" max={this.state.couponin === "Percent" ? 100 : 999999999999} onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Discount Value" ref="couponvalue" required/>
 							  </div>
 						 </div>
 							<div className="col-lg-4 fieldWrapper inputHeight60">
@@ -1171,20 +1181,20 @@ render() {
 						 </div>
 						  <div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
 							  <div className="col-lg-12">
-								 <label>Minimum Purchase Amount to Apply Discount</label>
+								 <label>Minimum Purchase Amount to Apply Discount<span className="redFont">*</span></label>
 								 <input value={this.state.minPurchaseAmount} name="minPurchaseAmount" id="minPurchaseAmount" maxLength="6"  onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Minimum Purchase Amount" ref="minPurchaseAmount" />
 							  </div>
 						 </div>
 						  <div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
 							  <div className="col-lg-12">
-								 <label>Maximum Discount Amount</label>
-								 <input value={this.state.maxDiscountAmount} name="maxDiscountAmount" id="maxDiscountAmount" maxLength="6"  onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Maximum Discount Amount" ref="maxDiscountAmount" />
+								 <label>Maximum Discount Amount<span className="redFont">*</span></label>
+								 <input value={this.state.maxDiscountAmount} name="maxDiscountAmount" id="maxDiscountAmount" maxLength="6" max = {this.state.minPurchaseAmount ?  parseInt(this.state.minPurchaseAmount) -1 : 9999999} onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Maximum Discount Amount" ref="maxDiscountAmount" />
 							  </div>
 						 </div>
 					<div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
 							  <div className="col-lg-12">
-								 <label>Applicable For Number of Orders</label>
-								 <input value={this.state.numOfOrders} name="numOfOrders" id="numOfOrders" min="1" maxLength="6"  onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Number of Orders" ref="numOfOrders" />
+								 <label>Applicable For Number of Orders<span className="redFont">*</span></label>
+								 <input value={this.state.numOfOrders} name="numOfOrders" min="1" id="numOfOrders" maxLength="6"  onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Number of Orders" ref="numOfOrders" />
 							  </div>
 						 </div>
 					

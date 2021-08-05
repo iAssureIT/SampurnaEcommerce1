@@ -34,7 +34,7 @@ class orderStatus extends Component {
           apiLink: '/api/orderstatus/',
           paginationApply: false,
           searchApply: false,
-          editUrl: '/project-master-data'
+          // editUrl: '/project-master-data'
       },
       "startRange": 0,
       "limitRange": 10,
