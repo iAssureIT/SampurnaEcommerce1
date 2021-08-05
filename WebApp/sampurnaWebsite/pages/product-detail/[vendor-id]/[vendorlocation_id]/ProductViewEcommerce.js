@@ -453,7 +453,7 @@ class ProductViewEcommerce extends Component{
 			<section className={"SingleProductMainWrapper "+Style.ShopBySubCategories}>
 				<div className={"col-12 pb-2 pt-2 mobileNoPadding "+Style.productDetailVendorName}> 
 					<div className="col-12">
-						<div className="row">
+						<div className={"row " +Style.vendorBar}>
 							<div className={"col-8 col-sm-9 col-lg-9 col-xl-9 "+Style.vendorNameWrapper}> 
 								<div className={"col-12 mobileNoPadding"}>
 									<b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
@@ -585,9 +585,9 @@ class ProductViewEcommerce extends Component{
 																	<span className=""><span className="productCode">({this.state.productData.productCode+'-'+this.state.productData.itemCode})</span></span>
 																</div>
 															:
-																<div className={"col-12 globalProductItemName NoPadding NoPadding" } title={this.state.productData.productName}>
+																<div className={"col-12 globalProductItemName NoPadding" } title={this.state.productData.productName}>
 																	{/* <div><span className={Style.productNameClassNew}>{this.state.productData.productName}</span><span className="productCode">{this.state.productData.productCode+'-'+this.state.productData.itemCode}</span></div> */}
-																	<div className="col-12">
+																	<div className="col-12 NoPadding">
 																		<span className={Style.productNameClassNew}>{this.state.productData.productName}</span>&nbsp;
 																		<span className="productCode">{this.state.productData.itemCode}</span>
 																	</div>
@@ -596,39 +596,48 @@ class ProductViewEcommerce extends Component{
 														{this.state.productData.brand &&
 															<div className={"col-12 globalProduct_brand NoPadding mt-2 "+Style.brandName} title={this.state.productData.brand}>Brand : {this.state.productData.brand}</div>
 														}
-														<div className={"col-12 NoPadding "+Style.priceWrapperPD}>
-															{                                  
-																this.state.productData.discountPercent
-																?
+														
+														{                                  
+															this.state.productData.discountPercent
+															?
+																<div className={"col-12 NoPadding "+Style.priceWrapperPD}>
 																	<div className="col-12 NoPadding priceWrapper mb-2">
-																		<span className={" " +Style.f123}>Price &nbsp;:&nbsp;&nbsp; <strike className={" " +Style.disPriceColor}>&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</strike>&nbsp;&nbsp;&nbsp;
+																		<span className={" " +Style.f123}>
+																			<span className="col-2 NoPadding">Price </span>&nbsp;: &nbsp;
+																			<strike className={" " +Style.disPriceColor}>&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</strike>&nbsp;&nbsp;&nbsp;
 																			<span className={Style.percentOff}>{this.state.productData.discountPercent}% </span>
 																			<span className={Style.percentOffTxt}>OFF</span> &nbsp;
 																			<span className={" " +Style.priceColor}>{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)}</span>
+																			&nbsp;<span className={Style.vatSpan}>Inclusive Of VAT</span>
 																		</span>
 																		<div className="col-12">
-																			<span className={"pl-4  " +Style.priceColor}>{this.state.currency} &nbsp;{( this.state.productData.originalPrice - this.state.productData.discountedPrice).toFixed(2)}</span> &nbsp;
-																			<span>You saved</span>
+																			<span className="col-2"> </span>&nbsp;
+																			<span className={" " +Style.savePrice}>{this.state.currency} &nbsp;{( this.state.productData.originalPrice - this.state.productData.discountedPrice).toFixed(2)}</span> &nbsp;
+																			<span className={Style.youSaved}>Saving</span>
 																		</div>
 																	</div>
-																:
-																	<div className={"col-12 NoPadding priceWrapper NoPadding mb-2"}>
+																</div>
+															:
+																<div className={"col-12 NoPadding "+Style.OriginalpriceWrapper}>
+																	<div className={"col-12 NoPadding priceWrapper NoPadding mb-4"}>
 																		<span className={"price "+Style.priceColorMain}>
-																			Price &nbsp;: {this.state.currency} &nbsp;
+																			<span className="col-2 NoPadding">Price </span>&nbsp;: &nbsp;
 																			{
 																				this.state.productData.originalPrice
 																				?
-																					(this.state.productData.originalPrice).toFixed(2)
+																					<span className={Style.mainPrice}>{this.state.currency} {(this.state.productData.originalPrice).toFixed(2)}</span> 
 																				:
 																					0
 																			}
+																			&nbsp;<span className={Style.vatSpan}>Inclusive Of VAT</span>
 																		</span>&nbsp;                                      
 																	</div>
-															}
-														</div>
+																</div>
+														}
+														
 														<div className={"col-12 NoPadding"}>
 															{this.state.productData.size && 
-																<div className={"col-12 NoPadding pt-4 mt-4 "+Style.productSize}>
+																<div className={"col-12 NoPadding pt-2 "+Style.productSize}>
 																	<span className={Style.brandName1}>Size : </span>&nbsp; 
 																	<span className={Style.brandName2}>{this.state.productData.size}</span>&nbsp;{this.state.productData.unit} 
 																</div>
@@ -691,7 +700,8 @@ class ProductViewEcommerce extends Component{
 															</div>
 														</div>
 														<div className={"col-12 adCart mobileViewNoPadding mt-4 "+Style.productDetailsInfo}>
-															<div className="row spc">
+															<div className="col-12">
+																<div className="row">
 																<form id="productView" className="col-12 NOpadding">
 																	<div className="row">
 																		{
@@ -699,8 +709,8 @@ class ProductViewEcommerce extends Component{
 																			?
 																				<div className={"col-12 NOpadding "+Style.addToCartWrapperPD}>
 																					<div className="row">
-																						<div className="col-3 NoPadding pb-4 ml-5 ml-sm-0">
-																							<div className={"col-5 NoPadding float-left qtyIncrease  globaleCommLargeBtn " +Style.p17 +" "+Style.marginNo +" "+Style.radiusB1+" "+Style.OrderNumIncWrapper} id="totalQuanity">
+																						<div className="col-2 NoPadding pb-4 ml-5 ml-sm-0">
+																							<div className={"col-4 NoPadding float-left qtyIncrease  globaleCommLargeBtn " +Style.p17 +" "+Style.marginNo +" "+Style.radiusB1+" "+Style.OrderNumIncWrapper} id="totalQuanity">
 																								1
 																							</div>
 																							<div className={"col-6 float-left NoPadding " +Style.marginNo}>
@@ -819,6 +829,7 @@ class ProductViewEcommerce extends Component{
 																		}
 																	</div>
 																</form>
+															</div>
 															</div>
 														</div>
 													</div>

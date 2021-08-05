@@ -143,7 +143,7 @@
 @media (min-width: 1200px) { 
     
     .vendorCard{
-        height: 140px;
+        height: 120px;
         box-shadow: 2px 2px 3px #dddddd;
         cursor: pointer;
         background-image: url("/images/eCommerce/vendorCard.jpg");
@@ -152,8 +152,8 @@
     }
     .vendorLogoImg{
         border-radius: 100% !important;
-        height: 110px;
-        width: 110px !important;
+        height: 90px;
+        width: 90px !important;
         /* border: solid 2px #ccc */
     }
     .vendorCard::before {
@@ -172,17 +172,23 @@
     
     .bgHeight{
         /* min-height:1000px; */
+        filter: blur(8px);
         padding-bottom: 100px!important;
-        height: auto !important;
+        /* height: auto !important; */
+        height: 600px !important;
         background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url(/images/eCommerce/vendorListBg.jpg)!important;
         background-attachment: static!important;
         background-position: center!important;
         background-repeat: no-repeat!important;
         background-size: cover!important;
     }
+    .vendorList{
+        position: absolute;
+        top: 185px;
+    }
     
     .deliveryTime{
-        margin-top: -10px !important;
+        margin-top: -30px !important;
     }
     .cardBody{
         color: #fff;
@@ -230,13 +236,13 @@
         font-weight: 900!important;
     }
     .vendorName{
-        font-size: 23px;
+        font-size: 20px;
         overflow-wrap: break-word;
         max-height:30px ;
         font-weight: 600!important;
     }
     .delTime{
-        font-size: 20px;
+        font-size: 15px;
         position: absolute;
         top: 50px;
         right: 50px;

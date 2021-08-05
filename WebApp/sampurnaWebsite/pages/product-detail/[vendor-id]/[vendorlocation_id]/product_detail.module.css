@@ -24,7 +24,10 @@
 }
 .vendorNameWrapper b{
 	/* margin-left: 58px; */
-  }
+}
+.vendorBar{
+	margin-top: -4px;
+}
   .chaneVendorBtn a{
 	text-decoration: underline;
 	/* margin-left: 74.9%; */
@@ -146,6 +149,21 @@ border: none!important;
 	text-align: center;
 
 }
+.vatSpan{
+	font-size: 10px;
+	color: #aaa !important;
+}
+.savePrice{
+	font-size: 14px;
+	color: #999;
+}
+.mainPrice{
+	font-weight: 700;
+}
+.youSaved{
+	font-size: 12px;
+	color: #aaa;
+}
 .sizeBox{
 	border: solid 1px #ccc;
 	text-align: center;
@@ -164,7 +182,7 @@ border: none!important;
 	background-color:#ccc !important;
 	border:none !important;
 	padding:10px 9px 6px 6px !important;
-	font-size: 10px;
+	font-size: 9px;
 	border-bottom:1px solid #999 !important;
 }
 
@@ -173,7 +191,7 @@ border: none!important;
 	background-color:#ccc !important;
 	border:none !important;
 	padding: 11px 9px 7px 6px !important;
-    font-size: 10px;
+    font-size: 9px;
 }
 
 .marginNo{
@@ -186,14 +204,14 @@ border: none!important;
 }
 
 .productNameClassNew {
-    font-size: 25px;
+    font-size: 22px;
     color: #000;
     font-weight:bold;
     margin-bottom: 5px;
 }
 
 .productDetailsInfo{
-	border-top : solid 1px #bbb;
+	/* border-top : solid 1px #bbb; */
 }
 .priceColor{
 	font-weight:bold;
@@ -206,7 +224,7 @@ border: none!important;
     text-decoration-color: #DC1919;
 }
 .priceColorMain{
-	color: #033554 !important;;
+	/* color: #033554 !important;; */
 }
 .brandName{
 	color:#033554 !important;
@@ -229,6 +247,12 @@ border: none!important;
  font-style: normal!important;
 }
 .priceWrapperPD{
+	border-bottom:1px solid #ccc;
+	/* border-top: 1px solid #ccc; */
+	/* padding-top: 10px; */
+	/* margin-top: 10px; */
+}
+.OriginalpriceWrapper{
 	border-bottom:1px solid #ccc;
 }
 .addToCartWrapperPD{
@@ -338,7 +362,7 @@ margin-left: 23px!important;
 		margin-left: 0px !important;
 	}
 	.cartBTN{
-		margin-left: -72px;
+		margin-left: -50px;
 	}
 }
 
