@@ -648,7 +648,7 @@ class ProductViewEcommerce extends Component{
 																		Array.isArray(this.state.variants) && this.state.variants.map((productItem,index)=>{
 																			return(
 																				productItem.size !=="" && productItem.size !== "undefined" && productItem.size !== null &&
-																					<li className="nav-item col-4 col-sm-3 col-xl-2 sizeVariantTab NoPadding ml-2 mb-4" key={index}>
+																					<li className="nav-item col-4 col-sm-3 col-xl-2 sizeVariantTab abc NoPadding ml-2 mb-4" key={index}>
 																						<a className={"col-12 nav-link  "+productItem.size === this.state.currentSize ? 'active ' :' '+Style.sizeBox} data-toggle="tab" href={"#"+productItem.size}
 																							onClick={()=>{
 																								this.setState({

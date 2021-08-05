@@ -175,7 +175,7 @@ border: none!important;
 	cursor: pointer;
 	color: #444;
 	text-decoration: none !important;
-	width: 100px !important;
+	/* width: 100px !important; */
 	font-size: 13px;
 	display: inline-block;
 }
