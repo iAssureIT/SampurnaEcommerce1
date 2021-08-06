@@ -599,7 +599,7 @@ uploadImage(event) {
                         </span>
                         : null
                       }
-                      {/* Review and Rating */}
+                      {/* Review and Rating */} 
                       <div className="modal fade feedBackModal" id={"reviewModal_" + productdata.product_ID} role="dialog" data-backdrop="static" data-keyboard="false">
                         <div class="modal-dialog modal-dialog-centered ">
                           <div className="modal-content modalContent " style={{ 'background': '#fff' }}>

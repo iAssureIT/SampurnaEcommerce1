@@ -234,7 +234,7 @@ class EditAccount extends Component{
             "currentPassword"       : this.state.resetCurrentPassword,
         }
         if(formValues){
-            console.log("formValues===",formValues);
+            // console.log("formValues===",formValues);
             axios.patch('/api/auth/patch/reset_password', formValues)
             .then((response)=> {  
                 if(response){  

@@ -69,8 +69,7 @@ class CreditPoints extends Component{
                         <div className="row">
                             <div className={"col-4 px-lg-5 text-lg-left text-center "+Style.CreditCurrentBalTitle}>Current Balance</div>
                             <div className="col-4 text-left"></div>
-
-                            <div className={"col-4 px-lg-5 text-lg-right text-center "+Style.CreditTotalBalTitle}>{this.state.currency}&nbsp;{this.state.creditdata&&this.state.creditdata.totalPoinsValue}&nbsp;</div>
+                            <div className={"col-4 px-lg-5 text-lg-right text-center "+Style.CreditTotalBalTitle}>{this.state.currency}&nbsp;{this.state.creditdata && this.state.creditdata.totalPointsValue}&nbsp;</div>
                         </div>
                     </div>
                     {this.state.creditdata && this.state.creditdata.transactions && this.state.creditdata.transactions.length>0

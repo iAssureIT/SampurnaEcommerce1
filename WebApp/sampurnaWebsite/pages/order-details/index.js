@@ -346,7 +346,6 @@ export default class OrderDetails extends Component {
                               </div>
                               {vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
                                 <div className="col-12 NoPadding ">
-                                 
                                   <StepProgressBar
                                     startingStep={index1 === -1 ? 2 : index1}
                                     // startingStep={index1}
@@ -365,7 +364,6 @@ export default class OrderDetails extends Component {
                                 reviewuserData={this.state.reviewuserData}
                                 orderID={this.state.orderData._id}
                               />
-
                               <div className="col-12 ">
                                 <div className="col-12 NOpadding" style={{ marginBottom: "20px" }} key={index}>
                                   <div className="row ">

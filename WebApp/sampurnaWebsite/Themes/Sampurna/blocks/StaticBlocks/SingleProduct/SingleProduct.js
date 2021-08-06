@@ -226,7 +226,7 @@ class SingleProduct extends Component{
     }
 
     render(){
-      // console.log("single productView props=",this.props.data);
+      console.log("single productView props=",this.props.data);
       { var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.props.data._id) : [];                              
         var wishClass = 'r';
         var tooltipMsg = '';
@@ -266,7 +266,7 @@ class SingleProduct extends Component{
                     {/* <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id} className={Style.product_item_photo }> */}
                     <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id} className={Style.product_item_photo }>
                         <img                                           
-                          src={Array.isArray(this.props.data.productImage) && this.props.data.productImage > 0 && this.props.data.productImage[0] ? this.props.data.productImage[0] : "/images/eCommerce/notavailable.png"}
+                          src={Array.isArray(this.props.data.productImage) && this.props.data.productImage.length > 0 && this.props.data.productImage[0] ? this.props.data.productImage[1] : "/images/eCommerce/notavailable.png"}
                           alt="ProductImg" 
                           className={"img-responsive " +Style.NoAvailableImg }
                           height={this.props.data.productImage[0] ? "140px" : '130px'} 

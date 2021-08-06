@@ -105,7 +105,7 @@ class MyAccount extends Component{
         document.body.offsetHeight, document.documentElement.offsetHeight,
         document.body.clientHeight, document.documentElement.clientHeight
         );
-        console.log('Full document height, with scrolled out part: ' + scrollHeight);
+        // console.log('Full document height, with scrolled out part: ' + scrollHeight);
 
         return(
             // <!-- Demo header-->

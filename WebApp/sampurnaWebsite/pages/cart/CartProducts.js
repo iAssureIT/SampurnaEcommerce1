@@ -400,7 +400,7 @@ class CartProducts extends Component {
                                                                                 return (
                                                                                     <tr key={index}>
                                                                                         <td>
-                                                                                            <img className="img mt-1 cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.png"} alt="ProductImg" />
+                                                                                            <img className="img mt-1 cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[1] : "images/eCommerce/notavailable.png"} alt="ProductImg" />
                                                                                             <h5 className="productName d-lg-none d-xl-none mt-2  ">{vendorData.product_ID.productName}</h5>
 
                                                                                             {/* {
@@ -793,7 +793,11 @@ class CartProducts extends Component {
                                                                                                         <div className="container">
                                                                                                             <div className="row">
                                                                                                                 <div className="col-6 text-left">Delivery Charges&nbsp; :</div>
-                                                                                                                <div className="col-6 text-right NoPadding font-weight-bold "> &nbsp;{vendorWiseCartData.vendor_shippingCharges} &nbsp;{this.state.currency}</div>
+                                                                                                                {vendorWiseCartData.vendor_shippingChargesAfterDiscount === vendorWiseCartData.vendor_shippingCharges?
+                                                                                                                    <div className="col-6 text-right NoPadding font-weight-bold "> &nbsp;{vendorWiseCartData.vendor_shippingCharges} &nbsp;{this.state.currency}</div>
+                                                                                                                :
+                                                                                                                <div className="col-6 text-right NoPadding font-weight-bold "> &nbsp;<span className={Style.regularShippingCharge}>{vendorWiseCartData.vendor_shippingCharges}&nbsp;{this.state.currency}</span>&nbsp;<span>{vendorWiseCartData.vendor_shippingChargesAfterDiscount}</span> &nbsp;{this.state.currency}</div>
+                                                                                                                }
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>

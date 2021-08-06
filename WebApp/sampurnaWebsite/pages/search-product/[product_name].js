@@ -65,7 +65,7 @@ class SearchProduct extends Component {
     //     this.setState({"searchProduct": url[4]},()=>{
     //     })
     //   }
-      // console.log("serach props===",this.props);
+      console.log("serach props===",this.props);
       return (
         <div className="row">
           < Header />

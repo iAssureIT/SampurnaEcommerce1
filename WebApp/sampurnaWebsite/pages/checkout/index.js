@@ -28,40 +28,38 @@ class Checkout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cart: [],
-            totalCartPrice: '',
-            productData: {},
-            productCartData: [],
-            vatPercent: 0,
-            companyInfo: "",
-            cartProduct: "",
-            shippingCharges: 0,
-            quantityAdded: 0,
-            totalIndPrice: 0,
-            addressId: "",
+            totalCartPrice   : '',
+            productData      : {},
+            productCartData  : [],
+            shippingCharges  : 0,
+            quantityAdded    : 0,
+            totalIndPrice    : 0,
+            addressId        : "",
             bannerData: {
-                title: "ORDER SUMMARY",
-                breadcrumb: 'Order Summary',
+                title          : "ORDER SUMMARY",
+                breadcrumb     : 'Order Summary',
                 backgroungImage: 'images/eCommerce/checkout.png',
             },
-            deliveryAddress: [],
-            pincodeExists: true,
-            paymentmethods: "Cash On Delivery",
-            paymethods: false,
-            addressLine1: "",
-            addType: '',
-            startRange: 0,
-            limitRange: 10,
-            isChecked: false,
-            isCheckedError: [],
-            user_ID: '',
-            email: '',
-            fullName: '',
-            fields: {},
-            errors: {},
-            websiteModel: '',
-            couponAmount: 0.00,
+            deliveryAddress  : [],
+            pincodeExists    : true,
+            paymentmethods   : "Cash On Delivery",
+            paymethods       : false,
+            addressLine1     : "",
+            addType          : '',
+            startRange       : 0,
+            limitRange       : 10,
+            isChecked        : false,
+            isCheckedError   : [],
+            user_ID          : '',
+            email            : '',
+            fullName         : '',
+            fields           : {},
+            errors           : {},
+            websiteModel     : '',
+            couponAmount     : 0.00,
             creaditPointError: "",
+            couponCode       : null,
+            creaditPoint     : null,
         }
     }
     async componentDidMount() {
@@ -681,9 +679,11 @@ class Checkout extends Component {
 
     deleteCoupon(event) {
         event.preventDefault();
+        // $('#couponCode').val('');
         this.setState({
             recentCartData: this.props.recentCartData,
-            couponCode: '',
+            couponCode: "",
+            
         }, () => {
             $('.couponCreditWrapper').show(500);
         })
@@ -692,7 +692,8 @@ class Checkout extends Component {
         event.preventDefault();
         this.setState({
             recentCartData: this.props.recentCartData,
-            creaditPoint: '',
+            creaditPoint: "",
+            creaditPointError : ""
         }, () => {
             $('.couponCreditWrapper').show(500);
         })
@@ -719,55 +720,62 @@ class Checkout extends Component {
 
                     if (couponResponse.data.message === "Coupon Applied Successfully!") {
                         $('.couponCreditWrapper').hide(500);
+                        // this.setState({"couponCode" : ''})
+                        $('#couponCode').val('');
                     }
                     swal(couponResponse.data.message);
 
                 }
             })
             .catch(err => {
-                this.setState({ coupenCode: '' })
                 console.log("couponcode error=", err);
             })
     }
     applyCreditPoint(event) {
         event.preventDefault();
-        var creaditPointValueEnter = this.refs.creaditPoint.value;
-        // console.log("my creaditPoint===",creaditPointValueEnter);
+        var creaditPointValueEnter = parseInt(this.refs.creaditPoint.value);
+        console.log("my creaditPoint===",creaditPointValueEnter);
         const formValues = {
             "user_ID": this.state.user_ID,
             creditPointsValueUsed: parseFloat(creaditPointValueEnter)
         }
         // console.log("formValues==",formValues);
         // console.log("this.state.creditdataValue===",this.state.creditdataValue);
-        if (creaditPointValueEnter <= this.state.creditdataValue) {
-            axios.patch('/api/carts/redeem/creditpoints', formValues)
-                .then(AfterCreditResponse => {
-                    if (AfterCreditResponse.data) {
-                        console.log("AfterCreditResponse=>", AfterCreditResponse.data);
-
-                        this.setState({
-                            applyCreditPoint: 0,
-                            recentCartData: AfterCreditResponse.data,
-                            // myData:AfterCreditResponse.data,
-
-                        }, () => {
-                            console.log("recentCartData=", this.state.recentCartData);
-                        })
-                        swal('Credit Point Applied successfully');
-                        $('.couponCreditWrapper').hide();
-                        // if(AfterCreditResponse.data.message === "Credit Applied Successfully!"){
-                        //     $('.couponCreditWrapper').hide();
-                        // }
-                    }
-                })
-                .catch(err => {
-                    // this.setState({creditAmount  : ''})
-                    console.log("err", err);
-                })
-        } else {
+        if(creaditPointValueEnter === 0 || creaditPointValueEnter === ''){
             this.setState({
-                creaditPointError: "Please enter credit Amount less than or equal to your credit wallet amount"
+                creaditPointError: "Please enter valid credit Amount and it should not be 0"
             })
+            
+        }else{
+            if (creaditPointValueEnter <= this.state.creditdataValue) {
+                axios.patch('/api/carts/redeem/creditpoints', formValues)
+                    .then(AfterCreditResponse => {
+                        if (AfterCreditResponse.data) {
+                            console.log("AfterCreditResponse=>", AfterCreditResponse.data);
+                            this.setState({
+                                applyCreditPoint: 0,
+                                recentCartData: AfterCreditResponse.data,
+                                // myData:AfterCreditResponse.data,
+
+                            }, () => {
+                                // console.log("recentCartData=", this.state.recentCartData);
+                            })
+                            swal('Credit Point Applied successfully');
+                            $('.couponCreditWrapper').hide();
+                            // if(AfterCreditResponse.data.message === "Credit Applied Successfully!"){
+                            //     $('.couponCreditWrapper').hide();
+                            // }
+                        }
+                    })
+                    .catch(err => {
+                        // this.setState({creditAmount  : ''})
+                        console.log("err", err);
+                    })
+            } else {
+                this.setState({
+                    creaditPointError: "Please enter credit Amount less than or equal to your credit wallet amount"
+                })
+            }
         }
     }
 
@@ -1017,7 +1025,7 @@ class Checkout extends Component {
                                                 <div className="row mt-2 couponWrapper ">
                                                     <label className={" " + Style.f13N+" "+ Style.disccountCoupnWrapper}>Enter Discount Coupon Here <span className={" " + Style.dumySpan}>dumy span</span></label>
                                                     <div className={"form-group col-8 NoPadding " + Style.border1}>
-                                                        <input type="text" className={"form-control couponCode " + Style.border1} ref="couponCode" id="couponCode" label="couponCode" value={this.state.couponCode} name="couponCode" placeholder="Enter Discount Coupon Here..." />
+                                                        <input type="text" className={"form-control couponCode " + Style.border1} ref="couponCode" id="couponCode" defaultValue={this.state.couponCode} name="couponCode" placeholder="Enter Discount Coupon Here..." />
                                                     </div>
                                                     <div className="col-4 NoPadding">
                                                         <button type="button" className={"col-12 btn pull-right " + Style.border2 + " " + Style.cuponBtn} onClick={this.applyCoupon.bind(this)}>APPLY</button>
@@ -1036,7 +1044,7 @@ class Checkout extends Component {
                                                     <div className="col-4 NoPadding">
                                                         <button type="button" className={"col-12 btn pull-right " + Style.border2 + " " + Style.cuponBtn} onClick={this.applyCreditPoint.bind(this)}>Apply</button>
                                                     </div>
-                                                    <div className={Style.errorMsg + " col-12 "}>{this.state.creaditPointError}</div>
+                                                    <div className={Style.errorMsg + " col-12 " +Style.mtErrMsg}>{this.state.creaditPointError}</div>
 
                                                 </div>
 
@@ -1145,13 +1153,13 @@ class Checkout extends Component {
 
                                             </div>
 
-                                            <div className={"modal NoPadding mt-5 "} id="termsNconditionsmodal" role="dialog">
+                                            <div className={"modal fade NoPadding mt-5 "} id="termsNconditionsmodal" role="dialog">
                                                 <div className={"col-lg-4 col-12 col-sm-10 offset-sm-1 mx-auto NoPadding " + Style.modalMainWrapper}>
                                                     <div className={"modal-content  col-md NoPadding " + Style.modalContent}>
                                                         <div className={"modal-header globalBgColor col-12 " + Style.modalHeader}>
-                                                            <div className={"modal-title col-12 modalheadingcont pb-2 text-center underline " + Style.f14B}><img className={" " + Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO" /><u>Terms & Conditions</u></div>
+                                                            <div className={"modal-title col-11 modalheadingcont pb-2 text-center underline " + Style.f14B}><img className={" " + Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO" /><u>Terms & Conditions</u></div>
                                                             <button type="button" className={" close modalclosebut  " + Style.modalCloseButtonWrapper} data-dismiss="modal">&times;</button>
-                                                        </div>
+                                                        </div> 
                                                         <div className={"modal-body col-12  " + Style.modalBodyRadius}>
                                                         {/* <p className={"listStyle " + Style.listColor}>
                                                             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -1364,8 +1372,7 @@ class Checkout extends Component {
                                                                                     <div className="col-4 NoPadding">
                                                                                         <button type="button" className={"col-12 btn pull-right " + Style.border2 + " " + Style.cuponBtn} onClick={this.applyCreditPoint.bind(this)}>APPLY</button>
                                                                                     </div>
-                                                                                    <div className={Style.errorMsg + " col-12 "}>{this.state.creaditPointError}</div>
-
+                                                                                    <div className={Style.errorMsg + " col-12 "+Style.mtErrMsg}>{this.state.creaditPointError}</div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

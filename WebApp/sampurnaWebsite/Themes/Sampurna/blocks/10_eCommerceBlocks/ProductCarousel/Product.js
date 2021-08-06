@@ -335,7 +335,7 @@ class Product extends Component{
                         <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+data._id}>
                         <a className={Style.product_item_photo } tabIndex="-1" >
                           <img 
-                            src={data.productSmallImage && data.productSmallImage.length>0 ? data.productSmallImage[0] : "/images/eCommerce/notavailable.png"}
+                            src={data.productSmallImage && data.productSmallImage.length>0 ? data.productSmallImage[1] : "/images/eCommerce/notavailable.png"}
                             alt="ProductImg" 
                             className={"img-responsive " +Style.NoAvailableImg }
                             height={data.productImage[0] ? "163px" : '140px'}

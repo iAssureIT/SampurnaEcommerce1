@@ -303,7 +303,7 @@ export default class MyOrders extends Component {
   }
 
   render() {
-    console.log("1. myorder page this.state.orderData=", this.state.orderData);
+    // console.log("1. myorder page this.state.orderData=", this.state.orderData);
     return (
       <div className="col-12">
         <div className="row">

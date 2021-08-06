@@ -17,7 +17,9 @@
     border: 0.5px solid #ededed;
     border-radius: 6px;
 }
-
+.mtErrMsg{
+    margin-top:-10px !important
+}
 .ma {
     margin: auto !important;
 }
