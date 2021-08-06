@@ -364,121 +364,181 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
        }
        
     return (
-        <div className={"row locationPage locationBg " +Style.locationBg +" "+Style.locationPage} >
-            <div className={"col-12  "}>
-                {/* {
-                    this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
-                    <div className="col-3 NoPadding AddressListWrapper">
-                        <AddressList 
-                        userAddress =  {this.state.userAddress}/>
-                    </div>
-                    :null
-                } */}
-                {/* <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}> */}
-                <div className={"col-12 NoPadding "}>
-                <div className="col-12 offset-0 mobileViewNoPadding">
-                    <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryFormAfterLogin}>
-                        <div className="col-12 ">
-                            <div className="row">
-                                <div className={"col-12 col-md-12 col-lg-4 col-xl-4 NoPadding "}>
-                                    <div className="col-12">
-                                        <div className={"row " +Style.ma}>
-                                            <div className=" col-12 col-md-12 col-lg-9 col-xl-9 NoPadding detectLocationBtn">
-                                                <button type="button" className={"btn pull-center mt-1 " +Style.locationBTNafterLogin}  onClick={this.takeCurrentLocation.bind(this)}><i className="fa fa-map-marker-alt-alt" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
-                                            </div>
-                                            <div className={"text-center NoPadding orText1 col-12 col-md-12 col-lg-3 col-xl-3 mt-3 " +Style.tw +" "+Style.f12afterLogin}>
-                                                <div className={"col-4 col-sm-4 col-md-5 col-lg-2 col-xl-2 NoPadding " +Style.orlineAfterLOgin}></div>
-                                                <span className={"col-2 col-sm-2 col-md-2 col-lg-8 col-xl-8 " +Style.MapOrAfterLogin}>OR</span>
-                                                <div className={"col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 NoPadding " +Style.orline}></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className={" col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 NoPadding"}>
-                                    <PlacesAutocomplete 
-                                        value={this.state.address}
-                                        onChange={this.handleChangePlaces}
-                                        onSelect={this.handleSelect}
-                                        highlightFirstSuggestion={true}>
-                                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                            <div className={"col-12 "+Style.locationSearchWrapperAfterLogin}>
-                                                {/* <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label> */}
-                                             
-  
-                                                <div className="barraContainer col-12 NoPadding">
-                                                    <input type="text"  placeholder="Ingrese su nombre de papu"
-                                                    {...getInputProps({
-                                                        placeholder: 'Search your Location ',
-                                                        className: 'location-search-input mt-2 form-control buscar',
-                                                        id: "address",
-                                                        name: "address",
-                                                        required: true
-                                                    })}
-                                                    />
-                                                    <i className="fas fa-search"></i>
-                                                </div>
-                                            
-                                          
-                                                {/* <input
-                                                    {...getInputProps({
-                                                        placeholder: 'Search your Location ',
-                                                        className: 'location-search-input mt-2 form-control',
-                                                        id: "address",
-                                                        name: "address",
-                                                        required: true
-                                                    })}
-                                                /> */}
-                                                {/* <span className={" " +Style.searchAfterLogin}><i className="fa fa-search " aria-hidden="true"></i></span> */}
-                                                <div className="autocomplete-dropdown-container SearchListContainer">
-                                                    {loading && <div>Loading...</div>}
-                                                    {suggestions.map(suggestion => {
-                                                        const className = suggestion.active
-                                                            ? 'suggestion-item--active'
-                                                            : 'suggestion-item';
-                                                        const style = suggestion.active
-                                                            ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                            : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                                        return (
-                                                            <div
-                                                                {...getSuggestionItemProps(suggestion, {
-                                                                    className,
-                                                                    style,
-                                                                })}
-                                                            >
-                                                                <span>{suggestion.description}</span>
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
-                                            </div>
-                                            )}
-                                    </PlacesAutocomplete>
-                                </div>
-                                <div className="col-12 NoPadding">
-                                    <div className="col-12 mt-3 ">
-                                        <div className="col-12 ">
-                                            <div className="col-12 ">
-                                                <button type="button" className={" btn pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-12 pull-right mt-2 ">
-                            </div>
-                        </div>
-                    </form>
-                    {this.state.latLong?
-                        < GoogleMap
-                            googleapiKey = {this.state.googleapiKey}
-                            latLongDetails = {this.state.latLong}
-                        />
-                    :null}
 
-                </div>                                                     
+        <section className={"col-12 locationPage locationBg "+Style.deliveryLocationWrapper}>
+        <form className={"col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 "+Style.deliveryLocationFormWrapper}>
+            <div className="col-12">
+                <div className="row">
+                    <div className="col-12 col-lg-3">
+                        <div className="row">
+                            <button type="button" className={"col-12 btn "+Style.deliveryLocationCurrentButton} onClick={this.takeCurrentLocation.bind(this)}>
+                                <i className="fa fa-map-marker-alt" aria-hidden="true"></i>&nbsp; Current Location
+                            </button>
+                        </div>
+                    </div>
+                    <div className="col-12 col-lg-3 mt-3 mt-lg-0">
+                        <div className={"col-4 "+Style.deliveryLocationORLine1}></div>
+                        <div className={"col-4 "+Style.deliveryLocationORTextWrapper}>
+                            <div className={"mx-auto "+Style.deliveryLocationORText}>OR</div>
+                        </div>
+                        <div className={"col-4 "+Style.deliveryLocationORLine2}></div>
+                    </div>
+                    <div className="col-12 col-lg-6 mt-3 mt-lg-0">
+                        <div className="row">
+                            <PlacesAutocomplete
+                                value                       = {this.state.address}
+                                onChange                    = {this.handleChangePlaces}
+                                onSelect                    = {this.handleSelect}
+                                highlightFirstSuggestion    = {true}>
+
+                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                    <div className={"col-12 "+Style.deliveryLocationSearchWrapper}>
+                                        <div className={"barraContainer1 "+Style.barraContainer1}>
+                                            <input type="text"
+                                                {...getInputProps({
+                                                    placeholder : 'Search your Location',
+                                                    className   : 'location-search-input form-control',
+                                                    id          : "address",
+                                                    name        : "address",
+                                                    required    : true
+                                                })}
+                                            />
+                                                <i className="fas fa-search"></i>
+                                        </div>
+                                        <div className="autocomplete-dropdown-container">
+                                            {loading && <div>Loading...</div>}
+                                            {suggestions.map(suggestion => {
+                                                const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
+                                                const style     = suggestion.active ? { backgroundColor: '#fafafa', cursor: 'pointer' } : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                return(
+                                                    <div
+                                                        {...getSuggestionItemProps(suggestion, {
+                                                            className,
+                                                            style,
+                                                        })}
+                                                    >
+                                                        <span>{suggestion.description}</span>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                        <div className="col-12 errormsg">{this.state.searchLocationError}</div>
+                                    </div>
+                                )}
+                            </PlacesAutocomplete>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div className="col-12">
+                <div className="row pull-right">
+                    <button type="button" className={"btn mt-3 mt-lg-3 mt-xl-2 "+Style.deliveryLocationSaveButton} onClick={this.saveLocation.bind(this)}>Save and Close</button>
+                </div>
             </div>
-        </div>
+        </form>
+        {
+            this.state.latLong
+            ?
+                <GoogleMap
+                    googleapiKey    = {this.state.googleapiKey}
+                    latLongDetails  = {this.state.latLong}
+                />
+            :
+                null
+        }
+    </section>
+
+
+        // <div className={"row locationPage locationBg " +Style.locationBg +" "+Style.locationPage} >
+        //     <div className={"col-12"}>
+        //         <div className={"col-12 NoPadding "}>
+        //         <div className="col-12 offset-0 mobileViewNoPadding">
+        //             <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryFormAfterLogin}>
+        //                 <div className="col-12 ">
+        //                     <div className="row">
+        //                         <div className={"col-12 col-md-12 col-lg-4 col-xl-4 NoPadding "}>
+        //                             <div className="col-12">
+        //                                 <div className={"row " +Style.ma}>
+        //                                     <div className=" col-12 col-md-12 col-lg-9 col-xl-9 NoPadding detectLocationBtn">
+        //                                         <button type="button" className={"btn pull-center mt-1 " +Style.locationBTNafterLogin}  onClick={this.takeCurrentLocation.bind(this)}><i className="fa fa-map-marker-alt-alt" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
+        //                                     </div>
+        //                                     <div className={"text-center NoPadding orText1 col-12 col-md-12 col-lg-3 col-xl-3 mt-3 " +Style.tw +" "+Style.f12afterLogin}>
+        //                                         <div className={"col-4 col-sm-4 col-md-5 col-lg-2 col-xl-2 NoPadding " +Style.orlineAfterLOgin}></div>
+        //                                         <span className={"col-2 col-sm-2 col-md-2 col-lg-8 col-xl-8 " +Style.MapOrAfterLogin}>OR</span>
+        //                                         <div className={"col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 NoPadding " +Style.orline}></div>
+        //                                     </div>
+        //                                 </div>
+        //                             </div>
+        //                         </div>
+        //                         <div className={" col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 NoPadding"}>
+        //                             <PlacesAutocomplete 
+        //                                 value={this.state.address}
+        //                                 onChange={this.handleChangePlaces}
+        //                                 onSelect={this.handleSelect}
+        //                                 highlightFirstSuggestion={true}>
+        //                                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+        //                                     <div className={"col-12 "+Style.locationSearchWrapperAfterLogin}>
+        //                                         <div className="barraContainer col-12 NoPadding">
+        //                                             <input type="text"  placeholder="Ingrese su nombre de papu"
+        //                                             {...getInputProps({
+        //                                                 placeholder: 'Search your Location ',
+        //                                                 className: 'location-search-input mt-2 form-control buscar',
+        //                                                 id: "address",
+        //                                                 name: "address",
+        //                                                 required: true
+        //                                             })}
+        //                                             />
+        //                                             <i className="fas fa-search"></i>
+        //                                         </div>
+        //                                         <div className="autocomplete-dropdown-container SearchListContainer">
+        //                                             {loading && <div>Loading...</div>}
+        //                                             {suggestions.map(suggestion => {
+        //                                                 const className = suggestion.active
+        //                                                     ? 'suggestion-item--active'
+        //                                                     : 'suggestion-item';
+        //                                                 const style = suggestion.active
+        //                                                     ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+        //                                                     : { backgroundColor: '#ffffff', cursor: 'pointer' };
+        //                                                 return (
+        //                                                     <div
+        //                                                         {...getSuggestionItemProps(suggestion, {
+        //                                                             className,
+        //                                                             style,
+        //                                                         })}
+        //                                                     >
+        //                                                         <span>{suggestion.description}</span>
+        //                                                     </div>
+        //                                                 );
+        //                                             })}
+        //                                         </div>
+        //                                     </div>
+        //                                     )}
+        //                             </PlacesAutocomplete>
+        //                         </div>
+        //                         <div className="col-12 NoPadding">
+        //                             <div className="col-12 mt-3 ">
+        //                                 <div className="col-12 ">
+        //                                     <div className="col-12 ">
+        //                                         <button type="button" className={" btn pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+        //                                     </div>
+        //                                 </div>
+        //                             </div>
+        //                         </div>
+        //                     </div>
+        //                     <div className="col-12 pull-right mt-2 ">
+        //                     </div>
+        //                 </div>
+        //             </form>
+        //             {this.state.latLong?
+        //                 < GoogleMap
+        //                     googleapiKey = {this.state.googleapiKey}
+        //                     latLongDetails = {this.state.latLong}
+        //                 />
+        //             :null}
+        //         </div>                                                     
+        //     </div>
+        //     </div>
+        // </div>
     );
   }
 }

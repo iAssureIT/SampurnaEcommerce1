@@ -1,38 +1,86 @@
-.locationBg{
-	height: 550px !important; 
+.deliveryLocationWrapper{
+	height: 550px !important;
 }
+.deliveryLocationFormWrapper{
+	margin-top: 100px;
+}
+.currentOrSearchBar{
+    background-color: burlywood;
+}
+.deliveryLocationCurrentButton{
+    height: 42px;
+    background-color: #033554;
+	font-weight: bold;
+	font-size: 13px;
+    color: #fff !important;
+    box-shadow: 0px 3px 6px #000000a6;
+    border-radius: 10px;
+    opacity: 1;
+}
+.deliveryLocationSaveButton{
+    background: #033554 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #000000a6;
+    border-radius: 10px;
+    opacity: 1;
+    color: #fff;
+	font-weight:bold;
+    font-size: 14px;
+    padding: 10px 20px;
+}
+.deliveryLocationSaveButton:hover{
+    color: #fff !important;
+}
+.deliveryLocationORLine1{
+    border-bottom: 1px solid #fff !important;
+    float: left;
+    margin-top: 20px !important;
+}
+.deliveryLocationORTextWrapper{
+	float: left;
+	text-align: center;
+	padding: 0.1px 0px 0px 0px;
+}
+.deliveryLocationORText{
+    height: 40px;
+    width: 40px;
+	border-radius: 100%;
+    background-color: #fff;
+    padding-top: 12px;
+    font-size:12px !important;
+}
+.deliveryLocationORLine2{
+    border-bottom: 1px solid #fff !important;
+    float: left;
+    margin-top: 20px !important;
+}
+.deliveryLocationSearchWrapper{
+	padding: 0px;
+}
+.deliveryLocationSearchWrapper input{
+	height: 42px!important;
+    border-radius: 10px!important;
+    opacity: 0.72!important;
+    box-shadow: -3px 3px 6px #000000e8!important;
+}
+
 .googleMap{
 	border-bottom-left-radius: 20px !important;
 	border-bottom-right-radius: 20px !important;
 }
-
 .height385{
 	height:600px;	
 }
-
 .gLocationMap{
     background: transparent linear-gradient(360deg, #000000 0%, #090909DB 31%, #484848C4 77%, #5454548F 100%) 0% 0% no-repeat padding-box; 
     opacity: 1;
     z-index: 2;
 }
-
-.ma{
-	margin:auto;
-	text-align:center;
-}
-
 .searchAdrressLable input{
 	font-size:12px !important;
 }
-
 .f12{
 	font-size:12px !important;
 }
-.f12afterLogin{
-    font-size:12px !important;
-    margin-left: -12px!important;
-}
-
 .locationBTN{
 	background-color:#033554;
 	color:#fff;
@@ -49,23 +97,6 @@
 .locationBTN:hover{
 	color: #fff !important;
 }
-.locationBTNafterLogin{
-    background-color:#033554;
-	color:#fff;
-	font-weight:bold;
-	font-size: 13px;
-	padding: 11px;
-	width: 163px;
-    height: 46px;
-    box-shadow: 0px 3px 6px #000000a6;
-    border-radius: 10px;
-    opacity: 1;
-    margin-top: 6px!important;
-    margin-left: -10px!important;
-}
-.locationBTNafterLogin{
-    color: #fff!important;
-}
 .locationBTN1{
 	margin-left: -26px!important;
     background: #033554 0% 0% no-repeat padding-box;
@@ -78,37 +109,14 @@
     height: 46px;
 	position:absolute;
 }
-
 .locationBTN1:hover{
 	color: #fff !important; 
 }
-.locationBTNafterLogin1{
-    margin-left: 4px!important;
-    background: #033554 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 6px #000000a6;
-    border-radius: 10px;
-    opacity: 1;
-    color: #fff;
-	font-weight:bold;
-    font-size: 14px;
-    padding: 10px 20px;
-	position:absolute;
-    right: 70px;
-}
-.locationBTNafterLogin1:hover{
-    color: #fff !important;
-}
 .zindex{
-  position: absolute;
-  left: 7px;
-  top: -278px;
-  z-index: 0;
-}
-.deliveryForm{
 	position: absolute;
-    top: 220px;
-    z-index: 999 !important;
-    vertical-align: middle !important;
+	left: 7px;
+	top: -278px;
+	z-index: 0;
 }
 .deliveryFormAfterLogin{
     position: absolute;
@@ -125,7 +133,6 @@
     border-bottom: 1px solid #ced4da !important;
     border-radius: 0px !important;
 }
-
 .signinBG{
 	color:#fff;
 	font-size:12px;
@@ -140,7 +147,6 @@
     max-width: 1000px !important;
     margin: 1.75rem auto;
 }
-
 .MapOr{
 	height: 30px;
     width: 30px;
@@ -151,40 +157,11 @@
     margin: 0px 8%;
     margin-top: -5%;
 }
-.MapOrAfterLogin{
-    height: 30px;
-    width: 30px;
-    border-radius: 100%;
-    background-color: #fff;
-    padding: 5px;
-    float: left;
-    margin: 0px 5%;
-    margin-top: -5%;
-}
-.locationSearchWrapper input{
-	height: 42px!important;
-    border-radius: 10px!important;
-    opacity: 0.72!important;
-    box-shadow: -3px 3px 6px #000000e8!important;
-    margin-left:-14px!important;
-}
 .locationSearchWrapperAfterLogin input{
 	height: 42px!important;
     border-radius: 10px!important;
     box-shadow: -3px 3px 6px #000000e8!important;
 }
-
-.orline{
-    border-bottom:1px solid #ccc !important;
-    float:left;
-    margin-top: 10px !important;
-}
-.orlineAfterLOgin{
-    border-bottom:1px solid #ccc !important;
-    float:left;
-    margin-top: 10px !important;
-}
-
 .search{
 	position: absolute;
     top: 25%;
@@ -202,10 +179,11 @@
     color: #999;
 	z-index: 999;
 }
-.systemSecurityPopupRightFormWrapper{
-    background-color: #fff;
+.systemSecurityPopupCloseButton{
+    position: absolute;
+    z-index: 999;
+    right: -20px;
 }
-
 
 
 /* =========================Media Query============================================== */
@@ -214,22 +192,10 @@
 .deliveryFormAfterLogin{
     top:90px;
 }
-.locationBTNafterLogin1{
-    right: -5px;
-}
 }
 @media (min-device-width: 768px) and (max-device-width: 1024px) {
-    .orlineAfterLOgin{
-        margin-top: 0px;
-    }
     .deliveryFormAfterLogin{
         top:110px;
-    }
-    .locationBTNafterLogin1{
-        right: -5px;
-    }
-    .MapOrAfterLogin{
-        margin-top: 0px;
     }
 }
 @media only screen and (min-width: 1440px) {
@@ -252,164 +218,82 @@
 }
 
 
+
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 
 
-/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+/* [xs] Extra Small Devices [Phone - Portrait, less than 575px] */
 @media (max-width: 575px){
 
-    .locationBTNafterLogin{
-        margin-top: -130px !important;
-        margin-left: -50px !important;
-        margin-bottom: 20px;
-    }
-    .f12afterLogin{
-        margin-top: -20px !important;
-        margin-left: -5px !important;
-    }
-    .barraContainer1{
-        margin-top: 30px !important;
-        margin-left: -5px !important;
-    }
-    .locationBTNafterLogin1{
-        top: 20px !important;
-        left: 10px !important;
-    }
-    .SearchListContainer{
-        width: 100%;
-        position: absolute;
-        top: 50px !important;
-        left: -17px;
-    }
     .systemSecurityPopupWrapper{
         margin-top: 40px;
         padding: 0px;
     }
     .systemSecurityPopupModalBody{
-        height: 500px;
+        height: auto;
         padding: 0px;
-        background-color: #ff0;
     }
     .systemSecurityPopupLeftImageWrapper{
-        height: 500px;
         display: none;
-        background-color: lightcoral;
     }
     .systemSecurityPopupRightFormWrapper{
-        height: 500px;
+        height: auto;
     }
 }
-
-/* (sm) Small Devices (Landscape Phones, 576px and up) */
+  
+  
+/* [sm] Small Devices [Phone - Landscape, 576px and up] */
 @media (min-width: 576px){
 
-    .locationBTNafterLogin{
-        margin-top: -50px !important;
-        margin-left: -40px !important;
-        margin-bottom: 20px;
-    }
-    .f12afterLogin{
-        margin-top: 30px !important;
-        margin-left: 25px !important;
-    }
-    .barraContainer1{
-        margin-top: 30px !important;
-        margin-left: -5px !important;
-    }
-    .locationBTNafterLogin1{
-        left: 135px !important;
-    }
-    .SearchListContainer{
-        width: 100%;
-        position: absolute;
-        top: 50px !important;
-        left: -15px;
-    }
-    .systemSecurityPopupWrapper{
+	.systemSecurityPopupWrapper{
         margin-top: 0px;
         padding: 0px;
     }
     .systemSecurityPopupModalBody{
-        height: 500px;
+        height: auto;
         padding: 0px;
-        background-color: #ff0;
     }
     .systemSecurityPopupLeftImageWrapper{
-        height: 500px;
         display: none;
-        background-color: lightcoral;
     }
     .systemSecurityPopupRightFormWrapper{
-        height: 500px;
+        height: auto;
     }
 }
-
-/* (md) Medium Devices (Tablets, 768px and up) */
+  
+  
+/* [md] Medium Devices [Tablet - Portrait, 768px and up] */
 @media (min-width: 768px){
 
-    .locationBTNafterLogin{
-        margin-top: -50px !important;
-        margin-left: 195px !important;
-        margin-bottom: 50px;
-    }
-    .f12afterLogin{
-        margin-top: -20px !important;
-        margin-left: 185px !important;
-    }
-    .barraContainer1{
-        margin-top: 70px !important;
-        margin-left: -10px !important;
-    }
-    .locationBTNafterLogin1{
-        top: 15px !important;
-        left: 180px !important;
-    }
-    .systemSecurityPopupWrapper{
+	.systemSecurityPopupWrapper{
         margin-top: 50px;
         padding: 0px;
     }
     .systemSecurityPopupModalBody{
-        height: 500px;
+        height: auto;
         padding: 0px;
     }
     .systemSecurityPopupLeftImageWrapper{
-        height: 500px;
         display: none;
     }
     .systemSecurityPopupRightFormWrapper{
-        height: 500px;
+        height: auto;
     }
 }
-
-/* (lg) Large Devices (Desktops, 992px and up) */
+  
+  
+/* [lg] Large Devices [Tablet - Landscape, 992px and up] */
 @media (min-width: 992px){
 
-    .locationBTNafterLogin{
-        margin-top: -50px !important;
-        margin-left: 290px !important;
-        margin-bottom: 50px;
-    }
-    .f12afterLogin{
-        margin-top: -20px !important;
-        margin-left: 290px !important;
-    }
-    .barraContainer1{
-        margin-top: 70px !important;
-        margin-left: -210px !important;
-    }
-    .locationBTNafterLogin1{
-        top: 15px !important;
-        left: 280px !important;
-    }
-    .SearchListContainer{
-        width: 100%;
-        position: absolute;
-        top: 50px !important;
-        left: -110px;
-    }
     .systemSecurityPopupWrapper{
         margin-top: 50px;
         padding: 0px;
+    }
+    .systemSecurityPopupModalContent{
+        border-bottom-left-radius: 15px;
+        border-top-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        border-top-right-radius: 15px;
     }
     .systemSecurityPopupModalBody{
         height: 500px;
@@ -422,7 +306,9 @@
         background-size: 100% 100%;
         background-repeat: no-repeat;
         text-align: center;
-        /* filter: brightness(60%); */
+        background-color: #000;
+        border-bottom-left-radius: 15px;
+        border-top-left-radius: 15px;
     }
     .systemSecurityPopupLeftImageLogoWrapper{
         width: 65%;
@@ -431,38 +317,22 @@
     }
     .systemSecurityPopupRightFormWrapper{
         height: 500px;
+        border-bottom-right-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+    .deliveryLocationFormWrapper{
+        margin-top: 200px;
     }
 }
-
-/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+  
+  
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1200px and up] */
 @media (min-width: 1200px){
 
-    .locationBTNafterLogin{
-        margin-top: 6px !important;
-        margin-left: 50px !important;
-        margin-bottom: 50px;
-    }
-    .f12afterLogin{
-        margin-top: -80px !important;
-        margin-left: 250px !important;
-    }
-    .barraContainer1{
-        margin-top: 0px !important;
-        margin-left: 0px !important;
-    }
-    .locationBTNafterLogin1{
-        top: -50px !important;
-        left: 800px !important;
-    }
-    .SearchListContainer{
-        width: 100%;
-        position: absolute;
-        top: 50px !important;
-        left: -13px;
-    }
     .systemSecurityPopupWrapper{
         margin-top: 40px;
         padding: 0px;
+        border-radius: 50px;
     }
     .systemSecurityPopupModalBody{
         height: 500px;
@@ -470,12 +340,31 @@
     }
     .systemSecurityPopupLeftImageWrapper{
         height: 500px;
+        background-color: #000;
     }
     .systemSecurityPopupRightFormWrapper{
         height: 500px;
         background-color: #fff;
     }
 }
-
-
+  
+  
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1366px and up] */
+@media (min-width:1366px){
+  
+}
+  
+  
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
+@media (min-width:1440px){
+  
+}
+  
+  
+/* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
+@media (min-width:1920px){
+  
+}
+  
+  
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

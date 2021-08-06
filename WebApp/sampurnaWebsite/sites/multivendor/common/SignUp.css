@@ -41,11 +41,11 @@ input[type=number] {
 .googleBgColor div{
   display: none!important;
 }
-.gooogleTextWrapper{
+.googleTextWrapper{
     font-size: 11px;
     color: #fff;
     font-weight: 600;
-    margin-left: 95px;
+    margin-left: 70px;
     font-family: 'Montserrat-Regular' !important;
 }
 
@@ -132,6 +132,7 @@ input[type=number] {
 .infoText{
   font-size: 12px;
   color: #000;
+  text-align: center;
 }
 .btnfrgt {
   border: none;
@@ -394,7 +395,7 @@ input[type=number] {
 .special-label{
   display: none;
 }
-input, input::-webkit-input-placeholder{
+input::-webkit-input-placeholder{
   font-size: 12px !important;
   font-family: 'Montserrat-Regular' !important;
   color: #033554;
@@ -535,6 +536,9 @@ input, input::-webkit-input-placeholder{
   border: none!important;
   border-bottom: 2px solid #333 !important;
 }
+.otpInputBox:nth-child(1){
+	margin-left: -28px;
+}
 .otpBtns{
   height: 40px;
   /* padding: 10px; */
@@ -647,52 +651,80 @@ input.middle:focus {
   font-weight: 300;
 }
 
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  #signUpUser .form-group{
-    margin-bottom: 5px !important;
-  }
-}
 
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 
 
-/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+/* [xs] Extra Small Devices [Phone - Portrait, less than 575px] */
 @media (max-width: 575px){
-    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+  /* No media query for "xs'' since this is the default in Bootstrap 4 because it is "Mobile First" */
 }
 
-/* (sm) Small Devices (Landscape Phones, 576px and up) */
+
+/* [sm] Small Devices [Phone - Landscape, 576px and up] */
 @media (min-width: 576px){
 
-  .gooogleTextWrapper{
-    margin-left: 145px;
+	.googleTextWrapper{
+    margin-left: 140px;
   }
+	.otpInputBox:nth-child(1){
+		margin-left: 35px;
+	}
 }
 
-/* (md) Medium Devices (Tablets, 768px and up) */
+
+/* [md] Medium Devices [Tablet - Portrait, 768px and up] */
 @media (min-width: 768px){
 
-  .gooogleTextWrapper{
-    /* margin-left: 130px; */
+	.googleTextWrapper{
+    margin-left: 141px;
   }
 }
 
-/* (lg) Large Devices (Desktops, 992px and up) */
+
+/* [lg] Large Devices [Tablet - Landscape, 992px and up] */
 @media (min-width: 992px){
 
-  .gooogleTextWrapper{
-    margin-left: 70px;
+	.googleTextWrapper{
+    margin-left: 99px;
   }
+	.otpInputBox:nth-child(1){
+		margin-left: -3px;
+	}
 }
 
-/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1200px and up] */
 @media (min-width: 1200px){
 
-  .gooogleTextWrapper{
-    margin-left: 103px;
+	#signUpUser .form-group{
+    margin-bottom: 5px !important;
   }
+  .googleTextWrapper{
+    margin-left: 100px;
+  }
+	.otpInputBox:nth-child(1){
+		margin-left: -3px;
+	}
+}
+
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1366px and up] */
+@media (min-width:1366px){
+
+}
+
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
+@media (min-width:1440px){
+
+}
+
+
+/* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
+@media (min-width:1920px){
+
 }
 
 

@@ -87,8 +87,8 @@ export default function App({pageData}){
                 				    </header>
                 				</div>
               				</div>
-							<DeliveryLocationPopup />
 							<div className="row"> 
+								<DeliveryLocationPopup />
 								<Footer />
 							</div>
           				</div>

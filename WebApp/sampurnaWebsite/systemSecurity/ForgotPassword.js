@@ -104,9 +104,9 @@ class ForgotPassword extends Component{
                         <div className="col-12 NoPadding">
                             <p className="col-12 mt-5 infoText">Please enter your registered email address or Mobile Number below to receive an OTP.</p>
                             <form id="resetPass" className="mt-5">
-                                <div className="col-12 textAlignLeft frmhgt mt25">
-                                    <label className="formLabel ">Email ID / Mobile Number</label><label className="astricsign">*</label>
-                                    <input className="col-12 form-control" placeholder="Mobile / Email ID" ref="username" name="username" type="text" onChange={this.handleChange.bind(this)}/>
+                                <div className="col-12 textAlignLeft frmhgt">
+                                    {/* <label className="formLabel ">Email ID / Mobile Number</label><label className="astricsign">*</label> */}
+                                    <input className="col-12 form-control" placeholder="Email ID / Mobile Number" ref="username" name="username" type="text" onChange={this.handleChange.bind(this)}/>
                                     <div id="username"></div>
                                     <div className="errorMsg">{this.state.errors.username}</div>
                                 </div>
@@ -122,7 +122,7 @@ class ForgotPassword extends Component{
                                             <button id="sendlink" type="button" onClick={this.sendLink.bind(this)} className="col-12 btn loginBtn otpBtns mt-4 waves-effect">Send OTP</button>
                                         </div>
                                 }
-                                <div className="col-12 mt-2">
+                                <div className="col-12 mt-2 mb-3">
                                     <div className=" loginforgotpass textAlignCenter">
                                         <a href='/' className="forgotText" onClick={this.openSignInModal.bind(this)}>Sign In</a>
                                     </div>

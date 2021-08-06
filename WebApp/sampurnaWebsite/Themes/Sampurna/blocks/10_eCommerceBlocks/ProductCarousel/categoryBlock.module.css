@@ -23,7 +23,7 @@
 }
 .categoryPhoto{
     display: grid !important;
-    height: 110px;
+    height: 90px;
 }
 
 .react-multi-carousel-item{

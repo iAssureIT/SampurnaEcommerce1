@@ -318,7 +318,7 @@ class Product extends Component{
                   </div>   */}
 
 
-                  <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
+                  <div className={"col-10 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                     <div className={"col-12 NoPadding"}>
                       <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
                         <div className={"col-12 NoPadding " +Style.wishlistBtn}>

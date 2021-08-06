@@ -200,123 +200,123 @@ class DeliveryLocationPopup extends React.Component{
                     }
                 );
         });
-}
-
-saveLocation(event){
-    event.preventDefault();
-    if(this.state.address){
-        var deliveryLocation = {
-            "address"        : this.state.address,
-            "city"           : this.state.city,
-            "area"           : this.state.area,
-            "district"       : this.state.district,
-            "pincode"        : this.state.pincode,
-            "country"        : this.state.country,
-            "stateCode"      : this.state.stateCode,
-            "countryCode"    : this.state.countryCode,
-            "latitude"       : this.state.latitude,
-            "longitude"      : this.state.longitude,
-        }
-
-        if((this.state.country) === "United Arab Emirates"){     
-            if(this.props.sampurnaWebsiteDetails){
-                var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
-                sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-            }else{
-                var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
-            }
-            localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
-            store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
-            $('#locationModal').modal('hide'); 
-            window.location.reload();
-            Router.push('/');
-        }else{
-            swal("Sorry!! Delivery is not possible out of UAE");
-        }
-    }else{
-        this.setState({
-            "searchLocationError" : "Please search your location here."
-        })
     }
-}
 
-handleChangePlaces = address => {
-    this.setState({ address: address });
-};
-
-handleSelect = address => {
-    geocodeByAddress(address)
-    .then((results) => {
-        if(results){
-            for(var i = 0; i < results[0].address_components.length; i++){
-                for(var b = 0; b < results[0].address_components[i].types.length; b++){
-                    switch(results[0].address_components[i].types[b]){
-                        case 'sublocality_level_1':
-                            var area = results[0].address_components[i].long_name;
-                            break;
-                        case 'sublocality_level_2':
-                            area = results[0].address_components[i].long_name;
-                            break;
-                        case 'locality':
-                            var city = results[0].address_components[i].long_name;
-                            break;
-                        case 'administrative_area_level_1':
-                            var state = results[0].address_components[i].long_name;
-                            var stateCode = results[0].address_components[i].short_name;
-                            break;
-                        case 'administrative_area_level_2':
-                            var district = results[0].address_components[i].long_name;
-                            break;
-                        case 'country':
-                            var country = results[0].address_components[i].long_name;
-                            var countryCode = results[0].address_components[i].short_name;
-                            break;
-                        case 'postal_code':
-                            var pincode = results[0].address_components[i].long_name;
-                            break;
-                        default:
-                            break;
-                    }
-                }
+    saveLocation(event){
+        event.preventDefault();
+        if(this.state.address){
+            var deliveryLocation = {
+                "address"        : this.state.address,
+                "city"           : this.state.city,
+                "area"           : this.state.area,
+                "district"       : this.state.district,
+                "pincode"        : this.state.pincode,
+                "country"        : this.state.country,
+                "stateCode"      : this.state.stateCode,
+                "countryCode"    : this.state.countryCode,
+                "latitude"       : this.state.latitude,
+                "longitude"      : this.state.longitude,
             }
+
+            if((this.state.country) === "United Arab Emirates"){     
+                if(this.props.sampurnaWebsiteDetails){
+                    var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
+                    sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                }else{
+                    var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                }
+                localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
+                store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
+                $('#locationModal').modal('hide'); 
+                window.location.reload();
+                Router.push('/');
+            }else{
+                swal("Sorry!! Delivery is not possible out of UAE");
+            }
+        }else{
             this.setState({
-                address :results[0].formatted_address,
-                area: area,
-                city: city,
-                district: district,
-                state: state,
-                country: country,
-                pincode: pincode,
-                stateCode: stateCode,
-                countryCode: countryCode,
+                "searchLocationError" : "Please search your location here."
             })
         }
-    })
-    if(address){
+    }
+
+    handleChangePlaces = address => {
+        this.setState({ address: address });
+    };
+
+    handleSelect = address => {
         geocodeByAddress(address)
-        .then(results => getLatLng(results[0]))
-        .then(({ lat, lng }) => {
-            if(lat && lng){
-                var latLongDetails = {
-                    lat: lat,
-                    lng: lng
+        .then((results) => {
+            if(results){
+                for(var i = 0; i < results[0].address_components.length; i++){
+                    for(var b = 0; b < results[0].address_components[i].types.length; b++){
+                        switch(results[0].address_components[i].types[b]){
+                            case 'sublocality_level_1':
+                                var area = results[0].address_components[i].long_name;
+                                break;
+                            case 'sublocality_level_2':
+                                area = results[0].address_components[i].long_name;
+                                break;
+                            case 'locality':
+                                var city = results[0].address_components[i].long_name;
+                                break;
+                            case 'administrative_area_level_1':
+                                var state = results[0].address_components[i].long_name;
+                                var stateCode = results[0].address_components[i].short_name;
+                                break;
+                            case 'administrative_area_level_2':
+                                var district = results[0].address_components[i].long_name;
+                                break;
+                            case 'country':
+                                var country = results[0].address_components[i].long_name;
+                                var countryCode = results[0].address_components[i].short_name;
+                                break;
+                            case 'postal_code':
+                                var pincode = results[0].address_components[i].long_name;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
                 this.setState({
-                    latlong : latLongDetails,
-                    latitude : lat,
-                    longitude : lng
-                },()=>{
-
+                    address :results[0].formatted_address,
+                    area: area,
+                    city: city,
+                    district: district,
+                    state: state,
+                    country: country,
+                    pincode: pincode,
+                    stateCode: stateCode,
+                    countryCode: countryCode,
                 })
             }
         })
-        .catch(error => console.error('Error', error));
-    }
-    this.setState({ addressLine1: address });
-};
+        if(address){
+            geocodeByAddress(address)
+            .then(results => getLatLng(results[0]))
+            .then(({ lat, lng }) => {
+                if(lat && lng){
+                    var latLongDetails = {
+                        lat: lat,
+                        lng: lng
+                    }
+                    this.setState({
+                        latlong : latLongDetails,
+                        latitude : lat,
+                        longitude : lng
+                    },()=>{
+
+                    })
+                }
+            })
+            .catch(error => console.error('Error', error));
+        }
+        this.setState({ addressLine1: address });
+    };
     
-render(){
-    const ref = React.createRef();
+    render(){
+        const ref = React.createRef();
         if(this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0){
             var xlCol =  9;
             var offset = 3
@@ -331,108 +331,191 @@ render(){
             var class1 = "zindex1"
         }
         return(
-            <div className={"row locationPage locationBg "+Style.locationBg+" "+Style.locationPage}>
-                <div className={"col-12"}>
-                    <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
-                        <div className="col-12 offset-0 mobileViewNoPadding">
-                            <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryForm}>
-                                <div className="col-12 ">
-                                    <div className="row">
-                                        <div className={"col-12 col-md-4 NoPadding "}>
-                                            <div className={"row "+Style.ma}>
-                                                <div className="col-12 col-lg-9 NoPadding detectLocationBtn">
-                                                    <button
-                                                        type="button"
-                                                        className={"btn pull-center mt-1 "+Style.locationBTNafterLogin}
-                                                        onClick={this.takeCurrentLocation.bind(this)}
-                                                    >
-                                                        <i className="fa fa-map-marker-alt-alt" aria-hidden="true"></i>Current Location
-                                                    </button>
-                                                </div>
-                                                <div className={"text-center NoPadding orText1 col-12 col-lg-8 col-xl-4 mt-3 " +Style.tw +" "+Style.f12afterLogin}>
-                                                    <div className={"col-4 col-lg-4 col-xl-2 NoPadding " +Style.orlineAfterLOgin}></div>
-                                                    <span className={"col-2 col-lg-8 " +Style.MapOrAfterLogin}>OR</span>
-                                                    <div className={"col-4 col-lg-4 col-xl-2 NoPadding " +Style.orline}></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={"col-12 col-md-4 col-lg-7 NoPadding"}>
-                                            <PlacesAutocomplete
-                                                value={this.state.address}
-                                                onChange={this.handleChangePlaces}
-                                                onSelect={this.handleSelect}
-                                                highlightFirstSuggestion={true}>
-                                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                                    <div className={"col-12 NoPadding "+Style.locationSearchWrapper}>
-                                                        <div className={"barraContainer1 "+Style.barraContainer1}>
-                                                            <input type="text"  
-                                                                {...getInputProps({
-                                                                    placeholder : 'Search your Location ',
-                                                                    className   : 'location-search-input mt-2 form-control buscar',
-                                                                    id          : "address",
-                                                                    name        : "address",
-                                                                    required    : true
-                                                                })}
-                                                            />
-                                                                <i className="fas fa-search"></i>
-                                                        </div>
-                                                        <div className={"autocomplete-dropdown-container SearchListContainer "+Style.SearchListContainer}>
-                                                            {loading && <div>Loading...</div>}
-                                                            {suggestions.map(suggestion => {
-                                                                const className = suggestion.active
-                                                                ?
-                                                                    'suggestion-item--active'
-                                                                :
-                                                                    'suggestion-item';
-                                                                const style = suggestion.active
-                                                                ?
-                                                                    { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                                :
-                                                                    { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                                                return(
-                                                                    <div
-                                                                        {...getSuggestionItemProps(suggestion, {
-                                                                            className,
-                                                                            style,
-                                                                        })}
-                                                                    >
-                                                                        <span>{suggestion.description}</span>
-                                                                    </div>
-                                                                );
-                                                            })}
-                                                        </div>
-                                                        <div className="col-12 NoPadding errormsg">{this.state.searchLocationError}</div>
-                                                    </div>
-                                                )}
-                                            </PlacesAutocomplete>
-                                        </div>
-                                        <div className="col-12 NoPadding">
-                                            <div className="col-12 mt-3 ">
-                                                <div className="col-12 ">
-                                                    <div className="col-12 ">
-                                                        <button type="button" className={" btn pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-12 pull-right mt-2"></div>
+            <section className={"col-12 locationPage locationBg "+Style.deliveryLocationWrapper}>
+                <form className={"col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 "+Style.deliveryLocationFormWrapper}>
+                    <div className="col-12">
+                        <div className="row">
+                            <div className="col-12 col-lg-3">
+                                <div className="row">
+                                    <button type="button" className={"col-12 btn "+Style.deliveryLocationCurrentButton} onClick={this.takeCurrentLocation.bind(this)}>
+                                        <i className="fa fa-map-marker-alt" aria-hidden="true"></i>&nbsp; Current Location
+                                    </button>
                                 </div>
-                            </form>
-                            {
-                                this.state.latLong
-                                ?
-                                    <GoogleMap
-                                        googleapiKey    = {this.state.googleapiKey}
-                                        latLongDetails  = {this.state.latLong}
-                                    />
-                                :
-                                    null
-                            }
-                        </div>                                                     
+                            </div>
+                            <div className="col-12 col-lg-3 mt-3 mt-lg-0">
+                                <div className={"col-4 "+Style.deliveryLocationORLine1}></div>
+                                <div className={"col-4 "+Style.deliveryLocationORTextWrapper}>
+                                    <div className={"mx-auto "+Style.deliveryLocationORText}>OR</div>
+                                </div>
+                                <div className={"col-4 "+Style.deliveryLocationORLine2}></div>
+                            </div>
+                            <div className="col-12 col-lg-6 mt-3 mt-lg-0">
+                                <div className="row">
+                                    <PlacesAutocomplete
+                                        value                       = {this.state.address}
+                                        onChange                    = {this.handleChangePlaces}
+                                        onSelect                    = {this.handleSelect}
+                                        highlightFirstSuggestion    = {true}>
+
+                                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                            <div className={"col-12 "+Style.deliveryLocationSearchWrapper}>
+                                                <div className={"barraContainer1 "+Style.barraContainer1}>
+                                                    <input type="text"
+                                                        {...getInputProps({
+                                                            placeholder : 'Search your Location',
+                                                            className   : 'location-search-input form-control',
+                                                            id          : "address",
+                                                            name        : "address",
+                                                            required    : true
+                                                        })}
+                                                    />
+                                                        <i className="fas fa-search"></i>
+                                                </div>
+                                                <div className="autocomplete-dropdown-container">
+                                                    {loading && <div>Loading...</div>}
+                                                    {suggestions.map(suggestion => {
+                                                        const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
+                                                        const style     = suggestion.active ? { backgroundColor: '#fafafa', cursor: 'pointer' } : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                        return(
+                                                            <div
+                                                                {...getSuggestionItemProps(suggestion, {
+                                                                    className,
+                                                                    style,
+                                                                })}
+                                                            >
+                                                                <span>{suggestion.description}</span>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                                <div className="col-12 errormsg">{this.state.searchLocationError}</div>
+                                            </div>
+                                        )}
+                                    </PlacesAutocomplete>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    <div className="col-12">
+                        <div className="row pull-right">
+                            <button type="button" className={"btn mt-3 mt-lg-3 mt-xl-2 "+Style.deliveryLocationSaveButton} onClick={this.saveLocation.bind(this)}>Save and Close</button>
+                        </div>
+                    </div>
+                </form>
+                {
+                    this.state.latLong
+                    ?
+                        <GoogleMap
+                            googleapiKey    = {this.state.googleapiKey}
+                            latLongDetails  = {this.state.latLong}
+                        />
+                    :
+                        null
+                }
+            </section>
+
+            // <div className={"row locationPage locationBg "+Style.locationBg+" "+Style.locationPage}>
+            //     <div className={"col-12"}>
+            //         <div className={"col-"+xlCol +" offset-" +offset +"  "}>
+            //             <div className="col-12 offset-0 mobileViewNoPadding">
+            //                 <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryForm}>
+            //                     <div className="col-12 ">
+            //                         <div className="row">
+            //                             <div className={"col-12 col-md-4  "}>
+            //                                 <div className={"row "+Style.ma}>
+            //                                     <div className="col-12 col-lg-9  detectLocationBtn">
+            //                                         <button
+            //                                             type="button"
+            //                                             className={"btn pull-center mt-1 "+Style.locationBTNafterLogin}
+            //                                             onClick={this.takeCurrentLocation.bind(this)}
+            //                                         >
+            //                                             <i className="fa fa-map-marker-alt-alt" aria-hidden="true"></i>Current Location
+            //                                         </button>
+            //                                     </div>
+            //                                     <div className={"text-center  orText1 col-12 col-lg-8 col-xl-4 mt-3 " +Style.tw +" "+Style.f12afterLogin}>
+            //                                         <div className={"col-4 col-lg-4 col-xl-2  " +Style.orlineAfterLOgin}></div>
+            //                                         <span className={"col-2 col-lg-8 " +Style.MapOrAfterLogin}>OR</span>
+            //                                         <div className={"col-4 col-lg-4 col-xl-2  " +Style.orline}></div>
+            //                                     </div>
+            //                                 </div>
+            //                             </div>
+            //                             <div className={"col-12 col-md-4 col-lg-7 NoPadding"}>
+            //                                 <PlacesAutocomplete
+            //                                     value={this.state.address}
+            //                                     onChange={this.handleChangePlaces}
+            //                                     onSelect={this.handleSelect}
+            //                                     highlightFirstSuggestion={true}>
+            //                                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+            //                                         <div className={"col-12  "+Style.locationSearchWrapper}>
+            //                                             <div className={"barraContainer1 "+Style.barraContainer1}>
+            //                                                 <input type="text"  
+            //                                                     {...getInputProps({
+            //                                                         placeholder : 'Search your Location ',
+            //                                                         className   : 'location-search-input mt-2 form-control buscar',
+            //                                                         id          : "address",
+            //                                                         name        : "address",
+            //                                                         required    : true
+            //                                                     })}
+            //                                                 />
+            //                                                     <i className="fas fa-search"></i>
+            //                                             </div>
+            //                                             <div className={"autocomplete-dropdown-container SearchListContainer "+Style.SearchListContainer}>
+            //                                                 {loading && <div>Loading...</div>}
+            //                                                 {suggestions.map(suggestion => {
+            //                                                     const className = suggestion.active
+            //                                                     ?
+            //                                                         'suggestion-item--active'
+            //                                                     :
+            //                                                         'suggestion-item';
+            //                                                     const style = suggestion.active
+            //                                                     ?
+            //                                                         { backgroundColor: '#fafafa', cursor: 'pointer' }
+            //                                                     :
+            //                                                         { backgroundColor: '#ffffff', cursor: 'pointer' };
+            //                                                     return(
+            //                                                         <div
+            //                                                             {...getSuggestionItemProps(suggestion, {
+            //                                                                 className,
+            //                                                                 style,
+            //                                                             })}
+            //                                                         >
+            //                                                             <span>{suggestion.description}</span>
+            //                                                         </div>
+            //                                                     );
+            //                                                 })}
+            //                                             </div>
+            //                                             <div className="col-12  errormsg">{this.state.searchLocationError}</div>
+            //                                         </div>
+            //                                     )}
+            //                                 </PlacesAutocomplete>
+            //                             </div>
+            //                             <div className="col-12 NoPadding">
+            //                                 <div className="col-12 mt-3 ">
+            //                                     <div className="col-12 ">
+            //                                         <div className="col-12 ">
+            //                                             <button type="button" className={" btn pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+            //                                         </div>
+            //                                     </div>
+            //                                 </div>
+            //                             </div>
+            //                         </div>
+            //                         <div className="col-12 pull-right mt-2"></div>
+            //                     </div>
+            //                 </form>
+            //                 {
+            //                     this.state.latLong
+            //                     ?
+            //                         <GoogleMap
+            //                             googleapiKey    = {this.state.googleapiKey}
+            //                             latLongDetails  = {this.state.latLong}
+            //                         />
+            //                     :
+            //                         null
+            //                 }
+            //             </div>                                                     
+            //         </div>
+            //     </div>
+            // </div>
         );
     }
 }

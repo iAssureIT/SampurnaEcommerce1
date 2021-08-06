@@ -251,13 +251,13 @@ class SignUp extends Component{
 						<input type="text" maxLength="25" className="form-control formcontrol1" id="lastname" ref="lastname" name="lastname" placeholder="Last Name" onChange={this.handleChange} data-text="lastNameV" />
 						<div className="errorMsg mt-1 ">{this.state.errors.lastname}</div>
 					</div>
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt-4 ">
+					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6  ">
 						{/* <label className="blueText">Email ID</label> */}
 						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="Email ID" onChange={this.handleChange} data-text="emailIDV" />
 						{/* <label className="checkUserExistsError">User already exists!!!</label> */}
 						<div className="errorMsg mt-2">{this.state.errors.signupEmail}</div>
 					</div>
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt-4 ">
+					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 ">
 						{/* <label>Mobile Number</label><label className="astricsign">*</label>   */}
 						<PhoneInput
 							country={'ae'} 
@@ -279,7 +279,7 @@ class SignUp extends Component{
 						/>    
 						<div className="errorMsg">{this.state.errors.mobNumber}</div> 
 					</div>
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6  mt-4">
+					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
 						{/* <label className="blueText">Create Password</label><label className="astricsign">*</label> */}
 						<input id="signupPassword" type="password" class="form-control passswordInput formcontrol1" ref="signupPassword" name="signupPassword" placeholder="Password" 
 							onChange={this.handleChange.bind(this)}
@@ -290,7 +290,7 @@ class SignUp extends Component{
 						</span>
 						<div className="errorMsg mt-1">{this.state.errors.signupPassword}</div>
 					</div>
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6  mt-4">
+					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
 						{/* <label className="blueText">Confirm Password</label><label className="astricsign">*</label> */}
 						<input id="signupConfirmPassword" type="password" class="form-control passswordInput formcontrol1" ref="signupConfirmPassword" name="signupConfirmPassword" placeholder="Confirm Password" 
 							onChange={this.handleChange.bind(this)}
@@ -315,7 +315,7 @@ class SignUp extends Component{
 									</div>
 								</div>
 							:
-							<div className="col-12 mb-3 mt-5 ">
+							<div className="col-12 mb-5">
 								<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12  btn otpBtns	">Sign Up</button>
 							</div>
 					}

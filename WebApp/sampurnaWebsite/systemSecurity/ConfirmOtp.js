@@ -99,7 +99,7 @@ class ConfirmOTP extends Component{
 					<div className={"col-12 "+S.signTitleWrapper}>
 						<span className={"font-weight-bolder border-0 "+S.signTitle}>OTP</span>
 					</div>
-                	<div className="col-12 mt-5">
+                	<div className="col-12 mt-3">
 						<OtpInput
 							className="otpInputBox"
 							value={this.state.otp}
@@ -111,8 +111,8 @@ class ConfirmOTP extends Component{
 					{/* <p className="OtpTitleWrapper2 text-center mt-4">Didn't receive code?&nbsp;<a className="OtpTitleWrapper3"href=""onClick={this.resendOTP.bind(this)}>Request again!</a></p> */}
 					<div className={"col-12 "+S.signTextWrapper}>
 						<div className="row">
-							<span className="ml-4 mt-n3">Didn't receive code?</span>&nbsp;&nbsp;
-							<a href="" className="mt-n3" onClick={this.resendOTP.bind(this)}>Request again!</a>
+							<span className={"mt-xl-n2 "+S.otpText}>Didn't receive code?</span>&nbsp;&nbsp;
+							<a href="" className="mt-xl-n2" onClick={this.resendOTP.bind(this)}>Request again!</a>
 						</div>
 					</div>
 				</div>

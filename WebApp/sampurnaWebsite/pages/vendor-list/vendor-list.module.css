@@ -1,6 +1,6 @@
 .vendorCard{
     height: 70px;
-    box-shadow: 2px 2px 3px #dddddd;
+    box-shadow: 0 0 10px 5px #000 !important;
     cursor: pointer;
     background-image: url("/images/eCommerce/vendorCard.jpg");
     background-position: 100%;

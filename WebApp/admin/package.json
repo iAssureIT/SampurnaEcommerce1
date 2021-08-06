@@ -95,7 +95,7 @@
     "underscore": "^1.13.1",
     "units-converter": "^1.0.3",
     "validator": "^11.1.0",
-    "xlsx": "^0.15.1"
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "start": "react-scripts start",

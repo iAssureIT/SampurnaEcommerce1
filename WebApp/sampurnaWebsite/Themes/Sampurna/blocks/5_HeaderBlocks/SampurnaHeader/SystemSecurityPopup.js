@@ -103,14 +103,14 @@ class SystemSecurityPopup extends React.Component{
         return(
             <section id="loginFormModal" className={"col-12 modal "+Style.systemSecurityPopupWrapper} data-keyboard="false">
                 <div className="col-12 modal-dialog modal-xl">
-                    <div className="col-12 col-xl-10 offset-xl-1 modal-content">
+                    <div className={"col-12 col-xl-10 offset-xl-1 modal-content "+Style.systemSecurityPopupModalContent}>
                         <div className={"col-12 modal-body "+Style.systemSecurityPopupModalBody}>
-                            <div className="row">
-                                <div className={"col-12 col-lg-7 "+Style.systemSecurityPopupLeftImageWrapper}>
+                            <div className="row bg-transparent">
+                                <div className={"col-12 col-lg-6 col-xl-7 "+Style.systemSecurityPopupLeftImageWrapper}>
                                     <img className={Style.systemSecurityPopupLeftImageLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt=""/>
                                 </div>
-                                <div className={"col-12 col-lg-5 "+Style.systemSecurityPopupRightFormWrapper}>
-                                    <button type="button" className="close" data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>
+                                <div className={"col-12 col-lg-6 col-xl-5 "+Style.systemSecurityPopupRightFormWrapper}>
+                                    <button type="button" className={"close mt-3 mr-5 "+Style.systemSecurityPopupCloseButton} data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>
                                     {
                                         this.props.formToShow === "login"
                                         ?

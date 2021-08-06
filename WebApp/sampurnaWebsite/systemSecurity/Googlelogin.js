@@ -66,7 +66,7 @@ class Googlelogin extends Component{
 					isSignedIn		= {false}
 					className		= "googleBgColor"
 				>
-					<span className="gooogleTextWrapper">Continue With Google</span>
+					<span className="googleTextWrapper">Continue With Google</span>
 				</GoogleLogin>
 			</div>
     	);

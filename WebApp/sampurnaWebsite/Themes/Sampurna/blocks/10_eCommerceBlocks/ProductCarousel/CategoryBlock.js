@@ -88,7 +88,7 @@ class CategoryBlock extends Component{
                       <div className={"col-12 productsCategoryBlock "}  key={index}> 
                           {/* <Link href={url} className ={"col-12 "}>  */}
                             <a href={url} className ={"col-12 " +Style.categoryBlock}>
-                              <div className={ " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " +(index===0?'activeCategory':'')}>
+                              <div className={ " col-10 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " }>
                                   <Image    
                                     id="prodImg"                                       
                                     src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.png"}

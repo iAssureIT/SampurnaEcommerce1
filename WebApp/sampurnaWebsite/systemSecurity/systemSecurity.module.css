@@ -3,6 +3,9 @@
 .signWrapper{
     height: 500px;
 }
+.signUpWrapper{
+    height: auto;
+}
 .signTitleWrapper{
     text-align: center;
     padding-top: 40px;
@@ -22,3 +25,46 @@
     font-size: 10px;
     color: #2E92CF;
 }
+.otpText{
+	margin-left: 0px !important;
+}
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+@media (max-width: 575px){
+    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+}
+
+/* (sm) Small Devices (Landscape Phones, 576px and up) */
+@media (min-width: 576px){
+
+    .otpText{
+        margin-left: 60px !important;
+    }
+}
+
+/* (md) Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px){
+
+}
+
+/* (lg) Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px){
+
+    .signWrapper{
+        height: 500px;
+    }
+    .otpText{
+        margin-left: 25px !important;
+    }
+}
+
+/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px){
+
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
