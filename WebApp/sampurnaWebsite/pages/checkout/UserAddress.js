@@ -172,7 +172,7 @@ class UserAddress extends Component {
                 if(this.validateForm()){
                     axios.patch('/api/ecommusers/patch/address', formValues)
                     .then((response)=>{
-                    swal("Thank You!!! Address Saved successfully");
+                    swal("Thank You!!! Address is successfully saved");
                     $("#checkoutAddressModal").modal('hide');
                     this.props.fetchAddressData();
                     })
