@@ -43,7 +43,14 @@ exports.get_credit_points = (req, res, next) => {
 									:
 										[],
 			}
-			res.status(200).json(returnData);
+			if (returnData.transactions && returnData.transactions.length > 0) {
+				returnData.transactions = await returnData.transactions.sort(function(a,b){  
+				  return new Date(b.transactionDate) - new Date(a.transactionDate);
+				});
+				res.status(200).json(returnData);
+			}else{
+				res.status(200).json(returnData);
+			}
 		}else{			
 			res.status(200).json("You haven't earned any credit points yet");
 		}

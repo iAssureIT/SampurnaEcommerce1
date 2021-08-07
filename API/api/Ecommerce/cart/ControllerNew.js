@@ -357,6 +357,7 @@ exports.list_cart_product = (req,res,next)=>{
                 
                 if (vendorShippingCharges.code === "SUCCESS") {
                     vendor_shippingCharges = vendorShippingCharges.serviceCharges;
+                    console.log("vendor_shippingCharges => i => ",i,", ",vendor_shippingCharges);
                 }                    
                 
                 for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
