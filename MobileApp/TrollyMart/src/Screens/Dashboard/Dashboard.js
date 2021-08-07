@@ -29,7 +29,7 @@ import {HorizontalSecCatList}       from '../../ScreenComponents/HorizontalSecCa
 import {HorizontalProductList}      from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
 import SearchSuggetion              from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { Alert } from 'react-native';
-import { NetWorkError } from '../../../NetWorkError.js';
+import { NetWorkError } from '../../../NetWorkError.js'; 
 
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};

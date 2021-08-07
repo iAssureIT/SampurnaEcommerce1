@@ -402,16 +402,16 @@ const styles1 = StyleSheet.create({
     //  borderColor:"#ccc",
     borderBottomWidth:1,
     borderBottomColor:"#ccc",
-     backgroundColor:"#fff"
+     backgroundColor:"transparent"
    },
    textInputStyle:{
        height:50,
        paddingTop:15,
-       backgroundColor:"#fff"
+       backgroundColor:'transparent'
    },
    textContainerStyle:{
      height:50,
      padding:0,
-     backgroundColor:"#fff"
+     backgroundColor:"transparent"
    },
  });

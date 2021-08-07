@@ -400,10 +400,10 @@ const window = Dimensions.get('window');
     return (
       <ImageBackground 
         source={require("../../../AppDesigns/currentApp/images/s2.jpg")} 
-        style={commonStyles.container} 
-        resizeMode="contain" >
+        style={[commonStyles.container]} 
+        resizeMode="cover" >
         <ScrollView style={{}}>
-              <View style={styles.syslogoLogin}>
+              <View style={styles.syslogoLoginNEW}>
                   <Image
                   resizeMode="contain"
                   source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
@@ -418,7 +418,7 @@ const window = Dimensions.get('window');
             <View style={commonStyles.formWrapper}>
             <FormInput
               // style={[styles.inputBoxStyle]}
-              labelName       = "Phone No / Email Id"
+              labelName       = "Phone no / Email Id"
               // placeholder     = "Enter Mobile No / Email Id..."
               onChangeText    = {handleChange('username')}
               required        = {true}

@@ -892,7 +892,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     onPress={() => confirmCancelOrderBtn()}
                     titleStyle={styles.buttonText1}
                     title="Yes"
-                    // buttonStyle={styles.button1}
+                    buttonStyle={styles.button1}
                     containerStyle={styles.buttonContainer2}
                   />
                 </TouchableOpacity>

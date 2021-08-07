@@ -99,8 +99,18 @@ export const Footer =(props)=>{
                     setIndex(2)
                   }} >
                  {/* <Icon name="shopping-cart" type="feather" size={25} color={index === 2 ? colors.footerText :colors.theme}  /> */}
-                 <Image source={require("../../AppDesigns/currentApp/images/cart.png")} style={{height:25,width:25}} />
-                 <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
+                 {index === 2 ?
+                    <View>
+                      <Image source={require("../../AppDesigns/currentApp/images/CartNew.png")} style={{height:35,width:40}} />
+                      <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
+                    </View>
+                    :
+                    <View>
+                      <Image source={require("../../AppDesigns/currentApp/images/cart.png")} style={{height:28,width:29}} />
+                      <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
+                    </View>
+                 }
+                 
                 {
                   cartCount > 0 ?
                     <Text style={styles.notificationText}>{cartCount}</Text>
