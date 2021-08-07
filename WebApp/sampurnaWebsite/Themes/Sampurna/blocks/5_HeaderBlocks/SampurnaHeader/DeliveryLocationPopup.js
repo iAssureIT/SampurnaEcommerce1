@@ -359,7 +359,7 @@ class DeliveryLocationPopup extends React.Component{
 
                                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                             <div className={"col-12 "+Style.deliveryLocationSearchWrapper}>
-                                                <div className={"barraContainer1 "+Style.barraContainer1}>
+                                                <div className={"deliveryLocationSearch "+Style.deliveryLocationSearch}>
                                                     <input type="text"
                                                         {...getInputProps({
                                                             placeholder : 'Search your Location',
