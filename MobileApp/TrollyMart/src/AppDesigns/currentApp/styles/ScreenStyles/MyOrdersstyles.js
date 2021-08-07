@@ -381,12 +381,15 @@ export default StyleSheet.create({
     // height: 45,
     width:"100%",
   },
-  buttonConfirm:{
-   
+  buttonContainer2:{
+    height: 45,
+    width:"100%",
+  },
+  
+  buttonConfirm:{   
     backgroundColor: colors.buttonRED,
     height: 45,
     width:"50%",
-
   },
 
   ordercancelled:{
@@ -429,7 +432,7 @@ export default StyleSheet.create({
     color: colors.buttonText,
     fontFamily:"Montserrat-Regular",
     textTransform: 'uppercase',
-    fontSize:13,
+    fontSize:13,    
     // borderColor:'#c10000',
 
   },

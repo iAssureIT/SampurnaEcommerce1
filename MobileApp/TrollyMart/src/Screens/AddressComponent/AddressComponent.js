@@ -301,9 +301,11 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     name            = "fromarea"
                     errors          = {errors}
                     touched         = {touched}
+                    editable        = {false}
                     // iconName        = {'user-circle-o'}
                     // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
+
                     value           = {values.fromarea}  
                     disabled        = {delivery}       
                   />

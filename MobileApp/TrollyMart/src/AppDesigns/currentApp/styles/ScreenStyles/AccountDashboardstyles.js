@@ -298,11 +298,13 @@ export default StyleSheet.create({
   headerText1:{
     color:"#033554",
     fontSize:12,
+    fontFamily:"Montserrat-Medium",
   },
 
   headerText2:{
     color:"#707070",
     fontSize:9,
+    fontFamily:"Montserrat-Medium",
   },
 
   cardCredit:{

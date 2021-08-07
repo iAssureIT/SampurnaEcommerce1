@@ -83,7 +83,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                      <Text style={[styles.headerText1]}>Total Points </Text> 
                     </View> 
                     <View style={{flex:0.5}}>
-                      <Text style={[styles.headerText1,{fontWeight:'bold',alignSelf:"flex-end"}]}>{creditPoints.totalPoints ? creditPoints.totalPoints : 0} Points</Text>                    
+                      <Text style={[styles.headerText1,{fontFamily:"Montserrat-Bold",alignSelf:"flex-end"}]}>{creditPoints.totalPoints ? creditPoints.totalPoints : 0} Points</Text>                    
                       </View>
                   </View>
                   <View style={{flexDirection:'row',flex:1}}>
@@ -91,7 +91,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                       <Text style={[styles.headerText2]}>Current Balance</Text>
                     </View> 
                     <View style={{flex:0.5}}>
-                    <Text style={[styles.headerText2,{fontWeight:'bold',alignSelf:"flex-end"}]}>{creditPoints.totalPointsValue ? creditPoints.totalPointsValue : 0+" "} {currency}</Text>
+                    <Text style={[styles.headerText2,{fontFamily:"Montserrat-Bold",alignSelf:"flex-end"}]}>{creditPoints.totalPointsValue ? creditPoints.totalPointsValue : 0+" "} {currency}</Text>
                      </View>
                   </View>
                 </View>

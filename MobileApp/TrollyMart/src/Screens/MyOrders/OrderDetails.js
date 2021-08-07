@@ -879,7 +879,7 @@ const cancelorderbtn = (id,vendor_id) => {
                 <TouchableOpacity>
                   <Button
                     onPress={() => setCancelOrderModal(false)}
-                    titleStyle={styles.buttonText}
+                    titleStyle={styles.buttonText1}
                     title="NO"
                     buttonStyle={styles.buttonRED}
                     containerStyle={styles.buttonContainer2}
@@ -892,7 +892,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     onPress={() => confirmCancelOrderBtn()}
                     titleStyle={styles.buttonText1}
                     title="Yes"
-                    buttonStyle={styles.button1}
+                    // buttonStyle={styles.button1}
                     containerStyle={styles.buttonContainer2}
                   />
                 </TouchableOpacity>

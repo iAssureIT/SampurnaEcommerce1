@@ -12,7 +12,7 @@ import styles                 from '../../AppDesigns/currentApp/styles/ScreenSty
 import AsyncStorage           from '@react-native-async-storage/async-storage';
 import { useIsFocused }       from "@react-navigation/native";
 import {ProductList}          from'../../ScreenComponents/ProductList/ProductList.js';
-import { connect,useDispatch} from 'react-redux';
+import {useDispatch,connect,useSelector }   from 'react-redux';
 import {CategoryList}         from '../../ScreenComponents/CategoryList/CategoryList.js';        
 import {MenuCarouselSection}  from '../../ScreenComponents/Section/MenuCarouselSection.js';  
 import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
@@ -60,6 +60,11 @@ const VendorProducts = (props)=>{
     getData();
  },[props,isFocused]);
 
+ const store = useSelector(store => ({
+  userDetails : store.userDetails,
+  location : store.location,
+  isConnected: store.netWork.isConnected
+}));
 
 
  const refreshControl=()=>{
@@ -128,6 +133,9 @@ console.log("translateY",translateY);
 
   return (
     <View style={{flex:1}}>
+      {!store.isConnected?
+      <NetWorkError />
+      :<View style={styles.superparent}>
       {globalSearch.search ?
         <SearchSuggetion />
         :
@@ -239,6 +247,7 @@ console.log("translateY",translateY);
             brandsArray     = {brandList && brandList.length > 0 ? brandList.map((a, i)=>{return {label :a,value :a}}): []}
             // sizeArray       = {[]}
         />
+      </View>}
       </View>}
     </View>
   );
