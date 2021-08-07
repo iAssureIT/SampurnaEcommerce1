@@ -125,9 +125,10 @@ const VendorProducts = (props)=>{
 
   const buttons = [{element: SortButton}, {element: FilterButton}];
 
-const onScroll=(e)=>{
-  scrollY.setValue(e.nativeEvent.contentOffset.y);
-}
+// const onScroll=(e)=>{
+//   scrollY.setValue(e.nativeEvent.contentOffset.y);
+  
+// }
 
 console.log("translateY",translateY);
 
@@ -168,12 +169,13 @@ console.log("translateY",translateY);
             </View>         
             <View style={{height:60,marginTop:2}}>
               <CategoryList 
-                navigation      = {navigation}  
-                showImage       = {false} 
-                boxHeight       = {30} 
-                setSubCategory = {setSubCategory}
-                category       = {category? category : ''}
-                vendorLocation_id = {vendorLocation_id}
+                navigation          = {navigation}  
+                showImage           = {false} 
+                boxHeight           = {30} 
+                setSubCategory      = {setSubCategory}
+                category            = {category? category : ''}
+                vendorLocation_id   = {vendorLocation_id}
+                vendor              = {vendor}
                 // setCategory = {setCategory}
               />
             </View>
@@ -215,11 +217,14 @@ console.log("translateY",translateY);
                   type                  = "vendor_sub_cat"
                   vendorLocation_id     = {vendorLocation_id}
                   onEndReachedThreshold = {0.01}
-                  onScroll              = {onScroll}
+                  onScroll              = {Animated.event([
+                    {nativeEvent: {contentOffset: {y: scrollY}}},
+                  ])}
                   marginTop             = {185}
                   paddingBottom         = {250}
                   category              = {category}
                   subCategory           = {subCategory}
+                  vendor                = {vendor}
                 />
             :
             <View style={{height:window.height,justifyContent:"center",alignItems:'center'}}>

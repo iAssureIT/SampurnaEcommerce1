@@ -68,26 +68,6 @@ export default StyleSheet.create({
   },
 
   notificationText: {
-    ...Platform.select({
-      ios: {
-        position: 'absolute',
-        right: 2,
-        top: -10,
-        borderBottomLeftRadius: 5,
-        borderBottomRightRadius: 0,
-        borderTopLeftRadius: 5,
-        borderTopRightRadius: 0,
-        overflow: 'hidden',
-        width: 16,
-        height: 18,
-        textAlign: 'center',
-        color: '#fff',
-        fontSize: 10,
-        paddingTop: 2,
-        backgroundColor: colors.red,
-        fontFamily: "Montserrat-SemiBold",
-      },
-      android: {
         position: 'absolute',
         right: -5,
         top: -10,
@@ -100,8 +80,6 @@ export default StyleSheet.create({
         paddingTop: 2,
         backgroundColor: colors.red,
         fontFamily: "Montserrat-SemiBold",
-      }
-    })
   },
 
   iconOuterWrapper: {

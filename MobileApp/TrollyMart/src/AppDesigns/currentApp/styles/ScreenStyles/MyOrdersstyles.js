@@ -115,7 +115,7 @@ export default StyleSheet.create({
   prodinfoparent1:{
     flex:1,backgroundColor:'#fff',
     marginBottom:15,
-    borderColor:'#f1f1f1',
+    borderColor: 'rgba(112, 112, 112, .52)',
     borderWidth:1,
     marginTop:15,
     paddingVertical:15,

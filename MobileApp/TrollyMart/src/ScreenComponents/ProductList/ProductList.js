@@ -220,7 +220,8 @@ export const ProductList = withCustomerToaster((props)=>{
               index               : index,
               vendor_id           : item.vendor_id?item.vendor_id:item.vendor_ID,
               category            : props.category,
-              subCategory         : subCategory
+              subCategory         : subCategory,
+              vendor              : props.vendor
               });
               getCategoryList(item)
             }

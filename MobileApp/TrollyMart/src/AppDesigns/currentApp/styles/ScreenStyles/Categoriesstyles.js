@@ -328,7 +328,7 @@ export default StyleSheet.create({
   },
   prodcurrency:{
     fontSize:20,
-    fontFamily:"Montserrat-Re",
+    fontFamily:"Montserrat-Regular",
     color:"#000000",
     opacity:1
   },

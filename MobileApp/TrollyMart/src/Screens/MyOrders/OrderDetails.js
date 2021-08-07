@@ -92,7 +92,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [imageLoading,setImageLoading] = useState(false);
   const [modalTerms,setTermsModal] = useState(false);
   const [pageBlockes,setPageBlocks]       = useState([]);
-  const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
+  const [tooltipSize, setTooltipSize] = useState({ w: 200, h: 200 })
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
@@ -608,7 +608,7 @@ const cancelorderbtn = (id,vendor_id) => {
                           :
                           <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40,alignItems:'flex-end'}]}>
                             {order.orderStatus && order.orderStatus !== 'Cancelled'&&
-                            <View style={{justifyContent:'center'}}>
+                            <View style={{justifyContent:'center',paddingRight:5}}>
                               <Text style={styles.cancelOrderText} onPress={()=>cancelorderbtn(order._id,'')}>Cancel this order</Text>
                               </View>
                             }

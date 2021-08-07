@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   StyleSheet,
-  Image
+  Image,Platform
 } from 'react-native';
 import { Button,Icon}     from "react-native-elements";
 import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
@@ -265,8 +265,8 @@ const styles1 = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.5,
-        shadowRadius: 20,
-        elevation: 10,
+        shadowRadius:  Platform.OS === "ios" ?5:20,
+        elevation: Platform.OS === "ios" ? 1:10,
         borderRadius :100,
         marginVertical:5
     },

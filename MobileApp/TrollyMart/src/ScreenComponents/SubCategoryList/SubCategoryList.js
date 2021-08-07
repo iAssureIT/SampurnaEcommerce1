@@ -54,12 +54,13 @@ export const SubCategoryList =(props)=>{
             payload : []
           })
           dispatch(getCategoryWiseList(payload));
-            navigation.navigate('VendorProducts',
+            navigation.push('VendorProducts',
             {
               category:item.category,
               section:props.section,
               index:props.index,
               vendorLocation_id:props.vendorLocation_id,
+              vendor:props.vendor
             });
         }}>
               <Text style={[styles.sectionTitle,{color:"#033554",fontSize:16,fontFamily:"Montserrat-Bold",textDecorationLine:'underline'}]}>{item.label}</Text>
@@ -81,6 +82,7 @@ export const SubCategoryList =(props)=>{
               section:props.section,
               index:props.index,
               vendorLocation_id:props.vendorLocation_id,
+              vendor:props.vendor
             });
         }}>
             <Text style={[styles.sectionTitle,{color:"#848586",fontSize:11,fontFamily:"Montserrat-Bold"}]}>{item.label}</Text>

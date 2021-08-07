@@ -25,6 +25,7 @@ import openSocket               from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
 import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 import { NetWorkError } from '../../../NetWorkError.js';
+import { Platform } from 'react-native';
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 // import {AppEventsLogger} from 'react-native-fbsdk';    
@@ -162,7 +163,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                 setPaymentMethods("Cash On Delivery");
                 setBtnLoading(false);
                 // setPaymentMode(true);
-                setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
+                // setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
             // } else {
             //     setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
             //     navigation.navigate('OrderDetails', { orderid: result._id })
@@ -317,14 +318,14 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                       <Text style={styles.free}>Net Banking</Text>
                     </View>
                   </View> */}
-                  <View style={{padding:25}}>
+                  <View style={{padding:Platform.OS==='ios'?40: 25}}>
                     <FormButton
                       onPress={() => continuepage()}
                       title={"CONFIRM ORDER"}
                       background  = {true}
                       // buttonStyle={styles.button1}
                       // containerStyle={styles.buttonContainer1}
-                      // loading={btnLoading}
+                      loading={btnLoading}
                     />
                   </View>
                 </View>

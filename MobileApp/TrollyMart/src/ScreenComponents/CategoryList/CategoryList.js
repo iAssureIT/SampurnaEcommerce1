@@ -13,8 +13,8 @@ import {SET_CATEGORY_WISE_LIST}             from '../../redux/productList/types'
 import { Alert } from 'react-native';
 
 export const CategoryList = (props)=>{
-  const {navigation,boxHeight,showImage}=props;
-  console.log("showImage",showImage);
+  const {navigation,boxHeight,showImage,vendor}=props;
+  console.log("vendor",vendor);
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const [selected,setSelected]=useState('');
   const dispatch 		= useDispatch();
@@ -78,6 +78,7 @@ export const CategoryList = (props)=>{
               dispatch(getCategoryWiseList(payload));
                 navigation.push('VendorProducts',
                 {
+                  vendor            : props.vendor,
                   category          : item.category,
                   section           : props.section,
                   index             : props.index,
@@ -118,6 +119,7 @@ export const CategoryList = (props)=>{
               dispatch(getCategoryWiseList(payload));
                 navigation.push('VendorProducts',
                 {
+                  vendor : props.vendor,
                   category:item.category,
                   section:props.section,
                   index:props.index,
@@ -153,6 +155,7 @@ export const CategoryList = (props)=>{
            dispatch(getCategoryWiseList(payload));
              navigation.push('VendorProducts',
              {
+              vendor : props.vendor,
                category:item.category,
                section:props.section,
                index:props.index,

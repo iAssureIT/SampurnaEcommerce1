@@ -316,6 +316,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   index             = {index}
                   vendorLocation_id = {vendorLocation_id}
                   category          = {category ? category : productdata.category}
+                  vendor            = {props.vendor}
                 />
               <View >
                 <SubCategoryList
@@ -326,6 +327,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   selected          = {productdata.subCategory}
                   category          = {category ? category : productdata.category}
                   vendorLocation_id ={vendorLocation_id}
+                  vendor            = {props.vendor}
                 />
               <View style={{flex:1,flexDirection:'row',}}>
                   <View style={styles.qtys}>
