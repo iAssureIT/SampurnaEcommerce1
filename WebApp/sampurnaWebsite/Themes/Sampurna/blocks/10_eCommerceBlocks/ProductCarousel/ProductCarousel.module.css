@@ -485,7 +485,7 @@
 }
 
 .productBlock {
-  border       : 1px solid #ddd;
+  /* border       : 1px solid #ddd; */
   border-radius: 15px;
   margin-top   : 5px;
   margin-bottom: 5px;

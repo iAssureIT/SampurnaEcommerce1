@@ -260,7 +260,7 @@ class SingleProduct extends Component{
                             <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                         :null
                         }
-                        {this.props.data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(this.props.data.discountPercent)}%<br/>off</div> : null}
+                        {this.props.data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(this.props.data.discountPercent)}%<br/><span className={" "+Style.offTxt}>off</span></div> : null}
                     </div>
                     <div className={Style.ImgWrapper}>
                     {/* <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id} className={Style.product_item_photo }> */}
@@ -270,7 +270,7 @@ class SingleProduct extends Component{
                           alt="ProductImg" 
                           className={"img-responsive " +Style.NoAvailableImg }
                           height={this.props.data.productImage[0] ? "140px" : '130px'} 
-                          width={this.props.data.productImage[0] ? "150px" : '120px'} 
+                          // width={this.props.data.productImage[0] ? "150px" : '120px'} 
                           layout={'intrinsic'}
                         />
                     </a>
