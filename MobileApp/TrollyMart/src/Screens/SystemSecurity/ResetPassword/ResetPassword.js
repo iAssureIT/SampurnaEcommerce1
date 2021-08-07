@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   ScrollView,
   Text,
@@ -27,6 +27,7 @@ import {withCustomerToaster} from '../../../redux/AppState.js';
 import * as Yup             from 'yup';
 import {FormButton}         from '../../../ScreenComponents/FormButton/FormButton';
 import {FormInput}          from '../../../ScreenComponents/FormInput/FormInput';
+import { CommonActions } from '@react-navigation/native';
 
 const window = Dimensions.get('window');
 const ChanegPasswordSchema = Yup.object().shape({
@@ -38,7 +39,16 @@ export const ResetPassword = withCustomerToaster((props) => {
     const [btnLoading, setLoading] = useState(false);
     const {setToast,navigation,route} = props; //setToast function bhetta
     const {user_id}=route.params;
-    
+    const backAction = () => {
+      navigation.navigate('LogIn');
+      return true;
+    };
+    useEffect(() => {
+      BackHandler.addEventListener("hardwareBackPress", backAction);
+      return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+    },[]);
+
     return (
       <React.Fragment>
         <Formik
@@ -110,9 +120,9 @@ export const ResetPassword = withCustomerToaster((props) => {
     return (
           <View style={{paddingHorizontal:20,paddingVertical:15,flex:1}}>
           <View style={styles.boxOpacity}>
-          <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
+          {/* <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
               <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <Image
             style={{height: 120, width: 150, alignSelf: 'center'}}
             source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}

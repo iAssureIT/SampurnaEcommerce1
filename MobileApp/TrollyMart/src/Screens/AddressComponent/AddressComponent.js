@@ -50,8 +50,8 @@ import { NetWorkError } from '../../../NetWorkError.js';
     mobileNumber: Yup.string()
     .required('This field is required'),
    
-    fromstate: Yup.string()
-    .required('This field is required'),
+    // fromstate: Yup.string()
+    // .required('This field is required'),
    
     fromcountry: Yup.string()
     .required('This field is required')
@@ -96,6 +96,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
         <React.Fragment>
           {isFocused ?<Formik
             onSubmit={(data) => {
+              console.log("data",data);
               const {addressLine1,fromaddress,contactperson,fromarea,fromPincode,fromcity,fromstate,fromcountry,fromlatlong,mobileNumber,addresstype,callingCode}=data;
               var formValues = {
                 "user_ID"       : userDetails.user_id,
@@ -402,7 +403,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     labelName       = "City"
                     // placeholder     = "City"
                     onChangeText    = {handleChange('fromcity')}
-                    required        = {true}
+                    required        = {false}
                     value           = {values.fromcity}
                     name            = "fromcity"
                     errors          = {errors}

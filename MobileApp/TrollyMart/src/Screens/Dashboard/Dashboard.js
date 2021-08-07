@@ -46,7 +46,7 @@ const Dashboard = withCustomerToaster((props)=>{
   const [refreshing,setRefreshing] = useState(false);
 
   const backAction = () => {
-    Alert.alert("Confirmation!", "Are you sure you want to exit app?", [
+    Alert.alert("", "Are you sure you want to exit app?", [
       {
         text: "Cancel",
         onPress: () => null,
@@ -68,12 +68,9 @@ const Dashboard = withCustomerToaster((props)=>{
         dispatch(getPreferences());
         dispatch(getS3Details());
         getBlocks();
-        // let canGoBack = navigation.canGoBack();
-        // if(!canGoBack){
-        //   BackHandler.addEventListener("hardwareBackPress", backAction);
-        //   return () =>
-        //   BackHandler.removeEventListener("hardwareBackPress", backAction);
-        // }
+          BackHandler.addEventListener("hardwareBackPress", backAction);
+          return () =>
+          BackHandler.removeEventListener("hardwareBackPress", backAction);
        
     },[store.isConnected]);
    

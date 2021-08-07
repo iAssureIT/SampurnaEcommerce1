@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useFocusEffect} from "react";
+import React,{useState,useEffect,useFocusEffect,useRef} from "react";
 import {
   Text,
   View,
@@ -37,7 +37,7 @@ import { useNavigation }      from '@react-navigation/native';
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [list,setList]=useState([])
-
+    const input = useRef();
     const store = useSelector(store => ({
       globalSearch  : store.globalSearch,
       location      : store.location,
@@ -47,27 +47,25 @@ import { useNavigation }      from '@react-navigation/native';
    
     useEffect(() => {
       getData();
-    },[props]);
+      BackHandler.addEventListener("hardwareBackPress", backAction);
+      return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+    },[globalSearch?.searchText]);
 
 
-    useFocusEffect(
-      React.useCallback(() => {
-        const onBackPress = () => {
-          if (isSelectionModeEnabled()) {
-            disableSelectionMode();
-            return true;
-          } else {
-            return false;
-          }
-        };
-  
-        BackHandler.addEventListener('hardwareBackPress', onBackPress);
-  
-        return () =>
-          BackHandler.removeEventListener('hardwareBackPress', onBackPress);
-      }, [isSelectionModeEnabled, disableSelectionMode])
-    );
-  
+    const backAction = () => {
+      console.log("globalSearch?.searchText",globalSearch?.searchText);
+      if(globalSearch?.searchText!==""){
+        dispatch({type:SET_SEARCH_CALL,payload:false})
+        dispatch({type : SET_SUGGETION_LIST, payload  : []});
+        dispatch({type : SET_SEARCH_TEXT,    payload  : ''})
+        dispatch({type : SET_SERACH_LIST,    payload  : []});
+        useSearchText('');
+        input.current.blur();
+      }  
+      return false
+    };
+
   const getData=()=>{
     useSearchText(globalSearch.searchText);
     getNotificationList();
@@ -131,6 +129,7 @@ import { useNavigation }      from '@react-navigation/native';
               Keyboard.dismiss();
           } }/>}
           <SearchBar
+            ref={input}
             placeholder         = 'Search items...'
             containerStyle      = {[styles.searchContainer,(globalSearch.search || globalSearch.searchList.length >0)?{flex:6}:{flex:65}]}
             inputContainerStyle = {styles.searchInputContainer}

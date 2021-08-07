@@ -30,6 +30,10 @@ export const Footer =(props)=>{
     cartCount     : store.productList.cartCount,
   }));
 
+  useEffect(()=>{
+    setIndex(props?.state?.routes[0]?.state?.index);
+  },[props])
+
   const getNotificationList=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
       .then((data) => {
@@ -61,7 +65,6 @@ export const Footer =(props)=>{
                 dispatch({type : SET_SERACH_LIST,    payload  : []});
                 dispatch({type : SET_SEARCH_CALL,    payload  : false});
                 navigation.navigate('Dashboard');
-                setIndex(0);
               }
                } >
                 <Icon name={index === 0 ? "home":"home-outline"} type="material-community" size={20} color={index === 0 ? colors.footerText :colors.theme}  />
@@ -70,7 +73,7 @@ export const Footer =(props)=>{
             </View>
 
             <View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() => {navigation.navigate('MyAccount', { userId: userDetails.user_id });setIndex(1)}} >
+              <TouchableOpacity onPress={() => {navigation.navigate('MyAccount', { userId: userDetails.user_id })}} >
                 <Icon name={index === 1 ? "account":"account-outline"} type="material-community" size={20} color={index === 1 ? colors.footerText :colors.theme}  />
                 <Text  style={[styles.footerTitle,{color:index === 1 ? colors.footerText :colors.theme}]}>My Account</Text>
               </TouchableOpacity>
@@ -96,21 +99,11 @@ export const Footer =(props)=>{
                 }}
                   onPress={() => {
                     navigation.navigate('CartComponent', { userId: userDetails.user_id });
-                    setIndex(2)
                   }} >
                  {/* <Icon name="shopping-cart" type="feather" size={25} color={index === 2 ? colors.footerText :colors.theme}  /> */}
-                 {index === 2 ?
-                    <View>
-                      <Image source={require("../../AppDesigns/currentApp/images/CartNew.png")} style={{height:35,width:40}} />
-                      <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
-                    </View>
-                    :
-                    <View>
-                      <Image source={require("../../AppDesigns/currentApp/images/cart.png")} style={{height:28,width:29}} />
-                      <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
-                    </View>
-                 }
                  
+                 <Image source={require("../../AppDesigns/currentApp/images/cart.png")} style={{height:25,width:25}} />
+                 <Text  style={[styles.footerTitle,{color:index === 3 ? colors.footerText :colors.theme}]}>Cart</Text>
                 {
                   cartCount > 0 ?
                     <Text style={styles.notificationText}>{cartCount}</Text>
@@ -121,13 +114,13 @@ export const Footer =(props)=>{
               
             </View>
             {<View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() =>{dispatch(getWishList(userDetails.user_id));navigation.navigate(userDetails.authService!=="guest" ? 'WishlistComponent' :"Auth");setIndex(3)}}>
-                <Icon name={index === 3 ? "heart":"heart-outline"} type="material-community" size={20} color={index === 3 ? colors.footerText :colors.theme}  />
-                <Text  style={[styles.footerTitle,{color:index === 3 ? colors.footerText :colors.theme}]}>Wishlist</Text>
+              <TouchableOpacity onPress={() =>{dispatch(getWishList(userDetails.user_id));navigation.navigate(userDetails.authService!=="guest" ? 'WishlistComponent' :"Auth")}}>
+                <Icon name={index === 2 ? "heart":"heart-outline"} type="material-community" size={20} color={index === 2 ? colors.footerText :colors.theme}  />
+                <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Wishlist</Text>
               </TouchableOpacity>
             </View>}
              <View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() => {navigation.navigate('InAppNotification');setIndex(4)}} >
+              <TouchableOpacity onPress={() => {navigation.navigate('InAppNotification')}} >
                 <Icon name={index === 4 ? "bell":"bell-outline"} type="material-community" size={20} color={index === 4 ? colors.footerText :colors.theme}  />
                 <Text  style={[styles.footerTitle,{color:index === 4 ? colors.footerText :colors.theme}]}>Notification</Text>
                 {inAppNotificationsCount >0 &&<Text style={styles.notificationText}>{inAppNotificationsCount}</Text>}
