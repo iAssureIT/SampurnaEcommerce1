@@ -362,6 +362,15 @@
     border-radius: 0px !important;
 }
 
+.formcontrol1:focus{
+    border       : none !important;
+    border-bottom: 1px solid #ced4da !important;
+    border-radius: 0px !important;
+    outline: none!important;
+}
+
+
+
 .modalBg {
     background-color          : #fff;
     padding-bottom            : 50px !important;
@@ -378,11 +387,17 @@
 }
 
 .saveBtn {
-    background-color: #033554 !important;
-    color           : #fff !important;
+    letter-spacing: 0px!important;
+color: #FFFFFF!important;
+opacity: 1!important;
+    
     height          : 47px !important;
-    border          : none !important;
     border-radius   : 6px !important;
+    background: #033554 0% 0% no-repeat padding-box!important;
+box-shadow: -3px 3px 6px #0000004D!important;
+border-radius: 6px!important;
+opacity: 1!important;
+border:none !important;
 }
 
 .saveBtn:hover {

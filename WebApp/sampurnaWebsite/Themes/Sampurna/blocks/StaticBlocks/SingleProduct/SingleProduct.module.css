@@ -229,12 +229,14 @@ opacity: 0.5;
     padding-right: 5px !important;
   } */
   .productBlock {
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     border-radius: 15px;
     margin-top: 5px;
     margin-bottom: 5px;
     background: #fff;
     /* height: 300px; */
+    -webkit-box-shadow: -3px 3px 6px #00000059;
+    box-shadow: -3px 3px 6px #00000059;
   }
   .productDetailVendorName{
     font-size: 13px !important;
