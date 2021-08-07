@@ -12,7 +12,7 @@ import styles                 from '../../AppDesigns/currentApp/styles/ScreenSty
 import AsyncStorage           from '@react-native-async-storage/async-storage';
 import { useIsFocused }       from "@react-navigation/native";
 import {ProductList}          from'../../ScreenComponents/ProductList/ProductList.js';
-import {useDispatch,connect,useSelector }   from 'react-redux';
+import { connect,useDispatch} from 'react-redux';
 import {CategoryList}         from '../../ScreenComponents/CategoryList/CategoryList.js';        
 import {MenuCarouselSection}  from '../../ScreenComponents/Section/MenuCarouselSection.js';  
 import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
@@ -60,11 +60,6 @@ const VendorProducts = (props)=>{
     getData();
  },[props,isFocused]);
 
- const store = useSelector(store => ({
-  userDetails : store.userDetails,
-  location : store.location,
-  isConnected: store.netWork.isConnected
-}));
 
 
  const refreshControl=()=>{
@@ -125,19 +120,19 @@ const VendorProducts = (props)=>{
 
   const buttons = [{element: SortButton}, {element: FilterButton}];
 
-// const onScroll=(e)=>{
-//   scrollY.setValue(e.nativeEvent.contentOffset.y);
+const onScroll=(e)=>{
+  scrollY.setValue(e.nativeEvent.contentOffset.y);
   
-// }
+}
 
 console.log("translateY",translateY);
 
   return (
     <View style={{flex:1}}>
-      {!store.isConnected?
-      <NetWorkError />
-      :<View style={styles.superparent}>
-      {globalSearch.search ?
+      {!props.isConnected?
+      <NetWorkError/>
+      :
+      globalSearch.search ?
         <SearchSuggetion />
         :
         <View style={styles.container} >
@@ -253,18 +248,19 @@ console.log("translateY",translateY);
             // sizeArray       = {[]}
         />
       </View>}
-      </View>}
     </View>
   );
 }
 
 const mapStateToProps = (store)=>{
+  console.log("store",store);
   return {
     productList     : store.productList,
     userDetails     : store.userDetails,
     brandList       : store.productList.categoryList.brandList,
     payload         : store.productList.searchPayload,
-    globalSearch    : store.globalSearch
+    globalSearch    : store.globalSearch,
+    isConnected     : store?.netWork?.isConnected
   }
 };
 

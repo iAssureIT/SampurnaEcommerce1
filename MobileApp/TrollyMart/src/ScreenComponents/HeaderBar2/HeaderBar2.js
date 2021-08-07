@@ -1,11 +1,12 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useFocusEffect} from "react";
 import {
   Text,
   View,
   TouchableOpacity,
   Image,
   Keyboard,
-  Alert
+  Alert,
+  BackHandler
 }                                 from "react-native";
 import {Linking}                  from 'react-native'
 import { 
@@ -45,11 +46,28 @@ import { useNavigation }      from '@react-navigation/native';
     const {globalSearch,location,cartCount} = store;
    
     useEffect(() => {
-      getData()
+      getData();
     },[props]);
 
-    
- 
+
+    useFocusEffect(
+      React.useCallback(() => {
+        const onBackPress = () => {
+          if (isSelectionModeEnabled()) {
+            disableSelectionMode();
+            return true;
+          } else {
+            return false;
+          }
+        };
+  
+        BackHandler.addEventListener('hardwareBackPress', onBackPress);
+  
+        return () =>
+          BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+      }, [isSelectionModeEnabled, disableSelectionMode])
+    );
+  
   const getData=()=>{
     useSearchText(globalSearch.searchText);
     getNotificationList();
@@ -74,6 +92,7 @@ import { useNavigation }      from '@react-navigation/native';
   }
 
   const getKeywords = (searchText) => {
+    console.log("searchText",searchText);
     useSearchText(searchText);
     if(!globalSearch.search){
       dispatch({type:SET_SEARCH_CALL,payload:true})
@@ -81,6 +100,7 @@ import { useNavigation }      from '@react-navigation/native';
     if(searchText && searchText.length >= 2){
       dispatch(getSuggestion({"searchText":searchText}));
     }else if(searchText===""){
+      dispatch({type:SET_SEARCH_CALL,payload:false})
       dispatch({type : SET_SUGGETION_LIST, payload  : []});
       dispatch({type : SET_SEARCH_TEXT,    payload  : ''})
       dispatch({type : SET_SERACH_LIST,    payload  : []})
@@ -116,7 +136,7 @@ import { useNavigation }      from '@react-navigation/native';
             inputContainerStyle = {styles.searchInputContainer}
             inputStyle          = {styles.searchInput}
             onChangeText        = {(searchText)=>getKeywords(searchText)}
-            onFocus             = {()=>dispatch({type:SET_SEARCH_CALL,payload:true})}
+            // onFocus             = {()=>dispatch({type:SET_SEARCH_CALL,payload:true})}
             value               = {searchText}
             onSubmitEditing     = {()=>updateSearch()}
             returnKeyType       = 'search'
