@@ -110,6 +110,15 @@ export function getCartData() {
                       response.data.vendorOrders[i].cartBtnDisabled = true;
                       
                     }
+                    for(let j=0;j<response.data.vendorOrders[i].cartItems.length;j++){
+                      if(response.data.vendorOrders[i].cartItems[j].product_ID.availableQuantity===0){
+                        var cartBtnDisabled = true;
+                        response.data.vendorOrders[i].cartBtnDisabled = true;
+                      }else{
+                        var cartBtnDisabled = false;
+                        response.data.vendorOrders[i].cartBtnDisabled = false;
+                      }
+                    }
                 }
                 // dispatch({
                 //   type: 'SET_LOADING',
