@@ -74,12 +74,14 @@ class OrderCancellationPolicy extends Component {
 		});
 		$("#OrderCancellationPolicyForm").validate({
 			rules: {
-			    maxDurationForCancelOrder: {
+			   maxDurationForCancelOrder: {
 					required: true,
+					min : 0,
 				},
 				orderCancellationCharges: {
 					required: true,
-                }
+					min : 0,
+            }
 			},
 			errorPlacement: function (error, element) {
 				if (element.attr("name") === "maxDurationForCancelOrder") {
@@ -198,30 +200,30 @@ class OrderCancellationPolicy extends Component {
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 															<label>Maximum Duration to Cancel Order <i className="redFont">*</i></label>
-															<div className="input-group">
-                                                                <input className="form-control" placeholder="Maximum time duration in which user can cancel order" ref="maxDurationForCancelOrder"
-                                                                    type 		= "number"
-                                                                    name 		= "maxDurationForCancelOrder" 
-                                                                    id 			= "maxDurationForCancelOrder" 
-                                                                    value 		= {this.state.maxDurationForCancelOrder} 
-                                                                    onChange 	= {this.handleChange.bind(this)} 
-                                                                />
-                                                                <span class="input-group-addon addontext"> minutes </span>   
+															<div className="input-group" id="maxDurationForCancelOrder">
+                                                 <input className="form-control" placeholder="Maximum time duration in which user can cancel order" ref="maxDurationForCancelOrder"
+                                                     type 		= "number"
+                                                     maxLength = "3"
+                                                     name 		= "maxDurationForCancelOrder"                                                                     
+                                                     value 		= {this.state.maxDurationForCancelOrder} 
+                                                     onChange 	= {this.handleChange.bind(this)} 
+                                                 />
+                                                 <span class="input-group-addon addontext"> minutes </span>   
 															</div>
 														</div>
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 															<label>Order Cancellation Charges <i className="redFont">*</i></label>
-															<div className="input-group">
-                                                                <input className = "form-control" placeholder = "Add charges applied on cancel order" ref = "orderCancellationCharges"
-                                                                    type 		= "number" 
-                                                                    id 			= "orderCancellationCharges" 
-                                                                    name 		= "orderCancellationCharges"
-                                                                    value	 	= {this.state.orderCancellationCharges} 
-                                                                    onChange    = {this.handleChange.bind(this)} 
-                                                                />
-                                                                <span class="input-group-addon addontext"> {this.state.currency} </span>   
+															<div className="input-group" id="orderCancellationCharges">
+                                                    <input className = "form-control" placeholder = "Add charges applied on cancel order" ref = "orderCancellationCharges"
+                                                        type 		= "number"
+                                                        maxLength = "3"
+                                                        name 		= "orderCancellationCharges"
+                                                        value	 	= {this.state.orderCancellationCharges} 
+                                                        onChange    = {this.handleChange.bind(this)} 
+                                                    />
+                                                    <span class="input-group-addon addontext"> {this.state.currency} </span>   
 															</div>
 														</div>                            
 													</div>

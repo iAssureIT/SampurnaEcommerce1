@@ -106,7 +106,20 @@
     /* cursor: not-allowed; */
     background-color: #ebebeb;
 }
+.nav>li.disabledbackcolor {
+    color: var(--bunting-color);
+    text-decoration: none;
+    /* cursor: not-allowed; */
+    /*background-color: #ebebeb;*/
+    background-color: #fff;
+}
 
+.nav>li.disabledbackcolor>.backcolor {
+    color: var(--bunting-color);
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #ebebeb;
+}
 .nav>li.disabled>.backcolor:hover {
     color: var(--bunting-color);
     text-decoration: none;
@@ -120,8 +133,27 @@
     /* cursor: not-allowed; */
     background-color: #ddd;
 }
+.nav>li.disabledbackcolor>.backcolor:hover {
+    color: var(--bunting-color);
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #ddd;
+}
+
+.nav>li.disabledbackcolor>.backcolor:focus {
+    color: var(--bunting-color);
+    text-decoration: none;
+    /* cursor: not-allowed; */
+    background-color: #ddd;
+}
 
 .nav>li.disabled>.backcolor:active {
+    color: var(--bunting-color) !important;
+    text-decoration: none;
+    /* cursor: not-allowed; */
+    background-color: #ebebeb;
+}
+.nav>li.disabledbackcolor>.backcolor:active {
     color: var(--bunting-color) !important;
     text-decoration: none;
     /* cursor: not-allowed; */
@@ -161,15 +193,15 @@
     padding: 0
 }
 .brdlogos1 {
-    background-size: 232p/*x 128px;
-    background-repeat: no*/-repeat;
+    /*background-size: 232px 128px;
+    background-repeat: no-repeat;*/
     background: #ebebeb;
     border: 1px dashed #999;
     height: 34px !important;
     width: 50px !important;
     padding: 0
 }
-#LogoImageUpOne{
+#LogoImageUpOne, #shopImageUpOne{
     /*background-size: 232px 128px;*/
     /*background-repeat: no-repeat;*/
     background: #ebebeb;
@@ -817,7 +849,11 @@
     padding: 0
 }
 
-.nav>li.disabled>.pillsHover:focus,
+.nav>li.disabledbackcolor>.pillsHover:focus,
+.nav>li.disabledbackcolor>.pillsHover:hover {
+    background-color: var(--black-background);
+}
+.nav>li.disabled >.pillsHover:focus,
 .nav>li.disabled>.pillsHover:hover {
     background-color: var(--black-background);
 }
@@ -1053,24 +1089,24 @@ input:checked+.slider:before {
     z-index: 1;
 }
 
-#LogoImageUp {
+#LogoImageUp, #shopImageUp {
     position: absolute;
     top: 1px;
     height: 100%;
 }
 
-#LogoImageUpOne {
+#LogoImageUpOne, #shopImageUpOne {
     align-items: center;
     text-align: center;
     display: grid;
 }
 
-#LogoImageUpOne i {
+#LogoImageUpOne i , #shopImageUpOne i {
     font-size: 14px;
     color: var(--waikawagrey-color);
 }
 
-#LogoImageUpOne p {
+#LogoImageUpOne p , #shopImageUpOne p {
     font-size: 12px;
     font-weight: 600;
     color: var(--waikawagrey-color);
@@ -1138,9 +1174,11 @@ select#gender option[value="others"] {
 }
 .uploadImageClient{
     position: absolute;
-    top: 20px;
+    top: 0px !important;
+    /*top: 20px;*/
     height: 34px !important;
-    width: 50px;
+    /*width: 50px;*/
+    width: 100% !important;
      background-size: 232px 128px;
     background-repeat: no-repeat;
     background: #ebebeb;
@@ -1149,7 +1187,7 @@ select#gender option[value="others"] {
     padding: 0
 }
 .CustomImageUploadBI{
-    margin-top: 20px;
+    margin-top: 0px !important;
 }
 .CustomImageUploadBIImg {
     position: absolute;
@@ -1158,8 +1196,12 @@ select#gender option[value="others"] {
     background: #ebebeb;
     border: 1px dashed #999;
     height: 34px !important;
-    width: 50px !important;
+    /*width: 50px !important;*/
+    width: 100% !important;
     padding: 0;
+}
+.imageLabel{
+    font-weight: 500;
 }
 /*.CustomImageUploadBIImg img {
    height: 9.1em;

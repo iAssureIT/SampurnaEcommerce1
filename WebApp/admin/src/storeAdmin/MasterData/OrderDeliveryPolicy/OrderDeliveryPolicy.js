@@ -413,7 +413,8 @@ class OrderDeliveryPolicy extends Component {
 															<div className="input-group" id = "maxRadius">
 																<input className="form-control" placeholder="Maximum Radius in Kms" ref="maxRadius"
 																	type 		= "number"
-																	name 		= "maxRadius" 
+																	name 		= "maxRadius"
+																	maxLength = "6" 
 																	value 		= {this.state.maxRadius} 
 																	onChange 	= {this.handleChange.bind(this)} 
 																/>

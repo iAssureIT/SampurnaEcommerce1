@@ -300,6 +300,9 @@ class AddNewShopProduct extends Component {
 			 	required 			: true,
 			 	regxProductName 	: /^[A-Za-z][A-Za-z0-9\-\s]/,
 		  	},
+		  	// $.validator.addMethod("regxA1", function(value, element, regexpr) {          
+		//   return regexpr.test(value);
+		// }, "Name should only contain letters & number.");
 		  	productUrl : {
 			 	required 	: true,
 			 	regxUrl 		: /^[A-Za-z][A-Za-z0-9\-\s]/,

@@ -4387,3 +4387,12 @@ input:checked+.slider .off {
 .paddingTop5{
     padding-top: 5px;
 }
+#CreateUserModal{
+    text-align: center !important;
+}
+#CreateUserModal .adminModal-body{
+    text-align: left !important;
+}
+.flag-dropdown{
+    z-index: 3 !important;
+}

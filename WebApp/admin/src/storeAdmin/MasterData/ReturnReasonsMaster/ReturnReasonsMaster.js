@@ -20,7 +20,7 @@ class ReturnReasonsMaster extends Component {
 			},
 			tableObjects 		: {
 				deleteMethod 	: 'delete',
-				apiLink 		: '/api/returnreasons/',
+				apiLink 			: '/api/returnreasons/',
 				paginationApply : true,
 				searchApply 	: false,
 				editUrl 		: '/project-master-data'

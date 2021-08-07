@@ -683,7 +683,7 @@ class IAssureTable extends Component {
 										}
 									) 	
 									:
-									<tr className="trAdmin"><td colSpan={9} className="noTempData textAlignCenter">No Record Found!</td></tr>               		
+									<tr className="trAdmin"><td colSpan={12} className="noTempData textAlignCenter">No Record Found!</td></tr>               		
 								}
 	                    	</tbody>
 	                    </table>

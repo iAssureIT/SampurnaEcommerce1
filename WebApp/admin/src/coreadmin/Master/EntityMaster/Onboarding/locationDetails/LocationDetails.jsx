@@ -1478,23 +1478,23 @@ class LocationDetails extends Component {
 
 								<div className="nav-center OnboardingTabs col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<ul className="nav nav-pills vendorpills col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-3 col-sm-12 col-xs-12">
-										<li className=" col-lg-4 col-md-3 col-sm-12 col-xs-12 transactionTab pdcls pdclsOne  NOpadding-left btn1 disabled">
+										<li className={" col-lg-4 col-md-3 col-sm-12 col-xs-12 transactionTab pdcls pdclsOne  NOpadding-left btn1 disabledbackcolor "+(this.state.entityID ? "" : "disabled")}>
 											<a href={this.props.match.params.entityID ? "/"+this.props.entity+"/basic-details/"+this.props.match.params.entityID : "/"+this.props.entity+"/basic-details"} className="basic-info-pillss pills backcolor">
 												<i className="fa fa-info-circle" aria-hidden="true"></i> &nbsp;
 												Basic Info
 											</a>
-											<div className="triangleone " id="triangle-right"></div>
+											{/*<div className="triangleone " id="triangle-right"></div>*/}
 										</li>
-										<li className="active col-lg-4 col-md-3 col-sm-12 col-xs-12 transactionTab pdcls  pdclsOne btn2 ">
-											<div className="triangletwo" id="triangle-right1"></div>
+										<li className={"active col-lg-4 col-md-3 col-sm-12 col-xs-12 transactionTab pdcls  pdclsOne btn2 "+(this.state.entityID ? "" : "disabled")}>
+											{/*<div className="triangletwo" id="triangle-right1"></div>*/}
 											<a href={this.props.match.params.entityID ? "/"+this.props.entity+"/location-details/"+this.props.match.params.entityID : "/"+this.props.entity+"/location-details" } className="basic-info-pillss backcolor">
 												<i className="fa fa-map-marker-alt iconMarginLeft" aria-hidden="true"></i> &nbsp;
 												Location
 											</a>
-											<div className="trianglethree triangleones forActive" id="triangle-right"></div>
+											{/*<div className="trianglethree triangleones forActive" id="triangle-right"></div>*/}
 										</li>
-										<li className="col-lg-4 col-md-3 col-sm-12 col-xs-12 transactionTab noRightPadding pdcls btn4 disabled">
-											<div className="trianglesix" id="triangle-right2"></div>
+										<li className={"col-lg-4 col-md-3 col-sm-12 col-xs-12 transactionTab noRightPadding pdcls btn4 disabledbackcolor "+(this.state.entityID ? "" : "disabled")}>
+											{/*<div className="trianglesix" id="triangle-right2"></div>*/}
 											<a href={this.props.match.params.entityID ? "/"+this.props.entity+"/contact-details/"+this.props.match.params.entityID : "/"+this.props.entity+"/contact-details"} className="basic-info-pillss backcolor">
 												<i className="fa fa-phone phoneIcon" aria-hidden="true"></i> &nbsp;
 												Contact

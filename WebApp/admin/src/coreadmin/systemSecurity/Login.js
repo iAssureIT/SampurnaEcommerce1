@@ -209,6 +209,19 @@ class Login extends Component {
 		return $('#loginpassword').attr('type', 'password');
 	}
 
+	/**=========== Hide / Show Password ===========*/
+	showCurrentPass() {
+		$('.showPwd').toggleClass('showPwd1');
+		$('.hidePwd').toggleClass('hidePwd1');
+		return $('#loginpassword').attr('type', 'text');
+	}
+
+	hideCurrentPass() {
+		$('.showPwd').toggleClass('showPwd1');
+		$('.hidePwd').toggleClass('hidePwd1');
+		return $('#loginpassword').attr('type', 'password');
+	}
+
 	/**=========== Closepagealert() ===========*/
 	Closepagealert(event) {
 		event.preventDefault();
@@ -276,6 +289,10 @@ class Login extends Component {
 										<div className="input-group customeInput-group">
 											<span className="input-group-addon"><i class="fa fa-lock"></i></span>
 											<input id="loginpassword" type="password" class="form-control" ref="loginpassword" name="loginpassword"  placeholder="Password" required />
+											<span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
+												<i className="fa fa-eye Pass showPwd" aria-hidden="true" onClick={this.showCurrentPass.bind(this)}></i>
+												<i className="fa fa-eye-slash Pass hidePwd" aria-hidden="true" onClick={this.hideCurrentPass.bind(this)}></i>
+											</span>
 										</div>
 									
 									{/* <div className="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-12 col-xs-12 NOpaddingRight">

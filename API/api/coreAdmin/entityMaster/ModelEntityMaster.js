@@ -12,6 +12,7 @@ const entitySchema = mongoose.Schema({
     COI                       : Array,
     TAN                       : String,
     companyLogo               : Array,
+    shopImage                   : String,
     website                   : String,
     companyPhone              : String,
     companyEmail              : String,  

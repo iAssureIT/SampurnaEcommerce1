@@ -75,7 +75,8 @@ class ReturnProductPolicy extends Component {
 		$("#ReturnProductPolicyForm").validate({
 			rules: {
 				maxDaysToReturn: {
-					required: true,
+					required : true,
+					min 		: 0
 				}
 			},
 			errorPlacement: function (error, element) {
@@ -188,11 +189,12 @@ class ReturnProductPolicy extends Component {
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">														 	
 															<label>Maximum Allowable Days for Product Return <i className="redFont">*</i></label>
-															<div className="input-group">
-																<input className="form-control" placeholder="Maximum Allowable Days" ref="maxDaysToReturn"
-																	type 		= "number"
-																	name 		= "maxDaysToReturn" 
-																	id 			= "maxDaysToReturn" 
+															<div className="input-group" id = "maxDaysToReturn" >
+																<input 
+																	className 	= "form-control" placeholder="Maximum Allowable Days" ref="maxDaysToReturn"
+																	type 			= "number"
+																	name 			= "maxDaysToReturn" 
+																	maxLength 	= "2"
 																	value 		= {this.state.maxDaysToReturn} 
 																	onChange 	= {this.handleChange.bind(this)} 
 																/>

@@ -28,16 +28,17 @@ class DealsManagement extends React.Component {
 			section               : "all",
 			category              : "all", 
 			subCategory           : "all",
-			sectionID             : "all",
-			categoryID            : "all", 
-			subCategoryID         : "all",
+			// sectionID             : "all",
+			// categoryID            : "all", 
+			// subCategoryID         : "all",
 			dealInPercentage      : 0,
 			updateAllProductPrice : 'true',
 			dealImg               : "",
-			startdate             : "Start Date",
-			enddate               : "End Date",
+			startdate             : "",
+			enddate               : "",
 			errors                : {},
 			fields                : {},
+			updateType 					: false,
 
 			"tableHeading": { 
 				section: "Section",
@@ -68,6 +69,16 @@ class DealsManagement extends React.Component {
 	componentDidMount(){
 		this.getSectionData();
 		this.getData(this.state.startRange, this.state.limitRange);
+
+		var editId = this.props.match.params.editId;
+		console.log("editId = ", editId);
+		if (editId) {
+		  this.setState({
+		    editId: editId,
+		    updateType : true
+		  })
+		  this.edit(editId);
+		}
 
 		$.validator.addMethod("regxsection", function (value, element, arg) {
 			return arg !== value;
@@ -147,6 +158,19 @@ class DealsManagement extends React.Component {
 
 	  
 	}
+
+	componentWillReceiveProps(nextProps) {
+		var editId = nextProps.match.params.editId;
+		console.log("editId = ", editId);
+		if (editId) {
+		  this.setState({
+		    editId: editId,
+		    updateType : true
+		  })
+		  this.edit(editId);
+		}
+	}
+
 	getSectionData() {
 		axios.get('/api/sections/get/list')
 		   .then((response) => {
@@ -206,29 +230,32 @@ class DealsManagement extends React.Component {
 		  return formIsValid;
 	}
 
-	 getCategories() {
-		axios.get('/api/category/get/list')
-		   .then((response) => {
-			 this.setState({
-				categoryArray: response.data
-			 })
-		   })
-		   .catch((error) => {
-			 console.log('error', error);
-			 if(error.message === "Request failed with status code 401"){
-				   var userDetails =  localStorage.removeItem("userDetails");
-				   localStorage.clear();
-				   swal({  
-						title : "Your Session is expired.",                
-						text  : "You need to login again. Click OK to go to Login Page"
-				   })
-				   .then(okay => {
-						if (okay) {
-							 window.location.href = "/login";
-						}
-				   });
-			 }
-		   })
+	 getCategories(sectionID) {
+		axios.get('/api/category/get/list/' +sectionID)
+			.then((response) => {
+				console.log("Categories => ",response.data)
+			  this.setState({
+				 categoryArray: response.data,
+				 // category: "all",
+				 // subCategory: "all",
+			  })
+			})
+			.catch((error) => {
+			  console.log('error', error);
+			  if(error.message === "Request failed with status code 401"){
+					var userDetails =  localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({  
+						 title : "Your Session is expired.",                
+						 text  : "You need to login again. Click OK to go to Login Page"
+					})
+					.then(okay => {
+						 if (okay) {
+							  window.location.href = "/login";
+						 }
+					});
+			  }
+			})
 	 }
 	 getSubCategories(categoryID) {
 		axios.get('/api/category/get/one/' + categoryID)
@@ -311,7 +338,7 @@ class DealsManagement extends React.Component {
 		axios.post('/api/deals/post',formValues)
 			.then( (response)=> {
 				if (response.data) {
-					swal("Thank you. Your deals added successfully.");
+					swal("Your deal added successfully.");
 					this.setState({
 						section 		      : 'all',
 						category 		      : 'all',
@@ -332,27 +359,28 @@ class DealsManagement extends React.Component {
 		}
 	}
 	
-	updateDealsInfo(event){
-		event.preventDefault();
-		var urlParam = this.state.urlParam;
-		var formValues = {
-			section               : this.state.section,
-			category              : this.state.category, 
-			subCategory           : this.state.subCategory,
-			dealInPercentage  : this.state.dealInPercentage
-		}
-		axios.patch('/api/deals/patch/'+formValues)
-		  .then( (response)=> {
+	// updateDealsInfo(event){
+	// 	event.preventDefault();
+	// 	var urlParam = this.state.urlParam;
+	// 	var formValues = {
+	// 		section               : this.state.section,
+	// 		category              : this.state.category, 
+	// 		subCategory           : this.state.subCategory,
+	// 		dealInPercentage  : this.state.dealInPercentage
+	// 	}
+	// 	axios.patch('/api/deals/patch/'+formValues)
+	// 	  .then( (response)=> {
 
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
-	}
+	// 		})
+	// 		.catch(function (error) {
+	// 			console.log(error);
+	// 		});
+	// }
 	updateDealsInfo(event) {
 	  event.preventDefault();
 	  if ($('#addDealsForm').valid()) {
 		var formValues = {
+			deal_id 					: this.state.editId,
 		  section               : this.state.section && this.state.section === "all" ? this.state.section : this.state.section.split("_")[1],
 		  category              : this.state.category && this.state.category === "all" ? this.state.category : this.state.category.split("_")[1],
 		  subCategory           : this.state.subCategory && this.state.subCategory ==="all" ? this.state.subCategory : this.state.subCategory.split("_")[1],
@@ -365,13 +393,14 @@ class DealsManagement extends React.Component {
 		  startdate             : this.state.startdate,
 		  enddate               : this.state.enddate,
 	  }
-	  axios.patch('/api/deals/patch/'+formValues)
+	  axios.patch('/api/deals/patch',formValues)
 		  .then((response) => {
 			swal({
-			  text: response.data.message,
+			  text: "Deal Updated Successfully",
 			});
 			this.getData(this.state.startRange, this.state.limitRange);
 			this.setState({
+				updateType : false,
 			  section 		      : 'all',
 			  category 		      : 'all',
 			  subCategory 		  : 'all',
@@ -403,6 +432,8 @@ class DealsManagement extends React.Component {
 	  }
   
 	}
+
+
 	getData(startRange, limitRange) {
 		axios.get('/api/deals/get/list/'+ startRange + '/' + limitRange)
 		  .then((response) => {
@@ -453,32 +484,57 @@ class DealsManagement extends React.Component {
 		   section: event.target.value,
 		   sectionID: value[0],
 		},()=>{
-			axios.get('/api/category/get/list/' +this.state.sectionID)
-			.then((response) => {
-			  this.setState({
-				 categoryArray: response.data,
-				 category: "all",
-				 subCategory: "all",
-			  })
-			})
-			.catch((error) => {
-			  console.log('error', error);
-			  if(error.message === "Request failed with status code 401"){
-					var userDetails =  localStorage.removeItem("userDetails");
-					localStorage.clear();
-					swal({  
-						 title : "Your Session is expired.",                
-						 text  : "You need to login again. Click OK to go to Login Page"
-					})
-					.then(okay => {
-						 if (okay) {
-							  window.location.href = "/login";
-						 }
-					});
-			  }
-			})
+			this.getCategories(this.state.sectionID)
 		})
 	 }
+
+	 edit(id) {
+	    axios.get('/api/deals/get/one/' + id)
+	      .then((response) => {
+			console.log('edit = ', response.data);
+
+	        if (response.data) {
+	          this.setState({
+	          	section               : response.data.sectionID + "_" + response.data.section,
+	          	sectionID               : response.data.sectionID,
+				  category              : response.data.categoryID + "_" + response.data.category,
+				  categoryID              : response.data.categoryID,
+				  subCategory           : response.data.subCategoryID + "_" + response.data.subCategory,
+				  subCategoryID           : response.data.subCategoryID,
+				  dealInPercentage      : response.data.dealInPercentage,
+				  dealImg            : response.data.dealImg,
+				  updateAllProductPrice : response.data.updateAllProductPrice,
+				  startdate             : moment(response.data.startdate).format("YYYY-MM-DD"),
+				  enddate               : moment(response.data.enddate).format("YYYY-MM-DD"),
+
+	         
+			  },()=>{
+			  	console.log("category ===> ",this.state.category)
+			  		this.getSectionData();
+			  		this.getCategories(this.state.sectionID)
+			  		this.getSubCategories(this.state.categoryID)
+			  });
+			  
+
+	        }
+	      })
+	      .catch((error) => {
+	        console.log('error', error);
+	        if(error.message === "Request failed with status code 401"){
+          		var userDetails =  localStorage.removeItem("userDetails");
+          		localStorage.clear();
+          		swal({  
+              		title : "Your Session is expired.",                
+              		text  : "You need to login again. Click OK to go to Login Page"
+            	})
+	          	.then(okay => {
+	         		if (okay) {
+	           			window.location.href = "/login";
+	         		}
+	          	});
+	        	}
+	      });
+	}
 
 	 showRelevantSubCategories(event) {
 		event.preventDefault();       
@@ -772,7 +828,7 @@ class DealsManagement extends React.Component {
 												{this.state.categoryArray && this.state.categoryArray.length > 0 ?
 													this.state.categoryArray.map((data, index) => {
 													return (
-														<option key={index} value={data._id+"_"+data.category}>{data.category}</option>
+														<option key={index} name={data.category} value={data._id+"_"+data.category}>{data.category}</option>
 													);
 													})
 													:
@@ -812,23 +868,23 @@ class DealsManagement extends React.Component {
 									<div className="col-lg-6 col-md-6 col-xs-12 col-sm-6 ">                                      
 									  
 									  {
-										this.state.dealimages ?
+										this.state.dealImg ?
 										null
 										:                                        
 										<div className="form-group divideCatgRows categoryImgWrapper dealImg">
 											<label>Upload Image for Deal</label>                                                                    
-											<input type="file" id="dealimages" name="dealimages" onChange={this.uploadImage.bind(this)} title="" multiple className="" accept=".jpg,.jpeg,.png" required/>
+											<input type="file" id="dealImg" name="dealImg" onChange={this.uploadImage.bind(this)} title="" multiple className="" accept=".jpg,.jpeg,.png" required/>
 										</div>
 									  }
 									  {
-										this.state.dealimages ? 
+										this.state.dealImg ? 
 										<div className="row">
 										  <div className="col-lg-4 productImgCol">
 											<div className="prodImage">
 											  <div className="prodImageInner">
-												  <span className="prodImageCross" title="Delete" data-imageUrl={this.state.dealimages} onClick={this.deleteImage.bind(this)} >x</span>
+												  <span className="prodImageCross" title="Delete" data-imageUrl={this.state.dealImg} onClick={this.deleteImage.bind(this)} >x</span>
 											  </div>
-											  <img title="view Image" alt="Please wait..." src={this.state.dealimages ? this.state.dealimages : "/images/notavailable.jpg"} className="img-responsive" />
+											  <img title="view Image" alt="Please wait..." src={this.state.dealImg ? this.state.dealImg : "/images/notavailable.jpg"} className="img-responsive" />
 											</div>    
 										  </div>
 										</div>
@@ -865,7 +921,7 @@ class DealsManagement extends React.Component {
 
 									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 submitBtnWrapper">
 										{
-											this.state.EditBlock
+											this.state.updateType
 											?
 											<button  type="submit" className="col-lg-2 col-md-3 col-sm-6 col-xs-12 btn btn-primary pull-right sendtxtmsgbtn" onClick={this.updateDealsInfo.bind(this)}>Update</button>
 											:

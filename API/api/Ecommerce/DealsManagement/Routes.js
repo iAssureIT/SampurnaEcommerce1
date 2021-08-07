@@ -12,9 +12,9 @@ router.get('/get/list/:startRange/:limitRange',	         DealsManagementControll
 
 // router.get('/get/count',                                    	checkAuth, DealsManagementController.count_deals);
 
-// router.get('/get/one/:dealID',                          	checkAuth, DealsManagementController.get_single_deals);
+router.get('/get/one/:deal_id',                          	DealsManagementController.get_single_deal);
 
-// router.patch('/patch',                                   DealsManagementController.update_deals);
+router.patch('/patch',                                   DealsManagementController.update_deal);
 
 router.delete('/delete/:dealID',                         DealsManagementController.delete_deals);
 

@@ -202,7 +202,7 @@ class OneFieldForm extends React.Component {
             //console.log("formValues with image = ",formValues);
             if ($('#' + this.props.fields.attributeName).valid()) {
 
-                axios.patch(this.state.apiLink + '/patch', formValues)
+                axios.patch(this.state.apiLink + 'patch', formValues)
                     .then((response) => {
                         if(response.data.updated){
                             this.setState({

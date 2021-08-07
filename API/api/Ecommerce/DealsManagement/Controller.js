@@ -95,7 +95,7 @@ var updateProductData = async(productResponse,dealInPercentage,updateAllProducts
             {
                 $set:{
                     discountPercent           : dealInPercentage,
-                    discountedPrice           : (productResponse.originalPrice - dealInPercentage * productResponse.originalPrice / 100).toFixed(2),
+                    discountedPrice           : (productResponse.originalPrice - (dealInPercentage * productResponse.originalPrice / 100)).toFixed(2),
                 }
             }
         )
@@ -185,7 +185,7 @@ exports.get_deals = (req, res, next) => {
 };
 
 exports.get_single_deal = (req, res, next) => {
-    Deals.findOne({ _id: req.params.dealID })
+    Deals.findOne({ _id: req.params.deal_id })
         .exec()
         .then(data => {
             res.status(200).json(data);
@@ -200,26 +200,75 @@ exports.get_single_deal = (req, res, next) => {
 exports.update_deal = (req, res, next) => {
     // console.log("Update Body = ", req.body);
     Deals.updateOne(
-        { _id: req.body.dealID },
+        { _id: req.body.deal_id },
         {
             $set: {
-                section              :  req.body.section,
-                category             : req.body.category,
-                subCategory          : req.body.subCategory,
-                dealInPercentage     : req.body.dealInPercentage,
-                dealImg              : req.body.dealImg,
-                startdate            : req.body.startdate,
-                enddate              : req.body.enddate,
-                startdate            : req.body.startdate,
-                enddate              : req.body.enddate,
+                section               : req.body.section,
+                category              : req.body.category,
+                subCategory           : req.body.subCategory,  
+                sectionID             : req.body.sectionID,
+                categoryID            : req.body.categoryID,
+                subCategoryID         : req.body.subCategoryID,    
+                dealInPercentage      : req.body.dealInPercentage,
+                updateAllProductPrice : req.body.updateAllProductPrice,
+                dealImg               : req.body.dealImg,
+                startdate             : req.body.startdate,
+                enddate               : req.body.enddate,
+                createdBy             : req.body.updatedBy
             }
         }
     )
         .exec()
         .then(data => {
-            res.status(200).json({
-                "message": "Deal Updated Successfully."
-            });
+            if(req.body.sectionID === "all" &&  req.body.categoryID === "all"){
+                   var query = {
+                        
+                    }
+                }else if(req.body.sectionID !=="all" && req.body.categoryID === "all"){
+                    var query = {
+                        "section_ID" : req.body.sectionID
+                    }
+                }
+                else{
+                    var query = {
+                        "section_ID" : req.body.sectionID, 
+                        "category_ID": req.body.categoryID 
+                    }
+                }
+                // Products.find({"section_ID" : req.body.sectionID, "category_ID": req.body.categoryID })
+                Products.find(query)
+                .then(productResponse =>{
+
+                    // console.log("productResponse====",productResponse);
+                    
+                    if(productResponse){
+                        //if(req.body.updateAllProducts){
+                            dealInPercentage = parseInt(req.body.dealInPercentage);
+                            main();
+                            async function main(){
+                                for(var i=0;i<productResponse.length;i++){   
+                                    console.log("productResponse i = > ",productResponse[i]);
+                                   var updateResponse = await updateProductData(productResponse[i],dealInPercentage,req.body.updateAllProductPrice);
+                                    console.log("updateResponse = > ",updateResponse);
+
+                                }
+                                if(i >= productResponse.length){
+                                    res.status(200).json({
+                                        "message": "Products Updated successfully."
+                                    });
+                                }
+                            }
+                        //}
+                    }
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+            // res.status(200).json({
+            //     "message": "Deal Updated Successfully."
+            // });
         })
         .catch(err => {
             console.log(err);

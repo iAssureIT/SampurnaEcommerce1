@@ -44,6 +44,7 @@ exports.insertEntity = (req,res,next)=>{
                     COI                       : req.body.COI,
                     TAN                       : req.body.TAN,
                     companyLogo               : req.body.companyLogo,
+                    shopImage                   : req.body.shopImage,
                     website                   : req.body.website,
                     companyPhone              : req.body.companyPhone,
                     companyEmail              : req.body.companyEmail,
@@ -267,6 +268,7 @@ exports.singleEntity = (req,res,next)=>{
                         COI                     : data.COI,
                         TAN                     : data.TAN,
                         companyLogo             : data.companyLogo,
+                        shopImage             : data.shopImage,
                         website                 : data.website,
                         userID                  : data.userID,  
                         contactData             : contactData
@@ -402,7 +404,7 @@ exports.companyName = (req,res,next)=>{
 };
 
 exports.get_companyName = (req,res,next)=>{
-    EntityMaster.findOne({companyID : req.body.companyID},{companyName:1,companyLogo:1})
+    EntityMaster.findOne({companyID : req.body.companyID},{companyName:1,companyLogo:1, shopImage:1})
     .exec()
     .then(data=>{
         // console.log("req.params.companyID==>",data);
@@ -460,6 +462,7 @@ exports.updateEntity = (req,res,next)=>{
                             'COI'                       : req.body.COI,
                             'TAN'                       : req.body.TAN,
                             'companyLogo'               : req.body.companyLogo,
+                            'shopImage'               : req.body.shopImage,
                             'website'                   : req.body.website,
                             'companyPhone'              : req.body.companyPhone
                         }

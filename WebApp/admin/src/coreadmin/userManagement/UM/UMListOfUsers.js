@@ -563,7 +563,7 @@ class UMListOfUsers extends Component {
 						if (response.data && response.data === 'USER_ROLE_ASSIGNED') {
 							changed++
 
-							swal(" ", changed + " Record(s) Updated Successfully");
+							swal(" ", "Role Assigned to " + (changed > 1 ? "Users" : "User ") + "Successfully..");
 							window.location.reload();
 						}
 						var user = await getUserDetails(selectedId);

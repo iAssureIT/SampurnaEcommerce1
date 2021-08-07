@@ -148,7 +148,7 @@ exports.updateReasonsOfReturn = (req, res, next)=>{
 				res.status(200).json({ updated : true });
 			})
 		}else{
-			res.status(200).json({ updated : false });
+			res.status(200).json({ updated : true });
 		}
 	})
 	.catch(err =>{

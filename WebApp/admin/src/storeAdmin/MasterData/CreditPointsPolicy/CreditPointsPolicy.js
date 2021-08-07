@@ -71,16 +71,20 @@ class CreditPointsPolicy extends Component {
 		$("#CreditPointsPolicyForm").validate({
 			rules: {
 				purchaseAmount: {
-					required: true,
+					required : true,
+					min 		: 0
 				},
 				creditPoint: {
-					required: true,
+					required : true,
+					min 		: 0
 				},
 				creditPointValue: {
-					required: true,
+					required : true,
+					min 		: 0
 				},
 				expiryLimitInDays: {
-					required: true,
+					required : true,
+					min 		: 0
 				}
 			},
 			errorPlacement: function (error, element) {
@@ -206,9 +210,10 @@ class CreditPointsPolicy extends Component {
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 															<label>Purchase Amount <i className="redFont">*</i></label>
 															<div className="input-group" id = "purchaseAmount" >
-																<input className="form-control" placeholder="Add purchase amount here..." ref="purchaseAmount"
-																	type 		= "number"
-																	name 		= "purchaseAmount" 
+																<input 
+																	className 	= "form-control" placeholder="Add purchase amount here..."
+																	type 			= "number"
+																	name 			= "purchaseAmount" 
 																	value 		= {this.state.purchaseAmount} 
 																	onChange 	= {this.handleChange.bind(this)} 
 																/>
@@ -220,10 +225,12 @@ class CreditPointsPolicy extends Component {
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 															<label>Credit Point <i className="redFont">*</i></label>
 															<div className="input-group" id = "creditPoint" >
-																<input className = "form-control" placeholder = "Add credit points on purchase amount" ref = "creditPoint"
-																	type 		= "number"
-																	name 		= "creditPoint"
-																	value	 	= {this.state.creditPoint} 
+																<input 
+																	className 	= "form-control" placeholder = "Add credit points on purchase amount"
+																	type 			= "number"
+																	name 			= "creditPoint"
+																	max 			= "1"
+																	value	 		= {this.state.creditPoint} 
 																	onChange    = {this.handleChange.bind(this)} 
 																/>
 																<span class="input-group-addon addontext"> Point </span>   
@@ -234,10 +241,12 @@ class CreditPointsPolicy extends Component {
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 															<label>Redemption value of credit point <i className="redFont">*</i></label>
 															<div className="input-group" id = "creditPointValue" >
-																<input className = "form-control" ref = "creditPointValue" placeholder = "Add value of each credit point here.."
-																	type 		= "number" 
-																	name 		= "creditPointValue"
-																	value	 	= {this.state.creditPointValue} 
+																<input 
+																	className 	= "form-control" placeholder = "Add value of each credit point here.."
+																	type 			= "number" 
+																	name 			= "creditPointValue"
+																	max 			= {parseInt(this.state.purchaseAmount) - 1}
+																	value	 		= {this.state.creditPointValue} 
 																	onChange    = {this.handleChange.bind(this)} 
 																/>
 																<span class="input-group-addon addontext"> {this.state.currency} </span>   
@@ -248,10 +257,12 @@ class CreditPointsPolicy extends Component {
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 															<label>Credit points expires in <i className="redFont">*</i></label>
 															<div className="input-group" id = "expiryLimitInDays">
-																<input className = "form-control" ref = "expiryLimitInDays" placeholder = "Add number of days in which credit points will expire.."
-																	type 		= "number"  
-																	name 		= "expiryLimitInDays"
-																	value	 	= {this.state.expiryLimitInDays} 
+																<input 
+																	className 	= "form-control" placeholder = "Add number of days in which credit points will expire.."
+																	type 			= "number"  
+																	name 			= "expiryLimitInDays"
+																	maxLength 	= "6"
+																	value	 		= {this.state.expiryLimitInDays} 
 																	onChange    = {this.handleChange.bind(this)} 
 																/>
 																<span class="input-group-addon addontext"> days </span>   
@@ -259,17 +270,17 @@ class CreditPointsPolicy extends Component {
 														</div>                            
 													</div>
 												</form>
-													<div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<div className="col-lg-12 orderCancellationBtn">
-															<label>&nbsp;</label>
-															{this.state.editId 
-																?
-																	<button onClick={this.submit.bind(this)} className="btn button3">Update</button>
-																:
-																	<button onClick={this.submit.bind(this)} className="btn button3">Submit</button>
-															}
-														</div>
-													</div>											
+												<div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div className="col-lg-12 orderCancellationBtn">
+														<label>&nbsp;</label>
+														{this.state.editId 
+															?
+																<button onClick={this.submit.bind(this)} className="btn button3">Update</button>
+															:
+																<button onClick={this.submit.bind(this)} className="btn button3">Submit</button>
+														}
+													</div>
+												</div>											
 											</div>
 										</div>
 									</div>
