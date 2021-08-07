@@ -587,7 +587,7 @@ class CartProducts extends Component {
                                                                                                             <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-4 col-xl-4 cartProductDetail my-3">
                                                                                                                 <div className="row">
                                                                                                                     {vendorData.product_ID.brand?
-                                                                                                                      <div className=" singleProductDetail">        
+                                                                                                                      <div className=" col-12 pl-0 pr-0 singleProductDetail">        
                                                                                                                         <span className="">{vendorData.product_ID.brand}</span>
                                                                                                                      </div>           
                                                                                                                     :null
@@ -639,15 +639,15 @@ class CartProducts extends Component {
                                                                                                                         <span className="sold textAlignCenter">SOLD OUT</span>
                                                                                                                 }
                                                                                                             </div>
-                                                                                                            <div className="nowrap col-6 col-sm-12 col-sx-12 col-md-4 col-lg-2 col-xl-3 my-3 text-right pl-0">
+                                                                                                            <div className="nowrap col-6 col-sm-12 col-sx-12 col-md-4 col-lg-2 col-xl-3 my-3 text-right pl-0 pr-0">
                                                                                                                 {
                                                                                                                     vendorData.product_ID.availableQuantity > 0 ?
                                                                                                                         // <span className={"abc cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent > 0 ? (vendorData.product_ID.discountedPrice.toFixed(2) * vendorData.quantity).toFixed(2) : (vendorData.product_ID.originalPrice.toFixed(2) * vendorData.quantity).toFixed(2)}</span>
-                                                                                                                        <span>
+                                                                                                                        <div className="col-12 pl-0 pr-0">
                                                                                                                         {vendorData.product_ID.discountPercent > 0?
                                                                                                                             <span className={" cartProductPrize "}> 
                                                                                                                                 <span>{this.state.currency}&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                                                                <span className="cartOldprice" > <span className={Style.oldprice }>{(vendorData.product_ID.originalPrice.toFixed(2) * vendorData.quantity).toFixed(2)}</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                                                                <span className="cartOldprice" ><span className={Style.oldprice }>{(vendorData.product_ID.originalPrice.toFixed(2) * vendorData.quantity).toFixed(2)}</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                                                                                                                                 <span>{(vendorData.product_ID.discountedPrice.toFixed(2) * vendorData.quantity).toFixed(2) }</span>
 
                                                                                                                                 {/* <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
@@ -659,7 +659,7 @@ class CartProducts extends Component {
                                                                                                                         :
                                                                                                                             <span className={" cartProductPrize "}> {this.state.currency}&nbsp;{ (vendorData.product_ID.originalPrice.toFixed(2) * vendorData.quantity).toFixed(2)}</span>
                                                                                                                         }
-                                                                                                                        </span>
+                                                                                                                        </div>
                                                                                                                         
                                                                                                                         :
                                                                                                                         <span>-</span>

@@ -1153,27 +1153,17 @@ class Checkout extends Component {
 
                                             </div>
 
-                                            <div className={"modal fade NoPadding mt-5 "} id="termsNconditionsmodal" role="dialog">
+                                            <div className={"modal  NoPadding mt-5 "} id="termsNconditionsmodal" role="dialog">
                                                 <div className={"col-lg-4 col-12 col-sm-10 offset-sm-1 mx-auto NoPadding " + Style.modalMainWrapper}>
                                                     <div className={"modal-content  col-md NoPadding " + Style.modalContent}>
                                                         <div className={"modal-header globalBgColor col-12 " + Style.modalHeader}>
-                                                            <div className={"modal-title col-11 modalheadingcont pb-2 text-center underline " + Style.f14B}><img className={" " + Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO" /><u>Terms & Conditions</u></div>
+                                                            <div className={"modal-title col-12 modalheadingcont pb-2 text-center underline " + Style.f14B}><img className={" " + Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO" /><u>Terms & Conditions</u></div>
                                                             <button type="button" className={" close modalclosebut  " + Style.modalCloseButtonWrapper} data-dismiss="modal">&times;</button>
-                                                        </div> 
-                                                        <div className={"modal-body col-12  " + Style.modalBodyRadius}>
-                                                        {/* <p className={"listStyle " + Style.listColor}>
-                                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                                                when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
-                                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                                                when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                                        </p> */}
+                                                        </div> 
+                                                        
+                                                        <div className={"modal-body col-12  " + Style.modalBodyRadius}>
+                                                       
                                                          <ul className={"listStyle " + Style.listColor}>
                                                             <li>The price of products is as quoted on the site from time to time.</li>
                                                             <li>Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.</li>
@@ -1189,6 +1179,7 @@ class Checkout extends Component {
                                                     </div>
                                                 </div>
                                             </div>
+                                                          
                                             {/* =======================================mb respnsve END=================== */}
                                             <div className="col-12 col-xl-9 col-md-12 col-lg-8 col-sm-12 d-none d-lg-block d-xl-block">
                                                 <div className={"col-12 NoPadding table-responsive " + Style.orderReviews}>
@@ -1558,6 +1549,7 @@ class Checkout extends Component {
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                           
                                                         </div>
                                                     </div>
 
