@@ -110,12 +110,7 @@ class Login extends Component{
 							this.setState({
 								loggedIn: true
 							}, () => {
-								// swal({text:'Thank You, You have been successfully logged in.'}).then(function(){
-								// 	window.location.reload();
-								// });
-								// if(response.data.message === "Login Auth Successful"){
-									window.location.reload();
-								// }
+								window.location.reload();
 							})
               			}
 					}else{
@@ -235,73 +230,6 @@ class Login extends Component{
 									}
 								</div>
 							</form>
-							{/* <form id="login" className={"col-12 "+S.signForm}>
-								<div className="row">
-									<div className="col-12 form-group">
-										<div className="row">
-											<input
-												id				= "loginusername"
-												className		= "form-control"
-												type			= "email"
-												ref				= "loginusername"
-												name			= "loginusername"
-												placeholder		= "Email"
-												onChange		= {this.handleChange.bind(this)}
-											/>
-											<span className="text-danger">{this.state.formerrors.emailIDV}</span>
-											<div className="errorMsg">{this.state.errors.loginusername}</div>
-										</div>
-									</div>
-									<div className="col-12">
-										<div className="row">
-											<input
-												id				= "password-field"
-												className		= "form-control passswordInput formcontrol1"
-												type			= "password"
-												ref				= "loginpassword"
-												name			= "loginpassword"
-												placeholder		= "Password"
-												onChange		= {this.handleChange.bind(this)}
-												value			= {this.state.loginpassword}
-												autoComplete	= "off"
-											/>
-											<span
-												toggle		= "#password-field"
-												className	= "fa fa-fw fa-eye field-icon toggle-password"
-												onClick		= {this.togglePassword.bind(this)}
-											></span>
-											<div className="errorMsg">{this.state.errors.loginpassword}</div>
-										</div>
-									</div>
-									<div className="col-12">
-										<div className="row">
-											<span className={S.forgotPassword}>
-												<a href="" onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
-											</span>
-										</div>
-									</div>
-									{
-										this.state.btnLoading
-										?
-											<div className="col-12">
-												<div align="center" className="cssload-fond">
-													<div className="cssload-container-general">
-														<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_1"></div></div>
-														<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_2"></div></div>
-														<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_3"></div></div>
-														<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_4"></div></div>
-													</div>
-												</div>
-											</div>
-										:
-											<div className="col-12">
-												<div className="row">
-													<button id="logInBtn" className={"col-12 mt-3 btn "+S.signButton} onClick={this.userlogin.bind(this)}>Sign In</button>
-												</div>
-											</div>
-									}
-								</div>
-							</form> */}
 							<div className="col-12">
 								<div className="row">   
 									<div className="col-12">
@@ -330,101 +258,6 @@ class Login extends Component{
 							</div>
 						</div>
 				}
-				
-        		{/* {
-					this.state.loggedIn === false &&
-					<div className="col-12 mobileViewNoPadding">
-          				<div className="col-12 NoPadding">
-            				<div className="col-12 NoPadding">
-              					<div className="col-12 innloginwrap">
-                					<div className="col-12">
-                  						<h5 className="blueText signinText">SIGN IN</h5>
-									</div>
-								</div>
-              					<div className="col-12 textAlignment">
-                					<div className="col-12 NoPadding blueText loginforgotpass">
-                  						Don't have an account?&nbsp;&nbsp;                      
-					                    <a href='' className="forgotText" onClick={this.openSignUpModal.bind(this)}>Sign Up</a>
-									</div>
-								</div>
-								<form id="login">
-									<div className="form-group frmhgt textAlignLeft col-12 NOpadding mt25">
-										<input type="email" className="form-control formcontrol1" ref="loginusername" id="loginusername" name="loginusername" placeholder="Phone Number / Email ID"  onChange={this.handleChange.bind(this)}/>
-										<span className="text-danger">{this.state.formerrors.emailIDV}</span>
-										<div className="errorMsg">{this.state.errors.loginusername}</div>
-									</div>
-
-									<div className="textAlignLeft frmhgt col-12 NOpadding">
-										<input
-											id="password-field"
-											type="password"
-											className="form-control passswordInput formcontrol1"
-											ref="loginpassword"
-											name="loginpassword"
-											placeholder="Password"
-											onChange={this.handleChange.bind(this)}
-											value={this.state.loginpassword}
-											autoComplete="off"
-										/>
-										<span
-											toggle="#password-field"
-											className="fa fa-fw fa-eye field-icon toggle-password"
-											onClick={this.togglePassword.bind(this)}
-										></span>
-										<div className="errorMsg">{this.state.errors.loginpassword}</div>
-									</div>
-
-									<div className="col-12 mb25 text-right">
-										<div className="loginforgotpass">
-											<a href='' className="col-12 pull-right NoPadding forgotText" onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
-										</div>
-									</div>
-
-									{
-										this.state.btnLoading
-										?
-											<div className="col-12 col-lg-3 offset-lg-4 col-md-10 offset-md-1 NoPadding">
-												<div align="center" className="cssload-fond">
-													<div className="cssload-container-general">
-													<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_1"></div></div>
-													<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_2"></div></div>
-													<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_3"></div></div>
-													<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_4"></div></div>
-													</div>
-												</div>
-											</div>
-										:
-											<div className="col-12 mb-2 mt-2">
-												<input id="logInBtn" type="button" className="col-12 btn signInBtn" value="Sign In" onClick={this.userlogin.bind(this)} />
-											</div>
-									}
-								</form>
-								<div className="col-12">
-									<div className="col-12 NoPadding">
-                    					<div className="row">   
-                      						<div className="col-12">
-												<div className="row">
-													<hr className="col-3 whiteClr"></hr>
-													<span className="col-2 blueText mt-2 text-center">&nbsp;OR&nbsp;</span>
-													<hr className="col-3 whiteClr"></hr>
-												</div>
-											</div>
-											<div className="col-12 facebookLoginBtn mb-2 mt-2">
-												<Facebooklogin />
-											</div>
-											<div className="col-12 mb-2 googleLoginBtn ">
-												<Googlelogin />
-											</div>
-											<div className="col-12 mb-2">
-												<LoginAsGuest />
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-        			</div>
-				} */}
 			</section>
     	);
   	}

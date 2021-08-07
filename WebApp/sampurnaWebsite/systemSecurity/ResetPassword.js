@@ -103,9 +103,6 @@ class ResetPassword extends Component{
 					<div className={"col-12 "+S.signTitleWrapper}>
 						<span className={"font-weight-bolder border-0 "+S.signTitle}>RESET PASSWORD</span>
 					</div>
-                    {/* <div className="col-12 innloginwrap">
-                        <h4>Reset Password</h4>
-                    </div> */}
                     {
                         this.state.showMessage === false
 						?

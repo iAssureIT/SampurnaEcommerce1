@@ -315,7 +315,7 @@ class SignUp extends Component{
 									</div>
 								</div>
 							:
-							<div className="col-12 mb-5">
+							<div className="col-12 mt-3 mt-lg-5 mb-5">
 								<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12  btn otpBtns	">Sign Up</button>
 							</div>
 					}

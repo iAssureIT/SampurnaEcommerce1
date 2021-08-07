@@ -71,7 +71,6 @@ class ConfirmOTP extends Component{
 	openSignUpModal(event){
 		event.preventDefault();
 		this.props.updateFormValue("login");
-		// $("#pageOpacity").show();
 		$('#loginFormModal').show();	 
 	}
 
@@ -85,17 +84,11 @@ class ConfirmOTP extends Component{
 		return(
 			<div className="col-12 NoPadding signUpOtpWrapper">
 				<div className="col-10 offset-1 mt-3">
-					{/* <div className="col-12">
-						<a href='' className="OtpTitleWrapper1" onClick={this.openSignUpModal.bind(this)}>
-							<u className="mt-5 pt-5">Back to Login</u>
-						</a>
-					</div> */}
 					<div className={"col-12 "+S.signTextWrapper}>
 						<div className="row">
 							<a href="" className="" onClick={this.openSignInModal.bind(this)}><u>Back to Login</u></a>
 						</div>
 					</div>
-					{/* <h5 className="pb-2 text-center OtpTitleWrapper mt-5 pt-5 font-weight-bold">OTP</h5> */}
 					<div className={"col-12 "+S.signTitleWrapper}>
 						<span className={"font-weight-bolder border-0 "+S.signTitle}>OTP</span>
 					</div>
@@ -108,7 +101,6 @@ class ConfirmOTP extends Component{
 							separator={<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}
 						/>
 					</div>
-					{/* <p className="OtpTitleWrapper2 text-center mt-4">Didn't receive code?&nbsp;<a className="OtpTitleWrapper3"href=""onClick={this.resendOTP.bind(this)}>Request again!</a></p> */}
 					<div className={"col-12 "+S.signTextWrapper}>
 						<div className="row">
 							<span className={"mt-xl-n2 "+S.otpText}>Didn't receive code?</span>&nbsp;&nbsp;
@@ -118,7 +110,7 @@ class ConfirmOTP extends Component{
 				</div>
 				<div className="col-10 offset-1 mt-4">
 					<div className="col-12">
-						<button className="col-12 otpBtns text-center" onClick={this.verifyOTP.bind(this)}> Verifiy OTP</button>
+						<button className="col-12 otpBtns text-center" onClick={this.verifyOTP.bind(this)}>Verifiy OTP</button>
 					</div>
 				</div>
 			</div>

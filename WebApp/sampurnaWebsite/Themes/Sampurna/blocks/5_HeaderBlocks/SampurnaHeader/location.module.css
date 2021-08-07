@@ -2,7 +2,9 @@
 	height: 550px !important;
 }
 .deliveryLocationFormWrapper{
-	margin-top: 100px;
+    position: absolute;
+	top: 100px;
+    z-index: 9;
 }
 .currentOrSearchBar{
     background-color: burlywood;
@@ -63,6 +65,10 @@
     box-shadow: -3px 3px 6px #000000e8!important;
 }
 
+
+.locationBg{
+	height: 550px !important; 
+}
 .googleMap{
 	border-bottom-left-radius: 20px !important;
 	border-bottom-right-radius: 20px !important;
@@ -75,11 +81,19 @@
     opacity: 1;
     z-index: 2;
 }
+.ma{
+	margin:auto;
+	text-align:center;
+}
 .searchAdrressLable input{
 	font-size:12px !important;
 }
 .f12{
 	font-size:12px !important;
+}
+.f12afterLogin{
+    font-size:12px !important;
+    margin-left: -12px!important;
 }
 .locationBTN{
 	background-color:#033554;
@@ -97,6 +111,23 @@
 .locationBTN:hover{
 	color: #fff !important;
 }
+.locationBTNafterLogin{
+    background-color:#033554;
+	color:#fff;
+	font-weight:bold;
+	font-size: 13px;
+	padding: 11px;
+	width: 163px;
+    height: 46px;
+    box-shadow: 0px 3px 6px #000000a6;
+    border-radius: 10px;
+    opacity: 1;
+    margin-top: 6px!important;
+    margin-left: -10px!important;
+}
+.locationBTNafterLogin{
+    color: #fff!important;
+}
 .locationBTN1{
 	margin-left: -26px!important;
     background: #033554 0% 0% no-repeat padding-box;
@@ -112,11 +143,35 @@
 .locationBTN1:hover{
 	color: #fff !important; 
 }
+.locationBTNafterLogin1{
+    margin-left: 4px!important;
+    background: #033554 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #000000a6;
+    border-radius: 10px;
+    opacity: 1;
+    color: #fff;
+	font-weight:bold;
+    font-size: 14px;
+    /* height: 46px; */
+    padding: 10px 20px;
+	position:absolute;
+    right: 70px;
+}
+.locationBTNafterLogin1:hover{
+    color: #fff !important;
+}
 .zindex{
 	position: absolute;
 	left: 7px;
 	top: -278px;
 	z-index: 0;
+}
+.deliveryForm{
+	position: absolute;
+    top: 220px;
+    z-index: 999 !important;
+    vertical-align: middle !important;
+	/*margin-top: 14%;*/
 }
 .deliveryFormAfterLogin{
     position: absolute;
@@ -157,10 +212,46 @@
     margin: 0px 8%;
     margin-top: -5%;
 }
+.MapOrAfterLogin{
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    background-color: #fff;
+    padding: 5px;
+    float: left;
+    margin: 0px 5%;
+    margin-top: -5%;
+}
+.locationSearchWrapper input{
+	height: 42px!important;
+    border-radius: 10px!important;
+    /* width: 585px!important; */
+    opacity: 0.72!important;
+    box-shadow: -3px 3px 6px #000000e8!important;
+    margin-left:-14px!important;
+}
 .locationSearchWrapperAfterLogin input{
 	height: 42px!important;
     border-radius: 10px!important;
     box-shadow: -3px 3px 6px #000000e8!important;
+}
+.locationSearchWrapperAfterLogin input{
+	height: 42px!important;
+    border-radius: 10px!important;
+    /* width: 507px!important; */
+    /* opacity: 0.72!important; */
+    box-shadow: -3px 3px 6px #000000e8!important;
+    /* margin-left:-25px!important; */
+}
+.orline{
+    border-bottom:1px solid #ccc !important;
+    float:left;
+    margin-top: 10px !important;
+}
+.orlineAfterLOgin{
+    border-bottom:1px solid #ccc !important;
+    float:left;
+    margin-top: 10px !important;
 }
 .search{
 	position: absolute;
@@ -192,10 +283,22 @@
 .deliveryFormAfterLogin{
     top:90px;
 }
+.locationBTNafterLogin1{
+    right: -5px;
+}
 }
 @media (min-device-width: 768px) and (max-device-width: 1024px) {
+    .orlineAfterLOgin{
+        margin-top: 0px;
+    }
     .deliveryFormAfterLogin{
         top:110px;
+    }
+    .locationBTNafterLogin1{
+        right: -5px;
+    }
+    .MapOrAfterLogin{
+        margin-top: 0px;
     }
 }
 @media only screen and (min-width: 1440px) {
@@ -322,6 +425,9 @@
     }
     .deliveryLocationFormWrapper{
         margin-top: 200px;
+    }
+    .deliveryLocationFormModalWrapper{
+        top: -50px;
     }
 }
   
