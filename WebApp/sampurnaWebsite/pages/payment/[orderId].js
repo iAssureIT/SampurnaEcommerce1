@@ -62,9 +62,9 @@ class Payment extends Component{
 			<div className="col-12">
         		<div className="row">
         			<Header />
-					{
-						this.state.loading === false
-						?
+					{this.props.loading ?
+                                <Loader classNmae="d-block"type="fullpageloader" />
+                                :
 							<div className="container h-100 mb-5">
 								<div className="col-12 NOpadding h-100">
             						<div className={"col-12 col-md-10 offset-md-1 mt-5 m-b-5 "+Style.paymentMainWrapper}>
@@ -183,7 +183,7 @@ class Payment extends Component{
 																</div>
 															</div>
 														:
-															null
+														<Loader classNmae="d-block"type="fullpageloader" />
 													}
 												</div>
 											</div>
@@ -191,8 +191,7 @@ class Payment extends Component{
 									</div>
 								</div>
 							</div>
-						:
-							<Loader type="fullpageloader"/>
+						
 			        }
         			<Footer />
 		        </div>

@@ -137,7 +137,7 @@ class MyAccount extends Component{
                                         <i className="fas fa-map-marker-alt mr-3"></i>
                                         <span className=" small ">My Addresses</span></a>
                 
-                                    <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-4 p-3 shadow active": "nav-link mb-4 p-3 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <a className={this.state.url1==="#v-pills-settings-tab"&&"#v-pills-settings2" ? "nav-link mb-4 p-3 shadow active": "nav-link mb-4 p-3 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                                         <i className=" fa fa-shopping-cart mr-3"></i>
                                         <span className=" small " > My Orders</span></a>
 
@@ -174,7 +174,7 @@ class MyAccount extends Component{
                                     <EditAccount/>
                                     </div>
                                     
-                                    <div className="tab-pane fade   bg-white pb-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                    <div className="tab-pane    bg-white pb-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                                     <AddressBook/>
                                     </div>
                                     

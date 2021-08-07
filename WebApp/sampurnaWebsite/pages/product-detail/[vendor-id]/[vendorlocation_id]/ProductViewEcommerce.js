@@ -807,7 +807,7 @@ class ProductViewEcommerce extends Component{
 																							</div>
 																							<div className="col-12 koh-faq-answer d-none">
 																								<p>For more details about knock knock return <br/> policy &nbsp;
-																									<Link href="/privacy-policy">Read more</Link>
+																									<Link  href="/privacy-policy">Read more</Link>
 																								</p>
 																							</div>
 																						</div>

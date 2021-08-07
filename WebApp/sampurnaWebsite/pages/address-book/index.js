@@ -131,7 +131,7 @@ class AddressBook extends Component{
                 <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
                     <div className={"modal-content  pb-0 "+Style.modalContentM}>    
                     <div className={"modal-header globalBgColor col-12 " +Style.modalHeaderM}>
-                        <div className={"modal-title col-12 modalheadingcont pb-3  underline " +Style.f14BM }><img className={" "+Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO"/><p>Shipping Address</p></div>
+                        <div className={"modal-title col-12 modalheadingcont pb-3  underline " +Style.f14BM }><img className={" "+Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" style={{height:"40px"}} alt="T&C MODAL-LOGO"/><p>Shipping Address</p></div>
                         <button type="button" className={" close modalclosebut  "+Style.modalCloseButtonWrapperM} data-dismiss="modal">&times;</button>
                     </div>                      
                         <div className={"modal-body addressModalBody "+Style.modalBg}>

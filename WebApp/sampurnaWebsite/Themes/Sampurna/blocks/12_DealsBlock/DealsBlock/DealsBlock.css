@@ -1,11 +1,12 @@
 .item_Name{
-    font-size: 15px;
+    font-size: 14px;
     padding-left: 0px;
     padding-right: 0px;
     margin-top: 10px;
     color: black;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: bolder;
+    font-family: 'Montserrat-Regular';
 }
 
 .dealsBlock img{

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios                from 'axios';
 import $, { data, event }   from 'jquery';
 import moment               from "moment";
+import Link      from 'next/link';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Message from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
@@ -19,7 +20,8 @@ export default class MyOrders extends Component {
         "orderID": "",
         "userID": "",
         customerReview: "",
-        loading: false
+        loading: false,
+        currentUrl:''
       };
     } else {
       this.state = {
@@ -33,6 +35,7 @@ export default class MyOrders extends Component {
 
   componentDidMount() {
     // console.log("this.props",this.props);
+    let defaultUrl=window.location.href.replace(/.*\/\/[^\/]*/, '');
     $(window).scrollTop(0);
     var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
     var currency = sampurnaWebsiteDetails.preferences.currency;
@@ -40,6 +43,7 @@ export default class MyOrders extends Component {
     // console.log("userDetails===",userDetails);
     if (userDetails) {
       this.setState({
+        currentUrl:defaultUrl,
         user_ID: userDetails.user_id,
         email: userDetails.email,
         fullName: userDetails.firstName + " " + userDetails.lastName,
@@ -433,6 +437,8 @@ export default class MyOrders extends Component {
                               <div className="col-lg-7  pull-right orderBtnWrapper">
                                 <button className=" btn col-lg-6 col-6 col-sm-4 float-right " onClick={() => this.props.getOrderId(singleOrder._id)}>
                                   <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-lg-9 float-right showDetailsBtn "} >Show Details</a>
+                                  {/* <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account#v-pills-settings2-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings2-tab"><a>orderStatus</a></Link></li> */}
+
                                 </button>
                               </div>
                             </div>

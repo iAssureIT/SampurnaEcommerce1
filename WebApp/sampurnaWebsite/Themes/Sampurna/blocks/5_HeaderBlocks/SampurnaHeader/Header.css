@@ -597,7 +597,15 @@ li a{
 } */
 .cartImg{
     height: 25px;
+    
 }
+
+.rotateImg11:hover {
+    transform: scale(0.97); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transition: transform .7s ease;
+  }
+  
+
 .cartCountCircle{
     background-color: #DC1919;
     height: 18px;
@@ -619,6 +627,7 @@ li a{
     margin-top: -2px;
     font-weight: 600;
     color: #fff;
+    
 }
 .cartHeader:hover{
     text-decoration: none;
@@ -688,6 +697,7 @@ li a{
 }
 .cartImg Link{
     cursor: pointer;
+    
 }
 .closeModalBtn{
     margin-top: -60px;

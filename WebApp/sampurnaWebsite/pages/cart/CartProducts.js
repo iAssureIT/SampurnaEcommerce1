@@ -364,9 +364,11 @@ class CartProducts extends Component {
                     <div className="col-12  pl-0">
                         <div className="col-12 cartHeight">
                             {this.props.loading ?
-                                <Loader type="fullpageloader" />
+                                <Loader classNmae="d-block"type="fullpageloader" />
                                 :
+                                
                                 <div className="row">
+                                     {/* <Loader classNmae="d-block"type="fullpageloader" /> */}
                                     <Message messageData={this.state.messageData} />
 
                                     {

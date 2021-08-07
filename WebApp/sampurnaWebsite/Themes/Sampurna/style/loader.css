@@ -6,7 +6,7 @@
       /* background: #eee9; */
   }
   /* Transparent Overlay */
-  /* .fullpageloader:before {
+  .fullpageloader:before {
     content: '';
     display: block;
     position: fixed;
@@ -15,7 +15,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.3);
-  } */
+  }
   
   /* :not(:required) hides these rules from IE9 and below */
   .fullpageloader:not(:required) {
@@ -25,6 +25,16 @@
     text-shadow: none;
     background-color: transparent;
     border: 0;
+    display: block;
+  }
+
+  .fullpageloader{
+    position: fixed;
+    left: 0px;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
   }
   
   .fullpageloader:not(:required):after {
