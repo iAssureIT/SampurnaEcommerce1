@@ -3,7 +3,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Animated,
   RefreshControl,
   Image
 }                             from 'react-native';
@@ -25,7 +24,7 @@ import { colors }             from '../../AppDesigns/currentApp/styles/styles';
 import { NetWorkError } from '../../../NetWorkError.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import { ScrollView } from 'react-native';
-
+import Animated from 'react-native-reanimated';
 
 
 const window = Dimensions.get('window');
@@ -48,13 +47,20 @@ const VendorProducts = (props)=>{
     "Brand",
   ];
 
+
   const {productList,brandList,payload,globalSearch} = props;
+  const HEADER_HEIGHT = 185;
   var scrollY = new Animated.Value(0);
-    var diffClamp= Animated.diffClamp(scrollY,0,185)
-    var translateY = diffClamp.interpolate({
-      inputRange:[0,185],
-      outputRange:[0,-185]
-    })
+  var diffClampScrollY= Animated.diffClamp(scrollY,0,HEADER_HEIGHT);
+  var headerY= Animated.interpolate(diffClampScrollY,{
+    inputRange:[0,HEADER_HEIGHT],
+    outputRange:[0,-HEADER_HEIGHT]
+  })
+    // var diffClamp= Animated.diffClamp(scrollY,0,185)
+    // var translateY = diffClamp.interpolate({
+    //   inputRange:[0,185],
+    //   outputRange:[0,-185]
+    // })
 
   useEffect(() => {
     getData();
@@ -122,10 +128,12 @@ const VendorProducts = (props)=>{
 
 const onScroll=(e)=>{
   scrollY.setValue(e.nativeEvent.contentOffset.y);
-  
+  // Animated.event([
+  //   {nativeEvent: {contentOffset: {y: scrollY}}},
+  // ])
 }
 
-console.log("translateY",translateY);
+// console.log("translateY",translateY);
 
   return (
     <View style={{flex:1}}>
@@ -139,15 +147,17 @@ console.log("translateY",translateY);
           <Animated.View
             style={{
               transform:[
-                {translateY:translateY}
+                {translateY:headerY}
               ],
-              elevation:4,
-		          zIndex:100,
-              position:"absolute"
+              height: HEADER_HEIGHT,
+              elevation:1000,
+		          zIndex:1000,
+              position:"absolute",
+              backgroundColor:"#fff"
             }}
             
           >
-           <View style={[styles.block1]}>
+           {/* <View style={[styles.block1]}> */}
              <View style={{elevation:5,backgroundColor:"#fff"}}>
                 <View style={{backgroundColor:"#EEEEEE",marginTop:3,height:20}}>
                     <Text numberOfLines={1} style={[{paddingHorizontal:5,fontWeight:"bold",fontSize:14,color:"#333"}]}>{vendor?.vendorName ? vendor?.vendorName : vendor?.companyName}</Text>
@@ -193,8 +203,9 @@ console.log("translateY",translateY);
                 </TouchableOpacity>
               </View>  
             </View>
-           </View>
+           {/* </View> */}
           </Animated.View>  
+      
             {productList.categoryWiseList.length ===0 && productList.loading ?
               <View style={{marginTop:400}}>
                 <Loading />
@@ -212,14 +223,12 @@ console.log("translateY",translateY);
                   type                  = "vendor_sub_cat"
                   vendorLocation_id     = {vendorLocation_id}
                   onEndReachedThreshold = {0.01}
-                  onScroll              = {Animated.event([
-                    {nativeEvent: {contentOffset: {y: scrollY}}},
-                  ])}
-                  marginTop             = {185}
+                  marginTop             = {HEADER_HEIGHT}
                   paddingBottom         = {250}
                   category              = {category}
                   subCategory           = {subCategory}
                   vendor                = {vendor}
+                  onScroll              = {onScroll}
                 />
             :
             <View style={{height:window.height,justifyContent:"center",alignItems:'center'}}>

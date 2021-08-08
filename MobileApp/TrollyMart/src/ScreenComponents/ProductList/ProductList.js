@@ -22,6 +22,7 @@ import { ActivityIndicator }  from 'react-native-paper';
 import { getSearchResult } 	  from '../../redux/globalSearch/actions';
 import { useIsFocused }       from "@react-navigation/native";
 import FastImage              from 'react-native-fast-image';
+import Animated from 'react-native-reanimated';
 // import {product}              from '../../ScreenComponents/Product/Product.js'
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
@@ -384,7 +385,7 @@ export const ProductList = withCustomerToaster((props)=>{
         <FlatList
           data                          = {productsDetails}
           showsVerticalScrollIndicator  = {false}
-          contentContainerStyle         ={{paddingVertical:15,marginTop:props.marginTop,paddingBottom:props.paddingBottom}}
+          contentContainerStyle         ={{paddingVertical:15,paddingTop:props.marginTop,paddingBottom:props.paddingBottom}}
           renderItem                    = {_renderlist} 
           nestedScrollEnabled           = {true}
           numColumns                    = {2}
@@ -394,6 +395,8 @@ export const ProductList = withCustomerToaster((props)=>{
           ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
           onEndReachedThreshold          = {onEndReachedThreshold}
           onScroll={(e)=>props.onScroll(e)}
+          scrollEventThrottle = {16}
+          bounces={false}
           ListEmptyComponent            = {
             <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
             <Image

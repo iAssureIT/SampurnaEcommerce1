@@ -387,9 +387,11 @@ export const MyOrder = withCustomerToaster((props)=>{
           <Modal isVisible={cancelOrderModal}
             onBackdropPress={() => setCancelOrderModal(false)}
             coverScreen={true}
-            hideModalContentWhileAnimating={true}
             style={{ paddingHorizontal: '5%', zIndex: 999 }}
-            animationOutTiming={500}>
+            hasBackdrop={false}
+            deviceHeight={window.height}
+            deviceWidtht={window.width}
+            >
             <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
               <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
                 <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />

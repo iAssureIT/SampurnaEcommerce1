@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import {
   ScrollView,
   Text,
@@ -6,7 +6,8 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  TextInput,Dimensions
+  TextInput,Dimensions,
+  BackHandler
 }                       from 'react-native';
 import { Icon, Card,Button,Input,Tooltip,CheckBox } from "react-native-elements";
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -93,7 +94,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [modalTerms,setTermsModal] = useState(false);
   const [pageBlockes,setPageBlocks]       = useState([]);
   const [tooltipSize, setTooltipSize] = useState({ w: 200, h: 200 })
-
+  const ref = useRef()
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     userDetails     : store.userDetails,
@@ -128,6 +129,20 @@ export const OrderDetails = withCustomerToaster((props)=>{
     getReasons_func();
     getTerms();
 }, [props,isFocused]);
+
+
+useEffect(() => {
+  BackHandler.addEventListener("hardwareBackPress", backAction);
+  return () =>
+  BackHandler.removeEventListener("hardwareBackPress", backAction);
+},[]);
+
+
+const backAction = () => {
+  console.log("ref",ref)
+  ref?.current?.props?.onClose();
+  return false
+};
 
 const getReasons_func=()=>{
   axios.get('/api/returnreasons/get/list')
@@ -810,8 +825,10 @@ const cancelorderbtn = (id,vendor_id) => {
                       <Tooltip 
                         containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
                         width={350} 
+                        ref={ref}
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
+                        onRequestClose={() =>  tooltipRef.current.toggleTooltip()}
                         popover={tooltipClone}>
                           <Icon name="info-circle" type={"font-awesome"} size={17} color={'#A6B7C2'} />
                         </Tooltip>
@@ -1181,9 +1198,11 @@ const cancelorderbtn = (id,vendor_id) => {
           onBackdropPress={() => setTermsModal(false)}
           onRequestClose={() => setTermsModal(false)}
           coverScreen={true}
-          hideModalContentWhileAnimating={true}
+          hasBackdrop={false}
           style={{ zIndex: 999 }}
-          animationOutTiming={500}>
+          deviceHeight={window.height}
+          deviceWidtht={window.width}
+         >
           <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10}}>
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
                 {

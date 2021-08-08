@@ -46,6 +46,7 @@ const STAR_IMAGE = require('../../AppDesigns/currentApp/images/star.png')
 
 
 export const SubCatCompView = withCustomerToaster((props)=>{
+  console.log("props",props);
   const [countofprod,setCounterProd]        = useState(1);
   const section = props.route.params?.section;
   const [user_id,setUserId]                = useState('');
@@ -62,7 +63,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const [tab,selectedTab] = useState(0);
 
   const {navigation,route,setToast} =props;
-  const {productID,currency,vendorLocation_id,index,vendor_id,category,subCategory}=route.params;
+  const {productID,currency,vendorLocation_id,index,vendor_id,category,subCategory,vendor}=route.params;
   const [sizes,setSizes] = useState([])
   const scroll =useRef()
 
@@ -316,7 +317,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   index             = {index}
                   vendorLocation_id = {vendorLocation_id}
                   category          = {category ? category : productdata.category}
-                  vendor            = {props.vendor}
+                  vendor            = {vendor}
                 />
               <View >
                 <SubCategoryList
@@ -327,7 +328,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   selected          = {productdata.subCategory}
                   category          = {category ? category : productdata.category}
                   vendorLocation_id ={vendorLocation_id}
-                  vendor            = {props.vendor}
+                  vendor            = {vendor}
                 />
               <View style={{flex:1,flexDirection:'row',}}>
                   <View style={styles.qtys}>
