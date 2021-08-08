@@ -2,9 +2,12 @@
     height: 70px;
     box-shadow: 0 0 10px 5px #000 !important;
     cursor: pointer;
-    background-image: url("/images/eCommerce/vendorCard.jpg");
+    /* background-image: url("/images/eCommerce/vendorCard.jpg"); */
     background-position: 100%;
     border: solid 2px #000;
+}
+.shopImg{
+    height: 70px;
 }
 .vendorLogoImg{
     border-radius: 100% !important;
@@ -12,7 +15,7 @@
     height: 40px;
     width: 40px;
 }
-.vendorCard::before {
+.shopImg::before {
     content: "";
     position: absolute;
     top: 0px;
@@ -146,7 +149,7 @@
         height: 120px;
         box-shadow: 2px 2px 3px #dddddd;
         cursor: pointer;
-        background-image: url("/images/eCommerce/vendorCard.jpg");
+        /* background-image: url("/images/eCommerce/vendorCard.jpg"); */
         background-position: 100%;
         border: solid 2px #000;
     }

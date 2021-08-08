@@ -7,7 +7,6 @@ import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Fo
 import Style                from './index.module.css';
 import moment               from "moment";
 
-
 class CreditPoints extends Component{
     
     constructor(props) {

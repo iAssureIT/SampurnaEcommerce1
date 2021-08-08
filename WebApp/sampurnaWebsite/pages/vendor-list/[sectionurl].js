@@ -55,10 +55,11 @@ class VendorList extends Component {
             }
         }
         if(formValues){
+            console.log(formValues);
             axios.post("/api/vendorlist/post/vendor/list",formValues)
             .then((vendorResponse) => {
                 if(vendorResponse){
-                    // console.log("vendorResponse===",vendorResponse);
+                    console.log("vendorResponse===",vendorResponse);
                     this.setState({
                         "vendorList" : vendorResponse.data,
                         "loading"    : false
@@ -95,7 +96,8 @@ class VendorList extends Component {
                                             return(
                                                 <div className="col-lg-6 col-12 col-sm-6" key={index}>
                                                     <div className="col-12">
-                                                        <div className={"col-12 card mt-2 mb-4 " +Style.vendorCard}>
+                                                        <div className={"col-12  card mt-2 mb-4 " +Style.vendorCard }>
+                                                        {/* <img className={ "col-12 NoPadding "+Style.shopImg} src={vendordata.vendorShopImage}></img> */}
                                                         <Link href={"/products/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+this.state.sectionurl} className={+Style.vedorLink}>
                                                             <div className={"row card-body " +Style.cardBody}>
                                                                 <div className={ "col-3 NoPadding "+Style.vendorLogo}>

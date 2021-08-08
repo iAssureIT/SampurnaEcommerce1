@@ -167,12 +167,13 @@ class MyAccount extends Component{
                                 {/* <!-- Tabs content --> */}
                                 <div className="tab-content" id="v-pills-tabContent">
                                     <div className={this.state.url==="/my-account"?"tab-pane fade  bg-white  pb-5 show active":"tab-pane fade shadow rounded bg-white  pb-5"} id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                       <Account/>                          
+                                       {/* <Account/>                           */}
+                                       <EditAccount/>
                                     </div>
                                     
-                                    <div className="tab-pane fade  bg-white pb-5" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                    {/* <div className="tab-pane fade  bg-white pb-5" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                     <EditAccount/>
-                                    </div>
+                                    </div> */}
                                     
                                     <div className="tab-pane    bg-white pb-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                                     <AddressBook/>

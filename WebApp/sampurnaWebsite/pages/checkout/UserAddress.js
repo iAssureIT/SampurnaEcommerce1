@@ -45,6 +45,7 @@ class UserAddress extends Component {
                 })
             }
         }
+        console.log("this.props.addressId===",this.props.addressId);
     }
     getUserDetails() {
         if(this.state.user_ID){
@@ -122,6 +123,7 @@ class UserAddress extends Component {
         
         saveAddress(event){
             event.preventDefault(); 
+            
             var formValues = {
                 "user_ID"           : this.state.user_ID,
                 "name"              : this.state.fullname,
@@ -140,29 +142,34 @@ class UserAddress extends Component {
                 "addType"           : this.state.modaladdType,
                 "latitude"          : this.state.latitude,
                 "longitude"         : this.state.longitude,
+                "deliveryAddressID" :this.props.addressId?this.props.addressId: null
             }
             // console.log("formValues =",formValues);
-            if(this.state.deliveryAddressID){
+                if(this.props.addressId){
                     if(this.validateForm()){
                     axios.patch('/api/ecommusers/updateuseraddress', formValues)
                     .then((response)=>{
-                    this.setState({
-                      messageData : {
-                        "type" : "outpage",
-                        "icon" : "fa fa-check-circle",
-                        "message" : "&nbsp; "+response.data.message,
-                        "class": "success",
-                        "autoDismiss" : true
-                      }
-                    }) 
-                    setTimeout(() => {
-                        this.setState({
-                            messageData   : {},
-                        })
-                    }, 3000);
-                        swal({text:response.data}).then(function(){
-                            this.props.fetchAddressData();
-                        });
+                    // this.setState({
+                    //   messageData : {
+                    //     "type" : "outpage",
+                    //     "icon" : "fa fa-check-circle",
+                    //     "message" : "&nbsp; "+response.data.message,
+                    //     "class": "success",
+                    //     "autoDismiss" : true
+                    //   }
+                    // }) 
+                    // setTimeout(() => {
+                    //     this.setState({
+                    //         messageData   : {},
+                    //     })
+                    // }, 3000);
+
+                    swal("Thank You!!! Address is successfully updated");
+                    $("#checkoutAddressModal").modal('hide');
+                    this.props.fetchAddressData();
+                    // swal({text:response.data.message}).then(function(){
+                    //     this.props.fetchAddressData();
+                    // });
                     })
                     .catch((error)=>{
                         console.log('Address error===', error)
@@ -230,7 +237,8 @@ class UserAddress extends Component {
 		});
     }
 
-    render() {  
+    render() {
+          
         return (
             <div className="addressModal col-12 ">  
             <Message messageData={this.state.messageData} />

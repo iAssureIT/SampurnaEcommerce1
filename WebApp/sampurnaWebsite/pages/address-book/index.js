@@ -4,6 +4,9 @@ import axios                from 'axios';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import UserAddress          from '../../pages/checkout/UserAddress.js';
+import { connect }          from 'react-redux';
+import store                from '../../redux/store.js';
+import { getCartData, getAddressData } from '../../redux/actions/index.js';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import Style                from './index.module.css';
 
@@ -26,12 +29,21 @@ class AddressBook extends Component{
 					userLongitude : userDetails.userLongitude,
 				},()=>{
                     this.getUserData();
-                    this.getUserAddresses();
+                    // this.getUserAddresses();
+                    this.props.fetchAddressData();
 				})
             }
         }
-        
     }
+    // static getDerivedStateFromProps(props, state) {
+    //     if (props.recentAddressData) {
+    //         return {
+    //             deliveryAddress: props.recentAddressData,
+
+    //         };
+    //     }
+    //     return null;
+    // }
     getUserData(){
         // $('.fullpageloader').show();        
         axios.get('/api/users/get/id/'+this.state.user_ID)
@@ -73,49 +85,61 @@ class AddressBook extends Component{
         event.preventDefault();
         // $('.fullpageloader').show();        
         var deliveryAddressID = event.target.id; 
+        
         var formValues = {
-            user_ID : this.state.user_ID,
-            deliveryAddressID : deliveryAddressID
-        }
-        axios.patch('/api/users/delete/address', formValues)
-        .then((response)=>{
-            $('.fullpageloader').hide();
-            // console.log('response', response);
-            this.getUserAddresses();
-            this.setState({
-              messageData : {
-                "type" : "outpage",
-                "icon" : "fa fa-check-circle",
-                "message" : "&nbsp; "+response.data.message,
-                "class": "success",
-                "autoDismiss" : true
-              }
-            })
-            setTimeout(() => {
-                this.setState({
-                    messageData   : {},
-                })
-            }, 3000);
-        })
-        .catch((error)=>{
-            console.log('error', error);
-        })
-    }
-    Closepagealert(event){
-        event.preventDefault();
-        $(".toast-error").html('');
-        $(".toast-success").html('');
-        $(".toast-info").html('');
-        $(".toast-warning").html('');
-        $(".toast-error").removeClass('toast');
-        $(".toast-success").removeClass('toast');
-        $(".toast-info").removeClass('toast');
-        $(".toast-warning").removeClass('toast');
+            user_ID: this.state.user_ID,
+            deliveryAddressID: deliveryAddressID
+          }
+          
+        if(formValues){
+            // console.log("Formvalues===",formValues);
 
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure that you want to removed this address?",
+                icon: "warning",
+                dangerMode: true,
+                buttons: true,
+            })
+                .then(willDelete => {
+                    if (willDelete) {
+                        axios.patch('/api/ecommusers/delete/address', formValues)
+                            .then((response)=>{
+                                $('.fullpageloader').hide();
+                                // console.log('response', response);
+                                this.getUserAddresses();
+                                this.setState({
+                                messageData : {
+                                    "type" : "outpage",
+                                    "icon" : "fa fa-check-circle",
+                                    "message" : "&nbsp; "+response.data.message,
+                                    "class": "success",
+                                    "autoDismiss" : true
+                                }
+                                })
+                                setTimeout(() => {
+                                    this.setState({
+                                        messageData   : {},
+                                    })
+                                }, 3000);
+                                this.props.fetchAddressData();
+                            })
+                            .catch((error)=>{
+                                console.log('error', error);
+                            })
+    
+                    } else {
+                        swal("Your address is safe!");
+                    }
+                })
+        }
     }
+
     getAddressId(event){
         this.setState({
             addressId : event.target.id
+        },()=>{
+            // console.log("addressId===",this.state.addressId);
         })
     }
     opDone(){
@@ -126,7 +150,6 @@ class AddressBook extends Component{
         return(      
             <div className="col-lg-10 col-12 "> 
             <div className=" col-12">
-            
             <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
                 <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
                     <div className={"modal-content  pb-0 "+Style.modalContentM}>    
@@ -135,7 +158,7 @@ class AddressBook extends Component{
                         <button type="button" className={" close modalclosebut  "+Style.modalCloseButtonWrapperM} data-dismiss="modal">&times;</button>
                     </div>                      
                         <div className={"modal-body addressModalBody "+Style.modalBg}>
-                            <UserAddress />
+                            <UserAddress  addressId ={this.state.addressId}/>
                         </div>
                     </div>
                 </div>
@@ -177,13 +200,12 @@ class AddressBook extends Component{
                                    <label className={" "+ Style.defaultBillingAddTitle}>Additional Address Entries</label>
                                </div>
                                <div className="row">
-                            { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return(
-                                        
+                            {/* { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return( */}
+                            { this.props.recentAddressData && this.props.recentAddressData.length > 1 ? this.props.recentAddressData.map((address , index)=>{ if(index !== 0){ 
+                                // console.log("address==",address);
+                                return(  
                                         <div key={ 'address'+index} className="col-12 col-lg-6 col-md-6  py-3">
-
-                                       
                                             <div className="col-12 text-center">
-                                                
                                                     <p className={"text-justify "+Style.addressInnerDescWrapper}> {address.name}
                                                         <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {address.addressLine1}
                                                         <br /> {/* {this.state.city},
@@ -223,5 +245,13 @@ class AddressBook extends Component{
         )
     }
 }
+const mapStateToProps = state => (
+    {
+        recentAddressData: state.data.recentAddressData,
+    }
+);
+const mapDispatchToProps = {
+    fetchAddressData: getAddressData
+};
 
-export default AddressBook;
+export default connect(mapStateToProps, mapDispatchToProps)(AddressBook);
