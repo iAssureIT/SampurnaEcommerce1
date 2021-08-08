@@ -112,11 +112,13 @@ class EditUserProfile extends Component {
 		var userid = this.state.UserId;
 		axios.get('/api/users/get/' + userid)
 			.then((res) => {
+
 				this.setState({
 					firstName: res.data.firstname,
 					lastName: res.data.lastname,
 					username: res.data.email,
-					mobNumber: res.data.mobile
+					mobNumber: res.data.mobile,
+					employeeID: res.data.employeeID
 				})
 			})
 			.catch((error) => {
@@ -169,6 +171,15 @@ class EditUserProfile extends Component {
 															<input type="text" disabled value={this.state.username} onChange={this.handleChange} className="form-control" ref="username" name="username" required />
 														</div>
 													</div>
+													<div className="form-margin col-lg-6 col-md-6 col-xs-6 col-sm-6">
+														<label className="col-lg-12 col-sm-12 col-xs-12 col-md-12 NOpadding" style={{"marginBottom" : "15px"}}>Employee ID </label>
+														<div className="col-lg-12 col-sm-12 col-xs-12 col-md-12 NOpadding" id="employeeIDErr">
+															<input type="text" disabled value={this.state.employeeID} className="form-control" ref="employeeID" name="employeeID" required />
+														</div>
+													</div>
+												</div>
+												<div className="col-lg-12 col-sm-12 col-xs-12 col-md-12 NOpadding">
+													
 													<div className="form-margin col-lg-6 col-sm-6 col-xs-6 col-md-6">
 														<label className="col-lg-12 col-sm-12 col-xs-12 col-md-12 NOpadding">Mobile Number <label className="requiredsign">*</label></label>
 														<div className="col-lg-12 col-sm-12 col-xs-12 col-md-12 NOpadding" max="12"  id="mobNumberErr">

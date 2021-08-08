@@ -26,6 +26,7 @@ const userSchema = mongoose.Schema({
 					{
 						company_id 				: { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },
 						companyID 				: Number,
+						employeeID 				: Number,
 						companyName  			: String,
 						firstname 				: String,
 						lastname  				: String,

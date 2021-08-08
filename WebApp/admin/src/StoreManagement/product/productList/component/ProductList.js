@@ -44,7 +44,8 @@ class ProductList extends Component {
             startRange: 0,
             limitRange: 10,
             selector: {},
-            unCheckedProducts: false
+            unCheckedProducts: false,
+            isLoadingData : false
         };
         window.scrollTo(0, 0);
     }
@@ -195,7 +196,7 @@ class ProductList extends Component {
             })
     }
     getData(startRange, limitRange) {
-        this.setState({ messageData: {} })
+        this.setState({ messageData: {}, isLoadingData : true })
         var data = {
             startRange: startRange,
             limitRange: limitRange
@@ -223,7 +224,8 @@ class ProductList extends Component {
 
 
                 this.setState({
-                    tableData: tableData
+                    tableData: tableData,
+                    isLoadingData : false
                 })
             })
             .catch((error) => {
@@ -252,12 +254,13 @@ class ProductList extends Component {
         this.getData(this.state.startRange, this.state.limitRange);
     }
     getSearchText(searchText) {
-
+        this.setState({isLoadingData : true})
         axios.get("/api/products/get/adminsearch/" + searchText)
             .then((response) => {
                 this.setState({
                     tableData: response.data,
-                    dataCount: response.data.length
+                    dataCount: response.data.length,
+                    isLoadingData : false
                 });
             })
             .catch((error) => {
@@ -305,7 +308,7 @@ class ProductList extends Component {
         selector.limitRange = this.state.limitRange
 
 
-        this.setState({ selector: selector })
+        this.setState({ selector: selector,isLoadingData : true })
         this.filterProductCount(selector);
 
         // console.log("Selector Value = ",this.state.selector);
@@ -330,7 +333,8 @@ class ProductList extends Component {
 
 
                 this.setState({
-                    tableData: tableData
+                    tableData: tableData,
+                    isLoadingData : false
                 },()=>{
                      this.productCountByStatus();
                 })
@@ -602,9 +606,9 @@ class ProductList extends Component {
                                     </div> 
                                     
                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        {
+                                        {/*{
                                             this.state.tableData 
-                                            ?
+                                            ?*/}
                                                 <IAssureTable
                                                     tableHeading={this.state.tableHeading}
                                                     twoLevelHeader={this.state.twoLevelHeader}
@@ -617,10 +621,11 @@ class ProductList extends Component {
                                                     setunCheckedProducts={this.setunCheckedProducts.bind(this)}
                                                     unCheckedProducts={this.state.unCheckedProducts}
                                                     saveProductImages={this.saveProductImages.bind(this)}
+                                                    isLoading          = {this.state.isLoadingData}
                                                 />
-                                            :
+                                            {/*:
                                                 <div className="col-lg-6 col-lg-offset-3"> <img src="/images/data-loading.gif" /> </div>
-                                        }
+                                        }*/}
                                     </div>
                                 </div>
                             </div>

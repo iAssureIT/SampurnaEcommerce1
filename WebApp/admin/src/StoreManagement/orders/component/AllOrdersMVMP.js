@@ -56,7 +56,9 @@ class AllOrdersList extends Component{
 			"limitRange"        : 10,
 			"tableName"         : 'AllOrders',
 			tableData 			: [],
-			activeStatus 		: ""
+			activeStatus 		: "",
+			isLoadingData     : false,
+
 		};
 		this.openChangeStatusModal 		= this.openChangeStatusModal.bind(this);
 		this.changeVendorOrderStatus    = this.changeVendorOrderStatus.bind(this);
@@ -230,6 +232,7 @@ class AllOrdersList extends Component{
 
 	/**=========== getData() ===========*/
 	async getData(startRange, limitRange){
+		this.setState({isLoadingData : true})
 		var formValues = await {
 		  startRange : startRange,
 		  limitRange : limitRange,
@@ -315,7 +318,8 @@ class AllOrdersList extends Component{
 			})
 			// console.log("tableData",tableData);
 			this.setState({
-				tableData : tableData
+				tableData 		: tableData,
+				isLoadingData 	: false,
 			},()=>{})
 		})
 		// .catch((error)=>{
@@ -439,6 +443,7 @@ class AllOrdersList extends Component{
 													tableObjects          = {this.state.tableObjects}
 													// getSearchText         = {this.getSearchText.bind(this)} 
 													tableName             = {this.state.tableName}
+													isLoading 				= {this.state.isLoadingData}
 												/>
 											</div>
 										</div>

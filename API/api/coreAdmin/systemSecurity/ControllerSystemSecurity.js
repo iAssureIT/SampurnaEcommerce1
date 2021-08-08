@@ -28,6 +28,9 @@ exports.user_signup_user = (req, res, next) => {
 			username = "MOBILE";
 		}
 	}
+	signUpFunction();
+    async function signUpFunction(){
+        var nextEmployeeID = await getNextEmployeeID();
 	if(username==="EMAIL"){
 		if(req.body.email && req.body.pwd && req.body.role){
 			var emailId  	= req.body.email;
@@ -70,6 +73,7 @@ exports.user_signup_user = (req, res, next) => {
 													username: emailId.toLowerCase(),
 													authService : req.body.authService,
 													profile: {
+														employeeID : nextEmployeeID,
 														firstname: req.body.firstname,
 														lastname: req.body.lastname,
 														fullName: req.body.firstname + ' ' + req.body.lastname,
@@ -211,6 +215,7 @@ exports.user_signup_user = (req, res, next) => {
 													authService : req.body.authService,
 													profile:
 													{
+														employeeID : nextEmployeeID,
 														firstname: req.body.firstname,
 														lastname: req.body.lastname,
 														fullName: req.body.firstname + ' ' + req.body.lastname,
@@ -307,8 +312,38 @@ exports.user_signup_user = (req, res, next) => {
 		} else {
 			res.status(200).json({ message: "Email, pwd and role are mandatory" });
 		}
+	}
 	}	
 };
+
+function getNextEmployeeID() {
+    return new Promise((resolve,reject)=>{
+    User.findOne()    
+        .sort({"profile.employeeID" : -1})   
+        .exec()
+        .then(data=>{
+        	console.log("data => ",data)
+            if (data && data !== null) { 
+            	if(data.profile.employeeID && data.profile.employeeID !== undefined){
+	                var seq = data.profile.employeeID;
+	                console.log("seq 1 => ",seq)
+	                seq = seq+1;
+	                console.log("seq 2 => ",seq)
+	                resolve(seq) 
+	            }else{
+	            	resolve(1)
+	            }
+            }else{
+               resolve(1)
+            }
+            
+        })
+        .catch(err =>{
+            reject(0)
+        });
+    });
+}
+
 
 exports.user_signup_user_otp = (req, res, next) => {
 	console.log("req body",req.body);
@@ -823,8 +858,8 @@ exports.user_login_using_email = (req, res, next) => {
 	
 	var emailId = (req.body.email).toLowerCase(); 
 	var role  	= (req.body.role).toLowerCase();
-	// console.log("emailId => ", emailId);
-	// console.log("role => ", role);
+	console.log("emailId => ", emailId);
+	console.log("role => ", role);
 	User.findOne({
 		"username" 	: emailId,
 		"roles" 		: role,
@@ -1783,7 +1818,8 @@ exports.set_send_emailotp_usingEmail = (req, res, next) => {
 		if(user){
 			console.log('user status====',user.profile.status)
  			if ((user.profile.status).toLowerCase() === "active") {
- 				var optEmail = getRandomInt(1000, 9999);
+ 				// var optEmail = getRandomInt(1000, 9999);
+ 				var optEmail = 1234;
 				console.log("optEmail", optEmail, req.body);
 				User.updateOne(
 					{ "profile.email": req.params.emailId },

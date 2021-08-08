@@ -1013,6 +1013,7 @@ exports.fetch_user_ID = (req,res,next)=>{
 					"_id"		: data._id,
 					"firstname" : data.profile.firstname,
 					"lastname"	: data.profile.lastname,
+					"employeeID"	: data.profile.employeeID,
 					"companyID"	: data.profile.companyID,
 					"companyName"	: data.profile.companyName,
 					"deliveryAddress"	: data.deliveryAddress,
@@ -1385,7 +1386,7 @@ exports.fetch_users_Companies = (req,res,next)=>{
 	}
 };
 exports.fetch_users_roles = (req,res,next)=>{
-	// console.log("re============>",req.body);
+	console.log("re============>",req.body);
 	var companyID =req.body.companyID;
     var role = req.params.role;
 	// User.find({roles:req.params.role})

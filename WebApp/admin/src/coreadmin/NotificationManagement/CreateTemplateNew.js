@@ -522,8 +522,8 @@ class CreateTemplateNew extends Component {
               <h4 className="weighttitle col-lg-9 col-md-9 col-xs-11 col-sm-11">Create Template</h4>
               
 			  <ul className="nav tabNav nav-pills col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right">
-                <li className="active col-lg-5 col-md-5 col-xs-5 col-sm-5 NOpadding text-center"><a data-toggle="pill" className="bulkBtn btnRadius" href="#manual">Manual</a></li>
-                <li className="col-lg-6 col-md-6 col-xs-6 col-sm-6 NOpadding text-center disabledButton"><a data-toggle="pill" className="bulkBtn btnRadius" href="#bulk">Bulk Upload</a></li>
+                {/*<li className="active col-lg-5 col-md-5 col-xs-5 col-sm-5 NOpadding text-center"><a data-toggle="pill" className="bulkBtn btnRadius" href="#manual">Manual</a></li>
+                <li className="col-lg-6 col-md-6 col-xs-6 col-sm-6 NOpadding text-center disabledButton"><a data-toggle="pill" className="bulkBtn btnRadius" href="#bulk">Bulk Upload</a></li>*/}
               </ul>
             </div>
             

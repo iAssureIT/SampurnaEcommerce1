@@ -887,7 +887,7 @@ class CreateUser extends Component {
                                               }
                           </div>
                           <div className="form-margin col-lg-6 col-md-6 col-xs-12 col-sm-12  valid_box">
-                            <label>State </label>
+                            <label>Emirate </label>
                             <input type="text"
                               className="form-control"
                               id="states" ref="states"

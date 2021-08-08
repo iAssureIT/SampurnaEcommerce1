@@ -1009,6 +1009,8 @@ class BasicInfo extends Component {
 									</div>
 								</div>
 					  		</div>*/}
+					  		{this.state.pathname !== "appCompany" 
+					  		?
 							<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 NOpadding">
 								<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 imageLabel">shop Image</label>
 							  	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding ">
@@ -1042,6 +1044,9 @@ class BasicInfo extends Component {
 									</div>								
 							  	</div>
 							</div>
+							:
+								null
+							}
 							{/*<div className="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">*/}
 
 							  {/*{

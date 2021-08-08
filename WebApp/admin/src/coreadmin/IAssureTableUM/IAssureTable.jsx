@@ -1097,7 +1097,7 @@ class IAssureTableUM extends Component {
 					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 						<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding form-control">
 							<option value="Not Selected" disabled>Select Limit</option>
-							<option value={5}>5</option>
+							{/*<option value={5}>5</option>*/}
 							<option value={10}>10</option>
 							<option value={20}>20</option>
 							<option value={25}>25</option>

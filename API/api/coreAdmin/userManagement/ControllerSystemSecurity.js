@@ -666,10 +666,11 @@ exports.fetch_users = (req,res,next)=>{
 		});
 };
 exports.fetch_users_roles = (req,res,next)=>{
+	console.log(" => ",req.params.role)
 	var limitRange    = 10;
     var countNum2   = limitRange * req.params.pageno;
     var startRange  = countNum2 - limitRange;
-	User.find({roles:req.params.role})
+	User.find({roles : req.params.role})
 		.select("profile.firstname profile.lastname profile.status profile.fullName roles profile.emailId profile.mobNumber profile.clientId")
 		.sort({createdAt : -1})
         // .skip(startRange)

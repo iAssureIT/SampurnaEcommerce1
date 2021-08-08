@@ -30,7 +30,7 @@ class ResetPassword extends Component {
 		}
 		if($('#resetPassword').valid()){
 			$('.fullpageloader').show();
-			axios.patch('/api/auth/patch/change_password_withoutotp/id/'+userID, formValues)
+			axios.patch('/api/auth/patch/change_password_using_otp/id/'+userID, formValues)
 			.then((response)=>{
 				$('.fullpageloader').hide();
 				this.setState({

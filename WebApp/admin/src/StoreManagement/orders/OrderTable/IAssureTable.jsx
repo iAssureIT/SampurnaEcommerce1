@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 import _                      from 'underscore';
 import S3FileUpload           from 'react-s3';
+import Loader                 		from "react-loader";
 
 var sum = 0;
 class IAssureTable extends Component {
@@ -26,6 +27,7 @@ class IAssureTable extends Component {
 		    "tableHeading"				: props && props.tableHeading ? props.tableHeading : {},
 		    "twoLevelHeader" 			: props && props.twoLevelHeader ? props.twoLevelHeader : {},
 		    "tableObjects" 				: props && props.tableObjects ? props.tableObjects : {},		    
+		    isLoading               : props.isLoading,
 		    "reA" 						: /[^a-zA-Z]/g,
 		    "reN" 						: /[^0-9]/g,
 		    "sort" 	  					: true,
@@ -802,7 +804,37 @@ class IAssureTable extends Component {
 	                            </tr>
 	                        </thead>
 	                        <tbody>
-	                           { this.state.tableData && this.state.tableData.length > 0 ?
+	                        { 	this.state.isLoading
+                        	?
+                        		<tr className="trAdmin">
+                           		<td colSpan={Object.keys(this.state.tableHeading).length+1} className="noTempData textAlignCenter">
+                           			<div id="tableLoaderDiv">  
+						                    	<Loader
+						                        loaded          = {false}
+						                        lines           = {13}
+						                        length          = {20}
+						                        width           = {8}
+						                        radius          = {10}
+						                        corners         = {1}
+						                        rotate          = {0}
+						                        direction       = {1}
+						                        color           = "#a5d8ff"
+						                        speed           = {1}
+						                        trail           = {60}
+						                        shadow          = {false}
+						                        hwaccel         = {false}
+						                        className       = "spinner"
+						                        zIndex          = {2e9}
+						                        top             = "55%"
+						                        left            = "50%"
+						                        scale           = {1.0}
+						                        loadedClassName = "loadedContent"
+						                    	/> 
+						                	</div>
+                           		</td>
+                        		</tr>
+                        	:
+                        	this.state.tableData && this.state.tableData.length > 0 ?
 	                           		this.state.tableData.map((value, i)=> {	
 										// console.log("value vendors => ",value.vendors);	
 										// console.log("value",value);
