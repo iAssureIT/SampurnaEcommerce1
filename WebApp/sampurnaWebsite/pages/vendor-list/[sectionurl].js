@@ -58,7 +58,7 @@ class VendorList extends Component {
             axios.post("/api/vendorlist/post/vendor/list",formValues)
             .then((vendorResponse) => {
                 if(vendorResponse){
-                    console.log("vendorResponse===",vendorResponse);
+                    // console.log("vendorResponse===",vendorResponse);
                     this.setState({
                         "vendorList" : vendorResponse.data,
                         "loading"    : false

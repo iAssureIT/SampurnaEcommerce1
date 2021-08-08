@@ -60,54 +60,48 @@ class SearchProduct extends Component {
         }
   }
   render(){
-    // var url = window.location.href.split('/');
-    //   if(url){
-    //     this.setState({"searchProduct": url[4]},()=>{
-    //     })
-    //   }
-      console.log("serach props===",this.props);
       return (
         <div className="row">
           < Header />
           {/* <Message messageData={this.state.messageData} />  */}
           <div className={" container mt-5 "+Style.searchProductWrapper}> 
-              {this.props.searchData.data ?
-                <div className="row">
-                  {/* <div className="col-12 text-center mb-5">{ this.props.searchData.data.length +" Results found " +"'"+this.state.searchProduct +"'"}</div> */}
-                  <div className="col-12 text-center mb-5">{ this.props.searchData.data.length +" Results found "}</div>
-                  { Array.isArray(this.props.searchData.data) && this.props.searchData.data.length > 0 ?
-                    Array.isArray(this.props.searchData.data) && this.props.searchData.data.map((data, index) => {            
-                      return (
-                        <div className={" col-3 "}  key={index}> 
-                          {data
-                          ?
-                            < SingleProduct 
-                              data = {data} 
-                              productSettings   = {this.state.productSettings}
-                              userLatitude      = {this.state.deliveryLocation.latitude}
-                              userLongitude     = {this.state.deliveryLocation.longitude}
-                              user_ID           = {this.state.user_ID}
-                              vendor_ID         = {data.vendor_ID}
-                              vendorlocation_ID = {data.vendorLocation_id}
-                            />
-                          :
-                            null
-                          }
-                        </div>                            
-                      );
-                    })
-                  :null}
-                </div>
-              :
-                <div className =" col-12 mb-5 text-center">
-                    <h6>Opps... Sorry... No Products Available. Please search your product</h6>
-                </div>
-              }
-            
+              <div className="col-12">
+                {this.props.searchData.data ?
+                  <div className="row">
+                    {/* <div className="col-12 text-center mb-5">{ this.props.searchData.data.length +" Results found " +"'"+this.state.searchProduct +"'"}</div> */}
+                    <div className="col-12 text-center mb-5">{ this.props.searchData.data.length +" Results found "}</div>
+                    { Array.isArray(this.props.searchData.data) && this.props.searchData.data.length > 0 ?
+                      Array.isArray(this.props.searchData.data) && this.props.searchData.data.map((data, index) => {            
+                        return (
+                          <div className={" col-3 "}  key={index}> 
+                            {data
+                            ?
+                              < SingleProduct 
+                                data = {data} 
+                                productSettings   = {this.state.productSettings}
+                                userLatitude      = {this.state.deliveryLocation.latitude}
+                                userLongitude     = {this.state.deliveryLocation.longitude}
+                                user_ID           = {this.state.user_ID}
+                                vendor_ID         = {data.vendor_ID}
+                                vendorlocation_ID = {data.vendorLocation_id}
+                              />
+                            :
+                              null
+                            }
+                          </div>                            
+                        );
+                      })
+                    :null}
+                  </div>
+                :
+                  <div className =" col-12 mb-5 text-center">
+                      <h6>Opps... Sorry... No Products Available. Please search your product</h6>
+                  </div>
+                }
+              </div>
           </div>
           <Footer />
         </div>
-     
      ) 
     }
 }

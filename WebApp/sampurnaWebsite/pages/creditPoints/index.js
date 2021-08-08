@@ -85,7 +85,7 @@ class CreditPoints extends Component{
                         </thead>
                         <div className="container-flex">
                             {this.state.creditdata.transactions && this.state.creditdata.transactions.length>0 && this.state.creditdata.transactions.map((data,index)=>{
-                                // console.log("credit data===",this.state.creditdata.transactions);
+                              
                                 return(
                                     data &&
                                     <div className={"col-12 mt-4 py-2 "+ Style.CreditPointInnerBox}key={index}>
@@ -97,8 +97,8 @@ class CreditPoints extends Component{
                                             <div className={" "+Style.CreditCurrentBalTitle2}>[Order ID - {data.orderID}]</div>
                                             <div className={" "+Style.CreditCurrentBalTitle2}>[Expiry Date]  [{moment(data.expiryDate).format('MM/DD/YYYY')}]</div>
                                         </div>
-                                        
-                                        <div className={"col-4 my-auto px-lg-5 text-lg-right text-center "+Style.CreditEarnedBalTitle1}>+{data.earnedPoints}</div>
+                                        <div className={"col-4 my-auto px-lg-5 text-lg-right text-center "+Style.CreditEarnedBalTitle1}>{parseInt(data.earnedPoints) < 0 ? data.earnedPoints : <span>+{data.earnedPoints}</span> }</div>
+                                        {/* <div className={"col-4 my-auto px-lg-5 text-lg-right text-center "+Style.CreditEarnedBalTitle1}>{parseInt(data.earnedPoints) > 0 ? data.earnedPoints : <span>-{data.earnedPoints}</span> }</div> */}
                                     </div>
                                     </div> 
                                 )}

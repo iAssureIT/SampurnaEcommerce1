@@ -47,7 +47,7 @@ class HeaderBars2 extends ValidationComponent {
   getNotificationList(){
     AsyncStorage.multiGet(['token', 'user_id'])
       .then((data) => {
-        console.log("data",data);
+        // console.log("data",data);
           var token = data[0][1]
           var user_id = data[1][1]
             axios.get('/api/notifications/get/list/Unread/' + user_id)

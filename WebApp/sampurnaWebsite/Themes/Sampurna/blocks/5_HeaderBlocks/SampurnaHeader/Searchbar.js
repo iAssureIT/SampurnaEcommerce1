@@ -95,15 +95,15 @@ class Searchbar extends React.Component {
       }
       getRelatedSearches1(event){
         var searchText = this.refs.tableSearch.value.trim();
-        console.log("searchText==",searchText);
+        // console.log("searchText==",searchText);
         if(searchText !== null){  
-          console.log("searchText===",searchText);   
+        //   console.log("searchText===",searchText);   
           var payload ={"searchText":searchText}
-          console.log("payload==",payload);
+        //   console.log("payload==",payload);
           if(payload){
             axios.post("/api/products/get/search/suggestion",payload)
             .then((searchResponse)=>{
-                console.log("searchResponse==",searchResponse);
+                // console.log("searchResponse==",searchResponse);
                 if(searchResponse){
                     console.log("searchResponse==",searchResponse.data);
                     this.setState({
@@ -144,9 +144,9 @@ class Searchbar extends React.Component {
    render(){
         var colWithLogin;
        if(this.state.user_ID && this.state.authService !=="Guest"){
-          colWithLogin = 7;
+            colWithLogin = 7;
        }else{
-        colWithLogin = 7;
+            colWithLogin = 7;
        }
         return(  
             // <div className={"col-10 mobileViewSearch col-sm-"+colWithLogin}>     

@@ -104,11 +104,9 @@ export function getCartData() {
               if(response.data && response.data.vendorOrders && response.data.vendorOrders.length>0){
                 for(let i=0;i<response.data.vendorOrders.length;i++){
                     if(response.data.vendorOrders[i].vendor_netPayableAmount < response.data.minOrderAmount){
-                      
                       var cartBtnDisabled = true;
                       response.data.vendorOrders[i].invalidOrder = "cartWarning";
                       response.data.vendorOrders[i].cartBtnDisabled = true;
-                      
                     }
                     for(let j=0;j<response.data.vendorOrders[i].cartItems.length;j++){
                       if(response.data.vendorOrders[i].cartItems[j].product_ID.availableQuantity===0){
