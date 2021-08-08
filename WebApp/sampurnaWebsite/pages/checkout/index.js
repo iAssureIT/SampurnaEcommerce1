@@ -23,7 +23,6 @@ import WebsiteLogo from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHea
 import Style from './index.module.css';
 import ReactTooltip from 'react-tooltip';
 
-
 class Checkout extends Component {
     constructor(props) {
         super(props);
