@@ -74,16 +74,16 @@ class Searchbar extends React.Component {
         var formValues = {
             "searchstr"         : this.state.searchText,
             "user_id"           : this.state.user_ID,
-            "limit"             : 20,
+            "limit"             : 100,
             "userLatitude"      : this.state.latitude,
             "userLongitude"     : this.state.longitude
         }
-        console.log("formValues==",formValues);
+        // console.log("formValues==",formValues);
         if(formValues){
             axios.post("/api/products/get/search/website",formValues)
             .then((searchProductRes)=>{
                 if(searchProductRes){
-                    console.log("searchProductRes===",searchProductRes);
+                    // console.log("searchProductRes===",searchProductRes);
                     Router.push('/search-product/'+this.state.searchText);
                     store.dispatch(setSearchDetails(searchProductRes)) ;
                 }
@@ -155,7 +155,7 @@ class Searchbar extends React.Component {
                     <div className="row mt3 tableSearchWrapper"> 
                         <input type="text" placeholder="Search the items" id="browsers"
                         list="datalist"
-                        // onKeyPress={this.searchProducts.bind(this)} 
+                        onKeyPress={this.searchProducts.bind(this)} 
                         // onClick={this.searchProducts.bind(this)}
                         onChange={this.getRelatedSearches.bind(this)} 
                         className="form-control tableSearch col-12" ref="tableSearch" id="tableSearch" name="tableSearch" />

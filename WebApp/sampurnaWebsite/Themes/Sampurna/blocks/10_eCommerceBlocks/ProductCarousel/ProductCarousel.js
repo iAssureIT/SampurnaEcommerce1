@@ -902,7 +902,7 @@ submitCart(event) {
                             <div className={"col-12 "}>
                               <div className={"col-6 float-right col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding  "+Style.sortPbWrapper}>     
                                 <div className="form-group">
-                                    <label className={"labelform d-block d-lg-block d-xl-block d-sm-block col-12 NoPadding  " +Style.f14}>Sort Product By<span className="astrick"></span></label>
+                                    <label className={"labelform d-block d-lg-block d-xl-block d-sm-block col-12 NoPadding  " +Style.f14}>Sort By<span className="astrick"></span></label>
 
                                     <Select
                                         value={effect}
