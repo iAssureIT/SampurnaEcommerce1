@@ -59,7 +59,7 @@ class VendorList extends Component {
             axios.post("/api/vendorlist/post/vendor/list",formValues)
             .then((vendorResponse) => {
                 if(vendorResponse){
-                    console.log("vendorResponse===",vendorResponse);
+                    // console.log("vendorResponse===",vendorResponse);
                     this.setState({
                         "vendorList" : vendorResponse.data,
                         "loading"    : false
@@ -72,11 +72,6 @@ class VendorList extends Component {
         }
       }
     render() {
-        var VendorImage = {
-            backgroundImage: "url(" + "/images/eCommerce/vendorCard.jpg" + ")",
-            // backgroundImage: "url(" + this.state.vendordata + ")",
-
-          };
         return(
             <div className={ Style.bgGray}>
                 <Header /> 
@@ -98,12 +93,14 @@ class VendorList extends Component {
                                 </div>
                                 { Array.isArray(this.state.vendorList) && this.state.vendorList.length >0?
                                         this.state.vendorList.map((vendordata, index)=>{
+                                            var VendorImage = {
+                                                // backgroundImage: "url(" + "/images/eCommerce/vendorCard.jpg" + ")",
+                                                backgroundImage: "url(" + vendordata.vendorShopImage + ")",
+                                              };
                                             return(
                                                 <div className="col-lg-6 col-12 col-sm-6" key={index}>
                                                     <div className="col-12">
                                                         <div className={"col-12  card mt-2 mb-4 " +Style.vendorCard }style={VendorImage}>
-                                                        {/* <img className={ "col-12 NoPadding "+Style.shopImg} src={vendordata.vendorShopImage}></img> */}
-                                                        {/* <img className={ "col-12 NoPadding "+Style.shopImg} src="/images/eCommerce/vendorCard.jpg"></img> */}
                                                         <Link href={"/products/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+this.state.sectionurl} className={+Style.vedorLink}>
                                                             <div className={"row card-body " +Style.cardBody}>
                                                                 <div className={ "col-3 NoPadding "+Style.vendorLogo}>
@@ -139,8 +136,8 @@ class VendorList extends Component {
                         <div className="col-12">
                             { Array.isArray(this.state.vendorList) && this.state.vendorList.length >10?
                                 <div className="col-12">
-                                    <div className={"col-12 " +Style.moreBtn}>
-                                        <button className={"btn col-1 " +Style.blueBTN}>More</button>
+                                    <div className={"col-8 mx-auto " +Style.moreBtn}>
+                                        <button className={"btn btn-secondary col-2 mx-auto " +Style.blueBTN1}>More</button>
                                     </div>                      
                                 </div>
                             :

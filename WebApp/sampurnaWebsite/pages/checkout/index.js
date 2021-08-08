@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import $, { post } from 'jquery';
 import jQuery from 'jquery';
 import Link from 'next/link';
-
 import axios from 'axios';
 import Router from 'next/router';
 import Loaderspinner from 'react-loader-spinner';

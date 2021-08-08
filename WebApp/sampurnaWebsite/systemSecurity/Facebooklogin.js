@@ -5,7 +5,6 @@ import axios 				from 'axios';
 import Image 				from 'next/image';
 import FacebookLogin 		from 'react-facebook-login';
 
-
 class Facebooklogin extends Component{
 	constructor(props){
 		super(props);
@@ -15,6 +14,9 @@ class Facebooklogin extends Component{
 			"emaiil"  : "",
 			"picture" : "",
 		}
+	}
+	componenClicked = ()=>{
+		console.log("Clicked")
 	}
 
 	responseFacebook(response){
@@ -70,6 +72,7 @@ class Facebooklogin extends Component{
 					fields		= "name,email,picture"
 					scope		= "public_profile,email"
 					callback	= {this.responseFacebook}
+					onClick     = {this.componenClicked}
 					className	= "facebookBtnWrapper"
 					language	= "en_US"
 				/>
