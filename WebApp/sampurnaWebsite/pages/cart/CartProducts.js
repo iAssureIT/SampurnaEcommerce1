@@ -359,7 +359,7 @@ class CartProducts extends Component {
     render() {
         console.log("this.props.recentCartData===",this.props.recentCartData);
         return (
-            <div className="col-12 ">
+            <div className="col-12 cartHeightWrapper">
                 <div className="col-12  ">
                     <div className="col-12  pl-0">
                         <div className="col-12 cartHeight">

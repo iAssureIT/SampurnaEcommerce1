@@ -396,22 +396,22 @@ export default class MyOrders extends Component {
                                         </div>
 
                                         {vendordata.orderStatus === "Cancelled" &&
-                                          <span className={"  orderStatusBadge badge badge-danger NoPadding " + Style.orderStatusBadge2}><span className={" "+Style.statusTextWrapper}>{vendordata.orderStatus}</span></span>
+                                          <span className={"  orderStatusBadge mx-auto badge badge-danger NoPadding " + Style.orderStatusBadge2}><span className={" "+Style.statusTextWrapper}>{vendordata.orderStatus}</span></span>
                                         }
                                         {vendordata.orderStatus === "New" &&
-                                          <span className={"  orderStatusBadge badge  NoPadding " + Style.orderStatusBadge1}><span className={" "+Style.statusTextWrapper}>{"Processing"}</span></span>
+                                          <span className={"  orderStatusBadge mx-auto badge  NoPadding " + Style.orderStatusBadge1}><span className={" "+Style.statusTextWrapper}>{"Processing"}</span></span>
                                         }
                                         {vendordata.orderStatus === "Processing" &&
-                                          <span className={"  orderStatusBadge badge  NoPadding " + Style.orderStatusBadge1}><span className={" "+Style.statusTextWrapper}>{"Processing"}</span></span>
+                                          <span className={"  orderStatusBadge mx-auto badge  NoPadding " + Style.orderStatusBadge1}><span className={" "+Style.statusTextWrapper}>{"Processing"}</span></span>
                                         }
                                         {vendordata.orderStatus === "On the Way" &&
-                                          <span className={"  orderStatusBadge badge badge-primary NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
+                                          <span className={"  orderStatusBadge mx-auto badge badge-primary NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
                                         }
                                         {vendordata.orderStatus === "Ready to Dispatch" &&
-                                          <span className={"  orderStatusBadge badge badge-primary  NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
+                                          <span className={"  orderStatusBadge mx-auto badge badge-primary  NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
                                         }
                                         {vendordata.orderStatus === "Delivered" &&
-                                          <span className={"  orderStatusBadge badge badge-success NoPadding " + Style.orderStatusBadge}><span className={" "+Style.statusTextWrapper}>{vendordata.orderStatus}</span></span>
+                                          <span className={"  orderStatusBadge mx-auto badge badge-success NoPadding " + Style.orderStatusBadge }><span className={" "+Style.statusTextWrapper}>{vendordata.orderStatus}</span></span>
                                         }
 
                                       </div>
@@ -438,6 +438,7 @@ export default class MyOrders extends Component {
                                 <button className=" btn col-lg-6 col-6 col-sm-4 float-right " onClick={() => this.props.getOrderId(singleOrder._id)}>
                                   <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-lg-9 float-right showDetailsBtn "} >Show Details</a>
                                   {/* <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account#v-pills-settings2-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings2-tab"><a>orderStatus</a></Link></li> */}
+                                  {/* <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings2"><a>My Profile</a></Link></li> */}
 
                                 </button>
                               </div>

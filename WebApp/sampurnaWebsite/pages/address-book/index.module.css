@@ -59,6 +59,37 @@
 
     color: black;
   }
+  .modalHeaderM {
+    background-color       : #033554;
+    border-bottom          : 0px !important;
+    border-top-left-radius : 19px !important;
+    border-top-right-radius: 19px !important;
+    padding-bottom         : 45px !important;
+}
+.modalCloseButtonWrapperM {
+    margin-left: -27px !important;
+    cursor     : pointer !important;
+    margin-top : -25px !important;
+    font-size  : 24px !important;
+}
+.f14BM p {
+    font-size     : 12px !important;
+    /* font-weight: bold; */
+    margin-top    : 15px;
+    margin-left   : 71%;
+    position      : absolute;
+
+}
+.modalLogoWrapperM {
+    position   : absolute;
+    height     : 29px !important;
+    margin-left: -10px;
+    margin-top : 11px !important;
+}
+.modalContentM {
+    border-radius: 25px !important;
+    margin-bottom: 45px !important;
+}
 
   @media (min-width: 1200px) {
     .CreditTotalPtTitle {

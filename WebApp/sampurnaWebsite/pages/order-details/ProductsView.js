@@ -510,7 +510,7 @@ uploadImage(event) {
     console.log("productdetails this.props ===",this.props);
     return (
       <div className="col-12 ">
-      <div className="col-12 ">
+      <div className="col-12 d-none d-lg-block d-xl-block">
      
         <Message messageData={this.state.messageData} />
         <table className={"table table-borderless orderTable " + Style.table}>
@@ -569,6 +569,312 @@ uploadImage(event) {
                                   
                           }
                       </td>
+                    <td className="textAlignCenter">
+                      {
+                        <span className=" textAlignRight">{productdata.quantity}</span>
+
+                      }
+                    </td>
+                    <td className="textAlignRight">
+                      {
+                        <span className="productPrize textAlignRight">
+                          {this.props.currency}
+                          &nbsp;{productdata.discountedPrice.toFixed(2)}
+                        </span>
+                      }
+
+                      {this.props.orderStatus === "Delivered" ?
+                        <span>
+                          {productdata.isReview ?
+                            <div className={" " + Style.returnReviewBtn} productId={productdata.product_ID} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Edit Review</div>
+                            :
+                            <div className={" " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Add Review</div>
+                          }
+                          {/* {productdata.productReturnable === "returnable"  && productdata.productStatus? */}
+                          {productdata.productStatus ?
+                            <div className={" " + Style.returnReviewBtn} productId={productdata.product_ID} >{productdata.productStatus}</div>
+                            :
+                            <div className={" " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#returnModal_" + productdata.product_ID}>return</div>
+                          }
+                        </span>
+                        : null
+                      }
+                      {/* Review and Rating */} 
+                      <div className="modal fade feedBackModal" id={"reviewModal_" + productdata.product_ID} role="dialog" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-dialog-centered ">
+                          <div className="modal-content modalContent " style={{ 'background': '#fff' }}>
+                          <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
+                            <div className="col-12">
+                              <div className="row mt-2">
+                                <div className="col-4 NoPadding mt-2">
+                                  < WebsiteLogo />
+                                </div>
+                                <div className="col-7 text-center">
+                                  {/* <h6 className="modal-title mt-2 modalheadingcont"> Product Review</h6> */}
+                                </div>
+                                <div className="col-1 text-center">
+                                  <button type="button" className="close closeModal pull-right" data-dismiss="modal">&times;</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="modal-body addressModalBody">
+                            <div className="col-12 mt-2 ">
+                              <div className="row">
+                                <div className="col-3 NoPadding orderimgsize" style={{height:'100px'}}>
+                                  <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" />
+                                </div>
+                                <div className="col-5 ">
+                                    <div className={"col-12 NoPadding text-left " +Style.reviewProName}>{productdata.productName}</div>
+                                    <div className={"col-12 NoPadding text-left " +Style.reviewProPrice}>{this.props.currency} {productdata.discountedPrice.toFixed(2)}</div>
+                                </div>
+                                <div className={"col-3 NoPadding total text-left "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
+                              </div>
+                            </div>
+
+                            <form className="feedbackForm col-12">
+                              <div className="col-8 offset-2 row">
+                                <StarRatingComponent
+                                  name="rate1"
+                                  starCount={5}
+                                  value={this.state.rating}
+                                  onStarClick={this.onStarClick.bind(this)}
+                                />
+                                <div className="clearfix "></div>
+                              </div>
+                              <span className={"col-12 " + Style.errormsg}>{this.state.reviewStarError}</span>
+                              <div className="row inputrow">
+                                <label className={"col-12 mt15 text-left "+Style.feedbackLable}>Leave a feedback...</label>
+                                <div className="col-12 ">
+                                  <textarea rows="5" className={"col-12 "+Style.feedbackBox} onChange={this.handleChangeReview.bind(this)} value={this.state.customerReview} name="customerReview"></textarea>
+                                  <div className={"col-12 text-left NoPadding " + Style.errormsg}>{this.state.errors.customerReview}</div>
+                                </div>
+                              </div>
+                              <div className={"col-12"}>
+                                <div className={"col-2 NoPadding pull-right " +Style.inputWrapper}>
+                                    <input type="file" multiple id="files" className={ Style.hidden +" " +Style.fileInput} onChange={this.uploadImage.bind(this)} title="Choose Image" accept=".jpg,.jpeg,.png"/>
+                                    <div className={" " +Style.uploadReviewImg}></div>
+                                </div>
+                                <div className="col-12 mt-4">
+                                {
+                                    this.state.imgUrl ?
+                                      <div className="col-lg-12 productImgCol">
+                                        <div className={"col-2 NoPadding " + Style.prodImage}>
+                                          <div className="col-12 NoPadding prodImageInner">
+                                            <span className="prodImageCross" title="Delete Image" data-imageurl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
+                                          </div>
+                                          <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail " + Style.reviewImg} style={{ height: '40px' }}></img>
+                                        </div>
+                                        <div className="errorMsg">{this.state.errors.reviewImg}</div>
+                                      </div>
+                                      :
+                                      null
+                                  }
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div className={"modal-footer "+Style.reviewModalFooter}>
+                            <div className="col-6 col-sm-6 col-lg-4 col-xl-4 mx-auto ">
+                              <button className={"btn btn-primary col-12  pull-right "+Style.feedbackBtn} onClick={this.submitReview.bind(this)} vendorlocationid={this.props.vendorWiseOrderData.vendorLocation_id} productid={productdata && productdata.product_ID}
+                              >{productdata.isReview ? 'Update' : 'Submit'}</button>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                      {/* Return product */}
+                      <div className="modal fade feedBackModal" id={"returnModal_" + productdata.product_ID} role="dialog" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-dialog-centered ">
+                          <div className="modal-content modalContent " style={{ 'background': '#fff' }}>
+                            <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
+                              <div className="col-12">
+                                <div className="row mt-2">
+                                  <div className="col-4 NoPadding mt-2">
+                                    < WebsiteLogo />
+                                  </div>
+                                  <div className="col-7 text-center">
+                                    {/* <h6 className="modal-title mt-2x modalheadingcont">Return Product</h6> */}
+                                  </div>
+                                  <div className="col-1 text-center">
+                                    <button type="button" className="close closeModal" data-dismiss="modal">&times;</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="modal-body addressModalBody">
+                              <div className="col-12 mt-2 ">
+                                <div className="row">
+                                  <div className="col-3 NoPadding orderimgsize" style={{height:'100px'}}>
+                                    <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" />
+                                  </div>
+                                  <div className="col-5 ">
+                                      <div className={"col-12 NoPadding text-left " +Style.reviewProName}>{productdata.productName}</div>
+                                      <div className={"col-12 NoPadding text-left " +Style.reviewProPrice}>{this.props.currency} {productdata.discountedPrice.toFixed(2)}</div>
+                                  </div>
+                                  <div className={"col-3 NoPadding total text-left "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
+                                </div>
+                              </div>
+
+                              <form className={"feedbackForm col-12 pt-2 " + Style.returnForm}>
+                                <div className={" col-12 mb-2 text-left NoPadding " + Style.errorMsg} >{this.state.returnProductError}</div>
+                                <label className={"col-12 NoPadding text-left "+Style.feedbackLable}> Reasons For return <span className="errorMsg">  </span></label>
+                                <select onChange={this.selecteReason.bind(this)} className={"col-12 form-control "} ref="reasonOfReturn" name="reasonOfReturn" >
+                                  <option name="reasonOfReturn" selected="true">-- Select --</option>
+                                  {
+                                    this.state.returnsReasons && this.state.returnsReasons.length > 0 ?
+                                      this.state.returnsReasons.map((data, index) => {
+                                        return (
+                                          <option key={index} id={data._id} value={data.reasonOfReturn}>{data.reasonOfReturn}</option>
+                                        );
+                                      })
+                                      :
+                                      <option value='user'>No Reasons available</option>
+                                  }
+                                </select>
+                                <label className="error ">{this.state.reviewStarError}</label>
+
+                                <div className="row inputrow">
+                                  <label className={"col-12 text-left "+Style.feedbackLable}>Comment <span className="errorMsg">  </span></label>
+                                  <div className="col-12 ">
+                                    <textarea rows="5" className={"col-12 "+Style.feedbackBox} onChange={this.handleChangeReturn.bind(this)} value={this.state.customerReturnComment} name="customerReturnComment"></textarea>
+                                    <label className="error">{this.state.returnTextError}</label>
+                                  </div>
+                                </div>
+                                <div className={"col-12"}>
+                                <div className={"col-2 NoPadding pull-right " +Style.inputWrapper}>
+                                    <input type="file" multiple id="files" className={ Style.hidden +" " +Style.fileInput} onChange={this.uploadImage.bind(this)} title="Choose Image" accept=".jpg,.jpeg,.png"/>
+                                    <div className={" " +Style.uploadReviewImg}></div>
+                                </div>
+                                <div className="col-12 mt-4">
+                                {
+                                    this.state.imgUrl ?
+                                      <div className="col-lg-12 productImgCol">
+                                        <div className={"col-2 NoPadding " + Style.prodImage}>
+                                          <div className="col-12 NoPadding prodImageInner">
+                                            <span className="prodImageCross" title="Delete Image" data-imageurl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
+                                          </div>
+                                          <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail " + Style.reviewImg} style={{ height: '40px' }}></img>
+                                        </div>
+                                        {/* <div className="errorMsg">{this.state.errors.reviewImg}</div> */}
+                                      </div>
+                                      :
+                                      null
+                                  }
+                                </div>
+                              </div>
+                              
+                                <div className={"col-12 NoPadding text-left "}>
+                                  <div className={"col-12 NoPadding mt-2 mb-2 text-left" + Style.eCommTitle + " " + Style.paymentMethodTitle +" "+Style.feedbackLable}>Refund to : <span className="required"></span></div>
+                                  <div className="form-check mt-2">
+                                    <label className="form-check-label ">
+                                      <input type="radio" className={"form-check-input webModelInput " +Style.returnRadioBtn} name="paymentRefundSource" type="radio" id="paymentRefundSource" value="source"
+                                        checked={this.state.paymentRefundSource === "source"}
+                                        onClick={this.handleRefundPayment.bind(this)}
+                                      />The Source( valid for card payment only)
+                                    </label>
+                                  </div>
+                                  <div className="form-check mt-2" >
+                                    <label className="form-check-label" for="radio1">
+                                      <input type="radio" className={"form-check-input webModelInput "+Style.returnRadioBtn} name="paymentRefundSource" type="radio" id="paymentRefundSource" value="credit"
+                                        checked={this.state.paymentRefundSource === "credit"}
+                                        onChange={this.handleRefundPayment.bind(this)}
+                                      />Add To Credit Points
+                                    </label>
+                                  </div>
+                                  <div className="errorMsg col-11 ml-2">{this.state.refundToError}</div>
+                                </div>
+                                {/* <div className={"col-12 NoPadding text-left "}>
+                                  <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="I agree to return policy" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" />
+                                  <div className="col-11 col-xl-11 col-md-11 termsWrapper">
+                                      <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree to Return Policy</span>
+                                  </div>
+                                </div> */}
+                              </form>
+                            </div>
+                            <div className={"modal-footer "+Style.reviewModalFooter}>
+                              <div className="col-6 col-sm-6 col-lg-4 col-xl-4 mx-auto ">
+                                {!productdata.status ?
+                                  <button className={"btn btn-primary pull-right col-12 "+Style.feedbackBtn}
+                                    onClick={this.returnProduct.bind(this)}
+                                    productid={productdata && productdata.product_ID}
+                                    vendor_id={this.props.vendorWiseOrderData.vendor_id}
+                                    orderId={this.props.orderID}
+                                    vendorlocationid={this.props.vendorWiseOrderData.vendorLocation_id}
+                                  >Submit</button>
+                                  : null}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+      <div className="col-12 d-lg-none d-xl-none d-block">
+     
+        <Message messageData={this.state.messageData} />
+        <table className={"table table-borderless orderTable " + Style.table}>
+          <thead>
+            <tr>
+              <th className="font-weight-bold pb-1">Product</th>
+              <th className={"d-none d-lg-block pb-1 " + Style.pnHIdden}>Products Name</th>
+              {/* <th className="textAlignLeft pb-1">Price</th> */}
+              <th className="textAlignCenter pb-1">Quantity</th>
+              <th className="textAlignRight pb-1">SubTotal</th>
+            </tr>
+          </thead>
+          
+          {/* <thead className="d-block d-lg-none d-xl-none">
+            <tr>
+              <th className="font-weight-bold">Product</th>
+              <th className={"d-none d-lg-block " + Style.pnHIdden}>Products Name</th>
+            
+              <th className="textAlignCenter">Quantity</th>
+              <th className="textAlignRight">SubTotal</th>
+            </tr>
+          </thead> */}
+
+          <tbody>
+            {
+              this.props.vendorWiseOrderData && this.props.vendorWiseOrderData.products.map((productdata, index) => {
+                // console.log("productdata=",productdata);
+                return (
+                  <tr key={index}>
+                    <td><img className="img orderImg" src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} />
+                      <h5 className="productName d-lg-none d-xl-none  ">{productdata.productName}</h5>
+                      {productdata.size ? <span className="cartColor d-lg-none d-xl-none ">Size : {productdata.size} &nbsp; {productdata.unit}</span> : null}
+                    </td>
+                    <td className="mt-lg-4 d-none d-lg-block d-xl-block">
+
+                    {
+                      <div className={" singleProductDetail "+Style.singleProductDetail}>        
+                        <span className="">Brand</span>
+                      </div>           
+                            
+                    }
+                      <a href={"/product-detail/" + this.props.vendorWiseOrderData.vendor_id._id + "/" + this.props.vendorWiseOrderData.vendorLocation_id + "/" + productdata.product_ID}>
+                        {productdata.productNameRlang ?
+                          <h5 className="RegionalFont">{productdata.productNameRlang}</h5>
+                          :
+                          <h5 className={"productName "+Style.productNameOrderDetail}>{productdata.productName}</h5>
+                        }
+                      </a>
+
+
+                     
+                    </td>
+                    {/* <td className="textAlignLeft ">
+                          {
+                            <span className="productPrize textAlignRight">{this.props.currency}&nbsp;{productdata.discountedPrice.toFixed(2)}</span>
+                                  
+                          }
+                      </td> */}
                     <td className="textAlignCenter">
                       {
                         <span className=" textAlignRight">{productdata.quantity}</span>

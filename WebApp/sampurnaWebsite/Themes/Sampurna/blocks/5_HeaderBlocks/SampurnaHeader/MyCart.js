@@ -33,7 +33,7 @@ class MyCart extends React.Component {
                         <a href="/cart" className="row cartHeader">
                             <Image
                             src={"/images/eCommerce/cart.png"}
-                            className={"rotateImg1" }
+                            className={"rotateImg11" }
                             height ={40}
                             width={60}
                             layout={'intrinsic'}

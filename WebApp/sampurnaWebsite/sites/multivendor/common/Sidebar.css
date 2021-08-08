@@ -376,4 +376,9 @@ ul.Featured-Brands li {
         z-index: 1;
         width: 113%;
     }
+
+    .cartHeightWrapper{
+        min-height: 600px;
+        height: auto;
+    }
 }
