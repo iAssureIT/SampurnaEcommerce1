@@ -813,11 +813,14 @@ class IAssureTable extends Component {
 													{
 														Object.entries(value).map( 
 															([key, value1], i)=> {
-																// console.log("value1",value1,$.type(value1));
-																if($.type(value1) === 'string'){
+																{/*console.log("value1",value1, " = ",$.type(value1));*/}
+																if($.type(value1) === 'string' && value1 !== "<span class='textAlignRight'>0%</span>"){
+																	var textAlign = 'textAlignRight';
+																}else if($.type(value1) === 'string' ){
 																	var regex = new RegExp(/(<([^>]+)>)/ig);
 																	var value2 = value1 ? value1.replace(regex,'') : '';
 																	var aN = value2.replace(this.state.reA, "");
+																	console.log("aN ====> ",aN)
 																	if(aN && $.type( aN ) === 'string'){
 																		if(value1.includes('textAlignLeft')){
 																			var textAlign = 'textAlignLeft';
@@ -829,7 +832,8 @@ class IAssureTable extends Component {
 
 																	}else{
 																		var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
-																		if(bN){
+																		console.log("bN ====> ",bN)
+																		if(bN || bN === 0){
 																			var textAlign = 'textAlignRight';
 																		}else{
 																			var textAlign = 'textAlignLeft';

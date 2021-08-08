@@ -1488,7 +1488,7 @@ class LocationDetails extends Component {
 										<li className={"active col-lg-4 col-md-3 col-sm-12 col-xs-12 transactionTab pdcls  pdclsOne btn2 "+(this.state.entityID ? "" : "disabled")}>
 											{/*<div className="triangletwo" id="triangle-right1"></div>*/}
 											<a href={this.props.match.params.entityID ? "/"+this.props.entity+"/location-details/"+this.props.match.params.entityID : "/"+this.props.entity+"/location-details" } className="basic-info-pillss backcolor">
-												<i className="fa fa-map-marker-alt iconMarginLeft" aria-hidden="true"></i> &nbsp;
+												<i className="fa fa-map-marker iconMarginLeft" aria-hidden="true"></i> &nbsp;
 												Location
 											</a>
 											{/*<div className="trianglethree triangleones forActive" id="triangle-right"></div>*/}

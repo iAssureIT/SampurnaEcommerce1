@@ -580,7 +580,7 @@ class OneFieldForm extends React.Component {
                                                                         )
                                                                 }
                                                             </div>
-                                                            <div className="form-margin col-lg-6 col-lg-offset-6 col-md-6 col-sm-12 col-xs-12">
+                                                            <div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 {
                                                                     (this.props.editId !== "" && typeof this.props.editId !== 'undefined') ?
                                                                         <button onClick={this.updateType.bind(this)} className="btn  paddingbtn pull-right">Update</button>
@@ -610,12 +610,12 @@ class OneFieldForm extends React.Component {
                                                                     </div>
                                                             </div>
                                                             <br />
-                                                            <div className="form-margin col-lg-12 col-md-6 col-sm-12 col-xs-12" style={{marginLeft: "16.2%"}}>
+                                                            <div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12 textAlignCenter ">
                                                                 {
                                                                     (this.props.editId !== "" && typeof this.props.editId !== 'undefined') ?
-                                                                        <button onClick={this.updateType.bind(this)} className="btn button3 col-lg-4">Update</button>
+                                                                        <button onClick={this.updateType.bind(this)} className="btn button3 ">Update</button>
                                                                         :
-                                                                        <button onClick={this.submitType.bind(this)} className="btn button3 col-lg-4 " >Submit</button>
+                                                                        <button onClick={this.submitType.bind(this)} className="btn button3 " >Submit</button>
                                                                 }
                                                             </div>
                                                         </form>

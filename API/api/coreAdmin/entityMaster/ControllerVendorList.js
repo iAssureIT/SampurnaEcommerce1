@@ -23,7 +23,7 @@ exports.getVendorList = (req,res,next)=>{
             .then(uniqueVendors =>{ 
                 if(uniqueVendors && uniqueVendors.length > 0){
                     
-                    EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations:1, companyName:1, companyLogo : 1})              
+                    EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations:1, companyName:1, companyLogo : 1, shopImage : 1})              
                     .exec()
                     .then(vendorDetails=>{
                         
@@ -141,7 +141,7 @@ exports.getProductWiseVendorList = (req,res,next)=>{
             // console.log("productsData => ",productsData);
             if(productsData && productsData.length > 0){
                 const uniqueVendors = [...new Set(productsData.map(item => item.vendor_ID))];
-                EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations : 1, companyName : 1, companyLogo : 1})              
+                EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations : 1, companyName : 1, companyLogo : 1, shopImage : 1})              
                 .exec()
                 .then(vendorDetails=>{
                     
