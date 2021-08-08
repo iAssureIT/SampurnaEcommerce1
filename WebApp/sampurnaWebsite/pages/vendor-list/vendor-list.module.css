@@ -51,6 +51,7 @@
 .cardBody{
     color: #fff;
     z-index: 1;
+    /* background-image: url("/images/vendorCard.jpg"); */
 }
 .vendorLogo{
     /* height: 100px; */

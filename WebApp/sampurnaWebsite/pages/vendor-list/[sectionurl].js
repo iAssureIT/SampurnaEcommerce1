@@ -72,6 +72,11 @@ class VendorList extends Component {
         }
       }
     render() {
+        var VendorImage = {
+            backgroundImage: "url(" + "/images/eCommerce/vendorCard.jpg" + ")",
+            // backgroundImage: "url(" + this.state.vendordata + ")",
+
+          };
         return(
             <div className={ Style.bgGray}>
                 <Header /> 
@@ -96,8 +101,9 @@ class VendorList extends Component {
                                             return(
                                                 <div className="col-lg-6 col-12 col-sm-6" key={index}>
                                                     <div className="col-12">
-                                                        <div className={"col-12  card mt-2 mb-4 " +Style.vendorCard }>
+                                                        <div className={"col-12  card mt-2 mb-4 " +Style.vendorCard }style={VendorImage}>
                                                         {/* <img className={ "col-12 NoPadding "+Style.shopImg} src={vendordata.vendorShopImage}></img> */}
+                                                        {/* <img className={ "col-12 NoPadding "+Style.shopImg} src="/images/eCommerce/vendorCard.jpg"></img> */}
                                                         <Link href={"/products/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+this.state.sectionurl} className={+Style.vedorLink}>
                                                             <div className={"row card-body " +Style.cardBody}>
                                                                 <div className={ "col-3 NoPadding "+Style.vendorLogo}>
