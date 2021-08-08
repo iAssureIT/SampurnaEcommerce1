@@ -287,8 +287,8 @@ const window = Dimensions.get('window');
                     backgroundColor:"#fff",
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: 30, 
-                    height: 30,
+                    width: 35, 
+                    height: 35,
                     borderRadius:100,
                     shadowColor: "#000",
                     shadowOffset: {
@@ -313,8 +313,8 @@ const window = Dimensions.get('window');
                     backgroundColor:"#4267B2",
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: 30, 
-                    height: 30,
+                    width: 35, 
+                    height: 35,
                     borderRadius:100,
                     shadowColor: "#000",
                     shadowOffset: {
@@ -325,7 +325,7 @@ const window = Dimensions.get('window');
                     shadowRadius: 3.84,
                     elevation: 5,
                   }}>
-                  <Icon name='facebook' type='font-awesome' size={20} color="#fff"/>
+                  <Icon name='facebook' type='font-awesome' size={25} color="#fff"/>
                 </TouchableOpacity>
             </View>
         <Modal 

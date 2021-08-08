@@ -200,16 +200,24 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                       )]}>
                     {disabled || item.distance<=1 ?
                       <TouchableOpacity onPress={() => {selectedaddress(i,item._id,item)}} >
-                        <View style={{height:24,backgroundColor:colors.cartButton,borderTopLeftRadius:9,borderTopRightRadius:9,flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15,borderWidth:2,borderColor:colors.cartButton}}>
+                        <View style={{height:24,backgroundColor:"#B7B7B7",borderTopLeftRadius:9,borderTopRightRadius:9,flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15,borderBottomWidth:1,borderColor:colors.cartButton}}>
                             {/* <Icon name="home" type="material-community" size={10} iconStyle={{elevation:5}} color={colors.white}/> */}
                             <Image
                               resizeMode="contain"
                               source={require("../../AppDesigns/currentApp/images/home_white.png")}
-                              style={{height:15,width:15}}
+                              style={{height:16,width:16}}
                             />
                             <View style={{flexDirection:'row'}}>
-                            {!disabled&&<Icon name="edit" type="font-awesome-5" size={15} iconStyle={{elevation:5,paddingHorizontal:5}} color={"#bbb"}  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})}/>}
-                            {!disabled&&<Icon name="delete" type="AntDesign" size={15} iconStyle={{elevation:5,paddingHorizontal:5}} color={"#bbb"}  onPress={() => deleteAdress(item._id)}/>} 
+                            {!disabled&&                              
+                              <TouchableOpacity  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})}>                              
+                                <Image
+                                  resizeMode="contain"
+                                  source={require("../../AppDesigns/currentApp/images/editNEW.png")}
+                                  style={{height:15,width:15,marginLeft:15,}}
+                                  />
+                              </TouchableOpacity>                            
+                            }
+                            {/* {!disabled&&<Icon name="delete" type="AntDesign" size={15} iconStyle={{elevation:5,paddingHorizontal:5}} color={"#bbb"}  onPress={() => deleteAdress(item._id)}/>}  */}
                             </View>  
                         </View>  
                         <View style={styles.addchkbx}>
@@ -228,10 +236,18 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                         </View>
                       </TouchableOpacity>
                       :
-                      <View style={{borderRadius:15}} >
-                         <View style={{height:24,backgroundColor:"#B7B7B7",borderTopLeftRadius:9,borderTopRightRadius:9,flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15}}>
+                      <View style={{borderRadius:9}} >
+                         <View style={{height:24,backgroundColor:"#B7B7B7",flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15}}>
                             <Icon name="home" type="material-community" size={10} iconStyle={{elevation:5}} color={colors.textLight}/>
-                            {!disabled&&<Icon name="delete" type="AntDesign" size={10} iconStyle={{elevation:5}} color={colors.textLight}  onPress={() => deleteAdress(item._id)}/>}
+                            <TouchableOpacity  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})}>                              
+                                <Image
+                                  resizeMode="contain"
+                                  source={require("../../AppDesigns/currentApp/images/editNEW.png")}
+                                  style={{height:15,width:15,marginLeft:15,marginTop:5}}
+                                  />
+                              </TouchableOpacity>
+
+                            {/* {!disabled&&<Icon name="delete" type="AntDesign" size={10} iconStyle={{elevation:5}} color={colors.textLight}  onPress={() => deleteAdress(item._id)}/>} */}
                         </View>
                         <View style={styles.addchkbx}>
                           <View style={[styles.nameofcontact]}> 

@@ -304,7 +304,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
           productdata && productdata.productName  && productdata.discountedPrice ?
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" ref={scroll} >
             <View style={[styles.vendorNameBox,{}]}>
-                <Text numberOfLines={1} style={[CommonStyles.text,{fontSize:14,fontFamily:"Montserrat-Medium",color:"#000"}]}>Vendor - {productdata.vendorName}</Text>
+                <Text numberOfLines={1} style={[CommonStyles.text,{fontSize:14,fontFamily:"Montserrat-Medium",color:"#000"}]}>{productdata.vendorName}</Text>
             </View> 
             <View style={styles.formWrapper}>  
                 <CategoryList
@@ -364,44 +364,51 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   </View>
                 </View>
                 {productdata.productImage && productdata.productImage.length>0 ?
-                 <Carousel
-                    autoplay={false}
-                    autoplayTimeout={10000}
-                    loop={false}
-                    index={0}
-                    pageSize={window.width}
-                    pageIndicatorStyle={{width:20,height:3,backgroundColor:"#eee"}}
-                    activePageIndicatorStyle={{width:20,height:3,backgroundColor:"#999"}}
-                    pageIndicatorOffset={30}
-                    >
-                     
-                    {productdata.productImage.map((image, index) => {
-                    return (
-                      <FastImage
-                        source={{ 
-                          uri: image,
-                          priority: FastImage.priority.high, 
-                          cache: FastImage.cacheControl.immutable,
-                        }}
-                        style={styles.saleimg}
-                        resizeMode={FastImage.resizeMode.contain}
-                    >
+                  <View>
+                      <Carousel
+                        autoplay={false}
+                        autoplayTimeout={10000}
+                        loop={false}
+                        index={0}
+                        pageSize={window.width}
+                        pageIndicatorStyle={{width:20,height:3,backgroundColor:"#eee"}}
+                        activePageIndicatorStyle={{width:20,height:3,backgroundColor:"#999"}}
+                        pageIndicatorOffset={30}
+                        >
+                        
+                        {productdata.productImage.map((image, index) => {
+                        return (
+                          <FastImage
+                            source={{ 
+                              uri: image,
+                              priority: FastImage.priority.high, 
+                              cache: FastImage.cacheControl.immutable,
+                            }}
+                            style={styles.saleimg}
+                            resizeMode={FastImage.resizeMode.contain}
+                        >                          
+                        </FastImage>
+                        );
+                      })}
+                      </Carousel>
                       {productdata.authService !== "guest" ?
-                      <TouchableOpacity style={[styles.wishlisthrtproductview,{right:10}]}
-                        onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
-                        <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
-                      </TouchableOpacity>
-                      :
-                        null
-                      }
-                      <TouchableOpacity style={[styles.share,{right:10}]}
-                        onPress={() =>onShare()} > 
-                        <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} />
-                      </TouchableOpacity>
-                    </FastImage>
-                    );
-                  })}
-                  </Carousel>
+                          <TouchableOpacity style={[styles.wishlisthrtproductview,{right:10}]}
+                            onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
+                            <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
+                          </TouchableOpacity>
+                          :
+                            null
+                          }
+                          <TouchableOpacity style={[styles.share,{right:10}]}
+                            onPress={() =>onShare()} > 
+                            <Image
+                            resizeMode="contain"
+                            source={require("../../AppDesigns/currentApp/images/shareNEW.png")}
+                            style={{height:15,width:15,alignSelf:'center'}}
+                            />
+                            {/* <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} /> */}
+                          </TouchableOpacity>
+                  </View>                 
                   :
                     <View style={styles.saleimg}>
                       <ImageBackground
@@ -415,7 +422,12 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                       </TouchableOpacity>
                       <TouchableOpacity style={[styles.share]}
                         onPress={() =>onShare()} >
-                        <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} />
+                          <Image
+                            resizeMode="contain"
+                            source={require("../../AppDesigns/currentApp/images/shareNEW.png")}
+                            style={{height:15,width:15,alignSelf:'center'}}
+                            />
+                        {/* <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} /> */}
                       </TouchableOpacity>
                     </View>
                 }

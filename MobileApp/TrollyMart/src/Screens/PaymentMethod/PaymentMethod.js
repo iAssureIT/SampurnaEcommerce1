@@ -302,7 +302,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         <Text style={styles.free}>Cash on Delivery</Text>
                       </View>  
                       <View style={{flex:0.1,alignItems:'flex-end'}}>                        
-                        <Image source={require("../../AppDesigns/currentApp/images/cash-on-delivery.png")} style={styles.iconImg} resizeMode="contain" />
+                        <Image source={require("../../AppDesigns/currentApp/images/cash-on-delivery.png")} style={styles.iconImgCash} resizeMode="contain" />
                       </View>                       
                     </View>
                   </View>
@@ -321,7 +321,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                   <View style={{padding:Platform.OS==='ios'?40: 25}}>
                     <FormButton
                       onPress={() => continuepage()}
-                      title={"CONFIRM ORDER"}
+                      title={"Confirm Order"}
                       background  = {true}
                       // buttonStyle={styles.button1}
                       // containerStyle={styles.buttonContainer1}

@@ -15,8 +15,8 @@ export default StyleSheet.create({
   },
   parent: {
     backgroundColor: '#fff', 
-    marginBottom: "15%",
-    minHeight: 650,
+    // marginBottom: "15%",
+    minHeight: 750,
   },
   width160: {
     width: 160
@@ -42,7 +42,7 @@ export default StyleSheet.create({
     marginBottom:10,
     borderRadius:5,
     alignItems:'center',
-    elevation:1
+    elevation:4
   },
   catimg: {
     height: 200, width: 160,
@@ -112,12 +112,13 @@ export default StyleSheet.create({
     marginBottom: '10%',
     alignItems:"center",
      marginTop: 15,
-     height:340,
+     height:250,
+    //  backgroundColor:'red',
     justifyContent:'center'
   },
   imgwdht:{
     width: 425,
-    height: 340,
+    height: 250,
     resizeMode:'contain',
   },
   totaldata: {
@@ -201,6 +202,11 @@ export default StyleSheet.create({
   iconImg:{
     height:27,
     width:17,
+    resizeMode:'cover'
+  },
+  iconImgCash:{
+    height:35,
+    width:24,
     resizeMode:'cover'
   },
   buttonContainer1: {

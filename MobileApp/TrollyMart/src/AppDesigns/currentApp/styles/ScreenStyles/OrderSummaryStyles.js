@@ -177,7 +177,7 @@ superparent:{
     fontSize:13,fontFamily:"Montserrat-Bold", color:'#000'
   },
   totaldata1G:{
-    fontSize:16,fontFamily:"Montserrat-Bold", color:'#000'
+    fontSize:18,fontFamily:"Montserrat-Bold", color:'#000'
   },
   totaldata:{
     fontSize:15,fontFamily:"Montserrat-Medium", color:'#000'
@@ -728,7 +728,7 @@ superparent:{
     },
 
     totalpriceincartTotalGT:{
-      fontSize:16,
+      fontSize:18,
       fontFamily:"Montserrat-Bold", 
       color:'#000000',
     },

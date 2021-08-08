@@ -284,7 +284,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View key={index}>
                       <View key={index} style={styles.proddetails}>
                         <View style={styles.flxdir}>
-                          <View style={[styles.flxmg,{paddingRight:5}]}>
+                          <View style={[styles.flxmgNEW,{paddingRight:5}]}>
                             <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id })}>
                               {/* {item.product_ID.productNameRlang ?
                               <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
@@ -320,7 +320,7 @@ const getshippingamount=(startRange, limitRange)=>{
                                 <FastImage
                                   style={styles.imgwdht}
                                   source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                                  resizeMode="contain" 
+                                  resizeMode='center'
                                 />
                               }
                             </TouchableOpacity>
@@ -367,14 +367,19 @@ const getshippingamount=(startRange, limitRange)=>{
                                   <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.product_ID.isWish ?'red':'#999'} iconStyle={{}}/>
                                 </TouchableOpacity>
                                 <TouchableOpacity  onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)} >
-                                <Icon
+                                {/* <Icon
                                   // onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)}
                                   name="trash-can-outline"
                                   type="material-community"
                                   size={20}
                                   color="#000000"
                                   iconStyle={styles.iconstyle}
-                                />
+                                /> */}
+                                  <Image
+                                    resizeMode="contain"
+                                    source={require("../../AppDesigns/currentApp/images/trash.png")}
+                                    style={{height:15,width:15,marginLeft:15,marginTop:5}}
+                                    />
                                 </TouchableOpacity>
                               </View>
                             </View>
@@ -393,16 +398,16 @@ const getshippingamount=(startRange, limitRange)=>{
                           null
                           :
                           <View style={{marginVertical:10}}>
-                            <Text style={styles.minpurchase}>{vendor.vendor_id.companyName}, Minimum shopping amount is {cartData.minOrderAmount}</Text>
+                            <Text style={styles.minpurchase}>Minimum shopping amount is {cartData.minOrderAmount}</Text>
                           </View>
                         }
                      </View>   
                   </View>
                   <View style={[styles.totaldetails,{backgroundColor:cartData.minOrderAmount <= vendor.vendor_afterDiscountTotal?"#F7F7F7":"#F3C2C2"}]}>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.65,flexDirection:"row" }}>
+                      <View style={{ flex: 0.65 }}>
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
-                        <Text style={styles.totaldata}>Sub Total</Text>
+                        <Text style={styles.totaldata2}>Sub Total</Text>
                       </View>
                       <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -417,7 +422,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.65 }}>
-                        <Text style={styles.totaldata}>You Saved </Text>
+                        <Text style={styles.totaldata2}>You Saved </Text>
                       </View>
                       <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -432,9 +437,9 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.65,flexDirection:"row" }}>
+                      <View style={{ flex: 0.65}}>
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
-                        <Text style={styles.totaldata}>Total Amount</Text>
+                        <Text style={styles.totaldata2}>Total Amount</Text>
                       </View>
                       <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -449,7 +454,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.65 }}>
-                        <Text style={styles.totaldata}>VAT</Text>
+                        <Text style={styles.totaldata2}>VAT</Text>
                       </View>
                       <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -465,7 +470,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.65 }}>
-                          <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:15}}>Totals</Text>
+                          <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:16}}>Totals</Text>
                         </View>
                         <View style={{ flex: 0.1 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -474,7 +479,7 @@ const getshippingamount=(startRange, limitRange)=>{
                         </View>
                         <View style={{ flex: 0.2 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}>{vendor.vendor_netPayableAmount.toFixed(2)}</Text>
+                        <Text style={styles.totalpriceincartT}>{vendor.vendor_netPayableAmount.toFixed(2)}</Text>
                           </View>
                         </View>
                       </View>
@@ -493,12 +498,12 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{ flex: 0.65 }}>
                       <Text style={styles.totaldata1}>Total Amount </Text>
                     </View>
-                    <View style={{ flex: 0.1 }}>
+                    {/* <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
-                      </View>
-                    <View style={{ flex: 0.2 }}>
+                      </View> */}
+                    <View style={{ flex: 0.3 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                         <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.afterDiscountTotal && cartData.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
                       </View>
@@ -508,12 +513,12 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{ flex: 0.65 }}>
                       <Text style={styles.totaldata1}>Total Saved </Text>
                     </View>
-                    <View style={{ flex: 0.1 }}>
+                    {/* <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
-                      </View>
-                    <View style={{ flex: 0.2 }}>
+                      </View> */}
+                    <View style={{ flex: 0.3 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                         {/* <Text style={styles.totalpriceincart}> - </Text> */}
                         <Text style={[styles.totalpriceincartTotalG]}>{cartData.paymentDetails.discountAmount && cartData.paymentDetails.discountAmount.toFixed(2)}</Text>
@@ -524,12 +529,12 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{ flex: 0.65 }}>
                       <Text style={styles.totaldata1}>Total Tax  </Text>
                     </View>
-                    <View style={{ flex: 0.1 }}>
+                    {/* <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
-                      </View>
-                    <View style={{ flex: 0.2 }}>
+                      </View> */}
+                    <View style={{ flex: 0.3 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                     <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.taxAmount && cartData.paymentDetails.taxAmount.toFixed(2)}</Text>
                       </View>
@@ -540,12 +545,12 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{ flex: 0.65 }}>
                       <Text style={styles.totaldata1}>Total Delivery Charges </Text>
                     </View>
-                    <View style={{ flex: 0.1 }}>
+                    {/* <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
-                      </View>
-                    <View style={{ flex: 0.2 }}>
+                      </View> */}
+                    <View style={{ flex: 0.3 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                         <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
                       </View>
@@ -566,14 +571,14 @@ const getshippingamount=(startRange, limitRange)=>{
                   <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                   <View style={styles.flxdata}>
                     <View style={{ flex: 0.65 }}>
-                      <Text style={[styles.totaldata1]}>Grand Total</Text>
+                      <Text style={[styles.totaldata]}>Grand Total</Text>
                     </View>
-                    <View style={{ flex: 0.1 }}>
+                    {/* <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.currency1}>{currency}</Text>
+                          <Text style={styles.currencyNEW}>{currency}</Text>
                         </View>
-                      </View>
-                    <View style={{ flex: 0.2 }}>
+                      </View> */}
+                    <View style={{ flex: 0.3 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                         <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                       </View>
@@ -657,13 +662,13 @@ const getshippingamount=(startRange, limitRange)=>{
     {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?<View style={{marginBottom:Platform.OS ==='ios'?60: 45,flexDirection:'row'}}>
          <View style={{flex:0.5,height:60,backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
             <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
-            <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
+            <Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
          </View>
          <TouchableOpacity style={{flex:0.5,height:60,backgroundColor:!disabled?"#5F6C74":colors.cartButton,justifyContent:'center',alignItems:'center'}}
          disabled       = {!disabled}
          onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
          >
-          <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>Checkout</Text>
+          <Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color: "#eee"}}>Checkout</Text>
          </TouchableOpacity>
       </View>:null}
   </React.Fragment>

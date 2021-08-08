@@ -331,7 +331,7 @@ export default StyleSheet.create({
 
   noPointsText:{
     color:'#DC1919',
-    fontSize:22,
+    fontSize:20,
     fontFamily:"Montserrat-Medium",
     textAlign:'center'
   },

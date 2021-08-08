@@ -210,8 +210,8 @@ export const ProductList = withCustomerToaster((props)=>{
 
   const _renderlist = ({ item, index })=>{
     return (
-      <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
-        <TouchableOpacity style={{opacity:item.availableQuantity === 0 ? 0.5:1,backgroundColor: 'white',borderRadius:20}} disabled={item.availableQuantity === 0 ?  true : props.disabled ? props.disabled : false} onPress={() => 
+      <View key={index}  style={[styles.productContainer,{marginLeft:'5%',}]} >
+        <TouchableOpacity style={{opacity:item.availableQuantity === 0 ? 0.5:1,backgroundColor: 'white',borderRadius:20,}} disabled={item.availableQuantity === 0 ?  true : props.disabled ? props.disabled : false} onPress={() => 
           {navigation.navigate('SubCatCompView', { 
               productID           : item._id,
               currency            : currency,
@@ -236,7 +236,12 @@ export const ProductList = withCustomerToaster((props)=>{
               {userDetails.authService!=="guest" &&
               
               <TouchableOpacity style={[styles.textWrapper, styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} disabled={item.availableQuantity === 0 ? true : false}>
-                <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.heartIcon} />
+                <Image
+                  source={item.isWish ? require('../../AppDesigns/currentApp/images/heartF.png'):require('../../AppDesigns/currentApp/images/wishlistE.png')}                  
+                  style={{ width: 22, height: 22 }}
+                  resizeMode='contain'
+                />
+                {/* <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.heartIcon} /> */}
               </TouchableOpacity>
               }
               {

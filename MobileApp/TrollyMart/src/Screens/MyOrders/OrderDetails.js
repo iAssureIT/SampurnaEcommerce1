@@ -533,7 +533,7 @@ const cancelorderbtn = (id,vendor_id) => {
                           <Text numberOfLines={2} style={styles.totaldata}>Address: {order.deliveryAddress.addressLine1+", "+order.deliveryAddress.addressLine2}</Text>
                         </View>
                         <View style={[{flex:0.54,alignItems:'flex-end'}]}>
-                          <Text numberOfLines={2} style={styles.totaldata}>Credit points earned {order.paymentDetails.creditPointsEarned}</Text>
+                          <Text numberOfLines={2} style={styles.totaldata}>Credit points earned &nbsp;{order.paymentDetails.creditPointsEarned}</Text>
                         </View>
                         {/* {positionOrder === 3  &&
                         <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>
@@ -566,7 +566,7 @@ const cancelorderbtn = (id,vendor_id) => {
                         <View style={[{flex:0.54,alignItems:'flex-end'}]}>
                           <Text numberOfLines={2} style={styles.totaldata}>{order.paymentDetails.paymentMethod}</Text>
                         </View>
-                    </View>                       
+                    </View>
                   </View>  
                 </View>  
                   {/* <View style={styles.addressdetais}>
@@ -624,8 +624,10 @@ const cancelorderbtn = (id,vendor_id) => {
                               <View style={styles.orderstatus}>
                                 <StepIndicator
                                   customStyles={customStyles}
+                                  labelTextStyle={{fontSize:13,fontFamily:"Montserrat-Regular",}}
                                   currentPosition={postion1}
                                   labels={labels}
+                                  labelStyle={{fontSize:13,fontFamily:"Montserrat-Regular",}}
                                   stepCount={4}
                                 />
                               </View>
@@ -656,15 +658,15 @@ const cancelorderbtn = (id,vendor_id) => {
                               <View style={{flex:0.45,paddingHorizontal:5}}>
                                 <Text numberOfLines={2} style={styles.prodinfo}>{pitem.productName}</Text>
                                 <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:14,marginTop:7}}>
-                                    Quantity
-                                  <Text style={styles.prodinfo}> {pitem.quantity}</Text> 
+                                    Quantity 
+                                  <Text style={styles.prodinfo}>&nbsp;&nbsp; {pitem.quantity}</Text> 
                                 </Text>
                              
                               </View>
                               <View style={{flex:0.35}}>
                                 <View style={{flex:1,flexDirection:'row'}}>
                                   <View style={{flex:.5}}>
-                                      <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                                      <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
                                   <View style={{flex:.5,alignItems:'flex-end'}}>
                                       <Text style={styles.ogprice}> {(pitem.discountedPrice * pitem.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
@@ -704,7 +706,7 @@ const cancelorderbtn = (id,vendor_id) => {
                               </View>
                               <View style={{flex:0.35,flexDirection:'row'}}>
                                   <View style={{flex:.5}}>
-                                      <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                                      <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
                                   <View style={{flex:.5,alignItems:'flex-end'}}>
                                       <Text style={styles.ogprice}>{vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
@@ -718,7 +720,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                 </View> 
                                 <View style={{flex:0.35,flexDirection:'row'}}>
                                   <View style={{flex:.5}}>
-                                      <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                                      <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
                                   <View style={{flex:.5,alignItems:'flex-end'}}>
                                       <Text style={[styles.ogprice,{color:colors.success}]}>{vendor.vendor_discountAmount > 0 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
@@ -743,7 +745,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View>
                       <View style={{ flex: 0.38,flexDirection:'row' }}>
                         <View style={{flex:.5}}>
-                            <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                            <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
                         <View style={{flex:.45,alignItems:'flex-end'}}>
                             <Text style={styles.ogprice}>{order.paymentDetails && order.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
@@ -756,7 +758,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View> 
                       <View style={{ flex: 0.38,flexDirection:'row' }}>
                         <View style={{flex:.5}}>
-                            <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                            <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
                         <View style={{flex:.45,alignItems:'flex-end'}}>
                             <Text style={styles.ogpriceG1}>{order.paymentDetails && order.paymentDetails.discountAmount.toFixed(2)}</Text>
@@ -775,7 +777,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View> 
                       <View style={{ flex: 0.38,flexDirection:'row' }}>
                         <View style={{flex:.5}}>
-                            <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                            <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
                         <View style={{flex:.45,alignItems:'flex-end'}}>
                             <Text style={styles.ogprice}>{order.paymentDetails && order.paymentDetails.taxAmount.toFixed(2)}</Text>
@@ -793,7 +795,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View> 
                       <View style={{ flex: 0.4,flexDirection:'row' }}>
                         <View style={{flex:.5}}>
-                            <Text style={[styles.ogprice,{opacity: 0.5}]}>{currency} </Text>
+                            <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
                         <View style={{flex:.45,alignItems:'flex-end'}}>
                             <Text style={styles.ogprice}>{order.paymentDetails && order.paymentDetails.shippingCharges.toFixed(2)}</Text>
@@ -821,7 +823,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View>
                       <View style={{ flex: 0.38,flexDirection:'row' }}>
                         <View style={{flex:.5}}>
-                            <Text style={[styles.ogprice,{opacity: 0.5,color:'#EF9A9A'}]}>{currency} </Text>
+                            <Text style={[styles.ogpriceC,{opacity: 1,color:'#EF9A9A'}]}>{currency} </Text>
                         </View> 
                         <View style={{flex:.45,alignItems:'flex-end'}}>
                             <Text style={styles.ogpriceR}>{order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>

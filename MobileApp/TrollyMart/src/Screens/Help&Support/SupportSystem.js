@@ -262,7 +262,7 @@ const FormBody = (props) => {
                         />
                         <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                     </View> 
-                    <View style={{marginBottom:20,marginHorizontal:10}}>
+                    <View style={{marginBottom:10,marginHorizontal:10}}>
                         <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingBottom:15}}>
                             <Text>Message</Text>{' '}
                             <Text style={{color: 'red', fontSize: 12}}>

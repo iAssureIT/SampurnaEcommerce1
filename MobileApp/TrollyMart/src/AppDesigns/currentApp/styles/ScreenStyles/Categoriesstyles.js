@@ -687,7 +687,7 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Regular",
     color: "#5B8E7E",
     opacity: 1,
-    fontSize:9,
+    fontSize:10,
     marginBottom:5,
   },
   backText:{

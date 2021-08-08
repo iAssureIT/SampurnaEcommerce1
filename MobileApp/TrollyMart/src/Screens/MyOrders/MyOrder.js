@@ -231,7 +231,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                                   <Text numberOfLines={2} style={styles.totaldata}>Address: {order.deliveryAddress.addressLine1+", "+order.deliveryAddress.addressLine2}</Text>
                                 </View>
                                 <View style={[{flex:0.54,alignItems:'flex-end'}]}>
-                                  <Text numberOfLines={2} style={styles.creditPoints}>Credit points earned {order.paymentDetails.creditPointsEarned}</Text>
+                                  <Text numberOfLines={2} style={styles.totaldata}>Credit points earned&nbsp; {order.paymentDetails.creditPointsEarned}</Text>
                                 </View>
                                 {/* {positionOrder === 3  &&
                                 <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>

@@ -199,7 +199,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
       setCouponModal(false);
       setRedeemPoints(0);
       setToast({text: "Oops! Credit points are invalid", color:colors.warning});
-    }else{  
+    }else{
       var payload={
           "user_ID"     : user_id,
           "creditPointsValueUsed"  : parseFloat(creditPointsUsed)
@@ -286,7 +286,12 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                         style={{height:34,width:34,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50}}
                         onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
                       >
-                        <Icon name="edit" type="font-awesome" size={15}/>
+                        <Image
+                            resizeMode="contain"
+                            source={require("../../AppDesigns/currentApp/images/editBlack.png")}
+                            style={{height:17,width:17}}
+                            />
+                        {/* <Icon name="edit" type="font-awesome" size={15}/> */}
                     </TouchableOpacity>
                 </View>  
                 <View style={{borderWidth:0.5,borderColor:'#707070',marginTop:10,borderRadius:9,borderColor:"#707070",paddingHorizontal:10}}>
@@ -621,8 +626,8 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
           hideModalContentWhileAnimating={true}
           style={{ zIndex: 999 }}
           animationOutTiming={500}>
-          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: 30, paddingHorizontal: 10}}>
-          <TouchableOpacity style={{flexDirection:"row",justifyContent:"flex-end"}} onPress={()=>setModal(false)}>
+          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: 30,paddingTop:15, paddingHorizontal: 10}}>
+          <TouchableOpacity style={{flexDirection:"row",justifyContent:"flex-end",marginBottom:10}} onPress={()=>setModal(false)}>
                 <Icon name="close" type="material-community" size={20} color={colors.red} />
             </TouchableOpacity>  
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
@@ -686,15 +691,14 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                   <View style={{flex:.7}}>
                     <Input
                     // label                 = "Enter promotional code"
-                    placeholder           = "Apply Coupon code"
+                    placeholder           = "Apply Coupon code"            
                     onChangeText          = {(text)=>setCouponCode(text)}
                     autoCapitalize        = "none"
                     keyboardType          = "email-address"
                     inputContainerStyle   = {styles.containerStyle}
                     containerStyle        = {{paddingHorizontal:0}}
                     placeholderTextColor  = {'#909090'}
-                    inputStyle            = {{fontSize: 16,fontFamily:"Montserrat-Regular"}}
-                    inputStyle            = {{textAlignVertical: "top"}}
+                    inputStyle            = {{fontSize: 14,textAlignVertical: "top",fontFamily:"Montserrat-Medium"}}
                     autoCapitalize        = 'characters'
                     value                 = {couponCode}
                   />
@@ -705,7 +709,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                     title       = {'Apply'}
                     // background  = {true}
                     buttonStyle={{height:45,backgroundColor:"#FFFFFF"}}
-                    titleStyle={{color: "#000000",opacity: 0.5,fontFamily:"Montserrat-Bold",}}
+                    titleStyle={{fontSize:14,color: "#000000",opacity: 0.5,fontFamily:"Montserrat-SemiBold",}}
                   /> 
                 </View>  
               </View>
@@ -721,8 +725,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                       inputContainerStyle   = {styles.containerStyle}
                       containerStyle        = {{paddingHorizontal:0}}
                       placeholderTextColor  = {'#909090'}
-                      inputStyle            = {{fontSize: 16}}
-                      inputStyle            = {{textAlignVertical: "top"}}
+                      inputStyle            = {{fontSize: 14,textAlignVertical: "top",fontFamily:"Montserrat-Medium"}}
                       autoCapitalize        = 'characters'
                       value                 = {creditPointsUsed.toString()}
                       keyboardType          = 'numeric'
@@ -734,11 +737,11 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                         title       = {'Apply'}
                         // background  = {true}
                         buttonStyle={{height:45,backgroundColor:"#FFFFFF"}}
-                        titleStyle={{color: "#000000",opacity: 0.5}}
+                        titleStyle={{fontSize:14,color: "#000000",opacity: 0.5,fontFamily:"Montserrat-SemiBold",}}
                       />   
                   </View> 
                 </View> 
-                <Text style={[{color:"#000000",fontSize:14,fontFamily:"Montserrat-Medium"}]}>Total balance {currency} <Text style={{fontFamily:"Montserrat-SemiBold",color:'#033554'}}>{cartData.totalCreditPointsValue}</Text></Text>
+                <Text style={[{color:"#000000",fontSize:14,fontFamily:"Montserrat-Medium",marginTop:5}]}>Total balance {currency} <Text style={{fontFamily:"Montserrat-SemiBold",color:'#033554'}}>{cartData.totalCreditPointsValue}</Text></Text>
                </View>
               }
             </View>

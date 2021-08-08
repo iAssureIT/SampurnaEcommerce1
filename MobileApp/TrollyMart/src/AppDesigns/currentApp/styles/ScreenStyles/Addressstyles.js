@@ -329,15 +329,16 @@ export default StyleSheet.create({
     backgroundColor:'#fff',
     marginTop:0,marginBottom:15,
     borderRadius:9,
-    borderWidth:2,
+    borderWidth:1,
     borderColor:colors.cartButton
   },
   addcmpchkbx:{
     backgroundColor:'#fff',
-    marginTop:10,marginBottom:15,
+    marginTop:0,marginBottom:15,
     borderRadius:9,
     minHeight:50,
     borderWidth:0.5,
+    borderColor:'#ccc'
   },
   addcmporder:{
     backgroundColor:'#fff',marginTop:10,marginBottom:15,
@@ -407,8 +408,8 @@ export default StyleSheet.create({
   // shadowOffset: { width: 5, height: 2 },
   // shadowOpacity: 0.5,
   // shadowRadius: 2,
-    // elevation:2,
-    borderWidth:0.5,
+    // elevation:1,
+    borderWidth:1,
     borderColor:'#033554',
   },
 

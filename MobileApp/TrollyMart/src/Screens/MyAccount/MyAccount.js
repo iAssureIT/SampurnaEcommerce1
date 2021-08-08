@@ -106,7 +106,12 @@ export const MyAccount =(props)=>{
                     <View style={{flexDirection:'row',alignItems:'flex-end'}}>
                         <Text style={CommonStyles.screenHeader}>Profile</Text>
                         {userDetails.authService===""&&<TouchableOpacity  onPress={()=>navigation.navigate('AccountInformation')}>
-                            <Icon size={15} name='edit' type='font-awesome' color={colors.textLight} iconStyle={[styles1.iconStyle,{marginLeft:12}]}/>
+                        <Image
+                        resizeMode="contain"
+                        source={require("../../AppDesigns/currentApp/images/editNEW.png")}
+                        style={{height:12,width:12,marginLeft:8,marginBottom:4}}
+                        />
+                            {/* <Icon size={15} name='edit' type='font-awesome' color={colors.textLight} iconStyle={[styles1.iconStyle,{marginLeft:12}]}/> */}
                         </TouchableOpacity>}
                     </View>  
                     <View style={{marginLeft:20,marginTop:15}}>
@@ -307,7 +312,7 @@ const styles1 = StyleSheet.create({
         color:'#000',        
     },
     signSignUpBox:{
-        marginTop:15,height:35,borderWidth:0.5,borderRadius:8,justifyContent:'center',alignItems:'center',width:300,alignSelf:'center'
+        marginHorizontal:35,marginTop:15,height:35,borderWidth:0.5,borderRadius:8,justifyContent:'center',alignItems:'center',width:250,alignSelf:'center'
     },
     horizontalLine:{borderWidth:0.5,borderColor:"#e1e1e1",width:300,alignSelf:'center',marginVertical:30}
   });
