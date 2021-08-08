@@ -41,6 +41,7 @@ exports.getVendorList = (req,res,next)=>{
                                         for(var j = 0; j < vendorDetails[i].locations.length; j++){
                                             var vendor_ID           = vendorDetails[i]._id;
                                             var vendorLogo          = vendorDetails[i].companyLogo[0];
+                                            var vendorShopImage     = vendorDetails[i].shopImage;
                                             var vendorName          = vendorDetails[i].companyName;
                                             var address             = vendorDetails[i].locations[j].addressLine1;
                                             var vendorLocation_id   = vendorDetails[i].locations[j]._id;
@@ -54,6 +55,7 @@ exports.getVendorList = (req,res,next)=>{
                                             vendorDetails[i].locationsj = {
                                                                                 // ...vendorDetails[i].locations[j]._doc, 
                                                                                 "vendorLogo"            : vendorLogo,
+                                                                                "vendorShopImage"       : vendorShopImage,
                                                                                 "vendor_ID"             : vendor_ID, 
                                                                                 "vendorName"            : vendorName, 
                                                                                 "vendorAddress"         : address,
@@ -159,6 +161,7 @@ exports.getProductWiseVendorList = (req,res,next)=>{
                                     for(var j = 0; j < vendorDetails[i].locations.length; j++){
                                         var vendor_ID           = vendorDetails[i]._id;
                                         var vendorLogo          = vendorDetails[i].companyLogo[0];
+                                        var vendorShopImage     = vendorDetails[i].shopImage;
                                         var vendorName          = vendorDetails[i].companyName;
                                         var address             = vendorDetails[i].locations[j].addressLine1;
                                         var vendorLocation_id   = vendorDetails[i].locations[j]._id;
@@ -174,6 +177,7 @@ exports.getProductWiseVendorList = (req,res,next)=>{
                                         vendorDetails[i].locationsj = {
                                                                             // ...vendorDetails[i].locations[j]._doc, 
                                                                             "vendorLogo"                : vendorLogo,
+                                                                            "vendorShopImage"           : vendorShopImage,
                                                                             "vendor_ID"                 : vendor_ID, 
                                                                             "vendorName"                : vendorName, 
                                                                             "vendorAddress"             : address,

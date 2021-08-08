@@ -1,8 +1,8 @@
-const mongoose	                = require("mongoose");
-var ObjectId                    = require('mongodb').ObjectID;
-const moment 					= require('moment-timezone');
-const CreditPoints              = require('./Model');
-const CreditPointsPolicy 		= require('../CreditPointsPolicy/Model');
+const mongoose	                	= require("mongoose");
+var ObjectId                    	= require('mongodb').ObjectID;
+const moment 							= require('moment-timezone');
+const CreditPoints              	= require('./Model');
+const CreditPointsPolicy 			= require('../CreditPointsPolicy/Model');
 
 /*=========== Get credit points policy data ===========*/
 exports.get_credit_points = (req, res, next) => {
