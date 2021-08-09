@@ -4396,7 +4396,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
 				}
 
 				if(products && products.length > 0){ 
-					var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
+					// var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
 					for (let k = 0; k < products.length; k++) {
 						console.log("products_by_lowest_price products => ",products[k]);
 						var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID)},{currentQuantity : 1});
