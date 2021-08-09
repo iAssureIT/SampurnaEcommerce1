@@ -1,324 +1,374 @@
 @font-face {
-	font-family:'Montserrat-Regular.ttf';
-	src: url('/WebApp/sampurnaWebsite/Themes/Sampurna/fonts/Montserrat-Regular.ttf');
-  }
+	font-family: 'Montserrat-Regular.ttf';
+	src        : url('/WebApp/sampurnaWebsite/Themes/Sampurna/fonts/Montserrat-Regular.ttf');
+}
 
 
-.f123{
-	font-size:12px !important;
+.f123 {
+	font-size  : 12px !important;
 	margin-left: 20px;
 }
-.boxBorderInner{
-	box-shadow: 4px 8px 3px 6px #00000029;
+
+.boxBorderInner {
+	box-shadow    : 4px 8px 3px 6px #00000029;
 	/* border-left:solid 1px #ccc; */
 }
-.FilterBlkBox{
+
+.FilterBlkBox {
 	/* box-shadow: 0 2px 4px 2px rgba(0,0,0,.1); */
-	padding-bottom:30px;
-	box-shadow: 4px 3px 6px #00000029!important;
+	padding-bottom: 30px;
+	box-shadow    : 4px 3px 6px #00000029 !important;
 }
 
-.ma{
-	margin:auto;
+.ma {
+	margin: auto;
 }
 
-.smallBoxImg{
-	width:110px !important;
+.smallBoxImg {
+	width: 110px !important;
 }
-.vendorNameWrapper b{
+
+.vendorNameWrapper b {
 	/* margin-left: 58px; */
 }
-.vendorBar{
+
+.vendorBar {
 	margin-top: -4px;
 }
-  .chaneVendorBtn a{
+
+.chaneVendorBtn a {
 	text-decoration: underline;
-	/* margin-left: 74.9%; */
-	color: #033554!important;
-  }
-  .chaneVendorBtn a:hover{
-	color: #033554!important;
-  }
-.p17{
-	padding:16px;
+	/* margin-left : 74.9%; */
+	color          : #033554 !important;
 }
 
-.heart{
-	font-size:40px;
+.chaneVendorBtn a:hover {
+	color: #033554 !important;
 }
-.wishClass i{
+
+.p17 {
+	padding: 16px;
+}
+
+.heart {
 	font-size: 40px;
+}
+
+.wishClass i {
+	font-size : 40px;
 	margin-top: -6px;
 }
-.wishClass{
-	cursor: pointer;
-	font-size:16px;
-    padding: 15px 0px;
-    border-radius: 4px;
-	color:red;
-    /* background-color:red; */
-    /* border: 1px solid #80b435; */
-    /* color: #80b435; */
+
+.wishClass {
+	cursor             : pointer;
+	font-size          : 16px;
+	padding            : 15px 0px;
+	border-radius      : 4px;
+	color              : red;
+	/* background-color:red; */
+	/* border          : 1px solid #80b435; */
+	/* color           : #80b435; */
 }
 
-.radiusB1{
-	border-radius:4px 0px 0px 4px;
-	background-color:#ccc !important;
-	border:none !important;
-	border-right:1px solid #999 !important;
+.radiusB1 {
+	border-radius   : 4px 0px 0px 4px;
+	background-color: #ccc !important;
+	border          : none !important;
+	border-right    : 1px solid #999 !important;
 }
 
 .cartBTN {
-color: #fff;
-padding: 15px;
-border-radius: 5px;
-cursor: pointer;
-border: var(--globaleCommBtnBorder) !important;
-text-align: center;
-width: 373px;
-height: 53px;
-background: #033554 0% 0% no-repeat padding-box;
-border-radius: 7px;
-opacity: 1;
-margin-left: 0px;
-border: none!important;
+	color        : #fff;
+	padding      : 15px;
+	border-radius: 5px;
+	cursor       : pointer;
+	border       : var(--globaleCommBtnBorder) !important;
+	text-align   : center;
+	width        : 373px;
+	height       : 53px;
+	background   : #033554 0% 0% no-repeat padding-box;
+	border-radius: 7px;
+	opacity      : 1;
+	margin-left  : 0px;
+	border       : none !important;
 }
-.productInformationWrapper{
-	color: #000!important;
+
+.productInformationWrapper {
+	color: #000 !important;
 }
-.zoomImgWrapper img{
-	height: 400px !important;
-	width: 360px !important;
+
+.zoomImgWrapper img {
+	height   : 360px !important;
+	width    : 360px !important;
 	/* border: solid 1px #eee; */
 }
-.ShopBySubCategories h5{
-	color: #000 !important;
-	font-weight: 900!important;
+
+.ShopBySubCategories h5 {
+	color      : #000 !important;
+	font-weight: 900 !important;
 }
-.f12{
-	font-size:12px !important;
-	margin-left: -28px!important;
+
+.f12 {
+	font-size  : 12px !important;
+	margin-left: -28px !important;
 }
-.discountBadge{
-	position: absolute;
-	background-image: url("/images/eCommerce/OfferTag.png");
-	background-size: cover ;
-	background-repeat: no-repeat;
+
+.discountBadge {
+	position           : absolute;
+	background-image   : url("/images/eCommerce/OfferTag.png");
+	background-size    : cover;
+	background-repeat  : no-repeat;
 	background-position: 100% 100%;
-	color: var(--whiteColor) !important;
-	padding-top: 10px;
-	width: 60px;
-	height: 70px;
-	z-index: 100;
-	font-size: 14px;
-	font-weight: 700;
-	margin-top: 0px;
-	text-align:center!important;
-  }
+	color              : var(--whiteColor) !important;
+	padding-top        : 10px;
+	width              : 60px;
+	height             : 70px;
+	z-index            : 100;
+	font-size          : 14px;
+	font-weight        : 700;
+	margin-top         : 0px;
+	text-align         : center !important;
+}
+
 .wishBTN {
-    background-color: #033554;
-    color: #fff; 
-    padding:15px;
-    border-radius:5px;
-    /*border: var(--globaleCommBtnBorder) !important; */
-    text-align: center;
+	background-color: #033554;
+	color           : #fff;
+	padding         : 15px;
+	border-radius   : 5px;
+	/*border        : var(--globaleCommBtnBorder) !important; */
+	text-align      : center;
 }
 
 .cartBTN:before {
-    /* font-family: "Font Awesome 5 Free";
+	/* font-family: "Font Awesome 5 Free";
     content: "\f07a"; */
-    display: inline-block;
-    padding-right: 3px;
-    vertical-align: middle;
-    font-weight: 900;
+	display       : inline-block;
+	padding-right : 3px;
+	vertical-align: middle;
+	font-weight   : 900;
 }
 
-.productSize{
+.productSize {
 	/* font-size: 16px; */
 	/* padding-top: 1px; */
 	/* border-top: solid 1px #ccc; */
 }
-.ProductSize1 ul{
-	margin-left: 29px!important;
+
+.ProductSize1 ul {
+	margin-left: 29px !important;
 }
-.colorBox{
+
+.colorBox {
 	text-decoration: none !important;
-	width: 60px !important;
-	height: 40px;
-	display: inline-block;
-	border: none;
-	padding: 10px;
-	border-radius: 5px;
-	text-align: center;
+	width          : 60px !important;
+	height         : 40px;
+	display        : inline-block;
+	border         : none;
+	padding        : 10px;
+	border-radius  : 5px;
+	text-align     : center;
 
 }
-.vatSpan{
-	font-size: 10px;
-	color: #aaa !important;
+
+.vatSpan {
+	font-size     : 10px;
+	color         : #000000;
+	font-family   : 'Montserrat-Regular' !important;
+	opacity       : 1;
+	letter-spacing: 0px;
 }
-.savePrice{
+
+.savePrice {
 	font-size: 14px;
-	color: #999;
+	color    : #999;
 }
-.mainPrice{
-	font-weight: 700;
+
+.mainPrice {
+
+	font-family: 'Montserrat-Bold';
 }
-.youSaved{
+
+.youSaved {
 	font-size: 12px;
-	color: #aaa;
+	color    : #aaa;
 }
-.sizeBox{
-	border: solid 1px #ccc;
-	text-align: center;
-	padding: 10px;
-	border-radius: 5px;
-	cursor: pointer;
-	color: #444;
+
+.sizeBox {
+	/* height: 38px;
+    width: 84px; */
+	border         : solid 1px #bbbbbb;
+	text-align     : center;
+	padding        : 10px;
+	border-radius  : 5px;
+	cursor         : pointer;
+	color          : #444;
 	text-decoration: none !important;
-	/* width: 100px !important; */
-	font-size: 13px;
-	display: inline-block;
+	/* width       : 100px !important; */
+	font-size      : 13px;
+	display        : inline-block;
 }
 
-.radiusB2{
-	border-radius:0px 4px 0px 0px;
-	background-color:#ccc !important;
-	border:none !important;
-	padding:10px 9px 6px 6px !important;
-	font-size: 9px;
-	border-bottom:1px solid #999 !important;
+.radiusB2 {
+	border-radius   : 0px 4px 0px 0px;
+	background-color: #ccc !important;
+	border          : none !important;
+	padding         : 10px 9px 6px 6px !important;
+	font-size       : 9px;
+	border-bottom   : 1px solid #999 !important;
 }
 
-.radiusB3{
-	border-radius:0px 0px 4px 0px;
-	background-color:#ccc !important;
-	border:none !important;
-	padding: 11px 9px 7px 6px !important;
-    font-size: 9px;
+.radiusB3 {
+	border-radius   : 0px 0px 4px 0px;
+	background-color: #ccc !important;
+	border          : none !important;
+	padding         : 11px 9px 7px 6px !important;
+	font-size       : 9px;
 }
 
-.marginNo{
-	margin:0px !important;
+.marginNo {
+	margin: 0px !important;
 }
 
-.imageBoxPrd{
-	border:1px solid #ccc !important;
-	padding:0px 10px !important;
+.imageBoxPrd {
+	border : 1px solid #ccc !important;
+	padding: 0px 10px !important;
 }
 
 .productNameClassNew {
-    font-size: 22px;
-    color: #000;
-    font-weight:bold;
-    margin-bottom: 5px;
+	font-size    : 22px;
+	color        : #000;
+	font-weight  : bold;
+	margin-bottom: 5px;
 }
 
-.productDetailsInfo{
+.productDetailsInfo {
 	/* border-top : solid 1px #bbb; */
 }
-.priceColor{
-	font-weight:bold;
-	font-size:14px;
+
+.priceColor {
+	font-weight: bold;
+	font-size  : 14px;
 }
-.disPriceColor{
-	color:#999;
-	text-decoration: line-through;
-    text-decoration-color: #DC1919;
+
+.disPriceColor {
+	color                : #999;
+	text-decoration      : line-through;
+	text-decoration-color: #DC1919;
 }
-.priceColorMain{
+
+.priceColorMain {
 	/* color: #033554 !important;; */
+	letter-spacing: 0px;
+	color         : #000000;
+	opacity       : 1;
+	font-family   : 'Montserrat-Regular';
+	font-weight   : bolder;
 }
-.brandName{
-	color:#033554 !important;
-	padding-bottom:30px;
-	margin-bottom:20px;
-	border-bottom:1px solid #ccc;
-	font-size: 12px!important;
-	margin: 20px !important;
+
+.brandName {
+	color         : #033554 !important;
+	padding-bottom: 30px;
+	margin-bottom : 20px;
+	border-bottom : 1px solid #ccc;
+	font-size     : 12px !important;
+	margin        : 20px !important;
 	/* font-family:'Montserrat-Regular.ttf'; */
- font-style: normal!important;
+	font-style    : normal !important;
 }
-.brandName1{
-	color:#033554 !important;
-	padding-bottom:30px;
-	margin-bottom:20px;
+
+.brandName1 {
+	color           : #033554 !important;
+	padding-bottom  : 30px;
+	margin-bottom   : 20px;
 	/* border-bottom:1px solid #ccc; */
-	font-size: 12px!important;
-	margin: 20px !important;
-	/* font-family:'Montserrat-Regular.ttf'; */
- font-style: normal!important;
+	font-size       : 12px !important;
+	margin          : 20px !important;
+	/* font-family  :'Montserrat-Regular.ttf'; */
+	font-style      : normal !important;
 }
-.priceWrapperPD{
-	border-bottom:1px solid #ccc;
-	/* border-top: 1px solid #ccc; */
+
+.priceWrapperPD {
+	border-bottom : 1px solid #ededed;
+	/* border-top : 1px solid #ccc; */
 	/* padding-top: 10px; */
-	/* margin-top: 10px; */
+	/* margin-top : 10px; */
 }
-.OriginalpriceWrapper{
-	border-bottom:1px solid #ccc;
+
+.OriginalpriceWrapper {
+	border-bottom: 1px solid #ededed;
 }
-.addToCartWrapperPD{
-	border-bottom:1px solid #ccc;
+
+.addToCartWrapperPD {
+	border-bottom: 1px solid #ededed;
 }
-.brandNameColor{
-	color:#033554 !important;
-	padding-bottom:30px;
-	margin-bottom:20px;
+
+.brandNameColor {
+	color           : #033554 !important;
+	padding-bottom  : 30px;
+	margin-bottom   : 20px;
 	/* border-bottom:1px solid #ccc; */
-	font-size: 12px!important;
-	margin-left: 7px !important;
-	/* font-family:'Montserrat-Regular.ttf'; */
- font-style: normal!important;
- margin-top: -30px !important;
+	font-size       : 12px !important;
+	margin-left     : 7px !important;
+	/* font-family  :'Montserrat-Regular.ttf'; */
+	font-style      : normal !important;
+	margin-top      : -30px !important;
 }
-.ColorTabWrapper{
-	margin-top: -64px!important;
-margin-left: 23px!important;
+
+.ColorTabWrapper {
+	margin-top : -64px !important;
+	margin-left: 23px !important;
 }
-.OrderNumIncWrapper{
+
+.OrderNumIncWrapper {
 	height: 53px !important;
 }
-.OrderNumIncWrapper1{
+
+.OrderNumIncWrapper1 {
 	height: 26.5px !important;
 }
-.brandName2{
-	color:#000 !important;
-	padding-bottom:30px;
-	margin-bottom:20px;
+
+.brandName2 {
+	color           : #000 !important;
+	padding-bottom  : 30px;
+	margin-bottom   : 20px;
 	/* border-bottom:1px solid #ccc; */
-	font-size: 12px!important;
-	margin: left 1px !important;
-	font-weight: 900!important;
-	/* font-family:'Montserrat-Regular.ttf'; */
- font-style: normal!important;
+	font-size       : 12px !important;
+	margin          : left 1px !important;
+	font-weight     : 900 !important;
+	/* font-family  :'Montserrat-Regular.ttf'; */
+	font-style      : normal !important;
 }
-.productDetailVendorName{
-	font-size: 12px;
+
+.productDetailVendorName {
+	font-size       : 12px;
 	background-color: #f6f6f6 !important;
 }
 
-.heartPosition{
+.heartPosition {
 	position: absolute;
-	top: -70px;
-	right: 0px;
+	top     : -70px;
+	right   : 0px;
 }
 
-.topSpace{
+.topSpace {
 	margin-top: 60px;
 }
-.percentOff{
-	color : #033554;
-	font-size: 16px;
+
+.percentOff {
+	color      : #033554;
+	font-size  : 16px;
 	font-weight: bold;
 }
-.percentOffTxt{
+
+.percentOffTxt {
 	font-size: 12px;
-	color : #033554;
+	color    : #033554;
 }
+
 @media only screen and (max-device-width: 480px) {
-.productDetailVendorName{
-	font-size: 10px;
-}
+	.productDetailVendorName {
+		font-size: 10px;
+	}
 }
 
 
@@ -326,45 +376,82 @@ margin-left: 23px!important;
 
 
 /* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
-@media (max-width: 575px){
-    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+@media (max-width: 575px) {
+	/* No media query for 'xs' since this is the default in Bootstrap 4 */
 }
 
 /* (sm) Small Devices (Landscape Phones, 576px and up) */
-@media (min-width: 576px){
-
-}
+@media (min-width: 576px) {}
 
 /* (md) Medium Devices (Tablets, 768px and up) */
-@media (min-width: 768px){
-
-}
+@media (min-width: 768px) {}
 
 /* (lg) Large Devices (Desktops, 992px and up) */
-@media (min-width: 992px){
-
-}
+@media (min-width: 992px) {}
 
 /* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
 
-	.productNameClassNew{
+	.productNameClassNew {
 		margin-left: 0px !important;
 	}
-	.brandName{
+
+	.brandName {
 		margin-left: 0px !important;
 	}
-	.brandName1{
+
+	.brandName1 {
 		margin-left: 0px !important;
 	}
-	.brandNameColor{
+
+	.brandNameColor {
 		margin-left: -14px !important;
 	}
-	.f123{
+
+	.f123 {
 		margin-left: 0px !important;
 	}
-	.cartBTN{
+
+	.cartBTN {
 		margin-left: -43px;
+	}
+
+	.sizeBox {
+		height         : 38px;
+		width          : 84px;
+		border         : solid 1px #bbbbbb;
+		text-align     : center;
+		padding        : 10px;
+		border-radius  : 5px;
+		cursor         : pointer;
+		color          : #444;
+		text-decoration: none !important;
+		/* width       : 100px !important; */
+		font-size      : 13px;
+		display        : inline-block;
+	}
+
+	.productNameClassNew {
+		font-size: 22px;
+
+		font-weight   : bold;
+		margin-bottom : 5px;
+		letter-spacing: 0px;
+		color         : #000000;
+		opacity       : 1;
+	}
+
+	.brandName {
+		color         : #033554 !important;
+		padding-bottom: 30px;
+		margin-bottom : 20px;
+		border-bottom : 1px solid #ededed;
+		font-size     : 12px !important;
+		margin        : 0px !important;
+		font-weight   : bolder !important;
+		letter-spacing: 0px;
+		opacity       : 1;
+		font-family   : 'Montserrat-Regular'
 	}
 }
 

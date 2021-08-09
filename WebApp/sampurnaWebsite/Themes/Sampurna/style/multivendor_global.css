@@ -236,10 +236,12 @@ body {
   border              : 18px solid var(--globalColor);
   /* background-color : var(--globalWishlistBorderColor) !important; */
 }
-.cartWishlistColor{
+
+.cartWishlistColor {
   color     : #aaa !important;
   transition: 0.5s ease;
 }
+
 .wishListIconColor {
   color     : var(--globalWishlistColor) !important;
   transition: 0.5s ease;
@@ -469,9 +471,9 @@ body {
   /* margin-top   : 5px !important; */
   transition      : 0.6s ease !important;
   font-weight     : 600 !important;
-  box-shadow: -2px 2px 6px #00000054;
-border-radius: 4px;
-opacity: 1;
+  box-shadow      : -2px 2px 6px #00000054;
+  border-radius   : 4px;
+  opacity         : 1;
 }
 
 .globalCommonBtn:hover {
@@ -481,26 +483,26 @@ opacity: 1;
 }
 
 .globalAddToCartBtn {
-  background-color          : var(--cartBgColor) !important;
-  /* background-color       : transparent; */
+  background-color             : var(--cartBgColor) !important;
+  /* background-color          : transparent; */
   /* color                     : #fff !important; */
-  border                    : 1px solid #033554;
-  text-transform            : uppercase;
-  transition                : var(--globalTransition) !important;
-  font-size                 : 12px !important;
-  /* border-radius          : var(--globalborderRadious) !important; */
-  text-align                : center;
-  padding                   : 10px 15px !important;
-  /* margin-top             : 17px !important; */
-  border-bottom-left-radius : 15px;
-  border-bottom-right-radius: 15px;
-  margin-bottom             : 0px;
-  font-weight               : 600 !important;
-  font-family:'Montserrat-Regular';
-  letter-spacing: 0px;
-color: #F9F9F9;
+  border                       : 1px solid #033554;
+  text-transform               : uppercase;
+  transition                   : var(--globalTransition) !important;
+  font-size                    : 12px !important;
+  /* border-radius             : var(--globalborderRadious) !important; */
+  text-align                   : center;
+  padding                      : 10px 15px !important;
+  /* margin-top                : 17px !important; */
+  border-bottom-left-radius    : 15px;
+  border-bottom-right-radius   : 15px;
+  margin-bottom                : 0px;
+  font-weight                  : 600 !important;
+  /* font-family               :'Montserrat-Regular'; */
+  letter-spacing               : 0px;
+  color                        : #F9F9F9;
 
-opacity: 1;
+  opacity: 1;
 }
 
 .disableBtn {
@@ -630,7 +632,7 @@ opacity: 1;
 
 .componentWrapper {
   min-height: 500px !important;
-  overflow: hidden!important;
+  overflow  : hidden !important;
 }
 
 #nprogress .bar {
@@ -785,11 +787,11 @@ opacity: 1;
     /* margin-top   : 5px !important; */
     transition      : 0.6s ease !important;
     font-weight     : 600 !important;
-    box-shadow: -2px 2px 6px #00000054;
-    border-radius: 4px;
-    opacity: 1;
+    box-shadow      : -2px 2px 6px #00000054;
+    border-radius   : 4px;
+    opacity         : 1;
   }
-  
+
   .globalCommonBtn:hover {
     background-color: transparent !important;
     color           : var(--globalColor) !important;

@@ -98,13 +98,11 @@ class ProductZoom extends Component {
 									{this.props.productData.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discountBadge}>{Math.floor(this.props.productData.discountPercent)}% off</div> : null}
 									<div id="react-app" className={"col-12 item productZoomBlock img-responsiveProduct " +Style.zoomImgWrapper}>
 										{this.props.productData &&
-											<ReactImageZoom {...myprops} />
+											<ReactImageZoom className="d-none d-lg-block d-xl-block"{...myprops} />
 											
 										}					
 									</div> 
-									{/* <div id="img-container" style="width: 400px">
-										<img src="productImg" />
-									</div> */}
+									
 									<div id="" className="col-12 NoPadding mt-3">
 									<Carousel
 										className="productview"
@@ -119,8 +117,8 @@ class ProductZoom extends Component {
 										keyBoardControl={true}
 										customTransition="all .20"
 										transitionDuration={500}
-										// containerClass="carousel-container"
-										// removeArrowOnDeviceType={["Desktop","tablet", "mobile"]}
+										containerClass="carousel-container"
+										removeArrowOnDeviceType={["Desktop","tablet", "mobile"]}
 										deviceType={this.props.deviceType}
 										//dotListClass="custom-dot-list-style"
 										itemClass={"carousel-item-padding-10-px " +Style.smallBoxImg}>
