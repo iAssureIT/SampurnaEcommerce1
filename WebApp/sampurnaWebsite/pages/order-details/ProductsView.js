@@ -621,7 +621,7 @@ uploadImage(event) {
                           <div className="modal-body addressModalBody">
                             <div className="col-12 mt-2 ">
                               <div className="row">
-                                <div className="col-3 NoPadding orderimgsize" style={{height:'100px'}}>
+                                <div className="col-3 NoPadding orderimgsize text-center" style={{height:'100px'}}>
                                   <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" />
                                 </div>
                                 <div className="col-5 ">
@@ -705,7 +705,7 @@ uploadImage(event) {
                             <div className="modal-body addressModalBody">
                               <div className="col-12 mt-2 ">
                                 <div className="row">
-                                  <div className="col-3 NoPadding orderimgsize" style={{height:'100px'}}>
+                                  <div className="col-3 NoPadding orderimgsize text-center" style={{height:'100px'}}>
                                     <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" />
                                   </div>
                                   <div className="col-5 ">
