@@ -1039,7 +1039,7 @@ class Checkout extends Component {
                                                     {this.state.creditdataTotalPoints > 0 ?
                                                         <label className={"col-12 " + Style.f13N}>Credit Points Available [{this.state.creditdataTotalPoints}] Points.  <span className={" " + Style.AEDColor}> Total Balance Available [{this.state.creditdataValue}] {this.state.currency}</span></label>
                                                         :
-                                                        <label className={" " + Style.f13N}>"You haven't earned any credit points yet"</label>
+                                                        <label className={" " + Style.f13NE}>You haven't earned any credit points yet</label>
                                                     }
                                                     <div className={"form-group col-8 NoPadding " + Style.border1}>
                                                         <input type="text" className={"form-control couponCode " + Style.border1} ref="creaditPoint" id="creaditPoint" name="creaditPoint" value={this.state.creaditPoint} placeholder="" />

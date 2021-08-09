@@ -369,7 +369,7 @@ export default class OrderDetails extends Component {
                                   <div className="row ">
                                     <div className="col-12 NOpadding">
                                       <div className={"col-lg-8 offset-lg-2 col-sm-8 offset-sm-2 col-12 text-lg-right font-weight-bold " + Style.orderDetaiAmount}>
-                                        <span className="col-lg-7 col-5 title">&nbsp; <b>Amount</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span className="col-lg-7 col-5 title">&nbsp; <b>Total</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                         <span className="col-lg-5 col-7 textAlignRight title">&nbsp;
                                           <span className="currencyColor">{this.state.currency}</span> &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) :"00.00"}
                                         </span>

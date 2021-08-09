@@ -645,7 +645,7 @@
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
   .aboutHeight{
-    min-height:40px;
+    min-height:18px;
     margin-top: -11px!important;
     margin-bottom: -6px!important;
     margin-left: 30px! important;

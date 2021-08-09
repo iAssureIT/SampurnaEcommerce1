@@ -465,7 +465,7 @@
 .socialMediaIcons .fab{
   border-radius: 100%;
   border:var(--border2px) !important;
-  padding-top: 7px;
+  padding-top: 8px;
   float: left;
   color: var(--color);
   margin-top: 20px;

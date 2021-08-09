@@ -205,7 +205,7 @@ export default class MyOrders extends Component {
       console.log("formValues=", formValues);
       swal({
         title: "Are you sure?",
-        text: "Are you sure that you want to cancelled order?",
+        text: "Are you sure that you want to cancel this order?",
         icon: "warning",
         dangerMode: true,
         buttons: true,
@@ -263,7 +263,7 @@ export default class MyOrders extends Component {
                 console.log("erroe while cancelling order=", error);
               })
 
-            swal("Cancelled!", "Your order cancelled successfully!", "success");
+            swal("Cancelled!", "Your order has been cancelled successfully!", "success");
 
           } else {
             swal("Your order is safe!");

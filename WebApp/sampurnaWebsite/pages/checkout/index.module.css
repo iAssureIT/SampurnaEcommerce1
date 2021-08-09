@@ -2,26 +2,30 @@
     font-family: 'Montserrat-Black';
     src        : url('../../Themes/Sampurna/fonts/Montserrat-Black.ttf');
 }
-.checkoutWrapper{
+
+.checkoutWrapper {
     min-height: 600px;
 }
+
 .orderReviewsWrapper {
     margin-bottom             : 20px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 0.5px solid #ededed;
+    background                : #FFFFFF 0% 0% no-repeat padding-box;
+    border                    : 0.5px solid #ededed;
     margin-top                : -10px;
     border-bottom-left-radius : 6px;
     border-bottom-right-radius: 6px;
 }
 
 .checkOutTerms {
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 0.5px solid #ededed;
+    background   : #FFFFFF 0% 0% no-repeat padding-box;
+    border       : 0.5px solid #ededed;
     border-radius: 6px;
 }
-.mtErrMsg{
-    margin-top:-10px !important
+
+.mtErrMsg {
+    margin-top: -10px !important
 }
+
 .ma {
     margin: auto !important;
 }
@@ -48,19 +52,21 @@
     font-family: 'Montserrat-Bold';
     color      : #000000;
 }
-.checkoutBrandTitle{
+
+.checkoutBrandTitle {
     letter-spacing: 0px !important;
     color         : #000000 !important;
     opacity       : 1 !important;
     font-family   : 'Montserrat-Medium' !important;
-    font-size: 14px!important;
+    font-size     : 14px !important;
 }
+
 .checkoutProductName {
     letter-spacing: 0px !important;
     color         : #000000 !important;
     opacity       : 0.5 !important;
     font-family   : 'Montserrat-Regular' !important;
-    font-size: 12px!important;
+    font-size     : 12px !important;
 }
 
 .modalMainWrapper {
@@ -80,8 +86,8 @@
 .paymentMethod {
     margin-top    : 30px;
     padding-bottom: 50px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 0.5px solid #ededed;
+    background    : #FFFFFF 0% 0% no-repeat padding-box;
+    border        : 0.5px solid #ededed;
     border-radius : 6px;
 }
 
@@ -90,8 +96,8 @@
     margin-top    : 20px;
     margin-bottom : 20px;
     padding-bottom: 20px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 0.5px solid #ededed;
+    background    : #FFFFFF 0% 0% no-repeat padding-box;
+    border        : 0.5px solid #ededed;
     /*height      : 936px;*/
     height        : auto;
     border-radius : 6px;
@@ -152,12 +158,12 @@
 
 .AEDColor {
     letter-spacing: 0px;
-    color: #000000!important;
+    color         : #000000 !important;
     text-transform: capitalize;
-    opacity: 0.6;
-    font-family: 'Montserrat-Medium';
-    font-weight: 500;
-    font-size: 12px;
+    opacity       : 0.6;
+    font-family   : 'Montserrat-Medium';
+    font-weight   : 500;
+    font-size     : 12px;
 }
 
 .deleteCredit {
@@ -177,7 +183,7 @@
 }
 
 .totalAmountWrapper {
-    margin-left: 70px ;
+    margin-left: 70px;
 }
 
 .f13N {
@@ -280,26 +286,29 @@
 }
 
 .currencyColor {
-    color     : #000000;
-    text-align: left;
+    color      : #000000;
+    text-align : left;
     font-family: 'Montserrat-Medium';
 }
+
 .currencyColor11 {
-    color     : #000000;
-    text-align: left;
-    opacity: 0.4;
+    color      : #000000;
+    text-align : left;
+    opacity    : 0.4;
     font-family: 'Montserrat-Medium';
     font-weight: 600;
 }
-.currencyColor12{
+
+.currencyColor12 {
     letter-spacing: 0px;
-    color: #E88686;
-    opacity: 1;
+    color         : #E88686;
+    opacity       : 1;
 }
-.currencyColor121{
+
+.currencyColor121 {
     letter-spacing: 0px;
-    color: #E88686;
-    opacity: 0.4;
+    color         : #E88686;
+    opacity       : 0.4;
 }
 
 .currencyColor1 {
@@ -364,11 +373,11 @@
     border-radius: 0px !important;
 }
 
-.formcontrol1:focus{
+.formcontrol1:focus {
     border       : none !important;
     border-bottom: 1px solid #ced4da !important;
     border-radius: 0px !important;
-    outline: none!important;
+    outline      : none !important;
 }
 
 
@@ -389,17 +398,17 @@
 }
 
 .saveBtn {
-    letter-spacing: 0px!important;
-color: #FFFFFF!important;
-opacity: 1!important;
-    
-    height          : 47px !important;
-    border-radius   : 6px !important;
-    background: #033554 0% 0% no-repeat padding-box!important;
-box-shadow: -3px 3px 6px #0000004D!important;
-border-radius: 6px!important;
-opacity: 1!important;
-border:none !important;
+    letter-spacing: 0px !important;
+    color         : #FFFFFF !important;
+    opacity       : 1 !important;
+
+    height       : 47px !important;
+    border-radius: 6px !important;
+    background   : #033554 0% 0% no-repeat padding-box !important;
+    box-shadow   : -3px 3px 6px #0000004D !important;
+    border-radius: 6px !important;
+    opacity      : 1 !important;
+    border       : none !important;
 }
 
 .saveBtn:hover {
@@ -521,12 +530,12 @@ border:none !important;
     }
 
     .f11N {
-        font-size  : 11px !important;
-        font-family: 'Montserrat-Medium';
+        font-size     : 11px !important;
+        font-family   : 'Montserrat-Medium';
         letter-spacing: 0px;
-        opacity: 1;
-        color: #000000!important;
-        
+        opacity       : 1;
+        color         : #000000 !important;
+
     }
 }
 
@@ -550,24 +559,41 @@ border:none !important;
         margin-top : -6px;
         margin-left: -29px !important;
     }
-    .f13NTerms{
+
+    .f13NE {
+        font-size     : 12px ! important;
+        color         : #000;
+        margin-top    : -6px;
+        /* margin-left: -29px !important; */
+        letter-spacing: 0px;
+        color         : #000000 !important;
+        text-transform: capitalize;
+        opacity       : 0.6;
+        font-family   : 'Montserrat-Medium';
+        font-weight   : 500;
+    }
+
+    .f13NTerms {
         font-size  : 12px ! important;
         color      : #000;
         margin-top : -6px;
         margin-left: 0px !important;
     }
+
     .f13N1 {
         font-size  : 12px ! important;
         color      : #000;
         margin-top : -6px;
         margin-left: 11px !important;
     }
+
     .f13N2 {
         font-size  : 12px ! important;
         color      : #000;
         margin-top : -6px;
         margin-left: 0px !important;
     }
+
     .addBTN {
         background-color  : #033554 !important;
         height            : 55px;
@@ -585,22 +611,22 @@ border:none !important;
     }
 }
 
-.disccountCoupnWrapper{
-letter-spacing: 0px;
-color: #000000!important;
-text-transform: capitalize;
-opacity: 0.6;
-font-family: 'Montserrat-Medium';
-font-weight: 500;
-}
-
-.creditColorCheckout{
+.disccountCoupnWrapper {
     letter-spacing: 0px;
-color: #DC1919;
-text-transform: capitalize;
+    color         : #000000 !important;
+    text-transform: capitalize;
+    opacity       : 0.6;
+    font-family   : 'Montserrat-Medium';
+    font-weight   : 500;
 }
 
-.selectShippingTitle{
+.creditColorCheckout {
+    letter-spacing: 0px;
+    color         : #DC1919;
+    text-transform: capitalize;
+}
+
+.selectShippingTitle {
     margin-left: -6px !important;
 }
 
@@ -617,12 +643,14 @@ text-transform: capitalize;
     }
 
 }
+
 @media only screen and (min-width: 1600px) {
     .totalAmountWrapper {
         margin-left: 90px;
     }
 
 }
+
 @media only screen and (min-width: 1920px) {
     .totalAmountWrapper {
         margin-left: 102px;
