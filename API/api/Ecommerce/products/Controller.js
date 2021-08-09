@@ -4274,7 +4274,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
 
 	main();
 	async function main(){
-		// console.log("req.body => ",req.body);
+		console.log("req.body => ",req.body);
 		var userLat         = req.body.userLatitude;
 		var userLong        = req.body.userLongitude;
 		var selector        = {};
@@ -4365,7 +4365,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
 				}
 			}
 		}
-		// console.log("selector => ",selector);
+		console.log("selector => ",selector);
 
 		Products.aggregate([ 
 			{$match : selector},
@@ -4384,7 +4384,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
 		])
 		.exec()
 		.then(products=>{
-			// console.log("products_by_lowest_price products => ",products);
+			console.log("products_by_lowest_price products => ",products);
 			processData();
 			async function processData(){
 				var FinalVendorSequence = [];
@@ -4396,14 +4396,14 @@ exports.products_by_lowest_price = (req,res,next)=>{
 				}
 
 				if(products && products.length > 0){ 
-					// var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
+					var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
 					for (let k = 0; k < products.length; k++) {
-						// console.log("products_by_lowest_price products => ",products[k]);
+						console.log("products_by_lowest_price products => ",products[k]);
 						var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID)},{currentQuantity : 1});
-						// console.log("inventoryData => ",inventoryData)
+						console.log("inventoryData => ",inventoryData)
 						products[k].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 						
 						products[k] 					= {...products[k], isWish : false};
-						// console.log("products_by_lowest_price products => ",products[k]);
+						console.log("products_by_lowest_price products => ",products[k]);
 					}
 					if(req.body.user_id && req.body.user_id !== 'null'){
 						Wishlists.find({user_ID : req.body.user_id})

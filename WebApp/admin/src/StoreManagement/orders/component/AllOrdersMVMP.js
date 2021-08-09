@@ -433,7 +433,7 @@ class AllOrdersList extends Component{
 											<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
 												<h4 className="weighttitle NOpadding-right">{this.state.orderStatus} Orders </h4>
 											</div>
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 												<IAssureTable 
 													tableHeading          = {this.state.tableHeading}
 													twoLevelHeader        = {this.state.twoLevelHeader} 

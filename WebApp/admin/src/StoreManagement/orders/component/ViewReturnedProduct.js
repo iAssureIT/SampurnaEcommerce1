@@ -154,7 +154,7 @@ class ReturnedProductView extends Component{
 												<button className={"actionBtns pull-right " + (this.state.returnStatus === "Return Request Approved" ? "activeAction" : "")} name="Approved" id="Return Request Approved" title="Approve Customer's Return Request" onClick={this.changeReturnStatus.bind(this)}>Approve</button>
 											</div>
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewBox">
-												<div className="reviewText col-lg-8 col-md-8 col-sm-12 col-xs-12">
+												<div className="reviewText col-lg-12 col-md-12 col-sm-12 col-xs-12">
 														<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding">
 															<h4 className="NOpadding-right reviewText-heading"> {this.state.reasonForReturn} </h4>
 														</div> 
@@ -162,7 +162,7 @@ class ReturnedProductView extends Component{
 															{this.state.customerComment}
 														</div>                                                    
 												</div>
-												<div className="reviewStars col-lg-4 col-md-4 col-sm-12 col-xs-12">
+												<div className="reviewStars col-lg-12 col-md-12 col-sm-12 col-xs-12">
 														{this.state.reviewProductImages && this.state.reviewProductImages.length > 0
 														?
 															this.state.reviewProductImages.map((a, i)=>{																
