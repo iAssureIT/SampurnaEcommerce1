@@ -4304,7 +4304,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
 				//     selector["$and"].push({"subCategory_ID": { $in : subCategory}})
 				// }  
 				/**----------- Find Products for selected subcategory in particular Section and Category ------------ */
-				if(req.body.subCategoryUrl && req.body.subCategoryUrl = "all" && req.body.subCategoryUrl.length > 0){
+				if(req.body.subCategoryUrl && req.body.subCategoryUrl !== "all" && req.body.subCategoryUrl.length > 0){
 					if(categoryData.subCategory && categoryData.subCategory.length > 0){                        
 						var subCategory    = filterByKey(req.body.subCategoryUrl, categoryData.subCategory).map((subCatg, i)=>{
 												return subCatg._id;
