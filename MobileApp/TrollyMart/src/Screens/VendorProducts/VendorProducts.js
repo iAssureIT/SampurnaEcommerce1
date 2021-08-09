@@ -187,14 +187,14 @@ const onScroll=(e)=>{
             </View>
             <View style={{marginTop:2,height:40}}>
               <View style={{justifyContent:"flex-end",flexDirection:'row',flex:1}}>
-                <TouchableOpacity style={{width:30,height:26,elevation:1,marginRight:10,justifyContent:'center',alignItems:'center',borderRadius:4,borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>setShowFilters(true)}>
+                <TouchableOpacity style={{width:30,height:26,marginRight:10,justifyContent:'center',alignItems:'center',borderRadius:4,borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>setShowFilters(true)}>
                   <Image
                     resizeMode="contain"
                     source={require("../../AppDesigns/currentApp/images/filter.png")}
                     style={{height:25,width:25}}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={{width:30,height:26,elevation:1,marginRight:5,justifyContent:'center',alignItems:'center',borderRadius:4,borderColor:"#f1f1f1"}} onPress={()=>toggleSort(true)}>
+                <TouchableOpacity style={{width:30,height:26,marginRight:5,justifyContent:'center',alignItems:'center',borderRadius:4,borderColor:"#f1f1f1"}} onPress={()=>toggleSort(true)}>
                   {/* <Icon name="sort" type="material-community" color={"#333"} size={20} /> */}
                   <Image
                   resizeMode="contain"
