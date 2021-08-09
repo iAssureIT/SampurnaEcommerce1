@@ -365,8 +365,10 @@ class CartProducts extends Component {
                         <div className="col-12 cartHeight">
                             {this.props.loading ?
                                 <Loader classNmae="d-block"type="fullpageloader" />
+                                // <div className={"col-2 offset-5 loading "+Style.loaderWrapper}>
+                                //     <img src="/images/eCommerce/loader.gif" className="col-12 "></img>
+                                // </div>
                                 :
-                                
                                 <div className="row">
                                      {/* <Loader classNmae="d-block"type="fullpageloader" /> */}
                                     <Message messageData={this.state.messageData} />

@@ -2,7 +2,9 @@
     font-family: 'Montserrat-Black';
     src        : url('../../Themes/Sampurna/fonts/Montserrat-Black.ttf');
 }
-
+.checkoutWrapper{
+    min-height: 600px;
+}
 .orderReviewsWrapper {
     margin-bottom             : 20px;
     background: #FFFFFF 0% 0% no-repeat padding-box;

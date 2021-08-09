@@ -211,7 +211,7 @@ class Checkout extends Component {
             console.log("this.state.user_ID==", this.state.user_ID);
             axios.get('/api/users/get/id/' + this.state.user_ID)
                 .then((response) => {
-                    console.log('userData res', response.data.deliveryAddress);
+                    // console.log('userData res', response.data.deliveryAddress);
 
                     this.setState({
                         "deliveryAddress": response.data.deliveryAddress,
@@ -806,12 +806,12 @@ class Checkout extends Component {
     }
 
     render() {
-        console.log("this.state.recentAddressData===", this.props.recentAddressData);
+        // console.log("this.state.recentAddressData===", this.props.recentAddressData);
         // console.log("fetchAddressData===",this.props.recentAddressData);
         return (
             <div className="col-12 NoPadding">
                 < Header />
-                <div className="col-12 checkoutWrapper" style={{ backgroundColor: "#ffffff" }}>
+                <div className={"col-12 " +Style.checkoutWrapper} style={{ backgroundColor: "#ffffff" }}>
                     <Message messageData={this.state.messageData} />
                     <div className="row">
                         <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">
@@ -960,10 +960,11 @@ class Checkout extends Component {
                         {this.props.loading ?
                             <Loader type="fullpageloader" />
                             :
-                            this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length > 0 ?
+                            <div className={"col-12 NoPadding " +Style.checkoutWrapper1}>
+                            {this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length > 0 ?
                                 <div className="container-fluid">
                                     <div className="col-12 checkoutRadioWrapper">
-                                        <form className="col-12 " id="checkout">
+                                        <form className={"col-12 "+Style.checkoutForm} id="checkout">
                                         <div className="row">
                                             <div className="col-12 col-xl-3 col-md-12 col-lg-4 col-sm-12">
                                                 <div className="col-12 NoPadding">
@@ -1580,6 +1581,8 @@ class Checkout extends Component {
                                 <div className="col-12  textAlignCenter mt-4 mb-4 " Style={{ height: "400px" }}>
                                     <img className="col-12 col-md-4 col-sm-6 " src={"/images/eCommerce/emptycart.png"} alt="" />
                                 </div>
+                            }
+                            </div>
                         }
                     </div>
                 </div>
