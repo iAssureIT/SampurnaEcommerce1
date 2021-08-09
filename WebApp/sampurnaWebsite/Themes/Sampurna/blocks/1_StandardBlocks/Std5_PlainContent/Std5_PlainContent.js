@@ -73,7 +73,7 @@ export default class Std5_PlainContent extends Component{
                     this.state.blocks.bgImage
                     ?
                         <section className="col-12 stdBlockWrapper">
-                            <div className="col-12 stdBlockContentWrapper">
+                            <div className="col-12 px-lg-5 stdBlockContentWrapper">
                                 <h3 className="stdBlockSubTitleWhite">{this.state.blocks.blockSubTitle}</h3>
                                 <p className={"mt-5 "+S.TrollyMartDescrWrapper} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
                             </div>
@@ -82,7 +82,7 @@ export default class Std5_PlainContent extends Component{
                         <section className="col-12 stdBlockWrapper">
                             {/* <StdBlockSeparatorBlue /> */}
                             {/* <StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} /> */}
-                            <div className="col-12 stdBlockContentWrapper">
+                            <div className="col-12 px-lg-5 stdBlockContentWrapper">
                                 <h3 className="stdBlockSubTitleBlack">{this.state.blocks.blockSubTitle}</h3>
                                 <p className={"mt-5 "+S.TrollyMartDescrWrapper} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
                             </div>

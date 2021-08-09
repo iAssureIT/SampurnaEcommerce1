@@ -80,7 +80,7 @@ class Payment extends Component{
 												</div>
 												<div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
 													<h6>
-														<i className="fa fa-wallet"></i>&nbsp; Amount :
+														<i className="fas fa-wallet"></i>&nbsp; Amount :
 													</h6>
 													<h6 className="mx-4">
 														{this.state.currency}&nbsp;{this.state.orderData.paymentDetails ? this.state.orderData.paymentDetails.netPayableAmount : null} /-

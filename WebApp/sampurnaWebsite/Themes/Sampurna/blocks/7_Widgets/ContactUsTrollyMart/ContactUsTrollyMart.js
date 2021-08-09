@@ -212,7 +212,7 @@ export default class ContactUsTrollyMart extends Component{
 											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Phone</label>
 											<div class="input-group mb-3">
 												<div class="input-group-prepend">
-													<span class="input-group-text" id="basic-addon1"><i class="fa fa-phone-alt"></i></span>
+													<span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
 												</div>
 												<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="mobile" type="number" name="mobile" id="mobile" ref="mobile" required value={this.state.mobile} value={this.state.mobile} onChange={this.handleChange.bind(this)} />
 											</div>

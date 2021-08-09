@@ -338,18 +338,20 @@ class DeliveryLocationPopup extends React.Component{
                             <div className="col-12 col-lg-3">
                                 <div className="row">
                                     <button type="button" className={"col-12 btn "+Style.deliveryLocationCurrentButton} onClick={this.takeCurrentLocation.bind(this)}>
-                                        <i className="fa fa-map-marker-alt" aria-hidden="true"></i>&nbsp; Current Location
+                                        <i className="fas fa-map-marker-alt" aria-hidden="true"></i>&nbsp; Current Location
                                     </button>
                                 </div>
                             </div>
-                            <div className="col-12 col-lg-3 mt-3 mt-lg-0">
-                                <div className={"col-4 "+Style.deliveryLocationORLine1}></div>
-                                <div className={"col-4 "+Style.deliveryLocationORTextWrapper}>
-                                    <div className={"mx-auto "+Style.deliveryLocationORText}>OR</div>
+                            <div className="col-12 col-lg-2 mt-3 mt-lg-0">
+                                <div className="ml-2">
+                                    <div className={"col-3 "+Style.deliveryLocationORLine1}></div>
+                                    <div className={"col-4 "+Style.deliveryLocationORTextWrapper}>
+                                        <div className={"mx-auto "+Style.deliveryLocationORText}>OR</div>
+                                    </div>
+                                    <div className={"col-3 "+Style.deliveryLocationORLine2}></div>
                                 </div>
-                                <div className={"col-4 "+Style.deliveryLocationORLine2}></div>
                             </div>
-                            <div className="col-12 col-lg-6 mt-3 mt-lg-0">
+                            <div className="col-12 col-lg-7 mt-3 mt-lg-0">
                                 <div className="row">
                                     <PlacesAutocomplete
                                         value                       = {this.state.address}

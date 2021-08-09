@@ -11,15 +11,15 @@
     padding-top: 40px;
 }
 .signTitle{
-    border-bottom: 1px solid #033554;
     color: #033554;
 }
 .signTextWrapper{
-    padding-top: 40px;
+    padding-top: 30px;
 }
 .signTextWrapper span{
     font-size: 10px;
     color: #033554;
+    opacity: 0.8;
 }
 .signTextWrapper a{
     font-size: 10px;
@@ -28,6 +28,11 @@
 .otpText{
 	margin-left: 0px !important;
 }
+.signInSignUpUnderline{
+    width: 50px;
+    margin-top: -2px;
+}
+
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 

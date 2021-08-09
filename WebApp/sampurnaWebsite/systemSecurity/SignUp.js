@@ -59,10 +59,12 @@ class SignUp extends Component{
 		let fields = this.state.fields;
 		let errors = {};
 		let formIsValid = true;
+
 		if (!fields["firstname"]) {
 			formIsValid = false;
 			errors["firstname"] = "This field is required.";
 		}
+
 		if (typeof fields["firstname"] !== "undefined") {
 		  var pattern = new RegExp(/^[A-Za-z]*$/)
 		  if (!pattern.test(fields["firstname"])) {
@@ -77,6 +79,7 @@ class SignUp extends Component{
 			formIsValid = false;
 			errors["lastname"] = "This field is required.";
 		}
+
 		if (typeof fields["lastname"] !== "undefined") {
 			var pattern = new RegExp(/^[A-Za-z]*$/)
 			if (!pattern.test(fields["lastname"])) {
@@ -94,6 +97,7 @@ class SignUp extends Component{
 		  formIsValid = false;
 		  errors["signupPassword"] = "This field is required.";
 		}
+
 		if (typeof fields["signupPassword"] !== "undefined") {
 			if (fields["signupPassword"].length >= 6) {
 				errors["signupPassword"] = ""
@@ -116,6 +120,16 @@ class SignUp extends Component{
 				errors["signupConfirmPassword"] =""
 			  }
 		  }
+
+		if(!fields["termsNconditions"]){
+			var pattern = this.state.isChecked
+            console.log("condition---", fields["termsNconditions"]);
+            if(pattern === false){
+                formIsValid = false;
+                errors["termsNconditions"] = "Please check terms and conditions";
+            }
+        }
+
 		this.setState({
 		  errors: errors
 		});
@@ -228,26 +242,6 @@ class SignUp extends Component{
       	$('#loginFormModal').show();	
 	}
 
-	// validateForm() {
-    //     let fields = this.state.fields;
-    //     let errors = {};
-    //     let formIsValid = true;
-    //     if (!fields["termsNconditions"]) {
-    //         var pattern = this.state.isChecked
-    //         console.log("condition---", fields["termsNconditions"]);
-    //         if (pattern === false) {
-    //             formIsValid = false;
-    //             errors["termsNconditions"] = "Please check terms and conditions";
-    //         }
-    //     }
-    //     this.setState({
-    //         errors: errors
-    //     });
-    //     console.log("formIsValid=", formIsValid);
-    //     return formIsValid;
-    //     return true;
-    // }
-
 	// checkboxClick(event) {
     //     let isChecked = !this.state.isChecked;
     //     this.setState({ isChecked }, () => {
@@ -265,6 +259,7 @@ class SignUp extends Component{
 			<div className="col-12 NoPadding">
 				<div className={"col-12 "+S.signTitleWrapper}>
 					<span className={S.signTitle}>SIGN UP</span>
+					<hr className={S.signInSignUpUnderline}/>
 				</div>
 				<div className={"col-12 "+S.signTextWrapper}>
 					<div className="row">
@@ -340,20 +335,20 @@ class SignUp extends Component{
 					</div> */}
 					{
 						this.state.btnLoading
-							?
-								<div className="col-12 col-lg-3 offset-lg-4 col-md-10 offset-md-1 NOpaddingRight ">
-									<div align="center" className="cssload-fond">
-										<div className="cssload-container-general">
-											<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_1"> </div></div>
-											<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_2"> </div></div>
-											<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_3"> </div></div>
-											<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_4"> </div></div>
-										</div>
+						?
+							<div className="col-12 col-lg-3 offset-lg-4 col-md-10 offset-md-1 NOpaddingRight">
+								<div align="center" className="cssload-fond">
+									<div className="cssload-container-general">
+										<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_1"> </div></div>
+										<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_2"> </div></div>
+										<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_3"> </div></div>
+										<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_4"> </div></div>
 									</div>
 								</div>
-							:
+							</div>
+						:
 							<div className="col-12 mt-3 mt-lg-5 mb-5">
-								<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12  btn otpBtns	">Sign Up</button>
+								<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12 btn otpBtns">Sign Up</button>
 							</div>
 					}
 				</form>

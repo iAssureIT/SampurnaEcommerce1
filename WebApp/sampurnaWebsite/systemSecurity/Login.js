@@ -166,6 +166,7 @@ class Login extends Component{
 						<div className="row">
 							<div className={"col-12 "+S.signTitleWrapper}>
 								<span className={S.signTitle}>SIGN IN</span>
+								<hr className={S.signInSignUpUnderline}/>
 							</div>
 							<div className={"col-12 "+S.signTextWrapper}>
 								<div className="row">
@@ -235,7 +236,7 @@ class Login extends Component{
 									<div className="col-12">
 										<div className="row">
 										<hr className="col-3 whiteClr"></hr>
-										<span className="col-2 blueText mt-1 ml-n3 ml-sm-3 ml-lg-n2 text-center">OR&nbsp;</span>
+										<span className="col-2 blueText mt-1 ml-n3 ml-sm-3 ml-lg-n1 text-center">OR&nbsp;</span>
 										<hr className="col-3 whiteClr"></hr>
 										</div>
 									</div>
