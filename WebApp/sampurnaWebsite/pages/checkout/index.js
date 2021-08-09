@@ -675,54 +675,30 @@ class Checkout extends Component {
             .join(' ');
     }
 
-    deleteCoupon(event) {
-       
-        // this.setState({
-            
-        //     recentCartData: this.props.recentCartData,
-        //     couponCode: "",
-            
-        // }, () => {
-        //     $('.couponCreditWrapper').show(500);
-        // })
+    deleteCoupon(event,target) {
         event.preventDefault();
-        swal({
-            title: "Are you sure?",
-            text: "Are you sure that you want to remove Coupon?",
-            icon: "warning",
-            dangerMode: true,
-          })
-          .then(willDelete => {
-            if (willDelete) {
-              swal("Deleted!", "You have removed Coupon!", "success");
-              window.location.reload();
-            }
-          });
+        let inputs = document.querySelectorAll("input");
+        inputs.forEach((input) => (input.value = ""));
        
+        this.setState({
+            recentCartData: this.props.recentCartData,
+            // couponCode: "",
+            
+        }, () => {
+            $('.couponCreditWrapper').show(500);
+        })
     }
     deleteCredit(event) {
+        let inputs = document.querySelectorAll("input");
+        inputs.forEach((input) => (input.value = ""));
         event.preventDefault();
-        swal({
-            title: "Are you sure?",
-            text: "Are you sure that you want to remove credit point Coupon?",
-            icon: "warning",
-            dangerMode: true,
-          })
-          .then(willDelete => {
-            if (willDelete) {
-              swal("Deleted!", "You have removed credit point Coupon!", "success");
-              window.location.reload();
-            }
-          });
-        // swal('Credit Point Removed successfully');
-        // window.location.reload();
-        // this.setState({
-        //     recentCartData: this.props.recentCartData,
-        //     creaditPoint: "",
-        //     creaditPointError : ""
-        // }, () => {
-        //     $('.couponCreditWrapper').show(500);
-        // })
+        this.setState({
+            recentCartData: this.props.recentCartData,
+            // creaditPoint: "",
+            // creaditPointError : ""
+        }, () => {
+            $('.couponCreditWrapper').show(500);
+        })
 
     }
 
@@ -1416,7 +1392,12 @@ class Checkout extends Component {
                                                                                     <span className={"col-3 mr-0 pr-0 " + Style.currencyColor11}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.taxAmount > 0 ? this.state.recentCartData.paymentDetails.taxAmount.toFixed(2) : "0.00"}</span>
                                                                                 </span>
                                                                                 <span className="col-6 mb-1">Discount Coupon :</span>
-                                                                             
+                                                                                {/* <span className="col-6 mb-1 textAlignRight">
+                                                        <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0? this.state.recentCartData.paymentDetails.afterDiscountCouponAmount : 0.00}
+                                                        {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0&&
+                                                        <span className="deleteCoupon" onClick={this.deleteCoupon.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
+                                                        }
+                                                    </span> */}
                                                                                 <span className={"col-6 mb-1 " + Style.checkoutCurrencyWrapper}>
                                                                                     <span className={"col-3 mr-0 pr-0 " + Style.currencyColor121}>{this.state.currency}</span><span className={"col-3 pl-0 "+Style.currencyColor12}> {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount > 0 ? this.state.recentCartData.paymentDetails.afterDiscountCouponAmount.toFixed(2) : "0.00"}</span>
                                                                                     {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount > 0 &&
@@ -1424,7 +1405,12 @@ class Checkout extends Component {
                                                                                     }
                                                                                 </span>
                                                                                 <span className="col-6 mb-1">Total Credit Points :</span>
-                                                                             
+                                                                                {/* <span className="col-6 mb-1 textAlignRight">
+                                                        <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.creditPointsValueUsed>0? this.state.recentCartData.paymentDetails.creditPointsValueUsed : 0.00}
+                                                        {this.state.recentCartData.paymentDetails.creditPointsValueUsed > 0 &&
+                                                        <span className={Style.deleteCredit} onClick={this.deleteCredit.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
+                                                        }
+                                                    </span> */}
                                                                                 <span className={"col-6 mb-1 " + Style.checkoutCurrencyWrapper}>
                                                                                     <span className={"col-3 mr-0 pr-0 " + Style.currencyColor11}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.creditPointsValueUsed > 0 ? this.state.recentCartData.paymentDetails.creditPointsValueUsed.toFixed(2) : "0.00"}</span>
                                                                                     {this.state.recentCartData.paymentDetails.creditPointsValueUsed > 0 &&
