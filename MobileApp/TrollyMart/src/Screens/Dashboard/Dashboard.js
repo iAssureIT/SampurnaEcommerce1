@@ -155,6 +155,7 @@ const Dashboard = withCustomerToaster((props)=>{
                   navigation  = {navigation} 
                   showImage   = {true}
                   boxHeight   = {80}
+                  fontSize    = {14}
                   // index       = {0}
                 />
               }

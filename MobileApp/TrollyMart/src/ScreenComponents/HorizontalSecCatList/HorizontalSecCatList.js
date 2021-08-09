@@ -131,7 +131,7 @@ export const HorizontalSecCatList =(props)=>{
     return (
       productList && productList.length > 0 ?
         <View style={{marginHorizontal:5}}>
-          <Text style={CommonStyles.headerText,{fontSize: 17, fontFamily: 'Montserrat-SemiBold',paddingVertical:5,color:"#333"}}>{props.blockTitle}</Text>
+          <Text style={{fontSize: 21, fontFamily: 'Montserrat-Bold',paddingVertical:5,color:"#000000",textShadowColor: 'rgba(0, 0, 0, 0.4)',textShadowOffset: {width: -1, height: 1},textShadowRadius:6,marginBottom:5}}>{props.blockTitle}</Text>
             <FlatList
               horizontal = {true}
               data={productList}

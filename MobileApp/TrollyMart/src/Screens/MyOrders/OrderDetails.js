@@ -37,12 +37,13 @@ import {PERMISSIONS, request, RESULTS} 	from 'react-native-permissions';
 import { RNS3 }                 		from 'react-native-aws3';
 import HTML from 'react-native-render-html';
 import { NetWorkError } from '../../../NetWorkError.js';
+import {Picker} from '@react-native-picker/picker';
 const WATER_IMAGE = require("../../AppDesigns/currentApp/images/star.png")
 const window = Dimensions.get('window');
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
   const customStyles = {
     stepIndicatorSize                 : 25,
-    currentStepIndicatorSize          : 30,
+    currentStepIndicatorSize          : 25,
     separatorStrokeWidth              : 2,
     currentStepStrokeWidth            : 3,
     stepStrokeCurrentColor            : colors.warning,
@@ -52,13 +53,13 @@ const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
     separatorFinishedColor            : colors.success,
     separatorUnFinishedColor          : '#aaaaaa',
     stepIndicatorFinishedColor        : colors.success,
-    stepIndicatorUnFinishedColor      : '#ffffff',
-    stepIndicatorCurrentColor         : '#ffffff',
+    stepIndicatorUnFinishedColor      : '#aaaaaa',
+    stepIndicatorCurrentColor         : colors.warning,
     stepIndicatorLabelFontSize        : 13,
     currentStepIndicatorLabelFontSize : 13,
-    stepIndicatorLabelCurrentColor    : colors.warning,
+    stepIndicatorLabelCurrentColor    : '#ffffff',
     stepIndicatorLabelFinishedColor   : '#ffffff',
-    stepIndicatorLabelUnFinishedColor : '#aaaaaa',
+    stepIndicatorLabelUnFinishedColor : '#ffffff',
     labelColor                        : '#999999',
     labelSize                         : 13,
     currentStepLabelColor             : colors.warning,
@@ -548,7 +549,7 @@ const cancelorderbtn = (id,vendor_id) => {
                           <Text numberOfLines={2} style={styles.totaldata}>Address: {order.deliveryAddress.addressLine1+", "+order.deliveryAddress.addressLine2}</Text>
                         </View>
                         <View style={[{flex:0.54,alignItems:'flex-end'}]}>
-                          <Text numberOfLines={2} style={styles.totaldata}>Credit points earned &nbsp;{order.paymentDetails.creditPointsEarned}</Text>
+                          <Text numberOfLines={2} style={[styles.totaldata,{color: "#000000",opacity: 1}]}>Credit points earned &nbsp;{order.paymentDetails.creditPointsEarned}</Text>
                         </View>
                         {/* {positionOrder === 3  &&
                         <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>
@@ -928,7 +929,7 @@ const cancelorderbtn = (id,vendor_id) => {
           animationOutTiming={500}>
           <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 30,marginTop:150}}>
           <View style={{alignItems:'flex-end',padding:15}}>
-              <Text style={CommonStyles.errorText} onPress={()=>setModal(false)}>Close</Text>
+              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:20}]} onPress={()=>setModal(false)}>X</Text>
             </View>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1}}>
               <View style={{flex:0.3,marginBottom:20}}>
@@ -936,7 +937,10 @@ const cancelorderbtn = (id,vendor_id) => {
                   { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
                     style={styles.imgMain}
                     source={{ uri: vendorDetails.products[productIndex].productImage[0] }}
-                    resizeMode='stretch'
+                    resizeMode='cover'
+                    imageStyle={{ borderWidth:2,
+                      borderColor:'#033554',
+                      borderRadius:9,overflow: "hidden"}}
                   />:
                   <Image
                     source={require("../../AppDesigns/currentApp/images/notavailable.png")}
@@ -947,12 +951,12 @@ const cancelorderbtn = (id,vendor_id) => {
               </View>
               <View style={{flex:0.7,paddingLeft:15,marginBottom:20}}>
                 <Text style={styles.vendorName1}>{vendorDetails?.vendorName}</Text>
-                <Text style={styles.prodinfo}>{vendorDetails.products[productIndex].productName}</Text>
+                <Text style={styles.prodinfo} numberOfLines={1}>{vendorDetails.products[productIndex].productName}</Text>
                 <View style={styles.flx4}>
                   <View style={[styles.flx1, styles.prdet]}>
                     <View style={[styles.flxdir]}>                      
                       <View style={[styles.flxdir]}>
-                        <Text style={styles.ogpriceModal}> {(vendorDetails.products[productIndex].discountedPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                        <Text style={styles.ogpriceModal}>{(vendorDetails.products[productIndex].discountedPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                         </Text>
                         <Text style={[styles.ogpriceModal1]}>{currency} </Text>                        
                       </View>                    
@@ -988,16 +992,18 @@ const cancelorderbtn = (id,vendor_id) => {
                 numberOfLines         = {4}
                 value                 = {review}
               />
-              <View style={{flexDirection:'row',justifyContent:"flex-end",marginHorizontal:20}}>
+              <View style={{flexDirection:'row',justifyContent:"flex-end",marginHorizontal:20,top:-10}}>
                 <TouchableOpacity 
-                    style={{height:34,width:34,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50}}
+                    style={{height:28,width:28,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
                     onPress={() => chooseFromLibrary('openPicker','Review')}
                   >
-                  {/* <Icon name="plus" size={12}  type="font-awesome" iconStyle={{paddingHorizontal:5}}  onPress={() => chooseFromLibrary('openCamera','Return')}/> */}
-                  <Icon name="image" size={12}  type="font-awesome" />
+                  <Image source={require('../../AppDesigns/currentApp/images/insert_image.png')}
+                      resizeMode="contain"
+                      style={{height:18,width:18}}
+                    />
                 </TouchableOpacity>                
               </View>              
-              <View style={{flexDirection:"row",margin:20}}>
+              <View style={{flexDirection:"row",marginHorizontal:20,marginTop:24}}>
                 {
                   reviewProductImages && reviewProductImages.length > 0 ?
                   reviewProductImages.map((item,index)=>{
@@ -1034,15 +1040,18 @@ const cancelorderbtn = (id,vendor_id) => {
           animationOutTiming={500}>
           <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 30}}>
             <View style={{alignItems:'flex-end',padding:15}}>
-              <Text style={CommonStyles.errorText} onPress={()=>setReturnModal(false)}>Close</Text>
+              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:20}]} onPress={()=>setReturnModal(false)}>X</Text>
             </View>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1,borderTopLeftRadius: 15,borderTopRightRadius: 15,}}>
               <View style={{flex:0.3,marginBottom:20}}>
-                <View style={[styles.img151]}>
+              <View style={[styles.img151]}>
                   { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
                     style={styles.imgMain}
                     source={{ uri: vendorDetails.products[productIndex].productImage[0] }}
-                    resizeMode='stretch'
+                    resizeMode='cover'
+                    imageStyle={{ borderWidth:2,
+                      borderColor:'#033554',
+                      borderRadius:9,overflow: "hidden"}}
                   />:
                   <Image
                     source={require("../../AppDesigns/currentApp/images/notavailable.png")}
@@ -1053,8 +1062,8 @@ const cancelorderbtn = (id,vendor_id) => {
               </View>
               
               <View style={{flex:0.7,paddingLeft:15,marginBottom:20}}>
-              <Text style={styles.vendorName1}>{vendorDetails?.vendorName}</Text>
-                <Text style={styles.prodinfo}>{vendorDetails.products[productIndex].productName}</Text>
+                <Text style={styles.vendorName1}>{vendorDetails?.vendorName}</Text>
+                <Text style={styles.prodinfo} numberOfLines={1}>{vendorDetails.products[productIndex].productName}</Text>
                 <View style={styles.flx4}>
                   <View style={[styles.flx1, styles.prdet]}>
                     <View style={[styles.flxdir]}>                      
@@ -1079,7 +1088,8 @@ const cancelorderbtn = (id,vendor_id) => {
                     data                = {getReasons}
                     value               = {reason}
                     containerStyle      = {styles.ddContainer}
-                    dropdownOffset      = {{ top: 0, left: 0 }}
+                    dropdownOffset      = {{ top: 95, left: 15 }}
+                    pickerStyle={{width:"85%"}}
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
                     labelHeight         = {10}
@@ -1091,7 +1101,24 @@ const cancelorderbtn = (id,vendor_id) => {
                     labelTextStyle      = {{ left: 5 }}
                     style               = {styles.ddStyle}
                     disabledLineType    = 'none'
-                  />
+                    underlineColor      ='transparent'
+                  /> 
+                  {/* <Picker
+                    selectedValue={reason}
+                    mode="dropdown"
+                    onValueChange={(itemValue, itemIndex) =>
+                      setReason(itemValue)
+                    }>
+                    {getReasons && getReasons.length >0 ?
+                    getReasons.map((item,index)=>{
+                      return(
+                        <Picker.Item label={getReasons.label} value={getReasons.value } />
+                      )
+                    })
+                    :
+                    []
+                    }
+                  </Picker> */}
                 </View>
               </View>
               {/* <Text style={styles.tomorroworder}>Your order will be delivered to you by in 60 Minutes.</Text> */}
@@ -1112,36 +1139,39 @@ const cancelorderbtn = (id,vendor_id) => {
                   inputStyle            = {{textAlignVertical: "top"}}
                   // autoCapitalize        = 'characters'
                   multiline             = {true}
-                  numberOfLines         = {4}
+                  numberOfLines         = {3}
                   value                 = {comment}
                 />
               </View>
-              <View style={{flexDirection:'row',justifyContent:"flex-end",marginHorizontal:20}}>
+              <View style={{flexDirection:'row',justifyContent:"flex-end",marginHorizontal:20,top:-10}}>
                 <TouchableOpacity 
-                    style={{height:34,width:34,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50}}
-                    onPress={() => chooseFromLibrary('openPicker','Return')}
+                    style={{height:28,width:28,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
+                    onPress={() => chooseFromLibrary('openPicker','Return ')}
                   >
-                  {/* <Icon name="plus" size={12}  type="font-awesome" iconStyle={{paddingHorizontal:5}}  onPress={() => chooseFromLibrary('openCamera','Return')}/> */}
-                  <Icon name="image" size={12}  type="font-awesome" />
+                  <Image source={require('../../AppDesigns/currentApp/images/insert_image.png')}
+                      resizeMode="contain"
+                      style={{height:18,width:18}}
+                    />
                 </TouchableOpacity>                
-              </View>
-              <View style={{flexDirection:"row",margin:20}}>
-                {
+              </View>       
+              {
                   returnProductImages && returnProductImages.length > 0 ?
-                  returnProductImages.map((item,index)=>{
-                    return(
-                      <Image
-                        source={{uri:item}}
-                        resizeMode="cover"
-                        style={{height:50,width:50,marginRight:15,backgroundColor:"#f1f1f1"}}
-                        PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
-                      />
-                    )
-                  })
-                  :
-                  null
+                  <View style={{flexDirection:"row",margin:11}}>
+                {
+                    returnProductImages.map((item,index)=>{
+                      return(
+                        <Image
+                          source={{uri:item}}
+                          resizeMode="cover"
+                          style={{height:50,width:50,marginRight:15,backgroundColor:"#f1f1f1"}}
+                          PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
+                        />
+                      )
+                    })
                 }
-               </View> 
+               </View> :
+               null
+             }
                 <Text style={{fontSize:12,fontFamily:'Montserrat-Regular',color:"#033554",marginHorizontal:20,}}>Refund to :</Text>
                 <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}} onPress={() => {setChecked('first');setRefund('source')}}>
                   <CheckBox
@@ -1154,6 +1184,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     checked={checked === 'first' ? true : false}
                     disabled={order?.paymentDetails?.paymentMethod === "creditdebitcard" ?false : true}
                     onPress={() => {setChecked('first');setRefund('source')}}
+                    containerStyle={{paddingVertical:3}}
                   />
                   <Text style={styles.free}>The Source (Valid for card payments only)</Text>
                 </TouchableOpacity>
@@ -1168,6 +1199,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     size={10}
                     checked={checked === 'second' ? true : false}
                     onPress={() => {setChecked('second');setRefund('credit')}}
+                    containerStyle={{paddingVertical:3}}
                   />
                   <Text style={styles.free}>Add to Credit Points</Text>
                 </TouchableOpacity>
@@ -1181,10 +1213,12 @@ const cancelorderbtn = (id,vendor_id) => {
                     size={10}
                     checked={checkedTerms}
                     onPress={()=>setTermsChecked(!checkedTerms)}
+                    containerStyle={{paddingVertical:3}}
+                    textStyle={{color: "#000000",fontSize:12,fontFamily:"Montserrat-SemiBold"}}
                   />
                   <Text style={styles.free1}>I agree to <Text style={{textDecorationLine:'underline'}} onPress={()=>setTermsModal(true)}>Return Policy</Text></Text>
               </TouchableOpacity>
-              <View style = {{marginHorizontal:40,marginBottom:25}}>
+              <View style = {{marginHorizontal:40,marginBottom:25,marginTop:20}}>
                 <FormButton 
                     onPress    = {()=>submitReturn()}
                     title       = {'Submit'}

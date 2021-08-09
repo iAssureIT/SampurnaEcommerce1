@@ -191,10 +191,10 @@ const FormBody = (props) => {
           :
             <ScrollView contentContainerStyle={{paddingVertical:15,backgroundColor:"#fff"}}>
                 <View style={{ paddingHorizontal: 15 }}>
-                    <View style={{ height:230,backgroundColor:'#fff',marginBottom: 15,marginLeft:5}}>
+                    <View style={{ height:200,backgroundColor:'#fff',marginBottom: 15,marginLeft:5}}>
                          <Image 
                             source = {require("../../AppDesigns/currentApp/images/contact_us1.png")}
-                            style={{height:230, width:window.width-5}} 
+                            style={{height:200, width:window.width-5}} 
                             resizeMode={'contain'}
                         />
                     </View>

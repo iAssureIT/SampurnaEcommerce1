@@ -49,12 +49,12 @@ const VendorProducts = (props)=>{
 
 
   const {productList,brandList,payload,globalSearch} = props;
-  const HEADER_HEIGHT = 185;
+  const HEADER_HEIGHT = 160;
   var scrollY = new Animated.Value(0);
   var diffClampScrollY= Animated.diffClamp(scrollY,0,HEADER_HEIGHT);
   var headerY= Animated.interpolate(diffClampScrollY,{
     inputRange:[0,HEADER_HEIGHT],
-    outputRange:[0,-HEADER_HEIGHT]
+    outputRange:[0,-85]
   })
     // var diffClamp= Animated.diffClamp(scrollY,0,185)
     // var translateY = diffClamp.interpolate({
@@ -160,23 +160,24 @@ const onScroll=(e)=>{
            {/* <View style={[styles.block1]}> */}
              <View style={{elevation:5,backgroundColor:"#fff"}}>
                 <View style={{backgroundColor:"#EEEEEE",marginTop:3,height:20}}>
-                    <Text numberOfLines={1} style={[{paddingHorizontal:5,fontWeight:"bold",fontSize:14,color:"#333"}]}>{vendor?.vendorName ? vendor?.vendorName : vendor?.companyName}</Text>
+                    <Text numberOfLines={1} style={[{paddingHorizontal:5,fontSize:11,color:"#333"}]}>{vendor?.vendorName ? vendor?.vendorName : vendor?.companyName}</Text>
                 </View> 
-                <View style={{height:70}}>
+                <View style={{height:60}}>
                   <MenuCarouselSection  
                       navigation  = {navigation}   
                       showImage   = {true} 
-                      boxHeight   = {40} 
+                      boxHeight   = {29} 
                       selected    = {section}
                       index       = {index}
+                      fontSize    = {11}
                   />
                 </View>  
             </View>         
-            <View style={{height:60,marginTop:2}}>
+            <View style={{height:40,marginTop:2}}>
               <CategoryList 
                 navigation          = {navigation}  
                 showImage           = {false} 
-                boxHeight           = {30} 
+                boxHeight           = {24} 
                 setSubCategory      = {setSubCategory}
                 category            = {category? category : ''}
                 vendorLocation_id   = {vendorLocation_id}

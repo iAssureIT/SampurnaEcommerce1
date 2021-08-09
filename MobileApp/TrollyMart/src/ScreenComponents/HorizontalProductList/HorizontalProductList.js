@@ -90,7 +90,7 @@ export const HorizontalProductList =(props)=>{
  
   const _renderlist = ({ item, index })=>{
     return (
-      <View key={index}  style={[styles.productContainer,{width:window.width-220,marginRight:20}]} >
+      <View key={index}  style={[styles.productContainer,{width:(window.width/2)-15,marginRight:20}]} >
         <TouchableWithoutFeedback  onPress={()=>{props.addToCart ? navigation.navigate('SubCatCompView',{productID: item._id }) : navigation.navigate("ProductVendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section,product_id:item._id})}}>
           <View style={styles.flx5}>
             <View style={styles.flx1}>
@@ -149,12 +149,12 @@ export const HorizontalProductList =(props)=>{
             <View style={[styles.flx1, styles.prdet]}>
                 <View style={[styles.flxdir]}>
                   <View style={[styles.flxdir]}>
-                    <Text style={styles.ogprice}>{currency} </Text>
+                    <Text style={styles.ogpriceC}>{currency} </Text>
                     {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice}</Text>:null}
                   </View>
                   <View style={[styles.flxdir,{alignItems:"center"}]}>
                     {item.discountPercent > 0 ?
-                          <Text style={styles.ogprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          <Text style={styles.disprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                           </Text>
                         :
                         <Text style={styles.ogprice}>{item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
@@ -170,7 +170,7 @@ export const HorizontalProductList =(props)=>{
 
     return (
       <View style={{marginHorizontal:5}}>
-      <Text style={[CommonStyles.headerText,{alignSelf:'flex-start'}]}>{props.blockTitle}</Text>
+      <Text style={{fontSize: 21, fontFamily: 'Montserrat-Bold',color:"#000000",textShadowColor: 'rgba(0, 0, 0, 0.4)',textShadowOffset: {width: -1, height: 1},textShadowRadius:6,marginBottom:5}}>{props.blockTitle}</Text>
         {productList && productList.length > 0 ?
           <FlatList
             horizontal          = {true}

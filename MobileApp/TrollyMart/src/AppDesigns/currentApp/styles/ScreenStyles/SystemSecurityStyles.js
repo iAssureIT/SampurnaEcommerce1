@@ -67,7 +67,7 @@ export default StyleSheet.create({
     },
     textLine1:{
         fontFamily:"Montserrat-Regular",
-        fontSize: 14,
+        fontSize: 13,
         color:'#000',
     },
     syslogoimg:{

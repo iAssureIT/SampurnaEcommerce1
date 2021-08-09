@@ -159,7 +159,8 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                     type        = {value}
                     showImage   = {true}
                     selected    = {section}
-                    boxHeight   = {40}
+                    boxHeight   = {29}
+                    fontSize    = {11}
                     index       = {index}
                 />
                 <View style={styles.proddets}>

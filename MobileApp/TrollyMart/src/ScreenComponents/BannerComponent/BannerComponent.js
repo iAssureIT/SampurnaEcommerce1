@@ -51,8 +51,8 @@ export const BannerComponent=()=>{
             index={0}
           //  pageSize={BannerWidth}
             pageSize={BannerWidth}
-            pageIndicatorStyle={{width:20,height:3,backgroundColor:"#aaa"}}
-            activePageIndicatorStyle={{width:20,height:3,backgroundColor:"#fff"}}
+            pageIndicatorStyle={{width:20,height:2,backgroundColor:"#aaa"}}
+            activePageIndicatorStyle={{width:20,height:2,backgroundColor:"#fff"}}
             pageIndicatorOffset={30}
         
             >

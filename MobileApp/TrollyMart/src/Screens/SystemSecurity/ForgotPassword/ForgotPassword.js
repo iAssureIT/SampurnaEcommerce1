@@ -122,8 +122,8 @@ const window = Dimensions.get('window');
                 />
             </View>
             <View style={styles.textTitleWrapper}>
-              <Text style={{fontSize:12,color:"#bbb",fontFamily:"Montserrat-Medium",}}>Knock Knock</Text>
-              <Text style={{fontSize:14,color:"#000000",fontFamily:"Montserrat-Regular",}}>Forgot your password?</Text>
+              <Text style={{fontSize:12,color:"#000000",fontFamily:"Montserrat-Medium",opacity:0.5}}>Knock Knock</Text>
+              <Text style={{fontSize:13,color:"#000000",fontFamily:"Montserrat-Regular",}}>Forgot your password?</Text>
             </View>
             <View style={styles.textTitleWrapper}>
               <Text style={styles.textLine1}>Enter your email address/mobile no. and we'll send you a link to reset your password.</Text>

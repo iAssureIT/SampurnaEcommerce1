@@ -95,9 +95,9 @@ export default StyleSheet.create({
 	}, 
   formWrapper:{
     flex:1,
-    paddingHorizontal:35,
-    paddingLeft:5,    
-    paddingRight:5,
+    // paddingHorizontal:35,
+    // paddingLeft:5,    
+    // paddingRight:5,
     backgroundColor:"#fff"
   },
   categoryTitle:{
@@ -552,7 +552,7 @@ export default StyleSheet.create({
     fontSize:13,fontFamily:"Montserrat-SemiBold",marginBottom:10,marginTop:10
   },
   detailclr:{
-    backgroundColor:'#fff',padding:10,borderRadius:3,paddingTop:0
+    backgroundColor:'#fff',borderRadius:3,paddingTop:0,paddingBottom:10
   },
   detailcolor:{
     fontSize:16,fontFamily:"Montserrat-SemiBold",color:'#333'

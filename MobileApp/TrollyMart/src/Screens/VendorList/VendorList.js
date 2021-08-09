@@ -156,7 +156,8 @@ export const VendorList = withCustomerToaster((props)=>{
                     navigation  = {navigation} 
                     showImage   = {true}
                     selected    = {section}
-                    boxHeight   = {40}
+                    boxHeight   = {29}
+                    fontSize    = {11}
                     index       = {index}
                 />
                 <View style={{flexDirection:'row',justifyContent:'center',height:35,backgroundColor:colors.cartButton,marginTop:10}}>

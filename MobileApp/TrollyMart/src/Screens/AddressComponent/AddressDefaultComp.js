@@ -167,13 +167,9 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                 <Text style={CommonStyles.screenHeader}>My Address</Text>
               </View>
               <View style={{flex:0.6,alignItems:'flex-end'}}>
-                <Button
-                  buttonStyle={styles.addBtnClass}
-                  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,address:undefined})}
-                  icon={<View style={styles.addBtnClass}>
+                <TouchableOpacity style={styles.addBtnClass}>
                     <Image source={require("../../AppDesigns/currentApp/images/addressNew.png")} style={styles.addBtnImg} />
-                  </View>}
-                />
+                </TouchableOpacity>
               </View>
               
               {/* {!disabled && <ActionButton 
@@ -200,7 +196,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                       )]}>
                     {disabled || item.distance<=1 ?
                       <TouchableOpacity onPress={() => {selectedaddress(i,item._id,item)}} >
-                        <View style={{height:24,backgroundColor:"#B7B7B7",borderTopLeftRadius:9,borderTopRightRadius:9,flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15,borderBottomWidth:1,borderColor:colors.cartButton}}>
+                        <View style={{height:24,backgroundColor:colors.cartButton,borderTopLeftRadius:9,borderTopRightRadius:9,flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15,borderBottomWidth:1,borderColor:colors.cartButton}}>
                             {/* <Icon name="home" type="material-community" size={10} iconStyle={{elevation:5}} color={colors.white}/> */}
                             <Image
                               resizeMode="contain"
@@ -238,12 +234,16 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                       :
                       <View style={{borderRadius:9}} >
                          <View style={{height:24,backgroundColor:"#B7B7B7",flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15}}>
-                            <Icon name="home" type="material-community" size={10} iconStyle={{elevation:5}} color={colors.textLight}/>
+                          <Image
+                              resizeMode="contain"
+                              source={require("../../AppDesigns/currentApp/images/home_gray.png")}
+                              style={{height:16,width:16}}
+                            />
                             <TouchableOpacity  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})}>                              
                                 <Image
                                   resizeMode="contain"
                                   source={require("../../AppDesigns/currentApp/images/editNEW.png")}
-                                  style={{height:15,width:15,marginLeft:15,marginTop:5}}
+                                  style={{height:15,width:15,marginLeft:15}}
                                   />
                               </TouchableOpacity>
 

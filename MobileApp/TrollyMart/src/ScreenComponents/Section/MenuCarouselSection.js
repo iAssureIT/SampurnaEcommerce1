@@ -37,7 +37,7 @@ export const MenuCarouselSection = (props)=>{
   const _renderlist = ({ item, index })=>{
     return (
       <View key={index} style={styles.mainrightside}>
-        <TouchableOpacity style={{borderRadius:selected===item.section ? 5 :0,borderWidth:selected===item.section ? 2:0,borderColor:colors.cartButton}} 
+        <TouchableOpacity style={{borderRadius:selected===item.section ? 8 :0,borderWidth:selected===item.section ? 2:0,borderColor:colors.cartButton}} 
           onPress={()=>{
               setSelected(item.section);
               navigation.navigate("VendorList",{
@@ -67,11 +67,11 @@ export const MenuCarouselSection = (props)=>{
             </View> 
             :
             <View style={{borderBottomWidth:selected===item.section? 1:0}}>
-              <Text style={[styles.sectionTitle,selected===item.section ? {color:"#333"}: {color:"#666"}]}>{item.section}</Text>
+              <Text style={[styles.sectiontitle,selected===item.section ? {color:"#333"}: {color:"#666"}]}>{item.section}</Text>
             </View>  
           }
         </TouchableOpacity>
-        <Text style={[styles.sectionTitle,commonStyles.label]}>{item.section}</Text>
+        <Text style={[styles.sectiontitle,{color:selected===item.section ?colors.cartButton:"#333",fontSize:props.fontSize}]}>{item.section}</Text>
       </View>
     )
   }

@@ -53,9 +53,9 @@ export const CategoryList = (props)=>{
 
   const _renderlist = ({ item, i })=>{
     return (
-      <View key={i} style={[styles.mainrightside]}>
+      <View key={i} style={[styles.mainrightside,{elevation:5}]}>
        {selected===item.category ? 
-       <TouchableOpacity style={{borderWidth:2,borderRadius:5,borderColor:colors.cartButton,marginTop:showImage === true ? 5 :0}} onPress={()=>{
+       <TouchableOpacity style={{borderRadius:5,marginTop:showImage === true ? 5 :0}} onPress={()=>{
               setSelected(item.category);
               var subCategoryArray = item.subCategory.map((a, i)=>{
                 return {
@@ -86,18 +86,18 @@ export const CategoryList = (props)=>{
                 });
             }}>
             {showImage === true? 
-            <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#333",height:boxHeight}]} imageStyle={{opacity:0.6,borderRadius: 5,elevation:5}}>
-              <Text style={[styles.sectionTitle,{color:item.categoryImage?"#fff":"#333"}]}>{item.category}</Text>
+            <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#000",height:boxHeight}]} imageStyle={{opacity:0.5,borderRadius: 5,elevation:5}}>
+              <Text style={[styles.categoryTitle,{color:item.categoryImage?"#fff":"#707070"}]}>{item.category}</Text>
             </ImageBackground>
             :
-            <View  style={[styles.sectionImages,{height:boxHeight}]}>
-              <Text style={[styles.sectionTitle,{color:item.categoryImage?"#333":"#aaa"}]}>{item.category}</Text>
+            <View  style={[styles.sectionImages,{height:boxHeight,borderWidth:1,borderColor:"#033554"}]}>
+              <Text style={[styles.categoryTitle,{color:item.categoryImage?"#333":"#aaa"}]}>{item.category}</Text>
             </View>}
         </TouchableOpacity>
         :
         showImage === true? 
           <View>
-             <TouchableOpacity style={{borderWidth:1,borderRadius:5,borderColor:colors.cartButton }} onPress={()=>{  setSelected(item.category);
+             <TouchableOpacity style={{borderWidth:0.5,borderRadius:5,borderColor:"#033554" }} onPress={()=>{  setSelected(item.category);
               var subCategoryArray = item.subCategory.map((a, i)=>{
                 return {
                     label :a.subCategoryTitle,        
@@ -129,11 +129,11 @@ export const CategoryList = (props)=>{
             <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{borderRadius: 5}}>
                 </ImageBackground>
                 </TouchableOpacity>
-              <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
+              <Text style={[styles.categoryTitle,{color:item.sectionImage?"#fff":"#707070"}]}>{item.category}</Text>
           </View>  
           :
           <View>
-          <TouchableOpacity style={{borderWidth:1,borderRadius:5,borderColor:colors.cartButton }} onPress={()=>{  setSelected(item.category);
+          <TouchableOpacity style={{borderWidth:0.5,borderRadius:5,borderColor:"#033554"}} onPress={()=>{  setSelected(item.category);
            var subCategoryArray = item.subCategory.map((a, i)=>{
              return {
                  label :a.subCategoryTitle,        
@@ -162,8 +162,8 @@ export const CategoryList = (props)=>{
                vendorLocation_id:props.vendorLocation_id,
              });
          }}>
-          <View  style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]}>
-              <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
+          <View  style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight,borderColor:"#707070"}]}>
+              <Text style={[styles.categoryTitle,{color:item.sectionImage?"#fff":"#707070"}]}>{item.category}</Text>
           </View>
              </TouchableOpacity>
        </View>} 

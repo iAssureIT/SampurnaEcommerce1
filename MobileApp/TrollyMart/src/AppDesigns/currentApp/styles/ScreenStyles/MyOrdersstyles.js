@@ -17,7 +17,7 @@ export default StyleSheet.create({
   },
   formWrapper:{
     flex:1,
-    marginBottom:80
+    marginBottom:40
   },
   categoryTitle:{
    color:'#333',textAlign:'center',marginTop:5,marginBottom:10,fontSize:13,fontFamily:"Montserrat-Regular",flexWrap: 'wrap' 
@@ -52,8 +52,8 @@ export default StyleSheet.create({
     fontSize:14,
     flex:0.7,
     fontFamily:"Montserrat-Medium",
-    color:'#000'
-     
+    color:'#000',
+     paddingRight:15
   },
   addressdets:{
     fontSize:13,
@@ -284,23 +284,16 @@ export default StyleSheet.create({
     
   },
   imgMain:{
-    width:60,
-    height:60,
-    resizeMode:'center',
-    backgroundColor:'#EBEBEB',
+    width:81,
+    height:76,
+    backgroundColor:'#fff',
     alignSelf:'center',
-    marginTop:9,
-  },
-  img151:{
-    width:76,
-    height:81,
-    backgroundColor:'#EBEBEB',
     borderWidth:2,
     borderColor:'#033554',
     borderRadius:9,
+  },
+  img151:{
     marginLeft:20,
-    marginTop:10,
-    resizeMode:'contain'
   },
 
   labelDrop:{
@@ -606,7 +599,7 @@ export default StyleSheet.create({
   ddStyle:{
     fontFamily:"Montserrat-Regular",
     backgroundColor:"#fff",
-    height:50,
+    height:38,
   },
   orderbrdr:{
     flex:1,flexDirection:"row",

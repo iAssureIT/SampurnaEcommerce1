@@ -53,7 +53,12 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
             <View style={{backgroundColor:"#5B8E7E",marginHorizontal:15,borderRadius:23,paddingHorizontal:15,paddingBottom:50}}>
                 <View style={{marginTop:22,flexDirection:'row',}}>
                     <View style={{flex:0.6,alignItems:'flex-end'}}>
-                        <Icon color="#fff" name="check" type="font-awesome" size={73} iconStyle={{elevation:5}}/>
+                        {/* <Icon color="#fff" name="check" type="font-awesome" size={73} iconStyle={{elevation:15}}/> */}
+                        <Image
+                        resizeMode="contain"
+                        source={require("../../AppDesigns/currentApp/images/payment_success.png")}
+                        style={{height:57,width:73}}
+                        />
                     </View> 
                     <View style={{flex:0.4,alignItems:'flex-end'}}>
                         <Image

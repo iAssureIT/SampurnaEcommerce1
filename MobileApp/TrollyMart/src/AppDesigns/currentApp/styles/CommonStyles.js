@@ -12,6 +12,14 @@ export default StyleSheet.create({
         backgroundColor:"#fff",
         justifyContent:"center"
     },
+    imgContainer:{
+        height:300,
+        width: window.width,
+        backgroundColor:"#fff",
+        position:'absolute',
+        zIndex:-15,
+        marginTop:300
+    },
 
     //Form Input Style
     formInputView: {

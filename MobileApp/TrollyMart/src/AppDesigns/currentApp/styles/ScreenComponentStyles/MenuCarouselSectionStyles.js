@@ -100,19 +100,29 @@ export default StyleSheet.create({
 		marginVertical:20
 	},
 	sectiontitle:{
-		textShadowColor: 'rgba(0, 0, 0, 0.75)',
-		textShadowOffset: {width: -1, height: 1},
-		textShadowRadius: 10,
-		color:'#333',
+		// textShadowColor: 'rgba(0, 0, 0, 0.75)',
+		// textShadowOffset: {width: -1, height: 1},
+		// textShadowRadius: 10,
+		color:'#000000',
 		flexShrink:1,
 		textAlign:'center',
-		marginTop:10,
-		fontSize:13,
-		fontFamily:"Montserrat-SemiBold",
-		flexWrap: 'wrap'
+		// marginTop:10,
+		fontSize:14,
+		fontFamily:"Montserrat-Medium",
+		flexWrap: 'wrap',
+		opacity: 1
 	},
-	sectionTitle:{
-		textAlign: 'center',
-		// marginTop: 30,	
-	}
+	categoryTitle:{
+		// textShadowColor: 'rgba(0, 0, 0, 0.75)',
+		// textShadowOffset: {width: -1, height: 1},
+		// textShadowRadius: 10,
+		color:'#000000',
+		flexShrink:1,
+		textAlign:'center',
+		// marginTop:10,
+		fontSize:11,
+		fontFamily:"Montserrat-Medium",
+		flexWrap: 'wrap',
+		opacity: 1
+	},
 }); 
