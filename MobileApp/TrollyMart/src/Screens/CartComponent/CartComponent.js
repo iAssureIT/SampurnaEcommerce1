@@ -44,10 +44,12 @@ export const CartComponent = withCustomerToaster((props)=>{
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     globalSearch    : store.globalSearch,
-    location        : store.location
+    location        : store.location,
+    userDetails     : store.userDetails
   }));
-  const {globalSearch,location}=store;
+  const {globalSearch,location,userDetails}=store;
   const {currency}=store.preferences;
+  
 
 
   const minusIcon = (isDisabled) => {
@@ -362,10 +364,13 @@ const getshippingamount=(startRange, limitRange)=>{
                           </View>
                           <View style={[styles.flx5,{alignItems:'flex-end'}]}>
                               <View style={styles.proddeletes}>
-    
+                              {userDetails.authService!=="guest" ?
                                 <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => {addToWishList(item.product_ID._id,vendor),cartData.vendorOrders[i].cartItems[index].product_ID.isWish = !cartData.vendorOrders[i].cartItems[index].product_ID.isWish}} >
                                   <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.product_ID.isWish ?'red':'#999'} iconStyle={{}}/>
                                 </TouchableOpacity>
+                                :
+                                null
+                              }
                                 <TouchableOpacity  onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)} >
                                 {/* <Icon
                                   // onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)}
