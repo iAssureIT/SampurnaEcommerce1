@@ -52,7 +52,7 @@ export default function App({pageData}){
                         				<nav className="navbar navbar-expand-md navbar-dark megamenu">
 											<div className="col-12 NoPadding ">
                                 				<div className="col-12 top-header mobileNoPadding">
-                                    				<div className="col-12 headeLogoWrap mt-4"> 
+                                    				<div className="col-12 headeLogoWrap my-3"> 
                                       					<div className="row"> 
                                           					<div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">
                                               					<Websitelogo />
@@ -62,16 +62,16 @@ export default function App({pageData}){
 																	userId
 																	?
 							                                            <div className="col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 NoPadding signInBlock pull-right">
-                            							                    <a href="" className="faIcon faLoginIcon col-12 NoPadding pull-right" onClick={()=>signOut()}  id="loginModal" area-hidden ="true">
-                                                    							<span className="col-12 loginView">Sign Out &nbsp;
+                            							                    <a href="" className="faIcon faLoginIcon NoPadding pull-right" onClick={()=>signOut()}  id="loginModal" area-hidden ="true">
+                                                    							<span className="btn loginView mr-3">Sign Out &nbsp;
 																					<img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
 																				</span>
 																			</a>
                                             							</div>
                                             						:
                                             							<div className="col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 NoPadding signInBlock pull-right">
-                                                							<a href="" className="faIcon faLoginIcon col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
-                                                    							<span className="col-12 loginView">Sign in &nbsp;
+                                                							<a href="" className="faIcon faLoginIcon NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
+                                                    							<span className="btn loginView mr-3">Sign in &nbsp;
                                                         							<img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
                                                     							</span>
                                                 							</a>

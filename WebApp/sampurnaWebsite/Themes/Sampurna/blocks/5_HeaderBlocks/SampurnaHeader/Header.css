@@ -507,14 +507,16 @@ ul:hover > .dropDownLevel3 {
     /* border: solid 1px #154799 !important; */
   }
   .loginView{
-      font-weight: 600;
-      color: #333;
-      background-color:#fff;
-      padding: 8px !important;
-      text-align: center;
-      font-size: 13px;
-      transition: 0.5s ease;
-      border-radius: 5px;
+    height: 35px;
+    width: 105px;
+    font-weight: 600;
+    color: #333;
+    background-color:#fff;
+    /* padding: 5px !important; */
+    text-align: center;
+    font-size: 13px;
+    transition: 0.5s ease;
+    border-radius: 5px;
   }
   .userIconImg{
       height: 18px;

@@ -25,102 +25,106 @@ export default class FAQ extends Component{
 			"repeatedBlocks"     : [
 				{
 					Title        : "Faq1?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					SubTitle     : "Lorem Ipsum has been the industry's",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "/images/CMSImages/BranniganHealthCenter/Client1.jpg",
 				},
 				{
 					Title        : "Faq2?",
-					Description  : "Naturopathic Medicine is the combination of the greatest achievements of the traditional, western diagnostic and treatment techniques with the therapeutic methodologies of naturopathic and ancient medical methods.",
+					SubTitle     : "Lorem Ipsum has been the industry's",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "/images/CMSImages/BranniganHealthCenter/Client2.jpg",
 				},
 				{
 					Title        : "Faq3?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					SubTitle     : "Lorem Ipsum has been the industry's",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "/images/CMSImages/BranniganHealthCenter/Client3.jpg",
 				},
 				{
 					Title        : "Faq4?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					SubTitle     : "Lorem Ipsum has been the industry's",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "/images/CMSImages/BranniganHealthCenter/Client4.jpg",
 				},
 				{
 					Title        : "Faq5?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq6?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq7?",
-					Description  : "Naturopathic Medicine is the combination of the greatest achievements of the traditional, western diagnostic and treatment techniques with the therapeutic methodologies of naturopathic and ancient medical methods.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq8?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq9?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq10?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq11?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq12?",
-					Description  : "Naturopathic Medicine is the combination of the greatest achievements of the traditional, western diagnostic and treatment techniques with the therapeutic methodologies of naturopathic and ancient medical methods.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq13?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq14?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq15?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq16?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq17?",
-					Description  : "Naturopathic Medicine is the combination of the greatest achievements of the traditional, western diagnostic and treatment techniques with the therapeutic methodologies of naturopathic and ancient medical methods.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq18?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq19?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 				{
 					Title        : "Faq20?",
-					Description  : "Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.",
+					Description  : "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
 					FGImage1     : "",
 				},
 			],
@@ -150,12 +154,13 @@ export default class FAQ extends Component{
 		this.setState({
 			block_id:this.props.block_id
 		});
+
 		$("#accordionEx").on("hide.bs.collapse show.bs.collapse", e => {
 			$(e.target)
-			  .prev()
-			  .find("i:last-child")
-			  .toggleClass("fa-close fa-plus");
-		  });
+			.prev()
+			.find("i:last-child")
+			.toggleClass("fa-close fa-plus");
+		});
 	}
 
     render(){
@@ -165,8 +170,12 @@ export default class FAQ extends Component{
 					<div className="col-12 col-xl-10 offset-xl-1 my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6">
-								<div className="col-12 col-lg-12">
-									<div className={"col-12 card "+S.faqCard}>
+								<div className="col-12">
+									<div className={"col-12 "+S.faqSubTitleWrapper}>
+										<h5 className={"mb-0 text-dark "+S.faqSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[0] ? this.state.blocks.repeatedBlocks[0].SubTitle : ""}}></h5>
+									</div>
+
+									<div className={"col-12 card mt-3 "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading6">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
@@ -247,22 +256,25 @@ export default class FAQ extends Component{
 
 					<div className="col-12 col-xl-10 offset-xl-1 my-5">
 						<div className="row">
-							<div className="col-12 col-lg-6">
+							<div className="col-12 col-lg-6 mt-lg-3">
 								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage} src={this.state.blocks.repeatedBlocks[1] ? this.state.blocks.repeatedBlocks[1].FGImage1 : ""} alt="" />
 								</div>
 							</div>	
 						
-							<div className="col-12 col-lg-6">
-								<div className="col-12 col-lg-12">
-									<div className={"col-12 card "+S.faqCard}>
+							<div className="col-12 col-lg-6 mt-lg-3">
+								<div className="col-12">
+									<div className={"col-12 "+S.faqSubTitleWrapper}>
+										<h5 className={"mb-0 text-dark "+S.faqSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[1] ? this.state.blocks.repeatedBlocks[1].SubTitle : ""}}></h5>
+									</div>
+
+									<div className={"col-12 card mt-3 "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading1">
 												<a data-toggle="collapse" data-parent="#accordionEx" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
 													<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[5] ? this.state.blocks.repeatedBlocks[5].Title : ""}}></h6>
 													<i className={"fas fa-plus pull-right "+S.plusIconWrapper}></i>
 												</a>
-												
 											</div>
 											<div id="collapse1" className={"col-12 collapse "+S.faqCollapse} role="tabpanel" aria-labelledby="heading1" data-parent="#accordionEx">
 												<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[5] ? this.state.blocks.repeatedBlocks[5].Description : ""}}></p>
@@ -332,9 +344,13 @@ export default class FAQ extends Component{
 
 					<div className="col-12 col-xl-10 offset-xl-1 my-5">
 						<div className="row">
-							<div className="col-12 col-lg-6">
-								<div className="col-12 col-lg-12">
-									<div className={"col-12 card "+S.faqCard}>
+							<div className="col-12 col-lg-6 mt-lg-3">
+								<div className="col-12">
+									<div className={"col-12 "+S.faqSubTitleWrapper}>
+										<h5 className={"mb-0 text-dark "+S.faqSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[2] ? this.state.blocks.repeatedBlocks[2].SubTitle : ""}}></h5>
+									</div>
+
+									<div className={"col-12 card mt-3 "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading16">
 												<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse16" aria-expanded="false" aria-controls="collapse16">
@@ -405,7 +421,7 @@ export default class FAQ extends Component{
 									</div>
 								</div>
 							</div>
-							<div className="col-12 col-lg-6">
+							<div className="col-12 col-lg-6 mt-lg-3">
 								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage1} src={this.state.blocks.repeatedBlocks[2] ? this.state.blocks.repeatedBlocks[2].FGImage1 : ""} alt="" />
 								</div>
@@ -415,14 +431,18 @@ export default class FAQ extends Component{
 
 					<div className="col-12 col-xl-10 offset-xl-1 my-5">
 						<div className="row">
-							<div className="col-12 col-lg-6">
+							<div className="col-12 col-lg-6 mt-lg-3">
 								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage} src={this.state.blocks.repeatedBlocks[3] ? this.state.blocks.repeatedBlocks[3].FGImage1 : ""} alt="" />
 								</div>
 							</div>
-							<div className="col-12 col-lg-6">
-								<div className="col-12 col-lg-12">
-									<div className={"col-12 card "+S.faqCard}>
+							<div className="col-12 col-lg-6 mt-lg-3">
+								<div className="col-12">
+									<div className={"col-12 "+S.faqSubTitleWrapper}>
+										<h5 className={"mb-0 text-dark "+S.faqSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[3] ? this.state.blocks.repeatedBlocks[3].SubTitle : ""}}></h5>
+									</div>
+
+									<div className={"col-12 card mt-3 "+S.faqCard}>
 										<div className="row">
 											<div className={"col-12 card-header "+S.faqCardHeader} role="tab" id="heading11">
 												<a data-toggle="collapse" data-parent="#accordionEx" href="#collapse11" aria-expanded="true" aria-controls="collapse11">
