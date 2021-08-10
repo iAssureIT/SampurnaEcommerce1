@@ -250,7 +250,7 @@ class UserAddress extends Component {
                                 <input type="text" maxLength="40" ref="fullname" name="fullname"  value={this.state.fullname} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
                                 <div className="errorMsg">{this.state.errors.fullname}</div>
                             </div> 
-                            <div className={"col-6 shippingInput  mb-2 "+Style.mobileInput}>
+                            <div className={"col-12 shippingInput  mb-2 "+Style.mobileInput}>
                                 <label className="col-12 NoPadding pb-0 mb-0">Mobile Number <span className="required">*</span></label>
                                 {/* <input maxLength="10" placeholder="" type="text" ref="mobileNumber" name="mobileNumber"  value={this.state.mobileNumber} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} /> */}
                                 <PhoneInput

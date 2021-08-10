@@ -1358,7 +1358,7 @@ class Checkout extends Component {
                                                                                         </div>
                                                                                         // Credit Points Available [{this.state.creditdataTotalPoints}] Points.
                                                                                         :
-                                                                                        <label className={" " + Style.f13N}>"You haven't earned any credit points yet"</label>
+                                                                                        <label className={" " + Style.f13NE}>You haven't earned any credit points yet</label>
                                                                                     }
                                                                                     <div className={"form-group col-8 NoPadding " + Style.border1}>
                                                                                         <input type="text" className={"form-control couponCode " + Style.border1} ref="creaditPoint" id="creaditPoint" name="creaditPoint" value={this.state.creaditPoint} placeholder="" />
@@ -1376,7 +1376,7 @@ class Checkout extends Component {
                                                                                 <span className={"col-6 mb-1 " + Style.checkoutCurrencyWrapper}>
                                                                                     <span className={"col-3 mr-0 pr-0 " + Style.currencyColor11}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails ? (this.state.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00}</span>
                                                                                 </span>
-                                                                                <span className="col-6 mb-1">Total Saving Amount :</span>
+                                                                                <span className="col-6 pr-0 mb-1">Total Saving Amount :</span>
                                                                                 {/* <span className="col-6 mb-1 textAlignRight">
                                                         <span className={"text-center "+Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}
                                                     </span> */}
