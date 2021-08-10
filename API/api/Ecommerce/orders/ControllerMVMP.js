@@ -3398,17 +3398,21 @@ exports.nearest_vendor_orders= (req, res, next) => {
 				if(i >= data.length){
 					var distanceLimit = await getDistanceLimit();	
 					// console.log("distanceLimit => ",distanceLimit)
-					if(distanceLimit){
-						var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
-							return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
-						});
-						// console.log("FinalVendorOrders 1 =>",FinalVendorOrders)
-					}else{                                            
-						var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
-							return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
-						});
-						// console.log("FinalVendorOrders 2 =>",FinalVendorOrders)
-					}					
+					// if(distanceLimit){
+					// 	var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
+					// 		return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
+					// 	});
+					// 	// console.log("FinalVendorOrders 1 =>",FinalVendorOrders)
+					// }else{                                            
+					// 	var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
+					// 		return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
+					// 	});
+					// 	// console.log("FinalVendorOrders 2 =>",FinalVendorOrders)
+					// }	
+
+					var FinalVendorOrders = data.sort(function (a, b) {
+						return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
+					});				
 					res.status(200).json(FinalVendorOrders);
 				}
 			}else{

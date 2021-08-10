@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import $                    from 'jquery';
-import DailyReport          from './DailyReport.js';
-import WeeklyReport         from './WeeklyReport.js';
-import MonthlyReport        from './MonthlyReport.js';
-import YearlyReport         from './YearlyReport.js';
-import CustomisedReport     from './CustomisedReport.js';
-
+import React, { Component } 	from 'react';
+import $                    	from 'jquery';
+import DailyReport          	from './DailyReport.js';
+import WeeklyReport         	from './WeeklyReport.js';
+import MonthlyReport        	from './MonthlyReport.js';
+import YearlyReport         	from './YearlyReport.js';
+import CustomisedReport     	from './CustomisedReport.js';
 import axios                  from 'axios';
 import swal                   from 'sweetalert';
 import IAssureTable           from "../../coreadmin/IAssureTable/IAssureTable.jsx";
-import moment from 'moment';
+import moment 						from 'moment';
 
 import "./Reports.css";
 import 'font-awesome/css/font-awesome.min.css';
@@ -19,8 +18,8 @@ class Reports extends Component{
 		super(props);
 		this.state = {
 			'currentTabView'    	: props.currentTabView,
-			'showDateWiseFilters' 	: props.showDateWiseFilters,
-			'filterObject' 			: props && props.filterObject ? props.filterObject : {}, 	
+			'showDateWiseFilters': props.showDateWiseFilters,
+			'filterObject' 		: props && props.filterObject ? props.filterObject : {}, 	
 			'tableDatas'        	: [],
 			'reportData'        	: {},
 			'tableData'         	: [],
@@ -39,10 +38,10 @@ class Reports extends Component{
 		  	"limitRange"			: 10,
 		  	"normalData"			: true,
 		  	"printhideArray"		: [],
-		  	selectedWeekYear       	: '',
-          	selectedWeek           	: '',
-          	startDate             	: '',
-          	endDate               	: '',
+		  	"selectedWeekYear"   : '',
+       	"selectedWeek"       : '',
+       	"startDate"          : '',
+       	"endDate"            : '',
 		}
 		window.scrollTo(0, 0);
 	}
@@ -101,10 +100,10 @@ class Reports extends Component{
 
   	/*=========== getData() ===========*/
   	getData(startRange,limitRange){
-	    var formvalues = {
-	      	startDate : this.state.startDate,
-	      	endDate   : this.state.startDate
-	    }
+	   var formvalues = {
+      	startDate : this.state.startDate,
+      	endDate   : this.state.startDate
+	   }
 
 		console.log("formvalues => ",formvalues)
 
@@ -183,9 +182,9 @@ class Reports extends Component{
 
   	previousWeek(event){
 		event.preventDefault();
-        
+        console.log("event => ",event)
         var startDate = moment(this.state.startDate).subtract(1, "week").format('YYYY-MM-DD');
-
+        console.log("startDate => ",startDate)
         this.setState({
             selectedWeekYear: moment(startDate).format('Y')+'-'+moment(startDate).format('w')+'W',
             selectedWeek    : moment(startDate).format('w'), 
@@ -294,12 +293,12 @@ class Reports extends Component{
 						              							<div className="input-group">
 						                							<span onClick={this.previousDate.bind(this)} className="commonReportArrowPoiner input-group-addon" id="basic-addon1"><i className="fa fa-chevron-circle-left" aria-hidden="true"></i></span>
 						                							<input 
-						                								onChange 	= {this.getReport.bind(this)} 
-						                								defaultValue= {this.state.startDate} 
-						                								name 		= "reportsDayRef" 
-						                								type 		= "date" 
-						                								className 	= "reportsDateRef reportsDayRef form-control" 
-						                								ref 		= "reportsDayRef"  
+						                								onChange 		= {this.getReport.bind(this)} 
+						                								defaultValue 	= {this.state.startDate} 
+						                								name 				= "reportsDayRef" 
+						                								type 				= "date" 
+						                								className 		= "reportsDateRef reportsDayRef form-control" 
+						                								ref 				= "reportsDayRef"  
 						                							/>						               
 						                							<span onClick={this.nextDate.bind(this)} className="commonReportArrowPoiner input-group-addon" id="basic-addon1"><i className="fa fa-chevron-circle-right" aria-hidden="true"></i></span>
 						              							</div>
@@ -318,12 +317,12 @@ class Reports extends Component{
 								                                <div className="input-group">
 								                                    <span  onClick={this.previousWeek.bind(this)} className="commonReportArrowPoiner input-group-addon" id="basic-addon1"><i className="fa fa-chevron-circle-left" aria-hidden="true"></i></span>
 								                                    <input  
-								                                    	className 	= "reportsDateRef inputweekpicker form-control" 
-								                                    	aria-describedby="basic-addon1" ref="inputweekpicker" placeholder = "" aria-label  = "Brand" 
-								                                    	name 		= "inputweekpicker" 
-								                                    	type 		= "text" 
-								                                    	value 		= {this.state.selectedWeekYear}  
-								                                    	onChange 	= {this.handleChange} 
+								                                    	className 			= "reportsDateRef inputweekpicker form-control" 
+								                                    	aria-describedby 	= "basic-addon1" ref="inputweekpicker" placeholder = "" aria-label  = "Brand" 
+								                                    	name 					= "inputweekpicker" 
+								                                    	type 					= "text" 
+								                                    	value 				= {this.state.selectedWeekYear}  
+								                                    	onChange 			= {this.handleChange} 
 								                                    />
 								                                    <span onClick={this.nextWeek.bind(this)} className="commonReportArrowPoiner input-group-addon" id="basic-addon1"><i className="fa fa-chevron-circle-right" aria-hidden="true"></i></span>
 								                                </div>
@@ -351,10 +350,10 @@ class Reports extends Component{
 							            <div className="row">  
 							              	<IAssureTable 
 							                	tableHeading 	= {this.state.tableHeading}
-							                	twoLevelHeader 	= {this.state.twoLevelHeader} 
+							                	twoLevelHeader = {this.state.twoLevelHeader} 
 							                	dataCount 		= {this.state.dataCount}
 							                	tableData 		= {this.state.tableData}
-							                	getData 		= {this.getData.bind(this)}
+							                	getData 			= {this.getData.bind(this)}
 							                	tableObjects 	= {this.state.tableObjects}
 							                 	tableName 		= {this.state.tableName}
 							              	/>
