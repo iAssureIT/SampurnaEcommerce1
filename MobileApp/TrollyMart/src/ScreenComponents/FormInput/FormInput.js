@@ -12,7 +12,7 @@ export const FormInput = props => {
       placeholderTextColor={'#bbb'}
       errorMessage={touched[name] && errors[name] ? errors[name] : ''}
       label={
-        <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,}}>
+        <Text style={{fontFamily:'Montserrat-Medium',color:'#000', fontSize: 12,}}>
           <Text>{props.labelName}</Text>{' '}
           <Text style={{color: 'red', fontSize: 12}}>
             {props.required && '*'}
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   containerStyle:{
     // borderWidth:1,
     borderRadius:5,
-    height:30,
+    height:25,
     // marginBottom:20,
     // marginVertical:5,
     borderColor:"#ccc",

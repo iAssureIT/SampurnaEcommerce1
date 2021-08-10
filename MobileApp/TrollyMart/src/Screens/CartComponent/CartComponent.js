@@ -276,6 +276,7 @@ const getshippingamount=(startRange, limitRange)=>{
           {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?
             <View style={styles.cartdetails}>
             {cartData.vendorOrders.map((vendor, i) => {
+              console.log("vendor.vendor_discountAmount",vendor.vendor_discountAmount);
               return (
               <View style={{backgroundColor:"#fff",paddingBottom:15,paddingTop:15}}>
                 <View style={{paddingHorizontal:15}}>
@@ -437,7 +438,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       <View style={{ flex: 0.2 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           {/* <Text style={styles.totalpriceincart}> - </Text> */}
-                      <Text style={styles.totalpriceincart1}>{vendor.vendor_discountAmount > 0 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
+                      <Text style={styles.totalpriceincart1}>{vendor.vendor_discountAmount.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
@@ -473,7 +474,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                     </View>
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
-                      <View style={styles.flxdata}>
+                      <View style={[styles.flxdata,{paddingVertical:5}]}>
                         <View style={{ flex: 0.65 }}>
                           <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:16}}>Totals</Text>
                         </View>
@@ -488,8 +489,6 @@ const getshippingamount=(startRange, limitRange)=>{
                           </View>
                         </View>
                       </View>
-                    <View>
-                    </View>
                   </View>
                 </View>
                 )
@@ -526,7 +525,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{ flex: 0.3 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                         {/* <Text style={styles.totalpriceincart}> - </Text> */}
-                        <Text style={[styles.totalpriceincartTotalG]}>{cartData.paymentDetails.discountAmount && cartData.paymentDetails.discountAmount.toFixed(2)}</Text>
+                        <Text style={[styles.totalpriceincartTotalG]}>{cartData.paymentDetails.discountAmount.toFixed(2)}</Text>
                       </View>
                     </View>
                   </View>
@@ -541,7 +540,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View> */}
                     <View style={{ flex: 0.3 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                    <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.taxAmount && cartData.paymentDetails.taxAmount.toFixed(2)}</Text>
+                    <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.taxAmount.toFixed(2)}</Text>
                       </View>
                     </View>
                   </View>
@@ -670,8 +669,8 @@ const getshippingamount=(startRange, limitRange)=>{
             <Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
          </View>
          <TouchableOpacity style={{flex:0.5,height:60,backgroundColor:!disabled?"#5F6C74":colors.cartButton,justifyContent:'center',alignItems:'center'}}
-         disabled       = {!disabled}
-         onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
+            disabled       = {!disabled}
+            onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
          >
           <Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color: "#eee"}}>Checkout</Text>
          </TouchableOpacity>

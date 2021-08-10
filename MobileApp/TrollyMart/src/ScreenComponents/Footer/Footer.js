@@ -22,6 +22,7 @@ import AntDesign from "react-native-vector-icons/AntDesign"
 export const Footer =(props)=>{
   const navigation = useNavigation();
   console.log("props",props);
+ 
   const [index,setIndex]=useState(0);
   const dispatch = useDispatch();
   const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);

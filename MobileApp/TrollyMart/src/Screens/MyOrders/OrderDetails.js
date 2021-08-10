@@ -619,13 +619,13 @@ const cancelorderbtn = (id,vendor_id) => {
                             <Text style={[styles.vendorName]}>{vendor.vendor_id.companyName}</Text>
                           </View>
                            {cancelButton(order.createdAt) ?
-                          order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
+                          order.orderStatus && order.orderStatus !== 'Cancelled'  || order.deliveryStatus === "Delivered" ?
                           null
                           :
                           <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40,alignItems:'flex-end'}]}>
-                            {order.orderStatus && order.orderStatus !== 'Cancelled'&&
+                            {order.orderStatus && (order.orderStatus !== 'Cancelled' && order.orderStatus !== 'Delivered') &&
                             <View style={{justifyContent:'center',paddingRight:5}}>
-                              <Text style={styles.cancelOrderText} onPress={()=>cancelorderbtn(order._id,'')}>Cancel this order</Text>
+                              <Text style={styles.cancelOrderText} onPress={()=>cancelorderbtn(order._id,vendor.vendor_id._id)}>Cancel this order</Text>
                               </View>
                             }
                             </View>
@@ -655,7 +655,6 @@ const cancelorderbtn = (id,vendor_id) => {
                         </View>
                         
                         {vendor.products.map((pitem, index) => {
-                          console.log("pitem===>", pitem);
                           return (
                             <View style={[styles.prodorders,{flexDirection:"row",flex:1,alignItems:'center'}]}>
                               <View style={{flex:0.2}}>
@@ -672,6 +671,7 @@ const cancelorderbtn = (id,vendor_id) => {
                               }
                               </View>
                               <View style={{flex:0.45,paddingHorizontal:5}}>
+                                <Text style={[styles.prodinfo,{fontSize:12,textTransform:'capitalize'}]}>{pitem.brand}</Text>
                                 <Text numberOfLines={2} style={styles.prodinfo}>{pitem.productName}</Text>
                                 <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:14,marginTop:7}}>
                                     Quantity 
@@ -680,66 +680,66 @@ const cancelorderbtn = (id,vendor_id) => {
                              
                               </View>
                               <View style={{flex:0.35}}>
-                                <View style={{flex:1,flexDirection:'row'}}>
-                                  <View style={{flex:.5}}>
+                                <View style={{flex:1,flexDirection:'row',alignItems:'center'}}>
+                                  <View style={{flex:.35}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
-                                  <View style={{flex:.5,alignItems:'flex-end'}}>
+                                  <View style={{flex:.65,alignItems:'flex-end'}}>
                                       <Text style={styles.ogprice}> {(pitem.discountedPrice * pitem.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                       </Text>
                                   </View>
                                 </View>
-                                <View style={[styles.flx1, styles.prdet,{marginVertical:5}]}>
+                                <View style={{marginVertical:5}}>
                                   {labels.indexOf(vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status) >= 3 &&
-                                      <View style={[styles.flxdir,{marginTop:10,flex:1}]}>
-                                        {pitem.productStatus?
-                                        <View style={{flex:.5}}>
-                                          <Text style={[styles.ogprice,{fontSize:12,color:colors.cartButton}]}>{pitem.productStatus.split(" ")[1]}</Text>
-                                      </View>
-                                      :
-                                      <View style={{flex:.5}}>
-                                        <Text style={[CommonStyles.linkText,{fontSize:12,alignSelf:'center',textDecorationLine:'underline'}]} onPress={()=>{setReturnModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Return</Text>
-                                      </View>
-                                    }  
-                                    <View style={{flex:.5}}>
-                                      {pitem.isReview ?
-                                        <Text style={[CommonStyles.linkText,{alignSelf:'flex-end',fontSize:12,textDecorationLine:'underline'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem.product_ID)}}>Feedback</Text>
+                                    <View style={[styles.flxdir,{marginTop:10,flex:1}]}>
+                                      {pitem.productStatus?
+                                        <View style={{flex:.4}}>
+                                            <Text style={[styles.ogprice,{fontSize:12,color:colors.cartButton}]}>{pitem.productStatus.split(" ")[1]}</Text>
+                                        </View>
                                         :
-                                        <Text style={[CommonStyles.linkText,{alignSelf:'flex-end',fontSize:12,textDecorationLine:'underline'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);clearReview();}}>Feedback</Text>
-                                      } 
-                                    </View>  
+                                        <View style={{flex:.4}}>
+                                          <Text  style={styles.linkText} onPress={()=>{setReturnModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Return</Text>
+                                        </View>
+                                      }  
+                                      <View style={{flex:.6}}>
+                                        {pitem.isReview ?
+                                          <Text  style={styles.linkText} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem.product_ID)}}>Feedback</Text>
+                                          :
+                                          <Text  style={styles.linkText} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);clearReview();}}>Feedback</Text>
+                                        } 
+                                      </View>  
                                   </View>}
                                 </View>
                               </View>  
                             </View>
                           );
                         })}
-                        <View style={[styles.totaldetails,{paddingHorizontal:15}]}>
+                        <View style={[styles.totaldetails,{paddingRight:5}]}>
                           <View style={styles.flxdata}>
-                              <View style={{ flex: 0.35}}/>
-                              <View style={{ flex: 0.35}}>
+                              <View style={{ flex: 0.3}}/>
+                              <View style={{ flex: 0.36}}>
                                 <Text style={styles.totalAmount}>Total</Text>
                               </View>
-                              <View style={{flex:0.35,flexDirection:'row'}}>
-                                  <View style={{flex:.5}}>
+                              <View style={{flex:0.34,flexDirection:'row'}}>
+                                  <View style={{flex:.35}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
-                                  <View style={{flex:.5,alignItems:'flex-end'}}>
+                                  <View style={{flex:.65,alignItems:'flex-end'}}>
                                       <Text style={styles.ogprice}>{vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
                                   </View>
                                 </View>
                             </View>
                             <View style={styles.flxdata}>
-                                <View style={{ flex: 0.35}}/>
-                                <View style={{ flex: 0.35}}>
+                                <View style={{ flex: 0.3}}/>
+                                <View style={{ flex: 0.36}}>
                                   <Text style={styles.totalAmount}>You Save </Text>
                                 </View> 
-                                <View style={{flex:0.35,flexDirection:'row'}}>
-                                  <View style={{flex:.5}}>
+                                <View style={{flex:0.34,flexDirection:'row'}}>
+                                  <View style={{flex:.35}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
-                                  <View style={{flex:.5,alignItems:'flex-end'}}>
-                                      <Text style={[styles.ogprice,{color:colors.success}]}>{vendor.vendor_discountAmount > 0 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
+                                  <View style={{flex:.65,alignItems:'flex-end'}}>
+                                      <Text style={[styles.ogprice,{color:colors.success}]}>{vendor.vendor_discountAmount.toFixed(2)}</Text>
                                   </View>
                                 </View>
                               </View>
@@ -854,24 +854,24 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View> */}
                     </View>
                     <View style={{marginVertical:5,borderColor:"#ddd"}} />
-                    <View style={styles.flxdata}>
-                      <View style={{ flex: 0.55 }}>
-                        <Text style={styles.totalAmountG}>Grand Total</Text>
-                      </View>
-                      <View style={{ flex: 0.45,flexDirection:'row'}}>
-                        <View style={{flex:.5}}>
-                            <Text style={[styles.ogpriceG,{opacity: 0.5}]}>{currency} </Text>
-                        </View> 
-                        <View style={{flex:.5}}>
-                            <Text style={styles.totalAmountG}>{order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
-                        </View>                        
-                      </View>
-                      {/* <View style={{ flex: 0.35 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.53}}>
+                          <Text style={styles.totalAmountG}>Grand Total</Text>
                         </View>
-                      </View> */}
-                    </View>
+                        <View style={{ flex: 0.45,flexDirection:'row'}}>
+                          <View style={{flex:.36,alignItems:"flex-end"}}>
+                              <Text style={[styles.ogpriceG,{opacity: 0.5}]}>{currency} </Text>
+                          </View> 
+                          <View style={{flex:.52,alignItems:'flex-end'}}>
+                              <Text style={styles.totalAmountG}>{order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
+                          </View>                        
+                        </View>
+                        {/* <View style={{ flex: 0.35 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                            <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
+                          </View>
+                        </View> */}
+                      </View>
                   </View>
                  
                 </View>
@@ -892,7 +892,7 @@ const cancelorderbtn = (id,vendor_id) => {
               <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
             </View>
             <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
-              Are you sure you want to Cancel order?
+              Are you sure you want to cancel this order?
             </Text>
             <View style={styles.cancelbtn}>
               <View style={styles.cancelvwbtn}>

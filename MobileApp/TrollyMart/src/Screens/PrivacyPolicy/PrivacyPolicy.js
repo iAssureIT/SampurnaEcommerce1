@@ -59,10 +59,25 @@ export const PrivacyPolicy  = (props)=>{
     }
 
     const regex = /(<([^>]+)>)/ig;
-
+    console.log("res.data.pageBlocks",pageBlockes);
     const store = useSelector(store => ({
         globalSearch    : store.globalSearch
       }));
+
+
+      function hasOnlyBrChildren(node) {
+        return node.children.every(
+          (child) => child.type === 'p' && child.name === '&nbsp'
+        );
+      }
+      
+      function alterChildren(node) {
+        return node.children.filter(
+          (child) =>
+            child.type !== 'tag' ||
+            !(child.name === 'p' && hasOnlyBrChildren(child))
+        );
+      }
     
     if (loading) {
         return (
@@ -93,10 +108,12 @@ export const PrivacyPolicy  = (props)=>{
                     {
                         pageBlockes && pageBlockes.length>0?
                             pageBlockes.map((item,index)=>{
-                                const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
+                                const secondRegEx =/<p>(\s|(&nbsp))*<\/p>/gmi;
+                                const result = item.block_id.blockDescription.replace(secondRegEx, '');
+                                // console.log("result",result);
                                 return(
-                                    <View style={{flex:1,paddingHorizontal:15}}>
-                                        {result!=="" && <HTML baseFontStyle={styles.htmlText1} ignoredTags={['br']} html={item.block_id.blockDescription}/>}
+                                    <View style={{paddingHorizontal:15}}>
+                                        {item.block_id.blockDescription!=="" && <HTML alterChildren={alterChildren} ignoredTags={['br']} html={result}/>}
                                         {item.block_id.fgImage1 &&<Image
                                             source={{uri:item.block_id.fgImage1}}
                                             style={{height:200,width:"100%"}}

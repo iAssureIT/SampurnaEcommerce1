@@ -52,7 +52,7 @@ export default StyleSheet.create({
     },
 
     syslogo1:{
-        flexDirection: 'row', alignItems: "center",justifyContent:"center", marginHorizontal:20,height:180,
+        flexDirection: 'row', alignItems: "center",justifyContent:"center", marginHorizontal:20,height:120,
     },
     syslogoimg1:{
         width: '50%',
@@ -63,7 +63,7 @@ export default StyleSheet.create({
         flexDirection: 'row', alignItems: "flex-start",alignSelf:'flex-start', marginHorizontal:20,height:100,
     },
     syslogoLoginNEW:{
-        flexDirection: 'row',marginTop:25,marginHorizontal:20,height:170,
+        flexDirection: 'row',marginTop:25,marginHorizontal:20
     },
     textLine1:{
         fontFamily:"Montserrat-Regular",

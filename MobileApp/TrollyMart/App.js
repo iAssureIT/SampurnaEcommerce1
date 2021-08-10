@@ -17,6 +17,7 @@ import GeneralStatusBarColor from './GeneralStatusBarColor.js';
 import { NetWorkError } from './NetWorkError';
 import { Alert } from "react-native";
 import crashlytics from '@react-native-firebase/crashlytics';
+import { enableScreens } from 'react-native-screens';
 export const NetworkContext = React.createContext({ isConnected: true });
 
 console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);
@@ -39,6 +40,7 @@ axios.defaults.baseURL = REACT_APP_BASE_URL;
   
 
   useEffect(() => {
+    // enableScreens(false);
     LogBox.ignoreAllLogs();
     fcmService.registerAppWithFCM()
     fcmService.register(onRegister, onNotification, onOpenNotification)
@@ -117,9 +119,6 @@ const ToastProviderComponent = props => {
 const codePushOptions = {
  checkFrequency: codePush.CheckFrequency.ON_APP_START 
 };
-
-
-
 
 export default codePush(codePushOptions)(App);
 // export default App;

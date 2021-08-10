@@ -169,16 +169,14 @@ const FilterModal = (props) => {
               }
             </View>
           </View>
-          <View style={{flexDirection: 'row', width: '100%',marginBottom:Platform.OS === 'ios'?30:0}}>
+          <View style={{flexDirection: 'row', width: '100%',marginBottom:Platform.OS === 'ios'?30:0,justifyContent:"space-between",paddingHorizontal:5}}>
             <Button
               title="Cancel"
               containerStyle={{
                 marginVertical: 0,
-                width: '50%',
-                borderWidth: 1,
-                borderColor: 'red',
+                width: '49%',
               }}
-              buttonStyle={{borderRadius: 0, backgroundColor: '#fff'}}
+              buttonStyle={{borderRadius: 0,borderWidth: 0.5, backgroundColor: '#fff',borderColor: 'red'}}
               titleStyle={{color: 'red'}}
               onPress={() => {
                 closeModal();
@@ -187,9 +185,7 @@ const FilterModal = (props) => {
             <Button
               containerStyle={{
                 marginVertical: 0,
-                width: '50%',
-                borderWidth: 1,
-                borderColor: colors.theme,
+                width: '49%',
               }}
               title='Apply'
               onPress={async() => {
@@ -217,7 +213,7 @@ const FilterModal = (props) => {
               }}
               disabled={localFilters.subCategory.length>0||localFilters.brandsArray.length>0?false:true}
               titleStyle={{color: colors.theme}}
-              buttonStyle={{borderRadius: 0, backgroundColor: colors.layoutColor}}
+              buttonStyle={{borderRadius: 0, backgroundColor: colors.layoutColor, borderWidth: 0.5,borderColor: colors.theme}}
             />
           </View>
         </View> 

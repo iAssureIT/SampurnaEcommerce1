@@ -307,7 +307,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
             <View style={[styles.vendorNameBox,{}]}>
                 <Text numberOfLines={1} style={[CommonStyles.text,{fontSize:14,fontFamily:"Montserrat-Medium",color:"#000"}]}>{productdata.vendorName}</Text>
             </View> 
-            <View style={styles.formWrapper}>  
                 <CategoryList
                   navigation        = {navigation}
                   showImage         = {true}
@@ -319,7 +318,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   category          = {category ? category : productdata.category}
                   vendor            = {vendor}
                 />
-              <View >
                 <SubCategoryList
                   navigation        = {navigation}
                   showImage         = {true}
@@ -330,6 +328,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   vendorLocation_id ={vendorLocation_id}
                   vendor            = {vendor}
                 />
+            <View style={styles.formWrapper}> 
+            <View >
               <View style={{flex:1,flexDirection:'row',}}>
                   <View style={styles.qtys}>
                     <Counter start={1} min={1}
@@ -519,9 +519,12 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                       <Text style={CommonStyles.label,{color:colors.cartButton,fontFamily:"Montserrat-SemiBold"}}>Rating & Feedback</Text>
                   </TouchableOpacity>  
               </View>
-              <View style={{backgroundColor:"#EEEEEE",paddingTop:5}}>
+              <View style={{backgroundColor:"#EEEEEE",paddingVertical:5}}>
                 {tab === 0 ?
-                <Text style={styles.detaildetailstxt}>{productdata.productDetails}</Text>
+                  productdata.productDetails ?
+                  <Text style={styles.detaildetailstxt}>{productdata.productDetails}</Text>
+                  :
+                  <Text style={{alignSelf:'center',color:"#333"}}>No details found.</Text>
                 :                
                 productReview.reviewlist && productReview.reviewlist.length >0 ?  
                  <View style={{backgroundColor:"#fff",}}>

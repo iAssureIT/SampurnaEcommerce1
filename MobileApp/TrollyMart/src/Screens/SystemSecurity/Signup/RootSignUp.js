@@ -189,7 +189,7 @@ const window = Dimensions.get('window');
 
   return (
        <ImageBackground 
-       source={require("../../../AppDesigns/currentApp/images/s3.jpg")} 
+       source={require("../../../AppDesigns/currentApp/images/s3.png")} 
         style={commonStyles.container} resizeMode="cover" >
         <ScrollView style={{flex:1}}>
           <View contentContainerStyle={[commonStyles.container,{flex:1}]} keyboardShouldPersistTaps="always" >
@@ -250,9 +250,9 @@ const window = Dimensions.get('window');
                     touched         = {touched}
                     name            = "mobileNumber"
                   /> */}
-                  <View style={{marginHorizontal:10,marginVertical:5}}>
+                  <View style={{marginHorizontal:10}}>
                     <Text style={{ fontSize: 14,paddingVertical:2}}>
-                        <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 12,color:'#000'}}>Phone Number</Text>{' '}
+                        <Text style={{fontFamily:'Montserrat-Medium', fontSize: 12,color:'#000'}}>Phone Number</Text>{' '}
                         <Text style={{color: 'red', fontSize: 12}}>
                         *
                         </Text>
@@ -367,7 +367,7 @@ const window = Dimensions.get('window');
                       <TouchableOpacity
                         onPress={() => navigation.navigate('LogIn')} style={{flexDirection:"row"}}>
                           {/* <Icon name="chevron-double-left" type="material-community" size={22} color={colors.textLight} style={{}} /> */}
-                        <Text style={{fontFamily:"Montserrat-Regular",fontSize: 12,color:'#033554'}}>Sign In</Text>
+                        <Text style={{fontFamily:"Montserrat-Regular", fontSize: 12,color:'#033554'}}>Sign In</Text>
                       </TouchableOpacity>
                   </View>
                 </View>

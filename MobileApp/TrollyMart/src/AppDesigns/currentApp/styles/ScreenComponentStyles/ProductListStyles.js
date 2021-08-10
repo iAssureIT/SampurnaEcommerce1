@@ -123,7 +123,7 @@ export default StyleSheet.create({
 		position: 'absolute',
 		// bottom: "5%",
 		top: 10, 
-		left: "90%",
+		left: "98%",
 		zIndex:1,
 	},
 	disCountLabel: {
@@ -272,7 +272,6 @@ export default StyleSheet.create({
 	},
 	prdet: {
 		flex:1,
-		marginTop:3,
 		// alignItems: "center",
 		marginBottom:10,
 		marginLeft:5
@@ -492,12 +491,12 @@ export default StyleSheet.create({
 		
 	},
 	subcatimg: {
-		marginTop:20,
-		height:120,
-		width:120,
+		marginTop:10,
+		height:128,
+		width:100,
 		alignSelf:'center',
-		borderTopRightRadius:15,
-		borderTopLeftRadius:15,
+		// borderTopRightRadius:15,
+		// borderTopLeftRadius:15,
 			// borderWidth: 1, borderBottomColor: '#ccc',
 	},
 	noprod: {

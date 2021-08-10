@@ -239,7 +239,7 @@ export const ProductList = withCustomerToaster((props)=>{
               <TouchableOpacity style={[styles.textWrapper, styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} disabled={item.availableQuantity === 0 ? true : false}>
                 <Image
                   source={item.isWish ? require('../../AppDesigns/currentApp/images/heartF.png'):require('../../AppDesigns/currentApp/images/wishlistE.png')}                  
-                  style={{ width: 22, height: 22 }}
+                  style={{ width: 16, height: 16 }}
                   resizeMode='contain'
                 />
                 {/* <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.heartIcon} /> */}
@@ -258,14 +258,15 @@ export const ProductList = withCustomerToaster((props)=>{
                     style={styles.subcatimg}
                     // resizeMode="stretch"
                     resizeMode={FastImage.resizeMode.contain}
-                  >
-                
-                  </FastImage>
+                  />
                   :
-                  <Image
+                  <FastImage
                     source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                    // LoadingIndicatorComponent={ActivityIndicator}
+                    PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
                     style={styles.subcatimg}
-                    resizeMode="contain"
+                    // resizeMode="stretch"
+                    resizeMode={FastImage.resizeMode.contain}
                   />
               }
                 {item.availableQuantity === 0 &&
@@ -280,8 +281,8 @@ export const ProductList = withCustomerToaster((props)=>{
                       <Text style={styles.brandname}>{item.vendorName}</Text>
                     </View>
                   }
-                  <View style={{flexDirection:'row',flex:1,marginVertical:5}}>
-                    <View style={{flex:1,paddingRight:2}}>
+                  <View style={{flexDirection:'row',flex:1,paddingVertical:5}}>
+                    <View style={{flex:1,backgroundColor:"#fff"}}>
                       {/* {item.brand ?
                     
                         <Text numberOfLines={1} style={[styles.productName]}>{item.brand}</Text>
@@ -292,7 +293,7 @@ export const ProductList = withCustomerToaster((props)=>{
                        ?
                        <View style={{height:30}} />
                         :
-                        <View style={{flex:.2,alignSelf:'flex-end',marginBottom:5}}>
+                        <View style={{flex:.2,alignSelf:'flex-end'}}>
                           <TouchableOpacity 
                           disabled={props.disabled}
                             onPress={() => vendorLocation_id ?

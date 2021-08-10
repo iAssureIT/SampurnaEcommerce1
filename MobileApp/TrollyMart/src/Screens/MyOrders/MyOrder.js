@@ -292,7 +292,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                                           <Text style={styles.totalpriceincart}>No Of Products : {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
                                       </View>
                                       <View style={{flex:0.49,paddingHorizontal:15}}>
-                                      <View style={{alignSelf:'center',marginTop:12,justifyContent:'center',alignItems:'center',borderRadius:2,
+                                      <View style={{alignSelf:'center',marginTop:12,justifyContent:'center',alignItems:'center',borderRadius:2,width:80,height:15,marginLeft:5,
                                        backgroundColor: position === 0 ? 
                                         colors.info
                                         :
@@ -323,11 +323,11 @@ export const MyOrder = withCustomerToaster((props)=>{
                             {order ?
                               <View style={[styles.ordercancelstatus]}>
                                 {cancelButton(order.createdAt) ?
-                                  order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
+                                  order.orderStatus && order.orderStatus !== 'Cancelled'  || order.deliveryStatus === "Delivered" ?
                                   null
                                   :
                                   <View style={styles.orderdetailsstatus}>
-                                    {order.orderStatus && order.orderStatus !== 'Cancelled'&&
+                                    {order.orderStatus && (order.orderStatus !== 'Cancelled'&& order.orderStatus !== 'Delivered') &&
                                     <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40}]}>
                                         <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",fontSize:13,color:colors.danger,textDecorationLine:'underline'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('LT')}</Text>
                                     </View>}
@@ -397,14 +397,14 @@ export const MyOrder = withCustomerToaster((props)=>{
                 <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
               </View>
               <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
-                Are you sure you want to Cancel order?
+                Are you sure you want to cancel this order?
               </Text>
               <View style={styles.cancelbtn}>
                 <View style={styles.cancelvwbtn}>
                   <TouchableOpacity>
                     <Button
                       onPress={() => setCancelOrderModal(false)}
-                      titleStyle={styles.buttonText}
+                      titleStyle={styles.buttonText1}
                       title="NO"
                       buttonStyle={styles.buttonRED}
                       containerStyle={styles.buttonContainer2}

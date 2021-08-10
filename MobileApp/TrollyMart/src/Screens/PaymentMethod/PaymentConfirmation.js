@@ -89,7 +89,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                         <Text style={styles.label}>Amount</Text>
                     </View>
                     <View style={{flex:0.45,flexDirection:'row',height:25,alignItems:'center'}}>
-                        <Text style={[styles.label,{fontSize:14}]}>{currency} : </Text><Text style={[styles.label1]}>{order.paymentDetails.netPayableAmount}</Text>
+                        <Text style={[styles.label,{fontSize:14}]}>{currency}: </Text><Text style={[styles.label1]}>{order.paymentDetails.netPayableAmount}</Text>
                     </View>
                 </View> 
                 <View style={{flexDirection:"row",marginTop:15,justifyContent:'center',height:25}}>
@@ -106,7 +106,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                 </View>  
                 <View style={{flexDirection:"row",marginTop:50}}>
                     <View style={{flex:0.5}}>
-                        <Text style={styles.label2}>Order No</Text>
+                        <Text style={styles.label2}>Order No.</Text>
                     </View>
                     <View style={{flex:0.5,alignItems:'flex-end'}}>
                         <Text style={styles.label3}>{order.orderID}</Text>
@@ -114,7 +114,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                 </View>
                 <View style={{flexDirection:"row",marginTop:16}}>
                     <View style={{flex:0.5}}>
-                        <Text style={styles.label2}>Mobile No</Text>
+                        <Text style={styles.label2}>Mobile:</Text>
                     </View>
                     <View style={{flex:0.5,alignItems:'flex-end'}}>
                         <Text style={styles.label3}>{order?.deliveryAddress?.mobileNumber ? order?.deliveryAddress?.mobileNumber : "NA"}</Text>
@@ -122,7 +122,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                 </View>
                 <View style={{flexDirection:"row",marginTop:16}}>
                     <View style={{flex:0.5}}>
-                        <Text style={styles.label2}>Total</Text>
+                        <Text style={styles.label2}>Total:</Text>
                     </View>
                     <View style={{flex:0.5,alignItems:'flex-end'}}>
                         <Text style={styles.label3}>{currency} {order.paymentDetails.netPayableAmount} </Text>
@@ -130,7 +130,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                 </View>
                 <View style={{flexDirection:"row",marginTop:16}}>
                     <View style={{flex:0.5}}>
-                        <Text style={styles.label2}>Payment Method</Text>
+                        <Text style={styles.label2}>Payment Method:</Text>
                     </View>
                     <View style={{flex:0.5,alignItems:'flex-end'}}>
                         <Text style={styles.label3}>{order.paymentDetails.paymentMethod}</Text>

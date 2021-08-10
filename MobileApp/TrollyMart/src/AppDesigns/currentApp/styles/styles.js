@@ -27,7 +27,7 @@ export const colors = {
   textDark : '#333333',
   border: '#989898',
   tintColor:'#ff3e6c',
-   danger: "#E88686",
+  danger: "#DC1919",
   success: "#3E9D5E",
   warning: "#CE6E2E",
   info: "#033554",

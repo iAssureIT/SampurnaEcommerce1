@@ -30,12 +30,11 @@ import {HorizontalProductList}      from '../../ScreenComponents/HorizontalProdu
 import SearchSuggetion              from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { Alert } from 'react-native';
 import { NetWorkError } from '../../../NetWorkError.js'; 
-
+import {useRoute} from '@react-navigation/native';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 const Dashboard = withCustomerToaster((props)=>{
-  console.log("props",props);
   const isFocused             = useIsFocused();
   const dispatch              = useDispatch();
   const {setToast,navigation,productList,wishList,globalSearch,preferences,user_id} = props; 
@@ -45,17 +44,17 @@ const Dashboard = withCustomerToaster((props)=>{
   const limit                 = 6;
   const [refreshing,setRefreshing] = useState(false);
 
-  const backAction = () => {
-    Alert.alert("", "Are you sure you want to exit app?", [
-      {
-        text: "Cancel",
-        onPress: () => null,
-        style: "cancel"
-      },
-      { text: "YES", onPress: () => BackHandler.exitApp() }
-    ]);
-    return true;
-  };
+  // const backAction = () => {
+  //   Alert.alert("", "Are you sure you want to exit app?", [
+  //     {
+  //       text: "Cancel",
+  //       onPress: () => null,
+  //       style: "cancel"
+  //     },
+  //     { text: "YES", onPress: () => BackHandler.exitApp() }
+  //   ]);
+  //   return true;
+  // };
 
   const store = useSelector(store => ({
     userDetails : store.userDetails,
@@ -68,9 +67,9 @@ const Dashboard = withCustomerToaster((props)=>{
         dispatch(getPreferences());
         dispatch(getS3Details());
         getBlocks();
-          BackHandler.addEventListener("hardwareBackPress", backAction);
-          return () =>
-          BackHandler.removeEventListener("hardwareBackPress", backAction);
+          // BackHandler.addEventListener("hardwareBackPress", backAction);
+          // return () =>
+          // BackHandler.removeEventListener("hardwareBackPress", backAction);
        
     },[store.isConnected]);
    
@@ -172,7 +171,7 @@ const Dashboard = withCustomerToaster((props)=>{
                   "vendorLocation_id" : "",
                   "sectionUrl"        :item.block_id?.blockSettings?.section!=="all" ? item.block_id?.blockSettings?.section?.replace(/\s/g, '-').toLowerCase() : 'all',
                   "categoryUrl"       : item.block_id?.blockSettings?.category!=="all" ? item.block_id?.blockSettings?.category?.replace(/\s/g, '-').toLowerCase() : 'all',
-                  "subCategoryUrl"    : item.block_id?.blockSettings?.subCategory!=="all" ? item.block_id?.blockSettings?.subCategory?.replace(/\s/g, '-').toLowerCase() : 'all',
+                  "subCategoryUrl"    : item.block_id?.blockSettings?.subCategory!=="all" ? [item.block_id?.blockSettings?.subCategory?.replace(/\s/g, '-').toLowerCase()] : 'all',
                   // "subCategoryUrl"    : e.subCategory[0]?.subCategoryUrl,
                   "startRange"        : 0,
                   "limitRange"        : item.block_id?.blockSettings?.limitRange,

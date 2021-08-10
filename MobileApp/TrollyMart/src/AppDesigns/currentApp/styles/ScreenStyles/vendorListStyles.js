@@ -532,6 +532,26 @@ export default StyleSheet.create({
 		fontFamily: "Montserrat-Regular", 
 		color:'#fff',
 		
+	},
+	iconStyle:{
+		width:30,
+		height:26,
+		marginRight:10,
+		justifyContent:'center',
+		alignItems:'center',
+		borderRadius:4,
+		shadowColor: "#000",
+		shadowOffset: {
+		  width: 0,
+		  height: 7,
+		},
+		shadowOpacity: 0.43,
+		shadowRadius: 9.51,
+
+		elevation: 15,
+		borderWidth:1,
+		borderColor:"#f1f1f1",
+		backgroundColor:"#fff"
 	}
 
 })

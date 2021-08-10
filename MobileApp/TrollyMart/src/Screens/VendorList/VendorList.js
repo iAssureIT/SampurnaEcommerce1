@@ -196,7 +196,7 @@ export const VendorList = withCustomerToaster((props)=>{
                         /> 
                     :
                     <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
-                        <Text style={CommonStyles.noDataFound}>No Vendor Found</Text>
+                        <Text style={CommonStyles.noDataFound}>We are currently not working in your area. However, we will come there soon. So please visit this website again shortly.</Text>
                     </View>    
                 }
              </View>

@@ -62,23 +62,23 @@ const window = Dimensions.get('window');
     const dispatch = useDispatch();
     const isFocused = useIsFocused();
 
-    const backAction = () => {
-      Alert.alert("","Are you sure you want to exit app?", [
-        {
-          text: "Cancel",
-          onPress: () => null,
-          style: "cancel"
-        },
-        { text: "YES", onPress: () => BackHandler.exitApp() }
-      ]);
-      return true;
-    };
+    // const backAction = () => {
+    //   Alert.alert("","Are you sure you want to exit app?", [
+    //     {
+    //       text: "Cancel",
+    //       onPress: () => null,
+    //       style: "cancel"
+    //     },
+    //     { text: "YES", onPress: () => BackHandler.exitApp() }
+    //   ]);
+    //   return true;
+    // };
     
-    useEffect(() => {
-      BackHandler.addEventListener("hardwareBackPress", backAction);
-      return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
-    },[]);
+    // useEffect(() => {
+    //   BackHandler.addEventListener("hardwareBackPress", backAction);
+    //   return () =>
+    //   BackHandler.removeEventListener("hardwareBackPress", backAction);
+    // },[]);
 
       return (
         <React.Fragment>
@@ -399,7 +399,7 @@ const window = Dimensions.get('window');
 
     return (
       <ImageBackground 
-        source={require("../../../AppDesigns/currentApp/images/s2.jpg")} 
+        source={require("../../../AppDesigns/currentApp/images/s2.png")} 
         style={[commonStyles.container]} 
         resizeMode="cover" >
         <ScrollView style={{}}>
@@ -458,7 +458,7 @@ const window = Dimensions.get('window');
             <View style={{flexDirection:"row",paddingHorizontal:15,paddingBottom:20,}}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('ForgotPassword')}  style={{flex:1,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                <Text style={[commonStyles.linkText]}>Forgot Password?</Text>
+                <Text style={[{fontSize:10,color: "#033554",fontFamily:"Montserrat-Regular",opacity:1}]}>Forgot Password?</Text>
               </TouchableOpacity>
             </View>
             <FormButton
@@ -480,7 +480,7 @@ const window = Dimensions.get('window');
                 <View style={{flexDirection:"row",paddingHorizontal:15}}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                  <Text style={{fontSize:10,fontFamily:"Montserrat-Medium",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:12,fontFamily:"Montserrat-SemiBold",}]}> Sign Up</Text></Text>                  
+                  <Text style={{fontSize:10,fontFamily:"Montserrat-Medium",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:12,fontFamily:"Montserrat-SemiBold",fontWeight:'600'}]}> Sign Up</Text></Text>                  
                 </TouchableOpacity>                
                 </View>
             </View>

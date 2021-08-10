@@ -185,16 +185,16 @@ const onScroll=(e)=>{
                 // setCategory = {setCategory}
               />
             </View>
-            <View style={{marginTop:2,height:40}}>
+            <View style={{marginTop:2,height:200}}>
               <View style={{justifyContent:"flex-end",flexDirection:'row',flex:1}}>
-                <TouchableOpacity style={{width:30,height:26,marginRight:10,justifyContent:'center',alignItems:'center',borderRadius:4,borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>setShowFilters(true)}>
-                  <Image
-                    resizeMode="contain"
-                    source={require("../../AppDesigns/currentApp/images/filter.png")}
-                    style={{height:25,width:25}}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity style={{width:30,height:26,marginRight:5,justifyContent:'center',alignItems:'center',borderRadius:4,borderColor:"#f1f1f1"}} onPress={()=>toggleSort(true)}>
+                  <TouchableOpacity style={styles.iconStyle} onPress={()=>setShowFilters(true)}>
+                    <Image
+                      resizeMode="contain"
+                      source={require("../../AppDesigns/currentApp/images/filter.png")}
+                      style={{height:25,width:25}}
+                      />
+                  </TouchableOpacity>
+                <TouchableOpacity  style={styles.iconStyle}  onPress={()=>toggleSort(true)}>
                   {/* <Icon name="sort" type="material-community" color={"#333"} size={20} /> */}
                   <Image
                   resizeMode="contain"
@@ -225,7 +225,7 @@ const onScroll=(e)=>{
                   vendorLocation_id     = {vendorLocation_id}
                   onEndReachedThreshold = {0.01}
                   marginTop             = {HEADER_HEIGHT}
-                  paddingBottom         = {250}
+                  paddingBottom         = {50}
                   category              = {category}
                   subCategory           = {subCategory}
                   vendor                = {vendor}

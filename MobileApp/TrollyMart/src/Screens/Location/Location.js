@@ -91,12 +91,7 @@ export const Location = withCustomerToaster((props)=>{
                     (position) => {
                         const {latitude,longitude}=position.coords;
                         setCoords({"latitude":latitude,"longitude":longitude});
-                        setRegion({
-                            latitude: latitude,
-                            longitude: longitude,
-                            latitudeDelta: latitude * 0.0001,
-                            longitudeDelta: longitude * 0.0001 
-                        })
+                       
                         Geocoder.from(latitude, longitude)
                         .then(json => {
                             var details = json.results[0];
@@ -125,6 +120,12 @@ export const Location = withCustomerToaster((props)=>{
                                     }
                                 }
                             }
+                            setRegion({
+                                latitude: latitude,
+                                longitude: longitude,
+                                latitudeDelta: latitude * 0.0001,
+                                longitudeDelta: longitude * 0.0001 
+                            })
                             if(country === "United Arab Emirates"){
                                 notDelivered(false);
                                 var address = {

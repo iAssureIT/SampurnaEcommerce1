@@ -404,16 +404,13 @@ export default StyleSheet.create({
     padding:5,
     borderRadius:100,
     backgroundColor:'#fff',    
-    shadowColor: "#000",
-shadowOffset:{
-width: 0,
-height: 7,
-},
-shadowOpacity: 0.41,
-shadowRadius: 9.11,
-elevation: 14,
     borderWidth:1,
     borderColor:'#033554',
+    shadowColor: '#000',
+    shadowOffset: { width: -50, height: 10 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 10,
   },
 
   addBtnImg:{

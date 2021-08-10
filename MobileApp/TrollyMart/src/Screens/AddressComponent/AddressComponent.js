@@ -255,7 +255,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                 value           = {values.contactperson}
               />
               <View style={{marginHorizontal:10,marginVertical:5}}>
-                <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 12,color:'#000',paddingVertical:2}}>
+                <Text style={{fontFamily:'Montserrat-Medium', fontSize: 12,color:'#000',paddingVertical:2}}>
                     <Text>Mobile Number</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
@@ -311,7 +311,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     disabled        = {delivery}       
                   />
                 <View style={[styles.formInputView, styles.marginBottom20]}>
-                  <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingVertical:2}}>
+                  <Text style={{fontFamily:'Montserrat-Medium',color:'#000', fontSize: 12,paddingVertical:2}}>
                     <Text>Address</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *

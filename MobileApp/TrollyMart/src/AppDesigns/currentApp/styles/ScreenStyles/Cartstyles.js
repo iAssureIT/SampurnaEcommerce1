@@ -265,7 +265,7 @@ superparent:{
     borderColor:"#ddd",
     // paddingLeft:15,
     // paddingRight:15,
-    paddingVertical:15,
+    paddingTop:15,
     marginHorizontal:6,
     borderRadius:7,
     // borderTopWidth:1

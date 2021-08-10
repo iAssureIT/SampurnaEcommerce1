@@ -78,7 +78,7 @@ export const MyAccount =(props)=>{
                     </View>  
                     <View style={{marginLeft:24,marginTop:15}}>
                         <View style={{flexDirection:'row'}}>
-                            <View style={{marginTop:20}}>
+                            <View style={{marginTop:10}}>
                                 <Text style={{fontSize:18,color:'#000',fontFamily:"Montserrat-SemiBold",paddingVertical:5}}>Hello</Text>
                                 <Text style={{fontSize:16,color:'#000',fontFamily:"Montserrat-Medium"}}>Welcome to</Text>
                             </View>

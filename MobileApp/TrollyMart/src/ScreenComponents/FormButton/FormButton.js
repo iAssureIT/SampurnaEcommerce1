@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
   },
   titleStyle1:{
     fontSize:18,
-    color:colors.theme
+    color:colors.theme,
+    fontFamily:"Montserrat-Regular",
   },
   titleStyle2:{
     fontSize:12,
