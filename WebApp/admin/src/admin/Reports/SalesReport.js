@@ -1,6 +1,6 @@
 import React, { Component } 	from 'react';
 import $                    	from 'jquery';
-import ReportsTemplate     	from './ReportTemplate1.js';
+import ReportsTemplate     	from './ReportsTemplate.js';
 import "./Reports.css";
 import 'font-awesome/css/font-awesome.min.css';
 

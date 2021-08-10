@@ -57,7 +57,7 @@ router.get('/getAllcompany', 										checkAuth, entityMaster.CompanyfromEntiti
 
 router.get('/getAllEntities', 									checkAuth, entityMaster.getAllEntities);
 
-router.post('/getAllLocation', 									checkAuth, entityMaster.fetchLocationEntities);
+router.post('/getAllLocation', 									entityMaster.fetchLocationEntities);
 
 router.post('/getAllContact', 									checkAuth, entityMaster.fetchContactEntities);
 

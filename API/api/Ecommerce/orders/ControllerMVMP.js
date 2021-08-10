@@ -607,7 +607,7 @@ exports.cancel_order = (req, res, next) => {
 					
 						for (let j = 0; j < vendorOrdersArray.products.length; j++) {
 							// console.log("singleVendorOrder.products[i] => ,",singleVendorOrder.products[i])
-							console.log(" => ",req.body.vendor_id ," ",vendorOrdersArray.products[i].productCode, " ",vendorOrdersArray.products[i].itemCode)
+							// console.log(" => ",req.body.vendor_id ," ",vendorOrdersArray.products[i].productCode, " ",vendorOrdersArray.products[i].itemCode)
 							await ProductInventory.updateOne(
 								{ 
 									vendor_ID            : ObjectId(vendorOrdersArray[i].vendor_id),
@@ -692,7 +692,7 @@ function getDistanceWiseShippinCharges(){
 
 /*========== List Status Wise Orders ==========*/
 exports.list_orders_by_status = (req, res, next) => {
-	console.log("list_orders_by_status => ",req.body);
+	// console.log("list_orders_by_status => ",req.body);
 	var selector        = {};
 	selector['$and']    = [];
 	if(req.body.status.toLowerCase() !== "all"){       
@@ -955,7 +955,7 @@ function addSplitVendorOrders(orderID) {
 
 /** =========== Change Vendor Order Status =========== */
 exports.change_vendor_orders_status = (req, res, next) => {
-	console.log("req.body => ",req.body)
+	// console.log("req.body => ",req.body)
 	var statusObj = {
 		status 				: req.body.changeStatus,
 		timestamp 			: new Date(),
@@ -1402,7 +1402,7 @@ exports.fetch_order = (req, res, next) => {
 	.populate('vendorOrders.vendor_id')
 	.exec()
 	.then(async(data) => {
-		console.log('data', data);
+		// console.log('data', data);
 		// for(var i=0;i<data.length;i++){
 			// for(var j=0;j<data[i].vendorOrders.length;j++){
 				// console.log("data[i].vendorOrders",data[i].vendorOrders);
@@ -2074,7 +2074,7 @@ exports.cancelOrder = (req, res, next) => {
   )
 	 .exec()
 	 .then(data => {
-		console.log(data);
+		// console.log(data);
 		if (data.nModified == 1) {
 		  res.status(200).json({
 			 "message": "Order is cancelled Successfully.",
@@ -3619,13 +3619,13 @@ exports.monthly_vendor_orders = (req, res, next) => {
 	// var startDate = req.body.startDate;
 	// var endDate = req.body.endDate;
 	var startDate = moment([year, month-1]).format();
-	console.log("startDate => ",startDate);
+	// console.log("startDate => ",startDate);
 	var endDate = moment(startDate).endOf('month').format();
-	console.log("endDate => ",new Date(endDate));
-	console.log("Start  => ",moment(startDate).utc().startOf('day').toDate());
-	console.log("End => ",moment(endDate).utc().endOf('day').toDate());
-	console.log("new Start1  => ",moment(new Date(startDate)).startOf('day').toDate());
-	console.log("new End1 => ",moment(new Date(endDate)).endOf('day').toDate());
+	// console.log("endDate => ",new Date(endDate));
+	// console.log("Start  => ",moment(startDate).utc().startOf('day').toDate());
+	// console.log("End => ",moment(endDate).utc().endOf('day').toDate());
+	// console.log("new Start1  => ",moment(new Date(startDate)).startOf('day').toDate());
+	// console.log("new End1 => ",moment(new Date(endDate)).endOf('day').toDate());
 
 	Orders.find(
 		{
@@ -3711,8 +3711,8 @@ exports.monthly_vendor_orders = (req, res, next) => {
 
 // ---------------- Get Daily Vendor Orders ----------------
 exports.daily_vendor_orders = (req, res, next) => {
-	console.log("start => ", moment(new Date(req.body.deliveryDate)).startOf('day').toDate());
-	console.log("end => ", moment(new Date(req.body.deliveryDate)).endOf('day').toDate());
+	// console.log("start => ", moment(new Date(req.body.deliveryDate)).startOf('day').toDate());
+	// console.log("end => ", moment(new Date(req.body.deliveryDate)).endOf('day').toDate());
 	Orders.aggregate([	   
 		{ "$match": 
 			{"vendorOrders": 
@@ -3959,7 +3959,7 @@ exports.list_ready_to_dispatch_orders = (req, res, next) => {
 			}	
 		])
 		.then(async(data) => {
-			console.log("data => ",data);
+			// console.log("data => ",data);
 			var distanceLimit = await getDistanceLimit();	
 			// console.log("distanceLimit => ",distanceLimit)
 			if(data && data.length > 0){
@@ -3998,7 +3998,7 @@ exports.list_ready_to_dispatch_orders = (req, res, next) => {
 							}
 						])
 
-						console.log("DeliveryPersons => ",DeliveryPersons)
+						//console.log("DeliveryPersons => ",DeliveryPersons)
 						if(vendorLat !== "" && vendorLat !== undefined && vendorLat !== "" && vendorLat !== undefined){
 							
 							if(DeliveryPersons && DeliveryPersons.length > 0){
@@ -4009,13 +4009,13 @@ exports.list_ready_to_dispatch_orders = (req, res, next) => {
 											
 									var vendorToDeliveryPersonDist  = await calcUserVendorDist(vendorLat,vendorLong, latitude, longitude);
 									// var vendorToCustDist 			= await calcUserVendorDist(vendorLat,vendorLong, custLat, custLng);
-									console.log("vendorToDeliveryPersonDist => ", vendorToDeliveryPersonDist)
+									// console.log("vendorToDeliveryPersonDist => ", vendorToDeliveryPersonDist)
 									DeliveryPersons[i].vendorToDeliveryPersonDist 		= vendorToDeliveryPersonDist ? vendorToDeliveryPersonDist.toFixed(2) : 0;									
 									
 								}//for end
 								if(i >= DeliveryPersons.length){									
 									if(distanceLimit){
-										console.log("DeliveryPersons => ",DeliveryPersons)
+										// console.log("DeliveryPersons => ",DeliveryPersons)
 										if(DeliveryPersons && DeliveryPersons.length > 1){
 											var FinalDeliveryPersonsList = DeliveryPersons.filter(DeliveryPerson => DeliveryPersons.vendorToDeliveryPersonDist <= distanceLimit).sort(function (a, b) {
 												return (a.vendorToDeliveryPersonDist - b.vendorToDeliveryPersonDist);
@@ -4023,7 +4023,7 @@ exports.list_ready_to_dispatch_orders = (req, res, next) => {
 										}else{
 											var FinalDeliveryPersonsList = DeliveryPersons;
 										}
-										console.log("FinalDeliveryPersonsList 1 =>",FinalDeliveryPersonsList)
+										// console.log("FinalDeliveryPersonsList 1 =>",FinalDeliveryPersonsList)
 									}else{   
 										if(DeliveryPersons && DeliveryPersons.length > 1){                                         
 											var FinalDeliveryPersonsList = DeliveryPersons.filter(DeliveryPerson => DeliveryPersons.vendorToDeliveryPersonDist <= distanceLimit).sort(function (a, b) {
@@ -4032,7 +4032,7 @@ exports.list_ready_to_dispatch_orders = (req, res, next) => {
 										}else{
 											var FinalDeliveryPersonsList = DeliveryPersons;
 										}	
-										console.log("FinalDeliveryPersonsList 2 =>",FinalDeliveryPersonsList)
+										// console.log("FinalDeliveryPersonsList 2 =>",FinalDeliveryPersonsList)
 									}					
 									res.status(200).json(FinalDeliveryPersonsList);
 								}

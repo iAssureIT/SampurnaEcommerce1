@@ -163,6 +163,7 @@
 }
 .customerDetails-text{
     font-size: 12px;
+    margin: 0 0 5px 0;
 }
 .adminCommentBox{
     border: 1px solid #ccc;

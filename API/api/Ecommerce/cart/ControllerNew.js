@@ -270,7 +270,7 @@ exports.insert_cartid = (req,res,next)=>{
             }
         }else{
             // console.log("When some No cart data available") 
-            console.log("vendorCartItem => ",vendorCartItem);        
+            // console.log("vendorCartItem => ",vendorCartItem);        
             
             const cartDetails = new Carts({
                 _id                         : new mongoose.Types.ObjectId(),
@@ -310,18 +310,18 @@ exports.insert_cartid = (req,res,next)=>{
 
 /**=========== Vendorwise List of Cart Items for Particular User ===========*/
 exports.list_cart_product = (req,res,next)=>{    
-    console.log("req.params.user_ID *==* ",req.params.user_ID);
+    // console.log("req.params.user_ID *==* ",req.params.user_ID);
     
     Carts.findOne({user_ID:ObjectId(req.params.user_ID)})
     .populate('vendorOrders.cartItems.product_ID')
     .populate('vendorOrders.vendor_id')
     .exec()
     .then(async(data)=>{
-        console.log("data *=======> ",data);
+        // console.log("data *=======> ",data);
         if(data && data !== null && data !== undefined){
-        for (var i = 0; i < data.vendorOrders.length; i++) {
-            console.log("data.vendorOrders[i].vendor_id *=======> ",i ," => ",data.vendorOrders[i].vendor_id);
-        }
+        // for (var i = 0; i < data.vendorOrders.length; i++) {
+            // console.log("data.vendorOrders[i].vendor_id *=======> ",i ," => ",data.vendorOrders[i].vendor_id);
+        // }
             
             var vendorOrders                = data.vendorOrders;
             var order_beforeDiscountTotal   = 0;
@@ -357,13 +357,13 @@ exports.list_cart_product = (req,res,next)=>{
                 
                 if (vendorShippingCharges.code === "SUCCESS") {
                     vendor_shippingCharges = vendorShippingCharges.serviceCharges;
-                    console.log("vendor_shippingCharges => i => ",i,", ",vendor_shippingCharges);
+                    // console.log("vendor_shippingCharges => i => ",i,", ",vendor_shippingCharges);
                 }                    
                 
                 for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
                     // console.log("data.vendorOrders[i].cartItems[j] => ",data.vendorOrders[i].cartItems[j])
                     var inventoryData             	= await ProductInventory.findOne({productCode : data.vendorOrders[i].cartItems[j].product_ID.productCode, itemCode : data.vendorOrders[i].cartItems[j].product_ID.itemCode, vendor_ID : ObjectId(data.vendorOrders[i].cartItems[j].product_ID.vendor_ID)},{currentQuantity : 1});
-				    console.log("inventoryData => ",inventoryData);
+				    // console.log("inventoryData => ",inventoryData);
                     
                     data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0;                      
                     vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
@@ -580,8 +580,8 @@ function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
             //Distance in kilometers
             var distance_km = distance_m /1000; 
             
-            console.log("distance_miles => ",distance_miles)
-            console.log("distance_km => ",distance_km)
+            // console.log("distance_miles => ",distance_miles)
+            // console.log("distance_km => ",distance_km)
             //get unit of distance
             var unitOfDistance = await getAdminPreferences();
             if(unitOfDistance.toLowerCase() === "mile"){
@@ -657,7 +657,7 @@ exports.count_cart = (req,res,next)=>{
     ])
     .exec()
     .then(data=>{
-        console.log("data",data);
+        // console.log("data",data);
         res.status(200).json(data && data.length > 0 ? data[0].count : 0);
     })
     .catch(err =>{
@@ -712,7 +712,7 @@ exports.remove_cart_items = (req, res, next)=>{
                 )
                 .exec()
                 .then(cartUpdateData=>{
-                    console.log("cartUpdateData remove => ",cartUpdateData);
+                    // console.log("cartUpdateData remove => ",cartUpdateData);
 
                     if(cartUpdateData.nModified == 1){                          
                         res.status(200).json({
@@ -845,7 +845,7 @@ Carts.updateOne(
 
 /**=========== Change Cart Products Quantity ===========*/
 exports.change_cart_item_quantity = (req, res, next)=>{
-    console.log("req.body => ",req.body);
+    // console.log("req.body => ",req.body);
 
     Carts.findOne({"user_ID": req.body.user_ID})
     .exec()
@@ -886,7 +886,7 @@ exports.change_cart_item_quantity = (req, res, next)=>{
         )
         .exec()
         .then(data=>{
-            console.log("data => ",data);
+            // console.log("data => ",data);
             if(data.nModified === 1){    
                 var order_quantityOfProducts    = (previous_order_quantityOfProducts - previousProductQuantity) + req.body.quantityAdded;
                 var vendor_quantityOfProducts   = (previous_vendor_quantityOfProducts - previousProductQuantity) + req.body.quantityAdded;
@@ -932,13 +932,13 @@ exports.change_cart_item_quantity = (req, res, next)=>{
 
 /**=========== Update Delivery Address ===========*/
 exports.add_address_to_cart = (req, res, next)=>{
-    console.log("cart req.body===",req.body)
+    // console.log("cart req.body===",req.body)
     Carts.findOne({"user_ID": req.body.user_ID})       
         .exec()
         .then(cartData=>{
-            console.log("cartData => ",cartData)
+            // console.log("cartData => ",cartData)
             if(cartData){
-                console.log("cartData._id===",cartData._id);
+                // console.log("cartData._id===",cartData._id);
                 Carts.updateOne({ "_id" : cartData._id },
                 { $set : 
                     {
@@ -1016,12 +1016,12 @@ exports.count_cart = (req,res,next)=>{
 
 /**=========== Apply Coupon On Cart ===========*/
 exports.apply_coupon = (req,res,next)=>{    
-    console.log("req.body => ",req.body);
+    // console.log("req.body => ",req.body);
     Carts.findOne({user_ID : ObjectId(req.body.user_ID)})
     .populate('vendorOrders.cartItems.product_ID')
     .populate('vendorOrders.vendor_id')
     .then(data=>{   
-        console.log("data => ",data);
+        // console.log("data => ",data);
         processCouponData(data);
         async function processCouponData(data){
             var errMessage              = "";  
@@ -1154,7 +1154,7 @@ exports.apply_coupon = (req,res,next)=>{
                                                                                 : 
                                                                                     discountInPercent;
     
-                            console.log("discoutAfterCouponApply 1 => ",discoutAfterCouponApply);
+                            // console.log("discoutAfterCouponApply 1 => ",discoutAfterCouponApply);
                             data.paymentDetails.disocuntCoupon_id           = isCouponValid.dataObj._id;
                             data.paymentDetails.discountCouponPercent       = isCouponValid.dataObj.couponvalue;
                             data.paymentDetails.afterDiscountCouponAmount   = (discoutAfterCouponApply).toFixed(2);
@@ -1185,7 +1185,7 @@ exports.apply_coupon = (req,res,next)=>{
                                                                                         isCouponValid.dataObj.maxDiscountAmount 
                                                                                 : 
                                                                                     (isCouponValid.dataObj.couponvalue).toFixed(2);
-                            console.log("discoutAfterCouponApply 2 => ",discoutAfterCouponApply);
+                            // console.log("discoutAfterCouponApply 2 => ",discoutAfterCouponApply);
                             data.paymentDetails.disocuntCoupon_id           = isCouponValid.dataObj._id;
                             data.paymentDetails.discountCouponAmount        = isCouponValid.dataObj.couponvalue;
                             data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
@@ -1235,7 +1235,7 @@ exports.apply_coupon = (req,res,next)=>{
 
 /**=========== Apply Credit Points ===========*/
 exports.apply_credit_points = (req,res,next)=>{    
-    console.log("req.body == ",req.body);
+    // console.log("req.body == ",req.body);
     Carts.findOne({user_ID:ObjectId(req.body.user_ID)})
     .populate('vendorOrders.cartItems.product_ID')
     .populate('vendorOrders.vendor_id')
@@ -1368,18 +1368,18 @@ exports.apply_credit_points = (req,res,next)=>{
                        data.vendorOrders[k].vendor_shippingChargesAfterDiscount    = ((maxServiceCharges * shippingChargesDiscountPercent) / 100).toFixed(2);
                     }
                 }
-                console.log("order_afterDiscountTotal  => ",order_afterDiscountTotal );
-                console.log("order_taxAmount  => ",order_taxAmount );
-                console.log("creditPointsValueUsed  => ",req.body.creditPointsValueUsed );
+                // console.log("order_afterDiscountTotal  => ",order_afterDiscountTotal );
+                // console.log("order_taxAmount  => ",order_taxAmount );
+                // console.log("creditPointsValueUsed  => ",req.body.creditPointsValueUsed );
                 // console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
                 // console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
                 // console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
                 // console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
                 // console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
-                console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
-                console.log("data.paymentDetails.creditPointsValueUsed => ",data.paymentDetails.creditPointsValueUsed);
+                // console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
+                // console.log("data.paymentDetails.creditPointsValueUsed => ",data.paymentDetails.creditPointsValueUsed);
             }
-            console.log("data",data);
+            // console.log("data",data);
             res.status(200).json(data);
         }else{
             res.status(200).json(data);
