@@ -507,7 +507,7 @@ exports.fetch_categories_by_vendor = (req,res,next)=>{
                         
                         res.status(200).json({
                             categoryList    : categoryAndSubcategoryList,
-                            brandList       : brandList    
+                            brandList       : brandList.filter(brand => brand)   
                         });
                     }
                 }
