@@ -86,7 +86,7 @@ class ConfirmOTP extends Component{
 				<div className="col-10 offset-1 mt-3">
 					<div className={"col-12 "+S.signTextWrapper}>
 						<div className="row">
-							<a href="" className="" onClick={this.openSignInModal.bind(this)}><u>Back to Login</u></a>
+							<a href="" className={S.backToLogin} onClick={this.openSignInModal.bind(this)}><i class="fa fa-arrow-left"></i><u> Back to Login</u></a>
 						</div>
 					</div>
 					<div className={"col-12 "+S.signTitleWrapper}>
@@ -104,13 +104,13 @@ class ConfirmOTP extends Component{
 					<div className={"col-12 "+S.signTextWrapper}>
 						<div className="row">
 							<span className={"mt-xl-n2 "+S.otpText}>Didn't receive code?</span>&nbsp;&nbsp;
-							<a href="" className="mt-xl-n2" onClick={this.resendOTP.bind(this)}>Request again!</a>
+							<a href="" className="mt-xl-n2 text-dark font-weight-bold" onClick={this.resendOTP.bind(this)}>Request again!</a>
 						</div>
 					</div>
 				</div>
 				<div className="col-10 offset-1 mt-4">
 					<div className="col-12">
-						<button className="col-12 otpBtns text-center" onClick={this.verifyOTP.bind(this)}>Verifiy OTP</button>
+						<button className="col-12 otpBtns text-center" onClick={this.verifyOTP.bind(this)}>Verified</button>
 					</div>
 				</div>
 			</div>

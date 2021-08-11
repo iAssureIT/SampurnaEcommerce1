@@ -12,7 +12,6 @@
 .deliveryLocationCurrentButton{
     height: 38px;
     background-color: #033554;
-	font-weight: bold;
 	font-size: 13px;
     color: #fff !important;
     box-shadow: 0px 3px 6px #000000a6;
@@ -22,8 +21,6 @@
 .deliveryLocationSaveButton{
     height: 38px;
     background-color: #033554;
-    /* background: #033554 0% 0% no-repeat padding-box; */
-	font-weight: bold;
     font-size: 14px;
     color: #fff;
     box-shadow: 0px 3px 6px #000000a6;
@@ -69,7 +66,6 @@
 }
 .systemSecurityPopupWrapper input::placeholder{
     font-size: 12px !important;
-    /* font-family: 'Montserrat-Regular' !important; */
     color: #033554 !important;
 }
 

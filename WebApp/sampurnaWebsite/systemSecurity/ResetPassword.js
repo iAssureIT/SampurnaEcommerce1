@@ -97,18 +97,18 @@ class ResetPassword extends Component{
                 <div className="col-12 mobileViewNoPadding">
 					<div className={"col-12 "+S.signTextWrapper}>
 						<div className="row">
-							<a href="" className="" onClick={this.openSignInModal.bind(this)}><u>Back to Login</u></a>
+							<a href="" className={S.backToLogin} onClick={this.openSignInModal.bind(this)}><i class="fa fa-arrow-left"></i><u> Back to Login</u></a>
 						</div>
 					</div>
 					<div className={"col-12 "+S.signTitleWrapper}>
-						<span className={"font-weight-bolder border-0 "+S.signTitle}>RESET PASSWORD</span>
+						<span className={"font-weight-bolder border-0 "+S.signTitle+" "+S.resetPasswordTitle}>RESET PASSWORD</span>
 					</div>
                     {
                         this.state.showMessage === false
 						?
 							<div>
 								<form id="resetPassword">
-									<div className="form-group frmhgt textAlignLeft col-12 mt-4">
+									<div className="form-group frmhgt textAlignLeft col-lg-8 offset-lg-2 mt-4">
 										{/* <label className="blueText">New Password</label><label className="astricsign">*</label> */}
 										<input
 											id="newPassword"
@@ -129,7 +129,7 @@ class ResetPassword extends Component{
 										</span>
 										<div className="errorMsg mt-1">{this.state.errors.newPassword}</div>
 									</div>
-									<div className="form-group frmhgt textAlignLeft col-12 mt-4">
+									<div className="form-group frmhgt textAlignLeft col-12 col-lg-8 offset-lg-2 mt-4">
 										{/* <label className="blueText">Confirm Password</label><label className="astricsign">*</label> */}
 										<input
 											id="confirmPassword"
@@ -148,13 +148,13 @@ class ResetPassword extends Component{
 										</span>
 										<div className="errorMsg mt-1">{this.state.errors.confirmPassword}</div>
 									</div>
-									<div className="col-12 mb-3 mt-5 ">
-										<button id="signUpBtn" onClick={this.resetPassword.bind(this)} className="col-12  btn otpBtns	">Reset Password</button>
+									<div className="col-12 col-lg-8 offset-lg-2 mb-3 mt-5 mt-lg-3">
+										<button id="signUpBtn" onClick={this.resetPassword.bind(this)} className="col-12 btn otpBtns">Save New Password</button>
 									</div>
 								</form>
 							</div>
                         :
-							<div className="col-12 resetPassword">
+							<div className="col-12 col-lg-8 offset-lg-2 resetPassword">
 								<p className="col-12 mt25 textAlignCenter">Your password has been reset successfully!</p>
 								<div className="col-12 mt10">
 									<div className="row loginforgotpass textAlignCenter"> Please &nbsp;

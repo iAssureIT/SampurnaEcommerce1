@@ -28,11 +28,16 @@
 .otpText{
 	margin-left: 0px !important;
 }
+.backToLogin{
+    color: #033554 !important;
+}
 .signInSignUpUnderline{
     width: 50px;
     margin-top: -2px;
 }
-
+.resetPasswordTitle{
+    font-family: 'Montserrat-Bold' !important;
+}
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 

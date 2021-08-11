@@ -63,7 +63,7 @@ export default function App({pageData}){
 																	?
 							                                            <div className="col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 NoPadding signInBlock pull-right">
                             							                    <a href="" className="faIcon faLoginIcon NoPadding pull-right" onClick={()=>signOut()}  id="loginModal" area-hidden ="true">
-                                                    							<span className="btn loginView mr-3">Sign Out &nbsp;
+                                                    							<span className="btn headerLoginButton mr-3">Sign Out &nbsp;
 																					<img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
 																				</span>
 																			</a>
@@ -71,7 +71,7 @@ export default function App({pageData}){
                                             						:
                                             							<div className="col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 NoPadding signInBlock pull-right">
                                                 							<a href="" className="faIcon faLoginIcon NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
-                                                    							<span className="btn loginView mr-3">Sign in &nbsp;
+                                                    							<span className="btn headerLoginButton mr-3">Sign in &nbsp;
                                                         							<img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
                                                     							</span>
                                                 							</a>

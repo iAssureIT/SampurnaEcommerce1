@@ -192,20 +192,24 @@ select:focus {
     border-radius: 7px !important;
     color        : #222222 !important;
     cursor       : pointer !important;
-    height       : 35px !important;
+    min-height   : 25px !important;
 }
 
 .css-1wa3eu0-placeholder {
     color: #222222 !important;
+    top: 40%;
 }
 
 .css-tlfecz-indicatorContainer {
     color: #222222 !important;
+    padding: 0px 6px 0px 5px !important;
 }
 
 .css-1okebmr-indicatorSeparator {
     color           : #222222 !important;
     background-color: #222222 !important;
+    /* margin-bottom: 13px;
+    margin-top: 6px; */
 }
 
 .form-control:disabled,
