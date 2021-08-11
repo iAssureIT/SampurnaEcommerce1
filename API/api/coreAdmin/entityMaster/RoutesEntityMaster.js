@@ -82,7 +82,7 @@ router.post('/get/files',                                        entityMaster.fe
 router.post('/get/searchfile', 									entityMaster.search_file);
 // router.get('/get/checkBAExists/:emailID', baController.check_ba_exists);
 
-router.delete('/delete/:entityID', 								checkAuth, entityMaster.deleteEntity);
+router.delete('/delete/:entityID', 								entityMaster.deleteEntity);
 
 router.delete('/deleteLocation/:entityID/:locationID', 	checkAuth, entityMaster.deleteLocation);
 

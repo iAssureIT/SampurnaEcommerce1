@@ -3,14 +3,15 @@
     color: #fff;
     border-radius: 34px;
     font-size: 12px !important;
-    padding: 7px 33px;
+    padding: 7px 20px !important;
     outline: none;
     border: 0px;
-    font-weight: 500 !important;
-    width: fit-content;
+    font-weight: 600 !important;
+    width: 100%;
+    text-align: center;
 }
 .resetinp{
-    margin-bottom: 9%;
+    margin-bottom: 15px;
 	border-radius: 20px !important;
     font-size: 12px;
 }
@@ -21,9 +22,21 @@
     color: #000;
     font-size: 9px;
     margin-bottom: 2%;
-    padding: 7px 0px !important;
+    padding: 0;
     width: 27px;
     height: 27px;
+}
+.search-box{
+    margin-top: 15px;
+}
+.search-box{
+    position: relative;
+}
+.search-box i{
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    color: #ccc;
 }
 /*.alphab{
 	margin: 3.8px;
@@ -85,7 +98,7 @@
 }
 .box-title2{
     margin-top: 22px;
-    margin-left: 20px;
+    /*margin-left: 20px;*/
 }
 .filterWrapper{
     display: none;

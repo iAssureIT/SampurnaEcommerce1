@@ -2426,8 +2426,8 @@ background-color:#010101;*/
     font-size: 12px;
     display: block;
     margin: 0 0 0 auto;
-    width: 180px;
-    height: 30px !important;
+    /*width: 180px;*/
+    /*height: 30px !important;*/
     box-sizing: border-box;
     /*border: 2px solid #ccc;*/
     /*font-size: 16px;*/
@@ -2448,10 +2448,10 @@ background-color:#010101;*/
 
 
 /* When the input field gets focus, change its width to 100% */
-
+/*
 .Searchusers:focus {
     width: 100%;
-}
+}*/
 
 .usrbtn {
     /* font-weight: 700;

@@ -871,9 +871,13 @@ exports.updateSingleContact = (req,res,next)=>{
 };
 
 exports.deleteEntity = (req,res,next)=>{
-    EntityMaster.deleteOne({_id:req.params.entityID})
+    console.log("*****************deleteEntity***************** ")
+    console.log("req.params.entityID => ",req.params.entityID)
+    EntityMaster.deleteOne({ _id : ObjectId(req.params.entityID)})
     .exec()
     .then(data=>{
+    console.log("data => ",data)
+
         res.status(200).json({ deleted : true });
     })
     .catch(err =>{

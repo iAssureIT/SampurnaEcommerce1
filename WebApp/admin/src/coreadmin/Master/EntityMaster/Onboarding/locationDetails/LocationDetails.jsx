@@ -1371,11 +1371,18 @@ class LocationDetails extends Component {
           }
       }
 
-    //   console.log('state==>',state)
+      console.log('area ==> ',area)
+      console.log('city ==> ',city)
+      console.log('district ==> ',district)
+      console.log('state ==> ',state)
+      console.log('country ==> ',country)
+      console.log('pincode ==> ',pincode)
+      console.log('stateCode ==> ',stateCode)
+      console.log('countryCode ==> ',countryCode)
 
       this.setState({
         area : area,
-        city : city,
+        city : city === state ? "" : city,
         district : district,
         states: state,
         country:country,
@@ -1383,6 +1390,7 @@ class LocationDetails extends Component {
         stateCode:stateCode,
         countryCode:countryCode
       },()=>{
+
       	var entityID = this.props.match.params.entityID;
 		axios.get('/api/entitymaster/get/one/' + entityID)
 		.then((response)=>{

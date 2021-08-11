@@ -124,12 +124,13 @@ class IAssureTable extends Component {
 		var tableObjects = this.props.tableObjects;
 		let id = (e.target.id).replace(".", "/");
 		id = (e.target.id).replace(" ", "S");
-
+		console.log("delete id => ",id)
 		axios({
 			method: tableObjects.deleteMethod,
 			url: tableObjects.apiLink + '/delete/'+id,
 			data : {"id":e.target.id}
 		}).then((response) => {
+			console.log("delete response => ",response.data)
 			this.props.getData(this.state.startRange, this.state.limitRange);
 			this.props.history.push(tableObjects.editUrl);
 			swal({
@@ -667,6 +668,7 @@ class IAssureTable extends Component {
 													{
 														Object.entries(value).map(
 															([key, value1], i) => {
+
 																if ($.type(value1) === 'string') {
 																	var regex = new RegExp(/(<([^>]+)>)/ig);
 																	var value2 = value1 ? value1.replace(regex, '') : '';
@@ -677,15 +679,22 @@ class IAssureTable extends Component {
 																		var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
 																		// console.log("bn",bN)
 																		if (bN) {
+																			console.log("1. textAlignRight => ",value1)
 																			var textAlign = 'textAlignRight';
 																		} else if(bN === 0) {
+																			console.log("2. textAlignRight => ",value1)
 																			var textAlign = 'textAlignRight';
 																		}else{
+
 																			var textAlign = 'textAlignLeft noWrapText';
 
 																		}
 																	}
-																} else {
+																}else if($.type(value1) === 'array') {
+																	var textAlign = 'textAlignLeft';
+																}else {
+																	console.log("Type => ",($.type(value1)))
+																	console.log("3. textAlignRight => ",value1)
 																	var textAlign = 'textAlignRight';
 																}
 																var found = Object.keys(this.state.tableHeading).filter((k) => {

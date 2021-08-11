@@ -109,6 +109,7 @@ class EntityDetails extends Component {
 	event.preventDefault();
   	axios.delete("/api/entitymaster/delete/"+this.state.deleteID)
     .then((response)=>{
+    	console.log("response =>", response.data)
    		if (response.data.deleted) {
    			swal({
               text : (this.state.entityType === "appCompany" ? "Organizational Settings" :this.state.entityType) +" is deleted successfully.",

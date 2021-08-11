@@ -30,7 +30,7 @@ class ListOfEntities extends Component {
 			entityList: [],
 			masterVendor: [],
 			selector:{},
-			stateCode : "Select State",
+			stateCode : "Select Emirate",
 			showDetails : false,
 			view : 'Grid',
 			district  : "Select District",
@@ -38,10 +38,10 @@ class ListOfEntities extends Component {
 			entityType : this.props.entity ,
 			RecordsTable:[],
 			tableHeading:{
-	            companyName:"Company Name",
-	            companyEmail:"Contact Details",
-	            location:"Locations",
-	            contacts:"Contacts",
+	            companyName :"Company Name",
+	            companyEmail:"Company Contact",
+	            location:"Company Locations",
+	            contacts:"Person Contacts",
 	            actions:"Action"
 
 	          },
@@ -50,12 +50,13 @@ class ListOfEntities extends Component {
 	          searchApply     : false,
 	          editUrl         : '/'+this.props.entity+'/basic-details',
 	          deleteMethod    : 'delete',
-        	  apiLink         : '/api/entitymaster/',
+        	  apiLink         : '/api/entitymaster',
 	          downloadApply   : true
 	      },
 	      startRange        : 0,
       	  limitRange        : 100000,
-      	  company_id        : this.props.company_id ? this.props.company_id : '', 
+      	  company_id        : this.props.company_id ? this.props.company_id : '',
+      	statesArray : ["Abu Dhabi", "Ajman", "Dubai", "Fujairah", "Ras Al Khaimah", "Sharjah", "Umm Al Quwain"] 
 		};
 		
 		this.handleChange = this.handleChange.bind(this);
@@ -123,7 +124,7 @@ class ListOfEntities extends Component {
 		$(".allBtn").css("background", "#0275ce");
 		// axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem("token");
 		this.getEntities();
-		this.getStates('IN');
+		// this.getStates('ae');
 
 	}
 
@@ -162,14 +163,16 @@ class ListOfEntities extends Component {
 					var FilteredData =  response.data.filter(entity=>entity.supplierOf == this.state.getcompanyID)
 					var tableData = FilteredData.map((a, i)=>{
 					var locDetails = a.locations.map((l,i)=>{
-						return "<ul class='nopadding'><li><b>BranchCode</b>:"+l.branchCode+"</li><li><b>Type</b>: "+l.locationType+"</li><li><b>Address</b>: "+l.addressLine1+"</li></ul>"
+						// return "<ul class='nopadding'>{<li><b>BranchCode</b>:"+l.branchCode+"</li>}<li><b>Type</b>: "+l.locationType+"</li><li><b>Address</b>: "+l.addressLine1+"</li></ul>"
+						return "<ul class='nopadding'><li><b>Location</b> : "+l.locationType+"</li><li><b>Address</b> : "+l.addressLine1+"</li></ul>"
 					})
 					var contactData = a.contactPersons.map((c,i)=>{
-						return "<ul class='nopadding'><li><b>BranchCode</b>:"+c.branchCode+"</li><li><b>Name</b>:<a title='View profile' target='_blank' href='/employee-profile/'"+c.personID+">"+c.firstName+" "+c.lastName+"</a></li><li><b>Email</b>:"+c.email+"</li></ul>"
+						// return "<ul class='nopadding'><li><b>BranchCode</b>:"+c.branchCode+"</li><li><b>Name</b>:<a title='View profile' target='_blank' href='/employee-profile/'"+c.personID+">"+c.firstName+" "+c.lastName+"</a></li><li><b>Email</b>:"+c.email+"</li></ul>"
+						return "<ul class='nopadding'><li><b>Name</b> : <a title='View profile' target='_blank' href='/employee-profile/'"+c.personID+">"+c.firstName+" "+c.lastName+"</a></li><li><b>Email</b> : "+c.email+"</li></ul>"
 					})
 			        return{
 			        	_id:a._id,
-			            companyName:"<a  title='View company profile'  target='_blank' href='/company-profile/"+(a.company_Id)+"'>"+a.companyName +" (" +a.companyID+")</a>"+"<br> <b>Group Name : </b>"+a.groupName,
+			            companyName :"<a  title='View company profile'  target='_blank' href='/company-profile/"+(a.company_Id)+"'>"+a.companyName +" (" +a.companyID+")</a>"+"<br> <b>Group Name : </b>"+a.groupName,
 			            companyEmail:"<b>Email : </b>"+a.companyEmail+"<br><b>Mobile No. : </b>"+a.companyPhone,
 			            location:locDetails && locDetails.length > 0 ? locDetails : "No Location Added Yet",
 			            contacts:contactData && contactData.length > 0 ? contactData : "No Contacts Added Yet",
@@ -225,7 +228,7 @@ class ListOfEntities extends Component {
 			.then((response) => {
 
 				this.setState({
-					stateCode 	: "Select State",
+					stateCode 	: "Select Emirate",
 					statesArray	: response.data
 				})
 
@@ -413,7 +416,7 @@ class ListOfEntities extends Component {
 		}
 
 		document.getElementById("filterallalphab").style.background = '#000';
-		document.getElementById("filterallalphab").style.color = '#fff';
+		// document.getElementById("filterallalphab").style.color = '#fff';
 		selector.searchStr = event.target.value;
 
 		this.setState({	selector: selector },()=>{
@@ -436,7 +439,7 @@ class ListOfEntities extends Component {
 		$('.districtsdata').prop('selectedIndex', 0);
 		$('.searchEntity').val('');
 		this.setState({
-			'stateCode': 'Select State',
+			'stateCode': 'Select Emirate',
 			'district' : 'Select District',
 			'districtArray':[],
 			'selector' : {},
@@ -668,45 +671,47 @@ class ListOfEntities extends Component {
 								{/* <section className="Content tab-content">
             						<div id="manual" className="tab-pane fade in active col-lg-12 col-md-12 col-sm-12 col-xs-12 mt"> */}
 										<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 ">									
-											<div className="col-lg-2 col-md-12 col-sm-12 col-xs-12 nopadding">
+											<div className="col-lg-2 col-md-4 col-sm-12 col-xs-12 nopadding">
 												<button type="button" className=" selectFilterBtnEL reset" onClick={this.selectFilter.bind(this)}>
 													<i class="fa fa-filter"></i>&nbsp;&nbsp;<b> SELECT FILTER</b>
 												</button>
 											</div>
 											
-											<h5 className="box-title2 col-lg-2 col-md-11 col-sm-11 col-xs-12 nopadding">Total Records :&nbsp;&nbsp;<b>{this.state.entityCount}</b></h5>
-											<h5 className="box-title2 col-lg-2 col-md-11 col-sm-11 col-xs-12 nopadding">Filtered Records :&nbsp;&nbsp;<b>{this.state.entityList.length}</b></h5>
-											<div className="col-lg-3 col-md-12 col-sm-12 col-xs-12 pull-right inLOE noPadding" >
-												<span className="blocking-span" >
-													<input type="text" name="search" className="col-lg-8 col-md-8 col-sm-8 col-xs-12 Searchusers searchEntity inputTextSearch outlinebox pull-right texttrans"
+											<h5 className="box-title2 col-lg-2 col-md-4 col-sm-12 col-xs-12">Total Records :&nbsp;&nbsp;<b>{this.state.entityCount}</b></h5>
+											<h5 className="box-title2 col-lg-2 col-md-4 col-sm-12 col-xs-12 nopadding">Filtered Records :&nbsp;&nbsp;<b>{this.state.entityList.length}</b></h5>
+											<div className="search-box col-lg-6 col-md-12 col-sm-12 col-xs-12 NOpadding-right" >
+												<input type="text" name="search" className="form-control Searchusers searchEntity inputTextSearch outlinebox pull-right texttrans"
 														placeholder="Search..." onInput={this.searchEntity.bind(this)} />
-												</span>
+														<i class="fa fa-search"></i>
+												
 											</div>
 										</div>
 
 										<div className="contenta col-lg-12 col-md-12 col-sm-12 col-xs-12 pdcls nopadding">
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 borderBottomSO">
 											</div>
-											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 firstElement filterWrapper">
-												<div className="col-lg-2 col-md-12 col-sm-12 col-xs-12 nopadding">
-													<div className="reset selheight" onClick={this.resetFilter.bind(this)}>RESET FILTERS</div>
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 filterWrapper">
+												<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 nopadding">
+													<div className="reset selheight" onClick={this.resetFilter.bind(this)}>
+														<i class="fa fa-filter" style={{textDecoration: "line-through"}}></i>&nbsp;&nbsp;RESET FILTER
+													</div>
 												</div>
 												
-												<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12">
+												<div className="col-lg-10 col-md-10 col-xs-12 col-sm-12 NOpadding-right">
 													<select className="form-control resetinp selheight Statesdata" ref="states" name="stateCode" defaultValue={this.state.stateCode} 
 													onChange={this.onSelectedItemsChange.bind(this,'state')}>
-														<option disabled value="Select State">Select State</option>
+														<option disabled value="Select Emirate">Select Emirate</option>
 														{this.state.statesArray &&
 															this.state.statesArray.map((Statedata, index) => {
 																return (
-																	<option key={index} value={Statedata.stateCode}>{this.camelCase(Statedata.stateName)}</option>
+																	<option key={index} value={Statedata.stateCode}>{Statedata}</option>
 																);
 															}
 															)
 														}
 													</select>
 												</div>
-												<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12">
+												{/*<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12">
 													<select className="form-control resetinp selheight districtsdata" ref="district" name="district" value={this.state.district}
 													onChange={this.onSelectedItemsChange.bind(this,'district')}>
 														<option value="Select District" disabled>Select District</option>
@@ -719,7 +724,7 @@ class ListOfEntities extends Component {
 															)
 														}
 													</select>
-												</div>
+												</div>*/}
 											
 											</div>
 
@@ -775,7 +780,7 @@ class ListOfEntities extends Component {
 										</div>
 										:
 										this.state.entityList && this.state.entityList.length > 0 ?
-											<div className="col-lg-4 col-md-6 col-sm-6 col-xs-6 scrollbar" id="style-2" style={{"marginLeft" : 0}}>
+											<div className="col-lg-4 col-md-6 col-sm-12 col-xs-12 scrollbar" id="style-2" style={{"marginLeft" : 0}}>
 												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 borderlist12">
 													{
 														this.state.entityList.map((data, index) => {
@@ -812,7 +817,7 @@ class ListOfEntities extends Component {
 											</div>
 										}
 										{ this.state.view === 'Grid' && this.state.showDetails && this.state.entityList && this.state.entityList.length > 0?
-											<div className="col-lg-7 col-md-7 col-sm-7 col-xs-12 pdcls suppliersOneProfile commonSup noPadding" id={this.state.id}>
+											<div className="col-lg-8 col-md-6 col-sm-12 col-xs-12 pdcls suppliersOneProfile commonSup noPadding" id={this.state.id}>
 												<div id={this.state.id} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 " >
 													<EntityDetails name={this.state.index} id={this.state.id} 
 													entityType={this.state.entityType} getEntities={this.getEntities.bind(this)}
