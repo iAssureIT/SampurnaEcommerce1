@@ -53,7 +53,7 @@ class CreditPoints extends Component{
     }
     render(){
         return(
-            <div className={ "col-lg-9 float-lg-left col-12 NoPadding accountMainWrapper pb-4 mt-4 "+Style.accountMainWrapper}> 
+            <div className={ "col-lg-9 float-lg-left col-12 NoPadding accountMainWrapper pb-4 mt-4 "+Style.accountMainWrapper} id="creditPointMainId"> 
               <div className="col-12">
                       <h4 className={"table-caption mb-2 "+Style.creditPointTitleWrapper}>My Credit Points</h4>
                   </div>

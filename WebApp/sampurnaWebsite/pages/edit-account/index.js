@@ -476,7 +476,7 @@ class EditAccount extends Component{
       }
     render(){
         return(
-            <div className={"col-lg-10 col-12 accountInformationMainWrapper "+Style.accountInformationMainWrapper}>
+            <div className={"col-lg-10 col-12 accountInformationMainWrapper "+Style.accountInformationMainWrapper}id="accountInformationManiId">
             <h4 className="font-weight-bold">Account Information</h4>
             <div className="row">
                 <div className={ " col-12 accountDashBoardInnerwrapper "+Style.accountDashBoardInnerwrapper}>
