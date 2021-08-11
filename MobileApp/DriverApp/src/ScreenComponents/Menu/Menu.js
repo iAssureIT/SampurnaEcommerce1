@@ -42,17 +42,18 @@ export const Menu = (props)=>{
   return (
     <ScrollView contentContainerStyle={[styles.container]} scrollsToTop={false}>
       {/* <ImageBackground source={require("../../AppDesigns/currentApp/images/Side_drawer.png")} style={styles.container} resizeMode="cover" > */}
-        <View style={{flexDirection:"row",height:100,margin:20,paddingTop:30,borderBottomWidth:1}}>
+        <View style={{height:115,margin:20,marginTop:42,alignSelf:'center',}}>
         <Avatar
-        style={{borderWidth:1, borderColor:"#999"}}
-            overlayContainerStyle={{}}
-            width={90}
-            height={90}
+        style={{elevation:1,borderRadius:100,}}
+            overlayContainerStyle={{borderRadius:100,}}
+            width={114}
+            height={114}
+            resizeMode="center"
             rounded
             source={require('../../AppDesigns/currentApp/images/user.jpg')}                 
           />
-        <View style={{paddingTop:40,paddingLeft:4}}>
-          <Text style={{fontSize:18,color: "#333"}}>Hi, {firstName ? firstName : "Guest"}</Text>
+        <View style={{marginTop:10,alignSelf:'center'}}>
+          <Text style={styles.userName}>{firstName ? firstName : "Guest"}</Text>
         </View>	
         </View>
       <View style={styles.menuWrapper}>

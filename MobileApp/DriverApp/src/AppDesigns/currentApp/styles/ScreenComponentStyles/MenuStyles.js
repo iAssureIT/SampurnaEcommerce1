@@ -17,7 +17,7 @@ export default StyleSheet.create({
     // flex:1,
     width:'100%',
     height:'100%',
-    backgroundColor:'#fff',
+    // backgroundColor:'red',
   },
   imageOuterCircle:{
     height:100,
@@ -40,29 +40,37 @@ export default StyleSheet.create({
     // backgroundColor:'#ff0',
     width:'100%',
     alignItems:'center',
-    marginTop:"5%"
+    marginTop:40
   },
   menu:{
     flexDirection: 'row',
-    borderBottomWidth:1,
+    // borderBottomWidth:1,
     alignItems:'center',
     justifyContent:'flex-start',
-    borderColor: colors.textLight,
-    paddingVertical:15,
+    marginBottom:32,
+    // borderColor: colors.textLight,
+    // paddingVertical:32,
     width:'80%',
   },
   menuText:{
-    color: '#333',
+    color: '#033554',
     // flex:0.8,
     width:'88%',
-    fontSize: 15,
+    fontSize: 16,
     alignSelf:'flex-start',
+    marginHorizontal:10,
     fontFamily:"Montserrat-Regular",
   },
   iconContainer:{
     // flex:0.2,
     width:25,
     alignItems:'flex-start'
+  },
+  userName:{
+    color:'#033554',
+    fontSize:16,
+    fontFamily:"segoe-ui",
+    fontWeight:'bold',
   },
    ddContainer:{
     backgroundColor:'#eee',
