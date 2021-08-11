@@ -53,6 +53,8 @@ class CategoryBlock extends Component{
       // }
 
     }
+
+
     render(){
       // console.log("this.props.categoryUrl-",this.props.categoryUrl);
       return (
@@ -81,20 +83,31 @@ class CategoryBlock extends Component{
                         // {index === 0 &&
                         //   $('.category_'+index).toggleClass('activeCategory')
                         // }
-                        {(this.state.sectedCategory && this.state.sectedCategory === categorydata.categoryUrl) ?
-                            $('.category_'+index).toggleClass('activeCategory')
-                          : 
-                            $('.category_0').toggleClass('activeCategory')
+                        //                        {(this.state.sectedCategory && this.state.sectedCategory === categorydata.categoryUrl) ?
+                        //    $('.category_'+index).toggleClass('activeCategory')
+                        //  : 
+                        //    $('.category_0').toggleClass('activeCategory')
+                        //}
+                        
+                        console.log("this.state.sectedCategory = ",this.state.sectedCategory);
+                        console.log("categorydata.categoryUrl = ",categorydata.categoryUrl);
+                        
+                        if(this.state.sectedCategory === categorydata.categoryUrl){
+                          var activeClass = Style.activeCatg;
+                        }else{
+                          var activeClass = "";                          
                         }
+                        
+
                         return (
                         <div className={"col-12 productsCategoryBlock "}  key={index}> 
                             {/* <Link href={url} className ={"col-12 "}>  */}
                               <a href={url} className ={"col-12 " +Style.categoryBlock}>
-                                <div className={ " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " }>
+                                <div className={activeClass + " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " }>
                                     <Image    
                                       id="prodImg"                                       
                                       src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.png"}
-                                      alt="ProductImg" 
+                                      alt="Category" 
                                       className={"img-responsive " +Style.NoAvailableImg +" " +Style.categoryBlockImg }
                                       height={90}
                                       width={90} 

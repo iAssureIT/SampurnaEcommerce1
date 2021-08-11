@@ -51,9 +51,10 @@ class CategoryFilters extends Component{
       return (
         <section>
           <div className="panel-group d-none d-lg-block d-xl-block" id="accordion">    
-            {this.props.categoryData && this.props.categoryData.length>0?                  
-              <div className={Style.categoryFilterTitle}> Sub Categories </div>  
-              :null
+            {this.props.categoryData && this.props.categoryData.length>0
+              ?                  
+                <div className={Style.categoryFilterTitle}> Sub Categories </div>  
+              : null
             }
             {
             this.props.categoryData && this.props.categoryData.map((subcategory,index)=>{
