@@ -14,11 +14,11 @@ router.get('/getCompany/:companyID', 							entityMaster.getCompany);
 
 router.get('/get/count/:entityType', 							checkAuth, entityMaster.countEntity);
 
-router.post('/get/filterEntities', 								checkAuth, entityMaster.filterEntities);
+router.post('/get/filterEntities', 								entityMaster.filterEntities);
 
 router.get('/get/list/:entityType/:company_id', 			checkAuth, entityMaster.listSupplier);
 
-router.post('/get/gridfilterEntities', 						checkAuth, entityMaster.filterEntities_grid);
+router.post('/get/gridfilterEntities', 						entityMaster.filterEntities_grid);
 
 router.get('/get/getAllVendors/:city', 						checkAuth, entityMaster.getAllVendors);
 

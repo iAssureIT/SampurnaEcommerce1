@@ -12,6 +12,7 @@ class Productreview extends Component{
         super(props);
         this.state = {
             tableHeading    : {
+                "orderNumber"       : "Order Number",
                 "productName"       : "Product Name(Product Code)",
                 "vendorName"        : 'Vendor Name',
                 "section"        	: 'Section',
@@ -87,6 +88,7 @@ class Productreview extends Component{
             var tableData = response.data.map((a, ind)=>{
                 return{
                     "_id"               : a._id,
+                    "orderNumber"       : a.orderDetails[0] && a.orderDetails[0].orderID ? a.orderDetails[0].orderID : "-",
                     "productName"       : a.productDetails[0] && a.productDetails[0].productName ? (a.productDetails[0].productName+" "+"("+a.productDetails[0].productCode)+")" : "",
                     "vendorName"        : a.vendorDetails[0] && a.vendorDetails[0].companyName ? a.vendorDetails[0].companyName : "",
                     "section"        	: a.sectionDetails[0] && a.sectionDetails[0].section ? a.sectionDetails[0].section : "",
