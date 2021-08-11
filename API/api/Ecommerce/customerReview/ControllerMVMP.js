@@ -110,6 +110,13 @@ exports.list_review = (req,res,next)=>{
 				as 					: 'categoryDetails'
 			}
 		},
+		{ $lookup : {
+				from 				: 'orders',
+				localField 			: 'order_id',
+				foreignField 		: '_id',
+				as 					: 'orderDetails'
+			}
+		},
 		{ $sort: {
 				createdAt : -1
 			}
@@ -118,6 +125,7 @@ exports.list_review = (req,res,next)=>{
 				customer_id 					: 1,
 				customerName    				: 1,
 				order_id        				: 1,
+				'orderDetails.orderID'     : 1,
 				product_id      				: 1,
 				vendor_id 						: 1,
 				vendorLocation_id 				: 1,
