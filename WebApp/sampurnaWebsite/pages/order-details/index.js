@@ -39,7 +39,7 @@ export default class OrderDetails extends Component {
     }
   }
   componentDidMount() {
-    $(window).scrollTop(0);
+    window.scroll(0,0);
     var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
     var currency = sampurnaWebsiteDetails.preferences.currency;
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -258,7 +258,7 @@ export default class OrderDetails extends Component {
     }
 
     return (
-      <div className={"col-12 NoPadding " + Style.orderDetailMainWrapper}>
+      <div className={"col-12 NoPadding " + Style.orderDetailMainWrapper} >
         <div className={" " + Style.container1}>
           <Message messageData={this.state.messageData} />
           {

@@ -41,7 +41,8 @@ class header extends React.Component {
             currentUrl:''
         }; 
     }
-    componentDidMount(){        
+    componentDidMount(){  
+              
         let defaultUrl=window.location.href.replace(/.*\/\/[^\/]*/, '');
 
         const userDetails  =  JSON.parse(localStorage.getItem('userDetails'));

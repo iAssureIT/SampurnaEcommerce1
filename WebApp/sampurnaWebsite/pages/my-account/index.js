@@ -38,7 +38,7 @@ class MyAccount extends Component{
     }
 
     componentDidMount(){
-        window.scrollTo(0,0);
+        window.scroll(0,0);
         let defaultUrl=window.location.href.replace(/.*\/\/[^\/]*/, '');
         let dynamicUrl=window.location.hash;
 
@@ -128,24 +128,24 @@ class MyAccount extends Component{
                                             <span className=" small ">Account Dashboard</span>
                                         </a> */}
                     
-                                        <a className="nav-link mb-4 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                        <a className="nav-link mb-4 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"onClick={()=>{ $("#WishlistMainId").css("display", "none")}}>
                                             <i className="fa fa-info-circle mr-3"></i>
                                             <span className=" small ">My Profile</span>
                                         </a>
                                     </div>}
-                                    <a className="nav-link mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                    <a className="nav-link mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"onClick={()=>{ $("#WishlistMainId").css("display", "none")}}>
                                         <i className="fas fa-map-marker-alt mr-3"></i>
                                         <span className=" small ">My Addresses</span></a>
                 
-                                    <a className={this.state.url1==="#v-pills-settings-tab"&&"#v-pills-settings2" ? "nav-link mb-4 p-3 shadow active": "nav-link mb-4 p-3 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <a className={this.state.url1==="#v-pills-settings-tab"&&"#v-pills-settings2" ? "nav-link mb-4 p-3 shadow active": "nav-link mb-4 p-3 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"onClick={()=>{ $("#WishlistMainId").css("display", "none")}}>
                                         <i className=" fa fa-shopping-cart mr-3"></i>
                                         <span className=" small " > My Orders</span></a>
 
-                                    <a className={this.state.url1==="#v-pills-settings1-tab" ?"nav-link mb-4 p-3 shadow active":"nav-link mb-4 p-3 shadow"} id="v-pills-settings1-tab" data-toggle="pill" href="#v-pills-settings1" role="tab" aria-controls="v-pills-settings1" aria-selected="false">
+                                    <a className={this.state.url1==="#v-pills-settings1-tab" ?"nav-link mb-4 p-3 shadow active":"nav-link mb-4 p-3 shadow"} id="v-pills-settings1-tab" data-toggle="pill" href="#v-pills-settings1" role="tab" aria-controls="v-pills-settings1" aria-selected="false"onClick={()=>{ $("#WishlistMainId").css("display", "block")}}>
                                     <i className="fa fa-heart mr-3"></i>
                                     <span className=" small "> My Wishlist</span></a>
 
-                                    <a className={this.state.url1==="#v-pills-settings3-tab"?"nav-link mb-4 p-3 shadow active":"nav-link mb-4 p-3 shadow"} id="v-pills-settings3-tab" data-toggle="pill" href="#v-pills-settings3" role="tab" aria-controls="v-pills-settings3" aria-selected="false">
+                                    <a className={this.state.url1==="#v-pills-settings3-tab"?"nav-link mb-4 p-3 shadow active":"nav-link mb-4 p-3 shadow"} id="v-pills-settings3-tab" data-toggle="pill" href="#v-pills-settings3" role="tab" aria-controls="v-pills-settings3" aria-selected="false"onClick={()=>{ $("#WishlistMainId").css("display", "none")}}>
                                     <i className="fa fa-money-bill mr-3"></i>
                                     <span className=" small "> Credit Points</span></a>
 
@@ -166,7 +166,7 @@ class MyAccount extends Component{
                             <div className={"col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 col-12 "+S.myAccountSideWrapper}>
                                 {/* <!-- Tabs content --> */}
                                 <div className="tab-content" id="v-pills-tabContent">
-                                    <div className={this.state.url==="/my-account"?"tab-pane fade  bg-white  pb-5 show active":"tab-pane fade shadow rounded bg-white  pb-5"} id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <div className={this.state.url==="/my-account"?"tab-pane fade  bg-white  pb-5 show active"&& window.scroll(0, 0):"tab-pane fade shadow rounded bg-white  pb-5"} id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                        {/* <Account/>                           */}
                                        <EditAccount/>
                                     </div>
@@ -179,14 +179,14 @@ class MyAccount extends Component{
                                     <AddressBook/>
                                     </div>
                                     
-                                    <div className={this.state.url1==="#v-pills-settings-tab"?"tab-pane bg-white  show active":"tab-pane bg-white "}id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                    <div className={this.state.url1==="#v-pills-settings-tab"?"tab-pane bg-white  show active"&& window.scroll(0, 0):"tab-pane bg-white "}id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                                         <MyOrders getOrderId={this.getOrderId.bind(this)}/>
                                     </div>
 
-                                    <div className={this.state.url1==="#v-pills-settings1-tab"?"tab-pane  bg-white pb-5 show active":"tab-pane   bg-white pb-5"} id="v-pills-settings1" role="tabpanel" aria-labelledby="v-pills-settings1-tab">
+                                    <div className={this.state.url1==="#v-pills-settings1-tab"?"tab-pane  bg-white pb-5 show active"&&window.scroll(0, 0):"tab-pane   bg-white pb-5"} id="v-pills-settings1" role="tabpanel" aria-labelledby="v-pills-settings1-tab">
                                         <Wishlist/>
                                     </div>
-                                    <div className={this.state.url1==="#v-pills-settings3-tab"?"tab-pane  bg-white pb-5 show active":"tab-pane  bg-white pb-5"} id="v-pills-settings3" role="tabpanel" aria-labelledby="v-pills-settings3-tab">
+                                    <div className={this.state.url1==="#v-pills-settings3-tab"?"tab-pane  bg-white pb-5 show active"&&window.scroll(0, 0):"tab-pane  bg-white pb-5"} id="v-pills-settings3" role="tabpanel" aria-labelledby="v-pills-settings3-tab">
                                         <CreditPoints />
                                     </div>
                                     <div className="tab-pane bg-white pb-5" id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings2-tab">

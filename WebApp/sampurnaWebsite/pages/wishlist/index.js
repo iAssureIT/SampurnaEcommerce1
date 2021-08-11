@@ -32,6 +32,7 @@ class Wishlist extends Component {
 
   async componentDidMount() {
     // $(window).scrollTop(0);
+    window.scroll(0,0);
     var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
     if(sampurnaWebsiteDetails.deliveryLocation){
       this.setState({
@@ -112,8 +113,8 @@ class Wishlist extends Component {
 
   render() {
     return (
-      <div>
-      <div className={"col-12 NoPadding " +Style.wishlistProduct}>
+      <div >
+      <div className={"col-12 NoPadding " +Style.wishlistProduct} id="WishlistMainId">
         <Message messageData={this.state.messageData} />
           <div className="row">
             <div className={"col-12 NoPadding"}>

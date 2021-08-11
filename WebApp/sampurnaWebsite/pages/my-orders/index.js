@@ -34,6 +34,7 @@ export default class MyOrders extends Component {
   }
 
   componentDidMount() {
+    window.scroll(0,0);
     // console.log("this.props",this.props);
     let defaultUrl=window.location.href.replace(/.*\/\/[^\/]*/, '');
     $(window).scrollTop(0);
@@ -309,7 +310,7 @@ export default class MyOrders extends Component {
   render() {
     // console.log("1. myorder page this.state.orderData=", this.state.orderData);
     return (
-      <div className="col-12">
+      <div className="col-12" >
         <div className="row">
           <Message messageData={this.state.messageData} />
           {
@@ -436,7 +437,9 @@ export default class MyOrders extends Component {
                               </div>
                               <div className="col-lg-7  pull-right orderBtnWrapper">
                                 <button className=" btn col-lg-6 col-6 col-sm-4 float-right " onClick={() => this.props.getOrderId(singleOrder._id)}>
-                                  <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-lg-9 float-right showDetailsBtn "} >Show Details</a>
+                                  <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-lg-9 float-right showDetailsBtn "} 
+                                   >Show Details
+                                  </a>
                                   {/* <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account#v-pills-settings2-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings2-tab"><a>orderStatus</a></Link></li> */}
                                   {/* <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings2"><a>My Profile</a></Link></li> */}
 
