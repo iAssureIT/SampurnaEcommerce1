@@ -248,10 +248,11 @@ class AllOrdersList extends Component{
 			// var tableData = response.data.reverse().map((a, i)=>{                      
 				return{ 
 					_id             : a._id,
+					ordersPath 			: this.state.orderStatus,
 					orderNumber     : a.orderID,
 					orderDate       : '<div class=textFloatLeft><div>' + moment(a.createdAt).format("MMMM Do YYYY") + '</div><div>' + moment(a.createdAt).format('h:mm a')
 					+ '</div></div>',
-					customer     	: '<div><b>'+ a.userFullName ? a.userFullName : (a.deliveryAddress.name ? a.deliveryAddress.name : "Guest User")  +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
+					customer     	: '<div><b>'+ a.userFullName && a.userFullName !== "undefined" && a.userFullName !== null ? a.userFullName : (a.deliveryAddress.name && a.deliveryAddress.name !== "undefined" && a.deliveryAddress.name !== null ? a.deliveryAddress.name : "Guest User")  +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
 					totalPrice  	: this.state.currency + " " + a.paymentDetails.netPayableAmount,					
 					vendors   		: a.vendorOrders && a.vendorOrders.length > 0
 										?
@@ -272,7 +273,12 @@ class AllOrdersList extends Component{
 																				
 																			: 
 																				'') + '</div>',
-													changeVendorStatus 	: "<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + vendorOrder.vendor_id._id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + vendorOrder.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>",
+													changeVendorStatus 	: (vendorOrder.orderStatus && vendorOrder.orderStatus !== "Cancelled" && vendorOrder.orderStatus !== "Delivered")
+																				? 
+																					"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + vendorOrder.vendor_id._id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + vendorOrder.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>"
+																				:
+																					"<div></div>"
+
 
 												})
 											})

@@ -276,7 +276,7 @@ class Layout extends Component  {
                                                         <Route path="/returned-products"                                exact strict component={ReturnedProducts} />
                                                         <Route path="/returned-product/:return_id"                     exact strict component={ViewReturnedProduct} />
 
-                                                        <Route path="/view-order/:orderID"                               exact strict component={ViewOrder} />
+                                                        <Route path="/orders-list/:orderStatus/view-order/:orderID"                               exact strict component={ViewOrder} />
                                                         <Route path="/view-vendor-order/:orderID/:vendor_id"             exact strict component={ViewVendorOrder} />
 
                                                         { /*Ba List*/}

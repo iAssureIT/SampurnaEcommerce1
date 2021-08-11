@@ -1320,6 +1320,7 @@ class UMListOfUsers extends Component {
 													<option value="all" >Show All</option>
 													<option value="blocked">Blocked</option>
 													<option value="active">Active </option>
+													<option value="unverified">Unverified </option>
 												</select>
 											</div>
 										{/*	<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">

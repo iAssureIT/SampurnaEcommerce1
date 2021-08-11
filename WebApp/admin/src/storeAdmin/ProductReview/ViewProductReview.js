@@ -183,6 +183,7 @@ class Productreview extends Component{
 												<div className="reviewStars col-lg-4 col-md-4 col-sm-12 col-xs-12">
 														{
 															fiveStar.map((a, i)=>{
+																console.log("review ===> ",a)
 																if(i < this.state.rating){
 																		var star = 'activestar';                                                        
 																}else{
@@ -195,19 +196,23 @@ class Productreview extends Component{
 														}
 														<h4 className="NOpadding-right rating-text"> 
 														{
-															4 < 2
+															this.state.rating === 1
 															?
-																"Very Bad"
+																"Poor"
 															:
-																(4 > 1 && 4 < 4)
-																?
-																		"Average"
-																:
-																		4 === 4 
-																		?
-																			"Good"
-																		:
-																			"Excellent"
+																this.state.rating === 2
+															?
+																"Average"
+															:
+															this.state.rating === 3
+															?
+																"Good"
+															:
+															this.state.rating === 4
+															?
+																"Very Good"
+															:
+																"Excellent"
 														}
 														</h4>
 												</div>

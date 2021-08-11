@@ -790,7 +790,7 @@ class IAssureTable extends Component {
 										Object.entries(this.state.tableHeading).map( 
 											([key, value], i)=> {
 												return(
-													<th key={i} className="umDynamicHeader srpadd textAlignLeft">{value} <span onClick={this.sort.bind(this)} id={key} className="fa fa-sort tableSort"></span></th>
+													<th key={i} className="umDynamicHeader srpadd textAlignLeft">{value} {/*<span onClick={this.sort.bind(this)} id={key} className="fa fa-sort tableSort"></span>*/}</th>
 												);								
 											}
 										) 
@@ -980,7 +980,7 @@ class IAssureTable extends Component {
 												{/* </td>  */}
 												<td className="textAlignCenter">
 													<span class="displayInline">
-														<a href={"/view-order/"+value._id} className="" title="View" data-ID={value._id}>
+														<a href={"/orders-list/"+(value.ordersPath).replace(/\s+/g, '-').toLowerCase()+"/view-order/"+value._id} className="" title="View" data-ID={value._id}>
 															<i className="fa fa-eye" aria-hidden="true"></i>
 														</a>&nbsp; &nbsp;
 														{/* <i className="fa fa-pencil" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 

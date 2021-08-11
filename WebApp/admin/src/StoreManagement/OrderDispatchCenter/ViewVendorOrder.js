@@ -142,25 +142,24 @@ class ViewVendorOrder extends Component{
 										</strong>
 										<div className="box-content"> 
 											{ this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress !== "undefined" 
-                                                ?
-                                                    <div className=""> 
-                                                        {this.state.orderData.deliveryAddress.name !== "undefined" ? this.state.orderData.deliveryAddress.name : "" } <br/>
-                                                        {this.state.orderData.deliveryAddress.addressLine1 && this.state.orderData.deliveryAddress.addressLine1 !== "undefined" ? this.state.orderData.deliveryAddress.addressLine1 + ", " : ""}
-                                                        {this.state.orderData.deliveryAddress.addressLine2 && this.state.orderData.deliveryAddress.addressLine2 !== "undefined" ? this.state.orderData.deliveryAddress.addressLine2 + ", " : "" } 
-                                                        {(this.state.orderData.deliveryAddress.district && this.state.orderData.deliveryAddress.district !== "undefined" ? this.state.orderData.deliveryAddress.district + ", " : "") +   
-                                                        this.state.orderData.deliveryAddress.state && this.state.orderData.deliveryAddress.state !== "undefined" ? this.state.orderData.deliveryAddress.state + ", " : "" +
-                                                        this.state.orderData.deliveryAddress.pincode && this.state.orderData.deliveryAddress.pincode !== "undefined" ? this.state.orderData.deliveryAddress.pincode + ", " : "" } <br/>
-                                                        {this.state.orderData.deliveryAddress.country && this.state.orderData.deliveryAddress.country !== "undefined" ? this.state.orderData.deliveryAddress.country : "" } <br/>
-                                                    </div>
-                                                :
-                                                    "No Shipping Address found..."
-                                            }
+                                    ?
+                                        <div className=""> 
+                                            {this.state.orderData.deliveryAddress.name !== "undefined" && this.state.orderData.deliveryAddress.name !== null ? this.state.orderData.deliveryAddress.name : "Guest" } <br/>
+                                            {this.state.orderData.deliveryAddress.addressLine1 && this.state.orderData.deliveryAddress.addressLine1 !== "undefined" && this.state.orderData.deliveryAddress.addressLine1 !== null ? this.state.orderData.deliveryAddress.addressLine1 + ", " : ""}
+                                            {this.state.orderData.deliveryAddress.addressLine2 && this.state.orderData.deliveryAddress.addressLine2 !== "undefined" && this.state.orderData.deliveryAddress.addressLine2 !== null ? this.state.orderData.deliveryAddress.addressLine2 + ", " : "" } 
+                                            {/*this.state.orderData.deliveryAddress.state && this.state.orderData.deliveryAddress.state !== "undefined" && this.state.orderData.deliveryAddress.state !== null ? this.state.orderData.deliveryAddress.state + ", " : "" +*/}
+                                            {this.state.orderData.deliveryAddress.pincode && this.state.orderData.deliveryAddress.pincode !== "undefined" && this.state.orderData.deliveryAddress.pincode !== null ? this.state.orderData.deliveryAddress.pincode + ", " : "" } <br/>
+                                            {this.state.orderData.deliveryAddress.country && this.state.orderData.deliveryAddress.country !== "undefined" && this.state.orderData.deliveryAddress.country !== null ? this.state.orderData.deliveryAddress.country : "" } <br/>
+                                        </div>
+                                    :
+                                        "No Shipping Address found..."
+                                }
 										</div>						
 										<p><strong class="box-title"> Mobile : </strong> <span className="box-content">{this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.mobileNumber ? this.state.orderData.deliveryAddress.mobileNumber : "No Mobile Number"}</span></p>						
 									</div>
 									{this.state.orderData.customerShippingTime 
 									? 
-										<div className="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+										<div className="col-lg-4 col-md-6 col-sm-12 col-xs-12">
 											<strong class="box-title orderDetailTitles">
 												<p>Shipping Time</p>
 											</strong>
@@ -184,20 +183,33 @@ class ViewVendorOrder extends Component{
 												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Total Amount </b></span>  </div>
 												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><b><span>{this.state.currency + " "} {(this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.vendor_afterDiscountTotal ? this.state.orderData.vendorOrders.vendor_afterDiscountTotal : 0).toFixed(2)}</span></b> </div> 
 											</div>
-											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Shipping Charges  </b></span></div>
-												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><b><span> {this.state.currency + " "} {(this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.vendor_shippingCharges ? this.state.orderData.vendorOrders.vendor_shippingCharges : 0).toFixed(2)}</span></b></div>
-											</div>
-											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Discounted Shipping Charges </b></span></div>
-												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><b><span> {this.state.currency + " "} {(this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.vendor_shippingChargesAfterDiscount ? this.state.orderData.vendorOrders.vendor_shippingChargesAfterDiscount : 0).toFixed(2)}</span></b></div>
-											</div>
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-                                                <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Tax Amount  </b></span></div>
-                                                <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right">
-                                                    <b><span>{this.state.currency + " "} { (this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.vendor_taxAmount ? this.state.orderData.vendorOrders.vendor_taxAmount : 0).toFixed(2) }</span> </b>
-                                                </div>
-                                            </div>
+											{ this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.vendor_shippingChargesAfterDiscount && this.state.orderData.vendorOrders.vendor_shippingCharges && this.state.orderData.vendorOrders.vendor_shippingChargesAfterDiscount !== this.state.orderData.vendorOrders.vendor_shippingCharges 
+												?
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Shipping Charges  </b></span></div>
+														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><b><span style={{textDecoration : "line-through"}}> {this.state.currency + " "} {(this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.vendor_shippingCharges ? this.state.orderData.vendorOrders.vendor_shippingCharges : 0).toFixed(2)}</span></b></div>
+													</div>
+												:
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Shipping Charges  </b></span></div>
+														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><b><span> {this.state.currency + " "} {(this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.vendor_shippingCharges ? this.state.orderData.vendorOrders.vendor_shippingCharges : 0).toFixed(2)}</span></b></div>
+													</div>
+											}
+											{ this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.vendor_shippingChargesAfterDiscount && this.state.orderData.vendorOrders.vendor_shippingCharges && this.state.orderData.vendorOrders.vendor_shippingChargesAfterDiscount !== this.state.orderData.vendorOrders.vendor_shippingCharges 
+												? 
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Discounted Shipping Charges </b></span></div>
+														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><b><span> {this.state.currency + " "} {(this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.vendor_shippingChargesAfterDiscount ? this.state.orderData.vendorOrders.vendor_shippingChargesAfterDiscount : 0).toFixed(2)}</span></b></div>
+													</div>
+												:
+													null
+											}
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+                                    <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Tax Amount  </b></span></div>
+                                    <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right">
+                                        <b><span>{this.state.currency + " "} { (this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.vendor_taxAmount ? this.state.orderData.vendorOrders.vendor_taxAmount : 0).toFixed(2) }</span> </b>
+                                    </div>
+                                </div>
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Net Payable Amount </b></span></div>
 												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right">									
@@ -222,15 +234,22 @@ class ViewVendorOrder extends Component{
                                             	</thead>
                                              	<tbody>
                                                 {this.state.orderData.vendorOrders && this.state.orderData.vendorOrders !== "undefined" && this.state.orderData.vendorOrders.products && this.state.orderData.vendorOrders.products.length > 0 
-												?												
+																?												
                                                     
-                                                            <div className="tableRowWrapper">                                                                
+                                                            <div className="tableRowWrapper"> 
+                                                            <tr className="vendorNameRow">
+																			<th colSpan="5">
+																				<div className="textAlignLeft pull-left">Vendor : <span className="vendorName">{this.state.orderData.vendorDetails && this.state.orderData.vendorDetails.length > 0 ? this.state.orderData.vendorDetails[0].companyName : "-"}</span></div> 
+																				<div className="textAlignRight pull-right">Status : <span className={"vendorStatus " + ((this.state.orderData.vendorOrders.orderStatus ? this.state.orderData.vendorOrders.orderStatus : "").replace(/\s+/g, '_').toLowerCase())}>{this.state.orderData.vendorOrders.orderStatus}</span></div>
+																			</th>
+																		</tr>                                                                
 																{/* <tr className="vendorNameRow">
 																	<th colSpan="5">{vendorWiseData.vendor_id.companyName}</th>
 																</tr>                                                                         */}
 																
                                                                { this.state.orderData.vendorOrders.products.map((productData, index) => {
 																		return(
+
 																			<tr>
 																				<td><img className="img orderImg" src={productData.productImage[0] ? productData.productImage[0] : "/images/notavailable.jpg"} /></td>
 																				<td>

@@ -1289,6 +1289,7 @@ selectedRole(event) {
 													<option value="all" >Show All</option>
 													<option value="blocked">Blocked</option>
 													<option value="active">Active </option>
+													<option value="unverified">Unverified </option>
 												</select>
 											</div>
 											{this.state.websiteModel === 'FranchiseModel' ? 

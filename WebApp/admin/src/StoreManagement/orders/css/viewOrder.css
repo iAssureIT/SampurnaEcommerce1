@@ -349,11 +349,17 @@
 }
 .vendorNameRow th{
     border-top: solid 1px #ddd;
-    padding: 10px;
-    font-size: 18px;
+    padding: 20px 10px 10px 10px;
+    font-size: 18px !important;
     font-weight: 700;
+    color: #000;
+    /*text-align: center;*/
+}
+.vendorNameRow th div{    
+    font-size: 16px !important;
+}
+.vendorNameRow th .vendorName{    
     color: #8b0000;
-    text-align: center;
 }
 .shippingAddressTitle{
     padding: 9px;
@@ -450,6 +456,7 @@
     position:relative;
 }
 .vendorTotalTitle{
+    text-align: right;
     float: right;
     font-weight: 600;
     font-size: 14px !important;
