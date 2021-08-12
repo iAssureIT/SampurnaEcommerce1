@@ -366,7 +366,7 @@ ul.Featured-Brands li {
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
+@media only screen and (min-device-width: 1200px) {
     ._1Lo2h {
         margin: 0px 0px 1rem -54px!important;
         padding: 0;
@@ -381,27 +381,32 @@ ul.Featured-Brands li {
         width: 113%;
     }
 
-    .cartHeightWrapper{
-        min-height: 600px;
-        height: auto;
+    .OrderDetailAmountTitleWrapper{
+        position  : absolute;
+        left: 2%;
     }
 }
 
+@media only screen and (min-device-width: 1920px) {
+    ._1Lo2h {
+        margin: 0px 0px 1rem -122px!important;
+        padding: 0;
+        display: -moz-box;
+        display: flex;
+        -moz-box-align: center;
+        align-items: center;
+        -moz-box-pack: center;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+        width: 119%!important;
+    }
+  .OrderDetailAmountWrapper{
+    margin-left: -12px;
+  }
+  .OrderDetailAmountTitleWrapper{
+      position  : absolute;
+      left: -2%;
+  }
+  }
 
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  

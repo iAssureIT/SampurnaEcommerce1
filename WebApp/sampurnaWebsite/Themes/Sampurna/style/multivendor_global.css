@@ -846,3 +846,13 @@ body {
   }
 
 }
+
+@media only screen and (min-width: 1920px) {
+  .cartWishlistColor{
+    color     : #aaa !important;
+    transition: 0.5s ease;
+    padding: 12px;
+    margin-top: -10px;
+  }
+
+}
