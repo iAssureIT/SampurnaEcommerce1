@@ -2,11 +2,20 @@ import React, { Component }   from 'react';
 import $                      from 'jquery';
 import axios                  from 'axios';
 import {withRouter}  					from 'react-router-dom';
-import swal                   from 'sweetalert';
+import swal                   from 'sweetalert2';
 import 'bootstrap/js/tab.js';
 import '../css/ListOfEntity.css';
 import '../css/ListOfEntityFilter.css';
 import '../css/ListOfAllEntity.css';
+
+const swalWithBootstrapButtons = swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
 
 class EntityDetails extends Component {
 	constructor(props) {
@@ -101,9 +110,68 @@ class EntityDetails extends Component {
   }
   deleteEntity(event){
 		event.preventDefault();
-		this.setState({deleteID: event.currentTarget.getAttribute('data-id')})
-		$('#deleteEntityModal').show();
-  }
+		var id = event.currentTarget.getAttribute('data-id');
+		// this.setState({deleteID: event.currentTarget.getAttribute('data-id')})
+		// $('#deleteEntityModal').show();
+  
+  			swalWithBootstrapButtons.fire({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: 'Yes, delete it!',
+		  cancelButtonText: 'No, cancel!',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		  	axios.delete("/api/entitymaster/delete/"+id)
+		  	.then((response) => {
+				console.log("delete response => ",response.data)
+				// this.getData(this.state.startRange, this.state.limitRange);
+				// if(!this.state.redirectToURL){
+				// }else{				
+				// 	this.props.history.push(tableObjects.editUrl);
+				// }
+				if (response.data.deleted) {
+					swalWithBootstrapButtons.fire(
+				      'Deleted!',
+				      (this.state.entityType === "appCompany" ? "Organizational Settings" :this.state.entityType) + ' has been deleted.',
+				      'success'
+			    )
+				}else{
+					swal.fire({
+				  icon: 'error',
+				  title: 'Oops...',
+				  text: 'Failed to delete!'
+				})
+				}
+				this.props.getEntities();
+	  this.props.hideForm();
+	  this.getEntitiesInfo(this.state.id)
+				// window.location.reload();
+
+				// this.props.getData(this.state.startRange, this.state.limitRange);
+			}).catch((error) => {
+				console.log("error => ",error);
+				swal.fire({
+				  icon: 'error',
+				  title: 'Oops...',
+				  text: 'Something went wrong!'
+				})
+			});
+		    
+		  } else if (
+		    /* Read more about handling dismissals below */
+		    result.dismiss === swal.DismissReason.cancel
+		  ) {
+		    swalWithBootstrapButtons.fire(
+		      'Cancelled',
+		      (this.state.entityType === "appCompany" ? "Organizational Settings" :this.state.entityType) + ' is safe :)',
+		      'error'
+		    )
+		  }
+		})
+	}
 
   confirmDelete(event){
 	event.preventDefault();

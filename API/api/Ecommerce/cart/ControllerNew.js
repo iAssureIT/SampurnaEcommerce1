@@ -1585,6 +1585,22 @@ exports.update_cart_item = (req, res, next)=>{
 };
 
 
+exports.delete_cart = (req,res,next)=>{
+    Carts.deleteOne({user_ID : ObjectId(req.params.user_ID)})
+    .exec()
+    .then(data=>{
+        console.log("Data After Deleteing Cart => ",data)
+        res.status(200).json({
+            "message": "Cart Deleted Successfully!"
+        });
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
 
 
 // ===================== Server side Api call =============

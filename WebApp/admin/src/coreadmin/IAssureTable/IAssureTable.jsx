@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
+import Swal from 'sweetalert2'
 import axios from 'axios';
 import $ from 'jquery';
 import jQuery from 'jquery';
@@ -12,6 +13,15 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 var sum = 0;
+
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
 class IAssureTable extends Component {
 	constructor(props) {
 		super(props);
@@ -25,6 +35,7 @@ class IAssureTable extends Component {
 			"twoLevelHeader": props && props.twoLevelHeader ? props.twoLevelHeader : {},
 			"tableObjects": props && props.tableObjects ? props.tableObjects : {},
 			"deleteMethod": props && props.deleteMethod ? props.deleteMethod : {},
+			"redirectToURL": props && props.tableObjects ? props.tableObjects.redirectToURL : true,
 			"id": props && props.id ? props.id : {},
 			"reA": /[^a-zA-Z]/g,
 			"reN": /[^0-9]/g,
@@ -119,29 +130,90 @@ class IAssureTable extends Component {
 		var id = event.target.id;
 		this.props.history.push(tableObjects.editUrl + "/" + id);
 	}
-	delete(e) {
-		e.preventDefault();
-		var tableObjects = this.props.tableObjects;
-		let id = (e.target.id).replace(".", "/");
-		id = (e.target.id).replace(" ", "S");
-		console.log("delete id => ",id)
-		axios({
-			method: tableObjects.deleteMethod,
-			url: tableObjects.apiLink + '/delete/'+id,
-			data : {"id":e.target.id}
-		}).then((response) => {
-			console.log("delete response => ",response.data)
-			this.props.getData(this.state.startRange, this.state.limitRange);
-			this.props.history.push(tableObjects.editUrl);
-			swal({
-				title : " ",
-				text  : response.data.message ? response.data.message : "Record deleted successfully!",
-			});
-			// window.location.reload();
+	// delete(e) {
+	// 	e.preventDefault();
+	// 	var tableObjects = this.props.tableObjects;
+	// 	let id = (e.target.id).replace(".", "/");
+	// 	id = (e.target.id).replace(" ", "S");
+	// 	console.log("delete id => ",id)
+	// 	axios({
+	// 		method: tableObjects.deleteMethod,
+	// 		url: tableObjects.apiLink + '/delete/'+id,
+	// 		data : {"id":e.target.id}
+	// 	}).then((response) => {
+	// 		console.log("delete response => ",response.data)
+	// 		this.props.getData(this.state.startRange, this.state.limitRange);
+	// 		if(!this.state.redirectToURL){
+	// 		}else{				
+	// 			this.props.history.push(tableObjects.editUrl);
+	// 		}
+	// 		swal({
+	// 			title : " ",
+	// 			text  : response.data.message ? response.data.message : "Record deleted successfully!",
+	// 		});
+	// 		// window.location.reload();
 
-			this.props.getData(this.state.startRange, this.state.limitRange);
-		}).catch((error) => {
-		});
+	// 		// this.props.getData(this.state.startRange, this.state.limitRange);
+	// 	}).catch((error) => {
+	// 	});
+	// }
+	delete(event) {
+		event.preventDefault();
+		var tableObjects = this.props.tableObjects;
+		console.log("event.target.id = ",event.target)
+		let id = event.target.id;
+
+		console.log("id = ",id)
+		swalWithBootstrapButtons.fire({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: 'Yes, delete it!',
+		  cancelButtonText: 'No, cancel!',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		  	axios({
+				method: tableObjects.deleteMethod,
+				url: tableObjects.apiLink + '/delete/'+id,
+				data : {"id":id}
+			}).then((response) => {
+				console.log("delete response => ",response.data)
+				this.props.getData(this.state.startRange, this.state.limitRange);
+				if(!this.state.redirectToURL){
+				}else{				
+					this.props.history.push(tableObjects.editUrl);
+				}
+				swalWithBootstrapButtons.fire(
+			      'Deleted!',
+			      'Your record has been deleted.',
+			      'success'
+		    )
+				// window.location.reload();
+
+				// this.props.getData(this.state.startRange, this.state.limitRange);
+			}).catch((error) => {
+				console.log("error => ",error);
+				Swal.fire({
+				  icon: 'error',
+				  title: 'Oops...',
+				  text: 'Something went wrong!'
+				})
+			});
+		    
+		  } else if (
+		    /* Read more about handling dismissals below */
+		    result.dismiss === Swal.DismissReason.cancel
+		  ) {
+		    swalWithBootstrapButtons.fire(
+		      'Cancelled',
+		      'Your record is safe :)',
+		      'error'
+		    )
+		  }
+		})
+		
 	}
 	sortNumber(key, tableData) {
 		var nameA = '';
@@ -714,7 +786,8 @@ class IAssureTable extends Component {
 															<span>
 																{this.props.tableObjects.editUrl ?
 																	<i className="fa fa-pencil" title="Edit" id={value._id.split("-").join("/")} onClick={this.edit.bind(this)}></i> : null}&nbsp; &nbsp;
-																	{this.props.editId && this.props.editId === value._id ? null : <i className={"fa fa-trash redFont " + value._id} id={value._id + '-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-" + (value._id).replace(/[^a-zA-Z]/g, "")}></i>}
+																	{/*{this.props.editId && this.props.editId === value._id ? null : <i className={"fa fa-trash redFont " + value._id} id={value._id + '-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-" + (value._id).replace(/[^a-zA-Z]/g, "")}></i>}*/}
+																	{this.props.editId && this.props.editId === value._id ? null : <i className={"fa fa-trash redFont " + value._id} id={value._id} onClick={this.delete.bind(this)}></i>}
 															</span>
 															<div className="modal" id={"showDeleteModal-" + (value._id).replace(/[^a-zA-Z]/g, "")} role="dialog">
 																<div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">

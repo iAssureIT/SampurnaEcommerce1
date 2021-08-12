@@ -20,6 +20,8 @@ router.patch('/put/coupon', 				    cartController.apply_coupon);
 
 router.patch('/redeem/creditpoints', 		    cartController.apply_credit_points);
 
+router.delete('/delete/:user_ID', 		cartController.delete_cart);
+
 /*=============================================================================*/
 
 router.get('/get/list/:user_ID', 				cartController.list_cart);

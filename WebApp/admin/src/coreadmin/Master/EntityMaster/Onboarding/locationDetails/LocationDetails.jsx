@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import jQuery from 'jquery';
 import axios from 'axios';
-import swal from 'sweetalert';
+import swal from 'sweetalert2'
 import 'bootstrap/js/tab.js';
 import S3FileUpload from 'react-s3';
 import { withRouter } from 'react-router-dom';
@@ -13,6 +13,14 @@ import OneFieldForm             from '../../../OneFieldForm/OneFieldForm.js';
 // } from "react-places-autocomplete";
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import IAssureTable           from "../../../../IAssureTable/IAssureTable.jsx";
+
+const swalWithBootstrapButtons = swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
 
 class LocationDetails extends Component {
 	constructor(props) {
@@ -117,19 +125,32 @@ class LocationDetails extends Component {
             });
         })
         .catch((error) =>{
-            swal(error);
+            console.log("error => ",error)
             if(error.message === "Request failed with status code 401"){
           		var userDetails =  localStorage.removeItem("userDetails");
           		localStorage.clear();
-          		swal({  
-              		title : "Your Session is expired.",                
-              		text  : "You need to login again. Click OK to go to Login Page"
-            	})
-	          	.then(okay => {
-	         		if (okay) {
-	           			window.location.href = "/login";
-	         		}
-	          	});
+          		swal.fire({
+					  title: 'Your Session is expired.',
+					  text: "You need to login again. Click OK to go to Login Page!",
+					  icon: 'warning',
+					  // showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  // cancelButtonColor: '#d33',
+					  confirmButtonText: 'OK'
+					}).then((result) => {
+					  if (result.isConfirmed) {
+					    window.location.href = "/login";
+					  }
+					})
+          		// swal({  
+            //   		title : "Your Session is expired.",                
+            //   		text  : "You need to login again. Click OK to go to Login Page"
+            // 	})
+	          	// .then(okay => {
+	         		// if (okay) {
+	           // 			window.location.href = "/login";
+	         		// }
+	          	// });
 	        	}
         })
     }
@@ -197,20 +218,24 @@ class LocationDetails extends Component {
 			
 		})
 		.catch((error)=>{
-			console.log('error: ',error);
-			if(error.message === "Request failed with status code 401"){
+			console.log("error => ",error)
+            if(error.message === "Request failed with status code 401"){
           		var userDetails =  localStorage.removeItem("userDetails");
           		localStorage.clear();
-          		swal({  
-              		title : "Your Session is expired.",                
-              		text  : "You need to login again. Click OK to go to Login Page"
-            	})
-	          	.then(okay => {
-	         		if (okay) {
-	           			window.location.href = "/login";
-	         		}
-	          	});
-	        	}
+          		swal.fire({
+					  title: 'Your Session is expired.',
+					  text: "You need to login again. Click OK to go to Login Page!",
+					  icon: 'warning',
+					  // showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  // cancelButtonColor: '#d33',
+					  confirmButtonText: 'OK'
+					}).then((result) => {
+					  if (result.isConfirmed) {
+					    window.location.href = "/login";
+					  }
+					})
+				}
 		})
 
 	}

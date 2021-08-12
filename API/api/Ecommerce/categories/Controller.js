@@ -76,6 +76,16 @@ exports.update_category = (req,res,next)=>{
                 "message": "Category Rank already exists!"
             });
         }else{
+            console.log("req.body.subCategory => ",req.body.subCategory)
+            if (req.body.subCategory && req.body.subCategory.length > 0) {
+                var subCategories = Array.from(new Set(req.body.subCategory.map(a => a.subCategory)))
+                                     .map(subCategory => {
+                                       return req.body.subCategory.find(a => a.subCategory === subCategory)
+                                     })
+            }else{
+                var subCategories = [];
+            }
+            console.log("subCategories => ",subCategories)
             Category.updateOne(
                 { _id:req.body.category_ID},  
                 {

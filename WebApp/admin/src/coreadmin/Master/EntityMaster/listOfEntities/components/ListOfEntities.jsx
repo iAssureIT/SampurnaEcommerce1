@@ -50,8 +50,9 @@ class ListOfEntities extends Component {
 	          searchApply     : false,
 	          editUrl         : '/'+this.props.entity+'/basic-details',
 	          deleteMethod    : 'delete',
-        	  apiLink         : '/api/entitymaster',
-	          downloadApply   : true
+        	  	apiLink         : '/api/entitymaster',
+	          downloadApply   : true,
+	          redirectToURL 	: false
 	      },
 	      startRange        : 0,
       	  limitRange        : 100000,
