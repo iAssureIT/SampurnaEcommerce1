@@ -362,31 +362,33 @@ exports.list_cart_product = (req,res,next)=>{
                 
                 for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
                     console.log("data.vendorOrders[i].cartItems[j] => ",data.vendorOrders[i].cartItems[j])
-                    var inventoryData             	= await ProductInventory.findOne({productCode : data.vendorOrders[i].cartItems[j].product_ID.productCode, itemCode : data.vendorOrders[i].cartItems[j].product_ID.itemCode, vendor_ID : ObjectId(data.vendorOrders[i].cartItems[j].product_ID.vendor_ID)},{currentQuantity : 1});
-				    // console.log("inventoryData => ",inventoryData);
-                    
-                    data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0;                      
-                    vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
-                    if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
-                        vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
-                    }
+                    if (data.vendorOrders[i].cartItems[j].product_ID !== null) {
+                        var inventoryData             	= await ProductInventory.findOne({productCode : data.vendorOrders[i].cartItems[j].product_ID.productCode, itemCode : data.vendorOrders[i].cartItems[j].product_ID.itemCode, vendor_ID : ObjectId(data.vendorOrders[i].cartItems[j].product_ID.vendor_ID)},{currentQuantity : 1});
+    				    // console.log("inventoryData => ",inventoryData);
+                        
+                        data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0;                      
+                        vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
+                        if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
+                            vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
+                        }
 
-                    vendor_afterDiscountTotal+=(vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
-                    if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
-                        vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
-                    } 
-
-                    data.vendorOrders[i].cartItems[j].product_ID.isWish = false;
-                    if(wish.length > 0){
-                        for(var k=0; k<wish.length; k++){
-                            // console.log("String(wish[k].product_ID)",String(wish[k].product_ID));
-                            // console.log("String(data.vendorOrders[i].cartItems[j].product_ID._id)",String(data.vendorOrders[i].cartItems[j].product_ID._id));
-                            if(String(wish[k].product_ID) === String(data.vendorOrders[i].cartItems[j].product_ID._id)){
-                                data.vendorOrders[i].cartItems[j].product_ID.isWish = true;
-                                break;
-                            }
+                        vendor_afterDiscountTotal+=(vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
+                        if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
+                            vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
                         } 
-                    }     
+
+                        data.vendorOrders[i].cartItems[j].product_ID.isWish = false;
+                        if(wish.length > 0){
+                            for(var k=0; k<wish.length; k++){
+                                // console.log("String(wish[k].product_ID)",String(wish[k].product_ID));
+                                // console.log("String(data.vendorOrders[i].cartItems[j].product_ID._id)",String(data.vendorOrders[i].cartItems[j].product_ID._id));
+                                if(String(wish[k].product_ID) === String(data.vendorOrders[i].cartItems[j].product_ID._id)){
+                                    data.vendorOrders[i].cartItems[j].product_ID.isWish = true;
+                                    break;
+                                }
+                            } 
+                        } 
+                    }    
                 }
                 if(j>=vendorOrders[i].cartItems.length){
                     data.vendorOrders[i].vendor_beforeDiscountTotal = (vendor_beforeDiscountTotal).toFixed(2);
