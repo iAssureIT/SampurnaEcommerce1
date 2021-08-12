@@ -80,7 +80,7 @@ exports.update_category = (req,res,next)=>{
             if (req.body.subCategory && req.body.subCategory.length > 0) {
                 var subCategories = Array.from(new Set(req.body.subCategory.map(a => a.subCategory)))
                                      .map(subCategory => {
-                                       return req.body.subCategory.find(a => a.subCategory === subCategory)
+                                       return req.body.subCategory.find(a => (a.subCategory).lowerCase() === subCategory)
                                      })
             }else{
                 var subCategories = [];
@@ -514,11 +514,23 @@ exports.fetch_categories_by_vendor = (req,res,next)=>{
                         console.log("subCategories",subCategories);
                         var categoryAndSubcategoryList = await getSubCategoryList(categories, subCategories);
                         console.log("categoryAndSubcategoryList",categoryAndSubcategoryList);
-                        
-                        res.status(200).json({
-                            categoryList    : categoryAndSubcategoryList,
-                            brandList       : brandList.filter(brand => brand)   
-                        });
+                        if (categoryAndSubcategoryList && categoryAndSubcategoryList.length > 0) {
+                            for (var i = 0; i < categoryAndSubcategoryList.length; i++) {
+                                var categoryWiseBrandList               = [...new Set(productData.map(product => product.brand)).filter(product => String(product.category_ID) === String(categoryAndSubcategoryList[i]._id))];
+                                categoryAndSubcategoryList[i].brandList =  categoryWiseBrandList.filter(brand => brand);
+                            }
+                            if (i >= categoryAndSubcategoryList.length) {
+                                res.status(200).json({
+                                    categoryList    : categoryAndSubcategoryList,
+                                    brandList       : brandList.filter(brand => brand)   
+                                }); 
+                            }
+                        }else{
+                            res.status(200).json({
+                                categoryList    : categoryAndSubcategoryList,
+                                brandList       : brandList.filter(brand => brand)   
+                            });
+                        }
                     }
                 }
             })
