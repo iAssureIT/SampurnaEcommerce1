@@ -358,6 +358,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 const emailDetails  = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
                 if(!emailDetails){
                     const sendMail      = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
+                    console.log("sendMail => ", sendMail)
                     resolve(sendMail);
                 }else{
                     resolve(false);
