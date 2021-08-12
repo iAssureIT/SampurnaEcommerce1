@@ -516,7 +516,8 @@ exports.fetch_categories_by_vendor = (req,res,next)=>{
                         console.log("categoryAndSubcategoryList",categoryAndSubcategoryList);
                         if (categoryAndSubcategoryList && categoryAndSubcategoryList.length > 0) {
                             for (var i = 0; i < categoryAndSubcategoryList.length; i++) {
-                                var categoryWiseBrandList               = [...new Set(productData.map(product => product.brand)).filter(product => String(product.category_ID) === String(categoryAndSubcategoryList[i]._id))];
+                                var categoryWiseProductList             = await productData.filter(product => String(product.category_ID) === String(categoryAndSubcategoryList[i]._id));
+                                var categoryWiseBrandList               = [...new Set(categoryWiseProductList.map(product => product.brand))];
                                 categoryAndSubcategoryList[i].brandList =  categoryWiseBrandList.filter(brand => brand);
                             }
                             if (i >= categoryAndSubcategoryList.length) {
