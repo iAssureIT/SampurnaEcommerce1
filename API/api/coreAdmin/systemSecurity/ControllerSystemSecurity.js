@@ -2530,15 +2530,16 @@ exports.set_send_otp = (req, res, next) => {
 							"toUserRole"	: user.roles[0],
 							"toMobileNumber": user.isdCode + user.mobile,								
 							"variables" 	: {
-								subject 	: "Forgot Password",
-								OTP 		: otpMobile
+								userName 			: user.profile.firstName,
+								OTPSendForReason 	: "Reset Password",
+								OTP 					: otpMobile
 							}
 						}
 						var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
 						res.status(200).json({ 
-							message : "OTP sent on registered mobile number", 
+							message 	: "OTP sent on registered mobile number", 
 							ID 		: user._id,
-							profile : user.profile 
+							profile 	: user.profile 
 						})
 					// } else {
 					// 	res.status(200).json({ 
