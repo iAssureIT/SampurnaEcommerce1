@@ -361,7 +361,7 @@ exports.list_cart_product = (req,res,next)=>{
                 }                    
                 
                 for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
-                    // console.log("data.vendorOrders[i].cartItems[j] => ",data.vendorOrders[i].cartItems[j])
+                    console.log("data.vendorOrders[i].cartItems[j] => ",data.vendorOrders[i].cartItems[j])
                     var inventoryData             	= await ProductInventory.findOne({productCode : data.vendorOrders[i].cartItems[j].product_ID.productCode, itemCode : data.vendorOrders[i].cartItems[j].product_ID.itemCode, vendor_ID : ObjectId(data.vendorOrders[i].cartItems[j].product_ID.vendor_ID)},{currentQuantity : 1});
 				    // console.log("inventoryData => ",inventoryData);
                     

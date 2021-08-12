@@ -403,7 +403,8 @@ class CategoryManagement extends Component{
 	}
 	
 	addNewSubCatArray(event){
-		let arrLength = this.state.subcatgArr ? this.state.subcatgArr : null;
+		let arrLength 	= [];
+		arrLength 		= this.state.subcatgArr ? this.state.subcatgArr : null;
 		arrLength.push({
 			subCategoryCode 	: "a"+arrLength.length,
 			subCategoryTitle 	: "",
@@ -621,7 +622,7 @@ class CategoryManagement extends Component{
 		event.preventDefault();
 		// console.log('bjgjbmbmb',$('#categoryManagement').valid());
 		if($('#categoryManagement').valid()){
-		  	var addRowLength            = this.state.subcatgArr ? this.state.subcatgArr.length : null;
+		  	var addRowLength            = this.state.subcatgArr ? this.state.subcatgArr.length : 0;
 		  	var categoryDimentionArray  = [];
 		  	var newresult               = [];
 		  
@@ -652,6 +653,7 @@ class CategoryManagement extends Component{
 								"subCategoryTitle"  : $(".newSubCatg"+i).val(),
 								"subCategoryUrl"    : $(".subcategoryUrl"+i).val(),
 								"subCategoryImage"    : $(".subCategoryImage"+i).attr("src"),
+								"status"   				: this.state.categoryStatus,
 						}
 						if($(".newSubCatg"+i).val()){
 							categoryDimentionArray.push(obj);							
@@ -672,24 +674,29 @@ class CategoryManagement extends Component{
 							const map    = new Map();
 							for (const item1 of categoryDimentionArray) {
 								console.log("item => ", item1)
-								if(!map.has(item1.subCategoryTitle)){
-									map.set(item1.subCategoryTitle, true);    // set any value to Map
+								if(!map.has(item1.subCategoryUrl)){
+									map.set(item1.subCategoryUrl, true);    // set any value to Map
 									newresult.push({
 										index             : item1.index,
 										subCategoryTitle  : item1.subCategoryTitle,
 										subCategoryCode   : item1.subCategoryCode,
 										subCategoryUrl    : item1.subCategoryUrl,
-										subCategoryImage  : item1.subCategoryImage
+										subCategoryImage  : item1.subCategoryImage,
+										status   			: item1.status,
 									});
 								}
 							}
+
+						// console.log("newresult 1 => ", newresult);
+							
 						}
-						console.log("newresult => ", newresult);
+						// newresult = newresult.filter((v,i,a)=>a.findIndex(t=>(t.subCategoryTitle === v.subCategoryTitle)===i)
+						console.log("newresult => ", newresult.filter((v,i,a)=>a.findIndex(t=>(t.subCategoryTitle === v.subCategoryTitle)===i)));
 					}
 				}
 
 			 	// if(this.state.allowToUpdate === true){
-				// console.log("In update");
+				console.log("In update => ",formValues);
 				axios.patch('/api/category/patch', formValues)
 				.then((response)=>{
 					swal({
@@ -766,6 +773,7 @@ class CategoryManagement extends Component{
 					"section_ID"                : response.data.section_ID,
 					"category"                  : response.data.category,
 					"categoryNameRlang"         : response.data.categoryNameRlang,
+					"categoryStatus"            : response.data.status,
 					"categoryUrl"               : response.data.categoryUrl,
 					"categoryRank"              : response.data.categoryRank,
 					"addEditModeCategory"       : response.data.category,
@@ -1057,7 +1065,7 @@ class CategoryManagement extends Component{
 	}
 	handleSubCatChange(event){
 		this.setState({
-			[event.target.name] 						: event.target.value,
+			[event.target.name] 									: event.target.value,
 			["subCategoryTitleError"+event.target.id] 	: event.target.value ? "" : "This field is required."
 		})
 	}
@@ -1066,7 +1074,7 @@ class CategoryManagement extends Component{
 		const target = event.target;
 		const name   = target.name;
 		this.setState({
-			[name] 										: event.target.value,
+			[name] 													: event.target.value,
 			["subCategoryTitleError"+event.target.id] 	: event.target.value ? "" : "This field is required."
 		});
 		var url = event.target.value;
@@ -1212,9 +1220,9 @@ class CategoryManagement extends Component{
 																				null
 																			:
 																				<div className="">
-																					<label class="custom-file-upload">
+																					<label class="custom-file-upload-subCategory">
 																						<input type="file" name={'subCategoryImage'+dataRowArray.subCategoryCode} onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="" accept=".jpg,.jpeg,.png" />
-																						<i class="fa fa-cloud-upload"></i> Image
+																						<i class="fa fa-cloud-upload"></i><br/> Image
 																					</label>
 																					{/* <label>SubCategory Image</label>                                                                    
 																					<input type="file" name={'subCategoryImage'+dataRowArray.subCategoryCode} onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="" accept=".jpg,.jpeg,.png" /> */}
@@ -1223,7 +1231,7 @@ class CategoryManagement extends Component{
 																			{this.state['subCategoryImage'+dataRowArray.subCategoryCode] 
 																			? 
 																				<div className="row">
-																					<div className="col-lg-4 subCategoryImgCol">
+																					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 subCategoryImgCol">
 																						<div className="subCategoryImg">
 																							<div className="subCategoryImageInner">
 																								<span className="prodImageCross" title="Delete" id={'delete-subCategoryImage'+dataRowArray.subCategoryCode} data-imageUrl={this.state['subCategoryImage'+dataRowArray.subCategoryCode]} onClick={this.deleteImage.bind(this)} >x</span>
