@@ -18,7 +18,14 @@
     margin-top: 40px;
 }
 
+.MyaccountMainWrapper{
+    font-family: 'Montserrat-Regular';
+   
+}
 
+.MyaccountMainWrapper .small{
+    font-weight: 600!important;
+}
 
 .react-multiple-carousel__arrow--right {
     position  : absolute !important;

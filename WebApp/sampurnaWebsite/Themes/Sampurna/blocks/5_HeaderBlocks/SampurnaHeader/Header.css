@@ -654,8 +654,8 @@ li a{
 .DisplayLocation{
     background-color: #fff;
     padding: 5px 0px;
-    border-bottom: solid 1px #eee;
-    margin-top: 5px;
+    /* border-bottom: solid 1px #eee; */
+    margin-top: 2px;
 }
 .deliveryAddress{
     font-size: 12px;

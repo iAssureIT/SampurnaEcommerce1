@@ -438,10 +438,9 @@ export default class MyOrders extends Component {
                               <div className="col-lg-7  pull-right orderBtnWrapper">
                                 <button className=" btn col-lg-6 col-6 col-sm-4 float-right " onClick={() => this.props.getOrderId(singleOrder._id)}>
                                   <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-lg-9 float-right showDetailsBtn "} 
-                                   >Show Details
+                                  >Show Details
                                   </a>
-                                  {/* <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account#v-pills-settings2-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings2-tab"><a>orderStatus</a></Link></li> */}
-                                  {/* <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings2"><a>My Profile</a></Link></li> */}
+                                  {/* <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className="col-lg-9 float-right showDetailsBtn  NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account#v-pills-settings2"||this.state.currentUrl==="/my-account#v-pills-settings-tab")? window.location.reload() :null }}><Link href="#v-pills-settings2">orderStatus</Link></a> */}
 
                                 </button>
                               </div>

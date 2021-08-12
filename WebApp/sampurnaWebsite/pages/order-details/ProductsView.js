@@ -575,7 +575,7 @@ uploadImage(event) {
 
                       }
                     </td>
-                    <td className="textAlignRight">
+                    <td className="textAlignRight ">
                       {
                         <span className="productPrize textAlignRight">
                           {this.props.currency}

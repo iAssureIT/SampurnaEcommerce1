@@ -113,7 +113,7 @@ class header extends React.Component {
         //     window.location.reload();
         // });
     }
-    
+  
    render() {
     return (
         <div className="col-12 NoPadding">  

@@ -258,7 +258,7 @@ export default class OrderDetails extends Component {
     }
 
     return (
-      <div className={"col-12 NoPadding " + Style.orderDetailMainWrapper} >
+      <div className={"col-12 NoPadding " + Style.orderDetailMainWrapper} id="orderDetailMainID" >
         <div className={" " + Style.container1}>
           <Message messageData={this.state.messageData} />
           {
@@ -328,7 +328,7 @@ export default class OrderDetails extends Component {
                           // }
                           console.log("index1", index1)
                           return (
-                            <div key={index} style={{ marginBottom: "0px" }} className={"col-12 vendorwiseOrderHistory " + Style.vendorRow}>
+                            <div key={index} style={{ marginBottom: "0px" }} className={"col-12 pb-3 vendorwiseOrderHistory " + Style.vendorRow}>
                               <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">
                                 <div className="row">
                                   <div className="col-7 NOpadding">
@@ -364,7 +364,7 @@ export default class OrderDetails extends Component {
                                 reviewuserData={this.state.reviewuserData}
                                 orderID={this.state.orderData._id}
                               />
-                              <div className="col-12 ">
+                              <div className="col-12 d-lg-none d-xl-none d-block">
                                 <div className="col-12 NOpadding" style={{ marginBottom: "20px" }} key={index}>
                                   <div className="row ">
                                     <div className="col-12 NOpadding OrderDetailAmountWrapper">
@@ -380,17 +380,34 @@ export default class OrderDetails extends Component {
                                           <span className="currencyColor">{this.state.currency}</span> &nbsp;<span className={" "+Style.savingaMTcOLOR}>{vendordata.vendor_discountAmount > 0 ? vendordata.vendor_discountAmount.toFixed(2) : "00.00"}</span>
                                         </span>
                                       </div>
-                                      {/* <div className={"col-lg-8 offset-lg-2 col-sm-8 offset-sm-2 col-12 text-lg-right font-weight-bold " + Style.orderDetaiAmount}>
-                                        <span className="col-lg-8 col-sm-8 col-10 title">&nbsp; Number Of Items</span>
-
-                                        <span className="col-lg-4 col-sm-4 col-2 textAlignRight title">&nbsp;
-                                          {vendordata.vendor_numberOfProducts}
-                                        </span>
-                                      </div> */}
+                                      
                                     </div>
                                   </div>
                                 </div>
                               </div>
+
+                               <div className={"col-lg-12 pr-0 d-lg-block d-xl-block d-none pb-1 "+Style.x}>
+                                 <div className={"col-lg-4 col-12 pr-0 pull-right  "+Style.y}>
+                                    <div className={"col-lg-6 col-12 float-left text-left "+Style.TotalAmtVendorColor}>Total</div>
+                                    <div className={"col-lg-6 col-12 float-left "}>
+                                      <span className="col-lg-4 d-inline-block  currencyColor">{this.state.currency}</span>
+                                      <span className={"col-lg-8  d-inline-block  "+Style.orderDEtailvendrTotalColor}>{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) :"00.00"}</span>
+                                    </div>
+                                  </div>
+                              </div>
+
+                              <div className={"col-lg-12 pr-0 d-lg-block d-xl-block d-none "+Style.x}>
+                                 <div className={"col-lg-4 col-12 pr-0 pull-right  "+Style.y}>
+                                    <div className={"col-lg-6 col-12 float-left text-left "+Style.TotalAmtVendorColor}>You Save</div>
+                                    <div className="col-lg-6 col-12 float-left ">
+                                      <span className="col-lg-4 d-inline-block  currencyColor">{this.state.currency}</span>
+                                      <span className={"col-lg-8  d-inline-block "+Style.savingaMTcOLOR}>{vendordata.vendor_discountAmount > 0 ? vendordata.vendor_discountAmount.toFixed(2) : "00.00"}</span>
+                                    </div>
+                                  </div>
+                              </div>
+
+                             
+
                             </div>
                           );
                         })

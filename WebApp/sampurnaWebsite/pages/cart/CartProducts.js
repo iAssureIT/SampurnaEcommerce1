@@ -364,13 +364,13 @@ class CartProducts extends Component {
                     <div className="col-12  pl-0">
                         <div className="col-12 cartHeight">
                             {this.props.loading ?
-                                <Loader classNmae="d-block"type="fullpageloader" />
+                                <Loader type="fullpageloader" />
                                 // <div className={"col-2 offset-5 loading "+Style.loaderWrapper}>
                                 //     <img src="/images/eCommerce/loader.gif" className="col-12 "></img>
                                 // </div>
                                 :
                                 <div className="row">
-                                     {/* <Loader classNmae="d-block"type="fullpageloader" /> */}
+                                    
                                     <Message messageData={this.state.messageData} />
 
                                     {
@@ -753,7 +753,7 @@ class CartProducts extends Component {
                                                                         <div className={"col-12  " + Style.cartSummary1}>
                                                                             <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                                                 <div className="row">
-                                                                                    <div className={"col-7 " + Style.cartInnerTitleWrapper}>Final Total Amount</div>
+                                                                                    <div className={"col-7 " + Style.cartInnerTitleWrapper}>Total Amount</div>
                                                                                     <div className={"col-5  " + Style.cartInnerTitleWrapper1}>
                                                                                         <span className="col-1 px-1 text-left">{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.afterDiscountTotal > 0 ? this.props.recentCartData.paymentDetails.afterDiscountTotal.toFixed(2) : "00.00"}</span>
                                                                                     </div>
