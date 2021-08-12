@@ -327,7 +327,9 @@ exports.list_cart_product = (req,res,next)=>{
             }
             if(l >= data.vendorOrders.length){
             
-                var vendorOrders                = data.vendorOrders;
+                var vendorOrders                = data.vendorOrders.filter(function( vendor ) {
+                                                    return vendor.cartItems.length > 0;
+                                                });
                 var order_beforeDiscountTotal   = 0;
                 var order_afterDiscountTotal    = 0;
                 var order_discountAmount        = 0;
