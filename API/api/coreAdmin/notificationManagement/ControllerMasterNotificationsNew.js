@@ -357,7 +357,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 var toEmail         = userData.email;
                 const emailDetails  = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
                 console.log("emailDetails => ",emailDetails)
-                if(emailDetails && emailDetails !== undefined && emailDetails !== null){
+                if(!emailDetails && emailDetails !== undefined && emailDetails !== null){
                     const sendMail      = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
                     console.log("sendMail => ", sendMail)
                     resolve(sendMail);
@@ -369,7 +369,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 //==============  Send InApp Notification ================
                 var toUserId                = userData.id;
                 const notificationDetails   = await getTemplateDetailsInApp(company,templateName,userData.role,variables); 
-                if(notificationDetails && notificationDetails !== undefined && notificationDetails !== null){
+                if(!notificationDetails && notificationDetails !== undefined && notificationDetails !== null){
                     const sendNotification      = await sendInAppNotification(toUserId,userData.email,templateName,notificationDetails)
                     resolve(sendNotification);
                 }else{
@@ -384,9 +384,13 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     var toMobile        = toMobileNumber.replace(/[|&;$%@"<>()-+-,]/g, "");
                     console.log("if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
+
                     if(smsDetails && smsDetails !== undefined && smsDetails !== null){
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
-                        const sms           = await sendSMS(toMobile, textMsg);
+                        textMsg             = smsDetails.content.replace(/&nbsp;/g, '');
+                        console.log("textMsg 1 => ",textMsg)
+                        // const sms           = await sendSMS(toMobile, textMsg);
+                        var sms = true
                         resolve(sms);   
                     }else{
                         resolve(false)
@@ -401,8 +405,10 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
                     if(smsDetails && smsDetails !== undefined && smsDetails !== null){    
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
+                        console.log("textMsg 2 => ",textMsg)
                         console.log("toMobile",toMobile);
-                        const sms           = await sendSMS(toMobile, textMsg);
+                        // const sms           = await sendSMS(toMobile, textMsg);
+                        var sms=true
                         console.log("SMS else if => ",sms)  
                         resolve(sms);   
                         // resolve(true); 
