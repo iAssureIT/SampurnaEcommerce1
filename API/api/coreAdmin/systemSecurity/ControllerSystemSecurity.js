@@ -2508,7 +2508,7 @@ exports.set_send_otp = (req, res, next) => {
 	.then(user => {
 		if(user){
 			console.log('user => ',user)
- 			if ((user.profile.status).toLowerCase() === "active") {
+ 			if ((user.profile.status).toLowerCase() === "active" || (user.profile.status).toLowerCase() === "unverified") {
  				// var otpMobile = getRandomInt(1000, 9999);
 				 var otpMobile = 1234;
 				// console.log("optEmail", optEmail, req.body);
