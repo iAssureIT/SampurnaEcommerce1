@@ -351,7 +351,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
     return new Promise(function (resolve, reject) {
         sub();
         async function sub(){
-            // console.log("mode,userData,role,templateName,company,variables,attachment",mode,userData,role,templateName,company,variables,attachment);
+            console.log("mode,userData,role,templateName,company,variables,attachment",mode,userData,role,templateName,company,variables,attachment);
             if(mode === 'Email'){
                 //==============  Send Email ================
                 var toEmail         = userData.email;
@@ -378,10 +378,10 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 //==============  Send SMS ================
                 // console.log("Inside SMS",company,templateName,userData,role,variables);
                 console.log("toMobileNumber => ",toMobileNumber);
-                if(toMobileNumber && toMobileNumber !== undefined){
+                if(toMobileNumber && toMobileNumber !== undefined && toMobileNumber !== null){
                     // var toMobile        = userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
                     var toMobile        = toMobileNumber.replace(/[|&;$%@"<>()-+-,]/g, "");
-                    // console.log("if toMobile => ",toMobile);
+                    console.log("if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
                     if(!smsDetails){
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
@@ -390,19 +390,19 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     }else{
                         resolve(false)
                     }
-                    // console.log("SMS if => ",sms)  
+                    console.log("SMS if => ",sms)  
                     // resolve(true);            
                 }else if(userData.mobile){
                     var isdCode         = userData.isdCode ? userData.isdCode : "";
-                    // console.log("isdCode => ",isdCode)
+                    console.log("isdCode => ",isdCode)
                     var toMobile        = isdCode + userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
-                    // console.log("else if toMobile => ",toMobile);
+                    console.log("else if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
                     if(!smsDetails){    
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
-                        // console.log("toMobile",toMobile);
+                        console.log("toMobile",toMobile);
                         const sms           = await sendSMS(toMobile, textMsg);
-                        // console.log("SMS else if => ",sms)  
+                        console.log("SMS else if => ",sms)  
                         resolve(sms);   
                         // resolve(true); 
                     }else{
