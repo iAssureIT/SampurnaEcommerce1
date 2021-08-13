@@ -17,7 +17,7 @@
 }
 .paymentBgWrapper{
     position: absolute;
-    height: 250px;
+	width: 42.5%;
     top: 100px;
     left: 140px;
 }
@@ -42,59 +42,60 @@
     font-size: 14px;
 }
 
-
-
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 
 
-/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+/* [xs] Extra Small Devices [Phone - Portrait, less than 575px] */
 @media (max-width: 575px){
-    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+  /* No media query for "xs'' since this is the default in Bootstrap 4 because it is "Mobile First" */
 }
 
-/* (sm) Small Devices (Landscape Phones, 576px and up) */
+
+/* [sm] Small Devices [Phone - Landscape, 576px and up] */
 @media (min-width: 576px){
 
 }
 
-/* (md) Medium Devices (Tablets, 768px and up) */
+
+/* [md] Medium Devices [Tablet - Portrait, 768px and up] */
 @media (min-width: 768px){
 
 }
 
-/* (lg) Large Devices (Desktops, 992px and up) */
+
+/* [lg] Large Devices [Tablet - Landscape, 992px and up] */
 @media (min-width: 992px){
 
 }
 
-/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1200px and up] */
 @media (min-width: 1200px){
 
-    .paymentMainWrapper{
-        height: 482px;
-        border: 1px solid lightgray;
-        border-radius: 12px;
-    }
     .paymentLeftSideWrapper{
         height: 480px;
     }
     .paymentRightSideWrapper{
         height: 480px;
     }
-    .paymentBgWrapper{
-        height: 250px;
-        top: 100px;
-        left: 140px;
-    }
-    .paymentLogoWrapper{
-        height:35px;
-    }
-    .paymentAlertWrapper i{
-        font-size:40px;
-    }
-    .paymentLockWrapper{
-        font-size: 14px;
-    }
+}
+
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1366px and up] */
+@media (min-width:1366px){
+
+}
+
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
+@media (min-width:1440px){
+
+}
+
+
+/* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
+@media (min-width:1920px){
+
 }
 
 

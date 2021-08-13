@@ -15,11 +15,12 @@
 }
 .signTextWrapper{
     padding-top: 30px;
+    font-family: 'Montserrat-Regular' !important;
 }
 .signTextWrapper span{
     font-size: 10px;
     color: #033554;
-    opacity: 0.8;
+    /* opacity: 0.8; */
 }
 .signTextWrapper a{
     font-size: 10px;
@@ -38,6 +39,10 @@
 .resetPasswordTitle{
     font-family: 'Montserrat-Bold' !important;
 }
+.termsCondition{
+    font-size: 12px;
+}
+
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 

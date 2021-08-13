@@ -242,17 +242,17 @@ class SignUp extends Component{
       	$('#loginFormModal').show();	
 	}
 
-	// checkboxClick(event) {
-    //     let isChecked = !this.state.isChecked;
-    //     this.setState({ isChecked }, () => {
+	checkboxClick(event) {
+        let isChecked = !this.state.isChecked;
+        this.setState({ isChecked }, () => {
 
-    //     });
-    //     let fields = this.state.fields;
-    //     fields[event.target.name] = isChecked;
-    //     this.setState({
-    //         fields
-    //     });
-    // }
+        });
+        let fields = this.state.fields;
+        fields[event.target.name] = isChecked;
+        this.setState({
+            fields
+        });
+    }
 
 	render(){		
 		return(
@@ -328,11 +328,12 @@ class SignUp extends Component{
 						</span>
 						<div className="errorMsg mt-1">{this.state.errors.signupConfirmPassword}</div>
 					</div>
-					{/* <div className={"col-12 mt-2 shippingtimes "+S.termsCondition}>
+					<div className={"col-12 mt-2 shippingtimes "+S.termsCondition}>
 						<span><input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="" /></span>&nbsp;
-						<span className="" data-toggle="modal" data-target="#termsNconditionsmodal">I agree to terms & conditions</span><span className="required">*</span>
+						<span className="" data-toggle="modal" data-target="#termsNconditionsmodal">Terms & Conditions</span>
+						{/* <span className="required">*</span> */}
 						<div className="errorMsg mt-1">{this.state.errors.termsNconditions}</div>
-					</div> */}
+					</div>
 					{
 						this.state.btnLoading
 						?

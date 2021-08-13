@@ -251,9 +251,9 @@ export default class ContactUsTrollyMart extends Component{
 										<a href="https://twitter.com/knockknockeshop" target="_blank"><i className="fab fa-twitter"></i></a>
 									</div>
 								</div>
-								<div className="col-12">
+								{/* <div className="col-12">
 									<img className={S.contactUsRightLogo} src="/images/eCommerce/Face.png" alt=""></img>
-								</div>
+								</div> */}
 							</div>
 						</div>
 					</div>

@@ -49,6 +49,7 @@
 @media (min-width: 1200px){
 
     .stdBlockFGImage{
+        height: 300px;
         width: 75%;
         margin-top: -70px;
     }
