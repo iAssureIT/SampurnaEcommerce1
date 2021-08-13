@@ -163,5 +163,96 @@ export default StyleSheet.create({
         paddingVertical:15
         // alignSelf:'fl'
         // alignSelf:'center',
-    } 
+    },
+    card1:{
+        backgroundColor: '#E5EAEE',   
+        borderBottomLeftRadius:7,
+        borderBottomRightRadius:7, 
+    },
+    cardTop:{
+        flexDirection:'row',
+        borderTopLeftRadius:7,
+        borderTopRightRadius:7,
+        marginBottom:5,
+        backgroundColor:'#033554',
+        height:44,
+        alignItems:'center',
+        paddingHorizontal:15
+    },
+    cardBottom:{
+        flexDirection:"row",
+        marginBottom:5,      
+    },
+    cardTopText:{
+        fontFamily:'segoe-ui',
+        color:'#fff',
+        fontSize:16
+    },
+    cardTopText2:{
+        fontFamily:'segoe-ui',
+        color:'#fff',
+        fontSize:14
+    },
+    boxLine1:{
+        color:'#033554',
+        fontFamily: "Montserrat-Regular",
+        fontSize:14,
+    },    
+    boxLine1W:{
+        color:'#fff',
+        fontFamily: "Montserrat-Regular",
+        fontSize:14,
+    },
+    boxLine2:{
+        color:'#033554',
+        fontFamily: "Montserrat-Regular",
+        fontSize:14,
+        alignSelf:'flex-end'
+    },
+    boxLine1C:{
+        color:'#033554',
+        fontFamily: "Montserrat-Medium",
+        fontSize:16,
+    },
+    boxLine2C:{
+        color:'#033554',
+        fontFamily: "Montserrat-Regular",
+        fontSize:16,
+        alignSelf:'flex-end'
+    },
+    CardBS1:{
+        flex:0.5,
+        paddingLeft:15,
+        paddingRight:7,
+        borderRightWidth:0.25,
+        borderColor:'#ccc'
+    },
+    CardBS2:{
+        flex:0.5,
+        paddingLeft:7,
+        paddingRight:15,
+        borderLeftWidth:0.25,
+        borderColor:'#ccc'
+    },
+    completeDate:{
+        color:'#000',
+        fontFamily: "Montserrat-Bold",
+        fontSize:15,
+        opacity: 0.5
+    },
+    totalcount:{
+        color:'#000',
+        fontFamily: "Montserrat-Bold",
+        fontSize:15,
+    },
+    completeBlueText:{
+        color:'#033554',
+        fontFamily: "Montserrat-Medium",
+        fontSize:16,
+    },
+    completeBlueTextB:{
+        color:'#033554',
+        fontFamily: "Montserrat-SemiBold",
+        fontSize:16,
+    }
 });

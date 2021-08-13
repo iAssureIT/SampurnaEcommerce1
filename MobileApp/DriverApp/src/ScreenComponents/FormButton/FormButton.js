@@ -34,11 +34,13 @@ const styles = StyleSheet.create({
   },
   titleStyle:{
     fontSize:18,
-    color:colors.white
+    color:colors.white,
+    fontFamily: "Montserrat-Medium",
   },
   titleStyle1:{
     fontSize:18,
-    color:colors.theme
+    color:colors.theme,
+    fontFamily: "Montserrat-Medium",
   }
   
 });

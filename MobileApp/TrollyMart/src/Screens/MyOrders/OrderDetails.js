@@ -927,7 +927,7 @@ const cancelorderbtn = (id,vendor_id) => {
           hideModalContentWhileAnimating={true}
           style={{ zIndex: 999,marginHorizontal:0,marginBottom:0}}
           animationOutTiming={500}>
-          <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 30,marginTop:150}}>
+          <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 100,marginTop:150}}>
           <View style={{alignItems:'flex-end',padding:15}}>
               <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:20}]} onPress={()=>setModal(false)}>X</Text>
             </View>
@@ -1003,7 +1003,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     />
                 </TouchableOpacity>                
               </View>              
-              <View style={{flexDirection:"row",marginHorizontal:20,marginTop:24}}>
+              <View style={{flexDirection:"row",marginHorizontal:20,marginTop:15,marginBottom:30}}>
                 {
                   reviewProductImages && reviewProductImages.length > 0 ?
                   reviewProductImages.map((item,index)=>{

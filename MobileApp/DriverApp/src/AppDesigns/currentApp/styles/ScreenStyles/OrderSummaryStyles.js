@@ -58,10 +58,11 @@ superparent:{
   flex:1,backgroundColor:'#f1f1f1'
   },
   flxpd:{
-    flex:0.4,paddingHorizontal:10
+    flex:0.8,
+    flexDirection:'row',
   },
   imgwdht:{
-    width: 80, height:80,
+    width: 42, height:42,
   },
   cartlogoimg:{
      width:'70%',height:40,
@@ -70,7 +71,8 @@ superparent:{
     height:100,marginTop:10,
   },
   flxmg:{
-    flex:0.7,marginTop:10,
+    flex:0.3,marginTop:10,
+    flexDirection:'row'
   },
   flxmg2:{
     flex:0.3,marginTop:10
@@ -79,7 +81,7 @@ superparent:{
     flex:1
   },
   productname:{
-    fontSize:13,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap'
+    fontSize:13,color:'#000',fontFamily:"Montserrat-Regular",flexWrap:'wrap'
   },
   tomorroworder:{
     fontSize:13,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap',marginTop:10,
@@ -161,14 +163,15 @@ superparent:{
     fontSize:12,fontFamily:"Montserrat-Regular", color:'#666'
   },
   totaldata:{
-    fontSize:13,fontFamily:"Montserrat-SemiBold", color:'#333'
+    fontSize:14,fontFamily:"Montserrat-Bold", color:'#000'
   },
   totalsubtxt:{
     fontSize:13,fontFamily:"Montserrat-Regular", color:'#999',
     // textAlign:'center'
   },
   flxdata:{
-    flex:1,flexDirection:"row"
+    flex:1,flexDirection:"row",
+    borderTopWidth:1,borderColor:'#eee',
   },
   orderbrdr:{
     flex:1,flexDirection:"row",
@@ -245,9 +248,9 @@ superparent:{
   },
 
   proddetails:{
-    borderBottomWidth:1,borderColor:'#eee',
+    // borderBottomWidth:1,borderColor:'#eee',
     backgroundColor:"#fff",
-    minHeight:80,
+    minHeight:55,
     // borderRadius:5,
     marginTop:10,
   },
@@ -615,11 +618,14 @@ superparent:{
     tabWrap:{
       flexDirection: 'row',
       height:35,
-      alignSelf:"flex-end"
+      borderRadius:4,
+      alignSelf:"flex-end",
+      marginHorizontal:40
     },
     activeTabView:{
       flex:0.5,
       padding: 5,
+      borderRadius:4,
       justifyContent:'center',
       alignItems:"center",
       backgroundColor: colors.cartButton,
@@ -629,6 +635,7 @@ superparent:{
     tabView:{
       flex:0.5,
       padding: 5,
+      borderRadius:4,
       justifyContent:'center',
       alignItems:"center",
       backgroundColor: colors.lightGrey,
@@ -642,14 +649,61 @@ superparent:{
     tabText:{
       fontSize: 12,
       color: colors.white,
-      fontFamily: 'Roboto-Regular',
+      fontFamily: "Montserrat-Medium",
       marginLeft: 5
     },
     tabText1:{
       fontSize: 12,
       color: colors.black,
-      fontFamily: 'Roboto-Regular',
+      fontFamily: "Montserrat-Light",
       marginLeft: 5
     },
+    boxLine1B:{
+      color:'#000',
+      fontFamily: "Montserrat-Regular",
+      fontSize:14,
+  },
+  boxLine2B:{
+    color:'#000',
+    fontFamily: "Montserrat-Regular",
+    fontSize:15,
+},
+boxLine2_AnsB:{
+  color:'#000',
+  fontFamily: "Montserrat-Light",
+  fontSize:15,
+},
+deliveryText1:{
+    color:'#000',
+    fontFamily: "Montserrat-Medium",
+    fontSize:16,
+},
+deliveryText2:{
+    color:'#000',
+    fontFamily: "Montserrat-SemiBold",
+    fontSize:16,
+},
+containerStyle1:{
+  borderWidth:1,
+  borderRadius:3,
+  width: 62,
+  height: 25,
+  borderColor:"#707070",
+  backgroundColor:'#fff',
   
+},
+containerStyle23:{ 
+  height: 5,
+  backgroundColor:'red'
+},
+inputAmount:{
+  fontFamily: "Montserrat-Light",
+  fontSize:16
+},
+btnText:{
+  fontFamily: "Montserrat-Medium",
+  fontSize:16,
+  color:'#fff'
+},
+
 })

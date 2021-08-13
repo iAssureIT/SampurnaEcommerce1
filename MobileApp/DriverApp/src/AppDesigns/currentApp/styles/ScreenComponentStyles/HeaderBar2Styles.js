@@ -10,8 +10,8 @@ export default StyleSheet.create({
   whitename: {
     // backgroundColor:"#ff0",
     // marginTop:20,
-    height: 40,
-    width:120,
+    height: 27,
+    width:90,
     // alignSelf:'center'
   },
 
@@ -67,7 +67,7 @@ export default StyleSheet.create({
   },
 
   flxdir: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
 
   title: {
@@ -100,6 +100,7 @@ export default StyleSheet.create({
 
   header2main: {
     backgroundColor: colors.theme,
+    // height:47
   },
 
   leftside: {
@@ -164,11 +165,15 @@ export default StyleSheet.create({
     flexDirection:"row",
     justifyContent:"space-between",
   },
-  tabWrap:{
-    width:120,
+  tabWrap1:{
     flexDirection: 'row',
-    height:35,
-    alignSelf:"flex-end"
+    // // alignSelf:"flex-start",
+    // backgroundColor:'red'
+  },
+  tabWrap:{
+    width:36,
+    flexDirection: 'row',
+    height:18,
   },
   activeTabView:{
     flex:0.5,

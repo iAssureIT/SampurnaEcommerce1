@@ -462,7 +462,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     // label               = 'Type of Address'
                     placeholder         = {"-- Select Address Type --"}                    
                     containerStyle      = {styles.ddContainer}
-                    dropdownOffset      = {{ top: 0, left: 0 }}
+                    dropdownOffset      = {{ top: 55, left: 0 }}
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
                     // labelHeight         = {10}

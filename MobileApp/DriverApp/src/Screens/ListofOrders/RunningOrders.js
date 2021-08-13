@@ -125,36 +125,50 @@ export const RunningOrders =(props)=> {
     const _renderlist = ({ item, index })=>{
         return (
             <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders.vendor_id})}>
-                <Card containerStyle={{padding:0}}>
+                <View containerStyle={{padding:15,}}>
                     <View
                     style={{
-                        paddingVertical: 5,
-                        paddingHorizontal:5,
-                        backgroundColor: 'white',
-                        minHeight:100
+                        paddingVertical: 15,
+                        paddingHorizontal:15,
+                        marginVertical:10,
+                        borderRadius:7,
+                        backgroundColor: '#033554',
+                        color:'#fff',
+                        minHeight:100,                        
                     }}
                     >
                 <View style={{flexDirection:'row',marginBottom:5}}>
                         <View style={{flex:.4}}>
-                            <Text style={{}}>Order No :{item.orderID}</Text>
+                            <Text style={CommonStyles.cardTopText}>Order No :{item.orderID}</Text>
                         </View>
                         <View style={{flex:.6,alignItems:'flex-end'}}>
-                            <Text>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
+                            <Text style={CommonStyles.cardTopText2}>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
                         </View>    
-                </View>         
-                    <View style={{flexDirection:"row"}} >
-                    <Text style={CommonStyles.label}>Client Name:</Text>
-                    <Text style={[CommonStyles.label,{fontFamily:"Montserrat-Regular"}]}> {item.deliveryAddress.name}</Text>
-                    <Text style={[CommonStyles.label,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}]} onPress={() => Linking.openURL(`tel:${item.deliveryAddress.mobileNumber}`)}> {item.deliveryAddress.mobileNumber}</Text>
+                </View> 
+                <View style={{flex:1}}>
+                    <View style={{flexDirection:"row",flex:1,height:25}} >
+                        <View style={{flex:0.35}}>
+                            <Text style={[CommonStyles.boxLine1W]}>Customer Name</Text>
+                        </View>
+                        <View style={{flex:0.65,flexDirection:"row"}}>
+                            <Text style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.name}, </Text>
+                            <Text style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:'#fff'}]} onPress={() => Linking.openURL(`tel:${item.deliveryAddress.mobileNumber}`)}> {item.deliveryAddress.mobileNumber}</Text>
+                        </View>                        
                     </View>
                     <View style={{flexDirection:"row",flex:1}} >
-                        <Text style={[CommonStyles.label,{flex:0.9}]}>Address: <Text numberOfLines={2} style={[CommonStyles.label,{fontFamily:"Montserrat-Regular"}]}> {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text></Text>
-                        <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end',flex:0.1}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
-                            <Icon name="map-marker-radius" type="material-community" size={20} iconStyle={{ali:'flex-end'}}/>
-                        </TouchableOpacity>
-                    </View>
-                    </View>
-                </Card> 
+                        <View style={{flex:0.35}}>
+                            <Text style={[CommonStyles.boxLine1W]}>Address</Text>
+                        </View>
+                        <View style={{flex:0.65,flexDirection:"row"}}>
+                            <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>
+                            <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end'}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
+                                <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>
+                            </TouchableOpacity>
+                        </View>                        
+                    </View>                     
+                </View>                 
+                </View>
+                </View> 
             </TouchableOpacity>    
         )    
     };
@@ -169,7 +183,7 @@ export const RunningOrders =(props)=> {
                 />
             :
             <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <Text>No Order Found</Text>
+                <Text style={CommonStyles.noDataFound}>No Order Found</Text>
             </View>}
             <Footer selected={"2"}/>
         </>

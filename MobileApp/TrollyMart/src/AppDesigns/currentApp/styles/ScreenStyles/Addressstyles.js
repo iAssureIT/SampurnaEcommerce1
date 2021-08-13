@@ -245,11 +245,12 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Regular"
   },
   ddItemText:{
-    fontFamily:"Montserrat-Regular"
+    fontFamily:"Montserrat-Regular",
   },
   ddInputContainer:{
     // borderBottomColor: '#fff',
     backgroundColor:"#fff",
+    fontFamily:"Montserrat-Regular",
     // paddingLeft:5
   },
   ddLabelText:{
@@ -258,7 +259,7 @@ export default StyleSheet.create({
     left:-15,
     fontFamily:"Montserrat-Regular",
     fontSize:18,
-    // paddingHorizontal:2
+    paddingHorizontal:20
   },
   ddStyle:{
     fontFamily:"Montserrat-Regular",
@@ -266,7 +267,9 @@ export default StyleSheet.create({
     backgroundColor:"#fff",
     borderWidth:0.5,
     borderRadius:3,
+    textAlign:'center',
     height:41,
+    fontSize:14,
     borderBottomWidth:0,
   },
   addsuperparent:{

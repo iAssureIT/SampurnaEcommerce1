@@ -102,13 +102,13 @@ export const MonthlyOrders =(props)=> {
     const _renderlist = ({ item, index })=>{
         return (
             <TouchableOpacity onPress={()=>props.navigation.navigate('CompletedOrders',{new_date:item.monthDay})}>
-                <Card containerStyle={{flex:1}}>
+                <Card containerStyle={{flex:1,borderRadius:4}}>
                     <View style={{flexDirection:'row'}}>
                         <View style={{flex:0.5}}>
-                            <Text>{moment(item.monthDay).locale("en", localization).format("LL")}</Text>
+                            <Text style={CommonStyles.totalcount}>{moment(item.monthDay).locale("en", localization).format("LL")}</Text>
                         </View> 
                         <View style={{flex:0.5,alignItems:"flex-end"}}>
-                            <Text>{item.ordersDelivered}</Text>
+                            <Text style={CommonStyles.completeDate}>{item.ordersDelivered}</Text>
                         </View>     
                     </View>    
                 </Card>    
@@ -117,9 +117,42 @@ export const MonthlyOrders =(props)=> {
     };
 
     return (
-        <View style={{flex:1,marginBottom:70}}>
-            <View style={{flexDirection:'row'}}>
-                <TouchableOpacity style={{alignItems:"center",justifyContent:"flex-start",flex:0.3}} onPress={priviousDate}>
+        <View style={{flex:1,marginBottom:70,backgroundColor:'#fff'}}>
+            <View style={{flexDirection:"row",justifyContent: 'center',alignItems: 'center',marginTop:15}}>
+                    <TouchableOpacity
+                        onPress={() => {priviousDate()}}>
+                        <Icon
+                        name="caretleft"
+                        type="antdesign"
+                        color='#033554'
+                        size={10}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => openDatePicker(true)}
+                        style={{
+                        paddingVertical: 5,
+                        width:120,
+                        borderRadius: 5,
+                        backgroundColor:'#fff',
+                        alignItems:'center'
+                        }}>
+                        <Text style={CommonStyles.completeDate}>
+                        {monthYear}
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {nextDate()}}>
+                        <Icon
+                        name="caretright"
+                        type="antdesign"
+                        color='#033554'
+                        size={10}
+                        />
+                    </TouchableOpacity>
+                </View>
+                
+                {/* <TouchableOpacity style={{alignItems:"center",justifyContent:"flex-start",flex:0.3}} onPress={priviousDate}>
                   <Icon size={40} name='chevrons-left' type='feather' color='#333' />
                 </TouchableOpacity>
                 <View style={{alignItems:"center",justifyContent:"center",flex:0.4}}>
@@ -135,11 +168,13 @@ export const MonthlyOrders =(props)=> {
                   <View style={{alignItems:"center",justifyContent:"flex-end",flex:0.3}} onPress={nextDate}>
                   <Icon size={40} name='chevrons-right' type='feather' color='#d1d1d1' />
                 </View>
-                }
+                } */}            
+            <View style={{justifyContent:'center',alignItems:'center',paddingTop:10}}>
+                <Text style={CommonStyles.totalcount}>Total Deliveries : {orderList?.totalOrdersDelivered}</Text>
             </View>
-            <View style={{justifyContent:'center',alignItems:'center'}}>
-                <Text>Total Deliveries : {orderList?.totalOrdersDelivered}</Text>
-            </View>    
+            <View style={{flexDirection:'row',justifyContent:'center',paddingTop:10,marginBottom:15}}>
+                    <Text style={CommonStyles.totalcount}>Total Cash Collected : 500 AED</Text>
+             </View>  
            {orderList  && orderList?.monthDays?.length >0?
                 <View style={{}}>
                     <FlatList

@@ -44,6 +44,8 @@ import {FormInput}              from '../../ScreenComponents/FormInput/FormInput
             <View style={{paddingVertical:15}}>
                 <Input 
                     label          = "Transaction Number"
+                    inputContainerStyle = {styles.containerStyle23}
+                    inputStyle          = {styles.inputAmount}
                     onChangeText    = {(e)=>setTransactionNumber(e)}
                 />
             </View>  
@@ -51,7 +53,8 @@ import {FormInput}              from '../../ScreenComponents/FormInput/FormInput
                 <FormButton
                 title       = {'Deliver'}
                   onPress     = {handleSubmit}
-                background  = {true}
+                background  = {true}                 
+                titleStyle      = {styles.btnText} 
                 // loading     = {btnLoading}
                 />
             </View>

@@ -105,7 +105,7 @@ export const NewOrders =(props)=> {
         console.log("index",index);
         return (
             <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders.vendor_id})}>
-            <Card containerStyle={{padding:0}}>
+            <Card containerStyle={{padding:0,borderRadius:7}}>
             <Swipeable
                  ref={ref => row[index] = ref}
                  friction={2}
@@ -126,53 +126,52 @@ export const NewOrders =(props)=> {
                     {text}
                 </Text>
                 </View> */}
-                <View
-                style={{
-                    paddingVertical: 5,
-                    paddingHorizontal:5,
-                    backgroundColor: 'white',
-                    // height:150
-                }}
-                >
-               <View style={{flexDirection:'row',marginBottom:5}}>
-                    <View style={{flex:.4}}>
-                        <Text style={{}}>Order No{item.orderID}</Text>
-                    </View>
-                    <View style={{flex:.6,alignItems:'flex-end'}}>
-                        <Text>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
-                    </View>    
-               </View>         
-                <View style={{flexDirection:"row"}} >
-                    <View style={{flex:0.46}}>
-                        <View style={styles.box1}>
-                            <Text style={CommonStyles.text}>From Current Location</Text>
-                        </View>    
-                        <View style={styles.box1}>
-                            <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} />
-                            <Text style={[CommonStyles.label]}>{item.vendorOrders.vendorDistance} Km away</Text>
+                <View style={CommonStyles.card1}>
+                    <View style={CommonStyles.cardTop}>
+                            <View style={{flex:.4}}>
+                                <Text style={CommonStyles.cardTopText}>Order No {item.orderID}</Text>
+                            </View>
+                            <View style={{flex:.6,alignItems:'flex-end'}}>
+                                <Text style={CommonStyles.cardTopText2}>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
+                            </View>    
+                    </View>         
+                    <View style={CommonStyles.cardBottom}>
+                        <View style={CommonStyles.CardBS1}>
+                            <View style={styles.box1}>
+                                <Text style={CommonStyles.boxLine1}>From Current Location</Text>
+                            </View>                            
+                            <View style={styles.box1}>
+                                {/* <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} /> */}
+                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>{item?.vendorDetails?.locations[0]?.addressLine1+", "+item?.vendorDetails?.locations[0]?.addressLine2}</Text>
+                            </View>
+                            <View style={styles.box1_L}>
+                                <Text style={[CommonStyles.boxLine1]}>Pickup point :</Text>                                
+                                <Text style={[CommonStyles.boxLine2]}>
+                                    <Icon name="map-marker-radius" type="material-community" size={10} color={"#033554"} />
+                                    {item.vendorOrders.vendorDistance} Km away
+                                </Text>
+                            </View>
                         </View>
-                        <View style={{flexDirection:'row',paddingVertical:5}}>
-                            <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} />
-                            <Text numberOfLines={3}>{item?.vendorDetails?.locations[0]?.addressLine1+", "+item?.vendorDetails?.locations[0]?.addressLine2}</Text>
-                        </View>
-                    </View>
-                    <View style={{flex:.05,alignItems:'center'}} >
-                        <View style={{height:120,width:1,borderWidth:0.3,borderColor:"#eee"}} />
-                    </View>
-                    <View style={{flex:0.46}}>
-                        <View style={styles.box1}>
-                            <Text style={CommonStyles.text}>From Vendor Location</Text>
-                        </View>    
-                        <View style={styles.box1}>
-                            <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} />
-                            <Text style={[CommonStyles.label]}>{item.vendorOrders.vendorToCustDist} Km away</Text>
-                        </View>
-                        <View style={styles.box1}>
-                            <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} />
-                            <Text numberOfLines={3}>{item.deliveryAddress.addressLine1+", "+item.deliveryAddress.addressLine2}</Text>
-                        </View>
-                    </View>   
-                    </View>       
+                        {/* <View style={{flex:.5,backgroundColor:'green'}} >
+                            <View style={{height:120,width:1,borderWidth:0.3,borderColor:"#eee"}} />
+                        </View> */}
+                        <View style={CommonStyles.CardBS2}>
+                            <View style={styles.box1}>
+                                <Text style={CommonStyles.boxLine1}>From Vendor Location</Text>
+                            </View>                            
+                            <View style={styles.box1}>
+                                {/* <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} /> */}
+                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>{item.deliveryAddress.addressLine1+", "+item.deliveryAddress.addressLine2}</Text>
+                            </View>
+                            <View style={styles.box1_L}>
+                                <Text style={[CommonStyles.boxLine1]}>Delivery point:</Text>                                
+                                <Text style={[CommonStyles.boxLine2]}>
+                                    <Icon name="map-marker-radius" type="material-community" size={10} color={"#033554"} />
+                                    {item.vendorOrders.vendorToCustDist} Km away
+                                </Text>
+                            </View>
+                        </View>   
+                        </View>      
                 </View>
             </Swipeable>
             </Card> 
@@ -191,7 +190,7 @@ export const NewOrders =(props)=> {
                 />
                 :
                 <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                    <Text>No Order Found</Text>
+                    <Text style={CommonStyles.noDataFound}>No Order Found</Text>
                 </View>}
             </View>  
             <Footer selected={"0"}/>
@@ -213,5 +212,9 @@ export const NewOrders =(props)=> {
     box1:{
         flexDirection:'row',
         paddingVertical:2
-    }
+    },
+    box1_L:{
+        paddingVertical:2,
+    },
+    
     });

@@ -68,7 +68,8 @@ import {FormInput}              from '../../ScreenComponents/FormInput/FormInput
                 <FormButton
                 title       = {'Deliver'}
                 //   onPress     = {handleSubmit}
-                background  = {true}
+                background  = {true}                 
+                titleStyle      = {styles.btnText} 
                 // loading     = {btnLoading}
                 />
             </View>

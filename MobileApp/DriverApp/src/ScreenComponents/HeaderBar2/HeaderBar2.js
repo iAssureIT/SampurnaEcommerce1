@@ -217,11 +217,23 @@ import Geolocation          from 'react-native-geolocation-service';
                   <TouchableOpacity onPress={()=> navigation.goBack()}>
                   <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center'}}>
                     <Icon size={30} name='keyboard-arrow-left' type='MaterialIcons' color='#fff' />
+                    {/* <Image
+                    resizeMode="contain"
+                    source={require("../../AppDesigns/currentApp/images/Box.png")}
+                    style={{height:17,width:17}}
+                    /> */}
                   </View>
                 </TouchableOpacity>
                 :
                 <TouchableOpacity  onPress={()=> navigation.dispatch(DrawerActions.toggleDrawer())}>
-                  <Icon size={25} name='bars' type='font-awesome' color={colors.white} />
+                  {/* <Icon size={25} name='bars' type='font-awesome' color={colors.white} /> */}
+                  <View style={{}}>
+                    <Image
+                      resizeMode="contain"
+                      source={require("../../AppDesigns/currentApp/images/Box.png")}
+                      style={{height:14,width:19}}
+                      />
+                  </View>
                 </TouchableOpacity>
               }
             </View>
@@ -230,7 +242,7 @@ import Geolocation          from 'react-native-geolocation-service';
           centerComponent={
               props.headerTitle && props.headerTitle!=="" ?
                 <View style={{width:200}}>
-                  <Text style={[{fontSize:18,color:'#fff',fontFamily:"Montserrat-SemiBold",textAlign:'center',alignSelf:'center'}]}>{props.headerTitle}</Text>
+                  <Text style={[{fontSize:15,color:'#fff',fontFamily:"Montserrat-SemiBold"}]}>{props.headerTitle}</Text>
                 </View>  
                 :
                 <Image
@@ -240,21 +252,35 @@ import Geolocation          from 'react-native-geolocation-service';
                 />
           }
           rightComponent={
-             <View style={[styles.tabWrap]}>
-              <TouchableOpacity
-                onPress = {()=>{setValue('online');setOnOff('online')}}
-                style={[(value === "online" ? styles.activeTabView:styles.tabView),styles.tabBorder,styles.borderRadiusLeft]}
-              >
-                  <Text style={value === "online" ? styles.tabText : styles.tabText1}>Online</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress = {()=>{setValue('offline');setOnOff('offline')}}
-                style={[(value === "offline" ? styles.activeTabView:styles.tabView),styles.borderRadiusRight]}
-              >
-                <Text style={value === "offline" ? styles.tabText : styles.tabText1}>Offline</Text>
-              </TouchableOpacity>
-            </View>
-          }
+            <View style={[styles.tabWrap1]}>
+              <View style={[styles.tabWrap]}>
+                <TouchableOpacity
+                  onPress = {()=>{setValue('online');setOnOff('online')}}
+                  style={[(value === "online" ? styles.activeTabView:styles.tabView),styles.tabBorder,styles.borderRadiusLeft]}
+                >
+                    <Text style={value === "online" ? styles.tabText : styles.tabText1}>Online</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress = {()=>{setValue('offline');setOnOff('offline')}}
+                  style={[(value === "offline" ? styles.activeTabView:styles.tabView),styles.borderRadiusRight]}
+                >
+                  <Text style={value === "offline" ? styles.tabText : styles.tabText1}>Offline</Text>
+                </TouchableOpacity>
+              </View>
+              <View>
+                <TouchableOpacity onPress={()=> navigation.goBack()}>
+                  <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center',marginLeft:20}}>
+                    <Icon size={20} name='bell-ring-outline' type='material-community' color='#fff' />
+                    {/* <Image
+                    resizeMode="contain"
+                    source={require("../../AppDesigns/currentApp/images/Box.png")}
+                    style={{height:17,width:17}}
+                    /> */}
+                  </View>
+                </TouchableOpacity>
+              </View>
+          </View>
+          }          
           // rightComponent={
           //     <View style={styles.notificationbell}>
           //      <TouchableOpacity style={styles.bellIcon} onPress={()=> navigation.navigate('InAppNotification')}>
@@ -279,7 +305,7 @@ import Geolocation          from 'react-native-geolocation-service';
           //         <Icon size={25} name="store"  type="font-awesome-5" color=colors.theme />
           //       </TouchableOpacity> */}
           //     </View>
-          // }
+          // }          
           containerStyle={styles.container}
         />
       </View>

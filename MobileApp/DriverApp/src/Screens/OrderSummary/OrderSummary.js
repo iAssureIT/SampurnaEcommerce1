@@ -171,25 +171,26 @@ const ValidationSchema = Yup.object().shape({
     return (
       <View style={{flex:1}}>
           <ScrollView style={{backgroundColor:"#fff"}}>
-            <View style={{flexDirection:"row",justifyContent:'center',paddingVertical:15 }}>
+            {/* <View style={{flexDirection:"row",justifyContent:'center',paddingVertical:15 }}>
               <Text>Order Details for #{order.orderID}</Text>
-            </View>  
-            <View style={{borderRadius:15,borderWidth:1,margin:15,minHeight:100,padding:15}}>
+            </View>   */}
+            <View style={{margin:20,minHeight:100}}>
                 <View style={{flexDirection:'row',flex:1,justifyContent:'space-between'}}>
-                  <Text>Order No {order.orderID}</Text>
-                  <Text>Date :{moment(order.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
+                  <Text style={styles.boxLine1B}>Order No : {order.orderID}</Text>
+                  <Text style={styles.boxLine1B}>Date :{moment(order.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
                 </View> 
-                <View style={{justifyContent:'space-between'}}>
-                  <Text>Vendor : {order?.vendorOrders[0]?.vendorName}</Text>
-                  <Text>Deliver To : {order?.deliveryAddress?.name} <Text style={{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}} onPress={() => Linking.openURL(`tel:${order?.deliveryAddress?.mobileNumber}`)}>{order?.deliveryAddress?.mobileNumber}</Text></Text>
-                  <Text>Delivery Addrees : {order?.deliveryAddress?.addressLine1+", "+order?.deliveryAddress?.addressLine2}</Text>
+                <View style={{justifyContent:'space-between',marginTop:10}}>
+                  <Text style={styles.boxLine2B}>Vendor : <Text style={styles.boxLine2_AnsB}>{order?.vendorOrders[0]?.vendorName}</Text></Text>
+                  <Text style={styles.boxLine2B}>Deliver To : <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.name}, </Text> <Text style={{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}} onPress={() => Linking.openURL(`tel:${order?.deliveryAddress?.mobileNumber}`)}>{order?.deliveryAddress?.mobileNumber}</Text></Text>
+                  <Text style={styles.boxLine2B}>Delivery Addrees : <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.addressLine1+", "+order?.deliveryAddress?.addressLine2}</Text></Text>
                 </View> 
                 {order?.vendorOrders && order?.vendorOrders?.length>0 && order?.vendorOrders[0]?.products.map((item,index)=>{
                     return(
-                      <View key={index}>
+                      <View key={index} style={{marginTop:10}}>
                         <View key={index} style={styles.proddetails}>
                           <View style={styles.flxdir}>
                             <View style={[styles.flxpd]}>
+                              <View style={{flex:0.3,justifyContent:'center'}}>
                                 {item.productImage.length > 0 ?
                                   <Image
                                     style={styles.imgwdht}
@@ -201,46 +202,50 @@ const ValidationSchema = Yup.object().shape({
                                     source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                                   />
                                 }
+                              </View>
+                              <View style={{flex:0.7}}>
+                                {item.productNameRlang ?
+                                  <Text style={{fontFamily:'aps_dev_priyanka',fontSize:13,flexWrap:'wrap'}}>{item.productNameRlang}</Text>
+                                  : 
+                                  <Text style={styles.productname}>{item.productName}</Text>
+                                }
+                              </View>
                             </View>
                             <View style={styles.flxmg}>
-                                {item.productNameRlang ?
+                                {/* {item.productNameRlang ?
                                 <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.productNameRlang}</Text>
                                 : 
                                 <Text style={styles.productname}>{item.productName}</Text>
-                                }
-                              <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
-                                <View style={[styles.flxdir]}>
-                                  <View style={[styles.flxdir]}>
-                                    <Text style={styles.ogprice}>{currency} </Text>
-                                  </View>
-                                  <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                      <Text style={styles.ogprice}> {(item.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                      </Text>
-                                  </View>
+                                } */}
+                                <View style={{flex:0.5,alignItems:"center"}}>
+                                    <Text style={[styles.productname]}>{item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                    </Text>
                                 </View>
-                                <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                  <Text style={[styles.ogprice]}>Qty : {item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                  </Text>
-                              </View>
-                              </View>
+                                <View style={{flex:0.5,alignItems:"center"}}>
+                                  {/* <View style={[styles.flxdir]}>
+                                    <Text style={styles.ogprice}>{currency} </Text>
+                                  </View> */}
+                                  <Text style={styles.productname}> {(item.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                  </Text>                                
+                                </View>
                           </View>
                         </View>
                       </View>
                     </View>
                     )
                   })}
-                  <View style={[styles.flxdata,{paddingVertical:15}]}>
+                  <View style={[styles.flxdata,{paddingVertical:25,marginTop:15}]}>
                   <View style={{ flex: 0.6 }}>
-                    <Text style={styles.totaldata}>Totals</Text>
+                    <Text style={styles.totaldata}>Total Amount</Text>
                   </View> 
                   <View style={{ flex: 0.35 }}>
                     <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}>{currency} {order.vendorOrders[0]?.vendor_netPayableAmount?.toFixed(2)}</Text>
+                      <Text style={styles.totaldata}>{currency} {order.vendorOrders[0]?.vendor_netPayableAmount?.toFixed(2)}</Text>
                     </View>
                   </View>
                 </View>  
             </View> 
-            {order?.vendorOrders[0]?.orderStatus === "On the Way" && <View style={{borderRadius:15,borderWidth:1,margin:15,minHeight:100,padding:15}}>
+            {order?.vendorOrders[0]?.orderStatus === "On the Way" && <View style={{borderRadius:4,backgroundColor:'#E5EAEE',minHeight:100,padding:15,marginBottom:20}}>
               <View style={[styles.tabWrap]}>
                 <TouchableOpacity
                   onPress = {()=>{setPaymentMethod('Cash On Delivery')}}
@@ -256,64 +261,112 @@ const ValidationSchema = Yup.object().shape({
                 </TouchableOpacity>
               </View>
               <View style={{flexDirection:"row",paddingTop:15,justifyContent:'space-between'}}>
-                <View style={{flex:0.5}}>
-                    <Text style={CommonStyles.label}>Amount Receivable</Text>
+                <View style={{flex:0.6}}>
+                    <Text style={styles.deliveryText1}>Amount Receivable</Text>
                 </View>
-                <View style={{flex:0.5,alignItems:'center'}}>
-                    <Text style={CommonStyles.label}>AED {order.vendorOrders[0]?.vendor_netPayableAmount?.toFixed(2)}</Text>
-                   
+                <View style={{flex:0.4,flexDirection:"row",alignItems:'center'}}>
+                    <View style={{flex:0.5}}>
+                      <Text style={styles.deliveryText2}>AED &nbsp;&nbsp; : </Text>
+                    </View>
+                    <View style={{flex:0.5,justifyContent: 'flex-end'}}>
+                      <Text style={[styles.deliveryText2,{alignSelf:'flex-end'}]}>{order.vendorOrders[0]?.vendor_netPayableAmount?.toFixed(2)}</Text>                
+                    </View>            
                 </View>        
              </View>
               {
                 paymentMethod === "Cash On Delivery" ?
-                <View style={{flexDirection:"row",justifyContent:'space-between',paddingTop:15}}>
-                  <View style={{flex:0.5}}>
-                      <Text style={CommonStyles.text}>Amount Paid</Text>
+                <View style={{flex:1,justifyContent:'space-between',paddingTop:30}}>
+                  <View style={{flex:1,flexDirection:"row"}}>
+                    <View style={{flex:0.8}}>
+                      <Text style={styles.deliveryText1}>Amount Paid</Text>
+                    </View>
+                    <View style={{flex:0.2}}>
                       <Input 
-                          keyboardType    = "numeric"
-                          onChangeText    = {(e)=>amountPaid(e)}
-                      />
+                            keyboardType    = "numeric"
+                            inputContainerStyle= {styles.containerStyle1}
+                            inputStyle = {styles.inputAmount}
+                            onChangeText    = {(e)=>amountPaid(e)}
+                        />
+                    </View>                      
                   </View>
-                  <View style={{flex:0.5,alignItems:'center'}}>
-                      <Text style={CommonStyles.text}>Return Amount</Text>
-                      <Text style={[CommonStyles.headerTextx  ,{marginTop:15}]}>{returnAmount}</Text>
+                  <View style={{flex:1,flexDirection:"row",alignItems:'center'}}>
+                    <View style={{flex:0.76}}>
+                      <Text style={styles.deliveryText1}>Return Amount </Text>
+                    </View>
+                    <View style={{flex:0.24,flexDirection:"row"}}>
+                      <Text style={[styles.deliveryText2,{flex:0.2}]}>:</Text>
+                      <Text style={[styles.inputAmount,{flex:0.8,textAlign:'right'}]}>{returnAmount}</Text>
+                    </View>               
                   </View>        
               </View>
                 :
                 paymentMethod === "Card On Delivery" ?
-                <View style={{paddingVertical:15}}>
-                  <FormInput 
-                      label          = "Transaction Number"
-                      onChangeText    = {handleChange('transactionNumber')}
-                      required        = {true}
-                      name            = "transactionNumber"
-                      errors          = {errors}
-                      touched         = {touched}
-                      // iconName        = {'email'}
-                      iconType        = {'material-community'}
-                      autoCapitalize  = "none"
-                      keyboardType    = "email-address"
-                      value           = {values.transactionNumber}
-                  />
-                </View>
+                <View style={{flex:1,flexDirection:"row",marginTop:15}}>
+                  <View style={{flex:0.5}}>
+                    <Text style={styles.deliveryText1}>Transaction Number</Text>
+                  </View>
+                  <View style={{flex:0.5}}>
+                    <FormInput 
+                        // label          = "Transaction Number"
+                        onChangeText    = {handleChange('transactionNumber')}
+                        // required        = {true}
+                        name            = "transactionNumber"
+                        errors          = {errors}
+                        touched         = {touched}
+                        // iconName        = {'email'}
+                        iconType        = {'material-community'}
+                        autoCapitalize  = "none"
+                        keyboardType    = "email-address"
+                        inputContainerStyle = {styles.containerStyle23}
+                        inputStyle          = {styles.inputAmount}
+                        value           = {values.transactionNumber}
+                    />
+                  </View>
+                </View>               
                 :
                 null
               }
-                <View style={{paddingHorizontal:15}}> 
+                <View style={{paddingHorizontal:15,marginHorizontal:25,marginTop:30}}> 
                   <FormButton
-                    title       = {'Deliver'}
+                    title       = {'Deliver'} 
+                    titleStyle      = {styles.btnText}                  
                     onPress     = {handleSubmit}
-                    background  = {true}
+                    background  = {true} 
                   // loading     = {btnLoading}
                   />
               </View>
             </View> }
             {order.vendorOrders[0].orderStatus === "Delivered" &&
-              <View style={{borderRadius:15,borderWidth:1,margin:15,padding:15}}>
-                <Text style={CommonStyles.text}>Payment Mode : <Text style={CommonStyles.label}>{order.vendorOrders[0].paymentDetails.modeOfPayment}</Text></Text>
-                <Text style={CommonStyles.text}>Amount Paid  :  <Text style={CommonStyles.label}>{order.vendorOrders[0].paymentDetails.amountPaid} {order.vendorOrders[0].paymentDetails.currency}</Text></Text>
-                {order.vendorOrders[0].paymentDetails.modeOfPayment === "Card On Delivery" &&<Text style={CommonStyles.text}>Transaction Number  :  <Text style={CommonStyles.label}>{order.vendorOrders[0].paymentDetails.transactionNumber}</Text></Text>}
-              </View>  
+              <View>
+                <View style={{flexDirection:'row',justifyContent:'center',marginBottom:15}}>
+                  <Text style={CommonStyles.completeBlueTextB}>Paid by {order.vendorOrders[0].paymentDetails.modeOfPayment}</Text>
+                </View>
+                <View style={{borderRadius:4,backgroundColor:'#E5EAEE',minHeight:100,padding:15,marginBottom:20}}>
+                  <View style={{flexDirection:"row",paddingTop:15,justifyContent:'space-between'}}>
+                    <View style={{flex:0.6}}>
+                        <Text style={styles.deliveryText1}>Amount Receivable</Text>
+                    </View>
+                    <View style={{flex:0.4,flexDirection:"row",alignItems:'center'}}>
+                        <View style={{flex:0.5}}>
+                          <Text style={styles.deliveryText2}>AED &nbsp;&nbsp; : </Text>
+                        </View>
+                        <View style={{flex:0.5,justifyContent: 'flex-end'}}>
+                          <Text style={[styles.deliveryText2,{alignSelf:'flex-end'}]}>{order.vendorOrders[0]?.vendor_netPayableAmount?.toFixed(2)}</Text>                
+                        </View>            
+                    </View>        
+                  </View>                  
+                  {order.vendorOrders[0].paymentDetails.modeOfPayment === "Card On Delivery" &&
+                    <View style={{flex:1,flexDirection:"row",marginTop:15}}>
+                      <View style={{flex:0.5}}>
+                        <Text style={styles.deliveryText1}>Transaction Number</Text>
+                      </View>
+                      <View style={{flex:0.5}}>
+                        <Text style={CommonStyles.label}>{order.vendorOrders[0].paymentDetails.transactionNumber}</Text>
+                      </View>
+                    </View>
+                  }
+                </View>
+              </View>                
             }
         </ScrollView>
       </View>  

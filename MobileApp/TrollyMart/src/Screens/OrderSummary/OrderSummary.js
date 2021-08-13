@@ -441,7 +441,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                               <Text style={styles.currency1G}>{currency}</Text>
                             </View>
                           </View>
-                        <View style={{ flex: 0.2 }}>
+                        <View style={{ flex: 0.28 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.totalpriceincartTotalGT}>{cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                           </View>
