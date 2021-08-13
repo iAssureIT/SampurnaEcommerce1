@@ -2524,19 +2524,21 @@ exports.set_send_otp = (req, res, next) => {
 				.then(async(data) => {
 					console.log("data",data);
 					// if (data.nModified === 1) {
+						var userName = user.profile.firstname;
+						console.log("userName => ",userName);
 						var userNotificationValues = {
 							"event"			: "SendOTP",
 							"toUser_id"		: user._id,
 							"toUserRole"	: user.roles[0],
 							"toMobileNumber": user.isdCode + user.mobile,								
 							"variables" 	: {
-								userName 			: user.profile.firstName,
+								userName 			: userName,
 								OTPSendForReason 	: "Reset Password",
 								OTP 					: otpMobile
 							}
 						}
 						console.log("notification formvalues => ",userNotificationValues)
-						var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
+						// var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
 						res.status(200).json({ 
 							message 	: "OTP sent on registered mobile number", 
 							ID 		: user._id,
