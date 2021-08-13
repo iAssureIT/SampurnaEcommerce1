@@ -359,7 +359,7 @@ export default class MyOrders extends Component {
                                     <div className="col-12"> <i className="fas fa-wallet"></i>&nbsp; {singleOrder.paymentDetails.paymentMethod}</div>
                                   </div>
                                   <div className={"col-12 "+Style.rightSideDateWrapper1}>
-                                    <div className="col-12 orderAddress">
+                                    <div className="col-lg-6 col-12 float-right orderAddress">
                                       <i className="fas fa-map-marker-alt"></i>&nbsp; {singleOrder.deliveryAddress.addressLine1} , <br />{singleOrder.deliveryAddress.addressLine2}
                                     </div>
                                   </div>
@@ -390,7 +390,7 @@ export default class MyOrders extends Component {
                                             </div>
                                             <div className="col-12 title NoPadding">
 
-                                              <span className="col-12 mx-lg-5 ">No.Of products : {vendordata.vendor_numberOfProducts} </span>
+                                              <span className="col-12 mx-lg-5 ">No.of products : {vendordata.vendor_numberOfProducts} </span>
 
                                             </div>
                                           </div>

@@ -301,36 +301,36 @@
 		margin-left: 37% !important;
 	}
 }
-.TotalAmtVendorColor{
+
+.TotalAmtVendorColor {
 	letter-spacing: 0px;
-color: #000000;
-opacity: 1;
-font-family: 'Montserrat-Bold';
+	color         : #000000;
+	opacity       : 1;
+	font-family   : 'Montserrat-Bold';
 }
-.orderDEtailvendrTotalColor{
+
+.orderDEtailvendrTotalColor {
 	letter-spacing: 0px;
-	color: #000000;
-	opacity: 1;
-	font-weight: 600;
-	font-family: 'Montserrat-Regular';
+	color         : #000000;
+	opacity       : 1;
+	font-weight   : 600;
+	font-family   : 'Montserrat-Regular';
 }
-.x{
+
+.orderDetailVendorAmtWrapper {
 	/* background-color: yellow; */
-	height:25px;
+	height        : 25px;
 	/* line-height:14px; */
 }
 
-.y{
+.orderDetailVendorAmtInnerWrapper {
 	/* background-color: green; */
-	height:25px
-}
-.z{
-	/* background-color: pink; */
-	height:25px
+	height: 25px
 }
 
+
 @media only screen and (min-width: 1200px) {
-    .totalAmountWrapper {
-        margin-left: 56px;
-    }
+	.totalAmountWrapper {
+		margin-left: 56px;
+	}
 }
