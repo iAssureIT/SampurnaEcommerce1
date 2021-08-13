@@ -386,9 +386,9 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
 
                     if(smsDetails && smsDetails !== undefined && smsDetails !== null){
-                        var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
+                        var textMsg         = await smsDetails.content.replace(/<[^>]+>/g, '');
                         console.log("textMsg 1 2 => ",textMsg)                        
-                        textMsg             = smsDetails.content.replace(/&nbsp;/g, '');
+                        textMsg             = textMsg.replace(/&nbsp;/g, '');
                         console.log("textMsg 1 => ",textMsg)
                         // const sms           = await sendSMS(toMobile, textMsg);
                         var sms = true
@@ -405,9 +405,9 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     // console.log("else if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
                     if(smsDetails && smsDetails !== undefined && smsDetails !== null){    
-                        var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
+                        var textMsg         = await smsDetails.content.replace(/<[^>]+>/g, '');
                         console.log("textMsg 1 2 => ",textMsg)
-                        textMsg             = smsDetails.content.replace(/&nbsp;/g, '');
+                        textMsg             = textMsg.replace(/&nbsp;/g, '');
                         console.log("textMsg 2 => ",textMsg)
                         // console.log("toMobile",toMobile);
                         // const sms           = await sendSMS(toMobile, textMsg);
