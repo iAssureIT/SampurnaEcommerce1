@@ -369,7 +369,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 //==============  Send InApp Notification ================
                 var toUserId                = userData.id;
                 const notificationDetails   = await getTemplateDetailsInApp(company,templateName,userData.role,variables); 
-                if(notificationDetails && notificationDetails ! undefined && notificationDetails !== null){
+                if(notificationDetails && notificationDetails !== undefined && notificationDetails !== null){
                     const sendNotification      = await sendInAppNotification(toUserId,userData.email,templateName,notificationDetails)
                     resolve(sendNotification);
                 }else{
