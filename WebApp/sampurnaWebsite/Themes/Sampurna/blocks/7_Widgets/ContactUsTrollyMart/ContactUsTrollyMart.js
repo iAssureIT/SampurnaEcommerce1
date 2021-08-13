@@ -4,7 +4,7 @@ import $						from 'jquery';
 import jQuery					from 'jquery';
 import validate					from "jquery-validation";
 import Swal						from 'sweetalert2';
-import Link 					from 'next/link';
+// import Link 					from 'next/link';
 
 
 import S						from './ContactUsTrollyMart.module.css';

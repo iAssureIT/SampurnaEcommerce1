@@ -652,3 +652,12 @@
     font-family:'Montserrat-Regular';
   }
 }
+
+/* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
+@media (min-width:1920px){
+
+  .footerBottom {
+    padding-top: 106px;
+    padding-bottom: 106px;
+}
+}

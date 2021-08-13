@@ -200,6 +200,7 @@ select:focus {
     color        : #222222 !important;
     cursor       : pointer !important;
     min-height   : 25px !important;
+    margin-top   : 13px;
 }
 
 .css-1wa3eu0-placeholder {

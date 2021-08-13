@@ -148,6 +148,16 @@ class Payment extends Component{
 																	</div>
 											                    }
 																<div className="col-12 mb-3">
+                          											<div className="row">
+                           												<span className="col-6">Total : </span> 
+																		<p className="col-6 text-right invoiceOrderTotal"> 
+																			<i className={"fa fa-" + this.state.orderData.currency}></i>
+																			{(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2)} &nbsp;
+																			{this.state.currency}&nbsp;
+                            											</p>
+																	</div>
+																</div>
+																<div className="col-12 mb-3">
 																	<div className="row">
 																		<span className="col-6">Payment Method : </span>
 																		<p className="col-6 text-right invoiceOrderTotal"> 
@@ -159,16 +169,6 @@ class Payment extends Component{
 																					this.state.orderData.paymentDetails.paymentMethod
 																			}
 																		</p>
-																	</div>
-																</div>
-																<div className="col-12 mb-3">
-                          											<div className="row">
-                           												<span className="col-6">Total : </span> 
-																		<p className="col-6 text-right invoiceOrderTotal"> 
-																			<i className={"fa fa-" + this.state.orderData.currency}></i>
-																			{(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2)} &nbsp;
-																			{this.state.currency}&nbsp;
-                            											</p>
 																	</div>
 																</div>
 																<div className={"backtoMyOrdersDiv col-12 mb-3 mt-4 text-center "+Style.backtoMyOrdersDivWrapper}>

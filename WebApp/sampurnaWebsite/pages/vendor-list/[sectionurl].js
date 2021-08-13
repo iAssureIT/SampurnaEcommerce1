@@ -127,7 +127,7 @@ class VendorList extends Component {
                                         <div className={"col-8 offset-2 text-center mt-4 " +Style.noVendor}>
                                             <div className="alert alert-warning">
                                                 <i className="fa fa-warning"></i> &nbsp;
-                                                Vendors are not availabe for this section.
+                                                We are currently not working in your area. However, we will come there soon. So please visit this website again shortly.
                                             </div>
                                         </div>
                                     }
