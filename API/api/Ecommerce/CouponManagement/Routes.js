@@ -6,6 +6,8 @@ const CouponManagementController = require('./Controller');
 
 router.post('/post', 										checkAuth, CouponManagementController.insert_coupon);
 
+router.post('/post/inActivateExpiredCoupons', 		CouponManagementController.inActivateExpiredCoupons);
+
 router.get('/get/list', 									checkAuth, CouponManagementController.get_coupon);
 
 router.get('/get/list-with-limits/:startRange/:limitRange', checkAuth, CouponManagementController.get_discounts_with_limits);

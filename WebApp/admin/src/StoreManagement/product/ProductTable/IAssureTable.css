@@ -113,3 +113,7 @@
 .paddingLeft30{
   padding-left: 30px !important ;
 }
+.productImagesDiv{
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+}

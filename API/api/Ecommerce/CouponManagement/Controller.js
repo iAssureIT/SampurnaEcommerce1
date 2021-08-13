@@ -295,3 +295,48 @@ exports.get_discounts_with_limits = (req, res, next) => {
         });
     });
 };
+
+
+exports.inActivateExpiredCoupons = (req, res, next)=>{
+    Coupon.find({status : "Active"})
+    .exec()
+    .then(coupons=>{
+        main();
+        async function main(){
+            
+            for (var i = 0; i < coupons.length; i++) {
+                var endDate      = coupons[i].enddate;
+                var dayDiff      = moment(new Date(endDate), "DD-MM-YYYY").diff(moment(new Date(), "DD-MM-YYYY"), 'days');
+                console.log("dayDiff => ", dayDiff);                
+                
+                if (dayDiff < 1) {
+                  Coupon.updateOne(
+                      { _id : ObjectId(coupons[i]._id)},  
+                      {
+                          $set: { 'status' : "Inactive"}
+                      }
+                  )
+                  .exec()
+                  .then(data=>{
+                    console.log("data.nModified => ",data.nModified);
+                      // if(data.nModified == 1){
+                      //     res.status(200).json({ message: "sent" });
+                      // }else{
+                      //   res.status(200).json({ message: "Not sent" });
+                      // }
+                  })
+                  .catch(err =>{
+                    console.log("error => ",err);
+                    // res.status(500).json({ error: err });
+                  });
+                }
+            }
+            if(i >= coupons.length){
+                res.status(200).json({ message: "Coupons Updated" });
+            }
+        }    
+    })
+    .catch(err =>{
+        res.status(500).json({ error: err });
+    });
+};

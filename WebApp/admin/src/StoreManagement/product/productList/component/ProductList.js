@@ -27,8 +27,8 @@ class ProductList extends Component {
             tableHeading: {
                 "productName": 'Product Details',
                /* "section": 'Section',
-                "category": 'Category',
-                "vendor": 'Vendor',*/
+                "category": 'Category',*/
+                "vendor": 'Vendor',
                 "originalPrice": 'Original Price',
                 "discountPercent": 'Discount Percent',
                 "discountedPrice": 'Discounted Price',

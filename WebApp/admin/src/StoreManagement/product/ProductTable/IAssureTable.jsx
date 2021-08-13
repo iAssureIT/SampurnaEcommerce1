@@ -1,6 +1,6 @@
 import React, { Component }       	from 'react';
 import {Route, withRouter} 			from 'react-router-dom';
-import swal                     	from 'sweetalert';
+import swal                     	from 'sweetalert2';
 import axios 						from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
@@ -15,6 +15,14 @@ import _                      from 'underscore';
 import S3FileUpload           from 'react-s3';
 import Loader                 		from "react-loader";
 
+
+const swalWithBootstrapButtons = swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
 var sum = 0;
 class IAssureTable extends Component {
 	constructor(props){
@@ -36,7 +44,7 @@ class IAssureTable extends Component {
 		    "paginationArray" 			: [],
 		    "startRange" 				: 0,
 		    "limitRange" 				: 10,
-		    "activeClass" 				: 'activeCircle', 		    
+		    // "activeClass" 				: 'activeCircle', 		    
 		    "normalData" 				: true,
 		    "callPage" 					: true,
 		    "pageCount" 				: 0,
@@ -95,17 +103,37 @@ class IAssureTable extends Component {
 		var id = event.target.id;
 		this.props.history.push(tableObjects.editUrl+id);
 	}
-    delete(e){
-	  	e.preventDefault();
-	  	var tableObjects =  this.props.tableObjects;
-		let id = e.target.id;
-		axios.get('/api/products/get/one/'+id)
+
+	delete(event){
+		event.preventDefault();
+		var tableObjects = this.props.tableObjects;
+		console.log("event.target.id = ",event.target)
+		let id = event.target.id;
+
+		console.log("id = ",id)
+		swalWithBootstrapButtons.fire({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: 'Yes, delete it!',
+		  cancelButtonText: 'No, cancel!',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
+
+		  	axios.get('/api/products/get/one/'+id)
 			.then((response)=>{
 			//	console.log('response.data product==>>>',response.data);
 				if(response.data._id && response.data.status === "Publish"){
-					swal({
-						text : "This product is in Order and Publish!",
-					});
+					// swal({
+					// 	text : "This product is in Order and Publish!",
+					// });
+					swal.fire({
+					  icon: 'info',
+					  title: 'Oops...',
+					  text: 'This product is exist in some customer Orders!'
+					})
 				}else{
 					axios({
 						method: tableObjects.deleteMethod,
@@ -113,9 +141,14 @@ class IAssureTable extends Component {
 					}).then((response)=> {
 						// console.log(this.state.startRange, this.state.limitRange);
 						this.props.getData(this.state.startRange, this.state.limitRange);
-						swal({
-							text : response.data.message,
-						});
+						// swal({
+						// 	text : response.data.message,
+						// });
+						swalWithBootstrapButtons.fire(
+					      'Deleted!',
+					      'Product has been deleted.',
+					      'success'
+				    )
 					}).catch(function (error) {
 						console.log('error', error);
 					});	
@@ -123,9 +156,58 @@ class IAssureTable extends Component {
 			})
 			.catch((error)=>{
 			  console.log('error', error);
-			})
+			  swal.fire({
+				  icon: 'error',
+				  title: 'Oops...',
+				  text: 'Something went wrong!'
+				})
+			})		  	
+		    
+		  } else if (
+		    /* Read more about handling dismissals below */
+		    result.dismiss === swal.DismissReason.cancel
+		  ) {
+		    swalWithBootstrapButtons.fire(
+		      'Cancelled',
+		      'Product is safe :)',
+		      'error'
+		    )
+		  }
+		})
 		
-    } 
+	}
+
+  //   delete(e){
+	 //  	e.preventDefault();
+	 //  	var tableObjects =  this.props.tableObjects;
+		// let id = e.target.id;
+		// axios.get('/api/products/get/one/'+id)
+		// 	.then((response)=>{
+		// 	//	console.log('response.data product==>>>',response.data);
+		// 		if(response.data._id && response.data.status === "Publish"){
+		// 			swal({
+		// 				text : "This product is in Order and Publish!",
+		// 			});
+		// 		}else{
+		// 			axios({
+		// 				method: tableObjects.deleteMethod,
+		// 				url: tableObjects.apiLink+'/delete/'+id
+		// 			}).then((response)=> {
+		// 				// console.log(this.state.startRange, this.state.limitRange);
+		// 				this.props.getData(this.state.startRange, this.state.limitRange);
+		// 				swal({
+		// 					text : response.data.message,
+		// 				});
+		// 			}).catch(function (error) {
+		// 				console.log('error', error);
+		// 			});	
+		// 		}
+		// 	})
+		// 	.catch((error)=>{
+		// 	  console.log('error', error);
+		// 	})
+		
+  //   } 
     sortNumber(key, tableData){
     	var nameA = '';
     	var nameB = '';
@@ -846,7 +928,8 @@ class IAssureTable extends Component {
 														Object.entries(value).map( 
 															([key, value1], i)=> {
 																{/*console.log("value1",value1, " = ",$.type(value1));*/}
-																if($.type(value1) === 'string' && value1 !== "<span class='textAlignRight'>0%</span>"){
+																{/*if($.type(value1) === 'string' && value1.contains("%") !== "<span class='textAlignRight'>0%</span>"){*/}
+																if($.type(value1) === 'string' && value1.includes("%")){
 																	var textAlign = 'textAlignRight';
 																}else if($.type(value1) === 'string' ){
 																	var regex = new RegExp(/(<([^>]+)>)/ig);
@@ -906,7 +989,8 @@ class IAssureTable extends Component {
 															<i className="fa fa-pencil" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 
 															<i className={"fa fa-image "} id={value._id} name={value.productNameBasic} nameRlang={value.productNameRlang} data-toggle="modal" title="Upload Product Image" data-target={"#productImageModal"} onClick={this.showImageModal.bind(this)}></i>&nbsp; &nbsp;
 														
-															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>}
+															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id} title="Delete" onClick={this.delete.bind(this)}></i>}
+															{/*{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>}*/}
 															</span>
 														<div className="modal fade" id={"showDeleteModal-"+(value._id)} role="dialog">
 	                                                        <div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -991,7 +1075,7 @@ class IAssureTable extends Component {
 	                </div>                        
 	            </div>
 
-	            <div className="modal" id="productImageModal" role="dialog">
+	            <div className="modal textAlignCenter" id="productImageModal" role="dialog">
                   	<div className="modal-dialog modal-lg">
                     	<div className="modal-content col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
                       		<div className="modal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -1001,52 +1085,56 @@ class IAssureTable extends Component {
                       	<div className="modal-body col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
                       		<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 input-group">
-		                        <br/>	<label className="col-lg-8 col-md-6 col-xs-12 col-sm-12 NOpadding-left pageSubHeader">{this.state.productName}</label>
-								{this.state.productNameRlang ? <label className="col-lg-4 col-md-6 col-xs-12 col-sm-12 NOpadding-left pageSubHeader">Product Name in Reg Language : <span className="RegionalFont">{this.state.productNameRlang}</span></label> : null}
+		                        <br/>	<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left pageSubHeader textAlignCenter">Select Product Images to Upload{this.state.productName}</label>
+										{/*<label className="col-lg-4 col-md-6 col-xs-12 col-sm-12 NOpadding-left pageSubHeader">Product Name : <span className="RegionalFont">{this.state.productNameRlang}</span></label> : null}*/}
 		                        </div>
-		                        <div className="col-lg-2 col-md-2 col-sm-4 col-xs-4 input-group height100" id="hideInput">
-		                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 brdlogos" id="LogoImageUpOne">
-	                                    <img src= "/images/uploadimg.png" className="img-responsive imgStyle" />
-	                                      <input type="file" className="form-control commonFilesUpld" accept=".jpg,.jpeg,.png" multiple onChange={this.uploadProductImage.bind(this)}  name="upload-logo"/>
+		                        <div className="col-lg-offset-5 col-md-offset-4 col-sm-offset-3 col-lg-2 col-md-4 col-sm-6 col-xs-12 input-group" id="hideInput">
+		                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 brdlogos height100" id="LogoImageUpOne">
+	                                    <img src= "/images/uploadimg.png" className="img-responsive imgStyle" style={{height : "100%", width : "100%"}} />
+	                                     <input type="file" className="form-control commonFilesUpld" accept=".jpg,.jpeg,.png" multiple onChange={this.uploadProductImage.bind(this)}  name="upload-logo"/>
 	                                </div>            
 		                            
 		                        </div>
 	                        	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding ">
-	                            	<div className="row productImgWrapper">
-	                            	{this.state.productImageArray && this.state.productImageArray.length > 0?
-		                                this.state.productImageArray.map((imageData, index)=>{
-		                                    return(
-		                                        <div className="col-lg-2 productImgCol" key={index}>
-		                                            <div className="prodModalImage">
-		                                                <div className="prodImageInner">
-		                                                    <span className="prodImageCross" title="Delete" data-imageUrl={imageData} id={imageData} onClick={this.deleteProductImage.bind(this)}>x</span>
-		                                                </div>
-		                                                <img aria-hidden="true" data-toggle="modal" data-target={"#openImageModal"+index} title="view Image" src={imageData} alt="Product Image" className="img-responsive" />
-		                                            </div>
+	                            	{this.state.productImageArray && this.state.productImageArray.length > 0 
+	                            		?
+	                            			<div className="row productImgWrapper productImagesDiv" >
+		                                		{this.state.productImageArray.map((imageData, index)=>{
+			                                    return(
+			                                        <div className="col-lg-2 col-md-3 col-sm-4 col-xs-12 productImgCol" key={index}>
+			                                            <div className="prodModalImage" style={{"height" : "100px"}}>
+			                                                <div className="prodImageInner">
+			                                                    <span className="prodImageCross" title="Delete" data-imageUrl={imageData} id={imageData} onClick={this.deleteProductImage.bind(this)}>x</span>
+			                                                </div>
+			                                                <img aria-hidden="true" data-toggle="modal" src={imageData} alt="Product Image" className="img-responsive" style={{height : "100%", width : "100%"}} />
+			                                                {/*<img aria-hidden="true" data-toggle="modal" data-target={"#openImageModal"+index} title="view Image" src={imageData} alt="Product Image" className="img-responsive" style={{height : "100%", width : "100%"}} />*/}
+			                                            </div>
 
-		                                            <div className="modal fade" id={"openImageModal"+index} role="dialog">
-		                                                <div className="modal-dialog">
-		                                                    <div className="modal-content">
-		                                                        <div className="modal-header">
-		                                                            <a href="#" data-dismiss="modal" aria-hidden="true" className="close pull-right"><i className="fa fa-times-circle-o fa-lg venClosePadd" aria-hidden="true"></i></a>
-		                                                            </div>
-		                                                        <div className="modal-body">
-		                                                            <div className="row">
-		                                                                <div className="col-lg-12 text-left productImageModallMarginBtm">
-		                                                                    <img src={imageData} alt="Product Image" className="img-responsive" />
-		                                                                </div>
-		                                                            </div>
-		                                                        </div>
-		                                                    </div>
-		                                                </div>
-		                                            </div>
-		                                        </div>
-		                                    );
-		                                })
+			                                            <div className="modal fade" id={"openImageModal"+index} role="dialog">
+			                                                <div className="modal-dialog">
+			                                                    <div className="modal-content">
+			                                                        <div className="modal-header">
+			                                                            <a href="#" data-dismiss="modal" aria-hidden="true" className="close pull-right"><i className="fa fa-times-circle-o fa-lg venClosePadd" aria-hidden="true"></i></a>
+			                                                            </div>
+			                                                        <div className="modal-body">
+			                                                            <div className="row">
+			                                                                <div className="col-lg-12 text-left productImageModallMarginBtm">
+			                                                                    <img src={imageData} alt="Product Image" className="img-responsive" />
+			                                                                </div>
+			                                                            </div>
+			                                                        </div>
+			                                                    </div>
+			                                                </div>
+			                                            </div>
+			                                        </div>
+			                                    );
+		                                		})}
+                            				</div>
 		                                :
-		                                null
+		                                	<div className="row productImgWrapper productImagesDiv height100 textAlignCenter" style={{paddingTop: "35px"}} >
+		                                	 	No Product Images Available
+		                                	</div>
 	                            	}
-                            	</div>
                         	</div>
                         </div>
                       </div>

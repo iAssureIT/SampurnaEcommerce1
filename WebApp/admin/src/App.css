@@ -833,3 +833,7 @@ text-transform: capitalize;
 .marginBottom30{
   margin-bottom: 30px;
 }
+.commnBackgroundColor{
+  background-color: #337ab7;
+  color: #fff;
+}
