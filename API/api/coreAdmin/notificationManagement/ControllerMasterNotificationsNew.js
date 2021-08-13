@@ -387,10 +387,11 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
 
                     if(smsDetails && smsDetails !== undefined && smsDetails !== null){
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
+                        console.log("textMsg 1 2 => ",textMsg)                        
                         textMsg             = smsDetails.content.replace(/&nbsp;/g, '');
-                        // console.log("textMsg 1 => ",textMsg)
-                        const sms           = await sendSMS(toMobile, textMsg);
-                        // var sms = true
+                        console.log("textMsg 1 => ",textMsg)
+                        // const sms           = await sendSMS(toMobile, textMsg);
+                        var sms = true
                         resolve(sms);   
                     }else{
                         resolve(false)
@@ -405,11 +406,12 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
                     if(smsDetails && smsDetails !== undefined && smsDetails !== null){    
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
+                        console.log("textMsg 1 2 => ",textMsg)
                         textMsg             = smsDetails.content.replace(/&nbsp;/g, '');
-                        // console.log("textMsg 2 => ",textMsg)
+                        console.log("textMsg 2 => ",textMsg)
                         // console.log("toMobile",toMobile);
-                        const sms           = await sendSMS(toMobile, textMsg);
-                        // var sms=true
+                        // const sms           = await sendSMS(toMobile, textMsg);
+                        var sms=true
                         console.log("SMS else if => ",sms)  
                         resolve(sms);   
                         // resolve(true); 
