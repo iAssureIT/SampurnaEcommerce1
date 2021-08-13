@@ -405,6 +405,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
                     if(smsDetails && smsDetails !== undefined && smsDetails !== null){    
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
+                        textMsg             = smsDetails.content.replace(/&nbsp;/g, '');
                         console.log("textMsg 2 => ",textMsg)
                         console.log("toMobile",toMobile);
                         // const sms           = await sendSMS(toMobile, textMsg);
