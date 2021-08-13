@@ -351,11 +351,12 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
     return new Promise(function (resolve, reject) {
         sub();
         async function sub(){
-            console.log("mode,userData,role,templateName,company,variables,attachment",mode,userData,role,templateName,company,variables,attachment);
+            console.log("mode,userData,role,templateName,company,variables,attachment => ",mode,userData,role,templateName,company,variables,attachment);
             if(mode === 'Email'){
                 //==============  Send Email ================
                 var toEmail         = userData.email;
                 const emailDetails  = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
+                console.log("emailDetails => ",emailDetails)
                 if(!emailDetails){
                     const sendMail      = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
                     console.log("sendMail => ", sendMail)
@@ -752,7 +753,7 @@ function sendEmail(toEmail,subject,content,attachment){
 
 /**=========== get Template Details ===========*/
 function getTemplateDetailsEmail(company,templateName,role,variables) {
-    // console.log(company,templateName, variables)
+    console.log("company,templateName, variables => ",company,templateName, variables)
     
     return new Promise(function (resolve, reject) {
         Masternotifications.findOne({ "event": templateName, "templateType": 'Email', "company":company, "role":role, status:'active' })
