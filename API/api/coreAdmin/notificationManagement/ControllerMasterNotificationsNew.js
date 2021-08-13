@@ -357,7 +357,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 var toEmail         = userData.email;
                 const emailDetails  = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
                 console.log("emailDetails => ",emailDetails)
-                if(!emailDetails){
+                if(emailDetails && emailDetails !== undefined && emailDetails !== null){
                     const sendMail      = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
                     console.log("sendMail => ", sendMail)
                     resolve(sendMail);
@@ -369,7 +369,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 //==============  Send InApp Notification ================
                 var toUserId                = userData.id;
                 const notificationDetails   = await getTemplateDetailsInApp(company,templateName,userData.role,variables); 
-                if(!notificationDetails){
+                if(notificationDetails && notificationDetails ! undefined && notificationDetails !== null){
                     const sendNotification      = await sendInAppNotification(toUserId,userData.email,templateName,notificationDetails)
                     resolve(sendNotification);
                 }else{
@@ -384,7 +384,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     var toMobile        = toMobileNumber.replace(/[|&;$%@"<>()-+-,]/g, "");
                     console.log("if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
-                    if(!smsDetails){
+                    if(smsDetails && smsDetails !== undefined && smsDetails !== null){
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
                         const sms           = await sendSMS(toMobile, textMsg);
                         resolve(sms);   
@@ -399,7 +399,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     var toMobile        = isdCode + userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
                     console.log("else if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
-                    if(!smsDetails){    
+                    if(smsDetails && smsDetails !== undefined && smsDetails !== null){    
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
                         console.log("toMobile",toMobile);
                         const sms           = await sendSMS(toMobile, textMsg);
