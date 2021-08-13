@@ -100,8 +100,8 @@ exports.user_signup_user = (req, res, next) => {
 												}
 												user.save()
 													.then(async(result) => {
-														console.log("result => ",result)
-														console.log("condition => ",user.roles.includes("admin"))
+														// console.log("result => ",result)
+														// console.log("condition => ",user.roles.includes("admin"))
 														if(!user.roles.includes("admin")){
 															//send Notification, email, sms to customer
 															var userNotificationValues = {
@@ -119,7 +119,7 @@ exports.user_signup_user = (req, res, next) => {
 																					"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
 																}
 															}
-															console.log("userNotificationValues email => ",userNotificationValues);
+															// console.log("userNotificationValues email => ",userNotificationValues);
 															var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
 															console.log("send_notification_to_user => ",send_notification_to_user)
 															//send Notification, email, sms to admin
@@ -137,7 +137,7 @@ exports.user_signup_user = (req, res, next) => {
 																					"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
 																}
 															}
-															console.log("adminNotificationValues email => ",adminNotificationValues);
+															// console.log("adminNotificationValues email => ",adminNotificationValues);
 															var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
 															console.log("send_notification_to_admin => ",send_notification_to_admin)
 														}
@@ -255,7 +255,7 @@ exports.user_signup_user = (req, res, next) => {
 																					"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
 																}
 															}
-															console.log("userNotificationValues => ",userNotificationValues);
+															// console.log("userNotificationValues => ",userNotificationValues);
 															var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
 															// console.log("send_notification_to_user => ",send_notification_to_user)
 															
@@ -274,7 +274,7 @@ exports.user_signup_user = (req, res, next) => {
 																					"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
 																}
 															}
-															console.log("adminNotificationValues => ",adminNotificationValues);
+															// console.log("adminNotificationValues => ",adminNotificationValues);
 															var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
 															// console.log("send_notification_to_admin => ",send_notification_to_admin)
 														}
@@ -453,7 +453,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 																							"OTP" 				: result.otpEmail
 																		}
 																	}
-																	console.log("userNotificationValues 3 => ",userNotificationValues);
+																	// console.log("userNotificationValues 3 => ",userNotificationValues);
 																	var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
 																	// console.log("send_notification_to_user => ",send_notification_to_user)
 																	
@@ -473,7 +473,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 																							"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
 																		}
 																	}
-																	console.log("adminNotificationValues 3 => ",adminNotificationValues);
+																	// console.log("adminNotificationValues 3 => ",adminNotificationValues);
 																	var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
 																	
 																	res.status(200).json({ message: "USER_CREATED", ID: result._id,result })
@@ -588,7 +588,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 														.then(async(result) => {
 															if(result) {
 																//send Notification, email, sms to customer	
-																console.log("userRole2  => ",userRole);																
+																// console.log("userRole2  => ",userRole);																
 																var userNotificationValues = {
 																	"event"			: "SignUp",
 																	"toUser_id"		: result._id,
@@ -605,7 +605,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 																						"OTP" 				: result.profile.otpMobile
 																	}
 																}
-															console.log("userNotificationValues 4 => ",userNotificationValues);
+															// console.log("userNotificationValues 4 => ",userNotificationValues);
 																var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
 																// console.log("send_notification_to_user => ",send_notification_to_user)
 																
@@ -625,7 +625,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 																						"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
 																	}
 																}
-															console.log("adminNotificationValues 4 => ",adminNotificationValues);
+															// console.log("adminNotificationValues 4 => ",adminNotificationValues);
 																var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
 
 																res.status(200).json({ message: "USER_CREATED", ID: result._id, result:result })
@@ -1745,7 +1745,7 @@ exports.set_send_mobileotp_usingID = (req, res, next) => {
 							OTP 					: otpMobile
 						}
 					}
-					console.log("userNotificationValues 5 => ",userNotificationValues);
+					// console.log("userNotificationValues 5 => ",userNotificationValues);
 					var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
 						
 					res.status(201).json({ 
@@ -2087,7 +2087,7 @@ exports.user_login_mob_email = (req, res, next) => {
 								OTP 					: mobileOTP
 									}
 								}
-															console.log("userNotificationValues 6 => ",userNotificationValues);
+															// console.log("userNotificationValues 6 => ",userNotificationValues);
 
 								var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
 								res.status(200).json({
@@ -2552,7 +2552,7 @@ exports.set_send_otp = (req, res, next) => {
 								OTP 					: otpMobile
 							}
 						}
-						console.log("notification formvalues => ",userNotificationValues)
+						// console.log("notification formvalues => ",userNotificationValues)
 						var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
 						res.status(200).json({ 
 							message 	: "OTP sent on registered mobile number", 

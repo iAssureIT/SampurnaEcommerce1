@@ -250,7 +250,7 @@ exports.send_notifications = (req, res, next) => {
         async function main(){
             // console.log('========================================================')
             var returnData = data
-            console.log('returnData=>',returnData)
+            // console.log('returnData=>',returnData)
             if(returnData && returnData.length > 0){
                 for(var i=0 ; i< returnData.length ; i++){
                     // console.log("Entering for loop for returnData at : ",i)
@@ -283,9 +283,9 @@ exports.send_notifications = (req, res, next) => {
                         }
                         
                     }else if(role === req.body.toUserRole && req.body.toUser_id){
-                        console.log('admin toUserrole==>',role)
+                        // console.log('admin toUserrole==>',role)
                         var userData    = await getSelfUserData(req.body.toUser_id);
-                        console.log("userData->",userData)
+                        // console.log("userData->",userData)
                         var userRole    = userData.role
                         // console.log("userRole->",userRole)
                         var checkRole   = userRole.includes(role);
@@ -313,15 +313,15 @@ exports.send_notifications = (req, res, next) => {
                     }else if(role === req.body.otherAdminRole && req.body.company_id){
                         //  console.log('corporate==>',mode,templateName,company)
                         var userData = await getOtherAdminData(req.body.otherAdminRole,req.body.company_id);
-                        console.log("userData => ",userData)
+                        // console.log("userData => ",userData)
                         if(userData && userData.length > 0){
                            for(var j=0 ; j<userData.length ; j++){
                                 var userRole    = userData[j].role
                                 var checkRole   = userRole.includes(role);
-                                console.log("checkRole => ",checkRole)
+                                // console.log("checkRole => ",checkRole)
                                 if(checkRole){
                                     var c = await callTemplates(mode,userData[j],role,templateName,company,req.body.variables,req.body.attachment)
-                                    console.log("c  => ",c)
+                                    // console.log("c  => ",c)
                                 }
                             }//j 
                             // if(j >= userData.length){
@@ -356,10 +356,10 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 //==============  Send Email ================
                 var toEmail         = userData.email;
                 const emailDetails  = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
-                console.log("emailDetails => ",emailDetails)
-                if(!emailDetails && emailDetails !== undefined && emailDetails !== null){
+                // console.log("emailDetails => ",emailDetails)
+                if(emailDetails && emailDetails !== undefined && emailDetails !== null){
                     const sendMail      = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
-                    console.log("sendMail => ", sendMail)
+                    // console.log("sendMail => ", sendMail)
                     resolve(sendMail);
                 }else{
                     resolve(false);
@@ -369,7 +369,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 //==============  Send InApp Notification ================
                 var toUserId                = userData.id;
                 const notificationDetails   = await getTemplateDetailsInApp(company,templateName,userData.role,variables); 
-                if(!notificationDetails && notificationDetails !== undefined && notificationDetails !== null){
+                if(notificationDetails && notificationDetails !== undefined && notificationDetails !== null){
                     const sendNotification      = await sendInAppNotification(toUserId,userData.email,templateName,notificationDetails)
                     resolve(sendNotification);
                 }else{
@@ -378,19 +378,19 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
             }else if(mode === 'SMS'){
                 //==============  Send SMS ================
                 // console.log("Inside SMS",company,templateName,userData,role,variables);
-                console.log("toMobileNumber => ",toMobileNumber);
+                // console.log("toMobileNumber => ",toMobileNumber);
                 if(toMobileNumber && toMobileNumber !== undefined && toMobileNumber !== null){
                     // var toMobile        = userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
                     var toMobile        = toMobileNumber.replace(/[|&;$%@"<>()-+-,]/g, "");
-                    console.log("if toMobile => ",toMobile);
+                    // console.log("if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
 
                     if(smsDetails && smsDetails !== undefined && smsDetails !== null){
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
                         textMsg             = smsDetails.content.replace(/&nbsp;/g, '');
-                        console.log("textMsg 1 => ",textMsg)
-                        // const sms           = await sendSMS(toMobile, textMsg);
-                        var sms = true
+                        // console.log("textMsg 1 => ",textMsg)
+                        const sms           = await sendSMS(toMobile, textMsg);
+                        // var sms = true
                         resolve(sms);   
                     }else{
                         resolve(false)
@@ -399,17 +399,17 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     // resolve(true);            
                 }else if(userData.mobile){
                     var isdCode         = userData.isdCode ? userData.isdCode : "";
-                    console.log("isdCode => ",isdCode)
+                    // console.log("isdCode => ",isdCode)
                     var toMobile        = isdCode + userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
-                    console.log("else if toMobile => ",toMobile);
+                    // console.log("else if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
                     if(smsDetails && smsDetails !== undefined && smsDetails !== null){    
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
                         textMsg             = smsDetails.content.replace(/&nbsp;/g, '');
-                        console.log("textMsg 2 => ",textMsg)
-                        console.log("toMobile",toMobile);
-                        // const sms           = await sendSMS(toMobile, textMsg);
-                        var sms=true
+                        // console.log("textMsg 2 => ",textMsg)
+                        // console.log("toMobile",toMobile);
+                        const sms           = await sendSMS(toMobile, textMsg);
+                        // var sms=true
                         console.log("SMS else if => ",sms)  
                         resolve(sms);   
                         // resolve(true); 
@@ -760,7 +760,7 @@ function sendEmail(toEmail,subject,content,attachment){
 
 /**=========== get Template Details ===========*/
 function getTemplateDetailsEmail(company,templateName,role,variables) {
-    console.log("company,templateName, variables => ",company,templateName, variables)
+    // console.log("company,templateName, variables => ",company,templateName, variables)
     
     return new Promise(function (resolve, reject) {
         Masternotifications.findOne({ "event": templateName, "templateType": 'Email', "company":company, "role":role, status:'active' })
