@@ -101,21 +101,6 @@ class ProductCarousel extends Component {
     };
   }
 
-  // componentDidUpdate(){
-  //   if(this.state.categoryData.length < 1){
-	// 		$('.filterWrapper').hide();
-	// 		$('.ProductViewWrapper').removeClass('col-lg-9');
-	// 		$('.ProductViewWrapper').removeClass('col-md-9');			
-	// 		$('.ProductViewWrapper').addClass('col-lg-12');
-	// 		$('.ProductViewWrapper').addClass('col-md-12');
-	// 	}else{
-  //     $('.filterWrapper').show();
-	// 		$('.ProductViewWrapper').addClass('col-lg-9');
-	// 		$('.ProductViewWrapper').addClass('col-md-9');
-	// 		$('.ProductViewWrapper').removeClass('col-lg-12');
-	// 		$('.ProductViewWrapper').removeClass('col-md-12');	
-	// 	}
-  // }
   async componentDidMount(){
     var formValues = {};
     var subcategoryArray = false;
@@ -130,7 +115,6 @@ class ProductCarousel extends Component {
     }
 
     if(sampurnaWebsiteDetails){
-        // console.log("sampurnaWebsiteDetails=>",sampurnaWebsiteDetails);
       if(sampurnaWebsiteDetails.deliveryLocation){
         this.setState({ 
             "userLatitude"  : sampurnaWebsiteDetails.deliveryLocation.latitude,
@@ -148,7 +132,6 @@ class ProductCarousel extends Component {
     }
 
     var url = window.location.href.split('/');
-    // console.log("url===",url);
     if(url[3]===undefined){
       var addToCart = true
       this.setState({
@@ -183,19 +166,14 @@ class ProductCarousel extends Component {
           console.log("error in get vendor=",error);
         })
       }
-          // console.log("1.sectionUrl===",this.state.sectionUrl);
-          // console.log("1.subCategoryUrl===",this.state.subCategoryUrl);
-          // console.log("2.categoryUrl===",this.state.categoryUrl);
       })
     }
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
     if(userDetails){
-      // console.log("userDetails===",userDetails);
       if(userDetails.user_id){     
       this.setState({
         user_ID : userDetails.user_id
       },()=>{
-          // console.log("user_ID=>",this.state.user_ID);
           this.props.getWishlistData();
       });
     } 
@@ -595,7 +573,8 @@ submitCart(event) {
                     <Loader type="carouselloader" productproductWrapperLoaderNo = {4}/>                    
                   :
                   <div className={"col-12 " +Style.rowPadding}>               
-                  { this.state.blockSettings.showCarousel === true?
+                  { this.state.blockSettings.showCarousel === true
+                    ?
                   <Carousel  
                     className={Style.customnNavButton +" " +Style.carouselNewWrapper}
                     swipeable={true}

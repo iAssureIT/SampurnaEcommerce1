@@ -1,14 +1,9 @@
-import React, { Component }   from 'react';
-import $                      from 'jquery';
-import axios                  from 'axios';
+import React,  { useState }   from 'react';
 import Image                  from 'next/image';
-import Link                   from 'next/link';
+import {useRouter}            from 'next/router';
 import Carousel               from 'react-multi-carousel';
 import Style                  from './categoryBlock.module.css';
 import Message                from '../../StaticBlocks/Message/Message.js';
-import { connect }            from 'react-redux';
-import store                  from '../../../../../redux/store.js'; 
-import {getCartData,getWishlistData}  from '../../../../../redux/actions/index.js'; 
 
 const responsive = {
   desktop: {
@@ -28,106 +23,75 @@ const responsive = {
   }
 };
 
-class CategoryBlock extends Component{
-    constructor(props) {
-        super(props);
-        this.state = { 
-            categoryData : [],
-            vendor_ID    : ''
-            
-        }
-    }
+const CategoryBlock = (props)=>{
 
-    componentDidMount(){
-      var url = window.location.href.split('/');
-      // console.log("url[7])===",url);
-      if(url[7]){
-        this.setState({
-          sectedCategory  : url[7],
-        })
-      }
+  const router = useRouter();
+  const [categoryurl, setCategoryurl] = useState(router.query.categoryurl);
 
-      // if(!url[7]){
-      //   console.log("url[7]==",url[7]);
-      //   $('.category_0').addClass('activeCategory')
-      // }
-
-    }
-
-
-    render(){
-      // console.log("this.props.categoryUrl-",this.props.categoryUrl);
-      return (
-        <div className={"container-fluid NoPadding categoryCarousel " +Style.categoryCarousel}>
-          <div className="col-12">
-            <div className="col-12 NoPadding">
-              <div className="col-12 NoPadding">
-                <Carousel 
+  return (
+    <div className={"container-fluid NoPadding categoryCarousel " +Style.categoryCarousel}>
+      <div className="col-12">
+        <div className="col-12 NoPadding">
+          <div className="col-12 NoPadding">
+            <Carousel 
                 className=""
-                    swipeable={true}
-                    draggable={true}
-                    showDots={false}
-                    responsive={responsive}
-                    ssr={true} // means to render carousel on server-side.
-                    infinite={true}
-                    autoPlay={false}
-                    autoPlaySpeed={3000}
-                    keyBoardControl={true}
-                    customTransition="all .20"
-                    transitionDuration={500}                      
-                    removeArrowOnDeviceType={["mobile"]}
-                    deviceType={this.props.deviceType}  
-                    containerClass="carousel-container">
-                      {this.props.categoryData && this.props.categoryData.map((categorydata, index) => {
-                        var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+categorydata.categoryUrl;
-                        // {index === 0 &&
-                        //   $('.category_'+index).toggleClass('activeCategory')
-                        // }
-                        //                        {(this.state.sectedCategory && this.state.sectedCategory === categorydata.categoryUrl) ?
-                        //    $('.category_'+index).toggleClass('activeCategory')
-                        //  : 
-                        //    $('.category_0').toggleClass('activeCategory')
-                        //}
-                        
-                        console.log("this.state.sectedCategory = ",this.state.sectedCategory);
-                        console.log("categorydata.categoryUrl = ",categorydata.categoryUrl);
-                        
-                        if(this.state.sectedCategory === categorydata.categoryUrl){
-                          var activeClass = Style.activeCatg;
-                        }else{
-                          var activeClass = "";                          
-                        }
-                        
-
-                        return (
-                        <div className={"col-12 productsCategoryBlock "}  key={index}> 
-                            {/* <Link href={url} className ={"col-12 "}>  */}
-                              <a href={url} className ={"col-12 " +Style.categoryBlock}>
-                                <div className={activeClass + " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " }>
-                                    <Image    
-                                      id="prodImg"                                       
-                                      src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.png"}
-                                      alt="Category" 
-                                      className={"img-responsive " +Style.NoAvailableImg +" " +Style.categoryBlockImg }
-                                      height={90}
-                                      width={90} 
-                                      layout={'intrinsic'}
-                                    />
-                                  <div className={"col-12 text-center mt-2 " +Style.categoryName} title={categorydata.category}>{categorydata.category}</div>
-                                </div>
-                              </a>
-                            {/* </Link> */}
-                        </div>                            
-                        );
-                      })
-                    }
-                </Carousel>
-              </div>
-            </div>
+                swipeable={true}
+                draggable={true}
+                showDots={false}
+                responsive={responsive}
+                ssr={true} // means to render carousel on server-side.
+                infinite={true}
+                autoPlay={false}
+                autoPlaySpeed={3000}
+                keyBoardControl={true}
+                customTransition="all .20"
+                transitionDuration={500}                      
+                removeArrowOnDeviceType={["mobile"]}
+                deviceType={props.deviceType}
+                containerClass="carousel-container">
+                  {props.categoryData && props.categoryData.map((categorydata, index) => {
+                    var activeClass = "";
+                    if(categoryurl){
+                      if(categoryurl === categorydata.categoryUrl){
+                        var activeClass = Style.activeCatg;
+                      }else{
+                        var activeClass = "";                          
+                      }                          
+                    }else{
+                      if(index === 0){
+                        var activeClass = Style.activeCatg;
+                      }else{
+                        var activeClass = "";
+                      }
+                    }                        
+                    var url = "/products/"+props.vendor_ID+"/"+props.vendorlocation_ID +"/"+props.sectionUrl+"/"+categorydata.categoryUrl;
+                    
+                    return (
+                    <div className={"col-12 productsCategoryBlock "}  key={index}> 
+                          <a href={url} className ={"col-12 " +Style.categoryBlock}>
+                            <div className={activeClass + " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " }>
+                                <Image    
+                                  id="prodImg"                                       
+                                  src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.png"}
+                                  alt="Category" 
+                                  className={"img-responsive " +Style.NoAvailableImg +" " +Style.categoryBlockImg }
+                                  height={90}
+                                  width={90} 
+                                  layout={'intrinsic'}
+                                />
+                              <div className={"col-12 text-center mt-2 " +Style.categoryName} title={categorydata.category}>{categorydata.category}</div>
+                            </div>
+                          </a>
+                    </div>                            
+                    );
+                  })
+                }
+            </Carousel>
           </div>
-         </div>
-     ) 
-    }
+        </div>
+      </div>
+     </div>
+  ) 
 }
 
 export default CategoryBlock;

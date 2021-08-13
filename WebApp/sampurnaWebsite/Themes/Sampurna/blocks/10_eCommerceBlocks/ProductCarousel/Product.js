@@ -273,7 +273,6 @@ class Product extends Component{
     }
   
     render(){
-      // console.log("products props===",this.props);
 
       var LGCol = 12/this.props.blockSettings.noOfProductPerLGRow;
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;
@@ -284,6 +283,8 @@ class Product extends Component{
           <Message messageData={this.state.messageData} /> 
            { Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
+                  
+                console.log("data in map  ===> ",data);
              
                 var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
                 var wishClass = 'r';
@@ -296,28 +297,9 @@ class Product extends Component{
                   tooltipMsg = 'Add To Wishlist';
                 }   
                 var categoryUrl = (data.category?data.category:"").replace(/\s+/g, '-').toLowerCase();;                    
+                var subCategoryUrl = (data.subCategory?data.subCategory:"-").replace(/\s+/g, '-').toLowerCase();;                    
               return (
-                // <div className={" col-sm-"+LGCol+"  col-"+XSCol +" " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
                 <div className={" col-sm-6 col-12  col-lg-3 col-xl-3  " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
-                  {/* <div className={" col-12 " +Style.mobileViewPadding }  key={index}> 
-                    {data
-                    ?
-                      < SingleProduct 
-                        data = {data} 
-                        productSettings    = {this.props.productSettings}
-                        blockSettings      = {this.props.blockSettings}
-                        userLatitude       = {this.props.userLatitude}
-                        userLongitude      = {this.props.userLongitude}
-                        user_ID            = {this.state.user_ID}
-                        vendor_ID          = {this.props.vendor_ID}
-                        vendorlocation_ID  = {this.props.vendorlocation_ID}
-                      />
-                    :
-                      null
-                    }
-                  </div>   */}
-
-
                   <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                     <div className={"col-12 NoPadding"}>
                       <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
@@ -332,7 +314,7 @@ class Product extends Component{
                           {data.discountPercent ? <div className={"col-3 pt-1 "  +Style.discounttag}>{Math.floor(data.discountPercent)}%<br/><span className={Style.offTxt}>off</span> </div> : null}
                         </div>
                         <div className={Style.ImgWrapper}>
-                        <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+data._id}>
+                        <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+categoryUrl+"/"+subCategoryUrl+"/"+data._id}>
                         <a className={Style.product_item_photo } tabIndex="-1" >
                           <img 
                             src={data.productSmallImage && data.productSmallImage.length>0 ? data.productSmallImage[0] : "/images/eCommerce/notavailable.png"}

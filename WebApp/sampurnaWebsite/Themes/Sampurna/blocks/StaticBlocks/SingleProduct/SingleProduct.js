@@ -226,7 +226,7 @@ class SingleProduct extends Component{
     }
 
     render(){
-      console.log("single productView props=",this.props.data);
+      // console.log("single productView props=",this.props.data);
       { var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.props.data._id) : [];                              
         var wishClass = 'r';
         var tooltipMsg = '';

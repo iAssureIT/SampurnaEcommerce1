@@ -98,8 +98,8 @@ export default function App({pageData}){
   	)
 }
 
-// export async function getStaticProps(store,context){
-export async function getServerSideProps(store,context){
+export async function getStaticProps(store,context){
+// export async function getServerSideProps(store,context){
 	const urlParam = 'homepage';
     try{
         const res = await axios.get("api/pages/get/page_block/"+urlParam);

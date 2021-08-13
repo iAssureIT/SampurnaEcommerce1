@@ -6,23 +6,30 @@ import { withRouter }       from 'next/router'
 import dynamic              from 'next/dynamic';
 import Link                 from'next/link';
 import $, { post }          from 'jquery';
-import CategoryBlock        from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/CategoryBlock.js';
-import Message              from '../../../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
+import CategoryBlock        from '../../../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/CategoryBlock.js';
+import Message              from '../../../../../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
 import ReactImageZoom       from 'react-image-zoom';
 import Carousel             from 'react-multi-carousel';
-import {ntc}                from '../../../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
+import {ntc}                from '../../../../../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 import ProductZoom          from './ProductZoom.js';
 import ProductReviewList    from './productReviewList.js';
-import ProductCarouselView  from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarouselView.js';
-import CategoryFilters      from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/CategoryFilters.js';
-import {getCartData,getWishlistData, updateCartCount}  from '../../../../redux/actions/index.js'; 
+import ProductCarouselView  from '../../../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarouselView.js';
+import CategoryFilters      from '../../../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/CategoryFilters.js';
+import {getCartData,getWishlistData, updateCartCount}  from '../../../../../../redux/actions/index.js'; 
 import 'react-multi-carousel/lib/styles.css';
-import SubCategoryBlock     from '../../../../Themes/Sampurna/blocks/StaticBlocks/SubCategoryBlock/SubCategoryBlock.js';
+import SubCategoryBlock     from '../../../../../../Themes/Sampurna/blocks/StaticBlocks/SubCategoryBlock/SubCategoryBlock.js';
 import Style                from './product_detail.module.css';
-import style                from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarousel.module.css';
+import style                from '../../../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarousel.module.css';
 
 
 const { publicRuntimeConfig } = getConfig();
+
+Array.prototype.sortBy = function(p) {
+  return this.slice(0).sort(function(a,b) {
+    return (a[p] > b[p]) ? 1 : (a[p] < b[p]) ? -1 : 0;
+  });
+}
+
 
 
 class ProductViewEcommerce extends Component{
@@ -44,6 +51,8 @@ class ProductViewEcommerce extends Component{
 			"userLatitude"   : "",
 			"startRange"     : 0,
 			"limitRange"     : 28,
+			"tabclick" 		  : false,
+			"clickedSize" : ""
 		};
 	}
 
@@ -84,52 +93,42 @@ class ProductViewEcommerce extends Component{
 				})
             }
         }
-		var url = window.location.href.split('/');
-		if(url[4] !== "undefined"){	
-			var vendor_ID              = url[4];
-			var vendorlocation_ID      = url[5];
-			var productId             = url[6];
-			this.setState({
-				"vendor_ID"         : vendor_ID,
-				"vendorlocation_ID" : vendorlocation_ID,
-				"productID"         : productId,
-		  	},async()=>{
-				if(this.state.vendor_ID){
-					await axios.get('/api/entitymaster/get/one/'+this.state.vendor_ID)    
-								.then((vendorResponse)=>{
-									if(vendorResponse){
-										this.setState({
-											vendorData : vendorResponse.data[0],
-										})
-									}
-								})
-								.catch((error) =>{
-									console.log("error in get vendor=",error);
-								})
-				}
-				if(this.state.productID){
+
+
+		 axios.get('/api/entitymaster/get/one/'+this.props.vendor_id)    
+				.then((vendorResponse)=>{
+					if(vendorResponse){
+						this.setState({ vendorData : vendorResponse.data[0] })
+					}
+
 					var formvalues = {
 						"user_id"           : this.state.user_ID !== ""? this.state.user_ID : null,
-						"product_id"        : this.state.productID,
-						"vendor_id"         : this.state.vendor_ID,
-						"vendorLocation_id" : this.state.vendorlocation_ID,
+						"product_id"        : this.props.productID,
+						"vendor_id"         : this.props.vendor_id,
+						"vendorlocation_ID" : this.props.vendorlocation_id,
 					}
 					if(formvalues){
 						const url = "/api/products/get/one";
 						this.getProductDetails(url,formvalues);
-					}		
-				}
-			})
-		}
+					}
+
+				})
+				.catch((error) =>{
+					console.log("error in get vendor=",error);
+				})
+
 	}
 
 	getProductDetails(url,formvalues){
 		axios.post(url,formvalues)
 			.then((response) => {
 				if(response.data){
+					var sortedProducts = response.data.products.sortBy('size');					
+					var sortedVariants = response.data.variants.sortBy('size');
+
 					this.setState({
-						variantProductsList : response.data.products,
-						variants            : response.data.variants
+						variantProductsList : sortedProducts,
+						variants            : sortedVariants
 					},()=>{
 						this.filterdataWithId();
 					})
@@ -141,16 +140,19 @@ class ProductViewEcommerce extends Component{
 	}
 
 	filterdataWithId(){
-		var productData = this.state.variantProductsList.filter((productItem) => productItem._id === this.state.productID);
+		console.log("this.state.variantProductsList => ",this.state.variantProductsList);
+		var productData = this.state.variantProductsList.filter((productItem) => productItem._id === this.props.productID);		
 		if(productData && productData.length >0){
-			this.setProductData(productData[0]);
+			var sortedProducts = productData.sortBy('size');
+			this.setProductData(sortedProducts[0]);
 		}
 	}
 
 	filterdataWithSize(){
 		var productData = this.state.variantProductsList.filter((productItem) => productItem.size === this.state.currentSize);
 		if(productData && productData.length >0){
-			this.setProductData(productData[0]);
+			var sortedProducts = productData.sortBy('size');
+			this.setProductData(sortedProducts[0]);
 		}
 	}
 
@@ -158,11 +160,14 @@ class ProductViewEcommerce extends Component{
 		// var productData = this.state.variantProductsList.filter((productItem) => productItem.size === this.state.currentSize);
 		var productData = this.state.variantProductsList.filter((productItem) => productItem.color === this.state.productColor);
 		if(productData && productData.length >0){
-			this.setProductData(productData[0]);
+			var sortedProducts = productData.sortBy('size');
+			this.setProductData(sortedProducts[0]);
 		}
 	}
 
 	setProductData(productData){
+		console.log("155 productData => ",productData);
+
 		// var productData = this.state.variantProductsList.filter((productItem) => productItem._id === this.state.productID);
 		this.setState({	
 			// currentSize   : productData.color ? productData.color:"",
@@ -181,7 +186,7 @@ class ProductViewEcommerce extends Component{
 			selectedSize  : productData.size,
 			websiteModel  : this.state.websiteModel
 		},async()=>{
-			await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
+			await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.props.vendor_id)     
 					.then((categoryResponse)=>{
 						if(categoryResponse.data){    
 							this.setState({
@@ -191,7 +196,7 @@ class ProductViewEcommerce extends Component{
 								
 							}); 
 							for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
-								if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
+								if(categoryResponse.data.categoryList[i].categoryUrl === this.props.categoryurl){
 									var subCategoryData = categoryResponse.data.categoryList[i].subCategory?categoryResponse.data.categoryList[i].subCategory:[];
 									if(subCategoryData){
 										this.setState({
@@ -211,8 +216,8 @@ class ProductViewEcommerce extends Component{
 					})
 
 					var similarProductsFormvalues = {
-						product_ID     : this.state.productID,
-						vendor_ID      : this.state.vendor_ID,
+						product_ID     : this.props.productID,
+						vendor_ID      : this.props.vendor_id,
 						category_ID    : this.state.category_ID,
 						// subCategory_ID : productdata.subCategory_ID,
 						section_ID     : this.state.section_ID,
@@ -243,8 +248,8 @@ class ProductViewEcommerce extends Component{
 				"user_ID"             : this.state.user_ID,
 				"product_ID"          : event.target.id,
 				"quantity"            : 1,   
-				"vendor_ID"           : this.state.vendor_ID,  
-				"vendorLocation_id"   : this.state.vendorlocation_ID, 
+				"vendor_ID"           : this.props.vendor_id,  
+				"vendorlocation_ID"   : this.props.vendorlocation_id, 
 				"userLatitude"        : this.state.userLatitude,
 				"userLongitude"       : this.state.userLongitude,
 				"vendorName"          : event.target.getAttribute('vendor_name'),
@@ -309,8 +314,8 @@ class ProductViewEcommerce extends Component{
 							"long"            : this.state.userLongitude,
 							"delLocation"     : this.state.delLocation,
 						},
-						"vendor_id"           : this.state.vendor_ID,
-						"vendorLocation_id"   : this.state.vendorlocation_ID,
+						"vendor_id"           : this.props.vendor_id,
+						"vendorlocation_ID"   : this.props.vendorlocation_id,
 						"product_ID"          : id
 					}
 					if(formValues){
@@ -422,9 +427,9 @@ class ProductViewEcommerce extends Component{
 			brandArray : brandArray
 		},()=>{
 			var formValues = {
-				"vendor_ID"      : this.state.vendor_ID, 
+				"vendor_ID"      : this.props.vendor_id, 
 				"sectionUrl"     : this.state.sectionUrl,
-				"categoryUrl"    : this.state.categoryUrl,
+				"categoryUrl"    : this.props.categoryurl,
 				// "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
 				"userLatitude"   : this.state.userLatitude,
 				"userLongitude"  : this.state.userLongitude,
@@ -438,6 +443,36 @@ class ProductViewEcommerce extends Component{
 		})
 	}
 	
+
+	handleSize(event){
+		var idVar = event.currentTarget.id;
+		var idArr = idVar.split("-");
+		var size = idArr[1];
+
+		var productArr = this.state.variantProductsList.filter((e)=>{return e.size === size});
+		
+		this.setProductData(productArr[0])
+
+		this.setState({
+			tabclick : true,
+			clickedSize : size
+		})
+	}
+
+
+	handleColour(event){
+		var idVar = event.currentTarget.id;
+		var idArr = idVar.split("-");
+		var color = idArr[1];
+		var productId = document.getElementById(idVar).getAttribute('productid');
+
+		console.log("productId = ",productId);
+
+	}
+
+
+
+
 	render(){
 		var x 			= this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
 		var wishClass 	= '';
@@ -449,6 +484,9 @@ class ProductViewEcommerce extends Component{
 			wishClass = 'r';
 			tooltipMsg = 'Add To Wishlist';
 		} 
+
+
+		
 		return(
 			<section className={"SingleProductMainWrapper "+Style.ShopBySubCategories}>
 				<div className={"col-12 pb-2 pt-2 mobileNoPadding "+Style.productDetailVendorName}> 
@@ -471,13 +509,13 @@ class ProductViewEcommerce extends Component{
 						?
 							<CategoryBlock
 								categoryData       = {this.state.categoryData}
-								vendor_ID          = {this.state.vendor_ID}
-								vendorlocation_ID  = {this.state.vendorlocation_ID}
+								vendor_ID          = {this.props.vendor_id}
+								vendorlocation_ID  = {this.props.vendorlocation_id}
 								userLatitude       = {this.state.userLongitude}
 								userLongitude      = {this.state.userLongitude}
 								sectionUrl         = {this.state.sectionUrl}
-								subCategoryUrl     = {this.state.subCategoryUrl}
-								categoryUrl        = {this.state.categoryUrl}
+								subCategoryUrl     = {this.props.subCategoryurl}
+								categoryUrl        = {this.props.categoryurl}
 							/>
 						:
 							null
@@ -491,11 +529,11 @@ class ProductViewEcommerce extends Component{
 								?
 									<CategoryFilters 
 										categoryData       = {this.state.subCategoryData}
-										vendor_ID          = {this.state.vendor_ID}
-										vendorlocation_ID  = {this.state.vendorlocation_ID}
+										vendor_ID          = {this.props.vendor_id}
+										vendorlocation_ID  = {this.props.vendorlocation_id}
 										sectionUrl         = {this.state.sectionUrl}
-										subCategoryUrl     = {this.state.subCategoryUrl}
-										categoryUrl        = {this.state.categoryUrl}
+										subCategoryUrl     = {this.props.subCategoryurl}
+										categoryUrl        = {this.props.categoryurl}
 										userLatitude       = {this.state.userLatitude}
 										userLongitude      = {this.state.userLongitude}
 										startRange         = {this.state.startRange}
@@ -608,7 +646,7 @@ class ProductViewEcommerce extends Component{
 																			<span className={Style.percentOff}>{this.state.productData.discountPercent}% </span>
 																			<span className={Style.percentOffTxt}>OFF</span> &nbsp;
 																			<span className={" " +Style.priceColor}>{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)}</span>
-																			&nbsp;<span className={Style.vatSpan}>Inclusive Of VAT</span>
+																			&nbsp;<span className={Style.vatSpan}>Inclusive of VAT</span>
 																		</span>
 																		<div className="col-12">
 																			<span className="col-2"> </span>&nbsp;
@@ -642,22 +680,25 @@ class ProductViewEcommerce extends Component{
 																	<span className={Style.brandName2}>{this.state.productData.size}</span>&nbsp;{this.state.productData.unit} 
 																</div>
 															}
+
 															<div className={"container NoPadding mt-3 "+Style.ProductSize1}>
-																<ul className="nav nav-tabs">
+																<ul className="nav nav-tabs" role="tablist">
 																	{
-																		Array.isArray(this.state.variants) && this.state.variants.map((productItem,index)=>{
+																		Array.isArray(this.state.variants) && 
+																		this.state.variants.map((productItem,index)=>{
+																			if(!this.state.tabclick){																				
+																				if(index === 0){
+																					var actClass = " active";
+																				}else{
+																					var actClass = "";
+																				}
+																			}else{
+																				var actClass = "";
+																			}
 																			return(
 																				productItem.size !=="" && productItem.size !== "undefined" && productItem.size !== null &&
-																					<li className="nav-item col-4 col-sm-3 col-xl-2 sizeVariantTab abc NoPadding ml-2 mb-4" key={index}>
-																						<a className={"col-12 nav-link  "+productItem.size === this.state.currentSize ? 'active ' :' '+Style.sizeBox} data-toggle="tab" href={"#"+productItem.size}
-																							onClick={()=>{
-																								this.setState({
-																									currentSize : productItem.size
-																								},()=>{
-																									this.filterdataWithSize();
-																								})
-																							}}
-																						>
+																					<li id={"li-"+productItem.size} className={"nav-item col-4 col-sm-3 col-xl-2 sizeVariantTab NoPadding ml-2 mb-4"} key={index} onClick={this.handleSize.bind(this)} >
+																						<a className={"nav-link"+actClass} data-toggle="tab" href={"#"+productItem.size}>
 																							{productItem.size}
 																						</a>
 																					</li>
@@ -666,31 +707,42 @@ class ProductViewEcommerce extends Component{
 																		})											
 																	}
 																</ul>
+
 																<div className="tab-content">
 																	{
 																		this.state.productData.color &&
-																		Array.isArray(this.state.variants) && this.state.variants.map((productItem,productIndex)=>{
+																		Array.isArray(this.state.variants) 
+																		&& this.state.variants.map((productItem,productIndex)=>{
+
+																			if(!this.state.tabclick){
+																				if(productIndex === 0){
+																					var actSizeContent = " active show";
+																				}else{
+																					var actSizeContent = " fade";
+																				}																				
+																			}else{
+																				if(productItem.size === this.state.clickedSize){
+																					var actSizeContent = " active show";
+																				}else{
+																					var actSizeContent = " fade";
+																				}
+																			}																				
 																			return(
-																				<div id={productItem.size} className={"container tab-pane "+(productItem.size === this.state.activeSize ? 'active ': 'fade')} key={productIndex}><br/>
-																					<div className={ "col-12 NoPadding  " +Style.brandNameColor}>Colour : {this.state.productData.color} </div>&nbsp;
+																				<div id={productItem.size} className={"container tab-pane"+actSizeContent} key={productIndex}><br/>
+																					<div className={ "col-12 NoPadding " +Style.brandNameColor}>Colour : {productItem.color} </div>&nbsp;
+
 																						<div className={"row "+Style.ColorTabWrapper}>
-																							{
+																							{ 
 																								Array.isArray(productItem.color) && productItem.color.map((colorItem,colorIndex)=>{
 																									return(
-																										<div className={"col-2 NoPadding mt-2 colorVariantTab "+colorItem === this.state.activeColor ? 'active ': ''}  key={colorIndex} productId = {this.state.productData._id}
-																											onClick={()=>{
-																												this.setState({
-																													productColor: colorItem,
-																												},()=>{
-																													this.filterdataWithColor();
-																												});
-																											}}>
+																										<div id={"color-"+colorItem} className={"col-2 NoPadding mt-2 colorVariantTab"}  key={colorIndex} productId={this.state.productData._id} onClick={this.handleColour.bind(this)}>
 																											{
-																												colorItem !==" " && colorItem !== "undefined" && colorItem !== null &&
-																												<span className={"col-12 mr-2  "+Style.colorBox} style={{ backgroundColor: colorItem}}></span>
+																												colorItem !== "" && colorItem !== "undefined" && colorItem !== null &&
+																												<span className={"col-12 mr-2 "+Style.colorBox} style={{ backgroundColor: colorItem}}></span>
 																											}
 																										</div>
 																									)})
+																								
 																							}
 																					</div>
 																				</div>
@@ -845,13 +897,13 @@ class ProductViewEcommerce extends Component{
 										<ProductCarouselView 
 											blockTitle         = {"Similar Items"}
 											newProducts        = {this.state.newProducts}
-											vendor_ID          = {this.state.vendor_ID}
-											vendorlocation_ID  = {this.state.vendorlocation_ID}
+											vendor_ID          = {this.props.vendor_id}
+											vendorlocation_ID  = {this.props.vendorlocation_id}
 											userLatitude       = {this.state.userLongitude}
 											userLongitude      = {this.state.userLongitude}
 											sectionUrl         = {this.state.sectionUrl}
-											subCategoryUrl     = {this.state.subCategoryUrl}
-											categoryUrl        = {this.state.categoryUrl}
+											subCategoryUrl     = {this.props.subCategoryurl}
+											categoryUrl        = {this.props.categoryurl}
 											className          = "font-weight-bold"
 										/>
 									:
@@ -863,23 +915,23 @@ class ProductViewEcommerce extends Component{
 										<SubCategoryBlock 
 											blocktitle         = {"Shop By Sub Categories"}
 											subCategoryData    = {this.state.subCategoryData}
-											vendor_ID          = {this.state.vendor_ID}
-											vendorlocation_ID  = {this.state.vendorlocation_ID}
+											vendor_ID          = {this.props.vendor_id}
+											vendorlocation_ID  = {this.props.vendorlocation_id}
 											userLatitude       = {this.state.userLongitude}
 											userLongitude      = {this.state.userLongitude}
 											sectionUrl         = {this.state.sectionUrl}
-											subCategoryUrl     = {this.state.subCategoryUrl}
-											categoryUrl        = {this.state.categoryUrl}
+											subCategoryUrl     = {this.props.subCategoryurl}
+											categoryUrl        = {this.props.categoryurl}
 											className          ={"font-weight-bold "+Style.ShopBySubCategories}
 										/>
 									:
 										null
 								}
 								{
-									this.state.productID
+									this.props.productID
 									?
 									<ProductReviewList 
-										productID = {this.state.productID}
+										productID = {this.props.productID}
 									/>
 									:
 										null

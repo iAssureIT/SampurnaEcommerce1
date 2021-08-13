@@ -1,7 +1,5 @@
 import React, { Component }   from 'react';
-import $                      from 'jquery';
-import axios                  from 'axios';
-import Image                  from 'next/image';
+import {useRouter}            from 'next/router';
 import Link                   from 'next/link';
 import Carousel               from 'react-multi-carousel';
 import style                  from './categoryBlock.module.css';
@@ -29,61 +27,45 @@ const responsive = {
   }
 };
 
-class CategoryFilters extends Component{
-    // constructor(props) {
-    //     super(props);
-    //     this.props = { 
-    //         categoryData : [],
-            
-    //     }
-    // }
+const CategoryFilters = (props)=>{
 
-    componentDidMount(){
-      var url = window.location.href.split('/');
-      // console.log("url[8]===",url[8]);
-      if(url[8] === undefined){
-        $('.panel-title_0').addClass('activeSubCategory');
-      }
-    }
+      const router = useRouter();
 
-    render(){
-      // console.log("category filter this.props.categoryData===",this.props);
       return (
         <section>
           <div className="panel-group d-none d-lg-block d-xl-block" id="accordion">    
-            {this.props.categoryData && this.props.categoryData.length>0
+            {props.categoryData && props.categoryData.length>0
               ?                  
                 <div className={Style.categoryFilterTitle}> Sub Categories </div>  
               : null
             }
             {
-            this.props.categoryData && this.props.categoryData.map((subcategory,index)=>{
+              props.categoryData && props.categoryData.map((subcategory,index)=>{
               var i = index+1;
+
+              if(props.subCategoryUrl){
+                if(props.subCategoryUrl === subcategory.subCategoryUrl){
+                  var activeClass = Style.activeSubCategory;
+                }else{
+                  var activeClass = "";
+                }                
+              }else{
+                if(index === 0){
+                  var activeClass = Style.activeSubCategory;
+                }else{
+                  var activeClass = "";
+                }                
+              }
+
               return(
                 <div key={index} className="panelCategory paneldefault ">
-                  {this.props.subCategoryUrl === subcategory.subCategoryUrl?
-                    <div className={"panel-heading panel-title_"+index +" " +Style.panelHeading}>
-                        <h4  className={"panel-title panel-title_"+index} > 
-                          {/* <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
-                              <a >{subcategory.subCategoryTitle}</a>
-                          </Link> */}
-                           <a href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
-                              {subcategory.subCategoryTitle}
-                          </a>
-                        </h4>
-                    </div>
-                  :
-                  <div className={"panel-heading panel-title_"+index +" "+Style.panelHeading}>
-                      <h4  className={"panel-title "}> 
-                        <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
-                            <a >{subcategory.subCategoryTitle}</a>
-                        </Link>
-                      </h4>
-                  </div>
-                  }
-                  
-                  
-
+                      <div className={"panel-heading panel-title_"+index +" " +Style.panelHeading+" "+activeClass}>
+                          <h4  className={"panel-title panel-title_"+index} > 
+                             <a href={"/products/"+props.vendor_ID+"/"+props.vendorlocation_ID+"/"+props.sectionUrl+"/"+props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
+                                {subcategory.subCategoryTitle}
+                            </a>
+                          </h4>
+                      </div>                  
                 </div>
               )
               })                 
@@ -92,57 +74,40 @@ class CategoryFilters extends Component{
 
           
           <nav class="navbar navbar-expand-lg navbar-light bg-light d-block d-lg-none d-xl-none">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    &nbsp; &nbsp;&nbsp;Sub Categories
-  </button>
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-  {/* <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-  </ul>    */}
-  <div className="panel-group" id="accordion">    
-            {/* {this.props.categoryData && this.props.categoryData.length>0?                  
-              <div className={Style.categoryFilterTitle}> Sub Categories </div>  
-              :null
-            } */}
-            {
-            this.props.categoryData && this.props.categoryData.map((subcategory,index)=>{
-              var i = index+1;
-              return(
-                <div key={index} className="panelCategory paneldefault ">
-                  {this.props.subCategoryUrl === subcategory.subCategoryUrl?
-                    <div className={"panel-heading panel-title_"+index +" " +Style.panelHeading}>
-                        <h4  className={"panel-title panel-title_"+index} > 
-                          <Link className="nav-item active" href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
-                              <a className="nav-link">{subcategory.subCategoryTitle}</a>
-                          </Link>
-                        </h4>
-                    </div>
-                  :
-                  <div className={"panel-heading panel-title_"+index +" "+Style.panelHeading}>
-                      <h4  className={"panel-title "}> 
-                        <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
-                            <a >{subcategory.subCategoryTitle}</a>
-                        </Link>
-                      </h4>
-                  </div>
-                  }
-                  
-                  
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+              &nbsp; &nbsp;&nbsp;Sub Categories
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <div className="panel-group" id="accordion">    
+                        {
+                          props.categoryData && props.categoryData.map((subcategory,index)=>{
+                          var i = index+1;
+                          if(props.subCategoryUrl === subcategory.subCategoryUrl){
+                            var activeClass = Style.activeSubCategory;
+                          }else{
+                            var activeClass = "";
+                          }
 
-                </div>
-              )
-              })                 
-            }  
-          </div> 
- 
-  </div>
-</nav>
-          </section>
-     ) 
-    }
+                          return(
+                            <div key={index} className="panelCategory paneldefault ">
+                                <div className={"panel-heading panel-title_"+index +" " +Style.panelHeading}>
+                                    <h4  className={"panel-title panel-title_"+index} > 
+                                      <a href={"/products/"+props.vendor_ID+"/"+props.vendorlocation_ID+"/"+props.sectionUrl+"/"+props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
+                                          {subcategory.subCategoryTitle}
+                                      </a>
+                                    </h4>
+                                </div>
+                            </div>
+                          )
+                          })                 
+                        }  
+              </div>  
+            </div>
+          </nav>
+        </section>
+      )
+
 }
 
 export default CategoryFilters;
