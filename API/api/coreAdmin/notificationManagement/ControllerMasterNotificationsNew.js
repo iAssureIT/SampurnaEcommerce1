@@ -384,7 +384,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     var toMobile        = toMobileNumber.replace(/[|&;$%@"<>()-+-,]/g, "");
                     console.log("if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
-                    if(!smsDetails && smsDetails !== undefined && smsDetails !== null){
+                    if(smsDetails && smsDetails !== undefined && smsDetails !== null){
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
                         const sms           = await sendSMS(toMobile, textMsg);
                         resolve(sms);   
@@ -399,7 +399,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     var toMobile        = isdCode + userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
                     console.log("else if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
-                    if(!smsDetails && smsDetails !== undefined && smsDetails !== null){    
+                    if(smsDetails && smsDetails !== undefined && smsDetails !== null){    
                         var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
                         console.log("toMobile",toMobile);
                         const sms           = await sendSMS(toMobile, textMsg);
