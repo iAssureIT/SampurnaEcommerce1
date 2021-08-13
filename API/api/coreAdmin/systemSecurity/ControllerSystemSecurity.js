@@ -2535,6 +2535,7 @@ exports.set_send_otp = (req, res, next) => {
 								OTP 					: otpMobile
 							}
 						}
+						console.log("notification formvalues => ",userNotificationValues)
 						var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
 						res.status(200).json({ 
 							message 	: "OTP sent on registered mobile number", 
