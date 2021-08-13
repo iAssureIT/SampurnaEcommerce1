@@ -351,7 +351,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
     return new Promise(function (resolve, reject) {
         sub();
         async function sub(){
-            console.log("mode,userData,role,templateName,company,variables,attachment => ",mode,userData,role,templateName,company,variables,attachment);
+            // console.log("mode,userData,role,templateName,company,variables,attachment => ",mode,userData,role,templateName,company,variables,attachment);
             if(mode === 'Email'){
                 //==============  Send Email ================
                 var toEmail         = userData.email;
@@ -387,11 +387,11 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
 
                     if(smsDetails && smsDetails !== undefined && smsDetails !== null){
                         var textMsg         = await smsDetails.content.replace(/<[^>]+>/g, '');
-                        console.log("textMsg 1 2 => ",textMsg)                        
+                        // console.log("textMsg 1 2 => ",textMsg)                        
                         textMsg             = textMsg.replace(/&nbsp;/g, '');
-                        console.log("textMsg 1 => ",textMsg)
-                        // const sms           = await sendSMS(toMobile, textMsg);
-                        var sms = true
+                        // console.log("textMsg 1 => ",textMsg)
+                        const sms           = await sendSMS(toMobile, textMsg);
+                        // var sms = true
                         resolve(sms);   
                     }else{
                         resolve(false)
@@ -406,12 +406,12 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
                     if(smsDetails && smsDetails !== undefined && smsDetails !== null){    
                         var textMsg         = await smsDetails.content.replace(/<[^>]+>/g, '');
-                        console.log("textMsg 1 2 => ",textMsg)
+                        // console.log("textMsg 1 2 => ",textMsg)
                         textMsg             = textMsg.replace(/&nbsp;/g, '');
-                        console.log("textMsg 2 => ",textMsg)
+                        // console.log("textMsg 2 => ",textMsg)
                         // console.log("toMobile",toMobile);
-                        // const sms           = await sendSMS(toMobile, textMsg);
-                        var sms=true
+                        const sms           = await sendSMS(toMobile, textMsg);
+                        // var sms=true
                         console.log("SMS else if => ",sms)  
                         resolve(sms);   
                         // resolve(true); 
@@ -466,9 +466,9 @@ function getSelfUserData(toUserId) {
         User.findOne({ "_id": toUserId })
         .exec()
         .then(async(data) => {
-            console.log("data => ",data)
-            console.log("isd => ",data.profile.isdCode)
-            console.log("mobile => ",data.profile.mobile)
+            // console.log("data => ",data)
+            // console.log("isd => ",data.profile.isdCode)
+            // console.log("mobile => ",data.profile.mobile)
             if(data && data.profile){
                 var profile = data.profile;
                 profile.id = await data._id;
@@ -536,7 +536,7 @@ function getOtherAdminData(role,company_id){
                 User.find({ "profile.companyID": result.companyID, "roles":role, recieveNotifications : true})
                 .exec()
                 .then(data => {
-                    console.log("data => ",data)
+                    // console.log("data => ",data)
                     if(data && data.length>0){
                         var userData = []
                         for(var i=0 ; i<data.length ; i++){

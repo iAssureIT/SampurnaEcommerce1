@@ -47,8 +47,8 @@ exports.user_signup_user = (req, res, next) => {
 							User.find({ "username": emailId.toLowerCase() })
 								.exec()
 								.then(user => {
-									console.log("user => ",user)
-									console.log("user length => ",user.length)
+									// console.log("user => ",user)
+									// console.log("user length => ",user.length)
 									if (user.length > 0) {
 										return res.status(200).json({
 											message: 'Email Id already exist.'
@@ -326,13 +326,13 @@ function getNextEmployeeID() {
         .sort({"profile.employeeID" : -1})   
         .exec()
         .then(data=>{
-        	console.log("data => ",data)
+        	// console.log("data => ",data)
             if (data && data !== null) { 
             	if(data.profile.employeeID && data.profile.employeeID !== undefined){
 	                var seq = data.profile.employeeID;
-	                console.log("seq 1 => ",seq)
+	                // console.log("seq 1 => ",seq)
 	                seq = seq+1;
-	                console.log("seq 2 => ",seq)
+	                // console.log("seq 2 => ",seq)
 	                resolve(seq) 
 	            }else{
 	            	resolve(1)
@@ -350,7 +350,7 @@ function getNextEmployeeID() {
 
 
 exports.user_signup_user_otp = (req, res, next) => {
-	console.log("req body",req.body);
+	// console.log("req body",req.body);
 	var username = "EMAIL";
 	if(req.body.username){
 		if(req.body.username === "EMAIL"){
@@ -1029,12 +1029,12 @@ exports.resetPassword = (req, res, next) => {
 	.then(user => {
 		if (user) {				
 			var previousPassword = user.services.password.bcrypt;
-			console.log("previousPassword => ",previousPassword);
+			// console.log("previousPassword => ",previousPassword);
 			if (previousPassword) {
-				console.log(" Condition => ",(bcrypt.compare(req.body.currentPassword, previousPassword)))
+				// console.log(" Condition => ",(bcrypt.compare(req.body.currentPassword, previousPassword)))
 				bcrypt.compare(req.body.currentPassword, previousPassword, (error, result) => {
-					console.log("error => ",error)
-					console.log("result => ",result)
+					// console.log("error => ",error)
+					// console.log("result => ",result)
 					if (error) {
 						return res.status(200).json({
 							message 	: 'You entered wrong current password',
@@ -1827,11 +1827,11 @@ exports.set_send_emailotp_usingEmail = (req, res, next) => {
 	User.findOne({ "profile.email": req.params.emailId })
 	.then(user => {
 		if(user){
-			console.log('user status====',user.profile.status)
+			// console.log('user status====',user.profile.status)
  			if ((user.profile.status).toLowerCase() === "active") {
  				// var optEmail = getRandomInt(1000, 9999);
  				var optEmail = 1234;
-				console.log("optEmail", optEmail, req.body);
+				// console.log("optEmail", optEmail, req.body);
 				User.updateOne(
 					{ "profile.email": req.params.emailId },
 					{
@@ -1949,7 +1949,7 @@ exports.user_login_mob_email = (req, res, next) => {
 	)
 	.exec()
 	.then(user => {
-		console.log("user => ",user)
+		// console.log("user => ",user)
 
 		if (user && user !== null) {
 			if ((user.profile.status).toLowerCase() == "active") {
@@ -2149,7 +2149,7 @@ exports.user_signup_social_media = (req, res, next) => {
 										var users = await User.findOne({'authService':'facebook'}).sort({_id:-1}).limit(1) 
 										username = users ? parseInt(users.username)+1 : 1;
 									}
-									console.log("user",user);
+									// console.log("user",user);
 									if (user) {
 										const token = jwt.sign({
 											username: req.body.username,
@@ -2352,7 +2352,7 @@ exports.user_signup_guest_login = (req, res, next) => {
 							User.findOne({'authService':'guest'}).sort({_id:-1}).limit(1)
 							.exec()
 							.then(users => {
-								console.log("users",users);
+								// console.log("users",users);
 									bcrypt.hash(req.body.pwd, 10, (err, hash) => {
 										if (err) {
 											console.log("err",err);
@@ -2522,7 +2522,7 @@ exports.set_send_otp = (req, res, next) => {
 	)
 	.then(user => {
 		if(user){
-			console.log('user => ',user)
+			//console.log('user => ',user)
  			if ((user.profile.status).toLowerCase() === "active" || (user.profile.status).toLowerCase() === "unverified") {
  				// var otpMobile = getRandomInt(1000, 9999);
 				 var otpMobile = 1234;
