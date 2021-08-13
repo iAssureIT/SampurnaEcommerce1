@@ -1,8 +1,4 @@
 import React                  from 'react';
-import axios                  from 'axios';
-import Link                   from 'next/link';
-import swal                   from 'sweetalert';
-import Image                  from 'next/image';
 import Router                 from 'next/router'; 
 import { connect }            from 'react-redux';
 import  store                 from '../../../../../redux/store.js';
@@ -47,10 +43,17 @@ class Header extends React.Component {
 
     render(){
         var colWithLogin;
+        var wishlistCol;
+        var systemSecurityMl;
         if(this.state.user_ID){
             colWithLogin = 3;
+            wishlistCol = 2;
+            systemSecurityMl = 4;
+
         }else{
-          colWithLogin = 3;
+          colWithLogin = 2;
+          wishlistCol = 0;
+          systemSecurityMl = 4;
         }
         return(   
             <div className="col-12 headerWrapper NoPadding">
@@ -69,10 +72,10 @@ class Header extends React.Component {
                                             
                                             <div className={"col-8 col-lg-4 " +"col-xl-"+colWithLogin+" col-sm-5" +" mt-1 systemSecurity"}> 
                                                 <div className="row">   
-                                                    <div className="col-5 ml-4 systemSecurityModal">
+                                                    <div className={"col-5 NoPadding ml-"+systemSecurityMl+ " systemSecurityModal"}>
                                                         < SystemSecurityModal />
                                                     </div>                             
-                                                    <div className="col-2 NoPadding ">                                                   
+                                                    <div className={"col-"+wishlistCol +" NoPadding "}>                                                   
                                                         < Wishlist />                                                
                                                     </div>  
                                                     <div className="col-3 col-lg-4 col-sm-4 NoPadding ">
