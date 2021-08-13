@@ -250,7 +250,7 @@ exports.send_notifications = (req, res, next) => {
         async function main(){
             // console.log('========================================================')
             var returnData = data
-            // console.log('returnData=>',returnData)
+            console.log('returnData=>',returnData)
             if(returnData && returnData.length > 0){
                 for(var i=0 ; i< returnData.length ; i++){
                     // console.log("Entering for loop for returnData at : ",i)
