@@ -284,7 +284,7 @@ class Product extends Component{
            { Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
                   
-                console.log("data in map  ===> ",data);
+                // console.log("data in map  ===> ",data);
              
                 var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
                 var wishClass = 'r';
@@ -296,8 +296,8 @@ class Product extends Component{
                   wishClass = 'r';
                   tooltipMsg = 'Add To Wishlist';
                 }   
-                var categoryUrl = (data.category?data.category:"").replace(/\s+/g, '-').toLowerCase();;                    
-                var subCategoryUrl = (data.subCategory?data.subCategory:"-").replace(/\s+/g, '-').toLowerCase();;                    
+                var categoryUrl = (data.category?data.category:"").replace(/\s+/g, '-').toLowerCase();                    
+                var subCategoryUrl = (data.subCategory?data.subCategory:"-").replace(/\s+/g, '-').toLowerCase();                    
               return (
                 <div className={" col-sm-6 col-12  col-lg-3 col-xl-3  " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
                   <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 

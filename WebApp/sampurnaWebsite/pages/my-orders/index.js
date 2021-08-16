@@ -3,12 +3,11 @@ import axios                from 'axios';
 import $, { data, event }   from 'jquery';
 import moment               from "moment";
 import Link      from 'next/link';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Message from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Loader from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-import ReturnStatus from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
-import StepWizard from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
+// import ReturnStatus from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
+// import StepWizard from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
 import Style from './index.module.css';
 
 export default class MyOrders extends Component {
@@ -440,8 +439,7 @@ export default class MyOrders extends Component {
                                   <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-lg-9 float-right showDetailsBtn "} 
                                   >Show Details
                                   </a>
-                                  {/* <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className="col-lg-9 float-right showDetailsBtn  NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account#v-pills-settings2"||this.state.currentUrl==="/my-account#v-pills-settings-tab")? window.location.reload() :null }}><Link href="#v-pills-settings2">orderStatus</Link></a> */}
-
+                                  {/* <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className="col-lg-9 float-right showDetailsBtn  NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account#v-pills-settings2"||this.state.currentUrl==="/my-account#v-pills-settings-tab")? window.location.reload() :null }}><Link href="/#v-pills-settings2-tab">Show Details</Link></a> */}
                                 </button>
                               </div>
                             </div>

@@ -538,6 +538,8 @@ uploadImage(event) {
             {
               this.props.vendorWiseOrderData && this.props.vendorWiseOrderData.products.map((productdata, index) => {
                 // console.log("productdata=",productdata);
+                var categoryUrl = (productdata.category ? productdata.category:"").replace(/\s+/g, '-').toLowerCase();                    
+                var subCategoryUrl = (productdata.subCategory ? productdata.subCategory:"-").replace(/\s+/g, '-').toLowerCase();
                 return (
                   <tr key={index}>
                     <td><img className="img orderImg" src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} />
@@ -548,20 +550,16 @@ uploadImage(event) {
 
                     {
                       <div className={" singleProductDetail "+Style.singleProductDetail}>        
-                        <span className="">Brand</span>
-                      </div>           
-                            
+                        <span className="">{productdata.brand}</span>
+                      </div> 
                     }
-                      <a href={"/product-detail/" + this.props.vendorWiseOrderData.vendor_id._id + "/" + this.props.vendorWiseOrderData.vendorLocation_id + "/" + productdata.product_ID}>
+                      <a href={"/product-detail/" + this.props.vendorWiseOrderData.vendor_id._id + "/" + this.props.vendorWiseOrderData.vendorLocation_id + "/"+categoryUrl +"/"+subCategoryUrl+"/" + productdata.product_ID}>
                         {productdata.productNameRlang ?
                           <h5 className="RegionalFont">{productdata.productNameRlang}</h5>
                           :
                           <h5 className={"productName "+Style.productNameOrderDetail}>{productdata.productName}</h5>
                         }
                       </a>
-
-
-                     
                     </td>
                     <td className="textAlignLeft ">
                           {

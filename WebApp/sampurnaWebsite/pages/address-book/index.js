@@ -208,9 +208,12 @@ class AddressBook extends Component{
                                             <div className="col-12 text-center">
                                                     <p className={"text-justify "+Style.addressInnerDescWrapper}> {address.name}
                                                         <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {address.addressLine1}
-                                                        <br /> {/* {this.state.city},
+                                                         {/* {this.state.city},
                                                         <br /> */} {/* {address.state}, {address.country} - {address.pincode}
-                                                        <br /> */} Pincode : {address.pincode +"."}
+                                                        <br /> */}
+                                                        {address.pincode &&
+                                                            <span> <br />Pincode : {address.pincode +"."}</span>
+                                                        }
                                                         <br /> Contact Number: {address.mobileNumber} </p>
                                                     <div className="col-12 pl-lg-0 pl-xl-0 pl-md-0 pl-sm-0 float-left">
                                                         

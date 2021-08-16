@@ -194,7 +194,7 @@ class ProductCarousel extends Component {
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
           .then((categoryResponse)=>{
             if(categoryResponse.data){     
-              // console.log("categoryResponse====",categoryResponse.data); 
+              console.log("categoryResponse====",categoryResponse.data); 
                 for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
                   // console.log("categoryResponse.data.categoryList[i].categoryUrl=",categoryResponse.data.categoryList[i].categoryUrl,"===",this.state.categoryUrl);
                     if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
@@ -224,7 +224,7 @@ class ProductCarousel extends Component {
                   if(subCategoryData){
                         this.setState({
                           categoryData     : categoryResponse.data.categoryList,  
-                          brandData        : categoryResponse.data.brandList, 
+                          brandData        : categoryResponse.data.categoryList[0].brandList, 
                           subCategoryData  : subCategoryData,     
                         },()=>{
                           formValues = {
@@ -276,9 +276,8 @@ class ProductCarousel extends Component {
               productApiUrl : productApiUrl,
             })
         }
-        // console.log("getProductLIst productApiUrl===",this.state.productApiUrl,"Formvalues==",formValues,"BrandsData==",this.state.brandData,"categoryData==",this.state.subcategoryArray);
+        // console.log("getProductLIst productApiUrl===",this.state.productApiUrl,"Formvalues==",formValues,"BrandsData==",this.state.brandData,"csubategoryData==",this.state.subcategoryArray);
         this.getProductList(productApiUrl,formValues);
-       
       });
     }else{
       this.setState({          
@@ -304,22 +303,20 @@ showMoreProduct(event){
     "startRange"     : this.state.startRange,
     "limitRange"     : this.state.limitRange + 28,
   }
-
   const productApiUrl = this.state.productApiUrl;
   // console.log("showMore formValues===",formValues,productApiUrl)
   this.getProductList(productApiUrl,formValues);
 }
 getProductList(productApiUrl,formValues){
-    console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
+    // console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-      console.log("response.data===",response.data);
+      // console.log("response.data===",response.data);
       this.setState({
-        newProducts     : response.data,   
-        // newProducts     : response.data.concat(this.state.newProducts),                         
+        newProducts    : this.state.newProducts.concat(response.data),                         
       },()=>{
-        console.log("newProducts=>",this.state.newProducts.length);
+        // console.log("newProducts=>",this.state.newProducts.length);
         if(this.state.newProducts.length>0){
           this.setState({
             ProductsLoading : true,
@@ -329,7 +326,6 @@ getProductList(productApiUrl,formValues){
         if(this.state.newProducts.length <= this.state.limitRange){
             $('.seeMoreBtnWrapper').hide();
         }
-
       });
     }
     })
@@ -508,7 +504,7 @@ submitCart(event) {
     }//end productApiUrl
   };
   getBrandWiseData(event){
-    // console.log("brand value ==",event.target.value);
+    console.log("brand value ==",event.target.value);
     var brandArray = this.state.brandArray;
     if(event.target.value !== "undefined"){
       var brandValue = event.target.value;
@@ -517,12 +513,14 @@ submitCart(event) {
     this.setState({
       brandArray : brandArray
     },()=>{
-      // console.log("brandArray => ",this.state.brandArray);
+      console.log("brandArray => ",this.state.brandArray);
+      console.log("this.state.blockSettings.subCategory==",this.state.blockSettings.subCategory);
       var formValues = {
         "vendor_ID"      : this.state.vendor_ID, 
         "sectionUrl"     : this.state.sectionUrl,
         "categoryUrl"    : this.state.categoryUrl,
-        "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
+        "subCategoryUrl" : ["baby"],
+        // "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
         "userLatitude"   : this.state.userLatitude,
         "userLongitude"  : this.state.userLongitude,
         "startRange"     : 0,
@@ -832,12 +830,12 @@ submitCart(event) {
                       }
 
                       {this.state.brandData && this.state.brandData.length>0?  
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light d-block d-lg-none d-xl-none">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                          <span class="navbar-toggler-icon"></span>
+                        <nav className="navbar navbar-expand-lg navbar-light bg-light d-block d-lg-none d-xl-none">
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                          <span className="navbar-toggler-icon"></span>
                             &nbsp; &nbsp;&nbsp;Brands
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <div className="panel-group" >   
                           
                           {/* {this.state.brandData.length > 0  && this.state.brandData[0].brand!==''?                 
