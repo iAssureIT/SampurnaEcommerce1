@@ -247,3 +247,8 @@
 .subCategoryImg IMG{
     height: 100%;
 }
+.imageDeleteIcon {
+      position: absolute;
+      right: -5px;
+      top: -10px;
+}

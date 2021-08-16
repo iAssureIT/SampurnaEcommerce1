@@ -238,7 +238,7 @@ class AllOrdersList extends Component{
 		  limitRange : limitRange,
 		  status 	 : this.state.orderStatus
 		}
-		
+		console.log("formValues => ",formValues)
 		// axios.post('/api/orders/get/list_orders_by_status',formValues)
 		// .then((response)=>{
 		socket.emit('adminOrtderListValues',formValues);

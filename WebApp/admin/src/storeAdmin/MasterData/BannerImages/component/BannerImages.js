@@ -2,12 +2,20 @@ import React, { Component }   from 'react';
 import $                      from 'jquery';
 import axios                  from 'axios';
 import jQuery                 from 'jquery';
-import swal                   from 'sweetalert';
+import swal                   from 'sweetalert2';
 import S3FileUpload           from 'react-s3';
 import IAssureTable           from '../../../../coreadmin/IAssureTable/IAssureTable.jsx';
 import 'jquery-validation';
 import 'bootstrap/js/tab.js';
 import '../css/Gallery.css';
+
+const swalWithBootstrapButtons = swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
 
 class BannerImages extends Component{
 		constructor(props) {
@@ -40,7 +48,7 @@ class BannerImages extends Component{
 				success: "valid"
 			});
 
-			$("#galleryManagement").validate({
+			$("#BannerImagesForm").validate({
 				rules: {
 					bannerimages: {
 						required: true,
@@ -66,8 +74,8 @@ class BannerImages extends Component{
 		
 		submitImage(event){
 			event.preventDefault();
-			// console.log('bjgjbmbmb',$('#galleryManagement').valid());
-			// if($('#bannerimages').valid()){      
+			// console.log('bjgjbmbmb',$('#BannerImagesForm').valid());
+			if($('#BannerImagesForm').valid()){      
 						var formValues = {              
 							"bannerimages"             : this.state.bannerimages            
 						}
@@ -101,7 +109,7 @@ class BannerImages extends Component{
 								});
 							}
 						});          
-			
+			}
 			// else{
 			//     $('#bannerimages').valid()
 			//   }
@@ -110,12 +118,24 @@ class BannerImages extends Component{
 			event.preventDefault();
 			var imageId = event.target.id;
 			console.log("imageId:",imageId);
+			swalWithBootstrapButtons.fire({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: 'Yes, delete it!',
+		  cancelButtonText: 'No, cancel!',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
 			axios.patch('/api/bannerimgs/remove/'+imageId)
 			.then((response)=>{
 				this.getBannerImages();
-				swal({
-					text  : response.data.message,
-				});
+				swalWithBootstrapButtons.fire(
+					      'Deleted!',
+					      'Record has been deleted.',
+					      'success'
+				    )
 
 			 
 			})
@@ -124,17 +144,39 @@ class BannerImages extends Component{
 				if(error.message === "Request failed with status code 401"){
 							var userDetails =  localStorage.removeItem("userDetails");
 							localStorage.clear();
-							swal({  
-									title : "Your Session is expired.",                
-									text  : "You need to login again. Click OK to go to Login Page"
+							swal.fire({
+							  icon: 'error',
+							  title: 'Oops...Your Session is expired.',
+							  text: 'You need to login again. Click OK to go to Login Page!'
 							})
+							// swal({  
+							// 		title : "Your Session is expired.",                
+							// 		text  : "You need to login again. Click OK to go to Login Page"
+							// })
 							.then(okay => {
 							if (okay) {
 									window.location.href = "/login";
 							}
 							});
+						}else{
+							swal.fire({
+						  icon: 'error',
+						  title: 'Oops...',
+						  text: 'Something went wrong!'
+						})
 						}
 			});
+		} else if (
+		    /* Read more about handling dismissals below */
+		    result.dismiss === swal.DismissReason.cancel
+		  ) {
+		    swalWithBootstrapButtons.fire(
+		      'Cancelled',
+		      'Your record is safe :)',
+		      'error'
+		    )
+		  }
+		})
 
 		}
 		uploadImage(event){
@@ -268,46 +310,46 @@ class BannerImages extends Component{
 												<div className="row">
 												 <div className="">
 														<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
-																<h4 className="NOpadding-right">Mobile App Banner Images Management </h4>
+															<h4 className="NOpadding-right">Mobile App Banner Images Management </h4>
 														</div>                          
 
-															<div className="col-lg-12 col-md-12 marginTopp">
-																<form id="galleryManagement" className="">
-																	<div className="col-lg-6 col-md-12 col-xs-12 col-sm-12  NOpadding">                                      
+															<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTopp">
+																<form id="BannerImagesForm" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+																	<div className="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 col-xs-12 NOpadding productImgCol">                                      
 																			
 																			{
 																				this.state.bannerimages ?
-																				null
-																				:                                        
-																				<div className="divideCatgRows categoryImgWrapper">
-																						<label>Banner Image</label>                                                                    
+																					null
+																				:   
+																				<div>                                     
+																					<label>Banner Image <i className="redFont">*</i></label>                                                                    
+																					<div className="divideCatgRows categoryImgWrapper">
 																						<input type="file" id="bannerimages" name="bannerimages" onChange={this.uploadImage.bind(this)} title="" multiple className="" accept=".jpg,.jpeg,.png,.gif" required/>
+																					</div>
 																				</div>
 																			}
 																			{
-																				this.state.bannerimages ? 
-																				<div className="row">
-																					<div className="col-lg-4 productImgCol">
-																						<div className="imageDiv">
-																							<div className="prodImageInner">
-																									<span className="prodImageCross" title="Delete" data-imageUrl={this.state.bannerimages} onClick={this.deleteImage.bind(this)} >x</span>
-																							</div>
-																							<img title="view Image" alt="Please wait..." src={this.state.bannerimages ? this.state.bannerimages : "/images/notavailable.jpg"} className="img-responsive" />
-																						</div>    
-																					</div>
-																				</div>
+																				this.state.bannerimages 
+																				?
+																					<div className="imageDiv">
+																						<div className="imageDeleteIcon">
+																								<span className="prodImageCross" title="Delete" data-imageUrl={this.state.bannerimages} onClick={this.deleteImage.bind(this)} >x</span>
+																						</div>
+																						<img title="view Image" alt="Please wait..." src={this.state.bannerimages ? this.state.bannerimages : "/images/notavailable.jpg"} className="img-responsive" />
+																					</div>    
+																					
 																				:
 																				null
 																			}
 																	</div>
-																	<div className="col-lg-12 NOpadding-right">
-																			<div className="addCategoryNewBtn col-lg-12 NOpadding-right">
-																					<div className="pull-right col-lg-6 NOpadding-right">                                              
-																							<div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12">                                                
-																									<button onClick={this.submitImage.bind(this)} className="submitBtn btn categoryBtn col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right">Submit</button>                                                
-																							</div>                                          
-																					</div>
-																			</div>                                      
+																	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 textAlignCenter">
+																			{/*<div className="addCategoryNewBtn col-lg-12 NOpadding-right">*/}
+																					{/*<div className="pull-right col-lg-6 NOpadding-right">                                              */}
+																							{/*<div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12">                                                */}
+																									<button onClick={this.submitImage.bind(this)} className="btn button3">Submit</button>                                                
+																							{/*</div>                                          */}
+																					{/*</div>*/}
+																			{/*</div>                                      */}
 																	</div>
 															</form>
 															</div>
