@@ -607,29 +607,29 @@ uploadImage(event) {
                           <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                             <div className="col-12">
                               <div className="row mt-2">
-                                <div className="col-4 NoPadding mt-2">
+                                <div className="col-4 text-left NoPadding mt-2">
                                   < WebsiteLogo />
                                 </div>
                                 <div className="col-7 text-center">
                                   {/* <h6 className="modal-title mt-2 modalheadingcont"> Product Review</h6> */}
                                 </div>
                                 <div className="col-1 text-center">
-                                  <button type="button" className="close closeModal pull-right" data-dismiss="modal">&times;</button>
+                                  <button type="button" className="close pt-0 closeModal pull-right" data-dismiss="modal">&times;</button>
                                 </div>
                               </div>
                             </div>
                           </div>
                           <div className="modal-body addressModalBody">
-                            <div className="col-12 mt-2 ">
+                            <div className="col-12 mt-3 ">
                               <div className="row">
                                 <div className="col-3 NoPadding orderimgsize text-center" style={{height:'100px'}}>
                                   <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" />
                                 </div>
-                                <div className="col-5 ">
+                                <div className="col-5 mt-4 pt-3">
                                     <div className={"col-12 NoPadding text-left " +Style.reviewProName}>{productdata.productName}</div>
                                     <div className={"col-12 NoPadding text-left " +Style.reviewProPrice}>{this.props.currency} {productdata.discountedPrice.toFixed(2)}</div>
                                 </div>
-                                <div className={"col-3 NoPadding total text-left "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
+                                <div className={"col-3 my-auto NoPadding total text-right "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
                               </div>
                             </div>
 
@@ -651,7 +651,7 @@ uploadImage(event) {
                                   <div className={"col-12 text-left NoPadding " + Style.errormsg}>{this.state.errors.customerReview}</div>
                                 </div>
                               </div>
-                              <div className={"col-12"}>
+                              <div className={"container-flex"}>
                                 <div className={"col-2 NoPadding pull-right " +Style.inputWrapper}>
                                     <input type="file" multiple id="files" className={ Style.hidden +" " +Style.fileInput} onChange={this.uploadImage.bind(this)} title="Choose Image" accept=".jpg,.jpeg,.png"/>
                                     <div className={" " +Style.uploadReviewImg}></div>
@@ -691,14 +691,14 @@ uploadImage(event) {
                             <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                               <div className="col-12">
                                 <div className="row mt-2">
-                                  <div className="col-4 NoPadding mt-2">
+                                  <div className="col-4 text-left NoPadding mt-2">
                                     < WebsiteLogo />
                                   </div>
                                   <div className="col-7 text-center">
                                     {/* <h6 className="modal-title mt-2x modalheadingcont">Return Product</h6> */}
                                   </div>
                                   <div className="col-1 text-center">
-                                    <button type="button" className="close closeModal" data-dismiss="modal">&times;</button>
+                                    <button type="button" className="close pt-0 closeModal" data-dismiss="modal">&times;</button>
                                   </div>
                                 </div>
                               </div>
@@ -709,15 +709,15 @@ uploadImage(event) {
                                   <div className="col-3 NoPadding orderimgsize text-center" style={{height:'100px'}}>
                                     <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" />
                                   </div>
-                                  <div className="col-5 ">
+                                  <div className="col-5 mt-4 pt-3">
                                       <div className={"col-12 NoPadding text-left " +Style.reviewProName}>{productdata.productName}</div>
                                       <div className={"col-12 NoPadding text-left " +Style.reviewProPrice}>{this.props.currency} {productdata.discountedPrice.toFixed(2)}</div>
                                   </div>
-                                  <div className={"col-3 NoPadding total text-left "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
+                                  <div className={"col-3 my-auto NoPadding total text-right "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
                                 </div>
                               </div>
 
-                              <form className={"feedbackForm col-12 pt-2 " + Style.returnForm}>
+                              <form className={"feedbackForm col-lg-10 offest-lg-1 col-12 pt-2 " + Style.returnForm}>
                                 <div className={" col-12 mb-2 text-left NoPadding " + Style.errorMsg} >{this.state.returnProductError}</div>
                                 <label className={"col-12 NoPadding text-left "+Style.feedbackLable}> Reasons For return <span className="errorMsg">  </span></label>
                                 <select onChange={this.selecteReason.bind(this)} className={"col-12 form-control "} ref="reasonOfReturn" name="reasonOfReturn" >
@@ -742,7 +742,7 @@ uploadImage(event) {
                                     <label className="error">{this.state.returnTextError}</label>
                                   </div>
                                 </div>
-                                <div className={"col-12"}>
+                                <div className={"container-flex"}>
                                 <div className={"col-2 NoPadding pull-right " +Style.inputWrapper}>
                                     <input type="file" multiple id="files" className={ Style.hidden +" " +Style.fileInput} onChange={this.uploadImage.bind(this)} title="Choose Image" accept=".jpg,.jpeg,.png"/>
                                     <div className={" " +Style.uploadReviewImg}></div>
@@ -767,8 +767,8 @@ uploadImage(event) {
                               
                                 <div className={"col-12 NoPadding text-left "}>
                                   <div className={"col-12 NoPadding mt-2 mb-2 text-left" + Style.eCommTitle + " " + Style.paymentMethodTitle +" "+Style.feedbackLable}>Refund to : <span className="required"></span></div>
-                                  <div className="form-check mt-2">
-                                    <label className="form-check-label ">
+                                  <div className={"form-check mt-2 "}>
+                                    <label className={"form-check-label "+Style.orderDetailRadioButtonLabel}>
                                       <input type="radio" className={"form-check-input webModelInput " +Style.returnRadioBtn} name="paymentRefundSource" type="radio" id="paymentRefundSource" value="source"
                                         checked={this.state.paymentRefundSource === "source"}
                                         onClick={this.handleRefundPayment.bind(this)}
@@ -776,7 +776,7 @@ uploadImage(event) {
                                     </label>
                                   </div>
                                   <div className="form-check mt-2" >
-                                    <label className="form-check-label" for="radio1">
+                                    <label className={"form-check-label "+Style.orderDetailRadioButtonLabel} for="radio1">
                                       <input type="radio" className={"form-check-input webModelInput "+Style.returnRadioBtn} name="paymentRefundSource" type="radio" id="paymentRefundSource" value="credit"
                                         checked={this.state.paymentRefundSource === "credit"}
                                         onChange={this.handleRefundPayment.bind(this)}
@@ -913,29 +913,29 @@ uploadImage(event) {
                           <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                             <div className="col-12">
                               <div className="row mt-2">
-                                <div className="col-4 NoPadding mt-2">
+                                <div className="col-4 text-left NoPadding mt-2">
                                   < WebsiteLogo />
                                 </div>
                                 <div className="col-7 text-center">
                                   {/* <h6 className="modal-title mt-2 modalheadingcont"> Product Review</h6> */}
                                 </div>
                                 <div className="col-1 text-center">
-                                  <button type="button" className="close closeModal pull-right" data-dismiss="modal">&times;</button>
+                                  <button type="button" className="close pt-0 closeModal pull-right" data-dismiss="modal">&times;</button>
                                 </div>
                               </div>
                             </div>
                           </div>
                           <div className="modal-body addressModalBody">
-                            <div className="col-12 mt-2 ">
+                            <div className="col-12 mt-3 ">
                               <div className="row">
                                 <div className="col-3 NoPadding orderimgsize" style={{height:'100px'}}>
                                   <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" />
                                 </div>
-                                <div className="col-5 ">
+                                <div className="col-5 mt-4 pt-3">
                                     <div className={"col-12 NoPadding text-left " +Style.reviewProName}>{productdata.productName}</div>
                                     <div className={"col-12 NoPadding text-left " +Style.reviewProPrice}>{this.props.currency} {productdata.discountedPrice.toFixed(2)}</div>
                                 </div>
-                                <div className={"col-3 NoPadding total text-left "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
+                                <div className={"col-3 my-auto NoPadding total text-right "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
                               </div>
                             </div>
 
@@ -957,7 +957,7 @@ uploadImage(event) {
                                   <div className={"col-12 text-left NoPadding " + Style.errormsg}>{this.state.errors.customerReview}</div>
                                 </div>
                               </div>
-                              <div className={"col-12"}>
+                              <div className={"container-flex"}>
                                 <div className={"col-2 NoPadding pull-right " +Style.inputWrapper}>
                                     <input type="file" multiple id="files" className={ Style.hidden +" " +Style.fileInput} onChange={this.uploadImage.bind(this)} title="Choose Image" accept=".jpg,.jpeg,.png"/>
                                     <div className={" " +Style.uploadReviewImg}></div>
@@ -997,33 +997,33 @@ uploadImage(event) {
                             <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                               <div className="col-12">
                                 <div className="row mt-2">
-                                  <div className="col-4 NoPadding mt-2">
+                                  <div className="col-4 NoPadding text-left mt-2">
                                     < WebsiteLogo />
                                   </div>
                                   <div className="col-7 text-center">
                                     {/* <h6 className="modal-title mt-2x modalheadingcont">Return Product</h6> */}
                                   </div>
                                   <div className="col-1 text-center">
-                                    <button type="button" className="close closeModal" data-dismiss="modal">&times;</button>
+                                    <button type="button" className="close pt-0 closeModal" data-dismiss="modal">&times;</button>
                                   </div>
                                 </div>
                               </div>
                             </div>
                             <div className="modal-body addressModalBody">
-                              <div className="col-12 mt-2 ">
+                              <div className="col-12 mt-3 ">
                                 <div className="row">
                                   <div className="col-3 NoPadding orderimgsize" style={{height:'100px'}}>
                                     <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" />
                                   </div>
-                                  <div className="col-5 ">
+                                  <div className="col-5 mt-4 pt-3">
                                       <div className={"col-12 NoPadding text-left " +Style.reviewProName}>{productdata.productName}</div>
                                       <div className={"col-12 NoPadding text-left " +Style.reviewProPrice}>{this.props.currency} {productdata.discountedPrice.toFixed(2)}</div>
                                   </div>
-                                  <div className={"col-3 NoPadding total text-left "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
+                                  <div className={"col-3 my-auto NoPadding total text-right "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
                                 </div>
                               </div>
 
-                              <form className={"feedbackForm col-12 pt-2 " + Style.returnForm}>
+                              <form className={"feedbackForm col-lg-10 offset-lg-1 pt-2 " + Style.returnForm}>
                                 <div className={" col-12 mb-2 text-left NoPadding " + Style.errorMsg} >{this.state.returnProductError}</div>
                                 <label className={"col-12 NoPadding text-left "+Style.feedbackLable}> Reasons For return <span className="errorMsg">  </span></label>
                                 <select onChange={this.selecteReason.bind(this)} className={"col-12 form-control "} ref="reasonOfReturn" name="reasonOfReturn" >
@@ -1048,7 +1048,7 @@ uploadImage(event) {
                                     <label className="error">{this.state.returnTextError}</label>
                                   </div>
                                 </div>
-                                <div className={"col-12"}>
+                                <div className={"container-flex"}>
                                 <div className={"col-2 NoPadding pull-right " +Style.inputWrapper}>
                                     <input type="file" multiple id="files" className={ Style.hidden +" " +Style.fileInput} onChange={this.uploadImage.bind(this)} title="Choose Image" accept=".jpg,.jpeg,.png"/>
                                     <div className={" " +Style.uploadReviewImg}></div>
@@ -1094,7 +1094,7 @@ uploadImage(event) {
                                 <div className={"col-12 NoPadding text-left "}>
                                   <div className={"col-12 NoPadding mt-2 mb-2 text-left" + Style.eCommTitle + " " + Style.paymentMethodTitle +" "+Style.feedbackLable}>Refund to : <span className="required"></span></div>
                                   <div className="form-check mt-2">
-                                    <label className="form-check-label ">
+                                    <label className={"form-check-label "+Style.orderDetailRadioButtonLabel}>
                                       <input type="radio" className={"form-check-input webModelInput " +Style.returnRadioBtn} name="paymentRefundSource" type="radio" id="paymentRefundSource" value="source"
                                         checked={this.state.paymentRefundSource === "source"}
                                         onClick={this.handleRefundPayment.bind(this)}
@@ -1102,7 +1102,7 @@ uploadImage(event) {
                                     </label>
                                   </div>
                                   <div className="form-check mt-2" >
-                                    <label className="form-check-label" for="radio1">
+                                    <label className={"form-check-label "+Style.orderDetailRadioButtonLabel} for="radio1">
                                       <input type="radio" className={"form-check-input webModelInput "+Style.returnRadioBtn} name="paymentRefundSource" type="radio" id="paymentRefundSource" value="credit"
                                         checked={this.state.paymentRefundSource === "credit"}
                                         onChange={this.handleRefundPayment.bind(this)}
