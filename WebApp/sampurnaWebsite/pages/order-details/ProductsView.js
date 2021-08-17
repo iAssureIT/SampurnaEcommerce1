@@ -573,9 +573,9 @@ uploadImage(event) {
 
                       }
                     </td>
-                    <td className="textAlignRight ">
+                    <td className={"textAlignRight "+Style.orderDetailSubTotalWrapper}>
                       {
-                        <span className="productPrize textAlignRight">
+                        <span className={"productPrize textAlignRight "+Style.productPrize}>
                           {this.props.currency}
                           &nbsp;{productdata.discountedPrice.toFixed(2)}
                         </span>
@@ -586,14 +586,14 @@ uploadImage(event) {
                         
                           {/* {productdata.productReturnable === "returnable"  && productdata.productStatus? */}
                           {productdata.productStatus ?
-                            <div className={" " + Style.returnReviewBtn} productId={productdata.product_ID} >{productdata.productStatus}</div>
+                            <div className={"mt-2 " + Style.returnReviewBtn} productId={productdata.product_ID} >{productdata.productStatus}</div>
                             :
-                            <div className={" " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#returnModal_" + productdata.product_ID}>Return</div>
+                            <div className={"mt-2 " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#returnModal_" + productdata.product_ID}>Return</div>
                           }
                             {productdata.isReview ?
-                            <div className={" " + Style.returnReviewBtn} productId={productdata.product_ID} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Edit Review</div>
+                            <div className={"mt-1 " + Style.returnReviewBtn} productId={productdata.product_ID} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Edit Review</div>
                             :
-                            <div className={" " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Review</div>
+                            <div className={"mt-1 " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Review</div>
                           }
                         </span>
                         : null

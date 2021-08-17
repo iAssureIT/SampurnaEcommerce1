@@ -312,16 +312,15 @@
 		color    : black;
 	}
 
-	.returnReviewBtnWrapper {
-		position       : absolute;
-		top            : 53%;
+	.returnReviewBtnWrapper{
+		/* position       : absolute; */
+		/* top            : 53%; */
+		/* right          : -2.5%; */
 		font-size      : 3px !important;
-		right          : -2.5%;
 		color          : #033554;
 		text-decoration: underline;
 		font-family    : 'Montserrat-Regular';
 		font-weight    : 500;
-
 	}
 }
 

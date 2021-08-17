@@ -405,10 +405,10 @@ export default class MyOrders extends Component {
                                           <span className={"  orderStatusBadge mx-auto badge  NoPadding " + Style.orderStatusBadge1}><span className={" "+Style.statusTextWrapper}>{"Processing"}</span></span>
                                         }
                                         {vendordata.orderStatus === "On the Way" &&
-                                          <span className={"  orderStatusBadge mx-auto badge badge-primary NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
+                                          <span className={"  orderStatusBadge orderStatusBadgeOnTheWay mx-auto badge badge-primary NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
                                         }
                                         {vendordata.orderStatus === "Ready to Dispatch" &&
-                                          <span className={"  orderStatusBadge mx-auto badge badge-primary  NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
+                                          <span className={"  orderStatusBadge orderStatusBadgeOnTheWay mx-auto badge badge-primary  NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
                                         }
                                         {vendordata.orderStatus === "Delivered" &&
                                           <span className={"  orderStatusBadge mx-auto badge badge-success NoPadding " + Style.orderStatusBadge }><span className={" "+Style.statusTextWrapper}>{vendordata.orderStatus}</span></span>
