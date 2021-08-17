@@ -627,7 +627,7 @@ uploadImage(event) {
                                     <div className={"col-12 NoPadding text-left " +Style.reviewProName}>{productdata.productName}</div>
                                     <div className={"col-12 NoPadding text-left " +Style.reviewProPrice}>{this.props.currency} {productdata.discountedPrice.toFixed(2)}</div>
                                 </div>
-                                <div className={"col-3 my-auto NoPadding total text-right "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
+                                <div className={"col-3 my-auto NoPadding total text-center "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
                               </div>
                             </div>
 
@@ -711,7 +711,7 @@ uploadImage(event) {
                                       <div className={"col-12 NoPadding text-left " +Style.reviewProName}>{productdata.productName}</div>
                                       <div className={"col-12 NoPadding text-left " +Style.reviewProPrice}>{this.props.currency} {productdata.discountedPrice.toFixed(2)}</div>
                                   </div>
-                                  <div className={"col-3 my-auto NoPadding total text-right "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
+                                  <div className={"col-3 my-auto NoPadding total text-center "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
                                 </div>
                               </div>
 
@@ -1017,7 +1017,7 @@ uploadImage(event) {
                                       <div className={"col-12 NoPadding text-left " +Style.reviewProName}>{productdata.productName}</div>
                                       <div className={"col-12 NoPadding text-left " +Style.reviewProPrice}>{this.props.currency} {productdata.discountedPrice.toFixed(2)}</div>
                                   </div>
-                                  <div className={"col-3 my-auto NoPadding total text-right "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
+                                  <div className={"col-3 my-auto NoPadding total text-center "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
                                 </div>
                               </div>
 
