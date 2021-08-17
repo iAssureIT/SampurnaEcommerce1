@@ -37,16 +37,26 @@ class ConfirmOTP extends Component{
 
 	resendOTP(event){
 		event.preventDefault();
+		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+        if(userDetails){
+			console.log("userDetails ==",userDetails.userId); 
+          	this.setState({
+            	userId  : userDetails.userId,
+			})
+        }
+		if(this.state.userId){
 		axios.patch("/api/auth/patch/setsendmobileotpusingID/" +this.state.userId)
 			.then((otpResponse)=>{
 				if(otpResponse){
-					console.log("otpResponse==",otpResponse);
+					// console.log("otpResponse==",otpResponse);
 					swal("Please Enter your OPT");
 				}
 			})
 			.catch((error)=>{
 				console.log("error while resending otp==",error);
 			})
+		}
 	}
 
 	verifyOTP(event){

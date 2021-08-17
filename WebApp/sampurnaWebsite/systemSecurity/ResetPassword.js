@@ -21,7 +21,6 @@ class ResetPassword extends Component{
             errors 		: {}
         }
     }
-
 	componentDidMount(){
         var userDetails =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
@@ -30,7 +29,6 @@ class ResetPassword extends Component{
 			})
         }
     }
-
 	resetPassword(event){
         event.preventDefault();
 		var formValues = {

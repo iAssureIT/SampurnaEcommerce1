@@ -51,7 +51,15 @@ class SignUpOTP extends Component{
 
 	verifyOTP(event){
 		event.preventDefault();
-		if(this.state.otp){
+		var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+        if(userDetails){
+			console.log("userDetails ==",userDetails.userId); 
+          	this.setState({
+            	userId  : userDetails.userId,
+				phone   : userDetails.mobNumber,
+			})
+        }
+		if(this.state.otp && this.state.userId){
 			axios.get("/api/auth/get/checkmobileotp/usingID/"+this.state.userId+"/"+this.state.otp)
 				.then((verifyOtpResponse)=>{
 					if(verifyOtpResponse){
