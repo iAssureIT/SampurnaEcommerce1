@@ -238,7 +238,7 @@ class CategoryManagement extends Component{
 		  limitRange : limitRange
 		}
 		
-		// console.log("data => ",data);
+		console.log("data => ",data);
 		axios.post('/api/category/get/list', data)
 		.then((response)=>{
 		  	console.log('category tableData', response.data);
