@@ -58,6 +58,7 @@ class AllOrdersList extends Component{
 			tableData 			: [],
 			activeStatus 		: "",
 			isLoadingData     : false,
+			searchText 			: ""
 
 		};
 		this.openChangeStatusModal 		= this.openChangeStatusModal.bind(this);
@@ -112,7 +113,7 @@ class AllOrdersList extends Component{
 		this.setState({
 			orderStatus : orderStatus
 		},()=>{
-			this.getData(this.state.startRange,this.state.limitRange);		
+			this.getData(this.state.searchText, this.state.startRange,this.state.limitRange);		
 		})
 	}
 
@@ -155,7 +156,7 @@ class AllOrdersList extends Component{
 			order_user_id	: order_user_id
 		},()=>{
 			this.getOneOrder(this.state.order_id, this.state.vendor_id);
-			this.getData(this.state.startRange,this.state.limitRange);
+			this.getData(this.state.searchText, this.state.startRange,this.state.limitRange);
 		})		
 	}
 	
@@ -231,11 +232,12 @@ class AllOrdersList extends Component{
 	}
 
 	/**=========== getData() ===========*/
-	async getData(startRange, limitRange){
+	async getData(searchText, startRange, limitRange){
 		this.setState({isLoadingData : true})
 		var formValues = await {
 		  startRange : startRange,
 		  limitRange : limitRange,
+		  searchText : this.state.searchText,
 		  status 	 : this.state.orderStatus
 		}
 		console.log("formValues => ",formValues)
@@ -325,6 +327,7 @@ class AllOrdersList extends Component{
 			// console.log("tableData",tableData);
 			this.setState({
 				tableData 		: tableData,
+				dataCount 		: 1000,
 				isLoadingData 	: false,
 			},()=>{})
 		})
@@ -403,6 +406,7 @@ class AllOrdersList extends Component{
 				// axios.patch("/api/orders/changevendororderstatus",formValues)
 				// .then((response)=>{ 
 					this.getOneOrder(this.state.order_id, this.state.vendor_id);
+
 					// this.getData(this.state.startRange,this.state.limitRange);
 				// })
 				// .catch((error)=>{

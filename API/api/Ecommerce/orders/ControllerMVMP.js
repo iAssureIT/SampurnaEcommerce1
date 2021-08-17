@@ -695,9 +695,9 @@ exports.list_orders_by_status = (req, res, next) => {
 	// console.log("list_orders_by_status => ",req.body);
 	var selector        = {};
 	selector['$and']    = [];
+	
+	/**----------- Find Status wise Orders ------------ */		
 	if(req.body.status.toLowerCase() !== "all"){       
-		/**----------- Find Status wise Orders ------------ */
-		
 		selector["$and"].push({
 			vendorOrders : { 
 				$elemMatch: { orderStatus: req.body.status } 
@@ -709,6 +709,15 @@ exports.list_orders_by_status = (req, res, next) => {
 				$elemMatch: { orderStatus:{"$ne" : ""} }
 			} 
 		})
+	}
+
+	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
+	if(req.body.searchText && req.body.searchText !== ""){
+		selector["$or"].push({ "orderID" 									: {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$or"].push({ "userName" 									: {'$regex' : req.body.searchText , $options: "i" } })
+		selector["$or"].push({ "userFullName" 								: {'$regex' : req.body.searchText , $options: "i" } })
+		selector["$or"].push({ "deliveryAddress.name" 					: {'$regex' : req.body.searchText , $options: "i" } })
+		selector["$or"].push({ "vendorOrders.vendor_id.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
 	}
 	// console.log("selector",selector);
 	// console.log("selector => ",selector[0].vendorOrders)
