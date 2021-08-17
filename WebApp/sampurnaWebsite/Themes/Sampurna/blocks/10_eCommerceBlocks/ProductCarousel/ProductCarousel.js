@@ -194,7 +194,7 @@ class ProductCarousel extends Component {
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
           .then((categoryResponse)=>{
             if(categoryResponse.data){     
-              console.log("categoryResponse====",categoryResponse.data); 
+              // console.log("categoryResponse====",categoryResponse.data); 
                 for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
                   // console.log("categoryResponse.data.categoryList[i].categoryUrl=",categoryResponse.data.categoryList[i].categoryUrl,"===",this.state.categoryUrl);
                     if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
@@ -312,7 +312,14 @@ getProductList(productApiUrl,formValues){
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-      // console.log("response.data===",response.data);
+      if(this.state.brandWiseFilter){
+        console.log("brand Product data===",response.data);
+        console.log("brandwise filter=",this.state.brandWiseFilter);
+        this.setState({
+          newProducts    : response.data,                         
+        })
+      }else{
+        console.log("Product data===",response.data);
       this.setState({
         newProducts    : this.state.newProducts.concat(response.data),                         
       },()=>{
@@ -327,6 +334,7 @@ getProductList(productApiUrl,formValues){
             $('.seeMoreBtnWrapper').hide();
         }
       });
+    }
     }
     })
     .catch((error)=>{
@@ -515,12 +523,15 @@ submitCart(event) {
     },()=>{
       console.log("brandArray => ",this.state.brandArray);
       console.log("this.state.blockSettings.subCategory==",this.state.blockSettings.subCategory);
+      this.setState({
+        brandWiseFilter : true,
+      })
       var formValues = {
         "vendor_ID"      : this.state.vendor_ID, 
         "sectionUrl"     : this.state.sectionUrl,
         "categoryUrl"    : this.state.categoryUrl,
-        "subCategoryUrl" : ["baby"],
-        // "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
+        // "subCategoryUrl" : ["baby"],
+        "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
         "userLatitude"   : this.state.userLatitude,
         "userLongitude"  : this.state.userLongitude,
         "startRange"     : 0,

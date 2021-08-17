@@ -123,7 +123,7 @@ class SignUp extends Component{
 
 		if(!fields["termsNconditions"]){
 			var pattern = this.state.isChecked
-            console.log("condition---", fields["termsNconditions"]);
+            // console.log("condition---", fields["termsNconditions"]);
             if(pattern === false){
                 formIsValid = false;
                 errors["termsNconditions"] = "Please check terms and conditions";
