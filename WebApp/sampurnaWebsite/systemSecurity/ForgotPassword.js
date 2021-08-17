@@ -64,21 +64,12 @@ class ForgotPassword extends Component{
 							userId : forgotPassResponse.data.ID,
 						}
                         swal(forgotPassResponse.data.message);
-<<<<<<< Updated upstream
                         this.props.updateFormValue("confirmOtp");
                         localStorage.setItem('userDetails', JSON.stringify(userDetails));
                         // if(forgotPassResponse.data.message === "OTP sent on registered mobile number"){
                         //     this.props.updateFormValue("confirmOtp");
                         //     localStorage.setItem('userDetails', JSON.stringify(userDetails));	
                         // }
-=======
-                        if(forgotPassResponse.data.message === "OTP sent on Registered Email ID / Mobile Number"){
-                            // this.props.updateFormValue("signupotp");
-                            this.props.updateFormValue("confirmOtp");
-                            localStorage.setItem('userDetails', JSON.stringify(userDetails));	
-                            // localStorage.setItem("userDetails",userDetails);
-                        }
->>>>>>> Stashed changes
                     }                  
                 })
                 .catch((error) => {
