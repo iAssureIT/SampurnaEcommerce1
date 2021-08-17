@@ -68,7 +68,7 @@ class CreditPoints extends Component{
                         <div className="row">
                             <div className={"col-4 px-lg-5 text-lg-left text-center "+Style.CreditCurrentBalTitle}>Current Balance</div>
                             <div className="col-4 text-left"></div>
-                            <div className={"col-4 px-lg-5 text-lg-right text-center "+Style.CreditTotalBalTitle}>{this.state.currency}&nbsp;{this.state.creditdata && this.state.creditdata.totalPointsValue}&nbsp;</div>
+                            <div className={"col-4 px-lg-5 text-lg-right text-center "+Style.CreditTotalBalTitle}>{this.state.currency}&nbsp;{this.state.creditdata && this.state.creditdata.totalPointsValue}</div>
                         </div>
                     </div>
                     {this.state.creditdata && this.state.creditdata.transactions && this.state.creditdata.transactions.length>0
@@ -89,7 +89,7 @@ class CreditPoints extends Component{
                                     data &&
                                     <div className={"col-12 mt-4 py-2 "+ Style.CreditPointInnerBox}key={index}>
                                         <div className="row">
-                                        <div className={"col-4 px-lg-5 my-auto text-lg-left text-center "+Style.CreditCurrentBalTitle1}>{data.transactionDate ? moment(data.transactionDate).format('MM/DD/YYYY'):null}</div>
+                                        <div className={"col-4 px-lg-5 my-auto text-lg-left text-center "+Style.CreditCurrentBalTitle1}>&nbsp;{data.transactionDate ? moment(data.transactionDate).format('MM/DD/YYYY'):null}</div>
                                         <div className="col-4 px-lg-5 text-lg-left text-center">
                                             
                                             <div className={" "+Style.CreditCurrentBalTitle1}><b>{data.typeOfTransaction}</b></div>
