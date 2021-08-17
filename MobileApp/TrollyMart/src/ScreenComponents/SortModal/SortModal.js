@@ -18,7 +18,7 @@ import {useSelector,useDispatch} from 'react-redux';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import {
-  SET_CATEGORY_WISE_LIST,
+  SET_CATEGORY_WISE_LIST,STOP_SCROLL
 } from '../../redux/productList/types';
 // import {getServiceCenterList} from '../../redux/serviceCenter/actions';
 const window = Dimensions.get('window');
@@ -71,6 +71,10 @@ export const SortModal = (props) => {
                           type:SET_CATEGORY_WISE_LIST,
                           payload:[]
                         })
+                        dispatch({
+                          type: STOP_SCROLL,
+                          payload: false,
+                      });
                         dispatch(getCategoryWiseList(payload));
                         closeModal();
                     }}>

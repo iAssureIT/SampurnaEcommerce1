@@ -160,7 +160,6 @@ const FormBody = (props) => {
             style={{width: '95%', height: 100,alignSelf:"center",marginHorizontal:20}}
             pinCount={4}
             placeholderTextColor={'#333'}
-            autoFocusOnLoad
             codeInputFieldStyle={styles.underlineStyleBase}
             codeInputHighlightStyle={styles.underlineStyleHighLighted}
             onCodeFilled = {handleSubmit}

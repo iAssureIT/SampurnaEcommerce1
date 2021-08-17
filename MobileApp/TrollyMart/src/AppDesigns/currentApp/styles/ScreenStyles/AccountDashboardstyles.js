@@ -62,7 +62,8 @@ export default StyleSheet.create({
   },
   accusermobinfo:{
     flexDirection:'row',
-    alignItems:'center'
+    alignItems:'center',
+    height:50
   },
   accuseraddress:{
     fontSize:12,fontFamily:"Montserrat-Regular",

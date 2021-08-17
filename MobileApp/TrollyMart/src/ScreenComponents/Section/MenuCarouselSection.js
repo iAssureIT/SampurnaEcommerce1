@@ -20,26 +20,31 @@ export const MenuCarouselSection = (props)=>{
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const [selected,setSelected]=useState();
   const dispatch 		= useDispatch();
-  const refContainer = useRef(0);
+  const flatlistRef = useRef()
   const route = useRoute();
   console.log("route.name",route.name);
   TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
   const section = useSelector(store => store.section.sections)
   useEffect(() => {
    setSelected(props.selected);
+   console.log("props.index",props.index);
+   if(props.index){
+    flatlistRef.current.scrollToIndex({ animated: true, index: props.index })
+   }
   },[props.selected,props.index]);
 
-  // if(refContainer.current){
-  //   refContainer.current.scrollToIndex({ animated: true, index: props.index });
-  // }   
-  
-  // const xOffset = new Animated.Value(0); 
+  const getItemLayout = (data, index) => ({
+    length: 130,
+    offset: 130 * index,
+    index,
+  })
   const _renderlist = ({ item, index })=>{
     return (
       <View key={index} style={styles.mainrightside}>
         <TouchableOpacity style={{borderRadius:selected===item.section ? 8 :0,borderWidth:selected===item.section ? 2:0,borderColor:colors.cartButton}} 
           onPress={()=>{
               setSelected(item.section);
+               flatlistRef.current.scrollToIndex({ animated: true, index: index })
               navigation.navigate("VendorList",{
                 sectionUrl  : item.sectionUrl,
                 section     : item.section,
@@ -82,20 +87,15 @@ export const MenuCarouselSection = (props)=>{
             <FlatList
               horizontal  = {true}
               data={section}
-              ref={refContainer}
+              // ref={refContainer}
               renderScrollComponent={props => <ScrollView {...props} />}
               // scrollToIndex={{animated:true,index:6}}
               // onContentSizeChange={() => refContainer?.current?.scrollToEnd()}
               renderItem={item => _renderlist(item)}
               keyExtractor={(item, index) => item._id.toString()}
               showsHorizontalScrollIndicator={false}
-              // ref={(node) => scroll = node}
-              // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
-              getItemLayout={(data, index) => ({
-                  length: boxHeight, 
-                  offset: boxHeight * index, 
-                  index
-                })}
+              ref={flatlistRef}
+              getItemLayout={getItemLayout}
           />:[]} 
         </View>
     </View>

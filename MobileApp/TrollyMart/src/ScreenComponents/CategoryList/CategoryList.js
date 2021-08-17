@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef,useCallback } from 'react';
 import {Text,View,
       TouchableOpacity,
       ImageBackground,
@@ -9,15 +9,18 @@ import Animated                             from "react-native-reanimated";
 import {useDispatch,useSelector }           from 'react-redux';
 import { colors, sizes }                    from '../../AppDesigns/currentApp/styles/styles.js';
 import { getCategoryWiseList }              from '../../redux/productList/actions.js';
-import {SET_CATEGORY_WISE_LIST}             from '../../redux/productList/types';
+import {
+  SET_CATEGORY_WISE_LIST,STOP_SCROLL
+} from '../../redux/productList/types';
 import { Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native'
 
 export const CategoryList = (props)=>{
   const {navigation,boxHeight,showImage,vendor}=props;
-  console.log("vendor",vendor);
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const [selected,setSelected]=useState('');
   const dispatch 		= useDispatch();
+  const flatlistRef = useRef()
   const store = useSelector(store => ({
     categoryList  : store.productList.categoryList.categoryList,
     payload       : store.productList.searchPayload,
@@ -28,6 +31,9 @@ export const CategoryList = (props)=>{
         if(props.category!==""){
           setSelected(props.category);
           const index = categoryList.findIndex(e=>e.category === props.category);
+          if(index>-1){
+            flatlistRef.current.scrollToIndex({ animated: true, index: index })
+          }
           var subCategoryArray = categoryList[index]?.subCategory.map((a, i)=>{
             return {
                 label :a.subCategoryTitle,        
@@ -53,9 +59,9 @@ export const CategoryList = (props)=>{
 
   const _renderlist = ({ item, i })=>{
     return (
-      <View key={i} style={[styles.mainrightside,{elevation:5}]}>
+      <View key={i} style={[styles.mainrightside]}>
        {selected===item.category ? 
-       <TouchableOpacity style={{borderRadius:5,marginTop:showImage === true ? 5 :0}} onPress={()=>{
+       <TouchableOpacity style={{borderRadius:5,marginTop:showImage === true ? 5 :0,backgroundColor:"#fff"}} onPress={()=>{
               setSelected(item.category);
               var subCategoryArray = item.subCategory.map((a, i)=>{
                 return {
@@ -75,6 +81,10 @@ export const CategoryList = (props)=>{
                 type : SET_CATEGORY_WISE_LIST,
                 payload : []
               })
+              dispatch({
+                type: STOP_SCROLL,
+                payload: false,
+              });
               dispatch(getCategoryWiseList(payload));
                 navigation.push('VendorProducts',
                 {
@@ -86,7 +96,9 @@ export const CategoryList = (props)=>{
                 });
             }}>
             {showImage === true? 
-            <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#000",height:boxHeight}]} imageStyle={{opacity:0.5,borderRadius: 5,elevation:5}}>
+            <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#000",height:boxHeight, shadowColor: '#202020',
+            shadowOffset: {width: 0, height: 0},
+            shadowRadius: 5,}]} imageStyle={{opacity:0.5,borderRadius: 5,elevation:5}}>
               <Text style={[styles.categoryTitle,{color:item.categoryImage?"#fff":"#707070"}]}>{item.category}</Text>
             </ImageBackground>
             :
@@ -116,6 +128,10 @@ export const CategoryList = (props)=>{
                 type : SET_CATEGORY_WISE_LIST,
                 payload : []
               })
+              dispatch({
+                type: STOP_SCROLL,
+                payload: false,
+              });
               dispatch(getCategoryWiseList(payload));
                 navigation.push('VendorProducts',
                 {
@@ -152,6 +168,10 @@ export const CategoryList = (props)=>{
              type : SET_CATEGORY_WISE_LIST,
              payload : []
            })
+           dispatch({
+            type: STOP_SCROLL,
+            payload: false,
+          });
            dispatch(getCategoryWiseList(payload));
              navigation.push('VendorProducts',
              {
@@ -171,6 +191,13 @@ export const CategoryList = (props)=>{
     )
   }
 
+  const getItemLayout = (data, index) => ({
+    length: 130,
+    offset: 130 * index,
+    index,
+  })
+
+
   return (
     <View>
         <View style={styles.categoryContainer}>
@@ -179,11 +206,12 @@ export const CategoryList = (props)=>{
             <FlatList
               horizontal                      = {true}
               data={categoryList}
+              pagingEnabled
               renderItem={item => _renderlist(item)}
               keyExtractor={item => item._id}
               showsHorizontalScrollIndicator={false}
-              // ref={(node) => scroll = node}
-              // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
+              ref={flatlistRef}
+              getItemLayout={getItemLayout}
           />:[]} 
         </View>
     </View>

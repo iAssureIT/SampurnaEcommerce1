@@ -194,5 +194,37 @@ export default StyleSheet.create({
         // minHeight: 55,
       }
     })
-  }
+  },
+  cancelbtn:{
+    flexDirection:'row',marginTop:20,paddingRight:10
+  },
+  buttonRED:{
+    backgroundColor: colors.buttonRED,
+    height: 45,
+    width:"100%",
+  },
+  ordervwbtn:{
+    flex:0.5,borderRadius:3,shadowColor: '#fff',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  buttonGreen:{
+    backgroundColor: colors.buttonGreen,
+    height: 45,
+    width:"100%",
+  },
+  cancelvwbtn:{
+    flex:0.5,marginRight:10,borderRadius:3,shadowColor: '#fff',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    elevation: 5,
+  },
+  button1:{
+    backgroundColor: colors.button1,
+    height: 45,
+    width:"100%",
+  },
+  
 });

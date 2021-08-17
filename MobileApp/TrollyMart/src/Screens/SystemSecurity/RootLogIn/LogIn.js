@@ -198,6 +198,7 @@ const window = Dimensions.get('window');
         setLoading(true);
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
+        console.log("userInfo",userInfo);
         await GoogleSignin.revokeAccess();
           var formValues = {
             firstname   : userInfo.user.givenName,
@@ -214,6 +215,7 @@ const window = Dimensions.get('window');
           }
           sign_in(formValues)
         }catch(error){
+          console.log("error",error);
           setLoading(false);
           if (error.code === statusCodes.SIGN_IN_CANCELLED) {
             console.log("sign in was cancelled");
@@ -279,6 +281,7 @@ const window = Dimensions.get('window');
           } else {
             AccessToken.getCurrentAccessToken().then(data => {
               const accessToken = data.accessToken.toString();
+              console.log("accessToken",accessToken);
               getInfoFromToken(accessToken);
             });
           }

@@ -455,7 +455,7 @@ export default StyleSheet.create({
     flex:1,flexDirection:"row"
   },
   totaldata:{
-    fontSize:14,fontFamily:"Montserrat-Light", color:'#000000',opacity: 0.4
+    fontSize:14,fontFamily:"Montserrat-Regular", color:'#000000',opacity: 0.4
   },
   creditPoints:{
     fontSize:14,fontFamily:"Montserrat-Regular", color:'#000000',opacity: 0.8
@@ -481,7 +481,7 @@ export default StyleSheet.create({
 		fontSize: 16, fontFamily: "Montserrat-SemiBold",  color: '#333', alignItems: 'center',
   },
   ogpriceC: {
-		fontSize: 16, fontFamily: "Montserrat-Light",  color: '#333', alignItems: 'center',
+		fontSize: 16, fontFamily: "Montserrat-Regular",  color: '#333', alignItems: 'center',
   },
   ogpriceG1: {
 		fontSize: 16, fontFamily: "Montserrat-SemiBold", color: '#4BA266', alignItems: 'center',

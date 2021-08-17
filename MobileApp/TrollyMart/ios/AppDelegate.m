@@ -13,6 +13,9 @@
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 #import <Firebase.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -29,6 +32,10 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [AppCenterReactNative register];
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+[ AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+
   [GMSServices provideAPIKey:@"AIzaSyC2Ubr7BFRt1rjOU9XajVBNRUV5w8VLe0k"];
   if ([FIRApp defaultApp] == nil) {
     [FIRApp configure];

@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		74D0EE31E226AF57446EB43B /* libPods-TrollyMart-TrollyMartTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F0BB7221DA76BB560758F2 /* libPods-TrollyMart-TrollyMartTests.a */; };
-		78F4EF9326BD84650035DD24 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F4EF9226BD84650035DD24 /* iTunesArtwork@2x.png */; };
+		78047DBF26C41D5500A17F4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38EA266F3605004A4ED2 /* GoogleService-Info.plist */; };
+		789E8A2226C4E41E00A728D0 /* Icon-App-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 789E8A2126C4E41E00A728D0 /* Icon-App-60x60@2x.png */; };
 		7C0C2C55266E381000D83162 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009616266CF52A008C2278 /* Montserrat-Medium.ttf */; };
 		7C0C2C57266E381000D83162 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7CED594A263C9ABF00A70AD0 /* Montserrat-Bold.otf */; };
 		7C0C2C58266E381000D83162 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CED5949263C9ABF00A70AD0 /* Montserrat-Regular.ttf */; };
@@ -36,7 +37,6 @@
 		7C46EF13266E536A001EFAF2 /* TrollyMartTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TrollyMartTests.m */; };
 		7C68E7D82694B449004C7F19 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C68E7D72694B449004C7F19 /* File.swift */; };
 		7C6A38EF266F3605004A4ED2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38E8266F3605004A4ED2 /* LaunchScreen.storyboard */; };
-		7C6A38F0266F3605004A4ED2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38EA266F3605004A4ED2 /* GoogleService-Info.plist */; };
 		7C6A38F1266F3605004A4ED2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C6A38EB266F3605004A4ED2 /* main.m */; };
 		7CFF629B2695A75B00B1EFD5 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CFF629A2695A75B00B1EFD5 /* AppCenter-Config.plist */; };
 		BD3EB499737979CED18C9592 /* libPods-TrollyMart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40E16502123913B8F891E5DB /* libPods-TrollyMart.a */; };
@@ -62,7 +62,9 @@
 		40E16502123913B8F891E5DB /* libPods-TrollyMart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrollyMart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F0BB7221DA76BB560758F2 /* libPods-TrollyMart-TrollyMartTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrollyMart-TrollyMartTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		72C5A81AB5E516BB491819A5 /* Pods-TrollyMart-TrollyMartTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMart-TrollyMartTests.debug.xcconfig"; path = "Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests.debug.xcconfig"; sourceTree = "<group>"; };
-		78F4EF9226BD84650035DD24 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@2x.png"; path = "../../src/AppDesigns/currentApp/images/iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		78047DB526C3FDD100A17F4D /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		78047DBD26C406FD00A17F4D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		789E8A2126C4E41E00A728D0 /* Icon-App-60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-App-60x60@2x.png"; path = "../../../../../../Downloads/unnamed/ios/AppIcon.appiconset/Icon-App-60x60@2x.png"; sourceTree = "<group>"; };
 		78F4EF9426BD909C0035DD24 /* TrollyMart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrollyMart.entitlements; sourceTree = "<group>"; };
 		7C009616266CF52A008C2278 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Medium.ttf"; path = "../assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		7C009681266D1CD2008C2278 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -186,6 +188,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				78047DBD26C406FD00A17F4D /* libz.tbd */,
+				78047DB526C3FDD100A17F4D /* libRNGoogleSignin.a */,
 				7C34B649266E58EA0078724F /* GoogleMaps.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				40E16502123913B8F891E5DB /* libPods-TrollyMart.a */,
@@ -197,8 +201,8 @@
 		7C6A38E7266F3605004A4ED2 /* TrollyMart */ = {
 			isa = PBXGroup;
 			children = (
+				789E8A2126C4E41E00A728D0 /* Icon-App-60x60@2x.png */,
 				78F4EF9426BD909C0035DD24 /* TrollyMart.entitlements */,
-				78F4EF9226BD84650035DD24 /* iTunesArtwork@2x.png */,
 				7C6A38E8266F3605004A4ED2 /* LaunchScreen.storyboard */,
 				7C43CF132671EA81004E3DB2 /* Info.plist */,
 				7C6A38E9266F3605004A4ED2 /* AppDelegate.h */,
@@ -345,7 +349,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78047DBF26C41D5500A17F4D /* GoogleService-Info.plist in Resources */,
 				7C2E61B3266E7434001C5D72 /* AntDesign.ttf in Resources */,
+				789E8A2226C4E41E00A728D0 /* Icon-App-60x60@2x.png in Resources */,
 				7C43CF122671E8B6004E3DB2 /* Images.xcassets in Resources */,
 				7C2E61B4266E7434001C5D72 /* Entypo.ttf in Resources */,
 				7C2E61B5266E7434001C5D72 /* EvilIcons.ttf in Resources */,
@@ -364,11 +370,9 @@
 				7CFF629B2695A75B00B1EFD5 /* AppCenter-Config.plist in Resources */,
 				7C2E61C1266E7434001C5D72 /* SimpleLineIcons.ttf in Resources */,
 				7C2E61C2266E7434001C5D72 /* Zocial.ttf in Resources */,
-				7C6A38F0266F3605004A4ED2 /* GoogleService-Info.plist in Resources */,
 				7C2E618C266E6B01001C5D72 /* GoogleMaps.bundle in Resources */,
 				7C0C2C55266E381000D83162 /* Montserrat-Medium.ttf in Resources */,
 				7C0C2C57266E381000D83162 /* Montserrat-Bold.otf in Resources */,
-				78F4EF9326BD84650035DD24 /* iTunesArtwork@2x.png in Resources */,
 				7C0C2C58266E381000D83162 /* Montserrat-Regular.ttf in Resources */,
 				7C0C2C59266E381000D83162 /* Montserrat-SemiBold.ttf in Resources */,
 			);
@@ -458,11 +462,9 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -654,7 +656,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TrollyMart/TrollyMart.entitlements;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 62B33K4XW2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -666,7 +668,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.3;
+				MARKETING_VERSION = 0.1.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -689,7 +691,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TrollyMart/TrollyMart.entitlements;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 62B33K4XW2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -700,7 +702,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.3;
+				MARKETING_VERSION = 0.1.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",

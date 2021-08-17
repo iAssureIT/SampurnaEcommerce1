@@ -7,7 +7,7 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-// import { Dropdown }     from 'react-native-material-dropdown-v2';
+// import { Dropdown }     from 'react-native-material-dropdown-v2-fixed';
 import { Icon, Button } from "react-native-elements";
 import Modal            from "react-native-modal";
 import {HeaderBar3}     from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';

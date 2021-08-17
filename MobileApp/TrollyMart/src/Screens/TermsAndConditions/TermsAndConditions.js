@@ -42,7 +42,7 @@ export const TermsAndConditions  = (props)=>{
     const getData=()=>{
         Axios.get('/api/pages/get/page_block/terms-and-conditions')
         .then(res=>{
-            // console.log("res",res);
+            console.log("res",res);
             setLoading(false);
             setPageBlocks(res.data.pageBlocks)
         })
@@ -84,10 +84,9 @@ export const TermsAndConditions  = (props)=>{
                     {
                         pageBlockes && pageBlockes.length>0?
                             pageBlockes.map((item,index)=>{
-                                const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
                                 return(
                                     <View style={{flex:1,paddingHorizontal:15,fontSize:12,color:'#000'}}>
-                                        {result!=="" && <HTML baseFontStyle={styles.htmlText1} style={{fontSize:12,color:'#000'}} ignoredTags={['br']} html={item.block_id.blockDescription}/>}
+                                         <HTML baseFontStyle={styles.htmlText1} style={{fontSize:12,color:'#000'}} ignoredTags={['br']} html={item.block_id.blockDescription}/>
                                         {item.block_id.fgImage1 &&<Image
                                             source={{uri:item.block_id.fgImage1}}
                                             style={{height:200,width:"100%"}}

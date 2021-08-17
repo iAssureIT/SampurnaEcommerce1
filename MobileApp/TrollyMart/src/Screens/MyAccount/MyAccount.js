@@ -85,7 +85,7 @@ export const MyAccount =(props)=>{
                             <Image
                                 resizeMode="contain"
                                 source={require("../../AppDesigns/currentApp/images/trollymart-black.png")}
-                                style={[styles1.syslogoimg1,{flex:0.5,marginLeft:5,marginTop:50}]}
+                                style={[styles1.syslogoimg1,{flex:0.5,marginLeft:5,marginTop:38}]}
                             />
                         </View>
                     </View>

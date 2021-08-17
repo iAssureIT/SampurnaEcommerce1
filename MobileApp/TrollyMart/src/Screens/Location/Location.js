@@ -76,7 +76,7 @@ export const Location = withCustomerToaster((props)=>{
     },[props]);
 
     const getCurrentPosition = ()=>{
-        request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+        request(Platform.OS ==='android' ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
         .then(result => {
           switch (result) {
             case RESULTS.UNAVAILABLE:
@@ -379,7 +379,7 @@ export const Location = withCustomerToaster((props)=>{
                 isRowScrollable={true}
             />
         </View>    
-        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:window.height-160,backgroundColor:"#fff",minHeight:160,padding:15}}>
+        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:window.height-(Platform.OS==="ios" ? 180 : 160),backgroundColor:"#fff",minHeight:160,padding:15}}>
             <Text style={{fontFamily:"Montserrat-Regular",marginBottom:5}}>Delivery Location</Text>
             {delivery ?
             <View style={{flexDirection:"row",justifyContent:"space-between",height:60,paddingVertical:5}}>

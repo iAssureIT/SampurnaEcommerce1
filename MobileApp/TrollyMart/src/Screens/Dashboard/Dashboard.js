@@ -44,17 +44,17 @@ const Dashboard = withCustomerToaster((props)=>{
   const limit                 = 6;
   const [refreshing,setRefreshing] = useState(false);
 
-  // const backAction = () => {
-  //   Alert.alert("", "Are you sure you want to exit app?", [
-  //     {
-  //       text: "Cancel",
-  //       onPress: () => null,
-  //       style: "cancel"
-  //     },
-  //     { text: "YES", onPress: () => BackHandler.exitApp() }
-  //   ]);
-  //   return true;
-  // };
+  const backAction = () => {
+    Alert.alert("", "Are you sure you want to exit app?", [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "YES", onPress: () => BackHandler.exitApp() }
+    ]);
+    return true;
+  };
 
   const store = useSelector(store => ({
     userDetails : store.userDetails,
@@ -67,9 +67,9 @@ const Dashboard = withCustomerToaster((props)=>{
         dispatch(getPreferences());
         dispatch(getS3Details());
         getBlocks();
-          // BackHandler.addEventListener("hardwareBackPress", backAction);
-          // return () =>
-          // BackHandler.removeEventListener("hardwareBackPress", backAction);
+        // BackHandler.addEventListener("hardwareBackPress", backAction);
+        // return () =>
+        // BackHandler.removeEventListener("hardwareBackPress", backAction);
        
     },[store.isConnected]);
    

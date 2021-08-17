@@ -4,7 +4,7 @@ import {
   View,
   Image, TextInput,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,Modal,ActivityIndicator
 } from 'react-native';
 import * as Yup             from 'yup';
 import {Icon }                      from "react-native-elements";
@@ -96,16 +96,15 @@ const FormBody = (props) => {
   const handleResend = () => {
     setResendLoading(true);
     setFieldValue('otp','');
-    axios.patch('/api/auth/patch/setsendemailotpusingID/'+user_id)
+    axios.patch('/api/auth/patch/setsendmobileotpusingID/'+user_id)
     .then(response => {
+      console.log("response",response);
         setResendLoading(false)
-        if(response.data.message == 'OTP_UPDATED') {
+        if(response.data.message == "OTP sent on your registered mobile id") {
           // navigation.navigate('OTPVerification');
-          setToast({text: 'OTP Resent successfully!', color: 'green'});
-        }else if(response.data.message == 'NOT_REGISTER'){
-            setToast({text: "This Email Id is not registered.", color: colors.warning});
-        }else if(response.data.message == 'OTP_NOT_UPDATED'){
-            setToast({text: 'Something went wrong.', color: 'red'});
+          setToast({text: response.data.message , color: 'green'});
+        }else{
+            setToast({text: response.data.message , color: colors.warning});
         }
     })
     .catch(error => {
@@ -136,7 +135,7 @@ const FormBody = (props) => {
             style={{width: '95%', height: 100,marginHorizontal:20}}
             pinCount={4}
             placeholderTextColor={'#333'}
-            autoFocusOnLoad
+            autoFocusOnLoad={false}
             codeInputFieldStyle={styles.underlineStyleBase}
             codeInputHighlightStyle={styles.underlineStyleHighLighted}
             onCodeFilled = {handleSubmit}
@@ -182,6 +181,23 @@ const FormBody = (props) => {
           </View> */}
           </ImageBackground>
         </View>
+        <Modal 
+          animationType="slide"
+          transparent={true}
+          visible={resendLoading}
+          // onRequestClose={() => setLoading(false)}
+          // onDismiss={() =>  setLoading(false)}
+        >
+        <View 
+          style={{
+            backgroundColor: 'rgba(0,0,0,0)',
+            flex:1,
+            justifyContent:'center',
+            alignItems:'center'
+          }}>
+            <ActivityIndicator color={colors.theme} size={40}/>
+        </View>
+        </Modal>
       </View>   
   );
 };

@@ -41,7 +41,7 @@ export const PrivacyPolicy  = (props)=>{
     }
 
     const getData=()=>{
-        Axios.get('/api/pages/get/page_block/privacy-policy')
+        Axios.get('/api/pages/get/page_block/privacy-policy-mobile')
         .then(res=>{
             setLoading(false);
             setPageBlocks(res.data.pageBlocks)
@@ -108,12 +108,10 @@ export const PrivacyPolicy  = (props)=>{
                     {
                         pageBlockes && pageBlockes.length>0?
                             pageBlockes.map((item,index)=>{
-                                const secondRegEx =/<p>(\s|(&nbsp))*<\/p>/gmi;
-                                const result = item.block_id.blockDescription.replace(secondRegEx, '');
                                 // console.log("result",result);
                                 return(
                                     <View style={{paddingHorizontal:15}}>
-                                        {item.block_id.blockDescription!=="" && <HTML alterChildren={alterChildren} ignoredTags={['br']} html={result}/>}
+                                        {item.block_id.blockDescription!=="" && <HTML alterChildren={alterChildren} ignoredTags={['br']} html={item.block_id.blockDescription}/>}
                                         {item.block_id.fgImage1 &&<Image
                                             source={{uri:item.block_id.fgImage1}}
                                             style={{height:200,width:"100%"}}

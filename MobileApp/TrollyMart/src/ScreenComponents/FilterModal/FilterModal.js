@@ -21,7 +21,7 @@ import {useSelector, useDispatch}   from 'react-redux';
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import {
-  SET_CATEGORY_WISE_LIST,
+  SET_CATEGORY_WISE_LIST,STOP_SCROLL
 } from '../../redux/productList/types';
 // import {Text} from '../../components/Text';
 const window = Dimensions.get('window');
@@ -53,13 +53,13 @@ const FilterModal = (props) => {
 //   }, [filterList]);
   useEffect(() => {
     setCategory(category);
-    // if(current_category !== category){
+    if(current_category !== category){
       setFilters({
         subCategory: [],
         brandsArray:[],
         sizeArray:[],
       })
-    // }
+    }
    
   }, [props]);
 
@@ -202,16 +202,20 @@ const FilterModal = (props) => {
                 })
                 dispatch(getCategoryWiseList(payload));
                 closeModal();
-                navigation.push('VendorProducts',
-                {
-                  category          : category,
-                  sectionUrl        : section?.replace(/\s/g, '-').toLowerCase(),
-                  section           : section,
-                  // index             : props.index,
-                  vendorLocation_id : vendorLocation_id,
-                });
+                dispatch({
+                  type: STOP_SCROLL,
+                  payload: false,
+              });
+                // navigation.push('VendorProducts',
+                // {
+                //   category          : category,
+                //   sectionUrl        : section?.replace(/\s/g, '-').toLowerCase(),
+                //   section           : section,
+                //   // index             : props.index,
+                //   vendorLocation_id : vendorLocation_id,
+                // });
               }}
-              disabled={localFilters.subCategory.length>0||localFilters.brandsArray.length>0?false:true}
+              // disabled={localFilters.subCategory.length>0||localFilters.brandsArray.length>0?false:true}
               titleStyle={{color: colors.theme}}
               buttonStyle={{borderRadius: 0, backgroundColor: colors.layoutColor, borderWidth: 0.5,borderColor: colors.theme}}
             />

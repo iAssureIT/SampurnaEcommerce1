@@ -40,6 +40,8 @@ export const SubCategoryList =(props)=>{
     }
  },[]);
 
+ 
+
   const _renderlist = ({ item, i })=>{
     return (
       <View key={i} style={[{paddingHorizontal:15}]}>

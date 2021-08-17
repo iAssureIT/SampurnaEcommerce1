@@ -36,11 +36,11 @@ import FastImage              from 'react-native-fast-image';
 import { Card }               from 'react-native-elements/dist/card/Card';
 import {HorizontalProductList} from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
 import { getCategoryWiseList } from '../../redux/productList/actions.js';
-import { Dropdown }            from 'react-native-material-dropdown-v2';
+import { Dropdown }            from 'react-native-material-dropdown-v2-fixed';
 import Feather from 'react-native-vector-icons/Feather';
-import { NetWorkError } from '../../../NetWorkError.js';
 import moment from 'moment';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { NetWorkError } from '../../../NetWorkError.js';
 const window = Dimensions.get('window');
 const STAR_IMAGE = require('../../AppDesigns/currentApp/images/star.png')
 
@@ -61,18 +61,20 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const dispatch 		= useDispatch();
   const isFocused = useIsFocused();
   const [tab,selectedTab] = useState(0);
+  
 
   const {navigation,route,setToast} =props;
   const {productID,currency,vendorLocation_id,index,vendor_id,category,subCategory,vendor}=route.params;
   const [sizes,setSizes] = useState([])
   const scroll =useRef()
-
+  console.log("subCategory",subCategory);
   const store = useSelector(store => ({
     location:store.location,
     payload     : store.productList.searchPayload,
-    globalSearch    : store.globalSearch
+    globalSearch    : store.globalSearch,
+    isConnected     : store?.netWork?.isConnected
   }));
-  const {location,payload,globalSearch} = store;
+  const {location,payload,globalSearch,isConnected} = store;
 
   useEffect(() => {
     setLoading(true);
@@ -239,7 +241,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
         })
         .catch((error) => {
           console.log("error",error);
-          setToast({text: 'Product is already in cart.', color: colors.warning});
+          setToast({text: 'Something went wrong. Please try again later', color: colors.warning});
         })
     }else{
       navigation.navigate('Auth');
@@ -295,7 +297,10 @@ export const SubCatCompView = withCustomerToaster((props)=>{
 
     return (
       <View style={{backgroundColor:"#fff",flex:1}}>
-         {globalSearch.search ?
+         {!isConnected?
+          <NetWorkError/>
+          :
+         globalSearch.search ?
           <SearchSuggetion />
           :
          <View style={styles.prodviewcatsuperparent}>
@@ -324,6 +329,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   boxHeight         = {34}
                   subCategoryList   =  {subCategory}
                   selected          = {productdata.subCategory}
+                  section           = {productdata.section.replace(/\s/g, '-')}
                   category          = {category ? category : productdata.category}
                   vendorLocation_id ={vendorLocation_id}
                   vendor            = {vendor}
@@ -452,7 +458,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}&nbsp;</Text>
                   {productdata.discountPercent > 0 && <Text style={styles.discountPercent}> {productdata.discountPercent}%</Text>}
                 </View>
-                <View style={{height:50,width:80,marginLeft:30}}>
+                <View style={{height:50,width:100,marginLeft:30}}>
                   <Text style={{color: "#000000",opacity: 0.5,fontSize:11}}>Size</Text>
                   <Dropdown
                     onChangeText        = {(value) => filterProductSize(value)}

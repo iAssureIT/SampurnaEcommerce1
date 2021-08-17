@@ -143,10 +143,15 @@ export const Confirmation = withCustomerToaster((props)=>{
             <ImageBackground source={require("../../AppDesigns/currentApp/images/LocationBg.jpg")} style={{height:window.height, justifyContent:"flex-end"}}>
                 <View style={{alignItems:"flex-start",paddingTop:15,paddingLeft:15}}>
                   {/* <TouchableOpacity onPress={()=> navigation.canGoBack() ?  navigation.goBack() : backAction()}> */}
-                <TouchableOpacity onPress={()=>navigation.goBack()}>
+                {navigation.canGoBack() ?
+                 <TouchableOpacity style={{marginTop:Platform.OS==='ios'?20:0}} onPress={()=>navigation.goBack()}>
                     <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
-                  </TouchableOpacity> 
-                    
+                  </TouchableOpacity>
+                  :
+                  <TouchableOpacity style={{marginTop:Platform.OS==='ios'?20:0}} onPress={()=>logout()}>
+                   <Icon size={25} name='logout' type='material-community' color={colors.theme} />
+                  </TouchableOpacity>
+                } 
                 </View>  
                 <View style={{flex:.7,justifyContent:"flex-end",paddingHorizontal:40,paddingBottom:20}}>
                     {/* <Image source={require("../../AppDesigns/currentApp/images/delivery.jpeg")} style={{height:300,width:300}}/> */}

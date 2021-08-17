@@ -22,26 +22,24 @@ import { ActivityIndicator }  from 'react-native-paper';
 import { getSearchResult } 	  from '../../redux/globalSearch/actions';
 import { useIsFocused }       from "@react-navigation/native";
 import FastImage              from 'react-native-fast-image';
-import Animated from 'react-native-reanimated';
-// import {product}              from '../../ScreenComponents/Product/Product.js'
+import { Alert } from 'react-native';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 export const ProductList = withCustomerToaster((props)=>{
-  console.log("props",props);
-  console.log("vendorLocation_id",vendorLocation_id);
   const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id,vendor,onEndReachedThreshold,type,subCategory} = props; 
-  const isFocused = useIsFocused();
-  const navigation = useNavigation();
-  const dispatch 		= useDispatch();
-  const [productsDetails,setProductDetails]= useState([]);
-  const [packsizes,setPacksizes]= useState('');
-  const [user_id,setUserId]= useState('');
-  const [limit,setLimit]= useState(props.limit);
-  const [refreshing,setRefresh]= useState(false);
-  // FastImage.preload = (sources: Source[]) =>FastImageViewNativeModule.preload(sources);
+  const isFocused     = useIsFocused();
+  const navigation    = useNavigation();
+  const dispatch 		  = useDispatch();
+  const [productsDetails,setProductDetails] = useState([]);
+  const [packsizes,setPacksizes]            = useState('');
+  const [user_id,setUserId]                 = useState('');
+  const [limit,setLimit]                    = useState(props.limit);
+  const [refreshing,setRefresh]             = useState(false);
+
   useEffect(() => {
     getData();
+  // },[props]);
   },[props.limit,props.newProducts,isFocused]);
 
   const store = useSelector(store => ({
@@ -59,8 +57,6 @@ export const ProductList = withCustomerToaster((props)=>{
     var data =  await AsyncStorage.multiGet(['user_id', 'token']);
     setUserId(data[0][1]);
   }
-
- 
 
   const addToCart=(productid,vendor_ID)=>{
     if(user_id){
@@ -205,7 +201,6 @@ export const ProductList = withCustomerToaster((props)=>{
         "startRange"        : 0,
         "limitRange"        : 10,
     } 
-    console.log("payload",payload);
     dispatch(getCategoryWiseList(payload));
 }
 
@@ -236,13 +231,12 @@ export const ProductList = withCustomerToaster((props)=>{
                 } 
               {userDetails.authService!=="guest" &&
               
-              <TouchableOpacity style={[styles.textWrapper, styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} disabled={item.availableQuantity === 0 ? true : false}>
+              <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} disabled={item.availableQuantity === 0 ? true : false}>
                 <Image
                   source={item.isWish ? require('../../AppDesigns/currentApp/images/heartF.png'):require('../../AppDesigns/currentApp/images/wishlistE.png')}                  
-                  style={{ width: 16, height: 16 }}
+                  style={{ width: 18, height: 18 }}
                   resizeMode='contain'
                 />
-                {/* <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.heartIcon} /> */}
               </TouchableOpacity>
               }
               {
@@ -262,10 +256,8 @@ export const ProductList = withCustomerToaster((props)=>{
                   :
                   <FastImage
                     source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                    // LoadingIndicatorComponent={ActivityIndicator}
                     PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
                     style={styles.subcatimg}
-                    // resizeMode="stretch"
                     resizeMode={FastImage.resizeMode.contain}
                   />
               }
@@ -281,7 +273,7 @@ export const ProductList = withCustomerToaster((props)=>{
                       <Text style={styles.brandname}>{item.vendorName}</Text>
                     </View>
                   }
-                  <View style={{flexDirection:'row',flex:1,paddingVertical:5}}>
+                  <View style={{flexDirection:'row',flex:1}}>
                     <View style={{flex:1,backgroundColor:"#fff"}}>
                       {/* {item.brand ?
                     
@@ -311,7 +303,7 @@ export const ProductList = withCustomerToaster((props)=>{
                             <Icon name="plus" type="entypo" size={20} color={props.disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/>
                           </TouchableOpacity>  
                         </View>}
-                      <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text>
+                      <Text numberOfLines={3} style={[styles.nameprod]}>{item.productName}</Text>
                     </View>
                      
                   </View>
@@ -334,39 +326,15 @@ export const ProductList = withCustomerToaster((props)=>{
                     </View>
                   </View>
                 </View>
-            <View style={styles.addtocartbtn}>
-            <View style={styles.sizedrpbtn}>
-              {/* <Button
-                  onPress={() => vendorLocation_id ?
-                      item.vendor_ID ? 
-                       addToCart(item._id,item.vendor_ID) 
-                        : 
-                        addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
-                    :
-                    item.vendor_ID ? 
-                      addToCartWish(item._id,item.vendor_ID,item.vendorLocation_id,item.vendorName)
-                      :
-                      addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
-                  }
-                  titleStyle={CommonStyles.addBtnText}
-                  title="ADD TO CART"
-                  buttonStyle={CommonStyles.addBtnStyle}
-                  containerStyle={CommonStyles.addBtnContainer}
-                  disabled={props.disabled}
-                /> */}
-              </View>
-            </View>
           </View>
         </TouchableOpacity>
       </View>
     )
   }
 
-  console.log("productsDetails",productsDetails);
-
   return (
     <React.Fragment>
-        <View style={styles.maintitle}>
+        <View style={[styles.maintitle]}>
           {props.title&&<View style={styles.maintitle}>
             <Text style={styles.title}>{props.title} </Text>
           </View>}
@@ -386,7 +354,7 @@ export const ProductList = withCustomerToaster((props)=>{
         <FlatList
           data                          = {productsDetails}
           showsVerticalScrollIndicator  = {false}
-          contentContainerStyle         ={{paddingVertical:15,paddingTop:props.marginTop,paddingBottom:props.paddingBottom}}
+          contentContainerStyle         ={{paddingVertical:15,marginTop:props.marginTop,paddingBottom:props.paddingBottom,backgroundColor:"#fff"}}
           renderItem                    = {_renderlist} 
           nestedScrollEnabled           = {true}
           numColumns                    = {2}
@@ -407,7 +375,7 @@ export const ProductList = withCustomerToaster((props)=>{
         }
           onEndReached={() => {
             // console.log("distanceFromEnd",distanceFromEnd);
-            if(limit > 6 && !stop_scroll && !stop_scroll_search) {
+            if(!stop_scroll && !stop_scroll_search) {
               onEnd();
                   //Call pagination function
             }

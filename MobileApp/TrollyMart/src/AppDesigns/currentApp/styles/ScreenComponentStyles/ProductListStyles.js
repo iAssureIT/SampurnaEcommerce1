@@ -123,7 +123,7 @@ export default StyleSheet.create({
 		position: 'absolute',
 		// bottom: "5%",
 		top: 10, 
-		left: "98%",
+		left: "97%",
 		zIndex:1,
 	},
 	disCountLabel: {
@@ -267,7 +267,7 @@ export default StyleSheet.create({
 		fontSize: 13, fontFamily: "Montserrat-SemiBold", color: '#fff', marginTop: 0,
 	},
 	protxt: {
-		paddingHorizontal:5,
+		paddingLeft:5,
 		// alignItems:'center'
 	},
 	prdet: {
@@ -491,8 +491,7 @@ export default StyleSheet.create({
 		
 	},
 	subcatimg: {
-		marginTop:10,
-		height:128,
+		height:107,
 		width:100,
 		alignSelf:'center',
 		// borderTopRightRadius:15,

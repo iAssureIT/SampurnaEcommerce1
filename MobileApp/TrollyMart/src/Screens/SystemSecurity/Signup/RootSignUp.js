@@ -10,7 +10,8 @@ import {
   Alert,
   StyleSheet,
   Modal,
-  ActivityIndicator
+  ActivityIndicator,
+  Platform
 } from 'react-native';
 import { Icon }             from "react-native-elements";
 import axios                from "axios";
@@ -142,6 +143,7 @@ const window = Dimensions.get('window');
                 btnLoading={btnLoading}
                 navigation={navigation}
                 setToast =   {setToast}
+                setLoading={setLoading}
                 setPasswordMatched =   {setPasswordMatched}
                 {...formProps}
               />
@@ -158,6 +160,7 @@ const window = Dimensions.get('window');
       errors,
       touched,
       btnLoading,
+      setLoading,
       setFieldValue,
       navigation,
       values,
@@ -166,6 +169,7 @@ const window = Dimensions.get('window');
     } = props;
     const [openModal, setModal] = useState(false);
     const [showPassword, togglePassword] = useState(false);
+    const [confirmPassword, toggleConfirmPassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
     const [value, setValue] = useState(values.mobileNumber);
     const [formattedValue, setFormattedValue] = useState("");
@@ -179,10 +183,10 @@ const window = Dimensions.get('window');
       if (values.password && values.confirm_password) {
         if (values.password === values.confirm_password){
           setPasswordMatched(true)
-          setToast({text: 'Password matched', color: 'green'});
+          // setToast({text: 'Password matched', color: 'green'});
         }else{
           setPasswordMatched(false)
-          setToast({text: 'Password not matched', color: 'red'});
+          setToast({text: 'Password not matched', color: colors.warning});
         }
       }
   }
@@ -195,7 +199,7 @@ const window = Dimensions.get('window');
           <View contentContainerStyle={[commonStyles.container,{flex:1}]} keyboardShouldPersistTaps="always" >
               <View style={{}}>
                 <View style={styles.boxOpacity}>
-                <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:15,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
+                <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:Platform.OS === 'ios'? 45 : 15,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
                     <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
                 </TouchableOpacity>
                   <View style={styles.syslogo1}>
@@ -336,15 +340,15 @@ const window = Dimensions.get('window');
                     rightIcon ={
                       <TouchableOpacity
                         style={{paddingHorizontal: '5%'}}
-                        onPress={() => togglePassword(!showPassword)}>
-                        {showPassword ? (
+                        onPress={() => toggleConfirmPassword(!confirmPassword)}>
+                        {confirmPassword ? (
                           <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={18} />
                         ) : (
                           <Icon style={{color:'#000'}} name="eye" type="entypo" size={18} />
                         )}
                       </TouchableOpacity>
                     }
-                    secureTextEntry={!showPassword}
+                    secureTextEntry={!confirmPassword}
                   />
                   <View style={{paddingVertical:15}}>
                   <FormButton
@@ -379,6 +383,8 @@ const window = Dimensions.get('window');
           animationType="slide"
           transparent={true}
           visible={btnLoading}
+          // onRequestClose={() => setLoading(false)}
+          // onDismiss={() =>  setLoading(false)}
         >
         <View 
           style={{

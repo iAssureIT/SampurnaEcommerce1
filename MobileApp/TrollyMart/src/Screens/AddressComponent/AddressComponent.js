@@ -9,7 +9,7 @@ import {
   Dimensions,
   StyleSheet
 } from 'react-native';
-import { Dropdown }                 from 'react-native-material-dropdown-v2';
+import { Dropdown }                 from 'react-native-material-dropdown-v2-fixed';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
 import { colors, sizes }            from '../../AppDesigns/currentApp/styles/styles.js';
@@ -97,6 +97,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
           {isFocused ?<Formik
             onSubmit={(data) => {
               console.log("data",data);
+              setLoading(true);
               const {addressLine1,fromaddress,contactperson,fromarea,fromPincode,fromcity,fromstate,fromcountry,fromlatlong,mobileNumber,addresstype,callingCode}=data;
               var formValues = {
                 "user_ID"       : userDetails.user_id,
@@ -120,6 +121,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
               if(address){
                 axios.patch('/api/ecommusers/updateuseraddress', formValues)
                 .then((response) => {
+                  setLoading(false);
                   // if(delivery){
                     // navigation.navigate('OrderSummary', { 'addData': formValues, 'user_id': userDetails.user_id })
                   // }else{
@@ -295,7 +297,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     // disabled        = {deliveuuuuuuuuuyyry}       
                   />
                   <FormInput
-                    labelName       = "Area / Street Name"
+                    labelName       = "Area"
                     // placeholder     = "Area"
                     onChangeText    = {handleChange('fromarea')}
                     required        = {false}
@@ -462,7 +464,12 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     // label               = 'Type of Address'
                     placeholder         = {"-- Select Address Type --"}                    
                     containerStyle      = {styles.ddContainer}
+<<<<<<< Updated upstream
                     dropdownOffset      = {{ top: 55, left: 0 }}
+=======
+                    // dropdownOffset      = {{ top: 0, left: 0 }}
+                    // dropdownOffset      = {{ top: 73, left: 0 }}
+>>>>>>> Stashed changes
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
                     // labelHeight         = {10}

@@ -29,12 +29,13 @@ import Animated from 'react-native-reanimated';
 
 const window = Dimensions.get('window');
 const VendorProducts = (props)=>{
+  console.log("props",props);
   const isFocused = useIsFocused();
   const [productsDetails,setProductDetails] = useState([]);
   const [userId,setUserId]=useState('');
   const [showFilters,setShowFilters]= useState(false);
   const [subCategory,setSubCategory]= useState([]);
-  const {navigation,route}=props;
+  const {navigation,route,first_category}=props;
   const [showSort, toggleSort] = useState(false);
   const [refreshing,setRefresh]= useState(false)
   const {vendor,sectionUrl,section,index,vendorLocation_id,category}=route.params;
@@ -133,17 +134,17 @@ const onScroll=(e)=>{
   // ])
 }
 
-// console.log("translateY",translateY);
+console.log("subCategory",subCategory)
 
   return (
-    <View style={{flex:1}}>
+    <View style={{flex:1,backgroundColor:"#fff"}}>
       {!props.isConnected?
       <NetWorkError/>
       :
       globalSearch.search ?
         <SearchSuggetion />
         :
-        <View style={styles.container} >
+        <View style={{backgroundColor:"#fff",justifyContent:"flex-start"}} >
           <Animated.View
             style={{
               transform:[
@@ -182,10 +183,11 @@ const onScroll=(e)=>{
                 category            = {category? category : ''}
                 vendorLocation_id   = {vendorLocation_id}
                 vendor              = {vendor}
+                section             = {section}
                 // setCategory = {setCategory}
               />
             </View>
-            <View style={{marginTop:2,height:200}}>
+            <View style={{marginTop:2,backgroundColor:"#fff"}}>
               <View style={{justifyContent:"flex-end",flexDirection:'row',flex:1}}>
                   <TouchableOpacity style={styles.iconStyle} onPress={()=>setShowFilters(true)}>
                     <Image
@@ -225,8 +227,8 @@ const onScroll=(e)=>{
                   vendorLocation_id     = {vendorLocation_id}
                   onEndReachedThreshold = {0.01}
                   marginTop             = {HEADER_HEIGHT}
-                  paddingBottom         = {50}
-                  category              = {category}
+                  paddingBottom         = {250}
+                  category              = {category ? category :first_category}
                   subCategory           = {subCategory}
                   vendor                = {vendor}
                   onScroll              = {onScroll}
@@ -251,7 +253,7 @@ const onScroll=(e)=>{
             closeModal      = {() => setShowFilters(false)}
             visible         = {showFilters}
             subCategory     = {subCategory}
-            category        = {category}
+            category        = {category ? category:first_category}
             section         = {section}
             vendorLocation_id = {vendorLocation_id}
             brandsArray     = {brandList && brandList.length > 0 ? brandList.map((a, i)=>{return {label :a,value :a}}): []}
@@ -267,10 +269,11 @@ const mapStateToProps = (store)=>{
   return {
     productList     : store.productList,
     userDetails     : store.userDetails,
-    brandList       : store.productList.categoryList.brandList,
+    brandList       : store?.productList?.categoryList?.categoryList && store?.productList?.categoryList?.categoryList.length >0 ? store.productList.categoryList.categoryList[0].brandList : [],
     payload         : store.productList.searchPayload,
     globalSearch    : store.globalSearch,
-    isConnected     : store?.netWork?.isConnected
+    isConnected     : store?.netWork?.isConnected,
+    first_category  : store?.productList?.categoryList?.categoryList && store?.productList?.categoryList?.categoryList.length >0 ?store?.productList?.categoryList?.categoryList[0]?.category:''
   }
 };
 

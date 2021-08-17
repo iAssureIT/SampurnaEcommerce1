@@ -323,11 +323,11 @@ export const MyOrder = withCustomerToaster((props)=>{
                             {order ?
                               <View style={[styles.ordercancelstatus]}>
                                 {cancelButton(order.createdAt) ?
-                                  order.orderStatus && order.orderStatus !== 'Cancelled'  || order.deliveryStatus === "Delivered" ?
+                                  order.orderStatus && (order.orderStatus === 'Cancelled'  || order.deliveryStatus === "Delivered") ?
                                   null
                                   :
                                   <View style={styles.orderdetailsstatus}>
-                                    {order.orderStatus && (order.orderStatus !== 'Cancelled'&& order.orderStatus !== 'Delivered') &&
+                                    {order.orderStatus && (order.orderStatus !== 'Cancelled' && order.orderStatus !== 'Delivered') &&
                                     <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40}]}>
                                         <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",fontSize:13,color:colors.danger,textDecorationLine:'underline'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('LT')}</Text>
                                     </View>}

@@ -31,14 +31,18 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1092872667868832</string>
+				<string>com.googleusercontent.apps.1023694532217-4mts1vajbqprhrk5mflhq36pcpg6ajhj</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CodePushDeploymentKey</key>
+	<string>XQ4SXF9ARKlraGLjTEDCAnw6Tul-qp20nT_i4</string>
 	<key>FacebookAppID</key>
 	<string>1092872667868832</string>
 	<key>LSApplicationCategoryType</key>

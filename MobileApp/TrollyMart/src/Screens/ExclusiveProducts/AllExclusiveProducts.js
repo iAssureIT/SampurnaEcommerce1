@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import BouncingPreloader from 'react-native-bouncing-preloader';
-import { Dropdown } from 'react-native-material-dropdown-v2';
+import { Dropdown } from 'react-native-material-dropdown-v2-fixed';
 import { Icon, Button } from "react-native-elements";
 import Modal from "react-native-modal";
 import {Menu} from '../../ScreenComponents/Menu/Menu.js';

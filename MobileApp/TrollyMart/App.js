@@ -18,6 +18,7 @@ import { NetWorkError } from './NetWorkError';
 import { Alert } from "react-native";
 import crashlytics from '@react-native-firebase/crashlytics';
 import { enableScreens } from 'react-native-screens';
+import { Platform } from "react-native";
 export const NetworkContext = React.createContext({ isConnected: true });
 
 console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);
@@ -88,8 +89,8 @@ axios.defaults.baseURL = REACT_APP_BASE_URL;
 
   return( 
     <Provider store={store} >
-      <GeneralStatusBarColor backgroundColor="#222222"
-      barStyle="light-content" />
+      {Platform.OS ==='android'&&<GeneralStatusBarColor backgroundColor="#222222"
+      barStyle="light-content" />}
         <AuthLoadingScreen />
         <ToastProvider toast={toast} />
     </Provider>  

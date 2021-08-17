@@ -22,7 +22,7 @@ export default StyleSheet.create({
     },
 
     textTitleWrapper:{
-        paddingHorizontal: 30, marginTop: 10, marginBottom:40
+        paddingHorizontal: 30, marginTop: Platform.OS==="ios" ? 70 : 10, marginBottom:40
     },
     boxOpacity:{
         width: '100%',borderColor:colors.theme,shadowColor: colors.theme,
@@ -52,7 +52,7 @@ export default StyleSheet.create({
     },
 
     syslogo1:{
-        flexDirection: 'row', alignItems: "center",justifyContent:"center", marginHorizontal:20,height:120,
+        flexDirection: 'row', alignItems: "center",justifyContent:"center", marginHorizontal:20,height:180,marginTop:Platform.OS==="ios" ?10:0
     },
     syslogoimg1:{
         width: '50%',
@@ -63,7 +63,7 @@ export default StyleSheet.create({
         flexDirection: 'row', alignItems: "flex-start",alignSelf:'flex-start', marginHorizontal:20,height:100,
     },
     syslogoLoginNEW:{
-        flexDirection: 'row',marginTop:25,marginHorizontal:20
+        flexDirection: 'row',marginTop:Platform.OS==='ios'?55:25,marginHorizontal:20
     },
     textLine1:{
         fontFamily:"Montserrat-Regular",

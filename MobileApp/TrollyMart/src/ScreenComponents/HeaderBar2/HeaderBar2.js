@@ -27,7 +27,9 @@ import { SET_SEARCH_CALL,
       SET_SERACH_LIST
     } 	from '../../redux/globalSearch/types';
 import { DrawerActions } from '@react-navigation/native';
+import Modal                      from "react-native-modal";
 import { useNavigation }      from '@react-navigation/native';
+import { getCartCount} from '../../redux/productList/actions';
 
   const HeaderBars2=(props)=>{
     // console.log("props",props);
@@ -36,7 +38,8 @@ import { useNavigation }      from '@react-navigation/native';
     const [user_id,setUserId] = useState('');
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const [list,setList]=useState([])
+    const [list,setList]=useState([]);
+    const [modal,setModal]=useState(false);
     const input = useRef();
     const store = useSelector(store => ({
       globalSearch  : store.globalSearch,
@@ -112,9 +115,30 @@ import { useNavigation }      from '@react-navigation/native';
     Keyboard.dismiss();
   }
 
+  const checkCart=()=>{
+    if(cartCount > 0){
+      setModal(true)
+    }else{
+      navigation.push('LocationMain')
+    }
+  }
+
+  const deleteCart=()=>{
+    axios.delete('/api/carts/delete/'+user_id)
+    .then(res=>{
+      setModal(false);
+      console.log("res",res);
+      dispatch(getCartCount(user_id));
+      navigation.push('LocationMain')
+    })
+    .catch(err=>{
+      console.log("err",err);
+    })
+  }
+
     return (
       <View style={styles.header2main}>
-          {props?.scene?.route?.state && props?.scene?.route?.state?.index !==0  && <TouchableOpacity onPress={()=> navigation.goBack()}>
+          {props.backBtn && <TouchableOpacity onPress={()=> navigation.goBack()}>
           <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center',height:40}}>
             <Icon size={25} name='arrow-left' type='material-community' color='#fff' />
           </View>
@@ -151,10 +175,53 @@ import { useNavigation }      from '@react-navigation/native';
           />
           
         </View>
-          <TouchableOpacity style={styles.location} onPress={()=>navigation.push('LocationMain')}>
+          <TouchableOpacity style={styles.location} onPress={()=>checkCart()}>
               <Icon name="crosshairs-gps" type="material-community" size={11} color={colors.black} iconStyle={{marginTop:2.5}}/>
               <Text numberOfLines={2} style={{flex:.98,color:colors.textLight,fontSize:11}}>{location?.address.addressLine2}</Text>
           </TouchableOpacity>
+          <Modal isVisible={modal}
+        onBackdropPress={() => setModal(false)}
+        onRequestClose={() => setModal(false)}
+        onDismiss={() =>  setModal(false)}
+        coverScreen={true}
+        // transparent
+        // hideModalContentWhileAnimating={true}
+        style={{ paddingHorizontal: '5%', zIndex: 999 }}
+        animationInTiming={1} animationOutTiming={1}>
+        <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
+          {/* <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
+            <Icon size={50} name='exclamation-triangle' type='font-awesome' color={colors.warning} style={{}} />
+          </View> */}
+          <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
+            You have added products in cart. If you change the location, cart will get empty.
+          </Text>
+          <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
+          Still you want to change the location?
+          </Text>
+          <View style={styles.cancelbtn}>
+            <View style={styles.cancelvwbtn}>
+              <TouchableOpacity>
+                <Button
+                  onPress={() => setModal(false)}
+                  titleStyle={styles.buttonText}
+                  title="NO"
+                  buttonStyle={styles.buttonRED}
+                  containerStyle={styles.buttonContainer2}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.ordervwbtn}>
+                <Button
+                  onPress={() => {deleteCart()}}
+                  titleStyle={styles.buttonText1}
+                  title="Yes"
+                  buttonStyle={styles.button1}
+                  containerStyle={styles.buttonContainer2}
+                />
+            </View>
+          </View>
+        </View>
+      </Modal>
       </View>
     );
 }

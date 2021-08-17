@@ -31,8 +31,26 @@ export const Footer =(props)=>{
     cartCount     : store.productList.cartCount,
   }));
 
+  
   useEffect(()=>{
-    setIndex(props?.state?.routes[0]?.state?.index);
+    var routes = props?.state?.routes[0]?.state?.routes;
+    if(routes && routes.length>0){
+      if(routes[routes.length-1]?.name==="MyAccount"){
+        setIndex(1);
+      }
+      else if(routes[routes.length-1]?.name==="CartComponent"){
+        setIndex(2);
+      }
+      else if(routes[routes.length-1]?.name==="WishlistComponent"){
+        setIndex(3);
+      }
+      else if(routes[routes.length-1]?.name==="InAppNotification"){
+        setIndex(4);
+      }else{
+        setIndex(0);
+      }
+    }
+    
   },[props])
 
   const getNotificationList=()=>{
@@ -104,7 +122,7 @@ export const Footer =(props)=>{
                  {/* <Icon name="shopping-cart" type="feather" size={25} color={index === 2 ? colors.footerText :colors.theme}  /> */}
                  
                  <Image source={require("../../AppDesigns/currentApp/images/cart.png")} style={{height:25,width:25}} />
-                 <Text  style={[styles.footerTitle,{color:index === 3 ? colors.footerText :colors.theme}]}>Cart</Text>
+                 <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
                 {
                   cartCount > 0 ?
                     <Text style={styles.notificationText}>{cartCount}</Text>
@@ -116,7 +134,7 @@ export const Footer =(props)=>{
             </View>
             {<View style={styles.iconOuterWrapper}>
               <TouchableOpacity onPress={() =>{dispatch(getWishList(userDetails.user_id));navigation.navigate(userDetails.authService!=="guest" ? 'WishlistComponent' :"Auth")}}>
-                <Icon name={index === 2 ? "heart":"heart-outline"} type="material-community" size={20} color={index === 2 ? colors.footerText :colors.theme}  />
+                <Icon name={index === 3 ? "heart":"heart-outline"} type="material-community" size={20} color={index === 3 ? colors.footerText :colors.theme}  />
                 <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Wishlist</Text>
               </TouchableOpacity>
             </View>}

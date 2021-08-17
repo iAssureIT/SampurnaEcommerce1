@@ -217,8 +217,9 @@ locationInput:{
   paddingVertical:15,
   ...Platform.select({
     ios:{
-     marginTop:30
-
+     marginTop:30,
+     position:"absolute",
+     zIndex:50
     },
     android : {
     }

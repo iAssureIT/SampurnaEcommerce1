@@ -42,7 +42,7 @@ export const AboutUs = (props)=>{
 
   
     const getData=()=>{
-        Axios.get('/api/pages/get/page_block/about-us')
+        Axios.get('/api/pages/get/page_block/about-us-mobile')
         .then(res=>{
             console.log("res",res);
             setLoading(false);

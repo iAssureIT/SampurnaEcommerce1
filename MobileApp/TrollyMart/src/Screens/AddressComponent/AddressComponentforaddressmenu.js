@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { Dropdown } from 'react-native-material-dropdown-v2';
+import { Dropdown } from 'react-native-material-dropdown-v2-fixed';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { TextField } from 'react-native-material-textfield';
 import { Button, Icon, } from "react-native-elements";

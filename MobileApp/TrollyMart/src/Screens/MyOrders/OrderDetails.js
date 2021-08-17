@@ -30,7 +30,7 @@ import openSocket           from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
-import { Dropdown }             from 'react-native-material-dropdown-v2';
+import { Dropdown }             from 'react-native-material-dropdown-v2-fixed';
 import { RadioButton }        from 'react-native-paper';
 import ImagePicker              		from 'react-native-image-crop-picker';
 import {PERMISSIONS, request, RESULTS} 	from 'react-native-permissions';
@@ -490,7 +490,6 @@ const cancelorderbtn = (id,vendor_id) => {
       });
   };
 
-
   const tooltipClone = React.cloneElement(
     <View style={{width:"100%"}}>
       <Icon name="close" type="material-community" color="#fff" iconStyle={{alignSelf:"flex-end"}}/>
@@ -619,14 +618,16 @@ const cancelorderbtn = (id,vendor_id) => {
                             <Text style={[styles.vendorName]}>{vendor.vendor_id.companyName}</Text>
                           </View>
                            {cancelButton(order.createdAt) ?
-                          order.orderStatus && order.orderStatus !== 'Cancelled'  || order.deliveryStatus === "Delivered" ?
+                          vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === 'Cancelled'  || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === 'Delivered') ?
                           null
                           :
                           <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40,alignItems:'flex-end'}]}>
-                            {order.orderStatus && (order.orderStatus !== 'Cancelled' && order.orderStatus !== 'Delivered') &&
+                            {vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled' && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Delivered') ?
                             <View style={{justifyContent:'center',paddingRight:5}}>
                               <Text style={styles.cancelOrderText} onPress={()=>cancelorderbtn(order._id,vendor.vendor_id._id)}>Cancel this order</Text>
                               </View>
+                              :
+                              null
                             }
                             </View>
                           :
@@ -670,7 +671,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                 />
                               }
                               </View>
-                              <View style={{flex:0.45,paddingHorizontal:5}}>
+                              <View style={{flex:0.4,paddingHorizontal:5}}>
                                 <Text style={[styles.prodinfo,{fontSize:12,textTransform:'capitalize'}]}>{pitem.brand}</Text>
                                 <Text numberOfLines={2} style={styles.prodinfo}>{pitem.productName}</Text>
                                 <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:14,marginTop:7}}>
@@ -679,7 +680,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                 </Text>
                              
                               </View>
-                              <View style={{flex:0.35}}>
+                              <View style={{flex:0.4}}>
                                 <View style={{flex:1,flexDirection:'row',alignItems:'center'}}>
                                   <View style={{flex:.35}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
@@ -693,15 +694,15 @@ const cancelorderbtn = (id,vendor_id) => {
                                   {labels.indexOf(vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status) >= 3 &&
                                     <View style={[styles.flxdir,{marginTop:10,flex:1}]}>
                                       {pitem.productStatus?
-                                        <View style={{flex:.4}}>
-                                            <Text style={[styles.ogprice,{fontSize:12,color:colors.cartButton}]}>{pitem.productStatus.split(" ")[1]}</Text>
+                                        <View style={{flex:.5}}>
+                                            <Text style={[{fontSize:12,color:colors.cartButton,fontFamily:"Montserrat-Regular"}]}>{pitem.productStatus.split(" ")[1]}</Text>
                                         </View>
                                         :
-                                        <View style={{flex:.4}}>
-                                          <Text  style={styles.linkText} onPress={()=>{setReturnModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Return</Text>
+                                        <View style={{flex:.5}}>
+                                          <Text style={[styles.linkText,{alignSelf:"flex-start"}]} onPress={()=>{setReturnModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Return</Text>
                                         </View>
                                       }  
-                                      <View style={{flex:.6}}>
+                                      <View style={{flex:.5}}>
                                         {pitem.isReview ?
                                           <Text  style={styles.linkText} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem.product_ID)}}>Feedback</Text>
                                           :
@@ -717,28 +718,28 @@ const cancelorderbtn = (id,vendor_id) => {
                         <View style={[styles.totaldetails,{paddingRight:5}]}>
                           <View style={styles.flxdata}>
                               <View style={{ flex: 0.3}}/>
-                              <View style={{ flex: 0.36}}>
+                              <View style={{ flex: 0.4}}>
                                 <Text style={styles.totalAmount}>Total</Text>
                               </View>
-                              <View style={{flex:0.34,flexDirection:'row'}}>
-                                  <View style={{flex:.35}}>
+                              <View style={{flex:0.45,flexDirection:'row'}}>
+                                  <View style={{flex:.4}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
-                                  <View style={{flex:.65,alignItems:'flex-end'}}>
+                                  <View style={{flex:.6,alignItems:'flex-end'}}>
                                       <Text style={styles.ogprice}>{vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
                                   </View>
                                 </View>
                             </View>
                             <View style={styles.flxdata}>
                                 <View style={{ flex: 0.3}}/>
-                                <View style={{ flex: 0.36}}>
+                                <View style={{ flex: 0.4}}>
                                   <Text style={styles.totalAmount}>You Save </Text>
                                 </View> 
-                                <View style={{flex:0.34,flexDirection:'row'}}>
-                                  <View style={{flex:.35}}>
+                                <View style={{flex:0.45,flexDirection:'row'}}>
+                                  <View style={{flex:.4}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
-                                  <View style={{flex:.65,alignItems:'flex-end'}}>
+                                  <View style={{flex:.6,alignItems:'flex-end'}}>
                                       <Text style={[styles.ogprice,{color:colors.success}]}>{vendor.vendor_discountAmount.toFixed(2)}</Text>
                                   </View>
                                 </View>
@@ -760,10 +761,10 @@ const cancelorderbtn = (id,vendor_id) => {
                         <Text style={styles.totalAmount}>Final Total </Text>
                       </View>
                       <View style={{ flex: 0.38,flexDirection:'row' }}>
-                        <View style={{flex:.5}}>
+                        <View style={{flex:.4}}>
                             <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
-                        <View style={{flex:.45,alignItems:'flex-end'}}>
+                        <View style={{flex:.6,alignItems:'flex-end'}}>
                             <Text style={styles.ogprice}>{order.paymentDetails && order.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
                         </View>                        
                       </View>
@@ -773,10 +774,10 @@ const cancelorderbtn = (id,vendor_id) => {
                         <Text style={styles.totalAmount}>Total Savings </Text>
                       </View> 
                       <View style={{ flex: 0.38,flexDirection:'row' }}>
-                        <View style={{flex:.5}}>
+                        <View style={{flex:.4}}>
                             <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
-                        <View style={{flex:.45,alignItems:'flex-end'}}>
+                        <View style={{flex:.6,alignItems:'flex-end'}}>
                             <Text style={styles.ogpriceG1}>{order.paymentDetails && order.paymentDetails.discountAmount.toFixed(2)}</Text>
                         </View>                        
                       </View>
@@ -792,10 +793,10 @@ const cancelorderbtn = (id,vendor_id) => {
                         <Text style={styles.totalAmount}>Total VAT</Text>
                       </View> 
                       <View style={{ flex: 0.38,flexDirection:'row' }}>
-                        <View style={{flex:.5}}>
+                        <View style={{flex:.4}}>
                             <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
-                        <View style={{flex:.45,alignItems:'flex-end'}}>
+                        <View style={{flex:.6,alignItems:'flex-end'}}>
                             <Text style={styles.ogprice}>{order.paymentDetails && order.paymentDetails.taxAmount.toFixed(2)}</Text>
                         </View>                        
                       </View>
@@ -804,16 +805,34 @@ const cancelorderbtn = (id,vendor_id) => {
                       <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.taxAmount.toFixed(2)}</Text>
                         </View>
                       </View> */}
+                    </View>
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.57 }}>
+                        <Text style={styles.totalAmount}>Discount Coupon</Text>
+                      </View>
+                      <View style={{ flex: 0.38,flexDirection:'row' }}>
+                        <View style={{flex:.4}}>
+                            <Text style={[styles.ogpriceC,{opacity: 1,color:'#EF9A9A'}]}>{currency} </Text>
+                        </View> 
+                        <View style={{flex:.6,alignItems:'flex-end'}}>
+                            <Text style={styles.ogpriceR}>{order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
+                        </View>                        
+                      </View>
+                      {/* <View style={{ flex: 0.35 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                      <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
+                        </View>
+                      </View> */}
                     </View>                    
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totalAmount}>Total Delivery Charges </Text>
                       </View> 
                       <View style={{ flex: 0.4,flexDirection:'row' }}>
-                        <View style={{flex:.5}}>
+                        <View style={{flex:.4}}>
                             <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
-                        <View style={{flex:.45,alignItems:'flex-end'}}>
+                        <View style={{flex:.6,alignItems:'flex-end'}}>
                             <Text style={styles.ogprice}>{order.paymentDetails && order.paymentDetails.shippingCharges.toFixed(2)}</Text>
                         </View>                        
                       </View>
@@ -831,28 +850,11 @@ const cancelorderbtn = (id,vendor_id) => {
                         backgroundColor={colors.theme}
                         onRequestClose={() =>  tooltipRef.current.toggleTooltip()}
                         popover={tooltipClone}>
-                          <Icon name="info-circle" type={"font-awesome"} size={17} color={'#A6B7C2'} />
+                            <Icon name="information-outline" type={"material-community"} size={17} color={'#A6B7C2'} />
                         </Tooltip>
                     </View>  
                     </View>
-                    <View style={styles.flxdata}>
-                      <View style={{ flex: 0.57 }}>
-                        <Text style={styles.totalAmount}>Discount Coupon</Text>
-                      </View>
-                      <View style={{ flex: 0.38,flexDirection:'row' }}>
-                        <View style={{flex:.5}}>
-                            <Text style={[styles.ogpriceC,{opacity: 1,color:'#EF9A9A'}]}>{currency} </Text>
-                        </View> 
-                        <View style={{flex:.45,alignItems:'flex-end'}}>
-                            <Text style={styles.ogpriceR}>{order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
-                        </View>                        
-                      </View>
-                      {/* <View style={{ flex: 0.35 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
-                        </View>
-                      </View> */}
-                    </View>
+                   
                     <View style={{marginVertical:5,borderColor:"#ddd"}} />
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.53}}>
@@ -862,7 +864,7 @@ const cancelorderbtn = (id,vendor_id) => {
                           <View style={{flex:.36,alignItems:"flex-end"}}>
                               <Text style={[styles.ogpriceG,{opacity: 0.5}]}>{currency} </Text>
                           </View> 
-                          <View style={{flex:.52,alignItems:'flex-end'}}>
+                          <View style={{flex:.57,alignItems:'flex-end'}}>
                               <Text style={styles.totalAmountG}>{order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                           </View>                        
                         </View>
@@ -923,28 +925,33 @@ const cancelorderbtn = (id,vendor_id) => {
         <Modal isVisible={modal}
           onBackdropPress={() => setModal(false)}
           onRequestClose={() => setModal(false)}
-          coverScreen={true}
+          coverScreen={false}
+          onBackButtonPress={() => setModal(false)}
           hideModalContentWhileAnimating={true}
-          style={{ zIndex: 999,marginHorizontal:0,marginBottom:0}}
+          style={{ zIndex: 999,marginHorizontal:0,marginBottom:0, backgroundColor: "#EBEBEB",borderTopLeftRadius: 15,borderTopRightRadius: 15, }}
           animationOutTiming={500}>
           <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 100,marginTop:150}}>
           <View style={{alignItems:'flex-end',padding:15}}>
               <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:20}]} onPress={()=>setModal(false)}>X</Text>
             </View>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1}}>
-              <View style={{flex:0.3,marginBottom:20}}>
+              <View style={{flex:0.3,marginBottom:20,padding:5}}>
                 <View style={[styles.img151]}>
                   { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
                     style={styles.imgMain}
                     source={{ uri: vendorDetails.products[productIndex].productImage[0] }}
-                    resizeMode='cover'
+                    resizeMode='contain'
                     imageStyle={{ borderWidth:2,
                       borderColor:'#033554',
                       borderRadius:9,overflow: "hidden"}}
                   />:
                   <Image
                     source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                    style={styles.img151}
+                    style={styles.imgMain}
+                    resizeMode='contain'
+                    imageStyle={{ borderWidth:2,
+                      borderColor:'#033554',
+                      borderRadius:9,overflow: "hidden"}}
                   />
                 }
                 </View>
@@ -992,6 +999,7 @@ const cancelorderbtn = (id,vendor_id) => {
                 numberOfLines         = {4}
                 value                 = {review}
               />
+<<<<<<< Updated upstream
               <View style={{flexDirection:'row',justifyContent:"flex-end",marginHorizontal:20,top:-10}}>
                 <TouchableOpacity 
                     style={{height:28,width:28,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
@@ -1004,6 +1012,10 @@ const cancelorderbtn = (id,vendor_id) => {
                 </TouchableOpacity>                
               </View>              
               <View style={{flexDirection:"row",marginHorizontal:20,marginTop:15,marginBottom:30}}>
+=======
+              <View style={{flexDirection:'row',justifyContent:"space-between",marginHorizontal:20,top:-10}}>
+                 <View style={{flexDirection:"row",marginHorizontal:20,flex:0.9,flexWrap:'wrap'}}>
+>>>>>>> Stashed changes
                 {
                   reviewProductImages && reviewProductImages.length > 0 ?
                   reviewProductImages.map((item,index)=>{
@@ -1011,7 +1023,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       <Image
                         source={{uri:item}}
                         resizeMode="cover"
-                        style={{height:50,width:50,marginRight:15,backgroundColor:"#f1f1f1"}}
+                        style={{height:50,width:50,marginRight:15,marginBottom:15,backgroundColor:"#f1f1f1"}}
                         PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
                       />
                     )
@@ -1020,7 +1032,18 @@ const cancelorderbtn = (id,vendor_id) => {
                   null
                 }
                </View> 
-               <View style = {{marginHorizontal:40}}>
+                <TouchableOpacity 
+                    style={{flex:0.1,height:28,width:28,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
+                    onPress={() => chooseFromLibrary('openPicker','Review')}
+                  >
+                  <Image source={require('../../AppDesigns/currentApp/images/insert_image.png')}
+                      resizeMode="contain"
+                      style={{height:18,width:18}}
+                    />
+                </TouchableOpacity>                
+              </View>              
+             
+               <View style = {{marginHorizontal:40,marginBottom:15}}>
                 <FormButton 
                   onPress    = {()=>submitReview()}
                   title       = {'Submit'}                  
@@ -1034,6 +1057,7 @@ const cancelorderbtn = (id,vendor_id) => {
         <Modal isVisible={returnModal}
           onBackdropPress={() => setReturnModal(false)}
           onRequestClose={() => setReturnModal(false)}
+          onBackButtonPress={() => setReturnModal(false)}
           coverScreen={false}
           hideModalContentWhileAnimating={true}
           style={{ zIndex: 999,marginHorizontal:0,marginBottom:0,flex:1,paddingBottom:45,}}
@@ -1055,7 +1079,11 @@ const cancelorderbtn = (id,vendor_id) => {
                   />:
                   <Image
                     source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                    style={styles.img151}
+                    style={styles.imgMain}
+                    resizeMode='contain'
+                    imageStyle={{ borderWidth:2,
+                      borderColor:'#033554',
+                      borderRadius:9,overflow: "hidden"}}
                   />
                 }
                 </View>
@@ -1082,7 +1110,7 @@ const cancelorderbtn = (id,vendor_id) => {
               <View style={[styles.inputWrapper]}>              
                 <View style={styles.inputTextWrapper}>                  
                   <Dropdown
-                  underlineColorAndroid ='transparent'
+                    underlineColorAndroid ='transparent'
                     // placeholder         = {"Reason for Return..."}
                     onChangeText        = {(value) => setReason(value)}
                     data                = {getReasons}
@@ -1102,22 +1130,28 @@ const cancelorderbtn = (id,vendor_id) => {
                     style               = {styles.ddStyle}
                     disabledLineType    = 'none'
                     underlineColor      ='transparent'
+                    icon='chevron-down'
+                    iconColor='#666'
+                    // iconType={'entypo'}
+                    // iconColor={COLORS.PRIMARY}
                   /> 
-                  {/* <Picker
+                 {/* <Picker
                     selectedValue={reason}
                     mode="dropdown"
+                    style={{height:30,backgroundColor:"#fff"}}
+                    color={"#ff0"}
                     onValueChange={(itemValue, itemIndex) =>
                       setReason(itemValue)
                     }>
                     {getReasons && getReasons.length >0 ?
                     getReasons.map((item,index)=>{
                       return(
-                        <Picker.Item label={getReasons.label} value={getReasons.value } />
+                        <Picker.Item label={item.label} value={item.value } />
                       )
                     })
                     :
                     []
-                    }
+                  }
                   </Picker> */}
                 </View>
               </View>
@@ -1143,35 +1177,34 @@ const cancelorderbtn = (id,vendor_id) => {
                   value                 = {comment}
                 />
               </View>
-              <View style={{flexDirection:'row',justifyContent:"flex-end",marginHorizontal:20,top:-10}}>
+              <View style={{flexDirection:'row',justifyContent:"space-between",marginHorizontal:20,top:-10}}>
+                 <View style={{flexDirection:"row",marginHorizontal:20,flex:0.9,flexWrap:'wrap'}}>
+                {
+                  returnProductImages && returnProductImages.length > 0 ?
+                  returnProductImages.map((item,index)=>{
+                    return(
+                      <Image
+                        source={{uri:item}}
+                        resizeMode="cover"
+                        style={{height:50,width:50,marginRight:15,marginBottom:15,backgroundColor:"#f1f1f1"}}
+                        PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
+                      />
+                    )
+                  })
+                  :
+                  null
+                }
+               </View> 
                 <TouchableOpacity 
-                    style={{height:28,width:28,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
-                    onPress={() => chooseFromLibrary('openPicker','Return ')}
+                    style={{flex:0.1,height:28,width:28,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
+                    onPress={() => chooseFromLibrary('openPicker','Return')}
                   >
                   <Image source={require('../../AppDesigns/currentApp/images/insert_image.png')}
                       resizeMode="contain"
                       style={{height:18,width:18}}
                     />
                 </TouchableOpacity>                
-              </View>       
-              {
-                  returnProductImages && returnProductImages.length > 0 ?
-                  <View style={{flexDirection:"row",margin:11}}>
-                {
-                    returnProductImages.map((item,index)=>{
-                      return(
-                        <Image
-                          source={{uri:item}}
-                          resizeMode="cover"
-                          style={{height:50,width:50,marginRight:15,backgroundColor:"#f1f1f1"}}
-                          PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
-                        />
-                      )
-                    })
-                }
-               </View> :
-               null
-             }
+              </View> 
                 <Text style={{fontSize:12,fontFamily:'Montserrat-Regular',color:"#033554",marginHorizontal:20,}}>Refund to :</Text>
                 <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}} onPress={() => {setChecked('first');setRefund('source')}}>
                   <CheckBox

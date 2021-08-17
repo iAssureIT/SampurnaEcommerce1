@@ -8,9 +8,11 @@ import {
   Alert,ActivityIndicator,
   Linking,
   Modal,
-  StyleSheet
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
-import { Dropdown }             from 'react-native-material-dropdown-v2';
+import { Dropdown }             from 'react-native-material-dropdown-v2-fixed';
 import { Button, Icon,Input,Tooltip,CheckBox }   from "react-native-elements";
 import Modal1                    from "react-native-modal";
 import axios                    from "axios";
@@ -74,6 +76,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
     const [couponModal,setCouponModal] = useState(false);
     const [tab,selectedTab] = useState(true);
     const [couponConfirmation,setCopuonConfirmation] = useState(false);
+    const [creditConfirmation,setCreditConfirmation] = useState(false);
     useEffect(() => {
       getData();
       setChecked(false);
@@ -122,7 +125,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
   }
 
   const getTerms=()=>{
-    axios.get('/api/pages/get/page_block/terms-and-conditions')
+    axios.get('/api/pages/get/page_block/terms-and-conditions-mobile')
     .then(res=>{
         setPageBlocks(res.data.pageBlocks)
     })
@@ -139,6 +142,8 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
 }
 
     const getCartData=(userId)=>{
+      setCopuonConfirmation(false);
+      setCreditConfirmation(false);
       axios.get('/api/carts/get/cartproductlist/' + userId)
         .then((response) => {
           // console.log("response",response.data);
@@ -298,10 +303,10 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                 <View style={{borderWidth:0.5,borderColor:'#707070',marginTop:10,borderRadius:9,borderColor:"#707070",paddingHorizontal:10}}>
                   <View style={styles.orderaddchkbx}>
                     <View style={{flex:0.05,justifyContent:'flex-end',marginBottom:7}}><Text style={styles.blueDot}></Text></View>
-                    <View style={{flex:0.7}}><Text style={styles.addname}>{addDataName}</Text></View>                    
-                    
+                    <View style={{flex:0.95}}><Text style={styles.addname}>{addDataName}</Text></View>                    
                   </View>
                   <View style={{paddingHorizontal:15}}>
+                    <Text style={[styles.address,{colo:"#666"}]}>{addDataAddType} Address:</Text>
                     <Text style={styles.address}>{addDataAddressLine1+", "+addDataAddressLine2}</Text>
                     <View style={styles.mobflx}>
                       <Text style={styles.address}>Mobile:</Text>
@@ -310,7 +315,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                   </View>                  
                 </View>                 
               </View>
-              <View style={{paddingLeft:30}}>
+              <View style={{paddingLeft:15}}>
                 {cartData?.paymentDetails?.afterDiscountCouponAmount === 0 && cartData?.paymentDetails?.creditPointsUsed === 0 ? <TouchableOpacity style={{flexDirection:"row",marginTop:10,alignItems:'center'}} onPress={()=>{setCouponModal(true)}}>
                     <Image source={require('../../AppDesigns/currentApp/images/coupon.png')}
                       resizeMode="contain"
@@ -325,12 +330,12 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                       <View style={{ flex: 0.5 }}>
                         <Text style={styles.totaldata1}>Final Total</Text>
                       </View>
-                      <View style={{ flex: 0.2 }}>
+                      <View style={{ flex: 0.15 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.currency1}>{currency}</Text>
                           </View>
                         </View>
-                      <View style={{ flex: 0.2 }}>
+                      <View style={{ flex: 0.25 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.afterDiscountTotal && cartData.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
                         </View>
@@ -340,12 +345,12 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                       <View style={{ flex: 0.5 }}>
                         <Text style={styles.totaldata1}>Total Saving </Text>
                       </View>
-                      <View style={{ flex: 0.2 }}>
+                      <View style={{ flex: 0.15 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.currency1}>{currency}</Text>
                           </View>
                         </View>
-                      <View style={{ flex: 0.2 }}>
+                      <View style={{ flex: 0.25 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           {/* <Text style={styles.totalpriceincart}> - </Text> */}
                           <Text style={[styles.totalpriceincartTotalG]}>{cartData.paymentDetails.discountAmount && cartData.paymentDetails.discountAmount > 0 ? cartData.paymentDetails.discountAmount.toFixed(2):"0.00"}</Text>
@@ -356,27 +361,63 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                       <View style={{ flex: 0.5 }}>
                         <Text style={styles.totaldata1}>Total VAT  </Text>
                       </View>
-                      <View style={{ flex: 0.2 }}>
+                      <View style={{ flex: 0.15 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.currency1}>{currency}</Text>
                           </View>
                         </View>
-                      <View style={{ flex: 0.2 }}>
+                      <View style={{ flex: 0.25 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                       <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.taxAmount.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
+                    {cartData.paymentDetails.afterDiscountCouponAmount > 0 &&<View style={styles.flxdata}>
+                      <View style={{ flex: 0.5 }}>
+                        <Text style={styles.totaldata1}>Discount Coupon</Text>
+                      </View>
+                      <View style={{ flex: 0.15 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
+                            <Text style={[styles.currency1,{opacity: 0.7,color:'#EF9A9A'}]}>{currency}</Text>
+                          </View>
+                        </View>
+                      <View style={{ flex: 0.25 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincartTotalR}>{cartData.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
+                        </View>
+                      </View>
+                      <TouchableOpacity style={{flex:0.1,justifyContent:"center",alignItems:"center"}} onPress={()=>setCopuonConfirmation(true)}>
+                          <Icon name="trash" type={"font-awesome"} size={17} iconStyle={{color:'#648295'}} />
+                      </TouchableOpacity>  
+                    </View>}
+                    {cartData.paymentDetails.creditPointsUsed > 0 &&<View style={styles.flxdata}>
+                      <View style={{ flex: 0.5 }}>
+                        <Text style={styles.totaldata1}>Redeem Value</Text>
+                      </View>
+                      <View style={{ flex: 0.15 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
+                            <Text style={[styles.currency1,{opacity: 0.7,color:'#EF9A9A'}]}>{currency}</Text>
+                          </View>
+                        </View>
+                      <View style={{ flex: 0.25 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincartTotalR}>{cartData.paymentDetails.creditPointsValueUsed.toFixed(2)}</Text>
+                        </View>
+                      </View>
+                      <TouchableOpacity style={{flex:0.1,justifyContent:"center",alignItems:"center"}} onPress={()=>setCreditConfirmation(true)}>
+                          <Icon name="trash" type={"font-awesome"} size={17} iconStyle={{color:'#648295'}} />
+                      </TouchableOpacity>  
+                    </View>}
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.5 }}>
-                        <Text style={styles.totaldata1}>Total Delivery Charges </Text>
+                        <Text style={styles.totaldata1}>Total Delivery Charges</Text>
                       </View>
-                      <View style={{ flex: 0.2 }}>
+                      <View style={{ flex: 0.15 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
                             <Text style={styles.currency1}>{currency}</Text>
                           </View>
                         </View>
-                      <View style={{ flex: 0.2 }}>
+                      <View style={{ flex: 0.25 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
                         </View>
@@ -394,46 +435,11 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                         </Tooltip>
                       </View>  
                     </View>
-                    {cartData.paymentDetails.afterDiscountCouponAmount > 0 &&<View style={styles.flxdata}>
-                      <View style={{ flex: 0.5 }}>
-                        <Text style={styles.totaldata1}>Discount Coupon</Text>
-                      </View>
-                      <View style={{ flex: 0.2 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
-                            <Text style={[styles.currency1,{opacity: 0.7,color:'#EF9A9A'}]}>{currency}</Text>
-                          </View>
-                        </View>
-                      <View style={{ flex: 0.2 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincartTotalR}>{cartData.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
-                        </View>
-                      </View>
-                      <TouchableOpacity style={{flex:0.1,justifyContent:"center",alignItems:"center"}} onPress={()=>setCopuonConfirmation(true)}>
-                          <Icon name="trash" type={"font-awesome"} size={17} iconStyle={{color:'#648295'}} />
-                      </TouchableOpacity>  
-                    </View>}
-                    {cartData.paymentDetails.creditPointsUsed > 0 &&<View style={styles.flxdata}>
-                      <View style={{ flex: 0.5 }}>
-                        <Text style={styles.totaldata1}>Redeem Value</Text>
-                      </View>
-                      <View style={{ flex: 0.2 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
-                            <Text style={[styles.currency1,{opacity: 0.7,color:'#EF9A9A'}]}>{currency}</Text>
-                          </View>
-                        </View>
-                      <View style={{ flex: 0.2 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincartTotalR}>{cartData.paymentDetails.creditPointsValueUsed.toFixed(2)}</Text>
-                        </View>
-                      </View>
-                      <TouchableOpacity style={{flex:0.1,justifyContent:"center",alignItems:"center"}} onPress={()=>getCartData(user_id)}>
-                          <Icon name="trash" type={"font-awesome"} size={17} iconStyle={{color:'#648295'}} />
-                      </TouchableOpacity>  
-                    </View>}
+                    
                   
                     <View style={{marginVertical:5}} />
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.5 }}>
+                        <View style={{ flex: 0.46 }}>
                           <Text style={[styles.totaldata1G]}>Grand Total</Text>
                         </View>
                         <View style={{ flex: 0.2 }}>
@@ -476,7 +482,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                     <View style={styles.inputTextWrapper}>
                       <Dropdown
                       underlineColorAndroid ='transparent'
-                        placeholder         = {"-- Select Time --"}
+                        placeholder         = {"Select Time"}
                         onChangeText        = {(value) => handleTypeChange(value)}
                         data                = {getTimes}
                         value               = {shippingTiming}
@@ -627,10 +633,15 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
           hideModalContentWhileAnimating={true}
           style={{ zIndex: 999 }}
           animationOutTiming={500}>
-          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: 30,paddingTop:15, paddingHorizontal: 10}}>
-          <TouchableOpacity style={{flexDirection:"row",justifyContent:"flex-end",marginBottom:10}} onPress={()=>setModal(false)}>
-                <Icon name="close" type="material-community" size={20} color={colors.red} />
-            </TouchableOpacity>  
+          <View style={{ backgroundColor: "#fff", borderRadius: 20}}>
+            <View style={{flexDirection:'row',height:30,alignItems:'center',justifyContent:'space-between',borderBottomWidth:0.5,borderColor:"#eee",marginTop:5}}>   
+              <View style={{paddingHorizontal: 5}}>
+                <Text style={CommonStyles.label}>Terms & conditions</Text>
+              </View>  
+              <TouchableOpacity style={{justifyContent:"flex-end",padding:5}} onPress={()=>setModal(false)}>
+                  <Icon name="close" type="material-community" size={20} />
+              </TouchableOpacity> 
+           </View>   
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
                 {
                     pageBlockes && pageBlockes.length>0?
@@ -672,7 +683,10 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
             justifyContent: 'flex-end',
             padding: 0,
           }}>
-          <View style={styles1.topContainer}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={styles1.topContainer}
+              >
             <SafeAreaView forceInset={{bottom: 'always',height:500}}>
               {/* <View style={styles1.titleContainer}>
                 <Text style={CommonStyles.label}>Sort By</Text>
@@ -694,8 +708,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                     // label                 = "Enter promotional code"
                     placeholder           = "Apply Coupon code"            
                     onChangeText          = {(text)=>setCouponCode(text)}
-                    autoCapitalize        = "none"
-                    keyboardType          = "email-address"
+                    // keyboardType          = "email-address"
                     inputContainerStyle   = {styles.containerStyle}
                     containerStyle        = {{paddingHorizontal:0}}
                     placeholderTextColor  = {'#909090'}
@@ -751,25 +764,27 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                </View>
               }
             </View>
-             
             </SafeAreaView>
-          </View>
+          </KeyboardAvoidingView>
         </TouchableOpacity>
       </Modal>
       </SafeAreaView>
-      {/* <SafeAreaView style={{flex: 1}}>
-      <Modal isVisible={false}
+      <SafeAreaView style={{flex: 1}}>
+      <Modal1 isVisible={couponConfirmation}
           onBackdropPress={() => setCopuonConfirmation(false)}
           onRequestClose={() => setCopuonConfirmation(false)}
           onDismiss={() =>  setCopuonConfirmation(false)}
           coverScreen={true}
           hideModalContentWhileAnimating={true}
+          hasBackdrop={false}
+          // hideModalContentWhileAnimating={true}
           style={{ paddingHorizontal: '5%', zIndex: 999 }}
-          animationOutTiming={500}>
+          animationInTiming={1} animationOutTiming={1}
+         >
           <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
-            <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
+            {/* <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
               <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
-            </View>
+            </View> */}
             <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
               Are you sure you want to remove this coupon?
             </Text>
@@ -788,7 +803,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
               <View style={styles.ordervwbtn}>
                 <TouchableOpacity>
                   <Button
-                    onPress={() => getCartData(user_id)()}
+                    onPress={() => getCartData(user_id)}
                     titleStyle={styles.buttonText1}
                     title="Yes"
                     buttonStyle={styles.button1}
@@ -798,8 +813,51 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
               </View>
             </View>
           </View>
-        </Modal>
-    </SafeAreaView> */}
+        </Modal1>
+        <Modal1 isVisible={creditConfirmation}
+          onBackdropPress={() => setCreditConfirmation(false)}
+          onRequestClose={() => setCreditConfirmation(false)}
+          onDismiss={() =>  setCreditConfirmation(false)}
+          coverScreen={true}
+          hasBackdrop={false}
+          hideModalContentWhileAnimating={true}
+          style={{ paddingHorizontal: '5%', zIndex: 999 }}
+          animationInTiming={1} animationOutTiming={1}
+          >
+          <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
+            {/* <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
+              <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
+            </View> */}
+            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
+              Are you sure you want to remove this credit points?
+            </Text>
+            <View style={styles.cancelbtn}>
+              <View style={styles.cancelvwbtn}>
+                <TouchableOpacity>
+                  <Button
+                    onPress={() => setCreditConfirmation(false)}
+                    titleStyle={styles.buttonText1}
+                    title="NO"
+                    buttonStyle={styles.buttonRED}
+                    containerStyle={styles.buttonContainer2}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.ordervwbtn}>
+                <TouchableOpacity>
+                  <Button
+                    onPress={() => getCartData(user_id)}
+                    titleStyle={styles.buttonText1}
+                    title="Yes"
+                    buttonStyle={styles.button1}
+                    containerStyle={styles.buttonContainer2}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal1>
+    </SafeAreaView>
     <View style={{marginBottom:Platform.OS ==='ios'?60: 45,flexDirection:'row',alignSelf:"flex-end"}}>
          <View style={{flex:0.5,height:60,backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
             <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>

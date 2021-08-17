@@ -196,16 +196,17 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                       )]}>
                     {disabled || item.distance<=1 ?
                       <TouchableOpacity onPress={() => {selectedaddress(i,item._id,item)}} >
-                        <View style={{height:24,backgroundColor:colors.cartButton,borderTopLeftRadius:7,borderTopRightRadius:7,flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15,borderWidth:0,borderColor:colors.cartButton}}>
+                        <View style={{height:24,backgroundColor:colors.cartButton,borderTopLeftRadius:7,borderTopRightRadius:7,flexDirection:"row",justifyContent:'space-between',alignItems:'center',borderWidth:0,borderColor:colors.cartButton}}>
                             {/* <Icon name="home" type="material-community" size={10} iconStyle={{elevation:5}} color={colors.white}/> */}
-                            <Image
+                            {/* <Image
                               resizeMode="contain"
                               source={require("../../AppDesigns/currentApp/images/home_white.png")}
                               style={{height:16,width:16}}
-                            />
+                            /> */}
+                            <Text style={[CommonStyles.label,{color:"#fff",paddingLeft:15}]}>{item.addType} Address</Text>
                             <View style={{flexDirection:'row'}}>
                             {!disabled&&                              
-                              <TouchableOpacity  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})}>                              
+                              <TouchableOpacity  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})} style={{paddingHorizontal:15}}>                              
                                 <Image
                                   resizeMode="contain"
                                   source={require("../../AppDesigns/currentApp/images/edit_white.png")}
@@ -234,11 +235,12 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                       :
                       <View style={{borderRadius:9}} >
                          <View style={{height:24,backgroundColor:"#B7B7B7",flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15}}>
-                          <Image
+                          {/* <Image
                               resizeMode="contain"
                               source={require("../../AppDesigns/currentApp/images/home_gray.png")}
                               style={{height:16,width:16}}
-                            />
+                            /> */}
+                            <Text style={CommonStyles.label}>{item.addType} Address</Text>
                             <TouchableOpacity  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})}>                              
                                 <Image
                                   resizeMode="contain"

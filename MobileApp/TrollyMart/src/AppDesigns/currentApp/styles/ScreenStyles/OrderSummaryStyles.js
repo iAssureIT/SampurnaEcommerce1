@@ -174,10 +174,10 @@ superparent:{
     fontSize:12,fontFamily:"Montserrat-Regular", color:'#666'
   },
   totaldata1:{
-    fontSize:13,fontFamily:"Montserrat-Bold", color:'#000'
+    fontSize:14,fontFamily:"Montserrat-Bold", color:'#000'
   },
   totaldata1G:{
-    fontSize:18,fontFamily:"Montserrat-Bold", color:'#000'
+    fontSize:16,fontFamily:"Montserrat-Bold", color:'#000'
   },
   totaldata:{
     fontSize:15,fontFamily:"Montserrat-Medium", color:'#000'
@@ -715,7 +715,7 @@ superparent:{
     },
     buttonRED:{
       backgroundColor: colors.buttonRED,
-      // height: 45,
+      height: 45,
       width:"100%",
     },
     buttonContainer2:{
@@ -747,7 +747,7 @@ superparent:{
       fontSize: 20, fontFamily: "Montserrat-Medium", color: '#000'
     },
     currency1:{
-      fontSize: 13, fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
+      fontSize: 14, fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
     },
     currency1Iteam:{
       fontSize: 16, fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
@@ -756,7 +756,7 @@ superparent:{
       fontSize: 16, fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
     },
     totalpriceincartTotal:{
-      fontSize:13,
+      fontSize:14,
       fontFamily:"Montserrat-SemiBold", 
       color:'#000000',
     },
@@ -769,7 +769,7 @@ superparent:{
     },
 
     totalpriceincartTotalGT:{
-      fontSize:18,
+      fontSize:16,
       fontFamily:"Montserrat-Bold", 
       color:'#000000',
     },
