@@ -173,6 +173,19 @@
 	box-shadow    : -3px 3px 6px #0000004D;
 	border-radius : 6px;
 	opacity       : 1;
+	font-family   : 'Montserrat-Medium'
+}
+
+.feedbackBtn:hover {
+	letter-spacing: 0px;
+	color         : #FFFFFF;
+	font-size     : 12px;
+	background    : #033554 0% 0% no-repeat padding-box;
+	box-shadow    : -3px 3px 6px #0000004D;
+	border-radius : 6px;
+	opacity       : 1;
+	font-family   : 'Montserrat-Medium'
+
 }
 
 .reviewVendorName {
