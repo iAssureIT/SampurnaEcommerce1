@@ -464,12 +464,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     // label               = 'Type of Address'
                     placeholder         = {"-- Select Address Type --"}                    
                     containerStyle      = {styles.ddContainer}
-<<<<<<< Updated upstream
                     dropdownOffset      = {{ top: 55, left: 0 }}
-=======
-                    // dropdownOffset      = {{ top: 0, left: 0 }}
-                    // dropdownOffset      = {{ top: 73, left: 0 }}
->>>>>>> Stashed changes
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
                     // labelHeight         = {10}

@@ -930,7 +930,7 @@ const cancelorderbtn = (id,vendor_id) => {
           hideModalContentWhileAnimating={true}
           style={{ zIndex: 999,marginHorizontal:0,marginBottom:0, backgroundColor: "#EBEBEB",borderTopLeftRadius: 15,borderTopRightRadius: 15, }}
           animationOutTiming={500}>
-          <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 100,marginTop:150}}>
+          <ScrollView contentContainerStyle={{paddingBottom: 50}}>
           <View style={{alignItems:'flex-end',padding:15}}>
               <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:20}]} onPress={()=>setModal(false)}>X</Text>
             </View>
@@ -999,23 +999,8 @@ const cancelorderbtn = (id,vendor_id) => {
                 numberOfLines         = {4}
                 value                 = {review}
               />
-<<<<<<< Updated upstream
-              <View style={{flexDirection:'row',justifyContent:"flex-end",marginHorizontal:20,top:-10}}>
-                <TouchableOpacity 
-                    style={{height:28,width:28,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
-                    onPress={() => chooseFromLibrary('openPicker','Review')}
-                  >
-                  <Image source={require('../../AppDesigns/currentApp/images/insert_image.png')}
-                      resizeMode="contain"
-                      style={{height:18,width:18}}
-                    />
-                </TouchableOpacity>                
-              </View>              
-              <View style={{flexDirection:"row",marginHorizontal:20,marginTop:15,marginBottom:30}}>
-=======
               <View style={{flexDirection:'row',justifyContent:"space-between",marginHorizontal:20,top:-10}}>
                  <View style={{flexDirection:"row",marginHorizontal:20,flex:0.9,flexWrap:'wrap'}}>
->>>>>>> Stashed changes
                 {
                   reviewProductImages && reviewProductImages.length > 0 ?
                   reviewProductImages.map((item,index)=>{
