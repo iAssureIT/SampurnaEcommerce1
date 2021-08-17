@@ -8,12 +8,9 @@ import { connect } 				from 'react-redux';
 import { bindActionCreators }   from 'redux';
 import {getForm,updateForm} 	from '../redux/actions';
 
-
 import S from './systemSecurity.module.css';
 
-
 const { publicRuntimeConfig } = getConfig();
-
 
 class ResetPassword extends Component{
 
@@ -24,7 +21,6 @@ class ResetPassword extends Component{
             errors 		: {}
         }
     }
-
 	componentDidMount(){
         var userDetails =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
@@ -33,15 +29,13 @@ class ResetPassword extends Component{
 			})
         }
     }
-
 	resetPassword(event){
         event.preventDefault();
-        var formValues = {
-            "user_id"         : this.state.userId,
-            "newPassword"  	  : this.refs.newPassword.value,
-            "currentPassword" : this.refs.confirmPassword.value,
-        }
-        axios.patch('/api/auth/patch/reset_password', formValues)
+		var formValues = {
+			pwd: this.refs.newPassword.value,
+		};
+		if(this.refs.newPassword.value === this.refs.confirmPassword.value ){
+		axios.patch('/api/auth/patch/change_password_using_otp/id/'+this.state.userId, formValues)
 	        .then((response)=>{
 				if(response){
 					this.setState({
@@ -53,6 +47,9 @@ class ResetPassword extends Component{
 			.catch((error)=>{
 				console.log("reset Password error=",error);
 			})
+		}else{
+			swal("Password is not matching");
+		}
     }
 
 	handleChange(event){
@@ -97,7 +94,7 @@ class ResetPassword extends Component{
                 <div className="col-12 mobileViewNoPadding">
 					<div className={"col-12 "+S.signTextWrapper}>
 						<div className="row">
-							<a href="" className={S.backToLogin} onClick={this.openSignInModal.bind(this)}><i class="fa fa-arrow-left"></i><u> Back to Login</u></a>
+							<a href="" className={S.backToLogin} onClick={this.openSignInModal.bind(this)}><i className="fa fa-arrow-left"></i><u> Back to Login</u></a>
 						</div>
 					</div>
 					<div className={"col-12 "+S.signTitleWrapper}>
@@ -154,10 +151,10 @@ class ResetPassword extends Component{
 								</form>
 							</div>
                         :
-							<div className="col-12 col-lg-8 offset-lg-2 resetPassword">
+							<div className="col-12 resetPassword">
 								<p className="col-12 mt25 textAlignCenter">Your password has been reset successfully!</p>
 								<div className="col-12 mt10">
-									<div className="row loginforgotpass textAlignCenter"> Please &nbsp;
+									<div className="loginforgotpass textAlignCenter"> Please &nbsp;
 										<span className=""onClick={this.openSignInModal.bind(this)} style={{'cursor':'pointer'}}><b>Click here</b> &nbsp;</span>
 											to Sign In.
 									</div>

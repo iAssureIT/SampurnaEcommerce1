@@ -73,12 +73,12 @@ const CategoryFilters = (props)=>{
           </div> 
 
           
-          <nav class="navbar navbar-expand-lg navbar-light bg-light d-block d-lg-none d-xl-none">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light d-block d-lg-none d-xl-none">
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
               &nbsp; &nbsp;&nbsp;Sub Categories
             </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
               <div className="panel-group" id="accordion">    
                         {
                           props.categoryData && props.categoryData.map((subcategory,index)=>{

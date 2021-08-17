@@ -835,13 +835,15 @@ class Checkout extends Component {
                                             <tbody>
                                                 {vendorWiseData.cartItems && vendorWiseData.cartItems.map((cartdata, index) => {
                                                     // console.log("productdata=",productdata);
+                                                    var categoryUrl = (cartdata.product_ID.category ? cartdata.product_ID.category:"").replace(/\s+/g, '-').toLowerCase();                    
+                                                    var subCategoryUrl = (cartdata.product_ID.subCategory ? cartdata.product_ID.subCategory:"-").replace(/\s+/g, '-').toLowerCase();
                                                     return (
 
                                                         <tr key={index}>
                                                             <td>
                                                                 <img className="img orderImg" src={cartdata.product_ID.productImage[0] ? cartdata.product_ID.productImage[0] : "images/eCommerce/notavailable.png"} />
 
-                                                                <a href={"/product-detail/" + vendorWiseData.vendor_id._id + "/" + vendorWiseData.vendorLocation_id + "/" + cartdata.product_ID._id}>
+                                                                <a href={"/product-detail/" + vendorWiseData.vendor_id._id + "/" + vendorWiseData.vendorLocation_id + "/"+categoryUrl+"/"+subCategoryUrl+"/" + cartdata.product_ID._id}>
                                                                     {cartdata.product_ID.productNameRlang ?
                                                                         <h5 className="RegionalFont mt-2">{cartdata.product_ID.productNameRlang}</h5>
                                                                         :
@@ -1214,6 +1216,8 @@ class Checkout extends Component {
                                                                                                 </thead>
 
                                                                                                 {vendorWiseData.cartItems && vendorWiseData.cartItems.map((cartdata, index) => {
+                                                                                                     var categoryUrl = (cartdata.product_ID.category ? cartdata.product_ID.category:"").replace(/\s+/g, '-').toLowerCase();                    
+                                                                                                     var subCategoryUrl = (cartdata.product_ID.subCategory ? cartdata.product_ID.subCategory:"-").replace(/\s+/g, '-').toLowerCase();
                                                                                                     return (
                                                                                                         <tr>
                                                                                                             <td><img className="img orderImg" src={cartdata.product_ID.productImage[0] ? cartdata.product_ID.productImage[0] : "images/eCommerce/notavailable.png"} /></td>
@@ -1226,7 +1230,7 @@ class Checkout extends Component {
                                                                                                                      </div>           
                                                                                                                     :null
                                                                                                                     }
-                                                                                                                    <a href={"/product-detail/" + vendorWiseData.vendor_id._id + "/" + vendorWiseData.vendorLocation_id + "/" + cartdata.product_ID._id}>
+                                                                                                                    <a href={"/product-detail/" + vendorWiseData.vendor_id._id + "/" + vendorWiseData.vendorLocation_id + "/"+categoryUrl+"/"+subCategoryUrl+"/" + cartdata.product_ID._id}>
                                                                                                                         {cartdata.product_ID.productNameRlang ?
                                                                                                                             <h5 className="RegionalFont">{cartdata.product_ID.productNameRlang}</h5>
                                                                                                                             :

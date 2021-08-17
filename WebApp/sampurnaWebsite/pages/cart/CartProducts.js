@@ -357,7 +357,7 @@ class CartProducts extends Component {
         }
       }
     render() {
-        console.log("this.props.recentCartData===",this.props.recentCartData);
+        // console.log("this.props.recentCartData===",this.props.recentCartData);
         return (
             <div className="col-12 cartHeightWrapper">
                 <div className="col-12  ">
@@ -569,19 +569,18 @@ class CartProducts extends Component {
 
                                                                                         <div className={"col-12 d-none d-lg-block d-xl-block pt-1 " + Style.cardHeadingWrapper}></div>
 
-
-
                                                                                         {vendorWiseCartData.cartItems.map((vendorData, index) => {
-                                                                                            console.log("vendorData===",vendorData);
+                                                                                            // console.log("cart vendorData===",vendorData);
+                                                                                            var categoryUrl = (vendorData.product_ID.category ? vendorData.product_ID.category:"").replace(/\s+/g, '-').toLowerCase();                    
+                                                                                            var subCategoryUrl = (vendorData.product_ID.subCategory ? vendorData.product_ID.subCategory:"-").replace(/\s+/g, '-').toLowerCase();
                                                                                             return (
                                                                                                 <div key={index}>
-
                                                                                                     <div className="col-12 mt-4 d-none d-lg-block d-xl-block ">
 
                                                                                                         <div className={"row mb-4 "}>
                                                                                                             <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-2 col-xl-2 pl-0 ForMobile">
                                                                                                                 <div className="row">
-                                                                                                                    <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/" + vendorWiseCartData.vendorLocation_id + "/" + vendorData.product_ID._id}>
+                                                                                                                    <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/" + vendorWiseCartData.vendorLocation_id + "/"+categoryUrl+"/"+subCategoryUrl+"/" + vendorData.product_ID._id}>
                                                                                                                         <img className="img mt-1 cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.png"} alt="ProductImg" />
 
                                                                                                                         {/* <h5 className="productName d-lg-none d-xl-none  ">{vendorData.product_ID.productName}</h5> */}
@@ -596,7 +595,7 @@ class CartProducts extends Component {
                                                                                                                      </div>           
                                                                                                                     :null
                                                                                                                     }
-                                                                                                                    <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/" + vendorWiseCartData.vendorLocation_id + "/" + vendorData.product_ID._id}>
+                                                                                                                    <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/" + vendorWiseCartData.vendorLocation_id + "/"+categoryUrl+"/"+subCategoryUrl+"/" + vendorData.product_ID._id}>
                                                                                                                         {vendorData.product_ID.productNameRlang ?
                                                                                                                             <div className={"RegionalFont  font-weight-bold" + Style.productName}>{vendorData.product_ID.productNameRlang}</div>
                                                                                                                             :

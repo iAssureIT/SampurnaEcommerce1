@@ -44,6 +44,9 @@
 	/* height: 17px; */
 	padding:8px;
 }
+.orderStatusBadgeOnTheWay{
+	padding-top:6px !important;
+}
 .cancelOrderStatus{
 	color: #f00;
 }

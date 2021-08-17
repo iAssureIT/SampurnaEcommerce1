@@ -51,7 +51,15 @@ class SignUpOTP extends Component{
 
 	verifyOTP(event){
 		event.preventDefault();
-		if(this.state.otp){
+		var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+        if(userDetails){
+			console.log("userDetails ==",userDetails.userId); 
+          	this.setState({
+            	userId  : userDetails.userId,
+				phone   : userDetails.mobNumber,
+			})
+        }
+		if(this.state.otp && this.state.userId){
 			axios.get("/api/auth/get/checkmobileotp/usingID/"+this.state.userId+"/"+this.state.otp)
 				.then((verifyOtpResponse)=>{
 					if(verifyOtpResponse){
@@ -95,7 +103,7 @@ class SignUpOTP extends Component{
 				<div className="col-10 offset-1 mt-3">
 					<div className={"col-12 "+S.signTextWrapper}>
 						<div className="row">
-							<a href="" className="" onClick={this.openSignInModal.bind(this)}><u>Back to Login</u></a>
+							<a href="" className="" onClick={this.openSignUpModal.bind(this)}><u>Back to Login</u></a>
 						</div>
 					</div>
 					<div className={"col-12 "+S.signTitleWrapper}>

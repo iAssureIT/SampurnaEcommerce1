@@ -149,16 +149,16 @@ class DeliveryLocationPopup extends React.Component{
                                 }
                             }
                         }
-                        that.setState({
-                            "address"   : response.results[0].formatted_address,
-                            "city"      : city,
-                            "area"      : area,
-                            "district"  : response.results[0].district,
-                            "pincode"   : pincode,
-                            "country"   : country,
-                            "latitude"  : position.coords.latitude,
-                            "longitude" : position.coords.longitude,
-                        });
+                        // that.setState({
+                        //     "address"   : response.results[0].formatted_address,
+                        //     "city"      : city,
+                        //     "area"      : area,
+                        //     "district"  : response.results[0].district,
+                        //     "pincode"   : pincode,
+                        //     "country"   : country,
+                        //     "latitude"  : position.coords.latitude,
+                        //     "longitude" : position.coords.longitude,
+                        // });
                         var deliveryLocation = {
                             "address"   : response.results[0].formatted_address,
                             "city"      : city,
@@ -201,7 +201,6 @@ class DeliveryLocationPopup extends React.Component{
                 );
         });
     }
-
     saveLocation(event){
         event.preventDefault();
         if(this.state.address){
@@ -302,11 +301,11 @@ class DeliveryLocationPopup extends React.Component{
                         lng: lng
                     }
                     this.setState({
-                        latlong : latLongDetails,
+                        latLong : latLongDetails,
                         latitude : lat,
                         longitude : lng
                     },()=>{
-
+                        console.log("latlong===",this.state.latLong);
                     })
                 }
             })
@@ -368,7 +367,8 @@ class DeliveryLocationPopup extends React.Component{
                                                             className   : 'location-search-input form-control',
                                                             id          : "address",
                                                             name        : "address",
-                                                            required    : true
+                                                            required    : true,
+                                                            
                                                         })}
                                                     />
                                                         <i className="fas fa-search"></i>

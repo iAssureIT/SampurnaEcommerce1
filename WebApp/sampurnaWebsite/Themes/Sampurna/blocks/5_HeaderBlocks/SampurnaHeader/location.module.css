@@ -68,6 +68,9 @@
     font-size: 12px !important;
     color: #033554 !important;
 }
+.deliveryLocationSearch input{
+    padding-left: 25px !important;
+}
 
 
 

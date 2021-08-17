@@ -6,11 +6,7 @@ import Image 					from 'next/image';
 import { connect }              from 'react-redux';
 import { bindActionCreators }   from 'redux';
 import {getForm,updateForm}     from '../redux/actions';
-
-
-import S from './systemSecurity.module.css';
-
-
+import S                        from './systemSecurity.module.css';
 class ForgotPassword extends Component{
 
 	constructor(props){
@@ -56,7 +52,7 @@ class ForgotPassword extends Component{
         });
 	}    
     
-    sendLink(evvalidateForment){
+    sendOTP(evvalidateForment){
         event.preventDefault();
         var username = this.refs.username.value;
 		console.log("formValues==",username);
@@ -68,12 +64,21 @@ class ForgotPassword extends Component{
 							userId : forgotPassResponse.data.ID,
 						}
                         swal(forgotPassResponse.data.message);
-                        if(forgotPassResponse.data.message === "OTP sent on registered mobile number"){
+<<<<<<< Updated upstream
+                        this.props.updateFormValue("confirmOtp");
+                        localStorage.setItem('userDetails', JSON.stringify(userDetails));
+                        // if(forgotPassResponse.data.message === "OTP sent on registered mobile number"){
+                        //     this.props.updateFormValue("confirmOtp");
+                        //     localStorage.setItem('userDetails', JSON.stringify(userDetails));	
+                        // }
+=======
+                        if(forgotPassResponse.data.message === "OTP sent on Registered Email ID / Mobile Number"){
                             // this.props.updateFormValue("signupotp");
                             this.props.updateFormValue("confirmOtp");
                             localStorage.setItem('userDetails', JSON.stringify(userDetails));	
                             // localStorage.setItem("userDetails",userDetails);
                         }
+>>>>>>> Stashed changes
                     }                  
                 })
                 .catch((error) => {
@@ -119,7 +124,7 @@ class ForgotPassword extends Component{
                                         </div>
 									:
                                         <div className="col-12 forgotPassBtn">
-                                            <button id="sendlink" type="button" onClick={this.sendLink.bind(this)} className="col-12 btn loginBtn otpBtns mt-4 waves-effect">Send OTP</button>
+                                            <button id="sendlink" type="button" onClick={this.sendOTP.bind(this)} className="col-12 btn loginBtn otpBtns mt-4 waves-effect">Send OTP</button>
                                         </div>
                                 }
                                 <div className="col-12 mt-2 mb-3">

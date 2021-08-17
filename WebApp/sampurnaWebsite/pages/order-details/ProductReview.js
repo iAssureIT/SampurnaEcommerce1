@@ -16,7 +16,7 @@ render() {
     return (
       <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"reviewModal_"+productdata.product_ID} role="dialog">
             Product Review
-        </div>
+      </div>
     );
   }
 }
