@@ -6,6 +6,8 @@ const mongoose 					= require ('mongoose');
 const globalVariable			= require('./nodemon.js');
 const fs 						= require('fs');
 var   nodeMailer				= require('nodemailer');
+const cron          			= require('node-cron');
+const axios         = require('axios');
 
 // Routes - CMSork/eComm3/eCommV3/WebApp/admin$ 
 // const blockRoutes 				= require('./api/cms/routes/blocks.js');
@@ -334,5 +336,23 @@ app.use((error, req, res, next) => {
 		res.end();  
 	});
 });
+
+var inActiveCoupons = cron.schedule('0 0 * * *', async () => {
+    var inActivateCoupons = await inActivateExpiredCoupons();
+});
+
+function inActivateExpiredCoupons() {
+	return new Promise(function (resolve, reject) {
+		axios.post('http://localhost:'+globalVariable.port+'/api/coupon/post/inActivateExpiredCoupons')
+	    .then((response) => {
+	        resolve(response);
+	    })
+	    .catch((error) => {
+	        console.log("error",error);
+
+	    })
+    });
+	
+}
 
 module.exports = app;

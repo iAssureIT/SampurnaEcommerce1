@@ -84,6 +84,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
+    userDetails : store.userDetails,
   }));
   const {currency}=store.preferences;
 
@@ -290,7 +291,8 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                     <Text style={{fontSize:15,fontFamily:"Montserrat-SemiBold",color: "#000000"}}>Address</Text>
                     <TouchableOpacity 
                         style={{height:34,width:34,elevation:15,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,}}
-                        onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
+                        // onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
+                        onPress={()=> navigation.navigate('AddressComponent',{"delivery":true,"address":addData})}
                       >
                         <Image
                             resizeMode="contain"
@@ -316,13 +318,18 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                 </View>                 
               </View>
               <View style={{paddingLeft:15}}>
-                {cartData?.paymentDetails?.afterDiscountCouponAmount === 0 && cartData?.paymentDetails?.creditPointsUsed === 0 ? <TouchableOpacity style={{flexDirection:"row",marginTop:10,alignItems:'center'}} onPress={()=>{setCouponModal(true)}}>
+                {store?.userDetails?.authService !== "guest" ?
+                cartData?.paymentDetails?.afterDiscountCouponAmount === 0 && cartData?.paymentDetails?.creditPointsUsed === 0 ? <TouchableOpacity style={{flexDirection:"row",marginTop:10,alignItems:'center'}} onPress={()=>{setCouponModal(true)}}>
                     <Image source={require('../../AppDesigns/currentApp/images/coupon.png')}
                       resizeMode="contain"
                       style={{height:13,width:13}}
                     />
                     <Text style={{color: "#3E9D5E"}}> Apply Discount</Text>
-                </TouchableOpacity>: null}
+                </TouchableOpacity>
+                : null
+                :
+                null
+                }
                 {
                     cartData && cartData.paymentDetails ?
                     <View style={styles.totaldetails}>

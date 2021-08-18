@@ -75,7 +75,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [modal,setModal]=useState(false);
   const [returnModal,setReturnModal]=useState(false);
   const [vendorDetails,setVendorDetails]=useState();
-  const [rating,setRating] = useState(1);
+  const [rating,setRating] = useState(5);
   const [review,setReview] = useState('');
   const [productIndex,setProductIndex]=useState('')
   const {orderid}=route.params;
@@ -295,7 +295,7 @@ const cancelorderbtn = (id,vendor_id) => {
         setVendorDetails();
         setProductIndex('');
         setReview('')
-        setRating(1);
+        setRating(5);
         setToast({text: res.data.message, color: 'green'});
         getSingleOrder(orderid)
       })
@@ -322,7 +322,7 @@ const cancelorderbtn = (id,vendor_id) => {
         setProductIndex('');
         setReviewProductImages([]);
         setReview('')
-        setRating(1);
+        setRating(5);
         setToast({text: res.data.message, color: 'green'});
         getSingleOrder(orderid)
       })
@@ -364,7 +364,7 @@ const cancelorderbtn = (id,vendor_id) => {
         console.log("err",err);
       })
     }else{
-      setToast({text: "All fields are mandetory", color: colors.red});
+      setToast({text: "All fields are mandatory", color: colors.red});
     } 
   }
 
@@ -396,7 +396,7 @@ const cancelorderbtn = (id,vendor_id) => {
   const clearReview=()=>{
       setReviewId()
       setReview('')
-      setRating(1);
+      setRating(5);
       setReviewProductImages([])
   }
 

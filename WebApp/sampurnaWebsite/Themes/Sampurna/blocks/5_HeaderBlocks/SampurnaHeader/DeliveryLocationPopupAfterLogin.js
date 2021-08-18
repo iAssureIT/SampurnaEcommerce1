@@ -28,7 +28,8 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
             detectCurrentLocation : false,
             userAddress  : [],
             country      : "",
-            searchLocationError : ""
+            searchLocationError : "",
+            latLong : {},
 		}; 
     }
     componentDidMount(){   
@@ -278,10 +279,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                         stateCode: stateCode,
                         countryCode: countryCode,
                     })
-
                     // console.log("setstate on select:", this.state.address);
-
-                   
                 }
             })
             if(address){
@@ -294,11 +292,11 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                             lng: lng
                         }
                         this.setState({
-                            latlong : latLongDetails,
-                            latitude : lat,
+                            latLong   : latLongDetails,
+                            latitude  : lat,
                             longitude : lng
                         },()=>{
-                            // console.log("getting latlong ====",this.state.latlong);
+                            console.log("getting latlong ====",this.state.latLong);
                         })
                     }
                 })
@@ -310,7 +308,6 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
     
    render() {
        const ref = React.createRef();
-    //    console.log("latlong=>",this.props.getLatlong);
        if(this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0){
            var xlCol =  9;
            var offset = 3
@@ -326,7 +323,6 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
        }
        
     return (
-
         <section className={"col-12 locationPage locationBg "+Style.deliveryLocationWrapper}>
             <form className={"col-11 col-xl-8 offset-xl-2 "+Style.deliveryLocationFormWrapper+" "+Style.deliveryLocationFormModalWrapper}>
                 <div className="col-12">

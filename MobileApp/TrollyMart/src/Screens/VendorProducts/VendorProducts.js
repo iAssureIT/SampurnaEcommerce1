@@ -188,7 +188,7 @@ console.log("subCategory",subCategory)
               />
             </View>
             <View style={{marginTop:2,backgroundColor:"#fff"}}>
-              <View style={{justifyContent:"flex-end",flexDirection:'row',flex:1}}>
+              <View style={{justifyContent:"flex-end",flexDirection:'row'}}>
                   <TouchableOpacity style={styles.iconStyle} onPress={()=>setShowFilters(true)}>
                     <Image
                       resizeMode="contain"

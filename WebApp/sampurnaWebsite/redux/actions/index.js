@@ -164,7 +164,7 @@ export function getAddressData(){
         "latitude"      : latitude,
         "longitude"     : longitude,
     }
-    console.log("formValues=>",formValues);
+    // console.log("formValues=>",formValues);
     axios.post('/api/ecommusers/myaddresses',formValues)
       .then(response => {
           
@@ -173,7 +173,7 @@ export function getAddressData(){
             if(response.data.deliveryAddress.length>0){
               for(let i=0;i<response.data.deliveryAddress.length;i++){
                 if(response.data.deliveryAddress[i].distance >=1){
-                  console.log("response.data.deliveryAddress[i].distance==",response.data.deliveryAddress[i].distance);
+                  // console.log("response.data.deliveryAddress[i].distance==",response.data.deliveryAddress[i].distance);
                   response.data.deliveryAddress[i].addressDisabled = "addressDisabled";
                   // var addressDisabled = "addressDisabled";
                   // response.data.deliveryAddress[i].push(addressDisabled);
@@ -181,7 +181,7 @@ export function getAddressData(){
                   response.data.deliveryAddress[i].addressDisabled = " ";
                 }
               }
-              console.log("redux address response===",response.data.deliveryAddress);
+              // console.log("redux address response===",response.data.deliveryAddress);
               dispatch(fetchaddressdata(response.data.deliveryAddress));
             }
           }

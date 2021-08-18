@@ -45,7 +45,7 @@ const reducer = (state = initialState,action) =>{
             // console.log("reducer action.recentcartdata===",action.cartData);
             return {...state, recentCartData: action.cartData};
         case "FETCH_ADDRESS_DATA" :
-            console.log("reducer action.recentcartdata===",action.addressData);
+            // console.log("reducer action.recentcartdata===",action.addressData);
             return {...state, recentAddressData: action.addressData};
             
         case "FETCH_WISHLIST_DATA" :

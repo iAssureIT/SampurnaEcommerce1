@@ -552,7 +552,7 @@ export default StyleSheet.create({
     fontSize:13,fontFamily:"Montserrat-SemiBold",marginBottom:10,marginTop:10
   },
   detailclr:{
-    backgroundColor:'#fff',padding:10,borderRadius:3,paddingTop:0
+    backgroundColor:'#fff',paddingVertical:10,borderRadius:3,paddingTop:0
   },
   detailcolor:{
     fontSize:16,fontFamily:"Montserrat-SemiBold",color:'#333'

@@ -5,7 +5,7 @@ import axios                from 'axios';
 import ReactTable           from "react-table";
 import swal                 from 'sweetalert';
 import S3FileUpload         from 'react-s3';
-import IAssureTable         from "../../ProductTable/IAssureTable.jsx";
+import IAssureTable         from "../../CategoryTable/IAssureTable.jsx";
 // import IAssureTable         from '../../../../coreadmin/IAssureTable/IAssureTable.jsx';
 
 import 'jquery-validation';

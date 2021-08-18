@@ -22,7 +22,6 @@ export default class OrderDetails extends Component {
     super(props);
     if (!this.props.loading) {
       this.state = {
-        "orderData": [],
         "orderID": "",
         "userID": "",
         labels: [],
@@ -38,6 +37,7 @@ export default class OrderDetails extends Component {
       };
     }
   }
+
   componentDidMount() {
     window.scroll(0,0);
     var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
@@ -99,16 +99,18 @@ export default class OrderDetails extends Component {
   // }
 
   getMyOrders() {
+    // console.log("this.props.order_id=",this.props.order_id);
     socket.emit('room', this.props.order_id);
     socket.emit('signle_order', this.props.order_id);
     socket.on('getSingleOrder', (response) => {
+      // console.log("response==",response);
       if (response) {
-        console.log("socket response.data=>", response);
+        // console.log("socket response.data=>", response);
         this.setState({
           orderData: response,
           loading: false
         }, () => {
-          // console.log("orderDetails orderData after setstate=>",this.state.orderData);
+          console.log("orderDetails orderData after setstate=>",this.state.orderData);
         })
       }
     })
@@ -253,10 +255,8 @@ export default class OrderDetails extends Component {
   }
 
   render() {
-    if (this.state.orderData) {
-      // console.log("Order Details data====",this.state.orderData );
-    }
-
+    // console.log("this.state.orderData.paymentDetails===",this.state.orderData.paymentDetails);
+    // console.log("this.state.orderData.paymentDetails===",this.state.orderData);
     return (
       <div className={"col-12 NoPadding " + Style.orderDetailMainWrapper} id="orderDetailMainID" >
         <div className={" " + Style.container1}>
@@ -276,40 +276,36 @@ export default class OrderDetails extends Component {
                         this.state.orderData.orderStatus === "Delivered" && '#3E9D5E' ||
                         this.state.orderData.orderStatus === "Cancelled" && '#E88686'
                     }}>
-                      
-
                     <div className={"row " + Style.ptb15}>
-                              <div className={"col-6 "+ Style.leftSideMyOrderHeaderWrapper}>
+                      <div className={"col-6 "+ Style.leftSideMyOrderHeaderWrapper}>
+                        <div className="col-12">
+                          <div className="col-12">{"Order Status : " + (this.state.orderData.orderStatus === "New"?"New Order":this.state.orderData.orderStatus)}</div>
+                          <div className="col-12">{"Order ID : " + (this.state.orderData.orderID)}</div>
+                          <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.netPayableAmount}</span></div>
+                          <div className="col-12">
+                            Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.creditPointsEarned}{this.state.orderData.paymentDetails.creditPointsValueEarned}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={"col-6 " + Style.rightside}>
+                        <div className="">
+                          <div className={"col-12 "+Style.rightSideDateWrapper}>
+                            <span className="col-12 text-right d-lg-block d-xl-block d-none">Date : {moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;<span className={" "+ Style.rightSideDateWrapper2}></span>&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm a")}</span>
 
-                                <div className="col-12">
-                                  <div className="col-12">{"Order Status : " + (this.state.orderData.orderStatus === "New"?"New Order":this.state.orderData.orderStatus)}</div>
-                                  <div className="col-12">{"Order ID : " + (this.state.orderData.orderID)}</div>
-                                  <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.netPayableAmount}</span></div>
-                                  <div className="col-12">
-                                    Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.creditPointsEarned}{this.state.orderData.paymentDetails.creditPointsValueEarned}</span>
-                                  </div>
-                                </div>
-                                
-                              </div>
-                              <div className={"col-6 " + Style.rightside}>
-                                <div className="">
-                                  <div className={"col-12 "+Style.rightSideDateWrapper}>
-                                    <span className="col-12 text-right d-lg-block d-xl-block d-none">Date : {moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;<span className={" "+ Style.rightSideDateWrapper2}></span>&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm a")}</span>
+                            <span className="col-12 text-right d-block d-lg-none d-xl-none">{moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm A")}</span>
 
-                                    <span className="col-12 text-right d-block d-lg-none d-xl-none">{moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm A")}</span>
-
-                                  </div>
-                                  <div className={"col-12 "+Style.rightSideDateWrapper1}>
-                                    <div className="col-12"> <i className="fas fa-wallet"></i>&nbsp; {this.state.orderData.paymentDetails.paymentMethod}</div>
-                                  </div>
-                                  <div className={"col-12 "+Style.rightSideDateWrapper1}>
-                                    <div className="col-lg-6 float-right col-12 orderAddress">
-                                      <i className="fas fa-map-marker-alt"></i>&nbsp; {this.state.orderData.deliveryAddress.addressLine1} , <br />{this.state.orderData.deliveryAddress.addressLine2}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                          </div>
+                          <div className={"col-12 "+Style.rightSideDateWrapper1}>
+                            <div className="col-12"> <i className="fas fa-wallet"></i>&nbsp; {this.state.orderData.paymentDetails.paymentMethod}</div>
+                          </div>
+                          <div className={"col-12 "+Style.rightSideDateWrapper1}>
+                            <div className="col-lg-6 float-right col-12 orderAddress">
+                              <i className="fas fa-map-marker-alt"></i>&nbsp; {this.state.orderData.deliveryAddress.addressLine1} , <br />{this.state.orderData.deliveryAddress.addressLine2}
                             </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     </div>
                     {
                       this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?
@@ -317,16 +313,16 @@ export default class OrderDetails extends Component {
                           // console.log( " Order details this.state.orderData:",this.state.orderData);
                           var labels = this.state.labelsArray;
                           // labels.splice(2, 1);
-                          console.log("vendordata.orderStatus", vendordata.orderStatus);
+                          // console.log("vendordata.orderStatus", vendordata.orderStatus);
                           // console.log("this.state.labels[2].label",this.state.labels[2].label);
-                          console.log("this.state.labels", this.state.labels);
+                          // console.log("this.state.labels", this.state.labels);
 
 
                           var index1 = this.state.labels.map(e => e.label).indexOf(vendordata.orderStatus);
                           // if(index1===1){
 
                           // }
-                          console.log("index1", index1)
+                          // console.log("index1", index1)
                           return (
                             <div key={index} style={{ marginBottom: "0px" }} className={"col-12 pb-3 vendorwiseOrderHistory " + Style.vendorRow}>
                               <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">
@@ -364,6 +360,7 @@ export default class OrderDetails extends Component {
                                 reviewuserData={this.state.reviewuserData}
                                 orderID={this.state.orderData._id}
                               />
+                              
                               <div className="col-12 d-lg-none d-xl-none d-block">
                                 <div className="col-12 NOpadding" style={{ marginBottom: "20px" }} key={index}>
                                   <div className="row ">
@@ -423,7 +420,7 @@ export default class OrderDetails extends Component {
             </div>
           }
         </div>
-        {/* <Footer /> */}
+     
       </div>
     );
   }

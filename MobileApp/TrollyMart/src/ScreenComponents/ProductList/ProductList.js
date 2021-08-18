@@ -374,7 +374,8 @@ export const ProductList = withCustomerToaster((props)=>{
           </View>
         }
           onEndReached={() => {
-            // console.log("distanceFromEnd",distanceFromEnd);
+            console.log("stop_scroll",stop_scroll);
+            console.log("stop_scroll_search",stop_scroll_search);
             if(!stop_scroll && !stop_scroll_search) {
               onEnd();
                   //Call pagination function

@@ -73,17 +73,27 @@ export const HorizontalSecCatList =(props)=>{
             <View style={styles.flx1}>
             {
               item.itemImg?
-                <Image
+                <ImageBackground
                   source = {{ uri: item.itemImg }}
-                  style={styles.subcatimg}
-                  resizeMode="contain"
-                />
+                  style={styles.subcatimg1}
+                  imageStyle={{borderRadius:15}}
+                  resizeMode="cover"
+                >
+                   <View style={{height:25,backgroundColor:'rgba(0, 0, 0, 0.6)',borderBottomLeftRadius:15,borderBottomRightRadius:15,justifyContent:'center'}}>
+                    <Text numberOfLines={2} style={styles.nameprod}>{item.itemName}</Text>
+                  </View>
+                  </ImageBackground>
                 :
-                <Image
+                <ImageBackground
                   source={require("../../AppDesigns/currentApp/images/notavailable.png")}
-                  style={styles.subcatimg}
-                  resizeMode="contain"
-                />
+                  style={styles.subcatimg1}
+                  imageStyle={{borderRadius:15}}
+                  resizeMode="cover"
+                >
+                 <View style={{height:25,backgroundColor:'rgba(0, 0, 0, 0.6)',borderBottomLeftRadius:15,borderBottomRightRadius:15,justifyContent:'center'}}>
+                    <Text numberOfLines={2} style={styles.nameprod}>{item.itemName}</Text>
+                  </View>
+                  </ImageBackground>
             }
             {
               item.discountPercent > 0 ?
@@ -91,38 +101,7 @@ export const HorizontalSecCatList =(props)=>{
                 :
                 null
             }
-            <View style={[styles.flx1, styles.protxt]}>
-              <Text numberOfLines={2} style={styles.nameprod}>{item.itemName}</Text>
-            </View>
-            <View style={[styles.flx1, styles.prdet]}>
-            <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
-              <View style={[styles.flxdir]}>
-                <Icon
-                  name={item.currency}
-                  type="font-awesome"
-                  size={13}
-                  color="#333"
-                  iconStyle={{ marginTop: 5, marginRight: 3 }}
-                />
-                <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
-              </View>
-              <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
-                <Icon
-                  name={item.currency}
-                  type="font-awesome"
-                  size={13}
-                  color="#333"
-                  iconStyle={{ marginTop: 5}}
-                />
-                {item.discountPercent > 0 ?
-                      <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                      </Text>
-                    :
-                    <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
-                  }
-              </View>
-            </View>
-          </View>
+           
             </View>
       </TouchableOpacity>  
     )

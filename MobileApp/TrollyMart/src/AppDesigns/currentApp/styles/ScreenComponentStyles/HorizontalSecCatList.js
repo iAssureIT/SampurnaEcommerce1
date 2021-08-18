@@ -90,11 +90,21 @@ export default StyleSheet.create({
 		borderTopLeftRadius:15,
 			// borderWidth: 1, borderBottomColor: '#ccc',
 	},
+	subcatimg1: {
+		height:120,
+		width:'100%',
+		// alignSelf:'center',
+		justifyContent:'flex-end',
+		borderTopRightRadius:15,
+		borderTopLeftRadius:15,
+			// borderWidth: 1, borderBottomColor: '#ccc',
+	},
     nameprod: {
 		fontSize: 12, 
-        fontFamily: "Montserrat-SemiBold", 
-        color: '#666',
-        alignSelf:"center"
+        fontFamily: "Montserrat-Regular", 
+        color: '#fff',
+		opacity:1,
+        alignSelf:"center",
 	},
     peroff: {
 		backgroundColor: '#666', 

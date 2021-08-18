@@ -5,7 +5,7 @@ import jQuery                 from 'jquery';
 import swal                   from 'sweetalert';
 import S3FileUpload           from 'react-s3';
 // import { result }             from 'underscore';
-import IAssureTable           from "../../ProductTable/IAssureTable.jsx";
+import IAssureTable           from "../../CategoryTable/IAssureTable.jsx";
 // import IAssureTable           from '../../../../coreadmin/IAssureTable/IAssureTable.jsx';
 import 'jquery-validation';
 import 'bootstrap/js/tab.js';
@@ -238,6 +238,7 @@ class CategoryManagement extends Component{
 		  limitRange : limitRange
 		}
 		
+		console.log("data => ",data);
 		axios.post('/api/category/get/list', data)
 		.then((response)=>{
 		  	console.log('category tableData', response.data);
@@ -1204,7 +1205,7 @@ class CategoryManagement extends Component{
 														{this.state.subcatgArr 
 														?
 															this.state.subcatgArr.map((dataRowArray, index)=>{
-																console.log("dataRowArray => ",dataRowArray);
+																{/*console.log("dataRowArray => ",dataRowArray);*/}
 																return(
 																	<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding" key={index}>                                                                                  
 																		<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding newSubCatgArr">   

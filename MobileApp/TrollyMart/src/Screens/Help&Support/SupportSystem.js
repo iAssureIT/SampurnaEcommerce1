@@ -336,7 +336,7 @@ const FormBody = (props) => {
                                 <Icon size={15} name='facebook' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
                             </TouchableOpacity>
                         </View>
-                        <View style={{alignItems:'center',paddingHorizontal:10}}>   
+                        {/* <View style={{alignItems:'center',paddingHorizontal:10}}>   
                             <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://www.instagram.com/knockknock_eshop/')} >
                                 <Icon size={15} name='youtube' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
                             </TouchableOpacity>
@@ -345,7 +345,7 @@ const FormBody = (props) => {
                             <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://www.instagram.com/knockknock_eshop/')} >
                                 <Icon size={15} name='linkedin' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                         <View style={{alignItems:'center',paddingHorizontal:10}}>   
                             <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://twitter.com/knockknockeshop')} >
                                 <Icon size={15} name='twitter' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            

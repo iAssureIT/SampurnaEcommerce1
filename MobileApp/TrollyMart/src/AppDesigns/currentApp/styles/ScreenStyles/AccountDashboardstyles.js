@@ -52,7 +52,7 @@ export default StyleSheet.create({
     flex:0.7,fontSize:13,fontFamily:"Montserrat-SemiBold",color:'#333'
   },
   accusermob:{
-    flex:0.3,fontSize:13,fontFamily:"Montserrat-Regular",color:'#666'
+    fontSize:13,fontFamily:"Montserrat-Regular",color:'#666'
   },
   padhr18:{
     paddingHorizontal:18

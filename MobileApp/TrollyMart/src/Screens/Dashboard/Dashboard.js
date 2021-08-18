@@ -189,7 +189,7 @@ const Dashboard = withCustomerToaster((props)=>{
                   />
                   :
                   item.blockComponentName === "SectionCatg" && !item.block_id?.groupSettings?.showOnlySection?
-                  <View style={{paddingHorizontal:5}}>
+                  <View style={{paddingHorizontal:0}}>
                     <HorizontalSecCatList 
                       blockTitle          = {item.block_id?.blockTitle}
                       section             = {item.block_id?.groupSettings.section}

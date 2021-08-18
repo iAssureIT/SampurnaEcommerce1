@@ -19,7 +19,7 @@ import {
     categoryList      : [],
     allProductList    : [],
     searchPayload     : '',
-    stop_scroll       : false,
+    stop_scroll       : true,
     cartCount          : 0,
   };
   export default (state = initialUserState, {type, payload}) => {

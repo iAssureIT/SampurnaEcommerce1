@@ -144,7 +144,7 @@ class EditAccount extends Component{
     getUserData(){
         axios.get('/api/users/get/id/'+this.state.user_ID)
         .then( (res)=>{
-            console.log("user res==",res.data);
+            // console.log("user res==",res.data);
             this.setState({
                 "firstName"         : res.data.profile.firstname,
                 "lastName"          : res.data.profile.lastname,

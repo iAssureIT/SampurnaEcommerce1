@@ -13,7 +13,7 @@ import {
     searchText      : '',
     loading         : false,
     search          : false,
-    stop_scroll_search     : false,
+    stop_scroll_search     : true,
   };
   export default (state = initialUserState, {type, payload}) => {
     switch (type) {

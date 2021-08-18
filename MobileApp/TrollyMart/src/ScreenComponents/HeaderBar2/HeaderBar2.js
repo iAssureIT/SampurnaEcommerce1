@@ -109,10 +109,12 @@ import { getCartCount} from '../../redux/productList/actions';
   };
 
   const updateSearch = () =>{
-    useSearchText(searchText);
+    useSearchText('');
     dispatch({type:SET_SEARCH_CALL,payload:false});
     dispatch(getSearchResult(searchText,user_id,10,true));
     Keyboard.dismiss();
+    dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
+    dispatch({type : SET_SERACH_LIST,    payload  : []});
   }
 
   const checkCart=()=>{

@@ -375,7 +375,14 @@ ul.Featured-Brands li {
 .accountInformationMainWrapper .special-label {
     display: none !important;
 }
+.feedbackForm .dv-star-rating-empty-star{
+    color: #fff !important;
+    -webkit-text-stroke: 1px black !important;
+}
 
+.productViewMainwrapper .swal-modal{
+    margin-right: 30px!important;
+}
 /* Extra large devices (large desktops, 1200px and up) */
 @media only screen and (min-device-width: 1200px) {
     ._1Lo2h {
@@ -395,6 +402,11 @@ ul.Featured-Brands li {
     .OrderDetailAmountTitleWrapper {
         position: absolute;
         left    : 2%;
+    }
+
+    .OrderDetailAmountTitleWrapper{
+        position  : absolute;
+        left: 2%;
     }
 }
 
