@@ -20,6 +20,7 @@ import { getPreferences } 		      from '../../redux/storeSettings/actions';
 import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {Footer}                     from '../../ScreenComponents/Footer/Footer.js';
+// import SwipeButton                 from '../../ScreenComponents/SwipeButton/SwipeButton';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
@@ -31,6 +32,7 @@ const Dashboard = withCustomerToaster((props)=>{
   const [blocks,setBlocks]    = useState([]);
   const [loading,setLoading]  = useState(true);
   const isActive              = true;
+  // const handleToggle = (value) => setToggleState(value);
   const limit                 = 6;
     useEffect(() => {
         dispatch(getPreferences());
@@ -71,6 +73,7 @@ const Dashboard = withCustomerToaster((props)=>{
             </View>
             <View style={{flex:1,marginBottom:65,justifyContent:'center'}}>
                 <View style={{marginTop:5}}>   
+                {/* <SwipeButton onToggle={handleToggle} /> */}
                     <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('NewOrders')}>
                         <View style={styles.iconBox}>
                           <Image

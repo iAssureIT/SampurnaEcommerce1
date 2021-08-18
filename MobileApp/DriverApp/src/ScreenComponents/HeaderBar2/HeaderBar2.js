@@ -35,7 +35,7 @@ import Geolocation          from 'react-native-geolocation-service';
     const navigation = useNavigation();
     const [list,setList]=useState([])
     const [value,setValue]=useState('offline')
-    var interval = 0;
+    var watchID = 0;
     const store = useSelector(store => ({
       location      : store.location,
       userDetails   : store.userDetails
@@ -247,7 +247,7 @@ import Geolocation          from 'react-native-geolocation-service';
             <View style={[styles.tabWrap1]}>
               <View style={[styles.tabWrap]}>
                 <FlipToggle
-                  value={value==='offline'?true:true}
+                  value={value==='online'?true:false}
                   buttonWidth={36}
                   buttonHeight={18}
                   buttonRadius={50}
@@ -261,8 +261,11 @@ import Geolocation          from 'react-native-geolocation-service';
                   onLabel={''}
                   offLabel={''}
                   labelStyle={{ color: '#E33941' }}
-                  onToggle={()=>{setValue('offline');setOnOff('offline')}}      
-                  
+                  onToggle={()=>{
+                    setValue(value==='online'?'offline':'online');
+                    setOnOff(value==='online'?'offline':'online')
+                  }
+                }      
                 />
                 {/* <TouchableOpacity
                   onPress = {()=>{setValue('online');setOnOff('online')}}
