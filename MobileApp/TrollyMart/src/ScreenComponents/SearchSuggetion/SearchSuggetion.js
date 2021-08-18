@@ -32,7 +32,7 @@ const SearchSuggetion = withCustomerToaster((props)=>{
             renderItem = {({item}) =>
             <TouchableOpacity onPress={()=>{
                 dispatch({type:SET_SEARCH_CALL,payload:false});
-                dispatch({type:SET_SEARCH_TEXT,payload:item});
+                dispatch({type:SET_SEARCH_TEXT,payload:''});
                 dispatch(getSearchResult(item,user_id,10,true));
                 navigation.navigate('SearchList',{"type":'Search',"limit":10})
                 Keyboard.dismiss();

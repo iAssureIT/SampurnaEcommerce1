@@ -109,12 +109,12 @@ import { getCartCount} from '../../redux/productList/actions';
   };
 
   const updateSearch = () =>{
-    useSearchText('');
+    dispatch({type : SET_SERACH_LIST,    payload  : []})
     dispatch({type:SET_SEARCH_CALL,payload:false});
+    dispatch({type:SET_SEARCH_TEXT,payload:''});
     dispatch(getSearchResult(searchText,user_id,10,true));
+    navigation.navigate('SearchList',{"type":'Search',"limit":10})
     Keyboard.dismiss();
-    dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
-    dispatch({type : SET_SERACH_LIST,    payload  : []});
   }
 
   const checkCart=()=>{
@@ -137,6 +137,8 @@ import { getCartCount} from '../../redux/productList/actions';
       console.log("err",err);
     })
   }
+
+  console.log()
 
     return (
       <View style={styles.header2main}>
