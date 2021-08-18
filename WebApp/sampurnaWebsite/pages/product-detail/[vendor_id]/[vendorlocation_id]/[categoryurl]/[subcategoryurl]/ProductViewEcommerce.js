@@ -189,6 +189,8 @@ class ProductViewEcommerce extends Component{
 			await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.props.vendor_id)     
 					.then((categoryResponse)=>{
 						if(categoryResponse.data){    
+							console.log("192 categoryResponse.data => ",categoryResponse.data);
+							
 							this.setState({
 								categoryData : categoryResponse.data.categoryList,  
 								brandData    : categoryResponse.data.brandList, 
@@ -203,7 +205,7 @@ class ProductViewEcommerce extends Component{
 											subCategoryData  : subCategoryData,
 											brandData        : this.state.brandData
 										},()=>{
-											
+											console.log("subCategoryData = ",subCategoryData);
 										});
 									}
 									break;

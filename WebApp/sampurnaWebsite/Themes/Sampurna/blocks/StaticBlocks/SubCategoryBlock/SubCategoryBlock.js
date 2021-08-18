@@ -35,50 +35,53 @@ class SubCategoryBlock extends Component{
     render(){
       // console.log("Subcategory Blocks ====",this.props.subCategoryData);
       return (
-        <div className={"container NoPadding " +Style.categoryCarousel}>
+        <div className={"col-12 " +Style.categoryCarousel}>
             <div className={"col-12 "}>
                 <h5>{this.props.blocktitle}</h5>
             </div>
             <Carousel 
               className=""
-                  swipeable={true}
-                  draggable={true}
-                  showDots={false}
-                  responsive={responsive}
-                  ssr={true} // means to render carousel on server-side.
-                  infinite={true}
-                  autoPlay={false}
-                  autoPlaySpeed={3000}
-                  keyBoardControl={true}
-                  customTransition="all .20"
-                  transitionDuration={500}                      
-                  removeArrowOnDeviceType={["mobile"]}
-                  deviceType={this.props.deviceType}  
-                  containerClass="carousel-container">
+              swipeable={true}
+              draggable={true}
+              showDots={false}
+              responsive={responsive}
+              ssr={true} // means to render carousel on server-side.
+              infinite={true}
+              autoPlay={false}
+              autoPlaySpeed={3000}
+              keyBoardControl={true}
+              customTransition="all .20"
+              transitionDuration={500}                      
+              removeArrowOnDeviceType={["mobile"]}
+              deviceType={this.props.deviceType}  
+              containerClass="carousel-container"
+            >
+
                     {this.props.subCategoryData && this.props.subCategoryData.map((categorydata, index) => {
-                      var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+categorydata.subCategoryUrl;
-                      return (
-                      <div className={"col-12 productsCategoryBlock " +Style.outerBox}  key={index}> 
-                          <Link href={url} className ={"col-12 "}> 
-                            <a className ={"col-12 " +Style.categoryBlock}>
-                              <div className={"itemImg col-12 NoPadding " +Style.categoryPhoto +" "+Style.itemImg}>
-                                  <Image                                           
-                                    src={categorydata.subCategoryImage ? categorydata.subCategoryImage : "/images/eCommerce/notavailable.png"}
-                                    alt="ProductImg" 
-                                    className={"img-responsive " +Style.itemImg }
-                                    height={100}
-                                    width={100} 
-                                    layout={'intrinsic'}
-                                  />
-                                  <div className={"col-12 text-center " +Style.categoryName} title={categorydata.subCategoryTitle}>{categorydata.subCategoryTitle}</div>
-                              </div>
-                              
-                            </a>
-                          </Link>
-                      </div>                            
-                      );
-                    })
-                  }
+                        var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+categorydata.subCategoryUrl;
+                        console.log("categorydata => ",categorydata);
+                        return (
+                          <div className={"col-12 productsCategoryBlock " +Style.outerBox}  key={index}> 
+                              <Link href={url} className ={"col-12 "}> 
+                                <a className ={"col-12 " +Style.categoryBlock}>
+                                  <div className={"itemImg col-12 NoPadding " +Style.categoryPhoto +" "+Style.itemImg}>
+                                      <Image                                           
+                                        src={categorydata.subCategoryImage ? categorydata.subCategoryImage : "/images/eCommerce/notavailable.png"}
+                                        alt="ProductImg" 
+                                        className={"img-responsive " +Style.itemImg }
+                                        height={100}
+                                        width={100} 
+                                        layout={'intrinsic'}
+                                      />
+                                      <div className={"col-12 text-center " +Style.categoryName} title={categorydata.subCategoryTitle}>{categorydata.subCategoryTitle}</div>
+                                  </div>                                  
+                                </a>
+                              </Link>
+                          </div>                            
+                          );
+                        })
+                    }
+
               </Carousel>
           </div>
      ) 
