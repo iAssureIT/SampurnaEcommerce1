@@ -50,7 +50,7 @@ export default class Rightsidebar extends Component{
                          User Management
                     </a>
                   </li>
-                  {this.state.websiteModel === 'SingleOwner' ? null
+                  {/*{this.state.websiteModel === 'SingleOwner' ? null
                   : 
                   <li>
                       <a href="/access-management" title="Access Management">
@@ -58,7 +58,7 @@ export default class Rightsidebar extends Component{
                         <span className="sidebarMenuSubText">Access Management</span>
                       </a>
                   </li>
-                  }
+                  }*/}
                   <li className="sidebarMenuText">
                       <a href="/global-masters" title="Global Master">
                         <i className="fa fa-th-large aquaColor"></i>  

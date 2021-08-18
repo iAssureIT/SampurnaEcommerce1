@@ -382,7 +382,7 @@ class IAssureTable extends Component {
 				"normalData"  : false,
 				"searchData"  : true,
 			},()=>{
-				this.props.getSearchText(searchText, this.state.startRange, this.state.limitRange);
+				this.props.getData(searchText, this.state.startRange, this.state.limitRange);
 			});	    	
 	   }else{
 			this.props.getData(this.state.startRange, this.state.limitRange);
@@ -605,30 +605,7 @@ class IAssureTable extends Component {
 	                  	?
 	                  		<tr className="trAdmin">
 	                     		<td colSpan={Object.keys(this.state.tableHeading).length+1} className="noTempData textAlignCenter">
-	                     			{/*<div id="tableLoaderDiv">  
-					                    	<Loader
-					                        loaded          = {false}
-					                        lines           = {13}
-					                        length          = {20}
-					                        width           = {8}
-					                        radius          = {10}
-					                        corners         = {1}
-					                        rotate          = {0}
-					                        direction       = {1}
-					                        color           = "#a5d8ff"
-					                        speed           = {1}
-					                        trail           = {60}
-					                        shadow          = {false}
-					                        hwaccel         = {false}
-					                        className       = "spinner"
-					                        zIndex          = {2e9}
-					                        top             = "55%"
-					                        left            = "50%"
-					                        scale           = {1.0}
-					                        loadedClassName = "loadedContent"
-					                    	/> 
-					                	</div>*/}
-					                	<div class="container">
+	                     			<div class="container">
     											<div class="row">
 								               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center dataLoaderWrapper">
 								                	<p>Loading</p>

@@ -26,8 +26,9 @@ class ProductList extends Component {
         this.state = {
             tableHeading: {
                 "productName": 'Product Details',
-               /* "section": 'Section',
-                "category": 'Category',*/
+                "section": 'Section',
+                "category": 'Category',
+                "subCategory": 'SubCategory',
                 "vendor": 'Vendor',
                 "originalPrice": 'Original Price',
                 "discountPercent": 'Discount Percent',
@@ -301,6 +302,9 @@ class ProductList extends Component {
         if (currentSelection === 'categoryChange') {
             selector.categoryIds = event.value;
         }
+        if (currentSelection === 'subCategoryChange') {
+            selector.subCategoryIds = event.value;
+        }
         if (currentSelection === 'statusChange') {
             selector.statusArray = event.value;
         }
@@ -308,7 +312,7 @@ class ProductList extends Component {
         selector.limitRange = this.state.limitRange
 
 
-        this.setState({ selector: selector,isLoadingData : true })
+        this.setState({ selector: selector, isLoadingData : true })
         this.filterProductCount(selector);
 
         // console.log("Selector Value = ",this.state.selector);
@@ -482,6 +486,7 @@ class ProductList extends Component {
         // const fields: object = { text: 'vendor', value: 'id' };
         const sectionfields: object = { text: 'section', value: 'id' };
         const categoryfields: object = { text: 'category', value: 'id' };
+        const subcategoryfields: object = { text: 'subCategory', value: 'id' };
 
         const statusArray = [];
         statusArray.push({ status: "Publish" })
@@ -590,6 +595,22 @@ class ProductList extends Component {
                                                 <MultiSelectComponent id="categoryChange" dataSource={this.state.categoryArray}
                                                     change={this.handleChangeFilter.bind(this)}
                                                     fields={categoryfields} placeholder="You can select multiple Categories" mode="CheckBox" selectAllText="Select All" unSelectAllText="Unselect All" showSelectAll={true}>
+                                                    <Inject services={[CheckBoxSelection]} />
+                                                </MultiSelectComponent>
+                                            </div>
+                                            <div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
+                                                <label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">SubCategory</label>
+                                                <MultiSelectComponent 
+                                                    id              = "subCategoryChange" 
+                                                    dataSource      = {this.state.subCategoryArray}
+                                                    change          = {this.handleChangeFilter.bind(this)}
+                                                    fields          = {subcategoryfields} 
+                                                    placeholder     = "You can select multiple SubCategories" 
+                                                    mode            = "CheckBox" 
+                                                    selectAllText   = "Select All" 
+                                                    unSelectAllText = "Unselect All" 
+                                                    showSelectAll   = {true}
+                                                >
                                                     <Inject services={[CheckBoxSelection]} />
                                                 </MultiSelectComponent>
                                             </div>

@@ -2193,26 +2193,26 @@ exports.fetch_vendor_file = (req,res,next)=>{
 };
 
 exports.fetch_file_count = (req,res,next)=>{
-	Products.find()
-	.exec()
-	.then(data=>{
-		var x = _.unique(_.pluck(data, "fileName"));
-		var z = [];
-		for(var i=0; i<x.length; i++){
-			var y = data.filter((a)=> a.fileName == x[i]);
-			z.push({
-				"fileName": x[i],
-				'productCount': y.length,
-				"_id" : x[i]
-			})
-		}
-		res.status(200).json(z.length);
-	})
-	.catch(err =>{
-		console.log(err);
-		res.status(500).json({
-			error: err
-		});
-	});
-	
+    Products.find()
+    .exec()
+    .then(data=>{
+        var x = _.unique(_.pluck(data, "fileName"));
+        var z = [];
+        for(var i=0; i<x.length; i++){
+            var y = data.filter((a)=> a.fileName == x[i]);
+            z.push({
+                "fileName": x[i],
+                'productCount': y.length,
+                "_id" : x[i]
+            })
+        }
+        res.status(200).json(z.length);
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+    
 };

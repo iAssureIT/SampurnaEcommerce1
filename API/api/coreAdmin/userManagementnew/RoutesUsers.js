@@ -76,4 +76,6 @@ router.patch('/update/user_profile_details',    UserController.update_user_profi
 
 router.patch('/update/verify_user_otp',         UserController.verify_user_otp);
 
+router.post('/post/sos',  								UserController.sos_to_appCompony_contacts);
+
 module.exports = router;

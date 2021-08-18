@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { render }           from 'react-dom';
+// import { render }           from 'react-dom';
 import $                    from 'jquery';
 import jQuery               from 'jquery';
 import axios                from 'axios';
@@ -181,7 +181,7 @@ class ExpenseTypeMaster extends Component{
         console.log("this.state.submitVal",this.state.submitVal);
         axios.post('/api/expensetypemaster/insertExpenseType',formValues)
              .then((response)=> {          
-              if(response.data.duplicated == true){
+              if(response.data.duplicated === true){
                 swal("", "Product Tax Type Already Exist");
               }else{
                 this.getExpenseTypeTable(this.state.startRange,this.state.limitRange);

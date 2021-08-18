@@ -1033,8 +1033,8 @@ exports.resetPassword = (req, res, next) => {
 			if (previousPassword) {
 				// console.log(" Condition => ",(bcrypt.compare(req.body.currentPassword, previousPassword)))
 				bcrypt.compare(req.body.currentPassword, previousPassword, (error, result) => {
-					// console.log("error => ",error)
-					// console.log("result => ",result)
+					console.log("error => ",error)
+					console.log("result => ",result)
 					if (error) {
 						return res.status(200).json({
 							message 	: 'You entered wrong current password',

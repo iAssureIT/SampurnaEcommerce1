@@ -13,6 +13,8 @@ import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 
 import moment from 'moment';
 import './CouponManagement.css';
+
+
 class CouponManagement extends Component {
 	constructor(props) {
 		 super(props);
@@ -634,19 +636,19 @@ class CouponManagement extends Component {
 					 text: response.data.message,
 				  });
 
-				// 	this.setState({
-				// 	 "coupontitle" 		: "",
-				// 	"couponcode" 		: "",
-				// 	"couponin" 			: "",
-				// 	"couponvalue"		: "",
-				// 	"minPurchaseAmount" : "",
-				// 	"maxDiscountAmount" : "",
-				// 	"numOfOrders"       : "",
-				// 	"status"			: "",
-				// 	"startdate"     	: "",
-				// 	"enddate"       	: "",
-				// 	"couponImage"       : "",
-				//   });
+					this.setState({
+					 "coupontitle" 		: "",
+					"couponcode" 		: "",
+					"couponin" 			: "",
+					"couponvalue"		: "",
+					"minPurchaseAmount" : "",
+					"maxDiscountAmount" : "",
+					"numOfOrders"       : "",
+					"status"			: "",
+					"startdate"     	: "",
+					"enddate"       	: "",
+					"couponImage"       : "",
+				  });
 				  // this.props.history.push('/coupon-management');
 					this.gettableData();
 				})

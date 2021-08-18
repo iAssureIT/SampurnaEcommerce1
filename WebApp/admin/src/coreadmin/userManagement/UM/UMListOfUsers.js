@@ -37,7 +37,7 @@ class UMListOfUsers extends Component {
 				paginationArray: true
 			},
 			"startRange": 0,
-			"limitRange": 5,
+			"limitRange": 10,
 			blockActive: "all",
 			"listofRoles": "",
 			adminRolesListData: [],
@@ -46,9 +46,12 @@ class UMListOfUsers extends Component {
 			blockswal: false,
 			confirmDel: false,
 			unCheckedUser: false,
+			isLoadingData:false,
 			"tableName" : 'userDetails',
+			completeDataCount : 100
 		}
 		this.handleChange = this.handleChange.bind(this);
+		this.getData = this.getData.bind(this);
 
 	}
 	handleChange(event) {
@@ -70,12 +73,7 @@ class UMListOfUsers extends Component {
 			user_ID: user_ID,
 			companyID: companyID
 		}, () => {
-			var data = {
-				"startRange": this.state.startRange,
-				"limitRange": this.state.limitRange,
-				"companyID": this.state.companyID
-			}
-			this.getData(data);
+			this.getData(this.state.startRange, this.state.limitRange, this.state.companyID);
 			// console.log("In componentDidMount =>", data);
 			this.getRole();
 			this.getCompanies();
@@ -83,10 +81,18 @@ class UMListOfUsers extends Component {
 
 	}
 
-	getData(data) {
-		console.log("data for getdata",data);
-		console.log("data in table",data);
-		axios.post('/api/users/post/list', data)
+	getData(startRange, limitRange, companyID) {
+		// console.log("data for getdata",data);
+		// console.log("data in table",data);
+		this.setState({isLoadingData : true})
+		var formValues = {
+			startRange : startRange,
+			limitRange : limitRange,
+			companyID  : this.state.companyID
+		}
+		console.log("formvalues => ",formValues)
+		var tableData = [];
+		axios.post('/api/users/post/list', formValues)
 			.then((res) => {
 				console.log("res.data in getdata==>", res.data);
 				if (res.data.message == "COMPANYID_NOT_AVAILABLE") {
@@ -99,8 +105,8 @@ class UMListOfUsers extends Component {
 					// 	return (data.status !== 'deleted-active' && data.status !== 'deleted-blocked' && data.status !== 'deleted');
 					// });
 					var data = res.data;
-					var tableData = data.map((a, i) => {
-						console.log('tableData A==>>>', a.createdAt);
+					tableData = data.map((a, i) => {
+						// console.log('tableData A==>>>', a.createdAt);
 						var mobileNumber = a.mobNumber ? a.mobNumber : 'NA'; 
 
 						return {
@@ -125,14 +131,16 @@ class UMListOfUsers extends Component {
 						}
 
 					})
-					this.setState({
-						completeDataCount: res.data.length,
-						tableData: tableData,
-					})
 				}
+				this.setState({
+					completeDataCount: 100,
+					tableData : tableData,
+					isLoadingData : false
+				})
 			})
 			.catch((error) => {
 			});
+		
 	}
 	getSearchText(searchText, startRange, limitRange) {
 		var data = {
@@ -213,12 +221,7 @@ class UMListOfUsers extends Component {
 					checkedUsersList = [];
 					if (this.state.activeswal == true) {
 						swal(" ", "Account activated successfully");
-						var data = {
-							"startRange": this.state.startRange,
-							"limitRange": this.state.limitRange,
-							"companyID": this.state.companyID
-						}
-						this.getData(data);
+						this.getData(this.state.startRange, this.state.limitRange, this.state.companyID);
 
 					}
 				});
@@ -329,12 +332,7 @@ class UMListOfUsers extends Component {
 					checkedUsersList = []
 					if (this.state.blockswal === true) {
 						swal(" ", "Account blocked successfully");
-						var data = {
-							"startRange": this.state.startRange,
-							"limitRange": this.state.limitRange,
-							"companyID": this.state.companyID
-						}
-						this.getData(data);
+						this.getData(this.state.startRange, this.state.limitRange, this.state.companyID);
 
 					}
 				})
@@ -425,7 +423,7 @@ class UMListOfUsers extends Component {
 						"limitRange": this.state.limitRange,
 						"companyID": this.state.companyID
 					}
-					this.getData(data)
+					this.getData(this.state.startRange, this.state.limitRange, this.state.companyID);
 					checkedUsersList = []
 					if (this.state.blockswal === true) {
 						swal(" ", "Account deleted successfully");
@@ -434,7 +432,7 @@ class UMListOfUsers extends Component {
 							"limitRange": this.state.limitRange,
 							"companyID": this.state.companyID
 						}
-						this.getData(data);
+						this.getData(this.state.startRange, this.state.limitRange, this.state.companyID);
 
 						// window.location.reload();
 					}
@@ -773,21 +771,16 @@ selectedRole(event) {
 			this.selectedStatuswithrole();
 		} else {
 			if (selectedValue === "all") {
-				var data = {
-					"startRange": this.state.startRange,
-					"limitRange": this.state.limitRange,
-					"companyID": this.state.companyID
-				}
-				this.getData(data)
+				this.getData(this.state.startRange, this.state.limitRange, this.state.companyID);
 			}
             
 			 else {
+				this.getData(this.state.startRange, this.state.limitRange, this.state.companyID);
 				var data = {
 					"startRange": this.state.startRange,
-					"limitRange": this.state.limitRange,
-					"companyID": this.state.companyID
+						"limitRange": this.state.limitRange,
+						"companyID": this.state.companyID
 				}
-				this.getData(data)
 				axios.post('/api/users/get/list/role/' + keywordSelectedValue, data)
 					.then((res) => {
 						var tableData = res.data.filter((data, i) => {
@@ -958,7 +951,7 @@ selectedRole(event) {
 					"limitRange": this.state.limitRange,
 					"companyID": this.state.companyID
 				}
-				this.getData(data)
+				this.getData(this.state.startRange, this.state.limitRange, this.state.companyID);
 			} else {
 				var data = {
 					"startRange": this.state.startRange,
@@ -1079,7 +1072,7 @@ selectedRole(event) {
 				"limitRange": this.state.limitRange,
 				"companyID": this.state.companyID
 			}
-			this.getData(data)
+			this.getData(this.state.startRange, this.state.limitRange, this.state.companyID);
 		} else {
 			axios.post('/api/users/get/list/statusrole/' + role + '/' + status, data)
 				.then(
@@ -1183,10 +1176,10 @@ selectedRole(event) {
 	render() {
 		var adminRolesListDataList = this.state.adminRolesListData;
 		return (
-			<div className="container-fluid">
-				<div className="row col-lg-12 col-md-12 col-xs-12 col-sm-12 NoPadding">
-					<div className="formWrapper NoPadding">
-						<section className="content NoPadding">
+			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+				<div className="row col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding formWrapper">
+						<section className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding content">
 							<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 pageContent1">
 								<div className="row">
 									<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 titleaddcontact">
@@ -1246,7 +1239,7 @@ selectedRole(event) {
 									</div>
 									<form className="newTemplateForm">
 										<div className="col-lg-12  col-md-12 col-sm-12 col-xs-12 usrmgnhead">
-											<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6" >
+											<div className="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12" >
 												<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12  NOpadding-left text-left labelform">Select Action</label>
 												<select className="col-lg-12 col-md-12 col-sm-12 col-xs-12  noPadding  form-control font12 mdb-select md-form" id="userListDropdownId" ref="userListDropdown" name="userListDropdown" onChange={this.adminUserActions.bind(this)}>
 													<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" data-limit='37' value="-" name="userListDDOption" disabled="disabled" selected="true">-- Select --</option>
@@ -1270,7 +1263,7 @@ selectedRole(event) {
 													</optgroup>
 												</select>
 											</div>
-											<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+											<div className="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
 												<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left text-left labelform">Select Role</label>
 												<select className="col-lg-12 col-md-12 col-sm-12 col-xs-12  noPadding  form-control font12" ref="roleListDropdown" name="roleListDropdown" onChange={this.selectedRole.bind(this)} >
 													<option name="roleListDDOption" disabled="disabled" selected="true">-- Select --</option>
@@ -1282,7 +1275,7 @@ selectedRole(event) {
 													}
 												</select>
 											</div>
-											<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+											<div className="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
 												<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left text-left labelform">Select Status</label>
 												<select className=" col-col-lg-12  col-md-12 col-sm-12 col-xs-12 noPadding  form-control font12 " ref="blockActive" name="blockActive" onChange={this.selectedStatus.bind(this)}>
 													<option value="" disabled="disabled" selected="true">-- Select --</option>
@@ -1314,8 +1307,8 @@ selectedRole(event) {
 										</div>
 										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											<IAssureTableUM
-												completeDataCount={this.state.completeDataCount}
-												twoLevelHeader={this.state.twoLevelHeader}
+												completeDataCount 	={this.state.completeDataCount}
+												twoLevelHeader 		={this.state.twoLevelHeader}
 												getData={this.getData.bind(this)}
 												tableHeading={this.state.tableHeading}
 												tableData={this.state.tableData}
@@ -1327,6 +1320,7 @@ selectedRole(event) {
 												unCheckedUser={this.state.unCheckedUser}
 												UsersTable={true}
 												tableName ={this.state.tableName}
+												isLoading = {this.state.isLoadingData}
 											/>
 										</div>
 										{/* :

@@ -170,3 +170,8 @@ display: block;
 .umDynamicHeader {
   padding : 14px
 }
+
+.downloadExlIcon{
+    margin-top: 7px !important;
+    padding: 9px 10px !important;
+}

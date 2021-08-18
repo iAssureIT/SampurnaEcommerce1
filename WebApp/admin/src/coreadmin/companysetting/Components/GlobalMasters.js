@@ -9,7 +9,7 @@ import Department                   from  '../../Master/Department/DepartmentMas
 import Designation                  from  '../../Master/Designation/DesignationMaster-GlobalMaster.js';
 import CompanyBankDetails           from  './CompanyBankDetails.js';
 // import CompanyTaxDetails            from  './CompanyTaxDetails.js';
-import ExpenseMaster                from '../../ExpenseTypeMaster/ExpenseType.js'
+import ExpenseMaster                from '../../ExpenseTypeMaster/ExpenseTypeMVMP.js'
 import '../css/CompanySetting.css';
 
  class GlobalMasters extends Component{

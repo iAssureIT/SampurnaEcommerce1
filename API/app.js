@@ -73,7 +73,7 @@ const notificationRoutes					= require('./api/coreAdmin/notificationManagement/R
 const projectSettingsurl 	   				= require("./api/coreAdmin/projectSettings/RoutesProjectSettings.js");
 const locationTypeMasterRoutes 				= require("./api/coreAdmin/locationTypeMaster/RoutesLocationTypeMaster.js");
 const EventTokenRoutes						= require("./api/coreAdmin/EventTokenMaster/RoutesEventTokenMaster.js");
-const expenseTypeRoutes				    	= require("./api/coreAdmin/expenseTypeMaster/RoutesExpenseTypeMaster.js");
+const expenseTypeRoutes				    	= require("./api/coreAdmin/expenseTypeMaster/RoutesMVMP.js");
 const expenseItemMaster                		= require('./api/coreAdmin/expenseItemMaster/Routes.js');
 /*=========== Global master ===============*/
 const departmentMasterRoutes				= require("./api/coreAdmin/departmentMaster/RoutesDepartmentMaster.js");

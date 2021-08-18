@@ -66,11 +66,11 @@ import SupplierLocationDetails from '../Master/SupplierMaster/SupplierLocationDe
 import SupplierContactDetails from '../Master/SupplierMaster/SupplierContactDetails.js';
 */
 // ============ Payment Process =======================
-import OrderPage from "../PaymentProcess/OrderPage.js";
-import PlanPage from "../PaymentProcess/PlanPage.js";
-import InvoicePage from "../PaymentProcess/InvoicePage.js";
-import InvoicePageView from "../PaymentProcess/InvoicePageView.js";
-import PaymentResponse from "../PaymentProcess/PaymentResponse.js";
+// import OrderPage from "../PaymentProcess/OrderPage.js";
+// import PlanPage from "../PaymentProcess/PlanPage.js";
+// import InvoicePage from "../PaymentProcess/InvoicePage.js";
+// import InvoicePageView from "../PaymentProcess/InvoicePageView.js";
+// import PaymentResponse from "../PaymentProcess/PaymentResponse.js";
 
 // ============ Rate Master ===========================
 import PackageMaster from "../PackageMaster/PackageMaster.js";
@@ -309,11 +309,11 @@ class CoreLayout extends Component {
 
                 { /* Payment Process */}
 
-                <Route path="/InvoicePage/:order_id" exact strict component={InvoicePage} />
+                {/*<Route path="/InvoicePage/:order_id" exact strict component={InvoicePage} />
                 <Route path="/payment-process" exact strict component={PlanPage} />
                 <Route path="/MyOrders" exact strict component={OrderPage} />
                 <Route path="/invoicePageView/:order_Id" exact strict component={InvoicePageView} />
-                <Route path="/payment-response/:orderId" exact strict component={PaymentResponse} />
+                <Route path="/payment-response/:orderId" exact strict component={PaymentResponse} />*/}
 
                 
                 

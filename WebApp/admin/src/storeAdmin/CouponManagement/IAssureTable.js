@@ -1,6 +1,6 @@
 import React, { Component }       	from 'react';
 import {Route, withRouter} 			from 'react-router-dom';
-import swal                     	from 'sweetalert';
+import swal                     	from 'sweetalert2';
 import axios 						from 'axios';
 import jQuery 						from 'jquery';
 import $ 							from "jquery";
@@ -13,6 +13,13 @@ import 'font-awesome/css/font-awesome.min.css';
 import './IAssureTable.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/js/modal.js';
+const swalWithBootstrapButtons = swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
 
 var sum = 0;
 class IAssureTable extends Component {
@@ -127,23 +134,47 @@ class IAssureTable extends Component {
 		// 				text : "This product is in Order and Publish!",
 		// 			});
 		// 		}else{
+			swalWithBootstrapButtons.fire({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: 'Yes, delete it!',
+		  cancelButtonText: 'No, cancel!',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
 					axios({
 						method: tableObjects.deleteMethod,
 						url: tableObjects.apiLink+'/delete/'+id
 					}).then((response)=> {
 						// console.log(this.state.startRange, this.state.limitRange);
 						this.props.getData(this.state.startRange, this.state.limitRange);
-						swal({
-							text : response.data.message,
-						});
+						swalWithBootstrapButtons.fire(
+					      'Deleted!',
+					      'Record has been deleted.',
+					      'success'
+				    	)
 					}).catch(function (error) {
 						console.log('error', error);
+						swal.fire({
+						  icon: 'error',
+						  title: 'Oops...',
+						  text: 'Something went wrong!'
+						})
 					});	
-			// 	}
-			// })
-			// .catch((error)=>{
-			//   console.log('error', error);
-			// })
+
+			} else if (
+		    /* Read more about handling dismissals below */
+		    result.dismiss === swal.DismissReason.cancel
+		  ) {
+		    swalWithBootstrapButtons.fire(
+		      'Cancelled',
+		      'Your record is safe :)',
+		      'error'
+		    )
+		  }
+		})
 		
     } 
     sortNumber(key, tableData){
@@ -847,7 +878,8 @@ class IAssureTable extends Component {
 															
 															<i className="fa fa-pencil" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 
 														
-															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>}
+															{/*{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>}*/}
+															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id} title="Delete" onClick={this.delete.bind(this)}></i>}
 															</span>
 														<div className="modal fade" id={"showDeleteModal-"+(value._id)} role="dialog">
 	                                                        <div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">

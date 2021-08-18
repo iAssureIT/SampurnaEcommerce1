@@ -2664,6 +2664,55 @@ exports.verify_user_otp = (req, res, next) => {
 		});
 };
 
+
+exports.sos_to_appCompony_contacts = (req,res,next)=>{
+	User.find({ "profile.companyID" : 1, recieveNotifications : true}, {_id : 1})
+	.exec()
+	.then(data=>{
+		console.log("data => ",data);
+		if (data && data.length > 0) {
+			for(var i=0; i<data.length; i++){
+				var userNotificationValues = {
+					"event"			: "SOS",
+					"toUser_id"		: data[i]._id,
+					"toUserRole"	: "",								
+					"variables" 	: {
+										// "userType" 			: userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+										// "firstName" 		: result.profile.firstName,
+										// "lastName" 			: result.profile.lastName,
+										// "fullName" 			: result.profile.fullName,
+										// "emailId" 			: result.profile.email,
+										// "mobileNumber"		: result.profile.mobile,
+										// "loginID" 			: result.username,
+										// "signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+										// "OTP" 				: result.otpEmail
+					}
+				}
+				console.log("userNotificationValues 3 => ",userNotificationValues);
+				// var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+			}
+			if (i >= data.length) {
+				res.status(200).json({
+					statusCode 	: "Success",
+					message 		: "Message Sent!"
+				});
+			}
+		}else{
+			res.status(200).json({
+				statusCode 	: "Failed",
+				message 		: "No Contacts Available"
+			});
+		}
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+	
+};
+
 /**============ Update User Profile ===========*/
 // exports.set_send_emailotp_usingEmail = (req, res, next) => {
 // 	User.findOne({ "profile.email": req.params.emailId })
