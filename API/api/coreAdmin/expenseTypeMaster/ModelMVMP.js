@@ -10,4 +10,4 @@ const expensetypemasterSchema = mongoose.Schema({
                                                  
 }); 
 
-module.exports = mongoose.model('expensetypemaster',expensetypemasterSchema);
+module.exports = mongoose.model('taxMaster',expensetypemasterSchema);
