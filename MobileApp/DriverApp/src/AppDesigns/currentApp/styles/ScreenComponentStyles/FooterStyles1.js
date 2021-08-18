@@ -66,7 +66,7 @@ export default StyleSheet.create({
     padding: 5,
   },
   footerTitle: {
-    textAlign: 'center', fontFamily: "Montserrat-SemiBold", fontSize: 12
+    textAlign: 'center', fontFamily: "Montserrat-Regular", fontSize: 12
   },
   iconOuterWrapper: {
     flex: 0.5, backgroundColor: '#fff', borderTopLeftRadius: 25, padding: 10

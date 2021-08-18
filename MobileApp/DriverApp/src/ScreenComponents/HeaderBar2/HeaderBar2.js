@@ -16,6 +16,7 @@ import {
 import axios                from 'axios'; 
 import styles               from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/HeaderBar2Styles.js';
 import {useDispatch,useSelector } from 'react-redux';
+import FlipToggle                   from 'react-native-flip-toggle-button'
 import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
 import { DrawerActions }    from '@react-navigation/native';
@@ -213,29 +214,18 @@ import Geolocation          from 'react-native-geolocation-service';
           rightContainerStyle={styles.rightside}
           leftComponent={
             <View style={styles.flxdir}>
-                {props.backBtn ?
-                  <TouchableOpacity onPress={()=> navigation.goBack()}>
-                  <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center'}}>
-                    <Icon size={30} name='keyboard-arrow-left' type='MaterialIcons' color='#fff' />
-                    {/* <Image
-                    resizeMode="contain"
-                    source={require("../../AppDesigns/currentApp/images/Box.png")}
-                    style={{height:17,width:17}}
-                    /> */}
-                  </View>
-                </TouchableOpacity>
-                :
+                
                 <TouchableOpacity  onPress={()=> navigation.dispatch(DrawerActions.toggleDrawer())}>
                   {/* <Icon size={25} name='bars' type='font-awesome' color={colors.white} /> */}
                   <View style={{}}>
                     <Image
                       resizeMode="contain"
                       source={require("../../AppDesigns/currentApp/images/Box.png")}
-                      style={{height:14,width:19}}
+                      style={{height:14,width:19,marginTop:3}}
                       />
                   </View>
                 </TouchableOpacity>
-              }
+              
             </View>
             
           }
@@ -245,16 +235,36 @@ import Geolocation          from 'react-native-geolocation-service';
                   <Text style={[{fontSize:15,color:'#fff',fontFamily:"Montserrat-SemiBold"}]}>{props.headerTitle}</Text>
                 </View>  
                 :
-                <Image
-                  resizeMode="contain"
-                  source={require("../../AppDesigns/currentApp/images/Logo.png")}
-                  style={styles.whitename}
-                />
+                <View style={{height:27,width:90}}>
+                  <Image
+                    resizeMode="contain"
+                    source={require("../../AppDesigns/currentApp/images/Logo.png")}
+                    style={styles.whitename}
+                  />
+                </View>                
           }
           rightComponent={
             <View style={[styles.tabWrap1]}>
               <View style={[styles.tabWrap]}>
-                <TouchableOpacity
+                <FlipToggle
+                  value={value==='offline'?true:true}
+                  buttonWidth={36}
+                  buttonHeight={18}
+                  buttonRadius={50}
+                  sliderWidth={18}
+                  sliderHeight={18}
+                  sliderRadius={50}
+                  buttonOnColor='#0D9C25'
+                  buttonOffColor='#C82323'
+                  sliderOnColor='#fff'
+                  sliderOffColor='#fff'
+                  onLabel={''}
+                  offLabel={''}
+                  labelStyle={{ color: '#E33941' }}
+                  onToggle={()=>{setValue('offline');setOnOff('offline')}}      
+                  
+                />
+                {/* <TouchableOpacity
                   onPress = {()=>{setValue('online');setOnOff('online')}}
                   style={[(value === "online" ? styles.activeTabView:styles.tabView),styles.tabBorder,styles.borderRadiusLeft]}
                 >
@@ -265,11 +275,11 @@ import Geolocation          from 'react-native-geolocation-service';
                   style={[(value === "offline" ? styles.activeTabView:styles.tabView),styles.borderRadiusRight]}
                 >
                   <Text style={value === "offline" ? styles.tabText : styles.tabText1}>Offline</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
               <View>
                 <TouchableOpacity onPress={()=> navigation.goBack()}>
-                  <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center',marginLeft:20}}>
+                  <View style={{marginLeft:20}}>
                     <Icon size={20} name='bell-ring-outline' type='material-community' color='#fff' />
                     {/* <Image
                     resizeMode="contain"

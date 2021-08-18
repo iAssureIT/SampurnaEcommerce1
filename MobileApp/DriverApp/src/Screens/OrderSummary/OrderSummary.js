@@ -361,7 +361,7 @@ const ValidationSchema = Yup.object().shape({
                         <Text style={styles.deliveryText1}>Transaction Number</Text>
                       </View>
                       <View style={{flex:0.5}}>
-                        <Text style={CommonStyles.label}>{order.vendorOrders[0].paymentDetails.transactionNumber}</Text>
+                        <Text style={[styles.deliveryText1,{textAlign:'right'}]}>{order.vendorOrders[0].paymentDetails.transactionNumber}</Text>
                       </View>
                     </View>
                   }

@@ -91,7 +91,7 @@ export const Menu = (props)=>{
               color='#666' 
               containerStyle={styles.iconContainer}
             />
-            <Text style={styles.menuText}>My Deliveries</Text>
+            <Text style={styles.menuText}>Rejected Orders</Text>
           </View>
         </TouchableOpacity></View>}
         

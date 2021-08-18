@@ -118,7 +118,7 @@ export default StyleSheet.create({
     //  paddingHorizontal: 15,
     //  justifyContent:"flex-end",
     //  alignItems:"flex-end"
-    marginTop:5
+    // marginTop:5
   },
 
   searchContainer: {
@@ -167,12 +167,11 @@ export default StyleSheet.create({
   },
   tabWrap1:{
     flexDirection: 'row',
-    // // alignSelf:"flex-start",
-    // backgroundColor:'red'
   },
   tabWrap:{
     width:36,
     flexDirection: 'row',
+    // backgroundColor:'red',
     height:18,
   },
   activeTabView:{

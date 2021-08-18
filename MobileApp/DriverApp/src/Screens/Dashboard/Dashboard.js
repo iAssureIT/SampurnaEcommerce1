@@ -4,9 +4,11 @@ import {ScrollView,
         FlatList, 
         TouchableOpacity,
         StyleSheet,
+        Image,
         Text,
         Keyboard}                   from 'react-native';
 import {Icon }                      from "react-native-elements";
+import Swipeable                    from 'react-native-gesture-handler/Swipeable';
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
 import {useDispatch,connect }   from 'react-redux';
 import axios                        from "axios";
@@ -28,6 +30,7 @@ const Dashboard = withCustomerToaster((props)=>{
   const [isOpen,setOpen]      = useState(false);
   const [blocks,setBlocks]    = useState([]);
   const [loading,setLoading]  = useState(true);
+  const isActive              = true;
   const limit                 = 6;
     useEffect(() => {
         dispatch(getPreferences());
@@ -63,27 +66,52 @@ const Dashboard = withCustomerToaster((props)=>{
   return (
     <React.Fragment>
         <View style={styles.superparent}>
+            <View>
+              
+            </View>
             <View style={{flex:1,marginBottom:65,justifyContent:'center'}}>
-                <View style={{flexDirection:"row",justifyContent:'space-between',marginTop:5}}>   
+                <View style={{marginTop:5}}>   
                     <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('NewOrders')}>
-                        <Icon size={30} name='list' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>New Orders</Text>
+                        <View style={styles.iconBox}>
+                          <Image
+                              resizeMode="contain"
+                              source={require("../../AppDesigns/currentApp/images/NewOrders.png")}
+                              style={styles.imgBox}
+                              />
+                        </View>                        
+                        <Text style={[styles.boxTitle]}>New Orders</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles1.HorizontalBoxRight} onPress={()=>navigation.navigate('AcceptedOrders')}>
-                        <Icon size={30} name='list' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>Accepted Orders</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{flexDirection:"row",justifyContent:'space-between'}}>         
+                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('AcceptedOrders')}>
+                        <View style={styles.iconBox}>
+                          <Image
+                            resizeMode="contain"
+                            source={require("../../AppDesigns/currentApp/images/AcceptedOrders.png")}
+                            style={styles.imgBox}
+                            />
+                        </View>
+                        <Text style={[styles.boxTitle]}>Accepted Orders</Text>
+                    </TouchableOpacity>                      
                     <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('CompletedOrders')}>
-                        <Icon size={30} name='list' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>Total Orders</Text>
-                        <Text style={[CommonStyles.label]}>Delivered Today</Text>
+                        <View style={styles.iconBox}>
+                          <Image
+                              resizeMode="contain"
+                              source={require("../../AppDesigns/currentApp/images/TotalOrders.png")}
+                              style={styles.imgBox}
+                              />
+                        </View>
+                        <Text style={[styles.boxTitle]}>Total Orders</Text>
+                        <Text style={[styles.boxTitle]}>Delivered Today</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles1.HorizontalBoxRight} onPress={()=>navigation.navigate('MonthlyOrders')}>
-                        <Icon size={30} name='list' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>Total Monthly</Text>
-                        <Text style={[CommonStyles.label]}>Orders</Text>
+                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('MonthlyOrders')}>
+                        <View style={styles.iconBox}>
+                          <Image
+                              resizeMode="contain"
+                              source={require("../../AppDesigns/currentApp/images/TotalMonthly.png")}
+                              style={styles.imgBox}
+                              />
+                        </View>
+                        <Text style={[styles.boxTitle]}>Total Monthly</Text>
+                        <Text style={[styles.boxTitle]}>Orders</Text>
                     </TouchableOpacity>
                 </View>   
             </View>
@@ -94,13 +122,14 @@ const Dashboard = withCustomerToaster((props)=>{
 
 const styles1 = StyleSheet.create({
   HorizontalBoxLeft: {
-      height              : 50,
-      alignItems          : "center",
+      height              : 75,
+      alignItems          : 'flex-start',
+      paddingLeft         : 50,
       justifyContent      : 'center',
       backgroundColor     : "#fff",
-      flex                : 0.47,
-      height              : 150,
-      marginLeft          : 15,
+      marginLeft          : 54,
+      marginRight         : 25,
+      borderRadius        : 7,
       marginVertical      : 15,
       elevation: 5
   },
@@ -116,7 +145,7 @@ const styles1 = StyleSheet.create({
       elevation: 5
   },
   iconStyle:{
-      marginBottom:15
+      color:'#033554',
       // width               :50
   }
 });

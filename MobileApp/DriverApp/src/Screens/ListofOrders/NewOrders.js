@@ -142,7 +142,7 @@ export const NewOrders =(props)=> {
                             </View>                            
                             <View style={styles.box1}>
                                 {/* <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} /> */}
-                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>{item?.vendorDetails?.locations[0]?.addressLine1+", "+item?.vendorDetails?.locations[0]?.addressLine2}</Text>
+                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>Vendor:{item?.vendorDetails?.locations[0]?.addressLine1+", "+item?.vendorDetails?.locations[0]?.addressLine2}</Text>
                             </View>
                             <View style={styles.box1_L}>
                                 <Text style={[CommonStyles.boxLine1]}>Pickup point :</Text>                                
@@ -161,7 +161,7 @@ export const NewOrders =(props)=> {
                             </View>                            
                             <View style={styles.box1}>
                                 {/* <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} /> */}
-                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>{item.deliveryAddress.addressLine1+", "+item.deliveryAddress.addressLine2}</Text>
+                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>Address:{item.deliveryAddress.addressLine1+", "+item.deliveryAddress.addressLine2}</Text>
                             </View>
                             <View style={styles.box1_L}>
                                 <Text style={[CommonStyles.boxLine1]}>Delivery point:</Text>                                

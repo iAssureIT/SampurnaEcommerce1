@@ -210,4 +210,26 @@ borderRadiusRight:{
   borderTopRightRadius: 5,
   borderBottomRightRadius: 5,
 },
+boxTitle:{
+  fontFamily:"Montserrat-Bold",
+  fontSize:16,
+  color:'#033554',
+},
+iconBox:{
+  height:56,
+  width:56,
+  borderRadius:100,
+  backgroundColor:'#fff',
+  elevation: 5,
+  borderWidth:0.5,
+  borderColor:'#033554',
+  justifyContent:'center',
+  position:'absolute',
+  left:-25,
+},
+imgBox:{
+  height:30,
+  width:30,
+  alignSelf:'center'
+},
 });

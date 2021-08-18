@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import {
-  Text, View, TouchableOpacity,
+  Text, View, TouchableOpacity,Image
 } from "react-native";
 import { Icon, SearchBar }                from 'react-native-elements';
 import styles                             from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FooterStyles1.js';
@@ -30,32 +30,93 @@ export const Footer =(props)=>{
               <TouchableOpacity onPress={() => {
                 navigation.navigate('NewOrders')}
                } >
-                <Icon name="list" type="font-awesome" size={15} color={props.selected && props.selected === "0" ? colors.cartButton :"#aaa"}  />
-                <Text style={[styles.footerTitle,{color:props.selected && props.selected === "0" ? colors.cartButton :"#aaa"}]}>Ready</Text>
+                <View style={{alignItems:'center'}}>
+                 {
+                    props.selected && props.selected === "1" ?
+                    <Image
+                    resizeMode="contain"
+                    source={require("../../AppDesigns/currentApp/images/newOrder.png")}
+                    style={{height:21,width:21}}
+                    />
+                    :
+                    <Image
+                    resizeMode="contain"
+                    source={require("../../AppDesigns/currentApp/images/newOrder.png")}
+                    style={{height:21,width:21}}
+                    />
+                 }    
+                </View>
+                  
+                <Text style={[styles.footerTitle,{color:props.selected && props.selected === "0" ? '#0D8919' :"#000"}]}>New Order</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.iconOuterWrapper}>
               <TouchableOpacity onPress={() => {
                 navigation.navigate('AcceptedOrders')}
                } >
-                <Icon name="list" type="font-awesome" size={15} color={props.selected && props.selected === "1" ? colors.cartButton :"#aaa"}  />
-                <Text style={[styles.footerTitle,{color:props.selected && props.selected === "1" ? colors.cartButton :"#aaa"}]}>Accepted</Text>
+                  <View style={{alignItems:'center'}}>
+                    {
+                      props.selected && props.selected === "1" ?
+                      <Image
+                      resizeMode="contain"
+                      source={require("../../AppDesigns/currentApp/images/AcceptedOrders.png")}
+                      style={{height:21,width:21}}
+                      />
+                      :
+                      <Image
+                      resizeMode="contain"
+                      source={require("../../AppDesigns/currentApp/images/AcceptedOrders.png")}
+                      style={{height:21,width:21}}
+                      />
+                    }  
+                  </View>              
+                <Text style={[styles.footerTitle,{color:props.selected && props.selected === "1" ? '#0D8919' :"#000"}]}>Accepted</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.iconOuterWrapper}>
               <TouchableOpacity onPress={() => {
                 navigation.navigate('RunningOrders')}
                } >
-                <Icon name="list" type="font-awesome" size={15} color={props.selected && props.selected === "2" ? colors.cartButton :"#aaa"}  />
-                <Text style={[styles.footerTitle,{color:props.selected && props.selected === "2" ? colors.cartButton :"#aaa"}]}>Running</Text>
+                 <View style={{alignItems:'center'}}>
+                    {
+                      props.selected && props.selected === "1" ?
+                      <Image
+                      resizeMode="contain"
+                      source={require("../../AppDesigns/currentApp/images/Running.png")}
+                      style={{height:21,width:21}}
+                      />
+                      :
+                      <Image
+                      resizeMode="contain"
+                      source={require("../../AppDesigns/currentApp/images/Running.png")}
+                      style={{height:21,width:21}}
+                      />
+                    }
+                 </View>
+                <Text style={[styles.footerTitle,{color:props.selected && props.selected === "2" ? '#0D8919' :"#000"}]}>On My Way</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.iconOuterWrapper}>
               <TouchableOpacity onPress={() => {
                 navigation.navigate('CompletedOrders')}
                } >
-                <Icon name="list" type="font-awesome" size={15} color={props.selected && props.selected === "3" ? colors.cartButton :"#aaa"}  />
-                <Text style={[styles.footerTitle,{color:props.selected && props.selected === "3" ? colors.cartButton :"#aaa"}]}>Completed</Text>
+                <View style={{alignItems:'center'}}>
+                  {
+                    props.selected && props.selected === "1" ?
+                    <Image
+                    resizeMode="contain"
+                    source={require("../../AppDesigns/currentApp/images/Delivered.png")}
+                    style={{height:21,width:21}}
+                    />
+                    :
+                    <Image
+                    resizeMode="contain"
+                    source={require("../../AppDesigns/currentApp/images/Delivered.png")}
+                    style={{height:21,width:21}}
+                    />
+                  }   
+                 </View>    
+                <Text style={[styles.footerTitle,{color:props.selected && props.selected === "3" ? '#0D8919' :"#000"}]}>Delivered</Text>
               </TouchableOpacity>
             </View>
           </View>
