@@ -681,6 +681,9 @@ li a{
 .changelocationBtn1Wrapper{
     margin-left: -5%!important;
 }
+.changelocationBtn1 img{
+    height:13px;
+}
 
 .leftf{
     float: left !important;

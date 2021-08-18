@@ -24,9 +24,11 @@
   padding        : 5px 0px;
   text-decoration: none;
 }
-.offTxt{
-  font-size: 8px;
+
+.offTxt {
+  font-size: 10px;
 }
+
 .links li a {
   text-decoration: none;
   color          : #333;
@@ -175,9 +177,11 @@
 }
 
 .discounttag {
-  position           : absolute;
-  /* background-color: var(--Discountcolor) !important; */
-  background-image   : url("/images/eCommerce/OfferTag.png");
+  position              : absolute;
+  /* background-color   : var(--Discountcolor) !important; */
+  /* background-image   : url("/images/eCommerce/OfferTag.png"); */
+  background-image      : url("/images/eCommerce/OfferTag.svg");
+
   background-size    : cover;
   background-repeat  : no-repeat;
   background-position: 100% 100%;
@@ -460,8 +464,8 @@
 }
 
 .productListWrapper {
-  margin-top    : -17px;
-  border-top    : solid 1px #eee;
+  margin-top       : -17px;
+  border-top       : solid 1px #eee;
   /* padding-bottom: 20px; */
 }
 
@@ -472,8 +476,8 @@
 .ProductViewWrapper {
   padding-bottom: 20px;
   background    : #f9f9f9;
-  /* box-shadow: 0px 0px 0px 2px #00000029; */
-  box-shadow: 0px 0px 5px 0px #aaaaaa;
+  /* box-shadow : 0px 0px 0px 2px #00000029; */
+  box-shadow    : 0px 0px 5px 0px #aaaaaa;
 }
 
 .productCaroselBlock {
@@ -490,7 +494,7 @@
   margin-top   : 5px;
   margin-bottom: 5px;
   background   : #fff;
-  box-shadow: -3px 3px 6px #00000059;
+  box-shadow   : -3px 3px 6px #00000059;
   /* height    : 300px; */
 }
 
@@ -618,14 +622,14 @@
 
 /* css for filters */
 .categoryFilterTitle {
-  font-size       : 14px;
-  padding         : 20px 28px;
-  font-weight     : 900 !important;
-  border-bottom   : solid 1px #ddd;
+  font-size          : 14px;
+  padding            : 20px 28px;
+  font-weight        : 900 !important;
+  border-bottom      : solid 1px #ddd;
   /* background-color: #F9F9F9; */
-  opacity         : 1;
-  letter-spacing  : 0px;
-  font-family     : 'Montserrat-Bold' !important;
+  opacity            : 1;
+  letter-spacing     : 0px;
+  font-family        : 'Montserrat-Bold' !important;
 }
 
 .pcSubCatFlterWrapper {
@@ -642,10 +646,10 @@
 }
 
 .filterBlockWrapper {
-  border    : solid 1px #eee;
-  height    : max-content;
+  border       : solid 1px #eee;
+  height       : max-content;
   /* box-shadow: 3px 3px 3px #00000030; */
-  z-index   : 999 !important;
+  z-index      : 999 !important;
 }
 
 .accordion {
@@ -693,7 +697,7 @@
 .panelHeading {
   padding      : 5px 10px !important;
   cursor       : pointer;
-  border-bottom: solid 1px #ccc;
+  border-bottom: solid 0.5px #eee;
 
 }
 
@@ -873,17 +877,20 @@
   min-width : 30px;
   min-height: 30px;
 }
-.wishlistBlockBorder{
-border: 1px solid #707070;
-border-radius: 19px;
-opacity: 1;
+
+.wishlistBlockBorder {
+  border       : 1px solid #707070;
+  border-radius: 19px;
+  opacity      : 1;
 }
+
 .titleFont {
   font-size    : 18px !important;
   margin-top   : 40px !important;
   margin-bottom: 60px !important;
   text-align   : center !important;
 }
+
 .titleFont1 {
   font-size    : 18px !important;
   margin-top   : 40px !important;
@@ -900,7 +907,7 @@ opacity: 1;
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 
- 
+
   .line {
     position          : absolute;
     height            : 2px;
@@ -911,25 +918,25 @@ opacity: 1;
     /*margin-bottom   : 45px;*/
     bottom            : 0;
     top               : 30;
-    
+
   }
 
   .titleFont {
-    font-size    : 36px !important;
-    margin-top   : 40px !important;
-    margin-bottom: 60px !important;
-    text-align   : left !important;
+    font-size       : 36px !important;
+    margin-top      : 40px !important;
+    margin-bottom   : 60px !important;
+    text-align      : left !important;
     /* overflow     : hidden!important; */
-    color        :#000!important;
+    color           : #000 !important;
   }
 
   .titleFont1 {
-    font-size    : 36px !important;
-    margin-top   : 40px !important;
-    margin-bottom: 22px !important;
-    text-align   : left !important;
+    font-size       : 36px !important;
+    margin-top      : 40px !important;
+    margin-bottom   : 22px !important;
+    text-align      : left !important;
     /* overflow     : hidden!important; */
-    color        :#000!important;
+    color           : #000 !important;
   }
 
   .sortPbWrapper {
@@ -940,4 +947,3 @@ opacity: 1;
     margin-top: 28px;
   }
 }
-

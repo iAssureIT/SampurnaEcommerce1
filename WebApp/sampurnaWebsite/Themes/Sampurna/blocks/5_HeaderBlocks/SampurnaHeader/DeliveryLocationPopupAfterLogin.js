@@ -330,7 +330,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                         <div className="col-12 col-lg-3">
                             <div className="row">
                                 <button type="button" className={"col-12 btn "+Style.deliveryLocationCurrentButton} onClick={this.takeCurrentLocation.bind(this)}>
-                                    <i className="fas fa-map-marker-alt" aria-hidden="true"></i>&nbsp; Current Location
+                                      <img src="/images/eCommerce/location.svg" alt="ChangeLocationButton"></img>&nbsp; Current Location
                                 </button>
                             </div>
                         </div>

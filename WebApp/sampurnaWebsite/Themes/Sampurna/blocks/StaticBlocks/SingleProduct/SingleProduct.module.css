@@ -2,7 +2,9 @@
 .discounttag{
     position: absolute;
     /* background-color: var(--Discountcolor) !important; */
-    background-image: url("/images/eCommerce/OfferTag.png");
+    /* background-image: url("/images/eCommerce/OfferTag.png"); */
+    background-image: url("/images/eCommerce/OfferTag.svg");
+
     background-size: cover ;
     background-repeat: no-repeat;
     background-position: 100% 100%;

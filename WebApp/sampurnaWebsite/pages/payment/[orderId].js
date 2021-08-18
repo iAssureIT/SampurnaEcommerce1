@@ -71,7 +71,7 @@ class Payment extends Component{
               							<div className="row">
 											<div className={"col-12 col-lg-4 "+Style.paymentLeftSideWrapper}>
 												<div className={"alert text-center mt-2 "+Style.paymentAlertWrapper}>
-                  									<i className="fa fa-check"></i> <br/>
+													<img src="/images/eCommerce/Check.svg" alt="Check"></img> <br/>
                    									<h6>Thank you your order has been received.</h6> 
                 								</div>
 												<div className={"mx-4 "+Style.paymentAlertWrapper}>
@@ -80,7 +80,7 @@ class Payment extends Component{
 												</div>
 												<div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
 													<h6>
-														<i className="fas fa-wallet"></i>&nbsp; Amount :
+													<img src="/images/eCommerce/wallet.svg" alt="Wallet"></img>&nbsp; Amount :
 													</h6>
 													<h6 className="mx-4">
 														{this.state.currency}&nbsp;{this.state.orderData.paymentDetails ? this.state.orderData.paymentDetails.netPayableAmount : null} /-
@@ -88,7 +88,7 @@ class Payment extends Component{
 												</div>
 												<div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
 													<h6>
-														<i className="fa fa-calendar"></i>&nbsp; Date :
+													<img src="/images/eCommerce/calendar.svg" alt="Wallet"></img>&nbsp; Date :
 													</h6>
 													<h6 className="mx-4">
 														{moment(this.state.orderData.createdAt).format("DD MMMM")}
@@ -173,12 +173,12 @@ class Payment extends Component{
 																</div>
 																<div className={"backtoMyOrdersDiv col-12 mb-3 mt-4 text-center "+Style.backtoMyOrdersDivWrapper}>
 																	<Link href="/my-account#v-pills-settings-tab">
-																		<a><i className="fa fa-eye"></i> <u>View My Orders</u></a>
+																		<a><img src="/images/eCommerce/view.svg" alt="View"></img><u>View My Orders</u></a>
 																	</Link>
 																</div>
 																<div className={"backtoMyOrdersDiv col-12 text-center "+Style.backtoMyOrdersDivWrapper}>
 																	<Link href="/">
-																		<a><i className="fa fa-arrow-circle-left"></i> <u>Go Back To HomePage</u></a>
+																		<a><img src="/images/eCommerce/backArrow.svg" alt="BackButton"></img> <u>Go Back To HomePage</u></a>
 																	</Link>
 																</div>
 															</div>

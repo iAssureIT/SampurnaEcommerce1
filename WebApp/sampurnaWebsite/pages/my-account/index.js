@@ -139,6 +139,7 @@ class MyAccount extends Component{
                                     </div>}
                                     <a className="nav-link mx-2 mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"onClick={()=>{ $("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
                                         <i className="fas fa-map-marker-alt mr-3"></i>
+                                        {/* <img src="/images/eCommerce/locationHome.svg" className="mr-3" alt="ChangeLocationButton"></img> */}
                                         <span className=" small ">My Addresses</span></a>
                 
                                     <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-4 p-3 shadow active mx-2 ": "nav-link mb-4 p-3 mx-2 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"onClick={()=>{$("#myOrderMainId").css("display", "block");$("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>

@@ -49,7 +49,7 @@ class DisplayLocation extends React.Component{
 											</span>
 											<div className="col-8 col-sm-3 col-lg-2 col-xl-2 pull-right changelocationBtn1Wrapper">
 												<button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true">
-													Change Location &nbsp;&nbsp;<i className="fas fa-map-marker-alt" aria-hidden="true"></i>
+													Change Location &nbsp;<img src="/images/eCommerce/locationHome.svg" alt="ChangeLocationButton"></img>
 												</button>
 											</div>
 										</div>
@@ -61,9 +61,9 @@ class DisplayLocation extends React.Component{
 										<b>Your Delivery Location is not available - </b>
 									</span>
 									<div className="col-8 col-sm-3 col-lg-2 col-xl-2 pull-right changelocationBtn1Wrapper">
-										<button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true">
-										Change Location &nbsp;&nbsp;<i className="fas fa-map-marker-alt" aria-hidden="true"></i>
-										</button>
+									        <button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true">
+												Change Location &nbsp;<img src="/images/eCommerce/locationHome.svg" alt="ChangeLocationButton"></img>
+											</button>
 									</div>
 								</div>
 							</div>
@@ -74,9 +74,9 @@ class DisplayLocation extends React.Component{
 									<b>Your Delivery Location is not available - </b>
 								</span>
 								<div className="col-8 col-sm-3 col-lg-2 col-xl-2 pull-right changelocationBtn1Wrapper">
-									<button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true">
-									Change Location &nbsp;&nbsp;<i className="fas fa-map-marker-alt" aria-hidden="true"></i>
-									</button>
+										<button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true">
+											Change Location &nbsp;<img src="/images/eCommerce/locationHome.svg" alt="ChangeLocationButton"></img>
+										</button>
 								</div>
 							</div>
 						</div>
