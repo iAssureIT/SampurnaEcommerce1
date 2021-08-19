@@ -137,7 +137,7 @@ class ProductsView extends Component {
           "review_id": this.state.rating_ID,
           "rating": this.state.rating,
           "customerReview": $('.feedbackForm textarea').val(),
-          "reviewProductImages": [],
+          "reviewProductImages": reviewProductImages.push(this.state.imgUrl),
         }
 
         console.log("formValues=", formValues);
@@ -165,6 +165,12 @@ class ProductsView extends Component {
           })
       } else {
         var reviewProductImages = [];
+        // console.log("img===",this.state.imgUrl);
+        var imgUrl = this.state.imgUrl;
+        if(imgUrl){
+          reviewProductImages.push(imgUrl)
+          // console.log("imgArray===",reviewProductImages);
+        }
         var formValues = {
           "customer_id": this.props.user_ID,
           "customerName": this.props.orderData.userFullName,
@@ -175,7 +181,7 @@ class ProductsView extends Component {
           "vendor_id": this.props.vendorWiseOrderData.vendor_id._id,
           "vendorLocation_id": event.target.getAttribute('vendorlocationid'),
           "status": "New",
-          "reviewProductImages": reviewProductImages.push(this.state.imgUrl),
+          "reviewProductImages": reviewProductImages,
         }
         console.log("formValues=", formValues);
         axios.post("/api/customerReview/post", formValues)
@@ -233,6 +239,9 @@ class ProductsView extends Component {
 uploadImage(event) {
     event.preventDefault();
     const file = event.currentTarget.files[0];
+
+
+
     if (file) {
       axios
         .get('/api/projectSettings/get/S3')
@@ -255,7 +264,7 @@ uploadImage(event) {
                   .uploadFile(file)
                   .then(data => {
                     // console.log("fileUpload data=",data);
-                    // console.log("fileUpload data=",data.location);
+                    console.log("fileUpload data=",data.location);
                     this.setState({
                       imgUrl: data.location
                     });
@@ -632,7 +641,7 @@ uploadImage(event) {
                             </div>
 
                             <form className="feedbackForm col-12">
-                              <div className="col-8 offset-2 row">
+                              <div className="col-8 offset-2 row reviewWrapper">
                                 <StarRatingComponent
                                   name="rate1"
                                   starCount={5}

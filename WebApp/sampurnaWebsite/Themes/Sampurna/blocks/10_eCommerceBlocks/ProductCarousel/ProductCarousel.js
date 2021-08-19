@@ -194,10 +194,13 @@ class ProductCarousel extends Component {
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
           .then((categoryResponse)=>{
             if(categoryResponse.data){     
-              // console.log("categoryResponse====",categoryResponse.data); 
+              console.log("categoryResponse====",categoryResponse.data); 
                 for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
                   // console.log("categoryResponse.data.categoryList[i].categoryUrl=",categoryResponse.data.categoryList[i].categoryUrl,"===",this.state.categoryUrl);
                     if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
+                      this.setState({
+                        brandList : categoryResponse.data.categoryList[i].brandList
+                      })
                       var subCategoryData = categoryResponse.data.categoryList[i].subCategory;
                       subcategoryArray = true;
                       noCategoryUrl = false;
@@ -209,6 +212,7 @@ class ProductCarousel extends Component {
                       // console.log("else subCategoryData===",subCategoryData);
                       this.setState({
                         categoryUrl :  categoryResponse.data.categoryList[0].categoryUrl,
+                        brandList : categoryResponse.data.categoryList[0].brandList
                       })
                       noCategoryUrl = false;
                   }
@@ -218,13 +222,15 @@ class ProductCarousel extends Component {
                       // console.log("else subCategoryData===",subCategoryData);
                       this.setState({
                         categoryUrl :  categoryResponse.data.categoryList[0].categoryUrl,
+                        brandList : categoryResponse.data.categoryList[0].brandList
                       })
                   }
 
                   if(subCategoryData){
                         this.setState({
                           categoryData     : categoryResponse.data.categoryList,  
-                          brandData        : categoryResponse.data.categoryList[0].brandList, 
+                          brandData        : this.state.brandList,
+                          // brandData        : categoryResponse.data.categoryList[0].brandList, 
                           subCategoryData  : subCategoryData,     
                         },()=>{
                           formValues = {
@@ -293,6 +299,9 @@ class ProductCarousel extends Component {
 
 showMoreProduct(event){
   event.preventDefault();
+  this.setState({
+    "seeMore" : true
+  })
   var formValues = {
     "vendor_ID"      : this.state.vendor_ID,
     "sectionUrl"     : this.state.sectionUrl,
@@ -308,34 +317,45 @@ showMoreProduct(event){
   this.getProductList(productApiUrl,formValues);
 }
 getProductList(productApiUrl,formValues){
-    // console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
+    console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-      if(this.state.brandWiseFilter){
-        // console.log("brand Product data===",response.data);
-        // console.log("brandwise filter=",this.state.brandWiseFilter);
-        this.setState({
-          newProducts    : response.data,                         
-        })
-      }else{
-        // console.log("Product data===",response.data);
-      this.setState({
-        newProducts    : this.state.newProducts.concat(response.data),                         
-      },()=>{
-        // console.log("newProducts=>",this.state.newProducts.length);
-        if(this.state.newProducts.length>0){
+        console.log("Product data===",response.data);
+        // if(this.state.brandWiseFilter){
+        //   this.setState({
+        //     newProducts    : response.data,                         
+        //   })
+        // }
+        if(this.state.seeMore){
           this.setState({
-            ProductsLoading : true,
-            loading         : false
-          });  
-        } 
-        if(this.state.newProducts.length <= this.state.limitRange){
-            $('.seeMoreBtnWrapper').hide();
+            newProducts    : this.state.newProducts.concat(response.data),                         
+          },()=>{
+            console.log("newProducts=>",this.state.newProducts.length);
+            if(this.state.newProducts.length>0){
+              this.setState({
+                ProductsLoading : true,
+                loading         : false
+              });  
+            } 
+            if(this.state.newProducts.length <= this.state.limitRange){
+                $('.seeMoreBtnWrapper').hide();
+            }
+        });
+        }else{
+          this.setState({
+            newProducts    : response.data,                         
+          },()=>{
+            // console.log("newProducts=>",this.state.newProducts.length);
+            if(this.state.newProducts.length>0){
+              this.setState({
+                ProductsLoading : true,
+                loading         : false
+              });  
+            } 
+          })
         }
-      });
-    }
-    }
+      }
     })
     .catch((error)=>{
         console.log('error', error);
@@ -489,10 +509,9 @@ submitCart(event) {
 			let field = 'discountedPrice';
       sortBy = 'PH';
 		} 
-    console.log("formValues===",formValues);
 
     var formValues = {
-      "vendor_ID"      : "",
+      "vendor_ID"      : this.state.vendor_ID,
       "sectionUrl"     : this.state.sectionUrl,
       "categoryUrl"    : this.state.categoryUrl,
       "subCategoryUrl" : this.state.subCategoryUrl,
@@ -505,12 +524,10 @@ submitCart(event) {
     }
 
     if(this.state.productApiUrl && formValues){
-      // console.log("formValues===",formValues);
       console.log("getProductLIst formvalues===",this.state.productApiUrl,formValues);
       this.getProductList(this.state.productApiUrl,formValues);
       $("html, body").animate({ scrollTop: 200 }, 500);
     }//end productApiUrl
-    
   };
 
   getBrandWiseData(event){
@@ -518,21 +535,26 @@ submitCart(event) {
     var brandArray = this.state.brandArray;
     if(event.target.value !== "undefined"){
       var brandValue = event.target.value;
-      brandArray.push(brandValue);
+      console.log("brandValue=",brandValue);
+      var matchingBrand = brandArray.filter((a) => a === brandValue);
+      console.log("matchingBrand=",matchingBrand);
+      if(matchingBrand.length>=1){
+        brandArray.pop(brandValue);
+      }else{
+        brandArray.push(brandValue);
+      }
+      
     }
     this.setState({
       brandArray : brandArray
     },()=>{
-      console.log("brandArray => ",this.state.brandArray);
-      console.log("this.state.blockSettings.subCategory==",this.state.blockSettings.subCategory);
-      this.setState({
-        brandWiseFilter : true,
-      })
+      // console.log("brandArray => ",this.state.brandArray);
+      //   brandWiseFilter : true,
+      // })
       var formValues = {
         "vendor_ID"      : this.state.vendor_ID, 
         "sectionUrl"     : this.state.sectionUrl,
         "categoryUrl"    : this.state.categoryUrl,
-        // "subCategoryUrl" : ["baby"],
         "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
         "userLatitude"   : this.state.userLatitude,
         "userLongitude"  : this.state.userLongitude,

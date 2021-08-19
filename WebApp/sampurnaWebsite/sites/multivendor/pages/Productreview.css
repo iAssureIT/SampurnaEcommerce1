@@ -14,12 +14,13 @@
 .ProductPic{
     height: 70px; 
     width: 70px; 
+    text-align: center;
+    margin-top: 60px!important;
     /* display: inline-block; */
     /* padding: 20px 26px; */
-    border-radius: 100%;
+    /* border-radius: 100%; */
     /* border:solid 1px #ccc; */
-    text-align: center;
-    margin-top: 100px!important;
+    
 }
 .reviewBox{
     /* border: solid 1px #ddd ; */
