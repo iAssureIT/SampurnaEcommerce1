@@ -146,7 +146,8 @@ export default class AdminDashboard extends Component{
 		window.location = pathname
 		$(".sidebar-menu .treeview-menu li a").removeClass("active-submenu");
 		$(event.currentTarget).addClass("active-submenu");
-		console.log('pathname',pathname);
+		console.log('a => ',a);
+		console.log('pathname => ',pathname);
 
 		// event.currentTarget.href = pathname;
 		// var currentEvent =  event.currentTarget
@@ -160,8 +161,14 @@ export default class AdminDashboard extends Component{
 	openMenu = (key) => {
 		let {menuValues} = this.state;
 		Object.keys(menuValues).map((data) => {
+		console.log('data => ',data);
+		console.log('key => ',key);
+		console.log('menuValues[data] => ',menuValues[data]);
+		console.log('menuValues[key] => ',menuValues[key]);
+
 			menuValues[data] = (data==key) ? !menuValues[key] :false;
 		});
+		console.log('menuValues => ',menuValues);
 		this.setState({menuValues});
 		$('.singleTreeview').removeClass('active')
 	}
@@ -189,7 +196,7 @@ export default class AdminDashboard extends Component{
 	}
 
 	render(){
-		let {dashboard,vendorData,supplierData,corporateData,contractmanagement,masterData,baData,bussinessData} = this.state.menuValues;
+		let {dashboard,vendorData,supplierData,corporateData,contractmanagement,masterData,baData,bussinessData, productmanagement, ordermanagement, reportsmanagement} = this.state.menuValues;
 
 		return(
 			<aside className="main-sidebar control-sidebar sidebarWrapper scrollBox">
@@ -204,11 +211,11 @@ export default class AdminDashboard extends Component{
 						</li>
 
 						<li className="treeview" >
-							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("contractmanagement")} title="Contract Management">
+							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("productmanagement")} title="Product Management">
 								<i className="fa fa-file" aria-hidden="true"></i>
 								<span className="smsidenames sidebarMenuTitle">Product Management</span>
 								<span className="pull-right-container">
-									<i className={"fa pull-right menu-icon-toggle "+(contractmanagement?this.openIcon:this.closeIcon)} />
+									<i className={"fa pull-right menu-icon-toggle "+(productmanagement?this.openIcon:this.closeIcon)} />
 								</span>
 							</a>
 							<ul className="treeview-menu" >                    
@@ -264,11 +271,11 @@ export default class AdminDashboard extends Component{
 
 
 						<li className="treeview" >
-							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("contractmanagement")} title="Contract Management">
+							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("ordermanagement")} title="Order Management">
 								<i className="fa fa-file" aria-hidden="true"></i>
 								<span className="smsidenames sidebarMenuTitle">Order Management</span>
 								<span className="pull-right-container">
-									<i className={"fa pull-right menu-icon-toggle "+(contractmanagement?this.openIcon:this.closeIcon)} />
+									<i className={"fa pull-right menu-icon-toggle "+(ordermanagement?this.openIcon:this.closeIcon)} />
 								</span>
 							</a>
 							<ul className="treeview-menu" > 
@@ -342,7 +349,7 @@ export default class AdminDashboard extends Component{
 							</ul>
 						</li>
 						<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
-							<a href="/order-dispatch-center" title="Master Data" onClick={()=>this.openMenu("dashboard")}>
+							<a href="/order-dispatch-center" title="Order Dispatch Center" onClick={()=>this.openMenu("orderdispatchcenter")}>
 								<i className="fa fa-th-large" aria-hidden="true"></i>
 								<span className="sidebarMenuTitle">Order Dispatch Center</span>
 							</a>
@@ -352,7 +359,7 @@ export default class AdminDashboard extends Component{
 							this.state.showInventory === 'Yes' 							
 							?	
 							<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
-								<a href="/product-inventory-update" title="Inventory Management" onClick={()=>this.openMenu("dashboard")}>
+								<a href="/product-inventory-update" title="Inventory Management" onClick={()=>this.openMenu("inventorymanagement")}>
 									<i className="fa fa-th-large" aria-hidden="true"></i>
 									<span className="sidebarMenuTitle">Inventory Management</span>
 								</a>
@@ -422,17 +429,32 @@ export default class AdminDashboard extends Component{
 							null
 						}
 						<li className="treeview" >
-							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("vendorData")} title="Vendor Master">
+							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("reportsmanagement")} title="Reports Management">
 								<i className="fa fa-book" aria-hidden="true"></i>
-								<span className="smsidenames sidebarMenuTitle">Reports</span>
+								<span className="smsidenames sidebarMenuTitle">Reports Management</span>
 								<span className="pull-right-container">
-									<i className={"fa pull-right menu-icon-toggle "+(vendorData?this.openIcon:this.closeIcon)} />
+									<i className={"fa pull-right menu-icon-toggle "+(reportsmanagement ? this.openIcon : this.closeIcon)} />
 								</span>
 							</a>
 							<ul className="treeview-menu" >                    
 								<li className="noPadLR"> 
-									<a href="/report" data-id="/report" title="Sales Report" onClick={this.activeMenu.bind(this)}>
-										<i className="fa fa-circle-o dashr" />Sales Report
+									<a href="/revenue-report" data-id="/revenue-report" title="Revenue Report" onClick={this.activeMenu.bind(this)}>
+										<i className="fa fa-circle-o dashr" />Revenue Report
+									</a> 
+								</li>                     
+								<li className="noPadLR"> 
+									<a href="/delivery-drivers-report" data-id="/delivery-drivers-report" title="Delivery Drivers Report" onClick={this.activeMenu.bind(this)}>
+										<i className="fa fa-circle-o dashr" />Delivery Drivers Report
+									</a> 
+								</li>                     
+								<li className="noPadLR"> 
+									<a href="/vendor-sales-report" data-id="/vendor-sales-report" title="Vendor Sales Report" onClick={this.activeMenu.bind(this)}>
+										<i className="fa fa-circle-o dashr" />Vendor Sales Report
+									</a> 
+								</li>                     
+								<li className="noPadLR"> 
+									<a href="/user-report" data-id="/user-report" title="User Report" onClick={this.activeMenu.bind(this)}>
+										<i className="fa fa-circle-o dashr" />User Report
 									</a> 
 								</li>  
 								{this.state.websiteModel === 'FranchiseMaster' ?
@@ -454,9 +476,9 @@ export default class AdminDashboard extends Component{
 					{
 						this.state.websiteModel === "MarketPlace" ||this.state.websiteModel === "SingleOwner" ?
 							<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
-								<a href="/vendor/list" title="Vendor Master" onClick={()=>this.openMenu("dashboard")}>
+								<a href="/vendor/list" title="Vendor Management" onClick={()=>this.openMenu("vendormanagement")}>
 									<i className="fa fa-money" aria-hidden="true"></i>
-									<span className="sidebarMenuTitle">Vendor Master</span>
+									<span className="sidebarMenuTitle">Vendor Management</span>
 								</a>
 							</li>
 						:
@@ -464,7 +486,7 @@ export default class AdminDashboard extends Component{
 					}
 
 						<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
-							<a href="/project-master-data" title="Master Data" onClick={()=>this.openMenu("dashboard")}>
+							<a href="/project-master-data" title="Master Data" onClick={()=>this.openMenu("masterdata")}>
 								<i className="fa fa-th-large" aria-hidden="true"></i>
 								<span className="sidebarMenuTitle">Master Data</span>
 							</a>
@@ -497,7 +519,7 @@ export default class AdminDashboard extends Component{
 					{this.state.showCoupenCode !== 'No'?
 
 						<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
-							<a href="/coupon-management" title="cms" onClick={()=>this.openMenu("dashboard")}>
+							<a href="/coupon-management" title="Coupon Management" onClick={()=>this.openMenu("couponmanagement")}>
 								<i className="fa fa-object-group" aria-hidden="true"></i>
 								<span className="sidebarMenuTitle">Coupon Management</span>
 							</a>

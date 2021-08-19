@@ -6,6 +6,8 @@ const entityMaster	= require('./ControllerEntityMaster');
 
 router.post('/post',  												checkAuth, entityMaster.insertEntity);
 
+router.post('/post/sos',  											entityMaster.sos_to_appCompony_contacts);
+
 router.get('/get/:entityType', 									checkAuth, entityMaster.listEntity);
 
 router.get('/countContacts/:entityType', 						checkAuth, entityMaster.countContacts);

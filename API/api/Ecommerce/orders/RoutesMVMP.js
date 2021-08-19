@@ -12,6 +12,8 @@ router.post('/get/list_orders_by_status', 													    orderController.list_
  
 router.patch('/patch/returnproduct', 															orderController.returnProduct);
 
+router.post('/reports/revenue', 																	orderController.revenue_reports);
+
 router.post('/pgcall/post', 																	orderController.paymentgatewaycall);
 
 router.patch('/', 																				orderController.update_order);

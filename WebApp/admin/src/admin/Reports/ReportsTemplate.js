@@ -457,18 +457,18 @@ class UserReport extends Component {
 		axios.post(this.state.dataApiUrl,formValues)
 			.then((response) => {
 			  	console.log("response=>",response)			  
-			  	var tableData = response.data.map((a, i)=>{					
-					return{           
-					  	orderID    			: a.orderID,
-						customerName    	: a.customerName,
-						orderDate         : moment(a.createdAt).format('DD/MM/YYYY'),
-						orderAmount       : a.orderAmount,
-					}
-				})
+			 //  	var tableData = response.data.map((a, i)=>{					
+				// 	return{           
+				// 	  	orderID    			: a.orderID,
+				// 		customerName    	: a.customerName,
+				// 		orderDate         : moment(a.createdAt).format('DD/MM/YYYY'),
+				// 		orderAmount       : a.orderAmount,
+				// 	}
+				// })
 				
 				this.setState({
-					RecordsTable 	: tableData,
-					dataCount 		: tableData.length
+					RecordsTable 	: response.data.data,
+					dataCount 		: response.data.dataCount
 				})
 			})
 			.catch((error) =>{

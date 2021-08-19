@@ -66,14 +66,14 @@ export default class Dashboard extends Component{
   render(){
     return(
         <div className="row">
-           <section class="content-header">
+           <section className="content-header">
               <h1>
                 
                 <small></small>
               </h1>
-              <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
+              <ol className="breadcrumb">
+                <li><a href="#"><i className="fa fa-dashboard"></i> Home</a></li>
+                <li className="active">Dashboard</li>
               </ol>
            </section>
            <section className="content">

@@ -2580,6 +2580,7 @@ exports.vendorWiseOrder = (req, res, next) => {
 		});
 	 });
 };
+
 function addOrderToFranchiseGoods(productId, obj, franchise_id) {
   return new Promise(function (resolve, reject) {
 	 FranchiseGoods.find({ productId: productId, balance: { $gt: 0 }, franchise_id: franchise_id })
@@ -3935,132 +3936,127 @@ exports.list_ready_to_dispatch_orders = (req, res, next) => {
 		});
 	};
 
-	// ---------------- Nearby Delivery Persons for Dispatch Center ----------------
-	exports.get_nearby_delivery_persons= (req, res, next) => {
-		Orders.aggregate([
-			{ $match :
-				{ 
-					"_id" : ObjectId(req.params.order_id) 
-				}
-			},
-			{ "$unwind" : "$vendorOrders"},
-			{ "$lookup" : 
-				{
-					"from"			: "entitymasters",
-					"as"			: "vendorDetails",
-					"localField"	: "vendorOrders.vendor_id",
-					"foreignField"	: "_id"
-				}
-			},
-			{ "$unwind" : "$vendorDetails" },
-			{ $match :
-				{ 
-					"vendorOrders.vendor_id" : ObjectId(req.params.vendor_id)  
-				}
-			},
-			{ "$project" : 
-				{
-					"_id"								: 1,
-					"orderID"							: 1,
-					"user_ID"							: 1,
-					"userName"							: 1,
-					"vendorOrders.vendor_id"			: 1,
-					"vendorOrders.vendorLocation_id"	: 1,
-					"vendorOrders.orderStatus"			: 1,
-					"deliveryAddress"					: 1,
-					"vendorDetails.companyName"			: 1,
-					"vendorDetails.companyLogo"			: 1,
-					"vendorDetails.locations"			: 1,
-					"vendorDetails.createdAt"			: 1,
-				}
-			}	
-		])
-		.then(async(data) => {
-			// console.log("data => ",data);
-			var distanceLimit = await getDistanceLimit();	
-			// console.log("distanceLimit => ",distanceLimit)
-			if(data && data.length > 0){
+// ---------------- Nearby Delivery Persons for Dispatch Center ----------------
+exports.get_nearby_delivery_persons= (req, res, next) => {
+	Orders.aggregate([
+		{ $match :
+			{ 
+				"_id" : ObjectId(req.params.order_id) 
+			}
+		},
+		{ "$unwind" : "$vendorOrders"},
+		{ "$lookup" : 
+			{
+				"from"			: "entitymasters",
+				"as"			: "vendorDetails",
+				"localField"	: "vendorOrders.vendor_id",
+				"foreignField"	: "_id"
+			}
+		},
+		{ "$unwind" : "$vendorDetails" },
+		{ $match :
+			{ 
+				"vendorOrders.vendor_id" : ObjectId(req.params.vendor_id)  
+			}
+		},
+		{ "$project" : 
+			{
+				"_id"								: 1,
+				"orderID"							: 1,
+				"user_ID"							: 1,
+				"userName"							: 1,
+				"vendorOrders.vendor_id"			: 1,
+				"vendorOrders.vendorLocation_id"	: 1,
+				"vendorOrders.orderStatus"			: 1,
+				"deliveryAddress"					: 1,
+				"vendorDetails.companyName"			: 1,
+				"vendorDetails.companyLogo"			: 1,
+				"vendorDetails.locations"			: 1,
+				"vendorDetails.createdAt"			: 1,
+			}
+		}	
+	])
+	.then(async(data) => {
+		// console.log("data => ",data);
+		var distanceLimit = await getDistanceLimit();	
+		// console.log("distanceLimit => ",distanceLimit)
+		if(data && data.length > 0){
 
-				if(data[0].vendorDetails.locations && data[0].vendorDetails.locations.length > 0){
-					
-					var vendorLocation = data[0].vendorDetails.locations.filter(location => String(location._id) === String(data[0].vendorOrders.vendorLocation_id));
-					if(vendorLocation && vendorLocation.length > 0){
-						var vendorLat           = vendorLocation[0].latitude;
-						var vendorLong          = vendorLocation[0].longitude;
-						var custLat            	= data[0].deliveryAddress.latitude;
-						var custLng            	= data[0].deliveryAddress.longitude;
+			if(data[0].vendorDetails.locations && data[0].vendorDetails.locations.length > 0){
+				
+				var vendorLocation = data[0].vendorDetails.locations.filter(location => String(location._id) === String(data[0].vendorOrders.vendorLocation_id));
+				if(vendorLocation && vendorLocation.length > 0){
+					var vendorLat           = vendorLocation[0].latitude;
+					var vendorLong          = vendorLocation[0].longitude;
+					var custLat            	= data[0].deliveryAddress.latitude;
+					var custLng            	= data[0].deliveryAddress.longitude;
 
-						var DeliveryPersons		= await DriverTracking.aggregate([	
-							{ "$lookup" : 
-								{
-									"from"			: "users",
-									"as"			: "userDetails",
-									"localField"	: "user_id",
-									"foreignField"	: "_id"
-								}
-							},			
-							{$match : 
-								{
-									currentDateStr 	: moment().format("YYYY-MM-DD"),
-									// currentDateStr 	: moment("2021-07-11 06:48:05.540Z").format("YYYY-MM-DD"),
-									status 			: "online"
-								}
-							},
-							{$project : 
-								{	
-									userDetails : 1,
-									lat 		: {$arrayElemAt : ["$currentLocations.lat",-1]},
-									lng 		: {$arrayElemAt : ["$currentLocations.lat",-1]}
-								}
+					var DeliveryPersons		= await DriverTracking.aggregate([	
+						{ "$lookup" : 
+							{
+								"from"			: "users",
+								"as"			: "userDetails",
+								"localField"	: "user_id",
+								"foreignField"	: "_id"
 							}
-						])
+						},			
+						{$match : 
+							{
+								currentDateStr 	: moment().format("YYYY-MM-DD"),
+								// currentDateStr 	: moment("2021-07-11 06:48:05.540Z").format("YYYY-MM-DD"),
+								status 			: "online"
+							}
+						},
+						{$project : 
+							{	
+								userDetails : 1,
+								lat 		: {$arrayElemAt : ["$currentLocations.lat",-1]},
+								lng 		: {$arrayElemAt : ["$currentLocations.lat",-1]}
+							}
+						}
+					])
 
-						//console.log("DeliveryPersons => ",DeliveryPersons)
-						if(vendorLat !== "" && vendorLat !== undefined && vendorLat !== "" && vendorLat !== undefined){
-							
-							if(DeliveryPersons && DeliveryPersons.length > 0){
-							
-								for(var i = 0; i < DeliveryPersons.length; i++){
-									var latitude 	= DeliveryPersons[0].lat;
-									var longitude	= DeliveryPersons[0].lng;	
-											
-									var vendorToDeliveryPersonDist  = await calcUserVendorDist(vendorLat,vendorLong, latitude, longitude);
-									// var vendorToCustDist 			= await calcUserVendorDist(vendorLat,vendorLong, custLat, custLng);
-									// console.log("vendorToDeliveryPersonDist => ", vendorToDeliveryPersonDist)
-									DeliveryPersons[i].vendorToDeliveryPersonDist 		= vendorToDeliveryPersonDist ? vendorToDeliveryPersonDist.toFixed(2) : 0;									
-									
-								}//for end
-								if(i >= DeliveryPersons.length){									
-									if(distanceLimit){
-										// console.log("DeliveryPersons => ",DeliveryPersons)
-										if(DeliveryPersons && DeliveryPersons.length > 1){
-											var FinalDeliveryPersonsList = DeliveryPersons.filter(DeliveryPerson => DeliveryPersons.vendorToDeliveryPersonDist <= distanceLimit).sort(function (a, b) {
-												return (a.vendorToDeliveryPersonDist - b.vendorToDeliveryPersonDist);
-											});
-										}else{
-											var FinalDeliveryPersonsList = DeliveryPersons;
-										}
-										// console.log("FinalDeliveryPersonsList 1 =>",FinalDeliveryPersonsList)
-									}else{   
-										if(DeliveryPersons && DeliveryPersons.length > 1){                                         
-											var FinalDeliveryPersonsList = DeliveryPersons.filter(DeliveryPerson => DeliveryPersons.vendorToDeliveryPersonDist <= distanceLimit).sort(function (a, b) {
-												return (a.vendorToDeliveryPersonDist - b.vendorToDeliveryPersonDist);
-											});
-										}else{
-											var FinalDeliveryPersonsList = DeliveryPersons;
-										}	
-										// console.log("FinalDeliveryPersonsList 2 =>",FinalDeliveryPersonsList)
-									}					
-									res.status(200).json(FinalDeliveryPersonsList);
-								}
-							}else{
-								res.status(200).json({
-									message : "No Delivery Persons found within "+ distanceLimit + " Km Range"
-								});
+					//console.log("DeliveryPersons => ",DeliveryPersons)
+					if(vendorLat !== "" && vendorLat !== undefined && vendorLat !== "" && vendorLat !== undefined){
+						
+						if(DeliveryPersons && DeliveryPersons.length > 0){
+						
+							for(var i = 0; i < DeliveryPersons.length; i++){
+								var latitude 	= DeliveryPersons[0].lat;
+								var longitude	= DeliveryPersons[0].lng;	
+										
+								var vendorToDeliveryPersonDist  = await calcUserVendorDist(vendorLat,vendorLong, latitude, longitude);
+								// var vendorToCustDist 			= await calcUserVendorDist(vendorLat,vendorLong, custLat, custLng);
+								// console.log("vendorToDeliveryPersonDist => ", vendorToDeliveryPersonDist)
+								DeliveryPersons[i].vendorToDeliveryPersonDist 		= vendorToDeliveryPersonDist ? vendorToDeliveryPersonDist.toFixed(2) : 0;									
+								
+							}//for end
+							if(i >= DeliveryPersons.length){									
+								if(distanceLimit){
+									// console.log("DeliveryPersons => ",DeliveryPersons)
+									if(DeliveryPersons && DeliveryPersons.length > 1){
+										var FinalDeliveryPersonsList = DeliveryPersons.filter(DeliveryPerson => DeliveryPersons.vendorToDeliveryPersonDist <= distanceLimit).sort(function (a, b) {
+											return (a.vendorToDeliveryPersonDist - b.vendorToDeliveryPersonDist);
+										});
+									}else{
+										var FinalDeliveryPersonsList = DeliveryPersons;
+									}
+									// console.log("FinalDeliveryPersonsList 1 =>",FinalDeliveryPersonsList)
+								}else{   
+									if(DeliveryPersons && DeliveryPersons.length > 1){                                         
+										var FinalDeliveryPersonsList = DeliveryPersons.filter(DeliveryPerson => DeliveryPersons.vendorToDeliveryPersonDist <= distanceLimit).sort(function (a, b) {
+											return (a.vendorToDeliveryPersonDist - b.vendorToDeliveryPersonDist);
+										});
+									}else{
+										var FinalDeliveryPersonsList = DeliveryPersons;
+									}	
+									// console.log("FinalDeliveryPersonsList 2 =>",FinalDeliveryPersonsList)
+								}					
+								res.status(200).json(FinalDeliveryPersonsList);
 							}
 						}else{
 							res.status(200).json({
-								message : "No Vendor Location Found"
+								message : "No Delivery Persons found within "+ distanceLimit + " Km Range"
 							});
 						}
 					}else{
@@ -4070,21 +4066,97 @@ exports.list_ready_to_dispatch_orders = (req, res, next) => {
 					}
 				}else{
 					res.status(200).json({
-						message : "No Vendor Locations Added"
+						message : "No Vendor Location Found"
 					});
-				}	
-				
+				}
 			}else{
-				res.status(200).json({					
-					message : "No Order Data Found"
+				res.status(200).json({
+					message : "No Vendor Locations Added"
 				});
-			}			
-		})
-		.catch(err => {
-		   console.log(err);
-		   res.status(500).json({
-			 error: err
-		   });
-		});
-	};
-	
+			}	
+			
+		}else{
+			res.status(200).json({					
+				message : "No Order Data Found"
+			});
+		}			
+	})
+	.catch(err => {
+	   console.log(err);
+	   res.status(500).json({
+		 error: err
+	   });
+	});
+};
+
+// ---------------- Revenue Reports ----------------
+exports.revenue_reports = (req, res, next) => {
+  Orders.aggregate([
+		// { $match : ""},
+		{ "$unwind" : "$vendorOrders"},
+		{ "$lookup" : 
+			{
+				"from"			: "entitymasters",
+				"as"				: "vendorDetails",
+				"localField"	: "vendorOrders.vendor_id",
+				"foreignField"	: "_id"
+			}
+		},
+		{ "$unwind" : "$vendorDetails" },
+		{ $match :
+			{ 
+				"vendorOrders.vendor_id" : ObjectId(req.params.vendor_id)  
+			}
+		},
+		{ "$project" : 
+			{
+				"_id"																: 1,
+				"orderID"														: 1,
+				"vendorOrders.orderStatus"									: 1,
+				"vendorOrders.paymentDetails.afterDiscountTotal"	: 1,
+				"vendorOrders.paymentDetails.shippingCharges"		: 1,
+				"vendorOrders.paymentDetails.netPayableAmount"		: 1,
+				"vendorOrders.orderStatus"									: 1,
+				"vendorDetails.companyName"								: 1,
+				"createdAt"														: 1,
+			}
+		}	
+	])
+	.then(async(data) => {
+		console.log("data => ",data);		
+		if(data && data.length > 0){
+			var returnData = [];
+			for (var i = 0; i < data.length; i++) {
+				returnData.push({
+					_id 						: data[i]._id,
+					orderID 					: data[i].orderID,
+					orderDate 				: data[i].createdAt,
+					vendorName 				: data[i].vendorDetails.companyName,					
+					orderAmount       	: data[i].vendorOrders.paymentDetails.afterDiscountTotal,
+					commissionPercentage : 0,
+					commissionAmount 		: 0,
+					deliveryCharges 		: data[i].vendorOrders.paymentDetails.shippingCharges,
+					totalAmount 			: data[i].vendorOrders.paymentDetails.netPayableAmount
+				})	
+			}
+			if (i >= data.length) {				
+				res.status(200).json({					
+					data 			: returnData.slice(req.body.startRange, req.body.limitRange),
+					dataCount 	: data.length
+				});
+			}
+			
+		}else{
+			res.status(200).json({					
+				data 			: data,
+				dataCount 	: 0
+			});
+		}			
+	})
+	.catch(err => {
+	   console.log(err);
+	   res.status(500).json({
+		 error: err
+	   });
+	});
+};

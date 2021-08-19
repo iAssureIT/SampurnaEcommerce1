@@ -287,8 +287,8 @@ class Login extends Component {
 											<input  type="text" className="form-control" onChange={this.handleChange} ref="loginusername" name="loginusername" placeholder="Email ID" required/>
 										</div>										
 										<div className="input-group customeInput-group">
-											<span className="input-group-addon"><i class="fa fa-lock"></i></span>
-											<input id="loginpassword" type="password" class="form-control" ref="loginpassword" name="loginpassword"  placeholder="Password" required />
+											<span className="input-group-addon"><i className="fa fa-lock"></i></span>
+											<input id="loginpassword" type="password" className="form-control" ref="loginpassword" name="loginpassword"  placeholder="Password" required />
 											<span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
 												<i className="fa fa-eye Pass showPwd" aria-hidden="true" onClick={this.showCurrentPass.bind(this)}></i>
 												<i className="fa fa-eye-slash Pass hidePwd" aria-hidden="true" onClick={this.hideCurrentPass.bind(this)}></i>

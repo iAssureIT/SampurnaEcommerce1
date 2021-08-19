@@ -30,8 +30,7 @@ class IAssureTable extends Component {
 			"activeClass" 				: 'activeCircle',
 			"paginationArray" 		: [],
 			"startRange" 				: 0,
-			"limitRange" 				: 25,		    
-			"normalData" 				: true,
+			"limitRange" 				: 25,	
 			"callPage" 					: true,
 			"pageCount" 				: 0,
 			"valI" 						: 1,
@@ -39,7 +38,8 @@ class IAssureTable extends Component {
 			productImage          	: [],
 			productImageArray     	: [],
 			productTitle          	: '',
-			productNameRlang      	: ''
+			productNameRlang      	: '',
+			searchText 					: ''
 		}
 	}
 
@@ -332,18 +332,13 @@ class IAssureTable extends Component {
 	getStartEndNum(event){	
 		event.preventDefault();
 		var limitRange = $(event.target).attr('id').split('|')[0];
-		var startRange = parseInt($(event.target).attr('id').split('|')[1]);
-		console.log("startRange ==> ",startRange)
-		console.log("limitRange ==> ",limitRange)
-		// console.log("startRange ==> ",startRange)
+		var startRange = parseInt($(event.target).attr('id').split('|')[1]);		
 		
-		this.props.getData("", startRange, this.state.limitRange);
 		this.setState({
 			startRange 	: startRange,
 			callPage 	: false
 		},()=>{
-			// console.log("setstate startRange ==> ",startRange)
-			// console.log("setstate startRange ==> ",limitRange)
+			this.props.getData(this.state.searchText, this.state.startRange, this.state.limitRange);
 		});
 
 		$('li').removeClass('activeCircle');
@@ -364,29 +359,22 @@ class IAssureTable extends Component {
 			$('li').removeClass('activeCircle');
 			this.paginationFunction();
 
-			if(this.state.normalData === true){
-				this.props.getData("", startRange, this.state.limitRange);
-			}
-
-			if(this.state.searchData === true){
-				this.tableSearch();
-			}
+			this.props.getData(this.state.searchText, this.state.startRange, this.state.limitRange);
+			
 		});	
 	}
 
 	/*===========  ===========*/
-	tableSearch(){
-    	var searchText = this.refs.tableSearch.value;
-		if(searchText && searchText.length !== 0) {
-			this.setState({
-				"normalData"  : false,
-				"searchData"  : true,
-			},()=>{
-				this.props.getData(searchText, this.state.startRange, this.state.limitRange);
-			});	    	
-	   }else{
-			this.props.getData("", this.state.startRange, this.state.limitRange);
-	   }    	 
+	tableSearch(event){
+    	var searchText = event.target.value;
+		
+		this.setState({
+			searchText  : searchText,
+		},()=>{
+			console.log("this.state.searchText => ",this.state.searchText)
+			this.props.getData(this.state.searchText, this.state.startRange, this.state.limitRange);
+		});	    	
+	     	 
    }
 
    showNextPaginationButtons(){
@@ -553,7 +541,7 @@ class IAssureTable extends Component {
 			        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
 			        		<div className="input-group">
 						        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
-						        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder="Search by Product Name, Brand, Section, Category, Item code"/>
+						        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder="Search by Customer Name, Order ID"/>
 						    	<span className="input-group-addon" ><i className="fa fa-search"></i></span>
 						    </div>
 			        	</div>	
@@ -605,12 +593,12 @@ class IAssureTable extends Component {
 	                  	?
 	                  		<tr className="trAdmin">
 	                     		<td colSpan={Object.keys(this.state.tableHeading).length+1} className="noTempData textAlignCenter">
-	                     			<div class="container">
-    											<div class="row">
-								               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center dataLoaderWrapper">
+	                     			<div className="container">
+    											<div className="row">
+								               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center dataLoaderWrapper">
 								                	<p>Loading</p>
 								                	<span>Data is Loading. Just a moment please...</span><br/>
-								                	<div class="dataLoader">
+								                	<div className="dataLoader">
 														   <span></span>
 														   <span></span>
 														   <span></span>
@@ -668,7 +656,7 @@ class IAssureTable extends Component {
 														if(found.length > 0){																
 															if(key !== 'id'){																
 																return(
-																	<td className={textAlign}>
+																	<td  key={key+"-"+i} className={textAlign}>
 																		<div className={textAlign} dangerouslySetInnerHTML={{ __html : value1}}></div>
 																	</td>
 																);																
@@ -683,15 +671,15 @@ class IAssureTable extends Component {
 														
 														if(found1.length > 0){
 															return(
-																<td className={"textAlign"}>
+																<td  key={key2+"-"+i} className={"textAlign"}>
 																	<div className={"textAlign"} dangerouslySetInnerHTML={{ __html : value2}}></div>
 																</td>
 															);
 														}
 													})}
-													<td className="textAlignCenter">
-														<span class="displayInline">
-															<a href={"/orders-list/"+(value.ordersPath).replace(/\s+/g, '-').toLowerCase()+"/view-order/"+value._id} className="" title="View" data-ID={value._id}>
+													<td  key={"view-"+i} className="textAlignCenter">
+														<span className="displayInline">
+															<a href={"/orders-list/"+(value.ordersPath).replace(/\s+/g, '-').toLowerCase()+"/view-order/"+value._id} className="" title="View" data-id={value._id}>
 																<i className="fa fa-eye" aria-hidden="true"></i>
 															</a>&nbsp; &nbsp;														
 														</span>													
@@ -705,7 +693,7 @@ class IAssureTable extends Component {
 													{value.vendors.map((vendor, j)=>{
 														if(j === 0){
 															return(
-																<tr key={i} className="">
+																<tr key={i+"-"+j} className="">
 																	{/* <td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>	 */}
 																	{Object.entries(value).map(([key, value1], i)=> {
 																		var textAlign = '';						
@@ -744,7 +732,7 @@ class IAssureTable extends Component {
 																		if(found.length > 0){																
 																			if(key !== 'id'){																
 																				return(
-																					<td className={textAlign}  rowSpan={vendorArrayLength}>
+																					<td key={key+"-"+i+"-"+j} className={textAlign}  rowSpan={vendorArrayLength}>
 																						<div className={textAlign} dangerouslySetInnerHTML={{ __html : value1}}></div>
 																					</td>
 																				);																
@@ -759,15 +747,15 @@ class IAssureTable extends Component {
 																		
 																		if(found1.length > 0){
 																			return(
-																				<td className={"textAlign"} >
+																				<td key={key2+"-"+i+"-"+j} className={"textAlign"} >
 																					<div className={"textAlign"} dangerouslySetInnerHTML={{ __html : value2}}></div>
 																				</td>
 																			);
 																		}
 																	})}
-																	<td className="textAlignCenter"  rowSpan={vendorArrayLength}>
-																		<span class="displayInline">
-																			<a href={"/orders-list/"+(value.ordersPath).replace(/\s+/g, '-').toLowerCase()+"/view-order/"+value._id} className="" title="View" data-ID={value._id}>
+																	<td  key={"view-"+i} className="textAlignCenter"  rowSpan={vendorArrayLength}>
+																		<span className="displayInline">
+																			<a href={"/orders-list/"+(value.ordersPath).replace(/\s+/g, '-').toLowerCase()+"/view-order/"+value._id} className="" title="View" data-id={value._id}>
 																				<i className="fa fa-eye" aria-hidden="true"></i>
 																			</a>&nbsp; &nbsp;														
 																		</span>													
@@ -776,7 +764,7 @@ class IAssureTable extends Component {
 															);
 														}else{													
 															return(
-																<tr key={i} className="">													
+																<tr key={i+"-"+j} className="">													
 																	{Object.entries(value.vendors[j]).map(([key2, value2], index)=> {																							
 
 																		var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
@@ -785,7 +773,7 @@ class IAssureTable extends Component {
 																		
 																		if(found1.length > 0){
 																			return(
-																				<td className={"textAlign"}>
+																				<td  key={key2+"-"+i+"-"+j} className={"textAlign"}>
 																					<div className={"textAlign"} dangerouslySetInnerHTML={{ __html : value2}}></div>
 																				</td>
 																			);
