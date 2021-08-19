@@ -4103,11 +4103,6 @@ exports.revenue_reports = (req, res, next) => {
 			}
 		},
 		{ "$unwind" : "$vendorDetails" },
-		{ $match :
-			{ 
-				"vendorOrders.vendor_id" : ObjectId(req.params.vendor_id)  
-			}
-		},
 		{ "$project" : 
 			{
 				"_id"																: 1,
