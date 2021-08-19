@@ -61,7 +61,7 @@ class UserReport extends Component {
 
 	  	this.setState({
 		 	todayDate : today,
-	  	},()=>{this.getData(this.state.startRange,this.state.limitRange)});
+	  	},()=>{this.getData(this.state.search, this.state.startRange,this.state.limitRange)});
 
 	  	var weeknumber = moment(today).week();
 	  
@@ -77,14 +77,14 @@ class UserReport extends Component {
 
 	  	this.setState({
 		 	weekdays:weekVal,
-	  	},()=>{this.getData(this.state.startRange,this.state.limitRange)});
+	  	},()=>{this.getData(this.state.search, this.state.startRange,this.state.limitRange)});
 
 	  	var yyyy 			= moment(today).format("YYYY");
 	  	var monthNum 		= moment(today).format("MM");
 	  	var currentMonth 	= yyyy+"-"+monthNum;
 	  	this.setState({
 		 	monthlyState:currentMonth,
-	  	},()=>{this.getData(this.state.startRange,this.state.limitRange)});
+	  	},()=>{this.getData(this.state.search, this.state.startRange,this.state.limitRange)});
 
 	  	// var fromDt = new Date();
 	  	// var toDt = new Date(moment(fromDt).add(1,'d'));
@@ -98,13 +98,13 @@ class UserReport extends Component {
 	  	this.setState({
 		 	fromdate : fromDt,
 		 	toDate 	: toDt
-	  	},()=>{this.getData(this.state.startRange,this.state.limitRange)})
+	  	},()=>{this.getData(this.state.search, this.state.startRange,this.state.limitRange)})
 
 	  	var currentYear = moment().format('YYYY');
 
 	  	this.setState({
 		 	currentYear : currentYear
-	  	},()=>{this.getData(this.state.startRange,this.state.limitRange)})
+	  	},()=>{this.getData(this.state.search, this.state.startRange,this.state.limitRange)})
 	  	
 	  	var entity = localStorage.getItem("company_Id")
 	  	this.setState({
@@ -120,7 +120,7 @@ class UserReport extends Component {
 		this.setState({
 			[name]: event.target.value
 		},()=>{
-		  	if(Object.keys(this.state.selector).length == 0){this.getData(this.state.startRange, this.state.limitRange)}else{this.getBookingData(this.state.selector,this.state.startRange, this.state.limitRange)}
+		  	if(Object.keys(this.state.selector).length == 0){this.getData(this.state.search, this.state.startRange, this.state.limitRange)}else{this.getBookingData(this.state.selector,this.state.startRange, this.state.limitRange)}
 		});  
 	}
 
@@ -170,7 +170,7 @@ class UserReport extends Component {
 			search 				: "",
 			reset 				: true
 	 	},()=>{
-	  		this.getData(this.state.startRange,this.state.limitRange)
+	  		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	 	})
   	}
 
@@ -194,7 +194,7 @@ class UserReport extends Component {
 	 	this.setState({
 			weekdays:newWeek,
 	 	},()=>{
-			this.getData(this.state.startRange,this.state.limitRange)		
+			this.getData(this.state.search, this.state.startRange,this.state.limitRange)		
 		});
   	}
 
@@ -222,7 +222,7 @@ class UserReport extends Component {
 	 	this.setState({
 		  	weekdays : newWeek,
 	 	},()=>{
-	  		this.getData(this.state.startRange,this.state.limitRange)
+	  		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	  	});
 	}
 
@@ -249,7 +249,7 @@ class UserReport extends Component {
 	 	this.setState({
 		  	todayDate : newDate3,
 	 	},()=>{
-			this.getData(this.state.startRange,this.state.limitRange)
+			this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	 	});
   	}
 
@@ -275,7 +275,7 @@ class UserReport extends Component {
 	 	this.setState({
 			todayDate : newDate3,
 	 	},()=>{
-			this.getData(this.state.startRange,this.state.limitRange)
+			this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 		});
   	}
 
@@ -292,7 +292,7 @@ class UserReport extends Component {
 	 	this.setState({
 		  	monthlyState : newMonth,
 	 	},()=>{
-	 		this.getData(this.state.startRange,this.state.limitRange)
+	 		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	 	});
   	}
 
@@ -309,7 +309,7 @@ class UserReport extends Component {
 	 	this.setState({
 		  	monthlyState : newMonth,
 	 	},()=>{
-			this.getData(this.state.startRange,this.state.limitRange)
+			this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 		});
   	}
 
@@ -330,7 +330,7 @@ class UserReport extends Component {
 	 	this.setState({
 		  	fromdate : Fromdate,
 	 	},()=>{
-			this.getData(this.state.startRange,this.state.limitRange)
+			this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 		});
   	}
 
@@ -355,14 +355,14 @@ class UserReport extends Component {
 	 		this.setState({
 		  		todate:Todate,
 	 		},()=>{		
-				this.getData(this.state.startRange,this.state.limitRange)
+				this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 			});
 		}else{
 	 		swal('From date should not be less than To date')
 	 		this.setState({
 				todate:this.state.fromdate
 	 		},()=>{
-	 			this.getData(this.state.startRange,this.state.limitRange)
+	 			this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	 		})
 		}
   	}
@@ -374,7 +374,7 @@ class UserReport extends Component {
 	 	var newYear 		= moment(currentYear).add(1,'years').format('YYYY');
 	 	
 	 	this.setState({currentYear: newYear},()=>{
-	 		this.getData(this.state.startRange,this.state.limitRange)
+	 		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	 	})
   	}
 
@@ -385,14 +385,14 @@ class UserReport extends Component {
 	 	var newYear 		= moment(currentYear).subtract(1,'years').format('YYYY');
 	 	
 	 	this.setState({currentYear: newYear},()=>{
-		  	this.getData(this.state.startRange,this.state.limitRange)
+		  	this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 		})
   	}
 
   	/*=========== changeTab() ===========*/
   	changeTab(value,event){
 		this.setState({currentActiveTab:value},()=>{
-		  	this.getData(this.state.startRange,this.state.limitRange)
+		  	this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 		})
   	}
 
@@ -400,14 +400,14 @@ class UserReport extends Component {
 	getFilteredProducts(){}
 
 	/*=========== getData() ===========*/
-	getData(startRange,limitRange){ 
+	getData(search, startRange, limitRange){ 
 
 		this.setState({reset:false})
 
 	  	var formValues ={
 			startDate   : "",
 			endDate     : "",
-			searchText	: this.state.search,
+			searchText	: search,
 			startRange  : startRange,
 			limitRange  : limitRange
 	  	}
