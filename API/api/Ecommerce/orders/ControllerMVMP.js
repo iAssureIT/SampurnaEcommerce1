@@ -720,7 +720,7 @@ exports.list_orders_by_status = (req, res, next) => {
 		selector["$or"].push({ "vendorOrders.vendor_id.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
 	}
 	console.log("selector",selector);
-	console.log("selector => ",selector[0])
+	// console.log("selector => ",selector[0])
 	Orders.find(selector)
 	// aggregate([
 	// 	// {$match : { 
@@ -733,7 +733,7 @@ exports.list_orders_by_status = (req, res, next) => {
 	.populate('vendorOrders.vendor_id')
 	.sort({ createdAt: -1 })
 	.then(data => {
-		// console.log("allocatedToFranchise===>>>",data);
+		console.log("data.length===>>>",data.length);
 
 		res.status(200).json({
 			dataCount 	: data.length,
