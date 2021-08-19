@@ -4091,8 +4091,28 @@ exports.get_nearby_delivery_persons= (req, res, next) => {
 
 // ---------------- Revenue Reports ----------------
 exports.revenue_reports = (req, res, next) => {
-  Orders.aggregate([
-		// { $match : ""},
+	
+	console.log("revenue_reports => ",req.body);
+	var selector        = {};
+	selector['$and']    = [];
+	
+	/**----------- Find Status wise Orders ------------ */		
+	if(req.body.startDate && req.body.endDate){       
+		selector["$and"].push({
+			createdAt: {
+				$gte : moment(req.body.startDate).startOf('day').toDate(),
+				$lte : moment(req.body.endDate).endOf('day').toDate()
+			 }
+		})
+	}
+
+	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
+	if(req.body.searchText && req.body.searchText !== ""){
+		selector["$or"].push({ "vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$or"].push({ "orderID" 						: {'$regex' : req.body.searchText , $options: "i" } });
+	}
+	
+  	Orders.aggregate([
 		{ "$unwind" : "$vendorOrders"},
 		{ "$lookup" : 
 			{
@@ -4103,6 +4123,7 @@ exports.revenue_reports = (req, res, next) => {
 			}
 		},
 		{ "$unwind" : "$vendorDetails" },
+		{ $match : selector},
 		{ "$project" : 
 			{
 				"_id"																: 1,
@@ -4124,7 +4145,7 @@ exports.revenue_reports = (req, res, next) => {
 				returnData.push({
 					_id 						: data[i]._id,
 					orderID 					: data[i].orderID,
-					orderDate 				: data[i].createdAt,
+					orderDate 				: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
 					vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
 					orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0,
 					commissionPercentage : 0,

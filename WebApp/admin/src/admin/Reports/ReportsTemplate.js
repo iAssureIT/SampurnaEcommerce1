@@ -5,7 +5,7 @@ import axios                    from 'axios';
 import swal                     from 'sweetalert';
 import moment                   from 'moment';
 import _                        from 'underscore';
-import IAssureTable           	from "../../coreadmin/IAssureTable/IAssureTable.jsx";
+import IAssureTable             from "./ReportsTable.js";
 import 'bootstrap/js/tab.js';
 
 
@@ -407,7 +407,7 @@ class UserReport extends Component {
 	  	var formValues ={
 			startDate   : "",
 			endDate     : "",
-			searchTxt	: this.state.search,
+			searchText	: this.state.search,
 			startRange  : startRange,
 			limitRange  : limitRange
 	  	}
@@ -720,11 +720,12 @@ class UserReport extends Component {
 																tableHeading 	= {this.state.tableHeading}
 																twoLevelHeader = {this.state.twoLevelHeader}
 																id 				= {this.state.tableId}
-																dataCount 		= {this.state.RecordsCount}
+																dataCount 		= {this.state.dataCount}
 																tableData 		= {this.state.RecordsTable}
 																tableObjects 	= {this.state.tableObjects}
 																tableName 		= {this.state.reportTitle}
 																getData 			= {this.getData.bind(this)}
+
 															/>
 													</div>
 												</div>
