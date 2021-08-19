@@ -16,9 +16,9 @@ import Animated, {
 } from 'react-native-reanimated/src/Animated';
 import {useState} from 'react';
 
-const BUTTON_WIDTH = 350;
-const BUTTON_HEIGHT = 100;
-const BUTTON_PADDING = 10;
+const BUTTON_WIDTH = 280;
+const BUTTON_HEIGHT = 60;
+const BUTTON_PADDING = 0;
 const SWIPEABLE_DIMENSIONS = BUTTON_HEIGHT - 2 * BUTTON_PADDING;
 
 const H_WAVE_RANGE = SWIPEABLE_DIMENSIONS + 2 * BUTTON_PADDING;
@@ -84,7 +84,7 @@ const SwipeButton = ({onToggle}) => {
         backgroundColor: interpolateColor(
           X.value,
           [0, BUTTON_WIDTH - SWIPEABLE_DIMENSIONS - BUTTON_PADDING],
-          ['#06d6a0', '#fff'],
+          ['#fff', '#fff'],
         ),
         transform: [{translateX: X.value}],
       };
@@ -120,10 +120,12 @@ const SwipeButton = ({onToggle}) => {
         end={{x: 1, y: 0.5}}
       />
       <PanGestureHandler onGestureEvent={animatedGestureHandler}>
-        <Animated.View style={[styles.swipeable, AnimatedStyles.swipeable]} />
+        <Animated.View style={[styles.swipeable, AnimatedStyles.swipeable]} >
+          <Animated.Text style={styles.swipeabletext}>SOS</Animated.Text>
+          </Animated.View>
       </PanGestureHandler>
       <Animated.Text style={[styles.swipeText, AnimatedStyles.swipeText]}>
-        Swipe Me
+        Slide for Emergency
       </Animated.Text>
     </Animated.View>
   );
@@ -133,7 +135,7 @@ const styles = StyleSheet.create({
   swipeCont: {
     height: BUTTON_HEIGHT,
     width: BUTTON_WIDTH,
-    backgroundColor: '#fff',
+    backgroundColor: '#98151C',
     borderRadius: BUTTON_HEIGHT,
     padding: BUTTON_PADDING,
     display: 'flex',
@@ -154,14 +156,22 @@ const styles = StyleSheet.create({
     width: SWIPEABLE_DIMENSIONS,
     borderRadius: SWIPEABLE_DIMENSIONS,
     zIndex: 3,
+    justifyContent:'center',
+    alignItems:'center'
   },
   swipeText: {
     alignSelf: 'center',
     fontSize: 20,
     fontWeight: 'bold',
     zIndex: 2,
-    color: '#1b9aaa',
+    color: '#E33941',
+    paddingLeft:30
   },
+  swipeabletext:{
+    color: "#033554",
+    fontFamily:"Montserrat-Bold",
+    fontSize:16
+  }
 });
 
 export default SwipeButton;

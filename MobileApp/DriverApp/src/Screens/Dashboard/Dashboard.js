@@ -20,8 +20,10 @@ import { getPreferences } 		      from '../../redux/storeSettings/actions';
 import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {Footer}                     from '../../ScreenComponents/Footer/Footer.js';
-// import SwipeButton                 from '../../ScreenComponents/SwipeButton/SwipeButton';
-
+import SwipeButton                 from '../../ScreenComponents/SwipeButton/SwipeButton';
+import Modal                from "react-native-modal";
+import { Alert } from 'react-native';
+import CodePush from 'react-native-code-push';
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 const Dashboard = withCustomerToaster((props)=>{
@@ -31,8 +33,32 @@ const Dashboard = withCustomerToaster((props)=>{
   const [isOpen,setOpen]      = useState(false);
   const [blocks,setBlocks]    = useState([]);
   const [loading,setLoading]  = useState(true);
+  const [modal,setModal] = useState(false)
   const isActive              = true;
-  // const handleToggle = (value) => setToggleState(value);
+  const [time,setTime] = useState(5);
+  var i = 0;
+  
+  const handleToggle = (value) => {
+    setModal(value);
+    interval(time);
+    // return () => clearInterval(interval);
+  }
+
+  const interval =(time)=>{
+    // console.log("time",time)
+    i =setInterval(() => {
+      if(time === 0){
+        clearInterval(i);
+        setModal(false);
+        setTime(5);
+      }else{
+        clearInterval(i);
+        interval(time-1);
+        setTime(time-1);
+      }
+    }, 1000);
+  }
+
   const limit                 = 6;
     useEffect(() => {
         dispatch(getPreferences());
@@ -64,16 +90,19 @@ const Dashboard = withCustomerToaster((props)=>{
     })
   }
 
+  const closeSOS = ()=>{
+    // CodePush.restartApp()
+    navigation.push('App');
+  }
 
   return (
     <React.Fragment>
         <View style={styles.superparent}>
-            <View>
-              
+            <View style={{marginTop:30,alignItems:'center'}}>
+              <SwipeButton onToggle={handleToggle}/>
             </View>
             <View style={{flex:1,marginBottom:65,justifyContent:'center'}}>
                 <View style={{marginTop:5}}>   
-                {/* <SwipeButton onToggle={handleToggle} /> */}
                     <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('NewOrders')}>
                         <View style={styles.iconBox}>
                           <Image
@@ -119,6 +148,25 @@ const Dashboard = withCustomerToaster((props)=>{
                 </View>   
             </View>
         </View>
+        <Modal isVisible={modal}
+          coverScreen={false}
+          backdropColor="white"
+          hideModalContentWhileAnimating={true}
+          style={{ zIndex: 999}}
+          animationOutTiming={500}>
+              <View style={{justifyContent:"center",alignItems:"center"}}>
+                <View style={{height:250,width:250,borderRadius:250,borderWidth:2,borderColor:"#E81D27",backgroundColor:"#fff",justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{fontSize:140,fontFamily:"Montserrat-SemiBold",color:"#033554"}}>{time}</Text>
+                </View> 
+                <View style={{alignItems:'center',marginTop:30}}> 
+                  <Text style={{color: "#E81D27",fontSize:20,fontFamily:"Montserrat-Bold"}}>Alert Will Be Sent After The</Text>
+                  <Text style={{color: "#E81D27",fontSize:20,fontFamily:"Montserrat-Bold"}}>Countdown</Text>
+              </View>
+              <TouchableOpacity style={styles1.closeButton} onPress={()=>closeSOS()}>
+                  <Icon name="close" type="font-awesome" size={30} color="#fff" />
+              </TouchableOpacity> 
+             </View> 
+        </Modal>
     </React.Fragment>
   );  
 })
@@ -150,6 +198,9 @@ const styles1 = StyleSheet.create({
   iconStyle:{
       color:'#033554',
       // width               :50
+  },
+  closeButton:{
+    height:64,width:64,borderRadius:100,backgroundColor:"#033554",marginTop:30,justifyContent:'center',alignItems:'center'
   }
 });
 
