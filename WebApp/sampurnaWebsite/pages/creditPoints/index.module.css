@@ -8,6 +8,9 @@
 
 
 }
+.minusCreditPoint{
+    color: #f00 !important;
+}
 
 .accountMainWrapper {
     /* border: solid 1px #033554; */

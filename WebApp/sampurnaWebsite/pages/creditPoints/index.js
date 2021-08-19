@@ -93,10 +93,10 @@ class CreditPoints extends Component{
                                         <div className="col-4 px-lg-5 text-lg-left text-center">
                                             
                                             <div className={" "+Style.CreditCurrentBalTitle1}><b>{data.typeOfTransaction}</b></div>
-                                            <div className={" "+Style.CreditCurrentBalTitle2}>[Order ID - {data.orderID}]</div>
-                                            <div className={" "+Style.CreditCurrentBalTitle2}>[Expiry Date]  [{moment(data.expiryDate).format('MM/DD/YYYY')}]</div>
+                                            <div className={" "+Style.CreditCurrentBalTitle2}>Order ID - {data.orderID}</div>
+                                            <div className={" "+Style.CreditCurrentBalTitle2}>Expiry Date  {moment(data.expiryDate).format('MM/DD/YYYY')}</div>
                                         </div>
-                                        <div className={"col-4 my-auto px-lg-5 text-lg-right text-center "+Style.CreditEarnedBalTitle1}>{parseInt(data.earnedPoints) < 0 ? data.earnedPoints : <span>+{data.earnedPoints}</span> }</div>
+                                        <div className={"col-4 my-auto px-lg-5 text-lg-right text-center "+Style.CreditEarnedBalTitle1}>{parseInt(data.earnedPoints) < 0 ? <span className={Style.minusCreditPoint}>{data.earnedPoints} </span> : <span>+{data.earnedPoints}</span> }</div>
                                         {/* <div className={"col-4 my-auto px-lg-5 text-lg-right text-center "+Style.CreditEarnedBalTitle1}>{parseInt(data.earnedPoints) > 0 ? data.earnedPoints : <span>-{data.earnedPoints}</span> }</div> */}
                                     </div>
                                     </div> 

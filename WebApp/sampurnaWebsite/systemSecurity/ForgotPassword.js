@@ -66,10 +66,7 @@ class ForgotPassword extends Component{
                         swal(forgotPassResponse.data.message);
                         this.props.updateFormValue("confirmOtp");
                         localStorage.setItem('userDetails', JSON.stringify(userDetails));
-                        // if(forgotPassResponse.data.message === "OTP sent on registered mobile number"){
-                        //     this.props.updateFormValue("confirmOtp");
-                        //     localStorage.setItem('userDetails', JSON.stringify(userDetails));	
-                        // }
+                        
                     }                  
                 })
                 .catch((error) => {

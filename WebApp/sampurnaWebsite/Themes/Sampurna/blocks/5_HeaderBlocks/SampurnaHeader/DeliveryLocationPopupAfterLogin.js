@@ -14,7 +14,7 @@ import AddressList       from './AddressList.js';
 import Geocode           from "react-geocode"; 
 import Websitelogo            from './Websitelogo.js';
 
-import {setDeliveryLocation,setSampurnaWebsiteDetails }    from '../../../../../redux/actions/index.js'; 
+import {setDeliveryLocation,setSampurnaWebsiteDetails,updateCartCount }    from '../../../../../redux/actions/index.js'; 
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 
 import Style             from './location.module.css';
@@ -104,12 +104,12 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                 Geocode.setApiKey(that.state.googleapiKey);
                 Geocode.setLanguage('en');
                 Geocode.setLocationType("ROOFTOP");
-                Geocode.enableDebug();     
+                Geocode.enableDebug();  
                 navigator.geolocation.getCurrentPosition(function(position) {
                     Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
                     .then((response) => {
                             const address = response.results[0].formatted_address;
-                           var latLongDetails = {
+                        var latLongDetails = {
                                 lat: position.coords.latitude,
                                 lng: position.coords.longitude
                             }
@@ -145,7 +145,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                 }
                             }
                             var deliveryLocation = {
-                                "address"        : response.results[0].formatted_address,
+                                "address"        : country === "United Arab Emirates" ? response.results[0].formatted_address : that.state.address,
                                 "city"           : city,
                                 "area"           : area,
                                 "district"       : response.results[0].district,
@@ -156,8 +156,9 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                             }
 
                             if(deliveryLocation){
+                                // console.log("country==",country,that.state.address);
                                 that.setState({
-                                    "address"        : response.results[0].formatted_address,
+                                    "address"        : country === "United Arab Emirates" ? response.results[0].formatted_address : that.state.address,
                                     "city"           : city,
                                     "area"           : area,
                                     "district"       : response.results[0].district,
@@ -180,15 +181,101 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                 }
 
                             }
-                            that.setState({ address: deliveryLocation.address });                              
+                            // that.setState({ address: deliveryLocation.address });                              
                         },
                         (error) => {
                             console.error(error);
                         }
                     );
                 });
+               
     }
+    setLocation(){
+        var that=this;
+        navigator.geolocation.getCurrentPosition(function(position) {
+            Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
+            .then((response) => {
+                    const address = response.results[0].formatted_address;
+                var latLongDetails = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    }
+                    if(latLongDetails){
+                        that.setState({
+                            latLong   : latLongDetails,
+                            detectCurrentLocation : true
+                        })
+                    }
+                    var details = response.results[0];
+                    for (var i = 0; i < details.address_components.length; i++) {
+                        for (var b = 0; b < details.address_components[i].types.length; b++) {
+                            switch (details.address_components[i].types[b]) {
+                            case 'sublocality_level_2':
+                                var detailAddress = details.address_components[i].long_name;
+                                break;
+                            case 'sublocality_level_1':
+                                var area = details.address_components[i].long_name;
+                                break;
+                            case 'locality':
+                                var city = details.address_components[i].long_name;
+                                break;
+                            case 'administrative_area_level_1':
+                                var state = details.address_components[i].long_name;
+                                break;
+                            case 'country':
+                                var country = details.address_components[i].long_name;
+                                break;
+                            case 'postal_code':
+                                var pincode = details.address_components[i].long_name;
+                                break;
+                            }
+                        }
+                    }
+                    var deliveryLocation = {
+                        "address"        : country === "United Arab Emirates" ? response.results[0].formatted_address : that.state.address,
+                        "city"           : city,
+                        "area"           : area,
+                        "district"       : response.results[0].district,
+                        "pincode"        : pincode,
+                        "country"        : country,
+                        "latitude"       : position.coords.latitude,
+                        "longitude"      : position.coords.longitude,
+                    }
 
+                    if(deliveryLocation){
+                        // console.log("country==",country,that.state.address);
+                        that.setState({
+                            "address"        : country === "United Arab Emirates" ? response.results[0].formatted_address : that.state.address,
+                            "city"           : city,
+                            "area"           : area,
+                            "district"       : response.results[0].district,
+                            "pincode"        : pincode,
+                            "country"        : country,
+                            "latitude"       : position.coords.latitude,
+                            "longitude"      : position.coords.longitude,
+                        });
+                        if(deliveryLocation.country === "United Arab Emirates"){
+                            if(that.props.sampurnaWebsiteDetails){
+                                var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
+                                sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                            }else{
+                                var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                            }
+                            localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
+                            store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                        }else{
+                            swal("Sorry!! Delivery is not possible out of UAE");
+                        }
+
+                    }
+                    // that.setState({ address: deliveryLocation.address });                              
+                },
+                (error) => {
+                    console.error(error);
+                }
+            );
+        });
+    }
     saveLocation(event) {
         event.preventDefault();
         if(this.state.address){
@@ -236,7 +323,9 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
         geocodeByAddress(address)
             .then((results) => {
                 if (results) {
-                    // console.log("result ===",results);
+                    this.setState({
+                        latLong : {}
+                    })
                     for (var i = 0; i < results[0].address_components.length; i++) {
                         for (var b = 0; b < results[0].address_components[i].types.length; b++) {
                             switch (results[0].address_components[i].types[b]) {
@@ -395,7 +484,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                 </div>
             </form>
             {
-                this.state.latLong
+                this.state.latLong.lat && this.state.latLong.lng
                 ?
                     <GoogleMap
                         googleapiKey    = {this.state.googleapiKey}
@@ -413,10 +502,12 @@ const mapStateToProps = state => (
     {
         sampurnaWebsiteDetails : state.data.sampurnaWebsiteDetails,
         getLatlong             : state.data.getLatlong,
+        cartCount              : state.data.cartCount,
     });
   
     const mapDispatchToProps = {    
-        setSampurnaWebsiteDetails : setSampurnaWebsiteDetails,    
+        setSampurnaWebsiteDetails : setSampurnaWebsiteDetails, 
+        updateCartCount  : updateCartCount,   
     };
   
 export default connect(mapStateToProps, mapDispatchToProps)(DeliveryLocationPopupAfterLogin);

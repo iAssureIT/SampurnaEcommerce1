@@ -16,16 +16,27 @@ class VendorList extends Component {
       }
       
       componentDidMount() {
-        $(window).scroll(function() {
-            if ($(this).scrollTop()>670)
-             {
-                $('.myDiv').hide(1000);
-             }
-            else
-             {
-              $('.myDiv').show(1000);
-             }
+        // $(window).scroll(function() {
+        //     if ($(this).scrollTop()>670)
+        //      {
+        //         $('.myDiv').hide(1000);
+        //      }
+        //     else
+        //      {
+        //       $('.myDiv').show(1000);
+        //      }
+        //  });
+
+         $(window).scroll(function() {
+            if ($(this).scrollTop()>148){
+                $(".deliveryTimeStrip").css({"position": "fixed",
+                "top": 0});
+            }else{
+                $(".deliveryTimeStrip").css({"position": "relative",
+                "top": 0});
+            }
          });
+        
        var url = window.location.href.split('/');
         const sectionurl = url[4];
         if(sectionurl){
@@ -77,7 +88,7 @@ class VendorList extends Component {
                 <Header /> 
                 <div className={"container-flex " +Style.bgHeight}></div>
                 <div className={"col-12 NoPadding "+Style.vendorList}>
-                <div  className={"col-12 myDiv h-100 bg-success "+Style.deliveryTimeWrapper}>
+                <div  className={"col-12 myDiv h-100 bg-success deliveryTimeStrip "+Style.deliveryTimeWrapper}>
                     <div className="col-12 text-center  "><p className={"col-12 "+Style.deliveryTimeWrapperDesc}>Delivery time <span className={" "+Style.deliveryTimeWrapperDesc1}>9</span>am to <span className={" "+Style.deliveryTimeWrapperDesc2}>11</span>pm or next day delivery</p></div>
                 </div>
                     {!this.state.loading
@@ -111,10 +122,10 @@ class VendorList extends Component {
                                                                 </div>   
                                                                 <div className={"col-8 offset-1 pull-right  "}>
                                                                     <div className={"col-12 NoPadding " +Style.vendorName}>{vendordata.vendorName}</div>
-                                                                    <div className={"col-12 text-right NoPadding " +Style.deliveryTime}>
+                                                                    {/* <div className={"col-12 text-right NoPadding " +Style.deliveryTime}>
                                                                         <span className={Style.delTime}>60 &nbsp;min</span>
                                                                         <img src="/images/eCommerce/time.png" className={"img "+Style.timeImg}></img>
-                                                                    </div>
+                                                                    </div> */}
                                                                 </div>
                                                             </div> 
                                                         </ Link >

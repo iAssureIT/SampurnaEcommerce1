@@ -13,9 +13,7 @@ import store             from '../../../../../redux/store.js';
 import AddressList       from './AddressList.js';
 import Geocode           from "react-geocode"; 
 import Websitelogo       from './Websitelogo.js';
-
-
-import {setDeliveryLocation,setSampurnaWebsiteDetails }    from '../../../../../redux/actions/index.js'; 
+import {setDeliveryLocation,setSampurnaWebsiteDetails,updateCartCount }    from '../../../../../redux/actions/index.js'; 
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 
 
@@ -32,7 +30,8 @@ class DeliveryLocationPopup extends React.Component{
             detectCurrentLocation   : false,
             userAddress             : [],
             country                 : "",
-            searchLocationError     : ""
+            searchLocationError     : "",
+            latLong                 : {},
 		};
     }
 
@@ -109,7 +108,7 @@ class DeliveryLocationPopup extends React.Component{
         Geocode.setApiKey(that.state.googleapiKey);
         Geocode.setLanguage('en');
         Geocode.setLocationType("ROOFTOP");
-        Geocode.enableDebug();     
+        Geocode.enableDebug();  
         navigator.geolocation.getCurrentPosition(function(position){
             Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
                     .then((response) => {
@@ -149,18 +148,8 @@ class DeliveryLocationPopup extends React.Component{
                                 }
                             }
                         }
-                        // that.setState({
-                        //     "address"   : response.results[0].formatted_address,
-                        //     "city"      : city,
-                        //     "area"      : area,
-                        //     "district"  : response.results[0].district,
-                        //     "pincode"   : pincode,
-                        //     "country"   : country,
-                        //     "latitude"  : position.coords.latitude,
-                        //     "longitude" : position.coords.longitude,
-                        // });
                         var deliveryLocation = {
-                            "address"   : response.results[0].formatted_address,
+                            "address"   : country === "United Arab Emirates" ? response.results[0].formatted_address : that.state.address,
                             "city"      : city,
                             "area"      : area,
                             "district"  : response.results[0].district,
@@ -171,7 +160,7 @@ class DeliveryLocationPopup extends React.Component{
                         }
                         if(deliveryLocation){
                             that.setState({
-                                "address"    : response.results[0].formatted_address,
+                                "address"    : country === "United Arab Emirates" ? response.results[0].formatted_address : that.state.address,
                                 "city"       : city,
                                 "area"       : area,
                                 "district"   : response.results[0].district,
@@ -193,7 +182,7 @@ class DeliveryLocationPopup extends React.Component{
                                 swal("Sorry!! Delivery is not possible out of UAE");
                             }
                         }
-                            that.setState({ address: deliveryLocation.address });                              
+                            // that.setState({ address: deliveryLocation.address });                              
                     },
                     (error) => {
                         console.error(error);
@@ -247,6 +236,9 @@ class DeliveryLocationPopup extends React.Component{
         geocodeByAddress(address)
         .then((results) => {
             if(results){
+                this.setState({
+                    latLong : {}
+                })
                 for(var i = 0; i < results[0].address_components.length; i++){
                     for(var b = 0; b < results[0].address_components[i].types.length; b++){
                         switch(results[0].address_components[i].types[b]){
@@ -405,7 +397,7 @@ class DeliveryLocationPopup extends React.Component{
                     </div>
                 </form>
                 {
-                    this.state.latLong
+                    this.state.latLong.lat && this.state.latLong.lng
                     ?
                         <GoogleMap
                             googleapiKey    = {this.state.googleapiKey}
@@ -422,10 +414,13 @@ class DeliveryLocationPopup extends React.Component{
 const mapStateToProps = state => (
 {
     sampurnaWebsiteDetails : state.data.sampurnaWebsiteDetails,
-    getLatlong             : state.data.getLatlong,
+    // getLatlong             : state.data.getLatlong,
+    cartCount              : state.data.cartCount,
+
 });
   
-const mapDispatchToProps = {    
+const mapDispatchToProps = {  
+    updateCartCount  : updateCartCount,  
     setSampurnaWebsiteDetails : setSampurnaWebsiteDetails,    
 };
   

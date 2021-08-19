@@ -154,7 +154,7 @@ class ShoppingVerticals extends Component {
                   deviceType={this.props.deviceType}  
                   containerClass="carousel-container">
                     {this.state.itemList.map((data, index) => {  
-                      console.log(" itemList data=>",data);
+                      // console.log(" itemList data=>",data);
                       { if(this.state.groupSettings.showOnlySection){
                           url = "/vendor-list/"+data.itemUrl;
                         }else if(this.state.groupSettings.showOnlyCategory){

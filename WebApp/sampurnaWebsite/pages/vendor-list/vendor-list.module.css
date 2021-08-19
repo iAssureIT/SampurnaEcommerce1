@@ -198,9 +198,8 @@
     }
     .vendorList{
         position: absolute;
-        top: 185px;
+        top: 158px; 
     }
-    
     .deliveryTime{
         margin-top: -30px !important;
     }

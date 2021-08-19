@@ -313,13 +313,13 @@ getProductList(productApiUrl,formValues){
     .then((response)=>{
       if(response.data){     
       if(this.state.brandWiseFilter){
-        console.log("brand Product data===",response.data);
-        console.log("brandwise filter=",this.state.brandWiseFilter);
+        // console.log("brand Product data===",response.data);
+        // console.log("brandwise filter=",this.state.brandWiseFilter);
         this.setState({
           newProducts    : response.data,                         
         })
       }else{
-        console.log("Product data===",response.data);
+        // console.log("Product data===",response.data);
       this.setState({
         newProducts    : this.state.newProducts.concat(response.data),                         
       },()=>{
@@ -489,8 +489,8 @@ submitCart(event) {
 			let field = 'discountedPrice';
       sortBy = 'PH';
 		} 
-    // console.log("formValues===",formValues);
-    // console.log("formValues===",formValues);
+    console.log("formValues===",formValues);
+
     var formValues = {
       "vendor_ID"      : "",
       "sectionUrl"     : this.state.sectionUrl,
@@ -506,11 +506,13 @@ submitCart(event) {
 
     if(this.state.productApiUrl && formValues){
       // console.log("formValues===",formValues);
-      // console.log("getProductLIst formvalues===",this.state.productApiUrl,formValues);
+      console.log("getProductLIst formvalues===",this.state.productApiUrl,formValues);
       this.getProductList(this.state.productApiUrl,formValues);
       $("html, body").animate({ scrollTop: 200 }, 500);
     }//end productApiUrl
+    
   };
+
   getBrandWiseData(event){
     console.log("brand value ==",event.target.value);
     var brandArray = this.state.brandArray;
