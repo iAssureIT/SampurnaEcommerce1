@@ -4125,12 +4125,12 @@ exports.revenue_reports = (req, res, next) => {
 					_id 						: data[i]._id,
 					orderID 					: data[i].orderID,
 					orderDate 				: data[i].createdAt,
-					vendorName 				: data[i].vendorDetails.companyName,					
-					orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal,
+					vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
+					orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0,
 					commissionPercentage : 0,
 					commissionAmount 		: 0,
-					deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount,
-					totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount
+					deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0,
+					totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
 				})	
 			}
 			if (i >= data.length) {				
