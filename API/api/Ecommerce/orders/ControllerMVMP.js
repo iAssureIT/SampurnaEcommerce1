@@ -4108,7 +4108,7 @@ exports.revenue_reports = (req, res, next) => {
 
 	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
 	if(req.body.searchText && req.body.searchText !== ""){
-		selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
 		selector["$or"].push({ "orderID" 						: {'$regex' : req.body.searchText , $options: "i" } });
 	}
 	
