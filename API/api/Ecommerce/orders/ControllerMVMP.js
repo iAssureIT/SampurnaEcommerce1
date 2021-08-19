@@ -692,7 +692,7 @@ function getDistanceWiseShippinCharges(){
 
 /*========== List Status Wise Orders ==========*/
 exports.list_orders_by_status = (req, res, next) => {
-	// console.log("list_orders_by_status => ",req.body);
+	console.log("list_orders_by_status => ",req.body);
 	var selector        = {};
 	selector['$and']    = [];
 	
@@ -719,8 +719,8 @@ exports.list_orders_by_status = (req, res, next) => {
 		selector["$or"].push({ "deliveryAddress.name" 					: {'$regex' : req.body.searchText , $options: "i" } })
 		selector["$or"].push({ "vendorOrders.vendor_id.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
 	}
-	// console.log("selector",selector);
-	// console.log("selector => ",selector[0].vendorOrders)
+	console.log("selector",selector);
+	console.log("selector => ",selector[0])
 	Orders.find(selector)
 	// aggregate([
 	// 	// {$match : { 
@@ -735,12 +735,12 @@ exports.list_orders_by_status = (req, res, next) => {
 	.then(data => {
 		// console.log("allocatedToFranchise===>>>",data);
 
-		// res.status(200).json({
-		// 	dataCount 	: data.length,
-		// 	data 			: data.length > 0 ? data.slice(req.body.startRange, req.body.limitRange) : data
-		// });
+		res.status(200).json({
+			dataCount 	: data.length,
+			data 			: data.length > 0 ? data.slice(req.body.startRange, req.body.limitRange) : data
+		});
 
-		res.status(200).json(data);
+		// res.status(200).json(data);
 	})
 	.catch(err => {
 		console.log("Error while finding order => ",error);

@@ -108,7 +108,7 @@ class Header extends Component {
 
 		axios.get("/api/entitymaster/get/appCompany")
 		.then((response) => {
-			console.log("/api/entitymaster/get/appCompany response.data = ", response.data);
+			// console.log("/api/entitymaster/get/appCompany response.data = ", response.data);
 			if (response.data.length > 0) {				
 				this.setState({
 					entityList 	: response.data,
@@ -139,16 +139,16 @@ class Header extends Component {
 		})
 
 		//======= Notification Unread Count ==========
-		console.log('notifications/get /list userdetail id ==>', userDetails)
+		// console.log('notifications/get /list userdetail id ==>', userDetails)
 		axios.get('/api/notifications/get/list/Unread/' + userDetails.user_id)
 		.then(notifications => {
-			console.log('notifications', notifications)
+			// console.log('notifications', notifications)
 			this.setState({
 				inAppNotifications 		: notifications.data,
 				inAppNotificationsCount : notifications.data.length
 			},()=>{
-				console.log("inAppNotifications => ",this.state.inAppNotifications)
-				console.log("inAppNotificationsCount => ",this.state.inAppNotificationsCount)
+				// console.log("inAppNotifications => ",this.state.inAppNotifications)
+				// console.log("inAppNotificationsCount => ",this.state.inAppNotificationsCount)
 			});
 		})
 		.catch(error => {
@@ -162,7 +162,7 @@ class Header extends Component {
 	getCompanyData(entityID) {
 		axios.get("/api/entitymaster/get/one/" + entityID)
 		.then((response) => {
-			console.log(" /api/entitymaster/get/one/ response.data = ", response.data);
+			// console.log(" /api/entitymaster/get/one/ response.data = ", response.data);
 			this.setState({
 				corporateInfo 	: response.data[0],
 				locations 		: response.data[0].locations,
@@ -192,16 +192,16 @@ class Header extends Component {
 		//======= User Details ==========
 		var userDetails = JSON.parse(localStorage.getItem("userDetails"));
 		var Token  		= userDetails.token;
-		console.log("userDetails => ",userDetails);
+		// console.log("userDetails => ",userDetails);
 
 		if (Token) {
 			// var comapanyID = parseInt(1)
 
-			console.log("userData.userDetails===>",userDetails.companyID)
+			// console.log("userData.userDetails===>",userDetails.companyID)
 
 			axios.get('/api/entitymaster/get/companyName/1')
 			.then(companyDetails => {
-				console.log("companyDetails = ", companyDetails.data);
+				// console.log("companyDetails = ", companyDetails.data);
 				this.setState({
 					user_id 		: userDetails.user_id,
 					email 			: userDetails.email,
@@ -210,7 +210,7 @@ class Header extends Component {
 					companyID 		: userDetails.companyID,
 					companyName 	: companyDetails.data.companyName,
 				}, () => {
-					console.log("this.state.fullname = ", this.state.fullname);
+					// console.log("this.state.fullname = ", this.state.fullname);
 				});
 
 				// ======= Notification Unread Count ==========
@@ -221,7 +221,7 @@ class Header extends Component {
 						inAppNotifications 		: notifications.data,
 						inAppNotificationsCount : notifications.data.length
 					}, () => {
-						console.log("inAppNotificationsCount ==>", this.state.inAppNotificationsCount)
+						// console.log("inAppNotificationsCount ==>", this.state.inAppNotificationsCount)
 					});
 				})
 				.catch(error => {

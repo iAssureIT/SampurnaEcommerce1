@@ -30,7 +30,7 @@ class IAssureTable extends Component {
 			"activeClass" 				: 'activeCircle',
 			"paginationArray" 		: [],
 			"startRange" 				: 0,
-			"limitRange" 				: 10,		    
+			"limitRange" 				: 25,		    
 			"normalData" 				: true,
 			"callPage" 					: true,
 			"pageCount" 				: 0,
@@ -275,14 +275,14 @@ class IAssureTable extends Component {
    }
 
    /*===========  ===========*/
-   paginationFunction(event){
+   paginationFunction(){
 		var dataLength = this.state.dataCount;
 		// console.log("dataLength => ",dataLength)
 		const maxRowsPerPage = this.state.limitRange;
 		// console.log("maxRowsPerPage 299=> ",maxRowsPerPage)
 		var paginationNum = dataLength/maxRowsPerPage;
 		// console.log("paginationNum 301 => ",paginationNum)
-		var pageCount = Math.ceil(paginationNum) > 20? 20 : Math.ceil(paginationNum);
+		var pageCount = Math.ceil(paginationNum) > 20 ? 20 : Math.ceil(paginationNum);
 		// console.log("Math.ceil(paginationNum)",Math.ceil(paginationNum))
 		// console.log("pageCount 306 => ",pageCount)
 		this.setState({
@@ -291,8 +291,8 @@ class IAssureTable extends Component {
 			// callPage : false
 		},()=>{
 			// console.log("pageCount 308=> ",this.state.pageCount)
+			this.showPagination(1, this.state.pageCount);		
 		})
-		this.showPagination(1, pageCount);		
 	}
 
 	/*===========  ===========*/
@@ -337,7 +337,7 @@ class IAssureTable extends Component {
 		console.log("limitRange ==> ",limitRange)
 		// console.log("startRange ==> ",startRange)
 		
-		this.props.getData(startRange, limitRange);
+		this.props.getData("", startRange, this.state.limitRange);
 		this.setState({
 			startRange 	: startRange,
 			callPage 	: false
@@ -365,7 +365,7 @@ class IAssureTable extends Component {
 			this.paginationFunction();
 
 			if(this.state.normalData === true){
-				this.props.getData(startRange, this.state.limitRange);
+				this.props.getData("", startRange, this.state.limitRange);
 			}
 
 			if(this.state.searchData === true){
@@ -385,7 +385,7 @@ class IAssureTable extends Component {
 				this.props.getData(searchText, this.state.startRange, this.state.limitRange);
 			});	    	
 	   }else{
-			this.props.getData(this.state.startRange, this.state.limitRange);
+			this.props.getData("", this.state.startRange, this.state.limitRange);
 	   }    	 
    }
 
@@ -626,8 +626,6 @@ class IAssureTable extends Component {
 	                  		this.state.tableData && this.state.tableData.length > 0 
 	            			?
 	                  		this.state.tableData.map((value, i)=> {	
-										console.log("value vendors => ",value.vendors);	
-										// console.log("value",value);
 										var vendorArrayLength = value.vendors.length;	
 										if(vendorArrayLength === 1){									
 											return(

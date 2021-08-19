@@ -53,7 +53,7 @@ class AllOrdersList extends Component{
 				showAction 			 	: true
 			},
 			"startRange"       	: 0,
-			"limitRange"        : 10,
+			"limitRange"        : 25,
 			"tableName"         : 'AllOrders',
 			tableData 			: [],
 			activeStatus 		: "",
@@ -246,8 +246,8 @@ class AllOrdersList extends Component{
 		socket.emit('adminOrtderListValues',formValues);
 		socket.on("adminBookingList", (response)=>{
 		console.log('order tableData', response);		               
-		  	var tableData = response.data.map((a, i)=>{
-			// var tableData = response.data.reverse().map((a, i)=>{			
+		  	// var tableData = response.map((a, i)=>{
+			var tableData = response.data.reverse().map((a, i)=>{			
 				return{ 
 					_id             : a._id,
 					ordersPath 			: this.state.orderStatus,
@@ -327,9 +327,10 @@ class AllOrdersList extends Component{
 			this.setState({
 				tableData 		: tableData,
 				dataCount 		: response.dataCount,
+				// dataCount 		: 1000,
 				isLoadingData 	: false,
 			},()=>{
-				console.log("tableData => ",this.state.tableData)
+				// console.log("tableData => ",this.state.tableData)
 			})
 		})
 		// .catch((error)=>{

@@ -113,7 +113,7 @@ export default class AdminDashboard extends Component{
 			this.setState({
 				"orderStatusData": response.data,
 			},()=>{
-					console.log("getAllorderStatus response ==>",response)
+					// console.log("getAllorderStatus response ==>",response)
 			})
 		})
 		.catch((error) => {
