@@ -4108,10 +4108,9 @@ exports.revenue_reports = (req, res, next) => {
 				"_id"																: 1,
 				"orderID"														: 1,
 				"vendorOrders.orderStatus"									: 1,
-				"vendorOrders.paymentDetails.afterDiscountTotal"	: 1,
-				"vendorOrders.paymentDetails.shippingCharges"		: 1,
-				"vendorOrders.paymentDetails.netPayableAmount"		: 1,
-				"vendorOrders.orderStatus"									: 1,
+				"vendorOrders.vendor_afterDiscountTotal"				: 1,
+				"vendorOrders.vendor_shippingChargesAfterDiscount"	: 1,
+				"vendorOrders.vendor_netPayableAmount"					: 1,
 				"vendorDetails.companyName"								: 1,
 				"createdAt"														: 1,
 			}
@@ -4127,11 +4126,11 @@ exports.revenue_reports = (req, res, next) => {
 					orderID 					: data[i].orderID,
 					orderDate 				: data[i].createdAt,
 					vendorName 				: data[i].vendorDetails.companyName,					
-					orderAmount       	: data[i].vendorOrders.paymentDetails.afterDiscountTotal,
+					orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal,
 					commissionPercentage : 0,
 					commissionAmount 		: 0,
-					deliveryCharges 		: data[i].vendorOrders.paymentDetails.shippingCharges,
-					totalAmount 			: data[i].vendorOrders.paymentDetails.netPayableAmount
+					deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount,
+					totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount
 				})	
 			}
 			if (i >= data.length) {				
