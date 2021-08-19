@@ -735,10 +735,12 @@ exports.list_orders_by_status = (req, res, next) => {
 	.then(data => {
 		// console.log("allocatedToFranchise===>>>",data);
 
-		res.status(200).json({
-			dataCount 	: data.length,
-			data 			: data.length > 0 ? data.slice(req.body.startRange, req.body.limitRange) : data
-		});
+		// res.status(200).json({
+		// 	dataCount 	: data.length,
+		// 	data 			: data.length > 0 ? data.slice(req.body.startRange, req.body.limitRange) : data
+		// });
+
+		res.status(200).json(data);
 	})
 	.catch(err => {
 		console.log("Error while finding order => ",error);

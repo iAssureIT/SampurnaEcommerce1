@@ -246,7 +246,7 @@ class AllOrdersList extends Component{
 		socket.emit('adminOrtderListValues',formValues);
 		socket.on("adminBookingList", (response)=>{
 		console.log('order tableData', response);		               
-		  	var tableData = response.map((a, i)=>{
+		  	var tableData = response.data.map((a, i)=>{
 			// var tableData = response.data.reverse().map((a, i)=>{			
 				return{ 
 					_id             : a._id,
@@ -326,7 +326,7 @@ class AllOrdersList extends Component{
 			// console.log("tableData",tableData);
 			this.setState({
 				tableData 		: tableData,
-				dataCount 		: 1000,
+				dataCount 		: response.dataCount,
 				isLoadingData 	: false,
 			},()=>{
 				console.log("tableData => ",this.state.tableData)
