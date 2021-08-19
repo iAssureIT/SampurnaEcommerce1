@@ -123,7 +123,7 @@ const FormBody = (props) => {
     .then(response => {
       console.log("REs============>",response);
         setResendLoading(false)
-        if(response.data.message == 'OTP_UPDATED') {
+        if(response.data.message == 'OTP sent on your registered mobile id') {
           // navigation.navigate('OTPVerification');
           setToast({text: 'OTP Resent successfully!', color: 'green'});
         }else if(response.data.message == 'NOT_REGISTER'){
@@ -168,8 +168,11 @@ const FormBody = (props) => {
             // clearInputs={isEmptyString(values.otp)}  
             />
            <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
-           <View style={{marginHorizontal:10}}>
-             <Text style={styles.otpLastText}>Didn't receive code? <Text onPress={handleResend} style={styles.otpLastText1}> Request again!</Text></Text>
+           <View style={{marginHorizontal:10,flexDirection:'row'}}>
+           <Text style={styles.otpLastText}>Didn't receive code? </Text>
+              <TouchableOpacity>
+                <Text onPress={handleResend} style={styles.otpLastText1}> Request again!</Text>
+              </TouchableOpacity>
            </View>
             {/* <View style={{flexDirection:"row",justifyContent:"space-between"}}>
               <View style={{width:"45%"}}>

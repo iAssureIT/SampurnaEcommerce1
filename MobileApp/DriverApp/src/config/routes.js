@@ -37,12 +37,13 @@ import {AboutUs}                  from '../Screens/AboutUs/AboutUs.js';
 import {ContactUs}                from '../Screens/ContactUs/ContactUs.js';
 import {TermsAndConditions}       from '../Screens/TermsAndConditions/TermsAndConditions.js';
 import {PrivacyPolicy}            from '../Screens/PrivacyPolicy/PrivacyPolicy.js';
-import {OrdersView}                 from '../Screens/ListofOrders/OrdersView.js';
+import {OrdersView}               from '../Screens/ListofOrders/OrdersView.js';
 import {NewOrders}                from '../Screens/ListofOrders/NewOrders.js';
 import {AcceptedOrders}           from '../Screens/ListofOrders/AcceptedOrders.js';
 import {RunningOrders}            from '../Screens/ListofOrders/RunningOrders.js';
 import {CompletedOrders}          from '../Screens/ListofOrders/CompletedOrders.js';
-import {MonthlyOrders}          from '../Screens/MonthlyOrders/MonthlyOrders.js';
+import {MonthlyOrders}            from '../Screens/MonthlyOrders/MonthlyOrders.js';
+import {RejectedOrder}            from '../Screens/RejectedOrder/RejectedOrder.js';
 
 
 const Home = createDrawerNavigator();
@@ -102,6 +103,7 @@ export const HomeStack = () => (
     <Home.Screen name="RunningOrders"               component={RunningOrders} options={getHeaderConfig("Running Orders",true)}/>
     <Home.Screen name="CompletedOrders"             component={CompletedOrders} options={getHeaderConfig("Completed Orders",true)}/>
     <Home.Screen name="MonthlyOrders"               component={MonthlyOrders} options={getHeaderConfig("Monthly Orders",true)}/>
+    <Home.Screen name="RejectedOrder"               component={RejectedOrder} options={getHeaderConfig("Rejected Order",true)}/>
   </Home.Navigator>
 );
 

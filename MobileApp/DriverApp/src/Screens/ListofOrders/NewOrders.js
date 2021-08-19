@@ -16,6 +16,7 @@ import {
     useSelector }                       from 'react-redux';
 import {Footer}                         from '../../ScreenComponents/Footer/Footer.js';
 import moment                           from 'moment';
+import Loading                          from '../../ScreenComponents/Loading/Loading.js';
 import { TouchableOpacity }             from 'react-native';
 import { useIsFocused }                 from "@react-navigation/native";
 import {REACT_APP_BASE_URL}             from '@env';
@@ -29,6 +30,7 @@ const todoList = [
 ];
 
 export const NewOrders =(props)=> {
+    const [loading,setLoading] =useState(true);
     const [orderList,setOrderList] = useState([]);
     const isFocused = useIsFocused();
     const ref =useRef(null);
@@ -47,17 +49,19 @@ export const NewOrders =(props)=> {
     const LeftSwipeActions = (key) => {
     return (
         <View
-        style={{ flex: 1, backgroundColor: '#ccffbd', justifyContent: 'center' }}
+        style={{ flex: 1, backgroundColor: '#226E1B',borderRadius:7 ,justifyContent: 'center' }}
         key = {key}
         >
         <Text
             style={{
-            color: '#40394a',
-            paddingHorizontal: 10,
-            fontWeight: '600',
-            paddingHorizontal: 30,
-            paddingVertical: 20,
-            }}
+                color: '#fff',
+                fontSize:25,
+                paddingHorizontal: 10,
+                fontFamily: "Montserrat-Bold",
+                fontWeight: '600',
+                paddingHorizontal: 30,
+                paddingVertical: 20,
+                }}
         >
             Approved
         </Text>
@@ -92,9 +96,11 @@ export const NewOrders =(props)=> {
         axios.patch('/api/orders/changevendororderstatus',payload)
         .then(res=>{
             console.log("res",res);
+            setLoading(false);
               getList();
         })
         .catch(err=>{
+            setLoading(false);
             console.log("err",err);
         })
     };;
@@ -182,16 +188,22 @@ export const NewOrders =(props)=> {
     return (
         <View style={{flex:1}}>
             <View style={{flex:1,marginBottom:60}}>
-            {orderList  && orderList.length >0?
-            <FlatList
-                    data={orderList}
-                    keyExtractor={(item) => item.id}
-                    renderItem={_renderlist} 
-                />
-                :
-                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                    <Text style={CommonStyles.noDataFound}>No Order Found</Text>
-                </View>}
+                {loading ?
+                        <Loading />
+                    :
+                    <View>
+                        {orderList  && orderList.length >0?
+                        <FlatList
+                                data={orderList}
+                                keyExtractor={(item) => item.id}
+                                renderItem={_renderlist} 
+                            />
+                            :
+                            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                <Text style={CommonStyles.noDataFound}>No Order Found</Text>
+                            </View>}
+                    </View>
+                }                    
             </View>  
             <Footer selected={"0"}/>
         </View>

@@ -71,7 +71,7 @@ superparent:{
     height:100,marginTop:10,
   },
   flxmg:{
-    flex:0.3,marginTop:10,
+    flex:0.35,marginTop:10,
     flexDirection:'row'
   },
   flxmg2:{
@@ -705,5 +705,10 @@ btnText:{
   fontSize:16,
   color:'#fff'
 },
+tableHeader:{
+  fontFamily: "Montserrat-Regular",
+  fontSize:14,
+  color:'#000'
+}
 
 })

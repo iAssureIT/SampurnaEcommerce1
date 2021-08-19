@@ -183,7 +183,20 @@ const ValidationSchema = Yup.object().shape({
                   <Text style={styles.boxLine2B}>Vendor : <Text style={styles.boxLine2_AnsB}>{order?.vendorOrders[0]?.vendorName}</Text></Text>
                   <Text style={styles.boxLine2B}>Deliver To : <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.name}, </Text> <Text style={{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}} onPress={() => Linking.openURL(`tel:${order?.deliveryAddress?.mobileNumber}`)}>{order?.deliveryAddress?.mobileNumber}</Text></Text>
                   <Text style={styles.boxLine2B}>Delivery Addrees : <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.addressLine1+", "+order?.deliveryAddress?.addressLine2}</Text></Text>
-                </View> 
+                </View>
+                <View style={{flexDirection:'row',flex:1,marginTop:15}}>
+                    <View style={{flex:0.65}}>
+                      <Text style={styles.tableHeader}>Product Name</Text>
+                    </View>
+                    <View style={{flexDirection:'row',flex:0.35}}>
+                      <View style={{flex:0.4}}>
+                        <Text style={[styles.tableHeader,{textAlign:'right'}]}>Qty</Text>
+                      </View>
+                      <View style={{flex:0.6}}>
+                        <Text style={[styles.tableHeader,{textAlign:'right'}]}>Amount</Text>
+                      </View>
+                    </View>
+                </View>
                 {order?.vendorOrders && order?.vendorOrders?.length>0 && order?.vendorOrders[0]?.products.map((item,index)=>{
                     return(
                       <View key={index} style={{marginTop:10}}>
@@ -203,7 +216,7 @@ const ValidationSchema = Yup.object().shape({
                                   />
                                 }
                               </View>
-                              <View style={{flex:0.7}}>
+                              <View style={{flex:0.65}}>
                                 {item.productNameRlang ?
                                   <Text style={{fontFamily:'aps_dev_priyanka',fontSize:13,flexWrap:'wrap'}}>{item.productNameRlang}</Text>
                                   : 
@@ -217,11 +230,11 @@ const ValidationSchema = Yup.object().shape({
                                 : 
                                 <Text style={styles.productname}>{item.productName}</Text>
                                 } */}
-                                <View style={{flex:0.5,alignItems:"center"}}>
+                                <View style={{flex:0.4,alignItems:"center"}}>
                                     <Text style={[styles.productname]}>{item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                     </Text>
                                 </View>
-                                <View style={{flex:0.5,alignItems:"center"}}>
+                                <View style={{flex:0.6,alignItems:"center"}}>
                                   {/* <View style={[styles.flxdir]}>
                                     <Text style={styles.ogprice}>{currency} </Text>
                                   </View> */}

@@ -19,7 +19,6 @@ import {
 import {Footer}                     from '../../ScreenComponents/Footer/Footer.js';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native';
-import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import { useIsFocused } from "@react-navigation/native";
 import {colors}                         from '../../AppDesigns/currentApp/styles/styles.js';
 const todoList = [
@@ -28,8 +27,7 @@ const todoList = [
   { id: '3', text: 'Learn TypeScript' },
 ];
 
-export const RunningOrders =(props)=> {
-    const [loading,setLoading] =useState(true);
+export const RejectedOrder =(props)=> {
     const [orderList,setOrderList] = useState([]);
     const isFocused = useIsFocused()
     useEffect(() => {
@@ -49,11 +47,9 @@ export const RunningOrders =(props)=> {
         axios.post('/api/orders/get/nearest_vendor_orders',payload)
         .then(res=>{
             console.log("res",res);
-            setLoading(false);
             setOrderList(res.data)
         })
         .catch(err=>{
-            setLoading(false);
             console.log("err",err);
         })
     }
@@ -105,11 +101,9 @@ export const RunningOrders =(props)=> {
         axios.patch('/api/orders/changevendororderstatus',payload)
         .then(res=>{
             console.log("res",res);
-            setLoading(false);
             getList();
         })
         .catch(err=>{
-            setLoading(false);
             console.log("err",err);
         })
     };
@@ -181,24 +175,18 @@ export const RunningOrders =(props)=> {
 
 
     return (
-        <View>
-        {loading ?
-            <Loading />
+        <>
+           {orderList  && orderList.length >0?<FlatList
+            data={orderList}
+            keyExtractor={(item) => item.id}
+            renderItem={_renderlist} 
+                />
             :
-                <View>
-                {orderList  && orderList.length >0?<FlatList
-                    data={orderList}
-                    keyExtractor={(item) => item.id}
-                    renderItem={_renderlist} 
-                        />
-                    :
-                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                        <Text style={CommonStyles.noDataFound}>No Order Found</Text>
-                    </View>}                    
-                </View>
-        }
-        <Footer selected={"2"}/>
-        </View>
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                <Text style={CommonStyles.noDataFound}>No Order Found</Text>
+            </View>}
+            <Footer selected={"2"}/>
+        </>
     );
     }
 

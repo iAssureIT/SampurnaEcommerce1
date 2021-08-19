@@ -21,6 +21,7 @@ import Modal                                        from "react-native-modal";
 import { Dropdown }                                 from 'react-native-material-dropdown-v2';
 import moment                                       from 'moment';
 import {FormButton}                                 from '../../ScreenComponents/FormButton/FormButton';
+import Loading                                      from '../../ScreenComponents/Loading/Loading.js';
 
 const todoList = [
   { id: '1', text: 'Learn JavaScript' },
@@ -29,6 +30,7 @@ const todoList = [
 ];
 
 export const AcceptedOrders =(props)=> {
+    const [loading,setLoading] =useState(true);
     const [orderList,setOrderList] = useState([]);
     const isFocused = useIsFocused();
     const [getReasons,setGetReasons]=useState([]);
@@ -58,9 +60,11 @@ export const AcceptedOrders =(props)=> {
         axios.post('/api/orders/get/nearest_vendor_orders',payload)
         .then(res=>{
             console.log("res",res);
+            setLoading(false);
             setOrderList(res.data);
         })
         .catch(err=>{
+            setLoading(false);
             console.log("err",err);
         })
     }
@@ -69,10 +73,12 @@ export const AcceptedOrders =(props)=> {
         axios.get('/api/orderrejectreasons/get/list')
           .then((response) => {
             console.log("getReasons_func",response);
+            setLoading(false);
             var array = response.data.map((a, i) => { return { label: a.reasonOfOrderReject, value: a.reasonOfOrderReject } })
             setGetReasons(array);
           })
           .catch((error) => {
+            setLoading(false);
             if (error.response.status == 401) {
               AsyncStorage.removeItem('user_id');
               AsyncStorage.removeItem('token');
@@ -120,6 +126,7 @@ export const AcceptedOrders =(props)=> {
         axios.patch('/api/orders/changevendororderstatus',payload)
         .then(res=>{
             console.log("res",res);
+            setLoading(false);
             if (prevOpenedRow && prevOpenedRow !== row[index]) {
                 prevOpenedRow.close();
 
@@ -130,6 +137,7 @@ export const AcceptedOrders =(props)=> {
 
         })
         .catch(err=>{
+            setLoading(false);
             console.log("err",err);
         })
     };;
@@ -181,6 +189,7 @@ export const AcceptedOrders =(props)=> {
             axios.patch('/api/orders/changevendororderstatus',payload)
             .then(res=>{
                 console.log("res",res);
+                setLoading(false);
                 setModal(false);
                 setReason('');
                 setComment('');
@@ -189,6 +198,7 @@ export const AcceptedOrders =(props)=> {
                 getList();
             })
             .catch(err=>{
+                setLoading(false);
                 console.log("err",err);
             })
         }
@@ -336,17 +346,21 @@ export const AcceptedOrders =(props)=> {
 
     return (
         <View style={{flex:1}}>
-            <View style={{flex:1,marginBottom:60}}>
-            {orderList  && orderList.length >0?<FlatList
-                    data={orderList}
-                    keyExtractor={(item) => item.id}
-                    renderItem={_renderlist} 
-                />
+            {loading ?
+                    <Loading />
                 :
-                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                    <Text style={CommonStyles.noDataFound}>No Order Found</Text>
-                </View>}
-            </View>  
+                    <View style={{flex:1,marginBottom:60}}>                
+                    {orderList  && orderList.length >0?<FlatList
+                            data={orderList}
+                            keyExtractor={(item) => item.id}
+                            renderItem={_renderlist} 
+                        />
+                        :
+                        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                            <Text style={CommonStyles.noDataFound}>No Order Found</Text>
+                        </View>}
+                    </View>
+            } 
             <Footer selected={"1"}/>
         </View>
     );

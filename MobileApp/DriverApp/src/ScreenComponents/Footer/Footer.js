@@ -32,10 +32,10 @@ export const Footer =(props)=>{
                } >
                 <View style={{alignItems:'center'}}>
                  {
-                    props.selected && props.selected === "1" ?
+                    props.selected && props.selected === "0" ?
                     <Image
                     resizeMode="contain"
-                    source={require("../../AppDesigns/currentApp/images/newOrder.png")}
+                    source={require("../../AppDesigns/currentApp/images/newGreen.png")}
                     style={{height:21,width:21}}
                     />
                     :
@@ -59,7 +59,7 @@ export const Footer =(props)=>{
                       props.selected && props.selected === "1" ?
                       <Image
                       resizeMode="contain"
-                      source={require("../../AppDesigns/currentApp/images/AcceptedOrders.png")}
+                      source={require("../../AppDesigns/currentApp/images/acceptGreen.png")}
                       style={{height:21,width:21}}
                       />
                       :
@@ -79,10 +79,10 @@ export const Footer =(props)=>{
                } >
                  <View style={{alignItems:'center'}}>
                     {
-                      props.selected && props.selected === "1" ?
+                      props.selected && props.selected === "2" ?
                       <Image
                       resizeMode="contain"
-                      source={require("../../AppDesigns/currentApp/images/Running.png")}
+                      source={require("../../AppDesigns/currentApp/images/delivery-manGreen.png")}
                       style={{height:21,width:21}}
                       />
                       :
@@ -102,10 +102,10 @@ export const Footer =(props)=>{
                } >
                 <View style={{alignItems:'center'}}>
                   {
-                    props.selected && props.selected === "1" ?
+                    props.selected && props.selected === "3" ?
                     <Image
                     resizeMode="contain"
-                    source={require("../../AppDesigns/currentApp/images/Delivered.png")}
+                    source={require("../../AppDesigns/currentApp/images/delivery-boxGreen.png")}
                     style={{height:21,width:21}}
                     />
                     :

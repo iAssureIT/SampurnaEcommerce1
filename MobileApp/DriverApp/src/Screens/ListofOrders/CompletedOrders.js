@@ -21,6 +21,7 @@ import moment                           from 'moment';
 import {colors}                         from '../../AppDesigns/currentApp/styles/styles.js';
 import DateTimePickerModal              from "react-native-modal-datetime-picker";
 import { useIsFocused } from "@react-navigation/native";
+import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import localization from 'moment/locale/de'
 const todoList = [
   { id: '1', text: 'Learn JavaScript' },
@@ -29,6 +30,7 @@ const todoList = [
 ];
 
 export const CompletedOrders =(props)=> {
+    const [loading,setLoading] =useState(true);
     const [orderList,setOrderList] = useState([]);
     const [date,setDate] = useState(new Date());
     const isFocused = useIsFocused()
@@ -56,9 +58,11 @@ export const CompletedOrders =(props)=> {
         axios.post('/api/orders/get/daily/vendor_orders',payload)
         .then(res=>{
             console.log("res1",res);
+            setLoading(false);
             setOrderList(res.data)
         })
         .catch(err=>{
+            setLoading(false);
             console.log("err",err);
         })
     }
@@ -151,7 +155,8 @@ export const CompletedOrders =(props)=> {
     };
 
     return (
-        <View style={{flex:1,backgroundColor:'#fff'}}>
+        <View>            
+        <View style={{flex:1,backgroundColor:'#fff'}}>            
             <View style={{flexDirection:"row",justifyContent: 'center',alignItems: 'center',marginTop:15}}>
                 <TouchableOpacity
                     onPress={() => {previous()}}>
@@ -187,17 +192,23 @@ export const CompletedOrders =(props)=> {
             </View>
             <View style={{flexDirection:'row',justifyContent:'center',paddingTop:10,marginBottom:15}}>
                     <Text style={CommonStyles.totalcount}>Total Cash Collected : 500 AED</Text>
-             </View>   
-           {orderList  && orderList.length >0?<FlatList
-            data={orderList}
-            keyExtractor={(item) => item.id}
-            renderItem={_renderlist} 
-            style={{marginBottom:60}}
-                />
-            :
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <Text style={CommonStyles.noDataFound}>No Order Found</Text>
-            </View>}
+             </View> 
+             {loading ?
+                    <Loading />
+                :  
+                    <View>
+                        {orderList  && orderList.length >0?<FlatList
+                        data={orderList}
+                        keyExtractor={(item) => item.id}
+                        renderItem={_renderlist} 
+                        style={{marginBottom:60}}
+                            />
+                        :
+                        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                            <Text style={CommonStyles.noDataFound}>No Order Found</Text>
+                        </View>}
+                    </View>
+            }
             <Footer selected={"3"}/>
             <DateTimePickerModal
             isVisible={datePicker}
@@ -206,6 +217,9 @@ export const CompletedOrders =(props)=> {
             onCancel={()=>openDatePicker(false)}
         />
         </View>
+            
+        </View>       
+    
     );
 }
 
