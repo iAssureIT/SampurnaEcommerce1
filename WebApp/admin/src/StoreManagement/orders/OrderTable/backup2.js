@@ -626,180 +626,100 @@ class IAssureTable extends Component {
 	                  		this.state.tableData && this.state.tableData.length > 0 
 	            			?
 	                  		this.state.tableData.map((value, i)=> {	
-										console.log("value vendors => ",value.vendors);	
+										// console.log("value vendors => ",value.vendors);	
 										// console.log("value",value);
-										var vendorArrayLength = value.vendors.length;	
-										if(vendorArrayLength === 1){									
-											return(
-												<tr key={i} className="">
-													{/* <td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>	 */}
-													{Object.entries(value).map(([key, value1], i)=> {
-														var textAlign = '';						
-														if($.type(value1) === 'string'){
-															var regex 	= new RegExp(/(<([^>]+)>)/ig);
-															var value2 	= value1 ? value1.replace(regex,'') : '';
-															var aN 		= value2.replace(this.state.reA, "");
-															
-															if(aN && $.type( aN ) === 'string'){
+										var vendorArrayLength = value.vendors.length;										
+										return(
+											<tr key={i} className="">
+												{/* <td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>	 */}
+												{Object.entries(value).map(([key, value1], i)=> {
+													var textAlign = '';						
+													if($.type(value1) === 'string'){
+														var regex 	= new RegExp(/(<([^>]+)>)/ig);
+														var value2 	= value1 ? value1.replace(regex,'') : '';
+														var aN 		= value2.replace(this.state.reA, "");
+														
+														if(aN && $.type( aN ) === 'string'){
 
-																if(value1.includes('textAlignLeft')){
-																	textAlign = 'textAlignLeft';
-																}else if(value1.includes('textAlignRight')){
-																	textAlign = 'textAlignRight';
-																}else{
-																	textAlign = 'textAlignLeft';
-																}
-
+															if(value1.includes('textAlignLeft')){
+																textAlign = 'textAlignLeft';
+															}else if(value1.includes('textAlignRight')){
+																textAlign = 'textAlignRight';
 															}else{
-
-																var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
-																if(bN){
-																	textAlign = 'textAlignRight';
-																}else{
-																	textAlign = 'textAlignLeft';
-																}
+																textAlign = 'textAlignLeft';
 															}
+
 														}else{
-															textAlign = 'textAlignRight';
-														}	
 
-														var found = Object.keys(this.state.tableHeading).filter((k)=> {
-															return k === key;
-														});																
+															var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
+															if(bN){
+																textAlign = 'textAlignRight';
+															}else{
+																textAlign = 'textAlignLeft';
+															}
+														}
+													}else{
+														textAlign = 'textAlignRight';
+													}	
 
-														if(found.length > 0){																
-															if(key !== 'id'){																
+													var found = Object.keys(this.state.tableHeading).filter((k)=> {
+														return k === key;
+													});																
+
+													if(found.length > 0 || key === 'vendors'){																
+														if(key !== 'id'){
+															if(key === 'vendors'){
+																// console.log(" ************* ",value1)
+																return(
+																	<td className={textAlign} colSpan="4">
+																		<table className="table table-striped table-hover">
+																			<tbody>
+																				{value1.map((vendorvalue, index)=> {
+																					// console.log("i => ",i);
+																
+																					return(
+																						<tr key = {"in-"+index}>
+																							{Object.entries(vendorvalue).map(([key2, value2], index)=> {
+																								// console.log("vendorvalue => ",index2, " ", vendorvalue);
+																								// console.log("key2 => ",index2, " ", key2);
+																								// console.log("value2 => ",index2, " ", value2);
+
+																								var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
+																									return k1 === key2;
+																								});
+																								// console.log("found1 => ",found1);
+																								// console.log("000000000 => ",<td className={"textAlign"} key={index2}><div className={"textAlign"} dangerouslySetInnerHTML={{ __html:value2}}></div></td>)
+																								if(found1.length > 0){
+																									return (<td className={"textAlign"} key={key2} ><div className={"textAlign"} dangerouslySetInnerHTML={{ __html:value2}}></div></td>)
+																								}															
+
+																							})}
+																						</tr>
+																					)
+																				})}
+																			</tbody>
+																		</table>
+																	</td>
+																); 
+															}else {
 																return(
 																	<td className={textAlign}>
 																		<div className={textAlign} dangerouslySetInnerHTML={{ __html : value1}}></div>
 																	</td>
-																);																
+																);	
 															}
 														}
-													})}
-													{Object.entries(value.vendors[0]).map(([key2, value2], index)=> {																							
-
-														var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
-															return k1 === key2;
-														});
-														
-														if(found1.length > 0){
-															return(
-																<td className={"textAlign"}>
-																	<div className={"textAlign"} dangerouslySetInnerHTML={{ __html : value2}}></div>
-																</td>
-															);
-														}
-													})}
-													<td className="textAlignCenter">
-														<span class="displayInline">
-															<a href={"/orders-list/"+(value.ordersPath).replace(/\s+/g, '-').toLowerCase()+"/view-order/"+value._id} className="" title="View" data-ID={value._id}>
-																<i className="fa fa-eye" aria-hidden="true"></i>
-															</a>&nbsp; &nbsp;														
-														</span>													
-													</td>
-												</tr>
-											);	
-										}
-										if(vendorArrayLength > 1){
-											return(
-												<React.Fragment>
-													{value.vendors.map((vendor, j)=>{
-														if(j === 0){
-															return(
-																<tr key={i} className="">
-																	{/* <td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>	 */}
-																	{Object.entries(value).map(([key, value1], i)=> {
-																		var textAlign = '';						
-																		if($.type(value1) === 'string'){
-																			var regex 	= new RegExp(/(<([^>]+)>)/ig);
-																			var value2 	= value1 ? value1.replace(regex,'') : '';
-																			var aN 		= value2.replace(this.state.reA, "");
-																			
-																			if(aN && $.type( aN ) === 'string'){
-
-																				if(value1.includes('textAlignLeft')){
-																					textAlign = 'textAlignLeft';
-																				}else if(value1.includes('textAlignRight')){
-																					textAlign = 'textAlignRight';
-																				}else{
-																					textAlign = 'textAlignLeft';
-																				}
-
-																			}else{
-
-																				var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
-																				if(bN){
-																					textAlign = 'textAlignRight';
-																				}else{
-																					textAlign = 'textAlignLeft';
-																				}
-																			}
-																		}else{
-																			textAlign = 'textAlignRight';
-																		}	
-
-																		var found = Object.keys(this.state.tableHeading).filter((k)=> {
-																			return k === key;
-																		});																
-
-																		if(found.length > 0){																
-																			if(key !== 'id'){																
-																				return(
-																					<td className={textAlign}  rowSpan={vendorArrayLength}>
-																						<div className={textAlign} dangerouslySetInnerHTML={{ __html : value1}}></div>
-																					</td>
-																				);																
-																			}
-																		}
-																	})}
-																	{Object.entries(value.vendors[0]).map(([key2, value2], index)=> {																							
-
-																		var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
-																			return k1 === key2;
-																		});
-																		
-																		if(found1.length > 0){
-																			return(
-																				<td className={"textAlign"} >
-																					<div className={"textAlign"} dangerouslySetInnerHTML={{ __html : value2}}></div>
-																				</td>
-																			);
-																		}
-																	})}
-																	<td className="textAlignCenter"  rowSpan={vendorArrayLength}>
-																		<span class="displayInline">
-																			<a href={"/orders-list/"+(value.ordersPath).replace(/\s+/g, '-').toLowerCase()+"/view-order/"+value._id} className="" title="View" data-ID={value._id}>
-																				<i className="fa fa-eye" aria-hidden="true"></i>
-																			</a>&nbsp; &nbsp;														
-																		</span>													
-																	</td>
-																</tr>
-															);
-														}else{													
-															return(
-																<tr key={i} className="">													
-																	{Object.entries(value.vendors[j]).map(([key2, value2], index)=> {																							
-
-																		var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
-																			return k1 === key2;
-																		});
-																		
-																		if(found1.length > 0){
-																			return(
-																				<td className={"textAlign"}>
-																					<div className={"textAlign"} dangerouslySetInnerHTML={{ __html : value2}}></div>
-																				</td>
-																			);
-																		}
-																	})}
-																</tr>
-															);
-														}
-													})}
-												</React.Fragment>
-											);
-										}									
+													}
+												})}
+												<td className="textAlignCenter">
+													<span class="displayInline">
+														<a href={"/orders-list/"+(value.ordersPath).replace(/\s+/g, '-').toLowerCase()+"/view-order/"+value._id} className="" title="View" data-ID={value._id}>
+															<i className="fa fa-eye" aria-hidden="true"></i>
+														</a>&nbsp; &nbsp;														
+													</span>													
+												</td>
+											</tr>
+										);										
 									}) 	
 								:
 									<tr className="trAdmin"><td colSpan={12} className="noTempData textAlignCenter">No Record Found!</td></tr>               		

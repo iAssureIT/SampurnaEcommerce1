@@ -3455,8 +3455,7 @@ class ContactDetails extends Component {
 												                </div> 
 											              	</div>
 														</div>
-														{this.state.pathname !=="appCompany" 
-														?
+														
 														<div className="height40 form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 															<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
 																<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Create Login Credentials</label>
@@ -3525,9 +3524,7 @@ class ContactDetails extends Component {
 															 null
 															}																	
 														</div>															
-														:
-															null
-														}
+														
 														<div className="col-lg-7 col-md-7 col-sm-7 col-xs-7 contactSubmit pull-right">
 															{this.props.match.params.entityID ?
 																this.state.contactID ?

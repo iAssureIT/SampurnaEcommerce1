@@ -616,6 +616,9 @@ padding-top: 12px;
 .textAlignCenter{
   text-align: center;
 }
+.textNoWrap{
+  white-space: nowrap;
+}
 .mt40{
   margin-top: 20px;
 }

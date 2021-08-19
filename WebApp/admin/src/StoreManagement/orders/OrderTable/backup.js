@@ -1143,6 +1143,88 @@ class IAssureTable extends Component {
 		
 	} 
 
+	if(vendorArrayLength > 1){
+											console.log("vendorArrayLength => ",vendorArrayLength)
+											var rows = "";
+											var m = 0;
+											return(
+											{for (m = 0; m < vendorArrayLength; m++) {
+												console.log("m => ",m)
+
+												if (m === 0) {
+													{/*rows += '<tr key='+ (i+"-"+m) + '>' + ("if-"+i+"-"+m) + '</tr>';*/}
+													rows +=  '<tr key=' + i +'>' +
+													Object.entries(value).map(([key, value1], i)=> {
+														var textAlign = '';						
+														if($.type(value1) === 'string'){
+															var regex 	= new RegExp(/(<([^>]+)>)/ig);
+															var value2 	= value1 ? value1.replace(regex,'') : '';
+															var aN 		= value2.replace(this.state.reA, "");
+															
+															if(aN && $.type( aN ) === 'string'){
+
+																if(value1.includes('textAlignLeft')){
+																	textAlign = 'textAlignLeft';
+																}else if(value1.includes('textAlignRight')){
+																	textAlign = 'textAlignRight';
+																}else{
+																	textAlign = 'textAlignLeft';
+																}
+
+															}else{
+
+																var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
+																if(bN){
+																	textAlign = 'textAlignRight';
+																}else{
+																	textAlign = 'textAlignLeft';
+																}
+															}
+														}else{
+															textAlign = 'textAlignRight';
+														}	
+
+														var found = Object.keys(this.state.tableHeading).filter((k)=> {
+															return k === key;
+														});																
+
+														if(found.length > 0){																
+															if(key !== 'id'){																
+																return(
+																	<td className={textAlign} >
+																		<div className={textAlign} dangerouslySetInnerHTML={{ __html :  value1 }}></div>
+																	</td>
+																);																
+															}
+														}
+													}) + '</tr>' ;
+													{/*{Object.entries(value.vendors[0]).map(([key2, value2], index)=> {																							
+
+														var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
+															return k1 === key2;
+														});
+														
+														if(found1.length > 0){
+															return(
+																<td className={"textAlign"}>
+																	<div className={"textAlign"} dangerouslySetInnerHTML={{ __html : value2}}></div>
+																</td>
+															);
+														}
+													})}*/}
+												
+												
+												}else if (m > 0){
+													rows += '<tr key='+ (i+"-"+m) + '>' + ("else-"+i+"-"+m) + '</tr>';
+												}
+											}
+											if(m >= vendorArrayLength){
+												console.log("rows => ",rows)
+												return(rows);
+											}
+											})
+										}		
+
 }
 
 export default withRouter(IAssureTable);

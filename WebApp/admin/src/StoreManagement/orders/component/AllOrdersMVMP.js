@@ -247,22 +247,21 @@ class AllOrdersList extends Component{
 		socket.on("adminBookingList", (response)=>{
 		console.log('order tableData', response);		               
 		  	var tableData = response.map((a, i)=>{
-			// var tableData = response.data.reverse().map((a, i)=>{                      
+			// var tableData = response.data.reverse().map((a, i)=>{			
 				return{ 
 					_id             : a._id,
 					ordersPath 			: this.state.orderStatus,
 					orderNumber     : a.orderID,
-					orderDate       : '<div class=textFloatLeft><div>' + moment(a.createdAt).format("MMMM Do YYYY") + '</div><div>' + moment(a.createdAt).format('h:mm a')
-					+ '</div></div>',
-					customer     	: '<div><b>'+ a.userFullName && a.userFullName !== "undefined" && a.userFullName !== null ? a.userFullName : (a.deliveryAddress.name && a.deliveryAddress.name !== "undefined" && a.deliveryAddress.name !== null ? a.deliveryAddress.name : "Guest User")  +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
-					totalPrice  	: this.state.currency + " " + a.paymentDetails.netPayableAmount,					
+					orderDate       : '<div class=textFloatLeft><div class=textNoWrap>' + moment(a.createdAt).format("MMMM Do YYYY") + '</div><div>' + moment(a.createdAt).format('h:mm a')+ '</div></div>',
+					customer     	: '<div><b>'+ (a.userFullName && a.userFullName !== "undefined undefined" && a.userFullName !== "undefined" && a.userFullName !== "" && a.userFullName !== null ? a.userFullName : (a.deliveryAddress.name && a.deliveryAddress.name !== "undefined" && a.deliveryAddress.name !== null ? a.deliveryAddress.name : "Guest User"))  +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
+					totalPrice  	: '<div class=textNoWrap>'+ this.state.currency + " " + a.paymentDetails.netPayableAmount + '</div>',					
 					vendors   		: a.vendorOrders && a.vendorOrders.length > 0
 										?
 											a.vendorOrders.map((vendorOrder, index)=>{
 												// console.log("vendorOrder => ", vendorOrder)
 												return ({
 													vendorName 			: '<div>'+vendorOrder.vendor_id.companyName+'</div>',
-													vendorPrice 		: '<div>'+ this.state.currency + " " + vendorOrder.vendor_afterDiscountTotal + '</div>',
+													vendorPrice 		: '<div class=textNoWrap>'+ this.state.currency + " " + vendorOrder.vendor_afterDiscountTotal + '</div>',
 													// vendorStatus 		: '<div class="statusDiv ' + (vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 ? vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status : "").replace(/\s+/g, '_').toLowerCase() + '">'+ ( vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 
 													// 						? 
 													// 							(vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status)
@@ -329,7 +328,9 @@ class AllOrdersList extends Component{
 				tableData 		: tableData,
 				dataCount 		: 1000,
 				isLoadingData 	: false,
-			},()=>{})
+			},()=>{
+				console.log("tableData => ",this.state.tableData)
+			})
 		})
 		// .catch((error)=>{
 		// 	console.log('error', error);
