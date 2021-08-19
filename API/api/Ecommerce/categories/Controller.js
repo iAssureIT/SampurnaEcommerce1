@@ -496,24 +496,24 @@ exports.update_subcategory_status = (req,res,next)=>{
 
 /**========== fetch_categories_by_vendor ===========*/
 exports.fetch_categories_by_vendor = (req,res,next)=>{
-    console.log("req.params.sectionUrl => ",req.params.sectionUrl)
+    // console.log("req.params.sectionUrl => ",req.params.sectionUrl)
     Section.findOne({sectionUrl : req.params.sectionUrl})
     .then(sectiondata=>{
         if(sectiondata && sectiondata !== null && sectiondata !== undefined){  
 
             Product.find({section_ID : ObjectId(sectiondata._id), vendor_ID : ObjectId(req.params.vendorID), status : "Publish"}, {section_ID : 1, section : 1, category_ID : 1, category : 1,  subCategory_ID : 1, brand : 1})
             .then(productData=>{
-                console.log("productData",productData);
+                // console.log("productData",productData);
                 if(productData && productData.length > 0){
                     processData();
                     async function processData(){   
                         var brandList            = [...new Set(productData.map(product => product.brand))];               
                         var categories           = [...new Set(productData.map(product => String(product.category_ID)).filter(product => product !== 'undefined'))];
                         var subCategories        = [...new Set(productData.map(product => String(product.subCategory_ID)).filter(product => product !== 'undefined'))];
-                        console.log("brandList",brandList.filter(brand => brand));
-                        console.log("subCategories",subCategories);
+                        // console.log("brandList",brandList.filter(brand => brand));
+                        // console.log("subCategories",subCategories);
                         var categoryAndSubcategoryList = await getSubCategoryList(categories, subCategories);
-                        console.log("categoryAndSubcategoryList",categoryAndSubcategoryList);
+                        // console.log("categoryAndSubcategoryList",categoryAndSubcategoryList);
                         if (categoryAndSubcategoryList && categoryAndSubcategoryList.length > 0) {
                             for (var i = 0; i < categoryAndSubcategoryList.length; i++) {
                                 var categoryWiseProductList             = await productData.filter(product => String(product.category_ID) === String(categoryAndSubcategoryList[i]._id));

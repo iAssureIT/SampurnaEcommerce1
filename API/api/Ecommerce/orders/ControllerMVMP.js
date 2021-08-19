@@ -733,11 +733,11 @@ exports.list_orders_by_status = (req, res, next) => {
 	.populate('vendorOrders.vendor_id')
 	.sort({ createdAt: -1 })
 	.then(data => {
-		console.log("data.length===>>>",data.length);
+		// console.log("data.length===>>>",data.length);
 
 		res.status(200).json({
 			dataCount 	: data.length,
-			data 			: data.length > 0 ? data.slice(req.body.startRange, req.body.limitRange) : data
+			data 			: data.slice(req.body.startRange, req.body.limitRange)
 		});
 
 		// res.status(200).json(data);
