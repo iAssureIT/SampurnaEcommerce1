@@ -732,11 +732,13 @@ exports.list_orders_by_status = (req, res, next) => {
 	// ])
 	.populate('vendorOrders.vendor_id')
 	.sort({ createdAt: -1 })
-	.skip(parseInt(req.body.startRange))
-   .limit(parseInt(req.body.limitRange))
 	.then(data => {
 		// console.log("allocatedToFranchise===>>>",data);
-		res.status(200).json(data);
+
+		res.status(200).json({
+			dataCount 	: data.length,
+			data 			: data.length > 0 ? data.slice(req.body.startRange, req.body.limitRange) : data
+		});
 	})
 	.catch(err => {
 		console.log("Error while finding order => ",error);
