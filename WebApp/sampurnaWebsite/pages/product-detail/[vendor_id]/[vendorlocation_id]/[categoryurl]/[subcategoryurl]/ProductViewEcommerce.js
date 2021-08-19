@@ -52,7 +52,9 @@ class ProductViewEcommerce extends Component{
 			"startRange"     : 0,
 			"limitRange"     : 28,
 			"tabclick" 		  : false,
-			"clickedSize" : ""
+			"clickedSize"    : "",
+			"colorTabClick"  : false,
+			"colorIndex"  	  : 0,
 		};
 	}
 
@@ -65,7 +67,7 @@ class ProductViewEcommerce extends Component{
 		});
 		
 		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
-        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+      var userDetails          	=  JSON.parse(localStorage.getItem('userDetails'));
         
 		if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
 			this.setState({
@@ -140,7 +142,6 @@ class ProductViewEcommerce extends Component{
 	}
 
 	filterdataWithId(){
-		console.log("this.state.variantProductsList => ",this.state.variantProductsList);
 		var productData = this.state.variantProductsList.filter((productItem) => productItem._id === this.props.productID);		
 		if(productData && productData.length >0){
 			var sortedProducts = productData.sortBy('size');
@@ -166,12 +167,7 @@ class ProductViewEcommerce extends Component{
 	}
 
 	setProductData(productData){
-		console.log("155 productData => ",productData);
-
-		// var productData = this.state.variantProductsList.filter((productItem) => productItem._id === this.state.productID);
 		this.setState({	
-			// currentSize   : productData.color ? productData.color:"",
-			// currentColor  : productData.color ? productData.color:"",
 			activeColor   : productData.color ? productData.color:"",		
 			activeSize    : productData.size ? productData.size:"",			
 			productData   : productData,
@@ -189,8 +185,6 @@ class ProductViewEcommerce extends Component{
 			await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.props.vendor_id)     
 					.then((categoryResponse)=>{
 						if(categoryResponse.data){    
-							console.log("192 categoryResponse.data => ",categoryResponse.data);
-							
 							this.setState({
 								categoryData : categoryResponse.data.categoryList,  
 								brandData    : categoryResponse.data.brandList, 
@@ -205,7 +199,7 @@ class ProductViewEcommerce extends Component{
 											subCategoryData  : subCategoryData,
 											brandData        : this.state.brandData
 										},()=>{
-											console.log("subCategoryData = ",subCategoryData);
+											// console.log("subCategoryData = ",subCategoryData);
 										});
 									}
 									break;
@@ -243,6 +237,7 @@ class ProductViewEcommerce extends Component{
 
 	addtocart(event){
 		event.preventDefault();	
+		
 		if(this.state.user_ID){
 			var id 					= event.target.id;
 			var availableQuantity 	= event.target.getAttribute('availableQuantity');
@@ -251,7 +246,7 @@ class ProductViewEcommerce extends Component{
 				"product_ID"          : event.target.id,
 				"quantity"            : 1,   
 				"vendor_ID"           : this.props.vendor_id,  
-				"vendorlocation_ID"   : this.props.vendorlocation_id, 
+				"vendorLocation_id"   : this.props.vendorlocation_id, 
 				"userLatitude"        : this.state.userLatitude,
 				"userLongitude"       : this.state.userLongitude,
 				"vendorName"          : event.target.getAttribute('vendor_name'),
@@ -464,11 +459,19 @@ class ProductViewEcommerce extends Component{
 
 	handleColour(event){
 		var idVar = event.currentTarget.id;
-		var idArr = idVar.split("-");
-		var color = idArr[1];
-		var productId = document.getElementById(idVar).getAttribute('productid');
+		// console.log("idVar = ",idVar);
 
-		console.log("productId = ",productId);
+		var idArr = idVar.split("-");
+		var colorIndex = idArr[1];
+
+		// var productId = document.getElementById(idVar).getAttribute('productid');
+		// console.log("productId = ",productId);
+		//this.setProductData(productId)
+
+		this.setState({
+			colorTabClick : true,
+			colorIndex : colorIndex,
+		});
 
 	}
 
@@ -736,11 +739,25 @@ class ProductViewEcommerce extends Component{
 																						<div className={"row "+Style.ColorTabWrapper}>
 																							{ 
 																								Array.isArray(productItem.color) && productItem.color.map((colorItem,colorIndex)=>{
+																									
+																									if(!this.state.colorTabClick){
+																										if(colorIndex === 0){
+																											var actColorClass = Style.actColor;
+																										}else{
+																											var actColorClass = "";
+																										}
+																									}else{
+																										if(colorIndex === parseInt(this.state.colorIndex)){
+																											var actColorClass = Style.actColor;
+																										}else{
+																											var actColorClass = "";
+																										}																										
+																									}
 																									return(
-																										<div id={"color-"+colorItem} className={"col-2 NoPadding mt-2 colorVariantTab"}  key={colorIndex} productId={this.state.productData._id} onClick={this.handleColour.bind(this)}>
+																										<div id={"color-"+colorItem} className="col-2 NoPadding mt-2 colorVariantTab"  key={colorIndex} >
 																											{
 																												colorItem !== "" && colorItem !== "undefined" && colorItem !== null &&
-																												<span className={"col-12 mr-2 "+Style.colorBox} style={{ backgroundColor: colorItem}}></span>
+																												<span id={"color-"+colorIndex} productId={this.state.productData._id} className={"col-12 mr-2 "+Style.colorBox +" "+actColorClass} style={{backgroundColor: colorItem}} onClick={this.handleColour.bind(this)}></span>
 																											}
 																										</div>
 																									)})

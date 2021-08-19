@@ -59,7 +59,6 @@ class SubCategoryBlock extends Component{
 
                     {this.props.subCategoryData && this.props.subCategoryData.map((categorydata, index) => {
                         var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+categorydata.subCategoryUrl;
-                        console.log("categorydata => ",categorydata);
                         return (
                           <div className={"col-12 productsCategoryBlock " +Style.outerBox}  key={index}> 
                               <Link href={url} className ={"col-12 "}> 

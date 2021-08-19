@@ -3,6 +3,11 @@
 	src        : url('/WebApp/sampurnaWebsite/Themes/Sampurna/fonts/Montserrat-Regular.ttf');
 }
 
+.actColor{
+	box-shadow: 0px 0px 6px #333;
+	border : 100px solid #f00;
+}
+
 .activeSize{
 	background-color: #ffff00;
 	color: #ff0000;
@@ -171,7 +176,7 @@
 	padding        : 10px;
 	border-radius  : 5px;
 	text-align     : center;
-
+	cursor 			: pointer;
 }
 
 .vatSpan {

@@ -34,16 +34,15 @@ class ProductZoom extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {		
-			"productData": [],
-			"user_ID"        : ""
-
+			"productData"   : [],
+			"user_ID"       : "",
+			"selectedImage" : false
 		};
-		this.changeImage = this.changeImage.bind(this);
 	}
 
 	async componentDidMount(){
 		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
-        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+      var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));      
         if(userDetails){
             if(userDetails.user_id){
 				this.setState({
@@ -53,6 +52,7 @@ class ProductZoom extends Component {
                
             }
         }
+
 		if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
 			this.setState({
 				websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
@@ -60,31 +60,30 @@ class ProductZoom extends Component {
 				currency     : sampurnaWebsiteDetails.preferences.currency,
 			})
 		}
+
     }	
 	
-	changeImage = (event) => {
-		this.setState({
-			selectedImage: event.target.src
-		}, () => {
-
-		});
-	}
 	
-	onClickImg(data){
+	handleClickImg(event){
+		var srcImage = event.currentTarget.id;
+		console.log("srcImage = ",srcImage);
+
 		this.setState({
-			selectedImage : data
+			selectedImage : srcImage,
+			selectedProduct_id : this.props.productData._id
 		})
 		
 	}
 	render() {
 		var myprops={};
-		// console.log("productZoom data  =====",this.props.productData);
-		// console.log("productZoom image  =====",this.props.productData.productImage);
-		
 		if(this.props.productData ){
-			var productImg = this.props.productData.productImage && this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.png';
-			myprops = { width: 400, height: 200, zoomWidth: 500, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px; d-none', img: this.props.productData.productImage && this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.png' };
-			// const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.png' };
+			if(this.props.productData._id === this.state.selectedProduct_id){
+				var productImg = this.state.selectedImage ? this.state.selectedImage : this.props.productData.productImage && this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.png';
+			}else{
+				var productImg = this.props.productData.productImage && this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.png';
+			}
+			// myprops = {offset: { vertical:0, horizontal: 0 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px; width:600px; box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px; d-none', img: this.props.productData.productImage && this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.png' };
+			myprops = {offset: { vertical:0, horizontal: 0 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px; width:600px; box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px; d-none', img: productImg };
 		}
 		return (
 			<div className="col-12 col-xl-5 col-lg-5 col-md-12 col-sm-12 mt20 mb20 boxBorder mobileViewNoPadding NoPadding">
@@ -98,7 +97,7 @@ class ProductZoom extends Component {
 									{this.props.productData.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discountBadge}>{Math.floor(this.props.productData.discountPercent)}% off</div> : null}
 									<div id="react-app" className={"col-12 item productZoomBlock img-responsiveProduct " +Style.zoomImgWrapper}>
 										{this.props.productData &&
-											<ReactImageZoom className="d-none d-lg-block d-xl-block"{...myprops} />
+											<ReactImageZoom className="d-none d-lg-block d-xl-block" {...myprops} />
 											
 										}					
 									</div> 
@@ -124,7 +123,7 @@ class ProductZoom extends Component {
 										itemClass={"carousel-item-padding-10-px " +Style.smallBoxImg}>
 										{	
 											this.props.productData && Array.isArray(this.props.productData.productImage) && this.props.productData.productImage.map((data, index) => {
-												// console.log("map 581 =========>",data)
+												console.log("map 581 =========>",data);
 												return(
 													// <img src={data} className="img-responsive prodImgMobileView" onClick={this.onClickImg.bind(this,data)} key={index}></img>	
 													<Image                                           
@@ -134,7 +133,8 @@ class ProductZoom extends Component {
 														height={200}
 														width={400} 
 														layout={'intrinsic'}
-														// onClick={this.onClickImg.bind(this,data)}
+														id={data}
+														onClick={this.handleClickImg.bind(this)}
 														key={index}
 													/>										
 												);
