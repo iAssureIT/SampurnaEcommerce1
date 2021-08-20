@@ -739,7 +739,7 @@ exports.list_orders_by_status = (req, res, next) => {
 
 		// res.status(200).json({
 		// 	dataCount 	: data.length,
-		// 	data 			: data.slice(req.body.startRange, req.body.limitRange)
+		// 	data 			: data.slice(req.body.startRange, req.body.startRange + req.body.limitRange)
 		// });
 
 		res.status(200).json(data);
@@ -2040,7 +2040,7 @@ exports.list_order_by_user = (req, res, next) => {
 
 		for(var i=0;i<data.length;i++){
 			var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(req.params.userID), 'transactions.order_id' : ObjectId(data[i]._id), "transactions.typeOfTransaction" : "Original Order"},{'transactions.$' : 1});
-			// console.log("creditPointsData => ",creditPointsData)
+			console.log("creditPointsData => ",creditPointsData)
 			
 			for(var j=0;j<data[i].vendorOrders.length;j++){
 				var vendor = await Entitymaster.findOne({_id:data[i].vendorOrders[j].vendor_id},{companyName:1,_id:0})
@@ -4111,7 +4111,8 @@ exports.revenue_reports = (req, res, next) => {
 		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
 		selector["$or"].push({ "orderID" 						: {'$regex' : req.body.searchText , $options: "i" } })
 	}
-	
+	console.log("selector => ",selector);
+
   	Orders.aggregate([
 		{ "$unwind" : "$vendorOrders"},
 		{ "$lookup" : 
@@ -4156,7 +4157,7 @@ exports.revenue_reports = (req, res, next) => {
 			}
 			if (i >= data.length) {				
 				res.status(200).json({					
-					data 			: returnData.slice(req.body.startRange, req.body.limitRange),
+					data 			: returnData.slice(req.body.startRange, req.body.startRange + req.body.limitRange),
 					dataCount 	: data.length
 				});
 			}
