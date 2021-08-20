@@ -446,6 +446,5 @@ const mapDispatchToProps = {
   fetchCartData    : getCartData, 
   updateCartCount  : updateCartCount,
   getWishlistData: getWishlistData,
-
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Product);

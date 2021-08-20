@@ -3,7 +3,7 @@ import axios    from 'axios';
 import Image    from 'next/image';
 import $, { data }        from 'jquery';
 import { connect }          from 'react-redux';
-import {getCartData}        from '../../redux/actions/index.js'; 
+import {getCartData, getWishlist,getWishlistData}        from '../../redux/actions/index.js'; 
 import  store               from '../../redux/store.js'; 
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
 import ProductListView      from '../../Themes/Sampurna/blocks/StaticBlocks/ProductListView/ProductListView.js';
@@ -49,7 +49,8 @@ class Wishlist extends Component {
             this.setState({
               user_ID :  userDetails.user_id,
             },()=>{
-                  this.getWishData();
+                  // this.getWishData();
+                  this.props.fetchWishlist();
             })
           }
         }
@@ -112,6 +113,7 @@ class Wishlist extends Component {
   // }
 
   render() {
+    // console.log("recentWishlistData==",this.props.recentWishlistData);
     return (
       <div >
       <div className={"col-12 NoPadding " +Style.wishlistProduct} id="WishlistMainId">
@@ -124,8 +126,8 @@ class Wishlist extends Component {
                   </div>
               </div>
               {
-                Array.isArray(this.state.wishlistData) && this.state.wishlistData.length > 0 ?
-                 this.state.wishlistData.map((areaWiseWishlist, index) => {  
+                Array.isArray(this.props.recentWishlistData) && this.props.recentWishlistData.length > 0 ?
+                this.props.recentWishlistData.map((areaWiseWishlist, index) => {  
                    return(
                       <div className="col-12 mb-4" key={index}> 
                           <div className="col-12 areaName mt-lg-1 mt-4 pb-1 pl-lg-0"><i className="fas fa-map-marker-alt" aria-hidden="true"></i>    &nbsp;&nbsp;{areaWiseWishlist.areaName}</div>
@@ -168,13 +170,15 @@ class Wishlist extends Component {
 
 const mapStateToProps = state => (
     {
-      recentCartData: state.data.recentCartData,
-      userWishlistData  : state.data.userWishlistData,
+      recentCartData      : state.data.recentCartData,
+      recentWishlistData  : state.data.recentWishlistData,
+      recentWishlist      : state.data.recentWishlist,
     } 
 );
 const mapDispatchToProps = {
     fetchCartData: getCartData, 
-    // fetchWishlist: getWishlist,
+    fetchWishlist: getWishlist,
+    getWishlistData: getWishlistData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wishlist);

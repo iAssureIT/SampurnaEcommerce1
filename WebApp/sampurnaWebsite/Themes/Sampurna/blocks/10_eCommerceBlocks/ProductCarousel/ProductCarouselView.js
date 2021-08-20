@@ -118,6 +118,7 @@ class ProductCarouselView extends Component {
         });
       }
     }
+    
     var url = window.location.href.split('/');
     // console.log("url===",url);
     if(url[4] !== "undefined"){

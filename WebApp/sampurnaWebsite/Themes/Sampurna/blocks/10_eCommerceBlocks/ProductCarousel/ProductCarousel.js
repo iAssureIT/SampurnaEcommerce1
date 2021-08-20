@@ -8,7 +8,6 @@ import store                  from '../../../../../redux/store.js';
 import Loader                 from "../../StaticBlocks/loader/Loader.js";
 import Message                from '../../StaticBlocks/Message/Message.js';
 import Select                 from 'react-select';
-import getConfig              from 'next/config';
 import $, { post }            from 'jquery';
 import jQuery                 from 'jquery';
 import Style                  from './ProductCarousel.module.css';
@@ -19,10 +18,6 @@ import CategoryFilters        from './CategoryFilters.js';
 import BrandFilters           from './BrandFilters.js';
 import 'react-multi-carousel/lib/styles.css';
 import {getCartData,getWishlistData, updateCartCount}  from '../../../../../redux/actions/index.js'; 
-
-const { publicRuntimeConfig } = getConfig();
-var projectName = publicRuntimeConfig.CURRENT_SITE;
-const productImgHeight = publicRuntimeConfig.IMGHeight;
 
 const sortOptions = [
   { value: 'alphabeticallyAsc', label: 'Sort By A -> Z' },
