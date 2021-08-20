@@ -342,7 +342,7 @@ exports.updateCustomerReview = (req, res, next) => {
 			});
 		}else{
 			res.status(200).json({
-				"message": "Failed to update your review."
+				"message": "It seems that you didn't change anything."
 			});
 		}		
 	})

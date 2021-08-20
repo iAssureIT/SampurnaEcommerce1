@@ -72,9 +72,10 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     location:store.location,
     payload     : store.productList.searchPayload,
     globalSearch    : store.globalSearch,
-    isConnected     : store?.netWork?.isConnected
+    isConnected     : store?.netWork?.isConnected,
+    userDetails : store.userDetails
   }));
-  const {location,payload,globalSearch,isConnected} = store;
+  const {location,payload,globalSearch,isConnected,userDetails} = store;
 
   useEffect(() => {
     setLoading(true);
@@ -398,7 +399,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         );
                       })}
                       </Carousel>
-                      {productdata.authService !== "guest" ?
+                      {userDetails.authService !== "guest" ?
                           <TouchableOpacity style={[styles.wishlisthrtproductview,{right:10}]}
                             onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
                             <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
@@ -406,7 +407,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                           :
                             null
                           }
-                          <TouchableOpacity style={[styles.share,{right:10}]}
+                          <TouchableOpacity style={[styles.share,{right:10,top:userDetails.authService==='guest'?10: 50}]}
                             onPress={() =>onShare()} > 
                             <Image
                             resizeMode="contain"

@@ -195,7 +195,6 @@ export default StyleSheet.create({
   share:{
     position:'absolute',
     bottom:"5%",
-    top: 50,
     // right:30,
     alignSelf:"flex-end",
     height:30,

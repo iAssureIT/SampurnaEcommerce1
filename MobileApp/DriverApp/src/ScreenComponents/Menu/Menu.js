@@ -4,7 +4,7 @@ import {
   View,
   ScrollView,
   ImageBackground,
-  TouchableOpacity,
+  TouchableOpacity,Image
 } from "react-native";
 import { Icon, Avatar }         from 'react-native-elements';
 import axios                    from "axios";
@@ -44,8 +44,9 @@ export const Menu = (props)=>{
       {/* <ImageBackground source={require("../../AppDesigns/currentApp/images/Side_drawer.png")} style={styles.container} resizeMode="cover" > */}
         <View style={{height:115,margin:20,marginTop:42,alignSelf:'center',}}>
         <Avatar
-        style={{elevation:1,borderRadius:100,}}
+            style={{elevation:15,borderRadius:100,}}
             overlayContainerStyle={{borderRadius:100,}}
+            avatarStyle={{}}
             width={114}
             height={114}
             resizeMode="center"
@@ -60,13 +61,10 @@ export const Menu = (props)=>{
         {user_id!==""&&userDetails.authService!=="guest" &&<View>
         <TouchableOpacity onPress={()=> navigation.navigate('MyAccount')}>
           <View style={styles.menu}>
-            <Icon 
-              size={22} 
-              name='user-circle-o' 
-              type='font-awesome' 
-              color='#666' 
-              containerStyle={styles.iconContainer}
-            />
+             <Image source={require('../../AppDesigns/currentApp/images/user.png')}
+                resizeMode="contain"
+                style={{height:13,width:13}}
+              />
             <Text style={styles.menuText}>My Account</Text>
           </View>
         </TouchableOpacity>

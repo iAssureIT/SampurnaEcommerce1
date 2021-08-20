@@ -235,7 +235,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
         globalSearch.search ?
             <SearchSuggetion />
         :
-        <View style={styles.addsuperparent}>
+        <View style={[styles.addsuperparent,{marginBottom:40,paddingBottom:10}]}>
             <ScrollView style={styles.formWrapper} keyboardShouldPersistTaps="handled">
               <View style={{ backgroundColor: '#fff', paddingHorizontal: 15, marginBottom: "5%" }}>
               <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row",marginLeft:10, justifyContent: 'flex-start',marginBottom:20 }}>
