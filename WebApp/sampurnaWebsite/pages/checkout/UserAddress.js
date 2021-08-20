@@ -52,19 +52,46 @@ class UserAddress extends Component {
         axios.get("/api/ecommusers/" +this.state.user_ID)
             .then((response) => {
             if(response){
+                console.log("user response ",response);
+                var deliveryAddress = response.data.deliveryAddress.filter((a) => a._id === this.props.addressId);
+                if(deliveryAddress){
+                    console.log("DeliveryAddress==",deliveryAddress);
                 this.setState({
-                    "deliveryAddress": response.data.deliveryAddress?response.data.deliveryAddress:null,
-                    "fullname": response.data.profile.fullName,
-                    "mobileNumber": "971" +response.data.profile.mobile,
-                    "email": response.data.profile.email
-                },()=>{
-                    let fields = this.state.fields;
-                    fields["fullname"] = response.data.profile.fullName;
-                    fields["mobileNumber"] = response.data.profile.mobile;
-                    this.setState({
-                        fields
-                    });
-                });
+                    // "deliveryAddress": response.data.deliveryAddress?response.data.deliveryAddress:null,
+                    "fullname"    : deliveryAddress[0].name,
+                    "mobileNumber": "971" +deliveryAddress[0].mobileNumber,
+                    "email"       : deliveryAddress[0].email,
+                    "modaladdType": deliveryAddress[0].addType,
+                    "city"        : deliveryAddress[0].city,
+                    "area"        : deliveryAddress[0].area,
+                    "address1"    : deliveryAddress[0].addressLine1,
+                    "address"     : deliveryAddress[0].addressLine2,
+                    "pincode"     : deliveryAddress[0].pincode,
+                    // "latitude"    : deliveryAddress[0].latitude,
+                    // "longitude"   : deliveryAddress[0].longitude,
+                 },()=>{
+                //     let fields = this.state.fields;
+                //     fields["fullname"] = response.data.profile.fullName;
+                //     fields["mobileNumber"] = response.data.profile.mobile;
+                //     this.setState({
+                //         fields
+                //     });
+                 });
+                }
+
+                // this.setState({
+                //     "deliveryAddress": response.data.deliveryAddress?response.data.deliveryAddress:null,
+                //     "fullname": response.data.profile.fullName,
+                //     "mobileNumber": "971" +response.data.profile.mobile,
+                //     "email": response.data.profile.email
+                // },()=>{
+                //     let fields = this.state.fields;
+                //     fields["fullname"] = response.data.profile.fullName;
+                //     fields["mobileNumber"] = response.data.profile.mobile;
+                //     this.setState({
+                //         fields
+                //     });
+                // });
             }
             })
             .catch((error) => {

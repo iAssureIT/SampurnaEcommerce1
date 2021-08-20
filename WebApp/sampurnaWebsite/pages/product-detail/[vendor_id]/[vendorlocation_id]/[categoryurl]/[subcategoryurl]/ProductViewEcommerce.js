@@ -489,8 +489,6 @@ class ProductViewEcommerce extends Component{
 			wishClass = 'r';
 			tooltipMsg = 'Add To Wishlist';
 		} 
-
-
 		
 		return(
 			<section className={"SingleProductMainWrapper "+Style.ShopBySubCategories}>

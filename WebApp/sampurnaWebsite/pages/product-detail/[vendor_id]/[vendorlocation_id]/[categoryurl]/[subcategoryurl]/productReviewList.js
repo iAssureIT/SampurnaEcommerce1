@@ -79,10 +79,9 @@ class ProductreviewList extends Component {
   }
   render() {
     return (
-      <div className="col-12 mb-4">
+      <div className="col-12 mb-4 mt-4">
         <div className="col-12   ">
           <div className=" container">
-            <br />
             <div className="row">
               {
                 this.state.reviewData && this.state.reviewData.reviewlist.length > 0 ?

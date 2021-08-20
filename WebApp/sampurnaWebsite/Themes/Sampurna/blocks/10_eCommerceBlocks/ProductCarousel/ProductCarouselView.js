@@ -20,12 +20,12 @@ var projectName = publicRuntimeConfig.CURRENT_SITE;
 const responsive = {
   desktop: {
     breakpoint: { max: 10000, min: 1024 },
-    items: 5,
+    items: 4,
     slidesToSlide: 1 // optional, default to 1.
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 4,
+    items: 3,
     slidesToSlide: 1 // optional, default to 1.
   },
   mobile: {
@@ -265,7 +265,9 @@ render() {
             <div className="col-12 ">
                 <h5>{this.props.blockTitle && this.props.blockTitle}</h5>
             </div>
-            <Carousel  
+            <div className="col-12">
+              <div className="col-12">
+                <Carousel  
                 className={Style.customnNavButton +" " +Style.carouselNewWrapper}
                 swipeable={true}
                 draggable={true}
@@ -424,6 +426,8 @@ render() {
                             :''
                         }
             </Carousel>
+              </div>
+            </div>
         </div>  
       
     );
