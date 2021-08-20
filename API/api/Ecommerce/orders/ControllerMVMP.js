@@ -4106,11 +4106,39 @@ exports.revenue_reports = (req, res, next) => {
 			 }
 		})
 	}
+	// if (req.body.searchstr) {
+	// 	selector = {
+	// 	"category" : {$in : catArray},
+	// 	"$and" : [
+	// 	{   "$or": [ 
+	// 			{"productName"    : {'$regex' : req.body.searchstr , $options: "i"} },
+	// 			{"brand"          : {'$regex' : req.body.searchstr , $options: "i"} },
+	// 			{"section"        : {'$regex' : req.body.searchstr , $options: "i"} },
+	// 			{"category"       : {'$regex' : req.body.searchstr , $options: "i"} },
+	// 			{"subCategory"    : {'$regex' : req.body.searchstr , $options: "i"} },
+	// 			{"productDetails" : {'$regex' : req.body.searchstr , $options: "i"} }, 
+	// 			{"shortDescription" : {'$regex' : req.body.searchstr , $options: "i"} }, 
+	// 			{"featureList.feature" : {'$regex' : req.body.searchstr , $options: "i"} },
+	// 			{"attributes.attributeName" : {'$regex' : req.params.searchstr , $options: "i"} },
+	// 			{"attributes.attributeValue" : {'$regex' : req.params.searchstr , $options: "i"} }  
+	// 		]
+	// 	}, 
+	// 	{ "$or": [{"status":"Publish"}] }
+	// 	]}
+	// 	;
+	// }else{
+	// 	selector = { "category" : {$in : catArray}, "status":"Publish" };
+	// }
 
 	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
 	if(req.body.searchText && req.body.searchText !== ""){
-		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
-		selector["$or"].push({ "orderID" 						: {'$regex' : req.body.searchText , $options: "i" } })
+		// selector["$or"].push();
+		selector["$and"].push({ 
+			"$or" : [
+						{"orderID" 								: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "$vendorDetails.companyName" 	: {'$regex' : req.body.searchText , $options: "i" } }
+					]
+		})
 	}
 	console.log("selector => ",selector);
 
