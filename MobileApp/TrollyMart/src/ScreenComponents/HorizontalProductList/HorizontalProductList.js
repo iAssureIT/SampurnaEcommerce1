@@ -23,7 +23,8 @@ import {useSelector,
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
 import FastImage              from 'react-native-fast-image';
 import {getCartCount}          from '../../redux/productList/actions';
-
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const HorizontalProductList =(props)=>{
   const navigation = useNavigation();
@@ -170,7 +171,7 @@ export const HorizontalProductList =(props)=>{
 
     return (
       <View style={{marginHorizontal:5}}>
-      <Text style={{fontSize: 21, fontFamily: 'Montserrat-Bold',color:"#000000",textShadowColor: 'rgba(0, 0, 0, 0.4)',textShadowOffset: {width: -1, height: 1},textShadowRadius:6,marginBottom:5}}>{props.blockTitle}</Text>
+      <Text style={{fontSize: RFPercentage(3), fontFamily: 'Montserrat-Bold',color:"#000000",textShadowColor: 'rgba(0, 0, 0, 0.4)',textShadowOffset: {width: -1, height: 1},textShadowRadius:6,marginBottom:5}}>{props.blockTitle}</Text>
         {productList && productList.length > 0 ?
           <FlatList
             horizontal          = {true}

@@ -32,6 +32,7 @@ import { Alert } from 'react-native';
 import { NetWorkError } from '../../../NetWorkError.js'; 
 import {useRoute} from '@react-navigation/native';
 
+
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 const Dashboard = withCustomerToaster((props)=>{
@@ -67,9 +68,9 @@ const Dashboard = withCustomerToaster((props)=>{
         dispatch(getPreferences());
         dispatch(getS3Details());
         getBlocks();
-        // BackHandler.addEventListener("hardwareBackPress", backAction);
-        // return () =>
-        // BackHandler.removeEventListener("hardwareBackPress", backAction);
+        BackHandler.addEventListener("hardwareBackPress", backAction);
+        return () =>
+        BackHandler.removeEventListener("hardwareBackPress", backAction);
        
     },[store.isConnected]);
    
@@ -153,8 +154,8 @@ const Dashboard = withCustomerToaster((props)=>{
                 <MenuCarouselSection
                   navigation  = {navigation} 
                   showImage   = {true}
-                  boxHeight   = {80}
-                  fontSize    = {14}
+                  boxHeight   = {10}
+                  fontSize    = {2}
                   // index       = {0}
                 />
               }

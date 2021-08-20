@@ -54,12 +54,12 @@ export const AccountDashboard =(props)=>{
       .catch((error) => {
         setLoading(false);
         if (error.response.status == 401) {
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          // setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
           AsyncStorage.removeItem('user_id');
           AsyncStorage.removeItem('token');
           navigation.navigate('Auth');
         }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
+          // setToast({text: 'Something went wrong.', color: 'red'});
         }  
       })
     });

@@ -167,10 +167,10 @@ console.log("subCategory",subCategory)
                   <MenuCarouselSection  
                       navigation  = {navigation}   
                       showImage   = {true} 
-                      boxHeight   = {29} 
+                      boxHeight   = {4} 
                       selected    = {section}
                       index       = {index}
-                      fontSize    = {11}
+                      fontSize    = {2}
                   />
                 </View>  
             </View>         

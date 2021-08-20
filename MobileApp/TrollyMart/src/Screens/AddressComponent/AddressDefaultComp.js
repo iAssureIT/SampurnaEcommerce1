@@ -160,13 +160,16 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
         store.globalSearch.search ?
             <SearchSuggetion />
         :
-        <View style={styles.addsuperparent}>
+        <View style={[styles.addsuperparent,{ marginBottom:delivery?30:0}]}>
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
-            <View style={{flexDirection:'row',paddingVertical:24,paddingHorizontal:20}}>
-              <View style={{flex:0.6}}>
+            <View style={{flexDirection:'row',paddingVertical:24,paddingHorizontal:20,alignItems:'center'}}>
+            {!delivery&&<TouchableOpacity style={{justifyContent:'center',height:45,paddingRight:5}} onPress={()=> navigation.goBack()}>
+                  <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+                </TouchableOpacity>} 
+              <View style={{flex:0.8}}>
                 <Text style={CommonStyles.screenHeader}>My Address</Text>
               </View>
-              <View style={{flex:0.6,alignItems:'flex-end'}}>
+              <View style={{flex:0.2,alignItems:'flex-end'}}>
                 <TouchableOpacity style={styles.addBtnClass} onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,address:undefined})}>
                     <Image source={require("../../AppDesigns/currentApp/images/addressNew.png")} style={styles.addBtnImg} resizeMode="cover" />
                 </TouchableOpacity>
@@ -290,7 +293,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
               </View>}
                 {disabled && <View style={styles.continuebtn}>
                  <FormButton
-                    onPress={() => navigation.navigate('App')}
+                    onPress={() => navigation.push('App')}
                     title={"CONTINUE"}
                     disabled={selectedindex===-1?true:false}
                   />

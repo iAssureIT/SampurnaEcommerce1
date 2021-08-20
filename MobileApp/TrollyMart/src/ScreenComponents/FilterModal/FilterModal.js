@@ -171,6 +171,7 @@ const FilterModal = (props) => {
           </View>
           <View style={{flexDirection: 'row', width: '100%',marginBottom:Platform.OS === 'ios'?30:0,justifyContent:"space-between",paddingHorizontal:5}}>
             <Button
+            TouchableComponent={TouchableOpacity}
               title="Cancel"
               containerStyle={{
                 marginVertical: 0,
@@ -187,6 +188,7 @@ const FilterModal = (props) => {
                 marginVertical: 0,
                 width: '49%',
               }}
+              TouchableComponent={TouchableOpacity}
               title='Apply'
               onPress={async() => {
                 payload.categoryUrl     = localFilters.subCategory[0]?.value.split("^")[0];

@@ -35,6 +35,7 @@ import {KeyboardAwareScrollView}  from 'react-native-keyboard-aware-scroll-view'
 import { NetWorkError } from '../../../NetWorkError.js';
 import FastImage              from 'react-native-fast-image';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{
@@ -304,7 +305,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                 </View>  
                 <View style={{borderWidth:0.5,borderColor:'#707070',marginTop:10,borderRadius:9,borderColor:"#707070",paddingHorizontal:10}}>
                   <View style={styles.orderaddchkbx}>
-                    <View style={{flex:0.05,justifyContent:'flex-end',marginBottom:7}}><Text style={styles.blueDot}></Text></View>
+                    <View style={{justifyContent:'flex-end',marginBottom:7,marginRight:wp(2)}}><Text style={styles.blueDot}></Text></View>
                     <View style={{flex:0.95}}><Text style={styles.addname}>{addDataName}</Text></View>                    
                   </View>
                   <View style={{paddingHorizontal:15}}>

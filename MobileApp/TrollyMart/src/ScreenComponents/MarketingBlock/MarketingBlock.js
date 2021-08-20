@@ -11,6 +11,7 @@ import styles           from '../../AppDesigns/currentApp/styles/ScreenComponent
 import Carousel         from 'react-native-banner-carousel-updated';
 import axios            from 'axios';
 import { useNavigation } from  '@react-navigation/native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const width = Dimensions.get('window').width-10;
 
@@ -50,7 +51,7 @@ export const MarketingBlock=(props)=>{
     return (
       <TouchableOpacity onPress={()=>redirectPage(item)} key={index}>
         <ImageBackground 
-          style={{ width:"100%", height: 150}} 
+          style={{ width:"100%", height: hp(20)}} 
           imageStyle={{borderRadius:8}}
           source={image}
           resizeMode={"stretch"}

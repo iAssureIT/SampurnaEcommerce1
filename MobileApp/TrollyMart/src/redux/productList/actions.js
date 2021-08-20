@@ -106,7 +106,7 @@ export const getCategoryWiseList = (payload) => {
                 type: SET_CATEGORY_LIST,
                 payload: category.data,
             });
-            console.log("category",category);
+            console.log("rushi category",category);
             payload.categoryUrl = category?.data?.categoryList[0]?.categoryUrl;
             // if(category?.data?.categoryList[0].subCategory && category?.data?.categoryList[0].subCategory.length >0){
             //     payload.subCategoryUrl = [category?.data?.categoryList[0].subCategory[0]?.subCategoryUrl];

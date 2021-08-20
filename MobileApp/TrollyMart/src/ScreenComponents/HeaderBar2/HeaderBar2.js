@@ -142,7 +142,16 @@ import { getCartCount} from '../../redux/productList/actions';
 
     return (
       <View style={styles.header2main}>
-          {props.backBtn && <TouchableOpacity onPress={()=> navigation.goBack()}>
+          {props.backBtn && <TouchableOpacity onPress={()=> {
+            navigation.goBack();
+            dispatch({type : SET_SUGGETION_LIST, payload  : []});
+            dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
+            dispatch({type : SET_SERACH_LIST,    payload  : []});
+            dispatch({type:SET_SEARCH_CALL,payload:false});
+            useSearchText('');
+            Keyboard.dismiss();
+
+          }}>
           <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center',height:40}}>
             <Icon size={25} name='arrow-left' type='material-community' color='#fff' />
           </View>

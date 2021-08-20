@@ -274,7 +274,6 @@ export default StyleSheet.create({
   },
   addsuperparent:{
     flex:1,
-    marginBottom:55,
     backgroundColor:"#fff"
   },
   flxdir1:{

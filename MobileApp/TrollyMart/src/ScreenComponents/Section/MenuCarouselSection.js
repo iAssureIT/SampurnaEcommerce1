@@ -14,6 +14,8 @@ import {SET_CATEGORY_LIST,
        SET_CATEGORY_WISE_LIST}  from '../../redux/productList/types';
 import commonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {useRoute}               from  '@react-navigation/native';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const MenuCarouselSection = (props)=>{
   const {navigation,showImage,boxHeight}=props;
@@ -65,10 +67,10 @@ export const MenuCarouselSection = (props)=>{
           {showImage ?
               item.sectionImage?<Image 
                 source={item.sectionImage ? {uri : item.sectionImage}:noImage} 
-                style={[styles.sectionImages,{height:boxHeight}]} 
+                style={[styles.sectionImages,{height:hp(boxHeight)}]} 
                 resizeMode={'cover'}
               />:
-              <View style={[styles.sectionImages,{height:boxHeight,backgroundColor:"#f1f1f1"}]} >
+              <View style={[styles.sectionImages,{height:hp(boxHeight),backgroundColor:"#f1f1f1"}]} >
             </View> 
             :
             <View style={{borderBottomWidth:selected===item.section? 1:0}}>
@@ -76,7 +78,7 @@ export const MenuCarouselSection = (props)=>{
             </View>  
           }
         </TouchableOpacity>
-        <Text style={[styles.sectiontitle,{color:selected===item.section ?colors.cartButton:"#333",fontSize:props.fontSize}]}>{item.section}</Text>
+        <Text style={[styles.sectiontitle,{color:selected===item.section ?colors.cartButton:"#333",fontSize:RFPercentage(props.fontSize)}]}>{item.section}</Text>
       </View>
     )
   }
