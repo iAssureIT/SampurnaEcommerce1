@@ -2039,7 +2039,8 @@ exports.list_order_by_user = (req, res, next) => {
 		}
 
 		for(var i=0;i<data.length;i++){
-			var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(req.params.userID), 'transactions.order_id' : ObjectId(data[i]._id), "transactions.typeOfTransaction" : "Original Order"},{'transactions.$' : 1});
+			// var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(req.params.userID), 'transactions.order_id' : ObjectId(data[i]._id), "transactions.typeOfTransaction" : "Original Order"},{'transactions.$' : 1});
+			var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(req.params.userID)},{transactions: {$elemMatch: {order_id : ObjectId(data[i]._id), typeOfTransaction : "Original Order"}}});
 			console.log("creditPointsData => ",creditPointsData)
 			
 			for(var j=0;j<data[i].vendorOrders.length;j++){
