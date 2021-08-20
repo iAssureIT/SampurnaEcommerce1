@@ -4109,7 +4109,180 @@ exports.revenue_reports = (req, res, next) => {
 	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
 	if(req.body.searchText && req.body.searchText !== ""){
 		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
-		selector["$or"].push({ "orderID" 						: {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$or"].push({ "orderID" 						: {'$regex' : req.body.searchText , $options: "i" } })
+	}
+	
+  	Orders.aggregate([
+		{ "$unwind" : "$vendorOrders"},
+		{ "$lookup" : 
+			{
+				"from"			: "entitymasters",
+				"as"				: "vendorDetails",
+				"localField"	: "vendorOrders.vendor_id",
+				"foreignField"	: "_id"
+			}
+		},
+		{ "$unwind" : "$vendorDetails" },
+		{ $match : selector},
+		{ "$project" : 
+			{
+				"_id"																: 1,
+				"orderID"														: 1,
+				"vendorOrders.orderStatus"									: 1,
+				"vendorOrders.vendor_afterDiscountTotal"				: 1,
+				"vendorOrders.vendor_shippingChargesAfterDiscount"	: 1,
+				"vendorOrders.vendor_netPayableAmount"					: 1,
+				"vendorDetails.companyName"								: 1,
+				"createdAt"														: 1,
+			}
+		}	
+	])
+	.then(async(data) => {
+		console.log("data => ",data);		
+		if(data && data.length > 0){
+			var returnData = [];
+			for (var i = 0; i < data.length; i++) {
+				returnData.push({
+					_id 						: data[i]._id,
+					orderID 					: data[i].orderID,
+					orderDate 				: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+					vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
+					orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0,
+					commissionPercentage : 0,
+					commissionAmount 		: 0,
+					deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0,
+					totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
+				})	
+			}
+			if (i >= data.length) {				
+				res.status(200).json({					
+					data 			: returnData.slice(req.body.startRange, req.body.limitRange),
+					dataCount 	: data.length
+				});
+			}
+			
+		}else{
+			res.status(200).json({					
+				data 			: data,
+				dataCount 	: 0
+			});
+		}			
+	})
+	.catch(err => {
+	   console.log(err);
+	   res.status(500).json({
+		 error: err
+	   });
+	});
+};
+
+// ---------------- Delivery Driver Reports ----------------
+exports.delivery_drivers_reports = (req, res, next) => {
+	
+	console.log("delivery_drivers_reports => ",req.body);
+	var selector        = {};
+	selector['$and']    = [];
+	
+	/**----------- Find Status wise Orders ------------ */		
+	if(req.body.startDate && req.body.endDate){       
+		selector["$and"].push({
+			createdAt: {
+				$gte : moment(req.body.startDate).startOf('day').toDate(),
+				$lte : moment(req.body.endDate).endOf('day').toDate()
+			 }
+		})
+	}
+
+	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
+	if(req.body.searchText && req.body.searchText !== ""){
+		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$or"].push({ "orderID" 						: {'$regex' : req.body.searchText , $options: "i" } })
+	}
+	
+  	Orders.aggregate([
+		{ "$unwind" : "$vendorOrders"},
+		{ "$lookup" : 
+			{
+				"from"			: "entitymasters",
+				"as"				: "vendorDetails",
+				"localField"	: "vendorOrders.vendor_id",
+				"foreignField"	: "_id"
+			}
+		},
+		{ "$unwind" : "$vendorDetails" },
+		{ $match : selector},
+		{ "$project" : 
+			{
+				"_id"																: 1,
+				"orderID"														: 1,
+				"vendorOrders.orderStatus"									: 1,
+				"vendorOrders.vendor_afterDiscountTotal"				: 1,
+				"vendorOrders.vendor_shippingChargesAfterDiscount"	: 1,
+				"vendorOrders.vendor_netPayableAmount"					: 1,
+				"vendorDetails.companyName"								: 1,
+				"createdAt"														: 1,
+			}
+		}	
+	])
+	.then(async(data) => {
+		console.log("data => ",data);		
+		if(data && data.length > 0){
+			var returnData = [];
+			for (var i = 0; i < data.length; i++) {
+				returnData.push({
+					_id 						: data[i]._id,
+					orderID 					: data[i].orderID,
+					orderDate 				: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+					vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
+					orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0,
+					commissionPercentage : 0,
+					commissionAmount 		: 0,
+					deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0,
+					totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
+				})	
+			}
+			if (i >= data.length) {				
+				res.status(200).json({					
+					data 			: returnData.slice(req.body.startRange, req.body.limitRange),
+					dataCount 	: data.length
+				});
+			}
+			
+		}else{
+			res.status(200).json({					
+				data 			: data,
+				dataCount 	: 0
+			});
+		}			
+	})
+	.catch(err => {
+	   console.log(err);
+	   res.status(500).json({
+		 error: err
+	   });
+	});
+};
+// ---------------- Vendor Sales Reports ----------------
+exports.vendor_sales_reports = (req, res, next) => {
+	
+	console.log("vendor_sales_reports => ",req.body);
+	var selector        = {};
+	selector['$and']    = [];
+	
+	/**----------- Find Status wise Orders ------------ */		
+	if(req.body.startDate && req.body.endDate){       
+		selector["$and"].push({
+			createdAt: {
+				$gte : moment(req.body.startDate).startOf('day').toDate(),
+				$lte : moment(req.body.endDate).endOf('day').toDate()
+			 }
+		})
+	}
+
+	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
+	if(req.body.searchText && req.body.searchText !== ""){
+		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$or"].push({ "orderID" 						: {'$regex' : req.body.searchText , $options: "i" } })
 	}
 	
   	Orders.aggregate([

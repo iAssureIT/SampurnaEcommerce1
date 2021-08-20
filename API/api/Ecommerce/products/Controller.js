@@ -2422,13 +2422,16 @@ exports.search_product = (req,res,next)=>{
 				FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
 			}
 			for (let k = 0; k < products.length; k++) {
-				products[k] = {...products[k]._doc, isWish:false};
-				products[k].vendorLocation_id = await products[k].vendor_ID.locations && products[k].vendor_ID.locations.length > 0 
-												? 
-													products[k].vendor_ID.locations[0]._id 
-												: 
-													"";
-				products[k].vendor_ID = products[k].vendor_ID._id;                               
+				var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID._id)},{currentQuantity : 1});
+				// console.log("inventoryData => ",inventoryData)
+				products[k].availableQuantity   	= inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0;
+				products[k] 							= {...products[k]._doc, isWish:false};
+				products[k].vendorLocation_id 	= await products[k].vendor_ID.locations && products[k].vendor_ID.locations.length > 0 
+																? 
+																	products[k].vendor_ID.locations[0]._id 
+																: 
+																	"";
+				products[k].vendor_ID 				= products[k].vendor_ID._id;                               
 			}
 			if(req.body.user_id && req.body.user_id!=='null'){
 				Wishlists.find({user_ID:req.body.user_id})
