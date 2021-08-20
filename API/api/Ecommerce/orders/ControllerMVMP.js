@@ -4135,7 +4135,7 @@ exports.revenue_reports = (req, res, next) => {
 		// selector["$or"].push();
 		selector["$and"].push({ 
 			"$or" : [
-						{"orderID" 								: {'$regex' : parseInt(req.body.searchText) , $options: "i" } },
+						{"orderID" 								: {'$where' : /^123.*/.test(req.body.searchText) } },
 						{ "vendorDetails.companyName" 	: {'$regex' : req.body.searchText , $options: "i" } }
 					]
 		})
