@@ -5,7 +5,7 @@ import axios                  from 'axios';
 import "./Reports.css";
 import 'font-awesome/css/font-awesome.min.css';
 
-class RevenueReports extends Component{ 
+class VendorSalesReport extends Component{ 
 	constructor(props){
 		super(props);
 		this.state = {
@@ -41,8 +41,8 @@ class RevenueReports extends Component{
 													
 			],
 			'currentActiveTab' 		: "Daily", //If showDateWiseFilters is true then set cuttentActiveTab 'Daily' or 'Weekly' or 'Monthly' or 'Yearly' or 'Customize' or leave it ""
-			'reportTitle' 				: "Revenue Reports", // Title or Heading of report
-			'tableName' 				: "Revenue_Reports", // Title or Heading of report
+			'reportTitle' 				: "Vendor Sales Reports", // Title or Heading of report
+			'tableName' 				: "Vendor_Sales_Reports", // Title or Heading of report
 			'tableDatas'        		: [],
 			'reportData'        		: {},
 			'tableData'         		: [],
@@ -50,13 +50,11 @@ class RevenueReports extends Component{
 			"limitRange"        		: 10,
 			"dataApiUrl"        		: "/api/orders/reports/revenue",			
 			"tableHeading"      		: {
-													orderID    				: 'Order ID',
-													orderDate         	: 'Order Date', 
+													section    				: 'section',
+													productName         	: 'Product Name', 
 													vendorName    			: 'vendor Name',
-													orderAmount       	: 'Order Amount',
-													commissionPercentage : 'Commission Percentage',
-													commissionAmount 		: 'Commission Amount',
-													deliveryCharges 		: 'Delivery Charges',
+													orderDate       		: 'Order Date',
+													productQuantity 		: 'Product Quantity',
 													totalAmount 			: 'Total Amount'
 			},
       	tableObjects      		: {
@@ -129,4 +127,4 @@ class RevenueReports extends Component{
   	}
 }
 
-export default RevenueReports
+export default VendorSalesReport

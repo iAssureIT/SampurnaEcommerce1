@@ -21,7 +21,7 @@ class UserReport extends Component {
 			'showCustomizedFilters' : props.showCustomizedFilters,
 			'customizedFiltersArray': props && props.customizedFiltersArray && props.customizedFiltersArray.length > 0 ? props.customizedFiltersArray : [], 	
 			"dataApiUrl"        		: props && props.dataApiUrl ? props.dataApiUrl : "",		
-			"tableName"					: props && props.tableName ? props.tableName : [],
+			"tableName"					: props && props.tableName ? props.tableName : "",
 			"tableHeading"				: props && props.tableHeading ? props.tableHeading : {},
 			"tableObjects"				: props && props.tableObjects ? props.tableObjects : {},
 			RecordsTable 				: [],
@@ -768,7 +768,7 @@ class UserReport extends Component {
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding marginTop17">
 												<button className="btn button3" id="btnCheck" 
 						                    onClick={this.showMoreFilters.bind(this)} >
-						                    <i className="fa fa-filter"></i> More Filters 
+						                    <i className="fa fa-sliders"></i> More Filters 
 						                  </button>
 						                  <button className="btn button3" id="btnCheck" 
 						                    onClick={this.resetFilter.bind(this)} >

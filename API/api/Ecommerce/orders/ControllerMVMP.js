@@ -4094,16 +4094,16 @@ exports.get_nearby_delivery_persons= (req, res, next) => {
 exports.revenue_reports = (req, res, next) => {
 	
 	console.log("revenue_reports => ",req.body);
-	console.log("start => ",moment(req.body.startDate).startOf('day').toDate())
-	console.log("end => ",moment(req.body.endDate).endOf('day').toDate())
-	console.log("start1 => ",moment(req.body.startDate).tz('Asia/Kolkata').startOf('day').toDate())
-	console.log("end1 => ",moment(req.body.endDate).tz('Asia/Kolkata').endOf('day').toDate())
-	console.log("start2 => ",new Date(req.body.startDate))
-	console.log("end2 => ",new Date(req.body.endDate))
+	// console.log("start => ",moment(req.body.startDate).startOf('day').toDate())
+	// console.log("end => ",moment(req.body.endDate).endOf('day').toDate())
+	// console.log("start1 => ",moment(req.body.startDate).tz('Asia/Kolkata').startOf('day').toDate())
+	// console.log("end1 => ",moment(req.body.endDate).tz('Asia/Kolkata').endOf('day').toDate())
+	// console.log("start2 => ",new Date(req.body.startDate))
+	// console.log("end2 => ",new Date(req.body.endDate))
 	var selector        = {};
 	selector['$and']    = [];
 	
-	/**----------- Find Status wise Orders ------------ */		
+	/**----------- Date Filter ------------ */		
 	if(req.body.startDate && req.body.endDate){       
 		selector["$and"].push({
 			createdAt : {
@@ -4114,29 +4114,18 @@ exports.revenue_reports = (req, res, next) => {
 			 }
 		})
 	}
-	// if (req.body.searchstr) {
-	// 	selector = {
-	// 	"category" : {$in : catArray},
-	// 	"$and" : [
-	// 	{   "$or": [ 
-	// 			{"productName"    : {'$regex' : req.body.searchstr , $options: "i"} },
-	// 			{"brand"          : {'$regex' : req.body.searchstr , $options: "i"} },
-	// 			{"section"        : {'$regex' : req.body.searchstr , $options: "i"} },
-	// 			{"category"       : {'$regex' : req.body.searchstr , $options: "i"} },
-	// 			{"subCategory"    : {'$regex' : req.body.searchstr , $options: "i"} },
-	// 			{"productDetails" : {'$regex' : req.body.searchstr , $options: "i"} }, 
-	// 			{"shortDescription" : {'$regex' : req.body.searchstr , $options: "i"} }, 
-	// 			{"featureList.feature" : {'$regex' : req.body.searchstr , $options: "i"} },
-	// 			{"attributes.attributeName" : {'$regex' : req.params.searchstr , $options: "i"} },
-	// 			{"attributes.attributeValue" : {'$regex' : req.params.searchstr , $options: "i"} }  
-	// 		]
-	// 	}, 
-	// 	{ "$or": [{"status":"Publish"}] }
-	// 	]}
-	// 	;
-	// }else{
-	// 	selector = { "category" : {$in : catArray}, "status":"Publish" };
-	// }
+	/**----------- Status Filter ------------ */		
+	if(req.body.status && req.body.status !== "" && req.body.status !== undefined && req.body.status !== null){       
+		selector["$and"].push({
+			'vendorOrders.orderStatus' : req.body.status			 
+		})
+	}
+	/**----------- Vendor Filter ------------ */		
+	if(req.body.vendor && req.body.vendor !== "" && req.body.vendor !== undefined && req.body.vendor !== null){       
+		selector["$and"].push({
+			'vendorDetails.companyName' : req.body.vendor			 
+		})
+	}
 
 	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
 	if(req.body.searchText && req.body.searchText !== ""){
@@ -4176,7 +4165,7 @@ exports.revenue_reports = (req, res, next) => {
 		}	
 	])
 	.then(async(data) => {
-		console.log("data => ",data);		
+		// console.log("data => ",data);		
 		if(data && data.length > 0){
 			var returnData = [];
 			for (var i = 0; i < data.length; i++) {
@@ -4221,7 +4210,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 	var selector        = {};
 	selector['$and']    = [];
 	
-	/**----------- Find Status wise Orders ------------ */		
+	/**----------- Date Filter ------------ */		
 	if(req.body.startDate && req.body.endDate){       
 		selector["$and"].push({
 			createdAt: {
@@ -4229,6 +4218,12 @@ exports.delivery_drivers_reports = (req, res, next) => {
 				$lte : moment(req.body.endDate).endOf('day').toDate()
 			 }
 		})
+	}
+
+	/**----------- Status Filter ------------ */
+	if(req.body.searchText && req.body.searchText !== ""){
+		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$or"].push({ "vendorOrders.orderStatus" : 'Delivered' })
 	}
 
 	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
@@ -4239,6 +4234,15 @@ exports.delivery_drivers_reports = (req, res, next) => {
 	
   	Orders.aggregate([
 		{ "$unwind" : "$vendorOrders"},
+		{ "$lookup" : 
+			{
+				"from"			: "users",
+				"as"				: "driverDetails",
+				"localField"	: "vendorOrders.paymentDetails.deliveryPerson_id",
+				"foreignField"	: "_id"
+			}
+		},
+		{ "$unwind" : "$userDetails" },
 		{ "$lookup" : 
 			{
 				"from"			: "entitymasters",
@@ -4253,10 +4257,13 @@ exports.delivery_drivers_reports = (req, res, next) => {
 			{
 				"_id"																: 1,
 				"orderID"														: 1,
+				"userFullName"													: 1,
 				"vendorOrders.orderStatus"									: 1,
-				"vendorOrders.vendor_afterDiscountTotal"				: 1,
-				"vendorOrders.vendor_shippingChargesAfterDiscount"	: 1,
-				"vendorOrders.vendor_netPayableAmount"					: 1,
+				"vendorOrders.paymentDetails.amountPaid"				: 1,
+				"vendorOrders.paymentDetails.modeOfPayment"			: 1,
+				"vendorOrders.deliveryStatus"								: 1,
+				"userDetails.profile.fullName"							: 1,
+				"userDetails.profile.employeeID"							: 1,
 				"vendorDetails.companyName"								: 1,
 				"createdAt"														: 1,
 			}
@@ -4267,16 +4274,59 @@ exports.delivery_drivers_reports = (req, res, next) => {
 		if(data && data.length > 0){
 			var returnData = [];
 			for (var i = 0; i < data.length; i++) {
+				if (vendorOrders.deliveryStatus && vendorOrders.deliveryStatus.length > 0) {
+					var getPickupDateAndTime = vendorOrders.deliveryStatus.filter(deliveryStatus => deliveryStatus.status === 'On The Way' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id));
+					if(getPickupDateAndTime && getPickupDateAndTime.length > 0){
+						var pickupDateAndTime = moment(getPickupDateAndTime[0].timestamp).format('MMMM Do YYYY, h:mm:ss a')
+					}else{
+						var pickupDateAndTime = "NA";
+					}
+
+					var getDeliveryDateAndTime = vendorOrders.deliveryStatus.filter(deliveryStatus => deliveryStatus.status === 'Delivered' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id));
+					if(getDeliveryDateAndTime && getDeliveryDateAndTime.length > 0){
+						var deliveryDateAndTime = moment(getDeliveryDateAndTime[0].timestamp).format('MMMM Do YYYY, h:mm:ss a')
+					}else{
+						var deliveryDateAndTime = "NA";
+					}
+
+					if (pickupDateAndTime && pickupDateAndTime !== "NA" && deliveryDateAndTime && deliveryDateAndTime !== "NA") {
+						var startDateTime 				= moment(pickupDateAndTime, "DD/MM/YYYY HH:mm").format("DD/MM/YYYY HH:mm");
+			        	var endDateTime   				= moment(deliveryDateAndTime, "DD/MM/YYYY HH:mm").format("DD/MM/YYYY HH:mm");
+
+			        	var ms            				= moment(endDateTime,"DD/MM/YYYY HH:mm").diff(moment(startDateTime,"DD/MM/YYYY HH:mm"));
+			        	var duration      				= moment.duration(ms);
+			        	var timeDiffrence 				= Math.floor(duration.asHours()) + moment.utc(ms).format(":mm");
+						var timeRequiredForDelivery 	= timeDiffrence;
+					}else{
+						var timeRequiredForDelivery 	= "NA";
+					}
+				}
 				returnData.push({
-					_id 						: data[i]._id,
-					orderID 					: data[i].orderID,
-					orderDate 				: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
-					vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
-					orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0,
-					commissionPercentage : 0,
-					commissionAmount 		: 0,
-					deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0,
-					totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
+					_id 							: data[i]._id,
+					driverID    				: data[i].driverDetails.profile.employeeID ? data[i].driverDetails.profile.employeeID : "",
+					driverName    				: data[i].driverDetails.profile.fullName &&  data[i].driverDetails.profile.fullName !== undefined && data[i].driverDetails.profile.fullName !== "" ? data[i].driverDetails.profile.fullName : "NA",
+					orderID 						: data[i].orderID,
+					orderDate 					: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+					vendorName 					: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
+					customerName    			: data[i].userFullName &&  data[i].userFullName !== "undefined undefined" &&  data[i].userFullName !== undefined &&  data[i].userFullName !== null && data[i].userFullName !== "" 
+														? 
+															data[i].userFullName 
+														: 
+															(data[i].deliveryAddress.name &&  data[i].deliveryAddress.name !== undefined &&  data[i].deliveryAddress.name !== null && data[i].deliveryAddress.name !== "" 
+															?
+															 	data[i].deliveryAddress.name
+															:
+																"Guest User"),
+					pickupDateAndTime    	: pickupDateAndTime,
+					deliveryDateAndTime  	: deliveryDateAndTime,
+					timeRequiredForDelivery : timeRequiredForDelivery,
+					paymentMethod 				: data[i].vendorOrders.paymentDetails && data[i].vendorOrders.paymentDetails !== undefined && data[i].vendorOrders.paymentDetails !== null 
+														? 
+															data[i].vendorOrders.paymentDetails.paymentMethod
+														:
+															"NA",
+					cashCollected 				: data[i].vendorOrders.paymentDetails.modeOfPayment.toLowerCase() === 'cash on delivery' ? data[i].vendorOrders.paymentDetails.amountPaid : 0,
+					totalAmount 				: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
 				})	
 			}
 			if (i >= data.length) {				
@@ -4324,8 +4374,9 @@ exports.vendor_sales_reports = (req, res, next) => {
 	}
 	
   	Orders.aggregate([
-		{ "$unwind" : "$vendorOrders"},
-		{ "$lookup" : 
+		{ "$unwind" 	: "$vendorOrders"},
+		{ "$unwind" 	: "$vendorOrders.products" },
+		{ "$lookup" 	: 
 			{
 				"from"			: "entitymasters",
 				"as"				: "vendorDetails",
@@ -4333,16 +4384,14 @@ exports.vendor_sales_reports = (req, res, next) => {
 				"foreignField"	: "_id"
 			}
 		},
-		{ "$unwind" : "$vendorDetails" },
-		{ $match : selector},
-		{ "$project" : 
+		{ "$unwind" 	: "$vendorDetails" },
+		{ "$match" 		: selector},
+		{ "$project" 	: 
 			{
 				"_id"																: 1,
-				"orderID"														: 1,
+				"vendorOrders.vendor_id"									: 1,
 				"vendorOrders.orderStatus"									: 1,
-				"vendorOrders.vendor_afterDiscountTotal"				: 1,
-				"vendorOrders.vendor_shippingChargesAfterDiscount"	: 1,
-				"vendorOrders.vendor_netPayableAmount"					: 1,
+				"vendorOrders.products"										: 1,
 				"vendorDetails.companyName"								: 1,
 				"createdAt"														: 1,
 			}
@@ -4350,34 +4399,34 @@ exports.vendor_sales_reports = (req, res, next) => {
 	])
 	.then(async(data) => {
 		console.log("data => ",data);		
-		if(data && data.length > 0){
-			var returnData = [];
-			for (var i = 0; i < data.length; i++) {
-				returnData.push({
-					_id 						: data[i]._id,
-					orderID 					: data[i].orderID,
-					orderDate 				: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
-					vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
-					orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0,
-					commissionPercentage : 0,
-					commissionAmount 		: 0,
-					deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0,
-					totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
-				})	
-			}
-			if (i >= data.length) {				
-				res.status(200).json({					
-					data 			: returnData.slice(req.body.startRange, req.body.limitRange),
-					dataCount 	: data.length
-				});
-			}
+		// if(data && data.length > 0){
+		// 	var returnData = [];
+		// 	for (var i = 0; i < data.length; i++) {
+		// 		returnData.push({
+		// 			_id 						: data[i]._id,
+		// 			orderID 					: data[i].orderID,
+		// 			orderDate 				: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+		// 			vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
+		// 			orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0,
+		// 			commissionPercentage : 0,
+		// 			commissionAmount 		: 0,
+		// 			deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0,
+		// 			totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
+		// 		})	
+		// 	}
+		// 	if (i >= data.length) {				
+		// 		res.status(200).json({					
+		// 			dataCount 	: data.length
+		// 			data 			: returnData.slice(req.body.startRange, req.body.limitRange),
+		// 		});
+		// 	}
 			
-		}else{
-			res.status(200).json({					
-				data 			: data,
-				dataCount 	: 0
-			});
-		}			
+		// }else{
+		// 	res.status(200).json({					
+		// 		data 			: data,
+		// 		dataCount 	: 0
+		// 	});
+		// }			
 	})
 	.catch(err => {
 	   console.log(err);

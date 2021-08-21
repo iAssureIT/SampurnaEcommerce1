@@ -5,7 +5,7 @@ import axios                  from 'axios';
 import "./Reports.css";
 import 'font-awesome/css/font-awesome.min.css';
 
-class RevenueReports extends Component{ 
+class DeliveryDriversReport extends Component{ 
 	constructor(props){
 		super(props);
 		this.state = {
@@ -41,8 +41,8 @@ class RevenueReports extends Component{
 													
 			],
 			'currentActiveTab' 		: "Daily", //If showDateWiseFilters is true then set cuttentActiveTab 'Daily' or 'Weekly' or 'Monthly' or 'Yearly' or 'Customize' or leave it ""
-			'reportTitle' 				: "Revenue Reports", // Title or Heading of report
-			'tableName' 				: "Revenue_Reports", // Title or Heading of report
+			'reportTitle' 				: "Delivery Driver Reports", // Title or Heading of report
+			'tableName' 				: "Delivery_Driver_Reports", // Title or Heading of report
 			'tableDatas'        		: [],
 			'reportData'        		: {},
 			'tableData'         		: [],
@@ -50,14 +50,18 @@ class RevenueReports extends Component{
 			"limitRange"        		: 10,
 			"dataApiUrl"        		: "/api/orders/reports/revenue",			
 			"tableHeading"      		: {
-													orderID    				: 'Order ID',
-													orderDate         	: 'Order Date', 
-													vendorName    			: 'vendor Name',
-													orderAmount       	: 'Order Amount',
-													commissionPercentage : 'Commission Percentage',
-													commissionAmount 		: 'Commission Amount',
-													deliveryCharges 		: 'Delivery Charges',
-													totalAmount 			: 'Total Amount'
+													driverID    				: 'Driver ID',
+													driverName    				: 'Driver Name',
+													orderID    					: 'Order ID',
+													orderDate         		: 'Order Date', 
+													vendorName    				: 'Vendor Name',
+													customerName    			: 'Customer Name',
+													pickupDateAndTime    	: 'Pickup Date And Time',
+													deliveryDateAndTime  	: 'Delivery Date And Time',
+													timeRequiredForDelivery : 'Time Required For Delivery',
+													paymentMethod 				: 'Payment Method',
+													cashCollected 				: 'Cash Collected',
+													totalAmount 				: 'Total Amount'
 			},
       	tableObjects      		: {
 							        paginationApply 	: true,
@@ -129,4 +133,4 @@ class RevenueReports extends Component{
   	}
 }
 
-export default RevenueReports
+export default DeliveryDriversReport

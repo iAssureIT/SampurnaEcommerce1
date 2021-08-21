@@ -61,6 +61,8 @@ import ViewVendorOrder              from './StoreManagement/OrderDispatchCenter/
 
 //================== Reports ===============//
 import RevenueReports               from './admin/Reports/RevenueReports.js';
+import VendorSalesReport           from './admin/Reports/VendorSalesReport.js';
+import DeliveryDriversReport        from './admin/Reports/DeliveryDriversReport.js';
 // import Reports                      from './admin/Reports/Reports.js';
 import CategoryWiseReports          from './admin/categoryWiseReports/Reports.js';
 import Productreview                from './storeAdmin/ProductReview/ProductReview.js';
@@ -299,8 +301,8 @@ class Layout extends Component  {
 
                                                         {/*Report*/}
                                                         <Route path="/revenue-report"                               exact strict component={RevenueReports} />
-                                                        <Route path="/delivery-drivers-report"                      exact strict component={RevenueReports} />
-                                                        <Route path="/vendor-sales-report"                          exact strict component={RevenueReports} />
+                                                        <Route path="/delivery-drivers-report"                      exact strict component={DeliveryDriversReport} />
+                                                        <Route path="/vendor-sales-report"                          exact strict component={VendorSalesReport} />
                                                         <Route path="/user-report"                                  exact strict component={RevenueReports} />
 
                                                         <Route path="/category-wise-reports"                            exact strict component={CategoryWiseReports} />

@@ -161,3 +161,6 @@
     padding-bottom: 20px !important;
     transition: 0.5s linear;
 }
+.css-26l3qy-menu{
+    z-index: 101 !important;
+}
