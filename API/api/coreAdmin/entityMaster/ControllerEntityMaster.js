@@ -2225,7 +2225,7 @@ exports.sos_to_appCompony_contacts = (req,res,next)=>{
     .then(async(userdata)=>{
         console.log("data => ",data);
         if (userdata && userdata !== null && userdata !== undefined) {
-            var appCompanyContacts = await User.find({profile.companyID : 1} {_id : 1});
+            var appCompanyContacts = await User.find({"profile.companyID" : 1}, {_id : 1});
             console.log("appCompanyContacts => ",appCompanyContacts);
             if (appCompanyContacts && appCompanyContacts.length > 0) {
                 for(var i=0; i<appCompanyContacts.length; i++){
