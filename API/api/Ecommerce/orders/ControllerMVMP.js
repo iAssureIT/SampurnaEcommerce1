@@ -4094,6 +4094,10 @@ exports.get_nearby_delivery_persons= (req, res, next) => {
 exports.revenue_reports = (req, res, next) => {
 	
 	console.log("revenue_reports => ",req.body);
+	console.log("start => ",moment(req.body.startDate).startOf('day').toDate())
+	console.log("end => ",moment(req.body.endDate).endOf('day').toDate())
+	console.log("start1 => ",moment(req.body.startDate).tz('Asia/Kolkata').startOf('day').toDate())
+	console.log("end1 => ",moment(req.body.endDate).tz('Asia/Kolkata').endOf('day').toDate())
 	var selector        = {};
 	selector['$and']    = [];
 	
