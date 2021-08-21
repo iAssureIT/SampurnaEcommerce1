@@ -4357,7 +4357,7 @@ exports.vendor_sales_reports = (req, res, next) => {
 	var selector        = {};
 	selector['$and']    = [];
 	
-	/**----------- Find Status wise Orders ------------ */		
+	/**----------- Date Filter ------------ */		
 	if(req.body.startDate && req.body.endDate){       
 		selector["$and"].push({
 			createdAt: {
@@ -4366,11 +4366,38 @@ exports.vendor_sales_reports = (req, res, next) => {
 			 }
 		})
 	}
+	/**----------- Section Filter ------------ */		
+	if(req.body.section && req.body.section !== "" && req.body.section !== null && req.body.section !== undefined){       
+		selector["$and"].push({
+			"vendorOrders.products.section_ID" : ObjectId(req.body.section)
+		})
+	}
+	/**----------- Category Filter ------------ */		
+	if(req.body.category && req.body.category !== "" && req.body.category !== null && req.body.category !== undefined){       
+		selector["$and"].push({
+			"vendorOrders.products.category_ID" : ObjectId(req.body.category)
+		})
+	}
+	/**----------- SubCategory Filter ------------ */		
+	if(req.body.subCategory && req.body.subCategory !== "" && req.body.subCategory !== null && req.body.subCategory !== undefined){       
+		selector["$and"].push({
+			"vendorOrders.products.subCategory_ID" : ObjectId(req.body.subCategory)
+		})
+	}
+	/**----------- Vendor Filter ------------ */		
+	if(req.body.vendor && req.body.vendor !== "" && req.body.vendor !== null && req.body.vendor !== undefined){       
+		selector["$and"].push({
+			"vendorOrders.vendor_id" : ObjectId(req.body.vendor)
+		})
+	}
 
-	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
+	/**----------- Seach Orders by VendorName, Section, Category, SubCategory etc. ------------ */
 	if(req.body.searchText && req.body.searchText !== ""){
 		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
-		selector["$or"].push({ "orderID" 						: {'$regex' : req.body.searchText , $options: "i" } })
+		selector["$or"].push({ "vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } })
+		selector["$or"].push({ "vendorOrders.products.section" : {'$regex' : req.body.searchText , $options: "i" } })
+		selector["$or"].push({ "vendorOrders.products.category" : {'$regex' : req.body.searchText , $options: "i" } })
+		selector["$or"].push({ "vendorOrders.products.subCategory" : {'$regex' : req.body.searchText , $options: "i" } })
 	}
 	
   	Orders.aggregate([
@@ -4405,6 +4432,7 @@ exports.vendor_sales_reports = (req, res, next) => {
 				"orderData.vendorOrders.vendor_id"										: 1,
 				"orderData.vendorOrders.orderStatus"									: 1,
 				"orderData.vendorOrders.products"										: 1,
+				"numberOfOrders"																: 1,
 				"productQuantity"																: 1,
 				"totalAmount"																	: 1,
 				"orderData.vendorDetails.companyName"									: 1,
@@ -4421,11 +4449,17 @@ exports.vendor_sales_reports = (req, res, next) => {
 				returnData.push({
 					_id 						: data[i].orderData[0]._id,
 					section    				: data[i].orderData[0].vendorOrders.products.section,
-					productName         	: data[i].orderData[0].vendorOrders.products.productName, 
+					category    			: data[i].orderData[0].vendorOrders.products.section,
+					subcategory    		: data[i].orderData[0].vendorOrders.products.section,
+					productName         	: "<div>" + data[i].orderData[0].vendorOrders.products.productName + "</br>" + 
+													"<b>ProductCode</b> : " + data[i].orderData[0].vendorOrders.products.productCode + "</br>" +
+													"<b>ItemCode</b> : " + data[i].orderData[0].vendorOrders.products.itemCode + "</br>" +
+					 								"/<div>", 
 					vendorName    			: data[i].orderData[0].vendorDetails.companyName ? data[i].orderData[0].vendorDetails.companyName : "NA",
-					orderDate 				: moment(data[i]._id.orderDate).format('MMMM Do YYYY'),
+					orderDate 				: moment(data[i].orderData[0].createdAt).format('MMM Do YYYY'),
+					numberOfOrders 		: data[i].numberOfOrders,
 					productQuantity 		: data[i].productQuantity,
-					totalAmount 			: data[i].totalAmount					
+					totalAmount 			: "<div> AED " + data[i].totalAmount + "/<div>"				
 				})	
 			}
 			if (i >= data.length) {	
