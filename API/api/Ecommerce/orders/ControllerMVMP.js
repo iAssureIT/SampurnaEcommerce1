@@ -4386,6 +4386,16 @@ exports.vendor_sales_reports = (req, res, next) => {
 		},
 		{ "$unwind" 	: "$vendorDetails" },
 		{ "$match" 		: selector},
+		{ "$group": 
+			{
+	        	"_id": {
+	            "vendor_id" 	: "$vendorOrders.vendor_id",
+	            "product_id"	: "$vendorOrders.products.product_ID"
+	        	},
+	        "productQuantity"	: { "$sum" : "$vendorOrders.products.quantity" },
+	        "totalAmount"		: { "$sum" : "$vendorOrders.products.discountedPrice" }
+	    	}
+	   },
 		{ "$project" 	: 
 			{
 				"_id"																: 1,
@@ -4398,11 +4408,11 @@ exports.vendor_sales_reports = (req, res, next) => {
 		}	
 	])
 	.then(async(data) => {
-		// console.log("data => ",data);		
-		if(data && data.length > 0){
-			var returnData = [];
-			for (var i = 0; i < data.length; i++) {
-				console.log("data i => ",i ," - ", data[i].vendorOrders.products)
+		console.log("data => ",data);		
+		// if(data && data.length > 0){
+		// 	var returnData = [];
+		// 	for (var i = 0; i < data.length; i++) {
+		// 		console.log("data i => ",i ," - ", data[i].vendorOrders.products)
 				// returnData.push({
 				// 	_id 						: data[i]._id,
 				// 	orderID 					: data[i].orderID,
@@ -4414,7 +4424,7 @@ exports.vendor_sales_reports = (req, res, next) => {
 				// 	deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0,
 				// 	totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
 				// })	
-			}
+			// }
 			// if (i >= data.length) {				
 			// 	res.status(200).json({					
 			// 		dataCount 	: data.length
@@ -4422,7 +4432,7 @@ exports.vendor_sales_reports = (req, res, next) => {
 			// 	});
 			// }
 			
-		}
+		// }
 		// else{
 		// 	res.status(200).json({					
 		// 		data 			: data,
