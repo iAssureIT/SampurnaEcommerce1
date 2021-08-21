@@ -4398,30 +4398,32 @@ exports.vendor_sales_reports = (req, res, next) => {
 		}	
 	])
 	.then(async(data) => {
-		console.log("data => ",data);		
-		// if(data && data.length > 0){
-		// 	var returnData = [];
-		// 	for (var i = 0; i < data.length; i++) {
-		// 		returnData.push({
-		// 			_id 						: data[i]._id,
-		// 			orderID 					: data[i].orderID,
-		// 			orderDate 				: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
-		// 			vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
-		// 			orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0,
-		// 			commissionPercentage : 0,
-		// 			commissionAmount 		: 0,
-		// 			deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0,
-		// 			totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
-		// 		})	
-		// 	}
-		// 	if (i >= data.length) {				
-		// 		res.status(200).json({					
-		// 			dataCount 	: data.length
-		// 			data 			: returnData.slice(req.body.startRange, req.body.limitRange),
-		// 		});
-		// 	}
+		// console.log("data => ",data);		
+		if(data && data.length > 0){
+			var returnData = [];
+			for (var i = 0; i < data.length; i++) {
+				console.log("data i => ",i ," - ", data[i].vendorOrders.products)
+				// returnData.push({
+				// 	_id 						: data[i]._id,
+				// 	orderID 					: data[i].orderID,
+				// 	orderDate 				: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+				// 	vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
+				// 	orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0,
+				// 	commissionPercentage : 0,
+				// 	commissionAmount 		: 0,
+				// 	deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0,
+				// 	totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
+				// })	
+			}
+			// if (i >= data.length) {				
+			// 	res.status(200).json({					
+			// 		dataCount 	: data.length
+			// 		data 			: returnData.slice(req.body.startRange, req.body.limitRange),
+			// 	});
+			// }
 			
-		// }else{
+		}
+		// else{
 		// 	res.status(200).json({					
 		// 		data 			: data,
 		// 		dataCount 	: 0

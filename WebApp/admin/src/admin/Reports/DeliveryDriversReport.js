@@ -48,7 +48,7 @@ class DeliveryDriversReport extends Component{
 			'tableData'         		: [],
 			"startRange"        		: 0,
 			"limitRange"        		: 10,
-			"dataApiUrl"        		: "/api/orders/reports/revenue",			
+			"dataApiUrl"        		: "/api/orders/reports/delivery_drivers",			
 			"tableHeading"      		: {
 													driverID    				: 'Driver ID',
 													driverName    				: 'Driver Name',

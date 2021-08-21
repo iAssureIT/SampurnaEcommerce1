@@ -48,7 +48,7 @@ class VendorSalesReport extends Component{
 			'tableData'         		: [],
 			"startRange"        		: 0,
 			"limitRange"        		: 10,
-			"dataApiUrl"        		: "/api/orders/reports/revenue",			
+			"dataApiUrl"        		: "/api/orders/reports/vendor_sales",			
 			"tableHeading"      		: {
 													section    				: 'section',
 													productName         	: 'Product Name', 
