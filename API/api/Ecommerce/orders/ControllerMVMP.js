@@ -4410,10 +4410,10 @@ exports.vendor_sales_reports = (req, res, next) => {
 	])
 	.then(async(data) => {
 		console.log("data => ",data);		
-		// if(data && data.length > 0){
-		// 	var returnData = [];
-		// 	for (var i = 0; i < data.length; i++) {
-		// 		console.log("data i => ",i ," - ", data[i].vendorOrders.products)
+		if(data && data.length > 0){
+			var returnData = [];
+			for (var i = 0; i < data.length; i++) {
+				console.log("data i => ",i ," - ", data[i].orderData)
 				// returnData.push({
 				// 	_id 						: data[i]._id,
 				// 	orderID 					: data[i].orderID,
@@ -4431,14 +4431,14 @@ exports.vendor_sales_reports = (req, res, next) => {
 			// 		dataCount 	: data.length
 			// 		data 			: returnData.slice(req.body.startRange, req.body.limitRange),
 			// 	});
-			// }
+			}
 			
-		// }
+		}
 		// else{
-		// 	res.status(200).json({					
-		// 		data 			: data,
-		// 		dataCount 	: 0
-		// 	});
+			res.status(200).json({					
+				data 			: data,
+				dataCount 	: 0
+			});
 		// }			
 	})
 	.catch(err => {
