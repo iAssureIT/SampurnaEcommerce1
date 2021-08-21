@@ -5,7 +5,8 @@ import axios                    from 'axios';
 import swal                     from 'sweetalert';
 import moment                   from 'moment';
 import _                        from 'underscore';
-import IAssureTable           	from "../../coreadmin/IAssureTable/IAssureTable.jsx";
+import IAssureTable             from "./ReportsTable.js";
+import Select 							from 'react-select';
 import 'bootstrap/js/tab.js';
 
 
@@ -38,6 +39,7 @@ class UserReport extends Component {
 			fromdate      				: (moment(new Date()).subtract(1, 'M')).add(1, "days").format("YYYY-MM-DD"), 
 			todate        				: moment(new Date()).format("YYYY-MM-DD"),
 			currentYear  				: moment().format('YYYY'),
+			selectedOption 			: null
 		}
 
 	  	this.handleChange 	= this.handleChange.bind(this);
@@ -45,6 +47,21 @@ class UserReport extends Component {
 
 	/*===========  ===========*/
 	componentDidMount() {
+		// Setstate values of customize filters
+
+		if (this.props.customizedFiltersArray && this.props.customizedFiltersArray.length > 0) {
+			for (var i = 0; i < this.props.customizedFiltersArray.length; i++) {
+				var name = this.props.customizedFiltersArray[i].inputName;
+				this.setState({
+					[name] : ""
+				})
+			}
+		}
+
+		this.setDefaultValues();
+	}
+
+	setDefaultValues(){
 		var today 	= new Date();
 		var dd 		= today.getDate();
 		var mm 		= today.getMonth()+1; //January is 0!
@@ -61,9 +78,10 @@ class UserReport extends Component {
 
 	  	this.setState({
 		 	todayDate : today,
-	  	},()=>{this.getData(this.state.startRange,this.state.limitRange)});
+	  	},()=>{this.getData(this.state.search, this.state.startRange,this.state.limitRange)});
 
-	  	var weeknumber = moment(today).week();
+	  	// var weeknumber = moment(new Date()).week() - 1;
+	  	var weeknumber = moment(today).isoWeek();
 	  
 	  	console.log("weeknumber => ",weeknumber)
 	  	if(weeknumber<=9){
@@ -77,14 +95,14 @@ class UserReport extends Component {
 
 	  	this.setState({
 		 	weekdays:weekVal,
-	  	},()=>{this.getData(this.state.startRange,this.state.limitRange)});
+	  	},()=>{this.getData(this.state.search, this.state.startRange,this.state.limitRange)});
 
 	  	var yyyy 			= moment(today).format("YYYY");
 	  	var monthNum 		= moment(today).format("MM");
 	  	var currentMonth 	= yyyy+"-"+monthNum;
 	  	this.setState({
 		 	monthlyState:currentMonth,
-	  	},()=>{this.getData(this.state.startRange,this.state.limitRange)});
+	  	},()=>{this.getData(this.state.search, this.state.startRange,this.state.limitRange)});
 
 	  	// var fromDt = new Date();
 	  	// var toDt = new Date(moment(fromDt).add(1,'d'));
@@ -98,13 +116,13 @@ class UserReport extends Component {
 	  	this.setState({
 		 	fromdate : fromDt,
 		 	toDate 	: toDt
-	  	},()=>{this.getData(this.state.startRange,this.state.limitRange)})
+	  	},()=>{this.getData(this.state.search, this.state.startRange,this.state.limitRange)})
 
 	  	var currentYear = moment().format('YYYY');
 
 	  	this.setState({
 		 	currentYear : currentYear
-	  	},()=>{this.getData(this.state.startRange,this.state.limitRange)})
+	  	},()=>{this.getData(this.state.search, this.state.startRange,this.state.limitRange)})
 	  	
 	  	var entity = localStorage.getItem("company_Id")
 	  	this.setState({
@@ -120,7 +138,7 @@ class UserReport extends Component {
 		this.setState({
 			[name]: event.target.value
 		},()=>{
-		  	if(Object.keys(this.state.selector).length == 0){this.getData(this.state.startRange, this.state.limitRange)}else{this.getBookingData(this.state.selector,this.state.startRange, this.state.limitRange)}
+		  	if(Object.keys(this.state.selector).length == 0){this.getData(this.state.search, this.state.startRange, this.state.limitRange)}else{this.getBookingData(this.state.selector,this.state.startRange, this.state.limitRange)}
 		});  
 	}
 
@@ -170,7 +188,7 @@ class UserReport extends Component {
 			search 				: "",
 			reset 				: true
 	 	},()=>{
-	  		this.getData(this.state.startRange,this.state.limitRange)
+	  		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	 	})
   	}
 
@@ -194,7 +212,7 @@ class UserReport extends Component {
 	 	this.setState({
 			weekdays:newWeek,
 	 	},()=>{
-			this.getData(this.state.startRange,this.state.limitRange)		
+			this.getData(this.state.search, this.state.startRange,this.state.limitRange)		
 		});
   	}
 
@@ -222,7 +240,7 @@ class UserReport extends Component {
 	 	this.setState({
 		  	weekdays : newWeek,
 	 	},()=>{
-	  		this.getData(this.state.startRange,this.state.limitRange)
+	  		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	  	});
 	}
 
@@ -249,7 +267,7 @@ class UserReport extends Component {
 	 	this.setState({
 		  	todayDate : newDate3,
 	 	},()=>{
-			this.getData(this.state.startRange,this.state.limitRange)
+			this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	 	});
   	}
 
@@ -275,7 +293,7 @@ class UserReport extends Component {
 	 	this.setState({
 			todayDate : newDate3,
 	 	},()=>{
-			this.getData(this.state.startRange,this.state.limitRange)
+			this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 		});
   	}
 
@@ -292,7 +310,7 @@ class UserReport extends Component {
 	 	this.setState({
 		  	monthlyState : newMonth,
 	 	},()=>{
-	 		this.getData(this.state.startRange,this.state.limitRange)
+	 		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	 	});
   	}
 
@@ -309,7 +327,7 @@ class UserReport extends Component {
 	 	this.setState({
 		  	monthlyState : newMonth,
 	 	},()=>{
-			this.getData(this.state.startRange,this.state.limitRange)
+			this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 		});
   	}
 
@@ -330,7 +348,7 @@ class UserReport extends Component {
 	 	this.setState({
 		  	fromdate : Fromdate,
 	 	},()=>{
-			this.getData(this.state.startRange,this.state.limitRange)
+			this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 		});
   	}
 
@@ -355,14 +373,14 @@ class UserReport extends Component {
 	 		this.setState({
 		  		todate:Todate,
 	 		},()=>{		
-				this.getData(this.state.startRange,this.state.limitRange)
+				this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 			});
 		}else{
 	 		swal('From date should not be less than To date')
 	 		this.setState({
 				todate:this.state.fromdate
 	 		},()=>{
-	 			this.getData(this.state.startRange,this.state.limitRange)
+	 			this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	 		})
 		}
   	}
@@ -374,7 +392,7 @@ class UserReport extends Component {
 	 	var newYear 		= moment(currentYear).add(1,'years').format('YYYY');
 	 	
 	 	this.setState({currentYear: newYear},()=>{
-	 		this.getData(this.state.startRange,this.state.limitRange)
+	 		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 	 	})
   	}
 
@@ -385,14 +403,14 @@ class UserReport extends Component {
 	 	var newYear 		= moment(currentYear).subtract(1,'years').format('YYYY');
 	 	
 	 	this.setState({currentYear: newYear},()=>{
-		  	this.getData(this.state.startRange,this.state.limitRange)
+		  	this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 		})
   	}
 
   	/*=========== changeTab() ===========*/
   	changeTab(value,event){
 		this.setState({currentActiveTab:value},()=>{
-		  	this.getData(this.state.startRange,this.state.limitRange)
+		  	this.getData(this.state.search, this.state.startRange,this.state.limitRange)
 		})
   	}
 
@@ -400,17 +418,23 @@ class UserReport extends Component {
 	getFilteredProducts(){}
 
 	/*=========== getData() ===========*/
-	getData(startRange,limitRange){ 
+	getData(search, startRange, limitRange){ 
 
 		this.setState({reset:false})
 
 	  	var formValues ={
 			startDate   : "",
 			endDate     : "",
-			searchTxt	: this.state.search,
+			searchText	: search,
 			startRange  : startRange,
 			limitRange  : limitRange
 	  	}
+	  	if (this.state.customizedFiltersArray && this.state.customizedFiltersArray.length > 0) {
+			for (var i = 0; i < this.props.customizedFiltersArray.length; i++) {
+				var name = this.state.customizedFiltersArray[i].inputName;
+				formValues.[name] = this.state[name] && this.state[name] !== "" ? this.state[name].value : this.state[name];
+			}
+		}
 		var currentActiveTab = this.state.currentActiveTab;
 		  
 	  	if(currentActiveTab === "Daily"){
@@ -457,24 +481,52 @@ class UserReport extends Component {
 		axios.post(this.state.dataApiUrl,formValues)
 			.then((response) => {
 			  	console.log("response=>",response)			  
-			  	var tableData = response.data.map((a, i)=>{					
-					return{           
-					  	orderID    			: a.orderID,
-						customerName    	: a.customerName,
-						orderDate         : moment(a.createdAt).format('DD/MM/YYYY'),
-						orderAmount       : a.orderAmount,
-					}
-				})
+			 //  	var tableData = response.data.map((a, i)=>{					
+				// 	return{           
+				// 	  	orderID    			: a.orderID,
+				// 		customerName    	: a.customerName,
+				// 		orderDate         : moment(a.createdAt).format('DD/MM/YYYY'),
+				// 		orderAmount       : a.orderAmount,
+				// 	}
+				// })
 				
 				this.setState({
-					RecordsTable 	: tableData,
-					dataCount 		: tableData.length
+					RecordsTable 	: response.data.data,
+					dataCount 		: response.data.dataCount
 				})
 			})
 			.catch((error) =>{
 				console.log("ERROR : ", error); 
 			})
 	}
+
+	handleChangeFilters(event){		
+		var name 	= event.name;
+		var value 	= event.value;
+    	this.setState({ 
+    		[name]  : event
+    	},()=>{
+    		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
+    		console.log(`Option selected:`, name, " => ",this.state[name]);
+    	});
+  	};
+
+  	/*======== showMoreFilters() ========*/
+    showMoreFilters(event){
+        event.preventDefault();
+        var filterBtn = event.target;
+        var element   = document.getElementById(this.state.tableName + "-" + this.state.currentActiveTab + "-Filters");
+        console.log("element => ",element)
+        console.log("element.style.display => ",element.style.display)
+        if (element) {
+            $("#" + this.state.tableName + "-" + this.state.currentActiveTab + "-Filters").toggle();
+        }
+        if ((element.style.display) === "none") {
+            filterBtn.innerHTML   = "<i class='fa fa-sliders' aria-hidden='true'></i> More Filters";
+        } else {
+            filterBtn.innerHTML   = "<i class='fa fa-sliders' aria-hidden='true'></i> Hide Filters";
+        }
+    }
 
 	/*=========== render() ===========*/
 	render() {
@@ -676,7 +728,7 @@ class UserReport extends Component {
 											{/*:
 												null
 											}*/}
-											{this.state.showCustomizedFilters
+											{/*{this.state.showCustomizedFilters
 												?
 													<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOPadding">   
 														{this.state.customizedFiltersArray && this.state.customizedFiltersArray.length > 0
@@ -712,6 +764,48 @@ class UserReport extends Component {
 													</div>
 												:
 													null
+											}*/}
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding marginTop17">
+												<button className="btn button3" id="btnCheck" 
+						                    onClick={this.showMoreFilters.bind(this)} >
+						                    <i className="fa fa-filter"></i> More Filters 
+						                  </button>
+						                  <button className="btn button3" id="btnCheck" 
+						                    onClick={this.resetFilter.bind(this)} >
+						                    <i className="fa fa-refresh"></i> Reset Filters 
+						                  </button>
+											</div>
+											{this.state.showCustomizedFilters
+												?
+													<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 filtersDiv" id={this.state.tableName + "-" + this.state.currentActiveTab + "-Filters"}>   
+														{this.state.customizedFiltersArray && this.state.customizedFiltersArray.length > 0
+															?
+																this.state.customizedFiltersArray.map((filtersdata, i) => {
+																	return (
+																		<div key={i} className="form-margin col-lg-3 col-md-6 col-sm-12 col-xs-12" >
+																			<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">{filtersdata.inputLabel}</label>
+																			{/*{console.log("filtersdata.inputName => ",filtersdata.inputName)}*/}
+																			{console.log("this.state => ",this.state[filtersdata.inputName])}
+																			{filtersdata.inputType === "select"
+																			?
+																				<Select
+																		        	value 		= {this.state[filtersdata.inputName]}
+																		        	name 			= {filtersdata.inputName}
+																		        	onChange 	= {this.handleChangeFilters.bind(this)}
+																		        	options 		= {filtersdata.inputArray}
+																		      />
+																		  :
+																				null
+																		  }
+																		</div>								                                    	
+																	);
+															  })
+														:
+															null
+													}
+													</div>
+												:
+													null
 											}
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
 												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
@@ -720,11 +814,12 @@ class UserReport extends Component {
 																tableHeading 	= {this.state.tableHeading}
 																twoLevelHeader = {this.state.twoLevelHeader}
 																id 				= {this.state.tableId}
-																dataCount 		= {this.state.RecordsCount}
+																dataCount 		= {this.state.dataCount}
 																tableData 		= {this.state.RecordsTable}
 																tableObjects 	= {this.state.tableObjects}
 																tableName 		= {this.state.reportTitle}
 																getData 			= {this.getData.bind(this)}
+
 															/>
 													</div>
 												</div>

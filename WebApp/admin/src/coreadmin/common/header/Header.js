@@ -400,7 +400,8 @@ class Header extends Component {
 		return (
 			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<header className="main-header newMain-header">
-					<a href="javascript:void(0)" className="logo logoOne">
+					{/*<a href="javascript:void(0)" className="logo logoOne">*/}
+					<div  className="logo logoOne">
 						<span className="logo-mini">
 							<a href="/">
 								{this.state.corporateInfo ?
@@ -413,7 +414,8 @@ class Header extends Component {
 						<span className="logo-lg">
 							<label className="headerImage"><a href='/'><span className="companyName">{this.state.companyName}</span></a></label>
 						</span>
-					</a>
+					</div>
+					{/*</a>*/}
 					<nav className="navbar navbar-static-top" role="navigation">
 						<div className="col-lg-3 col-md-4 col-sm-4 col-xs-4 padd0">
 							<a href="javascript:void(0)" className="sidebar-toggle marginTop11 marginLeft12" data-toggle="push-menu" role="button">
@@ -430,7 +432,7 @@ class Header extends Component {
 								<div className="col-lg-8 col-md-8 col-sm-8 col-xs-8 pull-right">
 									<div className="col-lg-2 col-md-2 col-sm-2 col-xs-2 bell_Icon">
 										<i className="fa fa-bell btn mt15px" onClick={this.bellNotification.bind(this)} aria-hidden="true" style={{"fontSize" : 15}} id="notificationBell"></i>
-										<h1 id="badgecount"><span class="label label-default badgeClass">{this.state.inAppNotificationsCount}</span></h1>
+										<h1 id="badgecount"><span className="label label-default badgeClass">{this.state.inAppNotificationsCount}</span></h1>
 										<div className="col-lg-12 col-md-12  bellnotification" id="bellnotification">
 											{/* <p>You have {this.state.inAppNotificationsCount} notifications</p> */}
 											<div className="msgnotification col-lg-12 col-md-12 " >
@@ -482,7 +484,7 @@ class Header extends Component {
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopadding " >
 												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  headerImageContainer padd0 ">
 													<p className="pull-right fntC1" style={{ "cursor": "pointer" }} title="Close" onClick={this.LogoutSectionHover.bind(this)}>X</p><br />
-													<div className=" marLeft " style={{ "backgroundImage": `url(` + (this.state.userImage ? this.state.userImage : "/images/person.png") + `)`, "height": "40%", "backgroundSize": "41% 100%", "background-repeat": "no-repeat" }}></div>
+													<div className=" marLeft " style={{ "backgroundImage": `url(` + (this.state.userImage ? this.state.userImage : "/images/person.png") + `)`, "height": "40%", "backgroundSize": "41% 100%", "backgroundRepeat": "no-repeat" }}></div>
 													<div className="col-lg-12 col-md-6 col-sm-12 col-xs-12 marTop pull-right  padd0 ">
 														<h5 className="nomargin dropmailtext">
 															{this.state.fullname ? this.state.fullname : ""}

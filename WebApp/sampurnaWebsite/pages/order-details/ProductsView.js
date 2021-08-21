@@ -103,7 +103,7 @@ class ProductsView extends Component {
     let formIsValid = true;
 
     if (!fields["customerReview"]) {
-      console.log("!fields==", !fields["customerReview"]);
+      // console.log("!fields==", !fields["customerReview"]);
       formIsValid = false;
       errors["customerReview"] = "Please add your review.";
     }
@@ -140,7 +140,7 @@ class ProductsView extends Component {
           "reviewProductImages": reviewProductImages.push(this.state.imgUrl),
         }
 
-        console.log("formValues=", formValues);
+        // console.log("formValues=", formValues);
         axios.patch("/api/customerReview/patch/customer/review", formValues)
           .then((response) => {
             this.setState({
@@ -183,7 +183,7 @@ class ProductsView extends Component {
           "status": "New",
           "reviewProductImages": reviewProductImages,
         }
-        console.log("formValues=", formValues);
+        // console.log("formValues=", formValues);
         axios.post("/api/customerReview/post", formValues)
           .then((response) => {
             if (response) {
@@ -304,7 +304,7 @@ uploadImage(event) {
                 ReactS3Client
                   .deleteFile(file)
                   .then(response => {
-                    console.log("img deleted", response);
+                    // console.log("img deleted", response);
                     this.setState({
                       imgUrl: data.location
                     });
@@ -425,12 +425,12 @@ uploadImage(event) {
       "order_id": orderID,
       "product_id": productID
     }
-    console.log("formValues=", formValues);
+    // console.log("formValues=", formValues);
     if (formValues) {
       axios.post("/api/customerReview/get/single/customer/review", formValues)
         .then((response) => {
           if (response.data) {
-            console.log("single review==",response.data);
+            // console.log("single review==",response.data);
             this.setState({
               rating_ID: response.data._id,
               customerID: response.data.customer_id,
@@ -461,7 +461,7 @@ uploadImage(event) {
     axios.get('/api/returnreasons/get/list')
       .then((reasonsResponse) => {
         if (reasonsResponse) {
-          console.log("reasonsResponse=", reasonsResponse.data);
+          // console.log("reasonsResponse=", reasonsResponse.data);
           this.setState({
             reasonsForReturn: reasonsResponse.data
           }, () => {
@@ -516,7 +516,7 @@ uploadImage(event) {
   }
 
   render() {
-    console.log("productdetails this.props ===",this.props);
+    // console.log("productdetails this.props ===",this.props);
     return (
       <div className="col-12 productViewMainwrapper">
       <div className="col-12 d-none d-lg-block d-xl-block">

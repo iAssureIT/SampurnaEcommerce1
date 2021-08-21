@@ -7,6 +7,7 @@ const initialState = {
     recentCartData        : [],
     recentAddressData     : [],
     recentWishlistData    :[],
+    recentWishlist        :[],
     recentCategoryData    :[],
 	wishlistCount 	      : 0,
 	featuredProductData   : {},
@@ -49,8 +50,13 @@ const reducer = (state = initialState,action) =>{
             return {...state, recentAddressData: action.addressData};
             
         case "FETCH_WISHLIST_DATA" :
-            // console.log("reducer.wishlistData===",action.wishlistData);
+            console.log("reducer.wishlistData===",action.wishlistData);
             return {...state, recentWishlistData: action.wishlistData};
+
+        case "WISHLIST_DATA" :
+            // console.log("reducer.userWishlistData===",action.userWishlistData);
+            return {...state, recentWishlist: action.userWishlistData};
+    
         case "WISHLIST_COUNT_INITIALLY" :
             return {...state, wishlistCount: action.wishlistCount}
         case "WISHLIST_COUNT" : 

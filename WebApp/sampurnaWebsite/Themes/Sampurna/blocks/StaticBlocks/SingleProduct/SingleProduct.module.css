@@ -205,8 +205,8 @@ font-weight: bolder;
     transition: .4s ease;
   }
   .productWrapper{
-    padding-left: 5px;
-    padding-right: 5px;
+    /* padding-left: 5px; */
+    /* padding-right: 5px; */
     margin-bottom: 25px !important;
   }
   .productListWrapper{

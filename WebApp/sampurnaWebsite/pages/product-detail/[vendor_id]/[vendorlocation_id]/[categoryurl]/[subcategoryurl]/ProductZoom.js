@@ -103,10 +103,11 @@ class ProductZoom extends Component {
 									</div> 
 									
 									<div id="" className="col-12 NoPadding mt-3">
-									<Carousel
+									<div className="col-12">
+										<Carousel
 										className="productview"
-										swipeable={true}
-										draggable={true}
+										swipeable={false}
+										draggable={false}
 										showDots={false}
 										responsive={responsive}
 										ssr={true} // means to render carousel on server-side.
@@ -123,7 +124,6 @@ class ProductZoom extends Component {
 										itemClass={"carousel-item-padding-10-px " +Style.smallBoxImg}>
 										{	
 											this.props.productData && Array.isArray(this.props.productData.productImage) && this.props.productData.productImage.map((data, index) => {
-												console.log("map 581 =========>",data);
 												return(
 													// <img src={data} className="img-responsive prodImgMobileView" onClick={this.onClickImg.bind(this,data)} key={index}></img>	
 													<Image                                           
@@ -141,6 +141,7 @@ class ProductZoom extends Component {
 											})
 										}
 									</Carousel>
+									</div>
 									</div>
 								</div>
 							</div>

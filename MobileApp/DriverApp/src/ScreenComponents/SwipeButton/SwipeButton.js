@@ -158,7 +158,15 @@ const styles = StyleSheet.create({
     zIndex: 3,
     elevation:5,
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3.84,
+    elevation: 20,
   },
   swipeText: {
     alignSelf: 'center',

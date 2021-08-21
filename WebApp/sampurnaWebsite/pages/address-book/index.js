@@ -14,7 +14,8 @@ class AddressBook extends Component{
     constructor(props) {
         super(props);
         this.state={
-            deliveryAddresses : []
+            deliveryAddresses : [],
+            addressId : "",
         }
     }
     componentDidMount(){
@@ -142,28 +143,27 @@ class AddressBook extends Component{
             // console.log("addressId===",this.state.addressId);
         })
     }
-    opDone(){
-        this.getUserData();
-        this.getUserAddresses();
-    }
     render(){
         return(      
             <div className="col-lg-10 col-12 "> 
             <div className=" col-12">
+            
             <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
                 <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
                     <div className={"modal-content  pb-0 "+Style.modalContentM}>    
                     <div className={"modal-header globalBgColor col-12 " +Style.modalHeaderM}>
                         <div className={"modal-title col-12 modalheadingcont pb-3  underline " +Style.f14BM }><img className={" "+Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" style={{height:"40px"}} alt="T&C MODAL-LOGO"/><p>Shipping Address</p></div>
                         <button type="button" className={" close modalclosebut  "+Style.modalCloseButtonWrapperM} data-dismiss="modal">&times;</button>
-                    </div>                      
+                    </div> 
                         <div className={"modal-body addressModalBody "+Style.modalBg}>
-                            <UserAddress  addressId ={this.state.addressId}/>
+                            <UserAddress 
+                                addressId ={this.state.addressId}  
+                            />
                         </div>
                     </div>
                 </div>
             </div>
-
+            
             <Message messageData={this.state.messageData} /> </div>
             <h4 className={"font-weight-bold "+ Style.accountDashBoardMainTitle}>My Addresses</h4>
             <div className={ "container-flex "+Style.accountDashBoardInnerwrapper}>
@@ -173,71 +173,107 @@ class AddressBook extends Component{
                         </div>
                         
             </div>
-                {/* <div className="row"> */}
-                    <div className="col-12 pt-4 ">
-                        <div className="row">
-                            <div className="col-12 col-lg-12 py-4">
-                                <div className="col-12"> { this.state.addressLine1 ?
-                                    <div className="col-12">
-                                        <label className={" "+ Style.defaultBillingAddTitle}>Default Shipping / Billing Address</label>
-                                        <p className={"text-justify "+Style.addressInnerDescWrapper} > {this.state.name}
-                                            <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {this.state.addressLine1} - {this.state.pincode}.
+                <div className="col-12 pt-4 ">
+                    <div className="row">
+                        <div className="col-12 col-lg-12 py-4">
+                            <div className="col-12"> 
+                            {/* {console.log("this.props.recentAddressData[0]=",this.props.recentAddressData[0])} */}
+                            { this.props.recentAddressData[0] ?
+                                <div className="col-12">
+                                    <label className={" "+ Style.defaultBillingAddTitle}>Default Shipping / Billing Address</label>
+                                    <div className={" col-12 text-justify "+Style.addressInnerDescWrapper} > 
+                                        <div className="col-12">
+                                            <span className="row">
+                                                <span className="col-5 ">
+                                                    <i className="fa fa-home" aria-hidden="true"></i> &nbsp;
+                                                    <span className={Style.addType}>{this.props.recentAddressData[0].addType}</span>
+                                                </span>
+                                                <span className="col-2">
+                                                    <i className="fa fa-pencil-square-o btn" data-toggle="modal" data-target="#checkoutAddressModal" id={this.props.recentAddressData[0]._id} onClick={this.getAddressId.bind(this)} aria-hidden="true"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div className="col-8">
+                                            {this.props.recentAddressData[0].name}
+                                            <br /> {this.props.recentAddressData[0].addressLine2 ? this.props.recentAddressData[0].addressLine2+", " : null} {this.props.recentAddressData[0].addressLine1} - {this.props.recentAddressData[0].pincode}.
                                             <br /> {/* {this.state.city},
                                             <br /> */} {/* {this.state.state}, {this.state.country} - {this.state.pincode}
-                                            <br /> */} Contact Number: {this.state.mobileNumber}
-                                        </p>
-                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.state.deliveryAddressID} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn ">Change Billing Address</div> {/* <i id={this.state.deliveryAddressID} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn anasBtn deleteAdd"></i> */} </div> :
-                                    <div className="col-12">
-                                        <label className={" "+ Style.defaultBillingAddTitle}>Default Billing Address</label>
-                                        <p className={" "+Style.addressInnerDescWrapper}>You have not set a default billing address.</p>
-                                        <div data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn mt-2  mt-0 float-lg-right float-md-right">Add Billing Address</div>
-                                    </div> } </div>
+                                            <br /> */} Contact Number: {this.props.recentAddressData[0].mobileNumber}
+                                        </div>
+                                    </div>
+                                    {/* <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.props.recentAddressData[0]._id} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn ">Change Billing Address</div>  */}
+                                </div> 
+                                :
+                                <div className="col-12">
+                                    <label className={" "+ Style.defaultBillingAddTitle}>Default Billing Address</label>
+                                    <p className={" "+Style.addressInnerDescWrapper}>You have not set a default billing address.</p>
+                                    <div data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn mt-2  mt-0 float-lg-right float-md-right">Add Billing Address</div>
+                                </div> 
+                            } 
                             </div>
-
+                        </div>
                             <div className="col-12 col-lg-12 py-4">
                             <div className="col-12">
                                <div className="col-12">
                                    <label className={" "+ Style.defaultBillingAddTitle}>Additional Address Entries</label>
                                </div>
-                               <div className="row">
-                            {/* { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return( */}
-                            { this.props.recentAddressData && this.props.recentAddressData.length > 1 ? this.props.recentAddressData.map((address , index)=>{ if(index !== 0){ 
-                                // console.log("address==",address);
-                                return(  
-                                        <div key={ 'address'+index} className="col-12 col-lg-6 col-md-6  py-3">
-                                            <div className="col-12 text-center">
-                                                    <p className={"text-justify "+Style.addressInnerDescWrapper}> {address.name}
-                                                        <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {address.addressLine1}
-                                                         {/* {this.state.city},
-                                                        <br /> */} {/* {address.state}, {address.country} - {address.pincode}
-                                                        <br /> */}
-                                                        {address.pincode &&
-                                                            <span> <br />Pincode : {address.pincode +"."}</span>
-                                                        }
-                                                        <br /> Contact Number: {address.mobileNumber} </p>
-                                                    <div className="col-12 pl-lg-0 pl-xl-0 pl-md-0 pl-sm-0 float-left">
-                                                        
-                                                        <button data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className=" col-lg-8 col-xl-8 col-8 mx-auto btn globalCommonBtn float-left">Edit Address</button> 
-                                                            &nbsp; <i id={address._id} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn deleteAdd  " style={{ "fontSize": '14px' }}></i> 
+                                <div className="col-11 mx-auto">
+                                    <div className="row">
+                                        {/* { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return( */}
+                                        { this.props.recentAddressData && this.props.recentAddressData.length > 1 ? this.props.recentAddressData.map((address , index)=>{ if(index !== 0){ 
+                                            // console.log("address==",address);
+                                            return(  
+                                                    <div key={ 'address'+index} className={"col-12 col-lg-6 col-md-6  py-3 " +Style.additionAddress1}>
+                                                        <div className={"col-12 text-center " +Style.additionAddress}>
+                                                                <div className={"text-justify pt-2 "+Style.addressInnerDescWrapper}> 
+                                                                <div className="col-12 p-0 ">
+                                                                    <i className="fa fa-home" aria-hidden="true"></i> &nbsp;
+                                                                    <span className={Style.addType}>{address.addType}</span>
+                                                                </div>
+                                                                {address.name}
+                                                                    <br /> {address.addressLine2 ? address.addressLine2+", " : null} {address.addressLine1}
+                                                                    {/* {this.state.city},
+                                                                    <br /> */} {/* {address.state}, {address.country} - {address.pincode}
+                                                                    <br /> */}
+                                                                    {address.pincode &&
+                                                                        <span> <br />Pincode : {address.pincode +"."}</span>
+                                                                    }
+                                                                    <br /> Contact Number: {address.mobileNumber} 
+                                                                </div>
+                                                                <div className="col-12 pl-lg-0 pl-xl-0 pl-md-0 pl-sm-0 ">
+                                                                    <div className="row">
+                                                                        {/* <button data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className=" col-lg-8 col-xl-8 col-8 mx-auto btn globalCommonBtn float-left">Edit Address</button>  */}
+                                                                        <div className="col-4">
+                                                                            <i className={"fa fa-pencil-square-o btn pull-right " +Style.editAddress} data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} aria-hidden="true"></i>
+                                                                        </div>
+                                                                        <div className="col-8 text-right">
+                                                                            <i id={address._id} onClick={this.deleteAddress.bind(this)} className={"fa fa-trash btn deleteAdd  text-right " +Style.deleteAddress} style={{ "fontSize": '14px' }}></i> 
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                         </div>
                                                     </div>
+                                                    
+                                                    
+                                                    ); 
+                                                }
+                                            })
+                                            :
+                                                    <div className="col-12">
+                                                    <div className="col-12">
+                                                    <p className={"text-justify "+Style.addressInnerDescWrapper}>You have no other address entries in your address book.</p> 
+                                                    </div>
+                                                    </div>
+                                        }             
+                                        <div className="col-12">
+                                            <div className="col-12 NOpadding py-4 py-lg-0">
+                                                <div data-toggle="modal" data-target="#checkoutAddressModal" id="newAddress" onClick={()=>{this.setState({"addressId":""})}} className={"btn globalCommonBtn addressSaveBtn float-lg-right float-md-right" }>Add New Address</div>
+                                                
                                             </div>
-                                        
-                                        
-                                        ); } }) :
-                                        <div className="col-12">
-                                        <div className="col-12">
-                                        <p className={"text-justify "+Style.addressInnerDescWrapper}>You have no other address entries in your address book.</p> 
                                         </div>
-                                        </div>
-                            }             <div className="col-12">
-                                        <div className="col-12 NOpadding py-4 py-lg-0">
-                                            <div data-toggle="modal" data-target="#checkoutAddressModal" id="" className={"btn globalCommonBtn addressSaveBtn float-lg-right float-md-right" }>Add New Address</div>
-                                        </div>
-                                        </div>
-                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            
                          </div>
                     </div>
                 </div>

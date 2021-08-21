@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from '../styles.js';
 const window = Dimensions.get('window');
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export default StyleSheet.create({
   container:{

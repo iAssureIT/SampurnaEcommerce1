@@ -9,8 +9,6 @@ import Style                from './index.module.css';
 import { connect }          from 'react-redux';
 import  store               from '../../redux/store.js'; 
 import {getAddressData}     from '../../redux/actions/index.js'; 
-
-
 class UserAddress extends Component {
     constructor(props) {
         super(props);
@@ -19,22 +17,34 @@ class UserAddress extends Component {
             fields: {},
             errors: {},
             deliveryAddressID : "",
+            addressId : ""
+        }
+    }
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.addressId) {
+            // console.log("get derived props===",nextProps.addressId);
+          return {
+            addressId: nextProps.addressId
+          };
+        }
+    
+        // Return null to indicate no change to state.
+        return null;
+      }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.addressId !== prevProps.addressId) {
+            this.getUserDetails();
         }
     }
     componentDidMount(){  
+        // console.log("props==",this.props, this.state.addressId);
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
-        if(userDetails){
-            this.setState({
-                user_ID   : userDetails.user_id,
-            },()=>{
-                this.getUserDetails();
-            })
-        }
-        if(sampurnaWebsiteDetails){
+        if(sampurnaWebsiteDetails && userDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
                 var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
                 this.setState({
+                    user_ID   : userDetails.user_id,
                     address   : deliveryLocation.address,
                     city      : deliveryLocation.city,
                     country   : deliveryLocation.country,
@@ -42,35 +52,67 @@ class UserAddress extends Component {
                     pincode   : deliveryLocation.pincode,
                     latitude  : deliveryLocation.latitude,
                     longitude : deliveryLocation.longitude,
+                },()=>{
+                    this.getUserDetails();
                 })
             }
         }
-        console.log("this.props.addressId===",this.props.addressId);
     }
+
     getUserDetails() {
-        if(this.state.user_ID){
         axios.get("/api/ecommusers/" +this.state.user_ID)
             .then((response) => {
             if(response){
-                this.setState({
-                    "deliveryAddress": response.data.deliveryAddress?response.data.deliveryAddress:null,
-                    "fullname": response.data.profile.fullName,
-                    "mobileNumber": "971" +response.data.profile.mobile,
-                    "email": response.data.profile.email
-                },()=>{
-                    let fields = this.state.fields;
-                    fields["fullname"] = response.data.profile.fullName;
-                    fields["mobileNumber"] = response.data.profile.mobile;
+                // console.log("user response ",response);
+                if(this.state.addressId){
+                    var deliveryAddress = response.data.deliveryAddress.filter((a) => String(a._id) === String(this.state.addressId));
+                    if(deliveryAddress){
+                        // console.log("DeliveryAddress==",deliveryAddress);
+                        this.setState({
+                            // "deliveryAddress": response.data.deliveryAddress?response.data.deliveryAddress:null,
+                            "fullname"    : deliveryAddress[0].name,
+                            "mobileNumber": "971" +deliveryAddress[0].mobileNumber,
+                            "email"       : deliveryAddress[0].email,
+                            "modaladdType": deliveryAddress[0].addType,
+                            "city"        : deliveryAddress[0].city,
+                            "area"        : deliveryAddress[0].area,
+                            "address1"    : deliveryAddress[0].addressLine1,
+                            "address"     : deliveryAddress[0].addressLine2,
+                            "pincode"     : deliveryAddress[0].pincode,
+                            "latitude"    : this.state.latitude,
+                            "longitude"   : this.state.longitude,
+                        },()=>{
+                            let fields = this.state.fields;
+                            fields["fullname"]     = deliveryAddress[0].name;
+                            fields["mobileNumber"] = "971" +deliveryAddress[0].mobileNumber;
+                            fields["address1"]     = deliveryAddress[0].addressLine1,
+                            fields["modaladdType"] = deliveryAddress[0].addType,
+                            this.setState({
+                                fields
+                            });
+                        });
+                    }
+                }else{
                     this.setState({
-                        fields
+                        "fullname"    : '',
+                        "mobileNumber": '',
+                        "email"       : '',
+                        "modaladdType": '',
+                        "city"        : this.state.city ? this.state.city : "",
+                        "area"        : this.state.area,
+                        "address1"    : '',
+                        "address"     : this.state.address,
+                        "pincode"     : this.state.pincode ? this.state.pincode:"",
+                        "latitude"    : this.state.latitude,
+                        "longitude"   : this.state.longitude,
+                    },()=>{
                     });
-                });
+                }
             }
             })
             .catch((error) => {
                 console.log('error', error);
             }); 
-        } 
     }
 
     validateForm(){
@@ -142,34 +184,26 @@ class UserAddress extends Component {
                 "addType"           : this.state.modaladdType,
                 "latitude"          : this.state.latitude,
                 "longitude"         : this.state.longitude,
-                "deliveryAddressID" :this.props.addressId?this.props.addressId: null
+                "deliveryAddressID" :this.state.addressId?this.state.addressId: null
             }
-            // console.log("formValues =",formValues);
+            
                 if(this.props.addressId){
                     if(this.validateForm()){
+                        // console.log(" update address formValues =",formValues);
                     axios.patch('/api/ecommusers/updateuseraddress', formValues)
                     .then((response)=>{
-                    // this.setState({
-                    //   messageData : {
-                    //     "type" : "outpage",
-                    //     "icon" : "fa fa-check-circle",
-                    //     "message" : "&nbsp; "+response.data.message,
-                    //     "class": "success",
-                    //     "autoDismiss" : true
-                    //   }
-                    // }) 
-                    // setTimeout(() => {
-                    //     this.setState({
-                    //         messageData   : {},
-                    //     })
-                    // }, 3000);
 
                     swal("Thank You!!! Address is successfully updated");
+                    this.setState({
+                        "fullname"              : '',
+                        "address1"              : '',
+                        "pincode"               : '',
+                        "modaladdType"          : '',
+                        "addressId"             : '',
+                    })
                     $("#checkoutAddressModal").modal('hide');
                     this.props.fetchAddressData();
-                    // swal({text:response.data.message}).then(function(){
-                    //     this.props.fetchAddressData();
-                    // });
+                   
                     })
                     .catch((error)=>{
                         console.log('Address error===', error)
@@ -177,11 +211,19 @@ class UserAddress extends Component {
                 }
             }else{ 
                 if(this.validateForm()){
+                    // console.log("add address formValues===",formValues);
                     axios.patch('/api/ecommusers/patch/address', formValues)
                     .then((response)=>{
                     swal("Thank You!!! Address is successfully saved");
                     $("#checkoutAddressModal").modal('hide');
                     this.props.fetchAddressData();
+                    this.setState({
+                        "fullname"              : '',
+                        "address1"              : '',
+                        "pincode"               : '',
+                        "modaladdType"          : '',
+                        "addressId"             : '',
+                    })
                     })
                     .catch((error)=>{
                         console.log('error', error)
@@ -189,47 +231,14 @@ class UserAddress extends Component {
                 } 
             }
         }
-        
-    edit(deliveryAddressID){     
-        if(this.state.userID){   
-            axios.get('/api/ecommusers/'+this.state.userID)
-            .then((response)=>{            
-                var deliveryAddress = response.data.deliveryAddress.filter((a)=>{return a._id === deliveryAddressID});
-               
-                if(deliveryAddress[0]){
-                    this.setState({
-                        "modalname"            : deliveryAddress[0].name,
-                        "modalemail"           : deliveryAddress[0].email,
-                        "addressLine1"         : deliveryAddress[0].addressLine1,
-                        "modaladdressLine2"    : deliveryAddress[0].addressLine2,  
-                        "modalPincode"         : deliveryAddress[0].pincode,
-                        "modalarea"            : deliveryAddress[0].block,
-                        "modaldistrict"        : deliveryAddress[0].district,
-                        "modalcity"            : deliveryAddress[0].city,
-                        "modalstateCode"       : deliveryAddress[0].stateCode,
-                        "modalstate"           : deliveryAddress[0].state,
-                        "modalcountryCode"     : deliveryAddress[0].countryCode,
-                        "modalcountry"         : deliveryAddress[0].country,
-                        "modalmobileNumber"    : deliveryAddress[0].mobileNumber,
-                        "modaladdType"         : deliveryAddress[0].addType,
-                        "latitude"             : deliveryAddress[0].latitude,
-                        "longitude"            : deliveryAddress[0].longitude,
-                    })
-                }
-            })
-            .catch((error)=>{
-                console.log('error', error);
-            });
-        }
-    }
 
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
         })
-        if (event.target.name === 'modalPincode') {
-            this.handlePincode(event.target.value);
-        }
+        // if (event.target.name === 'pincode') {
+        //     this.handlePincode(event.target.value);
+        // }
         let fields = this.state.fields;
 		fields[event.target.name] = event.target.value;
 		this.setState({
@@ -238,7 +247,6 @@ class UserAddress extends Component {
     }
 
     render() {
-          
         return (
             <div className="addressModal col-12 ">  
             <Message messageData={this.state.messageData} />
@@ -276,12 +284,12 @@ class UserAddress extends Component {
                                 <div className="errorMsg">{this.state.errors.mobileNumber}</div>
                             </div>
                             <div className="col-12 shippingInput mb-2">
-                                <label className="col-12 NoPadding pb-0 mb-0">House No/Office No/Building Name <span className="required">*</span> </label>
+                                <label className="col-12 NoPadding pb-0 mb-0">House No/Office No/Building Name/Street Name <span className="required">*</span> </label>
                                 <input type="text" ref="address1" name="address1" value={this.state.address1} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
                                 <div className="errorMsg">{this.state.errors.address1}</div>
                             </div>
                             <div className="col-12 shippingInput mb-2">
-                                <label className="col-12 NoPadding pb-0 mb-0">Area / Street Name</label>
+                                <label className="col-12 NoPadding pb-0 mb-0">Area</label>
                                 <input type="text" ref="area" name="area" value={this.state.area} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
                             <div className="col-12 shippingInput mb-2">
@@ -298,7 +306,7 @@ class UserAddress extends Component {
                             </div>
                             <div className="col-12 shippingInput mb-2">
                                 <label className="col-12 NoPadding pb-0 mb-0">Zip/Postal Code</label>
-                                <input type="number" minLength="6" maxLength="6" ref="pincode" name="pincode" value={this.state.pincode}  className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
+                                <input type="number" minLength="6" maxLength="6" ref="pincode" name="pincode" value={this.state.pincode} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
                                 
                             </div>   
                             <div className="col-12 shippingInput mb-2">
@@ -314,7 +322,7 @@ class UserAddress extends Component {
                             </div>
                             <div className=" checkoutAddressModal col-12 py-4">
                                 <div className={"col-8 mx-auto NoPadding " +Style.ma}>
-                                    <button type="button" className={"btn globaleCommBtn align-center saveAddressBtn col-12 " +Style.saveBtn} onClick={this.saveAddress.bind(this)}>{this.props.addressId ? 'Update Address' :'Save Address'}</button>
+                                    <button type="button" className={"btn globaleCommBtn align-center saveAddressBtn col-12 " +Style.saveBtn} onClick={this.saveAddress.bind(this)}>{this.state.addressId ? 'Update Address' :'Save Address'}</button>
                                 </div>
                             </div>
                         </div>

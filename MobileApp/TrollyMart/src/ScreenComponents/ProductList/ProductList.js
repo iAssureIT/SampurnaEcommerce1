@@ -269,7 +269,7 @@ export const ProductList = withCustomerToaster((props)=>{
           
                 <View style={[styles.textWrapper, styles.protxt]}>
                   {props.vendorName && 
-                    <View style={{justifyContent:'flex-start',alignItems:'flex-start',marginBottom:15}}>
+                    <View style={{justifyContent:'flex-start',alignItems:'flex-start'}}>
                       <Text style={styles.brandname}>{item.vendorName}</Text>
                     </View>
                   }
@@ -303,7 +303,7 @@ export const ProductList = withCustomerToaster((props)=>{
                             <Icon name="plus" type="entypo" size={20} color={props.disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/>
                           </TouchableOpacity>  
                         </View>}
-                      <Text numberOfLines={3} style={[styles.nameprod]}>{item.productName}</Text>
+                      <Text numberOfLines={2} style={[styles.nameprod]} ellipsizeMode='middle'>{item.productName}</Text>
                     </View>
                      
                   </View>

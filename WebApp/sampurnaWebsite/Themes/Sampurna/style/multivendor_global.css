@@ -189,10 +189,22 @@ body {
   font-size  : 11px !important;
   line-height: 12px;
 }
-
+.sizeVariantTab .nav-link{
+  border         : solid 1px #bbb !important;
+  color: #666;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none !important;
+  border-top-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+}
 .sizeVariantTab .active {
   border         : solid 1px #033554 !important;
   text-decoration: none !important;
+  font-weight: bold;
+  color: #000;
 }
 
 .colorVariantTab .activeColor {

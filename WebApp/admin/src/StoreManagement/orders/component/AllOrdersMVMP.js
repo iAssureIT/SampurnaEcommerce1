@@ -245,7 +245,7 @@ class AllOrdersList extends Component{
 		// .then((response)=>{
 		socket.emit('adminOrtderListValues',formValues);
 		socket.on("adminBookingList", (response)=>{
-		console.log('order tableData', response);		               
+		// console.log('order tableData', response);		               
 		  	var tableData = response.map((a, i)=>{
 			// var tableData = response.data.map((a, i)=>{			
 				return{ 

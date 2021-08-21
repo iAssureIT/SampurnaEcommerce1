@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { colors } from '../styles.js';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 export default StyleSheet.create({
 	regionalProductName:{
 		fontFamily:'aps_dev_priyanka',
@@ -142,7 +143,7 @@ export default StyleSheet.create({
 	},
 	productContainer: {
 		// height :350,
-		width:"42.5%",
+		width:wp(42.5),
 		// paddingVertical:5,
 		backgroundColor:"#fff",
 		marginBottom:15,
@@ -491,8 +492,8 @@ export default StyleSheet.create({
 		
 	},
 	subcatimg: {
-		height:107,
-		width:100,
+		height:hp(15),
+		width:wp(28),
 		alignSelf:'center',
 		// borderTopRightRadius:15,
 		// borderTopLeftRadius:15,

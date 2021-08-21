@@ -67,10 +67,10 @@ export const Location = withCustomerToaster((props)=>{
             if (error.response.status == 401) {
                 AsyncStorage.removeItem('user_id');
                 AsyncStorage.removeItem('token');
-                setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+                // setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
                 navigation.navigate('Auth')
               }else{
-                setToast({text: 'Something went wrong.', color: 'red'});
+                // setToast({text: 'Something went wrong.', color: 'red'});
               }  
         });
     },[props]);
@@ -162,10 +162,10 @@ export const Location = withCustomerToaster((props)=>{
             if (error.response.status == 401) {
                 AsyncStorage.removeItem('user_id');
                 AsyncStorage.removeItem('token');
-                setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+                // setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
                 navigation.navigate('Auth')
               }else{
-                setToast({text: 'Something went wrong.', color: 'red'});
+                // setToast({text: 'Something went wrong.', color: 'red'});
               }  
           });
     }
@@ -240,14 +240,15 @@ export const Location = withCustomerToaster((props)=>{
         if(userDetails && userDetails.user_id){
             dispatch(getWishList(userDetails.user_id))
         }    
-        navigation.dispatch(
-        CommonActions.reset({
-            index: 1,
-            routes: [
-            { name: 'App' },
-            ],
-        })
-        );
+        navigation.navigate('App');
+        // navigation.dispatch(
+        // CommonActions.reset({
+        //     index: 1,
+        //     routes: [
+        //     { name: 'App' },
+        //     ],
+        // })
+        // );
     }  
 
     return (

@@ -46,12 +46,17 @@ export const setWishlistData = wishlistdata => ({
   wishlistData: wishlistdata
 });
 
+export const setAllWishlistDataWithoutLocation = userwishlistdata => ({
+  type: 'WISHLIST_DATA',
+  userWishlistData: userwishlistdata
+});
+
 //set productAPI for productlist page
 export const setProductApiUrl = pageUrl => ({
   type   : 'SET_PRODUCT-APIURL',
   pageUrl: pageUrl
 });
- 
+
 export const setSampurnaWebsiteDetails = sampurnaWebsiteDetails => ({
   type                  : 'SET_SAMPURNA-WEBSITE-DETAILS',
   sampurnaWebsiteDetails: sampurnaWebsiteDetails
@@ -194,28 +199,40 @@ export function getAddressData(){
   }
 }
 
-//getWishlist new
-// export function getWishlist(data){
-//   axios.post('/api/wishlist/get/userwishlist', formValues)    
-//   .then((response) => {
-//     if(response){
-//       console.log('wishlist data', response.data);
-//       dispatch(setWishlistData(response.data));
-//     }
-//   })
-//   .catch((error) => {
-//     console.log('error', error);
-//   })
-// }
+//getWishlist locationwise api
+export function getWishlistData(){
+  return dispatch =>{
+    var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+      var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails')); 
+        if(sampurnaWebsiteDetails && userDetails){
+          if(sampurnaWebsiteDetails.deliveryLocation){
+              var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
+              var userid = userDetails.user_id;
+              var latitude  = deliveryLocation.latitude;
+              var longitude = deliveryLocation.longitude;
+          }
+        }
+    var formValues ={
+      "user_ID"             : userid,
+      "userLat"             : latitude, 
+      "userLong"            : longitude
+    }
+    axios.post('/api/wishlist/get/userwishlist', formValues)    
+    .then((response) => {
+      if(response){
+        console.log('action wishlist data', response.data);
+        dispatch(setWishlistData(response.data));
+      }
+    })
+    .catch((error) => {
+      console.log('error', error);
+      dispatch(setWishlistData([]));
+    })
+  }
+}
 
-// export function setCartData(data) {
-// 	return dispatch =>{
-//     dispatch(fetchcartdata(data));
-//   }  
-// }
-
-
-export function getWishlistData() {
+//get all Wishlist data without location
+export function getWishlist() {
 	return dispatch =>{
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
     if(userDetails){
@@ -225,7 +242,7 @@ export function getWishlistData() {
         .then((response)=>{
           if(response){
             // console.log("Wishlist Data-",response.data);
-            dispatch(setWishlistData(response.data));
+            dispatch(setAllWishlistDataWithoutLocation(response.data));
           }       
         })
         .catch((error)=>{
@@ -233,9 +250,15 @@ export function getWishlistData() {
         })
 
       }else{
-        dispatch(setWishlistData([]));
+        dispatch(setAllWishlistDataWithoutLocation([]));
       }
     }
+  }  
+}
+
+export function setCartData(data) {
+	return dispatch =>{
+    dispatch(fetchcartdata(data));
   }  
 }
 

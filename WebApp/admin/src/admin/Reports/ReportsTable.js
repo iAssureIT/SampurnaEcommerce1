@@ -1,13 +1,14 @@
 import React, { Component }       	from 'react';
-import {withRouter} 			from 'react-router-dom';
+import {withRouter} 						from 'react-router-dom';
 import $ 									from "jquery";
 import jQuery 								from 'jquery';
 import Loader                 		from "react-loader";
+import ReactHTMLTableToExcel 			from 'react-html-table-to-excel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 import 'bootstrap/js/tab.js';
 import 'font-awesome/css/font-awesome.min.css';
-import './IAssureTable.css';
+// import './IAssureTable.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 
@@ -516,38 +517,56 @@ class IAssureTable extends Component {
    /*===========  ===========*/
 	render(){
       return (
-	      <div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NoPadding">	
-			   {this.state.tableObjects.paginationApply === true 
-			   	?
-				      <div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 NoPadding">
-							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17 NOpadding">Show</label>
-							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-								<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">
-									<option value="Not Selected" disabled>Select Limit</option>
-									{/* <option value={10}>10</option> */}
-									<option value={25}>25</option>
-									<option value={50}>50</option>
-									<option value={100}>100</option>
-									<option value={500}>500</option>
-								</select>
+	      <div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NOPadding">	
+	      	<div className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NOpadding">	
+				   {this.state.tableObjects.paginationApply === true 
+				   	?
+					      <div className="col-lg-2 col-md-2 col-sm-4 col-xs-6 NoPadding NOpadding-left">
+								<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17 NOpadding">Data Per page</label>
+								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+									<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">
+										<option value="Not Selected" disabled>Select Limit</option>
+										<option value={10}>10</option>
+										<option value={25}>25</option>
+										<option value={50}>50</option>
+										<option value={100}>100</option>
+										<option value={500}>500</option>
+									</select>
+								</div>
 							</div>
+						:
+							null        
+				   } 
+					{this.state.tableObjects.searchApply === true 
+						? 
+					      <div className={"col-lg-9 col-md-9 col-xs-12 col-sm-6 marginTop17 NOpadding-right" + (!this.state.tableObjects.excelReportExport ? " pull-right" : "")}>
+				        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
+				        		<div className="input-group">
+							        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
+							        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder="Search by Customer Name, Order ID"/>
+							    	<span className="input-group-addon" ><i className="fa fa-search"></i></span>
+							    </div>
+				        	</div>	
+				      :
+				        	null
+				   }
+				   {this.state.tableObjects.excelReportExport === true 
+						?
+				   	<div className="col-lg-1 col-md-1 col-sm-2 col-xs2 NOPadding pull-right marginTop17">
+				        	<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding" style={{zIndex : -1}}>Search</label>
+							<ReactHTMLTableToExcel
+								id 				= "test-table-xls-button"
+								className 		= "download-table-xls-button fa tableicons downloadExlIcon marginTop0 pull-right"
+								table 			= "table-to-xls"
+								filename 		= {this.state.tableName ? this.state.tableName + '-' + this.state.date : 'table-' + this.state.date }
+								sheet 			= {this.state.tableName + "_Export_Data"}
+								buttonText 		= {<i class="fa fa-download" aria-hidden="true"></i>}								
+							/>
 						</div>
-					:
-						null        
-			   } 
-				{this.state.tableObjects.searchApply === true 
-					? 
-				      <div className="col-lg-4  col-md-4  col-xs-12 col-sm-4 marginTop17 pull-right NoPadding">
-			        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
-			        		<div className="input-group">
-						        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
-						        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder="Search by Customer Name, Order ID"/>
-						    	<span className="input-group-addon" ><i className="fa fa-search"></i></span>
-						    </div>
-			        	</div>	
-			      :
-			        	null
-			   }					
+						:
+				        	null
+				   }
+			   </div>					
 	         <div className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NOpadding marginTop17">			            	        
 	            <div className="table-responsive">
 						<table className="table iAssureITtable-bordered table-striped table-hover">
@@ -585,7 +604,6 @@ class IAssureTable extends Component {
 										:
 											<th className="umDynamicHeader srpadd textAlignLeft"></th>
 									}
-									<th rowSpan={2} className="umDynamicHeader srpadd textAlignLeft">Action</th>
 	                     </tr>
 	                  </thead>
 	                 	<tbody>
@@ -614,8 +632,8 @@ class IAssureTable extends Component {
 	                  		this.state.tableData && this.state.tableData.length > 0 
 	            			?
 	                  		this.state.tableData.map((value, i)=> {	
-										var vendorArrayLength = value.vendors.length;	
-										if(vendorArrayLength === 1){									
+										{/*var vendorArrayLength = value.vendors.length;	
+										if(vendorArrayLength === 1){	*/}								
 											return(
 												<tr key={i} className="">
 													{/* <td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>	 */}
@@ -663,129 +681,9 @@ class IAssureTable extends Component {
 															}
 														}
 													})}
-													{Object.entries(value.vendors[0]).map(([key2, value2], index)=> {																							
-
-														var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
-															return k1 === key2;
-														});
-														
-														if(found1.length > 0){
-															return(
-																<td  key={key2+"-"+i} className={"textAlign"}>
-																	<div className={"textAlign"} dangerouslySetInnerHTML={{ __html : value2}}></div>
-																</td>
-															);
-														}
-													})}
-													<td  key={"view-"+i} className="textAlignCenter">
-														<span className="displayInline">
-															<a href={"/orders-list/"+(value.ordersPath).replace(/\s+/g, '-').toLowerCase()+"/view-order/"+value._id} className="" title="View" data-id={value._id}>
-																<i className="fa fa-eye" aria-hidden="true"></i>
-															</a>&nbsp; &nbsp;														
-														</span>													
-													</td>
 												</tr>
 											);	
-										}
-										if(vendorArrayLength > 1){
-											return(
-												<React.Fragment>
-													{value.vendors.map((vendor, j)=>{
-														if(j === 0){
-															return(
-																<tr key={i+"-"+j} className="">
-																	{/* <td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>	 */}
-																	{Object.entries(value).map(([key, value1], i)=> {
-																		var textAlign = '';						
-																		if($.type(value1) === 'string'){
-																			var regex 	= new RegExp(/(<([^>]+)>)/ig);
-																			var value2 	= value1 ? value1.replace(regex,'') : '';
-																			var aN 		= value2.replace(this.state.reA, "");
-																			
-																			if(aN && $.type( aN ) === 'string'){
-
-																				if(value1.includes('textAlignLeft')){
-																					textAlign = 'textAlignLeft';
-																				}else if(value1.includes('textAlignRight')){
-																					textAlign = 'textAlignRight';
-																				}else{
-																					textAlign = 'textAlignLeft';
-																				}
-
-																			}else{
-
-																				var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
-																				if(bN){
-																					textAlign = 'textAlignRight';
-																				}else{
-																					textAlign = 'textAlignLeft';
-																				}
-																			}
-																		}else{
-																			textAlign = 'textAlignRight';
-																		}	
-
-																		var found = Object.keys(this.state.tableHeading).filter((k)=> {
-																			return k === key;
-																		});																
-
-																		if(found.length > 0){																
-																			if(key !== 'id'){																
-																				return(
-																					<td key={key+"-"+i+"-"+j} className={textAlign}  rowSpan={vendorArrayLength}>
-																						<div className={textAlign} dangerouslySetInnerHTML={{ __html : value1}}></div>
-																					</td>
-																				);																
-																			}
-																		}
-																	})}
-																	{Object.entries(value.vendors[0]).map(([key2, value2], index)=> {																							
-
-																		var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
-																			return k1 === key2;
-																		});
-																		
-																		if(found1.length > 0){
-																			return(
-																				<td key={key2+"-"+i+"-"+j} className={"textAlign"} >
-																					<div className={"textAlign"} dangerouslySetInnerHTML={{ __html : value2}}></div>
-																				</td>
-																			);
-																		}
-																	})}
-																	<td  key={"view-"+i} className="textAlignCenter"  rowSpan={vendorArrayLength}>
-																		<span className="displayInline">
-																			<a href={"/orders-list/"+(value.ordersPath).replace(/\s+/g, '-').toLowerCase()+"/view-order/"+value._id} className="" title="View" data-id={value._id}>
-																				<i className="fa fa-eye" aria-hidden="true"></i>
-																			</a>&nbsp; &nbsp;														
-																		</span>													
-																	</td>
-																</tr>
-															);
-														}else{													
-															return(
-																<tr key={i+"-"+j} className="">													
-																	{Object.entries(value.vendors[j]).map(([key2, value2], index)=> {																							
-
-																		var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
-																			return k1 === key2;
-																		});
-																		
-																		if(found1.length > 0){
-																			return(
-																				<td  key={key2+"-"+i+"-"+j} className={"textAlign"}>
-																					<div className={"textAlign"} dangerouslySetInnerHTML={{ __html : value2}}></div>
-																				</td>
-																			);
-																		}
-																	})}
-																</tr>
-															);
-														}
-													})}
-												</React.Fragment>
-											);
-										}									
+															
 									}) 	
 								:
 									<tr className="trAdmin"><td colSpan={12} className="noTempData textAlignCenter">No Record Found!</td></tr>               		

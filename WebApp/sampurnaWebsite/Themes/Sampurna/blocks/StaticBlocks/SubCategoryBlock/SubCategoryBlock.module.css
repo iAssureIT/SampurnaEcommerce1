@@ -4,7 +4,7 @@
 }
 
 .itemImg {
-	min-width    : 90% !important;
+	min-width    : 100% !important;
 	max-width    : 0%;
 	min-height   : 70% !important;
 	border       : solid 1px #ddd;
@@ -13,7 +13,7 @@
 
 .categoryName {
 	position      : absolute;
-	top           : 187px;
+	/* top           : 187px; */
 	text-align    : center;
 	color         : #000;
 	letter-spacing: 0px;

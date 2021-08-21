@@ -291,6 +291,7 @@ const cancelorderbtn = (id,vendor_id) => {
       }
       axios.patch ('/api/customerReview/patch/customer/review',formValues)
       .then(res=>{
+        console.log("res",res)
         setModal(false);
         setVendorDetails();
         setProductIndex('');

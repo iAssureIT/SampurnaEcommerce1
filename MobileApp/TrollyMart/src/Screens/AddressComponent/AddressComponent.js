@@ -235,7 +235,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
         globalSearch.search ?
             <SearchSuggetion />
         :
-        <View style={styles.addsuperparent}>
+        <View style={[styles.addsuperparent,{marginBottom:40,paddingBottom:10}]}>
             <ScrollView style={styles.formWrapper} keyboardShouldPersistTaps="handled">
               <View style={{ backgroundColor: '#fff', paddingHorizontal: 15, marginBottom: "5%" }}>
               <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row",marginLeft:10, justifyContent: 'flex-start',marginBottom:20 }}>
@@ -464,7 +464,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     // label               = 'Type of Address'
                     placeholder         = {"-- Select Address Type --"}                    
                     containerStyle      = {styles.ddContainer}
-                    dropdownOffset      = {{ top: 55, left: 0 }}
+                    // dropdownOffset      = {{ top: 55, left: 0 }}
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
                     // labelHeight         = {10}

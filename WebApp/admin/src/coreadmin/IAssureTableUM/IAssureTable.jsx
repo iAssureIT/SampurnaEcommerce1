@@ -1055,7 +1055,7 @@ class IAssureTableUM extends Component {
 							<span className="input-group-addon input_status"><i className="fa fa-search"></i></span>
 						</div>
 					</div>
-					<div className="col-lg-1 col-md-1 col-sm-2 col-xs2 NOPadding pull-right marginTop17">
+					<div className="col-lg-1 col-md-1 col-sm-2 col-xs-2 NOPadding pull-right marginTop17">
 						<ReactHTMLTableToExcel
 							id 				= "test-table-xls-button"
 							className 		= "download-table-xls-button fa tableicons downloadExlIcon pull-right"

@@ -39,7 +39,9 @@ class SubCategoryBlock extends Component{
             <div className={"col-12 "}>
                 <h5>{this.props.blocktitle}</h5>
             </div>
-            <Carousel 
+            <div className="col-12">
+              <div className="col-12">
+                <Carousel 
               className=""
               swipeable={true}
               draggable={true}
@@ -82,6 +84,8 @@ class SubCategoryBlock extends Component{
                     }
 
               </Carousel>
+              </div>
+            </div>
           </div>
      ) 
     }

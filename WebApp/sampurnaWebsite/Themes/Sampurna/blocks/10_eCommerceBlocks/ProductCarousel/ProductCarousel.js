@@ -8,7 +8,6 @@ import store                  from '../../../../../redux/store.js';
 import Loader                 from "../../StaticBlocks/loader/Loader.js";
 import Message                from '../../StaticBlocks/Message/Message.js';
 import Select                 from 'react-select';
-import getConfig              from 'next/config';
 import $, { post }            from 'jquery';
 import jQuery                 from 'jquery';
 import Style                  from './ProductCarousel.module.css';
@@ -18,11 +17,7 @@ import Product                from './Product.js';
 import CategoryFilters        from './CategoryFilters.js';
 import BrandFilters           from './BrandFilters.js';
 import 'react-multi-carousel/lib/styles.css';
-import {getCartData,getWishlistData, updateCartCount}  from '../../../../../redux/actions/index.js'; 
-
-const { publicRuntimeConfig } = getConfig();
-var projectName = publicRuntimeConfig.CURRENT_SITE;
-const productImgHeight = publicRuntimeConfig.IMGHeight;
+import {getCartData,getWishlistData, updateCartCount, getWishlist}  from '../../../../../redux/actions/index.js'; 
 
 const sortOptions = [
   { value: 'alphabeticallyAsc', label: 'Sort By A -> Z' },
@@ -174,7 +169,8 @@ class ProductCarousel extends Component {
       this.setState({
         user_ID : userDetails.user_id
       },()=>{
-          this.props.getWishlistData();
+          // this.props.getWishlistData();
+          this.props.fetchWishlist();
       });
     } 
   }
@@ -194,7 +190,7 @@ class ProductCarousel extends Component {
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
           .then((categoryResponse)=>{
             if(categoryResponse.data){     
-              console.log("categoryResponse====",categoryResponse.data); 
+              // console.log("categoryResponse====",categoryResponse.data); 
                 for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
                   // console.log("categoryResponse.data.categoryList[i].categoryUrl=",categoryResponse.data.categoryList[i].categoryUrl,"===",this.state.categoryUrl);
                     if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
@@ -317,11 +313,11 @@ showMoreProduct(event){
   this.getProductList(productApiUrl,formValues);
 }
 getProductList(productApiUrl,formValues){
-    console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
+    // console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-        console.log("Product data===",response.data);
+        // console.log("Product data===",response.data);
         // if(this.state.brandWiseFilter){
         //   this.setState({
         //     newProducts    : response.data,                         
@@ -461,7 +457,8 @@ submitCart(event) {
               messageData: {},
             })
           }, 2000);
-          this.props.getWishlistData();
+          // this.props.getWishlistData();
+          this.props.fetchWishlist();
         })
         .catch((error) => {
           console.log('error', error);
@@ -628,7 +625,7 @@ submitCart(event) {
                       Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
                         Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
                             // var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
-                            var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];
+                            var x = this.props.recentWishlist && this.props.recentWishlist.length> 0 ? this.props.recentWishlist.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];
                             var wishClass = '';
                             var tooltipMsg = '';
                             if (x && x.length > 0) {
@@ -996,6 +993,7 @@ const mapStateToProps = state => (
     cartCount          : state.data.cartCount,
     recentCartData     : state.data.recentCartData,
     recentWishlistData : state.data.recentWishlistData,
+    recentWishlist     : state.data.recentWishlist,
     productApiUrl      : state.data.productApiUrl 
 
   } 
@@ -1004,6 +1002,7 @@ const mapDispatchToProps = {
   fetchCartData    : getCartData,  
   updateCartCount  : updateCartCount,
   getWishlistData  : getWishlistData,
+  fetchWishlist    : getWishlist,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCarousel);

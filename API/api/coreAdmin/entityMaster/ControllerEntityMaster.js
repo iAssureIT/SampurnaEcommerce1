@@ -2216,3 +2216,66 @@ exports.fetch_file_count = (req,res,next)=>{
     });
     
 };
+
+
+
+exports.sos_to_appCompony_contacts = (req,res,next)=>{
+    User.findOne({ _id : ObjectId(req.body.user_id)})
+    .exec()
+    .then(async(userdata)=>{
+        console.log("data => ",data);
+        if (userdata && userdata !== null && userdata !== undefined) {
+            var appCompanyContacts = await EntityMaster.findOne({companyID : 1}, {contactPersons : 1});
+            console.log("appCompanyContacts => ",appCompanyContacts);
+            if (appCompanyContacts && appCompanyContacts !== null && appCompanyContacts !== null) {
+                if (appCompanyContacts.contactPersons && appCompanyContacts.contactPersons.length > 0) {
+                    for(var i=0; i<appCompanyContacts.contactPersons.length; i++){
+                        var userNotificationValues = {
+                            "event"         : "SOS",
+                            "toUser_id"     : appCompanyContacts.contactPersons[i]._id,
+                            "toUserRole"    : "",                               
+                            "variables"     : {
+                                                // "userType"           : userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+                                                "firstName"          : userdata.profile.firstName,
+                                                "lastName"           : userdata.profile.lastName,
+                                                "fullName"           : userdata.profile.fullName,
+                                                "emailId"            : userdata.profile.email,
+                                                "mobileNumber"       : userdata.profile.mobile,
+                            }
+                        }
+                        console.log("userNotificationValues 3 => ",userNotificationValues);
+                        // var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+                    }
+                    if (i >= data.length) {
+                        res.status(200).json({
+                            statusCode  : "Success",
+                            message     : "Message Sent!"
+                        });
+                    }
+                }else{
+                    res.status(200).json({
+                    statusCode  : "Success",
+                    message     : "No Contact Persons Available!"
+                });
+                }
+            }else{
+                res.status(200).json({
+                    statusCode  : "Success",
+                    message     : "No Company data found!"
+                });
+            }            
+        }else{
+            res.status(200).json({
+                statusCode  : "Failed",
+                message     : "No User Found"
+            });
+        }
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+    
+};

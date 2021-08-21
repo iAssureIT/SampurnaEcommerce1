@@ -7,7 +7,7 @@ import Message                from '../../StaticBlocks/Message/Message.js';
 import Style                  from './SingleProduct.module.css';
 import { connect }            from 'react-redux';
 import store                  from '../../../../../redux/store.js'; 
-import {updateCartCount,getCartData,getWishlistData}  from '../../../../../redux/actions/index.js'; 
+import {updateCartCount,getCartData,getWishlist,getWishlistData}  from '../../../../../redux/actions/index.js'; 
 
 class SingleProduct extends Component{
     constructor(props) {
@@ -49,7 +49,9 @@ class SingleProduct extends Component{
             user_ID       : user_ID,
             authService   : authService,
           },()=>{
-              this.props.getWishlistData();
+              // this.props.getWishlistData();
+              this.props.getWishlistDataLocationWise();
+              // this.props.fetchWishlist();
           }); 
         }
     }
@@ -117,7 +119,7 @@ class SingleProduct extends Component{
           "vendorName"        : event.target.getAttribute('vendor_name'),
           "vendor_ID"         : this.props.vendor_ID,     
         }   
-        console.log("formValues=",formValues);   
+        // console.log("formValues=",formValues);   
 
       this.addCart(formValues, quantityAdded, availableQuantity);
       
@@ -176,8 +178,9 @@ class SingleProduct extends Component{
                 messageData: {},
               })
             }, 2000);
-            this.props.getWishlistData();
-            window.location.reload();
+            this.props.getWishlistDataLocationWise();
+            // this.props.getWishlistData();
+            // this.props.fetchWishlist();
             
           })
           .catch((error) => {
@@ -201,36 +204,16 @@ class SingleProduct extends Component{
           }, 2000);
       }
     }
-    
-    getWishListData() {
-      // console.log("inside wishlist");
-    var formValues ={
-      "user_ID"             : this.state.user_ID,
-      "userLat"             : this.state.userLongitude, 
-      "userLong"            : this.state.userLongitude
-    }
-      console.log("formValues=",formValues);
-  
-      axios.post('/api/wishlist/get/userwishlist', formValues)    
-        .then((response) => {
-          if(response){
-            console.log('wishlist data', response.data);
-            this.setState({
-              wishlistData: response.data
-            })
-          }
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
-    }
+   
 
     render(){
       var categoryUrl = (this.props.data.category?this.props.data.category:"").replace(/\s+/g, '-').toLowerCase();                    
       var subCategoryUrl = (this.props.data.subCategory?this.props.data.subCategory:"-").replace(/\s+/g, '-').toLowerCase();                    
 
-      // console.log("single productView props=",this.props.data);
-      { var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.props.data._id) : [];                              
+      // console.log("single wishlist=",this.props.recentWishlist,"=====",this.props.data._id);
+     
+        var x = this.props.recentWishlist && this.props.recentWishlist.length> 0 ? this.props.recentWishlist.filter((wishlistItem) => wishlistItem._id === this.props.data._id) : [];                              
+        // console.log("x==",x);
         var wishClass = 'r';
         var tooltipMsg = '';
         if (x && x.length > 0) {
@@ -241,8 +224,9 @@ class SingleProduct extends Component{
           // console.log("wishClass==",wishClass);
           tooltipMsg = 'Add To Wishlist';
         }   
+      
         var categoryUrl = (this.props.data.category?this.props.data.category:"").replace(/\s+/g, '-').toLowerCase();;                    
-        }
+        
 
       return (
         <div className="row">
@@ -254,11 +238,11 @@ class SingleProduct extends Component{
                     <div className={"col-12 NoPadding " +Style.wishlistBtn}>
                         {this.props.productSettings.displayWishlist === true?
                             this.state.user_ID && this.state.authService!=="guest"?
-                            <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
-                              // this.props.data.isWish?
-                              //   <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa fa-heart wishListIconColor "}></i></button>
-                              //   :
-                              //   <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"far fa-heart wishListIconColor "}></i></button>
+                            // <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
+                              this.props.data.isWish?
+                                <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa fa-heart wishListIconColor "}></i></button>
+                                :
+                                <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"far fa-heart wishListIconColor "}></i></button>
                             :
                             <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                         :null
@@ -266,14 +250,12 @@ class SingleProduct extends Component{
                         {this.props.data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(this.props.data.discountPercent)}%<div className={" "+Style.offTxt}>off</div></div> : null}
                     </div>
                     <div className={Style.ImgWrapper}>
-                    {/* <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id} className={Style.product_item_photo }> */}
                     <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+categoryUrl+"/"+subCategoryUrl+"/"+this.props.data._id} className={Style.product_item_photo }>
                         <img                                           
                           src={Array.isArray(this.props.data.productImage) && this.props.data.productImage.length > 0 && this.props.data.productImage[0] ? this.props.data.productImage[0] : "/images/eCommerce/notavailable.png"}
                           alt="ProductImg" 
                           className={"img-responsive " +Style.NoAvailableImg }
                           height={this.props.data.productImage[0] ? "140px" : '130px'} 
-                          // width={this.props.data.productImage[0] ? "150px" : '120px'} 
                           layout={'intrinsic'}
                         />
                     </a>
@@ -395,20 +377,20 @@ class SingleProduct extends Component{
 }
 
 const mapStateToProps = state => (
-  
   {
     cartCount          : state.data.cartCount,
     recentCartData     : state.data.recentCartData,
     recentWishlistData : state.data.recentWishlistData,
-    productApiUrl      : state.data.productApiUrl
-    
+    recentWishlist     : state.data.recentWishlist,
+    // productApiUrl      : state.data.productApiUrl   
   } 
 );
 
 const mapDispatchToProps = {
-  fetchCartData    : getCartData, 
-  updateCartCount  : updateCartCount,
-  getWishlistData: getWishlistData,
-
+  fetchCartData                : getCartData, 
+  updateCartCount              : updateCartCount,
+  // fetchWishlist                : getWishlist,
+  getWishlistDataLocationWise  : getWishlistData,
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

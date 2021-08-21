@@ -1348,8 +1348,8 @@ exports.user_login_with_companyID = (req, res, next) => {
 								}
 								if (result) {
 									const token = jwt.sign({
-										email: req.body.email,
-										userId: user._id,
+										email 	: req.body.email,
+										userId 	: user._id,
 									}, globalVariable.JWT_KEY,
 										{
 											expiresIn: "365d"
@@ -1574,50 +1574,60 @@ exports.user_update_password_with_emailOTP_ID = (req, res, next) => {
 };
 
 exports.user_update_password_with_mobileOTP_ID = (req, res, next) => {
-	// User.findOne({
-	// 	"_id" : req.params.ID,
-	// })
-	// 	.exec()
-	// 	.then(user => {
-	// 		if (user) {
-				bcrypt.hash(req.body.pwd, 10, (err, hash) => {
-					User.updateOne(
-						{ _id: req.params.user_id },
-						{
-							$set: {
-								services: {
-									password: {
-										bcrypt: hash
-									},
-								},
-							}
-						}
-					)
-					.exec()
-					.then(data => {
-						if (data.nModified === 1) {
-							res.status(200).json("PASSWORD_RESET");
-						} else {
-							res.status(401).json("PASSWORD_NOT_RESET");
-						}
-					})
-					.catch(err => {
-						console.log(err);
-						res.status(500).json({
-							error: err
+	User.findOne({
+		"_id" : req.params.user_id,
+	})
+		.exec()
+		.then(user => {
+			if (user && user !== undefined && user !== null) {
+				var currentPassword = user.services.password.bcrypt;
+				
+				bcrypt.compare(req.body.pwd, currentPassword, (err, result) => {						
+					if (result) {
+						return res.status(200).json({
+							message : 'SAME_AS_CURRENT_PASSWORD'
 						});
-					});
-				});
-		// 	} else {
-		// 		res.status(404).json({ message: "User Not Found or Otp Didnt match" });
-		// 	}
-		// })
-		// .catch(err => {
-		// 	// console.log('update user status error ',err);
-		// 	res.status(500).json({
-		// 		error: err
-		// 	});
-		// });
+					}else{
+						bcrypt.hash(req.body.pwd, 10, (err, hash) => {
+							User.updateOne(
+								{ _id: req.params.user_id },
+								{
+									$set: {
+										services: {
+											password: {
+												bcrypt: hash
+											},
+										},
+									}
+								}
+							)
+							.exec()
+							.then(data => {
+								if (data.nModified === 1) {
+									res.status(200).json("PASSWORD_RESET");
+								} else {
+									res.status(401).json("PASSWORD_NOT_RESET");
+								}
+							})
+							.catch(err => {
+								console.log(err);
+								res.status(500).json({
+									error: err
+								});
+							});
+						});
+					}
+				})
+			} else {
+				res.status(404).json({ message: "User Not Found" });
+			}
+		})
+		.catch(err => {
+			// console.log('update user status error ',err);
+			res.status(500).json({
+				error: err
+			});
+		});
 };
 
 exports.user_update_password_with_emailOTP_username = (req, res, next) => {

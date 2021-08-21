@@ -1,5 +1,6 @@
 import { StyleSheet} from 'react-native';
 import { colors } from '../styles.js';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 export default StyleSheet.create({
 	container:{
 		width:160,
@@ -100,7 +101,7 @@ export default StyleSheet.create({
 			// borderWidth: 1, borderBottomColor: '#ccc',
 	},
     nameprod: {
-		fontSize: 12, 
+		fontSize: RFPercentage(1.5), 
         fontFamily: "Montserrat-Regular", 
         color: '#fff',
 		opacity:1,

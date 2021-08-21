@@ -26,34 +26,45 @@ class SalesReports extends Component{
 														'inputDefaultValue' 	: "--Select--",
 														'inputPlaceholder' 	: "",
 														'inputName' 			: "status",
+														'inputArray' 			: [{ name : 'status',value: 'chocolate', label: 'Chocolate' },
+											  { name : 'status', value: 'strawberry', label: 'Strawberry' },
+											  { name : 'status', value: 'vanilla', label: 'Vanilla' }],
 														'apiUrl' 				: "/api/"
 													},
 													{
-														'inputLabel' 			: "Emirate", 			
+														'inputLabel' 			: "Vendor", 			
 														'inputType' 			: "select",
 														'inputDefaultValue' 	: "--Select--",
 														'inputPlaceholder' 	: "",
-														'inputName' 			: "emirate",
+														'inputName' 			: "vendor",
+														'inputArray' 			: [{ name : 'vendor', value: 'chocolate', label: 'Chocolate' },
+											  { name : 'vendor', value: 'strawberry', label: 'Strawberry' },
+											  { name : 'vendor', value: 'vanilla', label: 'Vanilla' }],
 														'apiUrl' 				: "/api/"
 													}
 			],
 			'currentActiveTab' 		: "Daily", //If showDateWiseFilters is true then set cuttentActiveTab 'Daily' or 'Weekly' or 'Monthly' or 'Yearly' or 'Customize' or leave it ""
-			'reportTitle' 				: "Sales Report", // Title or Heading of report
+			'reportTitle' 				: "Revenue Reports", // Title or Heading of report
 			'tableDatas'        		: [],
 			'reportData'        		: {},
 			'tableData'         		: [],
 			"startRange"        		: 0,
 			"limitRange"        		: 10,
-			"dataApiUrl"        		: "/api/orders/reports/sales",			
+			"dataApiUrl"        		: "/api/orders/reports/revenue",			
 			"tableHeading"      		: {
-													orderID    			: 'Order ID',
-													customerName    	: 'Customer Name',
-													orderDate         : 'Order Date', 
-													orderAmount       : 'Order Amount',
+													orderID    				: 'Order ID',
+													orderDate         	: 'Order Date', 
+													vendorName    			: 'vendor Name',
+													orderAmount       	: 'Order Amount',
+													commissionPercentage : 'Commission Percentage',
+													commissionAmount 		: 'Commission Amount',
+													deliveryCharges 		: 'Delivery Charges',
+													totalAmount 			: 'Total Amount'
 			},
       	tableObjects      		: {
-							        paginationApply : true,
-							        searchApply     : true,
+							        paginationApply 	: true,
+							        searchApply     	: true,
+							        excelReportExport 	: true
       	},
 		}
 		window.scrollTo(0, 0);

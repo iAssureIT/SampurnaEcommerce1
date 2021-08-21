@@ -8,6 +8,7 @@ import {
 import styles           from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/BannerComponentStyles.js';
 import Carousel         from 'react-native-banner-carousel-updated';
 import axios            from 'axios';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const BannerWidth = Dimensions.get('window').width-10;
 
@@ -32,7 +33,7 @@ export const BannerComponent=()=>{
     return (
       <View key={index}>
         <ImageBackground 
-          style={{ width:"100%", height: 160,borderRadius:5}} 
+          style={{ width:"100%", height: hp(20),borderRadius:5}} 
           imageStyle={{borderRadius:15}}
           source={bannerImages}
           resizeMode={"stretch"}

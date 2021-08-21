@@ -338,11 +338,13 @@ exports.updateCustomerReview = (req, res, next) => {
 		// console.log("data => ",data)
 		if(data.nModified === 1){
 			res.status(200).json({
+				"messageCode" : true,
 				"message": "Your review updated successfully."
 			});
 		}else{
 			res.status(200).json({
-				"message": "Failed to update your review."
+				"messageCode" : false,
+				"message": "It seems that you didn't change anything."
 			});
 		}		
 	})

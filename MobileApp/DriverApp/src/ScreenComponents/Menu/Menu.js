@@ -6,6 +6,7 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
+
 } from "react-native";
 import { Icon, Avatar }         from 'react-native-elements';
 import axios                    from "axios";
@@ -45,8 +46,9 @@ export const Menu = (props)=>{
       {/* <ImageBackground source={require("../../AppDesigns/currentApp/images/Side_drawer.png")} style={styles.container} resizeMode="cover" > */}
         <View style={{height:115,margin:20,marginTop:42,alignSelf:'center',}}>
         <Avatar
-        style={{elevation:1,borderRadius:100,}}
+            style={{elevation:15,borderRadius:100,}}
             overlayContainerStyle={{borderRadius:100,}}
+            avatarStyle={{}}
             width={114}
             height={114}
             resizeMode="center"

@@ -16,10 +16,17 @@ class Facebooklogin extends Component{
 		}
 	}
 	componenClicked = ()=>{
-		console.log("Clicked")
+		console.log("*********     Clicked    ********")
+	}
+	
+	buttonClicked = ()=>{
+		console.log("Button Clicked")
 	}
 
 	responseFacebook(response){
+
+		console.log("response = ", response);
+
 		if(response){
 			var formValues = {
 				firstname   	: response.name && response.name.split(' ')[0],
@@ -64,7 +71,7 @@ class Facebooklogin extends Component{
 
 	render(){
 	    return(
-            <div className="col-12 NoPadding">
+            <div className="col-12 NoPadding" onClick={this.buttonClicked}>
                 <FacebookLogin
 					textButton	= "Continue with Facebook"
 					appId		= "507698857234444"
