@@ -4397,16 +4397,18 @@ exports.vendor_sales_reports = (req, res, next) => {
 	        "orderData"    		: { "$push": "$$ROOT" }
 	    	}
 	   }
-		// { "$project" 	: 
-		// 	{
-		// 		"_id"																: 1,
-		// 		"vendorOrders.vendor_id"									: 1,
-		// 		"vendorOrders.orderStatus"									: 1,
-		// 		"vendorOrders.products"										: 1,
-		// 		"vendorDetails.companyName"								: 1,
-		// 		"createdAt"														: 1,
-		// 	}
-		// }	
+		{ "$project" 	: 
+			{
+				"$orderData._id"																: 1,
+				"$orderData.vendorOrders.vendor_id"										: 1,
+				"$orderData.vendorOrders.orderStatus"									: 1,
+				"$orderData.vendorOrders.products"										: 1,
+				"$productQuantity"															: 1,
+				"$totalAmount"																	: 1,
+				"$orderData.vendorDetails.companyName"									: 1,
+				"$orderData.createdAt"														: 1,
+			}
+		}	
 	])
 	.then(async(data) => {
 		console.log("data => ",data);		
