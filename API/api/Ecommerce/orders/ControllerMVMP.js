@@ -4132,7 +4132,7 @@ exports.revenue_reports = (req, res, next) => {
 		// selector["$or"].push();
 		selector["$and"].push({ 
 			"$or" : [
-						{"orderID" 								: parseInt(req.body.searchText) },
+						{ "orderID" 							: parseInt(req.body.searchText) },
 						{ "vendorDetails.companyName" 	: {'$regex' : req.body.searchText , $options: "i" } }
 					]
 		})
@@ -4221,15 +4221,15 @@ exports.delivery_drivers_reports = (req, res, next) => {
 	}
 
 	/**----------- Status Filter ------------ */
-	if(req.body.searchText && req.body.searchText !== ""){
+	// if(req.body.searchText && req.body.searchText !== ""){
 		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
-		selector["$or"].push({ "vendorOrders.orderStatus" : 'Delivered' })
-	}
+		selector["$and"].push({ "vendorOrders.orderStatus" : 'Delivered' })
+	// }
 
 	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
 	if(req.body.searchText && req.body.searchText !== ""){
 		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
-		selector["$or"].push({ "orderID" 						: {'$regex' : req.body.searchText , $options: "i" } })
+		selector["$and"].push({ "orderID" : {'$regex' : req.body.searchText , $options: "i" } })
 	}
 	
   	Orders.aggregate([
@@ -4393,11 +4393,15 @@ exports.vendor_sales_reports = (req, res, next) => {
 
 	/**----------- Seach Orders by VendorName, Section, Category, SubCategory etc. ------------ */
 	if(req.body.searchText && req.body.searchText !== ""){
-		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
-		selector["$or"].push({ "vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } })
-		selector["$or"].push({ "vendorOrders.products.section" : {'$regex' : req.body.searchText , $options: "i" } })
-		selector["$or"].push({ "vendorOrders.products.category" : {'$regex' : req.body.searchText , $options: "i" } })
-		selector["$or"].push({ "vendorOrders.products.subCategory" : {'$regex' : req.body.searchText , $options: "i" } })
+		selector["$and"].push({ 
+			"$or" : [
+				{ "vendorDetails.companyName" 	: {'$regex' : req.body.searchText , $options: "i" } },
+				{ "vendorOrders.products.section" : {'$regex' : req.body.searchText , $options: "i" } },
+				{ "vendorOrders.products.category" : {'$regex' : req.body.searchText , $options: "i" } },
+				{ "vendorOrders.products.subCategory" : {'$regex' : req.body.searchText , $options: "i" } },
+				{ "vendorOrders.products.productName" : {'$regex' : req.body.searchText , $options: "i" } }
+			]
+		})
 	}
 	
   	Orders.aggregate([
@@ -4449,17 +4453,17 @@ exports.vendor_sales_reports = (req, res, next) => {
 				returnData.push({
 					_id 						: data[i].orderData[0]._id,
 					section    				: data[i].orderData[0].vendorOrders.products.section,
-					category    			: data[i].orderData[0].vendorOrders.products.section,
-					subcategory    		: data[i].orderData[0].vendorOrders.products.section,
+					category    			: data[i].orderData[0].vendorOrders.products.category,
+					subcategory    		: data[i].orderData[0].vendorOrders.products.subCategory,
 					productName         	: "<div>" + data[i].orderData[0].vendorOrders.products.productName + "</br>" + 
 													"<b>ProductCode</b> : " + data[i].orderData[0].vendorOrders.products.productCode + "</br>" +
 													"<b>ItemCode</b> : " + data[i].orderData[0].vendorOrders.products.itemCode + "</br>" +
-					 								"/<div>", 
+					 								"</div>", 
 					vendorName    			: data[i].orderData[0].vendorDetails.companyName ? data[i].orderData[0].vendorDetails.companyName : "NA",
 					orderDate 				: moment(data[i].orderData[0].createdAt).format('MMM Do YYYY'),
 					numberOfOrders 		: data[i].numberOfOrders,
 					productQuantity 		: data[i].productQuantity,
-					totalAmount 			: "<div> AED " + data[i].totalAmount + "/<div>"				
+					totalAmount 			: "<div> AED " + data[i].totalAmount + "</div>"				
 				})	
 			}
 			if (i >= data.length) {	

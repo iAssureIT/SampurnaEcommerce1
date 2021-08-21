@@ -50,10 +50,13 @@ class VendorSalesReport extends Component{
 			"limitRange"        		: 10,
 			"dataApiUrl"        		: "/api/orders/reports/vendor_sales",			
 			"tableHeading"      		: {
-													section    				: 'section',
 													productName         	: 'Product Name', 
-													vendorName    			: 'vendor Name',
+													vendorName    			: 'Vendor Name',
+													section    				: 'Section',
+													category    			: 'Category',
+													subcategory    		: 'SubCategory',
 													orderDate       		: 'Order Date',
+													numberOfOrders 		: 'Number of Orders',
 													productQuantity 		: 'Product Quantity',
 													totalAmount 			: 'Total Amount'
 			},
