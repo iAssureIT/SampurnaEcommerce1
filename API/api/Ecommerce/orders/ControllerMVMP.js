@@ -4403,8 +4403,8 @@ exports.vendor_sales_reports = (req, res, next) => {
 				"$orderData.vendorOrders.vendor_id"										: 1,
 				"$orderData.vendorOrders.orderStatus"									: 1,
 				"$orderData.vendorOrders.products"										: 1,
-				"$productQuantity"															: 1,
-				"$totalAmount"																	: 1,
+				"productQuantity"															: 1,
+				"totalAmount"																	: 1,
 				"$orderData.vendorDetails.companyName"									: 1,
 				"$orderData.createdAt"														: 1,
 			}
