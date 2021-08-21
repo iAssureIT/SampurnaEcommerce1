@@ -2223,7 +2223,7 @@ exports.sos_to_appCompony_contacts = (req,res,next)=>{
     User.findOne({ _id : ObjectId(req.body.user_id)})
     .exec()
     .then(async(userdata)=>{
-        console.log("data => ",data);
+        // console.log("data => ",data);
         if (userdata && userdata !== null && userdata !== undefined) {
             var appCompanyContacts = await User.find({"profile.companyID" : 1}, {_id : 1});
             console.log("appCompanyContacts => ",appCompanyContacts);
