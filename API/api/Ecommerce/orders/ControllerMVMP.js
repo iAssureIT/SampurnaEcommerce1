@@ -4098,6 +4098,8 @@ exports.revenue_reports = (req, res, next) => {
 	console.log("end => ",moment(req.body.endDate).endOf('day').toDate())
 	console.log("start1 => ",moment(req.body.startDate).tz('Asia/Kolkata').startOf('day').toDate())
 	console.log("end1 => ",moment(req.body.endDate).tz('Asia/Kolkata').endOf('day').toDate())
+	console.log("start2 => ",new Date(req.body.startDate))
+	console.log("end2 => ",new Date(req.body.endDate))
 	var selector        = {};
 	selector['$and']    = [];
 	
@@ -4107,8 +4109,8 @@ exports.revenue_reports = (req, res, next) => {
 			createdAt : {
 				// $gte : moment(req.body.startDate).startOf('day').toDate(),
 				// $lte : moment(req.body.endDate).endOf('day').toDate()
-				$gte : moment(req.body.startDate).tz('Asia/Kolkata').startOf('day').toDate(),
-				$lte : moment(req.body.endDate).tz('Asia/Kolkata').endOf('day').toDate()
+				$gte : new Date(req.body.startDate),
+				$lte : new Date(req.body.endDate)
 			 }
 		})
 	}
