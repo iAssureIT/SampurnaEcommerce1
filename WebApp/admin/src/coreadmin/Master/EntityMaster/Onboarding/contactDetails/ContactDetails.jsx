@@ -1933,6 +1933,9 @@ class ContactDetails extends Component {
 		$.validator.addMethod("amtRegex", function (value, element, arg) {
 			return arg !== value;
 		}, "Please enter amount ");
+		$.validator.addMethod("notEqual", function(value, element, param) {
+		  return this.optional(element) || value != param;
+		}, "Please specify a different (non-default) value");
 		
 		jQuery.validator.setDefaults({
 			debug: true,

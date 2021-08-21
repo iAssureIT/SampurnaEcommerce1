@@ -4123,7 +4123,7 @@ exports.revenue_reports = (req, res, next) => {
 	/**----------- Vendor Filter ------------ */		
 	if(req.body.vendor && req.body.vendor !== "" && req.body.vendor !== undefined && req.body.vendor !== null){       
 		selector["$and"].push({
-			'vendorDetails.companyName' : req.body.vendor			 
+			'vendorOrders.vendor_id' : ObjectId(req.body.vendor)			 
 		})
 	}
 
@@ -4140,8 +4140,8 @@ exports.revenue_reports = (req, res, next) => {
 	console.log("selector => ",selector);
 
   	Orders.aggregate([
-		{ "$unwind" : "$vendorOrders"},
-		{ "$lookup" : 
+		{ "$unwind" 	: "$vendorOrders"},
+		{ "$lookup" 	: 
 			{
 				"from"			: "entitymasters",
 				"as"				: "vendorDetails",
@@ -4149,9 +4149,9 @@ exports.revenue_reports = (req, res, next) => {
 				"foreignField"	: "_id"
 			}
 		},
-		{ "$unwind" : "$vendorDetails" },
-		{ $match : selector},
-		{ "$project" : 
+		{ "$unwind" 	: "$vendorDetails" },
+		{ "$match" 		: selector},
+		{ "$project" 	: 
 			{
 				"_id"																: 1,
 				"orderID"														: 1,
@@ -4452,15 +4452,15 @@ exports.vendor_sales_reports = (req, res, next) => {
 				// console.log("data i => ",i ," - ", data[i].orderData)
 				returnData.push({
 					_id 						: data[i].orderData[0]._id,
-					productName         	: "<div>" + data[i].orderData[0].vendorOrders.products.productName + "</br>" + 
-													"<b>ProductCode</b> : " + data[i].orderData[0].vendorOrders.products.productCode + "</br>" +
-													"<b>ItemCode</b> : " + data[i].orderData[0].vendorOrders.products.itemCode + "</br>" +
+					productName         	: "<div><b>" + data[i].orderData[0].vendorOrders.products.productName + "</b></br>" + 
+													"ProductCode : " + data[i].orderData[0].vendorOrders.products.productCode + "</br>" +
+													"ItemCode : " + data[i].orderData[0].vendorOrders.products.itemCode + "</br>" +
 					 								"</div>", 
 					vendorName    			: data[i].orderData[0].vendorDetails.companyName ? data[i].orderData[0].vendorDetails.companyName : "NA",
 					section    				: data[i].orderData[0].vendorOrders.products.section,
 					category    			: data[i].orderData[0].vendorOrders.products.category ? data[i].orderData[0].vendorOrders.products.category : data[i].orderData[0].vendorOrders.products.category,
 					subCategory    		: data[i].orderData[0].vendorOrders.products.subCategory ? data[i].orderData[0].vendorOrders.products.subCategory : "",
-					orderDate 				: moment(data[i].orderData[0].createdAt).format('MMM Do YYYY'),
+					orderDate 				: "<div class='whiteSpaceNoWrap'>" + moment(data[i].orderData[0].createdAt).format('MMM Do YYYY') + "</div>",
 					numberOfOrders 		: data[i].numberOfOrders,
 					productQuantity 		: data[i].productQuantity,
 					totalAmount 			: "<div class='whiteSpaceNoWrap'> AED " + data[i].totalAmount + "</div>"				

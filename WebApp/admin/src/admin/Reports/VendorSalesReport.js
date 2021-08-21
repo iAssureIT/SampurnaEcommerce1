@@ -22,20 +22,56 @@ class VendorSalesReport extends Component{
 			
 			customizedFiltersArray  	: [
 														//Array to add different customized filters
+													// {
+													// 	'inputLabel' 			: "Status", 			
+													// 	'inputType' 			: "select",
+													// 	'inputDefaultValue' 	: "--Select--",
+													// 	'inputPlaceholder' 	: "",
+													// 	'inputName' 			: "status",
+													// 	'inputArray' 			: [
+													// 										{ name : 'status', value: 'New', label: 'New' },
+													// 								  		{ name : 'status', value: 'Processing', label: 'Processing' },
+													// 								  		{ name : 'status', value: 'Ready to Dispatch', label: 'Ready to Dispatch' },
+													// 								  		{ name : 'status', value: 'On The Way', label: 'On The way' },
+													// 								  		{ name : 'status', value: 'Delivered', label: 'Delivered' },
+													// 								  		{ name : 'status', value: 'Cancelled', label: 'Cancelled' }
+													// 								  ],
+													// 	'apiUrl' 				: "/api/"
+													// }
 													{
-														'inputLabel' 			: "Status", 			
+														'inputLabel' 			: "Vendor", 			
 														'inputType' 			: "select",
 														'inputDefaultValue' 	: "--Select--",
 														'inputPlaceholder' 	: "",
-														'inputName' 			: "status",
-														'inputArray' 			: [
-																							{ name : 'status', value: 'New', label: 'New' },
-																					  		{ name : 'status', value: 'Processing', label: 'Processing' },
-																					  		{ name : 'status', value: 'Ready to Dispatch', label: 'Ready to Dispatch' },
-																					  		{ name : 'status', value: 'On The Way', label: 'On The way' },
-																					  		{ name : 'status', value: 'Delivered', label: 'Delivered' },
-																					  		{ name : 'status', value: 'Cancelled', label: 'Cancelled' }
-																					  ],
+														'inputName' 			: "vendor",
+														'inputArray' 			: [],
+														'apiUrl' 				: "/api/"
+													},
+													{
+														'inputLabel' 			: "Section", 			
+														'inputType' 			: "select",
+														'inputDefaultValue' 	: "--Select--",
+														'inputPlaceholder' 	: "",
+														'inputName' 			: "section",
+														'inputArray' 			: [],
+														'apiUrl' 				: "/api/"
+													},
+													{
+														'inputLabel' 			: "Category", 			
+														'inputType' 			: "select",
+														'inputDefaultValue' 	: "--Select--",
+														'inputPlaceholder' 	: "",
+														'inputName' 			: "category",
+														'inputArray' 			: [],
+														'apiUrl' 				: "/api/"
+													},
+													{
+														'inputLabel' 			: "SubCategory", 			
+														'inputType' 			: "select",
+														'inputDefaultValue' 	: "--Select--",
+														'inputPlaceholder' 	: "",
+														'inputName' 			: "subCategory",
+														'inputArray' 			: [],
 														'apiUrl' 				: "/api/"
 													}
 													
@@ -84,15 +120,7 @@ class VendorSalesReport extends Component{
       		}
       		if (i >= response.data.length) {
       			var customizedFiltersArray = this.state.customizedFiltersArray;
-      			customizedFiltersArray.push({
-														'inputLabel' 			: "Vendor", 			
-														'inputType' 			: "select",
-														'inputDefaultValue' 	: "--Select--",
-														'inputPlaceholder' 	: "",
-														'inputName' 			: "vendor",
-														'inputArray' 			: vendorArray,
-														'apiUrl' 				: "/api/"
-													})
+      			customizedFiltersArray[0].inputArray = vendorArray;
       			this.setState({
       				customizedFiltersArray : customizedFiltersArray
       			},()=>{
