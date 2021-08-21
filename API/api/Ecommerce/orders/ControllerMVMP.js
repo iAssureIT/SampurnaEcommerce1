@@ -4419,10 +4419,10 @@ exports.vendor_sales_reports = (req, res, next) => {
 			for (var i = 0; i < data.length; i++) {
 				// console.log("data i => ",i ," - ", data[i].orderData)
 				returnData.push({
-					_id 						: data[i].orderData._id,
-					section    				: data[i].orderData.vendorOrders.products.section,
-					productName         	: data[i].orderData.vendorOrders.products.productName, 
-					vendorName    			: data[i].orderData.vendorDetails.companyName ? data[i].orderData.vendorDetails.companyName : "NA",
+					_id 						: data[i].orderData[0]._id,
+					section    				: data[i].orderData[0].vendorOrders.products.section,
+					productName         	: data[i].orderData[0].vendorOrders.products.productName, 
+					vendorName    			: data[i].orderData[0].vendorDetails.companyName ? data[i].orderData[0].vendorDetails.companyName : "NA",
 					orderDate 				: moment(data[i]._id.orderDate).format('MMMM Do YYYY'),
 					productQuantity 		: data[i].productQuantity,
 					totalAmount 			: data[i].totalAmount					
