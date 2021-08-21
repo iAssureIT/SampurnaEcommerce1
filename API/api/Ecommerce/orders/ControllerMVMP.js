@@ -4396,7 +4396,7 @@ exports.vendor_sales_reports = (req, res, next) => {
 	        "totalAmount"		: { "$sum" : "$vendorOrders.products.discountedPrice" },
 	        "orderData"    		: { "$push": "$$ROOT" }
 	    	}
-	   }
+	   },
 		{ "$project" 	: 
 			{
 				"$orderData._id"																: 1,
