@@ -26,14 +26,20 @@ class SalesReports extends Component{
 														'inputDefaultValue' 	: "--Select--",
 														'inputPlaceholder' 	: "",
 														'inputName' 			: "status",
+														'inputArray' 			: [{ name : 'status',value: 'chocolate', label: 'Chocolate' },
+											  { name : 'status', value: 'strawberry', label: 'Strawberry' },
+											  { name : 'status', value: 'vanilla', label: 'Vanilla' }],
 														'apiUrl' 				: "/api/"
 													},
 													{
-														'inputLabel' 			: "Emirate", 			
+														'inputLabel' 			: "Vendor", 			
 														'inputType' 			: "select",
 														'inputDefaultValue' 	: "--Select--",
 														'inputPlaceholder' 	: "",
-														'inputName' 			: "emirate",
+														'inputName' 			: "vendor",
+														'inputArray' 			: [{ name : 'vendor', value: 'chocolate', label: 'Chocolate' },
+											  { name : 'vendor', value: 'strawberry', label: 'Strawberry' },
+											  { name : 'vendor', value: 'vanilla', label: 'Vanilla' }],
 														'apiUrl' 				: "/api/"
 													}
 			],
@@ -56,8 +62,9 @@ class SalesReports extends Component{
 													totalAmount 			: 'Total Amount'
 			},
       	tableObjects      		: {
-							        paginationApply : true,
-							        searchApply     : true,
+							        paginationApply 	: true,
+							        searchApply     	: true,
+							        excelReportExport 	: true
       	},
 		}
 		window.scrollTo(0, 0);

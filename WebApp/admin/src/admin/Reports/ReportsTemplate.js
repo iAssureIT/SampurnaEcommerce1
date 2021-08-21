@@ -6,6 +6,7 @@ import swal                     from 'sweetalert';
 import moment                   from 'moment';
 import _                        from 'underscore';
 import IAssureTable             from "./ReportsTable.js";
+import Select 							from 'react-select';
 import 'bootstrap/js/tab.js';
 
 
@@ -38,6 +39,7 @@ class UserReport extends Component {
 			fromdate      				: (moment(new Date()).subtract(1, 'M')).add(1, "days").format("YYYY-MM-DD"), 
 			todate        				: moment(new Date()).format("YYYY-MM-DD"),
 			currentYear  				: moment().format('YYYY'),
+			selectedOption 			: null
 		}
 
 	  	this.handleChange 	= this.handleChange.bind(this);
@@ -45,6 +47,21 @@ class UserReport extends Component {
 
 	/*===========  ===========*/
 	componentDidMount() {
+		// Setstate values of customize filters
+
+		if (this.props.customizedFiltersArray && this.props.customizedFiltersArray.length > 0) {
+			for (var i = 0; i < this.props.customizedFiltersArray.length; i++) {
+				var name = this.props.customizedFiltersArray[i].inputName;
+				this.setState({
+					[name] : ""
+				})
+			}
+		}
+
+		this.setDefaultValues();
+	}
+
+	setDefaultValues(){
 		var today 	= new Date();
 		var dd 		= today.getDate();
 		var mm 		= today.getMonth()+1; //January is 0!
@@ -63,7 +80,8 @@ class UserReport extends Component {
 		 	todayDate : today,
 	  	},()=>{this.getData(this.state.search, this.state.startRange,this.state.limitRange)});
 
-	  	var weeknumber = moment(today).week();
+	  	// var weeknumber = moment(new Date()).week() - 1;
+	  	var weeknumber = moment(today).isoWeek();
 	  
 	  	console.log("weeknumber => ",weeknumber)
 	  	if(weeknumber<=9){
@@ -411,6 +429,12 @@ class UserReport extends Component {
 			startRange  : startRange,
 			limitRange  : limitRange
 	  	}
+	  	if (this.state.customizedFiltersArray && this.state.customizedFiltersArray.length > 0) {
+			for (var i = 0; i < this.props.customizedFiltersArray.length; i++) {
+				var name = this.state.customizedFiltersArray[i].inputName;
+				formValues.[name] = this.state[name] && this.state[name] !== "" ? this.state[name].value : this.state[name];
+			}
+		}
 		var currentActiveTab = this.state.currentActiveTab;
 		  
 	  	if(currentActiveTab === "Daily"){
@@ -475,6 +499,34 @@ class UserReport extends Component {
 				console.log("ERROR : ", error); 
 			})
 	}
+
+	handleChangeFilters(event){		
+		var name 	= event.name;
+		var value 	= event.value;
+    	this.setState({ 
+    		[name]  : event
+    	},()=>{
+    		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
+    		console.log(`Option selected:`, name, " => ",this.state[name]);
+    	});
+  	};
+
+  	/*======== showMoreFilters() ========*/
+    showMoreFilters(event){
+        event.preventDefault();
+        var filterBtn = event.target;
+        var element   = document.getElementById(this.state.tableName + "-" + this.state.currentActiveTab + "-Filters");
+        console.log("element => ",element)
+        console.log("element.style.display => ",element.style.display)
+        if (element) {
+            $("#" + this.state.tableName + "-" + this.state.currentActiveTab + "-Filters").toggle();
+        }
+        if ((element.style.display) === "none") {
+            filterBtn.innerHTML   = "<i class='fa fa-sliders' aria-hidden='true'></i> More Filters";
+        } else {
+            filterBtn.innerHTML   = "<i class='fa fa-sliders' aria-hidden='true'></i> Hide Filters";
+        }
+    }
 
 	/*=========== render() ===========*/
 	render() {
@@ -676,7 +728,7 @@ class UserReport extends Component {
 											{/*:
 												null
 											}*/}
-											{this.state.showCustomizedFilters
+											{/*{this.state.showCustomizedFilters
 												?
 													<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOPadding">   
 														{this.state.customizedFiltersArray && this.state.customizedFiltersArray.length > 0
@@ -706,6 +758,48 @@ class UserReport extends Component {
 																			</div>								                                    	
 																				);
 																		  })
+														:
+															null
+													}
+													</div>
+												:
+													null
+											}*/}
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding marginTop17">
+												<button className="btn button3" id="btnCheck" 
+						                    onClick={this.showMoreFilters.bind(this)} >
+						                    <i className="fa fa-filter"></i> More Filters 
+						                  </button>
+						                  <button className="btn button3" id="btnCheck" 
+						                    onClick={this.resetFilter.bind(this)} >
+						                    <i className="fa fa-refresh"></i> Reset Filters 
+						                  </button>
+											</div>
+											{this.state.showCustomizedFilters
+												?
+													<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 filtersDiv" id={this.state.tableName + "-" + this.state.currentActiveTab + "-Filters"}>   
+														{this.state.customizedFiltersArray && this.state.customizedFiltersArray.length > 0
+															?
+																this.state.customizedFiltersArray.map((filtersdata, i) => {
+																	return (
+																		<div key={i} className="form-margin col-lg-3 col-md-6 col-sm-12 col-xs-12" >
+																			<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">{filtersdata.inputLabel}</label>
+																			{/*{console.log("filtersdata.inputName => ",filtersdata.inputName)}*/}
+																			{console.log("this.state => ",this.state[filtersdata.inputName])}
+																			{filtersdata.inputType === "select"
+																			?
+																				<Select
+																		        	value 		= {this.state[filtersdata.inputName]}
+																		        	name 			= {filtersdata.inputName}
+																		        	onChange 	= {this.handleChangeFilters.bind(this)}
+																		        	options 		= {filtersdata.inputArray}
+																		      />
+																		  :
+																				null
+																		  }
+																		</div>								                                    	
+																	);
+															  })
 														:
 															null
 													}

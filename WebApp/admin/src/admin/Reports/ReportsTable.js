@@ -1,8 +1,9 @@
 import React, { Component }       	from 'react';
-import {withRouter} 			from 'react-router-dom';
+import {withRouter} 						from 'react-router-dom';
 import $ 									from "jquery";
 import jQuery 								from 'jquery';
 import Loader                 		from "react-loader";
+import ReactHTMLTableToExcel 			from 'react-html-table-to-excel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 import 'bootstrap/js/tab.js';
@@ -516,38 +517,56 @@ class IAssureTable extends Component {
    /*===========  ===========*/
 	render(){
       return (
-	      <div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NoPadding">	
-			   {this.state.tableObjects.paginationApply === true 
-			   	?
-				      <div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 NoPadding">
-							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17 NOpadding">Show</label>
-							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-								<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">
-									<option value="Not Selected" disabled>Select Limit</option>
-									<option value={10}>10</option>
-									<option value={25}>25</option>
-									<option value={50}>50</option>
-									<option value={100}>100</option>
-									<option value={500}>500</option>
-								</select>
+	      <div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NOPadding">	
+	      	<div className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NOpadding">	
+				   {this.state.tableObjects.paginationApply === true 
+				   	?
+					      <div className="col-lg-2 col-md-2 col-sm-4 col-xs-6 NoPadding NOpadding-left">
+								<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17 NOpadding">Data Per page</label>
+								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+									<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">
+										<option value="Not Selected" disabled>Select Limit</option>
+										<option value={10}>10</option>
+										<option value={25}>25</option>
+										<option value={50}>50</option>
+										<option value={100}>100</option>
+										<option value={500}>500</option>
+									</select>
+								</div>
 							</div>
+						:
+							null        
+				   } 
+					{this.state.tableObjects.searchApply === true 
+						? 
+					      <div className={"col-lg-9 col-md-9 col-xs-12 col-sm-6 marginTop17 NOpadding-right" + (!this.state.tableObjects.excelReportExport ? " pull-right" : "")}>
+				        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
+				        		<div className="input-group">
+							        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
+							        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder="Search by Customer Name, Order ID"/>
+							    	<span className="input-group-addon" ><i className="fa fa-search"></i></span>
+							    </div>
+				        	</div>	
+				      :
+				        	null
+				   }
+				   {this.state.tableObjects.excelReportExport === true 
+						?
+				   	<div className="col-lg-1 col-md-1 col-sm-2 col-xs2 NOPadding pull-right marginTop17">
+				        	<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding" style={{zIndex : -1}}>Search</label>
+							<ReactHTMLTableToExcel
+								id 				= "test-table-xls-button"
+								className 		= "download-table-xls-button fa tableicons downloadExlIcon marginTop0 pull-right"
+								table 			= "table-to-xls"
+								filename 		= {this.state.tableName ? this.state.tableName + '-' + this.state.date : 'table-' + this.state.date }
+								sheet 			= {this.state.tableName + "_Export_Data"}
+								buttonText 		= {<i class="fa fa-download" aria-hidden="true"></i>}								
+							/>
 						</div>
-					:
-						null        
-			   } 
-				{this.state.tableObjects.searchApply === true 
-					? 
-				      <div className="col-lg-4  col-md-4  col-xs-12 col-sm-4 marginTop17 pull-right NoPadding">
-			        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
-			        		<div className="input-group">
-						        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
-						        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder="Search by Customer Name, Order ID"/>
-						    	<span className="input-group-addon" ><i className="fa fa-search"></i></span>
-						    </div>
-			        	</div>	
-			      :
-			        	null
-			   }					
+						:
+				        	null
+				   }
+			   </div>					
 	         <div className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NOpadding marginTop17">			            	        
 	            <div className="table-responsive">
 						<table className="table iAssureITtable-bordered table-striped table-hover">

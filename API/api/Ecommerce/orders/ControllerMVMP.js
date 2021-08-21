@@ -4100,9 +4100,11 @@ exports.revenue_reports = (req, res, next) => {
 	/**----------- Find Status wise Orders ------------ */		
 	if(req.body.startDate && req.body.endDate){       
 		selector["$and"].push({
-			createdAt: {
-				$gte : moment(req.body.startDate).startOf('day').toDate(),
-				$lte : moment(req.body.endDate).endOf('day').toDate()
+			createdAt : {
+				// $gte : moment(req.body.startDate).startOf('day').toDate(),
+				// $lte : moment(req.body.endDate).endOf('day').toDate()
+				$gte : moment(req.body.startDate).tz('Asia/Kolkata').startOf('day').toDate(),
+				$lte : moment(req.body.endDate).tz('Asia/Kolkata').endOf('day').toDate()
 			 }
 		})
 	}

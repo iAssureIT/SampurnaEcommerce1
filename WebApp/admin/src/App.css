@@ -490,6 +490,9 @@ font-size: 12px;
 .NOpadding-right{
     padding-right: 0px;
 }
+.marginTop0{
+  margin-top:  0 !important;
+}
 .adminModal-header {
     border-radius: 9px 9px 0 0;
     background:var(--blue-color);
