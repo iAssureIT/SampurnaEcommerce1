@@ -4391,7 +4391,9 @@ exports.vendor_sales_reports = (req, res, next) => {
 	        	"_id": {
 	            "vendor_id" 	: "$vendorOrders.vendor_id",
 	            "product_id"	: "$vendorOrders.products.product_ID"
+	            "orderDate"		: "createdAt"
 	        	},
+	        "numberOfOrders"	: { "$sum" : 1 },
 	        "productQuantity"	: { "$sum" : "$vendorOrders.products.quantity" },
 	        "totalAmount"		: { "$sum" : "$vendorOrders.products.discountedPrice" },
 	        "orderData"    		: { "$push": "$$ROOT" }
@@ -4403,7 +4405,7 @@ exports.vendor_sales_reports = (req, res, next) => {
 				"orderData.vendorOrders.vendor_id"										: 1,
 				"orderData.vendorOrders.orderStatus"									: 1,
 				"orderData.vendorOrders.products"										: 1,
-				"productQuantity"															: 1,
+				"productQuantity"																: 1,
 				"totalAmount"																	: 1,
 				"orderData.vendorDetails.companyName"									: 1,
 				"orderData.createdAt"														: 1,
@@ -4416,32 +4418,31 @@ exports.vendor_sales_reports = (req, res, next) => {
 			var returnData = [];
 			for (var i = 0; i < data.length; i++) {
 				console.log("data i => ",i ," - ", data[i].orderData)
-				// returnData.push({
-				// 	_id 						: data[i]._id,
-				// 	orderID 					: data[i].orderID,
-				// 	orderDate 				: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
-				// 	vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
-				// 	orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0,
-				// 	commissionPercentage : 0,
-				// 	commissionAmount 		: 0,
-				// 	deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0,
-				// 	totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
-				// })	
-			// }
-			// if (i >= data.length) {				
-			// 	res.status(200).json({					
-			// 		dataCount 	: data.length
-			// 		data 			: returnData.slice(req.body.startRange, req.body.limitRange),
-			// 	});
+				returnData.push({
+					_id 						: data[i].orderData._id,
+					section    				: data[i].orderData.vendorOrders.products.section,
+					productName         	: data[i].orderData.vendorOrders.products.productName, 
+					vendorName    			: data[i].orderData.vendorDetails.companyName ? data[i].orderData.vendorDetails.companyName : "NA",
+					orderDate 				: moment(data[i]._id.orderDate).format('MMMM Do YYYY'),
+					productQuantity 		: data[i].productQuantity,
+					totalAmount 			: data[i].totalAmount					
+				})	
+			}
+			if (i >= data.length) {	
+				console.log("returnData => ",returnData)			
+				res.status(200).json({					
+					dataCount 	: returnData.length
+					data 			: returnData.slice(req.body.startRange, req.body.limitRange),
+				});
 			}
 			
 		}
-		// else{
+		else{
 			res.status(200).json({					
 				data 			: data,
 				dataCount 	: 0
 			});
-		// }			
+		}			
 	})
 	.catch(err => {
 	   console.log(err);
