@@ -7,7 +7,6 @@
 
 .container1 {
 	padding: 0px !important;
-	;
 }
 
 .rightside {
@@ -241,6 +240,91 @@
 	-moz-opacity: 0;
 	filter      : progid:DXImageTransform.Microsoft.Alpha(opacity=0)
 }
+
+/*================================*/
+
+.stepWrapper{
+	width: 25%;
+	height: 100px;
+	/*background-color: #eee;*/
+	float: left;
+	text-align: center;
+	font-size: 10px;
+	font-weight: 600;
+}
+
+.stepWrapper .fa-check{
+	color: #fff;
+}
+
+.stepRound{
+	height: 33px;
+	width: 33px;
+	border-radius: 100%;
+	background-color: #aaa;
+	margin: auto;
+	margin-top: 10px;	
+	margin-bottom: 10px;	
+	position: relative;
+	z-index: 10;
+}
+
+.stepBar{
+	width: 100%;
+	height: 4px;
+	background-color: #aaa;
+	margin-top: 26px;
+	float: left;
+	position: relative;
+	z-index: 1;
+}
+
+.firstStepBar {
+	width: 50%;
+	margin-left: 50%;
+	height: 4px;
+	background-color: #aaa;
+	margin-top: 26px;
+	float: left;
+	position: relative;
+	z-index: 1;
+}
+
+.lastStepBar {
+	width: 50%;
+	height: 4px;
+	background-color: #aaa;
+	margin-top: 26px;
+	float: left;
+	position: relative;
+	z-index: 1;
+}
+
+.actRound{
+	background-color: #CE6E2E ;
+}
+
+.doneRound{
+	background-color: #3E9D5E;
+}
+.doneRound:after {
+	 content: "\2713";
+	 font-size: 21px;
+	 color: #fff;
+	 position: absolute;
+	 top:0px;
+	 left: 8px;
+}
+
+
+
+
+
+
+
+
+
+
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {

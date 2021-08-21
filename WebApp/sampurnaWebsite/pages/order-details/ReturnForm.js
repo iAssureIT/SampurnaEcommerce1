@@ -15,7 +15,7 @@ export default function ReturnForm() {
     setWidth(width);
     setHeight(height);
     setImageUrl(url);
-    console.log("Image url==", url);
+    // console.log("Image url==", url);
   };
 
   return (

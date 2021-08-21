@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import $ from 'jquery';
 import moment from "moment";
-import StepProgressBar from 'react-step-progress';
 import 'react-step-progress/dist/index.css';
 import Message from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 // import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
@@ -15,7 +14,6 @@ import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 const socket = openSocket(publicRuntimeConfig.API_BASE_URL, { transports: ['websocket'], upgrade: false });
-// console.log("socket",socket);
 
 export default class OrderDetails extends Component {
   constructor(props) {
@@ -62,17 +60,18 @@ export default class OrderDetails extends Component {
           label: 'Processing',
           name: 'step 2',
         },
-        {
-          label: 'Ready to Dispatch',
-          name: 'step 2',
-        },
         // {
-        //   label: 'On the Way',
+        //   label: 'Ready to Dispatch',
         //   name: 'step 3',
         // },
         {
-          label: 'Delivered',
+          label: 'On the Way',
           name: 'step 3',
+        },
+        {
+          label: 'Delivered',
+          name: 'step 4',
+          stepClass : 'delivered'
         }
       ]
       this.setState({ labels: labels, labelsArray: labels })
@@ -95,7 +94,6 @@ export default class OrderDetails extends Component {
   //     .catch((error) => {
   //       console.log('error', error);
   //     })
-
   // }
 
   getMyOrders() {
@@ -115,7 +113,6 @@ export default class OrderDetails extends Component {
       }
     })
   }
-
 
   getAllorderStatus() {
     axios.get('/api/orderstatus/get/list')
@@ -155,6 +152,7 @@ export default class OrderDetails extends Component {
         console.log('Error while getting User data', error);
       })
   }
+
   cancelButton = (orderDate) => {
     // console.log("orderData===",this.state.orderData);
     var min = moment(orderDate).add(this.state.orderData.maxDurationForCancelOrder, 'minutes');
@@ -167,7 +165,6 @@ export default class OrderDetails extends Component {
       return false;
     }
   }
-
 
   cancelProductAction(event) {
     event.preventDefault();
@@ -310,19 +307,9 @@ export default class OrderDetails extends Component {
                     {
                       this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?
                         this.state.orderData.vendorOrders.map((vendordata, index) => {
-                          // console.log( " Order details this.state.orderData:",this.state.orderData);
                           var labels = this.state.labelsArray;
-                          // labels.splice(2, 1);
-                          // console.log("vendordata.orderStatus", vendordata.orderStatus);
-                          // console.log("this.state.labels[2].label",this.state.labels[2].label);
-                          // console.log("this.state.labels", this.state.labels);
-
-
                           var index1 = this.state.labels.map(e => e.label).indexOf(vendordata.orderStatus);
-                          // if(index1===1){
-
-                          // }
-                          // console.log("index1", index1)
+                          
                           return (
                             <div key={index} style={{ marginBottom: "0px" }} className={"col-12 pb-3 vendorwiseOrderHistory " + Style.vendorRow}>
                               <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">
@@ -342,12 +329,42 @@ export default class OrderDetails extends Component {
                               </div>
                               {vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
                                 <div className="col-12 NoPadding ">
-                                  <StepProgressBar
-                                    startingStep={index1 === -1 ? 2 : index1}
-                                    // startingStep={index1}
-                                    steps={labels}
-                                  />
-                                  </div>
+                                  {
+                                    this.state.labels.map((step,index)=>{
+                                      if(index === 0){
+                                        var barCls = Style.firstStepBar;
+                                      }else{
+                                        var barCls = Style.stepBar;
+                                      }
+
+                                      if(index === this.state.labels.length -1){
+                                        var barCls = Style.lastStepBar;
+                                      }
+
+                                      if(index1 === index){
+                                        var actCls = Style.actRound;
+                                      }else{
+                                        var actCls = "";                                        
+                                      }
+
+                                      if((index < index1) || (index1 === -1 && index === 0) || (index1 === -1 && index === 1) ||
+                                         (index1 === this.state.labels.length-1) ){
+                                        var doneCls = Style.doneRound;
+                                      }else{
+                                        var doneCls = "";
+                                      }
+
+
+                                      return(
+                                        <div className={Style.stepWrapper}>
+                                          <div className={barCls}> </div>
+                                          <div className={doneCls+" "+actCls+" "+Style.stepRound}></div>
+                                          <div className={"col-12 "+Style.progressStep}> {step.label} </div>
+                                        </div>
+                                      )
+                                    })
+                                  }
+                                </div>
                                 : null
                               }
 
