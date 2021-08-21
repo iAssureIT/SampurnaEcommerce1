@@ -349,7 +349,7 @@ export default class OrderDetails extends Component {
 
                                       if((index < index1) || (index1 === -1 && index === 0) || (index1 === -1 && index === 1) ||
                                          (index1 === this.state.labels.length-1) ){
-                                        var doneCls = Style.doneRound;
+                                        var doneCls = Style.doneRound;                                        
                                       }else{
                                         var doneCls = "";
                                       }
@@ -358,7 +358,9 @@ export default class OrderDetails extends Component {
                                       return(
                                         <div className={Style.stepWrapper}>
                                           <div className={barCls}> </div>
-                                          <div className={doneCls+" "+actCls+" "+Style.stepRound}></div>
+                                          <div className={doneCls+" "+actCls+" "+Style.stepRound}>
+                                            <div className={Style.indicatorNum}> {doneCls==="" ? index + 1 : null} </div>
+                                          </div>
                                           <div className={"col-12 "+Style.progressStep}> {step.label} </div>
                                         </div>
                                       )
