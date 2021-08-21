@@ -4399,14 +4399,14 @@ exports.vendor_sales_reports = (req, res, next) => {
 	   },
 		{ "$project" 	: 
 			{
-				"$orderData._id"																: 1,
-				"$orderData.vendorOrders.vendor_id"										: 1,
-				"$orderData.vendorOrders.orderStatus"									: 1,
-				"$orderData.vendorOrders.products"										: 1,
+				"orderData._id"																: 1,
+				"orderData.vendorOrders.vendor_id"										: 1,
+				"orderData.vendorOrders.orderStatus"									: 1,
+				"orderData.vendorOrders.products"										: 1,
 				"productQuantity"															: 1,
 				"totalAmount"																	: 1,
-				"$orderData.vendorDetails.companyName"									: 1,
-				"$orderData.createdAt"														: 1,
+				"orderData.vendorDetails.companyName"									: 1,
+				"orderData.createdAt"														: 1,
 			}
 		}	
 	])
