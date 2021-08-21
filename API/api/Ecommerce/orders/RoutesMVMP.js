@@ -14,6 +14,10 @@ router.patch('/patch/returnproduct', 															orderController.returnProduc
 
 router.post('/reports/revenue', 																	orderController.revenue_reports);
 
+router.post('/reports/delivery_drivers', 																	orderController.delivery_drivers_reports);
+
+router.post('/reports/vendor_sales', 																	orderController.vendor_sales_reports);
+
 router.post('/pgcall/post', 																	orderController.paymentgatewaycall);
 
 router.patch('/', 																				orderController.update_order);
