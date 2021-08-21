@@ -9,7 +9,7 @@ import { connect }            from 'react-redux';
 import store                  from '../../../../../redux/store.js'; 
 import useRouter              from 'next/router';
 import SingleProduct          from '../../StaticBlocks/SingleProduct/SingleProduct.js';
-import {updateCartCount,getCartData,getWishlistData}  from '../../../../../redux/actions/index.js'; 
+import {updateCartCount,getCartData,getWishlistData,getWishlist}  from '../../../../../redux/actions/index.js'; 
 
 class Product extends Component{
     constructor(props) {
@@ -49,7 +49,8 @@ class Product extends Component{
             user_ID       : user_ID,
             authService   : authService,
           },()=>{
-              this.props.getWishlistData();
+              // this.props.getWishlistData();
+              this.props.fetchWishlist();
           }); 
         }
 
@@ -198,22 +199,22 @@ class Product extends Component{
       }//end else
     }
     }
-    getWishlistData() {
-      axios.get('/api/wishlist/get/wishlistdata/' + this.state.user_ID)    
-        .then((response) => {
-          if(response){
-            // console.log("wislist response====",response.data);
-            this.setState({
-              wishList: response.data
-            },()=>{
-                  // console.log("2.My Wislist products ====",this.state.wishList);
-            })
-          }        
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
-    }
+    // getWishlistData() {
+    //   axios.get('/api/wishlist/get/wishlistdata/' + this.state.user_ID)    
+    //     .then((response) => {
+    //       if(response){
+    //         // console.log("wislist response====",response.data);
+    //         this.setState({
+    //           wishList: response.data
+    //         },()=>{
+    //               // console.log("2.My Wislist products ====",this.state.wishList);
+    //         })
+    //       }        
+    //     })
+    //     .catch((error) => {
+    //       console.log('error', error);
+    //     })
+    // }
     addtowishlist(event) {
       event.preventDefault();
       if (this.state.user_ID) {
@@ -230,7 +231,7 @@ class Product extends Component{
           "product_ID"          : id
       }
         
-        console.log("inside wishlist==",formValues);
+        // console.log("inside wishlist==",formValues);
         axios.post('/api/wishlist/post', formValues)
           .then((response) => {
             this.setState({
@@ -247,7 +248,8 @@ class Product extends Component{
                 messageData: {},
               })
             }, 2000);
-            this.props.getWishlistData();
+            // this.props.getWishlistData();
+            this.props.fetchWishlist();
           })
           .catch((error) => {
             console.log('error', error);
@@ -278,6 +280,7 @@ class Product extends Component{
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;
       var SMCol = 12/this.props.blockSettings.noOfProductPerSMRow;
       var XSCol = 12/this.props.blockSettings.noOfProductPerXSRow;
+      console.log("this.props.recentWishlist===",this.props.recentWishlist);
       return (
         <div className="row">
           <Message messageData={this.state.messageData} /> 
@@ -286,7 +289,7 @@ class Product extends Component{
                   
                 // console.log("data in map  ===> ",data);
              
-                var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
+                var x = this.props.recentWishlist && this.props.recentWishlist.length> 0 ? this.props.recentWishlist.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
                 var wishClass = 'r';
                 var tooltipMsg = '';
                 if (x && x.length > 0) {
@@ -437,6 +440,7 @@ const mapStateToProps = state => (
     cartCount          : state.data.cartCount,
     recentCartData     : state.data.recentCartData,
     recentWishlistData : state.data.recentWishlistData,
+    recentWishlist     : state.data.recentWishlist,
     productApiUrl      : state.data.productApiUrl
     
   } 
@@ -445,6 +449,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = {
   fetchCartData    : getCartData, 
   updateCartCount  : updateCartCount,
-  getWishlistData: getWishlistData,
+  getWishlistData  : getWishlistData,
+  fetchWishlist    : getWishlist,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Product);

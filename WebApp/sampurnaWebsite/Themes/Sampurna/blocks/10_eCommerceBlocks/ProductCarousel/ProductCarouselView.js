@@ -312,8 +312,6 @@ render() {
                                     userLatitude       = {this.state.userLatitude}
                                     userLongitude      = {this.state.userLongitude}
                                     user_ID            = {this.state.user_ID}
-                                    // vendor_ID          = {this.props.vendor_ID}
-                                    // vendorlocation_ID  = {this.props.vendorlocation_ID}
                                     vendor_ID          = {data.vendor_ID}
                                     vendorlocation_ID  = {data.vendorLocation_id}
                                   />

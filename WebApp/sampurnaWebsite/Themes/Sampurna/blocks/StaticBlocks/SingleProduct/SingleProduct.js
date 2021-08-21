@@ -50,7 +50,8 @@ class SingleProduct extends Component{
             authService   : authService,
           },()=>{
               // this.props.getWishlistData();
-              this.props.fetchWishlist();
+              this.props.getWishlistDataLocationWise();
+              // this.props.fetchWishlist();
           }); 
         }
     }
@@ -118,7 +119,7 @@ class SingleProduct extends Component{
           "vendorName"        : event.target.getAttribute('vendor_name'),
           "vendor_ID"         : this.props.vendor_ID,     
         }   
-        console.log("formValues=",formValues);   
+        // console.log("formValues=",formValues);   
 
       this.addCart(formValues, quantityAdded, availableQuantity);
       
@@ -177,8 +178,9 @@ class SingleProduct extends Component{
                 messageData: {},
               })
             }, 2000);
+            this.props.getWishlistDataLocationWise();
             // this.props.getWishlistData();
-            this.props.fetchWishlist();
+            // this.props.fetchWishlist();
             
           })
           .catch((error) => {
@@ -380,16 +382,15 @@ const mapStateToProps = state => (
     recentCartData     : state.data.recentCartData,
     recentWishlistData : state.data.recentWishlistData,
     recentWishlist     : state.data.recentWishlist,
-    // productApiUrl      : state.data.productApiUrl
-    
+    // productApiUrl      : state.data.productApiUrl   
   } 
 );
 
 const mapDispatchToProps = {
-  fetchCartData    : getCartData, 
-  updateCartCount  : updateCartCount,
-  fetchWishlist    : getWishlist,
-  getWishlistData  : getWishlistData,
+  fetchCartData                : getCartData, 
+  updateCartCount              : updateCartCount,
+  // fetchWishlist                : getWishlist,
+  getWishlistDataLocationWise  : getWishlistData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

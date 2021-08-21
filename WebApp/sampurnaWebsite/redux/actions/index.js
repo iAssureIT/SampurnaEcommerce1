@@ -200,7 +200,7 @@ export function getAddressData(){
 }
 
 //getWishlist locationwise api
-export function getWishlist(){
+export function getWishlistData(){
   return dispatch =>{
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
       var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails')); 
@@ -220,7 +220,7 @@ export function getWishlist(){
     axios.post('/api/wishlist/get/userwishlist', formValues)    
     .then((response) => {
       if(response){
-        // console.log('wishlist data', response.data);
+        console.log('action wishlist data', response.data);
         dispatch(setWishlistData(response.data));
       }
     })
@@ -232,7 +232,7 @@ export function getWishlist(){
 }
 
 //get all Wishlist data without location
-export function getWishlistData() {
+export function getWishlist() {
 	return dispatch =>{
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
     if(userDetails){
@@ -241,7 +241,7 @@ export function getWishlistData() {
         axios.get('/api/wishlist/get/wishlistdata/'+userid) 
         .then((response)=>{
           if(response){
-            console.log("Wishlist Data-",response.data);
+            // console.log("Wishlist Data-",response.data);
             dispatch(setAllWishlistDataWithoutLocation(response.data));
           }       
         })

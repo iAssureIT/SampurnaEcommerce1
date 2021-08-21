@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios    from 'axios';
-import Image    from 'next/image';
-import $, { data }        from 'jquery';
+import axios                from 'axios';
+import Image                from 'next/image';
+import $, { data }          from 'jquery';
 import { connect }          from 'react-redux';
 import {getCartData, getWishlist,getWishlistData}        from '../../redux/actions/index.js'; 
 import  store               from '../../redux/store.js'; 
@@ -42,75 +42,21 @@ class Wishlist extends Component {
         // console.log("userLongitude=",this.state.userLongitude);
         // console.log("userLongitude=",this.state.userLongitude);
       })
-    }    
+    }  
+
     var userDetails     =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
           if(userDetails.user_id){
             this.setState({
               user_ID :  userDetails.user_id,
             },()=>{
-                  // this.getWishData();
+                  this.props.getWishlistData();
                   this.props.fetchWishlist();
             })
           }
         }
     // await this.props.fetchCartData();
   }
-
-  getWishData() {
-    // console.log("inside wishlist");
-  var formValues ={
-    "user_ID"             : this.state.user_ID,
-    "userLat"             : this.state.userLongitude, 
-    "userLong"            : this.state.userLongitude
-  }
-    // console.log("formValues=",formValues);
-
-    axios.post('/api/wishlist/get/userwishlist', formValues)    
-      .then((response) => {
-        if(response){
-          // console.log('wishlist data', response.data);
-          this.setState({
-            wishlistData: response.data
-          })
-        }
-      })
-      .catch((error) => {
-        console.log('error', error);
-      })
-    }
-
-  // removefromwishlist(event) {
-  //   event.preventDefault();
-  //   var id = event.target.id;
-  //   console.log("id", id);
-  //   axios.delete('/api/wishlist/delete/' + id)
-  //     .then((response) => {
-  //       window.scrollTo(0, 0);
-  //       console.log('response', response);
-  //       this.setState({
-  //         products: []
-  //       })
-  //       this.getData();
-  //       this.setState({
-  //         messageData: {
-  //           "type": "outpage",
-  //           "icon": "fa fa-check-circle",
-  //           "message": response.data.message,
-  //           "class": "success",
-  //           "autoDismiss": true
-  //         }
-  //       })
-  //       setTimeout(() => {
-  //         this.setState({
-  //           messageData: {},
-  //         })
-  //       }, 3000);
-  //     })
-  //     .catch((error) => {
-  //       console.log('error', error);
-  //     })
-  // }
 
   render() {
     // console.log("recentWishlistData==",this.props.recentWishlistData);
