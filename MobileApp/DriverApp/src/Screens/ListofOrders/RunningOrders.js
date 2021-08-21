@@ -145,7 +145,7 @@ export const RunningOrders =(props)=> {
                     >
                 <View style={{flexDirection:'row',marginBottom:5}}>
                         <View style={{flex:.4}}>
-                            <Text style={CommonStyles.cardTopText}>Order No :{item.orderID}</Text>
+                            <Text style={CommonStyles.cardTopText}>Order No {item.orderID}</Text>
                         </View>
                         <View style={{flex:.6,alignItems:'flex-end'}}>
                             <Text style={CommonStyles.cardTopText2}>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
@@ -157,20 +157,26 @@ export const RunningOrders =(props)=> {
                             <Text style={[CommonStyles.boxLine1W]}>Customer Name</Text>
                         </View>
                         <View style={{flex:0.65,flexDirection:"row"}}>
-                            <Text style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.name}, </Text>
-                            <Text style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:'#fff'}]} onPress={() => Linking.openURL(`tel:${item.deliveryAddress.mobileNumber}`)}> {item.deliveryAddress.mobileNumber}</Text>
+                            <Text style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular"}]}>&nbsp; : {item.deliveryAddress.name}, </Text>
+                            {item.deliveryAddress.mobileNumber ?
+                                <Text style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:'#fff'}]} onPress={() => Linking.openURL(`tel:${item.deliveryAddress.mobileNumber}`)}>{item.deliveryAddress.mobileNumber}</Text>
+                                :
+                                null
+                            }
                         </View>                        
                     </View>
                     <View style={{flexDirection:"row",flex:1}} >
-                        <View style={{flex:0.35}}>
+                        <View style={{flex:0.37}}>
                             <Text style={[CommonStyles.boxLine1W]}>Address</Text>
                         </View>
-                        <View style={{flex:0.65,flexDirection:"row"}}>
-                            <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}> : {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>
-                            <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end',marginHorizontal:10}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
+                        <View style={{flex:0.5}}>
+                            <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}>: {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>                            
+                        </View>
+                        <View style={{flex:0.13}}>
+                            <TouchableOpacity style={{marginHorizontal:10}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
                                 <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>
                             </TouchableOpacity>
-                        </View>                        
+                        </View>                    
                     </View>                     
                 </View>                 
                 </View>
@@ -180,25 +186,27 @@ export const RunningOrders =(props)=> {
     };
 
 
-    return (
-        <View>
-        {loading ?
-            <Loading />
-            :
-                <View>
-                {orderList  && orderList.length >0?<FlatList
-                    data={orderList}
-                    keyExtractor={(item) => item.id}
-                    renderItem={_renderlist} 
-                        />
+    return (        
+            <View style={{flex:1}}>
+                {orderList  && orderList.length >0?                
+                    <View>
+                        {loading ? 
+                            <Loading />
+                            :
+                        <FlatList
+                        data={orderList}
+                        keyExtractor={(item) => item.id}
+                        renderItem={_renderlist} 
+                            />
+                        }
+                    </View>
                     :
                     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                         <Text style={CommonStyles.noDataFound}>No Order Found</Text>
-                    </View>}                    
-                </View>
-        }
-        <Footer selected={"2"}/>
-        </View>
+                    </View>      
+                }     
+                <Footer selected={"2"}/>
+            </View>
     );
     }
 

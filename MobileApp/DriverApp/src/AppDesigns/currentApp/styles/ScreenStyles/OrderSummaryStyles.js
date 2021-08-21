@@ -60,6 +60,7 @@ superparent:{
   flxpd:{
     flex:0.8,
     flexDirection:'row',
+    justifyContent:'center'
   },
   imgwdht:{
     width: 42, height:42,
@@ -71,8 +72,9 @@ superparent:{
     height:100,marginTop:10,
   },
   flxmg:{
-    flex:0.35,marginTop:10,
-    flexDirection:'row'
+    flex:0.35,
+    flexDirection:'row',
+    justifyContent:'center'
   },
   flxmg2:{
     flex:0.3,marginTop:10
@@ -251,6 +253,7 @@ superparent:{
     // borderBottomWidth:1,borderColor:'#eee',
     backgroundColor:"#fff",
     minHeight:55,
+    justifyContent:'center',
     // borderRadius:5,
     marginTop:10,
   },
@@ -573,7 +576,8 @@ superparent:{
       flex:1,backgroundColor:'#f1f1f1'
     },
     flxdir1:{
-      flex:1,flexDirection: "row"
+      flex:1,flexDirection: "row",
+      justifyContent:'center'
     },
     addparent:{
       backgroundColor:'#fff',paddingVertical:20,paddingHorizontal:15,

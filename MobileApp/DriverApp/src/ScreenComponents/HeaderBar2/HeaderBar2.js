@@ -221,7 +221,7 @@ import Geolocation          from 'react-native-geolocation-service';
                     <Image
                       resizeMode="contain"
                       source={require("../../AppDesigns/currentApp/images/Box.png")}
-                      style={{height:14,width:19,marginTop:3}}
+                      style={{height:14,width:19}}
                       />
                   </View>
                 </TouchableOpacity>
@@ -231,11 +231,11 @@ import Geolocation          from 'react-native-geolocation-service';
           }
           centerComponent={
               props.headerTitle && props.headerTitle!=="" ?
-                <View style={{width:200}}>
+                <View style={{width:200,marginTop:-5}}>
                   <Text style={[{fontSize:15,color:'#fff',fontFamily:"Montserrat-SemiBold"}]}>{props.headerTitle}</Text>
                 </View>  
                 :
-                <View style={{height:27,width:90}}>
+                <View style={{height:27,width:90,marginTop:-5}}>
                   <Image
                     resizeMode="contain"
                     source={require("../../AppDesigns/currentApp/images/Logo.png")}

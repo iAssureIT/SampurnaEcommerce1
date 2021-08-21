@@ -167,6 +167,7 @@ export default StyleSheet.create({
   },
   tabWrap1:{
     flexDirection: 'row',
+    marginTop:-3
   },
   tabWrap:{
     width:36,

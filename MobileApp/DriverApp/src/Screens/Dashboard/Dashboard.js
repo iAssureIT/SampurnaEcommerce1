@@ -98,7 +98,7 @@ const Dashboard = withCustomerToaster((props)=>{
   return (
     <React.Fragment>
         <View style={styles.superparent}>
-            <View style={{marginTop:30,alignItems:'center'}}>
+            <View style={{marginTop:20,alignItems:'center',marginBottom:10}}>
               <SwipeButton onToggle={handleToggle}/>
             </View>
             <View style={{flex:1,marginBottom:65,justifyContent:'center'}}>
@@ -164,9 +164,13 @@ const Dashboard = withCustomerToaster((props)=>{
               </View>
               <TouchableOpacity style={styles1.closeButton} onPress={()=>closeSOS()}>
                   <Icon name="close" type="font-awesome" size={30} color="#fff" />
-              </TouchableOpacity> 
+              </TouchableOpacity>
+              <View style={{alignItems:'center'}}>
+                <Text style={{color: "#000",fontSize:14,fontFamily:"Montserrat-Regular"}}>Cancel</Text>
+              </View> 
              </View> 
         </Modal>
+        <Footer/>
     </React.Fragment>
   );  
 })
@@ -181,7 +185,7 @@ const styles1 = StyleSheet.create({
       marginLeft          : 54,
       marginRight         : 25,
       borderRadius        : 7,
-      marginVertical      : 15,
+      marginVertical      : 10,
       elevation: 5
   },
   HorizontalBoxRight: {

@@ -196,7 +196,7 @@ export const CompletedOrders =(props)=> {
              {loading ?
                     <Loading />
                 :  
-                    <View>
+                    <View style={{flex:1}}>
                         {orderList  && orderList.length >0?<FlatList
                         data={orderList}
                         keyExtractor={(item) => item.id}
@@ -207,9 +207,9 @@ export const CompletedOrders =(props)=> {
                         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                             <Text style={CommonStyles.noDataFound}>No Order Found</Text>
                         </View>}
+                        <Footer selected={"3"}/>
                     </View>
-            }
-            <Footer selected={"3"}/>
+            }            
             <DateTimePickerModal
             isVisible={datePicker}
             mode="date"

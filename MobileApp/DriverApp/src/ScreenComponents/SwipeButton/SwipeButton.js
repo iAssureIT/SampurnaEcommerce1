@@ -84,7 +84,7 @@ const SwipeButton = ({onToggle}) => {
         backgroundColor: interpolateColor(
           X.value,
           [0, BUTTON_WIDTH - SWIPEABLE_DIMENSIONS - BUTTON_PADDING],
-          ['#fff', '#fff'],
+          ['#fff', '#fff'],          
         ),
         transform: [{translateX: X.value}],
       };
@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     width: SWIPEABLE_DIMENSIONS,
     borderRadius: SWIPEABLE_DIMENSIONS,
     zIndex: 3,
+    elevation:5,
     justifyContent:'center',
     alignItems:'center'
   },
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     zIndex: 2,
     color: '#E33941',
-    paddingLeft:30
+    paddingLeft:50
   },
   swipeabletext:{
     color: "#033554",

@@ -4,6 +4,7 @@ import {
   View,
   ScrollView,
   ImageBackground,
+  Image,
   TouchableOpacity,
 } from "react-native";
 import { Icon, Avatar }         from 'react-native-elements';
@@ -58,65 +59,55 @@ export const Menu = (props)=>{
         </View>
       <View style={styles.menuWrapper}>
         {user_id!==""&&userDetails.authService!=="guest" &&<View>
-        <TouchableOpacity onPress={()=> navigation.navigate('MyAccount')}>
+        <TouchableOpacity onPress={()=> navigation.navigate('AccountDashboard')}>
           <View style={styles.menu}>
-            <Icon 
-              size={22} 
-              name='user-circle-o' 
-              type='font-awesome' 
-              color='#666' 
-              containerStyle={styles.iconContainer}
-            />
+            <Image
+              resizeMode="contain"
+              source={require("../../AppDesigns/currentApp/images/Account.png")}
+              style={{height:22,width:22,marginLeft:20}}
+              />
             <Text style={styles.menuText}>My Account</Text>
           </View>
         </TouchableOpacity>
           <TouchableOpacity onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false})} >
           <View style={styles.menu}>
-            <Icon 
-              size={22} 
-              name='address-book-o' 
-              type='font-awesome' 
-              color='#666' 
-              containerStyle={styles.iconContainer}
-            />
+            <Image
+              resizeMode="contain"
+              source={require("../../AppDesigns/currentApp/images/Deliveries.png")}
+              style={{height:22,width:22,marginLeft:20}}
+              />
             <Text style={styles.menuText}>My Deliveries</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=> navigation.navigate('RejectedOrder')}>
           <View style={styles.menu}>
-            <Icon 
-              size={20} 
-              name='briefcase' 
-              type='entypo' 
-              color='#666' 
-              containerStyle={styles.iconContainer}
-            />
+            <Image
+              resizeMode="contain"
+              source={require("../../AppDesigns/currentApp/images/Rejected.png")}
+              style={{height:22,width:22,marginLeft:20}}
+              />
             <Text style={styles.menuText}>Rejected Orders</Text>
           </View>
         </TouchableOpacity></View>}
         
         <TouchableOpacity onPress={()=> navigation.navigate('SupportSystem')}>
           <View style={styles.menu} >
-            <Icon 
-              size={20} 
-              name='account-box' 
-              type='material-community' 
-              color='#666' 
-              containerStyle={styles.iconContainer}
-            />
+            <Image
+              resizeMode="contain"
+              source={require("../../AppDesigns/currentApp/images/ContactUS.png")}
+              style={{height:22,width:22,marginLeft:20}}
+              />
             <Text style={styles.menuText}>Contact Us</Text>
           </View>
         </TouchableOpacity> 
         {user_id && userDetails.authService!=="guest" ?
         <TouchableOpacity onPress={()=>logout()}>
           <View style={styles.menu}>
-            <Icon 
-              size={20} 
-              name='sign-out' 
-              type='font-awesome' 
-              color='#666' 
-              containerStyle={styles.iconContainer}
-            />
+            <Image
+              resizeMode="contain"
+              source={require("../../AppDesigns/currentApp/images/logout.png")}
+              style={{height:22,width:22,marginLeft:20}}
+              />
             <Text style={styles.menuText}>Logout</Text>
           </View>
         </TouchableOpacity>

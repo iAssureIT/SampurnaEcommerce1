@@ -117,77 +117,80 @@ export const MonthlyOrders =(props)=> {
     };
 
     return (
-        <View style={{flex:1,marginBottom:70,backgroundColor:'#fff'}}>
-            <View style={{flexDirection:"row",justifyContent: 'center',alignItems: 'center',marginTop:15}}>
-                    <TouchableOpacity
-                        onPress={() => {priviousDate()}}>
-                        <Icon
-                        name="caretleft"
-                        type="antdesign"
-                        color='#033554'
-                        size={10}
-                        />
+        <View style={{flex:1}}>
+            <View style={{flex:1,marginBottom:70,backgroundColor:'#fff'}}>
+                <View style={{flexDirection:"row",justifyContent: 'center',alignItems: 'center',marginTop:15}}>
+                        <TouchableOpacity
+                            onPress={() => {priviousDate()}}>
+                            <Icon
+                            name="caretleft"
+                            type="antdesign"
+                            color='#033554'
+                            size={10}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => openDatePicker(true)}
+                            style={{
+                            paddingVertical: 5,
+                            width:120,
+                            borderRadius: 5,
+                            backgroundColor:'#fff',
+                            alignItems:'center'
+                            }}>
+                            <Text style={CommonStyles.completeDate}>
+                            {monthYear}
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {nextDate()}}>
+                            <Icon
+                            name="caretright"
+                            type="antdesign"
+                            color='#033554'
+                            size={10}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    
+                    {/* <TouchableOpacity style={{alignItems:"center",justifyContent:"flex-start",flex:0.3}} onPress={priviousDate}>
+                    <Icon size={40} name='chevrons-left' type='feather' color='#333' />
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => openDatePicker(true)}
-                        style={{
-                        paddingVertical: 5,
-                        width:120,
-                        borderRadius: 5,
-                        backgroundColor:'#fff',
-                        alignItems:'center'
-                        }}>
-                        <Text style={CommonStyles.completeDate}>
+                    <View style={{alignItems:"center",justifyContent:"center",flex:0.4}}>
+                    <Text style={{fontSize:20}}>
                         {monthYear}
-                        </Text>
+                    </Text>               
+                </View>
+                    {month !== monthNow ?
+                    <TouchableOpacity style={{alignItems:"center",justifyContent:"flex-end",flex:0.3}} onPress={nextDate}>
+                    <Icon size={40} name='chevrons-right' type='feather' color='#333' />
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => {nextDate()}}>
-                        <Icon
-                        name="caretright"
-                        type="antdesign"
-                        color='#033554'
-                        size={10}
+                    :
+                    <View style={{alignItems:"center",justifyContent:"flex-end",flex:0.3}} onPress={nextDate}>
+                    <Icon size={40} name='chevrons-right' type='feather' color='#d1d1d1' />
+                    </View>
+                    } */}            
+                <View style={{justifyContent:'center',alignItems:'center',paddingTop:10}}>
+                    <Text style={CommonStyles.totalcount}>Total Deliveries : {orderList?.totalOrdersDelivered}</Text>
+                </View>
+                <View style={{flexDirection:'row',justifyContent:'center',paddingTop:10,marginBottom:15}}>
+                        <Text style={CommonStyles.totalcount}>Total Cash Collected : 500 AED</Text>
+                </View>  
+            {orderList  && orderList?.monthDays?.length >0?
+                    <View style={{}}>
+                        <FlatList
+                            data={orderList.monthDays}
+                            keyExtractor={(item) => item.id}
+                            renderItem={_renderlist} 
                         />
-                    </TouchableOpacity>
-                </View>
-                
-                {/* <TouchableOpacity style={{alignItems:"center",justifyContent:"flex-start",flex:0.3}} onPress={priviousDate}>
-                  <Icon size={40} name='chevrons-left' type='feather' color='#333' />
-                </TouchableOpacity>
-                <View style={{alignItems:"center",justifyContent:"center",flex:0.4}}>
-                  <Text style={{fontSize:20}}>
-                    {monthYear}
-                  </Text>               
-               </View>
-                {month !== monthNow ?
-                <TouchableOpacity style={{alignItems:"center",justifyContent:"flex-end",flex:0.3}} onPress={nextDate}>
-                  <Icon size={40} name='chevrons-right' type='feather' color='#333' />
-                </TouchableOpacity>
+                    </View>
                 :
-                  <View style={{alignItems:"center",justifyContent:"flex-end",flex:0.3}} onPress={nextDate}>
-                  <Icon size={40} name='chevrons-right' type='feather' color='#d1d1d1' />
-                </View>
-                } */}            
-            <View style={{justifyContent:'center',alignItems:'center',paddingTop:10}}>
-                <Text style={CommonStyles.totalcount}>Total Deliveries : {orderList?.totalOrdersDelivered}</Text>
+                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                    <Text>No Order Found</Text>
+                </View>}
             </View>
-            <View style={{flexDirection:'row',justifyContent:'center',paddingTop:10,marginBottom:15}}>
-                    <Text style={CommonStyles.totalcount}>Total Cash Collected : 500 AED</Text>
-             </View>  
-           {orderList  && orderList?.monthDays?.length >0?
-                <View style={{}}>
-                    <FlatList
-                        data={orderList.monthDays}
-                        keyExtractor={(item) => item.id}
-                        renderItem={_renderlist} 
-                    />
-                </View>
-            :
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <Text>No Order Found</Text>
-            </View>}
-        </View>
+        <Footer/>
+    </View>
     );
 
     }

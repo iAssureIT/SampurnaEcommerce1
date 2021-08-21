@@ -176,12 +176,13 @@ const ValidationSchema = Yup.object().shape({
             </View>   */}
             <View style={{margin:20,minHeight:100}}>
                 <View style={{flexDirection:'row',flex:1,justifyContent:'space-between'}}>
-                  <Text style={styles.boxLine1B}>Order No : {order.orderID}</Text>
-                  <Text style={styles.boxLine1B}>Date :{moment(order.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
+                  <Text style={styles.boxLine1B}>Order No: {order.orderID}</Text>
+                  <Text style={styles.boxLine1B}>Date: {moment(order.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
                 </View> 
                 <View style={{justifyContent:'space-between',marginTop:10}}>
                   <Text style={styles.boxLine2B}>Vendor : <Text style={styles.boxLine2_AnsB}>{order?.vendorOrders[0]?.vendorName}</Text></Text>
-                  <Text style={styles.boxLine2B}>Deliver To : <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.name}, </Text> <Text style={{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}} onPress={() => Linking.openURL(`tel:${order?.deliveryAddress?.mobileNumber}`)}>{order?.deliveryAddress?.mobileNumber}</Text></Text>
+                  <Text style={styles.boxLine2B}>Deliver To : <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.name}, </Text></Text>
+                  <Text style={{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}} onPress={() => Linking.openURL(`tel:${order?.deliveryAddress?.mobileNumber}`)}>{order?.deliveryAddress?.mobileNumber}</Text>
                   <Text style={styles.boxLine2B}>Delivery Addrees : <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.addressLine1+", "+order?.deliveryAddress?.addressLine2}</Text></Text>
                 </View>
                 <View style={{flexDirection:'row',flex:1,marginTop:15}}>
@@ -216,7 +217,7 @@ const ValidationSchema = Yup.object().shape({
                                   />
                                 }
                               </View>
-                              <View style={{flex:0.65}}>
+                              <View style={{flex:0.65,justifyContent:'center'}}>
                                 {item.productNameRlang ?
                                   <Text style={{fontFamily:'aps_dev_priyanka',fontSize:13,flexWrap:'wrap'}}>{item.productNameRlang}</Text>
                                   : 
@@ -230,11 +231,11 @@ const ValidationSchema = Yup.object().shape({
                                 : 
                                 <Text style={styles.productname}>{item.productName}</Text>
                                 } */}
-                                <View style={{flex:0.4,alignItems:"center"}}>
+                                <View style={{flex:0.4,alignItems:"center",justifyContent:'center'}}>
                                     <Text style={[styles.productname]}>{item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                     </Text>
                                 </View>
-                                <View style={{flex:0.6,alignItems:"center"}}>
+                                <View style={{flex:0.6,alignItems:'flex-end',justifyContent:'center'}}>
                                   {/* <View style={[styles.flxdir]}>
                                     <Text style={styles.ogprice}>{currency} </Text>
                                   </View> */}
