@@ -54,7 +54,7 @@ class VendorSalesReport extends Component{
 													vendorName    			: 'Vendor Name',
 													section    				: 'Section',
 													category    			: 'Category',
-													subcategory    		: 'SubCategory',
+													subCategory    		: 'SubCategory',
 													orderDate       		: 'Order Date',
 													numberOfOrders 		: 'Number of Orders',
 													productQuantity 		: 'Product Quantity',

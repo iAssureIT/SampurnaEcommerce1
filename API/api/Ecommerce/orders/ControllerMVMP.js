@@ -4452,18 +4452,18 @@ exports.vendor_sales_reports = (req, res, next) => {
 				// console.log("data i => ",i ," - ", data[i].orderData)
 				returnData.push({
 					_id 						: data[i].orderData[0]._id,
-					section    				: data[i].orderData[0].vendorOrders.products.section,
-					category    			: data[i].orderData[0].vendorOrders.products.category,
-					subcategory    		: data[i].orderData[0].vendorOrders.products.subCategory,
 					productName         	: "<div>" + data[i].orderData[0].vendorOrders.products.productName + "</br>" + 
 													"<b>ProductCode</b> : " + data[i].orderData[0].vendorOrders.products.productCode + "</br>" +
 													"<b>ItemCode</b> : " + data[i].orderData[0].vendorOrders.products.itemCode + "</br>" +
 					 								"</div>", 
 					vendorName    			: data[i].orderData[0].vendorDetails.companyName ? data[i].orderData[0].vendorDetails.companyName : "NA",
+					section    				: data[i].orderData[0].vendorOrders.products.section,
+					category    			: data[i].orderData[0].vendorOrders.products.category ? data[i].orderData[0].vendorOrders.products.category : data[i].orderData[0].vendorOrders.products.category,
+					subcategory    		: data[i].orderData[0].vendorOrders.products.subCategory ? data[i].orderData[0].vendorOrders.products.subCategory : "",
 					orderDate 				: moment(data[i].orderData[0].createdAt).format('MMM Do YYYY'),
 					numberOfOrders 		: data[i].numberOfOrders,
 					productQuantity 		: data[i].productQuantity,
-					totalAmount 			: "<div> AED " + data[i].totalAmount + "</div>"				
+					totalAmount 			: "<div className='whiteSpaceNoWrap'> AED " + data[i].totalAmount + "</div>"				
 				})	
 			}
 			if (i >= data.length) {	
