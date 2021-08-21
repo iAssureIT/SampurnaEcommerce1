@@ -2246,7 +2246,7 @@ exports.sos_to_appCompony_contacts = (req,res,next)=>{
                     console.log("userNotificationValues 3 => ",userNotificationValues);
                     // var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
                 }
-                if (i >= data.length) {
+                if (i >= userdata.length) {
                     res.status(200).json({
                         statusCode  : "Success",
                         message     : "Message Sent!"
