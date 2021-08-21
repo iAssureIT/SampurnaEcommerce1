@@ -4459,11 +4459,11 @@ exports.vendor_sales_reports = (req, res, next) => {
 					vendorName    			: data[i].orderData[0].vendorDetails.companyName ? data[i].orderData[0].vendorDetails.companyName : "NA",
 					section    				: data[i].orderData[0].vendorOrders.products.section,
 					category    			: data[i].orderData[0].vendorOrders.products.category ? data[i].orderData[0].vendorOrders.products.category : data[i].orderData[0].vendorOrders.products.category,
-					subcategory    		: data[i].orderData[0].vendorOrders.products.subCategory ? data[i].orderData[0].vendorOrders.products.subCategory : "",
+					subCategory    		: data[i].orderData[0].vendorOrders.products.subCategory ? data[i].orderData[0].vendorOrders.products.subCategory : "",
 					orderDate 				: moment(data[i].orderData[0].createdAt).format('MMM Do YYYY'),
 					numberOfOrders 		: data[i].numberOfOrders,
 					productQuantity 		: data[i].productQuantity,
-					totalAmount 			: "<div className='whiteSpaceNoWrap'> AED " + data[i].totalAmount + "</div>"				
+					totalAmount 			: "<div class='whiteSpaceNoWrap'> AED " + data[i].totalAmount + "</div>"				
 				})	
 			}
 			if (i >= data.length) {	

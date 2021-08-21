@@ -138,6 +138,9 @@ z-index: 0!important;
 .mt20{
   margin-top: 20px;
 }
+.whiteSpaceNoWrap{
+  white-space: nowrap;
+}
 /*--------------------------background colors of admin page -----------*/
 
 .headerbackgroundcolor
