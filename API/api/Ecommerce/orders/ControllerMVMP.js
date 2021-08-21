@@ -4390,7 +4390,7 @@ exports.vendor_sales_reports = (req, res, next) => {
 			{
 	        	"_id": {
 	            "vendor_id" 	: "$vendorOrders.vendor_id",
-	            "product_id"	: "$vendorOrders.products.product_ID"
+	            "product_id"	: "$vendorOrders.products.product_ID",
 	            "orderDate"		: "createdAt"
 	        	},
 	        "numberOfOrders"	: { "$sum" : 1 },
@@ -4413,11 +4413,11 @@ exports.vendor_sales_reports = (req, res, next) => {
 		}	
 	])
 	.then(async(data) => {
-		console.log("data => ",data);		
+		// console.log("data => ",data);		
 		if(data && data.length > 0){
 			var returnData = [];
 			for (var i = 0; i < data.length; i++) {
-				console.log("data i => ",i ," - ", data[i].orderData)
+				// console.log("data i => ",i ," - ", data[i].orderData)
 				returnData.push({
 					_id 						: data[i].orderData._id,
 					section    				: data[i].orderData.vendorOrders.products.section,
@@ -4431,7 +4431,7 @@ exports.vendor_sales_reports = (req, res, next) => {
 			if (i >= data.length) {	
 				console.log("returnData => ",returnData)			
 				res.status(200).json({					
-					dataCount 	: returnData.length
+					dataCount 	: returnData.length,
 					data 			: returnData.slice(req.body.startRange, req.body.limitRange),
 				});
 			}
