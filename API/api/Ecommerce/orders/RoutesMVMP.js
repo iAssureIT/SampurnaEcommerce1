@@ -140,6 +140,8 @@ router.patch('/deliver/vendor_order',                                           
 
 router.post('/get/daily/vendor_orders',                                                         orderController.daily_vendor_orders)
 
+router.post('/get/driver/rejected_orders',                                                         orderController.rejected_orders)
+
 router.post('/get/monthly/vendor_orders',                                                         orderController.monthly_vendor_orders)
 
 //Code By Rushikesh For Driver App

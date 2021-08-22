@@ -250,7 +250,7 @@ exports.send_notifications = (req, res, next) => {
         async function main(){
             // console.log('========================================================')
             var returnData = data
-            console.log('returnData=>',returnData)
+            // console.log('returnData=>',returnData)
             if(returnData && returnData.length > 0){
                 for(var i=0 ; i< returnData.length ; i++){
                     // console.log("Entering for loop for returnData at : ",i)
@@ -359,7 +359,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 // console.log("emailDetails => ",emailDetails)
                 if(emailDetails && emailDetails !== undefined && emailDetails !== null){
                     const sendMail      = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
-                    console.log("sendMail => ", sendMail)
+                    // console.log("sendMail => ", sendMail)
                     resolve(sendMail);
                 }else{
                     resolve(false);
@@ -391,7 +391,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                         textMsg             = textMsg.replace(/&nbsp;/g, '');
                         // console.log("textMsg 1 => ",textMsg)
                         const sms           = await sendSMS(toMobile, textMsg);
-                        console.log("if sms => ",sms)
+                        // console.log("if sms => ",sms)
                         resolve(sms);   
                     }else{
                         resolve(false)
@@ -412,7 +412,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                         // console.log("toMobile",toMobile);
                         const sms           = await sendSMS(toMobile, textMsg);
                         // console.log("sms => ",sms)
-                        console.log("SMS else if => ",sms)  
+                        // console.log("SMS else if => ",sms)  
                         resolve(sms);   
                         // resolve(true); 
                     }else{

@@ -3808,6 +3808,52 @@ exports.daily_vendor_orders = (req, res, next) => {
 };
 
 
+// ---------------- Get Rejected Vendor Orders By driver ----------------
+exports.rejected_orders = (req, res, next) => {
+	// console.log("start => ", moment(new Date(req.body.deliveryDate)).startOf('day').toDate());
+	// console.log("end => ", moment(new Date(req.body.deliveryDate)).endOf('day').toDate());
+	Orders.aggregate([	   
+		{ "$match": 
+			{"vendorOrders": 
+				{"$elemMatch":
+					{"deliveryStatus" : 
+						{"$elemMatch" : 
+							{
+								"statusUpdatedBy" : ObjectId(req.body.user_id), 
+								"status" 			: "Allocation Rejected",
+								"timestamp" 		: {
+									$gte 	: moment(new Date(req.body.startDate)).startOf('day').toDate(),
+									$lte 	: moment(new Date(req.body.endDate)).endOf('day').toDate()
+								}
+							}
+						}
+					}
+				}
+		  	}
+		}
+	])
+	.then(data => {
+		console.log("data => ",data);
+		//   var tableData = data.map((a, i) => {
+		// 	return {
+		// 	   "orderID": a.orderID,
+		// 	   "userFullName": a.userFullName,
+		// 	   "products": ((a.products.map((b, j) => { return '<div><p>Product Name: ' + b.productName + '</p><p>Product Code: ' + b.productDetail.productCode + '-' + b.productDetail.itemCode + '</p><p>Sell Quantity: ' + b.quantity + '</p><p>Price: <span class="ororiginalPrice">' + (b.discountPercent > 0 ? b.originalPrice : '') + '</span>  <span>' + b.discountedPrice + '</span>  <span class="orPercent">' + (b.discountPercent > 0 ? b.discountPercent + '%' : '') + '</span>  </p>' + '</div><br/>' })).toString()).replace(/,/g, " "),
+		// 	   "cartQuantity": a.cartQuantity,
+		// 	   "status": a.status
+		// 	}
+		//   })
+		res.status(200).json(data);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+		error: err
+		});
+	});
+};
+
+
 // ---------------- Ready to Dispatch Vendor Orders for Dispatch Center ----------------
 exports.list_ready_to_dispatch_orders = (req, res, next) => {
 		// console.log("req.body => ",req.body)

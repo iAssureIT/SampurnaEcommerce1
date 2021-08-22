@@ -2227,7 +2227,7 @@ exports.sos_to_appCompony_contacts = (req,res,next)=>{
         // console.log("data => ",data);
         if (userdata && userdata !== null && userdata !== undefined) {
             var appCompanyContacts = await User.find({"profile.companyID" : 1}, {_id : 1});
-            console.log("appCompanyContacts => ",appCompanyContacts);
+            // console.log("appCompanyContacts => ",appCompanyContacts);
             if (appCompanyContacts && appCompanyContacts.length > 0) {
                 for(var i=0; i < appCompanyContacts.length; i++){
                     var userNotificationValues = {
@@ -2246,7 +2246,7 @@ exports.sos_to_appCompony_contacts = (req,res,next)=>{
                     }
                     // console.log("userNotificationValues  => ",userNotificationValues);
                     var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
-                    console.log("send_notification_to_user => ",send_notification_to_user)
+                    // console.log("send_notification_to_user => ",send_notification_to_user)
                 }
                 if (i >= appCompanyContacts.length) {
                     res.status(200).json({
