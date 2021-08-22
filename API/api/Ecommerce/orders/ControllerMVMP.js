@@ -3676,13 +3676,13 @@ exports.monthly_vendor_orders = (req, res, next) => {
 	.then(async(orderdata) => {	
 		console.log("orderdata => ",orderdata);
 		allDays  						= await getDaysInMonth(parseInt(month-1),parseInt(year));
-		var totalOrdersDelivered 	= 0;
+		var totalNumberOfOrders 	= 0;
 		var totalCashCollected 		= 0;
 		var monthDays 					= [];
 
 		for(var i=0; i<allDays.length; i++) {
 
-			var ordersDelivered 	= 0;
+			var numberOfOrders 	= 0;
 			var cashCollected   	= 0;
 
 			for(var j=0; j<orderdata.length; j++){
@@ -3693,7 +3693,7 @@ exports.monthly_vendor_orders = (req, res, next) => {
 				if(statusObj && statusObj.length > 0){	
 					if(moment(allDays[i]).format('L') === moment(statusObj[0].timestamp).format('L')){
 						console.log("orders count => ",orderdata[j].vendorOrders.length)
-						ordersDelivered += orderdata[j].vendorOrders.length;	
+						numberOfOrders += orderdata[j].vendorOrders.length;	
 						if (orderdata[j].vendorOrders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
 							cashCollected += orderdata[j].vendorOrders[0].paymentDetails.amountPaid;
 						}
@@ -3702,10 +3702,10 @@ exports.monthly_vendor_orders = (req, res, next) => {
 			}
 			if(j>=orderdata.length){
 				// console.log("day => ",moment(allDays[i]).format('L'))
-				totalOrdersDelivered += ordersDelivered;
+				totalNumberOfOrders += numberOfOrders;
 				var ordersObj = {
 					monthDay 			: moment(allDays[i]).format('L'),
-					ordersDelivered 	: ordersDelivered,
+					numberOfOrders 	: numberOfOrders,
 					cashCollected 		: cashCollected
 				}
 				monthDays.push(ordersObj)
@@ -3715,7 +3715,7 @@ exports.monthly_vendor_orders = (req, res, next) => {
 		}
 		if(i>=allDays.length){
 			var returnData = {
-				totalOrdersDelivered 	: totalOrdersDelivered,
+				totalNumberOfOrders 		: totalNumberOfOrders,
 				totalCashCollected 		: totalCashCollected,
 				monthDays 					: monthDays
 			}
