@@ -4387,7 +4387,9 @@ exports.delivery_drivers_reports = (req, res, next) => {
 			var returnData = [];
 			for (var i = 0; i < data.length; i++) {
 				if (data[i].vendorOrders.deliveryStatus && data[i].vendorOrders.deliveryStatus.length > 0) {
-					var getPickupDateAndTime = data[i].vendorOrders.deliveryStatus.filter(deliveryStatus => deliveryStatus.status === 'On the Way' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id));
+					console.log("data[i].vendorOrders.deliveryStatus => ",data[i].vendorOrders.deliveryStatus)
+					console.log("data[i].vendorOrders.paymentDetails.deliveryPerson_id => ",data[i].vendorOrders.paymentDetails.deliveryPerson_id)
+					var getPickupDateAndTime = data[i].vendorOrders.deliveryStatus.filter(deliveryStatus => (deliveryStatus.status === 'On the Way' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id)));
 					console.log("getPickupDateAndTime=> ",getPickupDateAndTime)
 					if(getPickupDateAndTime && getPickupDateAndTime.length > 0){
 						var pickupDateAndTime = moment(getPickupDateAndTime[0].timestamp).format('MMMM Do YYYY, h:mm:ss a')
@@ -4395,7 +4397,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 						var pickupDateAndTime = "NA";
 					}
 
-					var getDeliveryDateAndTime = data[i].vendorOrders.deliveryStatus.filter(deliveryStatus => deliveryStatus.status === 'Delivered' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id));
+					var getDeliveryDateAndTime = data[i].vendorOrders.deliveryStatus.filter(deliveryStatus => (deliveryStatus.status === 'Delivered' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id)));
 					console.log("getDeliveryDateAndTime=> ",getDeliveryDateAndTime)
 					if(getDeliveryDateAndTime && getDeliveryDateAndTime.length > 0){
 						var deliveryDateAndTime = moment(getDeliveryDateAndTime[0].timestamp).format('MMMM Do YYYY, h:mm:ss a')
