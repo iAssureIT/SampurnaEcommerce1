@@ -3805,11 +3805,11 @@ exports.daily_vendor_orders = (req, res, next) => {
 
 		if (data && data.length > 0) {
 			for (var i = 0; i < data.length; i++) {
-				console.log("data[i].vendororders => ", data[i].vendororders)
-				// numberOfOrders += data[i].vendororders.length;
-				// if (data[i].vendororders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
-				// 	cashCollected += data[i].vendororders[0].paymentDetails.amountPaid;
-				// }
+				// console.log("data[i].vendororders => ", data[i].vendorOrders)
+				numberOfOrders += data[i].vendorOrders.length;
+				if (data[i].vendorOrders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
+					cashCollected += data[i].vendorOrders[0].paymentDetails.amountPaid;
+				}
 			}if (i >= data.length) {				
 				res.status(200).json({
 				numberOfOrders : numberOfOrders,
