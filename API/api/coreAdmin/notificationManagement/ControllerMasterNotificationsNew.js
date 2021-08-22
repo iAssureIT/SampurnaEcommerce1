@@ -277,9 +277,9 @@ exports.send_notifications = (req, res, next) => {
                                     await callTemplates(mode,userData[j],role,templateName,company,req.body.variables,req.body.attachment)
                                 }
                            }//j 
-                        //    if(j >= userData.length){
-                        //         res.status(200).json({ message : "Message sent successfully"});
-                        //    }
+                           // if(j >= userData.length){
+                           //      res.status(200).json({ message : "Message sent successfully"});
+                           // }
                         }
                         
                     }else if(role === req.body.toUserRole && req.body.toUser_id){

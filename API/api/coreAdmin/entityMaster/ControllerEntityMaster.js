@@ -2229,7 +2229,7 @@ exports.sos_to_appCompony_contacts = (req,res,next)=>{
             var appCompanyContacts = await User.find({"profile.companyID" : 1}, {_id : 1});
             console.log("appCompanyContacts => ",appCompanyContacts);
             if (appCompanyContacts && appCompanyContacts.length > 0) {
-                for(var i=0; i<appCompanyContacts.length; i++){
+                for(var i=0; i < appCompanyContacts.length; i++){
                     var userNotificationValues = {
                         "event"         : "SOS",
                         "toUser_id"     : appCompanyContacts[i]._id,
@@ -2246,8 +2246,9 @@ exports.sos_to_appCompony_contacts = (req,res,next)=>{
                     }
                     // console.log("userNotificationValues  => ",userNotificationValues);
                     var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+                    console.log("send_notification_to_user => ",send_notification_to_user)
                 }
-                if (i >= userdata.length) {
+                if (i >= appCompanyContacts.length) {
                     res.status(200).json({
                         statusCode  : "Success",
                         message     : "Message Sent!"
