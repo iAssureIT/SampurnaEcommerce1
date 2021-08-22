@@ -3687,7 +3687,7 @@ exports.monthly_vendor_orders = (req, res, next) => {
 
 			for(var j=0; j<orderdata.length; j++){
 				// console.log("allDays i => ", moment(allDays[i]).format('L'))
-				console.log("orderData j => ", orderdata[j])
+				console.log("orderData j => ", orderdata[j].vendorOrders[0])
 				if(moment(allDays[i]).format('L') === moment(orderdata[j].createdAt).format('L')){
 					console.log("orders count => ",orderdata[j].vendorOrders.length)
 					ordersDelivered += orderdata[j].vendorOrders.length;	
@@ -3813,14 +3813,14 @@ exports.daily_vendor_orders = (req, res, next) => {
 			}if (i >= data.length) {				
 				res.status(200).json({
 				numberOfOrders : numberOfOrders,
-				cashCollected 	: cashCollected,
+				cashCollected 	: (cashCollected).toFixed(2),
 				data 				: data
 			});
 			}
 		}else{
 			res.status(200).json({
 				numberOfOrders : numberOfOrders,
-				cashCollected 	: cashCollected,
+				cashCollected 	: (cashCollected).toFixed(2),
 				data 				: data
 			});
 		}
