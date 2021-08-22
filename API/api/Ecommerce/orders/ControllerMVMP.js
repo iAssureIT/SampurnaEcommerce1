@@ -4373,6 +4373,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 				"vendorOrders.orderStatus"									: 1,
 				"vendorOrders.paymentDetails.amountPaid"				: 1,
 				"vendorOrders.paymentDetails.modeOfPayment"			: 1,
+				"vendorOrders.paymentDetails.deliveryPerson_id"		: 1,
 				"vendorOrders.deliveryStatus"								: 1,
 				"driverDetails.profile.fullName"							: 1,
 				"driverDetails.profile.employeeID"						: 1,
