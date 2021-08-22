@@ -3687,9 +3687,9 @@ exports.monthly_vendor_orders = (req, res, next) => {
 
 			for(var j=0; j<orderdata.length; j++){
 				// console.log("allDays i => ", moment(allDays[i]).format('L'))
-				// console.log("orderData j => ", orderdata[j])
+				console.log("orderData j => ", orderdata[j])
 				if(moment(allDays[i]).format('L') === moment(orderdata[j].createdAt).format('L')){
-					// console.log("orders count => ",orderdata[j].vendorOrders.length)
+					console.log("orders count => ",orderdata[j].vendorOrders.length)
 					ordersDelivered += orderdata[j].vendorOrders.length;	
 					if (orderdata[j].vendororders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
 						cashCollected += orderdata[j].vendororders[0].paymentDetails.amountPaid;
