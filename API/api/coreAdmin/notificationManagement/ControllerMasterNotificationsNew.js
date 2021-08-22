@@ -266,7 +266,7 @@ exports.send_notifications = (req, res, next) => {
                     // console.log('notification data=>',role, company, templateName, mode, req.body.toUserRole)
 
 
-                    if(role == 'admin'){
+                    if(role == 'admin' && req.body.toUserRole !== "admin"){
                         // console.log('admin==>',mode,templateName,company)
                         var userData = await getAdminUserData();
                         if(userData && userData.length > 0){
