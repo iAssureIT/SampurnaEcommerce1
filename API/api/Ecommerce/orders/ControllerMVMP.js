@@ -3688,7 +3688,7 @@ exports.monthly_vendor_orders = (req, res, next) => {
 			for(var j=0; j<orderdata.length; j++){
 				// console.log("allDays i => ", moment(allDays[i]).format('L'))
 				console.log("orderData j => ", orderdata[j].vendorOrders[0])
-				var statusObj = orderdata[j].vendorOrders[0].deliveryStatus.filter(deliveryStatus => deliveryStatus.status === req.body.status && String(deliveryStatus.statusUpdatedBy) === String(req.body.user_id))
+				var statusObj = orderdata[j].vendorOrders[0].deliveryStatus.filter(deliveryStatus => (deliveryStatus.status === req.body.orderStatus && String(deliveryStatus.statusUpdatedBy) === String(req.body.user_id)))
 				console.log("statusObj => ",statusObj)
 				if(statusObj && statusObj.length > 0){	
 					if(moment(allDays[i]).format('L') === moment(statusObj[0].timestamp).format('L')){
