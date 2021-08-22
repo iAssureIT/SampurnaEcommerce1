@@ -4341,7 +4341,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 				"foreignField"	: "_id"
 			}
 		},
-		{ "$unwind" : "$userDetails" },
+		{ "$unwind" : "$driverDetails" },
 		{ "$lookup" : 
 			{
 				"from"			: "entitymasters",
@@ -4373,8 +4373,8 @@ exports.delivery_drivers_reports = (req, res, next) => {
 				"vendorOrders.paymentDetails.amountPaid"				: 1,
 				"vendorOrders.paymentDetails.modeOfPayment"			: 1,
 				"vendorOrders.deliveryStatus"								: 1,
-				"userDetails.profile.fullName"							: 1,
-				"userDetails.profile.employeeID"							: 1,
+				"driverDetails.profile.fullName"							: 1,
+				"driverDetails.profile.employeeID"							: 1,
 				"vendorDetails.companyName"								: 1,
 				"createdAt"														: 1,
 			}
