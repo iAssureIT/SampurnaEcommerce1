@@ -3648,7 +3648,7 @@ exports.monthly_vendor_orders = (req, res, next) => {
 
 	Orders.find(
 		{
-			// "vendorOrders.deliveryPerson_id" 	: ObjectId(req.body.user_id), 
+			"vendorOrders.deliveryPerson_id" 	: ObjectId(req.body.user_id), 
 			"vendorOrders.orderStatus" 			: req.body.orderStatus,
 			"vendorOrders.deliveryStatus" 		: 
 			{"$elemMatch" : 
@@ -3805,7 +3805,7 @@ exports.daily_vendor_orders = (req, res, next) => {
 
 		if (data && data.length > 0) {
 			for (var i = 0; i < data.length; i++) {
-				numberOfOrders += vendororders.length;
+				numberOfOrders += data[i].vendororders.length;
 				if (data[i].vendororders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
 					cashCollected += data[i].vendororders[0].paymentDetails.amountPaid;
 				}
