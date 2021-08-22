@@ -3702,11 +3702,13 @@ exports.monthly_vendor_orders = (req, res, next) => {
 			}
 			if(j>=orderdata.length){
 				// console.log("day => ",moment(allDays[i]).format('L'))
-				totalNumberOfOrders += numberOfOrders;
+				totalNumberOfOrders 	+= numberOfOrders;
+				totalCashCollected 	+= cashCollected;
+
 				var ordersObj = {
 					monthDay 			: moment(allDays[i]).format('L'),
 					numberOfOrders 	: numberOfOrders,
-					cashCollected 		: cashCollected
+					cashCollected 		: (cashCollected).toFixed(2)
 				}
 				monthDays.push(ordersObj)
 				// console.log("monthDays => ",monthDays)
@@ -3715,9 +3717,9 @@ exports.monthly_vendor_orders = (req, res, next) => {
 		}
 		if(i>=allDays.length){
 			var returnData = {
+				monthDays 					: monthDays,
 				totalNumberOfOrders 		: totalNumberOfOrders,
-				totalCashCollected 		: totalCashCollected,
-				monthDays 					: monthDays
+				totalCashCollected 		: (totalCashCollected).toFixed(2)
 			}
 			res.status(200).json(returnData);
 		}
