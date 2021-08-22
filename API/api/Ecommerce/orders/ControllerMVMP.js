@@ -4304,7 +4304,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 	/**----------- Date Filter ------------ */		
 	if(req.body.startDate && req.body.endDate){       
 		selector["$and"].push({
-			createdAt: {
+			'vendorOrders.deliveryStatus.timestamp': {
 				$gte : moment(req.body.startDate).startOf('day').toDate(),
 				$lte : moment(req.body.endDate).endOf('day').toDate()
 			 }
