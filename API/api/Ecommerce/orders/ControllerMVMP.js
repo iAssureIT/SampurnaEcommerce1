@@ -4351,7 +4351,19 @@ exports.delivery_drivers_reports = (req, res, next) => {
 			}
 		},
 		{ "$unwind" : "$vendorDetails" },
-		{ $match : selector},
+		// { $match : selector},
+		{ $match : {
+			"vendorOrders.deliveryStatus" : 
+			{"$elemMatch" : 
+				{
+					"status" 			: "Delivered",
+					"timestamp" 		: {
+						$gte 	: moment(new Date(req.body.startDate)).startOf('day').toDate(),
+						$lte 	: moment(new Date(req.body.endDate)).endOf('day').toDate()
+					}
+				}
+			}		
+		}},
 		{ "$project" : 
 			{
 				"_id"																: 1,
