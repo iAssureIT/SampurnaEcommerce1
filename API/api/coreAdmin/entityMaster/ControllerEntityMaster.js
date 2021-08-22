@@ -2233,7 +2233,7 @@ exports.sos_to_appCompony_contacts = (req,res,next)=>{
                     var userNotificationValues = {
                         "event"         : "SOS",
                         "toUser_id"     : appCompanyContacts[i]._id,
-                        "toUserRole"    : "",                               
+                        "toUserRole"    : "admin",                               
                         "variables"     : {
                                             // "userType"           : userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
                                             "firstName"          : userdata.profile.firstName,
