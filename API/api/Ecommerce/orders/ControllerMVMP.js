@@ -4385,15 +4385,15 @@ exports.delivery_drivers_reports = (req, res, next) => {
 		if(data && data.length > 0){
 			var returnData = [];
 			for (var i = 0; i < data.length; i++) {
-				if (vendorOrders.deliveryStatus && vendorOrders.deliveryStatus.length > 0) {
-					var getPickupDateAndTime = vendorOrders.deliveryStatus.filter(deliveryStatus => deliveryStatus.status === 'On The Way' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id));
+				if (data[i].vendorOrders.deliveryStatus && data[i].vendorOrders.deliveryStatus.length > 0) {
+					var getPickupDateAndTime = data[i].vendorOrders.deliveryStatus.filter(deliveryStatus => deliveryStatus.status === 'On The Way' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id));
 					if(getPickupDateAndTime && getPickupDateAndTime.length > 0){
 						var pickupDateAndTime = moment(getPickupDateAndTime[0].timestamp).format('MMMM Do YYYY, h:mm:ss a')
 					}else{
 						var pickupDateAndTime = "NA";
 					}
 
-					var getDeliveryDateAndTime = vendorOrders.deliveryStatus.filter(deliveryStatus => deliveryStatus.status === 'Delivered' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id));
+					var getDeliveryDateAndTime = data[i].vendorOrders.deliveryStatus.filter(deliveryStatus => deliveryStatus.status === 'Delivered' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id));
 					if(getDeliveryDateAndTime && getDeliveryDateAndTime.length > 0){
 						var deliveryDateAndTime = moment(getDeliveryDateAndTime[0].timestamp).format('MMMM Do YYYY, h:mm:ss a')
 					}else{
