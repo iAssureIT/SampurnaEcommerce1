@@ -241,7 +241,7 @@ exports.filterTemplate = (req,res,next)=>{
 
 /**=========== send messages (inApp notification / email / sms) ===========*/
 exports.send_notifications = (req, res, next) => {
-    // console.log("notification body => ", req.body)
+    console.log("notification body => ", req.body)
     Masternotifications.find({event : req.body.event, status :'active', role : req.body.toUserRole})
     .sort({createdAt : 1})
     .exec()
@@ -250,7 +250,7 @@ exports.send_notifications = (req, res, next) => {
         async function main(){
             // console.log('========================================================')
             var returnData = data
-            // console.log('returnData=>',returnData)
+            console.log('returnData=>',returnData)
             if(returnData && returnData.length > 0){
                 for(var i=0 ; i< returnData.length ; i++){
                     // console.log("Entering for loop for returnData at : ",i)
@@ -359,7 +359,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 // console.log("emailDetails => ",emailDetails)
                 if(emailDetails && emailDetails !== undefined && emailDetails !== null){
                     const sendMail      = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
-                    // console.log("sendMail => ", sendMail)
+                    console.log("sendMail => ", sendMail)
                     resolve(sendMail);
                 }else{
                     resolve(false);
@@ -391,12 +391,12 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                         textMsg             = textMsg.replace(/&nbsp;/g, '');
                         // console.log("textMsg 1 => ",textMsg)
                         const sms           = await sendSMS(toMobile, textMsg);
-                        // var sms = true
+                        console.log("if sms => ",sms)
                         resolve(sms);   
                     }else{
                         resolve(false)
                     }
-                    console.log("SMS if => ",sms)  
+                    // console.log("SMS if => ",sms)  
                     // resolve(true);            
                 }else if(userData.mobile){
                     var isdCode         = userData.isdCode ? userData.isdCode : "";
@@ -411,7 +411,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                         // console.log("textMsg 2 => ",textMsg)
                         // console.log("toMobile",toMobile);
                         const sms           = await sendSMS(toMobile, textMsg);
-                        // var sms=true
+                        // console.log("sms => ",sms)
                         console.log("SMS else if => ",sms)  
                         resolve(sms);   
                         // resolve(true); 

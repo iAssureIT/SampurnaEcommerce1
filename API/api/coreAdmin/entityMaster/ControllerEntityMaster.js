@@ -2243,7 +2243,7 @@ exports.sos_to_appCompony_contacts = (req,res,next)=>{
                                             "locationLink"       : req.body.locationLink,
                         }
                     }
-                    console.log("userNotificationValues 3 => ",userNotificationValues);
+                    console.log("userNotificationValues  => ",userNotificationValues);
                     // var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
                 }
                 if (i >= userdata.length) {
