@@ -3819,8 +3819,8 @@ exports.rejected_orders = (req, res, next) => {
 					"statusUpdatedBy" : ObjectId(req.body.user_id), 
 					"status" 			: "Allocation Rejected",
 					"timestamp" 		: {
-						$gte 	: moment(new Date(startDate)).startOf('day').toDate(),
-						$lte 	: moment(new Date(endDate)).endOf('day').toDate()
+						$gte 	: moment(new Date(req.body.startDate)).startOf('day').toDate(),
+						$lte 	: moment(new Date(req.body.endDate)).endOf('day').toDate()
 					}
 				}
 			}
