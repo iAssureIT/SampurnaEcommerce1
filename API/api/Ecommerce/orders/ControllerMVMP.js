@@ -3694,8 +3694,8 @@ exports.monthly_vendor_orders = (req, res, next) => {
 					if(moment(allDays[i]).format('L') === moment(statusObj[0].timestamp).format('L')){
 						console.log("orders count => ",orderdata[j].vendorOrders.length)
 						ordersDelivered += orderdata[j].vendorOrders.length;	
-						if (orderdata[j].vendororders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
-							cashCollected += orderdata[j].vendororders[0].paymentDetails.amountPaid;
+						if (orderdata[j].vendorOrders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
+							cashCollected += orderdata[j].vendorOrders[0].paymentDetails.amountPaid;
 						}
 					}	
 				}			
