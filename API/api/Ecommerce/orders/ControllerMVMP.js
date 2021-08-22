@@ -4301,7 +4301,9 @@ exports.delivery_drivers_reports = (req, res, next) => {
 	var selector        = {};
 	selector['$and']    = [];
 	
-	/**----------- Date Filter ------------ */		
+	/**----------- Date Filter ------------ */	
+	console.log("start => ",moment(new Date(req.body.startDate)).startOf('day').toDate())	
+	console.log("end => ",moment(new Date(req.body.endDate)).endOf('day').toDate())	
 	if(req.body.startDate && req.body.endDate){       
 		selector["$and"].push({
 			"vendorOrders.deliveryStatus" : 
