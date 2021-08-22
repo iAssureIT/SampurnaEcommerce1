@@ -3324,7 +3324,7 @@ function getDistanceLimit(){
     });
  }
 
-/*################## API's for Driver API ##################*/
+/*################## API's for Driver APP ##################*/
 
 /*================= Get Nearest Ready to Dispatch Vendor Orders =================*/
 exports.nearest_vendor_orders= (req, res, next) => {
@@ -3650,9 +3650,10 @@ exports.monthly_vendor_orders = (req, res, next) => {
 		{
 			"vendorOrders.deliveryPerson_id" 	: ObjectId(req.body.user_id), 
 			"vendorOrders.orderStatus" 			: req.body.orderStatus,
-			"vendorOrders.deliveryStatus" : 
-			{"$elemMatch" : {
-					"statusUpdatedBy" 	: ObjectId(req.body.user_id), 
+			"vendorOrders.deliveryStatus" 		: 
+			{"$elemMatch" : 
+				{
+					"statusUpdatedBy" : ObjectId(req.body.user_id), 
 					"status" 			: req.body.orderStatus,
 					"timestamp" 		: {
 						$gte 	: moment(new Date(startDate)).startOf('day').toDate(),
@@ -3662,36 +3663,46 @@ exports.monthly_vendor_orders = (req, res, next) => {
 			}
 		},
 		{
-			'orderID' 				: 1,
-			'userFullName'      	: 1,
+			'orderID' 					: 1,
+			'userFullName'      		: 1,
 			'customerShippingTime' 	: 1,
 			'deliveryAddress' 		: 1,
-			'paymentDetails' 		: 1,
-			'createdAt' 			: 1,
+			'paymentDetails' 			: 1,
+			'createdAt' 				: 1,
 			'vendorOrders.$'   		: 1
 		}
 	)
 	.exec()
 	.then(async(orderdata) => {	
-		allDays  = await getDaysInMonth(parseInt(month-1),parseInt(year));
+		console.log("orderdata => ",orderdata);
+		allDays  						= await getDaysInMonth(parseInt(month-1),parseInt(year));
 		var totalOrdersDelivered 	= 0;
-		var monthDays 				= [];
+		var totalCashCollected 		= 0;
+		var monthDays 					= [];
+
 		for(var i=0; i<allDays.length; i++) {
-			var ordersDelivered = 0;
+
+			var ordersDelivered 	= 0;
+			var cashCollected   	= 0;
+
 			for(var j=0; j<orderdata.length; j++){
 				// console.log("allDays i => ", moment(allDays[i]).format('L'))
 				// console.log("orderData j => ", orderdata[j])
 				if(moment(allDays[i]).format('L') === moment(orderdata[j].createdAt).format('L')){
 					// console.log("orders count => ",orderdata[j].vendorOrders.length)
-					ordersDelivered += orderdata[j].vendorOrders.length;					
+					ordersDelivered += orderdata[j].vendorOrders.length;	
+					if (orderdata[j].vendororders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
+						cashCollected += orderdata[j].vendororders[0].paymentDetails.amountPaid;
+					}
 				}				
 			}
 			if(j>=orderdata.length){
 				// console.log("day => ",moment(allDays[i]).format('L'))
 				totalOrdersDelivered += ordersDelivered;
 				var ordersObj = {
-					monthDay 		: moment(allDays[i]).format('L'),
-					ordersDelivered : ordersDelivered,
+					monthDay 			: moment(allDays[i]).format('L'),
+					ordersDelivered 	: ordersDelivered,
+					cashCollected 		: cashCollected
 				}
 				monthDays.push(ordersObj)
 				// console.log("monthDays => ",monthDays)
@@ -3701,7 +3712,8 @@ exports.monthly_vendor_orders = (req, res, next) => {
 		if(i>=allDays.length){
 			var returnData = {
 				totalOrdersDelivered 	: totalOrdersDelivered,
-				monthDays 				: monthDays
+				totalCashCollected 		: totalCashCollected,
+				monthDays 					: monthDays
 			}
 			res.status(200).json(returnData);
 		}
@@ -3787,7 +3799,30 @@ exports.daily_vendor_orders = (req, res, next) => {
 		}
 	])
 	.then(data => {
-		// console.log("data => ",data);
+		console.log("data => ",data);
+		var cashCollected 	= 0;
+		var numberOfOrders 	= 0;
+
+		if (data && data.length > 0) {
+			for (var i = 0; i < data.length; i++) {
+				numberOfOrders += vendororders.length;
+				if (data[i].vendororders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
+					cashCollected += data[i].vendororders[0].paymentDetails.amountPaid;
+				}
+			}if (i >= data.length) {				
+				res.status(200).json({
+				numberOfOrders : numberOfOrders,
+				cashCollected 	: cashCollected,
+				data 				: data
+			});
+			}
+		}else{
+			res.status(200).json({
+				numberOfOrders : numberOfOrders,
+				cashCollected 	: cashCollected,
+				data 				: data
+			});
+		}
 		//   var tableData = data.map((a, i) => {
 		// 	return {
 		// 	   "orderID": a.orderID,
@@ -3797,7 +3832,7 @@ exports.daily_vendor_orders = (req, res, next) => {
 		// 	   "status": a.status
 		// 	}
 		//   })
-		res.status(200).json(data);
+		
 	})
 	.catch(err => {
 		console.log(err);

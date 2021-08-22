@@ -261,9 +261,29 @@ formValues  = {
 Note : return only matched objects from vendorOrders (remaining)
 
 allocationRejectReason  : "",
-allocationRejectDesc    : ""
+allocationRejectDesc    : "",
 
-================================= Contact Us =========================================
+6. "Rejected" Orders By particular delivery Person
+
+API => https://qaapi.knock-knockeshop.com/api/orders/get/driver/rejected/vendor_orders
+MethodType  => Post
+formValues  = {
+    "user_id"   : "60f27e8079f5fcd4f2ed0681",
+    "startDate" : "2021-07-20",
+    "endDate"   : "2021-07-20"
+
+}
+7. SOS Facility
+
+API => https://qaapi.knock-knockeshop.com/api/entitymaster/post/sos
+MethodType  => Post
+formValues  = {
+    "user_id" : "611cce18b3b53379e57a2937",
+    "locationLink" : "https://qaadmin.knock-knockeshop.com"
+
+}
+
+============================== Contact Us =========================================
 1. Send Mail (Contact Us Page)
 API         => http://localhost:3366/send-email
 MethodType  => Post
