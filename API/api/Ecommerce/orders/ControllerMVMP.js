@@ -3799,16 +3799,17 @@ exports.daily_vendor_orders = (req, res, next) => {
 		}
 	])
 	.then(data => {
-		console.log("data => ",data);
+		// console.log("data => ",data);
 		var cashCollected 	= 0;
 		var numberOfOrders 	= 0;
 
 		if (data && data.length > 0) {
 			for (var i = 0; i < data.length; i++) {
-				numberOfOrders += data[i].vendororders.length;
-				if (data[i].vendororders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
-					cashCollected += data[i].vendororders[0].paymentDetails.amountPaid;
-				}
+				console.log("data[i].vendororders => ", data[i].vendororders)
+				// numberOfOrders += data[i].vendororders.length;
+				// if (data[i].vendororders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
+				// 	cashCollected += data[i].vendororders[0].paymentDetails.amountPaid;
+				// }
 			}if (i >= data.length) {				
 				res.status(200).json({
 				numberOfOrders : numberOfOrders,
