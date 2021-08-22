@@ -3648,7 +3648,7 @@ exports.monthly_vendor_orders = (req, res, next) => {
 
 	Orders.find(
 		{
-			"vendorOrders.deliveryPerson_id" 	: ObjectId(req.body.user_id), 
+			// "vendorOrders.deliveryPerson_id" 	: ObjectId(req.body.user_id), 
 			"vendorOrders.orderStatus" 			: req.body.orderStatus,
 			"vendorOrders.deliveryStatus" 		: 
 			{"$elemMatch" : 
