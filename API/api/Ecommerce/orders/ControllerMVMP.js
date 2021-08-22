@@ -4387,7 +4387,8 @@ exports.delivery_drivers_reports = (req, res, next) => {
 			var returnData = [];
 			for (var i = 0; i < data.length; i++) {
 				if (data[i].vendorOrders.deliveryStatus && data[i].vendorOrders.deliveryStatus.length > 0) {
-					var getPickupDateAndTime = data[i].vendorOrders.deliveryStatus.filter(deliveryStatus => deliveryStatus.status === 'On The Way' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id));
+					var getPickupDateAndTime = data[i].vendorOrders.deliveryStatus.filter(deliveryStatus => deliveryStatus.status === 'On the Way' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id));
+					console.log("getPickupDateAndTime=> ",getPickupDateAndTime)
 					if(getPickupDateAndTime && getPickupDateAndTime.length > 0){
 						var pickupDateAndTime = moment(getPickupDateAndTime[0].timestamp).format('MMMM Do YYYY, h:mm:ss a')
 					}else{
@@ -4395,6 +4396,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 					}
 
 					var getDeliveryDateAndTime = data[i].vendorOrders.deliveryStatus.filter(deliveryStatus => deliveryStatus.status === 'Delivered' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id));
+					console.log("getDeliveryDateAndTime=> ",getDeliveryDateAndTime)
 					if(getDeliveryDateAndTime && getDeliveryDateAndTime.length > 0){
 						var deliveryDateAndTime = moment(getDeliveryDateAndTime[0].timestamp).format('MMMM Do YYYY, h:mm:ss a')
 					}else{
@@ -4434,10 +4436,14 @@ exports.delivery_drivers_reports = (req, res, next) => {
 					timeRequiredForDelivery : timeRequiredForDelivery,
 					paymentMethod 				: data[i].vendorOrders.paymentDetails && data[i].vendorOrders.paymentDetails !== undefined && data[i].vendorOrders.paymentDetails !== null 
 														? 
-															data[i].vendorOrders.paymentDetails.paymentMethod
+															data[i].vendorOrders.paymentDetails.modeOfPayment
 														:
 															"NA",
-					cashCollected 				: data[i].vendorOrders.paymentDetails.modeOfPayment.toLowerCase() === 'cash on delivery' ? data[i].vendorOrders.paymentDetails.amountPaid : 0,
+					cashCollected 				: data[i].vendorOrders.paymentDetails && data[i].vendorOrders.paymentDetails !== undefined && data[i].vendorOrders.paymentDetails !== null 
+														? 
+															(data[i].vendorOrders.paymentDetails.modeOfPayment.toLowerCase() === 'cash on delivery' ? data[i].vendorOrders.paymentDetails.amountPaid : 0)
+														:
+															0,
 					totalAmount 				: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
 				})	
 			}
