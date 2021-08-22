@@ -9,7 +9,8 @@ const FailedRecords     = require('../failedRecords/ModelFailedRecords');
 var ObjectId 		    = require('mongodb').ObjectID;
 const globalVariable    = require("../../../nodemon.js");
 const axios             = require('axios');
-const _                    = require("underscore");
+const _                 = require("underscore");
+const sendNotification  = require("../../coreAdmin/notificationManagement/SendNotification.js");
 // var request = require('request-promise');
 // const gloabalVariable = require('../../nodemon.js');
 exports.insertEntity = (req,res,next)=>{
@@ -2243,8 +2244,8 @@ exports.sos_to_appCompony_contacts = (req,res,next)=>{
                                             "locationLink"       : req.body.locationLink,
                         }
                     }
-                    console.log("userNotificationValues  => ",userNotificationValues);
-                    // var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+                    // console.log("userNotificationValues  => ",userNotificationValues);
+                    var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
                 }
                 if (i >= userdata.length) {
                     res.status(200).json({
