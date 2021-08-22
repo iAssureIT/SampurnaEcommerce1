@@ -3812,26 +3812,29 @@ exports.daily_vendor_orders = (req, res, next) => {
 exports.rejected_orders = (req, res, next) => {
 	// console.log("start => ", moment(new Date(req.body.deliveryDate)).startOf('day').toDate());
 	// console.log("end => ", moment(new Date(req.body.deliveryDate)).endOf('day').toDate());
-	Orders.aggregate([	   
-		{ "$match": 
-			{"vendorOrders": 
-				{"$elemMatch":
-					{"deliveryStatus" : 
-						{"$elemMatch" : 
-							{
-								"statusUpdatedBy" : ObjectId(req.body.user_id), 
-								"status" 			: "Allocation Rejected",
-								"timestamp" 		: {
-									$gte 	: moment(new Date(req.body.startDate)).startOf('day').toDate(),
-									$lte 	: moment(new Date(req.body.endDate)).endOf('day').toDate()
-								}
-							}
-						}
+	Orders.find(
+		{"vendorOrders.deliveryStatus" : 
+			{"$elemMatch" : 
+				{
+					"statusUpdatedBy" : ObjectId(req.body.user_id), 
+					"status" 			: "Allocation Rejected",
+					"timestamp" 		: {
+						$gte 	: moment(new Date(startDate)).startOf('day').toDate(),
+						$lte 	: moment(new Date(endDate)).endOf('day').toDate()
 					}
 				}
-		  	}
+			}
+		},
+		{
+			'orderID' 					: 1,
+			'userFullName'      		: 1,
+			'customerShippingTime' 	: 1,
+			'deliveryAddress' 		: 1,
+			'paymentDetails' 			: 1,
+			'createdAt' 				: 1,
+			'vendorOrders.$'   		: 1
 		}
-	])
+	)
 	.then(data => {
 		console.log("data => ",data);
 		//   var tableData = data.map((a, i) => {
