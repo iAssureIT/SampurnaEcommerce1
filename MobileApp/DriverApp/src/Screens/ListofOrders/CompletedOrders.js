@@ -37,11 +37,14 @@ export const CompletedOrders =(props)=> {
     const [datePicker,openDatePicker] = useState(false);
     const new_date=props?.route?.params?.new_date;
     useEffect(() => {
+        setLoading(true);
         console.log("new_date",new_date);
         if(new_date!==undefined){
             setDate(new Date(new_date));
+            getList(new Date(new_date));
+        }else{
+            getList(date);
         }
-        getList(new Date(new_date));
     },[props,isFocused,new_date]);
 
     const store = useSelector(store => ({
@@ -115,20 +118,20 @@ export const CompletedOrders =(props)=> {
                             </View>    
                     </View> 
                     <View style={{flex:1}}>
-                    <View style={{flexDirection:"row",flex:1,height:25}} >
-                        <View style={{flex:0.25}}>
-                            <Text style={[CommonStyles.boxLine1C]}>Customer Name</Text>
+                    <View style={{flexDirection:"row",flex:1}} >
+                        <View style={{flex:0.2}}>
+                            <Text style={[CommonStyles.boxLine1C]}>Customer</Text>
                         </View>
-                        <View style={{flex:0.75,flexDirection:"row",flexWrap: 'wrap'}}>
+                        <View style={{flex:0.8,flexDirection:"row",flexWrap: 'wrap'}}>
                             <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.name}, </Text>
                             <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:'#033554'}]} onPress={() => Linking.openURL(`tel:${item.deliveryAddress.mobileNumber}`)}> {item.deliveryAddress.mobileNumber}</Text>
                         </View>                        
                     </View>
                     <View style={{flexDirection:"row",flex:1}} >
-                        <View style={{flex:0.25}}>
+                        <View style={{flex:0.2}}>
                             <Text style={[CommonStyles.boxLine1C]}>Address</Text>
                         </View>
-                        <View style={{flex:0.75,flexDirection:"row"}}>
+                        <View style={{flex:0.8,flexDirection:"row"}}>
                             <Text numberOfLines={2} style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>
                             <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end'}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
                                 <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>
@@ -157,7 +160,9 @@ export const CompletedOrders =(props)=> {
     console.log("orderList",orderList)
     return (
         <View style={{flex:1}}>            
-        <View style={{flex:1,backgroundColor:'#fff'}}>            
+         {loading ?
+            <Loading />
+        :  <View style={{flex:1,backgroundColor:'#fff'}}>            
             <View style={{flexDirection:"row",justifyContent: 'center',alignItems: 'center',marginTop:15}}>
                 <TouchableOpacity
                     onPress={() => {previous()}}>
@@ -195,9 +200,7 @@ export const CompletedOrders =(props)=> {
                     <Text style={CommonStyles.totalcount}>Total Cash Collected : {orderList?.cashCollected>0 ? orderList?.cashCollected : 0} AED</Text>
              </View>
              <View style={{flex:1}}>
-             {loading ?
-                    <Loading />
-                :  
+            
                     <View style={{flex:1}}>
                         {orderList && orderList.data  && orderList.data.length >0?<FlatList
                         data={orderList.data}
@@ -211,7 +214,6 @@ export const CompletedOrders =(props)=> {
                         </View>}
                         <Footer selected={"3"}/>
                     </View>
-            }
             </View>          
             <DateTimePickerModal
             isVisible={datePicker}
@@ -219,7 +221,7 @@ export const CompletedOrders =(props)=> {
             // onConfirm={(date)=>{setDate(date),handleCustom(date,date1)}}
             onCancel={()=>openDatePicker(false)}
         />
-        </View>
+        </View>}
             
         </View>       
     

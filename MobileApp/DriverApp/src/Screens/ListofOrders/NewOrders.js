@@ -21,6 +21,7 @@ import { TouchableOpacity }             from 'react-native';
 import { useIsFocused }                 from "@react-navigation/native";
 import {REACT_APP_BASE_URL}             from '@env';
 import openSocket                       from 'socket.io-client';
+import { ActivityIndicator } from 'react-native';
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 const todoList = [
@@ -41,6 +42,7 @@ export const NewOrders =(props)=> {
         userDetails     : store.userDetails,
       }));
     useEffect(() => {
+        setLoading(true);
        getList();
     },[props,isFocused]);
 
@@ -79,6 +81,7 @@ export const NewOrders =(props)=> {
         socket.on('getVendorOrderList',(response)=>{
             console.log("response",response);
             setOrderList(response);
+            setLoading(false);
         })
     }
 
@@ -111,7 +114,7 @@ export const NewOrders =(props)=> {
         console.log("index",index);
         return (
             <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders.vendor_id})}>
-            <Card containerStyle={{padding:0,borderRadius:7}}>
+            <Card containerStyle={{padding:0,borderRadius:7,marginHorizontal:0}}>
             <Swipeable
                  ref={ref => row[index] = ref}
                  friction={2}
@@ -187,8 +190,12 @@ export const NewOrders =(props)=> {
 
     return (
         <View style={{flex:1}}>
-            <View style={{flex:1,marginBottom:60}}>
-                
+            {loading ?
+                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                    <Loading />
+                </View> 
+                :
+                <View style={{flex:1,marginBottom:60}}>
                     <View style={{flex:1}}>
                         {orderList  && orderList.length >0?
                         <FlatList
@@ -201,8 +208,8 @@ export const NewOrders =(props)=> {
                             <Text style={CommonStyles.noDataFound}>No Order Found</Text>
                         </View>}
                     </View>
-                                   
-            </View>  
+                </View>  
+            }
             <Footer selected={"0"}/>
         </View>
     );

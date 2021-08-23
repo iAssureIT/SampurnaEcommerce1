@@ -43,6 +43,7 @@ export const AcceptedOrders =(props)=> {
     let row: Array<any> = [];
     let prevOpenedRow;
     useEffect(() => {
+        setLoading(true);
         getList();
         getReasons_func();
     },[props,isFocused]);
@@ -214,7 +215,7 @@ export const AcceptedOrders =(props)=> {
     const _renderlist = ({ item, index })=>{
         return (
             <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders.vendor_id})}>
-            <Card containerStyle={{padding:0,borderRadius:7}}>
+            <Card containerStyle={{padding:0,borderRadius:7,marginHorizontal:0}}>
             <Swipeable
                ref={ref => row[index] = ref}
                friction={2}

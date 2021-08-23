@@ -33,6 +33,7 @@ export const RunningOrders =(props)=> {
     const [orderList,setOrderList] = useState([]);
     const isFocused = useIsFocused()
     useEffect(() => {
+        setLoading(true);
         getList()
     },[props,isFocused]);
 
@@ -144,20 +145,20 @@ export const RunningOrders =(props)=> {
                     }}
                     >
                 <View style={{flexDirection:'row',marginBottom:5}}>
-                        <View style={{flex:.4}}>
+                        <View style={{flex:.3}}>
                             <Text style={CommonStyles.cardTopText}>Order No {item.orderID}</Text>
                         </View>
                         <View style={{flex:.6,alignItems:'flex-end'}}>
                             <Text style={CommonStyles.cardTopText2}>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
                         </View>    
                 </View> 
-                <View style={{flex:1,marginHorizontal:10}}>
-                    <View style={{flexDirection:"row",flex:1,height:25}} >
-                        <View style={{flex:0.37}}>
-                            <Text style={[CommonStyles.boxLine1W]}>Customer Name</Text>
+                <View style={{flex:1}}>
+                    <View style={{flexDirection:"row",flex:1}} >
+                        <View style={{flex:0.2}}>
+                            <Text style={[CommonStyles.boxLine1W]}>Customer</Text>
                         </View>
-                        <View style={{flex:0.65,flexDirection:"row"}}>
-                            <Text style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular"}]}>&nbsp; : {item.deliveryAddress.name}, </Text>
+                        <View style={{flex:0.8,flexDirection:"row"}}>
+                            <Text style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.name}, </Text>
                             {item.deliveryAddress.mobileNumber ?
                                 <Text style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:'#fff'}]} onPress={() => Linking.openURL(`tel:${item.deliveryAddress.mobileNumber}`)}>{item.deliveryAddress.mobileNumber}</Text>
                                 :
@@ -166,12 +167,11 @@ export const RunningOrders =(props)=> {
                         </View>                
                     </View>
                     <View style={{flexDirection:"row",flex:1}} >
-                        <View style={{flex:0.43}}>
-                            <Text style={[CommonStyles.boxLine1W]}>Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;:&nbsp; </Text>
+                        <View style={{flex:0.2}}>
+                            <Text style={[CommonStyles.boxLine1W]}>Address</Text>
                         </View>
-                        <View style={{flex:0.5}}>
-                            <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}>{item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>                            
+                        <View style={{flex:0.67}}>
+                            <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}> : {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>                            
                         </View>
                         <View style={{flex:0.13}}>
                             <TouchableOpacity style={{marginHorizontal:10}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>

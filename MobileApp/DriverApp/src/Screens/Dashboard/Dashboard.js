@@ -59,7 +59,12 @@ const Dashboard = withCustomerToaster((props)=>{
         console.log("formValues",formValues);
         axios.post('/api/entitymaster/post/sos',formValues)
         .then(res=>{
-            setOrderList(res.data);
+            console.log("res",res)
+            if(res.data.statusCode === 'Success'){
+              setToast({text:"Message sent successfully!",color:'green'})
+            }else{
+              setToast({text:res.data.message,color:colors.warning})
+            }
         })
         .catch(err=>{
             console.log('err',err);

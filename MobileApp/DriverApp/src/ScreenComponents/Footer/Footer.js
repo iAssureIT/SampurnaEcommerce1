@@ -28,7 +28,7 @@ export const Footer =(props)=>{
           <View style={{ flexDirection: 'row', flex: 1 }}>
             <View style={styles.iconOuterWrapper}>
               <TouchableOpacity onPress={() => {
-                navigation.navigate('NewOrders')}
+                navigation.push('NewOrders')}
                } >
                 <View style={{alignItems:'center'}}>
                  {
@@ -52,7 +52,7 @@ export const Footer =(props)=>{
             </View>
             <View style={styles.iconOuterWrapper}>
               <TouchableOpacity onPress={() => {
-                navigation.navigate('AcceptedOrders')}
+                navigation.push('AcceptedOrders')}
                } >
                   <View style={{alignItems:'center'}}>
                     {
@@ -75,7 +75,7 @@ export const Footer =(props)=>{
             </View>
             <View style={styles.iconOuterWrapper}>
               <TouchableOpacity onPress={() => {
-                navigation.navigate('RunningOrders')}
+                navigation.push('RunningOrders')}
                } >
                  <View style={{alignItems:'center'}}>
                     {
@@ -98,7 +98,7 @@ export const Footer =(props)=>{
             </View>
             <View style={styles.iconOuterWrapper}>
               <TouchableOpacity onPress={() => {
-                navigation.navigate('CompletedOrders')}
+                navigation.push('CompletedOrders')}
                } >
                 <View style={{alignItems:'center'}}>
                   {

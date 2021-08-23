@@ -98,7 +98,7 @@ export const RejectedOrder =(props)=> {
                     style={{
                         paddingVertical: 10,
                         paddingHorizontal:8,
-                        backgroundColor: 'white',
+                        backgroundColor:"#F3C2C2",
                         minHeight:100,
                         borderRadius:7,
                         marginHorizontal:20,
@@ -115,20 +115,20 @@ export const RejectedOrder =(props)=> {
                             </View>    
                     </View> 
                     <View style={{flex:1}}>
-                    <View style={{flexDirection:"row",flex:1,height:25}} >
-                        <View style={{flex:0.25}}>
-                            <Text style={[CommonStyles.boxLine1C]}>Customer Name</Text>
+                    <View style={{flexDirection:"row",flex:1}} >
+                        <View style={{flex:0.2}}>
+                            <Text style={[CommonStyles.boxLine1C]}>Customer</Text>
                         </View>
-                        <View style={{flex:0.75,flexDirection:"row",flexWrap: 'wrap'}}>
+                        <View style={{flex:0.8,flexDirection:"row",flexWrap: 'wrap'}}>
                             <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.name}, </Text>
                             <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:'#033554'}]} onPress={() => Linking.openURL(`tel:${item.deliveryAddress.mobileNumber}`)}> {item.deliveryAddress.mobileNumber}</Text>
                         </View>                        
                     </View>
                     <View style={{flexDirection:"row",flex:1}} >
-                        <View style={{flex:0.25}}>
+                        <View style={{flex:0.2}}>
                             <Text style={[CommonStyles.boxLine1C]}>Address</Text>
                         </View>
-                        <View style={{flex:0.75,flexDirection:"row"}}>
+                        <View style={{flex:0.8,flexDirection:"row"}}>
                             <Text numberOfLines={2} style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>
                             <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end'}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
                                 <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>

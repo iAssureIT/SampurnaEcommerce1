@@ -23,6 +23,7 @@ import { connect,
   import commonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
   import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 import { SafeAreaView }         from 'react-native';
+import Loading from '../../ScreenComponents/Loading/Loading.js';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrdersView = withCustomerToaster((props)=>{
@@ -57,6 +58,7 @@ import { SafeAreaView }         from 'react-native';
     const [totaloriginalprice, setOrignalPrice] = useState(0);
     const [saving,setTotalSaving] =useState(0);
     useEffect(() => {
+      setLoading(true);
       getData();
   }, [props]);
 
@@ -169,6 +171,9 @@ import { SafeAreaView }         from 'react-native';
           headerTitle={'Order Summary'}
           navigate={navigation.navigate}
         /> */}
+        {loading?
+        <Loading />
+        :
         <View style={styles.addsuperparent}>
           <ScrollView contentContainerStyle={styles.container} style={{marginBottom:"15%"}} keyboardShouldPersistTaps="handled" >
             <View style={styles.padhr15}>
@@ -489,7 +494,7 @@ import { SafeAreaView }         from 'react-native';
           </View>
         </ScrollView>
         <Footer />
-      </View>
+      </View>}
     </React.Fragment>
   );
 })

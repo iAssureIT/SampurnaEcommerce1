@@ -47,7 +47,7 @@ export default StyleSheet.create({
     // borderBottomWidth:1,
     alignItems:'center',
     justifyContent:'flex-start',
-    marginBottom:10,
+    // marginBottom:10,
     // borderColor: colors.textLight,
     // paddingVertical:32,
     padding:13,

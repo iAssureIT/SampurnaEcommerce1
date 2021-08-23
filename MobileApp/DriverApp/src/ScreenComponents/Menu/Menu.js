@@ -21,11 +21,32 @@ export const Menu = (props)=>{
   const [firstName,setFirstName] = useState('');
   const [lastName,setLastName]   = useState('');
   const [user_id,setUserId]      = useState('');
+  const [index,setIndex]=useState(4)
   const userDetails = useSelector(store => store.userDetails);
+  var routes = props?.state?.routes[0]?.state?.routes;
 
   useEffect(() => {
+  console.log("propsnavigation1234",props?.state?.routes[0]?.state?.routes);
+    if(routes && routes.length>0){
+      if(routes[routes.length-1]?.name==="AccountDashboard"){
+        setIndex(1);
+      }
+      else if(routes[routes.length-1]?.name==="AcceptedOrders"){
+        setIndex(2);
+      }
+      else if(routes[routes.length-1]?.name==="RejectedOrder"){
+        setIndex(3);
+      }
+      else if(routes[routes.length-1]?.name==="Dashboard"){
+        setIndex(4);
+      }else if(routes[routes.length-1]?.name==="SupportSystem"){
+        setIndex(5);
+      }else{
+        setIndex(0);
+      }
+    }
     getData()
-  },[props]);
+  },[props,routes]);
 
   const getData=()=>{
     setFirstName(userDetails.firstName);
@@ -61,56 +82,56 @@ export const Menu = (props)=>{
         </View>
       <View style={styles.menuWrapper}>
         {user_id!==""&&userDetails.authService!=="guest" &&<View>
-        <TouchableOpacity onPress={()=> navigation.navigate('AccountDashboard')}>
+        <TouchableOpacity onPress={()=> navigation.navigate('AccountDashboard')} style={{backgroundColor:index ===1 ?"#033554": 'white'}}>
           <View style={styles.menu}>
             <Image
               resizeMode="contain"
-              source={require("../../AppDesigns/currentApp/images/Account.png")}
+              source={index ===1 ? require("../../AppDesigns/currentApp/images/AccountSelected.png") : require("../../AppDesigns/currentApp/images/Account.png")}
               style={{height:22,width:22,marginLeft:20}}
               />
-            <Text style={styles.menuText}>My Account</Text>
+            <Text style={[styles.menuText,{color:index ===1 ?"white": '#033554'}]}>My Account</Text>
           </View>
         </TouchableOpacity>
-          <TouchableOpacity onPress={()=> navigation.navigate('AcceptedOrders')} >
+          <TouchableOpacity onPress={()=> navigation.navigate('AcceptedOrders')}style={{backgroundColor:index ===2 ?"#033554": 'white'}} >
           <View style={styles.menu}>
             <Image
               resizeMode="contain"
-              source={require("../../AppDesigns/currentApp/images/Deliveries.png")}
+              source={index ===2 ?require("../../AppDesigns/currentApp/images/DeliveriesSelected.png"):require("../../AppDesigns/currentApp/images/Deliveries.png")}
               style={{height:22,width:22,marginLeft:20}}
               />
-            <Text style={styles.menuText}>My Deliveries</Text>
+            <Text style={[styles.menuText,{color:index ===2 ?"white": '#033554'}]}>My Deliveries</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=> navigation.navigate('RejectedOrder')}>
+        <TouchableOpacity onPress={()=> navigation.navigate('RejectedOrder')} style={{backgroundColor:index ===3 ?"#033554": 'white'}}>
           <View style={styles.menu}>
             <Image
               resizeMode="contain"
-              source={require("../../AppDesigns/currentApp/images/Rejected.png")}
+              source={index ===3 ? require("../../AppDesigns/currentApp/images/RejectedSelected.png"):require("../../AppDesigns/currentApp/images/Rejected.png")}
               style={{height:22,width:22,marginLeft:20}}
               />
-            <Text style={styles.menuText}>Rejected Orders</Text>
+            <Text style={[styles.menuText,{color:index ===3 ?"white": '#033554'}]}>Rejected Orders</Text>
           </View>
         </TouchableOpacity></View>}
 
-        <TouchableOpacity onPress={()=> navigation.navigate('Dashboard')}>
+        <TouchableOpacity onPress={()=> navigation.navigate('Dashboard')} style={{backgroundColor:index ===4 ?"#033554": 'white'}}>
           <View style={styles.menu} >
             <Image
               resizeMode="contain"
               source={require("../../AppDesigns/currentApp/images/home_gray.png")}
               style={{height:22,width:22,marginLeft:20}}
               />
-            <Text style={styles.menuText}>Dashboard</Text>
+            <Text style={[styles.menuText,{color:index ===4 ?"white": '#033554'}]}>Dashboard</Text>
           </View>
         </TouchableOpacity>
         
-        <TouchableOpacity onPress={()=> navigation.navigate('SupportSystem')}>
+        <TouchableOpacity onPress={()=> navigation.navigate('SupportSystem')} style={{backgroundColor:index ===5 ?"#033554": 'white'}}>
           <View style={styles.menu} >
             <Image
               resizeMode="contain"
-              source={require("../../AppDesigns/currentApp/images/ContactUS.png")}
+              source={index===5? require("../../AppDesigns/currentApp/images/ContactSelected.png") : require("../../AppDesigns/currentApp/images/ContactUS.png")}
               style={{height:22,width:22,marginLeft:20}}
               />
-            <Text style={styles.menuText}>Contact Us</Text>
+            <Text style={[styles.menuText,{color:index ===5 ?"white": '#033554'}]}>Contact Us</Text>
           </View>
         </TouchableOpacity> 
         {user_id && userDetails.authService!=="guest" ?

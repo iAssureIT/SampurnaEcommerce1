@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from './styles.js';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -166,8 +167,7 @@ export default StyleSheet.create({
     },
     card1:{
         backgroundColor: '#E5EAEE',   
-        borderBottomLeftRadius:7,
-        borderBottomRightRadius:7, 
+        borderRadius:7,
     },
     cardTop:{
         flexDirection:'row',
@@ -186,38 +186,38 @@ export default StyleSheet.create({
     cardTopText:{
         fontFamily:'segoe-ui',
         color:'#fff',
-        fontSize:16
+        fontSize:RFPercentage(2.2)
     },
     cardTopText2:{
         fontFamily:'segoe-ui',
         color:'#fff',
-        fontSize:14
+        fontSize:RFPercentage(1.8)
     },
     boxLine1:{
         color:'#033554',
         fontFamily: "Montserrat-Regular",
-        fontSize:14,
+        fontSize:RFPercentage(1.8),
     },    
     boxLine1W:{
         color:'#fff',
         fontFamily: "Montserrat-Regular",
-        fontSize:14,
+        fontSize:RFPercentage(1.8),
     },
     boxLine2:{
         color:'#033554',
         fontFamily: "Montserrat-Regular",
-        fontSize:14,
+        fontSize:RFPercentage(1.8),
         alignSelf:'flex-end'
     },
     boxLine1C:{
         color:'#033554',
         fontFamily: "Montserrat-Medium",
-        fontSize:16,
+        fontSize:RFPercentage(2.2),
     },
     boxLine2C:{
         color:'#033554',
         fontFamily: "Montserrat-Regular",
-        fontSize:16,
+        fontSize:14,
         alignSelf:'flex-end'
     },
     CardBS1:{

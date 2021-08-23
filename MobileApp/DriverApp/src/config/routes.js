@@ -46,11 +46,10 @@ import {MonthlyOrders}            from '../Screens/MonthlyOrders/MonthlyOrders.j
 import {RejectedOrder}            from '../Screens/RejectedOrder/RejectedOrder.js';
 
 
-const Home = createDrawerNavigator();
+const Home = createStackNavigator();
 const TransitionScreenOptions = {
   ...TransitionPresets.ModalTransition, // This is where the transition happens
 };
-
 
 const horizontalAnimation = {
   gestureDirection: 'horizontal-inverted',
@@ -74,11 +73,9 @@ const horizontalAnimation = {
 export const HomeStack = () => (
   
   <Home.Navigator 
-    headerMode            = "none"
-    mode="modal"
     initialRouteName ="Dashboard"
-    // screenOptions={horizontalAnimation}
-    drawerContent   = { (props) =>  <Drawer><Menu { ...props } /></Drawer>}
+    screenOptions={horizontalAnimation}
+    
   >
     <Home.Screen name="Dashboard"                   component={Dashboard}  options={getHeaderConfig("",false)}/>
     {/* <Home.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} options={getHeaderConfig("Dashboard")}/> */}
@@ -106,6 +103,18 @@ export const HomeStack = () => (
     <Home.Screen name="RejectedOrder"               component={RejectedOrder} options={getHeaderConfig("Rejected Order",true)}/>
   </Home.Navigator>
 );
+
+
+const Tab1 = createDrawerNavigator();
+export const Tab2 = () => (
+  <Tab1.Navigator 
+    drawerContent   = { (props) =>  <Drawer><Menu { ...props } /></Drawer>}
+    
+  >
+     <Tab.Screen name="App" component={HomeStack} navigationOptions = {{gesturesEnabled: false}} />
+  </Tab1.Navigator>
+);
+
 
 const getHeaderConfig = (title,backBtn) => {
   return {
@@ -143,7 +152,7 @@ export const LocationScreen = () => (
 const App = createStackNavigator();
 const AppStack = () => (
   <App.Navigator headerMode="none">
-      <App.Screen name="App"              component={HomeStack} />
+      <App.Screen name="App"              component={Tab2} />
       <App.Screen name="Auth"             component={RegisterStack} />
       <App.Screen name="LocationMain"     component={LocationScreen} />
   </App.Navigator>
