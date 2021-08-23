@@ -40,8 +40,20 @@ const Dashboard = withCustomerToaster((props)=>{
   
   const handleToggle = (value) => {
     setModal(value);
-    interval(time);
-    // return () => clearInterval(interval);
+    interval(time);    
+    return () => clearInterval(interval);
+    var formValues ={
+      user_id :store.userDetails.user_id,
+      locationLink : "https://qaadmin.knock-knockeshop.com"
+    }
+    console.log("formValues",formValues);
+    axios.post('/api/entitymaster/post/sos',formValues)
+    .then(res=>{
+        setOrderList(res.data);
+    })
+    .catch(err=>{
+        console.log('err',err);
+    })
   }
 
   const interval =(time)=>{

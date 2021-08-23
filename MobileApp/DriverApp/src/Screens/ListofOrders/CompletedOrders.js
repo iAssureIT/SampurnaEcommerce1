@@ -155,7 +155,7 @@ export const CompletedOrders =(props)=> {
     };
 
     return (
-        <View>            
+        <View style={{flex:1}}>            
         <View style={{flex:1,backgroundColor:'#fff'}}>            
             <View style={{flexDirection:"row",justifyContent: 'center',alignItems: 'center',marginTop:15}}>
                 <TouchableOpacity
@@ -192,7 +192,8 @@ export const CompletedOrders =(props)=> {
             </View>
             <View style={{flexDirection:'row',justifyContent:'center',paddingTop:10,marginBottom:15}}>
                     <Text style={CommonStyles.totalcount}>Total Cash Collected : 500 AED</Text>
-             </View> 
+             </View>
+             <View style={{flex:1}}>
              {loading ?
                     <Loading />
                 :  
@@ -209,7 +210,8 @@ export const CompletedOrders =(props)=> {
                         </View>}
                         <Footer selected={"3"}/>
                     </View>
-            }            
+            }
+            </View>          
             <DateTimePickerModal
             isVisible={datePicker}
             mode="date"

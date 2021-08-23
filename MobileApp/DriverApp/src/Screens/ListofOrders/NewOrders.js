@@ -188,22 +188,20 @@ export const NewOrders =(props)=> {
     return (
         <View style={{flex:1}}>
             <View style={{flex:1,marginBottom:60}}>
-                {loading ?
-                        <Loading />
-                    :
-                    <View>
+                
+                    <View style={{flex:1}}>
                         {orderList  && orderList.length >0?
                         <FlatList
-                                data={orderList}
-                                keyExtractor={(item) => item.id}
-                                renderItem={_renderlist} 
-                            />
-                            :
-                            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                                <Text style={CommonStyles.noDataFound}>No Order Found</Text>
-                            </View>}
+                            data={orderList}
+                            keyExtractor={(item) => item.id}
+                            renderItem={_renderlist} 
+                        />
+                        :
+                        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                            <Text style={CommonStyles.noDataFound}>No Order Found</Text>
+                        </View>}
                     </View>
-                }                    
+                                   
             </View>  
             <Footer selected={"0"}/>
         </View>

@@ -105,10 +105,10 @@ export const MonthlyOrders =(props)=> {
                 <Card containerStyle={{flex:1,borderRadius:4}}>
                     <View style={{flexDirection:'row'}}>
                         <View style={{flex:0.5}}>
-                            <Text style={CommonStyles.totalcount}>{moment(item.monthDay).locale("en", localization).format("LL")}</Text>
+                            <Text style={CommonStyles.totalcount}>{moment(item.monthDays).locale("en", localization).format("LL")}</Text>
                         </View> 
                         <View style={{flex:0.5,alignItems:"flex-end"}}>
-                            <Text style={CommonStyles.completeDate}>{item.ordersDelivered}</Text>
+                            <Text style={CommonStyles.completeDate}>{item.numberOfOrders}</Text>
                         </View>     
                     </View>    
                 </Card>    
@@ -118,7 +118,7 @@ export const MonthlyOrders =(props)=> {
 
     return (
         <View style={{flex:1}}>
-            <View style={{flex:1,marginBottom:70,backgroundColor:'#fff'}}>
+            <View style={{flex:1,marginBottom:50,backgroundColor:'#fff'}}>
                 <View style={{flexDirection:"row",justifyContent: 'center',alignItems: 'center',marginTop:15}}>
                         <TouchableOpacity
                             onPress={() => {priviousDate()}}>
@@ -174,7 +174,7 @@ export const MonthlyOrders =(props)=> {
                     <Text style={CommonStyles.totalcount}>Total Deliveries : {orderList?.totalOrdersDelivered}</Text>
                 </View>
                 <View style={{flexDirection:'row',justifyContent:'center',paddingTop:10,marginBottom:15}}>
-                        <Text style={CommonStyles.totalcount}>Total Cash Collected : 500 AED</Text>
+                        <Text style={CommonStyles.totalcount}>Total Cash Collected : {_renderlist.cashCollected>0 ? _renderlist.cashCollected : 0} AED</Text>
                 </View>  
             {orderList  && orderList?.monthDays?.length >0?
                     <View style={{}}>
