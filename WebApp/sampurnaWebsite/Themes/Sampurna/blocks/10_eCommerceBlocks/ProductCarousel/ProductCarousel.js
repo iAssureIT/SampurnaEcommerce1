@@ -981,9 +981,12 @@ submitCart(event) {
        </div>
       </div>
       :
-      <div className="col-2 offset-5 loading">
-        <img src="/images/eCommerce/loader.gif" className="col-12 lazyload" loading="lazy"></img>
-      </div> 
+      <div className="col-12">
+        <div className="col-2 offset-5 loading">
+          <img src="/images/eCommerce/loader.gif" className="col-12 lazyload" loading="lazy"></img>
+        </div> 
+        {/* <div className="col-5 mx-auto"><h6>Sorry !!! Products are comming soon for this vertical</h6></div> */}
+      </div>
     );
   }
 }

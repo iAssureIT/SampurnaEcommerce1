@@ -59,6 +59,7 @@ class ForgotPassword extends Component{
 		if(this.validateForm()){
 			axios.patch('/api/auth/patch/set_send_otp/' + username) 
                 .then((forgotPassResponse) => {
+                    // console.log("forgotPassResponse==",forgotPassResponse);
                     if(forgotPassResponse.data.message){
                         var userDetails = {
 							userId : forgotPassResponse.data.ID,

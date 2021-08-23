@@ -319,6 +319,7 @@ render() {
                                   null
                                 }
                               </div>  
+                              
                             //     <div key={index} className={"col-12 " }>                          
                             //     <div className={"col-12 NoPadding " +Style.productCaroselBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                             //         <div className={"col-12 NoPadding"}>

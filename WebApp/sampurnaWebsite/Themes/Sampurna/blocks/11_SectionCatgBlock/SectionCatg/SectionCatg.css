@@ -24,6 +24,14 @@
     border-radius    : 24px;
     height           : 150px;
 }
+.categoryblock .itemImg img {
+    background-image : url(/images/eCommerce/productloader.gif);
+    background-size  : cover;
+    background-repeat: no-repeat;
+    box-shadow       : -3px 3px 6px #00000029;
+    border-radius    : 5px;
+    height           : 200px;
+}
 
 .titleFont {
     font-size       : 36px !important;

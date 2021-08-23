@@ -280,15 +280,13 @@ class Product extends Component{
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;
       var SMCol = 12/this.props.blockSettings.noOfProductPerSMRow;
       var XSCol = 12/this.props.blockSettings.noOfProductPerXSRow;
-      console.log("this.props.recentWishlist===",this.props.recentWishlist);
+      // console.log("this.props.recentWishlist===",this.props.recentWishlist);
       return (
         <div className="row">
           <Message messageData={this.state.messageData} /> 
            { Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
-                  
                 // console.log("data in map  ===> ",data);
-             
                 var x = this.props.recentWishlist && this.props.recentWishlist.length> 0 ? this.props.recentWishlist.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
                 var wishClass = 'r';
                 var tooltipMsg = '';
@@ -352,8 +350,8 @@ class Product extends Component{
                           }
                           <div className={"col-12 globalProductItemName  " } title={data.productName}>
                             <span className={ Style.ellipsis +" mt-2 " +Style.globalProdName}>{data.productName} &nbsp;
-                            </span>&nbsp;
-                            <span className={"col-12 mt-2 NoPadding "+Style.sizeUnitName}>{data.size && data.size}&nbsp;{data.unit && data.size && data.unit}</span>
+                            </span>
+                            <span className={"col-12 mt-2 NoPadding "+Style.sizeUnitName +" " +Style.ellipsis}>{data.size && data.size}&nbsp;{data.unit && data.size && data.unit}</span>
                           </div>
 
                           <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>

@@ -53,9 +53,9 @@ class DisplayLocation extends React.Component{
 						axios.delete('/api/carts/delete/'+this.state.user_id)
 						.then(res=>{
 							if(res){
-								// this.props.updateCartCount();
+								this.props.updateCartCount();
 								// this.props.cartCount;
-								window.location.reload();
+								// window.location.reload();
 							}
 						})
 						.catch((error) => {

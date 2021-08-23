@@ -420,7 +420,7 @@ ul:hover > .dropDownLevel3 {
     color: #000 !important;
     text-decoration: none !important;
     text-align: center;
-
+    padding-left: 10px;
 }
 .myAccMenuGuest{
     font-size: 14px;
@@ -654,8 +654,8 @@ li a{
 .DisplayLocation{
     background-color: #fff;
     padding: 5px 0px;
-    /* border-bottom: solid 1px #eee; */
-    margin-top: 2px;
+    border-bottom: solid 1px #eee;
+    /* margin-top: 2px; */
 }
 .deliveryAddress{
     font-size: 12px;
