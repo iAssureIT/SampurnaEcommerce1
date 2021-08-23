@@ -30,6 +30,7 @@ import { DrawerActions } from '@react-navigation/native';
 import Modal                      from "react-native-modal";
 import { useNavigation }      from '@react-navigation/native';
 import { getCartCount} from '../../redux/productList/actions';
+import { RFPercentage } from "react-native-responsive-fontsize";
 
   const HeaderBars2=(props)=>{
     // console.log("props",props);
@@ -153,7 +154,7 @@ import { getCartCount} from '../../redux/productList/actions';
 
           }}>
           <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center',height:40}}>
-            <Icon size={25} name='arrow-left' type='material-community' color='#fff' />
+            <Icon size={RFPercentage(4)} name='arrow-left' type='material-community' color='#fff' />
           </View>
         </TouchableOpacity>}
         <View style={styles.searchvw}>
@@ -176,7 +177,7 @@ import { getCartCount} from '../../redux/productList/actions';
             value               = {searchText}
             onSubmitEditing     = {()=>updateSearch()}
             returnKeyType       = 'search'
-            searchIcon          = {<Icon name="search" type="font-awesome" size={15} color={"#000"}/>}
+            searchIcon          = {<Icon name="search" type="font-awesome" size={RFPercentage(2.5)} color={"#000"}/>}
             onClear              ={()=>{ 
               dispatch({type : SET_SUGGETION_LIST, payload  : []});
               dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
@@ -189,8 +190,8 @@ import { getCartCount} from '../../redux/productList/actions';
           
         </View>
           <TouchableOpacity style={styles.location} onPress={()=>checkCart()}>
-              <Icon name="crosshairs-gps" type="material-community" size={11} color={colors.black} iconStyle={{marginTop:2.5}}/>
-              <Text numberOfLines={2} style={{flex:.98,color:colors.textLight,fontSize:11}}>{location?.address.addressLine2}</Text>
+              <Icon name="crosshairs-gps" type="material-community" size={RFPercentage(1.6)} color={colors.black} iconStyle={{marginTop:2.5}}/>
+              <Text numberOfLines={2} style={{flex:.98,color:colors.textLight,fontSize:RFPercentage(1.6)}}>{location?.address.addressLine2}</Text>
           </TouchableOpacity>
           <Modal isVisible={modal}
         onBackdropPress={() => setModal(false)}

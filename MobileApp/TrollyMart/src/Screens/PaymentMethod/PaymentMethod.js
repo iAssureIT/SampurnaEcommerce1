@@ -26,6 +26,8 @@ import {REACT_APP_BASE_URL} from '@env'
 import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 import { NetWorkError } from '../../../NetWorkError.js';
 import { Platform } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 // import {AppEventsLogger} from 'react-native-fbsdk';    
@@ -247,7 +249,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         color={colors.cartButton}                             
                         uncheckedIcon='circle-o'
                         uncheckedColor={colors.cartButton}  
-                        size={14}
+                        size={RFPercentage(2.2)}
                         // color={colors.theme}
                         status={checked === 'third' ? 'checked' : 'unchecked'}
                         onPress={() => {setChecked('third');setPaymentMethods('Online Payment')}}
@@ -270,7 +272,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         color='#033554'                              
                         uncheckedIcon='circle-o'
                         uncheckedColor='#033554'
-                        size={14}
+                        size={RFPercentage(2.2)}
                         // color={colors.theme}
                         value="second"
                         status={checked === 'second' ? 'checked' : 'unchecked'}
@@ -292,7 +294,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         color='#033554'                              
                         uncheckedIcon='circle-o'
                         uncheckedColor='#033554'
-                        size={14}
+                        size={RFPercentage(2.2)}
                         value="first"
                         // color={colors.theme}
                         status={checked === 'first' ? 'checked' : 'unchecked'}

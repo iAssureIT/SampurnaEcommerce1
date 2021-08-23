@@ -18,6 +18,8 @@ import {BottomModal}                from '../../ScreenComponents/BottomModal/Bot
 import {colors, Icon}                       from 'react-native-elements';
 import {USER_LOGOUT} from '../../redux/store';
 import { NetWorkError } from '../../../NetWorkError.js';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const window = Dimensions.get('window');
 navigator.geolocation = require('react-native-geolocation-service');
 
@@ -145,7 +147,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                   {/* <TouchableOpacity onPress={()=> navigation.canGoBack() ?  navigation.goBack() : backAction()}> */}
                 {navigation.canGoBack() ?
                  <TouchableOpacity style={{marginTop:Platform.OS==='ios'?20:0}} onPress={()=>navigation.goBack()}>
-                    <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+                    <Icon size={RFPercentage(4)} name='arrow-left' type='material-community' color={colors.theme} />
                   </TouchableOpacity>
                   :
                   <TouchableOpacity style={{marginTop:Platform.OS==='ios'?20:0}} onPress={()=>logout()}>

@@ -26,6 +26,9 @@ import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import { getCartCount}                      from '../../redux/productList/actions';
 import FastImage              from 'react-native-fast-image';
 import { Platform } from 'react-native';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 const window = Dimensions.get('window');
 
 export const CartComponent = withCustomerToaster((props)=>{
@@ -53,11 +56,11 @@ export const CartComponent = withCustomerToaster((props)=>{
 
 
   const minusIcon = (isDisabled) => {
-    return <Icon name='minus' type='feather' size={20} color={isDisabled? colors.cartButton : "#fff"} />
+    return <Icon name='minus' type='feather' size={RFPercentage(3)} color={isDisabled? colors.cartButton : "#fff"} />
   };
   
   const plusIcon = (isPlusDisabled) => {
-    return <Icon name='plus' type='feather' size={20} color={"#fff"} />
+    return <Icon name='plus' type='feather' size={RFPercentage(3)} color={"#fff"} />
   };
 
   useEffect(() => {
@@ -233,7 +236,7 @@ const getshippingamount=(startRange, limitRange)=>{
 
   const tooltipClone = React.cloneElement(
     <View style={{width:"100%"}}>
-      <Icon name="close" type="material-community" color="#fff" iconStyle={{alignSelf:"flex-end"}}/>
+      <Icon name="close" type="material-community" color="#fff" iconStyle={{alignSelf:"flex-end"}} size={RFPercentage(3)}/>
     { cartData.vendorOrders && cartData.vendorOrders.length > 0&&
     cartData.vendorOrders.map((vendor, i) => {
         return (
@@ -280,7 +283,7 @@ const getshippingamount=(startRange, limitRange)=>{
               return (
               <View style={{backgroundColor:"#fff",paddingBottom:15,paddingTop:15}}>
                 <View style={{paddingHorizontal:15}}>
-                  <Text style={[commonStyles.headerText,{alignSelf:"flex-start",fontSize:15,marginBottom:10}]}>{vendor.vendor_id.companyName}</Text>
+                  <Text style={[commonStyles.headerText,{alignSelf:"flex-start",fontSize:RFPercentage(2.5),marginBottom:10}]}>{vendor.vendor_id.companyName}</Text>
                 </View>  
                 {vendor.cartItems.map((item,index)=>{
                   return(
@@ -337,8 +340,8 @@ const getshippingamount=(startRange, limitRange)=>{
                                   borderColor: colors.cartButton,
                                   borderWidth: 1,
                                   borderRadius: 25,
-                                  minWidth: 30,
-                                  minHeight: 30,
+                                  minWidth: hp(4),
+                                  minHeight: hp(4),
                                   backgroundColor: colors.cartButton,
                                 }}
                                 buttonTextStyle={{
@@ -367,7 +370,7 @@ const getshippingamount=(startRange, limitRange)=>{
                               <View style={styles.proddeletes}>
                               {userDetails.authService!=="guest" ?
                                 <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => {addToWishList(item.product_ID._id,vendor),cartData.vendorOrders[i].cartItems[index].product_ID.isWish = !cartData.vendorOrders[i].cartItems[index].product_ID.isWish}} >
-                                  <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.product_ID.isWish ?'red':'#999'} iconStyle={{}}/>
+                                  <Icon size={RFPercentage(2.8)} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.product_ID.isWish ?'red':'#999'} iconStyle={{}}/>
                                 </TouchableOpacity>
                                 :
                                 null
@@ -384,7 +387,7 @@ const getshippingamount=(startRange, limitRange)=>{
                                   <Image
                                     resizeMode="contain"
                                     source={require("../../AppDesigns/currentApp/images/trash.png")}
-                                    style={{height:15,width:15,marginLeft:15,marginTop:5}}
+                                    style={{height:hp(2.4),width:hp(2.4),marginLeft:15,marginTop:5}}
                                     />
                                 </TouchableOpacity>
                               </View>
@@ -396,14 +399,14 @@ const getshippingamount=(startRange, limitRange)=>{
                   })}
                   <View style={{flexDirection:'row',padding:10,paddingTop:0,marginBottom:5,alignItems:'center'}}>
                     <View style={{flex:0.5,flexDirection:'row'}}>
-                      <Icon name="reply" type="ionic" size={18} color={colors.cartButton} iconStyle={{}}/>
-                      <Text style={[CommonStyles.linkLightText,{fontSize:14,color:colors.cartButton,fontFamily: "Montserrat-Medium",}]} onPress={()=>goToProductList(vendor)}>Continue shopping</Text>
+                      <Icon name="reply" type="ionic" size={RFPercentage(2.8)} color={colors.cartButton} iconStyle={{}}/>
+                      <Text style={[CommonStyles.linkLightText,{fontSize:RFPercentage(2.2),color:colors.cartButton,fontFamily: "Montserrat-Medium",}]} onPress={()=>goToProductList(vendor)}>Continue shopping</Text>
                     </View>
                     <View style={{flex:0.5}}>
                       {cartData.minOrderAmount <= vendor.vendor_afterDiscountTotal ?
                           null
                           :
-                          <View style={{marginVertical:10}}>
+                          <View style={{marginVertical:10,alignItems:'flex-end'}}>
                             <Text style={styles.minpurchase}>Minimum shopping amount is {cartData.minOrderAmount}</Text>
                           </View>
                         }
@@ -476,7 +479,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                       <View style={[styles.flxdata,{paddingVertical:5}]}>
                         <View style={{ flex: 0.6 }}>
-                          <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:16}}>Totals</Text>
+                          <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:RFPercentage(2.6)}}>Totals</Text>
                         </View>
                         <View style={{ flex: 0.1 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -562,14 +565,14 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
                       <Tooltip 
                         containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                        width={350} 
+                        width={wp(95)} 
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
                         popover={tooltipClone}
                         withOverlay={false}
                         // onBackButtonPress={() => setReturnModal(false)}
                         >
-                        <Icon name="information-outline" type={"material-community"} size={16}iconStyle={{}} color="#0335548C" />
+                        <Icon name="information-outline" type={"material-community"} size={RFPercentage(2.6)}iconStyle={{}} color="#0335548C" />
                       </Tooltip>
                     </View>  
                   </View>
@@ -601,17 +604,17 @@ const getshippingamount=(startRange, limitRange)=>{
             <View style={{paddingVertical:24,paddingHorizontal:6}}>
               <Text style={CommonStyles.screenHeader}>My Cart</Text>
             </View>
-            <View style={{height:window.height-230,justifyContent:'center',alignItems:'center'}}>
+            <View style={{height:hp(60),justifyContent:'center',alignItems:'center'}}>
               <Image
                 source={require("../../AppDesigns/currentApp/images/empty-cart.png")}
                 style={{width:window.width,height:300, opacity: 0.5}}
                 resizeMode='contain'
               />
               <View style={{alignItems:'center'}}>
-                <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>Your cart is empty!</Text>
+                <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:RFPercentage(2.8),color:"#DC1919",opacity: 1}}>Your cart is empty!</Text>
                 <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                  <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
-                  <Text style={[CommonStyles.linkText,{textDecorationLine: "underline",fontFamily:"Montserrat-SemiBold",fontSize:12}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
+                  <Icon name="undo-variant" type="material-community" size={RFPercentage(2.5)}  color={colors.cartButton}/>
+                  <Text style={[CommonStyles.linkText,{textDecorationLine: "underline",fontFamily:"Montserrat-SemiBold",fontSize:RFPercentage(2.2)}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
                 </View>
               </View> 
             </View>
@@ -635,10 +638,10 @@ const getshippingamount=(startRange, limitRange)=>{
         style={{ paddingHorizontal: '5%', zIndex: 999 }}
         animationInTiming={1} animationOutTiming={1}>
         <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
-          <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
-            <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
+          <View style={{ justifyContent: 'center', backgroundColor: "transparent", overflow: 'hidden' }}>
+            <Icon size={RFPercentage(7.5)} name='shopping-cart' type='feather' color='#666' style={{}} />
           </View>
-          <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
+          <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: RFPercentage(2.5), textAlign: 'center', marginTop: 20 }}>
             Are you sure you want to remove this from cart?
           </Text>
           <View style={styles.cancelbtn}>
@@ -646,7 +649,7 @@ const getshippingamount=(startRange, limitRange)=>{
               <TouchableOpacity>
                 <Button
                   onPress={() => setRemoveFromCart(false)}
-                  titleStyle={styles.buttonText}
+                  titleStyle={styles.buttonText1}
                   title="NO"
                   buttonStyle={styles.buttonRED}
                   containerStyle={styles.buttonContainer2}
@@ -666,16 +669,16 @@ const getshippingamount=(startRange, limitRange)=>{
         </View>
       </Modal>
     </View>
-    {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?<View style={{marginBottom:Platform.OS ==='ios'?60: 45,flexDirection:'row'}}>
-         <View style={{flex:0.5,height:60,backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
-            <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
-            <Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
+    {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?<View style={{marginBottom:Platform.OS ==='ios'?60: hp(6.5),flexDirection:'row'}}>
+         <View style={{flex:0.5,height:hp(8.5),backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
+            <Text style={{fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
+            <Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
          </View>
-         <TouchableOpacity style={{flex:0.5,height:60,backgroundColor:!disabled?"#5F6C74":colors.cartButton,justifyContent:'center',alignItems:'center'}}
+         <TouchableOpacity style={{flex:0.5,height:hp(8.5),backgroundColor:!disabled?"#5F6C74":colors.cartButton,justifyContent:'center',alignItems:'center'}}
             disabled       = {!disabled}
             onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
          >
-          <Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color: "#eee"}}>Checkout</Text>
+          <Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color: "#eee"}}>Checkout</Text>
          </TouchableOpacity>
       </View>:null}
   </React.Fragment>

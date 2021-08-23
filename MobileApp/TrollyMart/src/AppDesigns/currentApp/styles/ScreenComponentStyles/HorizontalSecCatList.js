@@ -1,6 +1,7 @@
 import { StyleSheet} from 'react-native';
 import { colors } from '../styles.js';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 export default StyleSheet.create({
 	container:{
 		width:160,
@@ -29,7 +30,7 @@ export default StyleSheet.create({
 		borderColor: '#999'
 	},
 	productContainer: {
-		width:"42.5%",
+		// width:"42.5%",
 		// paddingVertical:5,
 		backgroundColor:"#fff",
 		marginBottom:15,
@@ -92,7 +93,7 @@ export default StyleSheet.create({
 			// borderWidth: 1, borderBottomColor: '#ccc',
 	},
 	subcatimg1: {
-		height:120,
+		height:hp(15),
 		width:'100%',
 		// alignSelf:'center',
 		justifyContent:'flex-end',

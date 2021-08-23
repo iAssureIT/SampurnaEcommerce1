@@ -28,7 +28,8 @@ import FastImage              from 'react-native-fast-image';
 import { CommonActions } from "@react-navigation/native";
 import {SET_CATEGORY_LIST,
     SET_CATEGORY_WISE_LIST}  from '../../redux/productList/types';
-
+    import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
@@ -44,7 +45,8 @@ export const VendorList = withCustomerToaster((props)=>{
     const store = useSelector(store => ({
         location        : store.location,
         userDetails     : store.userDetails,
-        globalSearch    : store.globalSearch
+        globalSearch    : store.globalSearch,
+        isConnected: store.netWork.isConnected
       }));
     const {globalSearch} =store;
     const {navigation} =props;
@@ -104,8 +106,8 @@ export const VendorList = withCustomerToaster((props)=>{
 
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity  style={{paddingLeft:20,paddingRight:15,marginBottom:5,justifyContent:'flex-end'}} onPress={()=>goToProductList(item)} activeOpacity={1}>                
-                <Card containerStyle={{padding:0,borderRadius:7,height:75,marginRight:0,elevation:5}} wrapperStyle={{}}>
+            <TouchableOpacity  style={{marginBottom:hp(0.5),alignItems:'flex-end'}} onPress={()=>goToProductList(item)} activeOpacity={1}>                
+                <Card containerStyle={{padding:0,borderRadius:7,height:wp(18),width:"91%",marginHorizontal:0,elevation:5}} wrapperStyle={{}}>
                         <View style={styles.logoBox}>
                             {item.vendorLogo ? 
                             <FastImage 
@@ -115,17 +117,17 @@ export const VendorList = withCustomerToaster((props)=>{
                                                         cache: FastImage.cacheControl.immutable,
                                                     }} 
                                 style      =   {{
-                                    borderRadius:100,
+                                    borderRadius:hp(100),
                                     borderWidth:0.5,
                                     borderColor:'#033554',
-                                    height:56,
-                                    width:56,
+                                    height:wp(13),
+                                    width:wp(13),
                                     backgroundColor:"#fff",
                                 }} resizeMode="contain" 
                                 PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :null}
                         </View>
-                        <View style={{justifyContent:'center',alignItems:'center',marginTop:25}}>
-                            <Text numberOfLines={1} style={[{color:"#000",paddingLeft:40,alignSelf:"flex-start",fontSize:15,fontFamily:"Montserrat-Bold"}]}>{item.vendorName} {item.vendorName}</Text >
+                        <View style={{justifyContent:'center',alignItems:'center',height:hp(10)}}>
+                            <Text numberOfLines={1} style={[{color:"#000",paddingLeft:wp(10),alignSelf:"flex-start",fontSize:RFPercentage(2),fontFamily:"Montserrat-Bold"}]}>{item.vendorName}</Text >
                         </View> 
                         {/* <View style={{height:20,flexDirection:'row',alignItems:'center',justifyContent:'flex-end',marginRight:5}}>
                             <Text style={[{color:"#000",opacity:1,fontSize:10,marginTop:5}]}>60 Mins </Text>
@@ -147,60 +149,65 @@ export const VendorList = withCustomerToaster((props)=>{
     }
 
     return (
-        <View style={{flex:1,backgroundColor:"#fff"}}>
-            {globalSearch.search ?
-            <SearchSuggetion />
+        <React.Fragment>
+        {!store.isConnected?
+            <NetWorkError />
             :
-            <View style={[styles.container]} keyboardShouldPersistTaps="handled" >
-                <MenuCarouselSection
-                    navigation  = {navigation} 
-                    showImage   = {true}
-                    selected    = {section}
-                    boxHeight   = {4}
-                    fontSize    = {2}
-                    index       = {index}
-                />
-                <View style={{flexDirection:'row',justifyContent:'center',height:35,backgroundColor:colors.cartButton,marginTop:10}}>
-                    <Text style={styles.topText}>Delivery time <Text style={{fontSize:20,fontFamily:'Montserrat-Bold'}}>9</Text><Text style={{fontFamily:'Montserrat-Bold'}}>am</Text> to <Text style={{fontSize:20,paddingVertical:3,fontFamily:'Montserrat-Bold'}}>11</Text><Text style={{fontFamily:'Montserrat-Bold'}}>pm</Text> or next day delivery</Text>
-                </View>
-                <View style={styles.proddets}>
-                {loading ?
-                    <Loading />
-                    :
-                    vendorList && vendorList.length >0 ?
-                        <FlatList
-                            data                          = {vendorList}
-                            showsVerticalScrollIndicator  = {false}
-                            renderItem                    = {_renderlist} 
-                            nestedScrollEnabled           = {true}
-                            // keyExtractor                  = {item => item._id.toString()}
-                            initialNumToRender            = {6}
-                            ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
-                            onEndReachedThreshold         = {0.01}
-                            onEndReached={({ distanceFromEnd }) => {
-                                if(distanceFromEnd >= 0 && limit > 6) {
-                                    getData();
-                                }
-                            }}
-                            getItemLayout={(data, index) => ({
-                                length: 65, 
-                                offset: 65 * index, 
-                            index
-                            })}
-                            refreshControl={
-                                <RefreshControl
-                                refreshing={refresh}
-                                onRefresh={() => refreshControl()}
-                                />
-                            } 
-                        /> 
-                    :
-                    <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
-                        <Text style={CommonStyles.noDataFound}>We are currently not working in your area. However, we will come there soon. So please visit this website again shortly.</Text>
-                    </View>    
-                }
-             </View>
+            <View style={{flex:1,backgroundColor:"#fff"}}>
+                {globalSearch.search ?
+                <SearchSuggetion />
+                :
+                <View style={[styles.container]} keyboardShouldPersistTaps="handled" >
+                    <MenuCarouselSection
+                        navigation  = {navigation} 
+                        showImage   = {true}
+                        selected    = {section}
+                        boxHeight   = {4}
+                        fontSize    = {2}
+                        index       = {index}
+                    />
+                    <View style={{backgroundColor:colors.cartButton,marginTop:10}}>
+                        <Text style={styles.topText}>Delivery time <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>9</Text><Text style={{fontFamily:'Montserrat-Bold'}}>am</Text> to <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>11</Text><Text style={{fontFamily:'Montserrat-Bold'}}>pm</Text> or next day delivery</Text>
+                    </View>
+                    <View style={styles.proddets}>
+                    {loading ?
+                        <Loading />
+                        :
+                        vendorList && vendorList.length >0 ?
+                            <FlatList
+                                data                          = {vendorList}
+                                showsVerticalScrollIndicator  = {false}
+                                renderItem                    = {_renderlist} 
+                                nestedScrollEnabled           = {true}
+                                // keyExtractor                  = {item => item._id.toString()}
+                                initialNumToRender            = {6}
+                                ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
+                                onEndReachedThreshold         = {0.01}
+                                onEndReached={({ distanceFromEnd }) => {
+                                    if(distanceFromEnd >= 0 && limit > 6) {
+                                        getData();
+                                    }
+                                }}
+                                getItemLayout={(data, index) => ({
+                                    length: 65, 
+                                    offset: 65 * index, 
+                                index
+                                })}
+                                refreshControl={
+                                    <RefreshControl
+                                    refreshing={refresh}
+                                    onRefresh={() => refreshControl()}
+                                    />
+                                } 
+                            /> 
+                        :
+                        <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+                            <Text style={CommonStyles.noDataFound}>We are currently not working in your area. However, we will come there soon. So please visit this website again shortly.</Text>
+                        </View>    
+                    }
+                    </View>
+                </View>}
             </View>}
-        </View>
+        </React.Fragment>
     );
 })

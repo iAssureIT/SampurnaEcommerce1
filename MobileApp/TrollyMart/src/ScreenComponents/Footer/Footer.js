@@ -17,7 +17,9 @@ import { SET_SEARCH_CALL,
   SET_SERACH_LIST} 	              from '../../redux/globalSearch/types';
 import { colors }                 from "../../AppDesigns/currentApp/styles/styles.js";
 import { ImageBackground } from "react-native";
-import AntDesign from "react-native-vector-icons/AntDesign"
+import AntDesign from "react-native-vector-icons/AntDesign";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const Footer =(props)=>{
   const navigation = useNavigation();
@@ -86,14 +88,20 @@ export const Footer =(props)=>{
                 navigation.navigate('Dashboard');
               }
                } >
-                <Icon name={index === 0 ? "home":"home-outline"} type="material-community" size={20} color={index === 0 ? colors.footerText :colors.theme}  />
+                <Icon name={index === 0 ? "home":"home-outline"} type="material-community" size={RFPercentage(3)} color={index === 0 ? colors.footerText :colors.theme}  />
                 <Text style={[styles.footerTitle,{color:index === 0 ? colors.footerText :colors.theme}]}>Home</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() => {navigation.navigate('MyAccount', { userId: userDetails.user_id })}} >
-                <Icon name={index === 1 ? "account":"account-outline"} type="material-community" size={20} color={index === 1 ? colors.footerText :colors.theme}  />
+              <TouchableOpacity onPress={() => {
+                dispatch({type : SET_SUGGETION_LIST, payload  : []});
+                dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
+                dispatch({type : SET_SERACH_LIST,    payload  : []});
+                dispatch({type : SET_SEARCH_CALL,    payload  : false});
+                navigation.navigate('MyAccount', { userId: userDetails.user_id });
+                }} >
+                <Icon name={index === 1 ? "account":"account-outline"} type="material-community" size={RFPercentage(3)} color={index === 1 ? colors.footerText :colors.theme}  />
                 <Text  style={[styles.footerTitle,{color:index === 1 ? colors.footerText :colors.theme}]}>My Account</Text>
               </TouchableOpacity>
             </View>
@@ -117,11 +125,15 @@ export const Footer =(props)=>{
                   borderColor:"#eee"
                 }}
                   onPress={() => {
+                    dispatch({type : SET_SUGGETION_LIST, payload  : []});
+                    dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
+                    dispatch({type : SET_SERACH_LIST,    payload  : []});
+                    dispatch({type : SET_SEARCH_CALL,    payload  : false});
                     navigation.navigate('CartComponent', { userId: userDetails.user_id });
                   }} >
                  {/* <Icon name="shopping-cart" type="feather" size={25} color={index === 2 ? colors.footerText :colors.theme}  /> */}
                  
-                 <Image source={require("../../AppDesigns/currentApp/images/cart.png")} style={{height:25,width:25}} />
+                 <Image source={require("../../AppDesigns/currentApp/images/cart.png")} style={{height:hp(3.5),width:hp(3.5)}} />
                  <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
                 {
                   cartCount > 0 ?
@@ -133,14 +145,27 @@ export const Footer =(props)=>{
               
             </View>
             {<View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() =>{dispatch(getWishList(userDetails.user_id));navigation.navigate(userDetails.authService!=="guest" ? 'WishlistComponent' :"Auth")}}>
-                <Icon name={index === 3 ? "heart":"heart-outline"} type="material-community" size={20} color={index === 3 ? colors.footerText :colors.theme}  />
+              <TouchableOpacity onPress={() =>{
+                dispatch({type : SET_SUGGETION_LIST, payload  : []});
+                dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
+                dispatch({type : SET_SERACH_LIST,    payload  : []});
+                dispatch({type : SET_SEARCH_CALL,    payload  : false});
+                dispatch(getWishList(userDetails.user_id));
+                navigation.navigate(userDetails.authService!=="guest" ? 'WishlistComponent' :"Auth")
+                }}>
+                <Icon name={index === 3 ? "heart":"heart-outline"} type="material-community" size={RFPercentage(3)} color={index === 3 ? colors.footerText :colors.theme}  />
                 <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Wishlist</Text>
               </TouchableOpacity>
             </View>}
              <View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() => {navigation.navigate('InAppNotification')}} >
-                <Icon name={index === 4 ? "bell":"bell-outline"} type="material-community" size={20} color={index === 4 ? colors.footerText :colors.theme}  />
+              <TouchableOpacity onPress={() => {
+                 dispatch({type : SET_SUGGETION_LIST, payload  : []});
+                 dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
+                 dispatch({type : SET_SERACH_LIST,    payload  : []});
+                 dispatch({type : SET_SEARCH_CALL,    payload  : false});
+                  navigation.navigate('InAppNotification');
+                  }} >
+                <Icon name={index === 4 ? "bell":"bell-outline"} type="material-community" size={RFPercentage(3)} color={index === 4 ? colors.footerText :colors.theme}  />
                 <Text  style={[styles.footerTitle,{color:index === 4 ? colors.footerText :colors.theme}]}>Notification</Text>
                 {inAppNotificationsCount >0 &&<Text style={styles.notificationText}>{inAppNotificationsCount}</Text>}
               </TouchableOpacity>

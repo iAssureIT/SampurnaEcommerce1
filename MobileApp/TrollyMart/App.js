@@ -15,14 +15,22 @@ import {fcmService} from './src/FCMService';
 import {REACT_APP_BASE_URL} from '@env'
 import GeneralStatusBarColor from './GeneralStatusBarColor.js';
 import { NetWorkError } from './NetWorkError';
-import { Alert } from "react-native";
+import { Alert,Text,TextInput } from "react-native";
 import crashlytics from '@react-native-firebase/crashlytics';
 import { enableScreens } from 'react-native-screens';
 import { Platform } from "react-native";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import { NetworkProvider } from './NetworkProvider';
+import { ExampleComponent } from './ExampleComponent';
 export const NetworkContext = React.createContext({ isConnected: true });
 
 console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);
 axios.defaults.baseURL = REACT_APP_BASE_URL;
+Text.defaultProps = Text.defaultProps || {};
+Text.defaultProps.allowFontScaling = false;
+TextInput.defaultProps = TextInput.defaultProps || {};
+TextInput.defaultProps.allowFontScaling = false;
 
  const App = (props) => {
     console.log("props",props);
@@ -89,10 +97,14 @@ axios.defaults.baseURL = REACT_APP_BASE_URL;
 
   return( 
     <Provider store={store} >
+      
       {Platform.OS ==='android'&&<GeneralStatusBarColor backgroundColor="#222222"
       barStyle="light-content" />}
+       <NetworkProvider>
+       <ExampleComponent/>
         <AuthLoadingScreen />
         <ToastProvider toast={toast} />
+      </NetworkProvider>  
     </Provider>  
   );
 }
@@ -102,7 +114,7 @@ const ToastProviderComponent = props => {
     <Snackbar
       visible={!!props.toast}
       style={{backgroundColor: props.toast?.color}}
-      duration={2000}
+      duration={1000}
       onDismiss={() => props.setToast(null)}
       >
       {props.toast?.text}

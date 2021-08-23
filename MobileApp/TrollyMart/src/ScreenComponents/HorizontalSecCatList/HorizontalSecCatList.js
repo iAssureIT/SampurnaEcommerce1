@@ -26,6 +26,7 @@ import { useNavigation }        from '@react-navigation/native';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import { connect,useDispatch,useSelector }      from 'react-redux';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const HorizontalSecCatList =(props)=>{
   const {user_id,navigation} =props;
@@ -64,7 +65,7 @@ export const HorizontalSecCatList =(props)=>{
 
   const _renderlist = ({ item, index })=>{
     return (
-      <TouchableOpacity  style={[styles.productContainer,{width:window.width-220,marginRight:20}]} 
+      <TouchableOpacity  style={[styles.productContainer,{width:wp(40),marginRight:wp(3)}]} 
           onPress={() =>{
               // navigation.navigate('SubCategoriesComp',{category_ID:item._id, categoryName:item.itemName})
               dispatch(getCategoryWiseList(item._id,user_id ? user_id : null,"lowestprice",props.section));
@@ -89,7 +90,7 @@ export const HorizontalSecCatList =(props)=>{
                   source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                   style={styles.subcatimg1}
                   imageStyle={{borderRadius:15}}
-                  resizeMode="cover"
+                  resizeMode="contain"
                 >
                  <View style={{height:25,backgroundColor:'rgba(0, 0, 0, 0.6)',borderBottomLeftRadius:15,borderBottomRightRadius:15,justifyContent:'center'}}>
                     <Text numberOfLines={2} style={styles.nameprod}>{item.itemName}</Text>

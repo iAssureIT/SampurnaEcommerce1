@@ -23,7 +23,8 @@ import CommonStyles       from '../../AppDesigns/currentApp/styles/CommonStyles.
 import {FormButton}       from '../../ScreenComponents/FormButton/FormButton';
 import ActionButton       from 'react-native-action-button';
 import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
-
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
   export const AddressDefaultComp = withCustomerToaster((props)=>{
     const {setToast,navigation,route} = props; 
@@ -199,7 +200,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                       )]}>
                     {disabled || item.distance<=1 ?
                       <TouchableOpacity onPress={() => {selectedaddress(i,item._id,item)}} >
-                        <View style={{height:24,backgroundColor:colors.cartButton,borderTopLeftRadius:7,borderTopRightRadius:7,flexDirection:"row",justifyContent:'space-between',alignItems:'center',borderWidth:0,borderColor:colors.cartButton}}>
+                        <View style={{height:hp(3),backgroundColor:colors.cartButton,borderTopLeftRadius:7,borderTopRightRadius:7,flexDirection:"row",justifyContent:'space-between',alignItems:'center',borderWidth:0,borderColor:colors.cartButton}}>
                             {/* <Icon name="home" type="material-community" size={10} iconStyle={{elevation:5}} color={colors.white}/> */}
                             {/* <Image
                               resizeMode="contain"
@@ -213,7 +214,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                                 <Image
                                   resizeMode="contain"
                                   source={require("../../AppDesigns/currentApp/images/edit_white.png")}
-                                  style={{height:15,width:15,marginLeft:15,opacity:0.6}}
+                                  style={{height:hp(1.8),width:hp(1.8),marginLeft:15,opacity:0.6}}
                                   />
                               </TouchableOpacity>                            
                             }
@@ -237,7 +238,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                       </TouchableOpacity>
                       :
                       <View style={{borderRadius:9}} >
-                         <View style={{height:24,backgroundColor:"#B7B7B7",flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15}}>
+                         <View style={{height:hp(3),backgroundColor:"#B7B7B7",flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15}}>
                           {/* <Image
                               resizeMode="contain"
                               source={require("../../AppDesigns/currentApp/images/home_gray.png")}
@@ -248,7 +249,7 @@ import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSug
                                 <Image
                                   resizeMode="contain"
                                   source={require("../../AppDesigns/currentApp/images/editNEW.png")}
-                                  style={{height:15,width:15,marginLeft:15}}
+                                  style={{height:hp(1.8),width:hp(1.8),marginLeft:15}}
                                   />
                               </TouchableOpacity>
 

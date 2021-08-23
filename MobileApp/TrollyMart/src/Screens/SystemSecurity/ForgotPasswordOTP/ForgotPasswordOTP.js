@@ -144,8 +144,8 @@ const FormBody = (props) => {
             // clearInputs={isEmptyString(values.otp)}  
             />
            <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
-           <View style={{marginHorizontal:10}}>
-             <Text style={styles.otpLastText}>Didn't receive code?<Text onPress={handleResend} style={styles.otpLastText1}> Request again!</Text></Text>
+           <View style={{marginHorizontal:10}}  onPress={handleResend}>
+             <Text style={styles.otpLastText}>Didn't receive code?<Text style={styles.otpLastText1}> Request again!</Text></Text>
            </View>
             {/* <View style={{flexDirection:"row",justifyContent:"space-between"}}>
               <View style={{width:"45%"}}>

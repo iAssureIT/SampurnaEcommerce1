@@ -1,5 +1,7 @@
 import { StyleSheet, Dimensions,Platform } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import {colors} from '../styles.js';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -49,7 +51,7 @@ export default StyleSheet.create({
   //   borderTopColor:'#f1f1f1',
   // },
   prodinfo:{
-    fontSize:14,
+    fontSize:RFPercentage(2.2),
     fontFamily:"Montserrat-Medium",
     color:'#000',
     paddingRight:5
@@ -148,7 +150,7 @@ export default StyleSheet.create({
     alignItems:"flex-end",
   },
   orderidinfo:{
-    fontSize:14,
+    fontSize:RFPercentage(2.2),
     fontFamily:"Montserrat-Regular",
     color: "#000000"
   },
@@ -278,7 +280,7 @@ export default StyleSheet.create({
     color:'#c10000',marginRight:10
   },
   img15:{
-    width: 60,height:60,
+    width: hp(6),height:hp(6),
     resizeMode:'contain',
     
   },
@@ -455,45 +457,45 @@ export default StyleSheet.create({
     flex:1,flexDirection:"row"
   },
   totaldata:{
-    fontSize:14,fontFamily:"Montserrat-Regular", color:'#000000',opacity: 0.4
+    fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Regular", color:'#000000',opacity: 0.4
   },
   creditPoints:{
-    fontSize:14,fontFamily:"Montserrat-Regular", color:'#000000',opacity: 0.8
+    fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Regular", color:'#000000',opacity: 0.8
   },
   totalAmount:{
-    fontSize:15,fontFamily:"Montserrat-SemiBold", color:'#000000',fontWeight:'600'
+    fontSize:RFPercentage(2.3),fontFamily:"Montserrat-SemiBold", color:'#000000',fontWeight:'600'
   },
   totalAmountG:{
-    fontSize:18,fontFamily:"Montserrat-Bold", color:'#000000',fontWeight:'900'
+    fontSize:RFPercentage(2.5),fontFamily:"Montserrat-Bold", color:'#000000',fontWeight:'900'
   },
   totalpriceincart:{
-    fontSize:15,
+    fontSize:RFPercentage(2.3),
     fontFamily:"Montserrat-Medium",
     color:'#000',
   },
   ogpriceModal1: {
-		fontSize: 12, fontFamily: "Montserrat-Bold",color: '#000',marginLeft:5, alignItems: 'center',
+		fontSize: RFPercentage(1.8), fontFamily: "Montserrat-Bold",color: '#000',marginLeft:5, alignItems: 'center',
   },
   ogpriceModal: {
-		fontSize: 12, fontFamily: "Montserrat-Bold",color: '#000', alignItems: 'center',
+		fontSize: RFPercentage(1.8), fontFamily: "Montserrat-Bold",color: '#000', alignItems: 'center',
   },
   ogprice: {
-		fontSize: 16, fontFamily: "Montserrat-SemiBold",  color: '#333', alignItems: 'center',
+		fontSize: RFPercentage(2.5), fontFamily: "Montserrat-SemiBold",  color: '#333', alignItems: 'center',
   },
   ogpriceC: {
-		fontSize: 16, fontFamily: "Montserrat-Regular",  color: '#333', alignItems: 'center',
+		fontSize: RFPercentage(2.5), fontFamily: "Montserrat-Regular",  color: '#333', alignItems: 'center',
   },
   ogpriceG1: {
-		fontSize: 16, fontFamily: "Montserrat-SemiBold", color: '#4BA266', alignItems: 'center',
+		fontSize: RFPercentage(2.5), fontFamily: "Montserrat-SemiBold", color: '#4BA266', alignItems: 'center',
   },
   ogpriceR: {
-		fontSize: 16, fontFamily: "Montserrat-SemiBold", color: '#EF9A9A', alignItems: 'center',
+		fontSize: RFPercentage(2.5), fontFamily: "Montserrat-SemiBold", color: '#EF9A9A', alignItems: 'center',
   },
   ogpriceG: {
-		fontSize: 18, fontFamily: "Montserrat-SemiBold", color: '#000000', alignItems: 'center',opacity:0.4
+		fontSize: RFPercentage(2.6), fontFamily: "Montserrat-SemiBold", color: '#000000', alignItems: 'center',opacity:0.4
 	},
   	discountpricecut: {
-		fontSize: 12, fontFamily: "Montserrat-SemiBold",
+		fontSize: RFPercentage(1.8), fontFamily: "Montserrat-SemiBold",
 		textDecorationLine: 'line-through',
 	},
   cancelButton:{
@@ -688,13 +690,13 @@ export default StyleSheet.create({
     color: "#000000",
     opacity: 1,
     fontFamily:"Montserrat-SemiBold",
-    fontSize:16,
+    fontSize:RFPercentage(2.4),
     marginLeft:5
   },
   button:{
     width:'100%',
     backgroundColor: colors.white,
-    height: 30,
+    height: hp(4),
     alignSelf: 'center',
     justifyContent: 'center',
     borderRadius:5,
@@ -716,11 +718,11 @@ export default StyleSheet.create({
   buttonText:{
     color: colors.cartButton,
     fontFamily:"Montserrat-Regular",
-    fontSize:13,
+    fontSize:RFPercentage(2),
   }, 
   statusLabel:{
     color:"#fff",
-    fontSize:11,
+    fontSize:RFPercentage(1.5),
     // paddingHorizontal:10,
     fontFamily:'Montserrat-SemiBold',
     alignSelf:'center'

@@ -96,6 +96,7 @@ export const getCategoryWiseList = (payload) => {
             type: SET_LOADING,
             payload: true,
         });
+       
         const store = getState();
         payload.user_id         = store.userDetails.user_id;
         payload.userLatitude    = store.location?.address?.latlong?.lat;

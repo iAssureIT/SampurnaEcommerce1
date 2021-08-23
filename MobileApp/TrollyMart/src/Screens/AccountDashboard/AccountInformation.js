@@ -319,7 +319,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                               ref={phoneInput}
                               defaultValue={values.mobileNumber}
                               defaultCode={values.countryCode}
-                              layout="first"
+                              layout="second"
                               onChangeText={(text) => {
                                 console.log("text",text);
                                 const checkValid = phoneInput.current?.isValidNumber(text);

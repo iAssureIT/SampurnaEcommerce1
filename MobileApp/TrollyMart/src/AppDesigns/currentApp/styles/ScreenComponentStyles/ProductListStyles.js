@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { colors } from '../styles.js';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 export default StyleSheet.create({
 	regionalProductName:{
@@ -142,8 +143,7 @@ export default StyleSheet.create({
 		padding: 3,
 	},
 	productContainer: {
-		// height :350,
-		width:wp(42.5),
+		width:"42.5%",
 		// paddingVertical:5,
 		backgroundColor:"#fff",
 		marginBottom:15,
@@ -160,7 +160,7 @@ export default StyleSheet.create({
 		// backgroundColor:"#ff0"
 	},
 	nameprod: {
-		fontSize: 12, fontFamily: "Montserrat-SemiBold", color: '#000'
+		fontSize: RFPercentage(1.8), fontFamily: "Montserrat-SemiBold", color: '#000'
 	},
 	urlprod: {
 		flex: 1, fontSize: 13, flexWrap: "wrap", fontFamily: "Montserrat-Regular", color: '#666', paddingVertical: 5
@@ -388,7 +388,7 @@ export default StyleSheet.create({
 		fontSize: 20, fontFamily: "Montserrat-Regular",
 	},
 	featurelist: {
-		flex: 1, marginTop: 5, paddingLeft: 5, fontSize: 12, fontFamily: "Montserrat-Regular",
+		flex: 1, marginTop: 5, paddingLeft: 5, fontSize : RFPercentage(1.8), fontFamily: "Montserrat-Regular",
 	},
 	catnsubcatvw: {
 		borderWidth: 1, borderRadius: 5, borderColor: '#f1f1f1', backgroundColor: "#ccc", flexDirection: 'row', width: 160, marginBottom: 30, marginTop: 15
@@ -403,7 +403,7 @@ export default StyleSheet.create({
 		fontSize: 13, fontFamily: "Montserrat-SemiBold", marginBottom: 10, marginTop: 10
 	},
 	productDetails: {
-		fontSize: 12, fontFamily: "Montserrat-Regular",
+		fontSize : RFPercentage(1.8), fontFamily: "Montserrat-Regular",
 	},
 	mgtp3: {
 		marginTop: 3
@@ -439,20 +439,20 @@ export default StyleSheet.create({
 		flexDirection: 'row', marginRight: 10
 	},
 	originalprice: {
-		textDecorationLine: 'line-through', fontSize: 12, fontFamily: "Montserrat-Regular",
+		textDecorationLine: 'line-through', fontSize : RFPercentage(1.8), fontFamily: "Montserrat-Regular",
 	},
 	disprice:{
 		fontSize: 14, fontFamily: "Montserrat-SemiBold", marginHorizontal: 5, color: '#ccc', alignItems: 'center',
 	},
 	ogprice: {
-		fontSize: 12, fontFamily: "Montserrat-Bold", color: '#000',
+		fontSize : RFPercentage(1.8), fontFamily: "Montserrat-Bold", color: '#000',
 	},
 	ogpriceC: {
-		fontSize: 12, fontFamily: "Montserrat-Bold", color: '#aaa',
+		fontSize: RFPercentage(1.8), fontFamily: "Montserrat-Bold", color: '#aaa',
 	},
 	
 	discountpricecut: {
-		fontSize: 12, fontFamily: "Montserrat-Bold",
+		fontSize : RFPercentage(1.8), fontFamily: "Montserrat-Bold",
 		textDecorationLine: 'line-through',
 		textDecorationColor: '#EF4D4D',
 		color:'#ccc',
@@ -460,13 +460,13 @@ export default StyleSheet.create({
 	},
 
 	packofnos: {
-		fontSize: 12, 
+		fontSize : RFPercentage(1.8), 
 		fontFamily: "Montserrat-SemiBold", 
 		marginLeft: 2, color: '#666', 
 		alignItems: 'center',
 	},
 	disprice: {
-		fontSize: 12, fontFamily: "Montserrat-SemiBold", color: '#000', marginLeft: 5
+		fontSize : RFPercentage(1.8), fontFamily: "Montserrat-SemiBold", color: '#000', marginLeft: 5
 	},
 	subimg: {
 		backgroundColor: "#fff",

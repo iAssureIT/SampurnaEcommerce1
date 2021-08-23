@@ -4,6 +4,12 @@ import {
     WISH_LIST,
     SET_LOADING
 } from './types';
+import {
+    STOP_SCROLL 
+} from '../productList/types';
+import {
+    STOP_SCROLL_SEARCH 
+} from '../globalSearch/types';
 import {Dispatch} from 'redux';
 import axios from 'axios';
 import {withCustomerToaster}  from '../../redux/AppState.js';
@@ -12,6 +18,14 @@ export const getWishList= (user_id) => {
     return async (dispatch, getState) => {
     dispatch({
         type: SET_LOADING,
+        payload: true,
+    });
+    dispatch({
+        type: STOP_SCROLL,
+        payload: true,
+    });
+    dispatch({
+        type: STOP_SCROLL_SEARCH,
         payload: true,
     });
     const store = getState();

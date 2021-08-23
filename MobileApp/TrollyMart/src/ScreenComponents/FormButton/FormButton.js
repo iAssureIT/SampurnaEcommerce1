@@ -2,6 +2,8 @@ import React  from 'react';
 import {StyleSheet}       from 'react-native';
 import {Button}           from 'react-native-elements';
 import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 export const FormButton = props => {
   const {title,background,...rest} = props;
   return (
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle:{
     backgroundColor:"#033554",
-    height:35,
+    height:hp(5.5),
     borderRadius: 8,
     // backgroundColor:colors.theme,
     // borderBottomRightRadius:0
@@ -41,18 +43,18 @@ const styles = StyleSheet.create({
     borderRadius:4,
   },
   titleStyle:{
-    fontSize:14,
+    fontSize:RFPercentage(2.2),
     color:colors.white,
     opacity: 1,
     fontFamily:"Montserrat-Regular",
   },
   titleStyle1:{
-    fontSize:18,
+    fontSize:RFPercentage(2.8),
     color:colors.theme,
     fontFamily:"Montserrat-Regular",
   },
   titleStyle2:{
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     fontFamily:"Montserrat-Regular",
     color:colors.white
   }

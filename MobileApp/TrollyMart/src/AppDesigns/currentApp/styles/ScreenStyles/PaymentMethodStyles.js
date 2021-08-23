@@ -1,5 +1,8 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
 import {colors} from '../styles.js';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -16,7 +19,7 @@ export default StyleSheet.create({
   parent: {
     backgroundColor: '#fff', 
     // marginBottom: "15%",
-    minHeight: 750,
+    // minHeight: 750,
   },
   width160: {
     width: 160
@@ -28,7 +31,7 @@ export default StyleSheet.create({
     // borderBottomWidth: 1,
     // borderBottomColor: '#ccc',
     // paddingBottom:15,
-    paddingHorizontal:25,
+    paddingHorizontal:hp(5),
   },
   flx7:{
     flex:0.9
@@ -36,10 +39,10 @@ export default StyleSheet.create({
   flx3:{
     // flex:0.9,
     flexDirection:"row",
-    height:71,
-    paddingHorizontal:5,
+    height:hp(6),
+    paddingHorizontal:wp(1),
     backgroundColor:'#F9F9F9',
-    marginBottom:10,
+    marginBottom:hp(2),
     borderRadius:5,
     alignItems:'center',
     elevation:4
@@ -70,13 +73,13 @@ export default StyleSheet.create({
     fontSize: 12, fontFamily: "Montserrat-SemiBold", color: '#333'
   },
   free: {
-    fontSize: 17, fontFamily: "Montserrat-SemiBold", color: '#000',marginLeft:30
+    fontSize: RFPercentage(2.5), fontFamily: "Montserrat-SemiBold", color: '#000',marginLeft:30
   },
   freeL2: {
-    fontSize: 12, fontFamily: "Montserrat-Regular", color: '#A6A6A6',marginLeft:30
+    fontSize: RFPercentage(1.8), fontFamily: "Montserrat-Regular", color: '#A6A6A6',marginLeft:30
   },
   radiobtn: {
-    fontSize: 14,padding:0,margin:0,flex: 1, 
+    fontSize: RFPercentage(2.2),padding:0,margin:0,flex: 1, 
   },
   prodname: {
     flex: 1, fontSize: 13, flexWrap: "wrap", fontFamily: "Montserrat-Regular", color: '#666', paddingVertical: 5
@@ -112,13 +115,13 @@ export default StyleSheet.create({
     marginBottom: '10%',
     alignItems:"center",
      marginTop: 15,
-     height:250,
+     height:hp(30),
     //  backgroundColor:'red',
     justifyContent:'center'
   },
   imgwdht:{
-    width: 425,
-    height: 250,
+    width: wp(40),
+    height: hp(30),
     resizeMode:'contain',
   },
   totaldata: {
@@ -200,13 +203,13 @@ export default StyleSheet.create({
 
   },
   iconImg:{
-    height:27,
-    width:17,
+    height:hp(5),
+    width:wp(5),
     resizeMode:'cover'
   },
   iconImgCash:{
-    height:35,
-    width:24,
+    height:hp(7),
+    width:wp(7),
     resizeMode:'cover'
   },
   buttonContainer1: {
@@ -226,19 +229,19 @@ export default StyleSheet.create({
   },
 
   label:{
-    color:"#F9F9F9",fontFamily:"Montserrat-Regular",fontSize:18,opacity:0.7
+    color:"#F9F9F9",fontFamily:"Montserrat-Regular",fontSize:RFPercentage(2.3),opacity:0.7
   },
   label1:{
-    color:"#F9F9F9",fontFamily:"Montserrat-Regular",fontSize:18
+    color:"#F9F9F9",fontFamily:"Montserrat-Regular",fontSize:RFPercentage(2.3)
   },
   text:{
-    color:"#F9F9F9",fontFamily:"Montserrat-SemiBold",fontSize:18
+    color:"#F9F9F9",fontFamily:"Montserrat-SemiBold",fontSize:RFPercentage(2.5)
   },
   label2:{
-    fontFamily:"Montserrat-Medium",color: "#000000",fontSize:16
+    fontFamily:"Montserrat-Medium",color: "#000000",fontSize:RFPercentage(2.2)
   },
   label3:{
-    fontFamily:"Montserrat-Bold",color: "#000000",fontSize:16
+    fontFamily:"Montserrat-Bold",color: "#000000",fontSize:RFPercentage(2.2)
   }
 
 })

@@ -1,7 +1,8 @@
 import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from '../styles.js';
 const window = Dimensions.get('window');
-
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 export default StyleSheet.create({
   
   button2:{
@@ -35,12 +36,6 @@ export default StyleSheet.create({
     height: 45,
     width:"100%",
   },
-  buttonText1:{
-    color: colors.buttonText,
-    fontFamily:"Montserrat-Regular",
-    textTransform: 'uppercase',
-    fontSize:13
-  },
   cartdetails:{
     flex:1,
     // paddingHorizontal:15,
@@ -61,7 +56,7 @@ superparent:{
     flex:0.25,paddingHorizontal:5
   },
   imgwdht:{
-    width: 80, height:80,
+    width: hp(10), height:hp(10),
   },
   cartlogoimg:{
      width:'70%',height:40,
@@ -76,12 +71,12 @@ superparent:{
     flex:0.3,marginTop:10
   },
   QText:{
-    fontSize:14,
+    fontSize:RFPercentage(2.2),
     fontFamily:"Montserrat-Medium",
     color:'#858585',
   },
   QNum:{
-    fontSize:14,
+    fontSize:RFPercentage(2.2),
     fontFamily:"Montserrat-Regular",
     color:'#000',
   },
@@ -92,7 +87,7 @@ superparent:{
     fontSize:13,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap'
   },
   productname1:{
-    fontSize:14,fontFamily:"Montserrat-Medium",flexWrap:'wrap',color:'#000',
+    fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Medium",flexWrap:'wrap',color:'#000',
   },
   tomorroworder:{
     fontSize:13,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap',marginTop:10,
@@ -174,13 +169,13 @@ superparent:{
     fontSize:12,fontFamily:"Montserrat-Regular", color:'#666'
   },
   totaldata1:{
-    fontSize:14,fontFamily:"Montserrat-Bold", color:'#000'
+    fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Bold", color:'#000'
   },
   totaldata1G:{
-    fontSize:16,fontFamily:"Montserrat-Bold", color:'#000'
+    fontSize:RFPercentage(2.4),fontFamily:"Montserrat-Bold", color:'#000'
   },
   totaldata:{
-    fontSize:15,fontFamily:"Montserrat-Medium", color:'#000'
+    fontSize:RFPercentage(2),fontFamily:"Montserrat-Medium", color:'#000'
   },
   totalsubtxt:{
     fontSize:13,fontFamily:"Montserrat-Regular", color:'#999',
@@ -371,7 +366,7 @@ superparent:{
     flexDirection:'row',paddingHorizontal:2,paddingVertical:2,
   },
   orderaddchkbx:{
-    flexDirection:'row',paddingHorizontal:2,paddingVertical:2,
+    flexDirection:'row',alignItems:'center'
   },
   chkbox:{
     fontSize:15,fontFamily:"Montserrat-Regular",color:'#666'
@@ -380,23 +375,22 @@ superparent:{
     flexDirection:'row'
   },
   blueDot:{
-    height:6,
-    width:6,
+    height:hp(1),
+    width:hp(1),
     borderRadius:50,
     // flex:0.2,
     backgroundColor:'#033554',
   },
   addname:{
-    fontSize:15,
+    fontSize:RFPercentage(2.5),
     fontFamily:"Montserrat-Medium",
-    marginTop:10,
     // flex:0.7,
     // alignItems:"flex-start",
     color:"#000000",
     opacity: 1
   },
   address:{
-    fontSize:15,
+    fontSize:RFPercentage(2.2),
     fontFamily:"Montserrat-Medium",
     color:'#9B9B9B',
     // opacity: 0.5
@@ -464,15 +458,8 @@ superparent:{
     },
     button1:{
       backgroundColor: colors.button1,
-      height: 45,
+      height: hp(7),
       width:"100%",
-    },
-    buttonText1:{
-      color: colors.buttonText,
-      fontFamily:"Montserrat-Regular",
-      textTransform: 'uppercase',
-      fontSize:13
-  
     },
     buttonContainer1:{
       width:'100%',
@@ -637,8 +624,8 @@ superparent:{
     ddStyle:{
       fontFamily:"Montserrat-Regular",
       backgroundColor:"#fff",
-      height:23,
-      width:115,
+      height:hp(2.5),
+      width:wp(35),
       fontSize:10,
       borderWidth:1,
       borderColor:'#707070',
@@ -709,18 +696,26 @@ superparent:{
       color: colors.buttonText,
       fontFamily:"Montserrat-Regular",
       textTransform: 'uppercase',
-      fontSize:13,    
+      fontSize:RFPercentage(2.3)    
       // borderColor:'#c10000',
   
     },
     buttonRED:{
       backgroundColor: colors.buttonRED,
-      height: 45,
+      height: hp(7),
       width:"100%",
     },
     buttonContainer2:{
-      height: 45,
-      width:"100%",
+      ...Platform.select({
+        ios:{
+          justifyContent:'center',
+      
+        },
+        android : {
+          alignItems:'center',
+          
+        }
+      })
     },
     containerStyle:{
       borderWidth:1,
@@ -730,7 +725,7 @@ superparent:{
       // marginVertical:5,
       borderColor:"#ccc",
       paddingHorizontal: 0,
-      height:45,
+      height:hp(6.5),
     },
     radiobtn:{
       // alignItems:'center',
@@ -738,50 +733,50 @@ superparent:{
       marginLeft:-1,
     },
     priceIteam:{
-      fontSize: 16, fontFamily:"Montserrat-SemiBold", color: '#000000'
+      fontSize: RFPercentage(2.4), fontFamily:"Montserrat-SemiBold", color: '#000000'
     },
     priceIteamG:{
-      fontSize: 16, fontFamily:"Montserrat-SemiBold", color: '#3E9D5E'
+      fontSize: RFPercentage(2.4), fontFamily:"Montserrat-SemiBold", color: '#3E9D5E'
     },
     currency:{
       fontSize: 20, fontFamily: "Montserrat-Medium", color: '#000'
     },
     currency1:{
-      fontSize: 14, fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
+      fontSize: RFPercentage(2), fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
     },
     currency1Iteam:{
-      fontSize: 16, fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
+      fontSize: RFPercentage(2.4), fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
     },
     currency1G:{
-      fontSize: 16, fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
+      fontSize: RFPercentage(2.4), fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
     },
     totalpriceincartTotal:{
-      fontSize:14,
+      fontSize:RFPercentage(2.2),
       fontFamily:"Montserrat-SemiBold", 
       color:'#000000',
     },
 
     totalpriceincartTotalR:{
-      fontSize:13,
+      fontSize:RFPercentage(2.1),
       fontFamily:"Montserrat-Bold", 
       opacity: 0.7,
       color:'#EF9A9A'
     },
 
     totalpriceincartTotalGT:{
-      fontSize:16,
+      fontSize:RFPercentage(2.2),
       fontFamily:"Montserrat-Bold", 
       color:'#000000',
     },
   
     totalpriceincartTotalG:{
-      fontSize:15,
+      fontSize:RFPercentage(2.3),
       fontFamily:"Montserrat-SemiBold", 
       color:'#3E9D5E',
     },
 
     vendorTotalText:{
-      fontSize:15,
+      fontSize:RFPercentage(2.2),
       fontFamily:"Montserrat-SemiBold", 
       color:'#000000',
       marginRight:15
@@ -789,7 +784,7 @@ superparent:{
 
     free:{
       marginTop:-8,
-      fontSize:13,
+      fontSize:RFPercentage(1.9),
       fontFamily:"Montserrat-Regular",
       color:'#000'
     },

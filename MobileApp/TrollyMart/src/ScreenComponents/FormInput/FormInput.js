@@ -5,6 +5,8 @@ import {
   Text,
   
 } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 export const FormInput = props => {
   const {errors, touched, name} = props;
   return (
@@ -21,6 +23,7 @@ export const FormInput = props => {
       }
       leftIcon={props.iconName ?<Icon name={props.iconName} size={20} color="black" type={props.iconType} /> : null}
       {...props}
+      // containerStyle={{height:500}}
       inputContainerStyle= {styles.containerStyle}
       // leftIconContainerStyle={styles.leftIconContainerStyle}
       errorStyle={{ color: 'red' ,margin:0}}
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
   containerStyle:{
     // borderWidth:1,
     borderRadius:5,
-    height:25,
+    height:hp(4),
     // marginBottom:20,
     // marginVertical:5,
     borderColor:"#ccc",

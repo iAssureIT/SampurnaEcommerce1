@@ -38,12 +38,15 @@ import { RNS3 }                 		from 'react-native-aws3';
 import HTML from 'react-native-render-html';
 import { NetWorkError } from '../../../NetWorkError.js';
 import {Picker} from '@react-native-picker/picker';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+
 const WATER_IMAGE = require("../../AppDesigns/currentApp/images/star.png")
 const window = Dimensions.get('window');
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
   const customStyles = {
-    stepIndicatorSize                 : 25,
-    currentStepIndicatorSize          : 25,
+    stepIndicatorSize                 : hp(4),
+    currentStepIndicatorSize          : hp(4),
     separatorStrokeWidth              : 2,
     currentStepStrokeWidth            : 3,
     stepStrokeCurrentColor            : colors.warning,
@@ -55,13 +58,13 @@ const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
     stepIndicatorFinishedColor        : colors.success,
     stepIndicatorUnFinishedColor      : '#aaaaaa',
     stepIndicatorCurrentColor         : colors.warning,
-    stepIndicatorLabelFontSize        : 13,
-    currentStepIndicatorLabelFontSize : 13,
+    stepIndicatorLabelFontSize        : RFPercentage(2.1),
+    currentStepIndicatorLabelFontSize : RFPercentage(2.1),
     stepIndicatorLabelCurrentColor    : '#ffffff',
     stepIndicatorLabelFinishedColor   : '#ffffff',
     stepIndicatorLabelUnFinishedColor : '#ffffff',
     labelColor                        : '#999999',
-    labelSize                         : 13,
+    labelSize                         : RFPercentage(2.1),
     currentStepLabelColor             : colors.warning,
   }
 export const OrderDetails = withCustomerToaster((props)=>{
@@ -94,16 +97,17 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [imageLoading,setImageLoading] = useState(false);
   const [modalTerms,setTermsModal] = useState(false);
   const [pageBlockes,setPageBlocks]       = useState([]);
-  const [tooltipSize, setTooltipSize] = useState({ w: 200, h: 200 })
+  const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
   const ref = useRef()
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     userDetails     : store.userDetails,
     globalSearch    : store.globalSearch,
-    s3Details       : store.s3Details.data
+    s3Details       : store.s3Details.data,
+    isConnected     : store?.netWork?.isConnected,
   }));
   const {currency}=store.preferences;
-  const {globalSearch,s3Details}=store;
+  const {globalSearch,s3Details,isConnected}=store;
 
   useEffect(() => {
   
@@ -129,7 +133,13 @@ export const OrderDetails = withCustomerToaster((props)=>{
     getSingleOrder(orderid);
     getReasons_func();
     getTerms();
-}, [props,isFocused]);
+    if(isConnected){
+      setModal(false);
+      setReturnModal(false)
+      setTermsModal(false)
+    }
+    console.log("isConnectedisConnectedisConnected",isConnected);
+}, [props,isFocused,store.isConnected]);
 
 
 useEffect(() => {
@@ -292,12 +302,16 @@ const cancelorderbtn = (id,vendor_id) => {
       axios.patch ('/api/customerReview/patch/customer/review',formValues)
       .then(res=>{
         console.log("res",res)
+        if(res.data.messageCode){
+          setToast({text: res.data.message, color: 'green'});
+        }else{
+          setToast({text: res.data.message, color: colors.warning});
+        }
         setModal(false);
         setVendorDetails();
         setProductIndex('');
         setReview('')
         setRating(5);
-        setToast({text: res.data.message, color: 'green'});
         getSingleOrder(orderid)
       })
       .catch(err=>{
@@ -493,22 +507,25 @@ const cancelorderbtn = (id,vendor_id) => {
 
   const tooltipClone = React.cloneElement(
     <View style={{width:"100%"}}>
-      <Icon name="close" type="material-community" color="#fff" iconStyle={{alignSelf:"flex-end"}}/>
-    { order.vendorOrders && order.vendorOrders.length > 0&&
+      <Icon name="close" type="material-community" color="#fff" iconStyle={{alignSelf:"flex-end"}} size={RFPercentage(3)}/>
+      { order.vendorOrders && order.vendorOrders.length > 0&&
     order.vendorOrders.map((vendor, i) => {
         return (
           <View style={{paddingVertical:5}}>
               <Text style={[CommonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
               <View style={{flexDirection:"row",justifyContent:'space-between'}}>
                 <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text></View>
-                {/* <View style={{flex:.1}}><Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text></View> */}
+                <View style={{flex:.1}}>{
+                  vendor.vendor_shippingChargesAfterDiscount !== vendor.vendor_shippingCharges &&
+                    <Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text>
+                }</View>
                 <View style={{flex:.2}}><Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingChargesAfterDiscount} {currency}</Text></View>
               </View>  
           </View> 
         )
     })  
     }
-    <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
+     <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
       <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Total Delivey Charges :</Text></View>
       {/* <View style={{flex:.1}}><Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{order?.paymentDetails?.shippingChargesBeforeDiscount}</Text></View> */}
       <View style={{flex:.2}}><Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{order?.paymentDetails?.shippingCharges} {currency}</Text></View>
@@ -520,7 +537,10 @@ const cancelorderbtn = (id,vendor_id) => {
     console.log("vendorDetails",vendorDetails);
     return (
       <React.Fragment>
-      {loading?
+      {!isConnected?
+        <NetWorkError/>
+        :
+      loading?
         <Loading/>
         :
         globalSearch.search ?
@@ -545,12 +565,12 @@ const cancelorderbtn = (id,vendor_id) => {
                         </View>
                     </View> 
                     <View style={{flexDirection:"row",marginTop:5,justifyContent:'space-between'}}>
-                        <View style={[{flex:0.44}]}>
+                        <View style={[{flex:store.userDetails.authService === "guest" ? 1 :0.44}]}>
                           <Text numberOfLines={2} style={styles.totaldata}>Address: {order.deliveryAddress.addressLine1+", "+order.deliveryAddress.addressLine2}</Text>
                         </View>
-                        <View style={[{flex:0.54,alignItems:'flex-end'}]}>
+                        {store.userDetails.authService !== "guest"&&<View style={[{flex:0.54,alignItems:'flex-end'}]}>
                           <Text numberOfLines={2} style={[styles.totaldata,{color: "#000000",opacity: 1}]}>Credit points earned &nbsp;{order.paymentDetails.creditPointsEarned}</Text>
-                        </View>
+                        </View>}
                         {/* {positionOrder === 3  &&
                         <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>
                           <View style={[styles.vendorStatus,
@@ -611,7 +631,6 @@ const cancelorderbtn = (id,vendor_id) => {
                         var postion1 = labels.indexOf(vendorStatus)+1;
                       }
                       
-                      
                       return(
                       <View style={styles.prodinfoparent1}>
                         <View style={{flexDirection:'row',marginBottom:5}}>
@@ -642,10 +661,10 @@ const cancelorderbtn = (id,vendor_id) => {
                               <View style={styles.orderstatus}>
                                 <StepIndicator
                                   customStyles={customStyles}
-                                  labelTextStyle={{fontSize:13,fontFamily:"Montserrat-Regular",}}
+                                  labelTextStyle={{fontSize:RFPercentage(2.1),fontFamily:"Montserrat-Regular",}}
                                   currentPosition={postion1}
                                   labels={labels}
-                                  labelStyle={{fontSize:13,fontFamily:"Montserrat-Regular",}}
+                                  labelStyle={{fontSize:RFPercentage(2.1),fontFamily:"Montserrat-Regular",}}
                                   stepCount={4}
                                 />
                               </View>
@@ -673,9 +692,9 @@ const cancelorderbtn = (id,vendor_id) => {
                               }
                               </View>
                               <View style={{flex:0.4,paddingHorizontal:5}}>
-                                <Text style={[styles.prodinfo,{fontSize:12,textTransform:'capitalize'}]}>{pitem.brand}</Text>
+                                <Text style={[styles.prodinfo,{fontSize:RFPercentage(1.8),textTransform:'capitalize'}]}>{pitem.brand}</Text>
                                 <Text numberOfLines={2} style={styles.prodinfo}>{pitem.productName}</Text>
-                                <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:14,marginTop:7}}>
+                                <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:RFPercentage(2.2),marginTop:7}}>
                                     Quantity 
                                   <Text style={styles.prodinfo}>&nbsp;&nbsp; {pitem.quantity}</Text> 
                                 </Text>
@@ -845,13 +864,13 @@ const cancelorderbtn = (id,vendor_id) => {
                       <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
                       <Tooltip 
                         containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                        width={350} 
                         ref={ref}
+                        width={wp(95)} 
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
                         onRequestClose={() =>  tooltipRef.current.toggleTooltip()}
                         popover={tooltipClone}>
-                            <Icon name="information-outline" type={"material-community"} size={17} color={'#A6B7C2'} />
+                            <Icon name="information-outline" type={"material-community"} size={RFPercentage(2.6)} color={'#A6B7C2'} />
                         </Tooltip>
                     </View>  
                     </View>

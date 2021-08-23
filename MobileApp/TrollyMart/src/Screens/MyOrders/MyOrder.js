@@ -29,6 +29,9 @@ import openSocket           from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { NetWorkError } from '../../../NetWorkError.js';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+
 const window = Dimensions.get('window');
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
@@ -69,11 +72,12 @@ export const MyOrder = withCustomerToaster((props)=>{
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     userDetails     : store.userDetails,
-    globalSearch    : store.globalSearch
+    globalSearch    : store.globalSearch,
+    isConnected     : store?.netWork?.isConnected,
   }));
   const {currency}=store.preferences;
   const {user_id}=store.userDetails;
-  const {globalSearch}=store;
+  const {globalSearch,isConnected}=store;
   useEffect(() => {
     getorderlist();
     socket.on('getUserOrderList',(response)=>{
@@ -186,6 +190,9 @@ export const MyOrder = withCustomerToaster((props)=>{
     } else {
       return (
         <React.Fragment>
+          {!isConnected?
+          <NetWorkError/>
+          :
           <View style={styles.superparent}>
             {globalSearch.search ?
                 <SearchSuggetion />
@@ -217,7 +224,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                         <View style={[styles.prodinfoparent]}>
                           <View style={{paddingHorizontal:0}}>                            
                             <View style={{paddingHorizontal:20}}>
-                            <View style={{marginBottom:20}}><Text style={{fontSize:14,fontFamily:"Montserrat-Bold",color:order.orderStatus === "New" ? colors.cartButton : order.orderStatus === "Delivered" ? colors.success :colors.danger}}>{order.orderStatus}</Text></View>
+                            <View style={{marginBottom:20}}><Text style={{fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Bold",color:order.orderStatus === "New" ? colors.cartButton : order.orderStatus === "Delivered" ? colors.success :colors.danger}}>{order.orderStatus}</Text></View>
                               <View style={{flexDirection:'row'}}>
                                 <View style={[styles.orderid]}>
                                   <Text style={styles.orderidinfo}>Order ID : {order.orderID}</Text>
@@ -227,12 +234,12 @@ export const MyOrder = withCustomerToaster((props)=>{
                                 </View>
                             </View>                             
                             <View style={{flexDirection:"row",marginTop:5,justifyContent:'space-between'}}>
-                                <View style={[{flex:0.44}]}>
+                                <View style={[{flex:store.userDetails.authService === "guest" ? 1 :0.44}]}>
                                   <Text numberOfLines={2} style={styles.totaldata}>Address: {order.deliveryAddress.addressLine1+", "+order.deliveryAddress.addressLine2}</Text>
                                 </View>
-                                <View style={[{flex:0.54,alignItems:'flex-end'}]}>
+                                {store.userDetails.authService !== "guest"&&<View style={[{flex:0.54,alignItems:'flex-end'}]}>
                                   <Text numberOfLines={2} style={styles.totaldata}>Credit points earned&nbsp; {order.paymentDetails.creditPointsEarned}</Text>
-                                </View>
+                                </View>}
                                 {/* {positionOrder === 3  &&
                                 <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>
                                   <View style={[styles.vendorStatus,
@@ -292,7 +299,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                                           <Text style={styles.totalpriceincart}>No Of Products : {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
                                       </View>
                                       <View style={{flex:0.49,paddingHorizontal:15}}>
-                                      <View style={{alignSelf:'center',marginTop:12,justifyContent:'center',alignItems:'center',borderRadius:2,width:80,height:15,marginLeft:5,
+                                      <View style={{alignSelf:'center',marginTop:12,justifyContent:'center',alignItems:'center',borderRadius:2,width:wp(30),height:hp(2.2),marginLeft:5,
                                        backgroundColor: position === 0 ? 
                                         colors.info
                                         :
@@ -328,8 +335,8 @@ export const MyOrder = withCustomerToaster((props)=>{
                                   :
                                   <View style={styles.orderdetailsstatus}>
                                     {order.orderStatus && (order.orderStatus !== 'Cancelled' && order.orderStatus !== 'Delivered') &&
-                                    <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40}]}>
-                                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",fontSize:13,color:colors.danger,textDecorationLine:'underline'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('LT')}</Text>
+                                    <View style={[styles.orderdetailsstatus,{paddingRight:0,height:hp(3)}]}>
+                                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",fontSize:RFPercentage(2),color:colors.danger,textDecorationLine:'underline'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('LT')}</Text>
                                     </View>}
                                   </View>
                                   :
@@ -383,7 +390,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                 }
               </View>
             </ScrollView>}
-          </View>
+          </View>}
           <Modal isVisible={cancelOrderModal}
             onBackdropPress={() => setCancelOrderModal(false)}
             coverScreen={true}

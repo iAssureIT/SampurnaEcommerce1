@@ -7,14 +7,16 @@ import { View,
 import styles     from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/LoadingStyles.js';
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import ContentLoader, { Rect, Circle }  from 'react-content-loader/native';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const Loading = (props) => {
   if(props.type && props.loader && props.type=="HList"){
     return (
       <View style={[styles.container,{flexDirection:"row"}]}>
             <ContentLoader 
               speed={0.5}
-              width={400}
-              height={150}
+              width={wp(100)}
+              height={hp(20)}
               viewBox="0 0 400 150"
               // backgroundColor="#f3f3f  3"
               foregroundColor="#eee"

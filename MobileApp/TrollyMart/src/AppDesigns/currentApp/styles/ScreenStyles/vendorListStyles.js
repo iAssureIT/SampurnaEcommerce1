@@ -1,5 +1,7 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { colors } from '../styles.js';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 export default StyleSheet.create({
 	container:{
 		flex:1,
@@ -9,14 +11,14 @@ export default StyleSheet.create({
 	},
 	
 	logoBox:{
-		flex:0.2,
+		// flex:0.2,
 		position:"absolute",
 		justifyContent:'center',
 		alignItems:'center',
-		height:75,
+		height:wp(18),
 		// height:80,
 		// width:80,
-		left:-25,
+		left:wp(-6),
 	},
 	logoBox1:{
 		flex:0.2,
@@ -163,7 +165,7 @@ export default StyleSheet.create({
 		// minHeight:Dimensions.get('window').height,
 		flexDirection: 'row',
 		marginBottom:55,
-		paddingHorizontal:15,
+		paddingHorizontal:wp(2),
 		// backgroundColor:"#ff0"
 	},
 	nameprod: {
@@ -528,10 +530,10 @@ export default StyleSheet.create({
 	},
 
 	topText:{
-		fontSize:14,
+		fontSize:RFPercentage(2),
 		fontFamily: "Montserrat-Regular", 
 		color:'#fff',
-		
+		alignSelf:'center'
 	},
 	iconStyle:{
 		width:30,

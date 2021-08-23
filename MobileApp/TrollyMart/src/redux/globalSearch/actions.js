@@ -3,7 +3,7 @@ import {
     SET_LOADING,
     SET_SEARCH_TEXT,
     SET_SUGGETION_LIST,
-    STOP_SCROLL
+    STOP_SCROLL_SEARCH
 } from './types';
 
 import {dispatch} from 'redux';
@@ -24,11 +24,12 @@ export const getSearchResult = (searchText,user_id,limit,scroll) => {
             userLatitude      : store.location?.address?.latlong?.lat,
             userLongitude     : store.location?.address?.latlong?.lng
         }
+      
         axios.post("/api/products/get/search/website" ,payload)
         .then((response) => {
             if(response.data <= 10){
                 dispatch({
-                    type: STOP_SCROLL,
+                    type: STOP_SCROLL_SEARCH,
                     payload: true,
                 });
             }

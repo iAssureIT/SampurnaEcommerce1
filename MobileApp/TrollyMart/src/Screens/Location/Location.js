@@ -21,6 +21,8 @@ import { connect,useDispatch,useSelector }      from 'react-redux';
 import { getWishList } 		    from '../../redux/wishDetails/actions';
 import { NetWorkError } from '../../../NetWorkError.js';
 import { CommonActions } from '@react-navigation/native';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const window = Dimensions.get('window');
@@ -254,8 +256,8 @@ export const Location = withCustomerToaster((props)=>{
     return (
         <View style={{flex:1}}>
         <View style={styles.locationInput}>
-            <TouchableOpacity style={{justifyContent:'center',height:45,paddingRight:5}} onPress={()=> navigation.goBack()}>
-                <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+            <TouchableOpacity style={{justifyContent:'center',height: hp(6.5),paddingRight:5}} onPress={()=> navigation.goBack()}>
+                <Icon size={RFPercentage(4)} name='arrow-left' type='material-community' color={colors.theme} />
             </TouchableOpacity>   
             <GooglePlacesAutocomplete
                 ref={ref}
@@ -322,6 +324,7 @@ export const Location = withCustomerToaster((props)=>{
                 nearbyPlacesAPI="GoogleReverseGeocoding"
                 textInputProps={{ 
                     returnKeyType :'search',
+                    // placeholderStyle:{fontSize:50},
                     blurOnSubmit:true,
                     selection:selection,
                     onSelectionChange : ({ nativeEvent: { selection, text } }) => {setSelection(selection)},
@@ -330,19 +333,19 @@ export const Location = withCustomerToaster((props)=>{
                 }}
 
                 renderLeftButton={() => (
-                    <View style={{height:44,width:30,backgroundColor:"#fff",justifyContent:'center'}}>
-                    <Icon name="crosshairs-gps" type='material-community' size={15} style={styles.fabButton}/>
+                    <View style={{height:  hp(6.5),width: hp(6.5),backgroundColor:"#fff",justifyContent:'center'}}>
+                    <Icon name="crosshairs-gps" type='material-community' size={RFPercentage(1.8)}style={styles.fabButton}/>
                 </View>
                 )}
 
                 renderRightButton={() => (
-                    <View style={{height:44,width:30,backgroundColor:"#fff",justifyContent:'center'}}
+                    <View style={{height:  hp(6.5),width: hp(6.5),backgroundColor:"#fff",justifyContent:'center'}}
                     onPress={() => {
                         ref.current?.clear(address);
                             ref.current?.setAddressText('');
                     }}
                 >
-                    <Icon name="close" type='material-community' size={15} style={styles.fabButton}
+                    <Icon name="close" type='material-community' size={RFPercentage(1.8)} style={styles.fabButton}
                         onPress={() => {
                             ref.current?.clear(address);
                             ref.current?.setAddressText('');
@@ -356,11 +359,11 @@ export const Location = withCustomerToaster((props)=>{
                         borderRadius:0,
                         zIndex:10,
                         position:'absolute',
-                        flex:1
                     },
                     textInput:{
                         borderRadius:0, 
                         backgroundColor: '#fff',
+                        height: hp(6.5),
                     },
                     listView:{
                         position: 'absolute',
@@ -380,17 +383,17 @@ export const Location = withCustomerToaster((props)=>{
                 isRowScrollable={true}
             />
         </View>    
-        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:window.height-(Platform.OS==="ios" ? 180 : 160),backgroundColor:"#fff",minHeight:160,padding:15}}>
-            <Text style={{fontFamily:"Montserrat-Regular",marginBottom:5}}>Delivery Location</Text>
+        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:hp(77),backgroundColor:"#fff",minHeight:160,padding:15}}>
+            <Text style={{fontFamily:"Montserrat-Regular",marginBottom:5,fontSize:RFPercentage(2)}}>Delivery Location</Text>
             {delivery ?
-            <View style={{flexDirection:"row",justifyContent:"space-between",height:60,paddingVertical:5}}>
-                <Icon name="crosshairs-gps" type='material-community' size={20} color="black" />
-                <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold"}}>Sorry, we don't deliver at this location.</Text>
+            <View style={{flexDirection:"row",justifyContent:"space-between",height:hp(9),paddingVertical:hp(1)}}>
+                <Icon name="crosshairs-gps" type='material-community' size={RFPercentage(2.5)} color="black" />
+                <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold",fontSize:RFPercentage(2.2)}}>Sorry, we don't deliver at this location.</Text>
             </View>
             :
-            <View style={{flexDirection:"row",justifyContent:"space-between",height:60,paddingVertical:5}}>
-                <Icon name="crosshairs-gps" type='material-community' size={20} color="black" />
-                <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold"}}>{region? address?.addressLine2 : "-"}</Text>
+            <View style={{flexDirection:"row",justifyContent:"space-between",height:hp(9),paddingVertical:hp(1)}}>
+                <Icon name="crosshairs-gps" type='material-community' size={RFPercentage(2.5)} color="black" />
+                <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold",fontSize:RFPercentage(2.2)}}>{region? address?.addressLine2 : "-"}</Text>
             </View>
             }   
             <View style={{justifyContent:"flex-end"}}>
@@ -405,14 +408,14 @@ export const Location = withCustomerToaster((props)=>{
             </View>        
         </View>
         {region&&<View pointerEvents="none" style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0,zIndex:30, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
-            <Image pointerEvents="none" source={require("../../AppDesigns/currentApp/images/pin.png")} style={{height:55,width:35,resizeMode:'contain'}}/>
+            <Image pointerEvents="none" source={require("../../AppDesigns/currentApp/images/pin.png")} style={{height:hp(5),width:hp(5),resizeMode:'contain'}}/>
         </View>}    
          {region&&<MapView
                 provider={PROVIDER_GOOGLE}
                 mapType={Platform.OS == "android" ? "standard" : "standard"}
                 ref={map => map = map}
                 region = {region}
-                style={[{width:window.width,height:window.height}]}
+                style={[{width:wp(100),height:hp(100)}]}
                 onRegionChangeComplete={Platform.OS==="ios" ?()=>addMarker : addMarker}
                 customMapStyle={mapStyle}
            />}

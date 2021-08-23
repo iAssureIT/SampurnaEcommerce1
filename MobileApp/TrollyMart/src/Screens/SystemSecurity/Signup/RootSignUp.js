@@ -136,7 +136,7 @@ const window = Dimensions.get('window');
               password          : '',
               confirm_password  : '',
               countryCode       : '',
-              callingCode       : ''
+              callingCode       : "+971"
             }}>
             {(formProps) => (
               <FormBody
@@ -195,7 +195,7 @@ const window = Dimensions.get('window');
        <ImageBackground 
        source={require("../../../AppDesigns/currentApp/images/s3.png")} 
         style={commonStyles.container} resizeMode="cover" >
-        <ScrollView style={{flex:1}}>
+        <ScrollView style={{flex:1}} keyboardShouldPersistTaps='handled'>
           <View contentContainerStyle={[commonStyles.container,{flex:1}]} keyboardShouldPersistTaps="always" >
               <View style={{}}>
                 <View style={styles.boxOpacity}>
@@ -264,7 +264,7 @@ const window = Dimensions.get('window');
                       <PhoneInput
                         ref={phoneInput}
                         defaultCode="AE"
-                        layout="first"
+                        layout="second"
                         placeholder='Phone Number'
                         value={values.mobileNumber}
                         onChangeText={(text) => {

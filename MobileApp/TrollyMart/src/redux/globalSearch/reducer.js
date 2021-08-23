@@ -4,7 +4,7 @@ import {
     SET_SEARCH_TEXT,
     SET_SUGGETION_LIST,
     SET_SEARCH_CALL,
-    STOP_SCROLL
+    STOP_SCROLL_SEARCH
   } from './types';
   
   const initialUserState = {
@@ -13,7 +13,7 @@ import {
     searchText      : '',
     loading         : false,
     search          : false,
-    stop_scroll_search     : true,
+    stop_scroll_search     : false,
   };
   export default (state = initialUserState, {type, payload}) => {
     switch (type) {
@@ -42,7 +42,7 @@ import {
           ...state,
           search : payload
         };
-        case STOP_SCROLL:
+        case STOP_SCROLL_SEARCH:
           return {
             ...state,
             stop_scroll_search : payload

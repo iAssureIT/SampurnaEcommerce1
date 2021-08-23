@@ -69,7 +69,14 @@ export const ResetPassword = withCustomerToaster((props) => {
                   });
                   setLoading(false);
                   navigation.navigate('LogIn');
-                }else{
+                }else if(response.data.message === "SAME_AS_CURRENT_PASSWORD"){
+                  setToast({
+                    text: "Your new password cannot be the same as your current password",
+                    color: colors.warning,
+                  });
+                  setLoading(false);
+                }
+                else{
                   setToast({
                     text: "Password not changed",
                     color: colors.warning,

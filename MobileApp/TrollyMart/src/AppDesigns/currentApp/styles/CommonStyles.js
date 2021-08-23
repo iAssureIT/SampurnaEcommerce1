@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from './styles.js';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -116,13 +117,13 @@ export default StyleSheet.create({
         fontSize: 17, fontFamily: 'Montserrat-SemiBold',alignSelf:'center',paddingVertical:5,color:"#333"
     },
     subHeaderText :{
-        fontSize: 15, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#333"
+        fontSize: RFPercentage(2.5), fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#333"
     },
     label :{
-        fontSize: 15, fontFamily: 'Montserrat-SemiBold',color:"#333",lineHeight:19
+        fontSize: RFPercentage(2.5), fontFamily: 'Montserrat-SemiBold',color:"#333",lineHeight:RFPercentage(2.8)
     },
     text :{
-        fontSize: 15, fontFamily: 'Montserrat-Regular',color:"#333"
+        fontSize: RFPercentage(2.5), fontFamily: 'Montserrat-Regular',color:"#333"
     },
     linkText:{
         color: colors.cartButton,
@@ -140,10 +141,10 @@ export default StyleSheet.create({
         fontSize: 20, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#DC1919"
     },
     screenHeader:{
-        fontSize:18,
+        fontSize:RFPercentage(2.8),
         fontFamily:"Montserrat-Bold",
         color:'#000',
-        lineHeight:22
+        lineHeight:RFPercentage(3.2)
       },
 
 

@@ -2,6 +2,8 @@
 import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from '../styles.js';
 const window = Dimensions.get('window');
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
   menuWrapper:{
@@ -318,14 +320,14 @@ export default StyleSheet.create({
   },
 
   iconImg:{
-    height:30,
-    width:30,
+    height:hp(5),
+    width:hp(5),
     resizeMode:'cover',
   },
 
   copyRightText:{
     color:'#000',
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     fontFamily:"Montserrat-Regular",
     opacity: 0.5,
   },

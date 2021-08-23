@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from '../styles.js';
 const window = Dimensions.get('window');
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
   container:{
@@ -214,8 +215,9 @@ borderRadiusRight:{
 
 locationInput:{
   flexDirection:'row',
-  padding:10,
-  paddingVertical:15,
+  height:hp(6.5),
+  padding:wp(3),
+  justifyContent:'center',
   ...Platform.select({
     ios:{
      marginTop:30,

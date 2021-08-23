@@ -4,7 +4,7 @@ import {
   View,
   Image, TextInput,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,Modal,ActivityIndicator
 } from 'react-native';
 import * as Yup             from 'yup';
 import {Icon }                      from "react-native-elements";
@@ -170,8 +170,8 @@ const FormBody = (props) => {
            <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
            <View style={{marginHorizontal:10,flexDirection:'row'}}>
            <Text style={styles.otpLastText}>Didn't receive code? </Text>
-              <TouchableOpacity>
-                <Text onPress={handleResend} style={styles.otpLastText1}> Request again!</Text>
+              <TouchableOpacity  onPress={handleResend}>
+                <Text style={styles.otpLastText1}> Request again!</Text>
               </TouchableOpacity>
            </View>
             {/* <View style={{flexDirection:"row",justifyContent:"space-between"}}>
@@ -208,6 +208,23 @@ const FormBody = (props) => {
           </View> */}
           </ImageBackground>
         </View>
+        <Modal 
+          animationType="slide"
+          transparent={true}
+          visible={resendLoading}
+          // onRequestClose={() => setLoading(false)}
+          // onDismiss={() =>  setLoading(false)}
+        >
+        <View 
+          style={{
+            backgroundColor: 'rgba(0,0,0,0)',
+            flex:1,
+            justifyContent:'center',
+            alignItems:'center'
+          }}>
+            <ActivityIndicator color={colors.theme} size={40}/>
+        </View>
+        </Modal>
       </View>   
   );
 };

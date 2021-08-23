@@ -91,7 +91,7 @@ export const HorizontalProductList =(props)=>{
  
   const _renderlist = ({ item, index })=>{
     return (
-      <View key={index}  style={[styles.productContainer,{width:(window.width/2)-40,marginRight:20}]} >
+      <View key={index}  style={[styles.productContainer,{width:wp(40),marginRight:wp(3)}]} >
         <TouchableWithoutFeedback  onPress={()=>{props.addToCart ? navigation.navigate('SubCatCompView',{productID: item._id }) : navigation.navigate("ProductVendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section,product_id:item._id})}}>
           <View style={styles.flx5}>
             <View style={styles.flx1}>

@@ -1,6 +1,8 @@
 import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from '../styles.js';
 const window = Dimensions.get('window');
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
   
@@ -366,6 +368,9 @@ export default StyleSheet.create({
     flex:1,flexDirection:'row',paddingHorizontal:15,paddingVertical:2,alignItems:"center",
     justifyContent:"center"
   },
+  addnotfound:{
+    fontSize:RFPercentage(2)
+  },
   orderaddchkbx:{
     flexDirection:'row',paddingHorizontal:2,paddingVertical:2,
   },
@@ -401,10 +406,9 @@ export default StyleSheet.create({
   },
 
   addBtnClass:{
-    height: 32, 
-    width: 32,
-    padding:5,
-    borderRadius:100,
+    height: hp(5), 
+    width: hp(5),
+    borderRadius:hp(100),
     backgroundColor:'#fff',    
     borderWidth:1,
     borderColor:'#033554',
@@ -413,11 +417,13 @@ export default StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 2,
     elevation: 10,
+    justifyContent:'center',
+    alignItems:'center'
   },
 
   addBtnImg:{
-    height: 20, 
-    width: 20,
+    height: hp(3), 
+    width: hp(3),
     resizeMode:'center',
     // marginTop:-3,
     // marginLeft:-4,

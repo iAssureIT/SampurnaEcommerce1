@@ -36,6 +36,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
 import FastImage              from 'react-native-fast-image';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{
@@ -251,7 +252,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 
   const tooltipClone = React.cloneElement(
     <View style={{width:"100%"}}>
-      <Icon name="close" type="material-community" color="#fff" iconStyle={{alignSelf:"flex-end"}}/>
+      <Icon name="close" type="material-community" color="#fff" iconStyle={{alignSelf:"flex-end"}} size={RFPercentage(2.5)}/>
     { cartData.vendorOrders && cartData.vendorOrders.length > 0&&
     cartData.vendorOrders.map((vendor, i) => {
         return (
@@ -289,26 +290,26 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
         <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:"#fff"}}keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
               <View style={styles.addcmporder}> 
                 <View style={{backgroundColor:"#fff",flexDirection:"row",justifyContent:'space-between',alignItems:'center'}}>
-                    <Text style={{fontSize:15,fontFamily:"Montserrat-SemiBold",color: "#000000"}}>Address</Text>
+                    <Text style={commonStyles.screenHeader}>Address</Text>
                     <TouchableOpacity 
-                        style={{height:34,width:34,elevation:15,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,}}
+                        style={{height:hp(5),width:hp(5),elevation:15,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,}}
                         // onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
                         onPress={()=> navigation.navigate('AddressComponent',{"delivery":true,"address":addData})}
                       >
                         <Image
                             resizeMode="contain"
                             source={require("../../AppDesigns/currentApp/images/editBlack.png")}
-                            style={{height:17,width:17}}
+                            style={{height:hp(2.5),width:hp(2.5)}}
                             />
                         {/* <Icon name="edit" type="font-awesome" size={15}/> */}
                     </TouchableOpacity>
                 </View>  
                 <View style={{borderWidth:0.5,borderColor:'#707070',marginTop:10,borderRadius:9,borderColor:"#707070",paddingHorizontal:10}}>
                   <View style={styles.orderaddchkbx}>
-                    <View style={{justifyContent:'flex-end',marginBottom:7,marginRight:wp(2)}}><Text style={styles.blueDot}></Text></View>
+                    <View style={{justifyContent:'flex-end',marginRight:wp(2)}}><Text style={styles.blueDot}></Text></View>
                     <View style={{flex:0.95}}><Text style={styles.addname}>{addDataName}</Text></View>                    
                   </View>
-                  <View style={{paddingHorizontal:15}}>
+                  <View style={{paddingHorizontal:wp(3.6)}}>
                     <Text style={[styles.address,{colo:"#666"}]}>{addDataAddType} Address:</Text>
                     <Text style={styles.address}>{addDataAddressLine1+", "+addDataAddressLine2}</Text>
                     <View style={styles.mobflx}>
@@ -318,14 +319,14 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                   </View>                  
                 </View>                 
               </View>
-              <View style={{paddingLeft:15}}>
+              <View style={{paddingLeft:wp(3)}}>
                 {store?.userDetails?.authService !== "guest" ?
                 cartData?.paymentDetails?.afterDiscountCouponAmount === 0 && cartData?.paymentDetails?.creditPointsUsed === 0 ? <TouchableOpacity style={{flexDirection:"row",marginTop:10,alignItems:'center'}} onPress={()=>{setCouponModal(true)}}>
                     <Image source={require('../../AppDesigns/currentApp/images/coupon.png')}
                       resizeMode="contain"
-                      style={{height:13,width:13}}
+                      style={{height:hp(2),width:hp(2)}}
                     />
-                    <Text style={{color: "#3E9D5E"}}> Apply Discount</Text>
+                    <Text style={{color: "#3E9D5E",fontFamily:"Montserrat-Regular",fontSize:RFPercentage(2.2)}}> Apply Discount</Text>
                 </TouchableOpacity>
                 : null
                 :
@@ -395,7 +396,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                         </View>
                       </View>
                       <TouchableOpacity style={{flex:0.1,justifyContent:"center",alignItems:"center"}} onPress={()=>setCopuonConfirmation(true)}>
-                          <Icon name="trash" type={"font-awesome"} size={17} iconStyle={{color:'#648295'}} />
+                          <Icon name="trash" type={"font-awesome"} size={RFPercentage(2.5)} iconStyle={{color:'#648295'}} />
                       </TouchableOpacity>  
                     </View>}
                     {cartData.paymentDetails.creditPointsUsed > 0 &&<View style={styles.flxdata}>
@@ -413,7 +414,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                         </View>
                       </View>
                       <TouchableOpacity style={{flex:0.1,justifyContent:"center",alignItems:"center"}} onPress={()=>setCreditConfirmation(true)}>
-                          <Icon name="trash" type={"font-awesome"} size={17} iconStyle={{color:'#648295'}} />
+                          <Icon name="trash" type={"font-awesome"} size={RFPercentage(2.5)} iconStyle={{color:'#648295'}} />
                       </TouchableOpacity>  
                     </View>}
                     <View style={styles.flxdata}>
@@ -439,23 +440,23 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                           popover={tooltipClone}
                           withOverlay={false}
                           >
-                          <Icon name="information-outline" type={"material-community"} size={17}iconStyle={{color:'#648295',paddingHorizontal:2}} />
+                          <Icon name="information-outline" type={"material-community"} size={RFPercentage(2.5)}iconStyle={{color:'#648295',paddingHorizontal:2}} />
                         </Tooltip>
                       </View>  
                     </View>
                     
                   
-                    <View style={{marginVertical:5}} />
+                    <View style={{marginVertical:wp(1)}} />
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.46 }}>
+                        <View style={{ flex: 0.45 }}>
                           <Text style={[styles.totaldata1G]}>Grand Total</Text>
                         </View>
-                        <View style={{ flex: 0.2 }}>
+                        <View style={{ flex: 0.2}}>
                             <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                               <Text style={styles.currency1G}>{currency}</Text>
                             </View>
                           </View>
-                        <View style={{ flex: 0.28 }}>
+                        <View style={{ flex: 0.245}}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.totalpriceincartTotalGT}>{cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                           </View>
@@ -469,13 +470,13 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                                 checkedColor='#033554'                              
                                 uncheckedIcon='circle-o'
                                 uncheckedColor='#033554'
-                                size={15}
+                                size={RFPercentage(2)}
                                 center
                                 title=''
                                 checked={checked}
                                 onPress={() => {setChecked(!checked)}}
                           />
-                            <Text style={styles.free}>I agree to <Text style={[CommonStyles.linkText,{fontSize:12,marginTop:-5}]}  onPress={()=>setModal(true)}>terms & conditions</Text><Text style={[commonStyles.errorText,{fontSize:20,}]}>*</Text></Text>
+                            <Text style={styles.free}>I agree to <Text style={[CommonStyles.linkText,{fontSize:RFPercentage(2.2),marginTop:-5}]}  onPress={()=>setModal(true)}>terms & conditions</Text><Text style={[commonStyles.errorText,{fontSize:20,}]}>*</Text></Text>
                           </View>
                       </View>
                       <View>
@@ -485,7 +486,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                   null
                 }
                 <View style={[styles.confirmbtn, styles.marginBottom20,{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}]}>
-                  <Text style={{flex:0.6,marginLeft:10,fontFamily:"Montserrat-Medium",color:"#000000",opacity: 1,fontSize:14}}>Select Delivery Time</Text>
+                  <Text style={{flex:0.6,marginLeft:hp(0.5),fontFamily:"Montserrat-Medium",color:"#000000",opacity: 1,fontSize:RFPercentage(2.3)}}>Select Delivery Time</Text>
                   <View style={[styles.inputWrapper]}>
                     <View style={styles.inputTextWrapper}>
                       <Dropdown
@@ -501,7 +502,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                         labelHeight         = {10}
                         tintColor           = {'#FF8800'}
                         labelFontSize       = {10}
-                        fontSize            = {10}
+                        fontSize            = {RFPercentage(1.5)}
                         baseColor           = {'#666'}
                         textColor           = {'#333'}
                         labelTextStyle      = {{ left: 5 }}
@@ -522,7 +523,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                     return (
                       <View style={{backgroundColor:"#fff",marginBottom:15}}>
                          <View style={{paddingHorizontal:8}}>
-                          <Text style={[commonStyles.headerText,{alignSelf:"flex-start",fontSize:15,marginBottom:10,fontFamily:'Montserrat-Bold'}]}>{vendor.vendor_id.companyName}</Text>
+                          <Text style={[commonStyles.headerText,{alignSelf:"flex-start",fontSize:RFPercentage(2.4),marginBottom:10,fontFamily:'Montserrat-Bold'}]}>{vendor.vendor_id.companyName}</Text>
                         </View>
                         <View style={styles.proddetails1}>
                             {vendor.cartItems && vendor.cartItems.length>0 && vendor.cartItems.map((item,index)=>{
@@ -708,9 +709,9 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                     <Text style={!tab ? styles1.tabText : styles1.tabText1}>Credit Points <Text style={{color:colors.cartButton}}>{cartData?.totalCreditPoints}</Text></Text>
                 </TouchableOpacity>
              </View>  
-            <View style={{height:140,backgroundColor:"#E2E2E2",paddingHorizontal:28}}>
+            <View style={{height:hp(16),backgroundColor:"#E2E2E2",paddingHorizontal:28}}>
               {tab?
-              <View style={{flexDirection:"row",height:45,marginTop:25}}>
+              <View style={{flexDirection:"row",height:hp(7),marginTop:25}}>
                   <View style={{flex:.7}}>
                     <Input
                     // label                 = "Enter promotional code"
@@ -720,7 +721,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                     inputContainerStyle   = {styles.containerStyle}
                     containerStyle        = {{paddingHorizontal:0}}
                     placeholderTextColor  = {'#909090'}
-                    inputStyle            = {{fontSize: 14,textAlignVertical: "top",fontFamily:"Montserrat-Medium"}}
+                    inputStyle            = {{fontSize: RFPercentage(2.2),textAlignVertical: "top",fontFamily:"Montserrat-Medium"}}
                     autoCapitalize        = 'characters'
                     value                 = {couponCode}
                   />
@@ -731,17 +732,17 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                     title       = {'Apply'}
                     // background  = {true}
                     buttonStyle={{
-                      height:45,
+                      height:hp(6.5),
                       backgroundColor:"#FFFFFF",
                     }}
                     containerStyle={{elevation:5}}
-                    titleStyle={{fontSize:14,color: "#000000",opacity: 0.5,fontFamily:"Montserrat-SemiBold",}}
+                    titleStyle={{fontSize:RFPercentage(2.2),color: "#000000",opacity: 0.5,fontFamily:"Montserrat-SemiBold",}}
                   /> 
                 </View>  
               </View>
               :
               <View >
-                <View style={{flexDirection:"row",height:45,marginTop:25}}>
+                <View style={{flexDirection:"row",height:hp(7),marginTop:25}}>
                   <View style={{flex:.7}}>
                     <Input
                       placeholder           = "Apply AED"
@@ -751,7 +752,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                       inputContainerStyle   = {styles.containerStyle}
                       containerStyle        = {{paddingHorizontal:0}}
                       placeholderTextColor  = {'#909090'}
-                      inputStyle            = {{fontSize: 14,textAlignVertical: "top",fontFamily:"Montserrat-Medium"}}
+                      inputStyle            = {{fontSize: RFPercentage(2.2),textAlignVertical: "top",fontFamily:"Montserrat-Medium"}}
                       autoCapitalize        = 'characters'
                       value                 = {creditPointsUsed.toString()}
                       keyboardType          = 'numeric'
@@ -763,12 +764,12 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                         title       = {'Apply'}
                         // background  = {true}
                         containerStyle={{elevation:5}}
-                        buttonStyle={{height:45,backgroundColor:"#FFFFFF"}}
-                        titleStyle={{fontSize:14,color: "#000000",opacity: 0.5,fontFamily:"Montserrat-SemiBold",}}
+                        buttonStyle={{height:hp(6.5),backgroundColor:"#FFFFFF"}}
+                        titleStyle={{fontSize:RFPercentage(2.2),color: "#000000",opacity: 0.5,fontFamily:"Montserrat-SemiBold",}}
                       />   
                   </View> 
                 </View> 
-                <Text style={[{color:"#000000",fontSize:14,fontFamily:"Montserrat-Medium",marginTop:5}]}>Total balance {currency} <Text style={{fontFamily:"Montserrat-SemiBold",color:'#033554'}}>{cartData.totalCreditPointsValue}</Text></Text>
+                <Text style={[{color:"#000000",fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Medium",marginTop:5}]}>Total balance {currency} <Text style={{fontFamily:"Montserrat-SemiBold",color:'#033554'}}>{cartData.totalCreditPointsValue}</Text></Text>
                </View>
               }
             </View>
@@ -793,7 +794,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
             {/* <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
               <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
             </View> */}
-            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
+            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: RFPercentage(2.5), textAlign: 'center', marginTop: 20 }}>
               Are you sure you want to remove this coupon?
             </Text>
             <View style={styles.cancelbtn}>
@@ -836,7 +837,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
             {/* <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
               <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
             </View> */}
-            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
+            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: RFPercentage(2.5), textAlign: 'center', marginTop: 20 }}>
               Are you sure you want to remove this credit points?
             </Text>
             <View style={styles.cancelbtn}>
@@ -866,16 +867,16 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
           </View>
         </Modal1>
     </SafeAreaView>
-    <View style={{marginBottom:Platform.OS ==='ios'?60: 45,flexDirection:'row',alignSelf:"flex-end"}}>
-         <View style={{flex:0.5,height:60,backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
-            <Text style={{fontSize:12,fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
-            <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
+    <View style={{marginBottom:Platform.OS ==='ios'?60: hp(6.5),flexDirection:'row',alignSelf:"flex-end"}}>
+         <View style={{flex:0.5,height:hp(8.5),backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
+            <Text style={{fontSize:RFPercentage(2),fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
+            <Text style={{fontSize:RFPercentage(2.4),fontFamily:"Montserrat-Regular",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
          </View>
-         <TouchableOpacity style={{flex:0.5,height:60,backgroundColor:checked ?colors.cartButton: "#5F6C74",justifyContent:'center',alignItems:'center'}}
+         <TouchableOpacity style={{flex:0.5,height:hp(8.5),backgroundColor:checked ?colors.cartButton: "#5F6C74",justifyContent:'center',alignItems:'center'}}
          disabled       = {!checked}
          onPress        = {() => paymentMethodsPage()}
          >
-          <Text style={{fontSize:16,fontFamily:"Montserrat-Regular",color: "#eee"}}>Checkout</Text>
+          <Text style={{fontSize:RFPercentage(2.4),fontFamily:"Montserrat-Regular",color: "#eee"}}>Checkout</Text>
          </TouchableOpacity>
       </View>
       
@@ -919,7 +920,7 @@ const styles1 = StyleSheet.create({
     flex:0.5,
     justifyContent:'center',
     alignItems:'center',
-    height:50,
+    height:hp(7.5),
     backgroundColor:"#E2E2E2",
     borderTopLeftRadius:11,
     borderTopRightRadius:11,
@@ -928,18 +929,18 @@ const styles1 = StyleSheet.create({
     flex:0.5,
     justifyContent:'center',
     alignItems:'center',
-    height:50,
+    height:hp(7.5),
   },
   tabText:{
     fontFamily:"Montserrat-Bold",
     color: "#000000",
     opacity: 1,
-    fontSize:14,
+    fontSize:RFPercentage(2.2),
   },
   tabText1:{
     fontFamily:"Montserrat-Regular",
     color: "#000000",
     opacity: 1,
-    fontSize:14,
+    fontSize:RFPercentage(2.2),
   }
 });

@@ -39,6 +39,8 @@ import {
 import { ActivityIndicator } from 'react-native';
 import {USER_LOGOUT} from '../../../redux/store';
 import { getCartCount} from '../../../redux/productList/actions';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 GoogleSignin.configure({
   // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -287,8 +289,8 @@ const window = Dimensions.get('window');
                     backgroundColor:"#fff",
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: 35, 
-                    height: 35,
+                    width: hp(5), 
+                    height: hp(5),
                     borderRadius:100,
                     shadowColor: "#000",
                     shadowOffset: {
@@ -313,8 +315,8 @@ const window = Dimensions.get('window');
                     backgroundColor:"#4267B2",
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: 35, 
-                    height: 35,
+                    width: hp(4.7), 
+                    height: hp(4.7),
                     borderRadius:100,
                     shadowColor: "#000",
                     shadowOffset: {
@@ -325,7 +327,7 @@ const window = Dimensions.get('window');
                     shadowRadius: 3.84,
                     elevation: 5,
                   }}>
-                  <Icon name='facebook' type='font-awesome' size={25} color="#fff"/>
+                  <Icon name='facebook' type='font-awesome' size={RFPercentage(3)} color="#fff"/>
                 </TouchableOpacity>
             </View>
         <Modal 

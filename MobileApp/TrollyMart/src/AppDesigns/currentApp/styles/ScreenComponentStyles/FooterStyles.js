@@ -1,5 +1,8 @@
 import { StyleSheet,Platform } from 'react-native';
 import {colors} from '../styles.js';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 export default StyleSheet.create({
   footer: {
     ...Platform.select({
@@ -14,7 +17,7 @@ export default StyleSheet.create({
         position: 'absolute',
         // backgroundColor:"#fff",
         bottom: 0,
-        height: 70,
+        height: hp(10.5),
         // flexDirection: 'row',
         // backgroundColor:"#fff",
         // // backgroundColor: colors.footerColor,
@@ -56,37 +59,29 @@ export default StyleSheet.create({
   },
 
   footerTitle: {
-    textAlign: 'center', fontFamily: "Montserrat-SemiBold", fontSize: 10
-  },
-
-  iconOuterWrapper: {
-    flex: 0.2, 
-    backgroundColor: colors.cart, 
-    marginTop:20,
-    alignItems:'center',
-    justifyContent:'center'
+    textAlign: 'center', fontFamily: "Montserrat-SemiBold", fontSize: RFPercentage(1.5)
   },
 
   notificationText: {
         position: 'absolute',
-        right: -5,
-        top: -10,
-        borderRadius: 9,
-        width: 16,
-        height: 18,
+        right:  hp(-1),
+        top: hp(-2),
+        borderRadius: hp(2),
+        width: hp(2.5),
+        height: hp(2.5),
         textAlign: 'center',
         color: '#fff',
-        fontSize: 10,
-        paddingTop: 2,
+        fontSize: RFPercentage(1.5),
         backgroundColor: colors.red,
         fontFamily: "Montserrat-SemiBold",
+        alignSelf:"center"
   },
 
   iconOuterWrapper: {
     flex: 0.2, 
     backgroundColor: 
     colors.cart, 
-    marginTop:20,
+    marginTop:hp(3),
     alignItems:'center',
     justifyContent:'center'
   },

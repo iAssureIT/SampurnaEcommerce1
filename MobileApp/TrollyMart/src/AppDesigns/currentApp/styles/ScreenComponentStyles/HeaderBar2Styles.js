@@ -1,5 +1,7 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { colors } from '../styles.js';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -21,7 +23,6 @@ export default StyleSheet.create({
   searchvw: {
     flex:.65,
     // marginTop:10,
-    height: 40,
     paddingRight: 10,
   },
 
@@ -100,6 +101,7 @@ export default StyleSheet.create({
 
   header2main: {
     justifyContent:'center',
+    alignItems:'center',
     backgroundColor: colors.theme,
     flexDirection:"row",
     ...Platform.select({
@@ -111,7 +113,8 @@ export default StyleSheet.create({
       },
       android: {
       alignItems:'center',
-      height:70,
+      justifyContent:'center',
+      height:hp(10),
         // borderTopWidth: 3,
         // borderTopColor: colors.theme,
         // minHeight: 55,
@@ -143,6 +146,7 @@ export default StyleSheet.create({
     borderTopWidth: 0,
     borderBottomWidth: 0,
     backgroundColor: colors.theme,
+    justifyContent:'center'
   },
 
   flex1: {
@@ -165,19 +169,19 @@ export default StyleSheet.create({
     shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 10,
-    height: 40,
+    height: hp(6),
   },
 
   searchInput: {
-    fontSize: 13,
+    fontSize: RFPercentage(2),
     fontFamily: "Montserrat-Regular",
     backgroundColor:'#E7E7E7'
   },
 
   location:{
     flex:.3,
-    height:40,
-    padding:5,
+    height:hp(6),
+    padding:hp(1),
     backgroundColor:'#E7E7E7',
     borderRadius:5,
     // paddingHorizontal:5,
