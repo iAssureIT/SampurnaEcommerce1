@@ -56,7 +56,7 @@ export const MonthlyOrders =(props)=> {
         console.log("formValues",formValues);
         axios.post('/api/orders/get/monthly/vendor_orders',formValues)
         .then(res=>{
-            console.log("res",res);
+            console.log("rushi res",res);
             setOrderList(res.data);
         })
         .catch(err=>{
@@ -118,7 +118,7 @@ export const MonthlyOrders =(props)=> {
 
     return (
         <View style={{flex:1}}>
-            <View style={{flex:1,marginBottom:50,backgroundColor:'#fff'}}>
+            <View style={{flex:1,paddingBottom:130,marginBottom:50,backgroundColor:'#fff'}}>
                 <View style={{flexDirection:"row",justifyContent: 'center',alignItems: 'center',marginTop:15}}>
                         <TouchableOpacity
                             onPress={() => {priviousDate()}}>
@@ -171,10 +171,10 @@ export const MonthlyOrders =(props)=> {
                     </View>
                     } */}            
                 <View style={{justifyContent:'center',alignItems:'center',paddingTop:10}}>
-                    <Text style={CommonStyles.totalcount}>Total Deliveries : {orderList?.totalOrdersDelivered}</Text>
+                    <Text style={CommonStyles.totalcount}>Total Deliveries : {orderList?.totalNumberOfOrders}</Text>
                 </View>
                 <View style={{flexDirection:'row',justifyContent:'center',paddingTop:10,marginBottom:15}}>
-                        <Text style={CommonStyles.totalcount}>Total Cash Collected : {_renderlist.cashCollected>0 ? _renderlist.cashCollected : 0} AED</Text>
+                        <Text style={CommonStyles.totalcount}>Total Cash Collected : {orderList?.cashCollected>0 ? orderList?.cashCollected : 0} AED</Text>
                 </View>  
             {orderList  && orderList?.monthDays?.length >0?
                     <View style={{}}>
