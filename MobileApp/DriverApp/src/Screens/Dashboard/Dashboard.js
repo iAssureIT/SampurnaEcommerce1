@@ -24,6 +24,13 @@ import SwipeButton                 from '../../ScreenComponents/SwipeButton/Swip
 import Modal                from "react-native-modal";
 import { Alert } from 'react-native';
 import CodePush from 'react-native-code-push';
+import { request,
+  check,
+  PERMISSIONS,
+  RESULTS ,
+  requestMultiple
+}                              from 'react-native-permissions';
+import Geolocation                    from 'react-native-geolocation-service';
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 const Dashboard = withCustomerToaster((props)=>{
@@ -52,23 +59,8 @@ const Dashboard = withCustomerToaster((props)=>{
     // console.log("time",time)
     i =setInterval(() => {
       if(time === 0){
-        var formValues ={
-          user_id :store.userDetails.user_id,
-          locationLink : "https://qaadmin.knock-knockeshop.com"
-        }
-        console.log("formValues",formValues);
-        axios.post('/api/entitymaster/post/sos',formValues)
-        .then(res=>{
-            console.log("res",res)
-            if(res.data.statusCode === 'Success'){
-              setToast({text:"Message sent successfully!",color:'green'})
-            }else{
-              setToast({text:res.data.message,color:colors.warning})
-            }
-        })
-        .catch(err=>{
-            console.log('err',err);
-        })
+        sos();
+        
         clearInterval(i);
         setModal(false);
         setTime(5);
@@ -80,11 +72,45 @@ const Dashboard = withCustomerToaster((props)=>{
     }, 1000);
   }
 
+const sos =()=>{
+  request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+	      .then(result => {
+		      switch (result) {
+		        case RESULTS.GRANTED:
+		         Geolocation.getCurrentPosition(position => {
+               console.log("position",position);
+                var formValues ={
+                  user_id :store.userDetails.user_id,
+                  locationLink : "https://www.google.com/maps/?q="+position.coords.latitude+","+position.coords.longitude
+                }
+                console.log("formValues",formValues);
+                axios.post('/api/entitymaster/post/sos',formValues)
+                .then(res=>{
+                    console.log("res",res)
+                    if(res.data.statusCode === 'Success'){
+                      setToast({text:"Message sent successfully!",color:'green'})
+                    }else{
+                      setToast({text:res.data.message,color:colors.warning})
+                    }
+                })
+                .catch(err=>{
+                    console.log('err',err);
+                })
+              }) 
+              case RESULTS.BLOCKED:
+             console.log('The permission is denied and not requestable anymore');
+              break;
+        }
+     })
+  }       
+
   const limit                 = 6;
     useEffect(() => {
         dispatch(getPreferences());
         getBlocks();
     },[]);
+
+    
 
     // useEffect(() => {
     //   if(isFocused){
