@@ -384,29 +384,29 @@ exports.return_status_update = (req, res, next) => {
 						console.log("returnProductData.vendor_id *=> ",returnProductData.vendor_id);
 						console.log("returnProductData.product_id *=> ",returnProductData.product_id);
 						
-						Orders.updateOne({'_id' : ObjectId(returnProductData.order_id), 'vendorOrders.vendor_id' : ObjectId(returnProductData.vendor_id)},
-							{$set:
-								{
-									'vendorOrders.$[outer].products.$[inner].productStatus' : req.body.returnStatus,
-									'vendorOrders.$[outer].products.$[inner].returnedDate'	: new Date(),
-								}
-							},
-							{arrayFilters: [
-								{ 'outer.vendor_id' : ObjectId(returnProductData.vendor_id)}, 
-								{ 'inner.product_ID': ObjectId(returnProductData.product_id) }
-							]}
-						)
-						.exec()
-						.then(updateorderdata => {
-							console.log("updateorderdata => ",updateorderdata);
-						})
-						.catch(err =>{
-							console.log("Error While Updating Return Product Status")
-							// res.status(500).json({
-							// 	error 	: err,
-							// 	message : 'Error While Updating Inventory'
-							// });
-						}); 
+						// Orders.updateOne({'_id' : ObjectId(returnProductData.order_id), 'vendorOrders.vendor_id' : ObjectId(returnProductData.vendor_id)},
+						// 	{$set:
+						// 		{
+						// 			'vendorOrders.$[outer].products.$[inner].productStatus' : req.body.returnStatus,
+						// 			'vendorOrders.$[outer].products.$[inner].returnedDate'	: new Date(),
+						// 		}
+						// 	},
+						// 	{arrayFilters: [
+						// 		{ 'outer.vendor_id' : ObjectId(returnProductData.vendor_id)}, 
+						// 		{ 'inner.product_ID': ObjectId(returnProductData.product_id) }
+						// 	]}
+						// )
+						// .exec()
+						// .then(updateorderdata => {
+						// 	console.log("updateorderdata => ",updateorderdata);
+						// })
+						// .catch(err =>{
+						// 	console.log("Error While Updating Return Product Status")
+						// 	// res.status(500).json({
+						// 	// 	error 	: err,
+						// 	// 	message : 'Error While Updating Inventory'
+						// 	// });
+						// }); 
 						if(req.body.returnStatus === "Return Request Approved"){
 							var isOrderCreditAvailable = await CreditPoints.findOne({user_id : ObjectId(returnProductData.user_id), 'transactions.order_id' : ObjectId(returnProductData.order_id), "transactions.typeOfTransaction" : "Original Order"},{'transactions.$' : 1});
 							// var isOrderCreditAvailable = await CreditPoints.findOne({"user_id" : ObjectId(returnProductData.user_id), "transactions.order_id" : ObjectId(returnProductData.order_id), "transactions.order_id" });
