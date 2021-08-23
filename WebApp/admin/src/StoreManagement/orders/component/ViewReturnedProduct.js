@@ -72,6 +72,7 @@ class ReturnedProductView extends Component{
 		.then((response)=>{
 			console.log('response => ', response.data);
 			this.setState({
+					"orderID"           		: response.data.orderID ? response.data.orderID : <span className="noDataAvail"> -- NA -- </span>,
 					"productName"           : response.data.productName ? response.data.productName : <span className="noDataAvail"> -- NA -- </span>,
 					"productCode"           : response.data.productCode ? response.data.productCode : <span className="noDataAvail"> -- NA -- </span>,
 					"itemCode"           	: response.data.itemCode ? response.data.itemCode : <span className="noDataAvail"> -- NA -- </span>,
@@ -325,14 +326,15 @@ class ReturnedProductView extends Component{
 											</div> 
 
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop10">
-												{this.state.adminComments && this.state.adminComments.lenth > 0 
+												{this.state.adminComments && this.state.adminComments.length > 0 
 												?             
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 adminCommentBox">
 														{this.state.adminComments.map((comment, i)=>{ 
+
 															return(                            
-																<div key={i} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+																<div key={i} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
 																	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding marginTop10 dashedBorder">
-																		<div className="col-lg-8 col-md-8 col-sm-12 col-xs-12"> 
+																		<div className="col-lg-8 col-md-8 col-sm-12 col-xs-12 NOPadding"> 
 																			<h4 className="NOpadding-right reviewText-heading"> {comment.commentBy} Comment </h4>
 																		</div>
 																		<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 pull-right"> 
@@ -340,8 +342,10 @@ class ReturnedProductView extends Component{
 																			<span className="customerDetails-text"> {comment.commentedOn} </span>
 																		</div>
 																	</div>
-																	<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 marginTop10 marginBottom10">
-																		{comment.comment}
+																	<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 commentBackground marginTop10 marginBottom10">
+																		<ul className="col-lg-10 col-md-10 col-sm-10 col-xs-10 palfclr addrbox">
+																			<li dangerouslySetInnerHTML={{'__html' : comment.comment}}></li>
+																		</ul>
 																	</div> 
 																</div>
 															)
@@ -356,27 +360,20 @@ class ReturnedProductView extends Component{
 												}
 												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 adminCommentBox marginTop10">
 													<form id="CommentForm">
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 															<div className="box-header dashedBorder col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding">
 																<h4 className="NOpadding-right reviewText-heading"> Admin Comment </h4>
-															</div> 
-															{console.log("this.state.adminComment => ",(this.state.adminComment ? this.state.adminComment : ""))}
-															{/* <textarea rows="5" id="adminComment" name="adminComment" ref="adminComment" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 commentTextArea"
-																value       = {this.state.adminComment} 
-																onChange    = {this.handleChange.bind(this)} >
-															</textarea> */}
-															
-																<label className="errorMessage" id={'error-adminComment'} value={this.state['error-adminComment']}>{this.state['error-adminComment']}</label>
-																<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 commentTextArea">
-																	<CKEditor activeClass="p15" id="adminComment"  className="" content={this.state.adminComment} name="adminComment" events={{"change": this.onChangeComment}}/>
-																</div>
-															
-													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 submitCommentBtnDiv">
-														<button onClick={this. submitComment.bind(this)} id={this.state.return_id} type="button" className="btn submitComment-btn pull-right">{this.state.submitType === "update" ? "Update" : "Submit"}</button>
-														<button className={"btn submitAndReject-btn pull-right  "} name="Rejected" id="Return Request Rejected" title="Reject Customer's Return Request" onClick={this.changeReturnStatus.bind(this)}>Reject & Submit</button>
-														<button className={"btn submitAndApprove-btn pull-right  "} name="Approved" id="Return Request Approved" title="Approve Customer's Return Request" onClick={this.changeReturnStatus.bind(this)}>Approve & Submit</button>
-													</div>
+															</div> 															
+															<label className="errorMessage" id={'error-adminComment'} value={this.state['error-adminComment']}>{this.state['error-adminComment']}</label>
+															<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 commentTextArea">
+																<CKEditor activeClass="p15" id="adminComment"  className="" content={this.state.adminComment} name="adminComment" events={{"change": this.onChangeComment}}/>
+															</div>															
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 submitCommentBtnDiv">
+															<button onClick={this. submitComment.bind(this)} id={this.state.return_id} type="button" className="btn submitComment-btn pull-right">{this.state.submitType === "update" ? "Update" : "Submit"}</button>
+															<button className={"btn submitAndReject-btn pull-right  "} name="Rejected" id="Return Request Rejected" title="Reject Customer's Return Request" onClick={this.changeReturnStatus.bind(this)}>Reject & Submit</button>
+															<button className={"btn submitAndApprove-btn pull-right  "} name="Approved" id="Return Request Approved" title="Approve Customer's Return Request" onClick={this.changeReturnStatus.bind(this)}>Approve & Submit</button>
+														</div>
 													</form>
 												</div>
 											</div>
