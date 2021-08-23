@@ -181,8 +181,8 @@ const ValidationSchema = Yup.object().shape({
                 </View> 
                 <View style={{justifyContent:'space-between',marginTop:10}}>
                   <Text style={styles.boxLine2B}>Vendor : <Text style={styles.boxLine2_AnsB}>{order?.vendorOrders[0]?.vendorName}</Text></Text>
-                  <Text style={styles.boxLine2B}>Deliver To : <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.name}, </Text></Text>
-                  <Text style={{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}} onPress={() => Linking.openURL(`tel:${order?.deliveryAddress?.mobileNumber}`)}>{order?.deliveryAddress?.mobileNumber}</Text>
+                  <Text style={styles.boxLine2B}>Deliver To : <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.name}, </Text>
+                  <Text style={{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}} onPress={() => Linking.openURL(`tel:${order?.deliveryAddress?.mobileNumber}`)}>{order?.deliveryAddress?.mobileNumber}</Text></Text>
                   <Text style={styles.boxLine2B}>Delivery Addrees : <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.addressLine1+", "+order?.deliveryAddress?.addressLine2}</Text></Text>
                 </View>
                 <View style={{flexDirection:'row',flex:1,marginTop:15}}>

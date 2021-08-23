@@ -42,24 +42,24 @@ const Dashboard = withCustomerToaster((props)=>{
     setModal(value);
     interval(time);    
     return () => clearInterval(interval);
-    var formValues ={
-      user_id :store.userDetails.user_id,
-      locationLink : "https://qaadmin.knock-knockeshop.com"
-    }
-    console.log("formValues",formValues);
-    axios.post('/api/entitymaster/post/sos',formValues)
-    .then(res=>{
-        setOrderList(res.data);
-    })
-    .catch(err=>{
-        console.log('err',err);
-    })
   }
 
   const interval =(time)=>{
     // console.log("time",time)
     i =setInterval(() => {
       if(time === 0){
+        var formValues ={
+          user_id :store.userDetails.user_id,
+          locationLink : "https://qaadmin.knock-knockeshop.com"
+        }
+        console.log("formValues",formValues);
+        axios.post('/api/entitymaster/post/sos',formValues)
+        .then(res=>{
+            setOrderList(res.data);
+        })
+        .catch(err=>{
+            console.log('err',err);
+        })
         clearInterval(i);
         setModal(false);
         setTime(5);

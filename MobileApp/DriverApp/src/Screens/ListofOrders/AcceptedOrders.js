@@ -344,25 +344,25 @@ export const AcceptedOrders =(props)=> {
         )    
     };
 
-    return (
-        <View style={{flex:1}}>
-            {loading ?
+    return (    
+            <View style={{flex:1}}> 
+                {loading ?
                     <Loading />
-                :
-                    <View style={{flex:1,marginBottom:60}}>                
-                    {orderList  && orderList.length >0?<FlatList
-                            data={orderList}
-                            keyExtractor={(item) => item.id}
-                            renderItem={_renderlist} 
-                        />
-                        :
-                        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                            <Text style={CommonStyles.noDataFound}>No Order Found</Text>
-                        </View>}
-                    </View>
-            } 
-            <Footer selected={"1"}/>
-        </View>
+                :    
+                <View style={{flex:1,marginBottom:60}}>           
+                {orderList  && orderList.length >0?<FlatList
+                        data={orderList}
+                        keyExtractor={(item) => item.id}
+                        renderItem={_renderlist} 
+                    />
+                    :
+                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                        <Text style={CommonStyles.noDataFound}>No Order Found</Text>
+                    </View>}
+                </View>
+                }
+                <Footer selected={"1"}/>
+            </View>       
     );
 
     }

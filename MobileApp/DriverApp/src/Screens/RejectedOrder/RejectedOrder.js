@@ -208,7 +208,7 @@ export const RejectedOrder =(props)=> {
                         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                             <Text style={CommonStyles.noDataFound}>No Order Found</Text>
                         </View>}
-                        <Footer selected={"3"}/>
+                        <Footer selected={''}/>
                     </View>
             }
             </View>          

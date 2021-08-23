@@ -71,7 +71,7 @@ export const Menu = (props)=>{
             <Text style={styles.menuText}>My Account</Text>
           </View>
         </TouchableOpacity>
-          <TouchableOpacity onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false})} >
+          <TouchableOpacity onPress={()=> navigation.navigate('AcceptedOrders')} >
           <View style={styles.menu}>
             <Image
               resizeMode="contain"
