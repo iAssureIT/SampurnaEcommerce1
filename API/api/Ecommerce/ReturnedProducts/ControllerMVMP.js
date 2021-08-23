@@ -173,7 +173,7 @@ exports.return_status_update = (req, res, next) => {
 						status 		: req.body.returnStatus,
 						statusBy 	: req.body.user_id,
 						date 			: new Date()
-					}
+					},
 				'adminComments' : 
 					{
 						comment 		: req.body.comment,
