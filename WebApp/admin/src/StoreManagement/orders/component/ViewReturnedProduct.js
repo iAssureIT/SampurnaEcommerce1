@@ -146,145 +146,221 @@ class ReturnedProductView extends Component{
 									<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12">
 										<h4 className="NOpadding-right"> Returned Product </h4>
 									</div>
-									<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 reviewPageWrapper">
-										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewActionBtnsWrapper">
-												<span className={"reviewStatus "+ (this.state.returnStatus ? this.state.returnStatus.replace(/\s+/g, '_').toLowerCase() : "")}>{this.state.returnStatus}</span>
-												<button className={"actionBtns pull-right " + (this.state.returnStatus === "Return Request Rejected" ? "activeAction" : "")} name="Rejected" id="Return Request Rejected" title="Reject Customer's Return Request" onClick={this.changeReturnStatus.bind(this)}>Reject</button>
-												<button className={"actionBtns pull-right " + (this.state.returnStatus === "Return Request Approved" ? "activeAction" : "")} name="Approved" id="Return Request Approved" title="Approve Customer's Return Request" onClick={this.changeReturnStatus.bind(this)}>Approve</button>
-											</div>
-											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewBox">
-												<div className="reviewText col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding">
-															<h4 className="NOpadding-right reviewText-heading"> {this.state.reasonForReturn} </h4>
-														</div> 
-														<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right reviewText-content">
-															{this.state.customerComment}
-														</div>                                                    
-												</div>
-												<div className="reviewStars col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														{this.state.reviewProductImages && this.state.reviewProductImages.length > 0
-														?
-															this.state.reviewProductImages.map((a, i)=>{																
-																return(
-																	<div key={i} className='productImgDiv'> 
-																		<img src={a} class='img-responsive' /> 
-																	</div>
-																		// <i  className={"fa fa-star ratingStars " + star}></i>
-																);
-															})
-														:
-															null
-														}
-												</div>
-											</div>
-											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 customerDetails">
-												<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12"> 
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-heading"> Product Name</h4>
+									<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+										<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 reviewPageWrapper">
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 OrderDetails">
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+													<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Order Number : </label>
+														<span className="customerDetails-text"> {this.state.orderID} </span>
 													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-text"> {this.state.productName} </h4>
-													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-heading"> Review On</h4>
-													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-text">{this.state.reviewDate} </h4>
+													<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Order Date : </label>
+														<span className="customerDetails-text"> {this.state.orderDate} </span>
 													</div>
 												</div>
-												<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-heading"> Customer Name </h4>
-													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-text"> {this.state.customerName} </h4>
-													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-heading"> Customer Email</h4>
-													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-text"> {this.state.customerEmail} </h4>
-													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-heading"> Customer Contact</h4>
-													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-text"> {this.state.customerMobile} </h4>
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Product Name : </label>
+														<span className="customerDetails-text"> {this.state.productName} </span>
 													</div>
 												</div>
-												<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12"> 
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-heading"> Vendor Name</h4>
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+													<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Section : </label>
+														<span className="customerDetails-text"> {this.state.section} </span>
 													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-text"> {this.state.vendorName} </h4>
+													<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Category : </label>
+														<span className="customerDetails-text"> {this.state.category} </span>
 													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-heading"> Vendor's Branch Address</h4>
+													<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> SubCategory : </label>
+														<span className="customerDetails-text"> {this.state.SubCategory} </span>
 													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-text"> {this.state.vendorAddress} </h4>
+												</div>
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+													<div className="col-lg-3 col-md-3 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Product ID : </label>
+														<span className="customerDetails-text"> {this.state.productCode} </span>
 													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-heading"> Vendor's Branch Contact</h4>
+													<div className="col-lg-3 col-md-3 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Item ID : </label>
+														<span className="customerDetails-text"> {this.state.itemCode} </span>
 													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-text"> {this.state.vendorContact} </h4>
+													<div className="col-lg-3 col-md-3 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Size : </label>
+														<span className="customerDetails-text"> {this.state.size} </span>
+													</div>
+													<div className="col-lg-3 col-md-3 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Colour : </label>
+														<span className="customerDetails-text"> {this.state.color} </span>
+													</div>
+												</div>
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+													<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Vendor Name : </label>
+														<span className="customerDetails-text"> {this.state.vendorName} </span>
+													</div>
+													<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Vendor Location : </label>
+														<span className="customerDetails-text"> {this.state.vendorLocation} </span>
+													</div>
+												</div>
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+													<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Customer Name : </label>
+														<span className="customerDetails-text"> {this.state.customerName} </span>
+													</div>
+													<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Email : </label>
+														<span className="customerDetails-text"> {this.state.customerEmail} </span>
+													</div>
+													<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
+														<label className="NOpadding-right customerDetails-heading"> Contact : </label>
+														<span className="customerDetails-text"> {this.state.customerMobile} </span>
 													</div>
 												</div>
 											</div> 
-											{this.state.roles && this.state.roles.lenth > 0 && this.state.roles.contains("vendor")
-											?                                             
-												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 adminCommentBox">
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding">
-															<h4 className="NOpadding-right reviewText-heading"> Vendor Comment </h4>
-														</div>                                                                                                        
-														<textarea rows="5" id="vendorComment" name="vendorComment" ref="vendorComment" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 commentTextArea"
-															value       = {this.state.vendorComment} 
-															onChange    = {this.handleChange.bind(this)} >                                                    
-														</textarea>
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewActionBtnsWrapper">
+													<span className={"reviewStatus "+ (this.state.returnStatus ? this.state.returnStatus.replace(/\s+/g, '_').toLowerCase() : "")}>{this.state.returnStatus}</span>
+													<button className={"actionBtns pull-right " + (this.state.returnStatus === "Return Request Rejected" ? "activeAction" : "")} name="Rejected" id="Return Request Rejected" title="Reject Customer's Return Request" onClick={this.changeReturnStatus.bind(this)}>Reject</button>
+													<button className={"actionBtns pull-right " + (this.state.returnStatus === "Return Request Approved" ? "activeAction" : "")} name="Approved" id="Return Request Approved" title="Approve Customer's Return Request" onClick={this.changeReturnStatus.bind(this)}>Approve</button>
+												</div>
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewBox">
+													<div className="reviewText col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding">
+																<h4 className="NOpadding-right reviewText-heading"> {this.state.reasonForReturn} </h4>
+															</div> 
+															<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right reviewText-content">
+																{this.state.customerComment}
+															</div>                                                    
 													</div>
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 submitCommentBtnDiv">
-														<button onClick={this.submitComment.bind(this)} id={this.state.return_id} type="button" className="btn submitComment-btn pull-right">SUBMIT</button>
+													<div className="reviewStars col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															{this.state.reviewProductImages && this.state.reviewProductImages.length > 0
+															?
+																this.state.reviewProductImages.map((a, i)=>{																
+																	return(
+																		<div key={i} className='productImgDiv'> 
+																			<img src={a} class='img-responsive' /> 
+																		</div>
+																			// <i  className={"fa fa-star ratingStars " + star}></i>
+																	);
+																})
+															:
+																null
+															}
 													</div>
 												</div>
-											:
-												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 adminCommentBox">
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 customerDetails">
+													<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12"> 
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-heading"> Product Name</h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-text"> {this.state.productName} </h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-heading"> Review On</h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-text">{this.state.reviewDate} </h4>
+														</div>
+													</div>
+													<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-heading"> Customer Name </h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-text"> {this.state.customerName} </h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-heading"> Customer Email</h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-text"> {this.state.customerEmail} </h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-heading"> Customer Contact</h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-text"> {this.state.customerMobile} </h4>
+														</div>
+													</div>
+													<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12"> 
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-heading"> Vendor Name</h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-text"> {this.state.vendorName} </h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-heading"> Vendor's Branch Address</h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-text"> {this.state.vendorAddress} </h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-heading"> Vendor's Branch Contact</h4>
+														</div>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<h4 className="NOpadding-right customerDetails-text"> {this.state.vendorContact} </h4>
+														</div>
+													</div>
+												</div> 
+												{this.state.roles && this.state.roles.lenth > 0 && this.state.roles.contains("vendor")
+												?                                             
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 adminCommentBox">
 														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 															<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding">
 																<h4 className="NOpadding-right reviewText-heading"> Vendor Comment </h4>
 															</div>                                                                                                        
-															<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 vendorCommentDiv">
-																{this.state.vendorComment
-																?
-																<ul className="col-lg-10 col-md-10 col-sm-10 col-xs-10 palfclr addrbox">
-																	<li dangerouslySetInnerHTML={{'__html' : this.state.vendorComment}}></li>
-																</ul>
-																:
-																	<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 vendorCommentContent"> "Vendor has not yet commented on Customer Review."</div>
-																}
-															</div> 
-														</div>                                                
-												</div>
-											}
-											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 adminCommentBox">
-												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding">
-															<h4 className="NOpadding-right reviewText-heading"> Admin Comment </h4>
-														</div> 
-														{console.log("this.state.adminComment => ",(this.state.adminComment ? this.state.adminComment : ""))}
-														{/* <textarea rows="5" id="adminComment" name="adminComment" ref="adminComment" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 commentTextArea"
-															value       = {this.state.adminComment} 
-															onChange    = {this.handleChange.bind(this)} >
-														</textarea> */}
-														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 commentTextArea">
-															<CKEditor activeClass="p15" id="adminComment"  className="" content={this.state.adminComment} name="adminComment" events={{"change": this.onChangeComment}}/>
+															<textarea rows="5" id="vendorComment" name="vendorComment" ref="vendorComment" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 commentTextArea"
+																value       = {this.state.vendorComment} 
+																onChange    = {this.handleChange.bind(this)} >                                                    
+															</textarea>
 														</div>
-												</div>
-												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 submitCommentBtnDiv">
-														<button onClick={this.submitComment.bind(this)} id={this.state.return_id} type="button" className="btn submitComment-btn pull-right">{this.state.submitType === "update" ? "UPDATE" : "SUBMIT"}</button>
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 submitCommentBtnDiv">
+															<button onClick={this.submitComment.bind(this)} id={this.state.return_id} type="button" className="btn submitComment-btn pull-right">SUBMIT</button>
+														</div>
+													</div>
+												:
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 adminCommentBox">
+															<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+																<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding">
+																	<h4 className="NOpadding-right reviewText-heading"> Vendor Comment </h4>
+																</div>                                                                                                        
+																<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 vendorCommentDiv">
+																	{this.state.vendorComment
+																	?
+																	<ul className="col-lg-10 col-md-10 col-sm-10 col-xs-10 palfclr addrbox">
+																		<li dangerouslySetInnerHTML={{'__html' : this.state.vendorComment}}></li>
+																	</ul>
+																	:
+																		<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 vendorCommentContent"> "Vendor has not yet commented on Customer Review."</div>
+																	}
+																</div> 
+															</div>                                                
+													</div>
+												}
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 adminCommentBox">
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding">
+																<h4 className="NOpadding-right reviewText-heading"> Admin Comment </h4>
+															</div> 
+															{console.log("this.state.adminComment => ",(this.state.adminComment ? this.state.adminComment : ""))}
+															{/* <textarea rows="5" id="adminComment" name="adminComment" ref="adminComment" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 commentTextArea"
+																value       = {this.state.adminComment} 
+																onChange    = {this.handleChange.bind(this)} >
+															</textarea> */}
+															<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 commentTextArea">
+																<CKEditor activeClass="p15" id="adminComment"  className="" content={this.state.adminComment} name="adminComment" events={{"change": this.onChangeComment}}/>
+															</div>
+													</div>
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 submitCommentBtnDiv">
+															<button onClick={this.submitComment.bind(this)} id={this.state.return_id} type="button" className="btn submitComment-btn pull-right">{this.state.submitType === "update" ? "UPDATE" : "SUBMIT"}</button>
+													</div>
 												</div>
 											</div>
 										</div>

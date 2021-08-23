@@ -3674,7 +3674,7 @@ exports.monthly_vendor_orders = (req, res, next) => {
 	)
 	.exec()
 	.then(async(orderdata) => {	
-		console.log("orderdata => ",orderdata);
+		// console.log("orderdata => ",orderdata);
 		allDays  						= await getDaysInMonth(parseInt(month-1),parseInt(year));
 		var totalNumberOfOrders 	= 0;
 		var totalCashCollected 		= 0;
@@ -3687,12 +3687,12 @@ exports.monthly_vendor_orders = (req, res, next) => {
 
 			for(var j=0; j<orderdata.length; j++){
 				// console.log("allDays i => ", moment(allDays[i]).format('L'))
-				console.log("orderData j => ", orderdata[j].vendorOrders[0])
+				// console.log("orderData j => ", orderdata[j].vendorOrders[0])
 				var statusObj = orderdata[j].vendorOrders[0].deliveryStatus.filter(deliveryStatus => (deliveryStatus.status === req.body.orderStatus && String(deliveryStatus.statusUpdatedBy) === String(req.body.user_id)))
-				console.log("statusObj => ",statusObj)
+				// console.log("statusObj => ",statusObj)
 				if(statusObj && statusObj.length > 0){	
 					if(moment(allDays[i]).format('L') === moment(statusObj[0].timestamp).format('L')){
-						console.log("orders count => ",orderdata[j].vendorOrders.length)
+						// console.log("orders count => ",orderdata[j].vendorOrders.length)
 						numberOfOrders += orderdata[j].vendorOrders.length;	
 						if (orderdata[j].vendorOrders[0].paymentDetails.modeOfPayment.toLowerCase() === "cash on delivery") {
 							cashCollected += orderdata[j].vendorOrders[0].paymentDetails.amountPaid;
@@ -3706,7 +3706,7 @@ exports.monthly_vendor_orders = (req, res, next) => {
 				totalCashCollected 	+= cashCollected;
 
 				var ordersObj = {
-					monthDay 			: moment(allDays[i]).format('L'),
+					monthDay 			: allDays[i],
 					numberOfOrders 	: numberOfOrders,
 					cashCollected 		: (cashCollected).toFixed(2)
 				}
@@ -3759,7 +3759,7 @@ exports.daily_vendor_orders = (req, res, next) => {
 						"deliveryPerson_id" : ObjectId(req.body.user_id),
 						"deliveryStatus" 	: {
 							"$elemMatch" : {
-								"statusUpdatedBy" 	: ObjectId(req.body.user_id), 
+								"statusUpdatedBy" : ObjectId(req.body.user_id), 
 								"status" 			: req.body.orderStatus,
 								"timestamp" 		: {
 									$gte 	: moment(new Date(req.body.deliveryDate)).startOf('day').toDate(),

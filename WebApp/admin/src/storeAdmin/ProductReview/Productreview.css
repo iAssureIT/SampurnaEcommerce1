@@ -260,3 +260,7 @@
 .reviewActionIcons{
     color: #aaa;
 }
+
+.OrderDetails{
+    border: 1px solid #ccc;
+}
