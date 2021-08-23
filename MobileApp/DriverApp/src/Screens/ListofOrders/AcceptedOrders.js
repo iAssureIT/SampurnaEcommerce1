@@ -292,15 +292,17 @@ export const AcceptedOrders =(props)=> {
                 hideModalContentWhileAnimating={true}
                 style={{ zIndex: 999 }}
                 animationOutTiming={500}>
-                <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10}}>
+                <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 15}}>
+                <View onPress={()=>{this.props.closeModal(false,"","");this.props.route && navigate(this.props.route)}}><Text style={{color:'#000',fontFamily: "Montserrat-Bold",textAlign:'right'}}>X</Text></View>
+                <Text style={{fontFamily: "Montserrat-SemiBold",fontSize:14,color:'#000',marginBottom:15}}>Reason for Return</Text>
                 <Dropdown
                   underlineColorAndroid ='transparent'
-                    placeholder         = {"Reason for Return..."}
+                    // placeholder         = {"Reason for Return..."}
                     onChangeText        = {(value) => setReason(value)}
                     data                = {getReasons}
                     value               = {reason}
                     containerStyle      = {styles.ddContainer}
-                    dropdownOffset      = {{ top: 0, left: 0 }}
+                    dropdownOffset      = {{ top: 105, left: 0 }}
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
                     labelHeight         = {10}
@@ -313,14 +315,15 @@ export const AcceptedOrders =(props)=> {
                     style               = {styles.ddStyle}
                     disabledLineType    = 'none'
                   />
-                <View style={{paddingVertical:15}}>
+                <View style={{paddingVertical:10}}>
+                    <Text style={{fontFamily: "Montserrat-SemiBold",fontSize:14,color:'#000',marginBottom:15}}>Comment</Text>
                     <Input
-                        label   = "Comment"   
+                        // label   = "Comment"   
                         // placeholder           = "Leave a review..."
                         onChangeText          = {(text)=>setComment(text)}
                         autoCapitalize        = "none"
                         keyboardType          = "email-address"
-                        inputContainerStyle   = {styles.containerStyle}
+                        inputContainerStyle   = {styles.ddContainer}
                         containerStyle        = {{paddingHorizontal:0}}
                         placeholderTextColor  = {'#bbb'}
                         inputStyle            = {{fontSize: 16}}
@@ -331,7 +334,7 @@ export const AcceptedOrders =(props)=> {
                         value                 = {comment}
                     />
                 </View>
-                  <View style={{marginVertical:15}}>
+                  <View style={{}}>
                     <FormButton 
                         onPress    = {()=>{handleSubmit()}}
                         title       = {'Submit'}
@@ -376,6 +379,10 @@ export const AcceptedOrders =(props)=> {
         flex: 1,
         height: 1,
         backgroundColor: '#444',
+    },
+    ddContainer:{
+        borderWidth:1,
+        borderColor:'#eee'
     },
     box1:{
         flexDirection:'row',

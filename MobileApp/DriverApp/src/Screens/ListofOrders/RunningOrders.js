@@ -135,7 +135,7 @@ export const RunningOrders =(props)=> {
                     <View
                     style={{
                         paddingVertical: 15,
-                        paddingHorizontal:15,
+                        paddingHorizontal:10,
                         marginVertical:10,
                         borderRadius:7,
                         backgroundColor: '#033554',
@@ -151,9 +151,9 @@ export const RunningOrders =(props)=> {
                             <Text style={CommonStyles.cardTopText2}>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
                         </View>    
                 </View> 
-                <View style={{flex:1}}>
+                <View style={{flex:1,marginHorizontal:10}}>
                     <View style={{flexDirection:"row",flex:1,height:25}} >
-                        <View style={{flex:0.35}}>
+                        <View style={{flex:0.37}}>
                             <Text style={[CommonStyles.boxLine1W]}>Customer Name</Text>
                         </View>
                         <View style={{flex:0.65,flexDirection:"row"}}>
@@ -163,12 +163,12 @@ export const RunningOrders =(props)=> {
                                 :
                                 null
                             }
-                        </View>                        
+                        </View>                
                     </View>
                     <View style={{flexDirection:"row",flex:1}} >
-                        <View style={{flex:0.41}}>
+                        <View style={{flex:0.43}}>
                             <Text style={[CommonStyles.boxLine1W]}>Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;: </Text>
+                            &nbsp;&nbsp;&nbsp;&nbsp;:&nbsp; </Text>
                         </View>
                         <View style={{flex:0.5}}>
                             <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}>{item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>                            

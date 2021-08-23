@@ -182,7 +182,7 @@ const Dashboard = withCustomerToaster((props)=>{
                   <Icon name="close" type="font-awesome" size={30} color="#fff" />
               </TouchableOpacity>
               <View style={{alignItems:'center'}}>
-                <Text style={{color: "#000",fontSize:14,fontFamily:"Montserrat-Regular"}}>Cancel</Text>
+                <Text style={{color: "#000",fontSize:14,fontFamily:"Montserrat-SemiBold"}}>Cancel</Text>
               </View> 
              </View> 
         </Modal>

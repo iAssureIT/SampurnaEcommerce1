@@ -231,7 +231,7 @@ import Geolocation          from 'react-native-geolocation-service';
           }
           centerComponent={
               props.headerTitle && props.headerTitle!=="" ?
-                <View style={{width:200,marginTop:-5}}>
+                <View style={{width:200,marginTop:-5,marginLeft:-20}}>
                   <Text style={[{fontSize:15,color:'#fff',fontFamily:"Montserrat-SemiBold"}]}>{props.headerTitle}</Text>
                 </View>  
                 :
