@@ -46,7 +46,7 @@ class Header extends React.Component {
         var wishlistCol;
         var systemSecurityMl;
         if(this.state.user_ID){
-            colWithLogin = 3;
+            colWithLogin = 2;
             wishlistCol = 2;
             systemSecurityMl = 4;
 
@@ -64,13 +64,13 @@ class Header extends React.Component {
                                 <div className="col-12 top-header NoPadding">
                                     <div className="col-12 logoWrap"> 
                                         <div className="row">
-                                            <div className="col-4 col-lg-2 col-sm-2">
+                                            <div className="col-4 col-lg-2 col-md-2 col-sm-2 col-xl-2">
                                                 <Websitelogo />
                                             </div>
 
                                             <SearchBar />
                                             
-                                            <div className={"col-8 col-lg-4 " +"col-xl-"+colWithLogin+" col-sm-5" +" mt-1 systemSecurity"}> 
+                                            <div className={"col-8 col-sm-5 col-md-4 col-lg-4 " +"col-xl-"+colWithLogin+" mt-1 systemSecurity"}> 
                                                 <div className="row">   
                                                     <div className={"col-5 NoPadding ml-"+systemSecurityMl+ " systemSecurityModal"}>
                                                         < SystemSecurityModal />

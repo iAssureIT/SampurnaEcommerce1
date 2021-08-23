@@ -8,7 +8,9 @@
     font-weight: bolder;
     font-family: 'Montserrat-Regular';
 }
-
+.item_Name:hover{
+    text-decoration: none !important;
+}
 .dealsBlock img{
     height: 250px;
     width: 100%;

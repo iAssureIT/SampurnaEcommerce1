@@ -28,8 +28,8 @@
     background-image : url(/images/eCommerce/productloader.gif);
     background-size  : cover;
     background-repeat: no-repeat;
-    box-shadow       : -3px 3px 6px #00000029;
-    border-radius    : 5px;
+    box-shadow       : -3px 3px 6px #00000029 !important;
+    border-radius    : 7px;
     height           : 200px;
 }
 

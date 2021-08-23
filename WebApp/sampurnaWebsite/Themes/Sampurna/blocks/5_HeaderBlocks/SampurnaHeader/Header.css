@@ -880,3 +880,15 @@ li a{
         font-size: 10px !important;
     }
 }
+
+@media (min-device-width: 1080px) and (max-device-width: 1920px) {
+    .systemSecurityModal{
+        margin-left: 18px !important;
+    }
+    .headerWrapper .logoBlock {
+        margin-top: 7px;
+    }
+    .signInBox{
+        margin-left: 8px;
+    }
+}

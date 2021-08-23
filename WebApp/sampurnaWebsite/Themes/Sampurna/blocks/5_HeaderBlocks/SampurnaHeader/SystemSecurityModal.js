@@ -118,21 +118,25 @@ class header extends React.Component {
     return (
         <div className="col-12 NoPadding">  
             <div className="col-12 NoPadding loginViewWrapper ">
-                <div className="col-12 col-lg-12 NoPadding">
                 {this.state.loggedIn ? 
-                    <li className="dropdown myaccDropdown">
+                    <div className="col-12 col-lg-12 col-xl-12  NoPadding">
+                        <li className="dropdown myaccDropdown">
                         <span className="col-12 NoPadding ">
                             <div className="faIcon faLoginIcon col-12 mt-2 NoPadding"> 
                                 <div className={"mtm10 "+Style.systemSecurityModalWrapper}>  
                                     {this.state.authService === "guest" && this.state.userId ?
                                         <span className="my-auto">
                                             <span style={{float: "right"}} className="faIcon col-12 NoPadding pt-1 "><span className="userName ">Hello Guest!</span></span>
-                                            <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span>
+                                            <span className="userEmail">My Account 
+                                                {/* <i className="fa fa-angle-down"></i> */}
+                                            </span>
                                         </span>
                                     :
                                     <span className="my-auto">
                                         <span style={{float: "right"}} className="faIcon col-12 NoPadding pt-1"><span className="userName ">Hello&nbsp; {this.state.userName}!</span></span>
-                                        <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span>
+                                        <span className="userEmail">My Account 
+                                            {/* <i className="fa fa-angle-down"></i> */}
+                                        </span>
                                     </span>
                                     }
                                 </div>
@@ -175,19 +179,19 @@ class header extends React.Component {
                         }
                             </ul>
                     </li>
+                    </div>
                     : 
-                    <span className=" col-12 NoPadding signInBlock" >
-                        <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
-                            <span className="col-12 loginView">Sign in &nbsp;
-                                <img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
-                            </span>
-                        </a>          
-                    </span> 
+                    <div className="col-12 col-lg-12 col-xl-10 signInBox NoPadding">
+                        <span className=" col-12 NoPadding signInBlock" >
+                            <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
+                                <span className="col-12 loginView">Sign in &nbsp;
+                                    <img src="/images/eCommerce/userIcon.svg" className="userIconImg"></img>
+                                </span>
+                            </a>          
+                        </span> 
+                    </div>
                 }
-                </div>
-
                 < SystemSecurityPopup />
-                          
             </div>
         </div>
     );
