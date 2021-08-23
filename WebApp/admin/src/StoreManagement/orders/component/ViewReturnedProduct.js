@@ -317,7 +317,7 @@ class ReturnedProductView extends Component{
 																		);
 																	})
 																:
-																	"No Images / Videos Shared by Customer"
+																	<div class = 'noDataAvail marginBottom10'> No Images / Videos Shared by Customer </div>
 															}
 														</div>
 													</div>

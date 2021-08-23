@@ -106,38 +106,41 @@ exports.get_single_returned_product = (req,res,next)=>{
 	.exec()
 	.then(async(data)=>{
 		// console.log("data => ",data)
-		var vendorLocation 	= await data.vendor_id.locations.find(location => String(location._id) === String(data.vendorLocation_id));
-		var vendorContact 	= vendorLocation && vendorLocation !== undefined 
-									  ?
-									  		data.vendor_id.contactPersons.find(contactPerson => contactPerson.branchCode === vendorLocation.branchCode)
-									  :
-									  		null
 		if(data && data !== undefined){
+			if (data.vendor_id && data.vendor_id !== null) {
+				var vendorLocation 	= await data.vendor_id.locations.find(location => String(location._id) === String(data.vendorLocation_id));
+				var vendorContact 	= vendorLocation && vendorLocation !== undefined 
+											  ?
+											  		data.vendor_id.contactPersons.find(contactPerson => contactPerson.branchCode === vendorLocation.branchCode)
+											  :
+											  		null
+			}
+
 			var returnData = {
 				orderID 						: data.orderID,
-				product_id 					: data.product_id._id,
-				productName 				: data.product_id.productName,
-				productCode 				: data.product_id.productCode,
-				itemCode 					: data.product_id.itemCode,
-				section 						: data.product_id.section,
-				category 					: data.product_id.category,
-				subCategory 				: data.product_id.subCategory,
-				size 							: data.product_id.size,
-				color 						: data.product_id.color,
-				unit 							: data.product_id.unit,
-				vendor_id 					: data.vendor_id._id,
-				vendorName 					: data.vendor_id.companyName,
+				product_id 					: data.product_id && data.product_id !== null ? data.product_id._id : "",
+				productName 				: data.product_id && data.product_id !== null ? data.product_id.productName : "",
+				productCode 				: data.product_id && data.product_id !== null ? data.product_id.productCode : "",
+				itemCode 					: data.product_id && data.product_id !== null ? data.product_id.itemCode : "",
+				section 						: data.product_id && data.product_id !== null ? data.product_id.section : "",
+				category 					: data.product_id && data.product_id !== null ? data.product_id.category : "",
+				subCategory 				: data.product_id && data.product_id !== null ? data.product_id.subCategory : "",
+				size 							: data.product_id && data.product_id !== null ? data.product_id.size : "",
+				color 						: data.product_id && data.product_id !== null ? data.product_id.color : "",
+				unit 							: data.product_id && data.product_id !== null ? data.product_id.unit : "",
+				vendor_id 					: data.vendor_id && data.vendor_id !== null ? data.vendor_id._id : "",
+				vendorName 					: data.vendor_id && data.vendor_id !== null ? data.vendor_id.companyName : "",
 				vendorLocation_id 		: data.vendorLocation_id,
-				vendorLocation 			: vendorLocation,
-				vendorContact  			: vendorContact,
+				vendorLocation 			: vendorLocation ? vendorLocation : {},
+				vendorContact  			: vendorContact ? vendorContact : "",
 				dateOfPurchase 			: data.dateOfPurchase, 
 				dateOfReturnRequested 	: data.createdAt,
 				adminComments 				: data.adminComments,
 				vendorComment 				: data.vendorComment,
-				user_id 						: data.user_id._id,
-				customerName 				: data.user_id.profile.fullName,
-				customerEmail 				: data.user_id.profile.email,
-				customerMobile 			: data.user_id.profile.mobile,
+				user_id 						: data.user_id && data.user_id !== null ? data.user_id._id : "",
+				customerName 				: data.user_id && data.user_id !== null ? data.user_id.profile.fullName : "",
+				customerEmail 				: data.user_id && data.user_id !== null ? data.user_id.profile.email : "",
+				customerMobile 			: data.user_id && data.user_id !== null ? data.user_id.profile.mobile : "",
 				customerComment     		: data.customerComment,
 				reasonForReturn 			: data.reasonForReturn,
 				returnProductImages 		: data.returnProductImages,
