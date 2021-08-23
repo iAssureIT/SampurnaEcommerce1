@@ -381,8 +381,8 @@ exports.return_status_update = (req, res, next) => {
 						// console.log(" => ",req.body.order_id, " ",orderdata.user_ID," ",orderdata.createdAt," ",vendor_order_afterDiscountTotal," ",vendor_order_shippingCharges," ", vendor_netPayableAmount," ")
 						// console.log("returnProductData.order_id => ",returnProductData.order_id);
 						// console.log("returnProductData.user_id => ",returnProductData.user_id);
-						await Orders.updateOne(
-							{'_id' : ObjectId(returnProductData.order_id), 'vendorOrders.vendor_id' : ObjectId(returnProductData.vendor_id)},
+						
+						await Orders.updateOne({'_id' : ObjectId(returnProductData.order_id), 'vendorOrders.vendor_id' : ObjectId(returnProductData.vendor_id)},
 							{$set:
 								{
 									'vendorOrders.$[outer].products.$[inner].productStatus' : req.body.returnStatus,
