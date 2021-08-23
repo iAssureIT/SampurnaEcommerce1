@@ -145,7 +145,8 @@
 }
 .reviewText-heading, .rating-text{
     font-weight: 600;
-    padding: 15px 0;
+    padding: 5px 0;
+    font-size: 14px;
 }
 .reviewText-content{
     font-size: 14px !important;
@@ -167,25 +168,27 @@
 }
 .adminCommentBox{
     border: 1px solid #ccc;
-    margin-top: 30px;
-    padding: 0px 15px 30px 15px;
+    /*margin-top: 30px;*/
+    padding: 15px;
 }
 .submitCommentBtnDiv{
-    padding: 30px 15px;
+    padding: 15px;
 }
 .submitComment-btn{
     background: #3c8dbc;
     color: #fff;
+    font-weight: 600;
 }
 .reviewPageWrapper{
-    padding-bottom: 60px;
+    padding-bottom: 30px;
+    margin: 15px 0;
+    border: 1px solid #aaa;
 }
 .vendorCommentDiv{
     background-color: #f5f5f5;
     font-size: 14px !important;
     min-height: 100px;
     padding: 15px;
-    margin-top: 30px;
     text-align: justify;
 }
 .vendorCommentContent{
@@ -199,9 +202,8 @@
 }
 .commentTextArea{
     font-size: 14px;
-    margin-top: 30px;
     border-color: #ddd;
-    padding: 15px;
+    padding: 5px 15px 15px 15px;
 }
 
 .reviewActionBtnsWrapper{
@@ -221,8 +223,7 @@
     font-size: 16px;
     font-weight: 600;
     background: antiquewhite;
-    padding: 8px;
-    
+    padding: 6px 8px;
 }
 
 .reviewStatusSpan{
@@ -261,6 +262,32 @@
     color: #aaa;
 }
 
-.OrderDetails{
+.OrderDetails, .ProductReturnedReason{
     border: 1px solid #ccc;
+}
+
+.marginTop10{
+    margin-top: 10px;
+}
+.marginBottom10{
+    margin-bottom: 10px;
+}
+.dashedBorder{
+    border-bottom: 1px dashed #aaa;
+}
+.submitAndReject-btn{
+    color : #fff;
+    font-weight: 600;
+    background: #fa8281;
+}
+.submitAndApprove-btn{
+    color : #fff;
+    font-weight: 600;
+    background: #57bb8a;
+}
+.errorMessage{
+    color: red;
+    font-size: 10px;
+    padding-left: 15px;
+    padding-top: 15px;
 }

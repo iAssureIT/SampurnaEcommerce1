@@ -108,33 +108,41 @@ exports.get_single_returned_product = (req,res,next)=>{
 		// console.log("data => ",data)
 		var vendorLocation 	= await data.vendor_id.locations.find(location => String(location._id) === String(data.vendorLocation_id));
 		var vendorContact 	= vendorLocation && vendorLocation !== undefined 
-							  ?
-							  	data.vendor_id.contactPersons.find(contactPerson => contactPerson.branchCode === vendorLocation.branchCode)
-							  :
-							  	null
+									  ?
+									  		data.vendor_id.contactPersons.find(contactPerson => contactPerson.branchCode === vendorLocation.branchCode)
+									  :
+									  		null
 		if(data && data !== undefined){
 			var returnData = {
-				product_id 				: data.product_id._id,
-				productName 			: data.product_id.productName,
-				productCode 			: data.product_id.productCode,
-				vendor_id 				: data.vendor_id._id,
-				vendorName 				: data.vendor_id.companyName,
+				orderID 						: data.orderID,
+				product_id 					: data.product_id._id,
+				productName 				: data.product_id.productName,
+				productCode 				: data.product_id.productCode,
+				itemCode 					: data.product_id.itemCode,
+				section 						: data.product_id.section,
+				category 					: data.product_id.category,
+				subCategory 				: data.product_id.subCategory,
+				size 							: data.product_id.size,
+				color 						: data.product_id.color,
+				unit 							: data.product_id.unit,
+				vendor_id 					: data.vendor_id._id,
+				vendorName 					: data.vendor_id.companyName,
 				vendorLocation_id 		: data.vendorLocation_id,
 				vendorLocation 			: vendorLocation,
 				vendorContact  			: vendorContact,
 				dateOfPurchase 			: data.dateOfPurchase, 
 				dateOfReturnRequested 	: data.createdAt,
-				adminComment 			: data.adminComment,
-				vendorComment 			: data.vendorComment,
-				user_id 				: data.user_id._id,
-				customerName 			: data.user_id.profile.fullName,
-				customerEmail 			: data.user_id.profile.email,
+				adminComments 				: data.adminComments,
+				vendorComment 				: data.vendorComment,
+				user_id 						: data.user_id._id,
+				customerName 				: data.user_id.profile.fullName,
+				customerEmail 				: data.user_id.profile.email,
 				customerMobile 			: data.user_id.profile.mobile,
-				customerComment     	: data.customerComment,
-				reasonForReturn 		: data.reasonForReturn,
-				returnProductImages 	: data.returnProductImages,
-				returnStatus 			: data.returnStatus,
-				returnStatusLog 		: data.returnStatusLog
+				customerComment     		: data.customerComment,
+				reasonForReturn 			: data.reasonForReturn,
+				returnProductImages 		: data.returnProductImages,
+				returnStatus 				: data.returnStatus,
+				returnStatusLog 			: data.returnStatusLog
 			}
 			res.status(200).json(returnData);
 		}else{
@@ -158,16 +166,22 @@ exports.return_status_update = (req, res, next) => {
 	ReturnedProducts.updateOne(
 		{ _id : ObjectId(req.body.return_id)},
 		{
-			$set :{
-				returnStatus : req.body.returnStatus
-			},
-			$push : {
-				returnStatusLog :{
-					status 		: req.body.returnStatus,
-					statusBy 	: req.body.user_id,
-					date 		: new Date()
-				}
-			}			
+			$set 	: { returnStatus : req.body.returnStatus },
+			$push : 
+				{returnStatusLog :
+					{
+						status 		: req.body.returnStatus,
+						statusBy 	: req.body.user_id,
+						date 			: new Date()
+					},
+				},
+				{'adminComments' : 
+					{
+						comment 		: req.body.comment,
+						commentBy 	: req.body.commentBy,
+						commentedOn : new Date()
+					}
+				}			
 		}
 	)
 	.exec()
@@ -183,17 +197,17 @@ exports.return_status_update = (req, res, next) => {
 			Orders.findOne({ _id: ObjectId(returnProductData.order_id)})
 			.then(async(orderdata) => {	
 
-				var order_beforeDiscountTotal   = orderdata.paymentDetails.beforeDiscountTotal;
-				var order_afterDiscountTotal    = orderdata.paymentDetails.afterDiscountTotal;
-				var order_discountAmount        = orderdata.paymentDetails.discountAmount;
-				var order_taxAmount             = orderdata.paymentDetails.taxAmount;
+				var order_beforeDiscountTotal   	= orderdata.paymentDetails.beforeDiscountTotal;
+				var order_afterDiscountTotal    	= orderdata.paymentDetails.afterDiscountTotal;
+				var order_discountAmount        	= orderdata.paymentDetails.discountAmount;
+				var order_taxAmount             	= orderdata.paymentDetails.taxAmount;
 				var order_numberOfProducts 		= orderdata.order_numberOfProducts;
-				var order_quantityOfProducts 	= orderdata.order_quantityOfProducts;
+				var order_quantityOfProducts 		= orderdata.order_quantityOfProducts;
 				var afterDiscountCouponAmount 	= orderdata.paymentDetails.afterDiscountCouponAmount;
-				var order_shippingCharges       = 0;
-				var maxServiceCharges           = 0; 
-				var netPayableAmount 			= 0;
-				var couponCancelMessage 		= "";
+				var order_shippingCharges       	= 0;
+				var maxServiceCharges           	= 0; 
+				var netPayableAmount 				= 0;
+				var couponCancelMessage 			= "";
 				
 				// var maxServiceChargesData = await StorePreferences.findOne({},{maxServiceCharges : 1});            
 				// if(maxServiceChargesData !== null){
@@ -205,31 +219,31 @@ exports.return_status_update = (req, res, next) => {
 					order_shippingCharges = order_shippingCharges + orderdata.vendorOrders[i].vendor_shippingCharges;
 					
 					if(String(orderdata.vendorOrders[i].vendor_id) === String(returnProductData.vendor_id)){
-						var vendor_numberOfProducts 	= orderdata.vendorOrders[i].vendor_numberOfProducts;
+						var vendor_numberOfProducts 		= orderdata.vendorOrders[i].vendor_numberOfProducts;
 						var vendor_quantityOfProducts 	= orderdata.vendorOrders[i].vendor_quantityOfProducts;
 						var vendor_beforeDiscountTotal 	= orderdata.vendorOrders[i].vendor_beforeDiscountTotal;
 						var vendor_afterDiscountTotal 	= orderdata.vendorOrders[i].vendor_afterDiscountTotal;
-						var vendor_discountAmount 		= orderdata.vendorOrders[i].vendor_discountAmount;
-						var vendor_taxAmount 			= orderdata.vendorOrders[i].vendor_taxAmount;
+						var vendor_discountAmount 			= orderdata.vendorOrders[i].vendor_discountAmount;
+						var vendor_taxAmount 				= orderdata.vendorOrders[i].vendor_taxAmount;
 
 						for (let j = 0; j < orderdata.vendorOrders[i].products.length; j++) {
 							if(String(orderdata.vendorOrders[i].products[j].product_ID) === String(returnProductData.product_id)){
-								order_beforeDiscountTotal   -= (orderdata.vendorOrders[i].products[j].originalPrice * orderdata.vendorOrders[i].products[j].quantity);
-								order_afterDiscountTotal    -= (orderdata.vendorOrders[i].products[j].discountedPrice * orderdata.vendorOrders[i].products[j].quantity);
-								order_discountAmount        -= (orderdata.vendorOrders[i].products[j].originalPrice - orderdata.vendorOrders[i].products[j].discountedPrice) * orderdata.vendorOrders[i].products[j].quantity;
-								order_taxAmount             -= orderdata.vendorOrders[i].products[j].taxAmount ? (orderdata.vendorOrders[i].products[j].taxAmount * orderdata.vendorOrders[i].products[j].quantity) : 0;
-								order_shippingCharges 		-= 0;
-								order_numberOfProducts 		-= 1;
-								order_quantityOfProducts 	-= orderdata.vendorOrders[i].products[j].quantity;
-								netPayableAmount 			-= (orderdata.vendorOrders[i].products[j].discountedPrice * orderdata.vendorOrders[i].products[j].quantity);
+								order_beforeDiscountTotal   	-= (orderdata.vendorOrders[i].products[j].originalPrice * orderdata.vendorOrders[i].products[j].quantity);
+								order_afterDiscountTotal    	-= (orderdata.vendorOrders[i].products[j].discountedPrice * orderdata.vendorOrders[i].products[j].quantity);
+								order_discountAmount        	-= (orderdata.vendorOrders[i].products[j].originalPrice - orderdata.vendorOrders[i].products[j].discountedPrice) * orderdata.vendorOrders[i].products[j].quantity;
+								order_taxAmount             	-= orderdata.vendorOrders[i].products[j].taxAmount ? (orderdata.vendorOrders[i].products[j].taxAmount * orderdata.vendorOrders[i].products[j].quantity) : 0;
+								order_shippingCharges 			-= 0;
+								order_numberOfProducts 			-= 1;
+								order_quantityOfProducts 		-= orderdata.vendorOrders[i].products[j].quantity;
+								netPayableAmount 					-= (orderdata.vendorOrders[i].products[j].discountedPrice * orderdata.vendorOrders[i].products[j].quantity);
 								
 								if(orderdata.vendorOrders[i].products.length > 1){
-									vendor_numberOfProducts 	-= 1;
-									vendor_quantityOfProducts 	-= orderdata.vendorOrders[i].products[j].quantity;
+									vendor_numberOfProducts 		-= 1;
+									vendor_quantityOfProducts 		-= orderdata.vendorOrders[i].products[j].quantity;
 									vendor_beforeDiscountTotal 	-= (orderdata.vendorOrders[i].products[j].originalPrice * orderdata.vendorOrders[i].products[j].quantity);
-									vendor_afterDiscountTotal 	-= (orderdata.vendorOrders[i].products[j].discountedPrice * orderdata.vendorOrders[i].products[j].quantity);
-									vendor_discountAmount 		-= (orderdata.vendorOrders[i].products[j].originalPrice - orderdata.vendorOrders[i].products[j].discountedPrice) * orderdata.vendorOrders[i].products[j].quantity;
-									vendor_taxAmount 			-= orderdata.vendorOrders[i].products[j].taxAmount ? (orderdata.vendorOrders[i].products[j].taxAmount * orderdata.vendorOrders[i].products[j].quantity) : 0;													
+									vendor_afterDiscountTotal 		-= (orderdata.vendorOrders[i].products[j].discountedPrice * orderdata.vendorOrders[i].products[j].quantity);
+									vendor_discountAmount 			-= (orderdata.vendorOrders[i].products[j].originalPrice - orderdata.vendorOrders[i].products[j].discountedPrice) * orderdata.vendorOrders[i].products[j].quantity;
+									vendor_taxAmount 					-= orderdata.vendorOrders[i].products[j].taxAmount ? (orderdata.vendorOrders[i].products[j].taxAmount * orderdata.vendorOrders[i].products[j].quantity) : 0;													
 								}								
 							}
 						}
@@ -335,22 +349,23 @@ exports.return_status_update = (req, res, next) => {
 				/**--- 5. Update newly calculated order amount ---*/
 				Orders.updateOne(
 					{ _id: ObjectId(returnProductData.order_id), 'vendorOrders.vendor_id' : ObjectId(returnProductData.vendor_id)},		
-					{$set:{						
-						"paymentDetails.beforeDiscountTotal" 					: order_beforeDiscountTotal,
-						"paymentDetails.discountAmount" 						: order_discountAmount,
-						"paymentDetails.afterDiscountTotal" 					: order_afterDiscountTotal,
-						"paymentDetails.taxAmount" 								: order_taxAmount,
-						"paymentDetails.afterDiscountCouponAmount" 				: afterDiscountCouponAmount,
-						"paymentDetails.netPayableAmount" 						: netPayableAmount,
-						"vendorOrders.$.order_numberOfProducts" 				: order_numberOfProducts,
-						"vendorOrders.$.order_quantityOfProducts" 				: order_quantityOfProducts,
-						"vendorOrders.$.vendor_numberOfProducts" 				: vendor_numberOfProducts,
-						"vendorOrders.$.vendor_quantityOfProducts" 				: vendor_quantityOfProducts,
-						"vendorOrders.$.vendor_beforeDiscountTotal" 			: vendor_beforeDiscountTotal,
-						"vendorOrders.$.vendor_afterDiscountTotal"  			: vendor_afterDiscountTotal,
-						"vendorOrders.$.vendor_discountAmount" 					: vendor_discountAmount,
-						"vendorOrders.$.vendor_taxAmount" 						: vendor_taxAmount,
-						'vendorOrders.$[outer].products.$[inner].productStatus' : req.body.returnStatus,						
+					{$set:
+						{						
+							"paymentDetails.beforeDiscountTotal" 							: order_beforeDiscountTotal,
+							"paymentDetails.discountAmount" 									: order_discountAmount,
+							"paymentDetails.afterDiscountTotal" 							: order_afterDiscountTotal,
+							"paymentDetails.taxAmount" 										: order_taxAmount,
+							"paymentDetails.afterDiscountCouponAmount" 					: afterDiscountCouponAmount,
+							"paymentDetails.netPayableAmount" 								: netPayableAmount,
+							"vendorOrders.$.order_numberOfProducts" 						: order_numberOfProducts,
+							"vendorOrders.$.order_quantityOfProducts" 					: order_quantityOfProducts,
+							"vendorOrders.$.vendor_numberOfProducts" 						: vendor_numberOfProducts,
+							"vendorOrders.$.vendor_quantityOfProducts" 					: vendor_quantityOfProducts,
+							"vendorOrders.$.vendor_beforeDiscountTotal" 					: vendor_beforeDiscountTotal,
+							"vendorOrders.$.vendor_afterDiscountTotal"  					: vendor_afterDiscountTotal,
+							"vendorOrders.$.vendor_discountAmount" 						: vendor_discountAmount,
+							"vendorOrders.$.vendor_taxAmount" 								: vendor_taxAmount,
+							'vendorOrders.$[outer].products.$[inner].productStatus' 	: req.body.returnStatus,						
 						},
 					},
 					{arrayFilters: [
@@ -580,16 +595,22 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 exports.add_admin_or_vendor_comment = (req, res, next) => {
 	// console.log("req.body => ",req.body);
 	// console.log("req.body => ",req.body.vendorComment);
-	if(req.body.adminComment && req.body.adminComment !== undefined){
-		var comment = {adminComment : req.body.adminComment}
-	}else if(req.body.vendorComment && req.body.vendorComment !== undefined){
-		var comment = {vendorComment : req.body.vendorComment}
-	}
+	// if(req.body.adminComment && req.body.adminComment !== undefined){
+	// 	var comment = {adminComment : req.body.adminComment}
+	// }else if(req.body.vendorComment && req.body.vendorComment !== undefined){
+	// 	var comment = {vendorComment : req.body.vendorComment}
+	// }
 	// console.log("comment => ",comment);
 	ReturnedProducts.updateOne(
 		{ _id: req.body.return_id},
-		{
-			$set: comment
+		{$push: 
+			{'adminComments' : 
+				{
+					comment 		: req.body.comment,
+					commentBy 	: req.body.commentBy,
+					commentedOn : new Date()
+				}
+			}
 		}
 	)
 	.exec()

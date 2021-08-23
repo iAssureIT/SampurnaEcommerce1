@@ -242,6 +242,12 @@ formValues  = {
     "orderStatus"   : "Delivered" 
 }
 
+Output : {
+    numberOfOrders  : 4,
+    cashCollected   : 731.74,
+    data            : [ {}, {}, {} .... {} ]
+}
+
 5. "Delivery Person's Current Status" API
 
 API         => http://localhost:3368/api/drivertracking/get/status/60c8be263ddce651477ba974
@@ -258,12 +264,32 @@ formValues  = {
     "monthyear"     : "2021-7",
     "orderStatus"   : "Delivered" 
 }
+
+Output : {
+    monthDays           : [
+        {},
+        {},
+        .
+        .
+        {
+            monthDay          : "08/13/2021",
+            numberOfOrders    : 4,
+            cashCollected     : "731.74"        
+        },
+        .
+        .
+        {}
+    ],
+    totalNumberOfOrders : 4,
+    totalCashCollected  : 731.74
+}
+
 Note : return only matched objects from vendorOrders (remaining)
 
 allocationRejectReason  : "",
 allocationRejectDesc    : "",
 
-6. "Rejected" Orders By particular delivery Person
+7. "Rejected" Orders By particular delivery Person
 
 API => https://qaapi.knock-knockeshop.com/api/orders/get/driver/rejected/vendor_orders
 MethodType  => Post
@@ -273,7 +299,8 @@ formValues  = {
     "endDate"   : "2021-07-20"
 
 }
-7. SOS Facility
+
+8. SOS Facility
 
 API => https://qaapi.knock-knockeshop.com/api/entitymaster/post/sos
 MethodType  => Post
