@@ -105,7 +105,7 @@ export const MonthlyOrders =(props)=> {
                 <Card containerStyle={{flex:1,borderRadius:4}}>
                     <View style={{flexDirection:'row'}}>
                         <View style={{flex:0.5}}>
-                            <Text style={CommonStyles.totalcount}>{moment(item.monthDays).locale("en", localization).format("LL")}</Text>
+                            <Text style={CommonStyles.totalcount}>{moment(item.monthDay).locale("en", localization).format("LL")}</Text>   
                         </View> 
                         <View style={{flex:0.5,alignItems:"flex-end"}}>
                             <Text style={CommonStyles.completeDate}>{item.numberOfOrders}</Text>
@@ -174,7 +174,7 @@ export const MonthlyOrders =(props)=> {
                     <Text style={CommonStyles.totalcount}>Total Deliveries : {orderList?.totalNumberOfOrders}</Text>
                 </View>
                 <View style={{flexDirection:'row',justifyContent:'center',paddingTop:10,marginBottom:15}}>
-                        <Text style={CommonStyles.totalcount}>Total Cash Collected : {orderList?.cashCollected>0 ? orderList?.cashCollected : 0} AED</Text>
+                        <Text style={CommonStyles.totalcount}>Total Cash Collected : {orderList?.totalCashCollected>0 ? orderList?.totalCashCollected : 0} AED</Text>
                 </View>  
             {orderList  && orderList?.monthDays?.length >0?
                     <View style={{}}>

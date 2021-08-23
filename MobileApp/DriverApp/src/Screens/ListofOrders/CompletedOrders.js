@@ -41,14 +41,14 @@ export const CompletedOrders =(props)=> {
         if(new_date!==undefined){
             setDate(new Date(new_date));
         }
-        getList(date);
-    },[props,isFocused]);
+        getList(new Date(new_date));
+    },[props,isFocused,new_date]);
 
     const store = useSelector(store => ({
         userDetails     : store.userDetails,
       }));
 
-    const getList =()=>{
+    const getList =(date)=>{
         var payload={
             "orderStatus"   : "Delivered",
             "user_id"       : store.userDetails.user_id,
@@ -58,8 +58,8 @@ export const CompletedOrders =(props)=> {
         axios.post('/api/orders/get/daily/vendor_orders',payload)
         .then(res=>{
             console.log("res1",res);
+            setOrderList(res.data);
             setLoading(false);
-            setOrderList(res.data)
         })
         .catch(err=>{
             setLoading(false);
@@ -70,14 +70,14 @@ export const CompletedOrders =(props)=> {
     const previous =()=>{
         var prev = new Date(date.setDate(date.getDate() - 1));
         setDate(prev);
-        getList();
+        getList(prev);
         // handleCustom(prev,date);
       }
     
       const next =()=>{
         var next = new Date(date.setDate(date.getDate() + 1));
         setDate(next);
-        getList();
+        getList(next);
         // handleCustom(next,date);
       }
 
@@ -154,6 +154,7 @@ export const CompletedOrders =(props)=> {
         )    
     };
 
+    console.log("orderList",orderList)
     return (
         <View style={{flex:1}}>            
         <View style={{flex:1,backgroundColor:'#fff'}}>            
@@ -191,15 +192,15 @@ export const CompletedOrders =(props)=> {
                 </TouchableOpacity>
             </View>
             <View style={{flexDirection:'row',justifyContent:'center',paddingTop:10,marginBottom:15}}>
-                    <Text style={CommonStyles.totalcount}>Total Cash Collected : 500 AED</Text>
+                    <Text style={CommonStyles.totalcount}>Total Cash Collected : {orderList?.cashCollected>0 ? orderList?.cashCollected : 0} AED</Text>
              </View>
              <View style={{flex:1}}>
              {loading ?
                     <Loading />
                 :  
                     <View style={{flex:1}}>
-                        {orderList  && orderList.length >0?<FlatList
-                        data={orderList}
+                        {orderList && orderList.data  && orderList.data.length >0?<FlatList
+                        data={orderList.data}
                         keyExtractor={(item) => item.id}
                         renderItem={_renderlist} 
                         style={{marginBottom:60}}
