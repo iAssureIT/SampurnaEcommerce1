@@ -166,11 +166,12 @@ export const RunningOrders =(props)=> {
                         </View>                        
                     </View>
                     <View style={{flexDirection:"row",flex:1}} >
-                        <View style={{flex:0.37}}>
-                            <Text style={[CommonStyles.boxLine1W]}>Address</Text>
+                        <View style={{flex:0.41}}>
+                            <Text style={[CommonStyles.boxLine1W]}>Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;: </Text>
                         </View>
                         <View style={{flex:0.5}}>
-                            <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}>: {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>                            
+                            <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}>{item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>                            
                         </View>
                         <View style={{flex:0.13}}>
                             <TouchableOpacity style={{marginHorizontal:10}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>

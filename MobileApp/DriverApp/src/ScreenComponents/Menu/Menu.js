@@ -91,6 +91,17 @@ export const Menu = (props)=>{
             <Text style={styles.menuText}>Rejected Orders</Text>
           </View>
         </TouchableOpacity></View>}
+
+        <TouchableOpacity onPress={()=> navigation.navigate('Dashboard')}>
+          <View style={styles.menu} >
+            <Image
+              resizeMode="contain"
+              source={require("../../AppDesigns/currentApp/images/home_gray.png")}
+              style={{height:22,width:22,marginLeft:20}}
+              />
+            <Text style={styles.menuText}>Dashboard</Text>
+          </View>
+        </TouchableOpacity>
         
         <TouchableOpacity onPress={()=> navigation.navigate('SupportSystem')}>
           <View style={styles.menu} >

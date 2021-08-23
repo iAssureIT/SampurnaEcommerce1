@@ -10,7 +10,7 @@ import {ScrollView,
 import {Icon }                      from "react-native-elements";
 import Swipeable                    from 'react-native-gesture-handler/Swipeable';
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
-import {useDispatch,connect }   from 'react-redux';
+import {useDispatch,connect,useSelector }   from 'react-redux';
 import axios                        from "axios";
 import { useIsFocused }             from "@react-navigation/native";
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
@@ -43,6 +43,10 @@ const Dashboard = withCustomerToaster((props)=>{
     interval(time);    
     return () => clearInterval(interval);
   }
+
+  const store = useSelector(store => ({
+        userDetails     : store.userDetails,
+      }));
 
   const interval =(time)=>{
     // console.log("time",time)
