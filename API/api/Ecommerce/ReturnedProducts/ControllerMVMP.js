@@ -196,7 +196,7 @@ exports.return_status_update = (req, res, next) => {
 			
 			/**--- 2. Find Product in Return Collection ---*/
 			var returnProductData = await ReturnedProducts.findOne({"_id" : ObjectId(req.body.return_id)},{order_id : 1, product_id : 1, vendor_id : 1, user_id : 1, refundMode : 1});            
-			console.log("returnProductData => ",returnProductData)
+			// console.log("returnProductData => ",returnProductData)
 			
 			/**--- 3. Find Order in Order Collection ---*/
 			Orders.findOne({ _id: ObjectId(returnProductData.order_id)})
@@ -382,10 +382,10 @@ exports.return_status_update = (req, res, next) => {
 					console.log("updatedata => ",updatedata);
 					if (updatedata.nModified === 1) {
 						// console.log(" => ",req.body.order_id, " ",orderdata.user_ID," ",orderdata.createdAt," ",vendor_order_afterDiscountTotal," ",vendor_order_shippingCharges," ", vendor_netPayableAmount," ")
-						console.log("returnProductData.order_id *=> ",returnProductData.order_id);
-						console.log("returnProductData.user_id *=> ",returnProductData.user_id);
-						console.log("returnProductData.vendor_id *=> ",returnProductData.vendor_id);
-						console.log("returnProductData.product_id *=> ",returnProductData.product_id);
+						// console.log("returnProductData.order_id *=> ",returnProductData.order_id);
+						// console.log("returnProductData.user_id *=> ",returnProductData.user_id);
+						// console.log("returnProductData.vendor_id *=> ",returnProductData.vendor_id);
+						// console.log("returnProductData.product_id *=> ",returnProductData.product_id);
 						
 						Orders.updateOne({'_id' : ObjectId(returnProductData.order_id), 'vendorOrders.vendor_id' : ObjectId(returnProductData.vendor_id)},
 							{$set:

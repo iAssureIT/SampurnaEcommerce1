@@ -257,7 +257,7 @@ exports.get_single_review = (req,res,next)=>{
 
 /*=========== Add admin or vendor comment ===========*/
 exports.add_admin_or_vendor_comment = (req, res, next) => {
-	// console.log("req.body => ",req.body);
+	console.log("req.body => ",req.body);
 	// console.log("req.body => ",req.body.vendorComment);
 	// if(req.body.adminComment && req.body.adminComment !== undefined){
 	// 	var comment = {adminComment : req.body.adminComment}
