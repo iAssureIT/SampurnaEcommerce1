@@ -55,23 +55,32 @@ class Productreview extends Component{
 		.then((response)=>{
 			console.log('response => ', response.data);
 			this.setState({
-					"productName"       	: response.data.productName ? (response.data.productName + " " + "(" + response.data.productCode) + ")" : "-",
-					"vendorName"        	: response.data.vendorName ? response.data.vendorName : "-",
-					"productImages"     	: response.data.productImage ? response.data.productImage : "-",
-					"customerName"      	: response.data.customerName ? response.data.customerName : "-",
-					"customerEmail" 		: response.data.customerEmail ? response.data.customerEmail : "-",
-					"customerMobile" 		: response.data.customerMobile ? response.data.customerMobile : "-",
-					"customerReview"    	: response.data.customerReview ? response.data.customerReview : "-", 
-					"reviewProductImages"   : response.data.reviewProductImages && response.data.reviewProductImages !== "undefined" &&  response.data.reviewProductImages.length > 0 ? response.data.reviewProductImages : [],
-					"reviewDate"        	: response.data.reviewDate ? moment(response.data.reviewDate).format("DD MMMM YYYY, HH:mm a") : "-",             
-					"adminComment"      	: response.data.adminComment ? response.data.adminComment : "",
-					"vendorComment"     	: response.data.vendorComment ? response.data.vendorComment : "",
-					"vendorContact" 		: response.data.vendorContact && response.data.vendorContact !== "undefined" ? response.data.vendorContact.phone : <span className="noDataAvail"> Contact is not available </span>,
-					"vendorAddress" 		: response.data.vendorLocation && response.data.vendorLocation !== "undefined" ? response.data.vendorLocation.addressLine2 + " " + response.data.vendorLocation.addressLine1 : <span className="noDataAvail"> Address is not available </span>,
-					"order_id"          	: response.data.order_id,
-					"product_id"        	: response.data.product_id,
-					"rating"            	: response.data.rating,
-					"status"            	: response.data.status
+				"orderID"           		: response.data.orderID ? response.data.orderID : <span className="noDataAvail"> -- NA -- </span>,
+				"productName"           : response.data.productName ? response.data.productName : <span className="noDataAvail"> -- NA -- </span>,
+				"productCode"           : response.data.productCode ? response.data.productCode : <span className="noDataAvail"> -- NA -- </span>,
+				"itemCode"           	: response.data.itemCode ? response.data.itemCode : <span className="noDataAvail"> -- NA -- </span>,
+				"section"           		: response.data.section ? response.data.section : <span className="noDataAvail"> -- NA -- </span>,
+				"category"           	: response.data.category ? response.data.category : <span className="noDataAvail"> -- NA -- </span>,
+				"subCategory"           : response.data.subCategory ? response.data.subCategory : <span className="noDataAvail"> -- NA -- </span>,
+				"size"           			: response.data.size ? response.data.size : <span className="noDataAvail"> -- NA -- </span>,
+				"color"           		: response.data.color ? response.data.color : <span className="noDataAvail"> -- NA -- </span>,
+				"unit"           			: response.data.unit ? response.data.unit : <span className="noDataAvail"> -- NA -- </span>,
+				"vendorName"            : response.data.vendorName ? response.data.vendorName : <span className="noDataAvail"> -- NA -- </span>,
+				"reviewProductImages"   : response.data.reviewProductImages && response.data.reviewProductImages !== "undefined" &&  response.data.reviewProductImages.length > 0 ? response.data.reviewProductImages : [],
+				"customerName"          : response.data.customerName ? response.data.customerName : <span className="noDataAvail"> -- NA -- </span>,
+				"customerEmail" 	    	: response.data.customerEmail ? response.data.customerEmail : <span className="noDataAvail"> -- NA -- </span>,
+				"customerMobile" 	    	: response.data.customerMobile ? response.data.customerMobile : <span className="noDataAvail"> -- NA -- </span>,
+				"customerReview"    		: response.data.customerReview ? response.data.customerReview : "-", 	
+				"dateOfPurchase"        : response.data.dateOfPurchase ? moment(response.data.dateOfPurchase).format("DD MMMM YYYY, HH:mm a") : <span className="noDataAvail"> -- NA -- </span>, 
+				"reviewDate"        		: response.data.reviewDate ? moment(response.data.reviewDate).format("DD MMMM YYYY, HH:mm a") : "-",             
+            "adminComments"         : response.data.adminComments && response.data.adminComments.length > 0 ? response.data.adminComments : [],
+				"vendorComment"         : response.data.vendorComment ? response.data.vendorComment : "",
+				"vendorContact" 	    	: response.data.vendorContact && response.data.vendorContact !== "undefined" ? response.data.vendorContact.phone : <span className="noDataAvail"> Contact is not available </span>,
+				"vendorLocation" 	    	: response.data.vendorLocation && response.data.vendorLocation !== "undefined" ? response.data.vendorLocation.addressLine2 + " " + response.data.vendorLocation.addressLine1 : <span className="noDataAvail"> Address is not available </span>,
+				"order_id"              : response.data.order_id,
+				"product_id"            : response.data.product_id,
+				"status"            		: response.data.status,
+				"rating"            		: response.data.rating
 			},()=>{
 				if(this.state.adminComment && this.state.adminComment !== "undefined"){
 					this.setState({
@@ -470,7 +479,11 @@ class Productreview extends Component{
 																?
 																	"Very Good"
 																:
+																this.state.rating === 4
+																?
 																	"Excellent"
+																:
+																	""
 															}
 															</h4>
 														</div>

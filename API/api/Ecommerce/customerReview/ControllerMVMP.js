@@ -266,7 +266,7 @@ exports.add_admin_or_vendor_comment = (req, res, next) => {
 	// }
 	// console.log("comment => ",comment);
 	CustomerReview.updateOne(
-		{ _id: req.body.review_id},
+		{ _id: ObjectId(req.body.review_id)},
 		{$push: 
 			{'adminComments' : 
 				{
@@ -277,7 +277,6 @@ exports.add_admin_or_vendor_comment = (req, res, next) => {
 			}
 		}
 	)
-	.exec()
 	.then(data => {
 		res.status(200).json({
 			message : 'Comment added successfully.'
