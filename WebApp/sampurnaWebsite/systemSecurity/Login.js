@@ -236,7 +236,7 @@ class Login extends Component{
 									<div className="col-12">
 										<div className="row">
 										<hr className="col-3 whiteClr"></hr>
-										<span className="col-2 blueText mt-1 ml-n3 ml-sm-3 ml-lg-n1 text-center">OR&nbsp;</span>
+										<span className={"col-2 blueText mt-1 ml-n3 ml-sm-3 ml-lg-n1 text-center "+S.blueText}>OR&nbsp;</span>
 										<hr className="col-3 whiteClr"></hr>
 										</div>
 									</div>

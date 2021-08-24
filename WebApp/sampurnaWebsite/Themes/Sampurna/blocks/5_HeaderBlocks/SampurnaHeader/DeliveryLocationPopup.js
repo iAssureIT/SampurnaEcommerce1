@@ -323,7 +323,7 @@ class DeliveryLocationPopup extends React.Component{
         }
         return(
             <section className={"col-12 locationPage locationBg "+Style.deliveryLocationWrapper}>
-                <form className={"col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 "+Style.deliveryLocationFormWrapper}>
+                <form className={"col-10 offset-1 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 "+Style.deliveryLocationFormWrapper}>
                     <div className="col-12">
                         <div className="row">
                             <div className="col-12 col-lg-3">
