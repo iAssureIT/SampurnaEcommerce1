@@ -117,7 +117,7 @@ export const Menu = (props)=>{
           <View style={styles.menu} >
             <Image
               resizeMode="contain"
-              source={require("../../AppDesigns/currentApp/images/home_gray.png")}
+              source={index ===4 ? require("../../AppDesigns/currentApp/images/dashboard.png") : require("../../AppDesigns/currentApp/images/dashboard1.png")}
               style={{height:22,width:22,marginLeft:20}}
               />
             <Text style={[styles.menuText,{color:index ===4 ?"white": '#033554'}]}>Dashboard</Text>

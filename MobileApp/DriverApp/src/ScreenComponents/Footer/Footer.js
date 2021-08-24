@@ -65,7 +65,7 @@ export const Footer =(props)=>{
                       :
                       <Image
                       resizeMode="contain"
-                      source={require("../../AppDesigns/currentApp/images/AcceptedOrders.png")}
+                      source={require("../../AppDesigns/currentApp/images/acceptB.png")}
                       style={{height:21,width:21}}
                       />
                     }  
