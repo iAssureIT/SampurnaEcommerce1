@@ -158,7 +158,7 @@ export const RunningOrders =(props)=> {
                             <Text style={CommonStyles.cardTopText}>Order No {item.orderID}</Text>
                         </View>
                         <View style={{flex:.6,alignItems:'flex-end'}}>
-                            <Text style={CommonStyles.cardTopText2}>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
+                            <Text style={CommonStyles.cardTopText2}>Date {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
                         </View>    
                 </View> 
                 <View style={{flex:1}}>

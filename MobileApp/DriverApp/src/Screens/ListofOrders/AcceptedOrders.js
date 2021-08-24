@@ -252,7 +252,7 @@ export const AcceptedOrders =(props)=> {
                         <Text style={CommonStyles.cardTopText}>Order No{item.orderID}</Text>
                     </View>
                     <View style={{flex:.6,alignItems:'flex-end'}}>
-                        <Text style={CommonStyles.cardTopText2}>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
+                        <Text style={CommonStyles.cardTopText2}>Date {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
                     </View>    
                </View>         
                <View style={CommonStyles.cardBottom}>
@@ -304,7 +304,7 @@ export const AcceptedOrders =(props)=> {
                 animationOutTiming={500}>
                 <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 15}}>
                 <View onPress={()=>{this.props.closeModal(false,"","");this.props.route && navigate(this.props.route)}}><Text style={{color:'#000',fontFamily: "Montserrat-Bold",textAlign:'right'}}>X</Text></View>
-                <Text style={{fontFamily: "Montserrat-SemiBold",fontSize:14,color:'#000',marginBottom:15}}>Reason for Return</Text>
+                <Text style={{fontFamily: "Montserrat-SemiBold",fontSize:14,color:'#000',marginBottom:15}}>Reason for Reject</Text>
                 <Dropdown
                   underlineColorAndroid ='transparent'
                     // placeholder         = {"Reason for Return..."}
