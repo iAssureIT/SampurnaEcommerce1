@@ -7,7 +7,8 @@ import {
   StatusBar,
   FlatList,
   TouchableOpacity,
-  Linking
+  Linking,
+  RefreshControl
 } from 'react-native';
 import Swipeable                        from 'react-native-gesture-handler/Swipeable';
 import { Header, Icon, Card, Button }   from 'react-native-elements';
@@ -35,6 +36,7 @@ export const RejectedOrder =(props)=> {
     const [date,setDate] = useState(new Date());
     const isFocused = useIsFocused()
     const [datePicker,openDatePicker] = useState(false);
+    const [refresh,setRefresh]=useState(false);
     const new_date=props?.route?.params?.new_date;
     useEffect(() => {
         console.log("new_date",new_date);
@@ -43,6 +45,12 @@ export const RejectedOrder =(props)=> {
         }
         getList(date);
     },[props,isFocused]);
+
+
+    const refreshControl=()=>{
+        setRefresh(true);
+        getList(date);
+    }
 
     const store = useSelector(store => ({
         userDetails     : store.userDetails,
@@ -57,6 +65,7 @@ export const RejectedOrder =(props)=> {
         console.log("payload",payload);
         axios.post('/api/orders/get/driver/rejected/vendor_orders',payload)
         .then(res=>{
+            setRefresh(false);
             console.log("res1",res);
             setLoading(false);
             setOrderList(res.data)
@@ -111,7 +120,7 @@ export const RejectedOrder =(props)=> {
                                 <Text style={CommonStyles.completeBlueText}>Order No : {item.orderID}</Text>
                             </View>
                             <View style={{flex:.6,alignItems:'flex-end'}}>
-                                <Text style={CommonStyles.completeBlueText}>Date {moment().lang("es").format('DD-MM-YYYY hh:mm')}</Text>
+                                <Text style={CommonStyles.completeBlueText}>Date {moment(item.createdAt).lang("es").format('DD-MM-YYYY hh:mm')}</Text>
                             </View>    
                     </View> 
                     <View style={{flex:1}}>
@@ -203,6 +212,12 @@ export const RejectedOrder =(props)=> {
                         keyExtractor={(item) => item.id}
                         renderItem={_renderlist} 
                         style={{marginBottom:60}}
+                        refreshControl={
+                            <RefreshControl
+                            refreshing={refresh}
+                            onRefresh={() => refreshControl()}
+                            />
+                        } 
                             />
                         :
                         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>

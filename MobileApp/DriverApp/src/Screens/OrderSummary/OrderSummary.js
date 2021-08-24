@@ -58,7 +58,7 @@ const ValidationSchema = Yup.object().shape({
   console.log("formValues",formValues);
     axios.post('/api/orders/get/single/vendor_order',formValues)
     .then((response) => {
-      console.log("response",response);
+      console.log("rushi response",response);
       setOrder(response.data);
       setLoading(false);
       setPaymentMethod(response.data.paymentDetails.paymentMethod);
@@ -99,6 +99,7 @@ const ValidationSchema = Yup.object().shape({
           axios.patch('/api/orders/deliver/vendor_order',formValues)
           .then(res=>{
             console.log("res",res)
+            setLoading(false);
                 setToast({text:res.data.message,color:'green'})
               navigation.navigate('RunningOrders')
           })
@@ -182,7 +183,7 @@ const ValidationSchema = Yup.object().shape({
                 <View style={{justifyContent:'space-between',marginTop:10}}>
                   <Text style={styles.boxLine2B}>Vendor: <Text style={styles.boxLine2_AnsB}>{order?.vendorOrders[0]?.vendorName}</Text></Text>
                   <Text style={styles.boxLine2B}>Deliver To: <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.name}, </Text>
-                  <Text style={{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}} onPress={() => Linking.openURL(`tel:${order?.deliveryAddress?.mobileNumber}`)}>{order?.deliveryAddress?.mobileNumber}</Text></Text>
+                  <Text style={{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}} onPress={() => Linking.openURL(`tel:${order?.deliveryAddress?.mobileNumber}`)}>{order?.deliveryAddress?.mobileNumber!=="undefined" ? order?.deliveryAddress?.mobileNumber :""}</Text></Text>
                   <Text style={styles.boxLine2B}>Delivery Addrees: <Text style={styles.boxLine2_AnsB}>{order?.deliveryAddress?.addressLine1+", "+order?.deliveryAddress?.addressLine2}</Text></Text>
                 </View>
                 <View style={{flexDirection:'row',flex:1,marginTop:15}}>
@@ -260,7 +261,7 @@ const ValidationSchema = Yup.object().shape({
                 </View>  
             </View> 
             {order?.vendorOrders[0]?.orderStatus === "On the Way" && <View style={{borderRadius:4,backgroundColor:'#E5EAEE',minHeight:100,padding:15,marginBottom:20}}>
-              <View style={[styles.tabWrap]}>
+              {(paymentMethod === "Cash On Delivery" ||paymentMethod === "Card On Delivery") && <View style={[styles.tabWrap]}>
                 <TouchableOpacity
                   onPress = {()=>{setPaymentMethod('Cash On Delivery')}}
                   style={[(paymentMethod === "Cash On Delivery" ? styles.activeTabView:styles.tabView),styles.tabBorder,styles.borderRadiusLeft]}
@@ -273,7 +274,7 @@ const ValidationSchema = Yup.object().shape({
                 >
                   <Text style={paymentMethod === "Card On Delivery" ? styles.tabText : styles.tabText1}>Card On Delivery</Text>
                 </TouchableOpacity>
-              </View>
+              </View>}
               <View style={{flexDirection:"row",paddingTop:15,justifyContent:'space-between'}}>
                 <View style={{flex:0.6}}>
                     <Text style={styles.deliveryText1}>Amount Receivable</Text>
@@ -317,7 +318,7 @@ const ValidationSchema = Yup.object().shape({
                 paymentMethod === "Card On Delivery" ?
                 <View style={{flex:1,flexDirection:"row",marginTop:15}}>
                   <View style={{flex:0.5}}>
-                    <Text style={styles.deliveryText1}>Transaction Number</Text>
+                    <Text style={styles.deliveryText1}>Authorization Code</Text>
                   </View>
                   <View style={{flex:0.5}}>
                     <FormInput 

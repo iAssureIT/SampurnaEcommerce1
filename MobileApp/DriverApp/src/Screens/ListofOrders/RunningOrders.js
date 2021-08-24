@@ -7,7 +7,8 @@ import {
   StatusBar,
   FlatList,
   Linking,
-  Platform
+  Platform,
+  RefreshControl
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Header, Icon, Card, Button }       from 'react-native-elements';
@@ -31,7 +32,8 @@ const todoList = [
 export const RunningOrders =(props)=> {
     const [loading,setLoading] =useState(true);
     const [orderList,setOrderList] = useState([]);
-    const isFocused = useIsFocused()
+    const isFocused = useIsFocused();
+    const [refresh,setRefresh]=useState(false);
     useEffect(() => {
         setLoading(true);
         getList()
@@ -49,6 +51,7 @@ export const RunningOrders =(props)=> {
         console.log("payload",payload);
         axios.post('/api/orders/get/nearest_vendor_orders',payload)
         .then(res=>{
+            setRefresh(false);
             console.log("res",res);
             setLoading(false);
             setOrderList(res.data)
@@ -57,6 +60,12 @@ export const RunningOrders =(props)=> {
             setLoading(false);
             console.log("err",err);
         })
+    }
+
+
+    const refreshControl=()=>{
+        setRefresh(true);
+        getList();
     }
 
 
@@ -174,7 +183,7 @@ export const RunningOrders =(props)=> {
                             <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}> : {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>                            
                         </View>
                         <View style={{flex:0.13}}>
-                            <TouchableOpacity style={{marginHorizontal:10}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
+                            <TouchableOpacity style={{marginHorizontal:10,height:30,width:30}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
                                 <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>
                             </TouchableOpacity>
                         </View>                    
@@ -198,6 +207,12 @@ export const RunningOrders =(props)=> {
                             data={orderList}
                             keyExtractor={(item) => item.id}
                             renderItem={_renderlist} 
+                            refreshControl={
+                                <RefreshControl
+                                refreshing={refresh}
+                                onRefresh={() => refreshControl()}
+                                />
+                            } 
                                 />                 
                         :
                             <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>

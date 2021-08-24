@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Knock Knock DP</string>
+    <string name="app_name">Knock Knock Boys</string>
     <string name="facebook_app_id">1092872667868832</string>
       <string moduleConfig="true" name="CodePushDeploymentKey">TMMIb6fw8mfcRQO130OnUY3iSI2DIVrd8rqg_</string>
       <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>

@@ -7,7 +7,8 @@ import {
   StatusBar,
   FlatList,
   TouchableOpacity,
-  Linking
+  Linking,
+  RefreshControl
 } from 'react-native';
 import Swipeable                        from 'react-native-gesture-handler/Swipeable';
 import { Header, Icon, Card, Button }   from 'react-native-elements';
@@ -23,11 +24,6 @@ import DateTimePickerModal              from "react-native-modal-datetime-picker
 import { useIsFocused } from "@react-navigation/native";
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import localization from 'moment/locale/de'
-const todoList = [
-  { id: '1', text: 'Learn JavaScript' },
-  { id: '2', text: 'Learn React' },
-  { id: '3', text: 'Learn TypeScript' },
-];
 
 export const CompletedOrders =(props)=> {
     const [loading,setLoading] =useState(true);
@@ -35,10 +31,10 @@ export const CompletedOrders =(props)=> {
     const [date,setDate] = useState(new Date());
     const isFocused = useIsFocused()
     const [datePicker,openDatePicker] = useState(false);
+    const [refresh,setRefresh]=useState(false);
     const new_date=props?.route?.params?.new_date;
     useEffect(() => {
         setLoading(true);
-        console.log("new_date",new_date);
         if(new_date!==undefined){
             setDate(new Date(new_date));
             getList(new Date(new_date));
@@ -57,10 +53,9 @@ export const CompletedOrders =(props)=> {
             "user_id"       : store.userDetails.user_id,
             "deliveryDate"  : moment(date).format()
         }
-        console.log("payload",payload);
         axios.post('/api/orders/get/daily/vendor_orders',payload)
         .then(res=>{
-            console.log("res1",res);
+            setRefresh(false);
             setOrderList(res.data);
             setLoading(false);
         })
@@ -69,6 +64,13 @@ export const CompletedOrders =(props)=> {
             console.log("err",err);
         })
     }
+
+
+    const refreshControl=()=>{
+        setRefresh(true);
+        getList(date);
+    }
+ 
 
     const previous =()=>{
         var prev = new Date(date.setDate(date.getDate() - 1));
@@ -134,7 +136,7 @@ export const CompletedOrders =(props)=> {
                         <View style={{flex:0.8,flexDirection:"row"}}>
                             <Text numberOfLines={2} style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>
                             <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end'}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
-                                <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>
+                                <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{alignItems:'flex-end'}}/>
                             </TouchableOpacity>
                         </View>                        
                     </View>                     
@@ -157,7 +159,6 @@ export const CompletedOrders =(props)=> {
         )    
     };
 
-    console.log("orderList",orderList)
     return (
         <View style={{flex:1}}>            
          {loading ?
@@ -207,6 +208,12 @@ export const CompletedOrders =(props)=> {
                         keyExtractor={(item) => item.id}
                         renderItem={_renderlist} 
                         style={{marginBottom:60}}
+                        refreshControl={
+                            <RefreshControl
+                            refreshing={refresh}
+                            onRefresh={() => refreshControl()}
+                            />
+                        } 
                             />
                         :
                         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
@@ -218,7 +225,7 @@ export const CompletedOrders =(props)=> {
             <DateTimePickerModal
             isVisible={datePicker}
             mode="date"
-            // onConfirm={(date)=>{setDate(date),handleCustom(date,date1)}}
+            onConfirm={(date)=>{setDate(date)}}
             onCancel={()=>openDatePicker(false)}
         />
         </View>}

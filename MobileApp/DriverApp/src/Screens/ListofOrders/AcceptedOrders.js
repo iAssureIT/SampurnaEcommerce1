@@ -6,7 +6,8 @@ import {
   Text,
   StatusBar,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  RefreshControl
 } from 'react-native';
 import Swipeable                                    from 'react-native-gesture-handler/Swipeable';
 import { Header, Icon, Card, Input, colors }       from 'react-native-elements';
@@ -38,7 +39,8 @@ export const AcceptedOrders =(props)=> {
     const [reason,setReason]=useState('');
     const [order_id,setOrderId] = useState('');
     const [vendor_id,setVendorId] = useState('');
-    const [comment, setComment] = useState('')
+    const [comment, setComment] = useState('');
+    const [refresh,setRefresh]=useState(false);
     const ref =useRef(null);
     let row: Array<any> = [];
     let prevOpenedRow;
@@ -61,6 +63,7 @@ export const AcceptedOrders =(props)=> {
         axios.post('/api/orders/get/nearest_vendor_orders',payload)
         .then(res=>{
             console.log("res",res);
+            setRefresh(false);
             setLoading(false);
             setOrderList(res.data);
         })
@@ -69,6 +72,12 @@ export const AcceptedOrders =(props)=> {
             console.log("err",err);
         })
     }
+
+    const refreshControl=()=>{
+        setRefresh(true);
+        getList();
+    }
+ 
 
     const getReasons_func=()=>{
         axios.get('/api/orderrejectreasons/get/list')
@@ -358,6 +367,12 @@ export const AcceptedOrders =(props)=> {
                         data={orderList}
                         keyExtractor={(item) => item.id}
                         renderItem={_renderlist} 
+                        refreshControl={
+                            <RefreshControl
+                            refreshing={refresh}
+                            onRefresh={() => refreshControl()}
+                            />
+                        } 
                     />
                     :
                     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>

@@ -43,7 +43,7 @@ import {FormInput}              from '../../ScreenComponents/FormInput/FormInput
         <View style={{}}>
             <View style={{paddingVertical:15}}>
                 <Input 
-                    label          = "Transaction Number"
+                    label          = "Authorization Code"
                     inputContainerStyle = {styles.containerStyle23}
                     inputStyle          = {styles.inputAmount}
                     onChangeText    = {(e)=>setTransactionNumber(e)}

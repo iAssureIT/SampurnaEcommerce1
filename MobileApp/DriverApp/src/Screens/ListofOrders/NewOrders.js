@@ -6,6 +6,7 @@ import {
   Text,
   StatusBar,
   FlatList,
+  RefreshControl
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Header, Icon, Card, Button }   from 'react-native-elements';
@@ -35,6 +36,7 @@ export const NewOrders =(props)=> {
     const [orderList,setOrderList] = useState([]);
     const isFocused = useIsFocused();
     const ref =useRef(null);
+    const [refresh,setRefresh]=useState(false);
     let row: Array<any> = [];
     let prevOpenedRow;
 
@@ -82,9 +84,15 @@ export const NewOrders =(props)=> {
             console.log("response",response);
             setOrderList(response);
             setLoading(false);
+            setRefresh(false);
         })
     }
 
+
+    const refreshControl=()=>{
+        setRefresh(true);
+        getList();
+    }
  
   
     const swipeFromLeftOpen = (order_id,vendor_id) => {
@@ -141,7 +149,7 @@ export const NewOrders =(props)=> {
                                 <Text style={CommonStyles.cardTopText}>Order No {item.orderID}</Text>
                             </View>
                             <View style={{flex:.6,alignItems:'flex-end'}}>
-                                <Text style={CommonStyles.cardTopText2}>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
+                                <Text style={CommonStyles.cardTopText2}>Date  {moment(item.createdAt).lang("es").format('DD-MM-YYYY hh:mm')}</Text>
                             </View>    
                     </View>         
                     <View style={CommonStyles.cardBottom}>
@@ -202,6 +210,12 @@ export const NewOrders =(props)=> {
                             data={orderList}
                             keyExtractor={(item) => item.id}
                             renderItem={_renderlist} 
+                            refreshControl={
+                                <RefreshControl
+                                refreshing={refresh}
+                                onRefresh={() => refreshControl()}
+                                />
+                            } 
                         />
                         :
                         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>

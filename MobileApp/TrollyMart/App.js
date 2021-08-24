@@ -32,7 +32,6 @@ Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 TextInput.defaultProps = TextInput.defaultProps || {};
 TextInput.defaultProps.allowFontScaling = false;
-Alert.alert("props.toast",props.toast);
 
  const App = (props) => {
     console.log("props",props);
