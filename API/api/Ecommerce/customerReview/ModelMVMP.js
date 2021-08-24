@@ -14,7 +14,11 @@ const customerReviewSchema = mongoose.Schema({
 	category_id             : { type: mongoose.Schema.Types.ObjectId, ref: 'categories' },	
 	rating               	: Number,
 	status               	: String,
-	adminComment         	: String,
+	adminComments 				: [{
+											comment 		: String,
+											commentBy 	: String,
+											commentedOn : Date
+	}],
 	vendorComment        	: String,
 	createdAt            	: Date
 });

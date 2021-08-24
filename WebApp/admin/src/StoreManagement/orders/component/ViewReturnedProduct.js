@@ -174,6 +174,9 @@ class ReturnedProductView extends Component{
 					console.log("response.data => ",response.data )
 					swal(response.data.message);
 					this.getReturnedProduct(this.state.return_id);
+					this.setState({
+						adminComment : ""
+					})
 				})
 				.catch((error)=>{
 					console.log('error => ', error);

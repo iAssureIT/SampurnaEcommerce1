@@ -99,7 +99,7 @@ class VendorSalesReport extends Component{
       	tableObjects      		: {
 							        paginationApply 	: true,
 							        searchApply     	: true,
-							        excelReportExport 	: true
+							        excelReportExport 	: false
       	},
 		}
 		window.scrollTo(0, 0);

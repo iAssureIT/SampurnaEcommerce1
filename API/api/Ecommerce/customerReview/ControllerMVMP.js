@@ -163,40 +163,89 @@ exports.get_single_review = (req,res,next)=>{
 	.populate("product_id")
 	.populate("vendor_id")
 	.populate("customer_id")
+	.populate("order_id")
 	.then(async(data)=>{
-		var vendorLocation 	= await data.vendor_id.locations.find(location => String(location._id) === String(data.vendorLocation_id));
-		var vendorContact 	= vendorLocation && vendorLocation !== undefined 
-							  ?
-							  	data.vendor_id.contactPersons.find(contactPerson => contactPerson.branchCode === vendorLocation.branchCode)
-							  :
-							  	null
 		if(data && data !== undefined){
+			if (data.vendor_id && data.vendor_id !== null) {
+				var vendorLocation 	= await data.vendor_id.locations.find(location => String(location._id) === String(data.vendorLocation_id));
+				var vendorContact 	= vendorLocation && vendorLocation !== undefined 
+											  ?
+											  		data.vendor_id.contactPersons.find(contactPerson => contactPerson.branchCode === vendorLocation.branchCode)
+											  :
+											  		null
+			}
+
 			var returnData = {
-				product_id 			: data.product_id._id,
-				productName 		: data.product_id.productName,
-				productCode 		: data.product_id.productCode,
-				vendor_id 			: data.vendor_id._id,
-				vendorName 			: data.vendor_id.companyName,
-				vendorLocation_id 	: data.vendorLocation_id,
-				vendorLocation 		: vendorLocation,
-				vendorContact  		: vendorContact,
-				reviewDate 			: data.createdAt,
-				adminComment 		: data.adminComment,
-				vendorComment 		: data.vendorComment,
-				vendorComment 		: data.vendorComment,
-				customer_id 		: data.customer_id._id,
-				customerName 		: data.customer_id.profile.fullName,
-				customerEmail 		: data.customer_id.profile.email,
-				customerMobile 		: data.customer_id.profile.mobile,
-				customerReview      : data.customerReview,
-				reviewProductImages : data.reviewProductImages,
-				rating 				: data.rating,
-				status 				: data.status
+				orderID 						: data.order_id && data.order_id !== null ? data.order_id.orderID : "",
+				product_id 					: data.product_id && data.product_id !== null ? data.product_id._id : "",
+				productName 				: data.product_id && data.product_id !== null ? data.product_id.productName : "",
+				productCode 				: data.product_id && data.product_id !== null ? data.product_id.productCode : "",
+				itemCode 					: data.product_id && data.product_id !== null ? data.product_id.itemCode : "",
+				section 						: data.product_id && data.product_id !== null ? data.product_id.section : "",
+				category 					: data.product_id && data.product_id !== null ? data.product_id.category : "",
+				subCategory 				: data.product_id && data.product_id !== null ? data.product_id.subCategory : "",
+				size 							: data.product_id && data.product_id !== null ? data.product_id.size : "",
+				color 						: data.product_id && data.product_id !== null ? data.product_id.color : "",
+				unit 							: data.product_id && data.product_id !== null ? data.product_id.unit : "",
+				vendor_id 					: data.vendor_id && data.vendor_id !== null ? data.vendor_id._id : "",
+				vendorName 					: data.vendor_id && data.vendor_id !== null ? data.vendor_id.companyName : "",
+				vendorLocation_id 		: data.vendorLocation_id,
+				vendorLocation 			: vendorLocation ? vendorLocation : {},
+				vendorContact  			: vendorContact ? vendorContact : "",
+				dateOfPurchase 			: data.order_id && data.order_id !== null ? data.order_id.createdAt : "",
+				reviewDate 					: data.createdAt,
+				adminComments 				: data.adminComments,
+				vendorComment 				: data.vendorComment,
+				customer_id 				: data.customer_id && data.customer_id !== null ? data.customer_id._id : "",
+				customerName 				: data.customer_id && data.customer_id !== null ? data.customer_id.profile.fullName : "",
+				customerEmail 				: data.customer_id && data.customer_id !== null ? data.customer_id.profile.email : "",
+				customerMobile 			: data.customer_id && data.customer_id !== null ? data.customer_id.profile.mobile : "",
+				customerReview     		: data.customerReview,
+				reviewProductImages 		: data.reviewProductImages,
+				rating 						: data.rating,
+				status 						: data.status
 			}
 			res.status(200).json(returnData);
 		}else{
 			res.status(200).json(data);
-		}		
+		}
+		// var vendorLocation 	= await data.vendor_id.locations.find(location => String(location._id) === String(data.vendorLocation_id));
+		// var vendorContact 	= vendorLocation && vendorLocation !== undefined 
+		// 					  ?
+		// 					  	data.vendor_id.contactPersons.find(contactPerson => contactPerson.branchCode === vendorLocation.branchCode)
+		// 					  :
+		// 					  	null
+		// if(data && data !== undefined){
+		// 	var returnData = {
+		// 		product_id 				: data.product_id._id,
+		// 		productName 			: data.product_id.productName,
+		// 		productCode 			: data.product_id.productCode,
+		// 		itemCode 				: data.product_id.itemCode,
+		// 		itemCode 				: data.product_id.itemCode,
+		// 		itemCode 				: data.product_id.itemCode,
+		// 		itemCode 				: data.product_id.itemCode,
+		// 		vendor_id 				: data.vendor_id._id,
+		// 		vendorName 				: data.vendor_id.companyName,
+		// 		vendorLocation_id 	: data.vendorLocation_id,
+		// 		vendorLocation 		: vendorLocation,
+		// 		vendorContact  		: vendorContact,
+		// 		reviewDate 				: data.createdAt,
+		// 		adminComment 			: data.adminComment,
+		// 		vendorComment 			: data.vendorComment,
+		// 		vendorComment 			: data.vendorComment,
+		// 		customer_id 			: data.customer_id._id,
+		// 		customerName 			: data.customer_id.profile.fullName,
+		// 		customerEmail 			: data.customer_id.profile.email,
+		// 		customerMobile 		: data.customer_id.profile.mobile,
+		// 		customerReview      	: data.customerReview,
+		// 		reviewProductImages 	: data.reviewProductImages,
+		// 		rating 					: data.rating,
+		// 		status 					: data.status
+		// 	}
+		// 	res.status(200).json(returnData);
+		// }else{
+		// 	res.status(200).json(data);
+		// }		
 	})
 	.catch(err =>{
 		console.log(err);
@@ -210,16 +259,22 @@ exports.get_single_review = (req,res,next)=>{
 exports.add_admin_or_vendor_comment = (req, res, next) => {
 	// console.log("req.body => ",req.body);
 	// console.log("req.body => ",req.body.vendorComment);
-	if(req.body.adminComment && req.body.adminComment !== undefined){
-		var comment = {adminComment : req.body.adminComment}
-	}else if(req.body.vendorComment && req.body.vendorComment !== undefined){
-		var comment = {vendorComment : req.body.vendorComment}
-	}
+	// if(req.body.adminComment && req.body.adminComment !== undefined){
+	// 	var comment = {adminComment : req.body.adminComment}
+	// }else if(req.body.vendorComment && req.body.vendorComment !== undefined){
+	// 	var comment = {vendorComment : req.body.vendorComment}
+	// }
 	// console.log("comment => ",comment);
 	CustomerReview.updateOne(
 		{ _id: req.body.review_id},
-		{
-			$set: comment
+		{$push: 
+			{'adminComments' : 
+				{
+					comment 		: req.body.comment,
+					commentBy 	: req.body.commentBy,
+					commentedOn : new Date()
+				}
+			}
 		}
 	)
 	.exec()
@@ -480,11 +535,15 @@ exports.delete_review = (req,res,next)=>{
 exports.add_admin_comment = (req, res, next) => {
 	 CustomerReview.updateOne(
 		  { _id: req.body.rating_ID},
-		  {
-				$set: {
-					 "adminComment"           : req.body.adminComment,
+		  { $push: 
+			{'adminComments' : 
+				{
+					comment 		: req.body.comment,
+					commentBy 	: req.body.commentBy,
+					commentedOn : new Date()
 				}
-		  }
+			}
+		}
 	 )
 	 .exec()
 	 .then(data => {

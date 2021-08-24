@@ -1,11 +1,14 @@
-const mongoose				= require("mongoose");
+const mongoose					= require("mongoose");
 const ReturnedProducts 		= require('./ModelMVMP');
-const Orders 				= require('../orders/ModelMVMP');
+const User 						= require('../../coreAdmin/userManagementnew/ModelUsers.js');
+const Products 				= require('../products/Model');
+const Orders 					= require('../orders/ModelMVMP');
 const CreditPoints 			= require('../CreditPoints/Model.js');
 const moment           		= require('moment-timezone');
 var ObjectId            	= require('mongodb').ObjectID;
 const ProductInventory 		= require('../ProductInventory/Model.js');
 const CreditPointsPolicy 	= require('../CreditPointsPolicy/Model.js');
+const sendNotification 			= require("../../coreAdmin/notificationManagement/SendNotification.js");
 
 
 exports.get_returned_products = (req,res,next)=>{
@@ -455,6 +458,30 @@ exports.return_status_update = (req, res, next) => {
 								// });
 							}); 
 
+							var userDetails 		= await User.findOne({"_id" : ObjectId(returnProductData.user_id)});
+							var productDetails 	= await Products.findOne({"_id" : ObjectId(returnProductData.product_id)});
+							
+							if (userDetails && userDetails !== null) {
+								var userNotificationValues = {
+									"event"			: "ReturnedProductStatus",
+									"toUser_id"		: returnProductData.user_id,
+									"toUserRole"	: "user",								
+									"variables" 	: {
+														"userRole" 					: "user",
+														"firstName" 				: userDetails.profile.firstName,
+														"lastName" 					: userDetails.profile.lastName,
+														"fullName" 					: userDetails.profile.fullName,
+														"emailId" 					: userDetails.profile.email,
+														"mobileNumber"				: userDetails.profile.mobile,
+														"productName" 				: productDetails.productName + "( ProductId : " + productDetails.productCode + " ItemId : " + productDetails.itemCode + " )",
+														"returnStatus" 			: req.body.returnStatus,
+														"returnRequestedDate" 	: moment(new Date).format('MMMM Do YYYY, h:mm:ss a'),
+														"statusChangeDate" 		: moment(new Date).format('MMMM Do YYYY, h:mm:ss a')
+									}
+								}
+								// console.log("userNotificationValues => ",userNotificationValues);
+								var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+							}
 							res.status(200).json({
 								"message" : req.body.returnStatus + ' Successfully.'
 							});
