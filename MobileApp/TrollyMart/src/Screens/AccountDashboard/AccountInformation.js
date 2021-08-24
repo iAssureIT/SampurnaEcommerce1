@@ -144,10 +144,10 @@ export const AccountInformation=withCustomerToaster((props)=>{
               .then((response) => {
                 console.log("response123",response);
                 if(response.data.messageCode === true){
+                  setToast({text: response.data.message, color: 'green'});
                   if(checkedMobNo){
                     setModal(true);
                   }
-                  setToast({text: response.data.message, color: 'green'});
                   dispatch(getUserDetails(user_id));
                 }else{
                   setToast({text: response.data.message, color: colors.warning});

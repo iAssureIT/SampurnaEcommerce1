@@ -60,8 +60,11 @@ import {RewardsPoint}               from '../Screens/RewardsPoints/RewardsPoint.
 import {Footer}                 from '../ScreenComponents/Footer/Footer.js';
 
 const horizontalAnimation = {
-  gestureDirection: 'horizontal-inverted',
+  gestureDirection: 'horizontal',
+  // cardStyleInterpolator:
+  // CardStyleInterpolators.forHorizontalIOS
   cardStyleInterpolator: ({ current, layouts }) => {
+    console.log("layouts",layouts);
     return {
       cardStyle: {
         transform: [

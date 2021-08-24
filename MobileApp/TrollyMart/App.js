@@ -4,7 +4,7 @@ import axios                  from 'axios';
 import codePush               from 'react-native-code-push';
 import {Provider, connect,useDispatch}    from 'react-redux';
 import {Provider as ProviderPaper, 
-      Snackbar}               from 'react-native-paper';
+      }               from 'react-native-paper';
 import store                  from './src/redux/store';
 import {setToast}             from './src/redux/AppState';
 import { LogBox,StatusBar }   from 'react-native';
@@ -15,7 +15,7 @@ import {fcmService} from './src/FCMService';
 import {REACT_APP_BASE_URL} from '@env'
 import GeneralStatusBarColor from './GeneralStatusBarColor.js';
 import { NetWorkError } from './NetWorkError';
-import { Alert,Text,TextInput } from "react-native";
+import { Alert,Text,TextInput,View } from "react-native";
 import crashlytics from '@react-native-firebase/crashlytics';
 import { enableScreens } from 'react-native-screens';
 import { Platform } from "react-native";
@@ -23,6 +23,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { NetworkProvider } from './NetworkProvider';
 import { ExampleComponent } from './ExampleComponent';
+import Snackbar from 'react-native-snackbar';
 export const NetworkContext = React.createContext({ isConnected: true });
 
 console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);
@@ -31,6 +32,7 @@ Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 TextInput.defaultProps = TextInput.defaultProps || {};
 TextInput.defaultProps.allowFontScaling = false;
+Alert.alert("props.toast",props.toast);
 
  const App = (props) => {
     console.log("props",props);
@@ -110,16 +112,17 @@ TextInput.defaultProps.allowFontScaling = false;
 }
 
 const ToastProviderComponent = props => {
-  return (
-    <Snackbar
-      visible={!!props.toast}
-      style={{backgroundColor: props.toast?.color}}
-      duration={1000}
-      onDismiss={() => props.setToast(null)}
-      >
-      {props.toast?.text}
-    </Snackbar>
-  );
+  useEffect(() => {
+    if (!!props.toast) {
+      Snackbar.show({
+        text: props.toast.text,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: props.toast?.color,
+        fontFamily: 'Montserrat-Regular',
+      });
+    }
+  }, [props]);
+  return <View id="RootApp" />;
 };
 
  const ToastProvider = connect(
