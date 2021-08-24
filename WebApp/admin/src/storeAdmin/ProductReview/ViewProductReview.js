@@ -136,10 +136,9 @@ class Productreview extends Component{
 		});
 	}
 
-
-
 	/*======= changeReviewStatus() =======*/
 	changeReviewStatus(event){
+		event.preventDefault();
 		console.log("name = ",event.target.id);		
 		if(event.target.id){
 			var formValues = {
@@ -554,9 +553,9 @@ class Productreview extends Component{
 															</div>															
 														</div>
 														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 submitCommentBtnDiv">
-															<button onClick={this. submitComment.bind(this)} id={this.state.return_id} type="button" className="btn submitComment-btn pull-right">{this.state.submitType === "update" ? "Update" : "Submit"}</button>
 															<button className={"btn submitAndReject-btn pull-right  "} name="Rejected" id="Rejected" title="Reject Customer Review" onClick={this.changeReviewStatus.bind(this)}>Reject</button>
 															<button className={"btn submitAndApprove-btn pull-right  "} name="Published" id="Published" title="Publish Customer Review" onClick={this.changeReviewStatus.bind(this)}>Publish</button>
+															<button onClick={this.submitComment.bind(this)} id={this.state.review_id} type="button" className="btn submitComment-btn pull-right">{this.state.submitType === "update" ? "Update" : "Submit"}</button>
 														</div>
 													</form>
 												</div>

@@ -372,7 +372,8 @@ class IAssureTable extends Component {
 			searchText  : searchText,
 		},()=>{
 			console.log("this.state.searchText => ",this.state.searchText)
-			this.props.getData(this.state.searchText, this.state.startRange, this.state.limitRange);
+			this.props.getSearchText(this.state.searchText)
+			// this.props.getData(this.state.searchText, this.state.startRange, this.state.limitRange);
 		});	    	
 	     	 
    }

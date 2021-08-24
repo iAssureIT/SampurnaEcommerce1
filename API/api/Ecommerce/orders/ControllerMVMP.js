@@ -713,11 +713,15 @@ exports.list_orders_by_status = (req, res, next) => {
 
 	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
 	if(req.body.searchText && req.body.searchText !== ""){
-		selector["$or"].push({ "orderID" 									: {'$regex' : req.body.searchText , $options: "i" } });
-		selector["$or"].push({ "userName" 									: {'$regex' : req.body.searchText , $options: "i" } })
-		selector["$or"].push({ "userFullName" 								: {'$regex' : req.body.searchText , $options: "i" } })
-		selector["$or"].push({ "deliveryAddress.name" 					: {'$regex' : req.body.searchText , $options: "i" } })
-		selector["$or"].push({ "vendorOrders.vendor_id.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$and"].push({ 
+			"$or" : [
+						{ "orderID" 									: parseInt(req.body.searchText) },
+						{ "userName" 									: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "userFullName" 								: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "deliveryAddress.name" 					: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "vendorOrders.vendor_id.companyName" : {'$regex' : req.body.searchText , $options: "i" } },
+					]
+		})
 	}
 	console.log("selector",selector);
 	// console.log("selector => ",selector[0])

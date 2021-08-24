@@ -361,7 +361,16 @@ class AllOrdersList extends Component{
 				 this.getSingleMasterInvoiceRecord(this.state.masterInvoice_id);
 		   })
 		}
-   	}
+   }
+
+	/* ======= getSearchText() ========== */
+	getSearchText(searchText){
+		this.setState({
+			searchText : searchText
+		},()=> {
+			this.getData(this.state.searchText, this.state.startRange,this.state.limitRange);
+		})
+	}
 
 	/* ======= changeVendorOrderStatus() ========== */
 	async changeVendorOrderStatus(event){		
@@ -453,7 +462,7 @@ class AllOrdersList extends Component{
 													tableData             = {this.state.tableData}
 													getData               = {this.getData.bind(this)}
 													tableObjects          = {this.state.tableObjects}
-													// getSearchText         = {this.getSearchText.bind(this)} 
+													getSearchText         = {this.getSearchText.bind(this)} 
 													tableName             = {this.state.tableName}
 													isLoading 				= {this.state.isLoadingData}
 												/>

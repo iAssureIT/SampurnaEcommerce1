@@ -160,8 +160,12 @@ exports.get_user_wishlist = (req,res,next)=>{
             maxDistanceRadius = maxKmRadius.maxRadius;
         }
         for (var i = 0; i < wishdata.length; i++) {
+            console.log("wishdata[i] => ",wishdata[i])
+            console.log("wishdata[i].product_ID.productCode => ",wishdata[i].product_ID.productCode)
+            console.log("wishdata[i].product_ID.itemCode => ",wishdata[i].product_ID.itemCode)
+            console.log("wishdata[i].product_ID.vendor_ID => ",wishdata[i].product_ID.vendor_ID)
             var inventoryData = await ProductInventory.findOne({productCode : wishdata[i].product_ID.productCode, itemCode : wishdata[i].product_ID.itemCode, vendor_ID : ObjectId(wishdata[i].product_ID.vendor_ID)},{currentQuantity : 1})
-			// console.log("inventoryData => ",inventoryData)
+			console.log("inventoryData => ",inventoryData)
 
             var product = {
                 vendor_id           : wishdata[i].vendor_id,
