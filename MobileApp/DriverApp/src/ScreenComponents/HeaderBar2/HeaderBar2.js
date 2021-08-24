@@ -231,7 +231,7 @@ import Geolocation          from 'react-native-geolocation-service';
           }
           centerComponent={
               props.headerTitle && props.headerTitle!=="" ?
-                <View style={{width:200,marginTop:-5,marginLeft:-20}}>
+                <View style={{width:200,marginTop:-5,marginLeft:-40}}>
                   <Text style={[{fontSize:15,color:'#fff',fontFamily:"Montserrat-SemiBold"}]}>{props.headerTitle}</Text>
                 </View>  
                 :
@@ -281,7 +281,7 @@ import Geolocation          from 'react-native-geolocation-service';
                 </TouchableOpacity> */}
               </View>
               <View>
-                <TouchableOpacity onPress={()=> navigation.goBack()}>
+                <TouchableOpacity onPress={()=> navigation.navigate('InAppNotification')}>
                   <View style={{marginLeft:20}}>
                     <Icon size={20} name='bell-ring-outline' type='material-community' color='#fff' />
                     {/* <Image

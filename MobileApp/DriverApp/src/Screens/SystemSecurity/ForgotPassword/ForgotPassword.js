@@ -44,7 +44,7 @@ const window = Dimensions.get('window');
                   .then(response => {
                     console.log("response",response);
                       setLoading(false);
-                        if(response.data.message == 'OTP_UPDATED') {
+                        if(response.data.message == 'OTP sent on registered mobile number'){
                           // var sendData = {
                           //   "event": "5",
                           //   "toUser_id": response.data.ID,
@@ -139,6 +139,16 @@ const window = Dimensions.get('window');
               autoCapitalize  = "none"
               keyboardType    = "email-address"
             />
+            <View
+              style={[
+                {
+                  flexDirection   : 'row',
+                  alignItems      : 'center',
+                  justifyContent  : 'center',
+                  marginTop       : '3%',
+                  marginBottom    : 25,
+                },
+              ]}></View>
             <FormButton
               title       = {'Reset Password'}
               onPress     = {handleSubmit}
@@ -165,12 +175,12 @@ const window = Dimensions.get('window');
                   // marginBottom    : 25,
                 },
               ]}>
-                <View style={{flexDirection:"row",paddingHorizontal:15}}>
+                {/* <View style={{flexDirection:"row",paddingHorizontal:15}}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
                   <Text style={{fontSize:10}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:10}]}> Sign Up</Text></Text>                  
                 </TouchableOpacity>                
-                </View>
+                </View> */}
             </View>
             </View>
           </View>
