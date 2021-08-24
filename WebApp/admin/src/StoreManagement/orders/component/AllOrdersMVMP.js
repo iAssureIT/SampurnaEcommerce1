@@ -365,6 +365,7 @@ class AllOrdersList extends Component{
 
 	/* ======= getSearchText() ========== */
 	getSearchText(searchText){
+		console.log("searchText * => ",searchText)
 		this.setState({
 			searchText : searchText
 		},()=> {

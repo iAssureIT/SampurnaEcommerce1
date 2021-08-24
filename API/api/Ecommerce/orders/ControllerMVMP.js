@@ -718,8 +718,8 @@ exports.list_orders_by_status = (req, res, next) => {
 						{ "orderID" 									: parseInt(req.body.searchText) },
 						{ "userName" 									: {'$regex' : req.body.searchText , $options: "i" } },
 						{ "userFullName" 								: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "deliveryAddress.name" 					: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "vendorOrders.vendor_id.companyName" : {'$regex' : req.body.searchText , $options: "i" } },
+						{ "deliveryAddress.name" 					: {'$regex' : req.body.searchText , $options: "i" } }
+						// { "vendorOrders.vendor_id.companyName" : {'$regex' : req.body.searchText , $options: "i" } }
 					]
 		})
 	}
@@ -749,7 +749,7 @@ exports.list_orders_by_status = (req, res, next) => {
 		res.status(200).json(data);
 	})
 	.catch(err => {
-		console.log("Error while finding order => ",error);
+		console.log("Error while finding order => ",err);
 		res.status(500).json({
 			error: err
 		});
