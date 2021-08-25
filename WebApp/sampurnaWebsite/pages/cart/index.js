@@ -55,10 +55,10 @@ export async function getServerSideProps({query}){
   
 	return {
 	  props:{
-		pageDatapop,
+		  pageDatapop,
 	  }
 	}
-  }
+}
   
   const mapStateToProps = state => (
 	// console.log("mapStateToProps in produt page",state.data),

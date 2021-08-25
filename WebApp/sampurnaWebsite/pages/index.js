@@ -10,10 +10,16 @@ import SystemSecurityPopup             from '../Themes/Sampurna/blocks/5_HeaderB
 
 
 export default function App({pageData}){
+	
+	// console.log("page data => ", pageData);
+   // console.log("*** Loaded index.js ***");
+
 	const [sampurnaWebsiteDetails,setSampurnaWebsiteDetails] = useState({});
 	const [userDetails,setUserDetails] = useState({});
 	const [userId,setUserId] = useState();
+
 	var user_details =  JSON.parse(localStorage.getItem('userDetails'));
+
 	const signOut = (e) => {
 		var token = localStorage.removeItem("userDetails");
 		swal({text:'Thank You. You have been logged out Successfully!'}).then(function(){
@@ -26,17 +32,20 @@ export default function App({pageData}){
   	}
 
 	useEffect(()=>{
-	    var sampurnaWebsiteDetailsObj =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+	   var sampurnaWebsiteDetailsObj =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+
     	if(user_details && user_details.user_id){
 			setUserId(user_details.user_id);
     	}
-	    if(sampurnaWebsiteDetailsObj){
+	   if(sampurnaWebsiteDetailsObj){
 	        if(sampurnaWebsiteDetailsObj.deliveryLocation){
 	          setSampurnaWebsiteDetails(sampurnaWebsiteDetailsObj);
 	          setUserDetails(user_details);
 	        }
-	    }
+	   }
   	},[user_details?.user_id])
+
+  	
 	return(
 	    <div className="col-12">
 			<div className="row">

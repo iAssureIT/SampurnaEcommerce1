@@ -654,7 +654,7 @@ class ProductViewEcommerce extends Component{
 																		<div className="col-12">
 																			<span className="col-2"> </span>&nbsp;
 																			<span className={" " +Style.savePrice}>{this.state.currency} &nbsp;{( this.state.productData.originalPrice - this.state.productData.discountedPrice).toFixed(2)}</span> &nbsp;
-																			<span className={Style.youSaved}>Saving</span>
+																			<span className={Style.youSaved}>You Saved</span>
 																		</div>
 																	</div>
 																</div>

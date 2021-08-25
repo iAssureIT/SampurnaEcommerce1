@@ -69,7 +69,7 @@ export default class Footer extends Component {
                     {Array.isArray(this.state.categoryData) && this.state.categoryData.map((data,index)=>{
                         return(
                             index<10? 
-                            <div className="col-6 col-xl-2 col-lg-2 col-md-4 col-sm-4 footerSection" key={index}>
+                            <div className="col-6 col-xl-2 col-lg-2 col-md-4 col-sm-4" key={index}>
                                 <div className=" col-12 NoPadding sectionName">
                                     <Link href={"vendor-list/"+data.sectionUrl} passhref={true}>
                                         <a className="sectionurl footerSubT " ><span>{data.section}</span></a>
@@ -103,9 +103,10 @@ export default class Footer extends Component {
         </div>
         </div>
         :null}
+
         <div className="footer3 col-12">
             <div className="col-12 footer_bottom">
-              <div className={"row " +S.footerBottom}>
+              <div className="row">
               <div className={"col-6 col-sm-3 mx-auto col-xl-3 col-lg-3 col-md-6  " +S.logoTop}>
                  <img src="/images/eCommerce/TrollyLogo.png" className="col-12" alt="FooterLogo" width="" height="75px"/>
               </div>
