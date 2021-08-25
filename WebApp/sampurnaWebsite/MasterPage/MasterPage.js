@@ -104,7 +104,7 @@ class MasterPage extends React.Component {
 				}
 				</div>
 
-				{/*<Footer/>*/}
+				<Footer/>
 			</div>
 		</div>
     );
