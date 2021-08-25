@@ -108,7 +108,7 @@ export default class Footer extends Component {
             <div className="col-12 footer_bottom">
               <div className="row">
               <div className={"col-6 col-sm-3 mx-auto col-xl-3 col-lg-3 col-md-6  " +S.logoTop}>
-                 <img src="/images/eCommerce/TrollyLogo.png" className="col-12" alt="FooterLogo" width="" height="75px"/>
+                 <img src="/images/eCommerce/TrollyLogo.png" className="col-12 img-fluid" alt="FooterLogo"/>
               </div>
               <div className={"col-12 col-sx-12 col-xl-6 col-lg-6 col-md-12 text_Center mx-0 " }>
                 <div className={"col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-6 offset-sm-3 col-12 text_Center mt-3 mb-3 " +S.icon}>
@@ -117,7 +117,14 @@ export default class Footer extends Component {
                     <div className="col-12 socialMediaIcons"><Link href="https://www.youtube.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
                     <div className="col-12 socialMediaIcons"><Link href="https://www.linkedin.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
                     <div className="col-12 socialMediaIcons"><Link href="https://twitter.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                    
-                </div> 
+                </div>
+                {/*<div className={"col-12 text_Center mt-3 mb-3 d-flex justify-content-center " +S.icon}>
+                    <div className="socialMediaIcons"><Link href="https://www.instagram.com/knockknock_eshop/" passhref={true}><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
+                    <div className="socialMediaIcons"><Link href="https://www.facebook.com/Knock-Knock-103575731986682" passhref={true}><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>                        
+                    <div className="socialMediaIcons"><Link href="https://www.youtube.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
+                    <div className="socialMediaIcons"><Link href="https://www.linkedin.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
+                    <div className="socialMediaIcons"><Link href="https://twitter.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                    
+                </div> */}
                 <div className="col-12 col-sm-12 col-xl-12 col-lg-12 col-md-12 text_Center">
                     <div className={"col-12 text-center footer3Class " +S.aboutHeight}>
                         <div className={"text-center " +S.aboutClass}><Link href="/about-us" passhref={true}><a ><span>&nbsp;About Us</span></a></Link></div>
