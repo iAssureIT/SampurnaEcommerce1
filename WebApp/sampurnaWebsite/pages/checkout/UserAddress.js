@@ -321,7 +321,7 @@ class UserAddress extends Component {
                                 <div className="errorMsg">{this.state.errors.modaladdType}</div>
                             </div>
                             <div className=" checkoutAddressModal col-12 py-4">
-                                <div className={"col-8 mx-auto NoPadding " +Style.ma}>
+                                <div className={"col-12 mx-auto NoPadding " +Style.ma}>
                                     <button type="button" className={"btn globaleCommBtn align-center saveAddressBtn col-12 " +Style.saveBtn} onClick={this.saveAddress.bind(this)}>{this.state.addressId ? 'Update Address' :'Save Address'}</button>
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ const next = require('next')
 const dev = conf.publicRuntimeConfig.PORT !== 'production'
 const app = next({ dev })
 const port = conf.publicRuntimeConfig.PORT;
+console.log("port=",port)
 
 const handle = app.getRequestHandler()
 

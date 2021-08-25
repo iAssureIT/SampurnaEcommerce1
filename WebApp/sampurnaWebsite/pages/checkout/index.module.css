@@ -35,6 +35,8 @@
     color           : #fff;
     font-weight     : bold;
     border-radius   : 6px 6px 0px 0px;
+    padding: 15px;
+    margin-bottom: 10px;
 }
 
 .tableBorderNone {
@@ -85,7 +87,7 @@
 
 .paymentMethod {
     margin-top    : 30px;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
     background    : #FFFFFF 0% 0% no-repeat padding-box;
     border        : 0.5px solid #ededed;
     border-radius : 6px;
@@ -126,15 +128,19 @@
 
 .onlinePayment {
     font-size: 10px;
+    margin-left: 35px!important;
 }
 
 .cardDelivery {
     margin-top: -13px !important;
+    margin-left: 15px;
 }
 
 .f14 {
     font-size  : 14px;
     white-space: nowrap;
+    margin-left: 15px;
+    margin-top: 15px;
 }
 
 .checkoutADDCss {
@@ -228,9 +234,9 @@
 
 .modalLogoWrapper {
     position   : absolute;
-    height     : 29px !important;
-    margin-left: -96px;
-    margin-top : -1px !important;
+    height     : 25px !important;
+    left: 2%;
+    top : 10% !important;
 }
 
 .modalLogoWrapperM {
@@ -320,7 +326,7 @@
 }
 
 .checkoutCurrencyWrapper2 {
-    right: -11% !important;
+    right: -12% !important;
 }
 
 .addressWrapper {
@@ -452,8 +458,16 @@
     -webkit-transition: 0.6s ease !important;
     transition        : 0.6s ease !important;
     font-weight       : 600 !important;
+    box-shadow        : -3px 3px 6px #0000004D !important;
 }
+.addBTN1:hover {
+    color             : #000 !important;
+    height            : 55px;
+    border            : 1px solid lightgray !important;
+    border-radius     : 6px !important;
+    background-color  : #fff !important;
 
+}
 .modalBodyRadius {
     border-radius: 19px !important;
 }
@@ -499,6 +513,9 @@
     height             : auto;
     /* background-color: aquamarine; */
 }
+.GrandTotalBoxRightMargin{
+    right: -4%;
+}
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
@@ -524,9 +541,15 @@
 
     .modalLogoWrapper {
         position   : absolute;
-        height     : 29px !important;
-        margin-left: -128px;
-        margin-top : -4px !important;
+        height     : 25px !important;
+        left: 2%;
+        top : 20% !important;
+    }
+    .termsAlign{
+        display: inline-block;
+         margin-top: 7px;
+         border-bottom: 1px solid #fff;
+
     }
 
     .f11N {
@@ -541,10 +564,10 @@
 
 @media (min-width: 640px) {
     .modalLogoWrapper {
-        position      : absolute;
-        height        : 29px !important;
-        /* margin-left: -128px; */
-        margin-top    : -2px !important;
+        position   : absolute;
+        height     : 25px !important;
+        left: 2%;
+        top : 10% !important;
     }
 
     .GrandTotalBoxMobileView {

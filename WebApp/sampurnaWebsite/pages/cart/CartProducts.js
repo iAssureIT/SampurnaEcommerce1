@@ -481,8 +481,8 @@ class CartProducts extends Component {
                                                                     <table className="table table-responsive summaryTable">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td className={" "+ Style.vendorWiseinnerTitle}>Sub Total</td>
-                                                                    <td className={"col-6 "+Style.tdCartWrapper}>
+                                                                    <td className={ Style.vendorWiseinnerTitle}>Sub Total</td>
+                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
                                                                     <span className="col-3 pr-0"><b>{this.state.currency}</b></span><span className="col-3 pl-0"><b> {vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : "0.00"} </b></span>
                                                                     </td>
                                                                 </tr>
@@ -490,7 +490,7 @@ class CartProducts extends Component {
                                                                     <td>You Saved</td>
                                                                     {/* <td className="textAlignRight saving">&nbsp; 
                                                                     <b>{this.state.currency}  {vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount.toFixed(2) : 0.00}</b> </td> */}
-                                                                    <td className={"col-6 "+Style.tdCartWrapper}>
+                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
                                                                     <span className={"col-3 pr-0 "+Style.savingaMTcOLOR}><b>{this.state.currency}</b></span><span className={"col-3 pl-0 "+Style.savingaMTcOLOR}><b> {vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount.toFixed(2) : "0.00"}</b></span>
                                                                     </td>
                                                                 </tr>                                                        
@@ -499,13 +499,13 @@ class CartProducts extends Component {
                                                                     {/* <td className="textAlignRight ">&nbsp; 
                                                                         <span> <b>{this.state.currency}  {vendorWiseCartData.vendor_taxAmount}</b></span>
                                                                     </td> */}
-                                                                    <td className={"col-6 "+Style.tdCartWrapper}>
+                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
                                                                     <span className="col-3 pr-0"><b>{this.state.currency}</b></span><span className="col-3 pl-0"><b> {vendorWiseCartData.vendor_taxAmount>0 ? vendorWiseCartData.vendor_taxAmount.toFixed(2) : "0.00"}</b></span>
                                                                     </td>
                                                                 </tr>
 
                                                                 <tr >
-                                                                    <span className={" "+ Style.cartTotalLineWrapper}></span>
+                                                                    <span className={ Style.cartTotalLineWrapper}></span>
                                                                     
                                                                 </tr>
 
@@ -514,7 +514,7 @@ class CartProducts extends Component {
                                                                     {/* <td className="textAlignRight cartTotal">&nbsp; 
                                                                     <b>{this.state.currency}  {vendorWiseCartData.vendor_netPayableAmount}</b>
                                                                     </td> */}
-                                                                    <td className={"col-6 "+Style.tdCartWrapper}>
+                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
                                                                     <span className="col-3 pr-0"><b>{this.state.currency}</b></span><span className="col-3 pl-0"><b> {vendorWiseCartData.vendor_netPayableAmount}</b></span>
                                                                     </td>
                                                                 </tr>
@@ -702,30 +702,30 @@ class CartProducts extends Component {
                                                                                     <table className="table table-responsive summaryTable">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td className={" "+ Style.vendorWiseinnerTitle}>Sub Total</td>
-                                                                    <td className={"col-6 "+Style.tdCartWrapper}>
+                                                                    <td className={"col-7 "+ Style.vendorWiseinnerTitle}>Sub Total</td>
+                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
                                                                     <span className="col-3 pr-0"><b>{this.state.currency}</b></span><span className="col-3 pl-0"><b> {vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : "0.00"} </b></span>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td className={" "+ Style.vendorWiseinnerTitle}>You Saved</td>
+                                                                    <td className={"col-7 "+ Style.vendorWiseinnerTitle}>You Saved</td>
                                                                     {/* <td className="textAlignRight saving">&nbsp; 
                                                                     <b>{this.state.currency}  {vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount.toFixed(2) : 0.00}</b> </td> */}
-                                                                    <td className={"col-6 "+Style.tdCartWrapper}>
+                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
                                                                     <span className={"col-3 pr-0 "+Style.savingaMTcOLOR}><b>{this.state.currency}</b></span><span className={"col-3 pl-0 "+Style.savingaMTcOLOR}><b> {vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount.toFixed(2) : "0.00"}</b></span>
                                                                     </td>
                                                                 </tr>                                                        
                                                                 <tr>
-                                                                    <td className={" "+ Style.vendorWiseinnerTitle}>VAT</td>  
+                                                                    <td className={"col-7 "+ Style.vendorWiseinnerTitle}>VAT</td>  
                                                                     {/* <td className="textAlignRight ">&nbsp; 
                                                                         <span> <b>{this.state.currency}  {vendorWiseCartData.vendor_taxAmount}</b></span>
                                                                     </td> */}
-                                                                    <td className={"col-6 "+Style.tdCartWrapper}>
+                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
                                                                     <span className="col-3 pr-0"><b>{this.state.currency}</b></span><span className="col-3 pl-0"><b> {vendorWiseCartData.vendor_taxAmount>0 ? vendorWiseCartData.vendor_taxAmount.toFixed(2) : "0.00"}</b></span>
                                                                     </td>
                                                                 </tr>
                                                                 <tr >
-                                                                    <span className={" "+ Style.cartTotalLineWrapper}></span>
+                                                                    <span className={"col-12 "+ Style.cartTotalLineWrapper}></span>
                                                                     
                                                                 </tr>
                                                                 <tr>
@@ -733,7 +733,7 @@ class CartProducts extends Component {
                                                                     {/* <td className="textAlignRight cartTotal">&nbsp; 
                                                                     <b>{this.state.currency}  {vendorWiseCartData.vendor_netPayableAmount}</b>
                                                                     </td> */}
-                                                                    <td className={"col-6 "+Style.tdCartWrapper}>
+                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
                                                                     <span className="col-3 pr-0"><b>{this.state.currency}</b></span><span className="col-3 pl-0"><b> {vendorWiseCartData.vendor_netPayableAmount}</b></span>
                                                                     </td>
                                                                 </tr>
@@ -757,7 +757,7 @@ class CartProducts extends Component {
                                                                                 <div className="row">
                                                                                     <div className={"col-7 " + Style.cartInnerTitleWrapper}>Total Amount</div>
                                                                                     <div className={"col-5  " + Style.cartInnerTitleWrapper1}>
-                                                                                        <span className="col-1 px-1 text-left">{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.afterDiscountTotal > 0 ? this.props.recentCartData.paymentDetails.afterDiscountTotal.toFixed(2) : "00.00"}</span>
+                                                                                        <span className="col-1 px-1 text-left">{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.afterDiscountTotal > 0 ? this.props.recentCartData.paymentDetails.afterDiscountTotal.toFixed(2) : "0.00"}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -765,7 +765,7 @@ class CartProducts extends Component {
                                                                                 <div className="row">
                                                                                     <div className={"col-7 " + Style.cartInnerTitleWrapper}>Total Saved</div>
                                                                                     <div className={"col-5  " + Style.cartInnerTitleWrapper1}>
-                                                                                        <span className={"col-1 px-1 text-left "+Style.savingaMTcOLOR}>{this.state.currency}</span><span className={"col-3 p-0 " +Style.savingaMTcOLOR}>{this.props.recentCartData.paymentDetails.discountAmount > 0 ? this.props.recentCartData.paymentDetails.discountAmount.toFixed(2) : "00.00"}</span>
+                                                                                        <span className={"col-1 px-1 text-left "+Style.savingaMTcOLOR}>{this.state.currency}</span><span className={"col-3 p-0 " +Style.savingaMTcOLOR}>{this.props.recentCartData.paymentDetails.discountAmount > 0 ? this.props.recentCartData.paymentDetails.discountAmount.toFixed(2) : "0.00"}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -773,7 +773,7 @@ class CartProducts extends Component {
                                                                                 <div className="row">
                                                                                     <div className={"col-7 " + Style.cartInnerTitleWrapper}>Total VAT</div>
                                                                                     <div className={"col-5  " + Style.cartInnerTitleWrapper1}>
-                                                                                        <span className="col-1 px-1 text-left">{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.taxAmount > 0 ? this.props.recentCartData.paymentDetails.taxAmount.toFixed(2) : "00.00"}</span>
+                                                                                        <span className="col-1 px-1 text-left">{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.taxAmount > 0 ? this.props.recentCartData.paymentDetails.taxAmount.toFixed(2) : "0.00"}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -783,7 +783,7 @@ class CartProducts extends Component {
                                                                                     </div>
                                                                                     <div className={"col-5  " + Style.cartInnerTitleWrapper1}>
                                                                                         <span className="col-1 px-1">{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.shippingCharges > 0 ? this.props.recentCartData.paymentDetails.shippingCharges.toFixed(2) : "0.00"}</span>
-                                                                                        &nbsp;&nbsp;<a data-tip data-for="vendorTooltip">
+                                                                                        <a data-tip data-for="vendorTooltip">
                                                                                             <i className={"fa fa-info-circle  " + Style.infoCircle}></i>
                                                                                         </a>
                                                                                     </div>
@@ -805,25 +805,24 @@ class CartProducts extends Component {
                                                                                                                 <div className="col-6 text-right NoPadding font-weight-bold "> &nbsp;<span className={Style.regularShippingCharge}>{vendorWiseCartData.vendor_shippingCharges}&nbsp;{this.state.currency}</span>&nbsp;<span>{vendorWiseCartData.vendor_shippingChargesAfterDiscount}</span> &nbsp;{this.state.currency}</div>
                                                                                                                 }
                                                                                                             </div>
+                                                                                                            <div className="row">
+                                                                                                                <div className={"col-6 text-left " + Style.cartInnerTitleWrapper4}>Total Delivery Charges :</div>
+                                                                                                                <div className={"col-6 text-right NoPadding font-weight-bold "+ Style.cartInnerTitleWrapperHidden1 }>{this.props.recentCartData.paymentDetails.shippingCharges}&nbsp; {this.state.currency}</div>
+                                                                                                            </div>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 )
                                                                                             })
                                                                                             }
-                                                                                            <div className="container pb-4">
-                                                                                                <div className="row">
-                                                                                                    <div className={"col-6 text-left " + Style.cartInnerTitleWrapper4}>Total Delivery Charges&nbsp; :</div>&nbsp;&nbsp;
-                                                                                                    <div className="col-5 text-right NoPadding font-weight-bold ">&nbsp;&nbsp;&nbsp;{this.props.recentCartData.paymentDetails.shippingCharges} &nbsp;{this.state.currency}</div>
-                                                                                                </div>
-                                                                                            </div>
+                                                                                           
                                                                                         </ReactTooltip>
                                                                                 </div>
                                                                             </div>
                                                                             <div className="col-12 totalAmountsG mb-3 mt-2 pull-right">
                                                                                 <div className="row font-weight-bold">
                                                                                     <div className={"col-7 " + Style.cartInnerTitleWrapper}><strong><h6><b>Grand Total</b></h6></strong></div>
-                                                                                    <div className={"col-5  NoPadding "+ Style.cartInnerCurrencyWrapper1}>
-                                                                                        <span className="col-1 px-1 text-left">{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount.toFixed(2) : "00.00"}</span>
+                                                                                    <div className={"col-5   "+ Style.cartInnerCurrencyWrapper1}>
+                                                                                        <span className={"col-1 px-1 text-left "+ Style.cartInnerTitleWrapperOfGrandTotal}>{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount.toFixed(2) : "0.00"}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

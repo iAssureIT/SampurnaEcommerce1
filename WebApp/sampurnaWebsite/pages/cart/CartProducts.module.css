@@ -23,7 +23,12 @@
     text-decoration: line-through;
     color: #aaa;
 }
-
+.cartInnerTitleWrapperHidden1{
+    text-align: right;
+}
+.cartInnerTitleWrapperOfGrandTotal{
+    font-size: 0.8rem;
+}
 .cartTotalLineWrapper {
     border     : 1px solid #e8e8e8 !important;
     position   : absolute;
@@ -90,7 +95,7 @@
 }
 
 .tdCartWrapper {
-    right: -13% !important;
+    right: -7% !important;
 }
 
 .checkoutBtn {
@@ -111,6 +116,7 @@
     margin-left: 3% !important;
     margin-top : 3px !important;
     cursor     : pointer !important;
+    right: -3px;
 }
 
 .cartInnerTitleWrapper {
@@ -122,9 +128,11 @@
 
 .cartInnerTitleWrapper1 {
     font-size: 13px !important;
-    right    : -5% !important;
+   text-align: right;
 }
-
+.cartInnerCurrencyWrapper1{
+    text-align: right;
+}
 .savingaMTcOLOR {
     color: #3e9d5e !important;
 }
@@ -169,6 +177,15 @@
 
 }
 /* Extra large devices (large desktops, 1200px and up) */
+
+@media (min-width: 1920px)  {
+    .cartInnerCurrencyWrapper1{
+        text-align: right;
+    }
+    .tdCartWrapper {
+        right: -4% !important;
+    }
+}
 @media (min-width: 1200px) {
     .cartTitle {
         font-size     : 36px;

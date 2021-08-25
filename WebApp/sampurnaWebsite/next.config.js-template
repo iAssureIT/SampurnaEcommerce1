@@ -1,11 +1,14 @@
-module.exports = {
+const withProgressBar = require('next-progressbar');
+
+
+module.exports = withProgressBar({
 	publicRuntimeConfig: {
-		API_BASE_URL 	: 'https://qaapi.knock-knockeshop.com/',
+		API_BASE_URL 	: 'https://qaapi.knock-knockeshop.com',
 		CURRENT_SITE 	: 'multivendor',
 		PROJECT_TYPE 	: 'ecommerce',
 		SITE_NAME 		: 'Sampurna',
 		SITE_SHORT_NAME : 'Multivendor',
-		PORT 			: 3035,
+		PORT 			: 3002,
 		NODE_ENV 		: 'production',
 		IMGHeight 		: '100',
 		IMGWIDTH  		: '100'
@@ -16,4 +19,5 @@ module.exports = {
 	future: {
 		webpack5: true,
 	},
-}
+
+})
