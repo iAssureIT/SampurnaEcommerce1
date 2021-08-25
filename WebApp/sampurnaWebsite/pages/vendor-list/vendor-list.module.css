@@ -1,20 +1,21 @@
 .vendorCard{
-    height: 70px;
+    height: 120px;
     box-shadow: 0 0 10px 5px #000 !important;
     cursor: pointer;
+    border-radius: 3px;
     /* background-image: url("/images/eCommerce/vendorCard.jpg"); */
     background-position: 100%;
     background-size: contain;
-    border: solid 2px #000;
+    border: none !important;
+    /* border: solid 2px #000; */
 }
 .shopImg{
     height: 70px;
 }
 .vendorLogoImg{
     border-radius: 100% !important;
-    /* border: solid 2px #ccc */
-    height: 40px;
-    width: 40px;
+    height: 80px;
+    width: 80px;
 }
 .shopImg::before {
     content: "";
@@ -29,16 +30,21 @@
     background-color:#eee;
     /* padding-bottom:15px; */
 }
-
 .bgHeight{
-    /* min-height:1000px; */
-    padding-bottom: 25px!important;
-    height: auto !important;
+    /* position: fixed; */
+    filter: blur(8px);
+    padding-bottom: 100px!important;
+    height: 600px !important;
     background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url(/images/eCommerce/vendorListBg.jpg)!important;
     background-attachment: static!important;
     background-position: center!important;
     background-repeat: no-repeat!important;
     background-size: cover!important;
+}
+.vendorList{
+    position: absolute;
+    /* position: fixed; */
+    top: 158px; 
 }
 
 .deliveryTime{
@@ -75,7 +81,6 @@
     background-color: #3E9D5E!important;
     height: 45px !important; 
     color: #fff !important;  
-    /* position: fixed; */
     z-index: 10!important;
     margin-top: -1px!important;
 }
@@ -83,24 +88,25 @@
     position: absolute;
     text-align: center;
     top: 10px;
-    /* left: 13%; */
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .deliveryTimeWrapperDesc1{
-    color: red!important;
+    /* color: red!important; */
     font-size: 20px;
     font-weight: 900!important;
 }
 .deliveryTimeWrapperDesc2{
-    color: red!important;
+    /* color: red!important; */
     font-size: 20px;
     font-weight: 900!important;
 }
 .vendorName{
-    font-size: 12px;
+    font-size: 20px;
     overflow-wrap: break-word;
     max-height:15px ;
+    font-weight: 900!important;
+    font-family: 'Montserrat-bold' !important;
 }
 .delTime{
     position: absolute;
@@ -145,6 +151,7 @@
     bottom: 0px;
     left: 0px;
     background-color: rgba(0,0,0,0.8);
+    border-radius: 2px;
 }
 
 /*
@@ -153,13 +160,12 @@
 ##############################################################################################################
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1280px) { 
+@media (min-width: 860px) and (max-width: 1280px) { 
     
     .vendorCard{
         height: 120px;
         box-shadow: 2px 2px 3px #dddddd;
         cursor: pointer;
-        /* background-image: url("/images/eCommerce/vendorCard.jpg"); */
         background-position: 100%;
         border: solid 2px #000;
     }
@@ -185,16 +191,8 @@
     }
     
     .bgHeight{
-        /* min-height:1000px; */
-        filter: blur(8px);
-        padding-bottom: 100px!important;
-        /* height: auto !important; */
         height: 600px !important;
-        background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url(/images/eCommerce/vendorListBg.jpg)!important;
-        background-attachment: static!important;
-        background-position: center!important;
-        background-repeat: no-repeat!important;
-        background-size: cover!important;
+        padding-bottom: 25px!important;
     }
     .vendorList{
         position: absolute;
@@ -252,8 +250,7 @@
         font-size: 20px;
         overflow-wrap: break-word;
         max-height:30px ;
-        font-weight: 900!important;
-        font-family: 'Montserrat-bold' !important;
+        
     }
     .delTime{
         font-size: 15px;

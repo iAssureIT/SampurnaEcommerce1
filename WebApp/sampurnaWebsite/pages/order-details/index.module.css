@@ -169,6 +169,7 @@
 	color         : #FFFFFF;
 	font-size     : 12px;
 	background    : #033554 0% 0% no-repeat padding-box;
+	border: none;
 	box-shadow    : -3px 3px 6px #0000004D;
 	border-radius : 6px;
 	opacity       : 1;
@@ -212,17 +213,17 @@
 	cursor             : pointer;
 	/* background-color: #DDF; */
 	/* border          : 1px gray dashed; */
-	background         : url('/images/eCommerce/plus.png') no-repeat center;
+	background         : url('/images/eCommerce/plus.svg') no-repeat center;
 	text-indent        : -9999em;
-	height             : 25px;
-	margin-top         : -25px;
+	height             : 24px;
+	margin-top         : -24px;
 }
 
 .uploadReviewImg {
-	background     : url('/images/eCommerce/notavailable.png') no-repeat center;
+	background     : url('/images/eCommerce/image-gallery.svg') no-repeat center;
 	background-size: contain;
-	height         : 30px;
-	width          : 25px;
+	height         : 24px;
+	width          : 15px;
 	float          : right;
 }
 
