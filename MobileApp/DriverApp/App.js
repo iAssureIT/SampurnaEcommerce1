@@ -7,6 +7,7 @@ import {Provider as ProviderPaper}               from 'react-native-paper';
 import store                  from './src/redux/store';
 import {setToast}             from './src/redux/AppState';
 import { LogBox,StatusBar,View }   from 'react-native';
+import GeneralStatusBarColor from './GeneralStatusBarColor.js';
 import {AuthLoadingScreen}    from "./src/ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js";
 import SplashScreen           from 'react-native-splash-screen';
 import {localNotificationService} from './src/LocalNotificationService';
@@ -75,6 +76,19 @@ StatusBar.setHidden(true);
         <ToastProvider toast={toast} />
     </Provider>  
   );
+  return( 
+    <Provider store={store} >
+      
+      {Platform.OS ==='android'&&<GeneralStatusBarColor backgroundColor="#222222"
+      barStyle="light-content" />}
+       <NetworkProvider>
+       <ExampleComponent/>
+        <AuthLoadingScreen />
+        <ToastProvider toast={toast} />
+      </NetworkProvider>  
+    </Provider>  
+  );
+
 }
 
 const ToastProviderComponent = props => {

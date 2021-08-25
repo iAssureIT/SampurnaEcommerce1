@@ -285,7 +285,7 @@ export const AcceptedOrders =(props)=> {
                             </View>                            
                             <View style={styles.box1}>
                                 {/* <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} /> */}
-                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>{item.deliveryAddress.addressLine1+", "+item.deliveryAddress.addressLine2}</Text>
+                                <Text style={CommonStyles.boxLine1} numberOfLines={3}><Text style={{fontFamily:"Montserrat-SemiBold"}}>{item?.vendorDetails?.companyName}</Text> {item.deliveryAddress.addressLine1+", "+item.deliveryAddress.addressLine2}</Text>
                             </View>
                             <View style={styles.box1_L}>
                                 <Text style={[CommonStyles.boxLine1]}>Delivery point:</Text>                                
