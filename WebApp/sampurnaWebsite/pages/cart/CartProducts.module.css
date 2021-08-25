@@ -35,7 +35,22 @@
     margin-left: -17px;
     width      : 100%;
 }
-
+.cartEmptyTitle{
+    color: #DC1919;
+    margin-top: 40px;
+}
+.cartEmptySubTitle{
+    margin-top: 10px;
+    color: #222;
+}
+.cartEmptyBackIcon{
+    margin-right: 5px;
+    margin-top: -5px;
+}
+.cartEmptySubTitle:hover{
+    text-decoration: none;
+    color: #222222;
+}
 .productName {
     margin-bottom : 0.5rem;
   

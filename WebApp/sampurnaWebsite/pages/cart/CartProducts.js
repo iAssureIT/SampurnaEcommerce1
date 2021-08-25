@@ -532,6 +532,7 @@ class CartProducts extends Component {
                                             :
                                             <div className="col-12 d-none  textAlignCenter">
                                                 <img className="col-12 col-md-4 col-sm-6 " src={"/images/eCommerce/emptycart.png"} alt="" />
+                                                
                                             </div>
                                     }
 
@@ -866,6 +867,11 @@ class CartProducts extends Component {
                                                 
                                                 layout={'intrinsic'}
                                                 />
+                                                <h2 className={Style.cartEmptyTitle}>Your cart is empty!</h2>
+                                                <a href="/" className={Style.cartEmptySubTitle}>
+                                                    <span><img src={"/images/eCommerce/back.svg"} className={Style.cartEmptyBackIcon}/></span>
+                                                    Continue shopping
+                                                </a>
                                             </div>
                                     }
                                 </div>
