@@ -2,9 +2,9 @@ import React, { Component } 	from 'react'; import XLSX from "xlsx";
 import axios 					from 'axios';
 import swal 						from 'sweetalert';
 import $ 							from 'jquery';
-import Loader 						from '../../../../coreadmin/common/Loader/Loader.js';
-import Message 					from '../../../../storeAdmin/message/Message.js';
-import IAssureTable           from "../../../../coreadmin/IAssureTable/IAssureTable.jsx";
+import Loader 						from '../../coreadmin/common/Loader/Loader.js';
+import Message 					from '../../storeAdmin/message/Message.js';
+import IAssureTable           from "../../coreadmin/IAssureTable/IAssureTable.jsx";
 //import './BulkUpload.css';
 
 class BulkUploadComponent extends Component{
@@ -17,35 +17,25 @@ class BulkUploadComponent extends Component{
 			tableData					: [],
 			failedRecordsTable 		: [],
 			tableHeading 				: {
-													"section"         : 'Section',
-													"category"        : 'Category',
-													"categoryNameRlang" : "Category Name Reg Langauge",
-													"brand"           : 'Brand',
-													"brandNameRlang"  : "Brand Name Reg Langauge",
+													"UPC"  				: "UPC",
 													"productName"     : 'Product Name',
-													"productNameRlang": 'Product Name Reg Langauge',
 													"productCode"     : 'Product Code',
 													"itemCode"        : 'Item Code',
 													"originalPrice"   : 'Original Price', 
+													"discountPercent" : 'Discount Percent', 
 													"discountedPrice" : 'Discounted Price', 
-													"size"            : 'Size', 
-													// "color"           : 'Color',  
+													"currentQuantity" : 'Product Quantity', 
 			},
 			failedtableHeading 		: {
 													"remark"          : 'Remark',
-													"section"         : 'Section',
-													"category"        : 'Category',
-													"categoryNameRlang" : "Category Name Reg Langauge",
-													"brand"           : 'Brand',
-													"brandNameRlang"  : "Brand Name Reg Langauge",
+													"UPC"  				: "UPC",
 													"productName"     : 'Product Name',
-													"productNameRlang": 'Product Name Reg Langauge',
 													"productCode"     : 'Product Code',
 													"itemCode"        : 'Item Code',
 													"originalPrice"   : 'Original Price', 
+													"discountPercent" : 'Discount Percent', 
 													"discountedPrice" : 'Discounted Price', 
-													"size"            : 'Size', 
-													// "color"           : 'Color',  
+													"currentQuantity" : 'Product Quantity',   
 			},
 			tableObjects 				: {
 													paginationApply : false,
@@ -381,46 +371,35 @@ class BulkUploadComponent extends Component{
 					if (response) {
 						this.setState({
 							fileDetails 			: response.data,
-							failedRecordsCount 		: response.data.failedRecords.length,
+							failedRecordsCount 	: response.data.failedRecords.length,
 							goodDataCount 			: response.data.goodrecords.length
 						});
 
 						var tableData = response.data.goodrecords.map((a, i)=>{
 							// console.log("goods record",a);
 							return{
-								"remark"        		: a.remark        		? a.remark    : '-',
-								"section"       		: a.section        		? a.section    : '-',
-								"category"      		: a.category     		? a.category : '-',
-								"categoryNameRlang" 	: a.categoryNameRlang 	? "<span class='RegionalFont'>"+a.categoryNameRlang+"</span>" : '-',
-								"brand"          		: a.brand     			? a.brand : '-',
-								"brandNameRlang"		: a.brandNameRlang 		? "<span class='RegionalFont'>"+a.brandNameRlang+"</span>" : '-',
+								"UPC"        		: a.UPC        		? a.UPC    : '-',
 								"productName"   		: a.productName     	? a.productName : '-',
-								"productNameRlang"		: a.productNameRlang 	? "<span class='RegionalFont'>"+a.productNameRlang+"</span>" : '-',
 								"productCode"   		: a.productCode     	? a.productCode : '-',
 								"itemCode"      		: a.itemCode     		? a.itemCode : '-',
-								"originalPrice" 		: a.originalPrice 		? "<i class='fa fa-"+a.currency+"'></i> "+a.originalPrice.toString() : '-',
-								"discountedPrice" 		: a.discountedPrice 	? "<i class='fa fa-"+a.currency+"'></i> "+a.discountedPrice.toString() : '-', 
-								"size"   				: a.size     			? a.size : '-', 
-								// "color"   : a.color     ? a.color : '-'
+								"originalPrice" 		: a.originalPrice 		? "<i class='fa fa-"+a.currency+"'></i> "+a.originalPrice.toString() : '0',
+								"discountPercent" 	: a.discountPercent 		? a.discountPercent.toString() + " %" : '0%',
+								"discountedPrice" 	: a.discountedPrice 	? "<i class='fa fa-"+a.currency+"'></i> "+a.discountedPrice.toString() : a.originalPrice.toString(), 
+								"currentQuantity"   	: a.currentQuantity     			? a.currentQuantity : '-', 
+				
 							}
 						})
 
 						var failedRecordsTable = response.data.failedRecords.map((a, i)=>{
 							return{
 								"remark"        		: a.remark        		? a.remark    : '-',
-								"section"       		: a.section        		? a.section    : '-',
-								"category"      		: a.category     		? a.category : '-',
-								"categoryNameRlang"		: a.categoryNameRlang 	? "<span class='RegionalFont'>"+a.categoryNameRlang+"</span>" : '-',
-								"brand"         		: a.brand     			? a.brand : '-',
-								"brandNameRlang"		: a.brandNameRlang 		? "<span class='RegionalFont'>"+a.brandNameRlang+"</span>" : '-',
 								"productName"   		: a.productName     	? a.productName : '-',
-								"productNameRlang"		: a.productNameRlang 	? "<span class='RegionalFont'>"+a.productNameRlang+"</span>" : '-',
 								"productCode"   		: a.productCode     	? a.productCode : '-',
 								"itemCode"      		: a.itemCode     		? a.itemCode : '-',
-								"originalPrice" 		: a.originalPrice 		? "<i class='fa fa-"+a.currency+"'></i> "+a.originalPrice.toString() : '-',
-								"discountedPrice" 		: a.discountedPrice 	? "<i class='fa fa-"+a.currency+"'></i> "+a.discountedPrice.toString() : '-',
-								"size"          		: a.size     			? a.size : '-', 
-								// "color"         : a.color     ? a.color : '-',
+								"originalPrice" 		: a.originalPrice 		? "<i class='fa fa-"+a.currency+"'></i> "+a.originalPrice.toString() : '0',
+								"discountPercent" 	: a.discountPercent 		? a.discountPercent.toString() + "%" : '0%',
+								"discountedPrice" 	: a.discountedPrice 	? "<i class='fa fa-"+a.currency+"'></i> "+a.discountedPrice.toString() : a.originalPrice.toString(), 
+								"currentQuantity"   	: a.currentQuantity     			? a.currentQuantity : '-', 
 							}
 						})
 						this.setState({
@@ -606,17 +585,16 @@ class BulkUploadComponent extends Component{
 									<li><a data-toggle="tab" href="#failure">Failure</a></li>
 								</ul>
 								<div className="tab-content">
-									{this.state.fileDetails ? <h5>Filename: <span>{this.state.fileName}</span></h5> : null }
+									{this.state.fileDetails 
+										? 
+											<h5>Filename: <span>{this.state.fileName}</span></h5>
+										: null
+									}
 									<div id="failure" className="tab-pane fade in active">
-									{this.state.fileDetails
-										?
-									<h5>
+									{this.state.fileDetails ? <h5>
 										Out of {this.state.fileDetails.totalRecords } {this.state.fileDetails.totalRecords > 1 ? "records" : "record"},  &nbsp;
 										{this.state.fileDetails.failedRecords.length} bad {this.state.fileDetails.failedRecords.length > 1 ? "records were " : "record was " }found.
-									</h5>
-									:
-										null
-									}
+									</h5> : null}
 									{/* <div className="text-right">
 									<br/>
 									<ReactHTMLTableToExcel
@@ -637,19 +615,19 @@ class BulkUploadComponent extends Component{
 										tableData 		= {this.state.failedRecordsTable}
 										getData 			= {this.getData.bind(this)}
 										tableObjects 	= {this.state.tableObjects}
-										/>
-										
+										/>										
 									</div>
 									</div>
 									<div id="success" className="tab-pane fade">
-									{this.state.fileDetails
-									?	
-										<h5>
-											Out of {this.state.fileDetails.totalRecords} {this.state.fileDetails.totalRecords > 1 ? "records" : "record"},  {this.state.fileDetails.goodrecords.length} {this.state.fileDetails.goodrecords.length > 1 ? "records are" : "record is" } added successfully. &nbsp;								
-										</h5>
-									:
-										null
-									}
+										
+										{ this.state.fileDetails
+										?
+											<h5>
+												Out of {this.state.fileDetails.totalRecords} {this.state.fileDetails.totalRecords > 1 ? "records" : "record"},  {this.state.fileDetails.goodrecords.length} {this.state.fileDetails.goodrecords.length > 1 ? "records are" : "record is" } added successfully. &nbsp;								
+											</h5>
+										: 
+											null
+										}
 										<IAssureTable 
 											tableHeading 	= {this.state.tableHeading}
 											twoLevelHeader = {this.state.twoLevelHeader} 

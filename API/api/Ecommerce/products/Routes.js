@@ -18,6 +18,8 @@ router.post('/post/bulkUploadProductUpdate', 							productController.bulkProduc
 
 router.post('/get/filedetails/', 										productController.filedetails);
 
+router.post('/get/inventory/filedetails/', 										productController.inventoryFileDetails);
+
 router.post('/get/wishlist/product', 									productController.wishlist_product);
 
 router.patch('/patch', 													checkAuth, productController.update_product);
@@ -79,6 +81,8 @@ router.get('/get/files/count', 											checkAuth, productController.fetch_fil
 router.get('/get/vendorfiles/count/:vendorID', 							checkAuth, productController.fetch_vendorfile_count);
  
 router.post('/get/list', 												productController.list_product_with_limits);
+
+router.post('/get/inventory/list', 												productController.product_inventory_list);
 
 router.post('/get/vendorwiselist', 										checkAuth, productController.list_product_with_vendor);
 

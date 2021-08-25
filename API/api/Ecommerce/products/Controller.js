@@ -1007,6 +1007,33 @@ exports.filedetails = (req,res,next)=>{
 	});
 };
 
+exports.inventoryFileDetails = (req,res,next)=>{
+	var finaldata = {};
+	ProductInventory.find({'inwardDetails.fileName' : req.body.fileName})
+	.exec()
+	.then(data=>{
+		console.log("file good => ",data)
+		//finaldata.push({goodrecords: data})
+		finaldata.goodrecords = data;
+		FailedRecords.find({fileName:req.body.fileName})  
+			.exec()
+			.then(badData=>{
+				console.log("badData => ",badData)
+				finaldata.failedRecords = badData[0].failedRecords;
+				finaldata.totalRecords = badData[0].totalRecords;
+				console.log("finaldata => ",finaldata)
+				res.status(200).json(finaldata);
+			})
+		
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+};
+
 exports.update_product = (req,res,next)=>{
 	Products.find({"itemCode" : req.body.itemCode, _id: { $ne: req.body.product_ID }})
 	.exec()
@@ -1454,6 +1481,7 @@ exports.list_product_with_limits = (req,res,next)=>{
 				"productName"           : "<span>"+(x.productName +productNameRlang)+"<br></span>"+"Product Code: "+x.productCode+ "<br>Item Code: "+x.itemCode,
 				"section"               : x.section,
 				"category"              : x.category +categoryNameRlang,
+				"subCategory"           : x.subCategory,
 				"originalPrice"         : "<span class='textAlignRight'>"+"<i class='fa fa-"+x.currency+"'></i>&nbsp;"+x.originalPrice+"</span>",
 				"discountPercent"       : "<span class='textAlignRight'>"+x.discountPercent+"%"+"</span>",
 				"discountedPrice"       : "<span class='textAlignRight'>"+"<i class='fa fa-"+x.currency+"'></i>&nbsp;"+x.discountedPrice+"</span>",
@@ -2562,12 +2590,13 @@ exports.admin_search_product = (req,res,next)=>{
 
 			return {
 				"_id"                   : x._id,
-				"vendorName"            : x.vendorName,
+				"vendor"            		: x.vendorName,
 				"productNameBasic"      : x.productName + "<br>Product Code: "+x.productCode+ "<br>Item Code: "+x.itemCode,
 				"productNameRlang"      : x.productNameRlang,
 				"productName"           : x.productName +productNameRlang+"<br>Product Code: "+x.productCode+ "<br>Item Code: "+x.itemCode,
 				"section"               : x.section,
 				"category"              : x.category +categoryNameRlang,
+				"subCategory"           : x.subCategory,
 				"originalPrice"         : "<i class='fa fa-"+x.currency+"'></i>&nbsp;"+x.originalPrice,
 				"discountPercent"       : x.discountPercent+"%",
 				"discountedPrice"       : "<i class='fa fa-"+x.currency+"'></i>&nbsp;"+x.discountedPrice,
@@ -3499,9 +3528,10 @@ var insertUnitOfMeasurment = async(unit, created) =>{
 	});
 }
 
-// bulk Product update 
+/*============= Product Inventory Update =============*/
 exports.bulkProductUpdate = (req,res,next)=>{
-	// console.log("req.body bulkProductUpdate => ",req.body);
+	console.log("req.body bulkProductUpdate => ",req.body);
+	
 	var record          = []; 
 	var failedRecords   = [];
 	var i               = 0;
@@ -3519,184 +3549,111 @@ exports.bulkProductUpdate = (req,res,next)=>{
 		var invalidObjects  = [];
 		var remark          = ''; 
 
-		var allEntityData = await fetchAllEntities("vendor");
-
 		for(k = 0 ; k < productData.length ; k++){
-			if(productData[k].websiteModel === "MarketPlace"){
-				var EntityData = allEntityData.filter((data)=>{                
-					if (String(data._id) === String(productData[k].vendor_id)) {
-						return data;
+			// console.log("productData[k] => ",productData[k])
+			
+			if (productData[k].VendorCompanyID !== undefined && productData[k].VendorCompanyID !== null) {
+				var vendorData = await EntityMaster.findOne({companyID : productData[k].VendorCompanyID});
+
+				if(vendorData !== null && vendorData !== undefined){
+					productData[k].vendor_id = vendorData._id;
+					if (productData[k].UPC !== undefined) {
+
+						if(productData[k].productCode !== undefined){
+
+							if(productData[k].itemCode !== undefined){
+
+								if(productData[k].originalPrice === undefined || productData[k].originalPrice === null || productData[k].originalPrice === ""){
+									remark+= "originalPrice is missing in file record. "
+								}
+								if(isNaN(productData[k].originalPrice)){
+									remark+= "originalPrice should be number. "
+								}
+								if(productData[k].discountedPrice === undefined || productData[k].discountedPrice === null || productData[k].discountedPrice === ""){
+									remark+= "discountedPrice is missing in file record. "
+								}
+								if(isNaN(productData[k].discountedPrice)){
+									remark+= "discountedPrice should be number. "
+								}
+								if(productData[k].discountPercent === undefined || productData[k].discountPercent === null || productData[k].discountPercent === ""){
+									remark+= "discountPercent is missing in file record. "
+								}
+								if(isNaN(productData[k].discountPercent)){
+									remark+= "discountPercent should be number. "
+								}
+								if(productData[k].qty === undefined || productData[k].qty === null || productData[k].qty === ""){
+									remark+= "qty is missing in file record. "
+								}
+								if(isNaN(productData[k].discountPercent)){
+									remark+= "qty should be number. "
+								}
+								if (remark === "") {
+									var updateProductObject = await updateProductBulkRecords(productData[k]);	
+								}									
+							}else{
+								remark+= "itemCode is missing in file record. "
+							}
+						}else{
+							remark+= "productCode is missing in file record. "
+						}
+					}else{
+						remark+= "UPC is missing in file record. "
 					}
-				}) 
-				// console.log("EntityData => ",EntityData);
-				var EntityDataArray = EntityData.map((entityArr, i)=>{
-					return entityArr.companyName;
-				})
+				}else{
+					remark+= "Vendor not found. "
+				}
 			}else{
-				var EntityData = allEntityData.filter((data)=>{
-					// console.log("data.companyName == productData[k].CompanyName",data.companyName == productData[k].CompanyName);
-					if (data.companyName == allEntityData[0].companyName) {
-						return data;
-					}
-				})    
-				// var EntityDataArray = allEntityData[0].companyName;
+				remark+= "VendorCompanyID is missing in file record. "
 			}
-			if(productData[k].productCode !== undefined && productData[k].itemCode !== undefined){
-				// if (productData[k].section.trim() != '') {
-				//     var sectionObject = await sectionInsert(productData[k].section)
-				   
-					// if (productData[k].category != undefined) {
-					//     var categoryObject = await categoryInsert(productData[k].category,productData[k].subCategory,productData[k].section,sectionObject.section_ID,productData[k].categoryNameRlang);
-					//     var taxObject = []
-					//     if(productData[k].taxName){
-					//         taxObject = await taxInsert(productData[k].taxName,productData[k].taxRate);
-					//         // console.log("taxObject in main---",taxObject)
-					//     }
-						// if (productData[k].itemCode != undefined) {
-							// if(typeof(productData[k].discountPercent) === 'number' && productData[k].discountPercent >= 0){
-							//      if(typeof(productData[k].discountedPrice) === 'number' && productData[k].discountedPrice >= 0){
-							//         if(typeof(productData[k].originalPrice) === 'number' && productData[k].originalPrice >= 0 ){
 
-									//     if(productData[k].websiteModel === "MarketPlace"){
-									//        if(EntityDataArray  != "" && EntityDataArray != undefined ){
-									//         var updateProductObject = await updateProductBulk(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0],EntityData);
-									//        }else{
-									//         remark+= "Company Name not found"
-									//        }
-									//    }else{
-									//     var updateProductObject = await updateProductBulk(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0]);
-									//    } 
-									   if(productData[k].websiteModel === "MarketPlace"){
-										if(EntityData  !== "" && EntityData !== undefined ){
-											// console.log("Called 1")
-											var updateProductObject = await updateProductBulkRecords(productData[k]);
-										   }else{
-											remark+= "Company Name not found"
-
-										   }
-										}else{
-										// console.log("Called 2")
-										//  var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0]);
-											if(EntityDataArray  != "" && EntityDataArray != undefined ){
-												var updateProductObject = await updateProductBulkRecords(productData[k]);
-											}else{
-												remark+= "Vendor not found"
-											}
-										} 
-
-										// console.log('updateProductBulk => ',updateProductObject)
-
-										if (updateProductObject !== 0 && updateProductObject !== null) {
-											// console.log("updateProductObject.nModified => ",updateProductObject.nModified);
-											if(updateProductObject.nModified !== 0){
-												Count++;
-											}
-										}else{
-											// console.log('else updateProductBulk',updateProductObject)
-											DuplicateCount++;
-											remark += "Product Not Found ";
-										}
-							//         }else{
-							//            remark += "Original Price should be number"; 
-							//         }
-							//      }else{
-							//         remark += "Discount Price should be number";
-							//      }  
-							// }else{
-							//    remark += "Discount Percent should be number";
-							// } 
-							
-						// }  
-					// }
-				// }
+			if (updateProductObject !== null && updateProductObject !== undefined) {				// console.log("updateProductObject.nModified => ",updateProductObject.nModified);
+				if(updateProductObject.statusCode === "Success"){
+					Count++;
+				}else{
+					remark += updateProductObject.remark;
+				}
+			}else{
+				DuplicateCount++;
+				remark += "Product Not Found ";
 			}
-			
-		if (productData[k].itemCode !== undefined) {
-			TotalCount++;
-			// if(productData[k].section == undefined){
-			//      remark += "section not found";
-			// }
-			// if (productData[k].category == undefined) {
-			//     remark += ", category not found, ";
-			// }
-			if (productData[k].productCode === undefined) {
-				remark += "Product code not found, ";
-			}
-			// if (productData[k].productName == undefined) {
-			//     remark += "Product name not found, ";
-			// }
-			// if (productData[k].brand == undefined) {
-			//     remark += "brand not found, ";
-			// }
-			if (productData[k].qty === undefined) {
-				remark += "product quantity not found, ";
-			}
-			// if (productData[k].originalPrice == undefined) {
-			//     remark += "product price not found, ";
-			// }
-
-		}
-			
-
-			if (remark != '') {
+			if (remark !== '') {
 				invalidObjects          = productData[k];
 				invalidObjects.remark   = remark;
 				invalidData.push(invalidObjects);
 			} 
 			remark = '';
 		}
+		if (k >= productData.length) {
 		
-		failedRecords.FailedRecords = invalidData
-		failedRecords.fileName      = productData[0].filename;
-		failedRecords.totalRecords  = TotalCount;
+			failedRecords.FailedRecords = invalidData
+			failedRecords.fileName      = productData[0].filename;
+			failedRecords.totalRecords  = productData.length;
+			// failedRecords.totalRecords  = TotalCount;
 
-		await insertFailedRecords(failedRecords); 
-		
-		var msgstr  = "";
-		var warning = false;
-
-		if (DuplicateCount > 0 && Count > 0) {
-			if (DuplicateCount > 1 && Count > 1) {
-			   msgstr =  " " + Count+" products are updated successfully and "+"\n"+DuplicateCount+" products are duplicate";
-			}
-			else if(DuplicateCount ==1 && Count == 1 ){
-				msgstr =  " " + Count+" product is updated successfully and "+"\n"+DuplicateCount+" product is duplicate";
-			}
-			else if(DuplicateCount > 1 && Count == 1)
-			{
-				msgstr =  " " + Count+" product is updated successfully and "+"\n"+DuplicateCount+" products are duplicate";
-			}else if(DuplicateCount == 1 && Count > 1){
-				msgstr =  " " + Count+" products are updated successfully and "+"\n"+DuplicateCount+" product is duplicate";
-			}            
-		}
-		else if(DuplicateCount > 0 && Count == 0)
-		{
-			if (DuplicateCount > 1) {
-				msgstr = "Failed to update products as "+DuplicateCount+" products are duplicate";
-				warning = true;
-			}else{
-				msgstr = "Failed to update products as "+DuplicateCount+" product is duplicate";
-				warning = true;
-			}
+			await insertFailedRecords(failedRecords); 
 			
-		}
-		else if(DuplicateCount == 0 && Count > 0)
-		{ 
-			if (Count > 1) {
-				msgstr = " " + Count+" products are updated successfully";
-			}else{
-				msgstr = " " + Count+" product is updated successfully";
-			}            
-		}else{
-			msgstr  = "Failed to update products";
-			warning = true;
-		}
+			var msgstr  = "";
+			var warning = false;
 
-		// console.log("msgstr",msgstr);
-		res.status(200).json({
-			"message" : msgstr,
-			"warning" : warning
-		});
+			if (DuplicateCount > 0 && Count > 0) {				
+				msgstr =  " " + Count +  (Count > 1 ? " inventory records are" : " inventory record is") + " updated successfully and "+"\n" + DuplicateCount + (DuplicateCount > 1 ? " inventory records are" : " inventory record is") + " failed to update";	        
+			}else if(DuplicateCount > 0 && Count == 0){
+				msgstr 	= " " + DuplicateCount + " Failed to update " + (DuplicateCount > 1 ? " inventory records as" : " inventory record as") + DuplicateCount + (DuplicateCount > 1 ? " inventory records are" : " inventory record is") + " failed to update";
+				warning 	= true;								
+			}
+			else if(DuplicateCount === 0 && Count > 0){ 
+				msgstr = " " + Count + (Count > 1 ? " inventory records are" : " inventory record is") + " updated successfully";
+			}else{
+				msgstr  = "Failed to update inventory records";
+				warning = true;
+			}
+
+			// console.log("msgstr",msgstr);
+			res.status(200).json({
+				"message" : msgstr,
+				"warning" : warning
+			});
+		}
 	}
 };
 
@@ -3983,100 +3940,218 @@ var updateProductBulkRecords = async (data) => {
 	// console.log("data--",data);
 	
 	return new Promise(function(resolve,reject){ 
-		ProductInventory.findOne(
-			{ 
+		processData();
+		async function processData(){
+
+			var inventoryData = await ProductInventory.findOne({ 
 				universalProductCode : data.UPC,  
-				vendor_ID            : ObjectId(data.vendor_id)
-			},
-		)
-		.then(inventoryData=>{
-			ProductInventory.updateOne(
-				{ 
-					universalProductCode : data.UPC,  
-					vendor_ID            : ObjectId(data.vendor_id)
-				},  
-				{
-					$set:{
-						currentQuantity           : data.qty ? (data.action.toLowerCase() === "add" ? inventoryData.currentQuantity + data.qty : data.qty)  : "",
-						originalPrice             : data.originalPrice,
-						discountPercent           : data.discountPercent,
-						discountedPrice           : data.discountedPrice, 
-					},
-					$push:{ 
-						inwardDetails  : {
-											date            : new Date(),
-											qty             : data.qty ? (data.action.toLowerCase() === "add" ? inventoryData.currentQuantity + data.qty : data.qty)  : "",
-											originalPrice   : data.originalPrice,
-											discountPercent : data.discountPercent,
-											discountedPrice : data.discountedPrice,
-											addedBy         : ObjectId(data.createdBy),
+				vendor_ID            : ObjectId(data.vendor_id),
+				productCode 			: data.productCode,  
+				itemCode 				: data.itemCode, 
+			});
+			console.log("inventoryData => ",inventoryData)
+			if (inventoryData !== null) {
+				var updateinventory = await ProductInventory.updateOne(
+					{ 
+						universalProductCode : data.UPC,  
+						vendor_ID            : ObjectId(data.vendor_id),
+						productCode 			: data.productCode,  
+						itemCode 				: data.itemCode,  
+					},  
+					{
+						$set:{
+							currentQuantity           : data.qty ? (data.action !== undefined && data.action.toLowerCase() === "add" ? inventoryData.currentQuantity + data.qty : data.qty)  : "",
+							originalPrice             : data.originalPrice,
+							discountPercent           : data.discountPercent,
+							discountedPrice           : data.discountedPrice, 
 						},
-						updateLog       : {
-											date        : new Date(),
-											updatedBy   : ObjectId(data.createdBy),
+						$push:{ 
+							inwardDetails  : {
+												date            	: new Date(),
+												qty             	: data.qty ? (data.action !== undefined && data.action.toLowerCase() === "add" ? inventoryData.currentQuantity + data.qty : data.qty)  : "",
+												originalPrice   	: data.originalPrice,
+												discountPercent 	: data.discountPercent,
+												discountedPrice 	: data.discountedPrice,
+												addedBy         	: ObjectId(data.createdBy),
+												fileName 			: data.filename
+							},
+							updateLog       : {
+												date        : new Date(),
+												updatedBy   : ObjectId(data.createdBy),
+							}
 						}
 					}
-				}
-			)
-			.then(inventoryupdateData=>{
-				// console.log("inventoryupdateData---------",inventoryupdateData);
-				// console.log("data.UPC---------",data.UPC);
-				// console.log("data.vendor_id---------",data.vendor_id);
-				Products.findOne(
-					{ 
-						universalProductCode    : data.UPC,
-						vendor_ID               : ObjectId(data.vendor_id)
-					} 
 				)
-				.exec()
-				.then(productdata=>{
-					// console.log("productData => ",productdata);              
-					if(productdata && productdata !== undefined){     
+				.then(inventoryupdateData=>{					
+					resolve({
+						statusCode 	: "Success",
+						data 			: inventoryupdateData
+					});
+				})
+				.catch(err =>{
+					resolve({
+						statusCode 	: "Failed",
+						remark 		: "No inventory record found"
+					});	
+				});
+
+				console.log("Update Inventory => ",updateinventory)
+				if (updateinventory !== undefined && updateinventory !== null) {
+					if (updateinventory.statusCode === "Success") {						  
 						Products.updateOne(
 							{ 
 								universalProductCode    : data.UPC,
-								vendor_ID               : ObjectId(data.vendor_id)
+								vendor_ID               : ObjectId(data.vendor_id),
+								productCode 				: data.productCode,  
+								itemCode 					: data.itemCode 
 							},  
 							{
 								$set:{
 									originalPrice             : data.originalPrice ? data.originalPrice : 0,
 									discountPercent           : data.discountPercent ? data.discountPercent : 0,  
 									discountedPrice           : data.discountPercent === 0 ? (data.originalPrice ? data.originalPrice : 0) : data.discountedPrice,
-									availableQuantity         : data.qty ? (data.action.toLowerCase() === "add" ? productdata.availableQuantity + data.qty : data.qty)  : "",
-									fileName                  : data.filename,
+									// availableQuantity         : data.qty ? (data.action.toLowerCase() === "add" ? productdata.availableQuantity + data.qty : data.qty)  : "",
+									// fileName                  : data.filename,
 									updatedBy                 : data.createdBy,
 									updatedAt                 : new Date()
 								}
 							}
 						)
 						.exec()
-						.then(updatedproductdata=>{                        
-							
-							// var inventoryUpdate = await updateProductInventory(data.itemCode, data.productCode, data.vendor_id);
-							resolve(updatedproductdata);
-												
+						.then(updatedproductdata=>{   
+							resolve({
+								statusCode : "Success"
+							});												
 						})
 						.catch(err =>{
-							reject(err);
+							resolve({
+								statusCode 	: "Failed",
+								remark 		: "Product not found. "
+							});
 						});
-					
+
+					}else{
+						resolve({
+							statusCode 	: "Failed",
+							remark 		: "Failed to update inventory record. "
+						})
+					}
 				}else{
-					resolve(productdata);
+					resolve({
+						statusCode 	: "Failed",
+						remark 		: "Failed to update inventory record. "
+					})
 				}
-			})
-			.catch(err =>{
-				reject(err);
-			});
-			})
-			.catch(err =>{
-				console.log("error---------",err);
-				reject(err);
-			}); 
-		})
-		.catch(err =>{
-			console.log("error---------",err);
-			reject(err);
-		});          
+			}else{
+				resolve({
+					statusCode 	: "Failed",
+					remark 		: "No inventory record found for this product. "
+				})
+			}
+			// ProductInventory.findOne(
+			// 	{ 
+			// 		universalProductCode : data.UPC,  
+			// 		vendor_ID            : ObjectId(data.vendor_id),
+			// 		productCode 			: data.productCode,  
+			// 		itemCode 				: data.itemCode, 
+			// 	},
+			// )
+			// .then(inventoryData=>{
+				// ProductInventory.updateOne(
+				// 	{ 
+				// 		universalProductCode : data.UPC,  
+				// 		vendor_ID            : ObjectId(data.vendor_id),
+				// 		productCode 			: data.productCode,  
+				// 		itemCode 				: data.itemCode,  
+				// 	},  
+				// 	{
+				// 		$set:{
+				// 			currentQuantity           : data.qty ? (data.action !== undefined && data.action.toLowerCase() === "add" ? inventoryData.currentQuantity + data.qty : data.qty)  : "",
+				// 			originalPrice             : data.originalPrice,
+				// 			discountPercent           : data.discountPercent,
+				// 			discountedPrice           : data.discountedPrice, 
+				// 		},
+				// 		$push:{ 
+				// 			inwardDetails  : {
+				// 								date            	: new Date(),
+				// 								qty             	: data.qty ? (data.action !== undefined && data.action.toLowerCase() === "add" ? inventoryData.currentQuantity + data.qty : data.qty)  : "",
+				// 								originalPrice   	: data.originalPrice,
+				// 								discountPercent 	: data.discountPercent,
+				// 								discountedPrice 	: data.discountedPrice,
+				// 								addedBy         	: ObjectId(data.createdBy),
+				// 								filename 			: data.filename
+				// 			},
+				// 			updateLog       : {
+				// 								date        : new Date(),
+				// 								updatedBy   : ObjectId(data.createdBy),
+				// 			}
+				// 		}
+				// 	}
+				// )
+				// .then(inventoryupdateData=>{
+				// 	// console.log("inventoryupdateData---------",inventoryupdateData);
+				// 	// console.log("data.UPC---------",data.UPC);
+				// 	// console.log("data.vendor_id---------",data.vendor_id);
+				// 	Products.findOne(
+				// 		{ 
+				// 			universalProductCode    : data.UPC,
+				// 			vendor_ID               : ObjectId(data.vendor_id),
+				// 			productCode 				: data.productCode,  
+				// 			itemCode 					: data.itemCode 
+				// 		} 
+				// 	)
+				// 	.exec()
+				// 	.then(productdata=>{
+				// 		// console.log("productData => ",productdata);              
+				// 		if(productdata !== null && productdata !== undefined){     
+				// 			Products.updateOne(
+				// 				{ 
+				// 					universalProductCode    : data.UPC,
+				// 					vendor_ID               : ObjectId(data.vendor_id),
+				// 					productCode 				: data.productCode,  
+				// 					itemCode 					: data.itemCode 
+				// 				},  
+				// 				{
+				// 					$set:{
+				// 						originalPrice             : data.originalPrice ? data.originalPrice : 0,
+				// 						discountPercent           : data.discountPercent ? data.discountPercent : 0,  
+				// 						discountedPrice           : data.discountPercent === 0 ? (data.originalPrice ? data.originalPrice : 0) : data.discountedPrice,
+				// 						// availableQuantity         : data.qty ? (data.action.toLowerCase() === "add" ? productdata.availableQuantity + data.qty : data.qty)  : "",
+				// 						// fileName                  : data.filename,
+				// 						updatedBy                 : data.createdBy,
+				// 						updatedAt                 : new Date()
+				// 					}
+				// 				}
+				// 			)
+				// 			.exec()
+				// 			.then(updatedproductdata=>{                        
+								
+				// 				// var inventoryUpdate = await updateProductInventory(data.itemCode, data.productCode, data.vendor_id);
+				// 				resolve(updatedproductdata);
+													
+				// 			})
+				// 			.catch(err =>{
+				// 				reject(err);
+				// 			});
+						
+				// 		}else{
+				// 			resolve(productdata);
+				// 		}
+				// 	})
+				// 	.catch(err =>{
+				// 		reject(err);
+				// 	});
+				// })
+				// .catch(err =>{
+				// 	console.log("error---------",err);
+				// 	reject(err);
+				// }); 
+			// })
+			// .catch(err =>{
+			// 	console.log("error---------",err);
+			// 	reject(err);
+			// });  
+		}        
 	});
 }
 
@@ -4703,4 +4778,74 @@ function getDistanceLimit(){
 			reject(err)
 		});
 	});
- }
+}
+
+/*=============== Product inventory List ==============*/
+
+exports.product_inventory_list = (req,res,next)=>{
+	// console.log('req', req.body);
+	var selector        = {};
+	selector['$and']    = [];
+
+	selector["$and"].push({"status": {$ne : ""}});
+	/**----------- Find Vendorwise Products ------------ */
+	if(req.body.vendor && req.body.vendor !== '' && req.body.vendor !== undefined){
+		selector["$and"].push({"vendor_ID": ObjectId(req.body.vendor) })
+	}
+	/**----------- Find Vendorwise Products ------------ */
+	if(req.body.section && req.body.section !== '' && req.body.section !== undefined){
+		selector["$and"].push({"section_ID": ObjectId(req.body.section) })
+	}
+	/**----------- Find Vendorwise Products ------------ */
+	if(req.body.category && req.body.category !== '' && req.body.category !== undefined){
+		selector["$and"].push({"category_ID": ObjectId(req.body.category) })
+	}
+	/**----------- Find Vendorwise Products ------------ */
+	if(req.body.subCategory && req.body.subCategory !== '' && req.body.subCategory !== undefined){
+		selector["$and"].push({"subCategory_ID": ObjectId(req.body.subCategory) })
+	}
+
+	Products.find(selector)
+	.populate('vendor_ID')
+	.sort({ "createdAt": -1 })
+	.exec()
+	.then(async(data)=>{
+		var allData = [];
+		for (var i = 0; i < data.length; i++) {			
+			// processData();
+			// async function processData(){
+			var inventoryData = await ProductInventory.findOne({
+				universalProductCode : data[i].universalProductCode,  
+				// vendor_ID            : ObjectId(data[i].vendor_ID),
+				productCode 			: data[i].productCode,  
+				itemCode 				: data[i].itemCode  
+			},{currentQuantity : 1});
+
+			allData.push({
+				"_id"                   : data[i]._id,
+				"UPC" 						: data[i].universalProductCode,
+				"vendorName"            : data[i].vendor_ID !== null ? data[i].vendor_ID.companyName : "NA",
+				"productName"           : "<span>"+(data[i].productName)+"<br></span>"+"Product Code: "+data[i].productCode+ "</br>Item Code: "+data[i].itemCode,
+				"section"               : data[i].section,
+				"category"              : data[i].category,
+				"subCategory"           : data[i].subCategory,
+				"originalPrice"         : "<span class='textAlignRight'>"+"<i class='fa fa-"+data[i].currency+"'></i>&nbsp;"+data[i].originalPrice+"</span>",
+				"discountPercent"       : "<span class='textAlignRight'>"+data[i].discountPercent+"%"+"</span>",
+				"discountedPrice"       : "<span class='textAlignRight'>"+"<i class='fa fa-"+data[i].currency+"'></i>&nbsp;"+data[i].discountedPrice+"</span>",
+				"currentQuantity"     	: inventoryData !== null ? inventoryData.currentQuantity : 0,
+			})
+		}
+		if(i >= data.length){
+			res.status(200).json({
+				dataCount 	: data.length,
+				data 			: allData.slice(req.body.startRange, req.body.limitRange)
+			});
+		}
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+};

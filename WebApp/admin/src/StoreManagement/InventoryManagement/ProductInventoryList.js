@@ -4,9 +4,8 @@ import { BrowserRouter, Route, Switch,Link,location } from 'react-router-dom';
 import axios                from 'axios';
 import $, { data } 					from "jquery";
 import moment 				from "moment";
-import AdminOrdersList 		from './AdminOrdersList.js';
 import swal         		from 'sweetalert';
-import IAssureTable           from "../ReturnProductTable/IAssureTable.jsx";
+import IAssureTable           from "../../coreadmin/IAssureTable/IAssureTable.jsx";
 import { CheckBoxSelection, 
     Inject, 
     MultiSelectComponent }  from '@syncfusion/ej2-react-dropdowns';
@@ -15,27 +14,33 @@ import 'bootstrap/js/modal.js';
 import 'bootstrap/js/tab.js';
 import 'font-awesome/css/font-awesome.min.css';
 
-export default class ReturnProducts extends Component{
+export default class ProductInventoryList extends Component{
 	
 	constructor(props) {
 	 super(props);
 		this.state = {
-			"returnedProducts" : [],
-			tableHeading    : {
-				"orderID" 			: "Order Id",
-				"productImage"      : "Product Image",
-                "productName"       : "Product Name(Product Code)",
-                "vendorName"        : 'Vendor Name',
-                "section"        	: 'Section',
-                "category"        	: 'Category',
-                "subCategory"       : 'SubCategory',
-                "customerName"      : 'Customer Name',
-                "reasonOfReturn"    : 'Reason of Return',
-                "OrderDate"        	: 'Ordered on',
-                "returnRequestedOn" : 'Return Requested on',
-                // "approveOrReject"   : 'Approve/Reject',
-                "status"            : 'Status'
-            },
+			vendorArray 		: [],
+			sectionArray 		: [],
+			categoryArray 		: [],
+			subCategoryArray 	: [],
+			vendor 				: "",
+			section 				: "",
+			category 			: "",
+			subCategory 		: "",
+			tableHeading    	: {
+				"UPC" 				: "UPC",
+            // "productCode"     : "Product Code",
+            // "itemCode"        : "Item Code",
+            "vendorName"      : 'Vendor Name',
+				"productName"     : "Product Name",
+            "section"        	: 'Section',
+            "category"        : 'Category',
+            "subCategory"     : 'SubCategory',
+            "originalPrice"   : 'Original Price',
+            "discountPercent" : 'Discount Percent',
+            "discountedPrice" : 'Discounted Price',
+            "currentQuantity" : 'currentQuantity'
+         },
             tableObjects    : {
                 paginationApply : true,
                 searchApply     : false,
@@ -43,7 +48,8 @@ export default class ReturnProducts extends Component{
                 apiLink         : '/api/returnedproducts',
             },
             startRange      : 0,
-            limitRange      : 10
+            limitRange      : 10,
+            isLoadingData     : false,
 		}
 		// this.getReturnedProducts = this.getReturnedProducts.bind(this);
 	}
@@ -56,31 +62,28 @@ export default class ReturnProducts extends Component{
 		this.getData(this.state.startRange, this.state.limitRange);
 		this.getCount();
 		this.getSectionData();
-        // this.getCategoryData();
-        this.getVendorList();
+     	// this.getCategoryData();
+     	this.getVendorList();
 	}    
 
 	productCountByStatus(){
-        axios.get('/api/products/get/productCountByStatus')
-            .then((response) => {
-
-                this.setState({
-                    productCountByStatus: response.data
-                })
-
-            })
-            .catch((error) => {
-
-            })
-    }
+     	axios.get('/api/products/get/productCountByStatus')
+      .then((response) => {
+         this.setState({
+            productCountByStatus: response.data
+         })
+      })
+      .catch((error) => {
+      	console.log("error => ",error)
+      })
+   }
 
 	getVendorList() {
         // axios.get('/api/vendors/get/list')
         axios.get("/api/entitymaster/get/vendor")
 		.then((response) => {
 			this.setState({
-				vendorArray : response.data,
-				messageData : {}
+				vendorArray : response.data
 			})
 			// console.log("vendorArray",this.state.vendorArray);
 
@@ -94,10 +97,8 @@ export default class ReturnProducts extends Component{
         axios.get('/api/sections/get/all/list')
 		.then((response) => {
 			this.setState({
-				sectionArray: response.data,
-				messageData: {}
+				sectionArray: response.data
 			})
-
 		})
 		.catch((error) => {
 			console.log('error', error);
@@ -107,12 +108,11 @@ export default class ReturnProducts extends Component{
     getCategoryData(id) {
         axios.get('/api/category/get/'+id)
 		.then((response) => {
-
 			this.setState({
 				categoryArray 	: response.data,
-				messageData 	: {}
+			},()=>{
+				console.log("categoryArray => ",this.state.categoryArray)
 			})
-
 		})
 		.catch((error) => {
 			console.log('error', error);
@@ -154,49 +154,43 @@ export default class ReturnProducts extends Component{
 
 	/**=========== getData() ===========*/
 	getData(startRange, limitRange){
+		this.setState({isLoadingData : true})
 		var formValues = {
-            startRange 		: startRange,
-            limitRange 		: limitRange,
+         startRange 		: startRange,
+         limitRange 		: limitRange,
 			vendor 			: this.state.vendor,
-			section 		: this.state.section,
+			section 			: this.state.section,
 			category 		: this.state.category,
-			returnStatus 	: this.state.returnStatus
+			subCategory 	: this.state.subCategory
       }
-		axios.post("/api/returnedproducts/get/list", formValues)
+      console.log("formValues => ",formValues)
+		axios.post("/api/products/get/inventory/list", formValues)
 		.then((response)=>{
 			console.log("response return products => ",response.data)
-			var tableData = response.data.map((a, ind)=>{
+			var tableData = response.data.data.map((a, ind)=>{
 				console.log("condition => ",(a.productDetails && a.productDetails.length > 0));
 				// if(a.productDetails && a.productDetails.length > 0){
 					console.log("a => ",a)
 					return{
-						"_id"               : a._id,
-						"orderID"           : a.orderID,
-						"productImage"     : a.productDetails[0] && a.productDetails[0].productImage && a.productDetails[0].productImage.length > 0 
-											? 
-												"<div class='productImgDiv'> <img src='"+ a.productDetails[0].productImage[0] + "' class='img-responsive' /></div>"
-											: 
-												"<div class='productImgDiv'> <img src='/images/notavailable.jpg' class='img-responsive' /> </div>",
-						"productName"       : a.productDetails[0] && a.productDetails[0].productName ? (a.productDetails[0].productName+" "+"("+a.productDetails[0].productCode)+")" : "",
-						"vendorName"        : a.vendorDetails[0] && a.vendorDetails[0].companyName ? a.vendorDetails[0].companyName : "",
-						"section"        	: a.sectionDetails[0] && a.sectionDetails[0].section ? a.sectionDetails[0].section : "",
-						"category"        	: a.categoryDetails[0] && a.categoryDetails[0].category ? a.categoryDetails[0].category : "",
-						"subCategory"        	: a.productDetails[0] && a.productDetails[0].subCategory ? a.productDetails[0].subCategory : "-",
-						"customerName"      : a.userDetails[0] && a.userDetails[0].profile.fullName ? a.userDetails[0].profile.fullName : "-",
-						"reasonOfReturn"    : a.reasonForReturn,
-						"OrderDate"        	: moment(a.dateOfPurchase).format("DD MMMM YYYY, HH:mm a"),
-						"returnRequestedOn" : moment(a.createdAt).format("DD MMMM YYYY, HH:mm a"),             
-						// "productID"         : a.productID,
-						// "approveOrReject"   : "<div class='publishOrReject'><i class='fa fa-times-circle reviewActionBtns padding-15-0 " + (a.returnStatus === 'Return Request Rejected' ? 'rejectedActive' : '') +  "'name='Rejected' id='Rejected' title='Reject Customer's Return Request' onclick=window.changeReviewStatus('"+ a._id + "-" + "Return Request Rejected" +"')></i>"+
-						// 						"<i class='fa fa-check-circle reviewActionBtns padding-15-0 " + (a.returnStatus === 'Return Request Approved' ? 'publishedActive' : '') + "'name='Published' id='Published' title='Approve Customer's Return Request' onClick=window.changeReviewStatus('"+ a._id + "-" + "Return Request Approved" +"')></i></div>",
-						"status"            : "<div class='reviewStatusSpan " + a.returnStatus.replace(/\s+/g, '_').toLowerCase() + "'>" + a.returnStatus + "</div>",
-						
+						"_id"               	: a._id,
+						"UPC"           		: a.UPC,
+						"vendorName"        	: a.vendorName,
+						"productName"       	: a.productName ? a.productName : "NA",
+						"section"        		: a.section ? a.section : "NA",
+						"category"        	: a.category ? a.category : "NA",
+						"subCategory"        : a.subCategory ? a.subCategory : "NA",
+						"originalPrice"      : a.originalPrice ? a.originalPrice : 0,
+						"discountPercent"    : a.discountPercent ? a.discountPercent : 0 + "%",
+						"discountedPrice"    : a.discountedPrice ? a.discountedPrice : a.originalPrice,
+						"currentQuantity" 	: a.currentQuantity ? a.currentQuantity : 0,						
 					};
 				// }
             })
 			console.log("tabledata => ",tableData)
             this.setState({
-                tableData : tableData
+                tableData : tableData,
+                dataCount : response.data.dataCount,
+                isLoadingData : false
             },()=>{
                 console.log("tableData => ",this.state.tableData)
             })
@@ -230,6 +224,18 @@ export default class ReturnProducts extends Component{
 			if(name === "section"){
 				this.getCategoryData(value);
 			}
+			if(name === "category"){
+				var filterCategory = this.state.categoryArray.filter(category => String(category._id) === String(this.state.category));
+				var subCategoryArray = [];
+				if (filterCategory && filterCategory.length > 0 && filterCategory[0].subCategory && filterCategory[0].subCategory.length > 0) {
+					subCategoryArray = filterCategory[0].subCategory;
+				}
+				this.setState({
+					subCategoryArray : subCategoryArray
+				},()=>{
+					console.log("this.state.subCategoryArray => ",this.state.subCategoryArray);
+				})
+			}
 			this.getData(this.state.startRange, this.state.limitRange);
 		});		
 	}
@@ -244,7 +250,7 @@ export default class ReturnProducts extends Component{
 							<div className="row">
 								<div className="box">
 									<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12">
-										<h4 className="weighttitle NOpadding-right">Returned Products</h4>
+										<h4 className="weighttitle NOpadding-right">Product Inventory List</h4>
 									</div>
 								</div>
 							</div>
@@ -313,16 +319,23 @@ export default class ReturnProducts extends Component{
 										</select>
 									</div>
 									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
-										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Status</label>
-										<select className="form-control selectRole" ref="returnStatus" name="returnStatus" id="returnStatus"
+										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">SubCategory</label>
+										<select className="form-control selectRole" ref="subCategory" name="subCategory" id="subCategory" 
 											onChange={this.handleChangeFilter.bind(this)}>
 											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled selected>-- Select --</option>  
-											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" value="Return Requested">Return Requested</option>  									
-											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" value="Return Request Approved">Return Request Approved</option> 									
-											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" value="Return Request Rejected">Return Request Rejected</option>    
+											{this.state.subCategoryArray && this.state.subCategoryArray.length > 0 
+											?
+												this.state.subCategoryArray.map((data, i)=>{
+													return(                                                                    
+														<option key={i} value={data._id}>{data.subCategoryTitle}</option>
+														// <option key={i} id={data.entityCode}>{data.entityCode}</option>
+													);
+												})
+											:
+												null
+											}											
 										</select>
-									</div>
-								
+									</div>								
 								</div>
 							</div>                                     
 							
@@ -335,6 +348,7 @@ export default class ReturnProducts extends Component{
 									getData         = {this.getData.bind(this)}
 									tableObjects    = {this.state.tableObjects}
 									getSearchText   = {this.getSearchText.bind(this)}
+									isLoading 		 = {this.state.isLoadingData}
 								/>
 							</div>				
 						</div>

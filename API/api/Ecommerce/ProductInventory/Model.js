@@ -20,7 +20,8 @@ const productInventorySchema = mongoose.Schema({
                                         qty             : Number,
                                         originalPrice   : Number,
                                         discountPercent : Number,
-                                        discountedPrice : Number,   
+                                        discountedPrice : Number, 
+                                        fileName        : String,  
                                         addedBy         : { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
                                     }
     ],

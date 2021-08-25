@@ -935,7 +935,7 @@ class IAssureTable extends Component {
 																	var regex = new RegExp(/(<([^>]+)>)/ig);
 																	var value2 = value1 ? value1.replace(regex,'') : '';
 																	var aN = value2.replace(this.state.reA, "");
-																	console.log("aN ====> ",aN)
+																	{/*console.log("aN ====> ",aN)*/}
 																	if(aN && $.type( aN ) === 'string'){
 																		if(value1.includes('textAlignLeft')){
 																			var textAlign = 'textAlignLeft';
@@ -947,7 +947,7 @@ class IAssureTable extends Component {
 
 																	}else{
 																		var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
-																		console.log("bN ====> ",bN)
+																		{/*console.log("bN ====> ",bN)*/}
 																		if(bN || bN === 0){
 																			var textAlign = 'textAlignRight';
 																		}else{
@@ -1022,7 +1022,7 @@ class IAssureTable extends Component {
 										}
 									) 	
 									:
-									<tr className="trAdmin"><td colSpan={12} className="noTempData textAlignCenter">No Record Found!</td></tr>               		
+									<tr className="trAdmin"><td colSpan={13} className="noTempData textAlignCenter">No Record Found!</td></tr>               		
 								}
 	                    	</tbody>
 	                    </table>

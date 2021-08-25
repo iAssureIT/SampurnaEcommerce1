@@ -36,6 +36,7 @@ class IAssureTable extends Component {
 			"tableObjects": props && props.tableObjects ? props.tableObjects : {},
 			"deleteMethod": props && props.deleteMethod ? props.deleteMethod : {},
 			"redirectToURL": props && props.tableObjects ? props.tableObjects.redirectToURL : true,
+			isLoading               : props.isLoading,
 			"id": props && props.id ? props.id : {},
 			"reA": /[^a-zA-Z]/g,
 			"reN": /[^0-9]/g,
@@ -102,6 +103,7 @@ class IAssureTable extends Component {
 			tableName: this.props.tableName,
 			dataCount: this.props.dataCount,
 			id: this.props.id,
+			isLoading 		: this.props.isLoading,
 		},()=>{
 			// console.log("dataCount did mount => ",this.state.dataCount)
 		});
@@ -113,6 +115,7 @@ class IAssureTable extends Component {
 			tableData: nextProps.tableData,
 			tableName: nextProps.tableName,
 			dataCount: nextProps.dataCount,
+			isLoading 		: nextProps.isLoading,
 		}, () => {
 			this.paginationFunction();
 			// console.log("dataCount => ",this.state.dataCount)
@@ -395,7 +398,7 @@ class IAssureTable extends Component {
 			// $(".queDataCircle:first").addClass('activeCircle');
 			const maxRowsPerPage 	= this.state.limitRange;
 			var paginationNum 		= dataLength / maxRowsPerPage;
-			var pageCount 			= Math.ceil(paginationNum);
+			var pageCount 			= Math.ceil(paginationNum)  > 20 ? 20 : Math.ceil(paginationNum);
 
 			var paginationArray = [];
 			for (var i = 1; i <= pageCount; i++) {
@@ -731,7 +734,29 @@ class IAssureTable extends Component {
 								</tr>
 							</thead>
 							<tbody className="scrollContent">
-								{this.state.tableData && this.state.tableData.length > 0 ?
+								{this.state.isLoading
+	                  	?
+	                  		<tr className="trAdmin">
+	                     		<td colSpan={Object.keys(this.state.tableHeading).length+1} className="noTempData textAlignCenter">
+	                     			<div className="container">
+    											<div className="row">
+								               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center dataLoaderWrapper">
+								                	<p>Loading</p>
+								                	<span>Data is Loading. Just a moment please...</span><br/>
+								                	<div className="dataLoader">
+														   <span></span>
+														   <span></span>
+														   <span></span>
+														   <span></span>
+														   <span></span>
+														</div>
+													</div>
+												</div>
+											</div>
+	                     		</td>
+	                  		</tr>
+	                  	:
+									this.state.tableData && this.state.tableData.length > 0 ?
 									this.state.tableData.map(
 										(value, i) => {
 											return (
@@ -751,10 +776,10 @@ class IAssureTable extends Component {
 																		var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
 																		// console.log("bn",bN)
 																		if (bN) {
-																			console.log("1. textAlignRight => ",value1)
+																			{/*console.log("1. textAlignRight => ",value1)*/}
 																			var textAlign = 'textAlignRight';
 																		} else if(bN === 0) {
-																			console.log("2. textAlignRight => ",value1)
+																			{/*console.log("2. textAlignRight => ",value1)*/}
 																			var textAlign = 'textAlignRight';
 																		}else{
 
@@ -765,8 +790,8 @@ class IAssureTable extends Component {
 																}else if($.type(value1) === 'array') {
 																	var textAlign = 'textAlignLeft';
 																}else {
-																	console.log("Type => ",($.type(value1)))
-																	console.log("3. textAlignRight => ",value1)
+																	{/*console.log("Type => ",($.type(value1)))
+																	console.log("3. textAlignRight => ",value1)*/}
 																	var textAlign = 'textAlignRight';
 																}
 																var found = Object.keys(this.state.tableHeading).filter((k) => {

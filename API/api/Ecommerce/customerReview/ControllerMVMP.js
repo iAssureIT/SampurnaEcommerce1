@@ -135,6 +135,9 @@ exports.list_review = (req,res,next)=>{
 				createdAt       				: 1,
 				"productDetails.productName"	: 1,
 				"productDetails.productCode" 	: 1,
+				"productDetails.section" 	: 1,
+				"productDetails.category" 	: 1,
+				"productDetails.subCategory" 	: 1,
 				"vendorDetails.companyName"		: 1,
 				"categoryDetails.category"		: 1,
 				"sectionDetails.section"		: 1

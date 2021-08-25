@@ -338,7 +338,7 @@ class IAssureTable extends Component {
 			startRange 	: startRange,
 			callPage 	: false
 		},()=>{
-			this.props.getData(this.state.searchText, this.state.startRange, this.state.limitRange);
+			this.props.getData(this.state.startRange, this.state.limitRange);
 		});
 
 		$('li').removeClass('activeCircle');
@@ -359,7 +359,7 @@ class IAssureTable extends Component {
 			$('li').removeClass('activeCircle');
 			this.paginationFunction();
 
-			this.props.getData(this.state.searchText, this.state.startRange, this.state.limitRange);
+			this.props.getData(this.state.startRange, this.state.limitRange);
 			
 		});	
 	}
