@@ -78,7 +78,7 @@ class Header extends React.Component {
                                                     <div className={"col-"+wishlistCol +" NoPadding "}>                                                   
                                                         < Wishlist />                                                
                                                     </div>  
-                                                    <div className="col-3 col-lg-4 col-sm-4 NoPadding ">
+                                                    <div className="col-3 col-sm-4 col-lg-4 col-xl-3 NoPadding ">
                                                         < MyCart />    
                                                     </div>                                      
                                                 </div>

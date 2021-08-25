@@ -153,7 +153,7 @@
 ##############################################################################################################
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { 
+@media (min-width: 1280px) { 
     
     .vendorCard{
         height: 120px;
@@ -252,7 +252,8 @@
         font-size: 20px;
         overflow-wrap: break-word;
         max-height:30px ;
-        font-weight: 600!important;
+        font-weight: 900!important;
+        font-family: 'Montserrat-bold' !important;
     }
     .delTime{
         font-size: 15px;
@@ -281,12 +282,10 @@
     .vedorLink{
         cursor: pointer;
     }
-    
     .moreBtn{
         text-align:center;
         margin-bottom:15px !important;
     }
-    
     .blueBTN{
         color: #fff;
         background-color: #033554;
@@ -295,5 +294,27 @@
     .vendorlistTitle h4{
         font-size: 27px!important;
     }
-    
 }
+
+@media (min-width: 1537px) and (max-width: 1920px) {  
+    .globalAddToCartBtn{
+      font-size: 16px !important;
+    }
+    .vendorName{
+        font-size: 28px;
+        overflow-wrap: break-word;
+        max-height:30px ;
+        font-weight: 900!important;
+        font-family: 'Montserrat-bold' !important;
+    }
+  }
+  @media (min-width: 1050px) and (max-width: 1680px) {  
+    .globalAddToCartBtn{
+      font-size: 14px !important;
+    }
+  }
+  @media (min-width: 1600px) and (max-width: 2560px) {  
+    .globalAddToCartBtn{
+      font-size: 18px !important;
+    }
+  }

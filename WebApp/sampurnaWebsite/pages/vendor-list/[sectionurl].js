@@ -93,7 +93,7 @@ class VendorList extends Component {
                 </div>
                     {!this.state.loading
                     ?
-                    <div className={"col-10 offset-1 col-md-8 offset-md-2 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1 " }>
+                    <div className={"col-10 col-md-8 col-lg-10  col-xl-10 mx-auto " }>
                         <div className="col-12">
                             <div className={" row " }>
                                 
@@ -109,7 +109,7 @@ class VendorList extends Component {
                                                 backgroundImage: "url(" + vendordata.vendorShopImage + ")",
                                               };
                                             return(
-                                                <div className="col-lg-6 col-12 col-sm-6" key={index}>
+                                                <div className=" col-12 col-sm-6 col-lg-6 col-xl-6 " key={index}>
                                                     <div className="col-12">
                                                         <div className={"col-12  card mt-2 mb-4 " +Style.vendorCard }style={VendorImage}>
                                                         <Link href={"/products/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+this.state.sectionurl} className={+Style.vedorLink}>

@@ -18,7 +18,6 @@ import {getForm,updateForm,updateCartCount}  from '../../../../../redux/actions'
 import Style                 from './location.module.css';
 import SystemSecurityPopup   from './SystemSecurityPopup.js';
 
-
 const { publicRuntimeConfig } = getConfig();
 
 class header extends React.Component {
