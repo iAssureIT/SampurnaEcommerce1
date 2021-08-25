@@ -27,6 +27,7 @@ import { getCartCount}                      from '../../redux/productList/action
 import FastImage              from 'react-native-fast-image';
 import { Platform } from 'react-native';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { NetWorkError } from '../../../NetWorkError.js'; 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const window = Dimensions.get('window');
@@ -48,9 +49,10 @@ export const CartComponent = withCustomerToaster((props)=>{
     preferences     : store.storeSettings.preferences,
     globalSearch    : store.globalSearch,
     location        : store.location,
-    userDetails     : store.userDetails
+    userDetails     : store.userDetails,
+    isConnected: store.netWork.isConnected
   }));
-  const {globalSearch,location,userDetails}=store;
+  const {globalSearch,location,userDetails,isConnected}=store;
   const {currency}=store.preferences;
   
 
@@ -65,7 +67,7 @@ export const CartComponent = withCustomerToaster((props)=>{
 
   useEffect(() => {
     getData()
-  },[props]); 
+  },[props,isConnected]); 
 
   const getData=()=>{
     const {userId} = route.params;
@@ -267,14 +269,19 @@ const getshippingamount=(startRange, limitRange)=>{
     { onLayout: (e) => setTooltipSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height }) }
   )
 
+  console.log("isConnected",isConnected);
+
   return (
     <React.Fragment>
+      {!isConnected?
+      <NetWorkError />
+      :
       <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
       { !loading ?
       globalSearch.search ?
         <SearchSuggetion />
         :
-        <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
+        <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid showsVerticalScrollIndicator={false}	>
          <View style={{flex:1}}>
           {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?
             <View style={styles.cartdetails}>
@@ -668,8 +675,8 @@ const getshippingamount=(startRange, limitRange)=>{
           </View>
         </View>
       </Modal>
-    </View>
-    {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?<View style={{marginBottom:Platform.OS ==='ios'?60: hp(6.5),flexDirection:'row'}}>
+    </View>}
+    {isConnected&& cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?<View style={{marginBottom:Platform.OS ==='ios'?60: hp(6.5),flexDirection:'row'}}>
          <View style={{flex:0.5,height:hp(8.5),backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
             <Text style={{fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
             <Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>

@@ -9,7 +9,7 @@ import store                  from './src/redux/store';
 import {setToast}             from './src/redux/AppState';
 import { LogBox,StatusBar }   from 'react-native';
 import {AuthLoadingScreen}    from "./src/ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js";
-import SplashScreen           from 'react-native-splash-screen';
+// import SplashScreen           from 'react-native-splash-screen';
 import {localNotificationService} from './src/LocalNotificationService';
 import {fcmService} from './src/FCMService';
 import {REACT_APP_BASE_URL} from '@env'
@@ -24,6 +24,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import { NetworkProvider } from './NetworkProvider';
 import { ExampleComponent } from './ExampleComponent';
 import Snackbar from 'react-native-snackbar';
+import SplashScreen from "react-native-lottie-splash-screen";
 export const NetworkContext = React.createContext({ isConnected: true });
 
 console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);

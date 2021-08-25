@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		74D0EE31E226AF57446EB43B /* libPods-TrollyMart-TrollyMartTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F0BB7221DA76BB560758F2 /* libPods-TrollyMart-TrollyMartTests.a */; };
 		78047DBF26C41D5500A17F4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38EA266F3605004A4ED2 /* GoogleService-Info.plist */; };
+		7853A65926D6303C007180F8 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7853A65826D6303C007180F8 /* Dynamic.swift */; };
 		789E8A2226C4E41E00A728D0 /* Icon-App-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 789E8A2126C4E41E00A728D0 /* Icon-App-60x60@2x.png */; };
 		7C0C2C55266E381000D83162 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009616266CF52A008C2278 /* Montserrat-Medium.ttf */; };
 		7C0C2C57266E381000D83162 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7CED594A263C9ABF00A70AD0 /* Montserrat-Bold.otf */; };
@@ -64,6 +65,8 @@
 		72C5A81AB5E516BB491819A5 /* Pods-TrollyMart-TrollyMartTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMart-TrollyMartTests.debug.xcconfig"; path = "Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests.debug.xcconfig"; sourceTree = "<group>"; };
 		78047DB526C3FDD100A17F4D /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		78047DBD26C406FD00A17F4D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		7853A65726D62F8A007180F8 /* TrollyMart-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TrollyMart-Bridging-Header.h"; sourceTree = "<group>"; };
+		7853A65826D6303C007180F8 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		789E8A2126C4E41E00A728D0 /* Icon-App-60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-App-60x60@2x.png"; path = "../../../../../../Downloads/unnamed/ios/AppIcon.appiconset/Icon-App-60x60@2x.png"; sourceTree = "<group>"; };
 		78F4EF9426BD909C0035DD24 /* TrollyMart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrollyMart.entitlements; sourceTree = "<group>"; };
 		7C009616266CF52A008C2278 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Medium.ttf"; path = "../assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
@@ -89,7 +92,6 @@
 		7C34B64B266E590B0078724F /* §.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "§.m"; path = "TrollyMart/§.m"; sourceTree = "<group>"; };
 		7C34B64C266E590B0078724F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TrollyMart/main.m; sourceTree = "<group>"; };
 		7C43CF132671EA81004E3DB2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C68E7D62694B448004C7F19 /* TrollyMart-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TrollyMart-Bridging-Header.h"; sourceTree = "<group>"; };
 		7C68E7D72694B449004C7F19 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		7C6A38E8266F3605004A4ED2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C6A38E9266F3605004A4ED2 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -225,6 +227,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				7853A65826D6303C007180F8 /* Dynamic.swift */,
+				7853A65726D62F8A007180F8 /* TrollyMart-Bridging-Header.h */,
 				7C68E7D72694B449004C7F19 /* File.swift */,
 				7C6A38E7266F3605004A4ED2 /* TrollyMart */,
 				7C2E6181266E5EE7001C5D72 /* GoogleService-Info.plist */,
@@ -237,7 +241,6 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				0456BDB5FCED668FF50AE356 /* Pods */,
-				7C68E7D62694B448004C7F19 /* TrollyMart-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C34B64D266E590B0078724F /* §.m in Sources */,
+				7853A65926D6303C007180F8 /* Dynamic.swift in Sources */,
 				7C68E7D82694B449004C7F19 /* File.swift in Sources */,
 				7C6A38F1266F3605004A4ED2 /* main.m in Sources */,
 			);
@@ -659,6 +663,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TrollyMart/TrollyMart.entitlements;
 				CURRENT_PROJECT_VERSION = 6;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 62B33K4XW2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -694,6 +699,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TrollyMart/TrollyMart.entitlements;
 				CURRENT_PROJECT_VERSION = 6;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 62B33K4XW2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -8,7 +8,8 @@ import {
   Alert,
   Dimensions,
   StyleSheet,
-  Platform
+  Platform,
+  KeyboardAvoidingView
 } from 'react-native';
 import { Dropdown }                 from 'react-native-material-dropdown-v2-fixed';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -237,7 +238,8 @@ import { NetWorkError } from '../../../NetWorkError.js';
             <SearchSuggetion />
         :
         <View style={[styles.addsuperparent,{marginBottom:Platform.OS==='ios'?60:40,paddingBottom:Platform.OS==='ios'?20:10}]}>
-            <ScrollView style={styles.formWrapper} keyboardShouldPersistTaps="handled">
+          <ScrollView  keyboardShouldPersistTaps='handled' style={styles.formWrapper} keyboardShouldPersistTaps='handled'>
+           <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} >
               <View style={{ backgroundColor: '#fff', paddingHorizontal: 15, marginBottom: "5%" }}>
               <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row",marginLeft:10, justifyContent: 'flex-start',marginBottom:20 }}>
                   <Text style={styles.addressTitle}>My Address</Text>
@@ -492,6 +494,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                    />
                   </View>
               </View>
+          </KeyboardAvoidingView>
           </ScrollView>
           {/* */}
         </View>}

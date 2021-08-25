@@ -640,14 +640,14 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
           onRequestClose={() => setModal(false)}
           coverScreen={true}
           hideModalContentWhileAnimating={true}
-          style={{ zIndex: 999 }}
+          style={{ zIndex: 999,paddingVertical:Platform.OS==='ios'?30:0 }}
           animationOutTiming={500}>
           <View style={{ backgroundColor: "#fff", borderRadius: 20}}>
             <View style={{flexDirection:'row',height:30,alignItems:'center',justifyContent:'space-between',borderBottomWidth:0.5,borderColor:"#eee",marginTop:5}}>   
               <View style={{paddingHorizontal: 5}}>
                 <Text style={CommonStyles.label}>Terms & conditions</Text>
               </View>  
-              <TouchableOpacity style={{justifyContent:"flex-end",padding:5}} onPress={()=>setModal(false)}>
+              <TouchableOpacity style={{justifyContent:"flex-end",padding:5,height:30,width:50}} onPress={()=>setModal(false)}>
                   <Icon name="close" type="material-community" size={20} />
               </TouchableOpacity> 
            </View>   

@@ -156,7 +156,7 @@ export default StyleSheet.create({
     },
 
     addBtnStyle1: {
-		backgroundColor: '#5B8E7E',
+		// backgroundColor: '#5B8E7E',
         minHeight: 30,
         fontSize:14,
         width: "100%",

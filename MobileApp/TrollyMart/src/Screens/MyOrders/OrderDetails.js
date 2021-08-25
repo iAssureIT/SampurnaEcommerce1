@@ -547,7 +547,7 @@ const cancelorderbtn = (id,vendor_id) => {
           <SearchSuggetion />
         :
         <View style={styles.superparent}>
-          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} >
             <View style={{paddingVertical:24,paddingHorizontal:6}}>
               <Text style={CommonStyles.screenHeader}>My Orders Details</Text>
             </View>

@@ -3356,6 +3356,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 				"orderID"							: 1,
 				"user_ID"							: 1,
 				"userName"							: 1,
+				"createdAt"                         : 1,
 				"vendorOrders.vendor_id"			: 1,
 				"vendorOrders.vendorLocation_id"	: 1,
 				"vendorOrders.orderStatus"			: 1,

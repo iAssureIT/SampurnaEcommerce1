@@ -376,7 +376,6 @@ export default StyleSheet.create({
     marginVertical:10,
     textAlign:"center",
     borderRadius:4,
-    backgroundColor:"#ff0"
   },
 
   qtys:{

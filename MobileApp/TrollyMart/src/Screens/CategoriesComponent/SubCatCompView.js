@@ -309,7 +309,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
           <Loading/>
           :
           productdata && productdata.productName  && productdata.discountedPrice ?
-          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" ref={scroll} >
+          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" ref={scroll} showsVerticalScrollIndicator={false} >
             <View style={[styles.vendorNameBox,{}]}>
                 <Text numberOfLines={1} style={[CommonStyles.text,{fontSize:14,fontFamily:"Montserrat-Medium",color:"#000"}]}>{productdata.vendorName}</Text>
             </View> 
@@ -367,7 +367,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         title={"Add To Cart"}
                         buttonStyle={[CommonStyles.addBtnStyle1,{backgroundColor:colors.cartButton}]}
                         titleStyle={{fontFamily:'Montserrat-Regular',fontSize:13}}
-                        buttonStyle={[CommonStyles.addBtnStyle1,{backgroundColor:colors.cartButton,}]}
                       /> 
                   </View>
                 </View>
