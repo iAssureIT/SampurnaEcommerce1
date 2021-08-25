@@ -6,7 +6,7 @@ import {
   View,
   Image,
   TouchableOpacity,
-  Alert,ActivityIndicator,
+  Alert,ActivityIndicator, Platform,
 } from 'react-native';
 import {Icon,Button}    from "react-native-elements";
 import axios              from "axios";
@@ -161,7 +161,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
         store.globalSearch.search ?
             <SearchSuggetion />
         :
-        <View style={[styles.addsuperparent,{ marginBottom:delivery?30:0}]}>
+        <View style={[styles.addsuperparent,{ marginBottom:delivery?Platform.OS==='ios'?50:30:0}]}>
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
             <View style={{flexDirection:'row',paddingVertical:24,paddingHorizontal:20,alignItems:'center'}}>
             {!delivery&&<TouchableOpacity style={{justifyContent:'center',height:45,paddingRight:5}} onPress={()=> navigation.goBack()}>

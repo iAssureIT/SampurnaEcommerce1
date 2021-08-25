@@ -414,11 +414,11 @@ const getshippingamount=(startRange, limitRange)=>{
                   </View>
                   <View style={[styles.totaldetails,{backgroundColor:cartData.minOrderAmount <= vendor.vendor_afterDiscountTotal?"#F7F7F7":"#F3C2C2"}]}>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
+                      <View style={{ flex: 0.5 }}>
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                         <Text style={styles.totaldata2}>Sub Total</Text>
                       </View>
-                      <View style={{ flex: 0.1 }}>
+                      <View style={{ flex: 0.2 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
@@ -430,10 +430,10 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>                      
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
+                      <View style={{ flex: 0.5 }}>
                         <Text style={styles.totaldata2}>You Saved </Text>
                       </View>
-                      <View style={{ flex: 0.1 }}>
+                      <View style={{ flex: 0.2 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
@@ -446,11 +446,11 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6}}>
+                      <View style={{ flex: 0.5}}>
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                         <Text style={styles.totaldata2}>Total Amount</Text>
                       </View>
-                      <View style={{ flex: 0.1 }}>
+                      <View style={{ flex: 0.2 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
@@ -462,10 +462,10 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                     </View>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
+                      <View style={{ flex: 0.5 }}>
                         <Text style={styles.totaldata2}>VAT</Text>
                       </View>
-                      <View style={{ flex: 0.1 }}>
+                      <View style={{ flex: 0.2 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
@@ -478,10 +478,10 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                       <View style={[styles.flxdata,{paddingVertical:5}]}>
-                        <View style={{ flex: 0.6 }}>
+                        <View style={{ flex: 0.5 }}>
                           <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:RFPercentage(2.6)}}>Totals</Text>
                         </View>
-                        <View style={{ flex: 0.1 }}>
+                        <View style={{ flex: 0.2 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.currency1}>{currency}</Text>
                           </View>

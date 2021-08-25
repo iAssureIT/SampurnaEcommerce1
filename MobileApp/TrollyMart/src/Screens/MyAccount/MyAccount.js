@@ -131,7 +131,7 @@ export const MyAccount =(props)=>{
                     {userDetails.authService!=="guest" &&<View style={{alignItems:'center',paddingHorizontal:wp(3)}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false})} >
                             {/* <Icon size={30} name='map-marker-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}                           
-                            <Image source={require("../../AppDesigns/currentApp/images/address.png")} style={styles.iconImg} resizeMode="contain"/>                            
+                            <Image source={require("../../AppDesigns/currentApp/images/address.png")} style={[styles.iconImg]} resizeMode="contain"/>                            
                         </TouchableOpacity>
                         <Text style={[styles1.label]}>My Address</Text>
                     </View>}
@@ -303,7 +303,7 @@ const styles1 = StyleSheet.create({
     },
     label : {
         fontFamily:"Montserrat-Medium",
-        fontSize:RFPercentage(2.2),
+        fontSize:RFPercentage(2),
         color:'#000',
     },
     label1 : {

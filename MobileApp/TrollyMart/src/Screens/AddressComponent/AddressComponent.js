@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Alert,
   Dimensions,
-  StyleSheet
+  StyleSheet,
+  Platform
 } from 'react-native';
 import { Dropdown }                 from 'react-native-material-dropdown-v2-fixed';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -235,7 +236,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
         globalSearch.search ?
             <SearchSuggetion />
         :
-        <View style={[styles.addsuperparent,{marginBottom:40,paddingBottom:10}]}>
+        <View style={[styles.addsuperparent,{marginBottom:Platform.OS==='ios'?60:40,paddingBottom:Platform.OS==='ios'?20:10}]}>
             <ScrollView style={styles.formWrapper} keyboardShouldPersistTaps="handled">
               <View style={{ backgroundColor: '#fff', paddingHorizontal: 15, marginBottom: "5%" }}>
               <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row",marginLeft:10, justifyContent: 'flex-start',marginBottom:20 }}>
@@ -526,7 +527,6 @@ import { NetWorkError } from '../../../NetWorkError.js';
      },
      textInputStyle:{
          height:50,
-         paddingTop:15,
          backgroundColor:"#fff"
      },
      textContainerStyle:{

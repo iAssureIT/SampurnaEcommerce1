@@ -364,6 +364,7 @@ export const Location = withCustomerToaster((props)=>{
                         borderRadius:0, 
                         backgroundColor: '#fff',
                         height: hp(6.5),
+                        width:wp(55)
                     },
                     listView:{
                         position: 'absolute',

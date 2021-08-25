@@ -72,7 +72,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
           store.globalSearch.search ?
               <SearchSuggetion />
           :
-          <ScrollView contentContainerStyle={[styles.container]} style={{flex:1,backgroundColor:"#fff"}} keyboardShouldPersistTaps="handled" >
+          <ScrollView contentContainerStyle={[styles.container]} style={{flex:1,backgroundColor:"#fff"}} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} >
             <View style={{paddingVertical:24,paddingHorizontal:20}}>
               <Text style={CommonStyles.screenHeader}>My Credit Points</Text>
             </View>
