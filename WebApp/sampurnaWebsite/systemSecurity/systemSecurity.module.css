@@ -57,6 +57,9 @@
 /* [sm] Small Devices [Phone - Landscape, 576px and up] */
 @media (min-width: 576px){
 
+    .otpText{
+        margin-left: 58px !important;
+    }
 }
 
 
@@ -84,14 +87,14 @@
 }
 
 
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1366px and up] */
-@media (min-width: 1366px){
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
+@media (min-width: 1440px){
 
 }
 
 
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
-@media (min-width: 1440px){
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1536px and up] */
+@media (min-width: 1536px){
 
 }
 
