@@ -96,7 +96,7 @@ export const NewOrders =(props)=> {
  
   
     const swipeFromLeftOpen = (order_id,vendor_id) => {
-       
+        setLoading(true);
         var payload = {
             order_id        : order_id,
             vendor_id       : vendor_id,
@@ -107,7 +107,6 @@ export const NewOrders =(props)=> {
         axios.patch('/api/orders/changevendororderstatus',payload)
         .then(res=>{
             console.log("res",res);
-            setLoading(false);
               getList();
         })
         .catch(err=>{
@@ -149,7 +148,7 @@ export const NewOrders =(props)=> {
                                 <Text style={CommonStyles.cardTopText}>Order No {item.orderID}</Text>
                             </View>
                             <View style={{flex:.6,alignItems:'flex-end'}}>
-                                <Text style={CommonStyles.cardTopText2}>Date {moment(item?.vendorDetails?.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
+                                <Text style={CommonStyles.cardTopText2}>Date {moment(item?.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
                             </View>    
                     </View>         
                     <View style={CommonStyles.cardBottom}>
@@ -159,7 +158,11 @@ export const NewOrders =(props)=> {
                             </View>                            
                             <View style={styles.box1}>
                                 {/* <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} /> */}
-                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>Vendor: <Text style={{fontFamily:"Montserrat-SemiBold"}}>{item?.vendorDetails?.companyName}</Text> {item?.vendorDetails?.locations[0]?.addressLine1+", "+item?.vendorDetails?.locations[0]?.addressLine2}</Text>
+                                <Text style={CommonStyles.boxLine1} numberOfLines={1}>Vendor: <Text style={{fontFamily:"Montserrat-SemiBold"}}>{item?.vendorDetails?.companyName}</Text></Text>
+                            </View>
+                            <View style={styles.box1}>
+                                {/* <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} /> */}
+                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>{item?.vendorDetails?.locations[0]?.addressLine1+", "+item?.vendorDetails?.locations[0]?.addressLine2}</Text>
                             </View>
                             <View style={styles.box1_L}>
                                 <Text style={[CommonStyles.boxLine1]}>Pickup point :</Text>                                

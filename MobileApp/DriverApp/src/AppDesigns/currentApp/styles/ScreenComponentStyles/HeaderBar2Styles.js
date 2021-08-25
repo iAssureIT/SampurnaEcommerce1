@@ -104,7 +104,7 @@ export default StyleSheet.create({
   },
 
   leftside: {
-    paddingHorizontal: 15,
+    paddingRight: 30,
     // marginTop:15
   },
 

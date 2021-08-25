@@ -99,6 +99,7 @@ export const RunningOrders =(props)=> {
     };
   
     const swipeFromLeftOpen = (order_id,vendor_id) => {
+        setLoading(true);
         var payload = {
             order_id        : order_id,
             vendor_id       : vendor_id,
