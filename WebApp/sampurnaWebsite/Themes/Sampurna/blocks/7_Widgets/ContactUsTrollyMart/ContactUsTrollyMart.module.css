@@ -9,7 +9,6 @@
 
 .contactUsTrollyMainWrapper{
 	height: 1220px;
-	/* background-color: brown; */
 }
 .contactUsTrollyBreadcumWrapper{
 	height: 300px;
@@ -24,7 +23,6 @@
 	position: absolute;
 	margin-top: 227px;
 	border-radius: 4px;
-	/* background: lightcoral; */
 }
 .contactusFormWrapperLeftSide{
 	height: 550px;
@@ -34,7 +32,7 @@
 }
 .emailWrapperContactUs{
 	margin-top: -25px;
-	margin-left: 10px;
+	margin-left: 13px;
 }
 .contactusFormWrapperRightSide{
 	height: 300px;
@@ -70,13 +68,6 @@
 	color: red;
 }
 .getInTouchBtnWrapper:hover{
-	height: 32px;
-	width: 82px;
-	border-bottom-right-radius: 1px;
-	border-radius: 10px;
-	background-color: #033554;
-	outline: none;
-	border: none;
 	color: #fff;
 }
 .getInTouchSubTitle{
@@ -84,13 +75,7 @@
 	font-family: "Montserrat-SemiBold";
 	font-size: 18px;
 }
-.phoneFontAwesomeWrapper label{
-	color: #fff;
-	font-family:'Montserrat-Thin';
-	font-size: 14px;
-	cursor: pointer;
-}
-.phoneFontAwesomeWrapper{
+.phoneFontAwesomeWrapper, .phoneFontAwesomeWrapper label{
 	color: #fff;
 	font-family:'Montserrat-Thin';
 	font-size: 14px;
@@ -106,6 +91,7 @@
 .social_links{
 	display: flex;
 	margin-left: -8px;
+	cursor: pointer;
 }
 .social_links a{
 	width: 28px;
@@ -122,6 +108,7 @@
 	overflow: hidden;
 	transition: transform 0.5s;
 	font-size: 14px;
+	cursor: pointer;
 }
 .social_links a .fab{
 	margin-top: 7px;
@@ -147,30 +134,33 @@
 	-moz-appearance: textfield;
 }
 .contactUsRightLogo{
-	width: 40%;
-	margin-top: 80px;
-	margin-left: 220px;
+	display: none;
 }
+
+
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 
 
-/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+/* [xs] Extra Small Devices [Phone - Portrait, less than 575px] */
 @media (max-width: 575px){
-    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+  /* No media query for "xs'' since this is the default in Bootstrap 4 because it is "Mobile First" */
 }
 
-/* (sm) Small Devices (Landscape Phones, 576px and up) */
+
+/* [sm] Small Devices [Phone - Landscape, 576px and up] */
 @media (min-width: 576px){
 
 }
 
-/* (md) Medium Devices (Tablets, 768px and up) */
+
+/* [md] Medium Devices [Tablet - Portrait, 768px and up] */
 @media (min-width: 768px){
 
 }
 
-/* (lg) Large Devices (Desktops, 992px and up) */
+
+/* [lg] Large Devices [Tablet - Landscape, 992px and up] */
 @media (min-width: 992px){
 
 	.contactUsTrollyMainWrapper{
@@ -188,10 +178,6 @@
 		height: auto;
 		border-bottom-left-radius: 4px;
 		border-top-left-radius: 4px;
-	}
-	.emailWrapperContactUs{
-		margin-top: -25px;
-		margin-left: 25px;
 	}
 	.contactusFormWrapperRightSide{
 		min-height: 450px;
@@ -262,10 +248,40 @@
 	.contactUsTrollyMainWrapper input[type='number']:focus{
 		-moz-appearance: textfield;
 	}
+	.contactUsRightLogo{
+		width: 40%;
+		margin-top: 80px;
+		margin-left: 220px;
+	}
+	.emailWrapperContactUs{
+		margin-left: 27px;
+	}
 }
 
-/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1200px and up] */
 @media (min-width: 1200px){
+
+	.emailWrapperContactUs{
+		margin-left: 13px;
+	}
+}
+
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1366px and up] */
+@media (min-width:1366px){
+
+}
+
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
+@media (min-width:1440px){
+
+}
+
+
+/* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
+@media (min-width:1920px){
 
 }
 

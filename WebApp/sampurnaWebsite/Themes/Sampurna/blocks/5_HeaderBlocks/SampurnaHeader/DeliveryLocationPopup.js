@@ -37,10 +37,9 @@ class DeliveryLocationPopup extends React.Component{
 
     componentDidMount(){
         var windowHeight    = window.innerHeight;
-        var mapBlockheight  = windowHeight - 200;
-        $('.locationBg').css({
-            'height': (mapBlockheight)
-        });
+        var mapBlockheight  = windowHeight - 150;
+        console.log("mapBlockheight = ",mapBlockheight);
+        this.setState({mapBlockheight : mapBlockheight});
 
         axios.get("/api/projectSettings/get/GOOGLE",)
              .then((response) => {
@@ -322,7 +321,7 @@ class DeliveryLocationPopup extends React.Component{
             var class1 = "zindex1"
         }
         return(
-            <section className={"col-12 locationPage locationBg "+Style.deliveryLocationWrapper}>
+            <section className={"col-12 locationPage locationBg "} style={{"height" : this.state.mapBlockheight}} >
                 <form className={"col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 "+Style.deliveryLocationFormWrapper}>
                     <div className="col-12">
                         <div className="row">

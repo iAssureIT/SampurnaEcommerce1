@@ -109,7 +109,7 @@ const Tab1 = createDrawerNavigator();
 export const Tab2 = () => (
   <Tab1.Navigator 
     drawerContent   = { (props) =>  <Drawer><Menu { ...props } /></Drawer>}
-    
+    screenOptions={{swipeEnabled: false}} 
   >
      <Tab.Screen name="App" component={HomeStack} navigationOptions = {{gesturesEnabled: false}} />
   </Tab1.Navigator>

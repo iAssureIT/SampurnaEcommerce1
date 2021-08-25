@@ -382,11 +382,6 @@
   padding-top:80px;
 }
 
-/*.footerBottom{
-  height: 100px;
-  padding-top:45px;
-  
-}*/
 
 .text_Center{
 /* text-align:right !important;*/
@@ -494,6 +489,9 @@
 }
 .socialMediaIcons{
   text-align: right;
+/*  margin: auto;
+  margin-left: 13px;
+  margin-right: 13px;*/
 }
 .logoTop{
   /* margin-top: 62px!important; */

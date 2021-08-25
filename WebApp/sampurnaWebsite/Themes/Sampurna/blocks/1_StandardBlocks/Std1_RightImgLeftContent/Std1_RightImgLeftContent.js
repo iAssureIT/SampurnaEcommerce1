@@ -69,41 +69,18 @@ export default class Std1_RightImgLeftContent extends Component{
 
     render(){
         return(
-            <div className="col-12">
-                {
-                    this.state.blocks.bgImage
-                    ?
-                        <section className="col-12 stdBlockWrapperBackground" style={{backgroundImage:"url("+this.state.blocks.bgImage+")"}}>
-                            <StdBlockSeparatorWhite />
-                            <StdBlockTitleWhite blockTitle={this.state.blocks.blockTitle} />
-                            <div className="col-12 stdBlockContentWrapper">
-                                <div className="row">
-                                    <div className="col-12 col-lg-6 stdBlockDescriptionWrapper">
-                                        <p className="stdBlockDescriptionWhite" dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
-                                    </div>
-                                    <div className="col-12 col-lg-6 stdBlockImageWrapper">
-                                        <img className={"stdBlockFGImage "+S.stdBlockFGImage} src={this.state.blocks.fgImage1} alt="" title="" />
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    :
-                        <section className={"col-12 stdBlockWrapper "+S.stdBlockWrapper}>
-                            {/* <StdBlockSeparatorBlue /> */}
-                            {/* <StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} /> */}
-                            <div className="col-12 stdBlockContentWrapper">
-                                <div className="row">
-                                    <div className="col-12 col-lg-6 stdBlockDescriptionWrapper">
-                                        <p className={"stdBlockDescriptionBlack "+S.stdBlockDescriptionBlack} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
-                                    </div>
-                                    <div className="col-12 col-lg-6 stdBlockImageWrapper">
-                                        <img className={"stdBlockFGImage "+S.stdBlockFGImage} src={this.state.blocks.fgImage1} alt="" title="" />
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                }
-            </div>
+            <section className={"col-12 stdBlockWrapper "+S.stdBlockWrapper}>
+                <div className="col-12 stdBlockContentWrapper">
+                    <div className="row">
+                        <div className="col-12 col-lg-6 stdBlockDescriptionWrapper">
+                            <p className={"stdBlockDescriptionBlack "+S.stdBlockDescriptionBlack} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
+                        </div>
+                        <div className="col-12 col-lg-6 stdBlockImageWrapper">
+                            <img className={"stdBlockFGImage "+S.stdBlockFGImage} src={this.state.blocks.fgImage1} alt="" title="" />
+                        </div>
+                    </div>
+                </div>
+            </section>
         )
     }
 }

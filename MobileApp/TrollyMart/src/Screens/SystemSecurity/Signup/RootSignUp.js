@@ -412,7 +412,6 @@ const styles1 = StyleSheet.create({
    },
    textInputStyle:{
        height:50,
-       paddingTop:15,
        backgroundColor:'transparent'
    },
    textContainerStyle:{

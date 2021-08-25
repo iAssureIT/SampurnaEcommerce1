@@ -197,7 +197,7 @@ export const MyOrder = withCustomerToaster((props)=>{
             {globalSearch.search ?
                 <SearchSuggetion />
               :
-              <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+              <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
                 <View style={{paddingVertical:24,paddingHorizontal:6}}>
                   <Text style={CommonStyles.screenHeader}>My Orders</Text>
                 </View>

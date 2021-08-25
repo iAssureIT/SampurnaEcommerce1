@@ -3,7 +3,7 @@ import axios                    from 'axios';
 import swal                     from 'sweetalert';
 import _                        from 'underscore';
 import { withRouter }           from 'react-router-dom';
-import BulkUploadComponent      from '../product/productBulkUpload/component/BulkUploadComponent';
+import BulkUploadComponent      from './BulkUploadComponent';
 import Message                  from '../../storeAdmin/message/Message.js';
 
 import  '../product/productBulkUpload/css/productBulkUpload.css'
@@ -255,14 +255,14 @@ class ProductBulkUpdate extends Component {
                                 <div className="">
                                     <div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                         <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-left" >
-                                            <h4 className="weighttitle NOpadding-right">Product Bulk Update</h4>
+                                            <h4 className="weighttitle NOpadding-right">Inventory Management</h4>
                                         </div>                                        
                                     </div> 
                                     <br/>
                                     <BulkUploadComponent 
                                         url             = "api/products/post/bulkUploadProductUpdate" 
-                                        fileurl         = "../BulkUploadTemplates/Product_Update_Template.xlsx"
-                                        fileDetailUrl   = "/api/products/get/filedetails/"
+                                        fileurl         = "../BulkUploadTemplates/Product_Inventory_Update.xlsx"
+                                        fileDetailUrl   = "/api/products/get/inventory/filedetails/"
                                         requiredData    = {requiredData}
                                     />                                      
                                 </div>

@@ -55,6 +55,7 @@ class ProductViewEcommerce extends Component{
 			"clickedSize"    : "",
 			"colorTabClick"  : false,
 			"colorIndex"  	  : 0,
+			wishlistIcon : "far"
 		};
 	}
 
@@ -119,6 +120,8 @@ class ProductViewEcommerce extends Component{
 					console.log("error in get vendor=",error);
 				})
 
+
+				console.log("userID => ",this.state.user_ID);
 	}
 
 	getProductDetails(url,formvalues){
@@ -189,7 +192,7 @@ class ProductViewEcommerce extends Component{
 								categoryData : categoryResponse.data.categoryList,  
 								brandData    : categoryResponse.data.brandList, 
 							},()=>{
-								
+								console.log("categoryData = ",categoryResponse.data.categoryList);								
 							}); 
 							for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
 								if(categoryResponse.data.categoryList[i].categoryUrl === this.props.categoryurl){
@@ -199,7 +202,7 @@ class ProductViewEcommerce extends Component{
 											subCategoryData  : subCategoryData,
 											brandData        : this.state.brandData
 										},()=>{
-											// console.log("subCategoryData = ",subCategoryData);
+											console.log("subCategoryData = ",subCategoryData);
 										});
 									}
 									break;
@@ -318,16 +321,33 @@ class ProductViewEcommerce extends Component{
 					if(formValues){
 						axios.post('/api/wishlist/post', formValues)
 							.then((response) => {
+
 								this.props.getWishlistData();
-								this.setState({
-									messageData: {
-										"type" 			: "outpage",
-										"icon"			: "fa fa-check-circle",
-										"message"		: "&nbsp; " + response.data.message,
-										"class"			: "success",
-										"autoDismiss" 	: true
-									}
-								})
+								if(response.data.message === 'Product added in wishlist successfully.'){
+
+									this.setState({
+										messageData: {
+											"type" 			: "outpage",
+											"icon"			: "fa fa-check-circle",
+											"message"		: "&nbsp; " + response.data.message,
+											"class"			: "success",
+											"autoDismiss" 	: true
+										},
+										wishlistIcon: "fas"
+									});
+								}else{
+									this.setState({
+										messageData: {
+											"type" 			: "outpage",
+											"icon"			: "fa fa-check-circle",
+											"message"		: "&nbsp; " + response.data.message,
+											"class"			: "success",
+											"autoDismiss" 	: true
+										},
+										wishlistIcon: "far"
+									});
+								}
+
 								setTimeout(() => {
 									this.setState({
 										messageData: {},
@@ -610,11 +630,13 @@ class ProductViewEcommerce extends Component{
 																this.state.user_ID && this.state.authService!=="guest"
 																?
 																	<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={"col-12 "+Style.wishClass}>
-																		<i id={this.state.productData._id} className={"fa"+wishClass +" " +"fa-heart" +" heartIcon"}></i>
+																		{/*<i id={this.state.productData._id} className={"fa"+wishClass +" " +"fa-heart" +" heartIcon"}></i>*/}
+																		<i id={this.state.productData._id} className={this.state.wishlistIcon +" fa-heart" +" heartIcon"}></i>
 																	</div>
 																:
 																	<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={"col-12 "+Style.wishClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
-																		<i id={this.state.productData._id} className={"fa"+wishClass +"fa-heart"+ wishClass +" heartIcon"}></i>
+																		{/*<i id={this.state.productData._id} className={"fa"+wishClass +"fa-heart"+ wishClass +" heartIcon"}></i>*/}
+																		<i id={this.state.productData._id} className={this.state.wishlistIcon +" fa-heart heartIcon"}></i>
 																	</div>												
 															}
 														</div>
@@ -654,7 +676,7 @@ class ProductViewEcommerce extends Component{
 																		<div className="col-12">
 																			<span className="col-2"> </span>&nbsp;
 																			<span className={" " +Style.savePrice}>{this.state.currency} &nbsp;{( this.state.productData.originalPrice - this.state.productData.discountedPrice).toFixed(2)}</span> &nbsp;
-																			<span className={Style.youSaved}>Saving</span>
+																			<span className={Style.youSaved}>You Saved</span>
 																		</div>
 																	</div>
 																</div>
@@ -848,7 +870,9 @@ class ProductViewEcommerce extends Component{
 																								Non consumable products are eligible for<br/>
 																								return, within 5 days from the delivery<br/>
 																								time of the order return policy &nbsp;
-																								<Link href={"/privacy-policy"}>Read more</Link>
+																								<div class="col-2 float-right"> 
+																									<a href="/privacy-policy" target="_blank">Read more</a> 
+																								</div>
 																							</p>
 																						</div>
 																						<div className="koh-tab-content d-none">
@@ -871,12 +895,12 @@ class ProductViewEcommerce extends Component{
 																					<div className="row ">
 																						<div className="koh-faq-question">
 																							<div className="col-12 returnabletxt ml-5 ml-sm-0 koh-faq-question-span">
-																								This item is non-returnable&nbsp;
+																								This item is non-returnable &nbsp;&nbsp;&nbsp;
 																								<i className="fa fa-chevron-right" aria-hidden="true"></i><br/>
 																							</div>
 																							<div className="col-12 koh-faq-answer d-none">
 																								<p>For more details about knock knock return <br/> policy &nbsp;
-																									<Link  href="/privacy-policy">Read more</Link>
+																									<a href="/privacy-policy" target="_blank">Read more</a>
 																								</p>
 																							</div>
 																						</div>

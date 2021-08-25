@@ -253,7 +253,8 @@ class OrderDispatchCenter extends Component{
 					orderNumber     : a.orderID,
 					orderDate       : '<div class=textFloatLeft><div>' + moment(a.createdAt).format("MMMM Do YYYY") + '</div><div>' + moment(a.createdAt).format('h:mm a')
 					+ '</div></div>',
-					customer     	: '<div><b>'+( a.userFullName ? a.userFullName : (a.deliveryAddress.name ? a.deliveryAddress.name : "Guest User"))  + '</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
+					/*customer     	: '<div><b>'+( a.userFullName ? a.userFullName : (a.deliveryAddress.name ? a.deliveryAddress.name : "Guest User"))  + '</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',*/
+					customer     	:'<div><b>'+ (a.userFullName && a.userFullName !== "undefined undefined" && a.userFullName !== "undefined" && a.userFullName !== "" && a.userFullName !== null ? a.userFullName : (a.deliveryAddress.name && a.deliveryAddress.name !== "undefined" && a.deliveryAddress.name !== null ? a.deliveryAddress.name : "Guest User"))  +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
 					vendorName 		: '<div>'+a.vendorDetails.companyName+'</div>',
 					orderPrice 		: '<div class="textAlignRight">'+ this.state.currency + " " + (a.vendorOrders.vendor_afterDiscountTotal).toFixed(2) + '</div>',
 					// vendorStatus 		: '<div class="statusDiv ' + (vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 ? vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status : "").replace(/\s+/g, '_').toLowerCase() + '">'+ ( vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 
@@ -268,7 +269,10 @@ class OrderDispatchCenter extends Component{
 												
 											: 
 												'') + '</div>',
-					changeAllocation 	: "<div aria-hidden='true' class='changeVendorStatusBtn' title='Change Delivery Person Allocation' id='" + a._id + "-" + a.vendorOrders.vendor_id + "'onclick=window.nearByDeliveryPersonsModal('" + a._id + "-" + a.vendorOrders.vendor_id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Allocation </div>",
+					changeAllocation 	: "<div aria-hidden='true' class='changeVendorStatusBtn' title='Change Delivery Person Allocation' id='" + a._id + "-" + a.vendorOrders.vendor_id + "'onclick=window.nearByDeliveryPersonsModal('" + a._id + "-" + a.vendorOrders.vendor_id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Allocation </div>"+
+												
+													"<div aria-hidden='true' class='trackOrderBtn widthAlign' title='Track Order' id='" + a._id + "-" + a.vendorOrders.vendor_id._id  +"'> Track Order <i class='fa fa-truck'></i> </div>"
+												,
 
 				
 

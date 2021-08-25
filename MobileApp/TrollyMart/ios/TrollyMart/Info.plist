@@ -36,6 +36,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.1023694532217-4mts1vajbqprhrk5mflhq36pcpg6ajhj</string>
+				<string>fb1092872667868832</string>
 			</array>
 		</dict>
 	</array>
@@ -45,6 +46,8 @@
 	<string>XQ4SXF9ARKlraGLjTEDCAnw6Tul-qp20nT_i4</string>
 	<key>FacebookAppID</key>
 	<string>1092872667868832</string>
+	<key>FacebookDisplayName</key>
+	<string>TrollyMart Portal</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>

@@ -28,6 +28,7 @@ export default class ReturnProducts extends Component{
                 "vendorName"        : 'Vendor Name',
                 "section"        	: 'Section',
                 "category"        	: 'Category',
+                "subCategory"       : 'SubCategory',
                 "customerName"      : 'Customer Name',
                 "reasonOfReturn"    : 'Reason of Return',
                 "OrderDate"        	: 'Ordered on',
@@ -160,7 +161,7 @@ export default class ReturnProducts extends Component{
 			section 		: this.state.section,
 			category 		: this.state.category,
 			returnStatus 	: this.state.returnStatus
-        }
+      }
 		axios.post("/api/returnedproducts/get/list", formValues)
 		.then((response)=>{
 			console.log("response return products => ",response.data)
@@ -180,6 +181,7 @@ export default class ReturnProducts extends Component{
 						"vendorName"        : a.vendorDetails[0] && a.vendorDetails[0].companyName ? a.vendorDetails[0].companyName : "",
 						"section"        	: a.sectionDetails[0] && a.sectionDetails[0].section ? a.sectionDetails[0].section : "",
 						"category"        	: a.categoryDetails[0] && a.categoryDetails[0].category ? a.categoryDetails[0].category : "",
+						"subCategory"        	: a.productDetails[0] && a.productDetails[0].subCategory ? a.productDetails[0].subCategory : "-",
 						"customerName"      : a.userDetails[0] && a.userDetails[0].profile.fullName ? a.userDetails[0].profile.fullName : "-",
 						"reasonOfReturn"    : a.reasonForReturn,
 						"OrderDate"        	: moment(a.dateOfPurchase).format("DD MMMM YYYY, HH:mm a"),

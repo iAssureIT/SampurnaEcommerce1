@@ -55,6 +55,7 @@ export const AcceptedOrders =(props)=> {
 
     const getList =()=>{
         setOrderList([]);
+        setLoading(true)
         var payload={
             "status" : "Allocated",
             "user_id" : store.userDetails.user_id
@@ -125,7 +126,7 @@ export const AcceptedOrders =(props)=> {
     };
   
     const swipeFromLeftOpen = (order_id,vendor_id,index) => {
-       
+        setLoading(true);
         var payload = {
             order_id        : order_id,
             vendor_id       : vendor_id,
@@ -136,7 +137,6 @@ export const AcceptedOrders =(props)=> {
         axios.patch('/api/orders/changevendororderstatus',payload)
         .then(res=>{
             console.log("res",res);
-            setLoading(false);
             if (prevOpenedRow && prevOpenedRow !== row[index]) {
                 prevOpenedRow.close();
 
@@ -252,14 +252,18 @@ export const AcceptedOrders =(props)=> {
                         <Text style={CommonStyles.cardTopText}>Order No{item.orderID}</Text>
                     </View>
                     <View style={{flex:.6,alignItems:'flex-end'}}>
-                        <Text style={CommonStyles.cardTopText2}>Date {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
+                        <Text style={CommonStyles.cardTopText2}>Date {moment(item?.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
                     </View>    
                </View>         
                <View style={CommonStyles.cardBottom}>
                         <View style={CommonStyles.CardBS1}>
                             <View style={styles.box1}>
                                 <Text style={CommonStyles.boxLine1}>From Current Location</Text>
-                            </View>                            
+                            </View>       
+                            <View style={styles.box1}>
+                                {/* <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} /> */}
+                                <Text style={CommonStyles.boxLine1} numberOfLines={1}>Vendor: <Text style={{fontFamily:"Montserrat-SemiBold"}}>{item?.vendorDetails?.companyName}</Text></Text>
+                            </View>                     
                             <View style={styles.box1}>
                                 {/* <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} /> */}
                                 <Text style={CommonStyles.boxLine1} numberOfLines={3}>{item?.vendorDetails?.locations[0]?.addressLine1+", "+item?.vendorDetails?.locations[0]?.addressLine2}</Text>
@@ -281,7 +285,7 @@ export const AcceptedOrders =(props)=> {
                             </View>                            
                             <View style={styles.box1}>
                                 {/* <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} /> */}
-                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>{item.deliveryAddress.addressLine1+", "+item.deliveryAddress.addressLine2}</Text>
+                                <Text style={CommonStyles.boxLine1} numberOfLines={3}><Text style={{fontFamily:"Montserrat-SemiBold"}}>{item?.vendorDetails?.companyName}</Text> {item.deliveryAddress.addressLine1+", "+item.deliveryAddress.addressLine2}</Text>
                             </View>
                             <View style={styles.box1_L}>
                                 <Text style={[CommonStyles.boxLine1]}>Delivery point:</Text>                                
@@ -297,13 +301,13 @@ export const AcceptedOrders =(props)=> {
             </Card> 
             <Modal isVisible={modal}
                 onBackdropPress={() => setModal(false)}
-                onRequestClose={() => setModal(false)}
+                onRequestClose={() => {setModal(false);getList()}}
                 coverScreen={true}
                 hideModalContentWhileAnimating={true}
                 style={{ zIndex: 999 }}
                 animationOutTiming={500}>
                 <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 15}}>
-                <View onPress={()=>{this.props.closeModal(false,"","");this.props.route && navigate(this.props.route)}}><Text style={{color:'#000',fontFamily: "Montserrat-Bold",textAlign:'right'}}>X</Text></View>
+                <TouchableOpacity onPress={()=>{setModal(false);getList()}}><Text style={{color:'#000',fontFamily: "Montserrat-Bold",textAlign:'right'}}>X</Text></TouchableOpacity>
                 <Text style={{fontFamily: "Montserrat-SemiBold",fontSize:14,color:'#000',marginBottom:15}}>Reason for Reject</Text>
                 <Dropdown
                   underlineColorAndroid ='transparent'

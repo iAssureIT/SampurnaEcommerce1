@@ -1,5 +1,3 @@
-/* Sign In Form */
-
 .signWrapper{
     height: 500px;
 }
@@ -15,12 +13,11 @@
 }
 .signTextWrapper{
     padding-top: 30px;
-    font-family: 'Montserrat-Regular' !important;
+    font-family: 'Montserrat-Medium' !important;
 }
 .signTextWrapper span{
     font-size: 10px;
     color: #033554;
-    /* opacity: 0.8; */
 }
 .signTextWrapper a{
     font-size: 10px;
@@ -42,30 +39,37 @@
 .termsCondition{
     font-size: 12px;
 }
+.blueText{
+    /* font-size: 15px; */
+}
+
 
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 
 
-/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+/* [xs] Extra Small Devices [Phone - Portrait, less than 575px] */
 @media (max-width: 575px){
-    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+  /* No media query for "xs'' since this is the default in Bootstrap 4 because it is "Mobile First" */
 }
 
-/* (sm) Small Devices (Landscape Phones, 576px and up) */
+
+/* [sm] Small Devices [Phone - Landscape, 576px and up] */
 @media (min-width: 576px){
 
     .otpText{
-        margin-left: 60px !important;
+        margin-left: 58px !important;
     }
 }
 
-/* (md) Medium Devices (Tablets, 768px and up) */
+
+/* [md] Medium Devices [Tablet - Portrait, 768px and up] */
 @media (min-width: 768px){
 
 }
 
-/* (lg) Large Devices (Desktops, 992px and up) */
+
+/* [lg] Large Devices [Tablet - Landscape, 992px and up] */
 @media (min-width: 992px){
 
     .signWrapper{
@@ -76,8 +80,27 @@
     }
 }
 
-/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1200px and up] */
 @media (min-width: 1200px){
+
+}
+
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
+@media (min-width: 1440px){
+
+}
+
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1536px and up] */
+@media (min-width: 1536px){
+
+}
+
+
+/* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
+@media (min-width: 1920px){
 
 }
 

@@ -596,22 +596,27 @@ class BulkUploadComponent extends Component{
 					</div>  
 				
 
-					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 filedetailsDiv" style={{display:"none"}}>
+					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 filedetailsDiv">
 					<br/>
 					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bulkEmployeeContent NoPadding">
-						{this.state.fileDetails ?
+						{/*{this.state.fileDetails ?*/}
 							<div className="">
 								<ul className="nav nav-tabs">
-									<li className="active"><a data-toggle="tab" href="#failure">Failure</a></li>
-									<li ><a data-toggle="tab" href="#success">Success</a></li>
+									<li className="active"><a data-toggle="tab" href="#success">Success</a></li>
+									<li><a data-toggle="tab" href="#failure">Failure</a></li>
 								</ul>
 								<div className="tab-content">
-									<h5>Filename: <span>{this.state.fileName}</span></h5>
+									{this.state.fileDetails ? <h5>Filename: <span>{this.state.fileName}</span></h5> : null }
 									<div id="failure" className="tab-pane fade in active">
+									{this.state.fileDetails
+										?
 									<h5>
 										Out of {this.state.fileDetails.totalRecords } {this.state.fileDetails.totalRecords > 1 ? "records" : "record"},  &nbsp;
 										{this.state.fileDetails.failedRecords.length} bad {this.state.fileDetails.failedRecords.length > 1 ? "records were " : "record was " }found.
 									</h5>
+									:
+										null
+									}
 									{/* <div className="text-right">
 									<br/>
 									<ReactHTMLTableToExcel
@@ -633,104 +638,18 @@ class BulkUploadComponent extends Component{
 										getData 			= {this.getData.bind(this)}
 										tableObjects 	= {this.state.tableObjects}
 										/>
-										<table className="table" width="50%" id="table-to-xls" style={{display:"none"}}>
-											<thead>
-												<tr>
-													<th>Remark</th>
-													<th>section</th>
-													<th>category</th>
-													<th>subCategory</th>
-													<th>brand</th>
-													<th>productCode</th>
-													<th>itemCode</th>
-													<th>productName</th>
-													<th>productDetails</th>
-													<th>shortDescription</th>
-													<th>currency</th>
-													<th>originalPrice</th>
-													<th>discountPercent</th>
-													<th>discountedPrice</th>
-													<th>availableQuantity</th>
-													<th>unit</th>
-													<th>feature list</th>
-													<th>size</th>
-													{/* <th>color</th> */}
-													<th>tags</th>
-													<th>taxInclude</th>
-													<th>taxRate</th>
-													<th>featured</th>
-													<th>exclusive</th>
-													{this.state.fileDetails.failedRecords.map((data,index)=>{
-														if (data.attributes) {
-															return (
-																Object.entries(data.attributes).map(([key, value], i)=> {
-																return(<th>{"attribute "+ value.attributeName}</th>);
-																})
-															);
-														}
-													})}
-												</tr>
-											</thead>
-											<tbody>
-												{this.state.fileDetails.failedRecords 
-												? 
-													this.state.fileDetails.failedRecords.map((data,index)=>{
-														//console.log(data.featureList);
-														var featuresString = "";  
-
-														if (data.featureList) {
-															var featuresArray = data.featureList.split("</li>")
-															featuresArray.map((data,ind)=>{
-																featuresString += data
-															})
-														}
-														featuresString = featuresString.replace('<li>', '\n');
-														return(
-															<tr key={index}>
-																<td>{data.remark ? data.remark : null}</td>
-																<td>{data.section ? data.section : null}</td>
-																<td>{data.category ? data.category : null}</td>
-																<td>{data.subCategory ? data.subCategory : null}</td>
-																<td>{data.brand ? data.brand : null}</td>
-																<td>{data.productCode ? data.productCode : null}</td>
-																<td>{data.itemCode ? data.itemCode : null}</td>
-																<td>{data.productName ? data.productName : null}</td>
-																<td>{data.productDetails ? data.productDetails : null}</td>
-																<td>{data.shortDescription ? data.shortDescription : null}</td>
-																<td>{data.currency ? data.currency : null}</td>
-																<td>{data.originalPrice ? data.originalPrice : null}</td>
-																<td>{data.discountPercent ? data.discountPercent : null}</td>
-																<td>{data.discountedPrice ? data.discountedPrice : null}</td>
-																<td>{data.availableQuantity ? data.availableQuantity : null}</td>
-																<td>{data.unit ? data.unit : null}</td>
-																<td>{data.featureList ? featuresString : null}</td>
-																<td>{data.size ? data.size : null}</td>
-																{/* <td>{data.color ? data.color : null}</td> */}
-																<td>{data.tags ? data.tags.join(",#") : null}</td>
-																<td>{data.taxInclude ? "yes" : "no"}</td>
-																<td>{data.taxRate ? data.taxRate : 0}</td>
-																<td>{data.featured ? "yes" : "no"}</td>
-																<td>{data.exclusive ? "yes" : "no"}</td>
-																{
-																	data.attributes ?
-																	data.attributes.map((attr,aind)=>{
-																		return(<td>{attr.attributeValue}</td>)
-																	}) : null
-																}
-															</tr>
-														);
-													}) 
-												: 
-													null
-												}
-											</tbody>
-										</table>
+										
 									</div>
 									</div>
 									<div id="success" className="tab-pane fade">
+									{this.state.fileDetails
+									?	
 										<h5>
 											Out of {this.state.fileDetails.totalRecords} {this.state.fileDetails.totalRecords > 1 ? "records" : "record"},  {this.state.fileDetails.goodrecords.length} {this.state.fileDetails.goodrecords.length > 1 ? "records are" : "record is" } added successfully. &nbsp;								
 										</h5>
+									:
+										null
+									}
 										<IAssureTable 
 											tableHeading 	= {this.state.tableHeading}
 											twoLevelHeader = {this.state.twoLevelHeader} 
@@ -771,9 +690,9 @@ class BulkUploadComponent extends Component{
 									</div>							
 								</div>
 							</div>  
-						: 
+						{/*: 
 							null
-						}
+						}*/}
 					</div>
 				</div>
 			</div>

@@ -49,7 +49,6 @@ class ConfirmOTP extends Component{
 		axios.patch("/api/auth/patch/setsendmobileotpusingID/" +this.state.userId)
 			.then((otpResponse)=>{
 				if(otpResponse){
-					// console.log("otpResponse==",otpResponse);
 					swal("Please Enter your OPT");
 				}
 			})
@@ -61,7 +60,7 @@ class ConfirmOTP extends Component{
 
 	verifyOTP(event){
     	event.preventDefault();
-		var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+		var userDetails = JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
 			console.log("userDetails ==",userDetails.userId); 
           	this.setState({
@@ -74,7 +73,8 @@ class ConfirmOTP extends Component{
         		.then((verifyOtpResponse)=>{
             		if(verifyOtpResponse){
               			this.props.updateFormValue("resetPassword");
-						swal(verifyOtpResponse.data.message);
+						// swal(verifyOtpResponse.data.message);
+						swal("OTP Verified");
 					}
 				})
         		.catch((error)=>{
@@ -103,7 +103,8 @@ class ConfirmOTP extends Component{
 				<div className="col-10 offset-1 mt-3">
 					<div className={"col-12 "+S.signTextWrapper}>
 						<div className="row">
-							<a href="" className={S.backToLogin} onClick={this.openSignInModal.bind(this)}><i className="fa fa-arrow-left"></i><u> Back to Login</u></a>
+							<a><img src="/images/eCommerce/go-back-arrow.png"></img>&nbsp;</a>
+							<a href="" className={S.backToLogin} onClick={this.openSignInModal.bind(this)}><u> Back to Login</u></a>
 						</div>
 					</div>
 					<div className={"col-12 "+S.signTitleWrapper}>
@@ -127,7 +128,7 @@ class ConfirmOTP extends Component{
 				</div>
 				<div className="col-10 offset-1 mt-4">
 					<div className="col-12">
-						<button className="col-12 otpBtns text-center" onClick={this.verifyOTP.bind(this)}>Verified</button>
+						<button className="col-12 otpBtns text-center" onClick={this.verifyOTP.bind(this)}>Verify</button>
 					</div>
 				</div>
 			</div>

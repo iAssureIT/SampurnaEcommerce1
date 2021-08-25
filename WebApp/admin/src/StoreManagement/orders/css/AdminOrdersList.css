@@ -316,6 +316,21 @@
     margin-bottom: 10px;
     white-space: nowrap;
 }
+.trackOrderBtn{
+    background: #f1933b;
+    width: fit-content;
+    padding: 8px 15px;
+    font-size: 12px !important;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+    white-space: nowrap;
+}
+.widthAlign{
+    width: 100% !important;
+    text-align: center !important;
+}
 .vendorOrderStatus{
 
 }

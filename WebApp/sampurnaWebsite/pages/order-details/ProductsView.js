@@ -630,7 +630,7 @@ uploadImage(event) {
                             <div className="col-12 mt-3 ">
                               <div className="row">
                                 <div className="col-3 NoPadding orderimgsize text-center" style={{height:'100px'}}>
-                                  <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" />
+                                  <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/image-gallery.svg"} alt="" />
                                 </div>
                                 <div className="col-5 mt-4 pt-3">
                                     <div className={"col-12 NoPadding text-left " +Style.reviewProName}>{productdata.productName}</div>
@@ -726,7 +726,7 @@ uploadImage(event) {
 
                               <form className={"feedbackForm col-lg-10 offset-lg-1 col-12 pt-2 " + Style.returnForm}>
                                 <div className={" col-12 mb-2 text-left NoPadding " + Style.errorMsg} >{this.state.returnProductError}</div>
-                                <label className={"col-12 NoPadding text-left "+Style.feedbackLable}> Reasons For return <span className="errorMsg">  </span></label>
+                                <label className={"col-12 NoPadding text-left "+Style.feedbackLable}> Reason for Return <span className="errorMsg">  </span></label>
                                 <select onChange={this.selecteReason.bind(this)} className={"col-12 form-control "} ref="reasonOfReturn" name="reasonOfReturn" >
                                   <option name="reasonOfReturn" selected="true">-- Select --</option>
                                   {

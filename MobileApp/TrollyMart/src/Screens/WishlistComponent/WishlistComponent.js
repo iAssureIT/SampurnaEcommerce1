@@ -51,6 +51,10 @@ const [refreshing,setRefresh]= useState(false)
     dispatch(getWishList(userDetails.user_id));
     setRefresh(false);
   }
+
+  const onScroll=(e)=>{
+
+  }
   
     return (
       <React.Fragment>
@@ -69,6 +73,7 @@ const [refreshing,setRefresh]= useState(false)
           :
           wishList && wishList.length > 0 ?
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
@@ -111,6 +116,7 @@ const [refreshing,setRefresh]= useState(false)
                             marginTop     = {0}
                             paddingBottom  = {0}
                             type           = {'wishlist'}
+                            onScroll       = {onScroll}
                         />
                       </View>  
                       </View>

@@ -113,7 +113,7 @@ class AllOrdersList extends Component{
 		this.setState({
 			orderStatus : orderStatus
 		},()=>{
-			this.getData(this.state.searchText, this.state.startRange,this.state.limitRange);		
+			this.getData(this.state.startRange,this.state.limitRange);		
 		})
 	}
 
@@ -156,7 +156,7 @@ class AllOrdersList extends Component{
 			order_user_id	: order_user_id
 		},()=>{
 			this.getOneOrder(this.state.order_id, this.state.vendor_id);
-			this.getData(this.state.searchText, this.state.startRange,this.state.limitRange);
+			this.getData(this.state.startRange,this.state.limitRange);
 		})		
 	}
 	
@@ -232,7 +232,7 @@ class AllOrdersList extends Component{
 	}
 
 	/**=========== getData() ===========*/
-	async getData(searchText, startRange, limitRange){
+	async getData(startRange, limitRange){
 		this.setState({isLoadingData : true})
 		var formValues = await {
 		  startRange : startRange,
@@ -245,14 +245,14 @@ class AllOrdersList extends Component{
 		// .then((response)=>{
 		socket.emit('adminOrtderListValues',formValues);
 		socket.on("adminBookingList", (response)=>{
-		// console.log('order tableData', response);		               
-		  	var tableData = response.map((a, i)=>{
-			// var tableData = response.data.map((a, i)=>{			
+		// console.log('order tableData', response.data);		               
+		  	// var tableData = response.map((a, i)=>{
+			var tableData = response.data.map((a, i)=>{			
 				return{ 
-					_id             : a._id,
-					ordersPath 			: this.state.orderStatus,
-					orderNumber     : a.orderID,
-					orderDate       : '<div class=textFloatLeft><div class=textNoWrap>' + moment(a.createdAt).format("MMMM Do YYYY") + '</div><div>' + moment(a.createdAt).format('h:mm a')+ '</div></div>',
+					_id            : a._id,
+					ordersPath 		: this.state.orderStatus,
+					orderNumber    : a.orderID,
+					orderDate      : '<div class=textFloatLeft><div class=textNoWrap>' + moment(a.createdAt).format("MMMM Do YYYY") + '</div><div>' + moment(a.createdAt).format('h:mm a')+ '</div></div>',
 					customer     	: '<div><b>'+ (a.userFullName && a.userFullName !== "undefined undefined" && a.userFullName !== "undefined" && a.userFullName !== "" && a.userFullName !== null ? a.userFullName : (a.deliveryAddress.name && a.deliveryAddress.name !== "undefined" && a.deliveryAddress.name !== null ? a.deliveryAddress.name : "Guest User"))  +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
 					totalPrice  	: '<div class=textNoWrap>'+ this.state.currency + " " + a.paymentDetails.netPayableAmount + '</div>',					
 					vendors   		: a.vendorOrders && a.vendorOrders.length > 0
@@ -276,7 +276,14 @@ class AllOrdersList extends Component{
 																				'') + '</div>',
 													changeVendorStatus 	: (vendorOrder.orderStatus && vendorOrder.orderStatus !== "Cancelled" && vendorOrder.orderStatus !== "Delivered")
 																				? 
-																					"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + vendorOrder.vendor_id._id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + vendorOrder.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>"
+																					"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + vendorOrder.vendor_id._id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + vendorOrder.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>" +
+																					
+																					((vendorOrder.orderStatus && vendorOrder.orderStatus === "On the Way")
+																					?
+																						"<div aria-hidden='true' class='trackOrderBtn' title='Track Order' id='" + a._id + "-" + vendorOrder.vendor_id._id  +"'> Track Order <i class='fa fa-truck'></i> </div>"
+																					: 
+																						"")
+																					
 																				:
 																					"<div></div>"
 
@@ -326,8 +333,8 @@ class AllOrdersList extends Component{
 			// console.log("tableData",tableData);
 			this.setState({
 				tableData 		: tableData,
-				// dataCount 		: response.dataCount,
-				dataCount 		: 1000,
+				dataCount 		: response.dataCount,
+				// dataCount 		: 1000,
 				isLoadingData 	: false,
 			},()=>{
 				// console.log("tableData => ",this.state.tableData)
@@ -369,7 +376,7 @@ class AllOrdersList extends Component{
 		this.setState({
 			searchText : searchText
 		},()=> {
-			this.getData(this.state.searchText, this.state.startRange,this.state.limitRange);
+			this.getData(this.state.startRange,this.state.limitRange);
 		})
 	}
 
@@ -487,6 +494,12 @@ class AllOrdersList extends Component{
 								?
 									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<h3 className="cancelledOrderMsg"> This Order is Cancelled</h3>
+									</div>
+								:
+								(this.state.activeStatus).toLowerCase() === "delivered"
+								?
+									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<h3 className="cancelledOrderMsg"> This Order is Delivered</h3>
 									</div>
 								:
 									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">

@@ -14,7 +14,7 @@ export default StyleSheet.create({
   superparent: {
     flex: 1, 
     backgroundColor: '#f1f1f1',
-    // paddingBottom:70,
+    paddingBottom:70,
   },
   parent: {
     backgroundColor: '#fff', 

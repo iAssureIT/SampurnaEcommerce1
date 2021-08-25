@@ -163,7 +163,7 @@ console.log("subCategory",subCategory)
                 <View style={{backgroundColor:"#EEEEEE",marginTop:3,height:20}}>
                     <Text numberOfLines={1} style={[{paddingHorizontal:5,fontSize:11,color:"#333"}]}>{vendor?.vendorName ? vendor?.vendorName : vendor?.companyName}</Text>
                 </View> 
-                <View style={{height:60}}>
+                <View style={{height:65}}>
                   <MenuCarouselSection  
                       navigation  = {navigation}   
                       showImage   = {true} 

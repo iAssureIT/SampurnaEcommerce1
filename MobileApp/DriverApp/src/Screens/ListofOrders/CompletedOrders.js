@@ -97,7 +97,7 @@ export const CompletedOrders =(props)=> {
 
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders[0].vendor_id})}>
+            <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders[0]?.vendor_id})}>
                 <View style={{}}>
                     <View
                     style={{
@@ -112,12 +112,12 @@ export const CompletedOrders =(props)=> {
                     }}
                 >
                     <View style={{flexDirection:'row',marginBottom:5}}>
-                            <View style={{flex:.4}}>
-                                <Text style={CommonStyles.completeBlueText}>Order No : {item.orderID}</Text>
-                            </View>
-                            <View style={{flex:.6,alignItems:'flex-end'}}>
-                                <Text style={CommonStyles.completeBlueText}>Date {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
-                            </View>    
+                        <View style={{flex:.4}}>
+                            <Text style={CommonStyles.completeBlueText}>Order No : {item.orderID}</Text>
+                        </View>
+                        <View style={{flex:.6,alignItems:'flex-end'}}>
+                            <Text style={CommonStyles.completeBlueText}>Date {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
+                        </View>    
                     </View> 
                     <View style={{flex:1}}>
                     <View style={{flexDirection:"row",flex:1}} >
@@ -125,8 +125,8 @@ export const CompletedOrders =(props)=> {
                             <Text style={[CommonStyles.boxLine1C]}>Customer</Text>
                         </View>
                         <View style={{flex:0.8,flexDirection:"row",flexWrap: 'wrap'}}>
-                            <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.name}, </Text>
-                            <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:'#033554'}]} onPress={() => Linking.openURL(`tel:${item.deliveryAddress.mobileNumber}`)}> {item.deliveryAddress.mobileNumber}</Text>
+                            <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item?.deliveryAddress?.name}, </Text>
+                            <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:'#033554'}]} onPress={() => Linking.openURL(`tel:${item?.deliveryAddress?.mobileNumber}`)}> {item?.deliveryAddress?.mobileNumber}</Text>
                         </View>                        
                     </View>
                     <View style={{flexDirection:"row",flex:1}} >
@@ -134,8 +134,8 @@ export const CompletedOrders =(props)=> {
                             <Text style={[CommonStyles.boxLine1C]}>Address</Text>
                         </View>
                         <View style={{flex:0.8,flexDirection:"row"}}>
-                            <Text numberOfLines={2} style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>
-                            <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end'}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
+                            <Text numberOfLines={2} style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item?.deliveryAddress?.addressLine1+" "+item?.deliveryAddress?.addressLine2}</Text>
+                            <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end'}} onPress={()=>goToMap(item?.deliveryAddress?.latitude,item?.deliveryAddress?.longitude)}>
                                 <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{alignItems:'flex-end'}}/>
                             </TouchableOpacity>
                         </View>                        
@@ -203,7 +203,7 @@ export const CompletedOrders =(props)=> {
              <View style={{flex:1}}>
             
                     <View style={{flex:1}}>
-                        {orderList && orderList.data  && orderList.data.length >0?<FlatList
+                        {orderList && orderList?.data  && orderList?.data.length >0?<FlatList
                         data={orderList.data}
                         keyExtractor={(item) => item.id}
                         renderItem={_renderlist} 

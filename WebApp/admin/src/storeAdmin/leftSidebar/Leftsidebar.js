@@ -196,7 +196,7 @@ export default class AdminDashboard extends Component{
 	}
 
 	render(){
-		let {dashboard,vendorData,supplierData,corporateData,contractmanagement,masterData,baData,bussinessData, productmanagement, ordermanagement, reportsmanagement} = this.state.menuValues;
+		let {dashboard,vendorData,supplierData,corporateData,contractmanagement,masterData,baData,bussinessData, productmanagement, inventorymanagement, ordermanagement, reportsmanagement} = this.state.menuValues;
 
 		return(
 			<aside className="main-sidebar control-sidebar sidebarWrapper scrollBox">
@@ -354,16 +354,42 @@ export default class AdminDashboard extends Component{
 								<span className="sidebarMenuTitle">Order Dispatch Center</span>
 							</a>
 						</li>
-						{this.state.websiteModel !== 'SingleOwner' 
+						{/*{this.state.websiteModel !== 'SingleOwner' 
 						?
 							this.state.showInventory === 'Yes' 							
-							?	
-							<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
+							?*/}	
+								<li className="treeview" >
+									<a href="JavaScript:void(0);" onClick={()=>this.openMenu("inventorymanagement")} title="Inventory Management">
+										<i className="fa fa-file" aria-hidden="true"></i>
+										<span className="smsidenames sidebarMenuTitle">Inventory Management</span>
+										<span className="pull-right-container">
+											<i className={"fa pull-right menu-icon-toggle "+(inventorymanagement?this.openIcon:this.closeIcon)} />
+										</span>
+									</a>
+									<ul className="treeview-menu" >                    
+										<li className="noPadLR"> 
+											<a href="/product-inventory-update" data-id="/product-inventory-update" onClick={this.activeMenu.bind(this)} title="Product Inventory Update">
+												<i className="fa fa-circle-o dashr" />Product Inventory
+											</a> 
+										</li>  
+										<li className="noPadLR"> 
+											<a href="/product-inventory-list" data-id="/product-inventory-list" title="Product inventory List" onClick={this.activeMenu.bind(this)}>
+												<i className="fa fa-circle-o dashr" />Product Inventory List
+											</a> 
+										</li>	  	 						
+									</ul>
+								</li>
+							{/*:
+								null
+						:
+							null
+						}*/}
+							{/*<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
 								<a href="/product-inventory-update" title="Inventory Management" onClick={()=>this.openMenu("inventorymanagement")}>
 									<i className="fa fa-th-large" aria-hidden="true"></i>
 									<span className="sidebarMenuTitle">Inventory Management</span>
 								</a>
-							</li>						
+							</li>					
 								// <li className="treeview" >
 								// 	<a href="JavaScript:void(0);" onClick={()=>this.openMenu("corporateData")} title="Corporate Master">
 								// 		<i className="fa fa-users" aria-hidden="true"></i>
@@ -427,7 +453,7 @@ export default class AdminDashboard extends Component{
 								null									
 						:
 							null
-						}
+						}*/}
 						<li className="treeview" >
 							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("reportsmanagement")} title="Reports Management">
 								<i className="fa fa-book" aria-hidden="true"></i>
@@ -452,11 +478,11 @@ export default class AdminDashboard extends Component{
 										<i className="fa fa-circle-o dashr" />Vendor Sales Report
 									</a> 
 								</li>                     
-								<li className="noPadLR"> 
+								{/*<li className="noPadLR"> 
 									<a href="/user-report" data-id="/user-report" title="User Report" onClick={this.activeMenu.bind(this)}>
 										<i className="fa fa-circle-o dashr" />User Report
 									</a> 
-								</li>  
+								</li> */} 
 								{this.state.websiteModel === 'FranchiseMaster' ?
 								<li className="noPadLR"> 
 									<a href="/raw-material-stock-report" data-id="/raw-material-stock-report" title="Raw Material Stock Report" onClick={this.activeMenu.bind(this)}>
@@ -464,11 +490,7 @@ export default class AdminDashboard extends Component{
 									</a> 
 								</li>  
 								: null}
-								{/* <li className="noPadLR" > 
-									<a href="/ba-list" data-id="/ba-list" title="Category Wise Sales Report" onClick={this.activeMenu.bind(this)}>
-										<i className="fa fa-circle-o dashr" />Category Wise Sales Report
-									</a> 
-								</li>     */}
+								
 							</ul>
 						</li>
 

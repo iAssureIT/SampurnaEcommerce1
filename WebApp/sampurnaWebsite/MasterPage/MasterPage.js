@@ -39,6 +39,9 @@ class MasterPage extends React.Component {
 				"pageLoaded" : true
 			})
 		};
+
+        console.log("*** Loaded MasterPage ***");
+
 	}
 
 
@@ -81,14 +84,14 @@ class MasterPage extends React.Component {
 							var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
 							var block_id=result.block_id?result.block_id._id:"";
 							// console.log("component==",component);
-							const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),					
+							const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),
 							{
 								loading: () =>
 									<div className="col-2 offset-5 loading">
 										<img src="/images/eCommerce/loader.gif" className="col-12 "></img>
 									</div> 
 							});
-							
+							console.log("***  Loading "+component+"  ***");
 							return(		
 								<OtherComponent block_id={block_id} key={index}/>
 							)

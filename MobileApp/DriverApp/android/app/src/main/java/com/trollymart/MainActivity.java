@@ -24,6 +24,7 @@ public class MainActivity extends ReactActivity {
         super.onCreate(null);
     }
 
+
   // protected ReactActivityDelegate createReactActivityDelegate() {
 	//  return new ReactActivityDelegate(this, getMainComponentName()) {
 	//    @Override

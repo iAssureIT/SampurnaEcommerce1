@@ -50,7 +50,7 @@ const reducer = (state = initialState,action) =>{
             return {...state, recentAddressData: action.addressData};
             
         case "FETCH_WISHLIST_DATA" :
-            console.log("reducer.wishlistData===",action.wishlistData);
+            // console.log("reducer.wishlistData===",action.wishlistData);
             return {...state, recentWishlistData: action.wishlistData};
 
         case "WISHLIST_DATA" :

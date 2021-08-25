@@ -1,11 +1,12 @@
-.deliveryLocationWrapper {
+/*.deliveryLocationWrapper {
     height: 550px !important;
-}
+}*/
 
 .deliveryLocationFormWrapper {
-    position: absolute;
+    /* position: absolute;
     top     : 100px;
-    z-index : 9;
+    z-index : 9; */
+    margin-top: 150px;
 }
 
 .currentOrSearchBar {
@@ -507,11 +508,14 @@
     }
 
     .deliveryLocationFormWrapper {
-        margin-top: 130px;
+        margin-top: 200px;
     }
 
-    .deliveryLocationFormModalWrapper {
-        top: 50px;
+    .deliveryLocationFormModalWrapper{
+        position: absolute;
+        top     : 100px;
+        z-index : 9;
+        /* top: 50px; */
     }
 }
 

@@ -185,46 +185,26 @@ export default class ContactUsTrollyMart extends Component{
 			<section className={"col-12 contactUsTrollyMainWrapper "+S.contactUsTrollyMainWrapper}>
 				<div className="row">
 					<div className={"col-12 contactUsTrollyBreadcumWrapper "+S.contactUsTrollyBreadcumWrapper} style={{backgroundImage: "url("+this.state.blocks.bgImage+ ")"}}></div>
-					<div className={"col-12 col-lg-8 offset-lg-2 contactusFormWrapperMain "+S.contactusFormWrapperMain}>
+					<div className={"col-12 col-sm-10 offset-sm-1 col-lg-8 offset-lg-2 contactusFormWrapperMain "+S.contactusFormWrapperMain}>
 						<div className="row">
 							<div className={"col-12 col-lg-7 mb-4 mb-lg-0 contactusFormWrapperLeftSide "+S.contactusFormWrapperLeftSide}>
 								<div className="row">
 									<form className="col-12 col-lg-10 offset-lg-1 mt-5 pt-5" id="ContactUs">
 										<div className="form-group">
-											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Your Name</label>
+											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Your Name <span className="required">*</span></label>
 											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="name" name="name" id="name" ref="name" required value={this.state.name} onChange={this.handleChange.bind(this)} />
-											{/* <div class="input-group mb-3">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-												</div>
-											</div> */}
 										</div>
 										<div className="form-group mt-5">
-											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Email</label>
+											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Email <span className="required">*</span></label>
 											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="email" name="email" type="email" id="email" ref="email" data-text="clientEmail" required value={this.state.email} onChange={this.handleChange.bind(this)} />
-											{/* <div class="input-group mb-3">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
-												</div>
-											</div> */}
 										</div>
 										<div className="form-group mt-5">
-											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Phone</label>
+											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Phone <span className="required">*</span></label>
 											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="mobile" name="mobile" type="number" id="mobile" ref="mobile" required value={this.state.mobile} value={this.state.mobile} onChange={this.handleChange.bind(this)} />
-											{/* <div class="input-group mb-3">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
-												</div>
-											</div> */}
 										</div>
 										<div className="form-group mt-5">
-											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>How we can help you?</label>
+											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>How we can help you? <span className="required">*</span></label>
 											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} />
-											{/* <div class="input-group mb-3">
-												<div class="input-group-prepend">
-													<span class="input-group-text" id="basic-addon1"><i class="fa fa-question-circle"></i></span>
-												</div>
-											</div> */}
 										</div>
 										<div className={"col-lg-12 pb-lg-5 pb-0 "+S.getInTouchBtnMainWrapper}>
 											<button type="button" className={"btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="far fa-paper-plane" aria-hidden="true"></i></button>
@@ -237,7 +217,7 @@ export default class ContactUsTrollyMart extends Component{
 									<h3 className={"pt-lg-5 mt-lg-5 mt-4 pt-3 getInTouchSubTitle "+S.getInTouchSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h3>
 								</div>
 								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-phone"}></i>&nbsp;&nbsp;&nbsp;
-									<label>+971 04 591 1186 </label>
+									<label>+971 04 591 1186</label>
 								</div>
 								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>
 									<label className={S.emailWrapperContactUs}>support@knock-knockeshop.com</label>

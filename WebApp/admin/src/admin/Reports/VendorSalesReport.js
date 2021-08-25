@@ -47,33 +47,33 @@ class VendorSalesReport extends Component{
 														'inputArray' 			: [],
 														'apiUrl' 				: "/api/"
 													},
-													{
-														'inputLabel' 			: "Section", 			
-														'inputType' 			: "select",
-														'inputDefaultValue' 	: "--Select--",
-														'inputPlaceholder' 	: "",
-														'inputName' 			: "section",
-														'inputArray' 			: [],
-														'apiUrl' 				: "/api/"
-													},
-													{
-														'inputLabel' 			: "Category", 			
-														'inputType' 			: "select",
-														'inputDefaultValue' 	: "--Select--",
-														'inputPlaceholder' 	: "",
-														'inputName' 			: "category",
-														'inputArray' 			: [],
-														'apiUrl' 				: "/api/"
-													},
-													{
-														'inputLabel' 			: "SubCategory", 			
-														'inputType' 			: "select",
-														'inputDefaultValue' 	: "--Select--",
-														'inputPlaceholder' 	: "",
-														'inputName' 			: "subCategory",
-														'inputArray' 			: [],
-														'apiUrl' 				: "/api/"
-													}
+													// {
+													// 	'inputLabel' 			: "Section", 			
+													// 	'inputType' 			: "select",
+													// 	'inputDefaultValue' 	: "--Select--",
+													// 	'inputPlaceholder' 	: "",
+													// 	'inputName' 			: "section",
+													// 	'inputArray' 			: [],
+													// 	'apiUrl' 				: "/api/"
+													// },
+													// {
+													// 	'inputLabel' 			: "Category", 			
+													// 	'inputType' 			: "select",
+													// 	'inputDefaultValue' 	: "--Select--",
+													// 	'inputPlaceholder' 	: "",
+													// 	'inputName' 			: "category",
+													// 	'inputArray' 			: [],
+													// 	'apiUrl' 				: "/api/"
+													// },
+													// {
+													// 	'inputLabel' 			: "SubCategory", 			
+													// 	'inputType' 			: "select",
+													// 	'inputDefaultValue' 	: "--Select--",
+													// 	'inputPlaceholder' 	: "",
+													// 	'inputName' 			: "subCategory",
+													// 	'inputArray' 			: [],
+													// 	'apiUrl' 				: "/api/"
+													// }
 													
 			],
 			'currentActiveTab' 		: "Daily", //If showDateWiseFilters is true then set cuttentActiveTab 'Daily' or 'Weekly' or 'Monthly' or 'Yearly' or 'Customize' or leave it ""
@@ -88,9 +88,9 @@ class VendorSalesReport extends Component{
 			"tableHeading"      		: {
 													productName         	: 'Product Name', 
 													vendorName    			: 'Vendor Name',
-													section    				: 'Section',
-													category    			: 'Category',
-													subCategory    		: 'SubCategory',
+													// section    				: 'Section',
+													// category    			: 'Category',
+													// subCategory    		: 'SubCategory',
 													orderDate       		: 'Order Date',
 													numberOfOrders 		: 'Number of Orders',
 													productQuantity 		: 'Product Quantity',

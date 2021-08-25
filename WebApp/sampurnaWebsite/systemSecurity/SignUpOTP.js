@@ -131,29 +131,6 @@ class SignUpOTP extends Component{
 					</div>
 				</div>
 			</div>
-			// <div className="col-12 NoPadding signUpOtpWrapper">
-			// 	<div className="col-10 offset-1 mt-3 ">
-			// 		<div className="col-12">
-			// 			<a href='' className="OtpTitleWrapper1" onClick={this.openSignUpModal.bind(this)}><u className="mt-5 pt-5">Back to Login</u></a>
-			// 		</div>
-			// 		<h5 className=" pb-2 text-center OtpTitleWrapper mt-5 pt-5  font-weight-bold ">OTP</h5>
-			// 		<div className="row">
-			// 			<OtpInput
-			// 				className="otpInputBox "
-			// 				value={this.state.otp}
-			// 				onChange={this.handleChange}
-			// 				numInputs={4}
-			// 				separator={<span></span>}
-			// 			/>
-			// 		</div>
-			// 		<p className="OtpTitleWrapper2 text-center mt-3">Didn't receive code?&nbsp;<a className="OtpTitleWrapper3"href=""onClick={this.resendOTP.bind(this)}>Request again!</a></p>
-			// 	</div>
-			// 	<div className="col-10 offset-1 mt-4">
-			// 		<div className="col-12">
-			// 			<div className="col-12 otpBtns text-center ml-2" onClick={this.verifyOTP.bind(this)}> Verifiy</div>
-			// 		</div>
-			// 	</div>
-			// </div>
 	    );
   	}
 }

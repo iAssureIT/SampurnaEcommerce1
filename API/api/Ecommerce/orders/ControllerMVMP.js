@@ -692,7 +692,7 @@ function getDistanceWiseShippinCharges(){
 
 /*========== List Status Wise Orders ==========*/
 exports.list_orders_by_status = (req, res, next) => {
-	console.log("list_orders_by_status => ",req.body);
+	// console.log("list_orders_by_status => ",req.body);
 	var selector        = {};
 	selector['$and']    = [];
 	
@@ -715,15 +715,15 @@ exports.list_orders_by_status = (req, res, next) => {
 	if(req.body.searchText && req.body.searchText !== ""){
 		selector["$and"].push({ 
 			"$or" : [
-						{ "orderID" 									: parseInt(req.body.searchText) },
-						{ "userName" 									: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "userFullName" 								: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "deliveryAddress.name" 					: {'$regex' : req.body.searchText , $options: "i" } }
-						// { "vendorOrders.vendor_id.companyName" : {'$regex' : req.body.searchText , $options: "i" } }
+						{ "orderID" 										: isNaN(req.body.searchText) ? 0 : parseInt(req.body.searchText) },
+						{ "userFullName" 									: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "deliveryAddress.name" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "vendorOrders.vendor_id.companyName" 	: {'$regex' : req.body.searchText , $options: "i" } }
 					]
 		})
 	}
-	console.log("selector",selector);
+	// console.log("selector",isNaN(req.body.searchText));
+	// console.log("selector",selector.$and[1].$or);
 	// console.log("selector => ",selector[0])
 	Orders.find(selector)
 	// aggregate([
@@ -736,17 +736,18 @@ exports.list_orders_by_status = (req, res, next) => {
 	// ])
 	.populate('vendorOrders.vendor_id')
 	.sort({ createdAt: -1 })
-	.skip(parseInt(req.body.startRange))
-	.limit(parseInt(req.body.limitRange))
+	// .skip(parseInt(req.body.startRange))
+	// .limit(parseInt(req.body.limitRange))
 	.then(data => {
-		// console.log("data.length===>>>",data.length);
+		// console.log("data===>>>",data);
+		console.log("data.length===>>>",data.length);
 
-		// res.status(200).json({
-		// 	dataCount 	: data.length,
-		// 	data 			: data.slice(req.body.startRange, req.body.startRange + req.body.limitRange)
-		// });
+		res.status(200).json({
+			dataCount 	: data.length,
+			data 			: data.slice(req.body.startRange, req.body.startRange + req.body.limitRange)
+		});
 
-		res.status(200).json(data);
+		// res.status(200).json(data);
 	})
 	.catch(err => {
 		console.log("Error while finding order => ",err);
@@ -3356,6 +3357,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 				"orderID"							: 1,
 				"user_ID"							: 1,
 				"userName"							: 1,
+				"createdAt"                         : 1,
 				"vendorOrders.vendor_id"			: 1,
 				"vendorOrders.vendorLocation_id"	: 1,
 				"vendorOrders.orderStatus"			: 1,
@@ -4588,7 +4590,7 @@ exports.vendor_sales_reports = (req, res, next) => {
 					orderDate 				: "<div class='whiteSpaceNoWrap'>" + moment(data[i].orderData[0].createdAt).format('MMM Do YYYY') + "</div>",
 					numberOfOrders 		: data[i].numberOfOrders,
 					productQuantity 		: data[i].productQuantity,
-					totalAmount 			: "<div class='whiteSpaceNoWrap'> AED " + data[i].totalAmount + "</div>"				
+					totalAmount 			: "<div class='whiteSpaceNoWrap'> AED " + (data[i].totalAmount).toFixed(2) + "</div>"				
 				})	
 			}
 			if (i >= data.length) {	

@@ -94,9 +94,10 @@ const ValidationSchema = Yup.object().shape({
                 "deliveryPerson_id" : store.userDetails.user_id,
                 "transactionNumber" : transactionNumber
             }
-          }
+          }          
           console.log("formValues",formValues);
-          axios.patch('/api/orders/deliver/vendor_order',formValues)
+          if(amountPaid === ''){
+            axios.patch('/api/orders/deliver/vendor_order',formValues)
           .then(res=>{
             console.log("res",res)
             setLoading(false);
@@ -104,6 +105,10 @@ const ValidationSchema = Yup.object().shape({
               navigation.navigate('RunningOrders')
           })
           .catch()
+          }else{
+            setToast({text:'Please enter Amount Paid.',color:'red'});
+          }
+          
         }}
         validationSchema={paymentMethod === "Card On Delivery" ? ValidationSchema :null}
         initialValues={{
@@ -156,9 +161,15 @@ const ValidationSchema = Yup.object().shape({
   const amountPaid = (e) =>{
     console.log("parseInt(e)",isNaN(e));
     setAmountReceive(e);
+    var totalAmt= order.vendorOrders[0].vendor_netPayableAmount;
     if(e!==""){
-      var returnAmount =e - order.vendorOrders[0].vendor_netPayableAmount;
-      setReturnAmount(returnAmount);
+      if(e > totalAmt || e === totalAmt){
+        var returnAmount =e - totalAmt;
+        setReturnAmount(returnAmount);
+      }else{
+        setToast({text: 'Received amount is not enough.', color: 'red'});
+      }
+      
     }else{
       setReturnAmount(0);
     }
@@ -219,11 +230,12 @@ const ValidationSchema = Yup.object().shape({
                                 }
                               </View>
                               <View style={{flex:0.65,justifyContent:'center'}}>
-                                {item.productNameRlang ?
+                                <Text style={styles.productname}>{item.productName}</Text>
+                                {/* {item.productNameRlang ?
                                   <Text style={{fontFamily:'aps_dev_priyanka',fontSize:13,flexWrap:'wrap'}}>{item.productNameRlang}</Text>
                                   : 
                                   <Text style={styles.productname}>{item.productName}</Text>
-                                }
+                                } */}
                               </View>
                             </View>
                             <View style={styles.flxmg}>
@@ -310,7 +322,7 @@ const ValidationSchema = Yup.object().shape({
                     </View>
                     <View style={{flex:0.24,flexDirection:"row"}}>
                       <Text style={[styles.deliveryText2,{flex:0.2}]}>:</Text>
-                      <Text style={[styles.inputAmount,{flex:0.8,textAlign:'right'}]}>{returnAmount}</Text>
+                      <Text style={[styles.inputAmount,{flex:0.8,textAlign:'right'}]}>{returnAmount.toFixed(2)}</Text>
                     </View>               
                   </View>        
               </View>

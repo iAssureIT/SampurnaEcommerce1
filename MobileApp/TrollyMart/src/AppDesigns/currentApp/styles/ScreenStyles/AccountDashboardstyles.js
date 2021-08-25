@@ -320,7 +320,7 @@ export default StyleSheet.create({
   },
 
   iconImg:{
-    height:hp(5),
+    height:hp(4),
     width:hp(5),
     resizeMode:'cover',
   },

@@ -696,25 +696,25 @@ input.middle:focus {
 @media (min-width: 1200px){
 
 	#signUpUser .form-group{
-    margin-bottom: 5px !important;
-  }
-  .googleTextWrapper{
-    margin-left: 100px;
-  }
+		margin-bottom: 5px !important;
+	}
+	.googleTextWrapper{
+    	margin-left: 100px;
+  	}
 	.otpInputBox:nth-child(1){
 		margin-left: -3px;
 	}
 }
 
 
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1366px and up] */
-@media (min-width:1366px){
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
+@media (min-width:1440px){
 
 }
 
 
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
-@media (min-width:1440px){
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1536px and up] */
+@media (min-width: 1536px){
 
 }
 

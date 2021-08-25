@@ -14,20 +14,37 @@ class WebsiteLogo extends React.Component{
          }
     }    
 
-    componentDidMount(){
-        axios.get("/api/entitymaster/getCompany/1")
-            .then((response) => {
-                if(response.data){
-                    this.setState({
-                        CompanyLogo : response.data.companyLogo[0]
-                    },()=>{
+    async componentDidMount(){
+        var sampurnaWebsiteDetailsVal = await Promise.resolve(JSON.parse(localStorage.getItem("sampurnaWebsiteDetails")));
+        console.log("0 sampurnaWebsiteDetailsVal => ", sampurnaWebsiteDetailsVal );
 
-                    });
-                }
-            })
-            .catch((error) => {
-                console.log("get comapany deatails error",error);
-            })
+        if(sampurnaWebsiteDetailsVal && sampurnaWebsiteDetailsVal.data && sampurnaWebsiteDetailsVal.data.CompanyLogo){
+            console.log("1 sampurnaWebsiteDetailsVal => ", sampurnaWebsiteDetailsVal );
+            this.setState({
+                CompanyLogo : sampurnaWebsiteDetailsVal.data.CompanyLogo
+            });        
+        }else{
+            console.log("2 sampurnaWebsiteDetailsVal => ", sampurnaWebsiteDetailsVal );
+
+            axios.get("/api/entitymaster/getCompany/1")
+                .then((response) => {
+                    if(response.data){
+                        this.setState({
+                            CompanyLogo : response.data.companyLogo[0]
+                        });
+                        sampurnaWebsiteDetailsVal.data = {
+                            CompanyLogo : response.data.companyLogo[0]
+                        };
+                        console.log("3 sampurnaWebsiteDetailsVal => ", sampurnaWebsiteDetailsVal );
+                        localStorage.setItem("sampurnaWebsiteDetails",JSON.stringify(sampurnaWebsiteDetailsVal));
+                    }
+                })
+                .catch((error) => {
+                    console.log("get comapany deatails error",error);
+                })
+        }
+
+        // console.log("*** Loaded WebsiteLogo ***");
 
     }
 
