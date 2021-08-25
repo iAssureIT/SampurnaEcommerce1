@@ -219,11 +219,12 @@ const ValidationSchema = Yup.object().shape({
                                 }
                               </View>
                               <View style={{flex:0.65,justifyContent:'center'}}>
-                                {item.productNameRlang ?
+                                <Text style={styles.productname}>{item.productName}</Text>
+                                {/* {item.productNameRlang ?
                                   <Text style={{fontFamily:'aps_dev_priyanka',fontSize:13,flexWrap:'wrap'}}>{item.productNameRlang}</Text>
                                   : 
                                   <Text style={styles.productname}>{item.productName}</Text>
-                                }
+                                } */}
                               </View>
                             </View>
                             <View style={styles.flxmg}>
@@ -310,7 +311,7 @@ const ValidationSchema = Yup.object().shape({
                     </View>
                     <View style={{flex:0.24,flexDirection:"row"}}>
                       <Text style={[styles.deliveryText2,{flex:0.2}]}>:</Text>
-                      <Text style={[styles.inputAmount,{flex:0.8,textAlign:'right'}]}>{returnAmount}</Text>
+                      <Text style={[styles.inputAmount,{flex:0.8,textAlign:'right'}]}>{returnAmount.toFixed(2)}</Text>
                     </View>               
                   </View>        
               </View>

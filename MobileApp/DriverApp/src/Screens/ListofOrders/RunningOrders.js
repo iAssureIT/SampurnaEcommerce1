@@ -141,7 +141,7 @@ export const RunningOrders =(props)=> {
     const _renderlist = ({ item, index })=>{
         return (
             <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders.vendor_id})}>
-                <View containerStyle={{padding:15,}}>
+                <View containerStyle={{padding:15}}>
                     <View
                     style={{
                         paddingVertical: 15,
@@ -153,15 +153,15 @@ export const RunningOrders =(props)=> {
                         minHeight:100,                        
                     }}
                     >
-                <View style={{flexDirection:'row',marginBottom:5}}>
+                <View style={{flexDirection:'row',marginBottom:5 }}>
                         <View style={{flex:.3}}>
                             <Text style={CommonStyles.cardTopText}>Order No {item.orderID}</Text>
                         </View>
-                        <View style={{flex:.6,alignItems:'flex-end'}}>
+                        <View style={{flex:.7,alignItems:'flex-end'}}>
                             <Text style={CommonStyles.cardTopText2}>Date {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
                         </View>    
                 </View> 
-                <View style={{flex:1}}>
+                <View style={{flex:1,marginHorizontal:10}}>
                     <View style={{flexDirection:"row",flex:1}} >
                         <View style={{flex:0.2}}>
                             <Text style={[CommonStyles.boxLine1W]}>Customer</Text>
@@ -176,14 +176,14 @@ export const RunningOrders =(props)=> {
                         </View>                
                     </View>
                     <View style={{flexDirection:"row",flex:1}} >
-                        <View style={{flex:0.2}}>
-                            <Text style={[CommonStyles.boxLine1W]}>Address</Text>
+                        <View style={{flex:0.23}}>
+                            <Text style={[CommonStyles.boxLine1W]}>Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </Text>
                         </View>
-                        <View style={{flex:0.67}}>
-                            <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}> : {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>                            
+                        <View style={{flex:0.64}}>
+                            <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}>{item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>                            
                         </View>
-                        <View style={{flex:0.13}}>
-                            <TouchableOpacity style={{marginHorizontal:10,height:30,width:30}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
+                        <View style={{flex:0.13,alignItems:'center'}}>
+                            <TouchableOpacity style={{height:30,width:30}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
                                 <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>
                             </TouchableOpacity>
                         </View>                    

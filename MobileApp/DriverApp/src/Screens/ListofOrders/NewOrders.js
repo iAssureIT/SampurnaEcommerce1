@@ -76,7 +76,7 @@ export const NewOrders =(props)=> {
     const getList=()=>{
         setOrderList([]);
         var payload={
-            "status" : "Ready to Dispatch",
+            "status" : "Processing",
             "user_id" : store.userDetails.user_id
         }
         socket.emit('nearest_vendor_orders',payload);
@@ -159,7 +159,7 @@ export const NewOrders =(props)=> {
                             </View>                            
                             <View style={styles.box1}>
                                 {/* <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} /> */}
-                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>Vendor:{item?.vendorDetails?.locations[0]?.addressLine1+", "+item?.vendorDetails?.locations[0]?.addressLine2}</Text>
+                                <Text style={CommonStyles.boxLine1} numberOfLines={3}>Vendor: <Text style={{fontFamily:"Montserrat-SemiBold"}}>{item?.vendorDetails?.companyName}</Text> {item?.vendorDetails?.locations[0]?.addressLine1+", "+item?.vendorDetails?.locations[0]?.addressLine2}</Text>
                             </View>
                             <View style={styles.box1_L}>
                                 <Text style={[CommonStyles.boxLine1]}>Pickup point :</Text>                                
