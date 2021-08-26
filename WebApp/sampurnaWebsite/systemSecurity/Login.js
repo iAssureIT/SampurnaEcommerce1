@@ -178,7 +178,7 @@ class Login extends Component{
 								<div className="row">
 									<div className="col-12 form-group frmhgt textAlignLeft NOpadding">
 										<div className="row">
-											<input type="email" className="form-control formcontrol1" ref="loginusername" id="loginusername" name="loginusername" placeholder="Phone Number / Email ID"  onChange={this.handleChange.bind(this)}/>
+											<input type="email" className="form-control formcontrol1" ref="loginusername" id="loginusername" name="loginusername" placeholder="Phone Number / Email ID*"  onChange={this.handleChange.bind(this)}/>
 											<span className="text-danger">{this.state.formerrors.emailIDV}</span>
 											<div className="errorMsg">{this.state.errors.loginusername}</div>
 										</div>
@@ -191,7 +191,7 @@ class Login extends Component{
 												className="form-control passswordInput formcontrol1"
 												ref="loginpassword"
 												name="loginpassword"
-												placeholder="Password"
+												placeholder="Password*"
 												onChange={this.handleChange.bind(this)}
 												value={this.state.loginpassword}
 												autoComplete="off"
@@ -199,8 +199,9 @@ class Login extends Component{
 										</div>
 										<span
 											toggle="#password-field"
-											className="fa fa-fw fa-eye field-icon toggle-password"
+											className="field-icon toggle-password"
 											onClick={this.togglePassword.bind(this)}
+											src="/images/eCommerce/view.png"
 										></span>
 										<div className="errorMsg">{this.state.errors.loginpassword}</div>
 									</div>
