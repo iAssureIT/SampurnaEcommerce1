@@ -15,9 +15,70 @@
     opacity       : 1;
 }
 
+.sideBarTabNames{
+    font-size: 15px;
+    font-family: 'Montserrat-Bold';
+}
+
+.sideBarTabNameAllignment{
+    padding-left: 60px;
+}
+
+
 /* Extra large devices (large desktops, 1200px and up) */
+
+
 @media (min-width: 1200px) {
     .myAccountSideWrapper {
         margin-top: -36px;
     }
+}
+
+@media (max-width: 1024px) {
+    
+    .sideBarTabNameAllignment{
+        padding-left: 20px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    
+    .sideBarTabNameAllignment{
+        padding-left: 85px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    
+    .sideBarTabNameAllignment{
+        padding-left: 85px;
+    }
+
+}
+
+@media (max-width: 384px) {
+    
+    .sideBarTabNameAllignment{
+        padding-left: 70px;
+    }
+
+}
+
+@media (max-width: 360px) {
+    
+    .sideBarTabNameAllignment{
+        padding-left: 60px;
+    }
+
+}
+
+
+@media (max-width: 320px) {
+    
+    .sideBarTabNameAllignment{
+        padding-left: 40px;
+    }
+
 }

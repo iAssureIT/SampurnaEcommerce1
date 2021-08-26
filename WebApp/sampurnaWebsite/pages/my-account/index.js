@@ -136,26 +136,26 @@ class MyAccount extends Component{
                                             <span className=" small ">Account Information</span>
                                         </a> */}
                                         <a className=" nav-link mx-2 mb-4 p-3 shadow active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"onClick={()=>{ $("#myOrderMainId").css("display", "none"); $("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "block"); $("#WishlistMainId").css("display", "none")}}>
-                                            <i className="fa fa-info-circle mr-3"></i>
-                                            <span className=" small ">Account Information</span>
+                                            <i className={"fa fa-info-circle mr-3 " + S.sideBarTabNameAllignment}></i>
+                                            <span className={S.sideBarTabNames}>My Profile</span>
                                         </a>
                                     </div>}
                                     <a className="nav-link mx-2 mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"onClick={()=>{ $("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
-                                        <i className="fas fa-map-marker-alt mr-3"></i>
+                                        <i className={"fas fa-map-marker-alt mr-3 " + S.sideBarTabNameAllignment}></i>
                                         {/* <img src="/images/eCommerce/locationHome.svg" className="mr-3" alt="ChangeLocationButton"></img> */}
-                                        <span className=" small ">My Addresses</span></a>
+                                        <span className={S.sideBarTabNames}>My Addresses</span></a>
                 
                                     <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-4 p-3 shadow active mx-2 ": "nav-link mb-4 p-3 mx-2 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"onClick={()=>{$("#myOrderMainId").css("display", "block");$("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
-                                        <i className=" fa fa-shopping-cart mr-3"></i>
-                                        <span className=" small " > My Orders</span></a>
+                                        <i className={"fa fa-shopping-cart mr-3 " + S.sideBarTabNameAllignment}></i>
+                                        <span className={S.sideBarTabNames}> My Orders</span></a>
 
                                     <a className={this.state.url1==="#v-pills-settings1-tab" ?"nav-link mb-4 p-3 mx-2 shadow active":"nav-link mx-2 mb-4 p-3 shadow"} id="v-pills-settings1-tab" data-toggle="pill" href="#v-pills-settings1" role="tab" aria-controls="v-pills-settings1" aria-selected="false"onClick={()=>{$("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "none"); $("#accountInformationManiId").css("display", "none");$("#WishlistMainId").css("display", "block")}}>
-                                    <i className="fa fa-heart mr-3"></i>
-                                    <span className=" small "> My Wishlist</span></a>
+                                    <i className={"fa fa-heart mr-3 " + S.sideBarTabNameAllignment}></i>
+                                    <span className={S.sideBarTabNames}> My Wishlist</span></a>
 
                                     <a className={this.state.url1==="#v-pills-settings3-tab"?"nav-link mb-4 mx-2 p-3 shadow active":"nav-link mx-2 mb-4 p-3 shadow"} id="v-pills-settings3-tab" data-toggle="pill" href="#v-pills-settings3" role="tab" aria-controls="v-pills-settings3" aria-selected="false"onClick={()=>{ $("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "block");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
-                                    <i className="fa fa-money-bill mr-3"></i>
-                                    <span className=" small "> Credit Points</span></a>
+                                    <i className={"fa fa-money-bill mr-3 " + S.sideBarTabNameAllignment}></i>
+                                    <span className={S.sideBarTabNames}> Credit Points</span></a>
 
                                     {/* <a className="nav-link mb-5 p-3 shadow" id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false">
                                     <i className="fa fa-star mr-3"></i>

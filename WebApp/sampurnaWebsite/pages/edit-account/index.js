@@ -477,7 +477,7 @@ class EditAccount extends Component{
     render(){
         return(
             <div className={"col-lg-10 col-12 accountInformationMainWrapper "+Style.accountInformationMainWrapper}id="accountInformationManiId">
-            <h4 className="font-weight-bold">Account Information</h4>
+            <h4 className="font-weight-bold">My Profile</h4>
             <div className="row">
                 <div className={ " col-12 accountDashBoardInnerwrapper "+Style.accountDashBoardInnerwrapper}>
                     <Message messageData={this.state.messageData} />
@@ -490,7 +490,7 @@ class EditAccount extends Component{
                                                 <div className="col-xl-5 col-lg-5 col-sm-5 col-md-5 mx-auto col-12 mt-4 ">
                                                     <div className="row">
                                                     <div className="col-12 mb-2 NoPadding">
-                                                        <label className="mt15">First Name <i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
+                                                        <label className="mt15">First Name <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                         <br />
                                                         <div id="firstName" className={"col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding "+Style.editAccInputWrapper}>
                                                             <input maxLength="25" type="text" name="firstName" ref="firstName" value={this.state.firstName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required/> 
@@ -503,7 +503,7 @@ class EditAccount extends Component{
                                                 <div className="col-xl-5 col-lg-5 col-sm-5 col-md-5 mx-auto col-12 mt-4 ">
                                                     <div className="row">
                                                     <div className="col-12 mb-2 NoPadding">
-                                                        <label className="mt15">Last Name <i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
+                                                        <label className="mt15">Last Name <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                         <br />
                                                         <div id="lastName" className={"col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding "+Style.editAccInputWrapper}>
                                                             <input maxLength="25" type="text" name="lastName" ref="lastName" value={this.state.lastName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required/> 
