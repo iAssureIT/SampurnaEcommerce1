@@ -118,7 +118,7 @@ const FormBody = (props) => {
   return (    
       <View style={{flex:1,backgroundColor:'#fff'}}>        
           <View style={[styles.boxOpacity,{flex:1,paddingHorizontal:0}]}>
-          <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:15,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
+          <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:35,height:30,paddingRight:5}} onPress={()=> navigation?.goBack()}>
               <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
           </TouchableOpacity>
           <View style={{height: 160,paddingHorizontal:30,justifyContent:'flex-start'}}>

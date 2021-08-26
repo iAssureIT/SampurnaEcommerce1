@@ -270,6 +270,12 @@ const ValidationSchema = Yup.object().shape({
                   </View>
                 </View>  
             </View> 
+            {(paymentMethod === "Online Payment") &&
+              <View style={{flexDirection:'row',justifyContent:'center',marginBottom:15}}>
+                <Text style={CommonStyles.completeBlueTextB}>Paid by {paymentMethod}</Text>
+              </View>
+            }
+
             {order?.vendorOrders[0]?.orderStatus === "On the Way" && <View style={{borderRadius:4,backgroundColor:'#E5EAEE',minHeight:100,padding:15,marginBottom:20}}>
               {(paymentMethod === "Cash On Delivery" ||paymentMethod === "Card On Delivery") && <View style={[styles.tabWrap]}>
                 <TouchableOpacity

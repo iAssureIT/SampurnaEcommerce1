@@ -184,12 +184,12 @@ export default StyleSheet.create({
         marginBottom:5,      
     },
     cardTopText:{
-        fontFamily:'segoe-ui',
+        fontFamily: "Montserrat-SemiBold",
         color:'#fff',
         fontSize:RFPercentage(2.2)
     },
     cardTopText2:{
-        fontFamily:'segoe-ui',
+        fontFamily: "Montserrat-SemiBold",
         color:'#fff',
         fontSize:RFPercentage(1.8)
     },
@@ -211,7 +211,7 @@ export default StyleSheet.create({
     },
     boxLine1C:{
         color:'#033554',
-        fontFamily: "Montserrat-Medium",
+        fontFamily: "Montserrat-SemiBold",
         fontSize:RFPercentage(2.2),
     },
     boxLine2C:{
@@ -247,8 +247,8 @@ export default StyleSheet.create({
     },
     completeBlueText:{
         color:'#033554',
-        fontFamily: "Montserrat-Medium",
-        fontSize:16,
+        fontFamily: "Montserrat-SemiBold",
+        fontSize:13,
     },
     completeBlueTextB:{
         color:'#033554',

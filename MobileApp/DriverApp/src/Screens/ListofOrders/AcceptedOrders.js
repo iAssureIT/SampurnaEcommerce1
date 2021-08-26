@@ -252,7 +252,7 @@ export const AcceptedOrders =(props)=> {
                         <Text style={CommonStyles.cardTopText}>Order No{item.orderID}</Text>
                     </View>
                     <View style={{flex:.6,alignItems:'flex-end'}}>
-                        <Text style={CommonStyles.cardTopText2}>Date {moment(item?.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
+                        <Text style={CommonStyles.cardTopText2}>Date {moment(item?.createdAt).format('DD-MM-YYYY hh:mm A')}</Text>
                     </View>    
                </View>         
                <View style={CommonStyles.cardBottom}>
@@ -303,9 +303,13 @@ export const AcceptedOrders =(props)=> {
                 onBackdropPress={() => setModal(false)}
                 onRequestClose={() => {setModal(false);getList()}}
                 coverScreen={true}
-                hideModalContentWhileAnimating={true}
-                style={{ zIndex: 999 }}
-                animationOutTiming={500}>
+                animationType="fade"
+                transparent={true}
+                backdropOpacity={0.2}
+                // hideModalContentWhileAnimating={true}
+                style={{ paddingHorizontal: '5%' }}
+                animationInTiming={1} animationOutTiming={1}>
+                {/* animationOutTiming={500}> */}
                 <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 15}}>
                 <TouchableOpacity onPress={()=>{setModal(false);getList()}}><Text style={{color:'#000',fontFamily: "Montserrat-Bold",textAlign:'right'}}>X</Text></TouchableOpacity>
                 <Text style={{fontFamily: "Montserrat-SemiBold",fontSize:14,color:'#000',marginBottom:15}}>Reason for Reject</Text>
