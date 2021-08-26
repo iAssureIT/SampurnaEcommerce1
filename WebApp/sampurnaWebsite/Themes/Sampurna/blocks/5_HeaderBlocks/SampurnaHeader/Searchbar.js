@@ -162,7 +162,7 @@ class Searchbar extends React.Component {
                         <div className="searchIcon" 
                             onClick={this.getProducts.bind(this)}
                         >
-                            <i className="fas fa-search"></i>
+                            <i className="fas fa-search homeSearchIcon"></i>
                         </div>
 
                         <datalist id="datalist" className="col-12">

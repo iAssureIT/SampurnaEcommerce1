@@ -217,9 +217,10 @@ export default class ContactUsTrollyMart extends Component{
 									<h3 className={"pt-lg-5 mt-lg-5 mt-4 pt-3 getInTouchSubTitle "+S.getInTouchSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h3>
 								</div>
 								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-phone"}></i>&nbsp;&nbsp;&nbsp;
-									<label>+971 04 591 1186</label>
+									<label>+971 45911186</label>
 								</div>
 								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>
+
 									<label className={S.emailWrapperContactUs}>support@knock-knockeshop.com</label>
 									<label className={ "col-12 " +S.emailWrapperContactUs}>info@trollymart.ae</label>
 									
@@ -230,6 +231,7 @@ export default class ContactUsTrollyMart extends Component{
 										<span className={"col-12 " +S.contactAddress}>Branch Address : Palace Tower 1 Office Building, Office No:1405, S.P Oasis Street, Dubai Silicon Oasis, Dubai – UAE</span> <br/>
 										
 									</label>
+
 								</div>
 								<div className={"col-12 hero "+S.hero}>
 									<div className={"social_links pt-lg-4 pt-4 "+S.social_links}>
@@ -240,6 +242,9 @@ export default class ContactUsTrollyMart extends Component{
 										<a href="https://twitter.com/knockknockeshop" target="_blank"><i className="fab fa-twitter"></i></a>
 									</div>
 								</div>
+								{/*<div className={"col-12 "+S.contactUscontent}>
+										Head Office: Unit 201, Level – 1, Gate Avenue – South Zone DIFC, Dubai – UAE Branch Address: Palace Tower 1 Office Building, Office No:1405, S.P Oasis Street, Dubai Silicon Oasis, Dubai – UAE Email ID: info@trollymart.ae support@knock-knockeshop.com Phone Number: +971 45911186
+								</div>*/}
 								<div className="col-12">
 									<img className={S.contactUsRightLogo} src="/images/eCommerce/HalfFace.svg" alt=""></img>
 								</div>
