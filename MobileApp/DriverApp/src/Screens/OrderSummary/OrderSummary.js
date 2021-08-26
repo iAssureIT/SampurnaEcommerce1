@@ -96,7 +96,6 @@ const ValidationSchema = Yup.object().shape({
             }
           }          
           console.log("formValues",formValues);
-          if(amountPaid === ''){
             axios.patch('/api/orders/deliver/vendor_order',formValues)
           .then(res=>{
             console.log("res",res)
@@ -104,11 +103,7 @@ const ValidationSchema = Yup.object().shape({
                 setToast({text:res.data.message,color:'green'})
               navigation.navigate('RunningOrders')
           })
-          .catch()
-          }else{
-            setToast({text:'Please enter Amount Paid.',color:'red'});
-          }
-          
+          .catch()   
         }}
         validationSchema={paymentMethod === "Card On Delivery" ? ValidationSchema :null}
         initialValues={{
@@ -123,6 +118,7 @@ const ValidationSchema = Yup.object().shape({
             dispatch={dispatch}
             loading={loading}
             setLoading={setLoading}
+            setToast={setToast}
             paymentMethod={paymentMethod}
             setPaymentMethod={setPaymentMethod}
             order={order}
@@ -149,6 +145,7 @@ const ValidationSchema = Yup.object().shape({
       dispatch,
       values,
       order,
+      setToast,
       paymentMethod,
       setPaymentMethod,
       currency,
@@ -221,6 +218,7 @@ const ValidationSchema = Yup.object().shape({
                                   <Image
                                     style={styles.imgwdht}
                                     source={{ uri: item.productImage[0] }}
+                                    resizeMode='contain'
                                   />
                                   :
                                   <Image

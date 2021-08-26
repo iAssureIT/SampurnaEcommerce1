@@ -18,7 +18,7 @@ import Snackbar from 'react-native-snackbar';
 console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);
 axios.defaults.baseURL = REACT_APP_BASE_URL;
 // console.log("axios.defaults.baseURL ",axios.defaults.baseURL);
-StatusBar.setHidden(true);
+// StatusBar.setHidden(true);
 
  const App = () => {
   const [token, setToken] = useState('');

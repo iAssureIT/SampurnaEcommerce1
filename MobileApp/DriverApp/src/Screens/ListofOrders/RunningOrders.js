@@ -184,7 +184,7 @@ export const RunningOrders =(props)=> {
                             <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}>{item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>                            
                         </View>
                         <View style={{flex:0.13,alignItems:'center'}}>
-                            <TouchableOpacity style={{height:30,width:30}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
+                            <TouchableOpacity style={{height:30,width:30}} onPress={()=>goToMap(item.vendorDetails.locations.latitude,item.vendorDetails.locations.longitude)}>
                                 <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>
                             </TouchableOpacity>
                         </View>                    
