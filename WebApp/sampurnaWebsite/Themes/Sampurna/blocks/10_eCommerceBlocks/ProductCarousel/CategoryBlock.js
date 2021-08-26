@@ -51,7 +51,7 @@ const CategoryBlock = (props)=>{
                 keyBoardControl={true}
                 customTransition="all .20"
                 transitionDuration={500}                      
-                removeArrowOnDeviceType={["mobile"]}
+                // removeArrowOnDeviceType={["mobile"]}
                 deviceType={props.deviceType}
                 containerClass="carousel-container">
                   {props.categoryData && props.categoryData.map((categorydata, index) => {

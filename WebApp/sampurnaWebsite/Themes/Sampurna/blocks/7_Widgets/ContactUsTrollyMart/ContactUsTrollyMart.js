@@ -221,6 +221,8 @@ export default class ContactUsTrollyMart extends Component{
 								</div>
 								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>
 									<label className={S.emailWrapperContactUs}>support@knock-knockeshop.com</label>
+									<label className={ "col-12 " +S.emailWrapperContactUs}>info@trollymart.ae</label>
+									
 								</div>
 								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-address-card"}></i>
 									<label className={S.emailWrapperContactUs}>

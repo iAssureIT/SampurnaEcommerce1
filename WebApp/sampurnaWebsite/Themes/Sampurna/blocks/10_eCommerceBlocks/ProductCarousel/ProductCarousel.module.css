@@ -619,14 +619,14 @@
 .modal-header img {
   height: 20px;
 }
-
 /* css for filters */
 .categoryFilterTitle {
   font-size          : 16px;
   padding            : 20px 28px;
   font-weight        : 900 !important;
   border-bottom      : solid 1px #ddd;
-  /* background-color: #F9F9F9; */
+  background         : #F9F9F9 0% 0% no-repeat padding-box;
+  box-shadow         : 0px 3px 6px #00000029;
   opacity            : 1;
   letter-spacing     : 0px;
   font-family        : 'Montserrat-Bold' !important;
