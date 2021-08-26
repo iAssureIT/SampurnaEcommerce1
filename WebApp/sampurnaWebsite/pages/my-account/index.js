@@ -38,7 +38,6 @@ class MyAccount extends Component{
     }
 
     componentDidMount(){
-       
         let defaultUrl=window.location.href.replace(/.*\/\/[^\/]*/, '');
         let dynamicUrl=window.location.hash;
 
@@ -134,8 +133,12 @@ class MyAccount extends Component{
                     
                                         {/* <a className={this.state.url==="/my-account"?"nav-link mb-4 p-3  shadow active rounded":"nav-link mb-4 p-3  shadow"} id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"onClick={()=>{ $("#myOrderMainId").css("display", "none"); $("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "block"); $("#WishlistMainId").css("display", "none")}}>
                                             <i className="fa fa-info-circle mr-3"></i>
-                                            <span className=" small ">My Profile</span>
+                                            <span className=" small ">Account Information</span>
                                         </a> */}
+                                        <a className=" nav-link mx-2 mb-4 p-3 shadow active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"onClick={()=>{ $("#myOrderMainId").css("display", "none"); $("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "block"); $("#WishlistMainId").css("display", "none")}}>
+                                            <i className="fa fa-info-circle mr-3"></i>
+                                            <span className=" small ">Account Information</span>
+                                        </a>
                                     </div>}
                                     <a className="nav-link mx-2 mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"onClick={()=>{ $("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
                                         <i className="fas fa-map-marker-alt mr-3"></i>
