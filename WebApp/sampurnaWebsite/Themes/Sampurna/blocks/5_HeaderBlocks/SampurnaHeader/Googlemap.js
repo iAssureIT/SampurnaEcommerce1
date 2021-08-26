@@ -39,6 +39,9 @@ class GoogleMap extends React.Component{
 
     componentDidMount(){
         var windowHeight    = window.innerHeight;
+        var mapBlockheight  = windowHeight - 150;
+        this.setState({mapBlockheight : mapBlockheight});
+
         var user_details    = JSON.parse(localStorage.getItem('userDetails'));
         if(user_details){
             this.setState ({
@@ -53,7 +56,7 @@ class GoogleMap extends React.Component{
                 {
                     this.props.latLongDetails
                     ?
-                        <div style={{ height: '475px', width: '100%' }}>
+                        <div style={{ height: this.state.mapBlockheight, width: '100%' }}>
                             <GoogleMapReact
                                 bootstrapURLKeys    = {{ key: this.props.googleapiKey }}
                                 defaultCenter       = {this.props.latLongDetails}

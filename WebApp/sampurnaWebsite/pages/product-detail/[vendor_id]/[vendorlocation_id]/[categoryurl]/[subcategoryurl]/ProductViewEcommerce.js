@@ -170,6 +170,8 @@ class ProductViewEcommerce extends Component{
 	}
 
 	setProductData(productData){
+		console.log("productData = ",productData );
+
 		this.setState({	
 			activeColor   : productData.color ? productData.color:"",		
 			activeSize    : productData.size ? productData.size:"",			
@@ -192,7 +194,7 @@ class ProductViewEcommerce extends Component{
 								categoryData : categoryResponse.data.categoryList,  
 								brandData    : categoryResponse.data.brandList, 
 							},()=>{
-								console.log("categoryData = ",categoryResponse.data.categoryList);								
+								// console.log("categoryData = ",categoryResponse.data.categoryList);								
 							}); 
 							for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
 								if(categoryResponse.data.categoryList[i].categoryUrl === this.props.categoryurl){
@@ -202,7 +204,7 @@ class ProductViewEcommerce extends Component{
 											subCategoryData  : subCategoryData,
 											brandData        : this.state.brandData
 										},()=>{
-											console.log("subCategoryData = ",subCategoryData);
+											// console.log("subCategoryData = ",subCategoryData);
 										});
 									}
 									break;
@@ -495,6 +497,21 @@ class ProductViewEcommerce extends Component{
 
 	}
 
+
+	collapseClick(event){
+		var elemId = event.currentTarget.id;
+		var elemI = document.querySelectorAll('#'+elemId+' > i');
+		var iElement = elemI[0];
+
+		if(iElement.classList.contains('fa-chevron-right')){
+			iElement.classList.remove("fa-chevron-right");
+			iElement.classList.add("fa-chevron-down");			
+		}else{
+			iElement.classList.remove("fa-chevron-down");
+			iElement.classList.add("fa-chevron-right");			
+		}
+
+	}
 
 
 
@@ -856,67 +873,39 @@ class ProductViewEcommerce extends Component{
 																		{
 																			this.state.productData.productReturnable === "returnable"
 																			?
-																				<div className={"col-12 NoPadding mt-4"}>
+																				<div className="col-12 NoPadding mt-4">
 																					<div className="row ">
-																						<div className="koh-faq-question">
-																							{/* <i className="fa fa-undo "></i> */}
-																							<span className="col-12 returnabletxt koh-faq-question-span">Enjoy Free return for this item
-																								<i className="fa fa-chevron-right" aria-hidden="true"></i> <br/>
-																							</span>
+																						<div id="collapse2" className={"col-12 ml-5 ml-sm-0 "+ Style.returnabletxt} data-toggle="collapse" data-target="#returnPolicy2" onClick={this.collapseClick.bind(this)}>
+																							Enjoy Free return for this item  &nbsp;&nbsp;&nbsp;
+																							<i className="fa fa-chevron-right" aria-hidden="true"></i> <br/>
 																						</div>
-																						<div className="col-12 koh-faq-answer d-none">
+																						<div className="col-12 collapse px-4" id="returnPolicy2">
 																							<p>Consumable products are eligible for return,<br/>
 																								within 8 hours from the delivery time of the order.<br/>
 																								Non consumable products are eligible for<br/>
 																								return, within 5 days from the delivery<br/>
 																								time of the order return policy &nbsp;
-																								<div class="col-2 float-right"> 
+																								<div className={"col-4 float-right "+Style.returnLink}> 
 																									<a href="/privacy-policy" target="_blank">Read more</a> 
 																								</div>
 																							</p>
-																						</div>
-																						<div className="koh-tab-content d-none">
-																							<div className="koh-tab-content-body">
-																								<div className="koh-faq">
-																									<div className="koh-faq-question">
-																										<i className="fa fa-chevron-right" aria-hidden="true"></i>
-																										<span className="koh-faq-question-span"> Test Question 1 </span>
-																									</div>
-																									<div className="koh-faq-answer">
-																										Test Answer 1
-																									</div>
-																								</div>
-																							</div>
-																						</div>
+																						</div>																						
 																					</div>
 																				</div>
 																			:
 																				<div className={"container-flex NoPadding mt-4"}>
 																					<div className="row ">
-																						<div className="koh-faq-question">
-																							<div className="col-12 returnabletxt ml-5 ml-sm-0 koh-faq-question-span">
-																								This item is non-returnable &nbsp;&nbsp;&nbsp;
-																								<i className="fa fa-chevron-right" aria-hidden="true"></i><br/>
-																							</div>
-																							<div className="col-12 koh-faq-answer d-none">
-																								<p>For more details about knock knock return <br/> policy &nbsp;
+																						<div id="collapse1" className={"col-12 ml-5 ml-sm-0 "+ Style.returnabletxt} data-toggle="collapse" data-target="#returnPolicy" onClick={this.collapseClick.bind(this)}>
+																							This item is non-returnable &nbsp;&nbsp;&nbsp;
+																							<i className="fa fa-chevron-right" aria-hidden="true"></i><br/>
+																						</div>
+																						<div className="col-12 collapse px-4" id="returnPolicy">
+																							<p>For more details about knock knock return <br/> policy &nbsp;
+																								<div className={"col-4 float-right "+Style.returnLink}> 
 																									<a href="/privacy-policy" target="_blank">Read more</a>
-																								</p>
-																							</div>
-																						</div>
-																						<div className="koh-tab-content d-none">
-																							<div className="koh-tab-content-body">
-																								<div className="koh-faq">
-																									<div className="koh-faq-question">
-																										<i className="fa fa-chevron-right" aria-hidden="true"></i>
-																										<span className="koh-faq-question-span">Test Question 1</span>
-																									</div>
-																									<div className="koh-faq-answer">
-																										Test Answer 1
-																									</div>
 																								</div>
-																							</div>
-																						</div>
+																							</p>
+																						</div>																							
 																					</div>
 																				</div>
 																		}
