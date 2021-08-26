@@ -410,34 +410,24 @@ export default class OrderDetails extends Component {
                               </div>
 
                                <div className={"col-lg-12 pr-0 d-lg-block d-xl-block d-none pb-1 "+Style.orderDetailVendorAmtWrapper}>
-                                 <div className="col-lg-12 ">
-                                   <div className="col-lg-12 ">
-                                     <div className="col-lg-12 ">
-                                       <div className={"col-lg-4 col-12 pr-0 pull-right  "+Style.orderDetailVendorAmtInnerWrapper}>
-                                          <div className={"col-lg-6 col-12 float-left text-left "+Style.TotalAmtVendorColor}>Total</div>
-                                          <div className={"col-lg-6 col-12 float-left "}>
-                                            <span className="col-lg-4 d-inline-block  currencyColor">{this.state.currency}</span>
-                                            <span className={"col-lg-8  d-inline-block  "+Style.orderDEtailvendrTotalColor}>{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) :"00.00"}</span>
-                                          </div>
-                                        </div>
-                                      </div>
+                                 
+                                 <div className={"col-lg-4 col-12 pr-0 pull-right  "+Style.orderDetailVendorAmtInnerWrapper}>
+                                    <div className={"col-lg-6 col-12 float-left text-left "+Style.TotalAmtVendorColor}>Total</div>
+                                    <div className={"col-lg-6 col-12 float-left "}>
+                                      <span className="col-lg-4 d-inline-block  currencyColor">{this.state.currency}</span>
+                                      <span className={"col-lg-8  d-inline-block  "+Style.orderDEtailvendrTotalColor}>{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) :"00.00"}</span>
                                     </div>
                                   </div>
                               </div>
 
                               <div className={"col-lg-12 pr-0 d-lg-block d-xl-block d-none "+Style.orderDetailVendorAmtWrapper}>
-                                <div className="col-lg-12 ">
-                                   <div className="col-lg-12 ">
-                                     <div className="col-lg-12 ">
-                                       <div className={"col-lg-4 col-12 pr-0 pull-right  "+Style.orderDetailVendorAmtInnerWrapper}>
-                                          <div className={"col-lg-6 col-12 float-left text-left "+Style.TotalAmtVendorColor}>You Save</div>
-                                          <div className="col-lg-6 col-12 float-left ">
-                                            <span className="col-lg-4 d-inline-block  currencyColor">{this.state.currency}</span>
-                                            <span className={"col-lg-8  d-inline-block "+Style.savingaMTcOLOR}>{vendordata.vendor_discountAmount > 0 ? vendordata.vendor_discountAmount.toFixed(2) : "00.00"}</span>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                                
+                               <div className={"col-lg-4 col-12 pr-0 pull-right  "+Style.orderDetailVendorAmtInnerWrapper}>
+                                  <div className={"col-lg-6 col-12 float-left text-left "+Style.TotalAmtVendorColor}>You Save</div>
+                                  <div className="col-lg-6 col-12 float-left ">
+                                    <span className="col-lg-4 d-inline-block  currencyColor">{this.state.currency}</span>
+                                    <span className={"col-lg-8  d-inline-block "+Style.savingaMTcOLOR}>{vendordata.vendor_discountAmount > 0 ? vendordata.vendor_discountAmount.toFixed(2) : "00.00"}</span>
+                                  </div>                    
                                 </div>
                               </div>
 

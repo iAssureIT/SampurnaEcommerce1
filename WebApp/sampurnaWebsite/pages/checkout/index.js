@@ -968,7 +968,7 @@ class Checkout extends Component {
                                                     this.props.recentAddressData && this.props.recentAddressData.length > 0 ?
                                                         <div className="">
                                                             <div className={"col-12 NoPadding " + Style.shippingAddress}>
-                                                                <div className={"col-12 " + Style.eCommTitle + " " + Style.paymentMethodTitle}>Shipping Address <span className="required">*</span></div>
+                                                                <div className={"col-12 " + Style.eCommTitle + " " + Style.paymentMethodTitle}>Address <span className="required">*</span></div>
                                                                 <div className={"col-12 pt-4 " + Style.addressWrapper}>
                                                                     <div className=" col-12 errorMsg mb-2">{this.state.errors.checkoutAddess}</div>
                                                                     {this.props.recentAddressData && this.props.recentAddressData.length > 0 ?
@@ -1470,7 +1470,7 @@ class Checkout extends Component {
                                                                                 <div className="col-12 grandTotal mt-4 mb-2 font-weight-bold">
                                                                                     <div className={"row " + Style.f13N2}>
                                                                                         <span className={"col-6 orderTotalText " + Style.f1612 + " " + Style.bold}><strong>Grand Total</strong></span>
-                                                                                        <span className={"col-6 textAlignRight " + Style.f161 + " " + Style.bold+ " " + Style.bold}><span className={" " + Style.currencyColor}>{this.state.currency}</span> &nbsp;
+                                                                                        <span className={"col-6 textAlignRight " + Style.f161 + " " + Style.bold+ " " + Style.bold+ " " + Style.grandTotalMargin}><span className={" " + Style.currencyColor}>{this.state.currency}</span> &nbsp;
                                                                                             {(this.state.recentCartData.paymentDetails.netPayableAmount).toFixed(2)}
                                                                                         </span>
                                                                                     </div>
@@ -1480,7 +1480,7 @@ class Checkout extends Component {
                                                                                     <div className={"row " + Style.f13NTerms}>
                                                                                         <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" />
                                                                                         <div className="col-11 col-xl-11 col-md-11 termsWrapper">
-                                                                                            <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree to terms & conditions</span> <span className="required">*</span>
+                                                                                            <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree to Terms & Conditions</span> <span className="required">*</span>
                                                                                         </div>
                                                                                         <div className="col-11 pt-3">
                                                                                             <div className="errorMsg termConditionErrorMsg col-12 ">{this.state.errors.termsNconditions}</div>

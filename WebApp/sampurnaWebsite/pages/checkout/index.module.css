@@ -168,7 +168,7 @@
     text-transform: capitalize;
     opacity       : 0.6;
     font-family   : 'Montserrat-Medium';
-    font-weight   : 500;
+    font-weight   : 600;
     font-size     : 12px;
 }
 
@@ -189,7 +189,7 @@
 }
 
 .totalAmountWrapper {
-    margin-left: 70px;
+    right: -8.6%;
 }
 
 .f13N {
@@ -270,6 +270,9 @@
 .border1 {
     border-radius: 6px 0px 0px 6px !important;
     height       : 38px !important;
+    border-color : #429F61;
+    background   : #eee;
+    font-weight: 300;
 }
 
 .border2 {
@@ -322,11 +325,13 @@
 }
 
 .checkoutCurrencyWrapper {
-    right: -20% !important;
+    right: -5% !important;
+    text-align: right;
 }
 
 .checkoutCurrencyWrapper2 {
-    right: -12% !important;
+    right: -7% !important;
+    text-align: right;
 }
 
 .addressWrapper {
@@ -523,6 +528,13 @@
     font-weight: 300;
     margin-bottom: -20px;
 }
+.grandTotalMargin{
+    right: -5%;
+}
+.f1612{
+    margin-left: -5% !important;
+}
+
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
     .pnHidden {
@@ -542,7 +554,7 @@
     .f1612 {
         font-size  : 16px !important;
         font-family: 'Montserrat-Black';
-        margin-left: -4% !important;
+        margin-left: -5% !important;
     }
 
     .modalLogoWrapper {
@@ -606,14 +618,14 @@
         font-size  : 12px ! important;
         color      : #000;
         margin-top : -6px;
-        margin-left: 0px !important;
+        margin-left: -3px !important;
     }
 
     .f13N1 {
         font-size  : 12px ! important;
         color      : #000;
-        margin-top : -6px;
-        margin-left: 11px !important;
+        margin-top : 6px!important;
+        margin-left: 6px !important;
     }
 
     .f13N2 {
@@ -646,7 +658,7 @@
     text-transform: capitalize;
     opacity       : 0.6;
     font-family   : 'Montserrat-Medium';
-    font-weight   : 500;
+    font-weight   : 600;
 }
 
 .creditColorCheckout {
@@ -659,30 +671,57 @@
     margin-left: -6px !important;
 }
 
-@media only screen and (min-width: 1200px) {
-    .totalAmountWrapper {
-        margin-left: 56px;
+@media  (min-width: 2560px) {
+    .orderDetailVendorAmtWrapper {
+        left: 3.4%;
     }
-
+    .checkoutCurrencyWrapper {
+        right: -2% !important;
+    }
+    .checkoutCurrencyWrapper2 {
+        right: -3% !important;
+    }
+    .f1612 {
+        margin-left: -2% !important;
+    }
+    .grandTotalMargin{
+        right: -2%;
+    }
+    .f13NTerms {
+        margin-left: -16px !important;
+    }
 }
-
-@media only screen and (min-width: 1300px) {
-    .totalAmountWrapper {
-        margin-left: 70px;
+@media (min-width: 1920px) and (max-width: 2559px) {
+    .grandTotalMargin{
+        right: -5%;
     }
-
+    .f1612 {
+        margin-left: -4% !important;
+    }
+    .f13NTerms {
+        margin-left: -9px !important;
+    }
+    .checkoutCurrencyWrapper {
+        right: -3% !important;
+    }
+    .checkoutCurrencyWrapper2 {
+        right: -5% !important;
+    }
 }
-
-@media only screen and (min-width: 1600px) {
-    .totalAmountWrapper {
-        margin-left: 90px;
+@media (min-width: 1680px) and (max-width: 1919px) {
+    .grandTotalMargin{
+        right: -4%;
     }
-
-}
-
-@media only screen and (min-width: 1920px) {
-    .totalAmountWrapper {
-        margin-left: 102px;
+    .checkoutCurrencyWrapper {
+        right: -3% !important;
     }
-
+    .checkoutCurrencyWrapper2 {
+        right: -5% !important;
+    }
+    .f13NTerms {
+        margin-left: -6px !important;
+    }
+    .f1612 {
+        margin-left: -4% !important;
+    }
 }

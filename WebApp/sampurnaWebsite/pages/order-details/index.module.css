@@ -44,9 +44,9 @@
 .productNameOrderDetail {
 	font-family   : 'Montserrat-Regular';
 	color         : #000000 !important;
-	opacity       : 0.5;
+	opacity       : 0.6;
 	letter-spacing: 0px;
-	font-size     : 14px !important;
+	font-size     : 13px !important;
 
 }
 
@@ -66,6 +66,9 @@
 	cursor         : pointer;
 	font-size      : 10px;
 	text-decoration: underline;
+	font-size      : 11px;
+	color          : #033554;
+	font-weight    : 600;
 }
 
 .orderIdborderNew {
@@ -143,8 +146,8 @@
 .reviewProName {
 	font-size  : 11px;
 	font-weight: 600;
-	font-family: 'Montserrat-Regular';
-	font-weight: 600;
+	font-family: 'Montserrat-Medium';
+	color: #000;
 }
 
 .reviewProPrice {
@@ -451,6 +454,7 @@
 }
 
 .orderDetailVendorAmtWrapper {
+	left: -4.4%;
 	/* background-color: yellow; */
 	height        : 25px;
 	/* line-height:14px; */
@@ -472,27 +476,40 @@
 	.totalAmountWrapper {
 		margin-left: 56px;
 	}
-}
-@media only screen and (min-width: 1200px) {
 	.inputWrapper {
 		margin-top   : -23px;
 	}
 }
-
-
-@media (min-width: 1537px) and (max-width: 1920px) {  
-  
+@media  (min-width: 2560px) {
+	.orderDetailVendorAmtWrapper {
+		left: 3.4%;
+	}
+}
+@media (min-width: 1920px) and (max-width: 2559px) {
+	.orderDetailVendorAmtWrapper {
+		left: 0.4%;
+	}
+}
+@media (min-width: 1680px) and (max-width: 1919px) {
+	.orderDetailVendorAmtWrapper {
+		left: -1.4%;
+	}
+}
+@media (min-width: 1440px) and (max-width: 1679px) {
+	.orderDetailVendorAmtWrapper {
+		left: -3.4%;
+	}
+}
+@media (min-width: 1366px) and (max-width: 1439px) {
+	.orderDetailVendorAmtWrapper {
+		left: -4.4%;
+	}
+}
+@media (min-width: 1200px) and (max-width: 1365px) {
+	.orderDetailVendorAmtWrapper {
+		left: -5.4%;
+	}
 }
 
-@media (min-width: 1600px) and (max-width: 2560px) {  
-  
-}
-@media (min-width: 1080px) and (max-width: 1920px) {  
-  
-}
-@media (min-width: 864px) and (max-width: 1536px) {  
-  
-}
-@media (min-width: 768px) and (max-width: 1024px) {  
-  
-}
+
+

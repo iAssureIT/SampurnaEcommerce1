@@ -602,7 +602,7 @@ uploadImage(event) {
                             {productdata.isReview ?
                             <div className={"mt-1 " + Style.returnReviewBtn} productId={productdata.product_ID} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Edit Review</div>
                             :
-                            <div className={"mt-1 " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Review</div>
+                            <div className={"mt-1 " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Feedback</div>
                           }
                         </span>
                         : null
