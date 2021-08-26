@@ -222,6 +222,13 @@ export default class ContactUsTrollyMart extends Component{
 								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>
 									<label className={S.emailWrapperContactUs}>support@knock-knockeshop.com</label>
 								</div>
+								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-address-card"}></i>
+									<label className={S.emailWrapperContactUs}>
+										<span className={"col-12 " +S.contactAddress}>Head Office : Unit 201, Level – 1, Gate Avenue – South Zone DIFC, Dubai – UAE </span><br/>
+										<span className={"col-12 " +S.contactAddress}>Branch Address : Palace Tower 1 Office Building, Office No:1405, S.P Oasis Street, Dubai Silicon Oasis, Dubai – UAE</span> <br/>
+										
+									</label>
+								</div>
 								<div className={"col-12 hero "+S.hero}>
 									<div className={"social_links pt-lg-4 pt-4 "+S.social_links}>
 										<a href="https://www.instagram.com/knockknock_eshop/" target="_blank"><i className="fab fa-instagram"></i></a>

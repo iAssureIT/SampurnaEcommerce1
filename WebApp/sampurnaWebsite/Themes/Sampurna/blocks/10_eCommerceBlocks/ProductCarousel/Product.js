@@ -411,7 +411,7 @@ class Product extends Component{
                                   }     
                                   </div>                                           
                                   :
-                                  <div className={"col-12 " +Style.outOfStock}>Sold Out</div>
+                                  <div className={"col-12 globalAddToCartBtn " +Style.outOfStock}>Sold Out</div>
                               }
                             </div>
                           </div>
