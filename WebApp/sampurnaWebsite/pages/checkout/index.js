@@ -1337,12 +1337,19 @@ class Checkout extends Component {
                                                         </table>
                                                     </div>
                                                     <div className={"col-12  checkOutTerms " + Style.checkOutTerms}>
+                                                        <div className={Style.coupanTitle}>
+                                                            You can use Either..
+                                                        </div>
                                                         <div className="col-12 ">
                                                             {this.state.recentCartData ?
+
                                                                 <div className="col-12">
+
                                                                     <div className="row">
+
                                                                         <div className="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 ">
                                                                             <div className="col-12 col-lg-11 col-xl-9 col-md-10 col-sm-12 col-xs-12 mb-2 mt-2 couponCreditWrapper">
+                                                                                
                                                                                 <div className="row mt-5 couponWrapper ">
                                                                                     <div className="col-12">
                                                                                         <label className={"col-12 " + Style.f13N+" "+ Style.disccountCoupnWrapper}>Enter Discount Coupon Here</label>

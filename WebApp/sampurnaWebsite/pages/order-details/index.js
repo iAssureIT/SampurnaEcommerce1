@@ -53,7 +53,7 @@ export default class OrderDetails extends Component {
       // this.getAllorderStatus();
       var labels = [
         {
-          label: 'New',
+          label: 'New Order',
           name: 'step 1',
         },
         {
@@ -264,10 +264,10 @@ export default class OrderDetails extends Component {
               <br />
               <div className="row">
                 <div className="col-12 col-12 col-md-12">
-                  <div className="col-12">
+                  <div >
                     <h4 className={"table-caption mb-1 mt-4 " + Style.mainTitle}>My Order Details</h4>
                   </div>
-                  <div className={"col-12 NoPadding orderDetailsTopBlock"}>
+                  <div className={"col-12 NoPadding orderDetailsTopBlock "+ Style.orderDetailsTopBlock}>
                     <div className="col-12 NoPadding orderDetailsTop " style={{
                       'backgroundColor': this.state.orderData.orderStatus === "New" && '#033554' ||
                         this.state.orderData.orderStatus === "Delivered" && '#3E9D5E' ||
@@ -329,47 +329,49 @@ export default class OrderDetails extends Component {
                               </div>
                               {vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
                                 <div className="col-12 NoPadding ">
-                                  {
-                                    this.state.labels.map((step,index)=>{
-                                      if(index === 0){
-                                        var barCls = Style.firstStepBar;
-                                      }else{
-                                        var barCls = Style.stepBar;
-                                      }
+                                  <div className="row">
+                                    {
+                                      this.state.labels.map((step,index)=>{
+                                        if(index === 0){
+                                          var barCls = Style.firstStepBar;
+                                        }else{
+                                          var barCls = Style.stepBar;
+                                        }
 
-                                      if(index === this.state.labels.length -1){
-                                        var barCls = Style.lastStepBar;
-                                      }
+                                        if(index === this.state.labels.length -1){
+                                          var barCls = Style.lastStepBar;
+                                        }
 
-                                      if(index1 === index){
-                                        var actCls = Style.actRound;
-                                      }else{
-                                        var actCls = "";                                        
-                                      }
+                                        if(index1 === index){
+                                          var actCls = Style.actRound;
+                                        }else{
+                                          var actCls = "";                                        
+                                        }
 
-                                      if((index < index1) || (index1 === -1 && index === 0) || (index1 === -1 && index === 1) ||
-                                         (index1 === this.state.labels.length-1) ){
-                                        var doneCls = Style.doneRound;                                        
-                                      }else{
-                                        var doneCls = "";
-                                      }
+                                        if((index < index1) || (index1 === -1 && index === 0) || (index1 === -1 && index === 1) ||
+                                           (index1 === this.state.labels.length-1) ){
+                                          var doneCls = Style.doneRound;                                        
+                                        }else{
+                                          var doneCls = "";
+                                        }
 
 
-                                      return(
-                                        <div className={Style.stepWrapper}>
-                                          <div className={barCls}> </div>
-                                          <div className={doneCls+" "+actCls+" "+Style.stepRound}>
-                                            <div className={Style.indicatorNum}> {doneCls==="" ? index + 1 : null} </div>
+                                        return(
+                                          <div className={Style.stepWrapper}>
+                                            <div className={barCls}> </div>
+                                            <div className={doneCls+" "+actCls+" "+Style.stepRound}>
+                                              <div className={Style.indicatorNum}> {doneCls==="" ? index + 1 : null} </div>
+                                            </div>
+                                            <div className={"col-12 "+Style.progressStep}> {step.label} </div>
                                           </div>
-                                          <div className={"col-12 "+Style.progressStep}> {step.label} </div>
-                                        </div>
-                                      )
-                                    })
-                                  }
+                                        )
+                                      })
+                                    }
+                                  </div>
                                 </div>
                                 : null
                               }
-
+                              <div className="col-12">
                               <ProductsView
                                 vendorWiseOrderData={vendordata}
                                 orderData={this.state.orderData}
@@ -379,6 +381,7 @@ export default class OrderDetails extends Component {
                                 reviewuserData={this.state.reviewuserData}
                                 orderID={this.state.orderData._id}
                               />
+                              </div>
                               
                               <div className="col-12 d-lg-none d-xl-none d-block">
                                 <div className="col-12 NOpadding" style={{ marginBottom: "20px" }} key={index}>

@@ -176,7 +176,8 @@
 }
 
 .emptycartImageWrapper{
-    height:100px
+    height:100px;
+    margin-top: 3%;
 }
 .oldprice{
     font-size: 12px;

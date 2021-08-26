@@ -41,6 +41,45 @@
     color: #fff;
     font-size: 14px;
 }
+.paymentOrderMesseageTitle{
+    font-size: 15.5px;
+    letter-spacing: 0px;
+    font-weight: 600;
+}
+.paymentOrderMesseageSubTitle{
+    font-size: 15px;
+    letter-spacing: 0px;
+    font-weight: 300;
+    color: #F9F9F9;
+}
+.paymentOrderMesseageSubTitle1{
+    font-size: 15px;
+    letter-spacing: 0px;
+    font-weight: 300;
+    color: #F9F9F9;
+    margin-left: 28px!important;
+}
+.paymentOrderMesseageTitle2{
+    font-size: 16px;
+    letter-spacing: 0px;
+}
+.paymentOrderMesseageSubValue2{
+    font-size: 15px;
+}
+.paymentOrderMesseageSubTitleValue{
+    font-size: 15px;
+    letter-spacing: 0px;
+    font-weight: 600;
+    margin-left: 28px!important;
+}
+.paymentOrderMesseageSubTitleImg{
+    margin-right: 5px;
+    width: 18px;
+    height: 23px;
+}
+.paymentOrderCurrency{
+    font-size: 13px;
+}
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 

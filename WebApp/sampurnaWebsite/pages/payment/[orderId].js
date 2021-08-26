@@ -72,34 +72,34 @@ class Payment extends Component{
 											<div className={"col-12 col-lg-4 "+Style.paymentLeftSideWrapper}>
 												<div className={"alert text-center mt-2 "+Style.paymentAlertWrapper}>
 													<img src="/images/eCommerce/Check.svg" alt="Check"></img> <br/>
-                   									<h6>Thank you your order has been received.</h6> 
+                   									<h6 className={Style.paymentOrderMesseageTitle}>Thank you your order has been received.</h6> 
                 								</div>
 												<div className={"mx-4 "+Style.paymentAlertWrapper}>
-													<h6>Receipt From</h6>
-													<h6 className="mx-4 font-weight-bold">Knock Knock</h6>
+													<h6 className={Style.paymentOrderMesseageSubTitle}>Receipt From</h6>
+													<h6 className={"mx-4 font-weight-bold "+Style.paymentOrderMesseageSubTitleValue}>Knock Knock</h6>
 												</div>
 												<div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
 													<h6>
-													<img src="/images/eCommerce/wallet.svg" alt="Wallet"></img>&nbsp; Amount :
+													<img src="/images/eCommerce/wallet.svg" className={Style.paymentOrderMesseageSubTitleImg} alt="Wallet"></img><span className={Style.paymentOrderMesseageSubTitle}> Amount : </span>
 													</h6>
-													<h6 className="mx-4">
-														{this.state.currency}&nbsp;{this.state.orderData.paymentDetails ? this.state.orderData.paymentDetails.netPayableAmount : null} /-
+													<h6 className={"mx-4 "+Style.paymentOrderMesseageSubTitleValue}>
+														<span className={Style.paymentOrderCurrency}>{this.state.currency + " : "}</span>&nbsp;{this.state.orderData.paymentDetails ? this.state.orderData.paymentDetails.netPayableAmount : null} /-
 													</h6>
 												</div>
 												<div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
 													<h6>
-													<img src="/images/eCommerce/calendar.svg" alt="Wallet"></img>&nbsp; Date :
+													<img src="/images/eCommerce/calendar.svg" className={Style.paymentOrderMesseageSubTitleImg} alt="Wallet"></img><span className={Style.paymentOrderMesseageSubTitle}> Date </span>
 													</h6>
-													<h6 className="mx-4">
+													<h6 className={"mx-4 "+ Style.paymentOrderMesseageSubTitle1}>
 														{moment(this.state.orderData.createdAt).format("DD MMMM")}
 													</h6>
 												</div>
 												{/* <div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
 													<h6>
-														<i className="fa fa-sort-numeric-up-alt"></i>&nbsp; OrderID :
+														<i className={"fa fa-sort-numeric-up-alt "+Style.paymentOrderMesseageSubTitleImg}></i><span className={Style.paymentOrderMesseageSubTitle}> OrderID : </span>
 													</h6>
-													<h6 className="mx-4">
-														{this.state.orderData.orderID}&nbsp;{this.state.orderData.shippingtime ? <span className="pull-right hidden-xs">Shipping Time : {this.state.orderData.shippingtime}</span> : null}
+													<h6 className={"mx-4 "+ Style.paymentOrderMesseageSubTitle1}>
+														{this.state.orderData.orderID}&nbsp;{this.state.orderData.shippingtime ? <span className={"pull-right hidden-xs "+ Style.paymentOrderMesseageSubTitle}>Shipping Time : {this.state.orderData.shippingtime}</span> : null}
 													</h6>
 												</div> */}
 												{/* <div className={"mx-4 mt-2 "+Style.paymentLockWrapper}>
@@ -117,8 +117,8 @@ class Payment extends Component{
 															<div className="row">
 																<div className="col-12 mb-3">
                           											<div className="row">
-                           												<span className="col-6">Order No : </span> 
-																		<p className="col-6 text-right invoiceOrderTotal"> 
+                           												<span className={"col-6 "+Style.paymentOrderMesseageTitle2}>Order No : </span> 
+																		<p className={"col-6 text-right invoiceOrderTotal " + Style.paymentOrderMesseageSubValue2}> 
 																			{this.state.orderData.orderID} 
                             											</p>
 																	</div>
@@ -128,8 +128,8 @@ class Payment extends Component{
 																	&&
 																	<div className="col-12 mb-3">
 																		<div className="row">
-																			<span className="col-12 col-sm-4">Email :</span> 
-																			<p className="col-12 col-sm-8 text-right invoiceOrderTotal"> 
+																			<span className={"col-12 col-sm-4 " + Style.paymentOrderMesseageTitle2}>Email :</span> 
+																			<p className={"col-12 col-sm-8 text-right invoiceOrderTotal " + Style.paymentOrderMesseageSubValue2}> 
 																				{this.state.email}
 																			</p>
 																		</div>
@@ -140,8 +140,8 @@ class Payment extends Component{
 																	&&
 																	<div className="col-12 mb-3">
 																		<div className="row">
-																			<span className="col-6">Mobile No. :</span> 
-																			<p className="col-6 text-right invoiceOrderTotal"> 
+																			<span className={"col-6 " + Style.paymentOrderMesseageTitle2}>Mobile No. :</span> 
+																			<p className={"col-6 text-right invoiceOrderTotal " + Style.paymentOrderMesseageSubValue2}> 
 																				{this.state.orderData.deliveryAddress.mobileNumber}
 																			</p>
 																		</div>
@@ -149,8 +149,8 @@ class Payment extends Component{
 											                    }
 																<div className="col-12 mb-3">
                           											<div className="row">
-                           												<span className="col-6">Total : </span> 
-																		<p className="col-6 text-right invoiceOrderTotal"> 
+                           												<span className={"col-6 "+ Style.paymentOrderMesseageTitle2}>Total : </span> 
+																		<p className={"col-6 text-right invoiceOrderTotal " + Style.paymentOrderMesseageSubValue2}> 
 																			<i className={"fa fa-" + this.state.orderData.currency}></i>
 																			{(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2)} &nbsp;
 																			{this.state.currency}&nbsp;
@@ -159,8 +159,8 @@ class Payment extends Component{
 																</div>
 																<div className="col-12 mb-3">
 																	<div className="row">
-																		<span className="col-6">Payment Method : </span>
-																		<p className="col-6 text-right invoiceOrderTotal"> 
+																		<span className={"col-6 "+Style.paymentOrderMesseageTitle2}>Payment Method : </span>
+																		<p className={"col-6 text-right invoiceOrderTotal " + Style.paymentOrderMesseageSubValue2}> 
 																			{
 																				this.state.orderData.paymentDetails.paymentMethod === "cod"
 																				?
