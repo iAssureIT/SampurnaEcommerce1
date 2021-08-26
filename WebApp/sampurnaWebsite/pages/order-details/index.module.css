@@ -200,13 +200,13 @@
 .feedbackBox {
 	border       : solid 1px #ccc !important;
 	border-radius: 3px !important;
+	height: 100px;
 }
 
 .reviewModalFooter {
 	border-top: none;
 	margin-top: -15px;
 }
-
 .inputWrapper {
 	overflow           : hidden;
 	position           : relative;
@@ -216,7 +216,7 @@
 	background         : url('/images/eCommerce/plus.svg') no-repeat center;
 	text-indent        : -9999em;
 	height             : 24px;
-	margin-top         : -24px;
+	margin-top         : -23px;
 }
 
 .uploadReviewImg {
@@ -464,4 +464,27 @@
 	.totalAmountWrapper {
 		margin-left: 56px;
 	}
+}
+@media only screen and (min-width: 1200px) {
+	.inputWrapper {
+		margin-top   : -23px;
+	}
+}
+
+
+@media (min-width: 1537px) and (max-width: 1920px) {  
+  
+}
+
+@media (min-width: 1600px) and (max-width: 2560px) {  
+  
+}
+@media (min-width: 1080px) and (max-width: 1920px) {  
+  
+}
+@media (min-width: 864px) and (max-width: 1536px) {  
+  
+}
+@media (min-width: 768px) and (max-width: 1024px) {  
+  
 }

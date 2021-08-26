@@ -1,5 +1,5 @@
 .vendorCard{
-    height: 120px;
+    height: 116px;
     box-shadow: 0 0 10px 5px #000 !important;
     cursor: pointer;
     border-radius: 3px;
@@ -9,14 +9,15 @@
     border: none !important;
     /* border: solid 2px #000; */
 }
-.shopImg{
-    height: 70px;
-}
 .vendorLogoImg{
     border-radius: 100% !important;
-    height: 80px;
-    width: 80px;
+    height: 90px;
+    width: 90px;
 }
+.shopImg{
+    height: 66px;
+}
+
 .shopImg::before {
     content: "";
     position: absolute;
@@ -117,7 +118,7 @@
 .vendorLogo{
     /* height: 100%; */
     margin-top: -7px;
-    height: 115px;
+    /* height: 115px; */
     border-radius:100%;
     /* border:solid 2px #fff; */
     border-radius: 100%;
@@ -309,9 +310,18 @@
     .globalAddToCartBtn{
       font-size: 14px !important;
     }
+    /* .vendorCard{
+        height: 150px;
+    }
+    .vendorLogoImg{
+        border-radius: 100% !important;
+        height: 120px;
+        width: 120px;
+    } */
   }
   @media (min-width: 1600px) and (max-width: 2560px) {  
     .globalAddToCartBtn{
       font-size: 18px !important;
     }
   }
+  

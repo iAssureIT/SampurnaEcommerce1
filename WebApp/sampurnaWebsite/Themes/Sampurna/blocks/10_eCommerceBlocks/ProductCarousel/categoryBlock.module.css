@@ -116,11 +116,37 @@
         top: 55px;
     }
   }
+
   @media (min-width: 1600px) and (max-width: 2560px) {  
     .categoryPhoto{
         min-height: 180px;
     }
     .categoryName{
         top: 65px;
+    }
+  }
+  @media (min-width: 1080px) and (max-width: 1920px) {  
+    .categoryPhoto{
+        min-height: 170px;
+    }
+    .categoryName{
+        top: 60px;
+    }
+  }
+  @media (min-width: 864px) and (max-width: 1536px) {  
+    .categoryPhoto{
+        /* min-height: 140px; */
+        min-height: 120px;
+    }
+    .categoryName{
+        top: 40px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {  
+    .categoryPhoto{
+        min-height: 120px;
+    }
+    .categoryName{
+        top: 40px;
     }
   }

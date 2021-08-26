@@ -26,7 +26,7 @@
 }
 
 .offTxt {
-  font-size: 10px;
+  font-size: 7px;
 }
 
 .links li a {
@@ -189,9 +189,9 @@
   z-index            : 10;
   border-radius      : 3px;
   /* padding-top     : 10px; */
-  width              : 50px;
-  height             : 55px;
-  font-size          : 11px;
+  width              : 64px;
+  height             : 67px;
+  font-size          : 13px;
   font-weight        : 700;
   white-space        : nowrap;
   margin-top         : 0px;
@@ -947,4 +947,21 @@
   .rightSidefilter {
     margin-top: 28px;
   }
+}
+
+@media (min-width: 1537px) and (max-width: 1920px) {  
+  
+}
+
+@media (min-width: 1600px) and (max-width: 2560px) {  
+  
+}
+@media (min-width: 1080px) and (max-width: 1920px) {  
+  
+}
+@media (min-width: 864px) and (max-width: 1536px) {  
+  
+}
+@media (min-width: 768px) and (max-width: 1024px) {  
+  
 }

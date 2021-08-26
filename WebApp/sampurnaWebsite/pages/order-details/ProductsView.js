@@ -630,7 +630,7 @@ uploadImage(event) {
                             <div className="col-12 mt-3 ">
                               <div className="row">
                                 <div className="col-3 NoPadding orderimgsize text-center" style={{height:'100px'}}>
-                                  <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/image-gallery.svg"} alt="" />
+                                  <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.png"} alt="" />
                                 </div>
                                 <div className="col-5 mt-4 pt-3">
                                     <div className={"col-12 NoPadding text-left " +Style.reviewProName}>{productdata.productName}</div>
@@ -639,9 +639,10 @@ uploadImage(event) {
                                 <div className={"col-3 my-auto NoPadding total text-center "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
                               </div>
                             </div>
-
-                            <form className="feedbackForm col-12">
-                              <div className="col-8 offset-2 row reviewWrapper">
+                            
+                            <form className="feedbackForm col-10 mx-auto">
+                              <div className="row">
+                              <div className="col-10  mx-auto row reviewWrapper">
                                 <StarRatingComponent
                                   name="rate1"
                                   starCount={5}
@@ -658,29 +659,33 @@ uploadImage(event) {
                                   <div className={"col-12 text-left NoPadding " + Style.errormsg}>{this.state.errors.customerReview}</div>
                                 </div>
                               </div>
-                              <div className={"container-flex"}>
-                                <div className={"col-2 NoPadding pull-right " +Style.inputWrapper}>
-                                    <input type="file" multiple id="files" className={ Style.hidden +" " +Style.fileInput} onChange={this.uploadImage.bind(this)} title="Choose Image" accept=".jpg,.jpeg,.png"/>
-                                    <div className={" " +Style.uploadReviewImg}></div>
-                                </div>
-                                <div className="col-12 mt-4">
-                                {
-                                    this.state.imgUrl ?
-                                      <div className="col-lg-12 productImgCol">
-                                        <div className={"col-2 NoPadding " + Style.prodImage}>
-                                          <div className="col-12 NoPadding prodImageInner">
-                                            <span className="prodImageCross" title="Delete Image" data-imageurl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
+                              <div className={"col-12 "}>
+                                <div className="col-12">
+                                  <div className={"col-3 pull-right " +Style.inputWrapper}>
+                                      <input type="file" multiple id="files" className={ Style.hidden +" " +Style.fileInput} onChange={this.uploadImage.bind(this)} title="Choose Image" accept=".jpg,.jpeg,.png"/>
+                                      <div className={" " +Style.uploadReviewImg}></div>
+                                  </div>
+                                  <div className="col-12 mt-4">
+                                  {
+                                      this.state.imgUrl ?
+                                        <div className="col-lg-12 productImgCol">
+                                          <div className={"col-2 NoPadding " + Style.prodImage}>
+                                            <div className="col-12 NoPadding prodImageInner">
+                                              <span className="prodImageCross" title="Delete Image" data-imageurl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
+                                            </div>
+                                            <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail " + Style.reviewImg} style={{ height: '40px' }}></img>
                                           </div>
-                                          <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail " + Style.reviewImg} style={{ height: '40px' }}></img>
+                                          <div className="errorMsg">{this.state.errors.reviewImg}</div>
                                         </div>
-                                        <div className="errorMsg">{this.state.errors.reviewImg}</div>
-                                      </div>
-                                      :
-                                      null
-                                  }
+                                        :
+                                        null
+                                    }
+                                  </div>
+                                </div>
                                 </div>
                               </div>
                             </form>
+                            
                           </div>
                           <div className={"modal-footer "+Style.reviewModalFooter}>
                             <div className="col-6 col-sm-6 col-lg-4 col-xl-4 mx-auto ">
@@ -724,7 +729,7 @@ uploadImage(event) {
                                 </div>
                               </div>
 
-                              <form className={"feedbackForm col-lg-10 offset-lg-1 col-12 pt-2 " + Style.returnForm}>
+                              <form className={"feedbackForm col-10 mx-auto pt-2 " + Style.returnForm}>
                                 <div className={" col-12 mb-2 text-left NoPadding " + Style.errorMsg} >{this.state.returnProductError}</div>
                                 <label className={"col-12 NoPadding text-left "+Style.feedbackLable}> Reason for Return <span className="errorMsg">  </span></label>
                                 <select onChange={this.selecteReason.bind(this)} className={"col-12 form-control "} ref="reasonOfReturn" name="reasonOfReturn" >

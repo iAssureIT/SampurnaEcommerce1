@@ -70,7 +70,7 @@ class Header extends React.Component {
 
                                             <SearchBar />
                                             
-                                            <div className={"col-8 col-sm-5 col-md-4 col-lg-4 " +"col-xl-"+colWithLogin+" mt-1 systemSecurity"}> 
+                                            <div className={"col-8 col-sm-5 col-md-4 col-lg-3 " +"col-xl-"+colWithLogin+" mt-1 systemSecurity"}> 
                                                 <div className="row">   
                                                     <div className={"col-5 NoPadding ml-"+systemSecurityMl+ " systemSecurityModal"}>
                                                         < SystemSecurityModal />
@@ -78,7 +78,7 @@ class Header extends React.Component {
                                                     <div className={"col-"+wishlistCol +" NoPadding "}>                                                   
                                                         < Wishlist />                                                
                                                     </div>  
-                                                    <div className="col-3 col-sm-4 col-lg-4 col-xl-3 NoPadding ">
+                                                    <div className="col-3 col-sm-4 col-lg-3 col-xl-3 NoPadding ">
                                                         < MyCart />    
                                                     </div>                                      
                                                 </div>
