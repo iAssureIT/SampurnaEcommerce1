@@ -8,6 +8,8 @@ router.get('/get/list', 					categoryController.list_section);
 
 router.get('/get/list/:section_ID', 		categoryController.list_category);
 
+router.get('/get/filter/categories/:section_id', 		categoryController.listFilterCategories);
+
 router.get('/get/list/bysectionurl/:sectionUrl', 	categoryController.fetch_categories_by_sectionUrl);
 // router.get('/get/listbyurl/:sectionurl', 	categoryController.list_subCategory_byurl);
 // router.get('/get/listbyurl/:categoryurl', 	categoryController.list_category);

@@ -49,6 +49,7 @@ exports.insertEntity = (req,res,next)=>{
                     website                   : req.body.website,
                     companyPhone              : req.body.companyPhone,
                     companyEmail              : req.body.companyEmail,
+                    commisionPercent            : req.body.commisionPercent,
                     userID                    : req.body.userID,  
                     createdBy                 : req.body.createdBy ? req.body.createdBy : null,
                     createdAt                 : new Date()
@@ -95,6 +96,19 @@ function getNextSequence(entityType) {
 
 exports.listEntity = (req,res,next)=>{
     EntityMaster.find({entityType:req.params.entityType}).sort({createdAt : -1})    
+        .exec()
+        .then(data=>{
+            res.status(200).json(data);
+        })
+        .catch(err =>{
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
+exports.listFilterEntity = (req,res,next)=>{
+    EntityMaster.find({entityType : req.params.entityType}, {companyName : 1}).sort({companyName : 1})    
         .exec()
         .then(data=>{
             res.status(200).json(data);
@@ -269,7 +283,8 @@ exports.singleEntity = (req,res,next)=>{
                         COI                     : data.COI,
                         TAN                     : data.TAN,
                         companyLogo             : data.companyLogo,
-                        shopImage             : data.shopImage,
+                        shopImage               : data.shopImage,
+                        commisionPercent        : data.commisionPercent,
                         website                 : data.website,
                         userID                  : data.userID,  
                         contactData             : contactData
@@ -452,6 +467,7 @@ exports.branchCodeLocation = (req,res,next)=>{
     });
 };
 exports.updateEntity = (req,res,next)=>{
+    console.log("req.body => ",req.body)
     EntityMaster.updateOne(
             { _id:req.body.entityID},  
             {
@@ -465,7 +481,8 @@ exports.updateEntity = (req,res,next)=>{
                             'companyLogo'               : req.body.companyLogo,
                             'shopImage'               : req.body.shopImage,
                             'website'                   : req.body.website,
-                            'companyPhone'              : req.body.companyPhone
+                            'companyPhone'              : req.body.companyPhone,
+                            commisionPercent            : req.body.commisionPercent
                         }
             }
         )

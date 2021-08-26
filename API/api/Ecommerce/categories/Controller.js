@@ -216,6 +216,49 @@ exports.list_category_with_limits = (req,res,next)=>{
     });
 };
 
+exports.listFilterCategories = (req,res,next)=>{
+    Category.find({section_ID : ObjectId(req.params.section_id)}, {category : 1, subCategory : 1})
+    .sort({"category" : 1})
+    .then(data=>{
+        var allData = data.map((x, i)=>{
+            return {
+                "_id"                   : x._id,
+                "category"              : x.category,
+                "subCategory"           : x.subCategory && x.subCategory.length > 0
+                                            ? 
+                                                x.subCategory.sort(dynamicSort("subCategoryTitle"))
+                                            :
+                                                []
+            }
+        })
+        console.log("allData => ",allData)
+        res.status(200).json(allData);
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
+function dynamicSort(property) {
+    var sortOrder = 1;
+
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+
+    return function (a,b) {
+        if(sortOrder == -1){
+            return b[property].localeCompare(a[property]);
+        }else{
+            return a[property].localeCompare(b[property]);
+        }        
+    }
+}
+
 exports.searchCategory = (req,res,next)=>{
     // console.log(req.body.startRange, req.body.limitRange);
     Category.find({

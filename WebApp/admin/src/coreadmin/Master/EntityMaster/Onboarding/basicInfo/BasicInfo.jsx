@@ -20,7 +20,8 @@ class BasicInfo extends Component {
 	  "imageUploaded" : true,
 	  "companyPhoneAvailable" : true, 
 	  "companyPhone"  : '',
-	  "COI"           : []
+	  "COI"           : [],
+	  "commisionPercent" : 0
 	};
  
 	this.handleChange              = this.handleChange.bind(this);
@@ -336,8 +337,10 @@ class BasicInfo extends Component {
 		"companyLogo": this.state.companyLogo,
 		"shopImage": this.state.shopImage,
 		"userID": this.state.userID,
+		"commisionPercent" : this.state.commisionPercent,
 		"createdBy": localStorage.getItem("user_ID")
 	  }
+	  console.log("formValues => ",formValues)
 	  if (this.props.match.params.entityID) {
 		axios.patch('/api/entitymaster/patch', formValues)
 		  .then((response) => {
@@ -842,6 +845,7 @@ class BasicInfo extends Component {
 			"companyLogo": response.data[0].companyLogo,
 			"shopImage": response.data[0].shopImage,
 			"userID": response.data[0].ID,
+			"commisionPercent": response.data[0].commisionPercent,
 			"createdBy": localStorage.getItem("user_ID")
 		  })
 		})
@@ -1185,6 +1189,17 @@ class BasicInfo extends Component {
 					  
 						</div>
 					  </div>
+					  {(this.state.pathname !== "appCompany")
+					  	?
+						  	<div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12 pdcls ">
+								<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 panerror" >
+									<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding-left">Commision Percentage </label>
+									<input maxLength="2" type="number" id="commisionPercent" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12 inputText " value={this.state.commisionPercent} ref="commisionPercent" name="commisionPercent" onChange={this.handleChange} placeholder="Enter value in %" />
+							  	</div>
+							</div>
+						: 
+							null
+						}
 					  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt">
 						  <button className="btn button3 pull-right" onClick={this.SubmitBasicInfo.bind(this)} >Save & Next&nbsp;<i className="fa fa-angle-double-right" aria-hidden="true"></i></button>

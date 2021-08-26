@@ -4059,16 +4059,16 @@ exports.get_nearby_delivery_persons= (req, res, next) => {
 		},
 		{ "$project" : 
 			{
-				"_id"								: 1,
-				"orderID"							: 1,
-				"user_ID"							: 1,
-				"userName"							: 1,
+				"_id"										: 1,
+				"orderID"								: 1,
+				"user_ID"								: 1,
+				"userName"								: 1,
 				"vendorOrders.vendor_id"			: 1,
 				"vendorOrders.vendorLocation_id"	: 1,
 				"vendorOrders.orderStatus"			: 1,
-				"deliveryAddress"					: 1,
-				"vendorDetails.companyName"			: 1,
-				"vendorDetails.companyLogo"			: 1,
+				"deliveryAddress"						: 1,
+				"vendorDetails.companyName"		: 1,
+				"vendorDetails.companyLogo"		: 1,
 				"vendorDetails.locations"			: 1,
 				"vendorDetails.createdAt"			: 1,
 			}
@@ -4093,7 +4093,7 @@ exports.get_nearby_delivery_persons= (req, res, next) => {
 						{ "$lookup" : 
 							{
 								"from"			: "users",
-								"as"			: "userDetails",
+								"as"				: "userDetails",
 								"localField"	: "user_id",
 								"foreignField"	: "_id"
 							}
@@ -4190,7 +4190,7 @@ exports.get_nearby_delivery_persons= (req, res, next) => {
 // ---------------- Revenue Reports ----------------
 exports.revenue_reports = (req, res, next) => {
 	
-	console.log("revenue_reports => ",req.body);
+	// console.log("revenue_reports => ",req.body);
 	// console.log("start => ",moment(req.body.startDate).startOf('day').toDate())
 	// console.log("end => ",moment(req.body.endDate).endOf('day').toDate())
 	// console.log("start1 => ",moment(req.body.startDate).tz('Asia/Kolkata').startOf('day').toDate())
@@ -4234,7 +4234,7 @@ exports.revenue_reports = (req, res, next) => {
 					]
 		})
 	}
-	console.log("selector => ",selector);
+	// console.log("selector => ",selector);
 
   	Orders.aggregate([
 		{ "$unwind" 	: "$vendorOrders"},
@@ -4257,6 +4257,7 @@ exports.revenue_reports = (req, res, next) => {
 				"vendorOrders.vendor_shippingChargesAfterDiscount"	: 1,
 				"vendorOrders.vendor_netPayableAmount"					: 1,
 				"vendorDetails.companyName"								: 1,
+				"vendorDetails.commisionPercent"							: 1,
 				"createdAt"														: 1,
 			}
 		}	
@@ -4266,16 +4267,24 @@ exports.revenue_reports = (req, res, next) => {
 		if(data && data.length > 0){
 			var returnData = [];
 			for (var i = 0; i < data.length; i++) {
+				var commisionPercent = 0;
+				if (data[i].vendorDetails !== null && data[i].vendorDetails !== undefined) {
+					if (data[i].vendorDetails.commisionPercent !== undefined) {
+						commisionPercent = data[i].vendorDetails.commisionPercent;
+					}
+				}
+				
 				returnData.push({
 					_id 						: data[i]._id,
 					orderID 					: data[i].orderID,
-					orderDate 				: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+					orderDate 				: "<div class='whiteSpaceNoWrap'> " + moment(data[i].createdAt).format('MMM Do YYYY') + "</div>" + "<div>" + moment(data[i].createdAt).format('hh:mm a') + "</div>",
 					vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
-					orderAmount       	: data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0,
-					commissionPercentage : 0,
-					commissionAmount 		: 0,
-					deliveryCharges 		: data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0,
-					totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
+					orderAmount       	: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0) + "</div>",
+					commissionPercentage : commisionPercent + "%",
+					commissionAmount 		: "<div class='whiteSpaceNoWrap'> AED " + (commisionPercent > 0 ? ((data[i].vendorOrders.vendor_afterDiscountTotal)/commisionPercent).toFixed(2) : 0) + "</div>",
+					deliveryCharges 		: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0) + "</div>",
+					totalAmount 			: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_afterDiscountTotal ? ((data[i].vendorOrders.vendor_afterDiscountTotal - (commisionPercent > 0 ? (data[i].vendorOrders.vendor_afterDiscountTotal/commisionPercent) : 0))).toFixed(2) : 0) + "</div>"
+					// totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
 				})	
 			}
 			if (i >= data.length) {				
@@ -4308,8 +4317,8 @@ exports.delivery_drivers_reports = (req, res, next) => {
 	selector['$and']    = [];
 	
 	/**----------- Date Filter ------------ */	
-	console.log("start => ",moment(new Date(req.body.startDate)).startOf('day').toDate())	
-	console.log("end => ",moment(new Date(req.body.endDate)).endOf('day').toDate())	
+	// console.log("start => ",moment(new Date(req.body.startDate)).startOf('day').toDate())	
+	// console.log("end => ",moment(new Date(req.body.endDate)).endOf('day').toDate())	
 	if(req.body.startDate && req.body.endDate){       
 		selector["$and"].push({
 			"vendorOrders.deliveryStatus" : 
@@ -4334,7 +4343,15 @@ exports.delivery_drivers_reports = (req, res, next) => {
 	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
 	if(req.body.searchText && req.body.searchText !== ""){
 		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
-		selector["$and"].push({ "orderID" : {'$regex' : req.body.searchText , $options: "i" } })
+		selector["$and"].push({ 
+			"$or" : [
+						{ "orderID" 								: parseInt(req.body.searchText) },
+						{ "vendorDetails.companyName" 		: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "driverDetails.profile.fullName" 	: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "deliveryAddress.name" 				: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "userFullName" 							: {'$regex' : req.body.searchText , $options: "i" } },
+					]
+		})
 	}
 	
   	Orders.aggregate([
@@ -4357,7 +4374,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 			}
 		},
 		{ "$unwind" : "$vendorDetails" },
-		// { $match : selector},
+		{ $match : selector},
 		{ $match : {
 			"vendorOrders.deliveryStatus" : 
 			{"$elemMatch" : 
@@ -4389,25 +4406,25 @@ exports.delivery_drivers_reports = (req, res, next) => {
 		}	
 	])
 	.then(async(data) => {
-		console.log("data => ",data);		
+		// console.log("data => ",data);		
 		if(data && data.length > 0){
 			var returnData = [];
 			for (var i = 0; i < data.length; i++) {
 				if (data[i].vendorOrders.deliveryStatus && data[i].vendorOrders.deliveryStatus.length > 0) {
-					console.log("data[i].vendorOrders.deliveryStatus => ",data[i].vendorOrders.deliveryStatus)
-					console.log("data[i].vendorOrders.paymentDetails.deliveryPerson_id => ",data[i].vendorOrders.paymentDetails.deliveryPerson_id)
+					// console.log("data[i].vendorOrders.deliveryStatus => ",data[i].vendorOrders.deliveryStatus)
+					// console.log("data[i].vendorOrders.paymentDetails.deliveryPerson_id => ",data[i].vendorOrders.paymentDetails.deliveryPerson_id)
 					var getPickupDateAndTime = data[i].vendorOrders.deliveryStatus.filter(deliveryStatus => (deliveryStatus.status === 'On the Way' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id)));
-					console.log("getPickupDateAndTime=> ",getPickupDateAndTime)
+					// console.log("getPickupDateAndTime=> ",getPickupDateAndTime)
 					if(getPickupDateAndTime && getPickupDateAndTime.length > 0){
-						var pickupDateAndTime = moment(getPickupDateAndTime[0].timestamp).format('MMMM Do YYYY, h:mm:ss a')
+						var pickupDateAndTime = getPickupDateAndTime[0].timestamp
 					}else{
 						var pickupDateAndTime = "NA";
 					}
 
 					var getDeliveryDateAndTime = data[i].vendorOrders.deliveryStatus.filter(deliveryStatus => (deliveryStatus.status === 'Delivered' && String(deliveryStatus.statusUpdatedBy) === String(data[i].vendorOrders.paymentDetails.deliveryPerson_id)));
-					console.log("getDeliveryDateAndTime=> ",getDeliveryDateAndTime)
+					// console.log("getDeliveryDateAndTime=> ",getDeliveryDateAndTime)
 					if(getDeliveryDateAndTime && getDeliveryDateAndTime.length > 0){
-						var deliveryDateAndTime = moment(getDeliveryDateAndTime[0].timestamp).format('MMMM Do YYYY, h:mm:ss a')
+						var deliveryDateAndTime = getDeliveryDateAndTime[0].timestamp
 					}else{
 						var deliveryDateAndTime = "NA";
 					}
@@ -4419,7 +4436,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 			        	var ms            				= moment(endDateTime,"DD/MM/YYYY HH:mm").diff(moment(startDateTime,"DD/MM/YYYY HH:mm"));
 			        	var duration      				= moment.duration(ms);
 			        	var timeDiffrence 				= Math.floor(duration.asHours()) + moment.utc(ms).format(":mm");
-						var timeRequiredForDelivery 	= timeDiffrence;
+						var timeRequiredForDelivery 	= timeDiffrence + " Hours";
 					}else{
 						var timeRequiredForDelivery 	= "NA";
 					}
@@ -4429,7 +4446,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 					driverID    				: data[i].driverDetails.profile.employeeID ? data[i].driverDetails.profile.employeeID : "",
 					driverName    				: data[i].driverDetails.profile.fullName &&  data[i].driverDetails.profile.fullName !== undefined && data[i].driverDetails.profile.fullName !== "" ? data[i].driverDetails.profile.fullName : "NA",
 					orderID 						: data[i].orderID,
-					orderDate 					: moment(data[i].createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+					orderDate 					: "<div class='whiteSpaceNoWrap'> " + moment(data[i].createdAt).format('MMM Do YYYY') + "</div>" + "<div>" + moment(data[i].createdAt).format('hh:mm a') + "</div>",
 					vendorName 					: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
 					customerName    			: data[i].userFullName &&  data[i].userFullName !== "undefined undefined" &&  data[i].userFullName !== undefined &&  data[i].userFullName !== null && data[i].userFullName !== "" 
 														? 
@@ -4440,20 +4457,20 @@ exports.delivery_drivers_reports = (req, res, next) => {
 															 	data[i].deliveryAddress.name
 															:
 																"Guest User"),
-					pickupDateAndTime    	: pickupDateAndTime,
-					deliveryDateAndTime  	: deliveryDateAndTime,
+					pickupDateAndTime    	: pickupDateAndTime !== "NA" ? ( "<div class='whiteSpaceNoWrap'> " + moment(pickupDateAndTime).format('MMM Do YYYY') + "</div>" + "<div>" + moment(pickupDateAndTime).format('hh:mm a') + "</div>" ) : pickupDateAndTime ,
+					deliveryDateAndTime  	: deliveryDateAndTime !== "NA" ? ( "<div class='whiteSpaceNoWrap'> " + moment(deliveryDateAndTime).format('MMM Do YYYY') + "</div>" + "<div>" + moment(deliveryDateAndTime).format('hh:mm a') + "</div>" ) : deliveryDateAndTime,
 					timeRequiredForDelivery : timeRequiredForDelivery,
 					paymentMethod 				: data[i].vendorOrders.paymentDetails && data[i].vendorOrders.paymentDetails !== undefined && data[i].vendorOrders.paymentDetails !== null 
 														? 
 															data[i].vendorOrders.paymentDetails.modeOfPayment
 														:
 															"NA",
-					cashCollected 				: data[i].vendorOrders.paymentDetails && data[i].vendorOrders.paymentDetails !== undefined && data[i].vendorOrders.paymentDetails !== null 
+					cashCollected 				:  "<div class='whiteSpaceNoWrap'> AED " + ( data[i].vendorOrders.paymentDetails && data[i].vendorOrders.paymentDetails !== undefined && data[i].vendorOrders.paymentDetails !== null 
 														? 
-															(data[i].vendorOrders.paymentDetails.modeOfPayment.toLowerCase() === 'cash on delivery' ? data[i].vendorOrders.paymentDetails.amountPaid : 0)
+															( data[i].vendorOrders.paymentDetails.modeOfPayment.toLowerCase() === 'cash on delivery' ? data[i].vendorOrders.paymentDetails.amountPaid : 0 )
 														:
-															0,
-					totalAmount 				: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
+															0 ) + "</div>",
+					totalAmount 				: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0 )  + "</div>"
 				})	
 			}
 			if (i >= data.length) {				
@@ -4508,7 +4525,7 @@ exports.vendor_sales_reports = (req, res, next) => {
 	/**----------- SubCategory Filter ------------ */		
 	if(req.body.subCategory && req.body.subCategory !== "" && req.body.subCategory !== null && req.body.subCategory !== undefined){       
 		selector["$and"].push({
-			"vendorOrders.products.subCategory_ID" : ObjectId(req.body.subCategory)
+			"vendorOrders.products.subCategory_ID" : req.body.subCategory
 		})
 	}
 	/**----------- Vendor Filter ------------ */		
@@ -4531,6 +4548,8 @@ exports.vendor_sales_reports = (req, res, next) => {
 		})
 	}
 	
+// console.log("selector => ",selector)
+
   	Orders.aggregate([
 		{ "$unwind" 	: "$vendorOrders"},
 		{ "$unwind" 	: "$vendorOrders.products" },
@@ -4594,7 +4613,7 @@ exports.vendor_sales_reports = (req, res, next) => {
 				})	
 			}
 			if (i >= data.length) {	
-				console.log("returnData => ",returnData)			
+				// console.log("returnData => ",returnData)			
 				res.status(200).json({					
 					dataCount 	: returnData.length,
 					data 			: returnData.slice(req.body.startRange, req.body.limitRange),
