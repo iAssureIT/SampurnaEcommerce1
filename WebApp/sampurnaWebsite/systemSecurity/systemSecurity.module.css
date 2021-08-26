@@ -42,6 +42,11 @@
 .blueText{
     /* font-size: 15px; */
 }
+.resetInstruction{
+    font-size: 8px !important;
+    color: #000;
+    margin-top: -10px;
+}
 
 
 

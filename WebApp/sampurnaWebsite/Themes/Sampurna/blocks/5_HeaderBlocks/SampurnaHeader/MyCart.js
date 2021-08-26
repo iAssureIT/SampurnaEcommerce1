@@ -49,13 +49,12 @@ class MyCart extends React.Component {
                 </div>
                 :
                 <div className="row cartHeader" >
-                    <div className="col-6 col-lg-8 col-sm-8 NoPadding ml-4">
+                    <div className="col-6 col-lg-8 col-sm-8 NoPadding ml-4 my-auto">
                         <a href="" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
-                            <Image
+                            <img
                             src={"/images/eCommerce/cart.png"}
                             className={"rotateImg11" }
-                            height ={40}
-                            width={60}
+                            height ={32}
                             layout={'intrinsic'}
                             />
                         </a>

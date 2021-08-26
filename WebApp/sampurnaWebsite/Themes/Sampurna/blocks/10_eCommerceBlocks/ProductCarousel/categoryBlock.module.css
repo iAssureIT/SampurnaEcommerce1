@@ -33,7 +33,7 @@
     z-index: 1000;
 }
 .categoryName:hover{
-    color: lightcoral;
+    /* color: lightcoral; */
     text-decoration: none !important;
 }
 .categoryBlock:hover {
@@ -103,7 +103,7 @@
     }
 
     .categoryName:hover{
-        color: lightcoral;
+        /* color: lightcoral; */
         text-decoration: none !important;
     } 
   }

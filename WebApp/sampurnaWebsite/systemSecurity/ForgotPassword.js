@@ -35,7 +35,7 @@ class ForgotPassword extends Component{
     
         if (!fields["username"]){
 			formIsValid 		= false;
-			errors["username"] 	= "Please enter your email or mobile number.";
+			errors["username"] 	= "Please enter your Email ID or Mobile Number.";
         }
     
         this.setState({
@@ -59,12 +59,12 @@ class ForgotPassword extends Component{
 		if(this.validateForm()){
 			axios.patch('/api/auth/patch/set_send_otp/' + username) 
                 .then((forgotPassResponse) => {
-                    // console.log("forgotPassResponse==",forgotPassResponse);
                     if(forgotPassResponse.data.message){
                         var userDetails = {
 							userId : forgotPassResponse.data.ID,
 						}
-                        swal(forgotPassResponse.data.message);
+                        // swal(forgotPassResponse.data.message);
+                        swal("OTP sent on registered Email ID / Mobile Number");
                         this.props.updateFormValue("confirmOtp");
                         localStorage.setItem('userDetails', JSON.stringify(userDetails));
                         
@@ -87,11 +87,6 @@ class ForgotPassword extends Component{
                 <div className={"col-12 "+S.signTitleWrapper}>
                     <span className={S.signTitle}>FORGOT PASSWORD</span>
                 </div>
-                {/* <div className="col-12 mt-5">
-                </div> */}
-                {/* <div className="col-12 innloginwrap1">
-                    <h4 className="blueText signinText">Forgot Password</h4>
-                </div> */}
                 {
                     this.state.showMessage === false
 					?

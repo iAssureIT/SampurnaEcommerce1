@@ -85,7 +85,7 @@ class ResetPassword extends Component{
 	openSignInModal(event){
 		event.preventDefault();
 		this.props.updateFormValue("login");
-      	$('#loginFormModal').show();	
+      	$('#loginFormModal').show();
 	}
 
 	render(){
@@ -99,7 +99,8 @@ class ResetPassword extends Component{
 						</div>
 					</div>
 					<div className={"col-12 "+S.signTitleWrapper}>
-						<span className={"font-weight-bolder border-0 "+S.signTitle+" "+S.resetPasswordTitle}>RESET PASSWORD</span>
+						<p className={"font-weight-bolder border-0 "+S.signTitle+" "+S.resetPasswordTitle}>RESET PASSWORD</p>
+						<p className={" "+S.resetInstruction}>Please choose your new password</p>
 					</div>
 					<div className="col-12">
 						<div className="row">

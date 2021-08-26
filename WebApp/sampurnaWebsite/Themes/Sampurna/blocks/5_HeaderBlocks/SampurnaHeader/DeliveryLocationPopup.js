@@ -39,7 +39,12 @@ class DeliveryLocationPopup extends React.Component{
         var windowHeight    = window.innerHeight;
         var mapBlockheight  = windowHeight - 150;
         console.log("mapBlockheight = ",mapBlockheight);
-        this.setState({mapBlockheight : mapBlockheight});
+        var formTopMargin = (mapBlockheight/2) * 0.8 ; 
+        this.setState({
+            mapBlockheight : mapBlockheight,
+            formTopMargin : formTopMargin,
+        });
+
 
         axios.get("/api/projectSettings/get/GOOGLE",)
              .then((response) => {
@@ -322,7 +327,17 @@ class DeliveryLocationPopup extends React.Component{
         }
         return(
             <section className={"col-12 locationPage locationBg "} style={{"height" : this.state.mapBlockheight}} >
-                <form className={"col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 "+Style.deliveryLocationFormWrapper}>
+                {
+                    this.state.latLong.lat && this.state.latLong.lng
+                    ?
+                        <GoogleMap
+                            googleapiKey    = {this.state.googleapiKey}
+                            latLongDetails  = {this.state.latLong}
+                        />
+                    :
+                        null
+                }            
+                <form className={"col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2"} style={{"position":"absolute", "top":this.state.formTopMargin}}>
                     <div className="col-12">
                         <div className="row">
                             <div className="col-12 col-lg-3">
@@ -395,16 +410,6 @@ class DeliveryLocationPopup extends React.Component{
                         </div>
                     </div>
                 </form>
-                {
-                    this.state.latLong.lat && this.state.latLong.lng
-                    ?
-                        <GoogleMap
-                            googleapiKey    = {this.state.googleapiKey}
-                            latLongDetails  = {this.state.latLong}
-                        />
-                    :
-                        null
-                }
             </section>
         );
     }

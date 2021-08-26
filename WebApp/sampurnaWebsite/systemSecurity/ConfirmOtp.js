@@ -81,7 +81,7 @@ class ConfirmOTP extends Component{
             		console.log("error while resending otp==",error);
         		})
 		}else{
-			swal("Please enter OTP");
+			swal("Please enter valid OTP");
 		}
 	}
 

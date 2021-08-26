@@ -66,7 +66,7 @@ class ProductZoom extends Component {
 	
 	handleClickImg(event){
 		var srcImage = event.currentTarget.id;
-		console.log("srcImage = ",srcImage);
+		// console.log("srcImage = ",srcImage);
 
 		this.setState({
 			selectedImage : srcImage,
@@ -89,66 +89,72 @@ class ProductZoom extends Component {
 			<div className="col-12 col-xl-5 col-lg-5 col-md-12 col-sm-12 mt20 mb20 boxBorder mobileViewNoPadding NoPadding">
 				{this.props.productData
 				?
-				<div className="col-12 boxBorderInner mobileViewNoPadding ">
-					<div className="row">
-						<div className=" col-12 stickyDiv">
-							<div className="col-12 imageContainer imgCont">
-								<div className="prod-detail-slider prod-detail-filpCommon col-12 ">
-									{this.props.productData.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discountBadge}>{Math.floor(this.props.productData.discountPercent)}% off</div> : null}
-									<div id="react-app" className={"col-12 item productZoomBlock img-responsiveProduct " +Style.zoomImgWrapper}>
-										{this.props.productData &&
-											<ReactImageZoom className="d-none d-lg-block d-xl-block" {...myprops} />
-											
-										}					
-									</div> 
-									
-									<div id="" className="col-12 NoPadding mt-3">
-									<div className="col-12">
-										<Carousel
-										className="productview"
-										swipeable={false}
-										draggable={false}
-										showDots={false}
-										responsive={responsive}
-										ssr={true} // means to render carousel on server-side.
-										infinite={true}
-										autoPlay={false}
-										autoPlaySpeed={3000}
-										keyBoardControl={true}
-										customTransition="all .20"
-										transitionDuration={500}
-										containerClass="carousel-container"
-										removeArrowOnDeviceType={["Desktop","tablet", "mobile"]}
-										deviceType={this.props.deviceType}
-										//dotListClass="custom-dot-list-style"
-										itemClass={"carousel-item-padding-10-px " +Style.smallBoxImg}>
-										{	
-											this.props.productData && Array.isArray(this.props.productData.productImage) && this.props.productData.productImage.map((data, index) => {
-												return(
-													// <img src={data} className="img-responsive prodImgMobileView" onClick={this.onClickImg.bind(this,data)} key={index}></img>	
-													<Image                                           
-														src={data}
-														alt="ProductImg" 
-														className={"img-responsive prodImgMobileView " +Style.imageBoxPrd}
-														height={200}
-														width={400} 
-														layout={'intrinsic'}
-														id={data}
-														onClick={this.handleClickImg.bind(this)}
-														key={index}
-													/>										
-												);
-											})
-										}
-									</Carousel>
-									</div>
+					<div className="col-12 boxBorderInner mobileViewNoPadding ">
+						<div className="row">
+							<div className=" col-12 stickyDiv">
+								<div className="col-12 imageContainer imgCont">
+									<div className="prod-detail-slider prod-detail-filpCommon col-12 ">
+										{this.props.productData.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discountBadge}>{Math.floor(this.props.productData.discountPercent)}% off</div> : null}
+										<div id="react-app" className={"col-12 item productZoomBlock img-responsiveProduct " +Style.zoomImgWrapper}>
+											{this.props.productData &&
+												<ReactImageZoom className="d-none d-lg-block d-xl-block" {...myprops} />												
+											}					
+										</div> 
+										
+										<div id="" className="col-12 NoPadding mt-3">
+										<div className="col-12">
+											<Carousel
+											className="productview"
+											swipeable={false}
+											draggable={false}
+											showDots={false}
+											responsive={responsive}
+											ssr={true} // means to render carousel on server-side.
+											infinite={true}
+											autoPlay={false}
+											autoPlaySpeed={3000}
+											keyBoardControl={true}
+											customTransition="all .20"
+											transitionDuration={500}
+											containerClass="carousel-container"
+											removeArrowOnDeviceType={["Desktop","tablet", "mobile"]}
+											deviceType={this.props.deviceType}
+											//dotListClass="custom-dot-list-style"
+											itemClass={"carousel-item-padding-10-px " +Style.smallBoxImg}>
+											{	
+												this.props.productData && Array.isArray(this.props.productData.productImage) && this.props.productData.productImage.map((data, index) => {
+													if(data === this.state.selectedImage){
+														var itemClass = itemClass + " " + Style.activeThumbnail;
+													}else{
+														var itemClass = itemClass;														
+													}
+													return(
+														// <img src={data} className="img-responsive prodImgMobileView" onClick={this.onClickImg.bind(this,data)} key={index}></img>	
+														<Image                                           
+															src={data}
+															alt="ProductImg" 
+															className={"img-responsive prodImgMobileView " +Style.imageBoxPrd+" "+Style.activeThumbnail}
+															height={200}
+															width={400} 
+															layout={'intrinsic'}
+															id={data}
+															onClick={this.handleClickImg.bind(this)}
+															key={index}
+														/>										
+													);
+												})
+											}
+										</Carousel>
+										</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-									:null}
+				:
+					null
+				}
 			</div>
 		);
 	}

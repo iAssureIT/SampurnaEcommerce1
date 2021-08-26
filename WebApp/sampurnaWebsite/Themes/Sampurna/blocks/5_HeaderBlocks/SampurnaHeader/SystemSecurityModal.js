@@ -115,12 +115,12 @@ class header extends React.Component {
   
    render() {
     return (
-        <div className="col-12 NoPadding">  
+        <div className="col-12 NoPadding ml-2 ml-lg-0">  
             <div className="col-12 NoPadding loginViewWrapper ">
                 {this.state.loggedIn ? 
                     <div className="col-12 col-lg-12 col-xl-12  NoPadding">
                         <li className="dropdown myaccDropdown">
-                        <span className="col-12 NoPadding ">
+                        <span className="col-12 NoPadding">
                             <div className="faIcon faLoginIcon col-12 mt-2 NoPadding"> 
                                 <div className={"mtm10 "+Style.systemSecurityModalWrapper}>  
                                     {this.state.authService === "guest" && this.state.userId ?
@@ -183,13 +183,13 @@ class header extends React.Component {
                     </div>
                     : 
                     <div className="col-12 col-lg-12 col-xl-10 signInBox NoPadding">
-                        <span className=" col-12 NoPadding signInBlock" >
+                        <div className=" col-12 NoPadding signInBlock" >
                             <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
                                 <span className="col-12 loginView">Sign in &nbsp;
                                     <img src="/images/eCommerce/userIcon.svg" className="userIconImg"></img>
                                 </span>
                             </a>          
-                        </span> 
+                        </div> 
                     </div>
                 }
                 < SystemSecurityPopup />

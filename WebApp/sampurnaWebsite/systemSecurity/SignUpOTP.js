@@ -80,7 +80,8 @@ class SignUpOTP extends Component{
 							}
 							localStorage.setItem('userDetails', JSON.stringify(userDetails));
 							window.location.reload();
-							swal(response.data.message);
+							// swal(response.data.message);
+							swal("OTP Verified");
 						}
 					}
 				})
@@ -103,6 +104,7 @@ class SignUpOTP extends Component{
 				<div className="col-10 offset-1 mt-3">
 					<div className={"col-12 "+S.signTextWrapper}>
 						<div className="row">
+							<a><img src="/images/eCommerce/go-back-arrow.png"></img>&nbsp;</a>
 							<a href="" className="" onClick={this.openSignUpModal.bind(this)}><u>Back to Login</u></a>
 						</div>
 					</div>

@@ -270,17 +270,17 @@ class SignUp extends Component{
 				<form id="signUpUser" className="row">
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
 						{/* <label className="blueText">First Name</label><label className="astricsign">*</label> */}
-						<input type="text" maxLength="25" className="form-control formcontrol1" id="firstname" ref="firstname" name="firstname" placeholder="First Name" onChange={this.handleChange} data-text="firstNameV" />
+						<input type="text" maxLength="25" className="form-control formcontrol1" id="firstname" ref="firstname" name="firstname" placeholder="First Name*" onChange={this.handleChange} data-text="firstNameV" />
 						<div className="errorMsg mt-1">{this.state.errors.firstname}</div>
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
 						{/* <label className="blueText">Last Name</label><label className="astricsign">*</label> */}
-						<input type="text" maxLength="25" className="form-control formcontrol1" id="lastname" ref="lastname" name="lastname" placeholder="Last Name" onChange={this.handleChange} data-text="lastNameV" />
+						<input type="text" maxLength="25" className="form-control formcontrol1" id="lastname" ref="lastname" name="lastname" placeholder="Last Name*" onChange={this.handleChange} data-text="lastNameV" />
 						<div className="errorMsg mt-1 ">{this.state.errors.lastname}</div>
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6  ">
 						{/* <label className="blueText">Email ID</label> */}
-						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="Email ID" onChange={this.handleChange} data-text="emailIDV" />
+						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="Email ID*" onChange={this.handleChange} data-text="emailIDV" />
 						{/* <label className="checkUserExistsError">User already exists!!!</label> */}
 						<div className="errorMsg mt-2">{this.state.errors.signupEmail}</div>
 					</div>
@@ -294,7 +294,7 @@ class SignUp extends Component{
 								required: true
 							}}
 							name="phone"
-							placeholder="Phone"
+							placeholder="Phone*"
 							onChange={mobNumber => { 
 							this.setState({ mobNumber })
 								let fields = this.state.fields;
@@ -308,7 +308,7 @@ class SignUp extends Component{
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
 						{/* <label className="blueText">Create Password</label><label className="astricsign">*</label> */}
-						<input id="signupPassword" type="password" class="form-control passswordInput formcontrol1" ref="signupPassword" name="signupPassword" placeholder="Password" 
+						<input id="signupPassword" type="password" class="form-control passswordInput formcontrol1" ref="signupPassword" name="signupPassword" placeholder="Password*" 
 							onChange={this.handleChange.bind(this)}
 							value={this.state.signupPassword}  autoComplete="off"
 						/>
@@ -319,7 +319,7 @@ class SignUp extends Component{
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
 						{/* <label className="blueText">Confirm Password</label><label className="astricsign">*</label> */}
-						<input id="signupConfirmPassword" type="password" class="form-control passswordInput formcontrol1" ref="signupConfirmPassword" name="signupConfirmPassword" placeholder="Confirm Password" 
+						<input id="signupConfirmPassword" type="password" class="form-control passswordInput formcontrol1" ref="signupConfirmPassword" name="signupConfirmPassword" placeholder="Confirm Password*" 
 							onChange={this.handleChange.bind(this)}
 							value={this.state.signupConfirmPassword}  autoComplete="off"
 						/>
@@ -328,12 +328,12 @@ class SignUp extends Component{
 						</span>
 						<div className="errorMsg mt-1">{this.state.errors.signupConfirmPassword}</div>
 					</div>
-					{/* <div className={"col-12 mt-2 shippingtimes "+S.termsCondition}>
+					<div className={"col-12 mt-2 shippingtimes "+S.termsCondition}>
 						<span><input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="" /></span>&nbsp;
 						<span className="" data-toggle="modal" data-target="#termsNconditionsmodal">Terms & Conditions</span>
 						<span className="required">*</span>
 						<div className="errorMsg mt-1">{this.state.errors.termsNconditions}</div>
-					</div> */}
+					</div>
 					{
 						this.state.btnLoading
 						?

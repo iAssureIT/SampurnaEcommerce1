@@ -517,7 +517,7 @@ input[type=number] {
   font-size:11px;
   letter-spacing:0 !important;
   font-family: 'Montserrat-Regular' !important;
-  font-weight: bolder;
+  font-weight: bolder !important;
 }
 /* signup OTP */
 .signUpOtpWrapper{

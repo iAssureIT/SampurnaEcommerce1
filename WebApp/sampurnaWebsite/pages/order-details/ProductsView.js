@@ -750,7 +750,7 @@ uploadImage(event) {
                                 <div className="row inputrow">
                                   <label className={"col-12 text-left "+Style.feedbackLable}>Comment <span className="errorMsg">  </span></label>
                                   <div className="col-12 ">
-                                    <textarea rows="5" className={"col-12 "+Style.feedbackBox} onChange={this.handleChangeReturn.bind(this)} value={this.state.customerReturnComment} name="customerReturnComment"></textarea>
+                                    <textarea rows="5" className={"col-12 "+Style.feedbackBox} onChange={this.handleChangeReturn.bind(this)} value={this.state.customerReturnComment} name="customerReturnComment" style={{"resize":"none"}}></textarea>
                                     <label className="error">{this.state.returnTextError}</label>
                                   </div>
                                 </div>
@@ -965,7 +965,7 @@ uploadImage(event) {
                               <div className="row inputrow">
                                 <label className={"col-12 mt15 text-left "+Style.feedbackLable}>Leave a feedback...</label>
                                 <div className="col-12 ">
-                                  <textarea rows="5" className={"col-12 "+Style.feedbackBox} onChange={this.handleChangeReview.bind(this)} value={this.state.customerReview} name="customerReview"></textarea>
+                                  <textarea rows="5" className={"col-12 "+Style.feedbackBox} style={{"resize":"none"}} onChange={this.handleChangeReview.bind(this)} value={this.state.customerReview} name="customerReview" ></textarea>
                                   <div className={"col-12 text-left NoPadding " + Style.errormsg}>{this.state.errors.customerReview}</div>
                                 </div>
                               </div>

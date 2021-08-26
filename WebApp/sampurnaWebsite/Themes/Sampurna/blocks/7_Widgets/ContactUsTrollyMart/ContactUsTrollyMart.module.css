@@ -17,6 +17,9 @@
 .getInTouchBtnMainWrapper{
 	margin-left: 13px;
 }
+.contactAddress{
+	display: block;
+}
 .contactusFormWrapperMain{
 	min-height: 970px;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -136,6 +139,14 @@
 .contactUsRightLogo{
 	display: none;
 }
+
+/*.contactUscontent{
+	font-size: 13px;
+	color: #FFF;
+	margin-top: 80px;
+	font-family: 'Montserrat-Thin';
+	text-align: justify;
+}*/
 
 
 

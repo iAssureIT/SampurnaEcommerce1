@@ -53,7 +53,7 @@ class Header extends React.Component {
         }else{
           colWithLogin = 2;
           wishlistCol = 0;
-          systemSecurityMl = 4;
+          systemSecurityMl = 5;
         }
         return(   
             <div className="col-12 headerWrapper NoPadding">
@@ -88,7 +88,7 @@ class Header extends React.Component {
                                     </div>
                                 </div> 
                                 <div className="col-12 NoPadding">
-                                    <div className="navbar-header">
+                                    <div className="d-block d-lg-none navbar-header">
                                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                                             <span className="navbar-toggler-icon"></span>
                                         </button>                             

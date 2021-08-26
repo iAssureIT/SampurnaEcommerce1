@@ -3,6 +3,15 @@
 	src        : url('/WebApp/sampurnaWebsite/Themes/Sampurna/fonts/Montserrat-Regular.ttf');
 }
 
+.returnabletxt{
+	font-weight: 600;
+	font-size: 15px;
+	cursor: pointer;
+}
+.returnLink a{
+	color : #033554 !important;
+	text-decoration: none;
+}
 .actColor{
 	box-shadow: 0px 0px 6px #DC1919;
 	/* border : 100px solid #f00; */
@@ -109,7 +118,10 @@
 .zoomImgWrapper img {
 	height   : 360px !important;
 	width    : 360px !important;
-	/* border: solid 1px #eee; */
+}
+
+.zoomImgWrapper div{
+	text-align: center;	
 }
 
 .ShopBySubCategories h5 {
@@ -241,6 +253,11 @@
 .imageBoxPrd {
 	border : 1px solid #ccc !important;
 	padding: 0px 10px !important;
+}
+
+.activeThumbnail{
+	/*border: 2px solid #f00 !important;*/
+	box-shadow : 0px 0px 6px #f00 !important;
 }
 
 .productNameClassNew {
