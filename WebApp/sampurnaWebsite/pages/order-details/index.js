@@ -263,7 +263,7 @@ export default class OrderDetails extends Component {
             <div className="col-12 NoPadding">
               <br />
               <div className="row">
-                <div className="col-12 col-12 col-md-12">
+                <div className="col-12 ">
                   <div >
                     <h4 className={"table-caption mb-1 mt-4 " + Style.mainTitle}>My Order Details</h4>
                   </div>
@@ -311,19 +311,21 @@ export default class OrderDetails extends Component {
                           var index1 = this.state.labels.map(e => e.label).indexOf(vendordata.orderStatus);
                           
                           return (
-                            <div key={index} style={{ marginBottom: "0px" }} className={"col-12 pb-3 vendorwiseOrderHistory " + Style.vendorRow}>
-                              <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">
-                                <div className="row">
-                                  <div className="col-7 NOpadding">
-                                    <span className="orderDetailsVendorName">{vendordata.vendorName}</span> &nbsp;
-                                  </div>
-                                  <div className="col-5 pull-right">
-                                    {this.state.orderData.orderStatus !== "Cancelled" &&
-                                      this.cancelButton(this.state.orderData.createdAt) &&
-                                      <div className="col-12 NoPadding ">
-                                        <div className={"col-12 text-right cancelOrderbtn " + Style.cancelBtn} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("hh:mm A")} </div>
-                                      </div>
-                                    }
+                            <div key={index} style={{ marginBottom: "0px" }} className={" pb-3 vendorwiseOrderHistory " + Style.vendorRow}>
+                              <div className="row NOpadding vendorNameBlock pt-4 pb-4">
+                                <div className="col-12">
+                                  <div className="row">
+                                    <div className="col-7 NOpadding">
+                                      <span className="col-12 orderDetailsVendorName">{vendordata.vendorName}</span> &nbsp;
+                                    </div>
+                                    <div className="col-5 pull-right">
+                                      {this.state.orderData.orderStatus !== "Cancelled" &&
+                                        this.cancelButton(this.state.orderData.createdAt) &&
+                                        <div className="col-12 NoPadding ">
+                                          <div className={"col-12 text-right cancelOrderbtn " + Style.cancelBtn} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("hh:mm A")} </div>
+                                        </div>
+                                      }
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -372,6 +374,7 @@ export default class OrderDetails extends Component {
                                 : null
                               }
                               <div className="col-12">
+                              <div className="col-12">
                               <ProductsView
                                 vendorWiseOrderData={vendordata}
                                 orderData={this.state.orderData}
@@ -381,6 +384,7 @@ export default class OrderDetails extends Component {
                                 reviewuserData={this.state.reviewuserData}
                                 orderID={this.state.orderData._id}
                               />
+                              </div>
                               </div>
                               
                               <div className="col-12 d-lg-none d-xl-none d-block">
@@ -406,23 +410,35 @@ export default class OrderDetails extends Component {
                               </div>
 
                                <div className={"col-lg-12 pr-0 d-lg-block d-xl-block d-none pb-1 "+Style.orderDetailVendorAmtWrapper}>
-                                 <div className={"col-lg-4 col-12 pr-0 pull-right  "+Style.orderDetailVendorAmtInnerWrapper}>
-                                    <div className={"col-lg-6 col-12 float-left text-left "+Style.TotalAmtVendorColor}>Total</div>
-                                    <div className={"col-lg-6 col-12 float-left "}>
-                                      <span className="col-lg-4 d-inline-block  currencyColor">{this.state.currency}</span>
-                                      <span className={"col-lg-8  d-inline-block  "+Style.orderDEtailvendrTotalColor}>{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) :"00.00"}</span>
+                                 <div className="col-lg-12 ">
+                                   <div className="col-lg-12 ">
+                                     <div className="col-lg-12 ">
+                                       <div className={"col-lg-4 col-12 pr-0 pull-right  "+Style.orderDetailVendorAmtInnerWrapper}>
+                                          <div className={"col-lg-6 col-12 float-left text-left "+Style.TotalAmtVendorColor}>Total</div>
+                                          <div className={"col-lg-6 col-12 float-left "}>
+                                            <span className="col-lg-4 d-inline-block  currencyColor">{this.state.currency}</span>
+                                            <span className={"col-lg-8  d-inline-block  "+Style.orderDEtailvendrTotalColor}>{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) :"00.00"}</span>
+                                          </div>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                               </div>
 
                               <div className={"col-lg-12 pr-0 d-lg-block d-xl-block d-none "+Style.orderDetailVendorAmtWrapper}>
-                                 <div className={"col-lg-4 col-12 pr-0 pull-right  "+Style.orderDetailVendorAmtInnerWrapper}>
-                                    <div className={"col-lg-6 col-12 float-left text-left "+Style.TotalAmtVendorColor}>You Save</div>
-                                    <div className="col-lg-6 col-12 float-left ">
-                                      <span className="col-lg-4 d-inline-block  currencyColor">{this.state.currency}</span>
-                                      <span className={"col-lg-8  d-inline-block "+Style.savingaMTcOLOR}>{vendordata.vendor_discountAmount > 0 ? vendordata.vendor_discountAmount.toFixed(2) : "00.00"}</span>
+                                <div className="col-lg-12 ">
+                                   <div className="col-lg-12 ">
+                                     <div className="col-lg-12 ">
+                                       <div className={"col-lg-4 col-12 pr-0 pull-right  "+Style.orderDetailVendorAmtInnerWrapper}>
+                                          <div className={"col-lg-6 col-12 float-left text-left "+Style.TotalAmtVendorColor}>You Save</div>
+                                          <div className="col-lg-6 col-12 float-left ">
+                                            <span className="col-lg-4 d-inline-block  currencyColor">{this.state.currency}</span>
+                                            <span className={"col-lg-8  d-inline-block "+Style.savingaMTcOLOR}>{vendordata.vendor_discountAmount > 0 ? vendordata.vendor_discountAmount.toFixed(2) : "00.00"}</span>
+                                          </div>
+                                        </div>
+                                      </div>
                                     </div>
-                                  </div>
+                                </div>
                               </div>
 
                              
