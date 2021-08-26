@@ -506,6 +506,23 @@ class UserReport extends Component {
     	this.setState({ 
     		[name]  : event
     	},()=>{
+    		if (this.state.customizedFiltersArray && this.state.customizedFiltersArray.length) {
+    			var customFilter = this.state.customizedFiltersArray.filter(filter => filter.inputName === name);
+    			console.log("customFilter => ",customFilter);
+    			// if (customFilter && customFilter.length > 0) {
+    			// console.log("customFilter[0].onChangeMethod => ",customFilter[0].onChangeMethod);
+    			// 	if (customFilter[0].onChangeMethod !== undefined) {
+    			// 		console.log("In.....");
+    			// 		var callMethod = customFilter[0].onChangeMethod;
+    			// 	}
+    			// }
+    			if (name === "section") {
+	    			this.props.getCategories(this.state[name].value)
+    			}
+    			if (name === "category") {
+	    			this.props.getSubCategories(this.state[name].value)
+    			}
+    		}
     		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
     		console.log(`Option selected:`, name, " => ",this.state[name]);
     	});

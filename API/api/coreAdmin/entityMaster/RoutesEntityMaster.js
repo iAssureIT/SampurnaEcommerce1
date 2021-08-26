@@ -10,6 +10,8 @@ router.post('/post/sos',  											entityMaster.sos_to_appCompony_contacts);
 
 router.get('/get/:entityType', 									checkAuth, entityMaster.listEntity);
 
+router.get('/get/filter/:entityType', 							checkAuth, entityMaster.listFilterEntity);
+
 router.get('/countContacts/:entityType', 						checkAuth, entityMaster.countContacts);
 
 router.get('/getCompany/:companyID', 							entityMaster.getCompany);

@@ -60,9 +60,10 @@ class RevenueReports extends Component{
 													totalAmount 			: 'Total Amount'
 			},
       	tableObjects      		: {
-							        paginationApply 	: true,
-							        searchApply     	: true,
-							        excelReportExport 	: false
+							        paginationApply 			: true,
+							        searchApply     			: true,
+							        excelReportExport 			: false,
+							        searchApplyPlaceholder 	: "Search by vendor name, Order ID etc..",
       	},
 		}
 		window.scrollTo(0, 0);

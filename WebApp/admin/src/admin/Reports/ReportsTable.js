@@ -543,7 +543,7 @@ class IAssureTable extends Component {
 				        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
 				        		<div className="input-group">
 							        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
-							        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder="Search by Customer Name, Order ID"/>
+							        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder={this.state.tableObjects.searchApplyPlaceholder}/>
 							    	<span className="input-group-addon" ><i className="fa fa-search"></i></span>
 							    </div>
 				        	</div>	
@@ -648,7 +648,7 @@ class IAssureTable extends Component {
 
 																if(value1.includes('textAlignLeft')){
 																	textAlign = 'textAlignLeft';
-																}else if(value1.includes('textAlignRight')){
+																}else if(value1.includes('textAlignRight') || value1.includes('0%') || value1.includes('AED')){
 																	textAlign = 'textAlignRight';
 																}else{
 																	textAlign = 'textAlignLeft';
@@ -658,6 +658,8 @@ class IAssureTable extends Component {
 
 																var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
 																if(bN){
+																	textAlign = 'textAlignRight';
+																}else if(value1.includes('textAlignRight') || value1.includes('0%') || value1.includes('AED')){
 																	textAlign = 'textAlignRight';
 																}else{
 																	textAlign = 'textAlignLeft';

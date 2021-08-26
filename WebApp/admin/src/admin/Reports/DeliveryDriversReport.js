@@ -64,9 +64,10 @@ class DeliveryDriversReport extends Component{
 													totalAmount 				: 'Total Amount'
 			},
       	tableObjects      		: {
-							        paginationApply 	: true,
-							        searchApply     	: true,
-							        excelReportExport 	: false
+							        paginationApply 			: true,
+							        searchApply     			: true,
+							        excelReportExport 			: false,
+							        searchApplyPlaceholder 	: "Search by vendor name, driver name, customer name, order ID..",
       	},
 		}
 		window.scrollTo(0, 0);

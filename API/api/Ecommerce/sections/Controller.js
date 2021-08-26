@@ -63,6 +63,19 @@ exports.get_sections = (req,res,next)=>{
     });
 };
 
+exports.getFilterSections = (req,res,next)=>{
+    Sections.find({}, {section : 1}) 
+    .sort({"section" : 1})
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error : err
+        });
+    });
+};
+
 exports.get_sections_list = (req,res,next)=>{
     Sections.find() 
     .sort({"sectionRank" : 1})
