@@ -17,6 +17,20 @@
 .logo-nb img{
   height: 70px;
 }
+.wrapper1{
+  height: 100px;
+}
+.wrapper2{
+  padding-top: 30px;
+  height: 90px;
+}
+.wrapper3{
+  padding-top: 10px;
+}
+.wrapper4{
+  padding-top: 10px;
+  font-size: 11px;
+}
 
 .footer-middle > div i {
     width: 40px;
@@ -488,10 +502,11 @@
   color: #fff;
 }
 .socialMediaIcons{
-  text-align: right;
-/*  margin: auto;
-  margin-left: 13px;
-  margin-right: 13px;*/
+  text-align: center;
+  width: 100px;
+  background-color: #f0f;
+  padding: 10px;
+  height: 100px;
 }
 .logoTop{
   /* margin-top: 62px!important; */
@@ -563,21 +578,21 @@
     margin-top: 60px;
   }
   .aboutClass{
-  color:#fff;
-  float: left;
-  margin-right:15px;
-    }
+    color:#fff;
+    float: left;
+    margin-right:15px;
+  }
 
-    .payDiv{
-      text-align:left;
-  display: grid;
+  .payDiv{
+    text-align:left;
+    display: grid;
     justify-content: center;
     font-size: 14px!important;
-      }
+  }
 
-      .mt80{
-  margin-top:30px;
-     }
+  .mt80{
+    margin-top:30px;
+  }
 
  }
 
