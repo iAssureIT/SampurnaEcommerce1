@@ -90,16 +90,16 @@ class ResetPassword extends Component{
 
 	render(){
         return(
-            <div className="col-12 resetWrapper mobileViewNoPadding">
+            <div className={"col-12 resetWrapper mobileViewNoPadding "+S.systemSecurityWrapper}>
                 <div className="col-12 mobileViewNoPadding">
-					<div className={"col-12 "+S.signTextWrapper}>
+					<div className={"col-12 "+S.systemSecurityTextWrapper}>
 						<div className="row">
 							<a><img src="/images/eCommerce/go-back-arrow.png"></img>&nbsp;</a>
 							<a href="" className={S.backToLogin} onClick={this.openSignInModal.bind(this)}><u> Back to Login</u></a>
 						</div>
 					</div>
-					<div className={"col-12 "+S.signTitleWrapper}>
-						<p className={"font-weight-bolder border-0 "+S.signTitle+" "+S.resetPasswordTitle}>RESET PASSWORD</p>
+					<div className={"col-12 "+S.systemSecurityTitleWrapper}>
+						<p className={"font-weight-bolder border-0 "+S.systemSecurityTitle+" "+S.resetPasswordTitle}>RESET PASSWORD</p>
 						<p className={" "+S.resetInstruction}>Please choose your new password</p>
 					</div>
 					<div className="col-12">

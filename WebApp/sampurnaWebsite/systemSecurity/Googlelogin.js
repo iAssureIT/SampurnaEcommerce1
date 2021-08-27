@@ -50,7 +50,7 @@ class Googlelogin extends Component{
 					}
 				})
 				.catch((error)=>{
-					console.log("error===",error);
+
 				})
 		}
 	}

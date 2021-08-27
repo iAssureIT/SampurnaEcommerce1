@@ -55,7 +55,7 @@ class LoginAsGuest extends Component{
 				}
 			})
 			.catch((error)=>{
-				console.log("Error while guest login=",error);
+
 			})
 	}
 

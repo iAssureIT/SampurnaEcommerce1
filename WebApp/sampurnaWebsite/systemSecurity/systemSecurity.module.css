@@ -1,26 +1,51 @@
-.signWrapper{
-    height: 500px;
+@font-face{
+    font-family : 'Montserrat-Regular';
+    src         : url("../Themes/Sampurna/fonts/Montserrat-Regular.ttf");
+}
+
+@font-face{
+    font-family : 'Montserrat-Light';
+    src         : url("../Themes/Sampurna/fonts/Montserrat-Light.ttf");
+}
+
+@font-face{
+    font-family : 'Montserrat-Medium';
+    src         : url("../Themes/Sampurna/fonts/Montserrat-Medium.ttf");
+}
+
+@font-face{
+    font-family : 'Montserrat-Bold';
+    src         : url("../Themes/Sampurna/fonts/Montserrat-Bold.ttf");
+}
+
+
+.systemSecurityWrapper{
+    height: auto;
+    padding-bottom: 20px;
 }
 .signUpWrapper{
     height: auto;
 }
-.signTitleWrapper{
+.systemSecurityTitleWrapper{
     text-align: center;
     padding-top: 40px;
 }
-.signTitle{
+.systemSecurityTitle{
+    font-family : 'Montserrat-Medium';
     color: #033554;
 }
-.signTextWrapper{
+.systemSecurityTextWrapper{
     padding-top: 30px;
-    font-family: 'Montserrat-Medium' !important;
 }
-.signTextWrapper span{
+.systemSecurityTextWrapper span{
     font-size: 10px;
+    font-family : 'Montserrat-Light';
+    font-weight: 300;
     color: #033554;
 }
-.signTextWrapper a{
+.systemSecurityTextWrapper a{
     font-size: 10px;
+    font-family : 'Montserrat-Regular';
     color: #2E92CF;
 }
 .otpText{
@@ -29,18 +54,25 @@
 .backToLogin{
     color: #033554 !important;
 }
-.signInSignUpUnderline{
+.systemSecurityTitleUnderline{
     width: 50px;
     margin-top: -2px;
+}
+.systemSecurityTitleUnderline2{
+    width: 150px;
+    margin-top: -2px;
+}
+.systemSecurityWrapper input::placeholder {
+    font-size: 12px !important;
+    font-family : 'Montserrat-Light';
+    font-weight: 300;
+    color: #033554 !important;
 }
 .resetPasswordTitle{
     font-family: 'Montserrat-Bold' !important;
 }
 .termsCondition{
     font-size: 12px;
-}
-.blueText{
-    /* font-size: 15px; */
 }
 .resetInstruction{
     font-size: 8px !important;
@@ -77,7 +109,7 @@
 /* [lg] Large Devices [Tablet - Landscape, 992px and up] */
 @media (min-width: 992px){
 
-    .signWrapper{
+    .systemSecurityWrapper{
         height: 500px;
     }
     .otpText{

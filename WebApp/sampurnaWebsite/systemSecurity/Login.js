@@ -160,15 +160,15 @@ class Login extends Component{
   
 	render(){
 		return(
-			<section id="loginFormModal" className={"col-12 "+S.signWrapper}>
+			<section id="loginFormModal" className={"col-12 "+S.systemSecurityWrapper}>
 				{
 					this.state.loggedIn === false &&
 						<div className="row">
-							<div className={"col-12 "+S.signTitleWrapper}>
-								<span className={S.signTitle}>SIGN IN</span>
-								<hr className={S.signInSignUpUnderline}/>
+							<div className={"col-12 "+S.systemSecurityTitleWrapper}>
+								<span className={S.systemSecurityTitle}>SIGN IN</span>
+								<hr className={S.systemSecurityTitleUnderline}/>
 							</div>
-							<div className={"col-12 "+S.signTextWrapper}>
+							<div className={"col-12 "+S.systemSecurityTextWrapper}>
 								<div className="row">
 									<span>Don't have an account?</span>&nbsp;&nbsp;
 									<a href="" className="" onClick={this.openSignUpModal.bind(this)}>Sign Up</a>

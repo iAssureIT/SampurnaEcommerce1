@@ -6,6 +6,7 @@ import Image 				from 'next/image';
 import FacebookLogin 		from 'react-facebook-login';
 
 class Facebooklogin extends Component{
+	
 	constructor(props){
 		super(props);
 		this.state = {
@@ -15,17 +16,16 @@ class Facebooklogin extends Component{
 			"picture" : "",
 		}
 	}
+
 	componenClicked = ()=>{
-		console.log("*********     Clicked    ********")
+
 	}
 	
 	buttonClicked = ()=>{
-		console.log("Button Clicked")
+
 	}
 
 	responseFacebook(response){
-
-		console.log("response = ", response);
 
 		if(response){
 			var formValues = {
@@ -64,7 +64,7 @@ class Facebooklogin extends Component{
 				    }
 			    })
 				.catch((error)=>{
-					console.log("error===",error);
+
 				})
 		}
 	}

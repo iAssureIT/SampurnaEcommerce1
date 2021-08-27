@@ -83,10 +83,11 @@ class ForgotPassword extends Component{
 
 	render(){
         return(
-            <div className="col-12 mobileViewNoPadding">
-                <div className={"col-12 "+S.signTitleWrapper}>
-                    <span className={S.signTitle}>FORGOT PASSWORD</span>
-                </div>
+            <div className={"col-12 mobileViewNoPadding "+S.systemSecurityWrapper}>
+                <div className={"col-12 "+S.systemSecurityTitleWrapper}>
+					<span className={S.systemSecurityTitle}>FORGOT PASSWORD</span>
+					<hr className={S.systemSecurityTitleUnderline2}/>
+				</div>
                 {
                     this.state.showMessage === false
 					?
@@ -94,7 +95,6 @@ class ForgotPassword extends Component{
                             <p className="col-12 mt-5 infoText">Please enter your registered email address or Mobile Number below to receive an OTP.</p>
                             <form id="resetPass" className="mt-5">
                                 <div className="col-12 textAlignLeft frmhgt">
-                                    {/* <label className="formLabel ">Email ID / Mobile Number</label><label className="astricsign">*</label> */}
                                     <input className="col-12 form-control" placeholder="Email ID / Mobile Number" ref="username" name="username" type="text" onChange={this.handleChange.bind(this)}/>
                                     <div id="username"></div>
                                     <div className="errorMsg">{this.state.errors.username}</div>
