@@ -327,7 +327,7 @@ export default class MyOrders extends Component {
                     this.state.orderData.map((singleOrder, index) => {
                       // console.log("singleOrder=",singleOrder);
                       return (
-                        <div className={"col-12 NoPadding orderIdborder " + Style.orderIdborderNew} key={index}>
+                        <div className={"col-10 offset-sm-1 NoPadding orderIdborder " + Style.orderIdborderNew} key={index}>
                           <div className="col-12  NoPadding orderNowrapper mb-4 " style={{
                             'backgroundColor': singleOrder.orderStatus === "New" && '#033554' ||
                               singleOrder.orderStatus === "Delivered" && '#3E9D5E' ||
@@ -435,7 +435,7 @@ export default class MyOrders extends Component {
                                 }
                               </div>
                               <div className="col-lg-7  pull-right orderBtnWrapper">
-                                <button className=" btn col-lg-6 col-6 col-sm-4 float-right " onClick={() => this.props.getOrderId(singleOrder._id)}>
+                                <button className="btn col-6 col-sm-4 col-lg-6 col-xl-5 float-right " onClick={() => this.props.getOrderId(singleOrder._id)}>
                                   <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-lg-9 float-right showDetailsBtn "} 
                                   >Show Details
                                   </a>

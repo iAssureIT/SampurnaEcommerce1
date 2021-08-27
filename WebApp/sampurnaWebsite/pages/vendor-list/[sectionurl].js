@@ -73,9 +73,13 @@ class VendorList extends Component {
                     var windowWidth    = window.screen.width;
                     if(windowWidth > 1600){
                         var bgImgHeight = vendorResponse.data.length * 110;                        
+                        if(bgImgHeight<800){ bgImgHeight = 800; }
                     }else{
                         var bgImgHeight = vendorResponse.data.length * 90;
+                        if(bgImgHeight<600){ bgImgHeight = 600; }
                     }
+
+                    
 
                     this.setState({
                         "vendorList" : vendorResponse.data,
