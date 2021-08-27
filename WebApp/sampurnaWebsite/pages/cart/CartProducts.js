@@ -796,7 +796,7 @@ class CartProducts extends Component {
                                                                                                 // console.log("this.props.recentCartData.vendorOrders.length===",this.props.recentCartData.vendorOrders.length);
                                                                                                 return (
                                                                                                     <div className={"row mb-2 text-left  container pt-4  " + Style.tooltipVendorCharges} key={index}>
-                                                                                                        <div className={"col-12 text-left " + Style.vendorNameTooltip}><h5 className="font-weight-bold">{vendorWiseCartData.vendorName}</h5></div>
+                                                                                                        <div className={"col-12 text-left " + Style.vendorNameTooltip}><h5 className={"font-weight-bold "+ Style.vendorNameTooltipAlign}>{vendorWiseCartData.vendorName}</h5></div>
                                                                                                         <div className="container">
                                                                                                             <div className="row">
                                                                                                                 <div className="col-6 text-left">Delivery Charges&nbsp; :</div>

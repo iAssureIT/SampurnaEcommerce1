@@ -154,8 +154,11 @@
 
 .vendorNameTooltip {
     font-size: 18px;
+    
 }
-
+.vendorNameTooltipAlign{
+    margin-top: -20px;
+}
 .tooltipWrapper {
     border-radius: 7px !important;
     font-weight  : 500 !important;

@@ -37,6 +37,7 @@
     border-radius   : 6px 6px 0px 0px;
     padding: 15px;
     margin-bottom: 10px;
+    padding-left: 30px;
 }
 
 .tableBorderNone {
@@ -72,6 +73,7 @@
 }
 
 .modalMainWrapper {
+    box-sizing: border-box;
     border-radius: 19px !important;
 }
 
@@ -110,6 +112,7 @@
     padding      : 15px;
     font-size    : 14px !important;
     margin-bottom: 10px;
+    padding-left : 35px;
 }
 
 .orderReviews {
@@ -128,7 +131,7 @@
 
 .onlinePayment {
     font-size: 10px;
-    margin-left: 35px!important;
+    margin-left: 18px!important;
 }
 
 .cardDelivery {
@@ -139,16 +142,23 @@
 .f14 {
     font-size  : 14px;
     white-space: nowrap;
-    margin-left: 15px;
+    margin-left: 20px;
     margin-top: 15px;
 }
-
+.f14_1{
+    font-size  : 14px;
+    white-space: nowrap;
+    margin-left: -2px;
+    margin-top: 15px;
+}
 .checkoutADDCss {
     font-size   : 12px !important;
     line-height : 2;
     /*margin-top:100px !important;*/
 }
-
+.addressMargin{
+    margin-left: 0px;
+}
 .f11N {
     font-size  : 9px !important;
     font-weight: 500;
@@ -226,10 +236,11 @@
 }
 
 .modalCloseButtonWrapperM {
-    margin-left: -27px !important;
-    cursor     : pointer !important;
-    margin-top : -25px !important;
-    font-size  : 24px !important;
+    position: absolute;
+    right: 16px;
+    cursor: pointer !important;
+    top: 15px !important;
+    font-size: 20px !important;
 }
 
 .modalLogoWrapper {
@@ -534,7 +545,28 @@
 .f1612{
     margin-left: -5% !important;
 }
-
+.modalMainWrapper .modalSaveBtn{
+    width: 50%!important;
+}
+.modalMainWrapper .mobileInput{
+    width: 50%!important;
+}
+.modalMainWrapper .houseNumberMargin{
+    margin-top: 20px!important;
+}
+.modalMainWrapper .shippingInput{
+    margin-top: 20px!important;
+}
+.modalMainWrapper .formcontrol12{
+    margin-top: 10px!important;
+}
+.modalMainWrapper .addressModal{
+    padding: 25px!important;
+    top: 20px!important;
+}
+.vendorNameTooltipMargin{
+    margin-top: -15px;
+}
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
     .pnHidden {
@@ -563,11 +595,17 @@
         left: 2%;
         top : 20% !important;
     }
+    .termsAlign2{
+        position: relative;
+    }
     .termsAlign{
         display: inline-block;
-         margin-top: 7px;
          border-bottom: 1px solid #fff;
-
+         position: absolute;
+         width: 85px;
+         left: 50%;
+         transform: translateX(-50%);
+         top: 16px;
     }
 
     .f11N {

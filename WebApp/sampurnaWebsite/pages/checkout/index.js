@@ -950,16 +950,16 @@ class Checkout extends Component {
                                                         <div className={"col-12 " + Style.eCommTitle + " " + Style.paymentMethodTitle}>Payment Method <span className="required">*</span></div>
                                                         <div className={"col-12 paymentInput " + Style.f14}>
                                                             <input name="paymentmethods" type="radio" value="Online Payment" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "Online Payment"} onClick={this.handleChange.bind(this)} />
-                                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " + Style.f14}>Online Payment<div className={"col-12 ml-4 " + Style.onlinePayment}>(Credit / Debit Card)</div></span>
+                                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " + Style.f14_1}>Online Payment<div className={"col-12 ml-4 " + Style.onlinePayment}>(Credit / Debit Card)</div></span>
                                                         </div>
                                                         <div className={"col-12  " + Style.f14 + " " + Style.cardDelivery}>
                                                             <input name="paymentmethods" type="radio" value="Card On Delivery" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "Card On Delivery"} onClick={this.handleChange.bind(this)} />
-                                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " + Style.f14}>Card On Delivery</span>
+                                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " + Style.f14_1}>Card On Delivery</span>
                                                         </div>
                                                         <div className={"col-12 paymentInput " + Style.f14}>
                                                             <input name="paymentmethods" type="radio" value="Cash On Delivery" className="webModelInput codRadio col-2 col-md-1"
                                                                 checked={this.state.paymentmethods === "Cash On Delivery"} onClick={this.handleChange.bind(this)} />
-                                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " + Style.f14}>Cash On Delivery</span>
+                                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " + Style.f14_1}>Cash On Delivery</span>
                                                         </div>
                                                         <div className="errorMsg col-11 ml-2">{this.state.errors.paymentmethods}</div>
                                                     </div>
@@ -975,7 +975,7 @@ class Checkout extends Component {
                                                                         this.props.recentAddressData.map((data, index) => {
                                                                             return (
                                                                                 <div key={'check' + index} className={"col-12 NoPadding " + data.addressDisabled}>
-                                                                                    <div className="row " >
+                                                                                    <div className={"row "+ Style.addressMargin} >
                                                                                         <div className="form-check col-1">
                                                                                             <input type="radio" className="form-check-input" disabled={data.distance >= 1 ? true : false} name="checkoutAddess" id={"address" + index} value={data._id}
                                                                                                 onChange={(e) => {
@@ -998,7 +998,8 @@ class Checkout extends Component {
                                                                                         <div className="checkoutADDCss mb-4 col-10"><span className="mb-2 "><b>{data.addType} Address&nbsp;</b></span> <br />
                                                                                             <span className={"checkoutADDCss " + Style.checkoutADDCss}>Name : {data.name}.</span> <br />
                                                                                             <span className={" " + Style.checkoutADDCss}>{data.addressLine2}, {data.addressLine1},<br />
-                                                                                                {data.mobileNumber ? <span>Mobile: </span> : null} {data.mobileNumber && data.mobileNumber} </span></div>
+                                                                                                {data.mobileNumber ? <span>Mobile: </span> : null} {data.mobileNumber && data.mobileNumber} </span>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             );
@@ -1162,7 +1163,7 @@ class Checkout extends Component {
                                                 <div className={"col-lg-4 col-12 col-sm-10 offset-sm-1 mx-auto NoPadding " + Style.modalMainWrapper}>
                                                     <div className={"modal-content  col-md NoPadding " + Style.modalContent}>
                                                         <div className={"modal-header globalBgColor col-12 " + Style.modalHeader}>
-                                                            <div className={"modal-title col-12 modalheadingcont pb-2 text-center underline " + Style.f14B}><img className={" " + Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO" /><span className={Style.termsAlign}>Terms & Conditions</span><div className={Style.borderLeft}></div></div>
+                                                            <div className={"modal-title col-12 modalheadingcont pb-2 text-center underline " + Style.f14B}><img className={" " + Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO" /><span className={Style.termsAlign2}>Terms & Conditions <span className={Style.termsAlign}></span></span><div className={Style.borderLeft}></div></div>
                                                             <button type="button" className={" close modalclosebut  " + Style.modalCloseButtonWrapper} data-dismiss="modal">&times;</button>
 
                                                         </div> 
@@ -1441,7 +1442,7 @@ class Checkout extends Component {
                                                                                             // console.log("this.props.recentCartData.vendorOrders.length===",this.props.recentCartData.vendorOrders.length);
                                                                                             return (
                                                                                                 <div className={"row mb-2 text-left font-weight-bold container pt-4  " + Style.tooltipVendorCharges} key={index}>
-                                                                                                    <div className={"col-12 text-left " + Style.vendorNameTooltip}><h5 className="font-weight-bold">{vendorWiseCartData.vendorName}</h5></div>
+                                                                                                    <div className={"col-12 text-left " + Style.vendorNameTooltip}><h5 className={"font-weight-bold " + Style.vendorNameTooltipMargin}>{vendorWiseCartData.vendorName}</h5></div>
                                                                                                     {/* <div className="col-12 ">
                                                                                     <span className="col-5 text-left NoPadding">Delivery Charges </span> 
                                                                                     <span className="col-1">:</span>
@@ -1458,7 +1459,7 @@ class Checkout extends Component {
                                                                                         })
                                                                                         }
 
-                                                                                        <div className="container pb-4">
+                                                                                        <div className="container pb-2">
                                                                                             <div className="row">
                                                                                                 <div className="col-6 text-left">Total Delivery Charges&nbsp; :</div>&nbsp;&nbsp;
                                                                                                 <div className="col-5 text-right NoPadding font-weight-bold ">&nbsp;&nbsp;&nbsp;{this.props.recentCartData && this.props.recentCartData.paymentDetails && this.props.recentCartData.paymentDetails.shippingCharges.toFixed(2)} &nbsp;{this.state.currency}</div>

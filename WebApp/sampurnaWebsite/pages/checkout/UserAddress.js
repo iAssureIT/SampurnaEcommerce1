@@ -248,7 +248,7 @@ class UserAddress extends Component {
 
     render() {
         return (
-            <div className="addressModal col-12 ">  
+            <div className={"addressModal col-12 " + Style.addressModal}>  
             <Message messageData={this.state.messageData} />
                 <div className="row">
                     <form id="modalAddressForm" className="col-12 ">
@@ -283,33 +283,33 @@ class UserAddress extends Component {
                                     }} />
                                 <div className="errorMsg">{this.state.errors.mobileNumber}</div>
                             </div>
-                            <div className="col-12 shippingInput mb-2">
+                            <div className={"col-12 shippingInput mb-2 " +Style.houseNumberMargin}>
                                 <label className="col-12 NoPadding pb-0 mb-0">House No/Office No/Building Name/Street Name <span className="required">*</span> </label>
                                 <input type="text" ref="address1" name="address1" value={this.state.address1} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
                                 <div className="errorMsg">{this.state.errors.address1}</div>
                             </div>
-                            <div className="col-12 shippingInput mb-2">
+                            <div className={"col-12 shippingInput mb-2 " +Style.houseNumberMargin}>
                                 <label className="col-12 NoPadding pb-0 mb-0">Area</label>
                                 <input type="text" ref="area" name="area" value={this.state.area} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
-                            <div className="col-12 shippingInput mb-2">
+                            <div className={"col-12 shippingInput mb-2 " +Style.houseNumberMargin}>
                                 <label className="col-12 NoPadding pb-0 mb-0">Address</label>
                                 <input type="text" ref="address2" name="address2" value={this.state.address} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
-                            <div className="col-12 shippingInput mb-2">
+                            <div className={"col-12 shippingInput mb-2 " +Style.houseNumberMargin}>
                                 <label className="col-12 NoPadding pb-0 mb-0">City</label>
                                 <input type="text" ref="city" name="city" value={this.state.city} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
-                            <div className="col-12 shippingInput mb-2">
+                            <div className={"col-12 shippingInput mb-2 " +Style.houseNumberMargin}>
                                 <label className="col-12 NoPadding pb-0 mb-0">Country</label>
                                 <input type="text" ref="Country" name="Country"  value={this.state.country} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
-                            <div className="col-12 shippingInput mb-2">
+                            <div className={"col-12 shippingInput mb-2 " +Style.houseNumberMargin}>
                                 <label className="col-12 NoPadding pb-0 mb-0">Zip/Postal Code</label>
                                 <input type="number" minLength="6" maxLength="6" ref="pincode" name="pincode" value={this.state.pincode} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
                                 
                             </div>   
-                            <div className="col-12 shippingInput mb-2">
+                            <div className={"col-12 shippingInput mb-2 " +Style.houseNumberMargin}>
                                 <label className="col-12 NoPadding pb-0 mb-0">Address type <span className="required">*</span></label>
                                 <select name="modaladdType" ref="modaladdType" value={this.state.modaladdType} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol12}>
                                     <option >-- Select Address Type --</option>
@@ -321,7 +321,7 @@ class UserAddress extends Component {
                                 <div className="errorMsg">{this.state.errors.modaladdType}</div>
                             </div>
                             <div className=" checkoutAddressModal col-12 py-4">
-                                <div className={"col-12 mx-auto NoPadding " +Style.ma}>
+                                <div className={"col-12 mx-auto NoPadding " +Style.ma + " " + Style.modalSaveBtn}>
                                     <button type="button" className={"btn globaleCommBtn align-center saveAddressBtn col-12 " +Style.saveBtn} onClick={this.saveAddress.bind(this)}>{this.state.addressId ? 'Update Address' :'Save Address'}</button>
                                 </div>
                             </div>

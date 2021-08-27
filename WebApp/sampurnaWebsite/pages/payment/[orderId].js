@@ -80,10 +80,10 @@ class Payment extends Component{
 												</div>
 												<div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
 													<h6>
-													<img src="/images/eCommerce/wallet.svg" className={Style.paymentOrderMesseageSubTitleImg} alt="Wallet"></img><span className={Style.paymentOrderMesseageSubTitle}> Amount : </span>
+													<img src="/images/eCommerce/wallet.svg" className={Style.paymentOrderMesseageSubTitleImg} alt="Wallet"></img><span className={Style.paymentOrderMesseageSubTitle}> Amount: </span>
 													</h6>
 													<h6 className={"mx-4 "+Style.paymentOrderMesseageSubTitleValue}>
-														<span className={Style.paymentOrderCurrency}>{this.state.currency + " : "}</span>&nbsp;{this.state.orderData.paymentDetails ? this.state.orderData.paymentDetails.netPayableAmount : null} /-
+														<span className={Style.paymentOrderCurrency}>{this.state.currency + ": "}</span>&nbsp;{this.state.orderData.paymentDetails ? this.state.orderData.paymentDetails.netPayableAmount : null} /-
 													</h6>
 												</div>
 												<div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
@@ -117,7 +117,7 @@ class Payment extends Component{
 															<div className="row">
 																<div className="col-12 mb-3">
                           											<div className="row">
-                           												<span className={"col-6 "+Style.paymentOrderMesseageTitle2}>Order No : </span> 
+                           												<span className={"col-6 "+Style.paymentOrderMesseageTitle2}>Order No: </span> 
 																		<p className={"col-6 text-right invoiceOrderTotal " + Style.paymentOrderMesseageSubValue2}> 
 																			{this.state.orderData.orderID} 
                             											</p>
@@ -128,7 +128,7 @@ class Payment extends Component{
 																	&&
 																	<div className="col-12 mb-3">
 																		<div className="row">
-																			<span className={"col-12 col-sm-4 " + Style.paymentOrderMesseageTitle2}>Email :</span> 
+																			<span className={"col-12 col-sm-4 " + Style.paymentOrderMesseageTitle2}>Email:</span> 
 																			<p className={"col-12 col-sm-8 text-right invoiceOrderTotal " + Style.paymentOrderMesseageSubValue2}> 
 																				{this.state.email}
 																			</p>
@@ -140,7 +140,7 @@ class Payment extends Component{
 																	&&
 																	<div className="col-12 mb-3">
 																		<div className="row">
-																			<span className={"col-6 " + Style.paymentOrderMesseageTitle2}>Mobile No. :</span> 
+																			<span className={"col-6 " + Style.paymentOrderMesseageTitle2}>Mobile No.:</span> 
 																			<p className={"col-6 text-right invoiceOrderTotal " + Style.paymentOrderMesseageSubValue2}> 
 																				{this.state.orderData.deliveryAddress.mobileNumber}
 																			</p>
@@ -149,7 +149,7 @@ class Payment extends Component{
 											                    }
 																<div className="col-12 mb-3">
                           											<div className="row">
-                           												<span className={"col-6 "+ Style.paymentOrderMesseageTitle2}>Total : </span> 
+                           												<span className={"col-6 "+ Style.paymentOrderMesseageTitle2}>Total: </span> 
 																		<p className={"col-6 text-right invoiceOrderTotal " + Style.paymentOrderMesseageSubValue2}> 
 																			<i className={"fa fa-" + this.state.orderData.currency}></i>
 																			{(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2)} &nbsp;
@@ -159,7 +159,7 @@ class Payment extends Component{
 																</div>
 																<div className="col-12 mb-3">
 																	<div className="row">
-																		<span className={"col-6 "+Style.paymentOrderMesseageTitle2}>Payment Method : </span>
+																		<span className={"col-6 "+Style.paymentOrderMesseageTitle2}>Payment Method: </span>
 																		<p className={"col-6 text-right invoiceOrderTotal " + Style.paymentOrderMesseageSubValue2}> 
 																			{
 																				this.state.orderData.paymentDetails.paymentMethod === "cod"
