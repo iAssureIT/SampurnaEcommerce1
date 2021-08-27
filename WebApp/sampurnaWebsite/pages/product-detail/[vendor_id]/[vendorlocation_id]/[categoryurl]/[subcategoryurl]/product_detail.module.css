@@ -3,6 +3,8 @@
 	src        : url('/WebApp/sampurnaWebsite/Themes/Sampurna/fonts/Montserrat-Regular.ttf');
 }
 
+
+
 .returnabletxt{
 	font-weight: 600;
 	font-size: 15px;
@@ -256,8 +258,7 @@
 }
 
 .activeThumbnail{
-	/*border: 2px solid #f00 !important;*/
-	box-shadow : 0px 0px 6px #f00 !important;
+	border: 2px solid #666 !important;
 }
 
 .productNameClassNew {
@@ -391,6 +392,36 @@
 	color    : #033554;
 }
 
+.sizeTab{
+	text-align: center;
+	height : 40px;
+}
+
+.sizeTab a{
+	padding: 7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media only screen and (max-device-width: 480px) {
 	.productDetailVendorName {
 		font-size: 10px;
@@ -481,5 +512,18 @@
 	}
 }
 
+/* (xl) Extra Large Devices (Large Desktops, 1900px and up) */
+@media (min-width: 1900px) {
+	.cartBTN {
+		margin-left: -60px;
+	}
+}
+
+/* (xl) Extra Large Devices (Large Desktops, 2400px and up) */
+@media (min-width: 2400px) {
+	.cartBTN {
+		margin-left: -90px;
+	}
+}
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

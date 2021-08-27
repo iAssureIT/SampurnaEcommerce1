@@ -5,6 +5,8 @@ import Image                  from 'next/image';
 import Link                   from 'next/link';
 import Carousel               from 'react-multi-carousel';
 import Style                  from './SubCategoryBlock.module.css';
+import CustomRightArrow       from '../CustomArrows/CustomRightArrow2.js';
+import CustomLeftArrow        from '../CustomArrows/CustomLeftArrow2.js';
 
 const responsive = {
   desktop: {
@@ -57,6 +59,8 @@ class SubCategoryBlock extends Component{
               removeArrowOnDeviceType={["mobile"]}
               deviceType={this.props.deviceType}  
               containerClass="carousel-container"
+              customRightArrow={<CustomRightArrow />}
+              customLeftArrow={<CustomLeftArrow />}
             >
 
                     {this.props.subCategoryData && this.props.subCategoryData.map((categorydata, index) => {

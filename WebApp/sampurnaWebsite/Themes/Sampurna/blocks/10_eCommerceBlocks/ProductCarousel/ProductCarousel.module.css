@@ -8,6 +8,10 @@
   src        : url('../../../fonts/Montserrat-Regular.ttf');
 }
 
+.carouselNewWrapper{
+  /*padding: 14px !important;*/
+}
+
 
 .breadCrumbs {
   background-color: #efefef;

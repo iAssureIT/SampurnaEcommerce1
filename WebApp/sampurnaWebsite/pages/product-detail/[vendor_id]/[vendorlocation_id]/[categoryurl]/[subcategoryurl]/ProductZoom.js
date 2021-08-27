@@ -8,24 +8,31 @@ import { withRouter }       from 'next/router'
 import dynamic              from 'next/dynamic';
 import getConfig            from 'next/config';
 import Image                from 'next/image';
-import Style                  from './product_detail.module.css';
+import Style                from './product_detail.module.css';
+import CustomRightArrow 	 from '../../../../../../Themes/Sampurna/blocks/StaticBlocks/CustomArrows/CustomRightArrow.js';
+import CustomLeftArrow 	 	 from '../../../../../../Themes/Sampurna/blocks/StaticBlocks/CustomArrows/CustomLeftArrow.js';
+
 
 const { publicRuntimeConfig } = getConfig();
+
 
 const responsive = {
 	desktop: {
 	  breakpoint: { max: 3000, min: 1024 },
-	  items: 3,
-	  slidesToSlide: 1 // optional, default to 1.
+	  items: 4,
+	  partialVisibilityGutter: 0,
+	  slidesToSlide: 2, // optional, default to 1.
 	},
 	tablet: {
 	  breakpoint: { max: 1024, min: 464 },
 	  items: 3,
-	  slidesToSlide: 1 // optional, default to 1.
+	  partialVisibilityGutter: 0,
+	  slidesToSlide: 2 // optional, default to 1.
 	},
 	mobile: {
 	  breakpoint: { max: 464, min: 0 },
 	  items: 2,
+	  partialVisibilityGutter: 0,
 	  slidesToSlide: 1 // optional, default to 1.
 	}
   };
@@ -43,15 +50,14 @@ class ProductZoom extends Component {
 	async componentDidMount(){
 		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
       var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));      
-        if(userDetails){
-            if(userDetails.user_id){
+      if(userDetails){
+         if(userDetails.user_id){
 				this.setState({
 					user_ID :  userDetails.user_id,
 				},()=>{
-				})
-               
-            }
-        }
+				})               
+         }
+      }
 
 		if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
 			this.setState({
@@ -59,8 +65,7 @@ class ProductZoom extends Component {
 				showLoginAs  : sampurnaWebsiteDetails.preferences.showLoginAs,
 				currency     : sampurnaWebsiteDetails.preferences.currency,
 			})
-		}
-
+		}		
     }	
 	
 	
@@ -109,7 +114,7 @@ class ProductZoom extends Component {
 											draggable={false}
 											showDots={false}
 											responsive={responsive}
-											ssr={true} // means to render carousel on server-side.
+											ssr={false} // means to render carousel on server-side.
 											infinite={true}
 											autoPlay={false}
 											autoPlaySpeed={3000}
@@ -119,21 +124,25 @@ class ProductZoom extends Component {
 											containerClass="carousel-container"
 											removeArrowOnDeviceType={["Desktop","tablet", "mobile"]}
 											deviceType={this.props.deviceType}
+											customRightArrow={<CustomRightArrow />}
+											customLeftArrow={<CustomLeftArrow />}
+											partialVisible={false}
+											centerMode={false}
 											//dotListClass="custom-dot-list-style"
 											itemClass={"carousel-item-padding-10-px " +Style.smallBoxImg}>
 											{	
 												this.props.productData && Array.isArray(this.props.productData.productImage) && this.props.productData.productImage.map((data, index) => {
 													if(data === this.state.selectedImage){
-														var itemClass = itemClass + " " + Style.activeThumbnail;
+														var actClass = Style.activeThumbnail;
 													}else{
-														var itemClass = itemClass;														
+														var actClass = "";														
 													}
 													return(
 														// <img src={data} className="img-responsive prodImgMobileView" onClick={this.onClickImg.bind(this,data)} key={index}></img>	
 														<Image                                           
 															src={data}
 															alt="ProductImg" 
-															className={"img-responsive prodImgMobileView " +Style.imageBoxPrd+" "+Style.activeThumbnail}
+															className={"img-responsive prodImgMobileView " +Style.imageBoxPrd+" "+ actClass}
 															height={200}
 															width={400} 
 															layout={'intrinsic'}
