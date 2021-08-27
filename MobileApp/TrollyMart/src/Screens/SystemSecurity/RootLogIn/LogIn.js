@@ -41,6 +41,8 @@ import { ActivityIndicator } from 'react-native';
 import { useIsFocused } from "@react-navigation/native";
 import DeviceInfo from 'react-native-device-info';
 import {getCartCount}       from '../../../redux/productList/actions';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 GoogleSignin.configure({
   // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -414,8 +416,8 @@ const window = Dimensions.get('window');
                   />
               </View>
               <View style={styles.textTitleWrapper}>
-                <Text style={{fontSize:14,color:"#bbb",fontFamily:"Montserrat-Medium",}}>Welcome to</Text>
-                <Text style={{fontSize:18,fontWeight:'bold',color:"#000000"}}>Knock Knock</Text>
+                <Text style={{fontSize:RFPercentage(2.2),color:"#bbb",fontFamily:"Montserrat-Medium",}}>Welcome to</Text>
+                <Text style={{fontSize:RFPercentage(2.7),fontWeight:'bold',color:"#000000"}}>Knock Knock</Text>
               </View>
             
             <View style={commonStyles.formWrapper}>
@@ -458,10 +460,10 @@ const window = Dimensions.get('window');
               secureTextEntry={!showPassword}
               value = {values.password}
             />
-            <View style={{flexDirection:"row",paddingHorizontal:15,paddingBottom:20,}}>
+            <View style={{flexDirection:"row",paddingHorizontal:wp(2),paddingBottom:hp(4),}}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('ForgotPassword')}  style={{flex:1,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                <Text style={[{fontSize:10,color: "#033554",fontFamily:"Montserrat-Regular",opacity:1}]}>Forgot Password?</Text>
+                <Text style={[{fontSize:RFPercentage(1.5),color: "#033554",fontFamily:"Montserrat-Regular",opacity:1}]}>Forgot Password?</Text>
               </TouchableOpacity>
             </View>
             <FormButton
@@ -480,14 +482,14 @@ const window = Dimensions.get('window');
                   // marginBottom    : 25,
                 },
               ]}>
-                <View style={{flexDirection:"row",paddingHorizontal:15}}>
+                <View style={{flexDirection:"row"}}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                  <Text style={{fontSize:10,fontFamily:"Montserrat-Medium",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:12,fontFamily:"Montserrat-SemiBold",fontWeight:'600'}]}> Sign Up</Text></Text>                  
+                  <Text style={{fontSize:RFPercentage(1.5),fontFamily:"Montserrat-Medium",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:RFPercentage(1.8),fontFamily:"Montserrat-SemiBold",fontWeight:'600'}]}> Sign Up</Text></Text>                  
                 </TouchableOpacity>                
                 </View>
             </View>
-           <Text style={{paddingVertical:10,alignSelf:"center",fontSize:9,color:'#000',fontFamily:"Montserrat-Bold"}}>OR</Text>
+           <Text style={{paddingVertical:hp(1.5),alignSelf:"center",fontSize:RFPercentage(1.3),color:'#000',fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",flexDirection:'row'}}>
               {/* <GoogleSigninButton
                 style={{ width: 41, height: 41,borderRadius:100,marginRight:15}}
@@ -503,8 +505,8 @@ const window = Dimensions.get('window');
                     backgroundColor:"#fff",
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: 40, 
-                    height: 40,
+                    width: hp(6), 
+                    height: hp(6),
                     borderRadius:100,
                     shadowColor: "#000",
                     shadowOffset: {
@@ -530,8 +532,8 @@ const window = Dimensions.get('window');
                     alignItems: 'center',
                     justifyContent: 'center',
                     alignContent:'center',
-                    width: 40, 
-                    height: 40,
+                    width: hp(6), 
+                    height: hp(6),
                     borderRadius:100,
                     shadowColor: "#000",
                     shadowOffset: {
@@ -545,8 +547,8 @@ const window = Dimensions.get('window');
                   <Icon style={{alignSelf:'center'}} name='facebook' type='font-awesome' size={25} color="#fff"/>
                 </TouchableOpacity>
             </View>
-            <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",color:'#000',fontFamily:"Montserrat-Bold"}}>OR</Text>
-            <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
+            <Text style={{paddingVertical:hp(1.5),fontSize:RFPercentage(1.3),alignSelf:"center",color:'#000',fontFamily:"Montserrat-Bold"}}>OR</Text>
+            <View style={{alignItems:"center",justifyContent:"center",marginBottom:hp(2.2)}}>
                 <FormButton
                   title       = {'Continue as a Guest'}
                   // onPress     = {()=>navigation.navigate('LocationMain')}
@@ -555,7 +557,7 @@ const window = Dimensions.get('window');
                   // loading     = {btnLoading}
               />
             </View>
-            <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold",color:"#aaa"}}>V {DeviceInfo.getVersion()}</Text>
+            <Text style={{paddingVertical:hp(1.5),fontSize:RFPercentage(1.3),alignSelf:"center",fontFamily:"Montserrat-Bold",color:"#aaa"}}>V {DeviceInfo.getVersion()}</Text>
           </View>
         <Modal 
           animationType="slide"

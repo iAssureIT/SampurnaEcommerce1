@@ -30,6 +30,7 @@ import {setToast, withCustomerToaster} from '../../../redux/AppState.js';
 import {setUserDetails}     from '../../../redux/user/actions';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
 import PhoneInput           from "react-native-phone-number-input";
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({
@@ -256,8 +257,8 @@ const window = Dimensions.get('window');
                   /> */}
                   <View style={{marginHorizontal:10}}>
                     <Text style={{ fontSize: 14,paddingVertical:2}}>
-                        <Text style={{fontFamily:'Montserrat-Medium', fontSize: 12,color:'#000'}}>Phone Number</Text>{' '}
-                        <Text style={{color: 'red', fontSize: 12}}>
+                        <Text style={{fontFamily:'Montserrat-Medium', fontSize: RFPercentage(1.8),color:'#000'}}>Phone Number</Text>{' '}
+                        <Text style={{color: 'red', fontSize: RFPercentage(1.8)}}>
                         *
                         </Text>
                     </Text>
@@ -282,6 +283,7 @@ const window = Dimensions.get('window');
                         containerStyle= {styles1.containerStyle}
                         textContainerStyle={styles1.textContainerStyle}
                         textInputStyle={styles1.textInputStyle}
+                        codeTextStyle={styles1.codeStyle}
                       />
                     <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                   </View>       
@@ -371,7 +373,7 @@ const window = Dimensions.get('window');
                       <TouchableOpacity
                         onPress={() => navigation.navigate('LogIn')} style={{flexDirection:"row"}}>
                           {/* <Icon name="chevron-double-left" type="material-community" size={22} color={colors.textLight} style={{}} /> */}
-                        <Text style={{fontFamily:"Montserrat-Regular", fontSize: 12,color:'#033554'}}>Sign In</Text>
+                        <Text style={{fontFamily:"Montserrat-Regular", fontSize: RFPercentage(1.8),color:'#033554'}}>Sign In</Text>
                       </TouchableOpacity>
                   </View>
                 </View>
@@ -419,4 +421,10 @@ const styles1 = StyleSheet.create({
      padding:0,
      backgroundColor:"transparent"
    },
+   codeStyle:{
+     fontSize:RFPercentage(1.8),
+     width:'50%',
+     alignItems:"flex-start"
+   },
+  
  });

@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from '../styles.js';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -22,7 +23,7 @@ export default StyleSheet.create({
     },
 
     textTitleWrapper:{
-        paddingHorizontal: 30, marginTop: Platform.OS==="ios" ? 70 : 10, marginBottom:40
+        paddingHorizontal: 30, marginTop: Platform.OS==="ios" ? 70 : heightPercentageToDP(3), marginBottom:40
     },
     boxOpacity:{
         width: '100%',borderColor:colors.theme,shadowColor: colors.theme,
@@ -52,7 +53,7 @@ export default StyleSheet.create({
     },
 
     syslogo1:{
-        flexDirection: 'row', alignItems: "center",justifyContent:"center", marginHorizontal:20,height:180,marginTop:Platform.OS==="ios" ?10:0
+        flexDirection: 'row', alignItems: "center",justifyContent:"center", marginHorizontal:widthPercentageToDP(6),height:heightPercentageToDP(17),marginTop:Platform.OS==="ios" ?10:0
     },
     syslogoimg1:{
         width: '50%',
@@ -63,7 +64,7 @@ export default StyleSheet.create({
         flexDirection: 'row', alignItems: "flex-start",alignSelf:'flex-start', marginHorizontal:20,height:100,
     },
     syslogoLoginNEW:{
-        flexDirection: 'row',marginTop:Platform.OS==='ios'?55:25,marginHorizontal:20
+        flexDirection: 'row',marginTop:Platform.OS==='ios'?55:heightPercentageToDP(3.5),marginHorizontal:20
     },
     textLine1:{
         fontFamily:"Montserrat-Regular",
@@ -76,6 +77,6 @@ export default StyleSheet.create({
     },
     syslogoimgLogin:{
         width: '50%',
-        height:100,        
+        height:heightPercentageToDP(14),        
     },
 });
