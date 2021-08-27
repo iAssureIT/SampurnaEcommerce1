@@ -927,7 +927,15 @@ body {
   }
 
 }
+select:focus {
+  outline: 0 !important;
+}
+option:focus, option:active{
 
+  box-shadow: none !important;
+  outline: none !important;
+ 
+ }
 @media only screen and (min-width: 1920px) {
   .cartWishlistColor{
     color     : #aaa !important;

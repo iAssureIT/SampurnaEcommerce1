@@ -319,14 +319,14 @@ font-weight: bolder;
   }
   .wishIcon{ 
     margin-top: 5px;
-    padding: 0px 6px;
+    padding: 0px 0px;
     font-weight: bold;
     font-size: 12px;
     border: transparent;
     z-index: 1;
     background: transparent;
     position: absolute;
-    left: 85%!important;
+    left: 74%!important;
     top: 2%;
     font-size: 20px;
     font-weight: 700;
