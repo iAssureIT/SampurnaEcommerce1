@@ -184,7 +184,7 @@ export default class ContactUsTrollyMart extends Component{
 		return(
 			<section className={"col-12 contactUsTrollyMainWrapper "+S.contactUsTrollyMainWrapper}>
 				<div className="row">
-					<div className={"col-12 contactUsTrollyBreadcumWrapper "+S.contactUsTrollyBreadcumWrapper} style={{backgroundImage: "url("+this.state.blocks.bgImage+ ")"}}></div>
+					<div className={"col-12 contactUsTrollyBreadcumWrapper img-fluid "+S.contactUsTrollyBreadcumWrapper} style={{backgroundImage: "url("+this.state.blocks.bgImage+ ")"}}></div>
 					<div className={"col-12 col-sm-10 offset-sm-1 col-lg-8 offset-lg-2 contactusFormWrapperMain "+S.contactusFormWrapperMain}>
 						<div className="row">
 							<div className={"col-12 col-lg-7 mb-4 mb-lg-0 contactusFormWrapperLeftSide "+S.contactusFormWrapperLeftSide}>

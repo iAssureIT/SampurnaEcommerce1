@@ -1,3 +1,8 @@
+@font-face {
+  font-family:'Montserrat-Medium';
+  src: url('../../Themes/Sampurna/fonts/Montserrat-Medium.ttf');
+}
+
 .accUserDetails h6 {
     font-size: 14px !important;
 }
@@ -71,4 +76,8 @@
     width           : 100%;
     min-height      : 250px;
     color           : black;
+}
+
+.editAccountFont{
+    font-family: "Montserrat-SemiBold";
 }
