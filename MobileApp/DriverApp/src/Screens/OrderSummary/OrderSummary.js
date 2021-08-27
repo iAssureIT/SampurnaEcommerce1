@@ -277,7 +277,7 @@ const ValidationSchema = Yup.object().shape({
             }
 
             {order?.vendorOrders[0]?.orderStatus === "On the Way" && <View style={{borderRadius:4,backgroundColor:'#E5EAEE',minHeight:100,padding:15,marginBottom:20}}>
-              {(paymentMethod === "Cash On Delivery" ||paymentMethod === "Card On Delivery") && <View style={[styles.tabWrap]}>
+              {(paymentMethod === "Cash On Delivery" || paymentMethod === "Card On Delivery") && <View style={[styles.tabWrap]}>
                 <TouchableOpacity
                   onPress = {()=>{setPaymentMethod('Cash On Delivery')}}
                   style={[(paymentMethod === "Cash On Delivery" ? styles.activeTabView:styles.tabView),styles.tabBorder,styles.borderRadiusLeft]}
@@ -369,9 +369,11 @@ const ValidationSchema = Yup.object().shape({
             </View> }
             {order.vendorOrders[0].orderStatus === "Delivered" &&
               <View>
-                <View style={{flexDirection:'row',justifyContent:'center',marginBottom:15}}>
-                  <Text style={CommonStyles.completeBlueTextB}>Paid by {order.vendorOrders[0].paymentDetails.modeOfPayment}</Text>
-                </View>
+                {(paymentMethod === "Cash On Delivery" || paymentMethod === "Card On Delivery") &&
+                  <View style={{flexDirection:'row',justifyContent:'center',marginBottom:15}}>
+                    <Text style={CommonStyles.completeBlueTextB}>Paid by {order.vendorOrders[0].paymentDetails.modeOfPayment}</Text>
+                  </View>
+                }
                 <View style={{borderRadius:4,backgroundColor:'#E5EAEE',minHeight:100,padding:15,marginBottom:20}}>
                   <View style={{flexDirection:"row",paddingTop:15,justifyContent:'space-between'}}>
                     <View style={{flex:0.6}}>

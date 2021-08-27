@@ -75,14 +75,14 @@ export const CompletedOrders =(props)=> {
  
 
     const previous =()=>{
-        var prev = new Date(date.setDate(date.getDate() - 1));
+        var prev = new Date(date?.setDate(date?.getDate() - 1));
         setDate(prev);
         getList(prev);
         // handleCustom(prev,date);
       }
     
       const next =()=>{
-        var next = new Date(date.setDate(date.getDate() + 1));
+        var next = new Date(date?.setDate(date?.getDate() + 1));
         setDate(next);
         getList(next);
         // handleCustom(next,date);
