@@ -110,6 +110,9 @@ const window = Dimensions.get('window');
   return (
       <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.png")} style={commonStyles.container} resizeMode="cover" >
       <View style={{flex:1}}>
+          <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:35,height:30,paddingRight:5}} onPress={()=> navigation?.goBack()}>
+              <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+          </TouchableOpacity>
           <View style={[styles.boxOpacity]}>
             <View style={styles.syslogo}>
                 <Image

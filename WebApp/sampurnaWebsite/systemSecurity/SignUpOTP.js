@@ -100,16 +100,16 @@ class SignUpOTP extends Component{
   
 	render(){
 	    return(
-			<div className="col-12 NoPadding signUpOtpWrapper">
+			<div className={"col-12 "+S.systemSecurityWrapper}>
 				<div className="col-10 offset-1 mt-3">
-					<div className={"col-12 "+S.signTextWrapper}>
+					<div className={"col-12 "+S.systemSecurityTextWrapper}>
 						<div className="row">
 							<a><img src="/images/eCommerce/go-back-arrow.png"></img>&nbsp;</a>
 							<a href="" className="" onClick={this.openSignUpModal.bind(this)}><u>Back to Login</u></a>
 						</div>
 					</div>
-					<div className={"col-12 "+S.signTitleWrapper}>
-						<span className={"font-weight-bolder border-0 "+S.signTitle}>OTP</span>
+					<div className={"col-12 "+S.systemSecurityTitleWrapper}>
+						<span className={"font-weight-bolder border-0 "+S.systemSecurityTitle}>OTP</span>
 					</div>
 					<div className="col-12 mt-3">
 						<OtpInput
@@ -120,7 +120,7 @@ class SignUpOTP extends Component{
 							separator={<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}
 						/>
 					</div>
-					<div className={"col-12 "+S.signTextWrapper}>
+					<div className={"col-12 "+S.systemSecurityTextWrapper}>
 						<div className="row">
 							<span className={"mt-xl-n2 "+S.otpText}>Didn't receive code?</span>&nbsp;&nbsp;
 							<a href="" className="mt-xl-n2" onClick={this.resendOTP.bind(this)}>Request again!</a>

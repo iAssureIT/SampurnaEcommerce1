@@ -153,7 +153,14 @@
 ##############################################################################################################
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 860px) and (max-width: 1280px) { 
+@media (min-width: 860px) and (max-width: 1280px) { @media only screen and (max-device-width: 640px) {
+    .categoryPhoto{
+      min-height: 80px !important;
+  }
+  .categoryName{
+      top: 30px;
+  }
+  }
     
     .vendorCard{
         height: 120px;
@@ -285,7 +292,22 @@
         font-size: 27px!important;
     }
 }
-
+@media only screen and (max-device-width: 640px) {
+    .deliveryTimeWrapperDesc{
+        font-size: 11px;
+      }
+    .vendorName{
+        font-size: 10px;
+    }
+    .vendorCard{
+        height: 70px;
+    }
+    .vendorLogoImg{
+        border-radius: 100% !important;
+        height: 44px;
+        width: 50px;
+    } 
+    }
 @media (min-width: 1280px) and (max-width: 1680px) {  
     .globalAddToCartBtn{
       font-size: 14px !important;

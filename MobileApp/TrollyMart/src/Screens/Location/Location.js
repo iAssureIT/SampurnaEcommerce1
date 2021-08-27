@@ -384,7 +384,7 @@ export const Location = withCustomerToaster((props)=>{
                 isRowScrollable={true}
             />
         </View>    
-        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:hp(77),backgroundColor:"#fff",minHeight:160,padding:15}}>
+        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop: hp(Platform.OS==='ios'?72:77),backgroundColor:"#fff",minHeight:160,padding:15}}>
             <Text style={{fontFamily:"Montserrat-Regular",marginBottom:5,fontSize:RFPercentage(2)}}>Delivery Location</Text>
             {delivery ?
             <View style={{flexDirection:"row",justifyContent:"space-between",height:hp(9),paddingVertical:hp(1)}}>

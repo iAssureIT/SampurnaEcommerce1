@@ -214,8 +214,8 @@ import Geolocation          from 'react-native-geolocation-service';
           rightContainerStyle={styles.rightside}
           leftComponent={
             <View style={styles.flxdir}>
-                
-                <TouchableOpacity  onPress={()=> navigation.toggleDrawer()}>
+                navigation.dispatch(DrawerActions.toggleDrawer());
+                <TouchableOpacity  onPress={()=> navigation?.toggleDrawer()}>
                   {/* <Icon size={25} name='bars' type='font-awesome' color={colors.white} /> */}
                   <View style={{}}>
                     <Image

@@ -9,7 +9,8 @@ import {
   Button,
   View,StyleSheet,
   TouchableOpacity,
-  Linking
+  Linking,
+  KeyboardAvoidingView
 } from 'react-native';
 import {Footer}                   from '../../ScreenComponents/Footer/Footer.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
@@ -32,6 +33,8 @@ import styles                   from '../../AppDesigns/currentApp/styles/ScreenS
 import { Icon }                 from "react-native-elements";
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { NetWorkError } from '../../../NetWorkError.js';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const window = Dimensions.get('window');
 const ValidationSchema = Yup.object().shape({
@@ -112,12 +115,8 @@ export const SupportSystem = withCustomerToaster((props)=>{
                 .post('/send-email-mobile',formValues2)
                 .then((response)=>{
                     console.log("res=-0-0",response);
-                    this.setState({
-                            name    : '',
-                            email   : '',                            
-                            mobileNumber  : '',
-                            message : '',
-                        });
+                    setLoading(false)
+                    setToast({text:"Thank you for contacting us, we will respond as soon as possible.!",color:"green"})
 				}) 
                 .catch(function(error){
 					console.log(error);
@@ -188,7 +187,8 @@ const FormBody = (props) => {
         {store.globalSearch.search ?
               <SearchSuggetion />
           :
-            <ScrollView contentContainerStyle={{paddingVertical:15,backgroundColor:"#fff"}}>
+          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} >
+            <ScrollView contentContainerStyle={{paddingVertical:15,backgroundColor:"#fff"}} >
                 <View style={{ paddingHorizontal: 15 }}>
                     <View style={{ height:200,backgroundColor:'#fff',marginBottom: 15,marginLeft:5}}>
                          <Image 
@@ -244,7 +244,7 @@ const FormBody = (props) => {
                             defaultValue={value}
                             defaultCode="AE"
                             value           = {values.mobile_no}
-                            layout="first"
+                            layout="second"
                             onChangeText={(text) => {
                             const checkValid = phoneInput.current?.isValidNumber(text);
                             const callingCode = phoneInput.current?.getCallingCode(text);
@@ -281,7 +281,7 @@ const FormBody = (props) => {
                         <Text style={CommonStyles.errorText}>{touched['message'] && errors['message'] ? errors['message'] : ''}</Text>
                     </View>
                     <View style={{flex:1,alignItems:'flex-end',marginRight:10}}>
-                        <View style={{width:73}}>
+                        <View style={{width:wp(30)}}>
                             <FormButton
                             title       = {'Send'}
                             onPress     = {handleSubmit}
@@ -294,7 +294,7 @@ const FormBody = (props) => {
                                 type: 'font-awesome'
                             }}
                             iconPosition='right'
-                            // loading     = {btnLoading}
+                            loading     = {btnLoading}
                             />
                         </View>
                     </View>
@@ -352,7 +352,9 @@ const FormBody = (props) => {
                             </TouchableOpacity>
                         </View>                        
                     </View>
-            </ScrollView>}
+            </ScrollView>
+            </KeyboardAvoidingView>
+            }
         </View>
     );
 }        
@@ -370,7 +372,6 @@ const styles1 = StyleSheet.create({
      },
      textInputStyle:{
          height:50,
-         paddingTop:15,
          backgroundColor:"#fff"
      },
      textContainerStyle:{

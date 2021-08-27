@@ -20,7 +20,6 @@
 
 .MyaccountMainWrapper {
     font-family: 'Montserrat-Regular';
-
 }
 
 .MyaccountMainWrapper .small {
@@ -198,13 +197,16 @@ select:focus {
 }
 
 .css-yk16xz-control {
-    background   : #C2C1C1 !important;
+    /* background   : #C2C1C1 !important;  */
     border-radius: 7px !important;
     color        : #222222 !important;
     cursor       : pointer !important;
     min-height   : 25px !important;
-    margin-top   : 13px;
+    /* margin-top   : 13px;
 }
+.css-yk16xz-control:focus {
+    border: none !important;
+  }
 
 .css-1wa3eu0-placeholder {
     color: #222222 !important;

@@ -23,7 +23,8 @@ import { getSearchResult } 	  from '../../redux/globalSearch/actions';
 import { useIsFocused }       from "@react-navigation/native";
 import FastImage              from 'react-native-fast-image';
 import { Alert } from 'react-native';
-
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 export const ProductList = withCustomerToaster((props)=>{
@@ -206,7 +207,7 @@ export const ProductList = withCustomerToaster((props)=>{
 
   const _renderlist = ({ item, index })=>{
     return (
-      <View key={index}  style={[styles.productContainer,{marginLeft:'5%',}]} >
+      <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
         <TouchableOpacity style={{opacity:item.availableQuantity === 0 ? 0.5:1,backgroundColor: 'white',borderRadius:20,}} disabled={item.availableQuantity === 0 ?  true : props.disabled ? props.disabled : false} onPress={() => 
           {navigation.navigate('SubCatCompView', { 
               productID           : item._id,
@@ -234,7 +235,7 @@ export const ProductList = withCustomerToaster((props)=>{
               <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} disabled={item.availableQuantity === 0 ? true : false}>
                 <Image
                   source={item.isWish ? require('../../AppDesigns/currentApp/images/heartF.png'):require('../../AppDesigns/currentApp/images/wishlistE.png')}                  
-                  style={{ width: 18, height: 18 }}
+                  style={{ width: wp(3), height: hp(3) }}
                   resizeMode='contain'
                 />
               </TouchableOpacity>
@@ -299,8 +300,8 @@ export const ProductList = withCustomerToaster((props)=>{
                               :
                               addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
                           }
-                          style={{height:25,width:25,borderWidth:2,borderRadius:100,justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton}}>
-                            <Icon name="plus" type="entypo" size={20} color={props.disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/>
+                          style={{height:hp(4),width:hp(4),borderWidth:2,borderRadius:100,justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton}}>
+                            <Icon name="plus" type="entypo" size={RFPercentage(3)} color={props.disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/>
                           </TouchableOpacity>  
                         </View>}
                       <Text numberOfLines={2} style={[styles.nameprod]} ellipsizeMode='middle'>{item.productName}</Text>

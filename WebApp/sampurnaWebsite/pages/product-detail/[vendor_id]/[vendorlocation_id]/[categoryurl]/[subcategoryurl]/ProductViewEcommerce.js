@@ -739,7 +739,7 @@ class ProductViewEcommerce extends Component{
 																			}
 																			return(
 																				productItem.size !=="" && productItem.size !== "undefined" && productItem.size !== null &&
-																					<li id={"li-"+productItem.size} className={"nav-item col-4 col-sm-3 col-xl-2 sizeVariantTab NoPadding ml-2 mb-4"} key={index} onClick={this.handleSize.bind(this)} >
+																					<li id={"li-"+productItem.size} className={"nav-item col-4 col-sm-3 col-xl-2 NoPadding ml-2 mb-4 sizeVariantTab "+Style.sizeTab} key={index} onClick={this.handleSize.bind(this)} >
 																						<a className={"nav-link"+actClass} data-toggle="tab" href={"#"+productItem.size}>
 																							{productItem.size}
 																						</a>

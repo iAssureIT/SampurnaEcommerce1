@@ -148,22 +148,22 @@ export const RunningOrders =(props)=> {
                         paddingVertical: 15,
                         paddingHorizontal:10,
                         marginVertical:10,
-                        borderRadius:7,
+                        borderRadius:4,
                         backgroundColor: '#033554',
                         color:'#fff',
                         minHeight:100,                        
                     }}
                     >
-                <View style={{flexDirection:'row',marginBottom:5 }}>
+                <View style={{flexDirection:'row',marginBottom:10 }}>
                         <View style={{flex:.3}}>
                             <Text style={CommonStyles.cardTopText}>Order No {item.orderID}</Text>
                         </View>
                         <View style={{flex:.7,alignItems:'flex-end'}}>
-                            <Text style={CommonStyles.cardTopText2}>Date {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
+                            <Text style={CommonStyles.cardTopText2}>Date {moment(item.createdAt).format('DD-MM-YYYY hh:mm A')}</Text>
                         </View>    
                 </View> 
-                <View style={{flex:1,marginHorizontal:10}}>
-                    <View style={{flexDirection:"row",flex:1}} >
+                <View style={{flex:1,marginHorizontal:5}}>
+                    <View style={{flexDirection:"row",flex:1, marginVertical:5}} >
                         <View style={{flex:0.2}}>
                             <Text style={[CommonStyles.boxLine1W]}>Customer</Text>
                         </View>
@@ -176,14 +176,14 @@ export const RunningOrders =(props)=> {
                             }
                         </View>                
                     </View>
-                    <View style={{flexDirection:"row",flex:1}} >
+                    <View style={{flexDirection:"row",flex:1,marginVertical:5}} >
                         <View style={{flex:0.23}}>
                             <Text style={[CommonStyles.boxLine1W]}>Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </Text>
                         </View>
-                        <View style={{flex:0.64}}>
+                        <View style={{flex:0.67}}>
                             <Text numberOfLines={2} style={[CommonStyles.boxLine1W,{fontFamily:"Montserrat-Regular",marginRight:10}]}>{item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>                            
                         </View>
-                        <View style={{flex:0.13,alignItems:'center'}}>
+                        <View style={{flex:0.1,alignItems:'center'}}>
                             <TouchableOpacity style={{height:30,width:30}} onPress={()=>goToMap(item.vendorDetails.locations.latitude,item.vendorDetails.locations.longitude)}>
                                 <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>
                             </TouchableOpacity>

@@ -7,15 +7,21 @@ import Message                from '../../StaticBlocks/Message/Message.js';
 
 const responsive = {
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
+    breakpoint: { max: 3000, min: 1023 },
     items: 5,
     slidesToSlide: 1 // optional, default to 1.
   },
+  ipadpro: {
+    breakpoint: { max: 1024, min: 768 },
+    items: 4,
+    slidesToSlide: 1 // optional, default to 1.
+  },
   tablet: {
-    breakpoint: { max: 1024, min: 464 },
+    breakpoint: { max: 769, min: 464 },
     items: 3,
     slidesToSlide: 1 // optional, default to 1.
   },
+
   responsive: {
     breakpoint: { max: 548, min: 284 },
     items: 2,

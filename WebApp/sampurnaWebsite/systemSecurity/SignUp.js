@@ -256,12 +256,12 @@ class SignUp extends Component{
 
 	render(){		
 		return(
-			<div className="col-12 NoPadding">
-				<div className={"col-12 "+S.signTitleWrapper}>
-					<span className={S.signTitle}>SIGN UP</span>
-					<hr className={S.signInSignUpUnderline}/>
+			<div className={"col-12 "+S.systemSecurityWrapper}>
+				<div className={"col-12 "+S.systemSecurityTitleWrapper}>
+					<span className={S.systemSecurityTitle}>SIGN UP</span>
+					<hr className={S.systemSecurityTitleUnderline}/>
 				</div>
-				<div className={"col-12 "+S.signTextWrapper}>
+				<div className={"col-12 "+S.systemSecurityTextWrapper}>
 					<div className="row">
 						<span>Already have an account?</span>&nbsp;&nbsp;
 						<a href="" className="" onClick={this.openSignInModal.bind(this)}>Sign In</a>
@@ -269,23 +269,18 @@ class SignUp extends Component{
 				</div>
 				<form id="signUpUser" className="row">
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
-						{/* <label className="blueText">First Name</label><label className="astricsign">*</label> */}
 						<input type="text" maxLength="25" className="form-control formcontrol1" id="firstname" ref="firstname" name="firstname" placeholder="First Name*" onChange={this.handleChange} data-text="firstNameV" />
 						<div className="errorMsg mt-1">{this.state.errors.firstname}</div>
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
-						{/* <label className="blueText">Last Name</label><label className="astricsign">*</label> */}
 						<input type="text" maxLength="25" className="form-control formcontrol1" id="lastname" ref="lastname" name="lastname" placeholder="Last Name*" onChange={this.handleChange} data-text="lastNameV" />
 						<div className="errorMsg mt-1 ">{this.state.errors.lastname}</div>
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6  ">
-						{/* <label className="blueText">Email ID</label> */}
 						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="Email ID*" onChange={this.handleChange} data-text="emailIDV" />
-						{/* <label className="checkUserExistsError">User already exists!!!</label> */}
 						<div className="errorMsg mt-2">{this.state.errors.signupEmail}</div>
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 ">
-						{/* <label>Mobile Number</label><label className="astricsign">*</label>   */}
 						<PhoneInput
 							country={'ae'} 
 							value={this.state.mobNumber}
@@ -307,7 +302,6 @@ class SignUp extends Component{
 						<div className="errorMsg">{this.state.errors.mobNumber}</div> 
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
-						{/* <label className="blueText">Create Password</label><label className="astricsign">*</label> */}
 						<input id="signupPassword" type="password" class="form-control passswordInput formcontrol1" ref="signupPassword" name="signupPassword" placeholder="Password*" 
 							onChange={this.handleChange.bind(this)}
 							value={this.state.signupPassword}  autoComplete="off"
@@ -318,7 +312,6 @@ class SignUp extends Component{
 						<div className="errorMsg mt-1">{this.state.errors.signupPassword}</div>
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
-						{/* <label className="blueText">Confirm Password</label><label className="astricsign">*</label> */}
 						<input id="signupConfirmPassword" type="password" class="form-control passswordInput formcontrol1" ref="signupConfirmPassword" name="signupConfirmPassword" placeholder="Confirm Password*" 
 							onChange={this.handleChange.bind(this)}
 							value={this.state.signupConfirmPassword}  autoComplete="off"
@@ -348,7 +341,7 @@ class SignUp extends Component{
 								</div>
 							</div>
 						:
-							<div className="col-12 mt-3 mt-lg-5 mb-5">
+							<div className="col-12 mt-3 mt-lg-2 mt-xl-5 mb-5">
 								<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12 btn otpBtns">Sign Up</button>
 							</div>
 					}

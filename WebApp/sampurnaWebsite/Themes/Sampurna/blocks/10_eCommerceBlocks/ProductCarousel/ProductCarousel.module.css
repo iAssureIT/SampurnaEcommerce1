@@ -8,6 +8,10 @@
   src        : url('../../../fonts/Montserrat-Regular.ttf');
 }
 
+.carouselNewWrapper{
+  /*padding: 14px !important;*/
+}
+
 
 .breadCrumbs {
   background-color: #efefef;
@@ -477,7 +481,7 @@
   padding-bottom: 20px;
   background    : #f9f9f9;
   /* box-shadow : 0px 0px 0px 2px #00000029; */
-  box-shadow    : 0px 0px 5px 0px #aaaaaa;
+  /* box-shadow    : 0px 0px 5px 0px #aaaaaa; */
 }
 
 .productCaroselBlock {
@@ -579,7 +583,7 @@
 
 .wishIcon {
   margin-top      : 5px;
-  padding         : 0px 19px;
+  padding         : 0px 0px;
   font-weight     : bold;
   font-size       : 12px;
   border          : transparent;
@@ -587,9 +591,9 @@
   /* border-radius: 15px; */
   /* color        : #80b435; */
   background      : transparent;
-  position        : absolute;
-  left            : 80%;
-  top             : 2%;
+  /* position        : absolute; */
+  /* left            : 80%; */
+  top             : 0%;
   font-size       : 20px;
   font-weight     : 700;
 }
@@ -647,8 +651,9 @@
 
 .filterBlockWrapper {
   border       : solid 1px #eee;
-  height       : max-content;
+  /* height       : max-content; */
   /* box-shadow: 3px 3px 3px #00000030; */
+  box-shadow: 4px 3px 6px #00000029;
   z-index      : 999 !important;
 }
 
@@ -687,7 +692,7 @@
   background-color: white;
   max-height      : 0;
   overflow        : hidden;
-  transition      : max-height 0.2s ease-out;
+  transition      : 0.2s ease-out;
 }
 
 .centreDetaillistItemEcommerce {
@@ -695,7 +700,7 @@
 }
 
 .panelHeading {
-  padding      : 5px 10px !important;
+  padding      : 2px 10px !important;
   cursor       : pointer;
   border-bottom: solid 0.5px #eee;
 
@@ -835,20 +840,6 @@
   letter-spacing   : 0.02em;
   font-size        : 36px;
 }
-
-
-@media only screen and (max-device-width: 480px) {
-  .mobileViewPadding {
-    padding-left : 5px !important;
-    padding-right: 5px !important;
-  }
-
-  .productDetailVendorName {
-    font-size: 10px;
-  }
-}
-
-
 .panelCategory {
   border-bottom: solid 1px #ccc;
 }
@@ -904,11 +895,19 @@
   margin-left: -60px;
 }
 
+@media only screen and (max-device-width: 480px) {
+  .mobileViewPadding {
+    padding-left : 5px !important;
+    padding-right: 5px !important;
+  }
 
+  .productDetailVendorName {
+    font-size: 10px;
+  }
+  
+}
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-
-
   .line {
     position          : absolute;
     height            : 2px;
@@ -950,18 +949,24 @@
 }
 
 @media (min-width: 1537px) and (max-width: 1920px) {  
-  
+  .panelHeading {
+    padding      : 5px 10px !important;
+  }
 }
 
 @media (min-width: 1600px) and (max-width: 2560px) {  
-  
+  .panelHeading {
+    padding      : 5px 10px !important;
+  }
 }
 @media (min-width: 1080px) and (max-width: 1920px) {  
-  
+
 }
 @media (min-width: 864px) and (max-width: 1536px) {  
   
 }
 @media (min-width: 768px) and (max-width: 1024px) {  
-  
+  .categoryFilterTitle{
+      font-size: 14px;
+  }
 }

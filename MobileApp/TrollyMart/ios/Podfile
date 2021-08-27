@@ -35,6 +35,12 @@ target 'TrollyMart' do
 
   pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
 
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary/Permission-PhotoLibrary.podspec"
+
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera/Permission-Camera.podspec"
+
   target 'TrollyMartTests' do
     inherit! :complete
     # Pods for testing

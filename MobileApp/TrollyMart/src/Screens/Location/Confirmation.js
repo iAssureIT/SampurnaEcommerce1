@@ -146,11 +146,11 @@ export const Confirmation = withCustomerToaster((props)=>{
                 <View style={{alignItems:"flex-start",paddingTop:15,paddingLeft:15}}>
                   {/* <TouchableOpacity onPress={()=> navigation.canGoBack() ?  navigation.goBack() : backAction()}> */}
                 {navigation.canGoBack() ?
-                 <TouchableOpacity style={{marginTop:Platform.OS==='ios'?20:0}} onPress={()=>navigation.goBack()}>
+                 <TouchableOpacity style={{}} onPress={()=>navigation.goBack()}>
                     <Icon size={RFPercentage(4)} name='arrow-left' type='material-community' color={colors.theme} />
                   </TouchableOpacity>
                   :
-                  <TouchableOpacity style={{marginTop:Platform.OS==='ios'?20:0}} onPress={()=>logout()}>
+                  <TouchableOpacity style={{}} onPress={()=>logout()}>
                    <Icon size={25} name='logout' type='material-community' color={colors.theme} />
                   </TouchableOpacity>
                 } 

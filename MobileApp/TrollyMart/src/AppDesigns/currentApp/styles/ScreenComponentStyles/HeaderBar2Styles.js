@@ -106,10 +106,9 @@ export default StyleSheet.create({
     flexDirection:"row",
     ...Platform.select({
       ios: {
-        paddingTop:hp(4.5),
         alignItems:'center',
         justifyContent:'center',
-        height:hp(12),
+        height:hp(8),
         // paddingTop: 25,
       },
       android: {

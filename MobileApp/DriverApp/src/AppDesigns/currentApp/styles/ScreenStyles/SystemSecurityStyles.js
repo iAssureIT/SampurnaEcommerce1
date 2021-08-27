@@ -59,7 +59,7 @@ export default StyleSheet.create({
         height:100,
     },
     syslogo:{
-        flexDirection: 'row', alignItems: "flex-start", marginHorizontal:20,height:200
+        flexDirection: 'row', alignItems: "flex-start", marginHorizontal:20,height:150
     },
     syslogoimg:{
         width: '50%',

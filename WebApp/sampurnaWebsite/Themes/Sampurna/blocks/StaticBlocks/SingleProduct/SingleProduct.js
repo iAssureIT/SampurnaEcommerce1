@@ -214,16 +214,15 @@ class SingleProduct extends Component{
      
         var x = this.props.recentWishlist && this.props.recentWishlist.length> 0 ? this.props.recentWishlist.filter((wishlistItem) => wishlistItem._id === this.props.data._id) : [];                              
         // console.log("x==",x);
-        var wishClass = 'r';
+        var heartImg = '/images/eCommerce/heartSolid.svg'
         var tooltipMsg = '';
         if (x && x.length > 0) {
-          wishClass = '';
+          var heartImg = '/images/eCommerce/heart.svg'
           tooltipMsg = 'Remove from wishlist';
         } else {
-          wishClass = 'r';
-          // console.log("wishClass==",wishClass);
+          var heartImg = '/images/eCommerce/heartSolid.svg'
           tooltipMsg = 'Add To Wishlist';
-        }   
+        }      
       
         var categoryUrl = (this.props.data.category?this.props.data.category:"").replace(/\s+/g, '-').toLowerCase();;                    
         
@@ -236,18 +235,19 @@ class SingleProduct extends Component{
                 <div className={"col-12 NoPadding"}>
                     <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
                     <div className={"col-12 NoPadding " +Style.wishlistBtn}>
+                        {this.props.data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(this.props.data.discountPercent)}%<div className={" "+Style.offTxt}>off</div></div> : null}
                         {this.props.productSettings.displayWishlist === true?
                             this.state.user_ID && this.state.authService!=="guest"?
                             // <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                               this.props.data.isWish?
-                                <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa fa-heart wishListIconColor "}></i></button>
+                                <button type="submit" id={this.props.data._id} title={tooltipMsg} className={"col-3  col-xl-3  pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)}><img src={heartImg} id={this.props.data._id} className={" col-12  wishListIconColor "} /></button>
                                 :
-                                <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"far fa-heart wishListIconColor "}></i></button>
+                                <button type="submit" id={this.props.data._id} title={tooltipMsg} className={"col-3  col-xl-3  pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)}><img src={heartImg} id={this.props.data._id} className={" col-12  wishListIconColor "} /></button>
                             :
-                            <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
+                            <button type="submit" id={this.props.data._id} title={tooltipMsg} className={ "col-3  col-xl-3  pull-right " +Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><img src={heartImg} id={this.props.data._id} className={" col-12  wishListIconColor "} /></button>
                         :null
                         }
-                        {this.props.data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(this.props.data.discountPercent)}%<div className={" "+Style.offTxt}>off</div></div> : null}
+                       
                     </div>
                     <div className={Style.ImgWrapper}>
                     <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+categoryUrl+"/"+subCategoryUrl+"/"+this.props.data._id} className={Style.product_item_photo }>

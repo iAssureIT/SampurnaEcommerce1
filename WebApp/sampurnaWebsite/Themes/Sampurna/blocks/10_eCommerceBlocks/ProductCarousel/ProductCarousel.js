@@ -912,7 +912,14 @@ submitCart(event) {
                               <div className={"col-6 float-right col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding  "+Style.sortPbWrapper}>     
                                 <div className="form-group">
                                     <label className={"labelform d-block d-lg-block d-xl-block d-sm-block col-12 NoPadding "+Style.f14}>Sort By<span className="astrick"></span></label>
-
+                                    {/* <label className={"labelform col-3 NoPadding mr-2 "+Style.f14}>Sort By<span className="astrick"></span></label>
+                                    <select className={"" +Style.labelCategory}  onChange={this.sortProducts}>
+                                      <option>1</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                                    </select> */}
                                     <Select
                                         value={effect}
                                         onChange={this.sortProducts}

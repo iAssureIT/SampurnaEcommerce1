@@ -43,12 +43,10 @@ input[type=number] {
 }
 .googleTextWrapper{
     font-size: 11px;
+    font-family: 'Montserrat-Bold' !important;
     color: #fff;
-    font-weight: bolder;
-    margin-left: 70px;
-    font-family: 'Montserrat-Regular' !important;
+    margin-left: 67px;
 }
-
 .modalImgBlock::before {
   content: "";
   background-repeat: no-repeat;
@@ -499,6 +497,7 @@ input[type=number] {
   background-color:#3B5998 !important;
   color:#fff !important;
   font-size:11px;
+  font-family: 'Montserrat-Bold' !important;
 }
 
 .googleBtn{
@@ -516,8 +515,7 @@ input[type=number] {
   color: #033554 !important;
   font-size:11px;
   letter-spacing:0 !important;
-  font-family: 'Montserrat-Regular' !important;
-  font-weight: bolder !important;
+  font-family: 'Montserrat-Bold' !important;
 }
 /* signup OTP */
 .signUpOtpWrapper{
@@ -537,7 +535,6 @@ input[type=number] {
 }
 .otpBtns{
   height: 40px;
-  /* padding: 10px; */
   border:solid 1px #fff !important;
   border-radius: 5px!important;
   background: #033554 !important;
@@ -561,31 +558,25 @@ input[type=number] {
 
 /* facebook login */
 .facebookLoginBtn button{
-  /* display: inline-block; */
   font-size: 11px !important;
   width: 100% !important;
   padding: 6px !important;
   text-align: center;
   border-radius: 5px !important;
   text-transform: capitalize !important;
-  font-family: 'Montserrat-Regular' !important;
-  font-weight: bolder !important;
+  font-family: 'Montserrat-Bold' !important;
 }
-
 .googleLoginBtn button{
-  /* display: block !important; */
   font-size: 11px !important;
+  font-family: 'Montserrat-Bold' !important;
   width: 100% !important;
-  /* padding: 6px !important; */
   text-align: center !important;
   border-radius: 5px !important;
 }
-
 .loginLine li{
   margin-bottom: 15px;
   list-style-type: none;  
 }
-
 .loginLine li::before{
   content: '';
    display: inline-block;
@@ -597,18 +588,10 @@ input[type=number] {
   margin-right: 15px;
    margin-left: -35px;
 }
-
-/*.loginUl ul{
-  list-style-image: url('/images/eCommerce/loginPoint.png');
-}*/
-
 .form-control:focus {
-  /* border: none !important; */
   outline:none !important;
   -webkit-box-shadow:none !important;
-  /*border-color: #fff !important;*/
 }
-
 .pb50{
   padding-bottom: 50px;
 }
@@ -663,7 +646,7 @@ input.middle:focus {
 @media (min-width: 576px){
 
 	.googleTextWrapper{
-    margin-left: 140px;
+    margin-left: 138px;
   }
 	.otpInputBox:nth-child(1){
 		margin-left: 35px;
@@ -675,7 +658,7 @@ input.middle:focus {
 @media (min-width: 768px){
 
 	.googleTextWrapper{
-    margin-left: 141px;
+    margin-left: 138px;
   }
 }
 
@@ -684,7 +667,7 @@ input.middle:focus {
 @media (min-width: 992px){
 
 	.googleTextWrapper{
-    margin-left: 99px;
+    margin-left: 97px;
   }
 	.otpInputBox:nth-child(1){
 		margin-left: -3px;
@@ -699,7 +682,7 @@ input.middle:focus {
 		margin-bottom: 5px !important;
 	}
 	.googleTextWrapper{
-    	margin-left: 100px;
+    	margin-left: 96px;
   	}
 	.otpInputBox:nth-child(1){
 		margin-left: -3px;

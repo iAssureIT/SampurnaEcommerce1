@@ -100,8 +100,8 @@ TextInput.defaultProps.allowFontScaling = false;
   return( 
     <Provider store={store} >
       
-      {Platform.OS ==='android'&&<GeneralStatusBarColor backgroundColor="#222222"
-      barStyle="light-content" />}
+      <GeneralStatusBarColor backgroundColor="#222222"
+      barStyle="light-content" />
        <NetworkProvider>
        <ExampleComponent/>
         <AuthLoadingScreen />

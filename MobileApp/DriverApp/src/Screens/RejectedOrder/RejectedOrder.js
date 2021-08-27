@@ -25,10 +25,10 @@ import { useIsFocused } from "@react-navigation/native";
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import localization from 'moment/locale/de'
 const todoList = [
-  { id: '1', text: 'Learn JavaScript' },
-  { id: '2', text: 'Learn React' },
-  { id: '3', text: 'Learn TypeScript' },
-];
+    { id: '1', text: 'Learn JavaScript' },
+    { id: '2', text: 'Learn React' },
+    { id: '3', text: 'Learn TypeScript' },
+  ];
 
 export const RejectedOrder =(props)=> {
     const [loading,setLoading] =useState(true);
@@ -39,24 +39,21 @@ export const RejectedOrder =(props)=> {
     const [refresh,setRefresh]=useState(false);
     const new_date=props?.route?.params?.new_date;
     useEffect(() => {
-        console.log("new_date",new_date);
+        setLoading(true);
         if(new_date!==undefined){
             setDate(new Date(new_date));
+            getList(new Date(new_date));
+        }else{
+            
+            getList(date);
         }
-        getList(date);
-    },[props,isFocused]);
-
-
-    const refreshControl=()=>{
-        setRefresh(true);
-        getList(date);
-    }
+    },[props,isFocused,new_date]);
 
     const store = useSelector(store => ({
         userDetails     : store.userDetails,
       }));
 
-    const getList =()=>{
+      const getList =()=>{
         var payload={
             "user_id"       : store.userDetails.user_id,
             "startDate"  : moment(date).format(),
@@ -75,16 +72,21 @@ export const RejectedOrder =(props)=> {
             console.log("err",err);
         })
     }
+    const refreshControl=()=>{
+        setRefresh(true);
+        getList(date);
+    }
+ 
 
     const previous =()=>{
-        var prev = new Date(date.setDate(date.getDate() - 1));
+        var prev = new Date(date?.setDate(date?.getDate() - 1));
         setDate(prev);
         getList();
         // handleCustom(prev,date);
       }
     
       const next =()=>{
-        var next = new Date(date.setDate(date.getDate() + 1));
+        var next = new Date(date?.setDate(date?.getDate() + 1));
         setDate(next);
         getList();
         // handleCustom(next,date);
@@ -96,12 +98,9 @@ export const RejectedOrder =(props)=> {
         // openDatePicker1(false);
       }
 
-
-
-
-    const _renderlist = ({ item, index })=>{
+      const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders[0].vendor_id})}>
+            <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item?._id,vendor_id: item?.vendorOrders[0]?.vendor_id})}>
                 <View style={{}}>
                     <View
                     style={{
@@ -117,10 +116,10 @@ export const RejectedOrder =(props)=> {
                 >
                     <View style={{flexDirection:'row',marginBottom:5}}>
                             <View style={{flex:.4}}>
-                                <Text style={CommonStyles.completeBlueText}>Order No : {item.orderID}</Text>
+                                <Text style={CommonStyles.completeBlueText}>Order No : {item?.orderID}</Text>
                             </View>
                             <View style={{flex:.6,alignItems:'flex-end'}}>
-                                <Text style={CommonStyles.completeBlueText}>Date {moment(item.createdAt).lang("es").format('DD-MM-YYYY hh:mm')}</Text>
+                                <Text style={CommonStyles.completeBlueText}>Date {moment(item?.createdAt).lang("es").format('DD-MM-YYYY hh:mm')}</Text>
                             </View>    
                     </View> 
                     <View style={{flex:1}}>
@@ -129,8 +128,8 @@ export const RejectedOrder =(props)=> {
                             <Text style={[CommonStyles.boxLine1C]}>Customer</Text>
                         </View>
                         <View style={{flex:0.8,flexDirection:"row",flexWrap: 'wrap'}}>
-                            <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.name}, </Text>
-                            <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:'#033554'}]} onPress={() => Linking.openURL(`tel:${item.deliveryAddress.mobileNumber}`)}> {item.deliveryAddress.mobileNumber}</Text>
+                            <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item?.deliveryAddress?.name}, </Text>
+                            <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:'#033554'}]} onPress={() => Linking.openURL(`tel:${item?.deliveryAddress?.mobileNumber}`)}> {item?.deliveryAddress?.mobileNumber}</Text>
                         </View>                        
                     </View>
                     <View style={{flexDirection:"row",flex:1}} >
@@ -138,8 +137,8 @@ export const RejectedOrder =(props)=> {
                             <Text style={[CommonStyles.boxLine1C]}>Address</Text>
                         </View>
                         <View style={{flex:0.8,flexDirection:"row"}}>
-                            <Text numberOfLines={2} style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text>
-                            <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end'}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
+                            <Text numberOfLines={2} style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item?.deliveryAddress?.addressLine1+" "+item?.deliveryAddress?.addressLine2}</Text>
+                            <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end'}} onPress={()=>goToMap(item?.deliveryAddress?.latitude,item?.deliveryAddress?.longitude)}>
                                 <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>
                             </TouchableOpacity>
                         </View>                        
@@ -165,7 +164,9 @@ export const RejectedOrder =(props)=> {
 
     return (
         <View style={{flex:1}}>            
-        <View style={{flex:1,backgroundColor:'#fff'}}>            
+         {loading ?
+            <Loading />
+        :  <View style={{flex:1,backgroundColor:'#fff'}}>            
             <View style={{flexDirection:"row",justifyContent: 'center',alignItems: 'center',marginTop:15}}>
                 <TouchableOpacity
                     onPress={() => {previous()}}>
@@ -200,7 +201,7 @@ export const RejectedOrder =(props)=> {
                 </TouchableOpacity>
             </View>
             {/* <View style={{flexDirection:'row',justifyContent:'center',paddingTop:10,marginBottom:15}}>
-                    <Text style={CommonStyles.totalcount}>Total Cash Collected : 500 AED</Text>
+                    <Text style={CommonStyles.totalcount}>Total Cash Collected : {orderList?.cashCollected>0 ? orderList?.cashCollected : 0} AED</Text>
              </View> */}
              <View style={{flex:1}}>
              {loading ?
@@ -230,10 +231,10 @@ export const RejectedOrder =(props)=> {
             <DateTimePickerModal
             isVisible={datePicker}
             mode="date"
-            // onConfirm={(date)=>{setDate(date),handleCustom(date,date1)}}
+            onConfirm={(date)=>{setDate(date)}}
             onCancel={()=>openDatePicker(false)}
         />
-        </View>
+        </View>}
             
         </View>       
     

@@ -477,7 +477,7 @@ class EditAccount extends Component{
     render(){
         return(
             <div className={"col-lg-10 col-12 accountInformationMainWrapper "+Style.accountInformationMainWrapper}id="accountInformationManiId">
-            <h4 className="font-weight-bold">Account Information</h4>
+            <h4 className="font-weight-bold">My Profile</h4>
             <div className="row">
                 <div className={ " col-12 accountDashBoardInnerwrapper "+Style.accountDashBoardInnerwrapper}>
                     <Message messageData={this.state.messageData} />
@@ -490,7 +490,7 @@ class EditAccount extends Component{
                                                 <div className="col-xl-5 col-lg-5 col-sm-5 col-md-5 mx-auto col-12 mt-4 ">
                                                     <div className="row">
                                                     <div className="col-12 mb-2 NoPadding">
-                                                        <label className="mt15">First Name <i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
+                                                        <label className={"mt15 " + Style.editAccountFont}>First Name <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                         <br />
                                                         <div id="firstName" className={"col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding "+Style.editAccInputWrapper}>
                                                             <input maxLength="25" type="text" name="firstName" ref="firstName" value={this.state.firstName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required/> 
@@ -503,7 +503,7 @@ class EditAccount extends Component{
                                                 <div className="col-xl-5 col-lg-5 col-sm-5 col-md-5 mx-auto col-12 mt-4 ">
                                                     <div className="row">
                                                     <div className="col-12 mb-2 NoPadding">
-                                                        <label className="mt15">Last Name <i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
+                                                        <label className={"mt15 " + Style.editAccountFont}>Last Name <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                         <br />
                                                         <div id="lastName" className={"col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding "+Style.editAccInputWrapper}>
                                                             <input maxLength="25" type="text" name="lastName" ref="lastName" value={this.state.lastName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required/> 
@@ -518,7 +518,7 @@ class EditAccount extends Component{
                                         </div>
                                         <div className="col-12 mt-1 ">
                                             <div className="col-12">
-                                                <div className="col-12 mt-2 NoPadding">
+                                                <div className={"col-12 mt-2 NoPadding mt15 " + Style.editAccountFont}>
                                                     <input type="checkbox" id="changeEmail" checked={this.state.changeEmail} onChange={this.changeEmail.bind(this)}/> &nbsp; <span>Change Email</span> 
                                                 </div>
                                             </div>
@@ -529,7 +529,7 @@ class EditAccount extends Component{
                                                     // <div className="col-12">
                                                         <div className="row ">
                                                             <div className="col-xl-5 col-lg-5 col-sm-5 col-md-5 mx-auto  col-12 mb-2 NoPadding">
-                                                                <label className="mt15">Email <i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
+                                                                <label className={"mt15 " + Style.editAccountFont}>Email <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                                 <br />
                                                                 <div id="emailId" className={"  "+Style.editAccInputWrapper}>
                                                                     <input type="email" name="emailId" ref="emailId" value={this.state.emailId} onChange={this.onChange.bind(this)} className="col-12 form-control" /> 
@@ -537,7 +537,7 @@ class EditAccount extends Component{
                                                                 </div>
                                                             </div> 
                                                             <div className="col-xl-5 col-lg-5 col-sm-5 col-md-5 mx-auto col-12 mb-2 NoPadding">
-                                                                <label className="mt15">Current Password <i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
+                                                                <label className={"mt15 " + Style.editAccountFont}>Current Password <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                                 <br />
                                                                 <div id="oldPassword" className={" "+Style.editAccInputWrapper}>
                                                                     <input type="text" id="currentPassword" type="password" name="currentPassword" ref="currentPassword" value={this.state.currentPassword} onChange={this.onChange.bind(this)} className="col-12 form-control" /> 
@@ -559,14 +559,14 @@ class EditAccount extends Component{
 
                                         <div className="col-12 mt-1 ">
                                             <div className="col-12">
-                                                <div className="col-12 mt-2 NoPadding">
+                                                <div className={"col-12 mt-2 NoPadding " + Style.editAccountFont}>
                                                     <input type="checkbox" id="changeMobile" checked={this.state.changeMobile} onChange={this.changeMobile.bind(this)}/> &nbsp; <span>Change Mobile</span> 
                                                 </div>
                                                 { this.state.changeMobile === true &&
                                                     <div className="col-12 ">
                                                         <div className="row ">
                                                             <div className="col-xl-5 col-lg-5 col-sm-5 col-md-5  col-12 mb-2 NoPadding">
-                                                                <label className="mt15">Mobile Number<i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
+                                                                <label className={"mt15 " + Style.editAccountFont}>Mobile Number<span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                                 <br />
                                                                 {/* <div id="mobNumber" className={"col-12 "+Style.editAccInputWrapper}>
                                                                     <input className="col-12 form-control" type="text" maxLength="10" ref="mobNumber" name="mobNumber" id="mobNumber" placeholder="Eg. 9876543210" value={this.state.mobNumber} onChange={this.onChange.bind(this)} required/> 
@@ -606,15 +606,15 @@ class EditAccount extends Component{
 
                                       
                                         <div className="col-12 NoPadding mb-4">
-                                            <div className="col-12 mb-2 ">
-                                                <div className={"col-12   "+Style.editAccInputWrapper}>
-                                                    <input type="checkbox" id="changePassword" checked={this.state.changePassword} onChange={this.changePassword.bind(this)}/> &nbsp; <span>Change Password</span> 
+                                            <div className="col-12 mb-2">
+                                                <div className={"col-12 " + Style.editAccInputWrapper}>
+                                                    <input type="checkbox" id="changePassword" checked={this.state.changePassword} onChange={this.changePassword.bind(this)}/> &nbsp; <span className={Style.editAccountFont}>Change Password</span> 
                                                 </div>
                                                 <div id="credentials" className=" mt-2 ">
                                                     { this.state.changePassword === true &&
                                                         <div className="row ">
                                                             <div className="col-12 col-lg-3 col-md-3 mx-auto mb-2 NoPadding">
-                                                                <label className="mt15">Current Password <i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
+                                                                <label className={"mt15 " + Style.editAccountFont}>Current Password <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                                 <br />
                                                                 <div id="oldPassword" className={"col-12 NoPadding "+Style.editAccInputWrapper}>
                                                                     <input type="text" id="resetCurrentPassword" type="password" name="resetCurrentPassword" ref="resetCurrentPassword" value={this.state.resetCurrentPassword} onChange={this.onChange.bind(this)} className="col-12 form-control" /> 
@@ -625,7 +625,7 @@ class EditAccount extends Component{
                                                                 </div>
                                                             </div> 
                                                             <div className="col-12 col-lg-3 col-md-3 mx-auto mb-2 NoPadding">
-                                                                <label className="mt15">New Password <i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
+                                                                <label className={"mt15 " + Style.editAccountFont}>New Password <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                                 <br />
                                                                 <div id="newPassword" className={"col-12 NoPadding "+Style.editAccInputWrapper}>
                                                                     <input type="password" id="newPass" name="newPassword" ref="newPassword" value={this.state.newPassword} onChange={this.onChange.bind(this)} className="col-12 form-control newPassword" /> 
@@ -636,7 +636,7 @@ class EditAccount extends Component{
                                                                 </div>
                                                             </div>
                                                             <div className=" col-12 col-lg-3 col-md-3 mx-auto mb-2 NoPadding">
-                                                                <label className="mt15 col-12 NoPadding">Confirm New Password <i className={"requiredsign "+Style.reqSignWrapper}>*</i></label>
+                                                                <label className={"mt15 col-12 NoPadding " + Style.editAccountFont}>Confirm New Password <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                                 <br />
                                                                 <div className={"col-12 NoPadding "+Style.editAccInputWrapper}>
                                                                     <input type="password" className="loginPwdField col-12 form-control" id="confirmPassword" name="confirmPassword" value={this.state.confirmPassword} ref="confirmPassword" onChange={this.onChange.bind(this)} /> 

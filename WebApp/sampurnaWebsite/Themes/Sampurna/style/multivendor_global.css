@@ -45,6 +45,16 @@
 }
 
 @font-face {
+  font-family: 'Montserrat-Regular';
+  src        : url("../fonts/Montserrat-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Montserrat-Light';
+  src        : url("../fonts/Montserrat-Light.ttf");
+}
+
+@font-face {
   font-family: 'Montserrat-Medium';
   src        : url("../fonts/Montserrat-Medium.ttf");
 }
@@ -144,6 +154,63 @@ body {
 .a:hover {
   text-decoration: none !important;
 }
+
+.react-multiple-carousel__arrow{
+  background-color: transparent !important;
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.react_multiple_carousel__arrow_right,
+.react_multiple_carousel__arrow_right:hover{
+  right:0px;
+  background-image:url("/images/eCommerce/arrowRight.svg") !important;
+  background-size: 75px 25px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  top: 25px;
+}
+
+
+.react_multiple_carousel__arrow_left,
+.react_multiple_carousel__arrow_left:hover{
+  left:0px;
+  background-image:url("/images/eCommerce/arrowRight.svg") !important;
+  background-size: 75px 25px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  top: 25px;
+  transform:scaleX(-1);
+}
+
+
+
+.react_multiple_carousel__arrow_right2,
+.react_multiple_carousel__arrow_right2:hover{
+  right:0px;
+  background-image:url("/images/eCommerce/arrowRight.svg") !important;
+  background-size: 150px 50px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  top: 120px;
+  right: -5px;
+}
+
+.react_multiple_carousel__arrow_left2,
+.react_multiple_carousel__arrow_left2:hover{
+  left:0px;
+  background-image:url("/images/eCommerce/arrowRight.svg") !important;
+  background-size: 150px 50px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  transform:scaleX(-1);
+  top: 120px;
+  left: -5px;
+}
+
+
+
+
 
 .globalBgColor {
   background-color: var(--globalBgColor);
@@ -812,6 +879,8 @@ body {
   }
 }
 
+
+
 @media only screen and (max-device-width: 480px) {
   .mobileNoPadding {
     padding-left : 0px !important;
@@ -858,7 +927,15 @@ body {
   }
 
 }
+select:focus {
+  outline: 0 !important;
+}
+option:focus, option:active{
 
+  box-shadow: none !important;
+  outline: none !important;
+ 
+ }
 @media only screen and (min-width: 1920px) {
   .cartWishlistColor{
     color     : #aaa !important;

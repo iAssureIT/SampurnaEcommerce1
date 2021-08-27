@@ -38,7 +38,7 @@ export const InAppNotification =(props)=> {
           .then(res => {
           })
           .catch(error => {
-              console.log('error', error)
+            //   console.log('error1', error)
           })
         })
     },[])
@@ -62,12 +62,12 @@ export const InAppNotification =(props)=> {
                                     return (
                                     <View style={{flexDirection:'row',marginBottom:5,borderWidth:1,borderColor:'#aaa',borderRadius:5,shadowRadius: 5,}}>
                                         <View style={[styles.packageIndex]}>
-                                            <Text style={styles.dateText}>{moment(data.createdAt).format('DD')}</Text>
-                                            <Text style={{alignSelf:"center",fontFamily:"Montserrat-Regular"}}>{moment(data.createdAt).format('MMM')}</Text>
+                                            <Text style={styles.dateText}>{moment(data?.createdAt).format('DD')}</Text>
+                                            <Text style={{alignSelf:"center",fontFamily:"Montserrat-Regular"}}>{moment(data?.createdAt).format('MMM')}</Text>
                                         </View>
                                         <View style={{flex:.8,flexDirection:'row',borderLeftWidth:1,borderColor:'#ccc',paddingLeft:15,}}>
                                             <View style={{flex: 1,fontFamily:"Montserrat-Regular"}}>
-                                                <HTML  html={data.notifBody}  />
+                                                <HTML  html={data?.notifBody}  />
                                             </View>                                    
                                         </View>
                                     </View>     

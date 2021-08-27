@@ -13,6 +13,9 @@ import SingleProduct          from '../../StaticBlocks/SingleProduct/SingleProdu
 import Style                  from './ProductCarousel.module.css';
 import 'react-multi-carousel/lib/styles.css';
 import {getCartData,getWishlistData, updateCartCount}  from '../../../../../redux/actions/index.js'; 
+import CustomRightArrow       from '../../StaticBlocks/CustomArrows/CustomRightArrow2.js';
+import CustomLeftArrow        from '../../StaticBlocks/CustomArrows/CustomLeftArrow2.js';
+
 
 const { publicRuntimeConfig } = getConfig();
 var projectName = publicRuntimeConfig.CURRENT_SITE;
@@ -283,7 +286,10 @@ render() {
                 transitionDuration={500}
                 removeArrowOnDeviceType={["tablet", "mobile"]}
                 deviceType={this.props.deviceType}
-                itemclassName="carousel-item-padding-10-px">
+                itemclassName="carousel-item-padding-10-px"
+                customRightArrow={<CustomRightArrow />}
+                customLeftArrow={<CustomLeftArrow />}
+                >
                         { 
                         Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
                             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 

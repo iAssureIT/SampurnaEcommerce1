@@ -287,32 +287,32 @@ class Product extends Component{
            { Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
                 // console.log("data in map  ===> ",data);
-                var x = this.props.recentWishlist && this.props.recentWishlist.length> 0 ? this.props.recentWishlist.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
-                var wishClass = 'r';
+                var x = this.props.recentWishlist && this.props.recentWishlist.length> 0 ? this.props.recentWishlist.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];          
+                var heartImg = '/images/eCommerce/heartSolid.svg'
                 var tooltipMsg = '';
                 if (x && x.length > 0) {
-                  wishClass = '';
+                  var heartImg = '/images/eCommerce/heartSolid.svg'
                   tooltipMsg = 'Remove from wishlist';
                 } else {
-                  wishClass = 'r';
+                  var heartImg = '/images/eCommerce/heart.svg'
                   tooltipMsg = 'Add To Wishlist';
                 }   
                 var categoryUrl = (data.category?data.category:"").replace(/\s+/g, '-').toLowerCase();                    
                 var subCategoryUrl = (data.subCategory?data.subCategory:"-").replace(/\s+/g, '-').toLowerCase();                    
               return (
-                <div className={" col-sm-6 col-12  col-lg-3 col-xl-3  " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
+                <div className={" col-sm-6 col-12  col-lg-4 col-md-3 col-xl-3  " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
                   <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                     <div className={"col-12 NoPadding"}>
                       <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
                         <div className={"col-12 NoPadding " +Style.wishlistBtn}>
+                        {data.discountPercent ? <div className={"col-3 pt-1 "  +Style.discounttag}>{Math.floor(data.discountPercent)}%<div className={Style.offTxt}>off</div> </div> : null}
                           {this.props.productSettings.displayWishlist === true?
                               this.state.user_ID && this.state.authService!=="guest"?
-                              <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
+                              <button type="submit" id={data._id} title={tooltipMsg} className={"col-3  col-xl-3  pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)} id="loginModal"><img src={heartImg} id={data._id} className={" col-12  wishListIconColor "} /></button>
                               :
-                              <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
+                              <button type="submit" id={data._id} title={tooltipMsg} className={"col-3  col-xl-3  pull-right " +Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><img src={heartImg} id={data._id} className={" col-12 wishListIconColor "} /></button>
                           :null
                           }
-                          {data.discountPercent ? <div className={"col-3 pt-1 "  +Style.discounttag}>{Math.floor(data.discountPercent)}%<div className={Style.offTxt}>off</div> </div> : null}
                         </div>
                         <div className={Style.ImgWrapper}>
                         <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+categoryUrl+"/"+subCategoryUrl+"/"+data._id}>

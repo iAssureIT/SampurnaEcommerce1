@@ -55,6 +55,8 @@ export const CompletedOrders =(props)=> {
         }
         axios.post('/api/orders/get/daily/vendor_orders',payload)
         .then(res=>{
+            console.log('Responce==========================================================================================>',res);
+            // console.log('Responce==========================================================================================>',res.data);
             setRefresh(false);
             setOrderList(res.data);
             setLoading(false);
@@ -73,14 +75,14 @@ export const CompletedOrders =(props)=> {
  
 
     const previous =()=>{
-        var prev = new Date(date.setDate(date.getDate() - 1));
+        var prev = new Date(date?.setDate(date?.getDate() - 1));
         setDate(prev);
         getList(prev);
         // handleCustom(prev,date);
       }
     
       const next =()=>{
-        var next = new Date(date.setDate(date.getDate() + 1));
+        var next = new Date(date?.setDate(date?.getDate() + 1));
         setDate(next);
         getList(next);
         // handleCustom(next,date);
@@ -111,29 +113,29 @@ export const CompletedOrders =(props)=> {
                         marginBottom:15
                     }}
                 >
-                    <View style={{flexDirection:'row',marginBottom:5}}>
+                    <View style={{flexDirection:'row',marginBottom:10}}>
                         <View style={{flex:.4}}>
                             <Text style={CommonStyles.completeBlueText}>Order No : {item.orderID}</Text>
                         </View>
                         <View style={{flex:.6,alignItems:'flex-end'}}>
-                            <Text style={CommonStyles.completeBlueText}>Date {moment(item.createdAt).format('DD-MM-YYYY hh:mm')}</Text>
+                            <Text style={CommonStyles.completeBlueText}>Date {moment(item.deliveryDate).format('DD-MM-YYYY hh:mm A')}</Text>
                         </View>    
                     </View> 
                     <View style={{flex:1}}>
                     <View style={{flexDirection:"row",flex:1}} >
-                        <View style={{flex:0.2}}>
+                        <View style={{flex:0.21}}>
                             <Text style={[CommonStyles.boxLine1C]}>Customer</Text>
                         </View>
-                        <View style={{flex:0.8,flexDirection:"row",flexWrap: 'wrap'}}>
+                        <View style={{flex:0.79,flexDirection:"row",flexWrap: 'wrap'}}>
                             <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item?.deliveryAddress?.name}, </Text>
                             <Text style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:'#033554'}]} onPress={() => Linking.openURL(`tel:${item?.deliveryAddress?.mobileNumber}`)}> {item?.deliveryAddress?.mobileNumber}</Text>
                         </View>                        
                     </View>
                     <View style={{flexDirection:"row",flex:1}} >
-                        <View style={{flex:0.2}}>
+                        <View style={{flex:0.21}}>
                             <Text style={[CommonStyles.boxLine1C]}>Address</Text>
                         </View>
-                        <View style={{flex:0.8,flexDirection:"row"}}>
+                        <View style={{flex:0.79,flexDirection:"row"}}>
                             <Text numberOfLines={2} style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item?.deliveryAddress?.addressLine1+" "+item?.deliveryAddress?.addressLine2}</Text>
                             <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end'}} onPress={()=>goToMap(item?.deliveryAddress?.latitude,item?.deliveryAddress?.longitude)}>
                                 <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{alignItems:'flex-end'}}/>

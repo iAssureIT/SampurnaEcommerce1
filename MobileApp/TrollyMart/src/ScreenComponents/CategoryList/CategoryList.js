@@ -13,7 +13,10 @@ import {
   SET_CATEGORY_WISE_LIST,STOP_SCROLL
 } from '../../redux/productList/types';
 import { Alert } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 export const CategoryList = (props)=>{
   const {navigation,boxHeight,showImage,vendor}=props;

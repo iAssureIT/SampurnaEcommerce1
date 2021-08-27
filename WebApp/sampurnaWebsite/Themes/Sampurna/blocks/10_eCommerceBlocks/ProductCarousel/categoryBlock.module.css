@@ -23,6 +23,7 @@
 .categoryCarousel{
     /* margin-bottom: 20px; */
     margin-top: -18px!important;
+    margin-bottom: 10px;
 }
 .categoryName{
     font-size: 14px;
@@ -89,7 +90,15 @@
 .activeCatg{
   border: 6px solid #033554;
 }
-
+/* @media (min-width: 360px) and (max-width: 640px) { */
+@media only screen and (max-device-width: 640px) {
+  .categoryPhoto{
+    min-height: 80px !important;
+}
+.categoryName{
+    top: 30px;
+}
+}
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {  
     .categoryName{
@@ -106,15 +115,6 @@
         /* color: lightcoral; */
         text-decoration: none !important;
     } 
-  }
-  
-  @media (min-width: 1537px) and (max-width: 1920px) {  
-    .categoryPhoto{
-        min-height: 152px;
-    }
-    .categoryName{
-        top: 55px;
-    }
   }
 
   @media (min-width: 1600px) and (max-width: 2560px) {  
@@ -133,6 +133,15 @@
         top: 60px;
     }
   }
+
+  @media (min-width: 1537px) and (max-width: 1920px) {  
+    .categoryPhoto{
+        min-height: 160px;
+    }
+    .categoryName{
+        top: 58px;
+    }
+  }
   @media (min-width: 864px) and (max-width: 1536px) {  
     .categoryPhoto{
         /* min-height: 140px; */
@@ -142,11 +151,22 @@
         top: 40px;
     }
   }
-  @media (min-width: 768px) and (max-width: 1024px) {  
+
+  @media (min-width: 768px) and (max-width: 1366px) {  
     .categoryPhoto{
-        min-height: 120px;
+        /* min-height: 140px; */
+        min-height: 110px;
     }
     .categoryName{
-        top: 40px;
+        top: 32px;
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1024px) {  
+    .categoryPhoto{
+        min-height: 100px;
+    }
+    .categoryName{
+        top: 30px;
     }
   }

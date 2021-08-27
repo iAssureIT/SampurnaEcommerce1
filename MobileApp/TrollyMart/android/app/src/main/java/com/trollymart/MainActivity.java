@@ -19,11 +19,11 @@ public class MainActivity extends ReactActivity {
     return "TrollyMart";
   }
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.show(this);  // here
-        super.onCreate(null);
-    }
+  // @Override
+  // protected void onCreate(Bundle savedInstanceState) {
+  //       SplashScreen.show(this);  // here
+  //       super.onCreate(null);
+  //   }
 
   protected ReactActivityDelegate createReactActivityDelegate() {
 	 return new ReactActivityDelegate(this, getMainComponentName()) {
