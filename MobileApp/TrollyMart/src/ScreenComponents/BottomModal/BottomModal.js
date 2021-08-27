@@ -39,13 +39,14 @@ export const BottomModal = (props) => {
         onDismiss={() => {
           return closeModal();
         }}
+        onBackdropPress={() => closeModal()}
         transparent={true}
         visible={visible}>
           <TouchableOpacity
           activeOpacity={1}
-          // onPress={() => {
-          //   return closeModal();
-          // }}
+          onPress={() => {
+            return closeModal();
+          }}
           style={{
             position: 'absolute',
             width: '100%',
@@ -74,7 +75,7 @@ export const BottomModal = (props) => {
                 <View style={{flex:0.48}}>  
                    <FormButton
                     title       = {'Select Manually'}
-                    onPress     = {()=>navigation.navigate('Location',{type:'Manual'})}
+                    onPress     = {()=>{navigation.navigate('Location',{type:'Manual'});closeModal()}}
                     background  = {false}
                     // icon        = {{name: "crosshairs-gps",type : 'material-community',size: 18,color: "white"}}
                     // loading     = {btnLoading}

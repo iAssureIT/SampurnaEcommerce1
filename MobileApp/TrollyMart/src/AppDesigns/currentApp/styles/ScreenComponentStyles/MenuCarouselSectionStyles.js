@@ -2,6 +2,7 @@
 import { StyleSheet} from 'react-native';
 import { colors } from 'react-native-elements';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 export default StyleSheet.create({
 	menuWrapper:{
 		marginTop:20,
@@ -74,7 +75,7 @@ export default StyleSheet.create({
 		flexShrink:1,
 		textAlign:'center',
 		// marginTop:10,
-		fontSize:11,
+		fontSize:RFPercentage(1.6),
 		fontFamily:"Montserrat-Medium",
 		flexWrap: 'wrap',
 		opacity: 1

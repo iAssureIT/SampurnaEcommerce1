@@ -220,7 +220,6 @@ locationInput:{
   justifyContent:'center',
   ...Platform.select({
     ios:{
-     marginTop:30,
      position:"absolute",
      zIndex:50
     },

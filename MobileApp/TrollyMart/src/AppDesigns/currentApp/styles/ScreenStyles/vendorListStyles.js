@@ -8,6 +8,7 @@ export default StyleSheet.create({
 		// paddingHorizontal:15,
 		paddingVertical:5,
 		backgroundColor:"#fff",
+		marginBottom:hp(4)
 	},
 	
 	logoBox:{

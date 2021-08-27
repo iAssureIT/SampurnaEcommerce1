@@ -4,7 +4,8 @@ import {
   View,
   TouchableOpacity,
   RefreshControl,
-  Image
+  Image,
+  Platform
 }                             from 'react-native';
 import { Icon }               from "react-native-elements";
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles.js';
@@ -25,6 +26,8 @@ import { NetWorkError } from '../../../NetWorkError.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import { ScrollView } from 'react-native';
 import Animated from 'react-native-reanimated';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
 const window = Dimensions.get('window');
@@ -50,7 +53,7 @@ const VendorProducts = (props)=>{
 
 
   const {productList,brandList,payload,globalSearch} = props;
-  const HEADER_HEIGHT = 160;
+  const HEADER_HEIGHT = Platform.OS==='ios'?180:hp(18);
   var scrollY = new Animated.Value(0);
   var diffClampScrollY= Animated.diffClamp(scrollY,0,HEADER_HEIGHT);
   var headerY= Animated.interpolate(diffClampScrollY,{
@@ -163,7 +166,7 @@ console.log("subCategory",subCategory)
                 <View style={{backgroundColor:"#EEEEEE",marginTop:3,height:20}}>
                     <Text numberOfLines={1} style={[{paddingHorizontal:5,fontSize:11,color:"#333"}]}>{vendor?.vendorName ? vendor?.vendorName : vendor?.companyName}</Text>
                 </View> 
-                <View style={{height:65}}>
+                <View style={{height:hp(8)}}>
                   <MenuCarouselSection  
                       navigation  = {navigation}   
                       showImage   = {true} 
@@ -174,11 +177,11 @@ console.log("subCategory",subCategory)
                   />
                 </View>  
             </View>         
-            <View style={{height:40,marginTop:2}}>
+            <View style={{height:hp(4),marginTop:2}}>
               <CategoryList 
                 navigation          = {navigation}  
                 showImage           = {false} 
-                boxHeight           = {24} 
+                boxHeight           = {hp(3)} 
                 setSubCategory      = {setSubCategory}
                 category            = {category? category : ''}
                 vendorLocation_id   = {vendorLocation_id}
@@ -193,7 +196,7 @@ console.log("subCategory",subCategory)
                     <Image
                       resizeMode="contain"
                       source={require("../../AppDesigns/currentApp/images/filter.png")}
-                      style={{height:25,width:25}}
+                      style={{height:hp(3),width:wp(3)}}
                       />
                   </TouchableOpacity>
                 <TouchableOpacity  style={styles.iconStyle}  onPress={()=>toggleSort(true)}>
@@ -201,7 +204,7 @@ console.log("subCategory",subCategory)
                   <Image
                   resizeMode="contain"
                   source={require("../../AppDesigns/currentApp/images/sort.png")}
-                  style={{height:17,width:17}}
+                  style={{height:hp(3),width:wp(3)}}
                   />
                 </TouchableOpacity>
               </View>  

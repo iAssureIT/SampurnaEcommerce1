@@ -123,10 +123,24 @@ export const VendorList = withCustomerToaster((props)=>{
                                     height:wp(13),
                                     width:wp(13),
                                     backgroundColor:"#fff",
+                                    alignSelf:'center'
                                 }} resizeMode="contain" 
-                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :null}
+                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :
+                                <Image 
+                                source          =   {require("../../AppDesigns/currentApp/images/notavailable.png")} 
+                                style      =   {{
+                                    borderRadius:hp(100),
+                                    borderWidth:0.5,
+                                    borderColor:'#033554',
+                                    height:wp(13),
+                                    width:wp(13),
+                                    backgroundColor:"#fff",
+                                    alignSelf:'center'
+                                }} resizeMode="contain" 
+                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></Image>
+                                }
                         </View>
-                        <View style={{justifyContent:'center',alignItems:'center',height:hp(10)}}>
+                        <View style={{justifyContent:'center',alignItems:'center',height:wp(18)}}>
                             <Text numberOfLines={1} style={[{color:"#000",paddingLeft:wp(10),alignSelf:"flex-start",fontSize:RFPercentage(2),fontFamily:"Montserrat-Bold"}]}>{item.vendorName}</Text >
                         </View> 
                         {/* <View style={{height:20,flexDirection:'row',alignItems:'center',justifyContent:'flex-end',marginRight:5}}>

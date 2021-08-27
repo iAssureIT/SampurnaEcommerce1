@@ -253,7 +253,6 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         // color={colors.theme}
                         status={checked === 'third' ? 'checked' : 'unchecked'}
                         onPress={() => {setChecked('third');setPaymentMethods('Online Payment')}}
-
                       />
                       <View style={{flex:0.8}}>
                         <Text style={styles.free}>Online Payment </Text>

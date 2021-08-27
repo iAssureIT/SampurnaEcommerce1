@@ -137,7 +137,9 @@ export const Footer =(props)=>{
                  <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
                 {
                   cartCount > 0 ?
-                    <Text style={styles.notificationText}>{cartCount}</Text>
+                    <View style={styles.notificationView}>
+                      <Text style={styles.notificationText}>{cartCount}</Text>
+                    </View>  
                   :
                   null
                 } 

@@ -783,7 +783,7 @@ superparent:{
     },
 
     free:{
-      marginTop:-8,
+      marginTop:Platform.OS==='ios'?0: -8,
       fontSize:RFPercentage(1.9),
       fontFamily:"Montserrat-Regular",
       color:'#000'

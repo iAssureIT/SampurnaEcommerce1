@@ -63,18 +63,21 @@ export default StyleSheet.create({
   },
 
   notificationText: {
-        position: 'absolute',
-        right:  hp(-1),
-        top: hp(-2),
-        borderRadius: hp(2),
-        width: hp(2.5),
-        height: hp(2.5),
-        textAlign: 'center',
-        color: '#fff',
-        fontSize: RFPercentage(1.5),
-        backgroundColor: colors.red,
-        fontFamily: "Montserrat-SemiBold",
-        alignSelf:"center"
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: RFPercentage(1.5),
+    fontFamily: "Montserrat-SemiBold",
+    alignSelf:"center"
+  },
+  notificationView:{
+    position: 'absolute',
+    right:  hp(-1),
+    top: hp(-2),
+    borderRadius: hp(2),
+    width: hp(2.5),
+    height: hp(2.5),
+    justifyContent: 'center',
+    backgroundColor: colors.red,
   },
 
   iconOuterWrapper: {

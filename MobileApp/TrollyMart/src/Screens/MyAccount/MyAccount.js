@@ -124,7 +124,7 @@ export const MyAccount =(props)=>{
                     <View style={{alignItems:'center',paddingHorizontal:wp(5)}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=>navigation.navigate('MyOrder')}>
                             {/* <Icon size={30} name='shopping-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/shopping-bag.png")} style={[styles.iconImg]} resizeMode="contain" />
+                            <Image source={require("../../AppDesigns/currentApp/images/shopping-bag.png")} style={[styles.iconImg,{height:hp(6),width:hp(6)}]} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={styles1.label}>My Orders</Text>
                     </View>

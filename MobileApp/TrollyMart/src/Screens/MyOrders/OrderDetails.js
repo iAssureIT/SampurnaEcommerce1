@@ -426,6 +426,7 @@ const cancelorderbtn = (id,vendor_id) => {
         : PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
     )
       .then(result => {
+        console.log("result",result)
         switch (result) {
           case RESULTS.GRANTED:
             openType({
@@ -1038,7 +1039,7 @@ const cancelorderbtn = (id,vendor_id) => {
                 }
                </View> 
                 <TouchableOpacity 
-                    style={{flex:0.1,height:28,width:28,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
+                    style={{flex:0.1,height:35,width:35,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
                     onPress={() => chooseFromLibrary('openPicker','Review')}
                   >
                   <Image source={require('../../AppDesigns/currentApp/images/insert_image.png')}
@@ -1201,7 +1202,7 @@ const cancelorderbtn = (id,vendor_id) => {
                 }
                </View> 
                 <TouchableOpacity 
-                    style={{flex:0.1,height:28,width:28,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
+                    style={{flex:0.1,height:35,width:35,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:100,borderColor:colors.cartButton,borderWidth:0.5}}
                     onPress={() => chooseFromLibrary('openPicker','Return')}
                   >
                   <Image source={require('../../AppDesigns/currentApp/images/insert_image.png')}

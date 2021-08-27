@@ -126,7 +126,20 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                             width:75,
                             backgroundColor:"#fff",
                         }} resizeMode="cover" 
-                        PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :null}
+                        PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :
+                        
+                        <Image 
+                            source          =   {require("../../AppDesigns/currentApp/images/notavailable.png")} 
+                            style      =   {{
+                                borderRadius:100,
+                                borderWidth:0.5,
+                                borderColor:'#033554',
+                                height:75,
+                                width:75,
+                                backgroundColor:"#fff",
+                            }} resizeMode="cover" 
+                            PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></Image>
+                        }
                 </View>
                 <View style={{flex:1,height:100,justifyContent:'center',paddingLeft:60}}>
                     <Text style={[CommonStyles.subHeaderText,{color:"#000",alignSelf:"flex-start"}]}>{item.vendorName}</Text >
