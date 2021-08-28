@@ -321,12 +321,22 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
     var selector        = {}; 
     selector['$and']    = [];
 
+    //=================================================
+    // Now Section URL will be send instead of Section ID
+    //=================================================
+
     selector["$and"].push({"status": "Published"})
 
     if(req.body.section && (req.body.section).toLowerCase() != "all"){
         selector["$and"].push({"_id": ObjectId(req.body.section) })
     }else{
         selector["$and"].push({"_id": {$ne: ""} })
+    }
+
+    if(req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() != "all"){
+        selector["$and"].push({"sectionUrl": req.body.sectionUrl })
+    }else{
+        selector["$and"].push({"sectionUrl": {$ne: ""} })
     }
     
     if(req.body.showCarousel){
@@ -625,7 +635,6 @@ exports.get_list_for_section_category_block_by_url = (req,res,next)=>{
         });
     }
 };
-
 
 /** =========== getCategoryBrands() =========== */
 var getCategoryBrands = async(section_id, category_id, subCategory_id) =>{
