@@ -53,12 +53,12 @@ const VendorProducts = (props)=>{
 
 
   const {productList,brandList,payload,globalSearch} = props;
-  const HEADER_HEIGHT = Platform.OS==='ios'?180:hp(18);
+  const HEADER_HEIGHT = Platform.OS==='ios'?180:hp(21);
   var scrollY = new Animated.Value(0);
   var diffClampScrollY= Animated.diffClamp(scrollY,0,HEADER_HEIGHT);
   var headerY= Animated.interpolate(diffClampScrollY,{
     inputRange:[0,HEADER_HEIGHT],
-    outputRange:[0,-85]
+    outputRange:[0,-hp(12)]
   })
     // var diffClamp= Animated.diffClamp(scrollY,0,185)
     // var translateY = diffClamp.interpolate({
@@ -196,7 +196,7 @@ console.log("subCategory",subCategory)
                     <Image
                       resizeMode="contain"
                       source={require("../../AppDesigns/currentApp/images/filter.png")}
-                      style={{height:hp(3),width:wp(3)}}
+                      style={{height:hp(4),width:hp(4)}}
                       />
                   </TouchableOpacity>
                 <TouchableOpacity  style={styles.iconStyle}  onPress={()=>toggleSort(true)}>
@@ -204,7 +204,7 @@ console.log("subCategory",subCategory)
                   <Image
                   resizeMode="contain"
                   source={require("../../AppDesigns/currentApp/images/sort.png")}
-                  style={{height:hp(3),width:wp(3)}}
+                  style={{height:hp(4),width:hp(3)}}
                   />
                 </TouchableOpacity>
               </View>  
