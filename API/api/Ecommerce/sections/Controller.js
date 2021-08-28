@@ -456,7 +456,7 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
 /**=========== get_list_for_section_category_block() =========== */
 exports.get_list_for_section_category_block_by_url = (req,res,next)=>{
 
-    // console.log("section req.body => ",req.body);
+    console.log("section req.body => ",req.body);
     processData();
     async function processData(){
         var startRange      = 0;
@@ -479,7 +479,7 @@ exports.get_list_for_section_category_block_by_url = (req,res,next)=>{
             var limitRange = req.body.numOfRows * req.body.numOfItemPerRow;
         }
 
-        // console.log("selector => ",selector.$and[0])
+        console.log("selector => ",selector)
 
         Sections.aggregate([
             { $match : selector},
@@ -494,14 +494,14 @@ exports.get_list_for_section_category_block_by_url = (req,res,next)=>{
         ])
         .exec()    
         .then(async(sectiondata)=>{
-            // console.log("section data => ", sectiondata);
+            console.log("section data => ", sectiondata);
             var section_id      = "";
             var category_id     = "";
             var subCategory_id  = "";
 
             if(req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() !== "all"){
                 var sectionData = await Sections.findOne({"sectionUrl" : req.body.sectionUrl}, {_id : 1})
-                // console.log("sectionData => ",sectionData)
+                console.log("sectionData => ",sectionData)
                 if (sectionData !== null) {
                     section_id  =  sectionData._id;           
                 }
@@ -509,14 +509,14 @@ exports.get_list_for_section_category_block_by_url = (req,res,next)=>{
 
             if(req.body.categoryUrl && (req.body.categoryUrl).toLowerCase() !== "all"){
                 var categoryData = await Category.findOne({"categoryUrl" : req.body.categoryUrl}, {_id : 1})
-                // console.log("categoryData => ",categoryData)
+                console.log("categoryData => ",categoryData)
                 if (categoryData !== null) {
                     category_id  =  categoryData._id;           
                 } 
             }
             if(req.body.subCategoryUrl && (req.body.subCategoryUrl).toLowerCase() !== "all"){
                 var subCategoryData = await Category.findOne({"categoryUrl" : req.body.categoryUrl,"subCategory.subCategoryUrl" : req.body.subCategoryUrl}, {'subCategory.$._id' : 1})
-                // console.log("subCategoryData => ",subCategoryData)
+                console.log("subCategoryData => ",subCategoryData)
                 if (subCategoryData !== null) {
                     subCategory_id  =  subCategoryData.subCategory._id;
                 }
@@ -526,7 +526,7 @@ exports.get_list_for_section_category_block_by_url = (req,res,next)=>{
                 // processData();
                 // async function processData(){
                     if (req.body.showOnlySection && req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() === "all") {
-                        // console.log("In Show only Sections => ", sectiondata);
+                        console.log("In Show only Sections => ", sectiondata);
                         for (var i = 0; i < sectiondata.length; i++) {
                             // console.log("sectiondata[i] => ", i, sectiondata[i]);
                             if(sectiondata[i].status === "Published"){
@@ -539,11 +539,11 @@ exports.get_list_for_section_category_block_by_url = (req,res,next)=>{
                             }                
                         }
                         if(i >= sectiondata.length){
-                            // console.log("returnData => ", returnData);
+                            console.log("returnData => ", returnData);
                             res.status(200).json(returnData.slice(startRange, limitRange));
                         }
                     } else if (req.body.showOnlyCategory && req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() !== "all" && req.body.categoryUrl && (req.body.categoryUrl).toLowerCase() === "all"){
-                        // console.log("In Show only Categories => ", sectiondata[0].categorylist);
+                        console.log("In Show only Categories => ", sectiondata[0].categorylist);
 
                         if (sectiondata[0].categorylist && sectiondata[0].categorylist.length > 0) {
                             for (var j = 0; j < sectiondata[0].categorylist.length; j++) {
@@ -558,19 +558,19 @@ exports.get_list_for_section_category_block_by_url = (req,res,next)=>{
                                 }  
                             }
                             if(j >= sectiondata[0].categorylist.length){
-                                // console.log("returnData => ", returnData);
+                                console.log("returnData => ", returnData);
                                 res.status(200).json(returnData.slice(startRange, limitRange));
                             }                
                         }
                     } else if (req.body.showOnlySubCategory && req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() !== "all" && req.body.categoryUrl && (req.body.categoryUrl).toLowerCase() !== "all" && req.body.subCategoryUrl && (req.body.subCategoryUrl).toLowerCase() === "all"){
-                        // console.log("In Show only SubCategories => ", sectiondata[0].categorylist);
+                        console.log("In Show only SubCategories => ", sectiondata[0].categorylist);
                         if (sectiondata[0].categorylist && sectiondata[0].categorylist.length > 0) {
                             var filteredCategory = sectiondata[0].categorylist.filter((filteredcategory)=> String(filteredcategory.categoryUrl) === String(req.body.categoryUrl));
                             // console.log("filteredCategory => ",filteredCategory);
                             // console.log("filteredCategory => ",sectiondata[0].categorylist);
                             if(filteredCategory && filteredCategory.length > 0 && filteredCategory[0].subCategory  && filteredCategory[0].subCategory.length > 0){
                                 for (var k = 0; k < filteredCategory[0].subCategory.length; k++) {
-                                    // console.log("filteredCategory[0].subCategory[j] => ", k, filteredCategory[0].subCategory[k]);
+                                    console.log("filteredCategory[0].subCategory[j] => ", k, filteredCategory[0].subCategory[k]);
                                     if(filteredCategory[0].subCategory[k].status === "Published"){
                                         returnData.push({
                                             _id         : filteredCategory[0].subCategory[k]._id,
@@ -581,20 +581,20 @@ exports.get_list_for_section_category_block_by_url = (req,res,next)=>{
                                     } 
                                 }
                                 if(k >= filteredCategory[0].subCategory.length){
-                                    // console.log("returnData => ", returnData);
+                                    console.log("returnData => ", returnData);
                                     res.status(200).json(returnData.slice(startRange, limitRange));
                                 }   
                             }             
                         }
                     }else if (req.body.showOnlyBrand && req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() !== "all" && req.body.categoryUrl && (req.body.categoryUrl).toLowerCase() !== "all"){
-                        // console.log("In Show only Brands => ", sectiondata[0].categorylist);
+                        console.log("In Show only Brands => ", sectiondata[0].categorylist);
                         if (sectiondata[0].categorylist && sectiondata[0].categorylist.length > 0) {
                             var filteredCategory = sectiondata[0].categorylist.filter((filteredcategory)=> String(filteredcategory.categoryUrl) === String(req.body.categoryUrl));
                                 
                             if(req.body.subCategoryUrl && (req.body.subCategoryUrl).toLowerCase() !== "all"){
                                 if(filteredCategory && filteredCategory.length > 0){
                                     var subcategoryBrands = await getCategoryBrands(section_id, category_id, subCategory_id);
-                                    // console.log("subcategoryBrands=> ",subcategoryBrands);
+                                    console.log("subcategoryBrands=> ",subcategoryBrands);
                                     if(subcategoryBrands && subcategoryBrands.length > 0){   
                                         var uniqueBrands = [...new Set(subcategoryBrands.map(item => item.brand.trim()))]; 
                                         uniqueBrands     = uniqueBrands.filter(brand => brand)
