@@ -408,22 +408,22 @@ exports.fetch_one_category = (req,res,next)=>{
     selector['$and']    = [];
 
     /**----------- Seach Sections. ------------ */
-    if(req.body.searchText && req.body.searchText !== ""){
-        selector["$and"].push({ 
-            subCategory : { 
-                $elemMatch: { subCategoryTitle: {'$regex' : req.body.searchText , $options: "i" } } 
-            }          
-        })
-    }else{
-        selector["$and"].push({  
-            subCategory : { 
-                $elemMatch: { subCategoryTitle: {"$ne" : ""} } 
-            }   })
-    }
+    // if(req.body.searchText && req.body.searchText !== ""){
+    //     selector["$and"].push({ 
+    //         subCategory : { 
+    //             $elemMatch: { subCategoryTitle: {'$regex' : req.body.searchText , $options: "i" } } 
+    //         }          
+    //     })
+    // }else{
+    //     selector["$and"].push({  
+    //         subCategory : { 
+    //             $elemMatch: { subCategoryTitle: {'$regex' : {"$ne" : ""} , $options: "i" } } 
+    //         }   })
+    // }
 
     selector["$and"].push({_id : ObjectId(req.body.category_id)})
-    console.log("selector => ",selector.$and[0].subCategory)
-    Category.findOne(selector, {'subCategory.$[]' : 1})
+    // console.log("selector => ",selector.$and[0].subCategory)
+    Category.findOne(selector)
     .exec()
     .then(data=>{
         console.log("data =>" ,data)

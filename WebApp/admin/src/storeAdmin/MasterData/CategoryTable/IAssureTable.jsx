@@ -821,7 +821,7 @@ class IAssureTable extends Component {
 					null        
 		       	}
 				{
-		       		this.state.tableObjects.searchApply === true ? 
+		       		this.state.tableObjects.searchApply === true && this.props.currentView !== "SubCategory-Management-table" ? 
 			       		<div className="col-lg-10  col-md-10  col-xs-12 col-sm-12 marginTop17 pull-right NOpadding-right">
 				        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
 				        		<div className="input-group">

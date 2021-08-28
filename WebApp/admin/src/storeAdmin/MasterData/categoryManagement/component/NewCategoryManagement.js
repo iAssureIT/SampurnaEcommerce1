@@ -1325,7 +1325,7 @@ class CategoryManagement extends Component{
 															<h4 className="invoicePaymentModalHeading">SubCategories of {this.state.categoryName}</h4>
 														</div>
 														<div class="modal-body">
-															<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+															<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 																<IAssureTable 
 																	tableHeading          = {this.state.subcategorytableHeading}
 																	twoLevelHeader        = {this.state.twoLevelHeader} 

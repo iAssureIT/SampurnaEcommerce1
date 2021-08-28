@@ -2531,67 +2531,73 @@ exports.set_send_otp = (req, res, next) => {
 		}
 	)
 	.then(user => {
-		if(user){
+		if(user !== null){
 			//console.log('user => ',user)
- 			if ((user.profile.status).toLowerCase() === "active" || (user.profile.status).toLowerCase() === "unverified") {
- 				// var otpMobile = getRandomInt(1000, 9999);
-				 var otpMobile = 1234;
-				// console.log("optEmail", optEmail, req.body);
-				User.updateOne(
-					{ "_id": ObjectID(user._id)},
-					{
-						$set: {
-							"profile.otpMobile": otpMobile,
-						},
-					}
-				)
-				.exec()
-				.then(async(data) => {
-					console.log("data",data);
-					// if (data.nModified === 1) {
-						var userName = user.profile.firstname;
-						// console.log("userName => ",userName);
-						var userNotificationValues = {
-							"event"			: "SendOTP",
-							"toUser_id"		: user._id,
-							"toUserRole"	: user.roles[0],
-							"toMobileNumber": user.isdCode + user.mobile,								
-							"variables" 	: {
-								userName 			: userName,
-								OTPSendForReason 	: "Reset Password",
-								OTP 					: otpMobile
-							}
+			if (user.authService !== "" || user.authService !== undefined) {
+				res.status(200).json({ 
+					message : "You are not allowed to change your password. Because you are login through " + user.authService
+				});
+			} else {
+	 			if ((user.profile.status).toLowerCase() === "active" || (user.profile.status).toLowerCase() === "unverified") {
+	 				// var otpMobile = getRandomInt(1000, 9999);
+					 var otpMobile = 1234;
+					// console.log("optEmail", optEmail, req.body);
+					User.updateOne(
+						{ "_id": ObjectID(user._id)},
+						{
+							$set: {
+								"profile.otpMobile": otpMobile,
+							},
 						}
-						// console.log("notification formvalues => ",userNotificationValues)
-						var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
-						res.status(200).json({ 
-							message 	: "OTP sent on registered mobile number", 
-							ID 		: user._id,
-							profile 	: user.profile 
-						})
-					// } else {
-					// 	res.status(200).json({ 
-					// 		message : "Failed to send OTP", 
-					// 		ID 		: user._id,
-					// 		profile : user.profile 
-					// 	})
-					// }
-				})
-				.catch(err => {
-					res.status(500).json({
-						message : "Failed to update User",
-						error 	: err
+					)
+					.exec()
+					.then(async(data) => {
+						console.log("data",data);
+						// if (data.nModified === 1) {
+							var userName = user.profile.firstname;
+							// console.log("userName => ",userName);
+							var userNotificationValues = {
+								"event"			: "SendOTP",
+								"toUser_id"		: user._id,
+								"toUserRole"	: user.roles[0],
+								"toMobileNumber": user.isdCode + user.mobile,								
+								"variables" 	: {
+									userName 			: userName,
+									OTPSendForReason 	: "Reset Password",
+									OTP 					: otpMobile
+								}
+							}
+							// console.log("notification formvalues => ",userNotificationValues)
+							var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
+							res.status(200).json({ 
+								message 	: "OTP sent on registered mobile number", 
+								ID 		: user._id,
+								profile 	: user.profile 
+							})
+						// } else {
+						// 	res.status(200).json({ 
+						// 		message : "Failed to send OTP", 
+						// 		ID 		: user._id,
+						// 		profile : user.profile 
+						// 	})
+						// }
+					})
+					.catch(err => {
+						res.status(500).json({
+							message : "Failed to update User",
+							error 	: err
+						});
 					});
-				});
- 			}else if ((user.profile.status).toLowerCase() == "blocked") {
-				// console.log("user.USER_BLOCK IN ==>")
-				res.status(200).json({ 
-					message : "user is blocked" 
-				});
-			} else if ((user.profile.status).toLowerCase() == "unverified") {
-				res.status(200).json({ 
-					message : "User is unverified" 
-				});
+	 			}else if ((user.profile.status).toLowerCase() == "blocked") {
+					// console.log("user.USER_BLOCK IN ==>")
+					res.status(200).json({ 
+						message : "user is blocked" 
+					});
+				} else if ((user.profile.status).toLowerCase() == "unverified") {
+					res.status(200).json({ 
+						message : "User is unverified" 
+					});
+				}
 			}
 		}else{
 			res.status(200).json({ 
