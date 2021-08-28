@@ -235,7 +235,7 @@ export const ProductList = withCustomerToaster((props)=>{
               <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} disabled={item.availableQuantity === 0 ? true : false}>
                 <Image
                   source={item.isWish ? require('../../AppDesigns/currentApp/images/heartF.png'):require('../../AppDesigns/currentApp/images/wishlistE.png')}                  
-                  style={{ width: wp(3), height: hp(3) }}
+                  style={{ width: hp(2.5), height: hp(2.5) }}
                   resizeMode='contain'
                 />
               </TouchableOpacity>
