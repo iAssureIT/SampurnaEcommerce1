@@ -40,7 +40,7 @@ export const SearchList  = withCustomerToaster((props)=>{
   const [user_id,setUserId] = useState('');
   const listType = type+"List";
   const isFocused = useIsFocused();
-
+console.log("globalSearch",globalSearch);
   
   const capitalize=(str)=>{
     return str.charAt(0).toUpperCase() + str.slice(1);

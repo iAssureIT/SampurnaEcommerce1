@@ -2,7 +2,7 @@ import React,
       { useEffect,useState }  from "react";
 import axios                  from 'axios';
 import codePush               from 'react-native-code-push';
-import {Provider, connect,useDispatch}    from 'react-redux';
+import {Provider, connect,useDispatch,useSelector}    from 'react-redux';
 import {Provider as ProviderPaper, 
       }               from 'react-native-paper';
 import store                  from './src/redux/store';
@@ -25,7 +25,7 @@ import { NetworkProvider } from './NetworkProvider';
 import { ExampleComponent } from './ExampleComponent';
 import Snackbar from 'react-native-snackbar';
 import SplashScreen from "react-native-lottie-splash-screen";
-export const NetworkContext = React.createContext({ isConnected: true });
+import NetInfo from '@react-native-community/netinfo';
 
 console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);
 axios.defaults.baseURL = REACT_APP_BASE_URL;
@@ -39,15 +39,9 @@ TextInput.defaultProps.allowFontScaling = false;
     const [token, setToken] = useState('');
     const [toast, setAppToast] = React.useState(null);
     const dispatch              = useDispatch();
+
   
   
-  const handleConnectivityChange = (state) => {
-    dispatch({
-      type: SET_NETWORK_CONNECTION,
-      payload :state.isConnected
-    });
-    seConnected(state.isConnected);
-  }
   
 
   useEffect(() => {
@@ -106,20 +100,44 @@ TextInput.defaultProps.allowFontScaling = false;
        <ExampleComponent/>
         <AuthLoadingScreen />
         <ToastProvider toast={toast} />
-      </NetworkProvider>  
+       </NetworkProvider>
     </Provider>  
   );
 }
 
+
+
+
 const ToastProviderComponent = props => {
+  // const handleConnectivityChange = (state) => {
+  //   console.log("state",state);
+  //   if (!!state.isInternetReachable) {
+  //     setTimeout(() => { Snackbar.show({
+  //       text: "Waiting for network...",
+  //       duration: Snackbar.LENGTH_INDEFINITE,
+  //       fontFamily: 'Montserrat-Regular',
+  //       action: {
+  //         text: 'CANCEL',
+  //         textColor: 'white',
+  //         onPress: () => { /* Do something. */ },
+  //       },
+  //     });}, 1000)
+  //   }else{
+  //     Snackbar.dismiss();
+  //   }
+  // }
+
   useEffect(() => {
+    // NetInfo.addEventListener(handleConnectivityChange);
+
     if (!!props.toast) {
-      Snackbar.show({
+      setTimeout(() => { Snackbar.show({
         text: props.toast.text,
         duration: Snackbar.LENGTH_LONG,
         backgroundColor: props.toast?.color,
         fontFamily: 'Montserrat-Regular',
-      });
+      });}, 1000)
+
     }
   }, [props]);
   return <View id="RootApp" />;

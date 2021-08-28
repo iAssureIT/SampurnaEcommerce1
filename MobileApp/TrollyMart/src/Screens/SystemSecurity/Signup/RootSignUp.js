@@ -121,7 +121,7 @@ const window = Dimensions.get('window');
                 .catch((error) => {
                   console.log("error",error);
                   setLoading(false);
-                  setToast({text: 'Something went wrong.', color: 'red'});
+                  setToast({text: error.message, color: 'red'});
                 })
               }else{
                 setToast({text: 'Please confirm your password', color: colors.warning});

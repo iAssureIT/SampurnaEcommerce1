@@ -33,6 +33,9 @@ import PhoneInput                   from "react-native-phone-number-input";
 import { useIsFocused }             from "@react-navigation/native";
 import SearchSuggetion              from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { NetWorkError } from '../../../NetWorkError.js';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+
 
   const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({

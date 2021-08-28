@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import {
   Text,
   View,
@@ -9,7 +9,8 @@ import {
   Image,
   Modal,
   Alert,
-  BackHandler
+  BackHandler,
+  StyleSheet
 } from 'react-native';
 import { Icon }             from "react-native-elements";
 import axios                from "axios";
@@ -43,6 +44,7 @@ import DeviceInfo from 'react-native-device-info';
 import {getCartCount}       from '../../../redux/productList/actions';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import PhoneInput           from "react-native-phone-number-input";
 
 GoogleSignin.configure({
   // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -63,7 +65,7 @@ const window = Dimensions.get('window');
     const {setToast,navigation} = props; //setToast function bhetta
     const dispatch = useDispatch();
     const isFocused = useIsFocused();
-
+   
     // const backAction = () => {
     //   Alert.alert("","Are you sure you want to exit app?", [
     //     {
@@ -145,9 +147,9 @@ const window = Dimensions.get('window');
                   }
                 })
                 .catch((error) => {
-                  console.log("error",error);
+                  console.log("error",error.message);
                   setLoading(false);
-                  setToast({text: 'Something went wrong.', color: 'red'});
+                  setToast({text: error.message, color: 'red'});
                 });
             }}
             validationSchema={LoginSchema}
@@ -189,7 +191,9 @@ const window = Dimensions.get('window');
     const [image, setImage] = useState({profile_photo: '', image: ''});
     const [userInfo,setUserInfo]=useState({});
     const [googleLoading, setGoogleLoading] = useState(false);
-    
+    const [inpuType,setInputType]=useState('text');
+    const phoneInput = useRef(null);
+    const [value, setValue] = useState(values.mobileNumber);
   const logoutWithFacebook = () => {
     LoginManager.logOut();
     setUserInfo({})
@@ -402,12 +406,31 @@ const window = Dimensions.get('window');
       })
     }
 
+
+    const checkType = (e)=>{
+      console.log("typeof(e)",typeof(e))
+      if(e.length>1){
+        if(isNumeric(e)){
+          setInputType('number');
+        }else{
+          setInputType('text');
+        }
+      }else{
+        setInputType('text');
+      }
+      setFieldValue('username',e)
+    }
+
+    const isNumeric=(value)=>{
+      return /^-?\d+$/.test(value);
+  }
+
     return (
       <ImageBackground 
         source={require("../../../AppDesigns/currentApp/images/s2.png")} 
         style={[commonStyles.container]} 
         resizeMode="cover" >
-        <ScrollView style={{}}>
+        <ScrollView style={{}} >
               <View style={styles.syslogoLoginNEW}>
                   <Image
                   resizeMode="contain"
@@ -421,11 +444,13 @@ const window = Dimensions.get('window');
               </View>
             
             <View style={commonStyles.formWrapper}>
+            {
+            // inpuType==='text' ?
             <FormInput
               // style={[styles.inputBoxStyle]}
               labelName       = "Phone no / Email Id"
               // placeholder     = "Enter Mobile No / Email Id..."
-              onChangeText    = {handleChange('username')}
+              onChangeText    = {(e)=>checkType(e)}
               required        = {true}
               name            = "username"
               errors          = {errors}
@@ -435,7 +460,40 @@ const window = Dimensions.get('window');
               autoCapitalize  = "none"
               // keyboardType    = "email-address"
               value           = {values.username}
+              autoFocus 
             />
+            // :
+            // <View style={{margin:10}}>
+            //     <Text style={{ fontSize: 14,paddingVertical:2}}>
+            //         <Text style={{fontFamily:'Montserrat-Medium', fontSize: RFPercentage(1.8),color:'#000'}}>Phone Number</Text>{' '}
+            //         <Text style={{color: 'red', fontSize: RFPercentage(1.8)}}>
+            //         *
+            //         </Text>
+            //     </Text>
+            //       <PhoneInput
+            //         ref={phoneInput}
+            //         defaultCode="AE"
+            //         layout="second"
+            //         placeholder='Phone Number'
+            //         value           = {values.username}
+            //         onChangeText={(text) => {
+            //           const checkValid = phoneInput.current?.isValidNumber(text);
+            //           const callingCode = phoneInput.current?.getCallingCode(text);
+            //           const countryCode = phoneInput.current?.getCountryCode(text);
+            //           console.log("callingCode",callingCode);
+            //           var mobileNumber = text;
+            //           setValue(text);
+            //           checkType(text)
+            //         }}
+            //         containerStyle= {styles1.containerStyle}
+            //         textContainerStyle={styles1.textContainerStyle}
+            //         textInputStyle={styles1.textInputStyle}
+            //         codeTextStyle={styles1.codeStyle}
+            //         keyboardType='default'
+            //         autoFocus 
+            //       />
+            //   </View> 
+            }
             <FormInput
               labelName     = "Password"
               // placeholder   = "Enter Password"
@@ -578,3 +636,30 @@ const window = Dimensions.get('window');
     </ImageBackground>
   );
 };
+
+const styles1 = StyleSheet.create({
+  containerStyle:{
+    //  borderWidth:1,
+    //  borderRadius:5,
+     width:"100%",
+    //  borderColor:"#ccc",
+    borderBottomWidth:1,
+    borderBottomColor:"#ccc",
+     backgroundColor:"transparent"
+   },
+   textInputStyle:{
+       height:hp(4),
+       backgroundColor:'transparent'
+   },
+   textContainerStyle:{
+     height:50,
+     padding:0,
+     backgroundColor:"transparent"
+   },
+   codeStyle:{
+     fontSize:RFPercentage(1.8),
+     width:'50%',
+     alignItems:"flex-start"
+   },
+  
+ });

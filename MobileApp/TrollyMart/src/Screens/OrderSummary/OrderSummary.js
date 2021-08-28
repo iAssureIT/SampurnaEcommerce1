@@ -191,7 +191,9 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
           setToast({text: res.data.message, color:res.data.message === "Coupon Applied Successfully!" ? 'green':colors.warning});
           setCartData(res.data.data);
           setCouponCode('');
-          setCouponModal(false);
+          if(res.data.message === "Coupon Applied Successfully!"){
+            setCouponModal(false);
+          }
       })
       .catch(err=>{
         setCouponCode('');
@@ -217,10 +219,10 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
       axios.patch('/api/carts/redeem/creditpoints',payload)
       .then(res=>{
         console.log("res",res);
-          // setToast({text: res.data.message, color:res.data.message === "Reee Applied Successfully!" ? 'green':colors.warning});
+          setCouponModal(false);
+          setToast({text: "Redeem Points Applied Successfully!",color:'green'});
           setCartData(res.data);
           setRedeemPoints(0);
-          setCouponModal(false);
           // setCouponCode('');
       })
       .catch(err=>{

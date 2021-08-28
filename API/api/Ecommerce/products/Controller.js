@@ -2547,7 +2547,7 @@ exports.search_product = (req,res,next)=>{
 				);
 			}    
 		}else{
-			res.status(200).json('Product Details not found');
+			res.status(200).json([]);
 		}
 	})
 	.catch(err =>{

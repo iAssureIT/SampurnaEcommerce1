@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Alert,
   Dimensions,StyleSheet,Image,ActivityIndicator
 } from 'react-native';
 import axios              from "axios";
@@ -56,6 +55,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
   const [loading, setLoading] = useState(true);
   const [btnLoading, setBtnLoading] = useState(false);
   const {setToast,navigation} = props; //setToast function bhetta
+  console.log("setToast",setToast);
   const [userDetails , setUserDetails]=useState();
   const [user_id,setUserId]=useState('');
   const [checkedMobNo,setCheckedMobNo] = useState(false);
@@ -108,7 +108,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
             }
               axios.patch('/api/users/update/verify_user_otp',formValues)
               .then((response) => {
-                console.log("response1234",response);
+                setBtnLoading(false);
                 if(response.data.messageCode === true){
                   setModal(false);
                   setToast({text: response.data.message, color: 'green'});
@@ -117,7 +117,6 @@ export const AccountInformation=withCustomerToaster((props)=>{
                 }else{
                   setToast({text: response.data.message, color: colors.warning});
                 }
-                setBtnLoading(false);
                 // this.setState({profileupdated:true});
               })
               .catch((error) => {
@@ -142,17 +141,17 @@ export const AccountInformation=withCustomerToaster((props)=>{
               console.log("formValues",formValues);
               axios.patch('/api/users/update/user_profile_details',formValues)
               .then((response) => {
-                console.log("response123",response);
-                if(response.data.messageCode === true){
-                  setToast({text: response.data.message, color: 'green'});
+                if(response.data.messageCode){
+                  props.setToast({text: response.data.message, color: 'green'});
+                  setBtnLoading(false);
                   if(checkedMobNo){
                     setModal(true);
                   }
                   dispatch(getUserDetails(user_id));
                 }else{
-                  setToast({text: response.data.message, color: colors.warning});
+                  props.setToast({text: response.data.message, color: colors.warning});
+                  setBtnLoading(false);
                 }
-                setBtnLoading(false);
                 // this.setState({profileupdated:true});
               })
               .catch((error) => {
@@ -187,6 +186,8 @@ export const AccountInformation=withCustomerToaster((props)=>{
               setCheckedEmailId={setCheckedEmailId}
               updateSchema={updateSchema}
               otpModal={otpModal}
+              mobile = {userDetails && userDetails.mobile? userDetails.mobile:''}
+              email_id={userDetails && userDetails.email ?userDetails.email:''}
               setModal={setModal}
               {...formProps}
             />
@@ -216,7 +217,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
       setCheckedEmailId,
       updateSchema,
       otpModal,
-      setModal
+      setModal,
+      mobile,
+      email_id
     } = props;
     const [showPassword, togglePassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
@@ -231,7 +234,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
     const handleMob = ()=>{
       if(values.mobileNumber === ""){
         setToast({text: "Please fill all mandetory fields", color: colors.warning});
-      }else{
+      }else if(values.mobileNumber === mobile){
+        setToast({text: "It seems that you didn't change anything", color: colors.warning});
+      }else{  
         handleSubmit();
         setFieldValue("mobileChange",true);
       }
@@ -239,7 +244,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
     const handleEmail = ()=>{
       if(values.email === "" || values.current_password === ""){
         setToast({text: "Please fill all mandetory fields", color: colors.warning});
-      }else{
+      }else if(values.email === email_id){
+        setToast({text: "It seems that you didn't change anything", color: colors.warning});
+      }else{  
         handleSubmit();
         setFieldValue("emailChange",true);
       }
@@ -442,9 +449,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
             </View>
           </Modal>
           <Modal 
-          animationType="slide"
-          transparent={true}
-          visible={btnLoading}
+          hasBackdrop={false}
+          coverScreen={false}
+          isVisible={btnLoading}
         >
         <View 
           style={{
@@ -473,7 +480,6 @@ export const AccountInformation=withCustomerToaster((props)=>{
      },
      textInputStyle:{
          height:50,
-         paddingTop:15,
          backgroundColor:"#fff"
      },
      textContainerStyle:{
