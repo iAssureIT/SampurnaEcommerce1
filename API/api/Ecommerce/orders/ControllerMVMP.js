@@ -4284,9 +4284,9 @@ exports.revenue_reports = (req, res, next) => {
 					vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
 					orderAmount       	: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0) + "</div>",
 					commissionPercentage : commisionPercent + "%",
-					commissionAmount 		: "<div class='whiteSpaceNoWrap'> AED " + (commisionPercent > 0 ? ((data[i].vendorOrders.vendor_afterDiscountTotal)/commisionPercent).toFixed(2) : 0) + "</div>",
+					commissionAmount 		: "<div class='whiteSpaceNoWrap'> AED " + (commisionPercent > 0 ? ((data[i].vendorOrders.vendor_afterDiscountTotal * commisionPercent)/100).toFixed(2) : 0) + "</div>",
 					deliveryCharges 		: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0) + "</div>",
-					totalAmount 			: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_afterDiscountTotal ? ((data[i].vendorOrders.vendor_afterDiscountTotal - (commisionPercent > 0 ? (data[i].vendorOrders.vendor_afterDiscountTotal/commisionPercent) : 0))).toFixed(2) : 0) + "</div>"
+					totalAmount 			: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_afterDiscountTotal ? ((data[i].vendorOrders.vendor_afterDiscountTotal - (commisionPercent > 0 ? ((data[i].vendorOrders.vendor_afterDiscountTotal * commisionPercent)/100) : 0))).toFixed(2) : 0) + "</div>"
 					// totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
 				})	
 			}

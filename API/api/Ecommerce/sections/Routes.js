@@ -8,6 +8,8 @@ router.post('/post', 						checkAuth, sectionsController.insert_section);
 
 router.get('/get/list-with-limits/:startRange/:limitRange', checkAuth, sectionsController.get_sections_with_limits);
 
+router.post('/get/list-with-limits', checkAuth, sectionsController.get_sections_list_with_limits);
+
 router.patch('/patch', 						checkAuth, sectionsController.update_section);
 
 router.patch('/patch/status', 				checkAuth, sectionsController.update_section_status);

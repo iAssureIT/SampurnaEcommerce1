@@ -235,6 +235,37 @@ exports.get_sections_with_limits = (req,res,next)=>{
         });
 };
 
+exports.get_sections_list_with_limits = (req,res,next)=>{
+    console.log("req.body ==> ",req.body)
+    var selector        = {};
+    selector['$and']    = [];
+
+    /**----------- Seach Sections. ------------ */
+    if(req.body.searchText && req.body.searchText !== ""){
+        selector["$and"].push(            
+            { "section"   : {'$regex' : req.body.searchText , $options: "i" } },            
+        )
+    }else{
+        selector["$and"].push({  section : {"$ne" : ""}  })
+    }
+    Sections.find(selector)  
+    .sort({"createdAt" : -1})
+    // .skip(parseInt(req.body.startRange))
+    // .limit(parseInt(req.body.limitRange))     
+    .then(data=>{
+
+        res.status(200).json({
+            dataCount   : data.length,
+            data        : data.slice(parseInt(req.body.startRange), (parseInt(req.body.startRange) + parseInt(req.body.limitRange)))
+        });
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
 exports.get_megamenu_list = (req,res,next)=>{
    
     Sections.aggregate([

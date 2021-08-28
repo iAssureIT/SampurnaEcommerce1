@@ -29,7 +29,8 @@ class CategoryManagement extends Component{
 														deleteMethod      	: 'delete',
 														apiLink              : '/api/category',
 														paginationApply      : true,
-														searchApply          : false,
+														searchApply          : true,
+														searchByPlaceholder : "Search By Subcategory Name",
 														editUrl              : '/project-master-data',
 														deleteUrl            : '/project-master-data',
 														patchStatusUrl       : '/api/category/patch/subcategory/status',
@@ -50,7 +51,8 @@ class CategoryManagement extends Component{
 														deleteMethod        	: 'delete',
 														apiLink              	: '/api/category',
 														paginationApply      	: true,
-														// searchApply          : true,
+														searchApply          : true,
+														searchByPlaceholder : "Search By Section and Category Name",
 														editUrl              	: '/project-master-data/',
 														deleteUrl            	: '/project-master-data',
 														patchStatusUrl      	: '/api/category/patch/status',
@@ -66,8 +68,10 @@ class CategoryManagement extends Component{
 			"sectionn"               	: "-- Select --",
 			"tableName"             	: 'Category-management',
 			"subtablename" 				: "Subcategory-management",
-			tableData 					: [],
-			subcategorytableData 		: []
+			tableData 						: [],
+			subcategorytableData 		: [],
+			categorySearchText 			: "",
+			subCategorySearchText 		: ""
 		};
 		this.openSubCategoryModal = this.openSubCategoryModal.bind(this);
 	}
@@ -242,7 +246,8 @@ class CategoryManagement extends Component{
 	getData(startRange, limitRange){
 		var data = {
 		  startRange : startRange,
-		  limitRange : limitRange
+		  limitRange : limitRange,
+		  searchText : this.state.categorySearchText
 		}
 		
 		console.log("data => ",data);
@@ -250,7 +255,7 @@ class CategoryManagement extends Component{
 		.then((response)=>{
 		  	console.log('category tableData', response.data);
 		  
-		  	var tableData = response.data.map((a, i)=>{                      
+		  	var tableData = response.data.data.map((a, i)=>{                      
 				return{ 
 					_id                   : a._id,
 					section               : a.section,
@@ -264,7 +269,8 @@ class CategoryManagement extends Component{
 				}
 			})
 			this.setState({
-				tableData : tableData
+				tableData : tableData,
+				dataCount : response.data.dataCount
 			},()=>{
 				console.log("categories data => ",this.state.tableData);
 				if(this.state.category_id && this.state.category_id !== "undefined"){
@@ -299,8 +305,13 @@ class CategoryManagement extends Component{
 
 		if (this.state.category_id) {	
 			console.log("id => ", this.state.category_id)
-
-			axios.get('/api/category/get/one/'+this.state.category_id)
+			var formValues ={
+				category_id : this.state.category_id,
+				startRange 	: startRange,
+				limitRange 	: limitRange,
+				searchText 	: this.state.subCategorySearchText
+			}
+			axios.post('/api/category/get/one',formValues)
 			.then((response)=>{
 				console.log('One category tableData', response.data);
 				if(response.data !== null && response.data !== undefined && response.data.subCategory && response.data.subCategory.length > 0){	
@@ -1115,6 +1126,22 @@ class CategoryManagement extends Component{
 		})
   	}
 
+  	getSubCategorySearchText(searchText) {
+		this.setState({
+			subCategorySearchText : searchText
+		},()=>{
+			this.getSubCategoryData(this.state.startRange, this.state.limitRange)
+		})
+  	}
+
+  	getCategorySearchText(searchText) {
+		this.setState({
+			categorySearchText : searchText
+		},()=>{
+			this.getData(this.state.startRange, this.state.limitRange);
+		})
+  	}
+
 	render(){		
 		return(
 			<div className="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -1306,7 +1333,7 @@ class CategoryManagement extends Component{
 																	tableData             = {this.state.subcategorytableData}
 																	getData               = {this.getSubCategoryData.bind(this)}
 																	tableObjects          = {this.state.subcategorytableObjects}
-																	getSearchText         = {this.getSearchText.bind(this)} 
+																	getSearchText         = {this.getSubCategorySearchText.bind(this)} 
 																	tableName             = {this.state.subtableName}
 																	currentView           = {"SubCategory-Management-table"}
 																	selectedProducts      = {this.selectedProducts.bind(this)}
@@ -1367,7 +1394,7 @@ class CategoryManagement extends Component{
 													tableData             = {this.state.tableData}
 													getData               = {this.getData.bind(this)}
 													tableObjects          = {this.state.tableObjects}
-													getSearchText         = {this.getSearchText.bind(this)} 
+													getSearchText         = {this.getCategorySearchText.bind(this)} 
 													tableName             = {this.state.tableName}
 													currentView           = {"Category-Management-table"}
 													selectedProducts      = {this.selectedProducts.bind(this)}

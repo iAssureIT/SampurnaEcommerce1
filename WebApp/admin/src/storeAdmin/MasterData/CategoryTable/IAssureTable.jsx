@@ -435,18 +435,13 @@ class IAssureTable extends Component {
 			}
 		});	
 	}
-	tableSearch(){
-    	var searchText = this.refs.tableSearch.value;
-		if(searchText && searchText.length !== 0) {
-			this.setState({
-				"normalData"  : false,
-				"searchData"  : true,
-			},()=>{
-				this.props.getSearchText(searchText, this.state.startRange, this.state.limitRange);
-			});	    	
-	    }else{
-			this.props.getData(this.state.startRange, this.state.limitRange);
-	    }    	 
+	tableSearch(event){
+    	var searchText = event.target.value;
+		
+			
+			this.props.getSearchText(searchText);		
+			
+	     	 
     }
     showNextPaginationButtons(){
     	var dataLength = this.state.dataCount;
@@ -825,25 +820,16 @@ class IAssureTable extends Component {
 					:
 					null        
 		       	}
-				<div className="col-lg-6  col-md-6  col-xs-12 col-sm-12 text-center mt50">
-	        		{/* <label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Filtered Products: <span >{this.state.dataCount}</span> </label> */}
-					{this.state.tableObjects.checkbox !== false
-					?
-						<label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Selected {this.state.tableObjects.type} : <span >{this.state.allid ? this.state.allid.length : '0'}</span> </label>
-					:
-						null
-					}
-					</div> 
 				{
 		       		this.state.tableObjects.searchApply === true ? 
-			       		<div className="col-lg-4  col-md-4  col-xs-12 col-sm-4 marginTop17 pull-right NoPadding">
-			        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
-			        		<div className="input-group">
-						        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
-						        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder="Search by Product Name, Brand, Section, Category, Item code"/>
-						    	<span className="input-group-addon" ><i className="fa fa-search"></i></span>
-						    </div>
-			        	</div>	
+			       		<div className="col-lg-10  col-md-10  col-xs-12 col-sm-12 marginTop17 pull-right NOpadding-right">
+				        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
+				        		<div className="input-group">
+							        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
+							        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder={this.state.tableObjects.searchByPlaceholder}/>
+							    	<span className="input-group-addon" ><i className="fa fa-search"></i></span>
+							    </div>
+				        	</div>	
 		        	:
 		        	null
 		       	}

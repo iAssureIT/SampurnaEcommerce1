@@ -24,7 +24,8 @@ class SectionManagement extends Component {
                 deleteMethod    : 'delete',
                 apiLink         : '/api/sections',
                 paginationApply : true,
-                searchApply     : false,
+                searchApply     : true,
+                searchByPlaceholder : "Search By Section Name",
                 editUrl         : '/project-master-data/',
                 patchStatusUrl  : '/api/sections/patch/status',
                 getOneUrl       : '/api/sections/get/one/',
@@ -36,7 +37,8 @@ class SectionManagement extends Component {
             "startRange"    : 0,
             "limitRange"    : 10,
             "editId"        : this.props.editId ? this.props.editId : '',
-            "tableName"     : 'Section-mgmt'
+            "tableName"     : 'Section-mgmt',
+            "searchText"    : ""
         };
     }
 
@@ -187,10 +189,15 @@ class SectionManagement extends Component {
     }
 
     getData(startRange, limitRange) {
-        axios.get('/api/sections/get/list-with-limits/' + startRange + '/' + limitRange)
+        var formValues = {
+            startRange  : startRange,
+            limitRange  : limitRange,
+            searchText  : this.state.searchText
+        }
+        axios.post('/api/sections/get/list-with-limits',formValues)
         .then((response) => {
             console.log('tableData = ', response.data);
-            var tableData = response.data.map((a, i)=>{                      
+            var tableData = response.data.data.map((a, i)=>{                      
 				return{ 
                     _id         : a._id,
                     section     : a.section,
@@ -199,7 +206,8 @@ class SectionManagement extends Component {
                 }
             })
             this.setState({
-                tableData: tableData
+                tableData : tableData,
+                dataCount : response.data.dataCount
             })
         })
         .catch((error) => {
@@ -517,6 +525,14 @@ class SectionManagement extends Component {
         })
     }
 
+    getSearchText(searchText) {
+        this.setState({
+            searchText   : searchText
+        },()=>{
+            this.getData(this.state.startRange, this.state.limitRange);
+        })
+    }
+
 
 
     render() {
@@ -599,18 +615,18 @@ class SectionManagement extends Component {
 
                                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
                                                 <IAssureTable
-                                                    tableHeading    = {this.state.tableHeading}
-                                                    twoLevelHeader  = {this.state.twoLevelHeader}
-                                                    dataCount       = {this.state.dataCount}
-                                                    tableData       = {this.state.tableData}
-                                                    getData         = {this.getData.bind(this)}
-                                                    tableObjects    = {this.state.tableObjects}
-                                                    tableName       = {this.state.tableName}
-                                                    currentView     = {"Section-Management-table"}
-                                                    selectedProducts={this.selectedProducts.bind(this)}
-                                                    // getSearchText={this.getSearchText.bind(this)}
-                                                    setunCheckedProducts={this.setunCheckedProducts.bind(this)}
-                                                    unCheckedProducts={this.state.unCheckedProducts}
+                                                    tableHeading            = {this.state.tableHeading}
+                                                    twoLevelHeader          = {this.state.twoLevelHeader}
+                                                    dataCount               = {this.state.dataCount}
+                                                    tableData               = {this.state.tableData}
+                                                    getData                 = {this.getData.bind(this)}
+                                                    tableObjects            = {this.state.tableObjects}
+                                                    tableName               = {this.state.tableName}
+                                                    currentView             = {"Section-Management-table"}
+                                                    selectedProducts        = {this.selectedProducts.bind(this)}
+                                                    getSearchText           = {this.getSearchText.bind(this)}
+                                                    setunCheckedProducts    = {this.setunCheckedProducts.bind(this)}
+                                                    unCheckedProducts       = {this.state.unCheckedProducts}
                                                 />
                                             </div>
                                         </div>

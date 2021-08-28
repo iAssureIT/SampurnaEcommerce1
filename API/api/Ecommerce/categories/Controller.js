@@ -155,10 +155,26 @@ exports.list_category = (req,res,next)=>{
         });
 };
 exports.list_category_with_limits = (req,res,next)=>{
+    
     // console.log(req.body.startRange, req.body.limitRange);
-    Category.find()
-    .skip(parseInt(req.body.startRange))
-    .limit(parseInt(req.body.limitRange))
+    var selector        = {};
+    selector['$and']    = [];
+
+    /**----------- Seach Sections. ------------ */
+    if(req.body.searchText && req.body.searchText !== ""){
+        selector["$and"].push({ 
+         $or : [           
+                { "section"     : {'$regex' : req.body.searchText , $options: "i" } },            
+                { "category"    : {'$regex' : req.body.searchText , $options: "i" } }, 
+            ]           
+        })
+    }else{
+        selector["$and"].push({  category : {"$ne" : ""}  })
+    }
+
+    Category.find(selector)
+    // .skip(parseInt(req.body.startRange))
+    // .limit(parseInt(req.body.limitRange))
     .sort({"createdAt" : -1})
     .then(data=>{
         // console.log('data', data);
@@ -208,7 +224,10 @@ exports.list_category_with_limits = (req,res,next)=>{
             }
         })
         // console.log("allData => ",allData)
-        res.status(200).json(allData);
+        res.status(200).json({
+            dataCount   : allData.length,
+            data        : allData.slice(parseInt(req.body.startRange), (parseInt(req.body.startRange) + parseInt(req.body.limitRange))) 
+        });
     })
     .catch(err =>{
         console.log(err);
@@ -372,6 +391,77 @@ exports.fetch_category = (req,res,next)=>{
             "categoryIcon"          : data.categoryIcon,
             "status"                : data.status
         })
+        // res.status(200).json(data);
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
+exports.fetch_one_category = (req,res,next)=>{
+    console.log("insode fetch category => ", req.body);
+    // console.log(req.body.startRange, req.body.limitRange);
+    var selector        = {};
+    selector['$and']    = [];
+
+    /**----------- Seach Sections. ------------ */
+    if(req.body.searchText && req.body.searchText !== ""){
+        selector["$and"].push({ 
+            subCategory : { 
+                $elemMatch: { subCategoryTitle: {'$regex' : req.body.searchText , $options: "i" } } 
+            }          
+        })
+    }else{
+        selector["$and"].push({  
+            subCategory : { 
+                $elemMatch: { subCategoryTitle: {"$ne" : ""} } 
+            }   })
+    }
+
+    selector["$and"].push({_id : ObjectId(req.body.category_id)})
+    console.log("selector => ",selector.$and[0].subCategory)
+    Category.findOne(selector, {'subCategory.$[]' : 1})
+    .exec()
+    .then(data=>{
+        console.log("data =>" ,data)
+        if(data !== null){
+            res.status(200).json({
+                "_id"                   : data._id,
+                "section_ID"            : data.section_ID,
+                "section"               : data.section,
+                "category"              : data.category,
+                "categoryUrl"           : data.categoryUrl,
+                "categoryNameRlang"     : data.categoryNameRlang ? "<span class='RegionalFont'>"+data.categoryNameRlang+"</span>" : '-',
+                "categoryRank"          : data.categoryRank ? data.categoryRank : '',
+                "subCategory"           : data.subCategory 
+                                            ? 
+                                                (data.subCategory.map((a, i)=>{
+                                                    // console.log("a.subCategoryTitle=> ",a.subCategoryTitle)
+                                                    if(a.subCategoryTitle && a.subCategoryTitle !== undefined){
+                                                        return {
+                                                            _id                 : a._id+"-"+data._id,
+                                                            subCategoryTitle    : a.subCategoryTitle,
+                                                            subCategoryCode     : a.subCategoryCode,
+                                                            subCategoryImage    : a.subCategoryImage,
+                                                            subCategoryUrl      : a.subCategoryUrl,
+                                                            status              : a.status,
+                                                        }
+                                                    }  
+                                                                                                    
+                                                }))
+                                            :
+                                                [],
+                "categoryDescription"   : data.categoryDescription ? data.categoryDescription : '',
+                "categoryImage"         : data.categoryImage,
+                "categoryIcon"          : data.categoryIcon,
+                "status"                : data.status
+            })
+        }else{
+            res.status(200).json(data);
+        }
         // res.status(200).json(data);
     })
     .catch(err =>{
