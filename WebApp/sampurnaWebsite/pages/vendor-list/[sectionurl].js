@@ -71,12 +71,15 @@ class VendorList extends Component {
             .then((vendorResponse) => {
                 if(vendorResponse){
                     var windowWidth    = window.screen.width;
-                    if(windowWidth > 1600){
-                        var bgImgHeight = vendorResponse.data.length * 110;                        
+                    if(windowWidth > 1900){
+                        var bgImgHeight = vendorResponse.data.length/2 * 250 + 500;
                         if(bgImgHeight<800){ bgImgHeight = 800; }
-                    }else{
-                        var bgImgHeight = vendorResponse.data.length * 90;
+                    }else if(windowWidth > 1600 && windowWidth < 1900){
+                        var bgImgHeight = vendorResponse.data.length/2 * 225 + 500;
                         if(bgImgHeight<600){ bgImgHeight = 600; }
+                    }else if(windowWidth > 1200 && windowWidth < 1600){
+                        var bgImgHeight = vendorResponse.data.length/2 * 200 + 500;
+                        if(bgImgHeight<600){ bgImgHeight = 600; }                        
                     }
 
                     
@@ -110,57 +113,58 @@ class VendorList extends Component {
                             </div>
                             {!this.state.loading
                              ?
-                                <div className={"col-10 col-md-8 col-lg-10  col-xl-10 mx-auto " }>
-                                    <div className="col-12">
-                                        <div className="row">
-                                            <div className={"col-12 text-center mt-4 mb-4 " +Style.vendorlistTitle}> 
-                                                <h5 className="float-left font-weight-bold">List of shops</h5>
-                                            </div>
-
-                                            { Array.isArray(this.state.vendorList) && this.state.vendorList.length >0?
-                                                this.state.vendorList.map((vendordata, index)=>{
-                                                    var VendorImage = {
-                                                        backgroundImage: "url(" + vendordata.vendorShopImage + ")",
-                                                    };
-                                                    return(
-                                                        <div className=" col-12 col-sm-6 col-lg-6 col-xl-6 " key={index}>
-                                                            <div className="col-12">
-                                                                <div className={"col-12  card mt-2 mb-4 " +Style.vendorCard } style={VendorImage}>
-                                                                <Link href={"/products/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+this.state.sectionurl} className={+Style.vedorLink}>
-                                                                    <div className={"row card-body " +Style.cardBody}>
-                                                                        <div className={ "col-3 NoPadding "+Style.vendorLogo}>
-                                                                            {vendordata.vendorLogo?
-                                                                            <img src={vendordata.vendorLogo} className={"img-thumbnail " +Style.vendorLogoImg}/>
-                                                                            :
-                                                                            null}
-                                                                        </div>   
-                                                                        <div className={"col-8 offset-1 pull-right  "}>
-                                                                            <div className={"col-12 NoPadding " +Style.vendorName}>{vendordata.vendorName}</div>
-                                                                            
-                                                                            {/*                                                                 
-                                                                            <div className={"col-12 text-right NoPadding " +Style.deliveryTime}>
-                                                                                <span className={Style.delTime}>60 &nbsp;min</span>
-                                                                                <img src="/images/eCommerce/time.png" className={"img "+Style.timeImg}></img>
-                                                                            </div>  */}
-                                                                        </div>
-                                                                    </div> 
-                                                                </ Link >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                })
-                                            :
-                                                <div className={"col-8 offset-2 text-center mt-4 " +Style.noVendor}>
-                                                    <div className="alert alert-warning">
-                                                        <i className="fa fa-warning"></i> &nbsp;
-                                                        We are currently not working in your area. However, we will come there soon. So please visit this website again shortly.
-                                                    </div>
-                                                </div>
-                                            }   
+                                <div className={"col-10 col-md-8 col-lg-10  col-xl-10 mx-auto"}>
+                                    <div className="row">
+                                        <div className={"col-12 " +Style.vendorlistTitle}> 
+                                            List of shop
                                         </div>
-                                        
-                                    </div>  
+
+                                        { Array.isArray(this.state.vendorList) && this.state.vendorList.length >0
+                                        ?
+                                            this.state.vendorList.map((vendordata, index)=>{
+                                                var VendorImage = {
+                                                    backgroundImage: "url(" + vendordata.vendorShopImage + ")",
+                                                };
+                                                return(
+                                                    <div className={"col-12 col-sm-6 "} key={index}>
+                                                        <div className={"col-12 card mb-4 " +Style.vendorCard } style={VendorImage}>
+                                                            <Link href={"/products/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+this.state.sectionurl} className={+Style.vedorLink}>
+                                                                <div className={"row card-body " +Style.cardBody}>
+                                                                    <div className={Style.vendorLogo}>
+                                                                        {
+                                                                            vendordata.vendorLogo
+                                                                        ?
+                                                                            <img src={vendordata.vendorLogo} className={Style.vendorLogoImg}/>
+                                                                        :
+                                                                            null
+                                                                        }
+                                                                    </div>   
+                                                                    <div className={"col-8 offset-1 pull-right"}>
+                                                                        <div className={"col-12 NoPadding " +Style.vendorName}>
+                                                                            {vendordata.vendorName}
+                                                                        </div>
+                                                                        
+                                                                        {/*                                                                 
+                                                                        <div className={"col-12 text-right NoPadding " +Style.deliveryTime}>
+                                                                            <span className={Style.delTime}>60 &nbsp;min</span>
+                                                                            <img src="/images/eCommerce/time.png" className={"img "+Style.timeImg}></img>
+                                                                        </div>  */}
+                                                                    </div>
+                                                                </div> 
+                                                            </ Link >
+                                                        </div>
+                                                    </div>                                                        
+                                                )
+                                            })
+                                        :
+                                            <div className={"col-8 offset-2 text-center mt-4 " +Style.noVendor}>
+                                                <div className="alert alert-warning">
+                                                    <i className="fa fa-warning"></i> &nbsp;
+                                                    We are currently not working in your area. However, we will come there soon. So please visit this website again shortly.
+                                                </div>
+                                            </div>
+                                        }   
+                                    </div>
                                     {/* <div className="col-12">
                                         { Array.isArray(this.state.vendorList) && this.state.vendorList.length >10?
                                             <div className="col-12">
