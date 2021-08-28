@@ -54,8 +54,8 @@ class VendorSalesReport extends Component{
 														'inputPlaceholder' 	: "",
 														'inputName' 			: "section",
 														'inputArray' 			: [],
-														'apiUrl' 				: "/api/",
-														'onChangeMethod' 		: "this.props.getCategories(this.state[name].value)"
+														'resetValueOf' 		: ['category', 'subCategory'],
+														'onChangeMethod' 		: this.getCategories.bind(this),
 													},
 													{
 														'inputLabel' 			: "Category", 			
@@ -64,7 +64,8 @@ class VendorSalesReport extends Component{
 														'inputPlaceholder' 	: "",
 														'inputName' 			: "category",
 														'inputArray' 			: [],
-														'apiUrl' 				: "/api/",
+														'resetValueOf' 		: ['subCategory'],
+														'onChangeMethod' 		: this.getSubCategories.bind(this),
 														
 													},
 													{
@@ -73,8 +74,7 @@ class VendorSalesReport extends Component{
 														'inputDefaultValue' 	: "--Select--",
 														'inputPlaceholder' 	: "",
 														'inputName' 			: "subCategory",
-														'inputArray' 			: [],
-														'apiUrl' 				: "/api/"
+														'inputArray' 			: []
 													}
 													
 			],
@@ -113,7 +113,11 @@ class VendorSalesReport extends Component{
       .then(response =>{
       	console.log("vendors => ",response.data)      	
       	if (response.data && response.data.length > 0) {
-      		var vendorArray = [];
+      		var vendorArray = [{
+      			name : "vendor",
+   				label : "All",
+   				value : ""
+      		}];
       		for (var i = 0; i < response.data.length; i++) {
       			vendorArray.push({
       				name 	: "vendor",
@@ -144,7 +148,11 @@ class VendorSalesReport extends Component{
       .then(response =>{
       	console.log("sections => ",response.data)      	
       	if (response.data && response.data.length > 0) {
-      		var sectionArray = [];
+      		var sectionArray = [{
+      			name : "section",
+   				label : "All",
+   				value : ""
+      		}];
       		for (var i = 0; i < response.data.length; i++) {
       			sectionArray.push({
       				name : "section",
@@ -178,7 +186,11 @@ class VendorSalesReport extends Component{
       .then(response =>{
       	console.log("categories => ",response.data)      	
       	if (response.data && response.data.length > 0) {
-      		var categoryArray = [];
+      		var categoryArray = [{
+      			name : "category",
+   				label : "All",
+   				value : ""
+      		}];
       		for (var i = 0; i < response.data.length; i++) {
       			categoryArray.push({
       				name : "category",
@@ -211,7 +223,11 @@ class VendorSalesReport extends Component{
    	console.log("category_id => ",category_id)
    	
       	if (this.state.categories && this.state.categories.length > 0) {
-	      	var subCategoryArray = [];
+	      	var subCategoryArray = [{
+      			name : "subCategory",
+   				label : "All",
+   				value : ""
+      		}];
 	      	var selectedcategory = this.state.categories.filter(category => String(category._id) === String(category_id))
 	      	if (selectedcategory && selectedcategory.length > 0 && selectedcategory[0].subCategory && selectedcategory[0].subCategory.length > 0) {
 	      		var subCategories = selectedcategory[0].subCategory;
@@ -256,7 +272,7 @@ class VendorSalesReport extends Component{
 			  		currentActiveTab 			= {this.state.currentActiveTab}
 			  		reportTitle 				= {this.state.reportTitle}
 			  		dataApiUrl 					= {this.state.dataApiUrl}
-			  		getCategories 				= {this.getCategories.bind(this)}
+			  		// getCategories 				= {this.getCategories.bind(this)}
 			  		getSubCategories 			= {this.getSubCategories.bind(this)}
 			  		dataApiUrl 					= {this.state.dataApiUrl}
 			  	/>  

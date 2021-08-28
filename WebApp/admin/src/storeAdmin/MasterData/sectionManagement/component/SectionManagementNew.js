@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import $                    from 'jquery';
-import jQuery               from 'jquery';
 import axios                from 'axios';
-import ReactTable           from "react-table";
 import swal                 from 'sweetalert';
 import S3FileUpload         from 'react-s3';
 import IAssureTable         from "../../CategoryTable/IAssureTable.jsx";
-// import IAssureTable         from '../../../../coreadmin/IAssureTable/IAssureTable.jsx';
-
 import 'jquery-validation';
 import 'bootstrap/js/tab.js';
 import '../css/SectionManagement.css';
@@ -31,9 +27,11 @@ class SectionManagement extends Component {
                 searchApply     : false,
                 editUrl         : '/project-master-data/',
                 patchStatusUrl  : '/api/sections/patch/status',
+                getOneUrl       : '/api/sections/get/one/',
                 type            : 'Sections',
                 showAction 		: true,
-                checkbox 		: false
+                checkbox 		: false,
+                deleteConfirmation : "If you delete this 'Section' all the 'Categories', 'SubCategories' and 'Products' associated with this section will get deleted."
             },
             "startRange"    : 0,
             "limitRange"    : 10,
@@ -53,12 +51,19 @@ class SectionManagement extends Component {
 
     /** =========== componentWillReceiveProps =========== */
     componentWillReceiveProps(nextProps) {
-        var editId = nextProps.editId;
-        if (editId) {
+        // var editId = nextProps.editId;
+        // if (editId) {
+        //     this.setState({
+        //         editId: editId
+        //     })
+        //     this.edit(editId);
+        // }
+        if(nextProps && nextProps.editId && nextProps.editId !== undefined &&  nextProps.history.location.pathname !== "/project-master-data"){      
             this.setState({
-                editId: editId
+                editId : nextProps.editId
+            },()=>{
+                this.edit(this.state.editId);
             })
-            this.edit(editId);
         }
     }
 
@@ -278,7 +283,8 @@ class SectionManagement extends Component {
                     text: response.data.message,
                 }).then(okay => {
                     if (okay) {
-                        window.location.href ='/project-master-data';
+                        this.props.history.push('/project-master-data');
+                        // window.location.href ='/project-master-data';
                     }
                 });
                 this.getData(this.state.startRange, this.state.limitRange);
@@ -326,7 +332,6 @@ class SectionManagement extends Component {
         .catch((error) => {
             console.log('error', error);
             if(error.message === "Request failed with status code 401"){
-                var userDetails =  localStorage.removeItem("userDetails");
                 localStorage.clear();
                 swal({  
                     title : "Your Session is Expired.",                
@@ -419,7 +424,6 @@ class SectionManagement extends Component {
                         .catch((error)=>{
                             console.log(error);
                             if(error.message === "Request failed with status code 401"){
-                                var userDetails =  localStorage.removeItem("userDetails");
                                 localStorage.clear();
                                 swal({  
                                     title : "Your Session is Expired.",                
@@ -564,7 +568,7 @@ class SectionManagement extends Component {
                                                             {this.state.sectionImage 
                                                             ? 
                                                                 <div className="row">
-                                                                    <div className="col-lg-4 col-md-4 col-sm-6 col-xs-12 productImgCol">
+                                                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 productImgCol">
                                                                         <div className="imageDiv">
                                                                             <div className="prodImageInner">
                                                                                 <span className="prodImageCross" title="Delete" data-imageUrl={this.state.sectionImage} onClick={this.deleteImage.bind(this)} >x</span>

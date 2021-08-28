@@ -477,19 +477,8 @@ class UserReport extends Component {
 		var status = this.state.status;
 		console.log("formValues",formValues)
 		  
-		// axios.post('/api/reports/get/userlist',formValues)
 		axios.post(this.state.dataApiUrl,formValues)
 			.then((response) => {
-			  	console.log("response=>",response)			  
-			 //  	var tableData = response.data.map((a, i)=>{					
-				// 	return{           
-				// 	  	orderID    			: a.orderID,
-				// 		customerName    	: a.customerName,
-				// 		orderDate         : moment(a.createdAt).format('DD/MM/YYYY'),
-				// 		orderAmount       : a.orderAmount,
-				// 	}
-				// })
-				
 				this.setState({
 					RecordsTable 	: response.data.data,
 					dataCount 		: response.data.dataCount
@@ -503,24 +492,27 @@ class UserReport extends Component {
 	handleChangeFilters(event){		
 		var name 	= event.name;
 		var value 	= event.value;
+
+		if (this.state.customizedFiltersArray && this.state.customizedFiltersArray.length) {
+ 			var customFilter = this.state.customizedFiltersArray.filter(filter => filter.inputName === name);
+ 			if (customFilter && customFilter.length > 0) {
+				if (customFilter[0].resetValueOf !== undefined && customFilter[0].resetValueOf !== "" && customFilter[0].resetValueOf.length > 0) {
+					for(var j=0; j<customFilter[0].resetValueOf.length; j++){
+						this.setState({
+							[customFilter[0].resetValueOf[j]] : null
+						})
+					}	 					
+				}
+			}
+		}
     	this.setState({ 
     		[name]  : event
     	},()=>{
     		if (this.state.customizedFiltersArray && this.state.customizedFiltersArray.length) {
-    			var customFilter = this.state.customizedFiltersArray.filter(filter => filter.inputName === name);
-    			console.log("customFilter => ",customFilter);
-    			// if (customFilter && customFilter.length > 0) {
-    			// console.log("customFilter[0].onChangeMethod => ",customFilter[0].onChangeMethod);
-    			// 	if (customFilter[0].onChangeMethod !== undefined) {
-    			// 		console.log("In.....");
-    			// 		var callMethod = customFilter[0].onChangeMethod;
-    			// 	}
-    			// }
-    			if (name === "section") {
-	    			this.props.getCategories(this.state[name].value)
-    			}
-    			if (name === "category") {
-	    			this.props.getSubCategories(this.state[name].value)
+    			for(var i=0; i<this.state.customizedFiltersArray.length; i++){
+    				if (this.state.customizedFiltersArray[i].inputName === name && this.state.customizedFiltersArray[i].onChangeMethod) {
+    					this.props.customizedFiltersArray[i].onChangeMethod(this.state[name].value);
+    				}
     			}
     		}
     		this.getData(this.state.search, this.state.startRange,this.state.limitRange)
@@ -533,8 +525,7 @@ class UserReport extends Component {
         event.preventDefault();
         var filterBtn = event.target;
         var element   = document.getElementById(this.state.tableName + "-" + this.state.currentActiveTab + "-Filters");
-        console.log("element => ",element)
-        console.log("element.style.display => ",element.style.display)
+        
         if (element) {
             $("#" + this.state.tableName + "-" + this.state.currentActiveTab + "-Filters").toggle();
         }
@@ -787,10 +778,10 @@ class UserReport extends Component {
 						                    onClick={this.showMoreFilters.bind(this)} >
 						                    <i className="fa fa-sliders"></i> More Filters 
 						                  </button>
-						                  <button className="btn button3" id="btnCheck" 
+						                  {/*<button className="btn button3" id="btnCheck" 
 						                    onClick={this.resetFilter.bind(this)} >
 						                    <i className="fa fa-refresh"></i> Reset Filters 
-						                  </button>
+						                  </button>*/}
 											</div>
 											{this.state.showCustomizedFilters
 												?

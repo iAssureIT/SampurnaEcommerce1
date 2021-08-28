@@ -145,7 +145,7 @@ import ReturnProductPolicy      	from './ReturnProductPolicy/ReturnProductPolicy
 												</ul>   
 											</div>                      
 											<div className="tab-content col-lg-9 col-md-9 col-xs-12 col-sm-12">   
-												<div className="tab-pane active" id="Section">    	<Section            	editId={this.state.editId}/>  </div>
+												<div className="tab-pane active" id="Section">    	<Section            	editId={this.state.editId} history={this.props.history}/>  </div>
 												<div className="tab-pane" id="Category">          	<Category           	editId={this.state.editId} history={this.props.history}/>  </div>
 												<div className="tab-pane" id="UnitOfMeasurment">  	<UnitOfMeasurment   	editId={this.state.editId}/>  </div>  
 												{/* <div className="tab-pane" id="distanceRange">  		<DistanceRange   		editId={this.state.editId}/>  </div>   */}

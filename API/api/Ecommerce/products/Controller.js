@@ -1354,6 +1354,7 @@ exports.list_product_bySection = (req,res,next)=>{
 		});
 	});
 };
+
 exports.list_product_bySection_mobile = (req,res,next)=>{
 	var section = req.params.section;
 	selector={'section':section,  "status": "Publish"}    
@@ -1363,6 +1364,32 @@ exports.list_product_bySection_mobile = (req,res,next)=>{
 	.then(data=>{
 		res.status(200).json(data);       
 	   
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+};
+
+exports.list_related_products = (req,res,next)=>{
+	var attribute_id = req.params.attribute_id;  
+	Products.find({
+		$or : [
+			{"section_ID" : ObjectId(attribute_id)}, 
+			{"category_ID" : ObjectId(attribute_id)},
+			{"suCategory_ID" : ObjectId(attribute_id)}
+		]
+	}) 
+	.exec()
+	.then(data=>{
+		console.log("data => ",data);
+		if (data && data.length > 0) {
+			res.status(200).json(true);       
+		}else{
+			res.status(200).json(false);
+		}	   
 	})
 	.catch(err =>{
 		console.log(err);

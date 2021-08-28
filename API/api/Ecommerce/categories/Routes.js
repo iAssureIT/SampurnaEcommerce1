@@ -36,7 +36,7 @@ router.post('/post', 					    checkAuth, categoryController.insert_category);
 
 router.patch('/patch', 						checkAuth, categoryController.update_category);
 
-router.delete('/delete/:categoryID', 		checkAuth, categoryController.delete_category);
+router.delete('/delete/:categoryID', 		categoryController.delete_category);
 
 router.delete('/get/deleteAllCategories', 	checkAuth, categoryController.deleteAllCategories);
 

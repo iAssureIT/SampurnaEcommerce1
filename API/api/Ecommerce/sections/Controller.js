@@ -159,36 +159,37 @@ exports.update_section = (req,res,next)=>{
 
 exports.delete_section = (req,res,next)=>{
 
-    Products.findOne({section_ID:req.params.sectionID})
-        .exec()
-        .then(pdata=>{
-            if (pdata) {
-                res.status(200).json({
-                    "message": "You cannot delete this section as products are related to this section.!"
-                });
-            }else{
-                Sections.deleteOne({_id:req.params.sectionID})
-                        .exec()
-                        .then(data=>{
-                            res.status(200).json({
-                                "message": "Section Deleted Successfully!"
-                            });
-                        })
-                        .catch(err =>{
-                            console.log(err);
-                            res.status(500).json({
-                                error: err
-                            });
-                        });
-
-            }
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
+    Products.findOne({section_ID : req.params.sectionID})
+    .exec()
+    .then(pdata=>{
+        if (pdata) {
+            res.status(200).json({
+                deleted     : false,
+                message     : "You cannot delete this section as products are related to this section.!"
             });
-        }); 
+        }else{
+            Sections.deleteOne({_id:req.params.sectionID})
+            .exec()
+            .then(data=>{
+                res.status(200).json({
+                    deleted     : true,
+                    message     : "Section Deleted Successfully!"
+                });
+            })
+            .catch(err =>{
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+        }
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    }); 
 
 
     /*Sections.deleteOne({_id:req.params.sectionID})
@@ -449,7 +450,7 @@ var getCategoryBrands = async(section_id, category_id, subCategory_id) =>{
 
 
 exports.update_section_status = (req,res,next)=>{
-    // console.log("update_section_status Body = ", req.body);
+    console.log("update_section_status Body = ", req.body);
     Sections.updateOne(
         { _id : ObjectId(req.body.item_id)},  
         { $set : 
@@ -459,31 +460,21 @@ exports.update_section_status = (req,res,next)=>{
         }
     )
     .exec()
-    .then(data=>{
-        // console.log(data);
-        Category.updateMany(
-            {section_ID : req.body.item_id},
-            { $set : 
-                {
-                    status                      : req.body.status,
-                    'subCategory.$[].status' 	: req.body.status,	
-                }
-            })
-            .exec()
-            .then(data=>{
-                // console.log(data);
-            }) 
-            .catch(err =>{console.log(err);})
+    .then(async(data)=>{
+        await updateCategoryStatus(req.body.status, req.body.item_id);
+        await updateProductStatus(req.body.status, req.body.item_id);
+        
+        // console.log("data => ",data);
     
-        // if(data.nModified == 1){
+        if(data.nModified == 1){
             res.status(200).json({
-                "message": "Section Updated Successfully!"
+                "message": "Section " + req.body.status + " Successfully!"
             });
-        // }else{
-        //     res.status(401).json({
-        //         "message": "Section Not Found"
-        //     });
-        // }
+        }else{
+            res.status(200).json({
+                "message": "Faild to update status"
+            });
+        }
     })
     .catch(err =>{
         console.log(err);
@@ -492,3 +483,53 @@ exports.update_section_status = (req,res,next)=>{
         });
     });
 };
+
+
+/** =========== updateCategoryStatus() =========== */
+var updateCategoryStatus = async(status, section_id) =>{
+    
+    return new Promise(function (resolve, reject) {
+        Category.updateMany(
+            {section_ID : ObjectId(section_id)},
+            { $set : 
+                {
+                    'status'                    : status,
+                    'subCategory.$[].status'     : status,  
+                }
+            }
+        )
+        .exec()
+        .then(data=>{
+            console.log("CategoryData ===> ",data);
+            resolve(data);
+        }) 
+        .catch(err =>{
+            console.log(err);
+            reject(err);
+        })
+    });    
+} 
+
+/** =========== updateProductStatus() =========== */
+var updateProductStatus = async(status,section_id) =>{
+    
+    return new Promise(function (resolve, reject) {
+        Products.updateMany(
+            {section_ID : ObjectId(section_id)},
+            { $set : 
+                {
+                    status : status 
+                }
+            }
+        )
+        .exec()
+        .then(data=>{
+            // console.log("ProductData ===> ",data);
+            resolve(data);
+        }) 
+        .catch(err =>{
+            console.log(err);
+            reject(err);
+        })
+    });    
+} 

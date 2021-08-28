@@ -27,6 +27,8 @@ router.patch('/patch', 													checkAuth, productController.update_product)
 router.patch('/patch/availablequantity', 								checkAuth, productController.update_availablequantity);
 
 router.get('/get/list', 												productController.list_product);
+
+router.get('/get/related/list/:attribute_id', 					productController.list_related_products);
 // in used
 // router.get('/get/listbysection/:section',                            productController.list_product_bySection);
 

@@ -1,11 +1,11 @@
-import React, { Component }       	from 'react';
-import {Route, withRouter} 			from 'react-router-dom';
-import swal                     	from 'sweetalert2';
+import React, { Component }   from 'react';
+import {withRouter} 				from 'react-router-dom';
+import swal                   from 'sweetalert2';
 import axios 						from 'axios';
 import $ 							from "jquery";
 import jQuery 						from 'jquery';
-import _                      		from 'underscore';
-import S3FileUpload           		from 'react-s3';
+import _                      from 'underscore';
+import S3FileUpload           from 'react-s3';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
@@ -16,11 +16,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 
 const swalWithBootstrapButtons = swal.mixin({
-  customClass: {
-    confirmButton: 'btn btn-success',
-    cancelButton: 'btn btn-danger'
-  },
-  buttonsStyling: false
+  	customClass : {
+   	confirmButton 	: 'btn btn-success',
+    	cancelButton 	: 'btn btn-danger'
+  	},
+  	buttonsStyling : false
 })
 
 class IAssureTable extends Component {
@@ -42,7 +42,6 @@ class IAssureTable extends Component {
 		    "paginationArray" 			: [],
 		    "startRange" 				: 0,
 		    "limitRange" 				: 10,
-		    "activeClass" 				: 'activeCircle', 		    
 		    "normalData" 				: true,
 		    "callPage" 					: true,
 		    "pageCount" 				: 0,
@@ -101,64 +100,62 @@ class IAssureTable extends Component {
 		var id = event.target.id;
 		this.props.history.push(tableObjects.editUrl+id);
 	}
-    delete(e){
+   
+   async delete(e){
 	  	e.preventDefault();
-	  	var tableObjects =  this.props.tableObjects;
-		let id = e.target.id;
-		// axios.get('/api/products/get/one/'+id)
-		// 	.then((response)=>{
-		// 		console.log('response.data product==>>>',response.data);
-		// 		if(response.data && response.data._id && response.data.status === "Publish"){
-		// 			swal({
-		// 				text : "This product is in Order and Publish!",
-		// 			});
-		// 		}else{
-			swalWithBootstrapButtons.fire({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonText: 'Yes, delete it!',
-		  cancelButtonText: 'No, cancel!',
-		  reverseButtons: true
-		}).then((result) => {
-		  if (result.isConfirmed) {
-					axios({
-						method: tableObjects.deleteMethod,
-						url: tableObjects.apiLink+'/delete/'+id
-					}).then((response)=> {
-						// console.log(this.state.startRange, this.state.limitRange);
-						this.props.getData(this.state.startRange, this.state.limitRange);
-						swalWithBootstrapButtons.fire(
-					      'Deleted!',
-					      'Record has been deleted.',
-					      'success'
-				    )
-					}).catch(function (error) {
-						console.log('error', error);
-						swal.fire({
-						  icon: 'error',
-						  title: 'Oops...',
-						  text: 'Something went wrong!'
-						})
-					});	
-			// 	}
-			// })
-			// .catch((error)=>{
-			//   console.log('error', error);
-			// })
-		} else if (
-		    /* Read more about handling dismissals below */
-		    result.dismiss === swal.DismissReason.cancel
-		  ) {
-		    swalWithBootstrapButtons.fire(
-		      'Cancelled',
-		      'Your record is safe :)',
-		      'error'
-		    )
-		  }
-		})
-    } 
+	  	var tableObjects 	=  this.props.tableObjects;
+		let id 				= e.target.id;
+
+		var fetchOneRecord = await axios.get(tableObjects.getOneUrl + id)
+		console.log("fetchOneRecord => ",fetchOneRecord)
+		if(fetchOneRecord && fetchOneRecord.data !== undefined && fetchOneRecord.data !== null){
+			if (fetchOneRecord.data.status === "Published") {
+				swal.fire({
+				  icon 	: 'info',
+				  title 	: 'Sorry...',
+				  text 	: 'You can not delete "Published "'+ tableObjects.type +' !'
+				})
+			}else{
+				swalWithBootstrapButtons.fire({
+				  	title 				: 'Are you sure?',
+				  	text 					: "You won't be able to revert this!",
+				  	icon 					: 'warning',
+				  	showCancelButton 	: true,
+				  	confirmButtonText : 'Yes, delete it!',
+				  	cancelButtonText 	: 'No, cancel!',
+				  	reverseButtons 	: true
+				}).then((result) => {
+	  				if (result.isConfirmed) {
+						axios({
+							method 	: tableObjects.deleteMethod,
+							url 		: tableObjects.apiLink+'/delete/'+id
+						}).then((response)=> {
+								this.props.getData(this.state.startRange, this.state.limitRange);
+								swalWithBootstrapButtons.fire(
+							      response.data.deleted ? 'Deleted!' : "Sorry!",
+							      response.data.message,
+							      response.data.deleted ? 'success' : 'info'
+						    	)
+							}).catch(function (error) {
+								console.log('error', error);
+								swal.fire({
+								  icon 	: 'error',
+								  title 	: 'Oops...',
+								  text 	: 'Something went wrong!'
+								})
+							});	
+					}else if (result.dismiss === swal.DismissReason.cancel) {
+					   swalWithBootstrapButtons.fire(
+					      'Cancelled',
+					      'Your record is safe :)',
+					      'info'
+					   )
+					}
+				})
+			}
+		}	
+	} 
+
     sortNumber(key, tableData){
     	var nameA = '';
     	var nameB = '';
