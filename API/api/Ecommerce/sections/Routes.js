@@ -20,6 +20,8 @@ router.delete('/get/deleteAllSections', 	checkAuth, sectionsController.deleteAll
 
 router.post('/get/list', 	                sectionsController.get_list_for_section_category_block);
 
+router.post('/get/list_by_url', 	          sectionsController.get_list_for_section_category_block_by_url);
+
 router.get('/get/list', 					sectionsController.get_sections);
 
 router.get('/get/filter/sections', 					sectionsController.getFilterSections);

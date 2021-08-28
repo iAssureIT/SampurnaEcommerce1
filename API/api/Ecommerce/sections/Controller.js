@@ -322,6 +322,7 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
     selector['$and']    = [];
 
     selector["$and"].push({"status": "Published"})
+
     if(req.body.section && (req.body.section).toLowerCase() != "all"){
         selector["$and"].push({"_id": ObjectId(req.body.section) })
     }else{
@@ -451,6 +452,180 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
         });
     });
 };
+
+/**=========== get_list_for_section_category_block() =========== */
+exports.get_list_for_section_category_block_by_url = (req,res,next)=>{
+
+    // console.log("section req.body => ",req.body);
+    processData();
+    async function processData(){
+        var startRange      = 0;
+        var selector        = {}; 
+        selector['$and']    = [];
+        
+
+        selector["$and"].push({"status": "Published"})
+
+        if(req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() !== "all"){
+            selector["$and"].push({"sectionUrl": req.body.sectionUrl })            
+        }else{
+            selector["$and"].push({"sectionUrl": {$ne: ""} })
+        }
+        
+        
+        if(req.body.showCarousel){
+            var limitRange = req.body.displayItemInCarousel * 2;
+        }else if(req.body.numOfRows && req.body.numOfItemPerRow){
+            var limitRange = req.body.numOfRows * req.body.numOfItemPerRow;
+        }
+
+        // console.log("selector => ",selector.$and[0])
+
+        Sections.aggregate([
+            { $match : selector},
+            { $lookup:
+                {
+                    from            : 'categories',
+                    localField      : '_id',
+                    foreignField    : 'section_ID',
+                    as              : 'categorylist'
+                }
+            },
+        ])
+        .exec()    
+        .then(async(sectiondata)=>{
+            // console.log("section data => ", sectiondata);
+            var section_id      = "";
+            var category_id     = "";
+            var subCategory_id  = "";
+
+            if(req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() !== "all"){
+                var sectionData = await Sections.findOne({"sectionUrl" : req.body.sectionUrl}, {_id : 1})
+                // console.log("sectionData => ",sectionData)
+                if (sectionData !== null) {
+                    section_id  =  sectionData._id;           
+                }
+            }
+
+            if(req.body.categoryUrl && (req.body.categoryUrl).toLowerCase() !== "all"){
+                var categoryData = await Category.findOne({"categoryUrl" : req.body.categoryUrl}, {_id : 1})
+                // console.log("categoryData => ",categoryData)
+                if (categoryData !== null) {
+                    category_id  =  categoryData._id;           
+                } 
+            }
+            if(req.body.subCategoryUrl && (req.body.subCategoryUrl).toLowerCase() !== "all"){
+                var subCategoryData = await Category.findOne({"categoryUrl" : req.body.categoryUrl,"subCategory.subCategoryUrl" : req.body.subCategoryUrl}, {'subCategory.$._id' : 1})
+                // console.log("subCategoryData => ",subCategoryData)
+                if (subCategoryData !== null) {
+                    subCategory_id  =  subCategoryData.subCategory._id;
+                }
+            }
+            var returnData = [];
+            if (sectiondata && sectiondata.length > 0) {  
+                // processData();
+                // async function processData(){
+                    if (req.body.showOnlySection && req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() === "all") {
+                        // console.log("In Show only Sections => ", sectiondata);
+                        for (var i = 0; i < sectiondata.length; i++) {
+                            // console.log("sectiondata[i] => ", i, sectiondata[i]);
+                            if(sectiondata[i].status === "Published"){
+                                returnData.push({
+                                    _id         : sectiondata[i]._id,
+                                    itemName    : sectiondata[i].section,
+                                    itemUrl     : sectiondata[i].sectionUrl,
+                                    itemImg     : sectiondata[i].sectionImage
+                                })    
+                            }                
+                        }
+                        if(i >= sectiondata.length){
+                            // console.log("returnData => ", returnData);
+                            res.status(200).json(returnData.slice(startRange, limitRange));
+                        }
+                    } else if (req.body.showOnlyCategory && req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() !== "all" && req.body.categoryUrl && (req.body.categoryUrl).toLowerCase() === "all"){
+                        // console.log("In Show only Categories => ", sectiondata[0].categorylist);
+
+                        if (sectiondata[0].categorylist && sectiondata[0].categorylist.length > 0) {
+                            for (var j = 0; j < sectiondata[0].categorylist.length; j++) {
+                                // console.log("sectiondata[0].categorylist[j] => ", j, sectiondata[0].categorylist[j]);
+                                if(sectiondata[0].categorylist[j].status === "Published"){
+                                    returnData.push({
+                                        _id         : sectiondata[0].categorylist[j]._id,
+                                        itemName    : sectiondata[0].categorylist[j].category,
+                                        itemUrl     : sectiondata[0].categorylist[j].categoryUrl,
+                                        itemImg     : sectiondata[0].categorylist[j].categoryImage
+                                    })  
+                                }  
+                            }
+                            if(j >= sectiondata[0].categorylist.length){
+                                // console.log("returnData => ", returnData);
+                                res.status(200).json(returnData.slice(startRange, limitRange));
+                            }                
+                        }
+                    } else if (req.body.showOnlySubCategory && req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() !== "all" && req.body.categoryUrl && (req.body.categoryUrl).toLowerCase() !== "all" && req.body.subCategoryUrl && (req.body.subCategoryUrl).toLowerCase() === "all"){
+                        // console.log("In Show only SubCategories => ", sectiondata[0].categorylist);
+                        if (sectiondata[0].categorylist && sectiondata[0].categorylist.length > 0) {
+                            var filteredCategory = sectiondata[0].categorylist.filter((filteredcategory)=> String(filteredcategory.categoryUrl) === String(req.body.categoryUrl));
+                            // console.log("filteredCategory => ",filteredCategory);
+                            // console.log("filteredCategory => ",sectiondata[0].categorylist);
+                            if(filteredCategory && filteredCategory.length > 0 && filteredCategory[0].subCategory  && filteredCategory[0].subCategory.length > 0){
+                                for (var k = 0; k < filteredCategory[0].subCategory.length; k++) {
+                                    // console.log("filteredCategory[0].subCategory[j] => ", k, filteredCategory[0].subCategory[k]);
+                                    if(filteredCategory[0].subCategory[k].status === "Published"){
+                                        returnData.push({
+                                            _id         : filteredCategory[0].subCategory[k]._id,
+                                            itemName    : filteredCategory[0].subCategory[k].subCategoryTitle,
+                                            itemUrl     : filteredCategory[0].subCategory[k].subCategoryUrl,
+                                            itemImg     : filteredCategory[0].subCategory[k].subCategoryImage
+                                        })   
+                                    } 
+                                }
+                                if(k >= filteredCategory[0].subCategory.length){
+                                    // console.log("returnData => ", returnData);
+                                    res.status(200).json(returnData.slice(startRange, limitRange));
+                                }   
+                            }             
+                        }
+                    }else if (req.body.showOnlyBrand && req.body.sectionUrl && (req.body.sectionUrl).toLowerCase() !== "all" && req.body.categoryUrl && (req.body.categoryUrl).toLowerCase() !== "all"){
+                        // console.log("In Show only Brands => ", sectiondata[0].categorylist);
+                        if (sectiondata[0].categorylist && sectiondata[0].categorylist.length > 0) {
+                            var filteredCategory = sectiondata[0].categorylist.filter((filteredcategory)=> String(filteredcategory.categoryUrl) === String(req.body.categoryUrl));
+                                
+                            if(req.body.subCategoryUrl && (req.body.subCategoryUrl).toLowerCase() !== "all"){
+                                if(filteredCategory && filteredCategory.length > 0){
+                                    var subcategoryBrands = await getCategoryBrands(section_id, category_id, subCategory_id);
+                                    // console.log("subcategoryBrands=> ",subcategoryBrands);
+                                    if(subcategoryBrands && subcategoryBrands.length > 0){   
+                                        var uniqueBrands = [...new Set(subcategoryBrands.map(item => item.brand.trim()))]; 
+                                        uniqueBrands     = uniqueBrands.filter(brand => brand)
+                                        res.status(200).json(uniqueBrands.slice(startRange, limitRange));
+                                    }
+                                } 
+                            }else{
+                                if(filteredCategory && filteredCategory.length > 0){
+                                    var categoryBrands = await getCategoryBrands(section_id, category_id);
+                                    if(categoryBrands && categoryBrands.length > 0){   
+                                        var uniqueBrands = [...new Set(categoryBrands.map(item => item.brand.trim()))]; 
+                                        uniqueBrands     = uniqueBrands.filter(brand => brand)
+                                        res.status(200).json(uniqueBrands.slice(startRange, limitRange));
+                                    }
+                                }  
+                            }                               
+                        }
+                    }
+                // }
+            }else{
+                res.status(200).json(returnData);
+            }
+        })
+        .catch(err =>{
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
+};
+
 
 /** =========== getCategoryBrands() =========== */
 var getCategoryBrands = async(section_id, category_id, subCategory_id) =>{
