@@ -59,10 +59,10 @@ class Wishlist extends Component {
   }
 
   render() {
-    console.log("recentWishlistData==",this.props.recentWishlistData);
+    // console.log("recentWishlistData==",this.props.recentWishlistData);
     return (
-      <div >
-      <div className={"col-12 NoPadding " +Style.wishlistProduct} id="WishlistMainId">
+      <div className="col-12">
+      <div className={"row " +Style.wishlistProduct} id="WishlistMainId">
         <Message messageData={this.state.messageData} />
           <div className="row">
             <div className={"col-12 NoPadding"}>
