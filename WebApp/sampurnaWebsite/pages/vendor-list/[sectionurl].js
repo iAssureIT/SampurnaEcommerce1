@@ -109,7 +109,7 @@ class VendorList extends Component {
                     <div className={Style.blur} style={{ height: this.state.bgImgHeight }}>                      
                         <div className={"col-12 NoPadding "+Style.vendorList} >
                             <div  className={"col-12 myDiv h-100 bg-success deliveryTimeStrip "+Style.deliveryTimeWrapper}>
-                                <div className="col-12 text-center  "><p className={"col-12 "+Style.deliveryTimeWrapperDesc}>Delivery time <span className={" "+Style.deliveryTimeWrapperDesc1}>9</span>am to <span className={" "+Style.deliveryTimeWrapperDesc2}>11</span>pm or next day delivery</p></div>
+                                <div className="col-12 text-center"><p className={"col-12 "+Style.deliveryTimeWrapperDesc}>Delivery time <span className={" "+Style.deliveryTimeWrapperDesc1}>9</span>am to <span className={" "+Style.deliveryTimeWrapperDesc2}>11</span>pm or next day delivery</p></div>
                             </div>
                             {!this.state.loading
                              ?

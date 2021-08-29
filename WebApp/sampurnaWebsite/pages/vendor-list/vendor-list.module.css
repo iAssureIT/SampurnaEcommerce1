@@ -345,6 +345,18 @@
         font-size: 28px;
         margin-bottom: 30px;
     }
+    .deliveryTimeWrapper{
+        height: 66px !important;
+    }
+    .deliveryTimeWrapperDesc{
+        top: 10px;
+        font-size: 20px !important;
+    }
+    .deliveryTimeWrapperDesc1,
+    .deliveryTimeWrapperDesc2{
+        font-size: 30px !important;
+    }
+
 }
 
 
@@ -368,6 +380,17 @@
         font-size: 28px;
         margin-bottom: 30px;
     }
+    .deliveryTimeWrapper{
+        height: 71px !important;
+    }
+    .deliveryTimeWrapperDesc{
+        top: 15px;
+        font-size: 20px !important;
+    }
+    .deliveryTimeWrapperDesc1,
+    .deliveryTimeWrapperDesc2{
+        font-size: 30px !important;
+    }    
 
 }
 
@@ -390,6 +413,16 @@
         font-size: 30px;
         margin-bottom: 30px;
     }
-
+    .deliveryTimeWrapper{
+        height: 71px !important;
+    }
+    .deliveryTimeWrapperDesc{
+        top: 15px;
+        font-size: 20px !important;
+    }
+    .deliveryTimeWrapperDesc1,
+    .deliveryTimeWrapperDesc2{
+        font-size: 30px !important;
+    }
 }
   
