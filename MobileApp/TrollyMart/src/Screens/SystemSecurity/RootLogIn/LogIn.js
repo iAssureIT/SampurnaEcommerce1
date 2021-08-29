@@ -95,7 +95,7 @@ const window = Dimensions.get('window');
                 role      : "user"
               };
               axios
-                .post('/api/auth/post/login/mob_email', payload)
+                .post('/api/auth/post/login/mob_email_new', payload)
                 .then((res) => {
                   console.log("res",res);
                   setLoading(false);
@@ -403,19 +403,19 @@ const window = Dimensions.get('window');
     }
 
 
-    const checkType = (e)=>{
-      console.log("typeof(e)",typeof(e))
-      if(e.length>1){
-        if(isNumeric(e)){
-          setInputType('number');
-        }else{
-          setInputType('text');
-        }
-      }else{
-        setInputType('text');
-      }
-      setFieldValue('username',e)
-    }
+    // const checkType = (e)=>{
+    //   console.log("typeof(e)",typeof(e))
+    //   if(e.length>1){
+    //     if(isNumeric(e)){
+    //       setInputType('number');
+    //     }else{
+    //       setInputType('text');
+    //     }
+    //   }else{
+    //     setInputType('text');
+    //   }
+    //   setFieldValue('username',e)
+    // }
 
     const isNumeric=(value)=>{
       return /^-?\d+$/.test(value);
@@ -444,7 +444,7 @@ const window = Dimensions.get('window');
               // style={[styles.inputBoxStyle]}
               labelName       = "Phone no / Email Id"
               // placeholder     = "Enter Mobile No / Email Id..."
-              onChangeText    = {(e)=>checkType(e)}
+              onChangeText    = {handleChange('username')}
               required        = {true}
               name            = "username"
               errors          = {errors}

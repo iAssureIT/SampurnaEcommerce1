@@ -2146,9 +2146,9 @@ exports.user_login_mob_email_new = (req, res, next) => {
 	var role 		= (req.body.role).toLowerCase();
 	if(isNumeric(username) && username.length>10){
 		username = username.slice(username.length-10);
-		if(username.startsWith('0')){
-			username = username.substring(1);
-		}
+	}
+	if(username.startsWith('0')){
+		username = username.substring(1);
 	}
 	console.log('username',username);
 	User.findOne({$or:[
