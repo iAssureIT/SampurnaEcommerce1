@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React,{useEffect,useState} from 'react';
 import RadialGradient from 'react-native-radial-gradient';
 import {
@@ -18,6 +19,7 @@ import HTML from 'react-native-render-html';
 import { connect,useDispatch,useSelector }  from 'react-redux';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { NetWorkError } from '../../../NetWorkError.js';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const AboutUs = (props)=>{
     const {navigation}=props;
@@ -95,7 +97,7 @@ export const AboutUs = (props)=>{
                                                 resizeMode={"stretch"}
                                             />}
                                             {index!==0 &&<View style={[styles.textBox]}>
-                                                {result!=="" && <HTML baseFontStyle={styles.htmlText} ignoredTags={['br']} html={item.block_id.blockDescription} containerStyle={{paddingLeft:15}}/>}                                        
+                                                {result!=="" && <HTML baseFontStyle={styles.htmlText} ignoredTags={['br']} html={item.block_id.blockDescription} containerStyle={{paddingLeft:wp(4)}}/>}                                        
                                             </View>}                                        
                                         </View>                                    
                                     )

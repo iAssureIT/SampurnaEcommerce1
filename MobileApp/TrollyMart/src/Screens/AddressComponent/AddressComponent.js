@@ -263,7 +263,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                 value           = {values.contactperson}
               />
               <View style={{marginHorizontal:10,marginVertical:5}}>
-                <Text style={{fontFamily:'Montserrat-Medium', fontSize: 12,color:'#000',paddingVertical:2}}>
+                <Text style={{fontFamily:'Montserrat-Medium', fontSize: RFPercentage(1.8),color:'#000',paddingVertical:2}}>
                     <Text>Mobile Number</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
@@ -319,7 +319,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                     disabled        = {delivery}       
                   />
                 <View style={[styles.formInputView, styles.marginBottom20]}>
-                  <Text style={{fontFamily:'Montserrat-Medium',color:'#000', fontSize: 12,paddingVertical:2}}>
+                  <Text style={{fontFamily:'Montserrat-Medium',color:'#000', fontSize: RFPercentage(1.8),paddingVertical:2}}>
                     <Text>Address</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
@@ -463,7 +463,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                   />
                 </View>
                 <View style={[styles.formInputView, styles.marginBottom20]}>
-                <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingVertical:2,marginBottom:10}}>
+                <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: RFPercentage(1.8),paddingVertical:2,marginBottom:10}}>
                     <Text>Address type</Text>                    
                 </Text>
                   <Dropdown
@@ -478,7 +478,6 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                     labelFontSize       = {14}
                     baseColor           = {'#666'} 
                     textColor           = {'#000'}
-                    itemTextStyle       = {styles.ddLabelText}
                     style               = {styles.ddStyle}
                     data                = {ShippingType}
                     // value               = {values.addresstype}

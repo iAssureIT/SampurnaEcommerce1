@@ -52,7 +52,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
             <View style={{paddingVertical:24,paddingHorizontal:20}}>
               <Text style={CommonStyles.screenHeader}>Payment Receipt</Text>
             </View>
-            <View style={{backgroundColor:"#5B8E7E",marginHorizontal:15,borderRadius:23,paddingHorizontal:15,paddingBottom:50}}>
+            <View style={{backgroundColor:"#5B8E7E",marginHorizontal:wp(4),borderRadius:23,paddingHorizontal:wp(4),paddingBottom:hp(6.5)}}>
                 <View style={{marginTop:hp(1.8),flexDirection:'row',}}>
                     <View style={{flex:0.6,alignItems:'flex-end'}}>
                         {/* <Icon color="#fff" name="check" type="font-awesome" size={73} iconStyle={{elevation:15}}/> */}

@@ -207,10 +207,10 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                               source={require("../../AppDesigns/currentApp/images/home_white.png")}
                               style={{height:16,width:16}}
                             /> */}
-                            <Text style={[CommonStyles.label,{color:"#fff",paddingLeft:15}]}>{item.addType} Address</Text>
+                            <Text style={[CommonStyles.label,{color:"#fff",paddingLeft:wp(4)}]}>{item.addType} Address</Text>
                             <View style={{flexDirection:'row'}}>
                             {!disabled&&                              
-                              <TouchableOpacity  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})} style={{paddingHorizontal:15}}>                              
+                              <TouchableOpacity  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})} style={{paddingHorizontal:wp(4)}}>                              
                                 <Image
                                   resizeMode="contain"
                                   source={require("../../AppDesigns/currentApp/images/edit_white.png")}

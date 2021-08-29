@@ -20,13 +20,13 @@ export default StyleSheet.create({
 
   },
   categoryTitle:{
-   color:'#333',textAlign:'center',marginTop:5,marginBottom:10,fontSize:13,fontFamily:"Montserrat-Regular",flexWrap: 'wrap' 
+   color:'#333',textAlign:'center',marginTop:5,marginBottom:10,fontSize:RFPercentage(1.9),fontFamily:"Montserrat-Regular",flexWrap: 'wrap' 
   },
   catImage:{
     flex:0.5,marginRight:10,backgroundColor:'#ccc',borderWidth:0,borderColor:'#f1f1f1', height:200
   },
   catTitle:{
-    fontSize:14,fontFamily:"Montserrat-SemiBold",textAlign:'center',marginTop:10
+    fontSize:RFPercentage(2.2),fontFamily:"Montserrat-SemiBold",textAlign:'center',marginTop:10
   },
   padhr15:{
     paddingHorizontal:15
@@ -44,7 +44,7 @@ export default StyleSheet.create({
     backgroundColor:'#fff',marginTop:0,marginBottom:15
   },
   profiltitle:{
-    fontSize:13,fontFamily:"Montserrat-SemiBold",
+    fontSize:RFPercentage(1.9),fontFamily:"Montserrat-SemiBold",
     color:'#333',paddingHorizontal:15
   },
   acceditbtns:{
@@ -54,10 +54,10 @@ export default StyleSheet.create({
     flex:0.7,fontSize:13,fontFamily:"Montserrat-SemiBold",color:'#333'
   },
   accusermob:{
-    fontSize:13,fontFamily:"Montserrat-Regular",color:'#666'
+    fontSize:RFPercentage(1.9),fontFamily:"Montserrat-Regular",color:'#666'
   },
   padhr18:{
-    paddingHorizontal:18
+    paddingHorizontal:wp(4.5)
   },
   contactname:{
     flex:1 , marginBottom:20,
@@ -293,26 +293,26 @@ export default StyleSheet.create({
   },
 
   creditTitle:{
-    fontSize:18,
+    fontSize:RFPercentage(2.7),
     fontFamily:"Montserrat-Bold",
     color:'#000',
   },
 
   headerText1:{
     color:"#033554",
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     fontFamily:"Montserrat-Medium",
   },
 
   headerText2:{
     color:"#707070",
-    fontSize:9,
+    fontSize:RFPercentage(1.5),
     fontFamily:"Montserrat-Medium",
   },
 
   cardCredit:{
     // height:43,
-    paddingVertical:10,
+    paddingVertical:hp(1),
     color:'#000',
     // backgroundColor:'red',
     // borderBottomWidth:1,

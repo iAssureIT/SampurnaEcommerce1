@@ -29,6 +29,9 @@ import {
  import Modal  from "react-native-modal";
  import OTPInputView         from '@twotalltotems/react-native-otp-input';
  import { RadioButton }        from 'react-native-paper';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 const window = Dimensions.get('window');
 
@@ -270,10 +273,10 @@ export const AccountInformation=withCustomerToaster((props)=>{
         <React.Fragment>
           <View style={styles.profileparent}>
             <View style={{flex:1,backgroundColor:"#fff"}}>
-            <ScrollView contentContainerStyle={styles.container} style={{marginBottom:50}} keyboardShouldPersistTaps="handled" >
-                <View style={{ paddingHorizontal: 15, marginBottom: 30 }}>
-                  <View style={{ borderWidth: 1, borderColor: '#f1f1f1', backgroundColor: '#ccc', paddingVertical: 15, marginTop: 10 }}>
-                    <Text style={{ fontSize: 13, fontFamily: "Montserrat-SemiBold", color: '#333', paddingHorizontal: 15 }}>Profile Details : </Text>
+            <ScrollView contentContainerStyle={styles.container} style={{marginBottom:hp(5)}} keyboardShouldPersistTaps="handled" >
+                <View style={{ paddingHorizontal:wp(4), marginBottom: hp(4) }}>
+                  <View style={{ borderWidth: 1, borderColor: '#f1f1f1', backgroundColor: '#ccc', paddingVertical: hp(2), marginTop: 10 }}>
+                    <Text style={{ fontSize: RFPercentage(1.9), fontFamily: "Montserrat-SemiBold", color: '#333', paddingHorizontal: wp(4) }}>Profile Details : </Text>
                   </View>
                     <View style={styles.marTp15}>
                       <View style={commonStyles.formWrapper}>
@@ -316,9 +319,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
                         />
                         
                         {checkedMobNo && <View style={{marginHorizontal:10,marginVertical:5}}>
-                        <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
+                        <Text style={{fontFamily:'Montserrat-SemiBold',  color: '#333',fontSize: RFPercentage(1.8),paddingVertical:hp(0.5)}}>
                             <Text>Phone Number</Text>{' '}
-                            <Text style={{color: 'red', fontSize: 12}}>
+                            <Text style={{color: 'red', fontSize: RFPercentage(1.8)}}>
                             *
                             </Text>
                         </Text>
@@ -342,7 +345,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                               textContainerStyle={styles1.textContainerStyle}
                               textInputStyle={styles1.textInputStyle}
                             />
-                          <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
+                          <Text style={{fontSize:RFPercentage(1.8),marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                           <FormButton
                             title       = {'Update Mobile No'}
                             onPress     = {handleMob}
@@ -385,9 +388,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
                           rightIcon={
                               <TouchableOpacity  style={{paddingHorizontal:'5%'}} onPress={() => toggleCurrentPassword(!showCurrentPassword)}>
                                 {showCurrentPassword ? (
-                                  <Icon name="eye" type="entypo" size={18} />
+                                  <Icon name="eye" type="entypo" size={ hp(2.5)} />
                                 ) : (
-                                  <Icon name="eye-with-line" type="entypo" size={18} />
+                                  <Icon name="eye-with-line" type="entypo" size={ hp(2.5)} />
                                 )}
                               </TouchableOpacity>
                             }
@@ -415,7 +418,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
             hideModalContentWhileAnimating={true}
             style={{ zIndex: 999 }}
             animationOutTiming={500}>
-            <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: 30, padding :10,height:500}}>
+            <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: hp(4), padding :10,height:500}}>
               <TouchableOpacity style={{flexDirection:"row",justifyContent:"flex-end"}} onPress={()=>setModal(false)}>
                   <Icon name="close" type="material-community" size={25} color={"#333"} />
               </TouchableOpacity>
@@ -441,7 +444,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                     code={values.otp}
                     // clearInputs={isEmptyString(values.otp)}  
                     />
-                    <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
+                    <Text style={{fontSize:RFPercentage(1.8),color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
                   <View style={{marginHorizontal:10}}>
                     <Text style={styles.otpLastText}>Didn't receive code?<Text onPress={()=>handleSubmit()} style={styles.otpLastText1}>Request again!</Text></Text>
                   </View>

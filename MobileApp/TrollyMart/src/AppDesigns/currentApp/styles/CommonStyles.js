@@ -128,13 +128,13 @@ export default StyleSheet.create({
     },
     linkText:{
         color: colors.cartButton,
-        fontSize: 10,
+        fontSize: RFPercentage(1.5),
         fontFamily:"Montserrat-SemiBold",
         // textDecorationLine: 'underline'
     },
     linkLightText:{
         color: colors.textLight,
-        fontSize: 12,
+        fontSize: RFPercentage(1.8),
         fontFamily:"Montserrat-Regular",
         textDecorationLine: 'underline'
     },

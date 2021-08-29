@@ -501,9 +501,9 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                         dropdownOffset      = {{ top: 73, left: 0 }}
                         itemTextStyle       = {styles.ddItemText}
                         inputContainerStyle = {styles.ddInputContainer}
-                        labelHeight         = {10}
+                        labelHeight         = {RFPercentage(1.5)}
                         tintColor           = {'#FF8800'}
-                        labelFontSize       = {10}
+                        labelFontSize       = {RFPercentage(1.5)}
                         fontSize            = {RFPercentage(1.5)}
                         baseColor           = {'#666'}
                         textColor           = {'#333'}

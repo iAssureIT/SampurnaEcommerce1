@@ -1,5 +1,7 @@
 import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -115,7 +117,7 @@ export default StyleSheet.create({
     flex:1
   },
   dateText:{
-  fontSize:18,
+  fontSize:RFPercentage(2.6),
   color: '#333',
   fontFamily:'Montserrat-SemiBold',
   alignSelf:"center"
@@ -125,5 +127,10 @@ packageIndex:{
   // borderLeftWidth:4,
   justifyContent:'center',
   padding: 25
+},
+htmlText1:{
+  fontSize:RFPercentage(1.8),
+  fontFamily:"Montserrat-Regular",
+  color:'#000',
 },
 });

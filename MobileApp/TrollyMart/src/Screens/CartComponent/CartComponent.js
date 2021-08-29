@@ -305,8 +305,8 @@ const getshippingamount=(startRange, limitRange)=>{
             {cartData.vendorOrders.map((vendor, i) => {
               console.log("vendor.vendor_discountAmount",vendor.vendor_discountAmount);
               return (
-              <View style={{backgroundColor:"#fff",paddingBottom:15,paddingTop:15}}>
-                <View style={{paddingHorizontal:15}}>
+              <View style={{backgroundColor:"#fff",paddingBottom:hp(2),paddingTop:hp(2)}}>
+                <View style={{paddingHorizontal:wp(4)}}>
                   <Text style={[commonStyles.headerText,{alignSelf:"flex-start",fontSize:RFPercentage(2.5),marginBottom:10}]}>{vendor.vendor_id.companyName}</Text>
                 </View>  
                 {vendor.cartItems.map((item,index)=>{
@@ -430,7 +430,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       {cartData.minOrderAmount <= vendor.vendor_afterDiscountTotal ?
                           null
                           :
-                          <View style={{marginVertical:10,alignItems:'flex-end'}}>
+                          <View style={{marginVertical:hp(1.2),alignItems:'flex-end'}}>
                             <Text style={styles.minpurchase}>Minimum shopping amount is {cartData.minOrderAmount}</Text>
                           </View>
                         }

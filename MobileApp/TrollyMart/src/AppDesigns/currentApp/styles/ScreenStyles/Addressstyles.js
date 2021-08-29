@@ -315,7 +315,7 @@ export default StyleSheet.create({
     flex:0.5,paddingHorizontal:15,
   },
   padhr15:{
-    paddingHorizontal:15
+    paddingHorizontal:wp(4)
   },
   padhr18:{
     paddingHorizontal:27
@@ -327,7 +327,7 @@ export default StyleSheet.create({
     flex:1,marginBottom:5,
   },
   continuebtn:{
-    flex:1,marginBottom:50,
+    flex:1,marginBottom:hp(6.5),
   },
   addcmpchkbxslect:{
     backgroundColor:'#fff',
@@ -365,7 +365,7 @@ export default StyleSheet.create({
     marginTop:10
   },
   addchkbx:{
-    flex:1,flexDirection:'row',paddingHorizontal:15,paddingVertical:2,alignItems:"center",
+    flex:1,flexDirection:'row',paddingHorizontal:wp(4),paddingVertical:2,alignItems:"center",
     justifyContent:"center"
   },
   addnotfound:{
@@ -431,7 +431,7 @@ export default StyleSheet.create({
 
   addressTitle:{
     fontFamily:"Montserrat-Bold",
-    fontSize:18,
+    fontSize:RFPercentage(2.6),
     color:'#000',    
   },
 

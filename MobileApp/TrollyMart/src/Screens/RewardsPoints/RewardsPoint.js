@@ -17,6 +17,8 @@ import { ActivityIndicator }    from 'react-native-paper';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { NetWorkError } from '../../../NetWorkError.js';
 import { colors } from '../../AppDesigns/currentApp/styles/styles';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const RewardsPoint =withCustomerToaster((props)=>{
   const {navigation,setToast}=props;
@@ -103,18 +105,18 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                         <View style={[,styles.cardCredit]}> 
                             <View style={styles.accusermobinfo}>
                               <View style={{flex:.3}}>
-                                <Text style={[styles.accusermob,{fontSize:12,fontFamily:"Montserrat-Medium",color:'#000'}]}>{moment(item.transactionDate).format('MM/DD/YYYY')}</Text>
+                                <Text style={[styles.accusermob,{fontSize:RFPercentage(1.8),fontFamily:"Montserrat-Medium",color:'#000'}]}>{moment(item.transactionDate).format('MM/DD/YYYY')}</Text>
                               </View> 
                               <View style={{flex:.5,paddingHorizontal:5}}>
-                               <Text style={[styles.accusermob,{fontSize:12,color:'#000',fontFamily:"Montserrat-Medium"}]}>{item.typeOfTransaction ? item.typeOfTransaction:""}</Text>
-                                <Text style={[styles.accusermob,{fontSize:11}]}>{item.orderID ? "#"+item.orderID:""}</Text>
-                                <Text style={[styles.accusermob,{fontSize:11}]}>{moment(item.expiryDate).format('DD/MM/YYYY')} Expiry</Text>
+                               <Text style={[styles.accusermob,{fontSize:RFPercentage(1.8),color:'#000',fontFamily:"Montserrat-Medium"}]}>{item.typeOfTransaction ? item.typeOfTransaction:""}</Text>
+                                <Text style={[styles.accusermob,{fontSize:RFPercentage(1.7)}]}>{item.orderID ? "#"+item.orderID:""}</Text>
+                                <Text style={[styles.accusermob,{fontSize:RFPercentage(1.7)}]}>{moment(item.expiryDate).format('DD/MM/YYYY')} Expiry</Text>
                               </View>  
                               <View style={{flex:.2,justifyContent:'center'}}>
-                                <Text style={[styles.accusermob,{alignSelf:"flex-end",color:Math.sign(item.earnedPoints) === 1 ? colors.success:colors.danger,fontSize:16,fontFamily:"Montserrat-Medium"}]}>{Math.sign(item.earnedPoints) === 1 && <Text>+</Text>}{item.earnedPoints}</Text>
+                                <Text style={[styles.accusermob,{alignSelf:"flex-end",color:Math.sign(item.earnedPoints) === 1 ? colors.success:colors.danger,fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Medium"}]}>{Math.sign(item.earnedPoints) === 1 && <Text>+</Text>}{item.earnedPoints}</Text>
                                 </View>   
                             </View>
-                            <View style={{borderWidth:0.3,width:280,borderColor:"#ddd",marginTop:15,alignSelf:'center'}} />
+                            <View style={{borderWidth:0.3,width:280,borderColor:"#ddd",marginTop:hp(2),alignSelf:'center'}} />
                         </View>
                     )
                   }

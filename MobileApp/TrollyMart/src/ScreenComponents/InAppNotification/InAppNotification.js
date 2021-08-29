@@ -9,6 +9,8 @@ import {HeaderBar3} from "../HeaderBar3/HeaderBar3.js";
 import {Footer}             from '../../ScreenComponents/Footer/Footer.js';
 import { NetWorkError } from '../../../NetWorkError.js';
 import { useSelector }      from 'react-redux';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 var moment = require('moment');
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
 
@@ -63,11 +65,11 @@ export const InAppNotification =(props)=> {
                                     <View style={{flexDirection:'row',marginBottom:5,borderWidth:1,borderColor:'#aaa',borderRadius:5,shadowRadius: 5,}}>
                                         <View style={[styles.packageIndex]}>
                                             <Text style={styles.dateText}>{moment(data?.createdAt).format('DD')}</Text>
-                                            <Text style={{alignSelf:"center",fontFamily:"Montserrat-Regular"}}>{moment(data?.createdAt).format('MMM')}</Text>
+                                            <Text style={{fontSize: RFPercentage(1.8),alignSelf:"center",fontFamily:"Montserrat-Regular"}}>{moment(data?.createdAt).format('MMM')}</Text>
                                         </View>
-                                        <View style={{flex:.8,flexDirection:'row',borderLeftWidth:1,borderColor:'#ccc',paddingLeft:15,}}>
+                                        <View style={{flex:.8,flexDirection:'row',borderLeftWidth:1,borderColor:'#ccc',paddingLeft:wp(4),}}>
                                             <View style={{flex: 1,fontFamily:"Montserrat-Regular"}}>
-                                                <HTML  html={data?.notifBody}  />
+                                                <HTML  baseFontStyle={styles.htmlText1} html={data?.notifBody}  />
                                             </View>                                    
                                         </View>
                                     </View>     
@@ -75,9 +77,9 @@ export const InAppNotification =(props)=> {
                                     )
                                 })
                                 :
-                                <View style={{ paddingHorizontal: 0, borderBottomWidth: 1, borderColor: '#eee', paddingVertical: 20 }}>
-                                    <View style={{ flex: 1, paddingHorizontal: 20, marginTop: 15, alignSelf: 'center', justifyContent: 'center', alignItem: 'center' }}>
-                                        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: '#333', fontSize: 16 }}>You have no notifications</Text>
+                                <View style={{ paddingHorizontal: 0, borderBottomWidth: 1, borderColor: '#eee', paddingVertical: hp(2.5) }}>
+                                    <View style={{ flex: 1, paddingHorizontal: wp(5), marginTop: hp(2), alignSelf: 'center', justifyContent: 'center', alignItem: 'center' }}>
+                                        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: '#333', fontSize: RFPercentage(2.5) }}>You have no notifications</Text>
                                     </View>
 
                                 </View>

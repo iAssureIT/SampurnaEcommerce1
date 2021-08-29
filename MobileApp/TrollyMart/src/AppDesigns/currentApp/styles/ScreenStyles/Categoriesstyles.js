@@ -552,7 +552,7 @@ export default StyleSheet.create({
     fontSize:RFPercentage(1.9),fontFamily:"Montserrat-SemiBold",marginBottom:10,marginTop:10
   },
   detailclr:{
-    backgroundColor:'#fff',paddingVertical:hp(3),borderRadius:3,paddingTop:0
+    backgroundColor:'#fff',paddingVertical:hp(5),borderRadius:3,paddingTop:0
   },
   detailcolor:{
     fontSize:RFPercentage(2.5),fontFamily:"Montserrat-SemiBold",color:'#333'

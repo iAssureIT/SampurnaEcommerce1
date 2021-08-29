@@ -18,7 +18,7 @@ export default StyleSheet.create({
         position: 'absolute',
         // backgroundColor:"#fff",
         bottom: 0,
-        height: hp(10.5),
+        height: hp(13),
         // flexDirection: 'row',
         // backgroundColor:"#fff",
         // // backgroundColor: colors.footerColor,

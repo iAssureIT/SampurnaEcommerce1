@@ -234,9 +234,9 @@ const FormBody = (props) => {
                         />
                     </View>    
                     <View style={{marginHorizontal:10,marginBottom:5}}>
-                        <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingVertical:2}}>
+                        <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: RFPercentage(1.8),paddingVertical:2}}>
                             <Text>Phone Number</Text>{' '}
-                            <Text style={{color: 'red', fontSize: 12}}>
+                            <Text style={{color: 'red', fontSize: RFPercentage(1.8)}}>
                             </Text>
                         </Text>
                         <PhoneInput
@@ -259,10 +259,10 @@ const FormBody = (props) => {
                             textContainerStyle={styles1.textContainerStyle}
                             textInputStyle={styles1.textInputStyle}
                         />
-                        <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
+                        <Text style={{fontSize:RFPercentage(1.8),marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                     </View> 
                     <View style={{marginBottom:10,marginHorizontal:10}}>
-                        <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingBottom:15}}>
+                        <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: RFPercentage(1.8),paddingBottom:hp(2)}}>
                             <Text>Message</Text>{' '}
                             <Text style={{color: 'red', fontSize: 12}}>
                             *
@@ -311,21 +311,21 @@ const FormBody = (props) => {
                 </View>
                 <View  style={{paddingHorizontal:21}}>
                     <View style={{flexDirection:'row',alignItems:'center'}}>
-                        <Icon name="phone" type="font-awesome"  size={12} iconStyle={{paddingHorizontal:5}}/>
+                        <Icon name="phone" type="font-awesome"  size={hp(2)} iconStyle={{paddingHorizontal:5}}/>
                         <Text onPress={()=>{Linking.openURL('tel:'+companyPhone);}} 
                             style={[commonStyles.linkLightText,{color:'#000000',lineHeight:20}]}>
                         {companyPhone}
                         </Text>
                     </View>
                     <View style={{flexDirection:'row',alignItems:'center'}}>
-                        <Icon name="globe-asia" type="font-awesome-5"  size={12} iconStyle={{paddingHorizontal:5}}/>
+                        <Icon name="globe-asia" type="font-awesome-5"  size={hp(2)} iconStyle={{paddingHorizontal:5}}/>
                         <Text onPress={() => Linking.openURL(website_url) } 
                             style={[commonStyles.linkLightText,{color:'#000000',lineHeight:20}]}>
                             {website_url}
                         </Text>
                      </View>       
                 </View>
-                <View style={{flexDirection:'row',justifyContent:'center',marginBottom:50,}}>
+                <View style={{flexDirection:'row',justifyContent:'center',marginBottom:hp(6.5),}}>
                         <View style={{alignItems:'center',paddingHorizontal:10}}>   
                             <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://www.instagram.com/knockknock_eshop/')} >
                                 <Icon size={15} name='instagram' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
@@ -348,7 +348,7 @@ const FormBody = (props) => {
                         </View> */}
                         <View style={{alignItems:'center',paddingHorizontal:10}}>   
                             <TouchableOpacity style={styles1.HorizontalBox3}  onPress={()=> Linking.openURL('https://twitter.com/knockknockeshop')} >
-                                <Icon size={15} name='twitter' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
+                                <Icon size={hp(2)} name='twitter' type='material-community' color={'#fff'} style={styles1.iconStyle}/>                            
                             </TouchableOpacity>
                         </View>                        
                     </View>
