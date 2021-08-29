@@ -183,7 +183,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                       <View style={{paddingHorizontal:30,marginBottom:15}}>
                         <FormButton
                           title       = {'Choose From Addresses'}
-                          onPress     = {()=>navigation.navigate('AddressDefaultComp',{delivery:false,disabled:true})}
+                          onPress     = {()=>navigation.navigate('AddressDefaultComp',{delivery:false,disabled:true,back:true})}
                           background  = {true}
                           // icon        = {{name: "crosshairs-gps",type : 'material-community',size: 18,color: "white"}}
                           // loading     = {btnLoading}

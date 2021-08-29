@@ -23,7 +23,7 @@ export default StyleSheet.create({
     },
 
     textTitleWrapper:{
-        paddingHorizontal: 30, marginTop: Platform.OS==="ios" ? 70 : heightPercentageToDP(3), marginBottom:40
+        paddingHorizontal: 30, marginTop: Platform.OS==="ios" ? heightPercentageToDP(3) : heightPercentageToDP(3), marginBottom:40
     },
     boxOpacity:{
         width: '100%',borderColor:colors.theme,shadowColor: colors.theme,

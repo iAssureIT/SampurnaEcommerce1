@@ -683,7 +683,7 @@ const getshippingamount=(startRange, limitRange)=>{
          </View>
          <TouchableOpacity style={{flex:0.5,height:hp(8.5),backgroundColor:!disabled?"#5F6C74":colors.cartButton,justifyContent:'center',alignItems:'center'}}
             disabled       = {!disabled}
-            onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
+            onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true,"back":false})}
          >
           <Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color: "#eee"}}>Checkout</Text>
          </TouchableOpacity>

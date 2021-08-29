@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
-	<string/>
+	<string></string>
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>Icon-App-60x60@2x.png</string>
@@ -49,7 +49,7 @@
 	<key>FacebookDisplayName</key>
 	<string>TrollyMart Portal</string>
 	<key>LSApplicationCategoryType</key>
-	<string/>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -73,7 +73,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>The e-commerce app we are using photos uploading feature for return and review product.</string>
 	<key>NSHumanReadableCopyright</key>
-	<string/>
+	<string></string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>The e-commerce app identify the user location and define the nearby vendor to supply the ordered items. Hence locatioin of the user is required.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -121,8 +121,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

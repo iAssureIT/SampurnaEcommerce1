@@ -46,6 +46,10 @@ console.log("globalSearch",globalSearch);
     return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
+    const onScroll=(e)=>{
+
+    }
+
     return (
       <React.Fragment>
         <View style={styles.addsuperparent}>
@@ -71,6 +75,7 @@ console.log("globalSearch",globalSearch);
                         onEndReachedThreshold = {0.5}
                         marginTop       = {0}
                         paddingBottom   = {0}
+                        onScroll       = {onScroll}
                     />
                     :
                     <View style={{justifyContent:"center",alignItems:'center',marginTop:'40%'}}>

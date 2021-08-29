@@ -36,7 +36,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
     const [selectedindex,setSelectedIndex]  = useState(-1);
     const [user_id,setUserId] = useState('');
     const dispatch = useDispatch();
-    const {delivery,disabled}=route.params;
+    const {delivery,disabled,back}=route.params;
     const store = useSelector(store => ({
       location : store.location,
       globalSearch: store.globalSearch
@@ -164,7 +164,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
         <View style={[styles.addsuperparent,{ marginBottom:delivery?Platform.OS==='ios'?50:30:0}]}>
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
             <View style={{flexDirection:'row',paddingVertical:24,paddingHorizontal:20,alignItems:'center'}}>
-            {!delivery&&<TouchableOpacity style={{justifyContent:'center',height:45,paddingRight:5}} onPress={()=> navigation.goBack()}>
+            {back &&<TouchableOpacity style={{justifyContent:'center',height:45,paddingRight:5}} onPress={()=> navigation.goBack()}>
                   <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
                 </TouchableOpacity>} 
               <View style={{flex:0.8}}>
@@ -223,7 +223,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                         </View>  
                         <View style={styles.addchkbx}>
                           <View style={[styles.nameofcontact]}>
-                            <Text style={CommonStyles.label}> {item.name}</Text>
+                            <Text style={CommonStyles.label}>{item.name}</Text>
                           </View>
                           <View style={styles.chkvw}>
                           </View>

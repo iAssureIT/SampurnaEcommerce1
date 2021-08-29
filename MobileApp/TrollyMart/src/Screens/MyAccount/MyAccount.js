@@ -129,7 +129,7 @@ export const MyAccount =(props)=>{
                         <Text style={styles1.label}>My Orders</Text>
                     </View>
                     {userDetails.authService!=="guest" &&<View style={{alignItems:'center',paddingHorizontal:wp(3)}}>   
-                        <TouchableOpacity style={styles1.HorizontalBox} onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false})} >
+                        <TouchableOpacity style={styles1.HorizontalBox} onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false,"back":false})} >
                             {/* <Icon size={30} name='map-marker-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}                           
                             <Image source={require("../../AppDesigns/currentApp/images/address.png")} style={[styles.iconImg]} resizeMode="contain"/>                            
                         </TouchableOpacity>

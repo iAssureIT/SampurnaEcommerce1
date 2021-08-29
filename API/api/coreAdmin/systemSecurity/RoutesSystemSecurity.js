@@ -32,6 +32,7 @@ router.patch('/patch/setsendmobileotpusingMobile/:mobileNo',UserController.set_s
 
 //new api for systemsecurity
 router.post('/post/login/mob_email',UserController.user_login_mob_email); 
+router.post('/post/login/mob_email_new',UserController.user_login_mob_email_new); 
 router.post('/post/signup/social_media',UserController.user_signup_social_media); 
 router.post('/post/signup/guest_login',UserController.user_signup_guest_login);
 
