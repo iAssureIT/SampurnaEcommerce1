@@ -20,11 +20,10 @@ class SubCategoryBlock extends Component {
         .then((blockApiResponse)=>{
           console.log("blockApiResponse = > ",blockApiResponse)
           if(blockApiResponse.data.length>0){   
-            console.log("blockApiResponse.data===",blockApiResponse.data); 
+            // console.log("blockApiResponse.data===",blockApiResponse.data); 
           for(var i=0;i<blockApiResponse.data.length;i++){ 
             itemList1.push({
                   "itemImg" : blockApiResponse.data[i].itemImg && blockApiResponse.data[i].itemImg,
-                  // "itemUrl" : blockApiResponse.data[i].itemUrl,
                   "itemUrl" : this.props.groupSettings.showOnlySubCategory === true ?  blockApiResponse.data[i].itemUrl : this.props.groupSettings.section,
                   "item"    : blockApiResponse.data[i].itemName,
                 })      
@@ -34,7 +33,7 @@ class SubCategoryBlock extends Component {
               itemList     : itemList1,
               Productsloading : false,              
             },()=>{
-                console.log("itemList after set state===",this.state.itemList);
+                // console.log("itemList after set state===",this.state.itemList);
             });
           }
         }

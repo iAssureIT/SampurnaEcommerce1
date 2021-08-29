@@ -271,18 +271,12 @@ getProductList(productApiUrl,formValues){
     // console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
-      if(response.data){     
-        // console.log("Product data===",response.data);
-        // if(this.state.brandWiseFilter){
-        //   this.setState({
-        //     newProducts    : response.data,                         
-        //   })
-        // }
+      if(response.data){  
         if(this.state.seeMore){
           this.setState({
             newProducts    : this.state.newProducts.concat(response.data),                         
           },()=>{
-            console.log("newProducts=>",this.state.newProducts.length);
+            // console.log("newProducts=>",this.state.newProducts.length);
             if(this.state.newProducts.length>0){
               this.setState({
                 ProductsLoading : true,
@@ -578,7 +572,7 @@ submitCart(event) {
                     itemclassName="carousel-item-padding-10-px">
                     { 
                       Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
-                        Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
+                        Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => { 
                             // var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
                             var x = this.props.recentWishlist && this.props.recentWishlist.length> 0 ? this.props.recentWishlist.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];
                             var wishClass = '';
@@ -590,7 +584,9 @@ submitCart(event) {
                               wishClass = 'r';
                               tooltipMsg = 'Add To Wishlist';
                             }   
-                            var categoryUrl = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;                  
+                            var sectionUrl     = data.section?(data.section).replace(/\s+/g, '-').toLowerCase():null;  
+                            var categoryUrl    = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;  
+                            var subCategoryUrl = data.subCategory?(data.subCategory).replace(/\s+/g, '-').toLowerCase():null;                   
                           return (
                               <div key={index} className={"col-12 " }>                          
                               <div className={"col-12 NoPadding " +Style.productCaroselBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
@@ -613,7 +609,7 @@ submitCart(event) {
 
                                     <div className= {"col-12 NoPadding " +Style.ImgWrapper}>
                                       {/* <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}> */}
-                                      <Link href={"/home-to-vendorlist/"+data.section.replace(" ","-").toLowerCase()+"/" +data._id}>
+                                      <Link href={"/home-to-vendorlist/"+sectionUrl+"/" +categoryUrl+"/"+subCategoryUrl+"/"+data._id}>
                                       <a className={Style.product_item_photo } tabIndex="-1" >                                      
                                         <img                                           
                                           src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.png"}
