@@ -103,7 +103,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                         <View style={[,styles.cardCredit]}> 
                             <View style={styles.accusermobinfo}>
                               <View style={{flex:.3}}>
-                                <Text style={[styles.accusermob,{fontSize:12,fontFamily:"Montserrat-Medium",color:'#000'}]}>{moment(item.orderDate).format('MM/DD/YYYY')}</Text>
+                                <Text style={[styles.accusermob,{fontSize:12,fontFamily:"Montserrat-Medium",color:'#000'}]}>{moment(item.transactionDate).format('MM/DD/YYYY')}</Text>
                               </View> 
                               <View style={{flex:.5,paddingHorizontal:5}}>
                                <Text style={[styles.accusermob,{fontSize:12,color:'#000',fontFamily:"Montserrat-Medium"}]}>{item.typeOfTransaction ? item.typeOfTransaction:""}</Text>

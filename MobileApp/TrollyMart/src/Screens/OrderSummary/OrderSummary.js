@@ -488,7 +488,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                   null
                 }
                 <View style={[styles.confirmbtn, styles.marginBottom20,{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}]}>
-                  <Text style={{flex:0.6,marginLeft:hp(0.5),fontFamily:"Montserrat-Medium",color:"#000000",opacity: 1,fontSize:RFPercentage(2.3)}}>Select Delivery Time</Text>
+                  <Text style={{flex:0.6,marginLeft:hp(0.5),fontFamily:"Montserrat-Medium",color:"#000000",opacity: 1,fontSize:RFPercentage(2.3)}}>Select Delivery Time<Text style={[commonStyles.errorText,{fontSize:20,}]}>*</Text></Text>
                   <View style={[styles.inputWrapper]}>
                     <View style={styles.inputTextWrapper}>
                       <Dropdown
@@ -874,8 +874,8 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
             <Text style={{fontSize:RFPercentage(2),fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
             <Text style={{fontSize:RFPercentage(2.4),fontFamily:"Montserrat-Regular",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
          </View>
-         <TouchableOpacity style={{flex:0.5,height:hp(8.5),backgroundColor:checked ?colors.cartButton: "#5F6C74",justifyContent:'center',alignItems:'center'}}
-         disabled       = {!checked}
+         <TouchableOpacity style={{flex:0.5,height:hp(8.5),backgroundColor:(checked && shippingTiming!=="") ?colors.cartButton: "#5F6C74",justifyContent:'center',alignItems:'center'}}
+         disabled       = {checked && shippingTiming!=="" ? false:true}
          onPress        = {() => paymentMethodsPage()}
          >
           <Text style={{fontSize:RFPercentage(2.4),fontFamily:"Montserrat-Regular",color: "#eee"}}>Checkout</Text>

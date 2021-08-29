@@ -1,10 +1,11 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import {
   Text,
   View,
   TouchableOpacity,
   Dimensions,
   Image,ActivityIndicator,
+  BackHandler
 } from 'react-native';
 import {Button,Icon,Tooltip}              from "react-native-elements";
 import Modal                      from "react-native-modal";
@@ -45,6 +46,7 @@ export const CartComponent = withCustomerToaster((props)=>{
   const [cartitemid,setCartItemId] = useState('');
   const [deleteVendor_id,setDeleteVendorId] = useState('');
   const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
+  const tooltipRef = useRef(null);
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     globalSearch    : store.globalSearch,
@@ -66,8 +68,23 @@ export const CartComponent = withCustomerToaster((props)=>{
   };
 
   useEffect(() => {
-    getData()
+    getData();
   },[props,isConnected]); 
+
+
+  useEffect(()=>{
+    BackHandler.addEventListener('hardwareBackPress', backAction);
+    // BackHandler.removeEventListener("hardwareBackPress", backAction);
+  },[])
+
+  const backAction = () =>  {
+    console.log("tooltipRef.current",tooltipRef.current);
+      if(tooltipRef.current){
+      tooltipRef.current.toggleTooltip();
+      return true;
+    }
+    return false;
+  }
 
   const getData=()=>{
     const {userId} = route.params;
@@ -576,8 +593,8 @@ const getshippingamount=(startRange, limitRange)=>{
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
                         popover={tooltipClone}
-                        withOverlay={false}
-                        // onBackButtonPress={() => setReturnModal(false)}
+                        withOverlay={true}
+                        ref={tooltipRef}
                         >
                         <Icon name="information-outline" type={"material-community"} size={RFPercentage(2.6)}iconStyle={{}} color="#0335548C" />
                       </Tooltip>

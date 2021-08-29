@@ -116,7 +116,7 @@ export const MyAccount =(props)=>{
                     <View style={{marginLeft:wp(4),marginTop:hp(2)}}>
                         <Text style={[CommonStyles.label,{paddingVertical:5}]}>{userDetails.firstName+" "+userDetails.lastName}</Text>
                         {userDetails.email ?<Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color:"#aaa"}}>{userDetails.email}</Text>: null}
-                        {userDetails.mobile ?<Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color:"#aaa"}}>{userDetails.isdCode ? ("+"+userDetails.isdCode) : ""+userDetails.mobile}</Text>: null}
+                        {userDetails.mobile ?<Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color:"#aaa"}}>{userDetails.isdCode ? ("+"+userDetails.isdCode) : ""}{userDetails.mobile}</Text>: null}
                     </View>       
                 </View>}    
                 <View style={styles1.horizontalLine} /> 
