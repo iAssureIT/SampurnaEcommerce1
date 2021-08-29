@@ -83,7 +83,6 @@ class Checkout extends Component {
                 currency: currency,
             }, () => {
                 this.getCreditData();
-                // this.getAddressWithDistanceLimit();
                 this.getUserAddress();
                 this.props.fetchAddressData();
 
@@ -101,56 +100,15 @@ class Checkout extends Component {
         }
         this.gettimes(this.state.startRange, this.state.limitRange);
     }
+
     static getDerivedStateFromProps(props, state) {
-        // Any time the current user changes,
-        // Reset any parts of state that are tied to that user.
-        // In this simple example, that's just the email.
-        // if (props.props.recentAddressData !== state.prevPropsUserID) {
-        // console.log("props.recentAddressData===",props.recentAddressData);
         if (props.recentAddressData) {
             return {
                 deliveryAddress: props.recentAddressData,
-
             };
         }
         return null;
     }
-    // getAddressWithDistanceLimit(){
-    //     var formValues = {
-    //         "user_id"       : this.state.user_ID,
-    //         "latitude"      : this.state.latitude,
-    //         "longitude"     : this.state.longitude,
-    //     }
-    //     // console.log("formValues=>",formValues);
-    //     axios.post('/api/ecommusers/myaddresses',formValues)
-    //     .then(response => {
-    //         if(response){
-    //             // console.log("distanceResponse=>",response);
-    //             this.setState({
-    //                 "deliveryAddress": response.data.deliveryAddress,
-    //                 // "username": response.data.profile.fullName,
-    //                 // "mobileNumber": response.data.profile.mobile,
-    //                 // "email": response.data.profile.email
-    //             },()=>{
-    //                 let fields = this.state.fields;
-    //                 // fields["username"] = response.data.profile.fullName;
-    //                 // fields["mobileNumber"] = response.data.profile.mobile;
-    //                 // fields["email"] = response.data.profile.email;   
-    //                 // fields["addressLine2 "] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addressLine2 :  null;   
-
-    //                 // fields["pincode"] = response.data.profile.pincode;
-    //                 // fields["addType"] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addType : null ;
-    //                 fields["paymentmethods"] = 'Cash On Delivery';
-    //                 this.setState({
-    //                     fields
-    //                 });
-    //             });
-    //         }
-    //     })
-    //     .catch((error)=>{
-    //         console.log("Error while getting getAddressWithDistanceLimit:",error);
-    //     })
-    // }
 
     validateForm() {
         let fields = this.state.fields;

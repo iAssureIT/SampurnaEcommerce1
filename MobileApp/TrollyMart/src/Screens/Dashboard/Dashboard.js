@@ -32,7 +32,6 @@ import { Alert } from 'react-native';
 import { NetWorkError } from '../../../NetWorkError.js'; 
 import {useRoute} from '@react-navigation/native';
 
-
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 const Dashboard = withCustomerToaster((props)=>{

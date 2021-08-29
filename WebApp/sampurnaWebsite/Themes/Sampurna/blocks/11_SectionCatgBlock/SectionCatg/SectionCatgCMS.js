@@ -37,7 +37,7 @@ class ShoppingVerticals extends Component {
     }, 
     };
   }
-  
+
   componentDidMount(){
       var itemList = [];      
       if(this.props.block_id){
@@ -150,6 +150,7 @@ class ShoppingVerticals extends Component {
             { this.state.groupSettings.showCarousel === true?
               this.state.itemList && this.state.itemList.length > 0 ?
               <div className="col-12 ">
+                
               {this.state.groupSettings.showOnlySection === true &&
               <Carousel 
                   className=" sectionCarousel"
@@ -195,6 +196,7 @@ class ShoppingVerticals extends Component {
                   }
               </Carousel>
               }
+
               {this.state.groupSettings.showOnlyCategory === true &&
               <Carousel 
                 className=" sectionCarousel"
@@ -235,49 +237,13 @@ class ShoppingVerticals extends Component {
                 }
               </Carousel>
               }
+
               {this.state.groupSettings.showOnlySubCategory === true &&
                 <SubCategory 
                   groupSettings = {this.state.groupSettings}
                   itemList      = {this.state.itemList}
                 />
-              // <Carousel 
-              //   className=" sectionCarousel"
-              //   swipeable={false}
-              //   draggable={true}
-              //   showDots={false}
-              //   responsive={CategoryResponsive}
-              //   ssr={true} // means to render carousel on server-side.
-              //   infinite={true}
-              //   autoPlay={false}
-              //   autoPlaySpeed={3000}
-              //   keyBoardControl={true}
-              //   customTransition="all .20"
-              //   transitionDuration={500}               
-              //   removeArrowOnDeviceType={["tablet", "mobile"]}
-              //   deviceType={this.props.deviceType}  
-              //   containerClass="carousel-container">
-              //     {this.state.itemList.map((data, index) => {  
-              //       { if(this.state.groupSettings.showOnlyCategory){
-              //           url = "/vendor-list/"+data.itemUrl;
-              //         }else{
-              //           url = "/vendor-list/"+data.itemUrl;
-              //         }
-              //       }
-              //       return (
-              //       <div className="col-12 sectionCategoryBlock  "  key={index}> 
-              //           <a href={url} className ="text-decoration-none secCateblock1 categoryblock"> 
-              //             <div className="itemImg col-12 ">
-              //               <div className="text-decoration-none product photo product-item-photo collage" tabIndex="-1" href={url}>
-              //                 <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.png"} alt="ItemImg" className={"subImg " } />
-              //               </div>
-              //             </div>
-              //             <div className="col-12 item_Name text-center text-capitalize" title={data.item}>{data.item}</div>
-              //           </a>                
-              //       </div>                            
-              //       );
-              //     })
-              //   }
-              // </Carousel>
+                
               }
             </div>
             : 

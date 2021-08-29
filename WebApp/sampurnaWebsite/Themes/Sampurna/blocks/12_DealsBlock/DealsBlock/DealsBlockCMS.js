@@ -30,9 +30,18 @@ class ShoppingVerticals extends Component {
     };
   }
   
-  componentDidMount(){
-          // console.log("after setstate dealSettings===",this.props.dealSettings.blockApi);
-          axios.post(this.props.dealSettings.blockApi,this.props.dealSettings)      
+  componentDidMount(){          
+      if(this.props.block_id){
+      axios.get('/api/blocks/get/'+this.props.block_id)    
+      .then((blockresponse)=>{
+        if(blockresponse.data){
+        // console.log("Dealsettings response data====",blockresponse.data);                
+        this.setState({
+           dealSettings    : blockresponse.data.dealSettings,   
+           blockTitle       : blockresponse.data.blockTitle,
+        },()=>{
+          // console.log("after setstate dealSettings===",this.state.dealSettings.blockApi);
+          axios.post(this.state.dealSettings.blockApi,this.state.dealSettings)      
           .then((blockApiResponse)=>{
             if(blockApiResponse.data){    
               // console.log("DealBlock list response data====", blockApiResponse.data,blockApiResponse.data.length);  
@@ -55,8 +64,14 @@ class ShoppingVerticals extends Component {
           .catch((error)=>{
               console.log('error', error);
           })
+        });
+      }
+      })
+      .catch((error)=>{
+          console.log('error', error);
+      })
+    }//end if blockid
   }
-
   render() {
     const responsive = {
       desktop: {

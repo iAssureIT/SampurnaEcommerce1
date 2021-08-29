@@ -34,7 +34,7 @@ export default class Banner extends React.Component {
               draggable         : true,
               infinite          : true,
               autoPlaySpeed     : 2000,
-              showNextPrevArrow : "false",
+              showNextPrevArrow : "true",
               effect            : "flip",
               },
             "bgVideo"				      : "",
@@ -66,182 +66,182 @@ export default class Banner extends React.Component {
     componentDidMount(){
       $(document).ready(function(){		
             $("#cItemHBpage div:nth-child(1)").addClass("active");
-      });
-      // if(this.props.block_id){              
-          axios
-            // .get('/api/blocks/get/'+this.props.block_id)
-            .get('/api/blocks/get/'+"60d96d1753572105279cf382")
-            .then((response)=>{
-                if(response.data){
-                  // console.log("Banner response.data============",response.data);
-                  this.setState({
-                    blocks:response.data,
-                    bannerLoading : false,
-                  },()=>{
-                    // console.log("Blocks data after setstate======",this.state.blocks);
-                      if (response.data.animationSettings) {
-                        if(response.data.animationSettings.effect === "coverflow"){
-                          this.swiper = new Swiper('.swiper-container', 
-                          {
-                            spaceBetween: 30,
-                            effect: 'coverflow',
-                            grabCursor: true,
-                            centeredSlides: true,
-                            slidesPerView: 'auto',
-                            coverflowEffect: {
-                                  rotate: 50,
-                                  stretch: 0,
-                                  depth: 100,
-                                  modifier: 1,
-                                  slideShadows : true,
-                              },                                
-                            grabCursor: true,
-                            autoplay: {
-                              delay: 3000,
-                              disableOnInteraction: true,
-                            },
-                            loop:true,
-                            navigation: {
-                                nextEl: '.swiper-button-next',
-                                prevEl: '.swiper-button-prev',
-                              },        
-                            pagination: {
-                                el: '.swiper-pagination',
-                                clickable: true,
-                              },
-                            });
-                        }else if(response.data.animationSettings.effect === "flip"){
-                          
-                          this.swiper = new Swiper('.swiper-container', {                                
-                              effect: 'flip',
-                              grabCursor: true,                       
-                              navigation: {
-                                nextEl: '.swiper-button-next',
-                                prevEl: '.swiper-button-prev',
-                              },    
-                              autoplay: {
-                                delay: 3000,
-                                disableOnInteraction: true,
-                              },
-                              loop:true,    
-                              pagination: {
-                                el: '.swiper-pagination',
-                                clickable: true,
-                              },
-                            });
-                        }else if(response.data.animationSettings.effect === "fade"){
-                          this.swiper = new Swiper('.swiper-container', {                                
-                            spaceBetween: 30,
-                            effect: 'fade',                               
-                            pagination: {
-                              el: '.swiper-pagination',
-                              clickable: true,
-                            },
-                            autoplay: {
-                              delay: 3000,
-                              disableOnInteraction: true,
-                            },
-                            loop:true,
-                            navigation: {
-                              nextEl: '.swiper-button-next',
-                              prevEl: '.swiper-button-prev',
-                            },
-                          });
-                        }else if(response.data.animationSettings.effect === "autoplay"){
-                          this.swiper = new Swiper('.swiper-container', {                                
-                            effect: 'autoplay',
-                            autoplay: {
-                              delay: 3000,
-                              disableOnInteraction: false,
-                            },
-                            loop:true,
-                            navigation: {
-                              nextEl: '.swiper-button-next',
-                              prevEl: '.swiper-button-prev',
-                            },        
-                            pagination: {
-                              el: '.swiper-pagination',
-                              clickable: true,
-                            },
-                          });
-                        }else if(response.data.animationSettings.effect === "cube"){
-                          this.swiper = new Swiper('.swiper-container', {                                
-                            effect: 'cube',
-                            grabCursor: true,
-                            cubeEffect: {
-                              shadow: true,
-                              slideShadows: true,
-                              shadowOffset: 20,
-                              shadowScale: 0.94,
-                            },                                                               
-                            navigation: {
-                              nextEl: '.swiper-button-next',
-                              prevEl: '.swiper-button-prev',
-                            },        
-                            pagination: {
-                              el: '.swiper-pagination',
-                              clickable: true,
-                            },
-                            autoplay: {
-                              delay: 3000,
-                              disableOnInteraction: true,
-                            },
-                            loop:true,
-                          });
-                        }else if(response.data.animationSettings.effect === "Keyboard Control"){
-                          this.swiper = new Swiper('.swiper-container', {                                
-                            slidesPerView: 1,
-                            spaceBetween: 30,
-                            keyboard: {
-                              enabled: true,
-                            },
-                            pagination: {
-                              el: '.swiper-pagination',
-                              clickable: true,
-                            },
-                            autoplay: {
-                              delay: 3000,
-                              disableOnInteraction: true,
-                            },
-                            loop:true,
-                            navigation: {
-                              nextEl: '.swiper-button-next',
-                              prevEl: '.swiper-button-prev',
-                            },
-                          });
-                        }else if(response.data.animationSettings.effect === "lazy"){
-                          this.swiper = new Swiper('.swiper-container', {                                
-                            effect: 'lazy',
-                            lazy: true,
-                            autoplay: {
-                              delay: 3000,
-                              disableOnInteraction: true,
-                            },
-                            loop:true,
-                            navigation: {
-                              nextEl: '.swiper-button-next',
-                              prevEl: '.swiper-button-prev',
-                            },        
-                            pagination: {
-                              el: '.swiper-pagination',
-                              clickable: true,
-                            },
-                            
-                          });
-                        }
-                      }
+        });
+              if(this.props.block_id){              
+                 axios
+                    .get('/api/blocks/get/'+this.props.block_id)
+                    .then((response)=>{
+                        if(response.data){
+                          // console.log("Banner response.data============",response.data);
+                          this.setState({
+                            blocks:response.data,
+                            bannerLoading : false,
+                          },()=>{
+                            // console.log("Blocks data after setstate======",this.state.blocks);
+                             if (response.data.animationSettings) {
+                                if(response.data.animationSettings.effect === "coverflow"){
+                                  this.swiper = new Swiper('.swiper-container', 
+                                  {
+                                    spaceBetween: 30,
+                                    effect: 'coverflow',
+                                    grabCursor: true,
+                                    centeredSlides: true,
+                                    slidesPerView: 'auto',
+                                    coverflowEffect: {
+                                          rotate: 50,
+                                          stretch: 0,
+                                          depth: 100,
+                                          modifier: 1,
+                                          slideShadows : true,
+                                      },                                
+                                    grabCursor: true,
+                                    autoplay: {
+                                      delay: 3000,
+                                      disableOnInteraction: true,
+                                    },
+                                    loop:true,
+                                    navigation: {
+                                        nextEl: '.swiper-button-next',
+                                        prevEl: '.swiper-button-prev',
+                                      },        
+                                    pagination: {
+                                        el: '.swiper-pagination',
+                                        clickable: true,
+                                      },
+                                    });
+                                }else if(response.data.animationSettings.effect === "flip"){
+                                  
+                                  this.swiper = new Swiper('.swiper-container', {                                
+                                      effect: 'flip',
+                                      grabCursor: true,                       
+                                      navigation: {
+                                        nextEl: '.swiper-button-next',
+                                        prevEl: '.swiper-button-prev',
+                                      },    
+                                      autoplay: {
+                                        delay: 3000,
+                                        disableOnInteraction: true,
+                                      },
+                                      loop:true,    
+                                      pagination: {
+                                        el: '.swiper-pagination',
+                                        clickable: true,
+                                      },
+                                    });
+                                }else if(response.data.animationSettings.effect === "fade"){
+                                  this.swiper = new Swiper('.swiper-container', {                                
+                                    spaceBetween: 30,
+                                    effect: 'fade',                               
+                                    pagination: {
+                                      el: '.swiper-pagination',
+                                      clickable: true,
+                                    },
+                                    autoplay: {
+                                      delay: 3000,
+                                      disableOnInteraction: true,
+                                    },
+                                    loop:true,
+                                    navigation: {
+                                      nextEl: '.swiper-button-next',
+                                      prevEl: '.swiper-button-prev',
+                                    },
+                                  });
+                                }else if(response.data.animationSettings.effect === "autoplay"){
+                                  this.swiper = new Swiper('.swiper-container', {                                
+                                    effect: 'autoplay',
+                                    autoplay: {
+                                      delay: 3000,
+                                      disableOnInteraction: false,
+                                    },
+                                    loop:true,
+                                    navigation: {
+                                      nextEl: '.swiper-button-next',
+                                      prevEl: '.swiper-button-prev',
+                                    },        
+                                    pagination: {
+                                      el: '.swiper-pagination',
+                                      clickable: true,
+                                    },
+                                  });
+                                }else if(response.data.animationSettings.effect === "cube"){
+                                  this.swiper = new Swiper('.swiper-container', {                                
+                                    effect: 'cube',
+                                    grabCursor: true,
+                                    cubeEffect: {
+                                      shadow: true,
+                                      slideShadows: true,
+                                      shadowOffset: 20,
+                                      shadowScale: 0.94,
+                                    },                                                               
+                                    navigation: {
+                                      nextEl: '.swiper-button-next',
+                                      prevEl: '.swiper-button-prev',
+                                    },        
+                                    pagination: {
+                                      el: '.swiper-pagination',
+                                      clickable: true,
+                                    },
+                                    autoplay: {
+                                      delay: 3000,
+                                      disableOnInteraction: true,
+                                    },
+                                    loop:true,
+                                    
+                                  });
+                                }else if(response.data.animationSettings.effect === "Keyboard Control"){
+                                  this.swiper = new Swiper('.swiper-container', {                                
+                                    slidesPerView: 1,
+                                    spaceBetween: 30,
+                                    keyboard: {
+                                      enabled: true,
+                                    },
+                                    pagination: {
+                                      el: '.swiper-pagination',
+                                      clickable: true,
+                                    },
+                                    autoplay: {
+                                      delay: 3000,
+                                      disableOnInteraction: true,
+                                    },
+                                    loop:true,
+                                    navigation: {
+                                      nextEl: '.swiper-button-next',
+                                      prevEl: '.swiper-button-prev',
+                                    },
+                                  });
+                                }else if(response.data.animationSettings.effect === "lazy"){
+                                  this.swiper = new Swiper('.swiper-container', {                                
+                                    effect: 'lazy',
+                                    lazy: true,
+                                    autoplay: {
+                                      delay: 3000,
+                                      disableOnInteraction: true,
+                                    },
+                                    loop:true,
+                                    navigation: {
+                                      nextEl: '.swiper-button-next',
+                                      prevEl: '.swiper-button-prev',
+                                    },        
+                                    pagination: {
+                                      el: '.swiper-pagination',
+                                      clickable: true,
+                                    },
+                                    
+                                  });
+                                }
+                              }
 
+                          })
+                        }                  
+                      })           
+                  .catch(function(error){
+                      console.log(error);
                   })
-                }                  
-              })           
-          .catch(function(error){
-              console.log(error);
-          })
-        //   this.setState({
-        //     block_id:this.props.block_id
-        //   });
-        // }
-  
+                  this.setState({
+                    block_id:this.props.block_id
+                  });
+                }
+          
     }
 
 	render() {

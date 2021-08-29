@@ -15,13 +15,9 @@ import Geocode           from "react-geocode";
 import Websitelogo       from './Websitelogo.js';
 import {setDeliveryLocation,setSampurnaWebsiteDetails,updateCartCount }    from '../../../../../redux/actions/index.js'; 
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-
-
 import Style                  from './location.module.css';
 
-
 class DeliveryLocationPopup extends React.Component{
-
     constructor(props){
 		super(props);
 		this.state = { 
@@ -38,7 +34,7 @@ class DeliveryLocationPopup extends React.Component{
     componentDidMount(){
         var windowHeight    = window.innerHeight;
         var mapBlockheight  = windowHeight - 150;
-        console.log("mapBlockheight = ",mapBlockheight);
+        // console.log("mapBlockheight = ",mapBlockheight);
         var formTopMargin = (mapBlockheight/2) * 0.8 ; 
         this.setState({
             mapBlockheight : mapBlockheight,
@@ -301,7 +297,7 @@ class DeliveryLocationPopup extends React.Component{
                         latitude : lat,
                         longitude : lng
                     },()=>{
-                        console.log("latlong===",this.state.latLong);
+                        // console.log("latlong===",this.state.latLong);
                     })
                 }
             })
