@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from '../styles.js';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -23,7 +25,7 @@ export default StyleSheet.create({
     },
 
     textTitleWrapper:{
-        paddingHorizontal: 30, marginTop: Platform.OS==="ios" ? heightPercentageToDP(3) : heightPercentageToDP(3), marginBottom:40
+        paddingHorizontal: wp(7), marginTop: Platform.OS==="ios" ? hp(3) : hp(3), marginBottom:hp(5.5)
     },
     boxOpacity:{
         width: '100%',borderColor:colors.theme,shadowColor: colors.theme,
@@ -53,22 +55,22 @@ export default StyleSheet.create({
     },
 
     syslogo1:{
-        flexDirection: 'row', alignItems: "center",justifyContent:"center", marginHorizontal:widthPercentageToDP(6),height:heightPercentageToDP(17),marginTop:Platform.OS==="ios" ?10:0
+        flexDirection: 'row', alignItems: "center",justifyContent:"center", marginHorizontal:wp(6),height:hp(17),marginTop:Platform.OS==="ios" ?10:0
     },
     syslogoimg1:{
         width: '50%',
-        height:80,
+        height:hp(11),
         alignSelf:'flex-start'
     },
     syslogo:{
-        flexDirection: 'row', alignItems: "flex-start",alignSelf:'flex-start', marginHorizontal:20,height:100,
+        flexDirection: 'row', alignItems: "flex-start",alignSelf:'flex-start', marginHorizontal:wp(6),height:100,
     },
     syslogoLoginNEW:{
-        flexDirection: 'row',marginTop:Platform.OS==='ios'?55:heightPercentageToDP(3.5),marginHorizontal:20
+        flexDirection: 'row',marginTop:Platform.OS==='ios'?55:hp(3.5),marginHorizontal:20
     },
     textLine1:{
         fontFamily:"Montserrat-Regular",
-        fontSize: 13,
+        fontSize: RFPercentage(1.9),
         color:'#000',
     },
     syslogoimg:{
@@ -77,6 +79,6 @@ export default StyleSheet.create({
     },
     syslogoimgLogin:{
         width: '50%',
-        height:heightPercentageToDP(14),        
+        height:hp(14),        
     },
 });

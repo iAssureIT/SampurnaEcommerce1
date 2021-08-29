@@ -163,8 +163,8 @@ console.log("subCategory",subCategory)
           >
            {/* <View style={[styles.block1]}> */}
              <View style={{elevation:5,backgroundColor:"#fff"}}>
-                <View style={{backgroundColor:"#EEEEEE",marginTop:3,height:20}}>
-                    <Text numberOfLines={1} style={[{paddingHorizontal:5,fontSize:11,color:"#333"}]}>{vendor?.vendorName ? vendor?.vendorName : vendor?.companyName}</Text>
+                <View style={{backgroundColor:"#EEEEEE",marginTop:3,height:hp(2.5)}}>
+                    <Text numberOfLines={1} style={[{paddingHorizontal:5,fontSize:RFPercentage(1.6),color:"#333"}]}>{vendor?.vendorName ? vendor?.vendorName : vendor?.companyName}</Text>
                 </View> 
                 <View style={{height:hp(8)}}>
                   <MenuCarouselSection  
@@ -230,7 +230,7 @@ console.log("subCategory",subCategory)
                   vendorLocation_id     = {vendorLocation_id}
                   onEndReachedThreshold = {0.01}
                   marginTop             = {HEADER_HEIGHT}
-                  paddingBottom         = {250}
+                  paddingBottom         = {hp(38)}
                   category              = {category ? category :first_category}
                   subCategory           = {subCategory}
                   vendor                = {vendor}

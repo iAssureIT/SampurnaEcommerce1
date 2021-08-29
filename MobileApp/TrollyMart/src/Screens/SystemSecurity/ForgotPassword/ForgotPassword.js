@@ -23,7 +23,8 @@ import {Formik}             from 'formik';
 import {withCustomerToaster} from '../../../redux/AppState.js';
 import {setUserDetails}     from '../../../redux/user/actions';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
-const window = Dimensions.get('window');
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
   const LoginSchema = Yup.object().shape({
     username: Yup.string()
       .required('This field is required')
@@ -123,8 +124,8 @@ const window = Dimensions.get('window');
                 />
             </View>
             <View style={styles.textTitleWrapper}>
-              <Text style={{fontSize:12,color:"#000000",fontFamily:"Montserrat-Medium",opacity:0.5}}>Knock Knock</Text>
-              <Text style={{fontSize:13,color:"#000000",fontFamily:"Montserrat-Regular",}}>Forgot your password?</Text>
+              <Text style={{fontSize:RFPercentage(1.8),color:"#000000",fontFamily:"Montserrat-Medium",opacity:0.5}}>Knock Knock</Text>
+              <Text style={{fontSize:RFPercentage(1.9),color:"#000000",fontFamily:"Montserrat-Regular",}}>Forgot your password?</Text>
             </View>
             <View style={styles.textTitleWrapper}>
               <Text style={styles.textLine1}>Enter your email address/mobile no. and we'll send you a link to reset your password.</Text>
@@ -170,10 +171,10 @@ const window = Dimensions.get('window');
                   // marginBottom    : 25,
                 },
               ]}>
-                <View style={{flexDirection:"row",paddingHorizontal:15}}>
+                <View style={{flexDirection:"row",paddingHorizontal:wp(1)}}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                  <Text style={{fontSize:10,fontFamily:"Montserrat-Regular",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:14,fontFamily:"Montserrat-Regular"}]}> Sign Up</Text></Text>                  
+                  <Text style={{fontSize:RFPercentage(1.5),fontFamily:"Montserrat-Regular",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:RFPercentage(1.8),fontFamily:"Montserrat-Regular"}]}> Sign Up</Text></Text>                  
                 </TouchableOpacity>                
                 </View>
             </View>

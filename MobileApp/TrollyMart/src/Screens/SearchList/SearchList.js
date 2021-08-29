@@ -57,7 +57,7 @@ console.log("globalSearch",globalSearch);
             <SearchSuggetion />
               :<ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
-                <View style={{marginTop:15,marginBottom:60}}>
+                <View style={{marginTop:hp(2),marginBottom:hp(8)}}>
                 {
                     globalSearch.searchList.length ===0 && productList.loading ?
                     <Loading />

@@ -238,7 +238,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                   <View style={styles.vwwishlist}>
                     <Image
                       style={styles.imgwdht}
-                      source={require("../../AppDesigns/currentApp/images/PaymentMethod.png")}
+                      source={require("../../AppDesigns/currentApp/images/paymentmethod.png")}
                     />
                   </View>
                   <View style={styles.orderbrdr}>

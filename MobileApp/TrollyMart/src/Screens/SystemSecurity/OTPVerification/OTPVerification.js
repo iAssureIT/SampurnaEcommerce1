@@ -4,7 +4,8 @@ import {
   View,
   Image, TextInput,
   TouchableOpacity,
-  ImageBackground,Modal,ActivityIndicator
+  ImageBackground,Modal,ActivityIndicator,
+  Platform,
 } from 'react-native';
 import * as Yup             from 'yup';
 import {Icon }                      from "react-native-elements";
@@ -20,6 +21,8 @@ import axios from "axios";
 import { colors, sizes } from '../../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
 import {setUserDetails}     from '../../../redux/user/actions';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const LoginSchema = Yup.object().shape({
   otp: Yup.string()
   .required('This field is required')
@@ -143,21 +146,21 @@ const FormBody = (props) => {
   return (    
       <View style={{flex:1,backgroundColor:'#fff'}}>        
           <View style={[styles.boxOpacity,{flex:1,paddingHorizontal:0}]}>
-          <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:15,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
-              <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+          <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:wp(3),marginTop:Platform.OS === 'ios'? 45 : hp(2),height:hp(4),paddingRight:wp(1)}} onPress={()=> navigation.goBack()}>
+              <Icon size={hp(3.5)} name='arrow-left' type='material-community' color={colors.theme} />
           </TouchableOpacity>
-          <View style={{height: 160,paddingHorizontal:30,justifyContent:'flex-start'}}>
+          <View style={{height:hp(22),paddingHorizontal:wp(7),justifyContent:'flex-start'}}>
             <Image
-              style={{height: 60, width: 150,backgroundColor:'white', alignSelf: 'flex-start'}}
+              style={{height: hp(10), width:wp(42),backgroundColor:'white', alignSelf: 'flex-start'}}
               source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
               resizeMode="contain"
             />
           </View>
-          <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.png")} style={{paddingHorizontal:30, height:500}} resizeMode="cover" >
+          <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.png")} style={{paddingHorizontal:wp(7), height:500}} resizeMode="cover" >
            <View style={{marginHorizontal:5}}><Text style={styles.otpTitle}>OTP</Text></View>
            {/* <View style={styles.textTitleWrapper}><Text style={{ fontSize: 15, fontFamily: 'Montserrat-Regular',alignSelf:'center' }}>Please Enter Verification Code</Text></View> */}
          <OTPInputView
-            style={{width: '95%', height: 100,alignSelf:"center",marginHorizontal:20}}
+            style={{width: '95%', height: 100,alignSelf:"center",marginHorizontal:wp(20)}}
             pinCount={4}
             placeholderTextColor={'#333'}
             codeInputFieldStyle={styles.underlineStyleBase}
@@ -167,8 +170,8 @@ const FormBody = (props) => {
             code={values.otp}
             // clearInputs={isEmptyString(values.otp)}  
             />
-           <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
-           <View style={{marginHorizontal:10,flexDirection:'row'}}>
+           <Text style={{fontSize:RFPercentage(1.8),color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
+           <View style={{marginHorizontal:wp(1.2),flexDirection:'row'}}>
            <Text style={styles.otpLastText}>Didn't receive code? </Text>
               <TouchableOpacity  onPress={handleResend}>
                 <Text style={styles.otpLastText1}> Request again!</Text>

@@ -471,9 +471,9 @@ const window = Dimensions.get('window');
                   style={{paddingRight: '5%'}}
                   onPress={() => togglePassword(!showPassword)}>
                   {showPassword ? (
-                    <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={18} />
+                    <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={hp(2.5)} />
                   ) : (
-                    <Icon style={{color:'#000'}} name="eye" type="entypo" size={18} />
+                    <Icon style={{color:'#000'}} name="eye" type="entypo" size={hp(2.5)} />
                   )}
                 </TouchableOpacity>
               }
@@ -483,7 +483,7 @@ const window = Dimensions.get('window');
             <View style={{flexDirection:"row",paddingHorizontal:wp(2),paddingBottom:hp(4),}}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('ForgotPassword')}  style={{flex:1,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                <Text style={[{fontSize:RFPercentage(1.5),color: "#033554",fontFamily:"Montserrat-Regular",opacity:1}]}>Forgot Password?</Text>
+                <Text style={[{fontSize:RFPercentage(1.6),color: "#033554",fontFamily:"Montserrat-Regular",opacity:1}]}>Forgot Password?</Text>
               </TouchableOpacity>
             </View>
             <FormButton

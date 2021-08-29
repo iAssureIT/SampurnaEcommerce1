@@ -165,7 +165,7 @@ export default StyleSheet.create({
 		flex:1,
 		// minHeight:Dimensions.get('window').height,
 		flexDirection: 'row',
-		marginBottom:55,
+		marginBottom:hp(8),
 		paddingHorizontal:wp(2),
 		// backgroundColor:"#ff0"
 	},
