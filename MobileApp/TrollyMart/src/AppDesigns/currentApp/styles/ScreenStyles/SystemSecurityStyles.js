@@ -23,9 +23,8 @@ export default StyleSheet.create({
     inputBoxStyle:{
         paddingHorizontal: 15,
     },
-
     textTitleWrapper:{
-        paddingHorizontal: wp(7), marginTop: Platform.OS==="ios" ? hp(3) : hp(3), marginBottom:hp(5.5)
+        paddingHorizontal: wp(7),marginTop: Platform.OS==="ios" ? hp(3) : hp(3), marginBottom:hp(5.5)
     },
     boxOpacity:{
         width: '100%',borderColor:colors.theme,shadowColor: colors.theme,
