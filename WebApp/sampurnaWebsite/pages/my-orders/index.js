@@ -322,7 +322,7 @@ export default class MyOrders extends Component {
                   <span className={"table-caption mb-2 "}>My Orders</span>
                 </div>
 
-                <div className={"container-flex col-xl-11 row "+ Style.myOrderBox}>
+                <div className={"container-flex col-xl-12 row "+ Style.myOrderBox}>
                   {this.state.orderData && this.state.orderData.length > 0 ?
                     this.state.orderData.map((singleOrder, index) => {
                       // console.log("singleOrder=",singleOrder);
@@ -435,7 +435,7 @@ export default class MyOrders extends Component {
                                 }
                               </div>
                               <div className="col-lg-7  pull-right orderBtnWrapper">
-                                <button className="btn col-6 col-sm-4 col-lg-6 col-xl-5 float-right " onClick={() => this.props.getOrderId(singleOrder._id)}>
+                                <button className="btn col-6 col-sm-4 col-lg-6 col-xl-6 float-right " onClick={() => this.props.getOrderId(singleOrder._id)}>
                                   <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-lg-9 float-right showDetailsBtn "} 
                                   >Show Details
                                   </a>

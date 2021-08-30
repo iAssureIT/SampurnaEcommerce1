@@ -544,6 +544,10 @@
     .mainTitle {
 		font-size: 30px;
 	}
+
+	.orderDetailVendorAmtInnerWrapper{
+		font-size: 9px;
+	}
 }
 
 
@@ -600,7 +604,7 @@
 	}
 
 	.orderDetailVendorAmtInnerWrapper{
-		font-size: 17px;
+		font-size: 15px;
 	}
 
 }

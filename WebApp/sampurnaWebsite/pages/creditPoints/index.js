@@ -57,7 +57,7 @@ class CreditPoints extends Component{
               <div className="col-12 pt-4">
                       <div className={"table-caption mb-1 "+Style.creditPointTitleWrapper}>My Credit Points</div>
                   </div>
-                <div className={"col-12 col-xl-11 pt-5  "+Style.creditWrapper}>
+                <div className={"col-12 col-xl-12 pt-5  "+Style.creditWrapper}>
                     <div className={"col-12 "+Style.creditHeader}>
                         <div className="row">
                             <div className={"col-4 px-lg-5 text-lg-left text-center "+Style.CreditTotalPtTitle}>Total Points</div>

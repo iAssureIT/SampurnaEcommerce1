@@ -66,7 +66,7 @@
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
+@media (min-device-width: 1200px) {
   #editAccount label {
     font-size     : 15px;
     /* font-weight: 700 ! important; */
@@ -81,8 +81,24 @@
   }
 }
 
+@media (min-device-width: 1536px) {
+    #editAccount label {
+      font-size: 12px;
+    }
 
-@media (min-width: 1920px) {
+    #editAccount span {
+      font-size: 12px;
+    }
+
+    #editAccount input {
+      font-size: 14px;
+  }
+
+
+  }
+
+
+@media (min-device-width: 1920px) {
     #editAccount label {
       font-size: 16px;
     }

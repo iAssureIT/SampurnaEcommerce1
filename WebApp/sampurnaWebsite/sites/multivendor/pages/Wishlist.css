@@ -111,6 +111,20 @@
     opacity       : 1;
 }
 
+@media only screen and (min-device-width: 1366px) {
+    .wishListMainTitle {
+        font-size: 25px;
+    }
+}   
+
+
+@media only screen and (min-device-width: 1440px) {
+    .wishListMainTitle {
+        font-size: 28px;
+    }
+}   
+
+
 @media only screen and (min-device-width: 1536px) {
     .wishListMainTitle {
         font-size: 30px;

@@ -241,11 +241,11 @@ class SingleProduct extends Component{
                             this.state.user_ID && this.state.authService!=="guest"?
                             // <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                               this.props.data.isWish?
-                                <button type="submit" id={this.props.data._id} title={tooltipMsg} className={"col-3  col-xl-3  pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)}><img src={heartImg} id={this.props.data._id} className={" col-12  wishListIconColor "} /></button>
+                                <button type="submit" id={this.props.data._id} title={tooltipMsg} className={"pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)}><img src={heartImg} id={this.props.data._id} className={" col-12  wishListIconColor "} /></button>
                                 :
-                                <button type="submit" id={this.props.data._id} title={tooltipMsg} className={"col-3  col-xl-3  pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)}><img src={heartImg} id={this.props.data._id} className={" col-12  wishListIconColor "} /></button>
+                                <button type="submit" id={this.props.data._id} title={tooltipMsg} className={"pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)}><img src={heartImg} id={this.props.data._id} className={" col-12  wishListIconColor "} /></button>
                             :
-                            <button type="submit" id={this.props.data._id} title={tooltipMsg} className={ "col-3  col-xl-3  pull-right " +Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><img src={heartImg} id={this.props.data._id} className={" col-12  wishListIconColor "} /></button>
+                            <button type="submit" id={this.props.data._id} title={tooltipMsg} className={ "pull-right " +Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><img src={heartImg} id={this.props.data._id} className={" col-12  wishListIconColor "} /></button>
                         :null
                         }
                        

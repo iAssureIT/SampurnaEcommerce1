@@ -229,7 +229,7 @@ showMoreProduct(event){
 }
 
 getProductList(productApiUrl,formValues){
-    console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
+    // console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){  
@@ -237,7 +237,7 @@ getProductList(productApiUrl,formValues){
           this.setState({
             newProducts    : this.state.newProducts.concat(response.data),                         
           },()=>{
-            console.log("newProducts=>",this.state.newProducts.length);
+            // console.log("newProducts=>",this.state.newProducts.length);
             if(this.state.newProducts.length>0){
               this.setState({
                 ProductsLoading : true,

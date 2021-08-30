@@ -2,7 +2,6 @@ import React, { Component }   from 'react';
 import { Route, location }    from 'react-router-dom';
 import swal                   from 'sweetalert';
 import validator              from 'validator';
-import getConfig              from 'next/config';
 import { connect }            from 'react-redux';
 import dynamic                from 'next/dynamic';
 import Image                  from 'next/image';
@@ -12,18 +11,11 @@ import axios                  from 'axios';
 import PhoneInput 			  from 'react-phone-input-2';
 import { bindActionCreators } from  'redux';
 import {getForm,updateForm}   from '../redux/actions';
-
-
 import SignUp                 from './SignUp.js';
 import Facebooklogin          from './Facebooklogin.js';
 import Googlelogin            from './Googlelogin.js'
 import LoginAsGuest           from './LoginAsGuest.js';
-
-
 import S 					  from './systemSecurity.module.css';
-
-
-const { publicRuntimeConfig } = getConfig();
 
 
 class Login extends Component{
@@ -88,9 +80,10 @@ class Login extends Component{
 			password 	: this.refs.loginpassword.value,
 			role		: "user"
 		}
-
+		// console.log("payload===",payload);
 		if(this.validateForm()){
-			axios.post('/api/auth/post/login/mob_email', payload)
+			// axios.post('/api/auth/post/login/mob_email', payload)
+			axios.post('/api/auth/post/login/mob_email_new',payload)
 				.then((response) => {
             		if(response.data.message === "Login Auth Successful"){
 						if(response.data.ID){
