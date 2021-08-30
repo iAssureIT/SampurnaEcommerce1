@@ -8,7 +8,7 @@ import CategoryBlock                   from '../11_SectionCatgBlock/SectionCatg/
 import SubCategoryBlock                from '../11_SectionCatgBlock/SectionCatg/SubCategoryBlock.js';
 import DealsBlock                      from '../12_DealsBlock/DealsBlock/DealsBlock.js';
 import ProductCarouselBlock            from '../10_eCommerceBlocks/ProductCarousel/ProductCarouselBlock.js';
-import Style                           from './HomePage.module.css'
+
 class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
