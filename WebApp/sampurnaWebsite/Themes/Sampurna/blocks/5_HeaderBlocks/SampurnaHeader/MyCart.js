@@ -5,6 +5,7 @@ import swal 		          from 'sweetalert';
 import Image                  from 'next/image';
 import { connect }            from 'react-redux';
 import  store                 from '../../../../../redux/store.js';
+import Style                  from './HeaderNew.module.css';
 import { updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }   from '../../../../../redux/actions/index.js'; 
 
 class MyCart extends React.Component { 
@@ -26,47 +27,45 @@ class MyCart extends React.Component {
     }
    render(){
         return(  
-            <div className="col-12 NoPadding">
-            {this.state.userID?
-                <div className="row cartHeader">  
-                    <div className="col-6 col-lg-8 col-sm-8 ml-4 topCart NoPadding">
-                        <a href="/cart" className="row cartHeader">
-                            <Image
-                            src={"/images/eCommerce/cart.png"}
-                            className={"rotateImg11" }
-                            height ={40}
-                            width={60}
-                            layout={'intrinsic'}
-                            />
-                        </a>
-                    </div>
-                    {this.props.cartCount> 0 &&
-                        <div className="col-2 cartCount NoPadding">
-                            <div className="cartCountCircle">{this.props.cartCount>0? this.props.cartCount : 0 }</div>
-                            &nbsp;                                
+            <div className="col-12 h-100">
+                    {this.state.userID?
+                        <div className={"row h-100 " + Style.cartIconWrapper}>  
+                            <div className="col-8">
+                                <a href="/cart" className="row">
+                                    <img
+                                    src={"/images/eCommerce/cart.png"}
+                                    className={Style.cartLogo}
+                                    layout={'intrinsic'}
+                                    />
+                                </a>
+                                {this.props.cartCount> 0 &&
+                                    <span className={Style.cartCountWrapper}>
+                                        {this.props.cartCount>0? this.props.cartCount : 0 }
+                                    </span>                               
+                                }
+                            </div>
+                        </div>
+                        :
+                        <div className="row">
+                             <div className="col-10">
+                                <div className="row">
+                                    <a href="" data-toggle="modal" data-target="#loginFormModal" 
+                                       data-backdrop="false" id="loginModal" title="Please Login">
+                                        <img
+                                        src={"/images/eCommerce/cart.png"}
+                                        className={Style.cartIcon}
+                                        layout={'intrinsic'}
+                                        />
+                                    </a>
+                                    {this.props.cartCount> 0 &&
+                                        <span className={Style.cartCountWrapper}>
+                                            {this.props.cartCount>0? this.props.cartCount : 0 }
+                                        </span>                               
+                                    }
+                                </div>
+                            </div>
                         </div>
                     }
-                </div>
-                :
-                <div className="row cartHeader" >
-                    <div className="col-6 col-lg-8 col-sm-8 NoPadding ml-4 my-auto">
-                        <a href="" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
-                            <img
-                            src={"/images/eCommerce/cart.png"}
-                            className={"rotateImg11" }
-                            height ={32}
-                            layout={'intrinsic'}
-                            />
-                        </a>
-                    </div>
-                    {this.props.cartCount> 0 &&
-                    <div className="col-2 cartCount NoPadding">
-                        <div className="cartCountCircle ">{this.props.cartCount>0? this.props.cartCount : 0 }</div>
-                        &nbsp;                                
-                    </div>
-                    }
-                </div>
-            }
             </div>
         );        
     }

@@ -3,6 +3,7 @@ import axios 		          from 'axios';
 import Link                   from 'next/link';
 import swal 		          from 'sweetalert';
 import Image                  from 'next/image';
+import Style                  from './HeaderNew.module.css';
 
 
 class WebsiteLogo extends React.Component{
@@ -50,11 +51,13 @@ class WebsiteLogo extends React.Component{
 
    render(){
         return(  
-            <div className="col-12 mr-6 mt-2 logoBlock mobileNoPadding ">
-                <a href="/" title="navbar-brand Sitelogo ">
+            <div className={ Style.sampurnaLogoWrapper}>
+                <a href="/" title="Sampurna Logo">
                     <img
-                        src={this.state.CompanyLogo ? this.state.CompanyLogo : "/images/eCommerce/TrollyLogo.png"}
-                        className={"logoImg hidden-x"}
+                        src={this.state.CompanyLogo 
+                                ? this.state.CompanyLogo 
+                                : "/images/eCommerce/TrollyLogo.png"}
+                        className={Style.logoImg}
                         height ={40}
                         layout={'intrinsic'}
                     />

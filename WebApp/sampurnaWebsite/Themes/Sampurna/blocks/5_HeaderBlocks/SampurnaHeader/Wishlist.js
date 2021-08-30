@@ -3,7 +3,8 @@ import axios 		          from 'axios';
 import Link                   from 'next/link';
 import swal 		          from 'sweetalert';
 import Image                  from 'next/image';
-import $                    from 'jquery';
+import $                      from 'jquery';
+import Style                  from './HeaderNew.module.css';
 
 class Wishlist extends React.Component {
 	constructor(props) {
@@ -29,35 +30,32 @@ class Wishlist extends React.Component {
 
    render(){
         return(  
-            <div className="col-12 NoPadding my-auto">
+            <div className="row">
             {this.state.userID && this.state.authService !== "guest"?
-                <li  className="d-block" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}>
-                  <Link className="bottom" href="/my-account#v-pills-settings1-tab">
+                <div  className={"d-block " + Style.wishListIconWrapper} 
+                     onClick={()=>{
+                            (   this.state.currentUrl==="/my-account#v-pills-settings-tab"
+                                ||this.state.currentUrl==="/my-account#v-pills-settings1-tab"
+                                ||this.state.currentUrl==="/my-account#v-pills-settings3-tab"
+                                ||this.state.currentUrl==="/my-account")
+                                    ? 
+                                        window.location.reload() 
+                                    :   null 
+                                }
+                            }>
+                  <Link className="" href="/my-account#v-pills-settings1-tab">
                      <a title="wishlistIcon " className="leftf ">
-                        <Image
+                        <img
                         src={"/images/eCommerce/wishlist.png"}
-                        className={" hidden-x " }
-                        height ={25}
-                        width={30}
+                        className={Style.wishListIcon}
                         layout={'intrinsic'}
                         />
                     </a>
                    </Link>
-                </li>  
-             :null
-            //  <li  className="d-block" >
-            //          <a href="" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
-            //             <Image
-            //             src={"/images/eCommerce/wishlist.png"}
-            //             className={" hidden-x " }
-            //             height ={25}
-            //             width={30}
-            //             layout={'intrinsic'}
-            //             />
-            //         </a>
-            //  </li> 
-             }
-
+                </div>  
+             :
+                null
+            }  
             </div>
         );        
     }

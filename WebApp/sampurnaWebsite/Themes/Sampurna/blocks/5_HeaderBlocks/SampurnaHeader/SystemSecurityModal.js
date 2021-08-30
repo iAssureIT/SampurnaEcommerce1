@@ -15,7 +15,7 @@ import ResetPassword  from '../../../../../systemSecurity/ResetPassword.js';
 import SignUpOTP      from '../../../../../systemSecurity/SignUpOTP.js';
 import Websitelogo    from './Websitelogo.js';
 import {getForm,updateForm,updateCartCount}  from '../../../../../redux/actions';
-import Style                 from './location.module.css';
+import Style                  from './HeaderNew.module.css';
 import SystemSecurityPopup   from './SystemSecurityPopup.js';
 
 const { publicRuntimeConfig } = getConfig();
@@ -115,85 +115,159 @@ class header extends React.Component {
   
    render() {
     return (
-        <div className="col-12 NoPadding ml-2 ml-lg-0">  
-            <div className="col-12 NoPadding loginViewWrapper ">
-                {this.state.loggedIn ? 
-                    <div className="col-12 col-lg-12 col-xl-12  NoPadding">
-                        <li className="dropdown myaccDropdown">
-                        <span className="col-12 NoPadding">
-                            <div className="faIcon faLoginIcon col-12 mt-2 NoPadding"> 
-                                <div className={"mtm10 "+Style.systemSecurityModalWrapper}>  
-                                    {this.state.authService === "guest" && this.state.userId ?
-                                        <span className="my-auto">
-                                            <span style={{float: "right"}} className="faIcon col-12 NoPadding pt-1 "><span className="userName ">Hello Guest!</span></span>
-                                            <span className="userEmail">My Account 
-                                                {/* <i className="fa fa-angle-down"></i> */}
+        <div className="row  h-100">  
+                {
+                    this.state.loggedIn 
+                    ? 
+                        <div className={"dropdown h-100 " + Style.myAccDropdown}>
+                            <div className={"col-12 h-100 "+ Style.signDivWrapper}>  
+                                {
+                                    this.state.authService === "guest" && this.state.userId
+                                    ?
+                                    <div className="row">
+                                        <div  className="col-12">
+                                            <span className={Style.userName}>
+                                                Hello Guest!
                                             </span>
-                                        </span>
-                                    :
-                                    <span className="my-auto">
-                                        <span style={{float: "right"}} className="faIcon col-12 NoPadding pt-1"><span className="userName ">Hello&nbsp; {this.state.userName}!</span></span>
-                                        <span className="userEmail">My Account 
+                                        </div>
+                                        <span className={Style.userName}>
+                                            My Account 
                                             {/* <i className="fa fa-angle-down"></i> */}
                                         </span>
-                                    </span>
-                                    }
-                                </div>
-                            </div>
-                        </span>
-                        <ul className="col-3 dropdown-menu mt-5 list-DropDownMenu">   
-                        {this.state.authService!=="guest"?    
-                            <div className="col-12 NoPadding">                                 
-                                <li className="col-12 NoPadding">                            
+                                    </div>
+                                    :
                                     <div className="row">
-                                        <div className="col-2">
-                                        <div className="shortnamebk">
-                                            <div className="">                                                    
-                                                <div className="userinfo">{this.state.firstname}{this.state.lastname}</div>
+                                        <div  className="col-12">
+                                            <span className={Style.userName}>
+                                                {"Hello " + this.state.userName}
+                                            </span>
+                                        </div>
+                                        <div className={"col-12 " + Style.myAccountTitle}>
+                                            My Account 
+                                            {/* <i className="fa fa-angle-down"></i> */}
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div className={"dropdown-menu mt-5 " + Style.listDropDownMenu}>   
+                                {this.state.authService!=="guest"
+                                    ?    
+                                    <div className="col-12">                                 
+                                        <div className="row">                                 
+                                            <div className="col-12 ">                            
+                                                <div className="row">
+                                                    <div className={"col-3 " + Style.userInfoWrapper}>
+                                                        <div className="row">
+                                                            <div className={Style.userInfoCircle}>                                                    
+                                                                <div className={Style.userInfo}>
+                                                                    {this.state.firstname}
+                                                                    {this.state.lastname}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-9">
+                                                        <div className="row">  
+                                                            <div className={Style.userDetalisWrapper}> 
+                                                                <div className={Style.userFullName}>
+                                                                    {
+                                                                        this.state.userData 
+                                                                            ? 
+                                                                                this.state.userData.fullName 
+                                                                            :
+                                                                                null
+                                                                    }
+                                                                </div>
+                                                                <div className={Style.userEmail}>
+                                                                    {
+                                                                        this.state.userData 
+                                                                            ? 
+                                                                                this.state.userData.email 
+                                                                            : 
+                                                                                null
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                            
+                                        <div className="row">  
+                                            <div className={"col-12 " + Style.userDetailsList} onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}>
+                                                <div className="row">
+                                                    <Link href="/my-account#v-pills-settings-tab">
+                                                        <div className={Style.userDetailsListTitle}>My Orders</div>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                            <div className={"col-12 " + Style.userDetailsList} onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}>
+                                                <div className="row">
+                                                    <Link href="/my-account#v-pills-settings1-tab">
+                                                        <div className={Style.userDetailsListTitle}>My Wishlist</div>
+                                                    </Link>
+                                                </div>
+                                            </div>   
+                                                {
+                                                    this.state.authService === ""  &&                            
+                                                    <div className={"col-12 " + Style.userDetailsList} onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}>
+                                                        <div className="row">
+                                                            <Link href="/my-account">
+                                                                <div className={Style.userDetailsListTitle}>My Profile</div>
+                                                            </Link>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            <div className={"col-12 " + Style.userDetailsList} onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}>
+                                                <div className="row">
+                                                    <Link href="/my-account#v-pills-settings3-tab">
+                                                        <div className={Style.userDetailsListTitle}>My Credits</div>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                            <div className={"col-12 " + Style.userDetailsList1} onClick={this.signOut.bind(this)}>
+                                                <div className="row">
+                                                    <Link href="/">
+                                                        <div className={Style.userDetailsListTitle1}>Sign Out</div>
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+                                        
+                                     :
+                                        <div className="col-12 ">
+                                            <div className="col-12" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}>
+                                                <Link href="/my-account#v-pills-settings-tab">
+                                                    <a>My Orders</a>
+                                                </Link>
+                                            </div>
+                                            <div className="col-12 " data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true">
+                                                Sign In
+                                            </div>
                                         </div>
-                                        <div className="col-10">
-                                        <div className="col-12">
-                                            <div className="userinfotext"><span >{this.state.userData ? this.state.userData.fullName : null}</span></div>
-                                        </div>
-                                        <div className="col-12">
-                                            <div className="useremail"><span>{this.state.userData ? this.state.userData.email : null}</span></div>
-                                        </div>
-                                        </div>
-                                    </div>                            
-                                </li>   
-                                
-                                <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings-tab"><a>My Orders</a></Link></li>
-                                <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings1-tab"><a>My Wishlist</a></Link></li>   
-                                {this.state.authService === ""  &&                            
-                                    <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account"><a>My Profile</a></Link></li>
                                 }
-                                <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings3-tab"><a>My Credits</a></Link></li>
-                                <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
                             </div>
-                        :
-                            <div className="col-12 NoPadding">
-                                <li className="col-12 NOpadding myAccMenuGuest text-center" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings-tab"><a>My Orders</a></Link></li>
-                                <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true">Sign In</li>
-                            </div>
-                        }
-                            </ul>
-                    </li>
-                    </div>
-                    : 
-                    <div className="col-12 col-lg-12 col-xl-10 signInBox NoPadding">
-                        <div className=" col-12 NoPadding signInBlock" >
-                            <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
-                                <span className="col-12 loginView">Sign in &nbsp;
-                                    <img src="/images/eCommerce/userIcon.svg" className="userIconImg"></img>
-                                </span>
-                            </a>          
-                        </div> 
-                    </div>
+                        </div>
+                   : 
+                        <div className={"col-10 offset-lg-4 " + Style.signInWrapper}>
+                            <div className="row">
+                                <a href="" data-toggle="modal" data-target="#loginFormModal" 
+                                   data-backdrop="true" id="loginModal" area-hidden ="true"> 
+                                    <span className={Style.signInTitle}>
+                                        Sign in
+                                    </span>
+                                    <span className={Style.signInIcon}>
+                                        <img src="/images/eCommerce/userIcon.svg" className={Style.userIcon}/>
+                                    </span>
+                                </a>  
+                            </div>        
+                        </div>
                 }
+                
                 < SystemSecurityPopup />
-            </div>
+                
+            
         </div>
     );
   }

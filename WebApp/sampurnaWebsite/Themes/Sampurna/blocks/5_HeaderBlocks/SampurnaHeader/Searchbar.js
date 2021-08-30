@@ -5,8 +5,9 @@ import swal 		          from 'sweetalert';
 import Image                  from 'next/image';
 import Router                 from 'next/router'; 
 import { connect }            from 'react-redux';
+import Style                  from './HeaderNew.module.css';
 import  store                 from '../../../../../redux/store.js';
-import { setSearchDetails }     from '../../../../../redux/actions/index.js'; 
+import { setSearchDetails }   from '../../../../../redux/actions/index.js'; 
 
 class Searchbar extends React.Component {
 	constructor(props) {
@@ -149,31 +150,32 @@ class Searchbar extends React.Component {
             colWithLogin = 8;
        }
         return(  
-            <div className={"col-10 mobileViewSearch col-md-"+colWithLogin +" col-sm-"+colWithLogin+" col-lg-"+colWithLogin +" col-xl-8"}>     
-            {/* <div className={"col-10 mobileViewSearch col-lg-6 col-xl-7 col-sm-5"}>                               */}
-                <div className="col-12 NoPadding">  
-                    <div className="row mt3 tableSearchWrapper"> 
-                        <input type="text" placeholder="Search the items" id="browsers"
-                        list="datalist"
-                        onKeyPress={this.searchProducts.bind(this)} 
-                        // onClick={this.searchProducts.bind(this)}
-                        onChange={this.getRelatedSearches.bind(this)} 
-                        className="form-control tableSearch col-12" ref="tableSearch" id="tableSearch" name="tableSearch" />
-                        <div className="searchIcon" 
-                            onClick={this.getProducts.bind(this)}
-                        >
-                            <i className="fas fa-search homeSearchIcon"></i>
-                        </div>
+            <div className={"col-12 "+ Style.searchWrapper}>     
+                <div className="row">     
+                    <div className="col-12">  
+                        <div className="row"> 
+                            <input type="text" placeholder="Search the items" id="browsers"
+                            list="datalist"
+                            onKeyPress={this.searchProducts.bind(this)} 
+                            // onClick={this.searchProducts.bind(this)}
+                            onChange={this.getRelatedSearches.bind(this)} 
+                            className={"form-control "+ Style.searchBarInput} ref="tableSearch" id="tableSearch" name="tableSearch" />
+                            <span className={Style.searchIcon} 
+                                onClick={this.getProducts.bind(this)}
+                            >
+                                <i className={"fas fa-search "+ Style.homeSearchIcon}></i>
+                            </span>
 
-                        <datalist id="datalist" className="col-12">
-                            {Array.isArray(this.state.relatedSearches) && 
-                                this.state.relatedSearches.map((data,index)=>{
-                                // console.log("data",data);
-                               return( <option value={data}>{data}</option>)
-                            })
-                            }
-                        </datalist>
-                    </div>                              
+                            <datalist id="datalist" className="col-12">
+                                {Array.isArray(this.state.relatedSearches) && 
+                                    this.state.relatedSearches.map((data,index)=>{
+                                    // console.log("data",data);
+                                   return( <option value={data}>{data}</option>)
+                                })
+                                }
+                            </datalist>
+                        </div>                              
+                    </div>                       
                 </div>                       
             </div>
       

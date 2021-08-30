@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import Link  from 'next/link';
+
 // import { useRouter } from 'next/router'
 import $, { post }            from 'jquery';
+import Style                  from './HeaderNew.module.css';
 
 // const router = useRouter()
 
@@ -51,17 +53,19 @@ componentDidMount(){
 
 render(){
     return(   
-            <ul className="nav navbar-nav navbar-default justify-content-left navbar-center main-nav col-12">        
+            <ul className={"nav navbar-nav navbar-default " + Style.mainMenu2}>        
            {          
                  Array.isArray(this.state.categoryData) && this.state.categoryData.map((sectionDetails,sectionindex)=>{  
                     return( 
-                    <li key={sectionindex.toString()} className="nav-item dropdown dropDownLevel1">
+                    <li key={sectionindex.toString()} className="nav-item">
 
                         {/* <Link className={"HeaderSection_"+sectionDetails._id} href={"/vendor-list/[sectionurl]"}  as={"/vendor-list/"+sectionDetails.sectionUrl} passhref={true}>
                             <a className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a>
                         </Link>  */}
                         
-                        <a href={"/vendor-list/"+sectionDetails.sectionUrl} className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a>
+                        <a href={"/vendor-list/"+sectionDetails.sectionUrl} className={sectionDetails._id}>
+                           <span className={Style.listSubTitles}> {sectionDetails.section} </span>
+                        </a>
                         
                     </li> 
                     );

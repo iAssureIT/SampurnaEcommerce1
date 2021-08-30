@@ -1,0 +1,843 @@
+.yello{
+    background-color: #ff0;
+}
+.green{
+    background-color: #0ff;
+}
+.modal{
+    z-index: 10000;
+}
+
+.headerWrapper{
+    margin: 0!important;
+    padding: 0!important;
+    box-sizing: border-box;
+    height: 127px;
+    background-color: #ff0;
+}
+.megamenuWrapper{
+    margin: 0!important;
+    padding: 0!important;
+}
+.megamenu{
+    width: 100%;
+    height: 70px;
+    background-color: var(--globalColor);
+    padding-top: 15px;
+}
+.mainMenuWrapper{
+    height: 32px;
+    background-color: #ddd;
+}
+.mainMenu2{
+    height: 100%;
+    padding-left: 10px;
+}
+/*.sampurnaLogoWrapper{
+    background-color: #f00;
+}*/
+.logoImg{
+    height: 43px;
+}
+.searchWrapper{
+    padding-top: 10px;
+}
+.searchIcon{
+    position: absolute;
+    right: 0px;
+    width: 6%;
+    height: 100%;
+    background-color: var(--yellowBgColor);
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+.homeSearchIcon{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    color: #fff;   
+}
+.searchBarInput{
+    background: #E8E8E8;
+    padding: 0.375rem 2rem;;
+    color: #000000;
+}
+.signInWrapper{
+    position: relative;
+    background-color: #fff;
+    margin-top: 10px;
+    height: 32px;
+    border-radius: 0.25rem;
+    padding: 0.25rem 1.5rem;;
+}
+.signInTitle{
+    position: absolute;
+    font-size: 14px;
+    color: #000;
+    font-weight: 600;
+    display: inline-block;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 8%;
+    z-index: 10!important;
+}
+.signInIcon{
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10!important;
+}
+.userIcon{
+    height: 16px;
+}
+.signInWrapper a{
+    text-decoration: none!important;
+}
+.signInWrapper a:hover{
+    color: #000;
+}
+.cartIcon{
+    height: 32px;
+    margin-top: 10px;
+}
+/*============================Nav List============================================*/
+.allCategories{
+    border-right: 1px solid #ccc;
+    padding-top: 6px;
+    padding-left: 60px;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    height: 100%;
+    color: #DC1919;
+}
+.listSubTitles{
+    height: 100%;
+    display: inline-block;
+    padding-top: 7px;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding-left: 10px;
+    color: #000;
+    transition: all 0.3s;
+}
+.listSubTitles:hover{
+    color: #DC1919;
+}
+.listItemAtag{
+    text-decoration: none;
+    color: #000;
+}
+/*=============================Location Header====================================*/
+.locationHeaderwrapper{
+    height: 25px;
+    background-color: #fff;
+}
+.locationHeader{
+    height: 100%;
+}
+.DisplayLocation{
+    height: 100%;
+}
+.locationText{
+    font-size: 13px;
+    font-weight: 600;
+    padding-left: 30px;
+}
+.deliveryAddress{
+    height: 100%;
+}
+.locationSubText{
+    font-size: 12px;
+    text-transform: uppercase;
+    padding-left: 10px;
+    color: #777;
+}
+.changelocationBtn1{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    box-shadow: -1px 1px 3px #000000A3;
+    border-radius: 2px;
+    border: none;
+    height: 78%;
+    font-size: 12px;
+    font-weight: 300;
+    width: 100%;
+    background-image: linear-gradient(to left, #cccccc, #d9d9d9, #e5e5e5, #f2f2f2, #ffffff);
+    text-align: left;
+    padding-left: 10px;
+}
+.changelocationBtn1:active{
+    border: none;
+}
+.changeLocationIcon{
+    position: absolute;
+    right: 5px;
+}
+.changeLocationTitle{
+    padding-left: 0px;
+    margin-left: -5px;
+}
+/*================================================================*/
+.userName{
+    font-size: 11px;
+    color: #fff;
+    text-transform: capitalize;
+}
+.userInfo{
+    position: relative;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    text-transform: uppercase;
+}
+.userInfoWrapper{
+    position: relative;
+    height: 65px;
+}
+.userInfoCircle{
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #ff0;
+    top: 23%;
+    left: 10%;
+    background-color: var(--color);
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+}
+.userFullName,.userEmail{
+    width: 100%;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.userFullName{
+    color: #555;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.userEmail{
+    font-size: 11px;
+    color: #555;
+}
+.userDetalisWrapper{
+    position: relative;
+    margin-top: 12%;
+    width: 100%;
+}
+.userDetailsList{
+    border-top: 1px solid #ccc;
+    height: 40px;
+}
+.userDetailsList1{
+    border-top: 1px solid #ccc;
+    height: 35px;
+    position: relative;
+    background-color: var(--color);
+    color: #fff;
+}
+.userDetailsListTitle{
+    padding: 9px 10px;
+    font-size: 14px;
+}
+.userDetailsListTitle1{
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+}
+.signDivWrapper{
+    margin-top: 3px;
+}
+.myAccDropdown{
+    transition: all 0.6s;
+}
+.myAccountTitle{
+    color: #fff;
+    font-size: 13px;
+    margin-top: -1px;
+}
+.signDivWrapper:hover{
+    cursor: pointer;
+}
+.myAccDropdown:hover .listDropDownMenu {
+    display: block;
+    left: -35px;
+    top: -1px;
+    cursor: pointer;
+}
+.cartCountWrapper{
+    position: absolute;
+    color: #fff;
+    top: -14px;
+    right: -6px;
+    background-color: #DC1919;
+    height: 18px;
+    width: 18px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 13px;
+}
+.listDropDownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    width: 200px;
+    float: left;
+    padding:  0;
+    margin:   0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+.wishListIconWrapper{
+    margin-top: 11px;
+}
+.wishListIcon{
+    height: 30px;
+}
+.cartIconWrapper{
+    margin-top: 11px;
+}
+.cartLogo{
+    height: 30px;
+}
+/*================================================================*/
+@media  (min-width: 2560px) {
+        .headerWrapper{
+            height: 223px;
+        }
+        .megamenu{
+            height: 110px;
+        }
+        .logoImg{
+            height: 70px;
+            margin-left: 35px;
+        }
+        .searchBarInput,.signInWrapper,.cartIcon{
+            height: 60px;
+        }
+        .signInWrapper{
+            width: 70%;
+            margin-left: 35%;
+        }
+        .signInTitle{
+            font-size: 25px;
+        }    
+        .userIcon{
+            height: 30px;
+        }
+        .mainMenuWrapper{
+            height: 60px;
+        }
+        .allCategories{
+            padding-top: 6px;
+            font-size: 22px;
+            padding-left: 100px;
+        }
+        .listSubTitles{
+            padding-top: 6px;
+            font-size: 19px;
+            padding-left: 15px;
+        }
+        .locationHeaderwrapper{
+            height: 53px;
+        }
+        .locationText{
+            font-size: 22px;
+            display: inline-block;
+            padding-top: 11px;
+            padding-left: 70px;
+        }
+        .locationSubText{
+            font-size: 21px;
+            padding-left: 20px;
+        }
+        .changeLocationTitle{
+            font-size: 22px;
+            margin-left: 0px;
+        }
+        .changeLocationIcon{
+            font-size: 22px;
+            right: 15px;
+        }
+        .searchIcon{
+            font-size: 30px;
+        } 
+        .signInIcon{
+            right: 10px;
+        }
+        .changelocationBtn1{
+            width: 85%;
+            margin-left: 5%;
+            margin-top: 5px;
+        }
+        .userName{
+            font-size: 20px;
+        }
+        .myAccountTitle{
+            font-size: 25px;
+        }
+        .signDivWrapper{
+            margin-top: 8px;
+            margin-left: 15px;
+        }
+        .wishListIcon{
+            height: 58px;
+        }
+        .cartLogo{
+            height: 60px;
+        }
+        .cartCountWrapper{
+            height: 25px;
+            width: 25px;
+            font-size: 16px;
+            right: -12px;
+        }
+        .listDropDownMenu{
+            width: 360px;
+            top: 30px!important;
+        }
+        .userDetalisWrapper{
+            margin-top: 9%;
+        }
+        .userFullName{
+            font-size: 20px;
+        }
+        .userEmail{
+            font-size: 20px;
+        }
+        .userInfoWrapper{
+            height: 100px;
+        }
+        .userInfoCircle{
+            width: 60px;
+            height: 60px;
+        }
+        .userDetailsList{
+            height: 60px;
+        }
+        .userDetailsListTitle{
+            padding: 10px 18px;
+            font-size: 25px;
+        }
+        .userDetailsList1{
+            height: 50px;
+        }
+        .userDetailsListTitle1{
+            font-size: 25px;
+        }
+}
+@media (min-width: 1920px) and (max-width: 2559px) {
+        .headerWrapper{
+            height: 193px;
+        }
+        .megamenu{
+            height: 100px;
+        }
+        .logoImg{
+            height: 60px;
+        }
+        .searchBarInput,.signInWrapper,.cartIcon{
+            height: 50px;
+        }
+        .searchBarInput{
+            font-size: 15px!important;
+        }
+        .signInTitle{
+            font-size: 22px;
+        } 
+        .searchIcon{
+            font-size: 25px;
+        }   
+        .userIcon{
+            height: 28px;
+        }
+        .mainMenuWrapper{
+            height: 50px;
+        }
+        .allCategories{
+            padding-top: 13px;
+            font-size: 18px;
+            padding-left: 70px;
+        }
+        .listSubTitles{
+            padding-top: 15px;
+            font-size: 14px;
+            padding-left: 13px;
+        }
+        .locationHeaderwrapper{
+            height: 43px;
+        }
+        .locationText{
+            font-size: 18px;
+            display: inline-block;
+            padding-top: 9px;
+            padding-left: 40px;
+        }
+        .locationSubText{
+            font-size: 17px;
+            padding-left: 20px;
+        }
+        .changeLocationTitle{
+            font-size: 18px;
+            margin-left: 0px;
+        }
+        .changeLocationIcon{
+            font-size: 19px;
+            right: 10px;
+        }
+        .signInIcon{
+            right: 10px;
+        }
+        .changelocationBtn1{
+            margin-top: 5px;
+        }
+        .signDivWrapper{
+            margin-top: 8px;
+            margin-left: 10px;
+        }
+        .wishListIcon{
+            height: 45px;
+        }
+        .cartLogo{
+            height: 47px;
+        }
+        .cartCountWrapper{
+            height: 25px;
+            width: 25px;
+            font-size: 16px;
+            right: -15px;
+        }
+        .userName{
+            font-size: 16px;
+        }
+        .myAccountTitle{
+            font-size: 19px;
+        }
+        .cartCountWrapper{
+            height: 23px;
+            width: 23px;
+            font-size: 15px;
+        }
+        .listDropDownMenu{
+            width: 280px;
+            top: 30px!important;
+        }
+        .userDetalisWrapper{
+            margin-top: 9%;
+        }
+        .userFullName{
+            font-size: 17px;
+        }
+        .userEmail{
+            font-size: 17px;
+        }
+        .userInfoWrapper{
+            height: 85px;
+        }
+        .userInfoCircle{
+            width: 45px;
+            height: 45px;
+        }
+        .userDetailsList{
+            height: 50px;
+        }
+        .userDetailsListTitle{
+            padding: 9px 18px;
+            font-size: 22px;
+        }
+        .userDetailsList1{
+            height: 45px;
+        }
+        .userDetailsListTitle1{
+            font-size: 22px;
+        }
+}
+@media (min-width: 1680px) and (max-width: 1919px) {
+    .headerWrapper{
+            height: 178px;
+        }
+        .megamenu{
+            height: 95px;
+        }
+        .logoImg{
+            height: 55px;
+        }
+        .searchBarInput,.signInWrapper,.cartIcon{
+            height: 45px;
+        }
+        .signInTitle{
+            font-size: 18px;
+        } 
+        .searchIcon{
+            font-size: 25px;
+        }   
+        .userIcon{
+            height: 24px;
+        }
+        .mainMenuWrapper{
+            height: 45px;
+        }
+        .allCategories{
+            padding-top: 6px;
+            font-size: 16px;
+            padding-left: 70px;
+        }
+        .listSubTitles{
+            padding-top: 7px;
+            font-size: 13px;
+            padding-left: 7px;
+        }
+        .locationHeaderwrapper{
+            height: 48px;
+        }
+        .locationText{
+            font-size: 16px;
+            display: inline-block;
+            padding-top: 9px;
+            padding-left: 40px;
+        }
+        .locationSubText{
+            font-size: 15px;
+            padding-left: 15px;
+        }
+        .changeLocationTitle{
+            font-size: 16px;
+            margin-left: 0px;
+        }
+        .changeLocationIcon{
+            font-size: 16px;
+            right: 10px;
+        }
+        .signInIcon{
+            right: 10px;
+        }
+        .DisplayLocation{
+            height: 96%;
+        }
+        .changelocationBtn1{
+            margin-top: 5px;
+        }
+        .signDivWrapper{
+            margin-top: 8px;
+            margin-left: 6px;
+        }
+        .wishListIcon{
+            height: 43px;
+        }
+        .cartLogo{
+            height: 45px;
+        }
+        .cartCountWrapper{
+            height: 23px;
+            width: 23px;
+            font-size: 15px;
+            top: -18px;
+            right: -20px;
+        }
+        .userName{
+            font-size: 14px;
+        }
+        .myAccountTitle{
+            font-size: 17px;
+        }
+        .listDropDownMenu{
+            width: 250px;
+            top: 15px!important;
+            left: -45px;
+        }
+        .userDetalisWrapper{
+            margin-top: 9%;
+        }
+        .userFullName{
+            font-size: 17px;
+        }
+        .userEmail{
+            font-size: 17px;
+        }
+        .userInfoWrapper{
+            height: 85px;
+        }
+        .userInfoCircle{
+            width: 45px;
+            height: 45px;
+        }
+        .userDetailsList{
+            height: 50px;
+        }
+        .userDetailsListTitle{
+            padding: 10px 18px;
+            font-size: 18px;
+        }
+        .userDetailsList1{
+            height: 40px;
+        }
+        .userDetailsListTitle1{
+            font-size: 18px;
+        }
+}
+@media (min-width: 1440px) and (max-width: 1679px) {
+        .headerWrapper{
+            height: 163px;
+        }
+        .megamenu{
+            height: 90px;
+        }
+        .logoImg{
+            height: 50px;
+        }
+        .searchBarInput,.signInWrapper,.cartIcon{
+            height: 40px;
+        }
+        .signInTitle{
+            font-size: 15px;
+        } 
+        .searchIcon{
+            font-size: 25px;
+        }   
+        .userIcon{
+            height: 20px;
+        }
+        .mainMenuWrapper{
+            height: 40px;
+        }
+        .allCategories{
+            padding-top: 7px;
+            font-size: 14px;
+            padding-left: 70px;
+        }
+        .listSubTitles{
+            padding-top: 8px;
+            font-size: 11px;
+            padding-left: 7px;
+        }
+        .locationHeaderwrapper{
+            height: 43px;
+        }
+        .locationText{
+            font-size: 14px;
+            display: inline-block;
+            padding-top: 7px;
+            padding-left: 40px;
+        }
+        .locationSubText{
+            font-size: 13px;
+            padding-left: 15px;
+        }
+        .changeLocationTitle{
+            font-size: 13px;
+            margin-left: 0px;
+        }
+        .changeLocationIcon{
+            font-size: 13px;
+            right: 5px;
+        }
+        .signInIcon{
+            right: 5px;
+        }
+        .DisplayLocation{
+            height: 96%;
+        }
+        .changelocationBtn1{
+            margin-top: 4px;
+        }
+        .signDivWrapper{
+            margin-top: 8px;
+            margin-left: 4px;
+        }
+        .wishListIcon{
+            height: 40px;
+        }
+        .cartLogo{
+            height: 42px;
+        }
+        .cartCountWrapper{
+            height: 23px;
+            width: 23px;
+            font-size: 15px;
+            top: -18px;
+            right: -20px;
+        }
+        .userName{
+            font-size: 12px;
+        }
+        .myAccountTitle{
+            font-size: 14px;
+        }
+        .listDropDownMenu{
+            width: 230px;
+            top: 15px!important;
+            left: -45px;
+        }
+        .userDetalisWrapper{
+            margin-top: 9%;
+        }
+        .userFullName{
+            font-size: 17px;
+        }
+        .userEmail{
+            font-size: 17px;
+        }
+        .userInfoWrapper{
+            height: 85px;
+        }
+        .userInfoCircle{
+            width: 45px;
+            height: 45px;
+        }
+        .userDetailsList{
+            height: 50px;
+        }
+        .userDetailsListTitle{
+            padding: 10px 18px;
+            font-size: 18px;
+        }
+        .userDetailsList1{
+            height: 40px;
+        }
+        .userDetailsListTitle1{
+            font-size: 18px;
+        }
+}
+@media (min-width: 1366px) and (max-width: 1439px) {
+    
+}
+@media (min-width: 1200px) and (max-width: 1365px) {
+        .signInTitle{
+            font-size: 13px;
+        }  
+        .userIcon{
+            height: 14px;
+        }
+        .listSubTitles{
+            font-size: 10px;
+            padding-left: 5px;
+        }
+        .changeLocationTitle{
+            font-size: 11px;
+        }
+        .myAccountTitle{
+            font-size: 12px;
+        }
+        .userName{
+            font-size: 10px;
+        }
+}
