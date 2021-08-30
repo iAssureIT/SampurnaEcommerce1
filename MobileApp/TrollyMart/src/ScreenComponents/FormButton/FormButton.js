@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   containerStyle:{
     width :'100%',
     alignSelf:"center",
-    marginVertical:hp(2),
+    marginVertical:hp(1),
   },
   buttonStyle:{
     backgroundColor:"#033554",

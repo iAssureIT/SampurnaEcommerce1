@@ -274,7 +274,7 @@ const getshippingamount=(startRange, limitRange)=>{
     })  
     }
     <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
-      <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Total Delivey Charges :</Text></View>
+      <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Total Delivery Charges :</Text></View>
       <View style={{flex:.1}}>{
           cartData?.paymentDetails?.shippingChargesBeforeDiscount !== cartData?.paymentDetails?.shippingCharges &&
           <Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{cartData?.paymentDetails?.shippingChargesBeforeDiscount}</Text>
@@ -693,7 +693,7 @@ const getshippingamount=(startRange, limitRange)=>{
         </View>
       </Modal>
     </View>}
-    {isConnected&& cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?<View style={{marginBottom:Platform.OS ==='ios'?60: hp(6.5),flexDirection:'row'}}>
+    {isConnected&& cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?<View style={{marginBottom:Platform.OS ==='ios'?60: hp(8.5),flexDirection:'row'}}>
          <View style={{flex:0.5,height:hp(8.5),backgroundColor:"#A2AEB5",justifyContent:'center',alignItems:'center'}}>
             <Text style={{fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
             <Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
