@@ -162,7 +162,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
             <SearchSuggetion />
         :
         <View style={[styles.addsuperparent,{ marginBottom:delivery?Platform.OS==='ios'?50:30:disabled?0:55}]}>
-          <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+          <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
             <View style={{flexDirection:'row',paddingVertical:24,paddingHorizontal:20,alignItems:'center'}}>
             {back &&<TouchableOpacity style={{justifyContent:'center',height:45,paddingRight:5}} onPress={()=> navigation.goBack()}>
                   <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />

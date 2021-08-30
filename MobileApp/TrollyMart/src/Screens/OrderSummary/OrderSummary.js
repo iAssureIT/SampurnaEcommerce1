@@ -289,7 +289,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
     return (
       <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
       { !loading ?
-        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:"#fff"}}keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
+        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:"#fff"}}keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid showsVerticalScrollIndicator={false}	>
               <View style={styles.addcmporder}> 
                 <View style={{backgroundColor:"#fff",flexDirection:"row",justifyContent:'space-between',alignItems:'center'}}>
                     <Text style={commonStyles.screenHeader}>Address</Text>

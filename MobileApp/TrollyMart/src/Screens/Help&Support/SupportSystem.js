@@ -188,7 +188,7 @@ const FormBody = (props) => {
               <SearchSuggetion />
           :
           <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} >
-            <ScrollView contentContainerStyle={{paddingVertical:15,backgroundColor:"#fff"}} >
+            <ScrollView contentContainerStyle={{paddingVertical:15,backgroundColor:"#fff"}} showsVerticalScrollIndicator={false}>
                 <View style={{ paddingHorizontal: 15 }}>
                     <View style={{ height:200,backgroundColor:'#fff',marginBottom: 15,marginLeft:5}}>
                          <Image 

@@ -77,7 +77,7 @@ export const AboutUs = (props)=>{
                   <SearchSuggetion />
                 :
                 <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>
-                    <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+                    <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                             colors={['#ffffff','#03355480']}

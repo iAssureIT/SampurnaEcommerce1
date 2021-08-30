@@ -241,7 +241,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
             <SearchSuggetion />
         :
         <View style={[styles.addsuperparent,{marginBottom:Platform.OS==='ios'?60:40,paddingBottom:Platform.OS==='ios'?20:10}]}>
-          <ScrollView  keyboardShouldPersistTaps='handled' style={styles.formWrapper} keyboardShouldPersistTaps='handled'>
+          <ScrollView  keyboardShouldPersistTaps='handled' style={styles.formWrapper} keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false}>
            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} >
               <View style={{ backgroundColor: '#fff', paddingHorizontal: 15, marginBottom: "5%" }}>
               <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row",marginLeft:10, justifyContent: 'flex-start',marginBottom:20 }}>

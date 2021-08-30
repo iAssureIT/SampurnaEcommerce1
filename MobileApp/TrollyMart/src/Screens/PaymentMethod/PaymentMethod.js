@@ -229,7 +229,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
             headerTitle={"Payment Methods"}
           /> */}
           <View style={styles.superparent}>
-            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid >
+            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid showsVerticalScrollIndicator={false} >
               <View style={styles.formWrapper}>
                 <View style={styles.parent}>
                 <View style={{paddingVertical:20,paddingHorizontal:6}}>
@@ -238,7 +238,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                   <View style={styles.vwwishlist}>
                     <Image
                       style={styles.imgwdht}
-                      source={require("../../AppDesigns/currentApp/images/paymentmethod.png")}
+                      source={require("../../AppDesigns/currentApp/images/PaymentMethod.png")}
                     />
                   </View>
                   <View style={styles.orderbrdr}>

@@ -58,7 +58,6 @@ export const AccountInformation=withCustomerToaster((props)=>{
   const [loading, setLoading] = useState(true);
   const [btnLoading, setBtnLoading] = useState(false);
   const {setToast,navigation} = props; //setToast function bhetta
-  console.log("setToast",setToast);
   const [userDetails , setUserDetails]=useState();
   const [user_id,setUserId]=useState('');
   const [checkedMobNo,setCheckedMobNo] = useState(false);
@@ -71,6 +70,29 @@ export const AccountInformation=withCustomerToaster((props)=>{
     setCheckedMobNo(false);
     setCheckedEmailId(false)
   },[props,isFocused]);
+
+  
+  useEffect(() => {
+    if(checkedMobNo){
+      var new_schema = Yup.object().shape({
+        mobileNumber: Yup.string()
+        .required('This field is required'),
+      })
+    }else if(checkedEmailId){
+      var new_schema = Yup.object().shape({
+        email_id: Yup.string()
+        .required('This field is required')
+        .test(
+          'email validation test',
+          'Enter a valid email address',
+          emailValidator,
+        ),
+      })
+    }else{
+      var new_schema = intialSchema;
+    }
+    updateSchema(new_schema)
+  },[checkedEmailId,checkedMobNo]);
 
   const getData=async()=>{
     axios.get('/api/ecommusers/' + await AsyncStorage.getItem('user_id'))
@@ -99,7 +121,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
       <React.Fragment>
        {isFocused && <Formik
           onSubmit={(values,fun) => {
-            // fun.resetForm(values);
+            console.log("initialSchema",schema)
               setBtnLoading(true);
             var {firstName, lastName,mobileNumber,email_id,current_password,isdCode,mobileChange,emailChange,otp} = values;
             if(otp!==''){
@@ -234,6 +256,8 @@ export const AccountInformation=withCustomerToaster((props)=>{
     const [showCurrentPassword, toggleCurrentPassword] = useState(false);
     const phoneInput = useRef(null);
 
+
+
     const handleMob = ()=>{
       if(values.mobileNumber === ""){
         setToast({text: "Please fill all mandetory fields", color: colors.warning});
@@ -241,7 +265,6 @@ export const AccountInformation=withCustomerToaster((props)=>{
         setToast({text: "It seems that you didn't change anything", color: colors.warning});
       }else{  
         handleSubmit();
-        setFieldValue("mobileChange",true);
       }
     }
     const handleEmail = ()=>{
@@ -251,7 +274,6 @@ export const AccountInformation=withCustomerToaster((props)=>{
         setToast({text: "It seems that you didn't change anything", color: colors.warning});
       }else{  
         handleSubmit();
-        setFieldValue("emailChange",true);
       }
      }
 
@@ -310,12 +332,13 @@ export const AccountInformation=withCustomerToaster((props)=>{
                           title       = {'Update Profile'}
                           onPress     = {handleSubmit}
                           background  = {true}
+                          disabled   ={checkedMobNo || checkedEmailId}
                           // loading     = {btnLoading}
                         />
                         <CheckBox
                           title='Change Mobile No'
                           checked={checkedMobNo}
-                          onPress={() => {setCheckedMobNo(!checkedMobNo),setCheckedEmailId(false)}}
+                          onPress={() => {setCheckedMobNo(!checkedMobNo),setFieldValue('mobileChnage',!checkedEmailId),setCheckedEmailId(false)}}
                         />
                         
                         {checkedMobNo && <View style={{marginHorizontal:10,marginVertical:5}}>
@@ -356,7 +379,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                         <CheckBox
                           title='Change Email Id'
                           checked={checkedEmailId}
-                          onPress={() => {setCheckedEmailId(!checkedEmailId),setCheckedMobNo(false)}}
+                          onPress={() => {setCheckedEmailId(!checkedEmailId), setFieldValue("emailChange",!checkedEmailId),setCheckedMobNo(false)}}
                         />
                               
                         {checkedEmailId &&

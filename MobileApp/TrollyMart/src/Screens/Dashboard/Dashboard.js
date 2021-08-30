@@ -119,6 +119,7 @@ const Dashboard = withCustomerToaster((props)=>{
           <SearchSuggetion />
         :
         <ScrollView 
+        showsVerticalScrollIndicator={false}
           contentContainerStyle={[styles.container]} 
           keyboardShouldPersistTaps="handled" refreshControl={
           <RefreshControl

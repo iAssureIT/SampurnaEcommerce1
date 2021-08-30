@@ -70,7 +70,7 @@ export const MyAccount =(props)=>{
     globalSearch.search ?
         <SearchSuggetion />
     :
-     <ScrollView style={[styles.acdashsuperparent,{marginBottom:hp(9)}]}>
+     <ScrollView style={[styles.acdashsuperparent,{marginBottom:hp(9)}]} showsVerticalScrollIndicator={false}>
             <View style={{flex:1,marginBottom:hp(5),justifyContent:'center'}}>
             {userDetails.authService=="guest" ?
                 <View>
