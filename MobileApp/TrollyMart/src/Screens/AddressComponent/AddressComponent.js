@@ -33,6 +33,9 @@ import PhoneInput                   from "react-native-phone-number-input";
 import { useIsFocused }             from "@react-navigation/native";
 import SearchSuggetion              from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { NetWorkError } from '../../../NetWorkError.js';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+
 
   const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({
@@ -238,7 +241,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
             <SearchSuggetion />
         :
         <View style={[styles.addsuperparent,{marginBottom:Platform.OS==='ios'?60:40,paddingBottom:Platform.OS==='ios'?20:10}]}>
-          <ScrollView  keyboardShouldPersistTaps='handled' style={styles.formWrapper} keyboardShouldPersistTaps='handled'>
+          <ScrollView  keyboardShouldPersistTaps='handled' style={styles.formWrapper} keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false}>
            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} >
               <View style={{ backgroundColor: '#fff', paddingHorizontal: 15, marginBottom: "5%" }}>
               <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row",marginLeft:10, justifyContent: 'flex-start',marginBottom:20 }}>
@@ -260,7 +263,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                 value           = {values.contactperson}
               />
               <View style={{marginHorizontal:10,marginVertical:5}}>
-                <Text style={{fontFamily:'Montserrat-Medium', fontSize: 12,color:'#000',paddingVertical:2}}>
+                <Text style={{fontFamily:'Montserrat-Medium', fontSize: RFPercentage(1.8),color:'#000',paddingVertical:2}}>
                     <Text>Mobile Number</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
@@ -316,7 +319,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     disabled        = {delivery}       
                   />
                 <View style={[styles.formInputView, styles.marginBottom20]}>
-                  <Text style={{fontFamily:'Montserrat-Medium',color:'#000', fontSize: 12,paddingVertical:2}}>
+                  <Text style={{fontFamily:'Montserrat-Medium',color:'#000', fontSize: RFPercentage(1.8),paddingVertical:2}}>
                     <Text>Address</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
@@ -460,7 +463,7 @@ import { NetWorkError } from '../../../NetWorkError.js';
                   />
                 </View>
                 <View style={[styles.formInputView, styles.marginBottom20]}>
-                <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingVertical:2,marginBottom:10}}>
+                <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: RFPercentage(1.8),paddingVertical:2,marginBottom:10}}>
                     <Text>Address type</Text>                    
                 </Text>
                   <Dropdown
@@ -475,7 +478,6 @@ import { NetWorkError } from '../../../NetWorkError.js';
                     labelFontSize       = {14}
                     baseColor           = {'#666'} 
                     textColor           = {'#000'}
-                    itemTextStyle       = {styles.ddLabelText}
                     style               = {styles.ddStyle}
                     data                = {ShippingType}
                     // value               = {values.addresstype}

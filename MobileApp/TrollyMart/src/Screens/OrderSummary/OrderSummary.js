@@ -191,7 +191,9 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
           setToast({text: res.data.message, color:res.data.message === "Coupon Applied Successfully!" ? 'green':colors.warning});
           setCartData(res.data.data);
           setCouponCode('');
-          setCouponModal(false);
+          if(res.data.message === "Coupon Applied Successfully!"){
+            setCouponModal(false);
+          }
       })
       .catch(err=>{
         setCouponCode('');
@@ -217,10 +219,10 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
       axios.patch('/api/carts/redeem/creditpoints',payload)
       .then(res=>{
         console.log("res",res);
-          // setToast({text: res.data.message, color:res.data.message === "Reee Applied Successfully!" ? 'green':colors.warning});
+          setCouponModal(false);
+          setToast({text: "Redeem Points Applied Successfully!",color:'green'});
           setCartData(res.data);
           setRedeemPoints(0);
-          setCouponModal(false);
           // setCouponCode('');
       })
       .catch(err=>{
@@ -287,7 +289,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
     return (
       <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
       { !loading ?
-        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:"#fff"}}keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
+        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:"#fff"}}keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid showsVerticalScrollIndicator={false}	>
               <View style={styles.addcmporder}> 
                 <View style={{backgroundColor:"#fff",flexDirection:"row",justifyContent:'space-between',alignItems:'center'}}>
                     <Text style={commonStyles.screenHeader}>Address</Text>
@@ -486,7 +488,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                   null
                 }
                 <View style={[styles.confirmbtn, styles.marginBottom20,{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}]}>
-                  <Text style={{flex:0.6,marginLeft:hp(0.5),fontFamily:"Montserrat-Medium",color:"#000000",opacity: 1,fontSize:RFPercentage(2.3)}}>Select Delivery Time</Text>
+                  <Text style={{flex:0.6,marginLeft:hp(0.5),fontFamily:"Montserrat-Medium",color:"#000000",opacity: 1,fontSize:RFPercentage(2.3)}}>Select Delivery Time<Text style={[commonStyles.errorText,{fontSize:20,}]}>*</Text></Text>
                   <View style={[styles.inputWrapper]}>
                     <View style={styles.inputTextWrapper}>
                       <Dropdown
@@ -499,9 +501,9 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                         dropdownOffset      = {{ top: 73, left: 0 }}
                         itemTextStyle       = {styles.ddItemText}
                         inputContainerStyle = {styles.ddInputContainer}
-                        labelHeight         = {10}
+                        labelHeight         = {RFPercentage(1.5)}
                         tintColor           = {'#FF8800'}
-                        labelFontSize       = {10}
+                        labelFontSize       = {RFPercentage(1.5)}
                         fontSize            = {RFPercentage(1.5)}
                         baseColor           = {'#666'}
                         textColor           = {'#333'}
@@ -872,8 +874,8 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
             <Text style={{fontSize:RFPercentage(2),fontFamily:"Montserrat-Regular",color: "#eee"}}>Grand Amount</Text>
             <Text style={{fontSize:RFPercentage(2.4),fontFamily:"Montserrat-Regular",color: "#eee"}}>{currency} {cartData?.paymentDetails?.netPayableAmount && cartData?.paymentDetails?.netPayableAmount.toFixed(2)}</Text>
          </View>
-         <TouchableOpacity style={{flex:0.5,height:hp(8.5),backgroundColor:checked ?colors.cartButton: "#5F6C74",justifyContent:'center',alignItems:'center'}}
-         disabled       = {!checked}
+         <TouchableOpacity style={{flex:0.5,height:hp(8.5),backgroundColor:(checked && shippingTiming!=="") ?colors.cartButton: "#5F6C74",justifyContent:'center',alignItems:'center'}}
+         disabled       = {checked && shippingTiming!=="" ? false:true}
          onPress        = {() => paymentMethodsPage()}
          >
           <Text style={{fontSize:RFPercentage(2.4),fontFamily:"Montserrat-Regular",color: "#eee"}}>Checkout</Text>

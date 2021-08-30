@@ -20,6 +20,8 @@ router.post('/get/list', 					categoryController.list_category_with_limits);
 
 router.get('/get/one/:categoryID', 			categoryController.fetch_category);
 
+router.post('/get/one', 			categoryController.fetch_one_category);
+
 router.get('/get/:sectionID', 				categoryController.fetch_categories_by_section);
 
 router.post('/searchCategory', 				categoryController.searchCategory);
@@ -36,7 +38,7 @@ router.post('/post', 					    checkAuth, categoryController.insert_category);
 
 router.patch('/patch', 						checkAuth, categoryController.update_category);
 
-router.delete('/delete/:categoryID', 		checkAuth, categoryController.delete_category);
+router.delete('/delete/:categoryID', 		categoryController.delete_category);
 
 router.delete('/get/deleteAllCategories', 	checkAuth, categoryController.deleteAllCategories);
 

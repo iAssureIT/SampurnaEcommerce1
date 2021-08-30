@@ -34,7 +34,13 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
     }
     componentDidMount(){   
         var windowHeight  = window.innerHeight;
-        var mapBlockheight        = windowHeight - 200;
+        var mapBlockheight   = windowHeight - 200;
+        if(windowHeight > 900){
+            var mapBlockheight  = 760;
+        }else{
+            var mapBlockheight  = 650;
+        }
+
         $('.locationBg').css({
             'height': (mapBlockheight)
         });
@@ -278,42 +284,53 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
     }
     saveLocation(event) {
         event.preventDefault();
-        if(this.state.address){
-        var deliveryLocation = {
-            "address"        : this.state.address,
-            "city"           : this.state.city,
-            "area"           : this.state.area,
-            "district"       : this.state.district,
-            "pincode"        : this.state.pincode,
-            "country"        : this.state.country,
-            "stateCode"      : this.state.stateCode,
-            "countryCode"    : this.state.countryCode,
-            "latitude"       : this.state.latitude,
-            "longitude"      : this.state.longitude,
-        }
+        alert(JSON.stringify(this.state));
 
-        if((this.state.country) === "United Arab Emirates"){     
-            if(this.props.sampurnaWebsiteDetails){
-                var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
-                sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+        if(this.state.latLong.lat && this.state.latLong.lng && this.state.city ){
+            if(this.state.address){
+                this.setState({
+                    "searchLocationError" : ""
+                })            
+
+                var deliveryLocation = {
+                    "address"        : this.state.address,
+                    "city"           : this.state.city,
+                    "area"           : this.state.area,
+                    "district"       : this.state.district,
+                    "pincode"        : this.state.pincode,
+                    "country"        : this.state.country,
+                    "stateCode"      : this.state.stateCode,
+                    "countryCode"    : this.state.countryCode,
+                    "latitude"       : this.state.latitude,
+                    "longitude"      : this.state.longitude,
+                }
+                if((this.state.country) === "United Arab Emirates"){     
+                    if(this.props.sampurnaWebsiteDetails){
+                        var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
+                        sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                    }else{
+                        var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                    }
+                    
+                    localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
+                    store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
+                    $('#locationModal').modal('hide'); 
+                    window.location.reload();
+                    Router.push('/');
+                }else{
+                    swal("Sorry!! Delivery is not possible out of UAE");
+                }
             }else{
-                var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
-            }
-            
-            localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
-            store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
-            $('#locationModal').modal('hide'); 
-            window.location.reload();
-            Router.push('/');
+                this.setState({
+                    "searchLocationError" : "Please search your location here."
+                })
+            }            
         }else{
-            swal("Sorry!! Delivery is not possible out of UAE");
+            this.setState({
+                "searchLocationError" : "Seems to be a wrong location. Please select the address from suggested list!"
+            })            
         }
-    }else{
-        this.setState({
-            "searchLocationError" : "Please search your location here."
-        })
     }
-}
 
     handleChangePlaces = address => {
         this.setState({ address: address });
@@ -324,7 +341,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
             .then((results) => {
                 if (results) {
                     this.setState({
-                        latLong : {}
+                        latLong : {},
                     })
                     for (var i = 0; i < results[0].address_components.length; i++) {
                         for (var b = 0; b < results[0].address_components[i].types.length; b++) {
@@ -489,6 +506,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                     <GoogleMap
                         googleapiKey    = {this.state.googleapiKey}
                         latLongDetails  = {this.state.latLong}
+                        callPosition    = {"modal"}
                     />
                 :
                     null

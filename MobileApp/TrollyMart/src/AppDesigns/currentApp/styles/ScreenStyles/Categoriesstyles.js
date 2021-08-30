@@ -1,22 +1,24 @@
 import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from '../styles.js';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
   regionalProductName:{
     fontFamily:'aps_dev_priyanka',
-    fontSize:20,
+    fontSize:RFPercentage(3),
   },
   regionalBrandName:{
     fontFamily:'aps_dev_priyanka',
-    fontSize:17,
+    fontSize:RFPercentage(2.6),
     color:'#777'
   },
   categoryNameRlang:{
     fontFamily:'aps_dev_priyanka',
     color:'#333',
     textAlign:'center',
-    fontSize:25,
+    fontSize:RFPercentage(3.2),
     paddingBottom:20,
     flexWrap: 'wrap'
   },
@@ -48,7 +50,7 @@ export default StyleSheet.create({
   categoryname:{
     color:'#333',textAlign:'center',
     // marginTop:3,
-    fontSize:16,
+    fontSize:RFPercentage(2.5),
     // marginBottom:25,
     paddingBottom:20,
     fontFamily:"Montserrat-SemiBold",flexWrap: 'wrap'
@@ -64,7 +66,7 @@ export default StyleSheet.create({
   },
   discountpricecut: {
 		textDecorationLine: 'line-through',
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     fontFamily:"Montserrat-Regular",
     color: "#000000",
     opacity: 0.5,
@@ -103,13 +105,13 @@ export default StyleSheet.create({
   categoryTitle:{
    color:'#333',textAlign:'center',
    marginTop:5,marginBottom:10,
-   fontSize:13,fontFamily:"Montserrat-Regular",flexWrap: 'wrap' 
+   fontSize:RFPercentage(1.9),fontFamily:"Montserrat-Regular",flexWrap: 'wrap' 
   },
   catImage:{
     flex:0.5,marginRight:10,backgroundColor:'#ccc',borderWidth:0,borderColor:'#f1f1f1', height:200
   },
   catTitle:{
-    fontSize:14,fontFamily:"Montserrat-SemiBold",textAlign:'center',marginTop:10
+    fontSize:RFPercentage(2.2),fontFamily:"Montserrat-SemiBold",textAlign:'center',marginTop:10
   },
   button:{
     marginRight:10,
@@ -120,7 +122,7 @@ export default StyleSheet.create({
   buttonText:{
     color: colors.buttonText,
     fontFamily:"Montserrat-Regular",
-    fontSize:13,
+    fontSize:RFPercentage(1.9),
 
   },
   buttonContainer:{
@@ -146,13 +148,13 @@ export default StyleSheet.create({
 		color: colors.buttonText,
 		fontFamily: "Montserrat-SemiBold",
 		textTransform: 'uppercase',
-		fontSize: 11
+		fontSize: RFPercentage(1.6)
 	},
 	modalText: {
 		color: colors.buttonText,
 		fontFamily: "Montserrat-SemiBold",
 		textTransform: 'uppercase',
-		fontSize: 13
+		fontSize: RFPercentage(1.9)
 	},
   yesmodalbtn:{
     marginTop : 15,
@@ -186,8 +188,8 @@ export default StyleSheet.create({
     alignSelf:"flex-end",
     top: 10,
     // right:30,
-    height:30,
-    width:30,
+    height:hp(4),
+    width:hp(4),
     backgroundColor:"#E6E6E6",
     borderRadius:50,
     justifyContent:'center'
@@ -197,8 +199,8 @@ export default StyleSheet.create({
     bottom:"5%",
     // right:30,
     alignSelf:"flex-end",
-    height:30,
-    width:30,
+    height:hp(4),
+    width:hp(4),
     backgroundColor:"#E6E6E6",
     borderRadius:50,
     justifyContent:'center'
@@ -218,10 +220,10 @@ export default StyleSheet.create({
     justifyContent: "center"  
   },
   nameprod:{
-    fontSize:18,fontFamily:"Montserrat-SemiBold",color:'#000',textTransform:'capitalize'
+    fontSize:RFPercentage(2.7),fontFamily:"Montserrat-SemiBold",color:'#000',textTransform:'capitalize'
   },
   urlprod:{
-    flex:1,fontSize:13,flexWrap: "wrap",fontFamily:"Montserrat-Regular",color:'#666',paddingVertical:5
+    flex:1,fontSize:RFPercentage(1.9),flexWrap: "wrap",fontFamily:"Montserrat-Regular",color:'#666',paddingVertical:5
   },
   flxmgtp:{
     flexDirection:"row",marginTop:3
@@ -308,25 +310,25 @@ export default StyleSheet.create({
 		})
   },
   brandname: {
-		fontSize: 14, 
+		fontSize: RFPercentage(2.2), 
 		fontFamily: "Montserrat-Medium", 
 		marginLeft: 2, color: '#000000', 
 		alignItems: 'center',
 	},
   packofnos: {
-		fontSize: 12, 
+		fontSize: RFPercentage(1.8), 
 		fontFamily: "Montserrat-SemiBold", 
 		marginLeft: 2, color: '#666', 
 		alignItems: 'center',
 	},
   proddetprice:{
-    fontSize:24,
+    fontSize:RFPercentage(3.2),
     fontFamily:"Montserrat-Bold",
     color:"#000000",
 
   },
   prodcurrency:{
-    fontSize:20,
+    fontSize:RFPercentage(3),
     fontFamily:"Montserrat-Regular",
     color:"#000000",
     opacity:1
@@ -500,9 +502,9 @@ export default StyleSheet.create({
     // flex:1,
     justifyContent:"flex-start",
     alignItems:'flex-end',
-    fontSize:13,fontFamily:"Montserrat-SemiBold",color:'#333',
+    fontSize:RFPercentage(1.9),fontFamily:"Montserrat-SemiBold",color:'#333',
     marginBottom:10,
-    marginLeft:30,
+    marginLeft:wp(7.5),
     height:34,
   },
   // flxdir:{
@@ -547,19 +549,19 @@ export default StyleSheet.create({
     marginRight:10,marginTop:8
   },
   abtitm:{
-    fontSize:13,fontFamily:"Montserrat-SemiBold",marginBottom:10,marginTop:10
+    fontSize:RFPercentage(1.9),fontFamily:"Montserrat-SemiBold",marginBottom:10,marginTop:10
   },
   detailclr:{
-    backgroundColor:'#fff',paddingVertical:10,borderRadius:3,paddingTop:0
+    backgroundColor:'#fff',paddingVertical:hp(5),borderRadius:3,paddingTop:0
   },
   detailcolor:{
-    fontSize:16,fontFamily:"Montserrat-SemiBold",color:'#333'
+    fontSize:RFPercentage(2.5),fontFamily:"Montserrat-SemiBold",color:'#333'
   },
   detaildetailstxt:{
-    fontSize:13,fontFamily:"Montserrat-SemiBold",color:'#333'
+    fontSize:RFPercentage(1.9),fontFamily:"Montserrat-SemiBold",color:'#333'
   },
   disper:{
-    fontSize:13,fontFamily:"Montserrat-Regular",color:'#c10000',fontStyle:"italic",marginLeft:10
+    fontSize:RFPercentage(1.9),fontFamily:"Montserrat-Regular",color:'#c10000',fontStyle:"italic",marginLeft:10
   },
   flxdirmgr:{
     flexDirection:'row',marginRight:10
@@ -685,13 +687,13 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Regular",
     color: "#5B8E7E",
     opacity: 1,
-    fontSize:10,
+    fontSize:RFPercentage(1.5),
     marginBottom:5,
   },
   backText:{
     fontFamily:"Montserrat-SemiBold",
     color:'#000',
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     flex:0.7,
     paddingTop:20,
     paddingBottom:10,
@@ -702,7 +704,7 @@ export default StyleSheet.create({
   },
 
   starAvg:{
-    fontSize:11,
+    fontSize:RFPercentage(1.6),
     fontFamily:"Montserrat-Medium",
     color:'#000',
   },
@@ -728,8 +730,8 @@ export default StyleSheet.create({
   },
 
   starimg:{
-    height:13,
-    width:14,
+    height:hp(2),
+    width:hp(2),
   },
 
   date:{
@@ -739,8 +741,8 @@ export default StyleSheet.create({
   },
 
   saleimgRe:{
-    width: 14,
-    height: 12,
+    width: wp(5),
+    height: hp(2),
     marginTop:3,
   },
   accessory: {

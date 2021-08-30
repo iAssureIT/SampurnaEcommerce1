@@ -180,7 +180,7 @@ export const VendorList = withCustomerToaster((props)=>{
                         fontSize    = {2}
                         index       = {index}
                     />
-                    <View style={{backgroundColor:colors.cartButton,marginTop:10}}>
+                    <View style={{backgroundColor:colors.cartButton,marginTop:hp(1)}}>
                         <Text style={styles.topText}>Delivery time <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>9</Text><Text style={{fontFamily:'Montserrat-Bold'}}>am</Text> to <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>11</Text><Text style={{fontFamily:'Montserrat-Bold'}}>pm</Text> or next day delivery</Text>
                     </View>
                     <View style={styles.proddets}>

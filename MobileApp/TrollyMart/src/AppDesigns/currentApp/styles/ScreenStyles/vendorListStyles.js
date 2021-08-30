@@ -165,7 +165,7 @@ export default StyleSheet.create({
 		flex:1,
 		// minHeight:Dimensions.get('window').height,
 		flexDirection: 'row',
-		marginBottom:55,
+		marginBottom:hp(8),
 		paddingHorizontal:wp(2),
 		// backgroundColor:"#ff0"
 	},
@@ -537,8 +537,8 @@ export default StyleSheet.create({
 		alignSelf:'center'
 	},
 	iconStyle:{
-		width:30,
-		height:26,
+		height:hp(4),
+		width:hp(4),
 		marginRight:10,
 		justifyContent:'center',
 		alignItems:'center',

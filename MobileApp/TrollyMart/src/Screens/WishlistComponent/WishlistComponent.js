@@ -21,7 +21,8 @@ import { NetWorkError }     from '../../../NetWorkError.js';
 import { useIsFocused }     from "@react-navigation/native";
 import {useDispatch,connect,useSelector }   from 'react-redux';
 import { getWishList } 		        from '../../redux/wishDetails/actions';
-
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const window = Dimensions.get('window');
 
 export const WishlistComponent  = withCustomerToaster((props)=>{
@@ -80,16 +81,16 @@ const [refreshing,setRefresh]= useState(false)
                 onRefresh={refreshControl}
               />}
           >
-            <View style={{paddingVertical:24,paddingHorizontal:20}}>
+            <View style={{paddingVertical:hp(3.2),paddingHorizontal:wp(5)}}>
               <Text style={CommonStyles.screenHeader}>My Wishlist</Text>
             </View>
-              <View style={{paddingBottom:60}}>
+              <View style={{paddingBottom:hp(10)}}>
                   {wishList.map((item,index)=>{
                     console.log("item",item);
                     return(
-                      <View key={index} style={{paddingHorizontal:15}}>
+                      <View key={index} style={{paddingHorizontal:wp(4)}}>
                         <View style={{flexDirection:"row"}}>
-                          <Icon name= "map-marker" type = 'material-community' size={18} color= "red" style={{paddingHorizontal:5}}/>
+                          <Icon name= "map-marker" type = 'material-community' size={hp(2.5)} color= "red" style={{paddingHorizontal:wp(1)}}/>
                           <Text style={[CommonStyles.label,{flex:1}]}>{item.areaName}</Text>
                         </View>  
                         <View style=
@@ -97,8 +98,8 @@ const [refreshing,setRefresh]= useState(false)
                           backgroundColor: '#fff',
                           width: '100%',
                           minHeight: 200,
-                          marginTop:5,
-                          marginBottom:20,
+                          marginTop:hp(1),
+                          marginBottom:hp(2.8),
                           borderRadius:5,
                           shadowColor: '#000',
                           shadowOffset: { width: 1, height: 1 },
@@ -137,8 +138,8 @@ const [refreshing,setRefresh]= useState(false)
                 resizeMode='contain'
               />
               <View style={{alignItems:'center'}}>
-                <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:18,color:"#DC1919",opacity: 1}}>Your Wishlist is empty!</Text>
-                <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:RFPercentage(2.7),color:"#DC1919",opacity: 1}}>Your Wishlist is empty!</Text>
+                <View style={{marginTop:hp(2),flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                   <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
                   <Text style={[CommonStyles.linkText,{textDecoration: "underline",fontFamily:"Montserrat-SemiBold",fontSize:12}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
                 </View>

@@ -29,12 +29,13 @@ class DeliveryDriversReport extends Component{
 														'inputPlaceholder' 	: "",
 														'inputName' 			: "status",
 														'inputArray' 			: [
-																							{ name : 'status', value: 'New', label: 'New' },
-																					  		{ name : 'status', value: 'Processing', label: 'Processing' },
-																					  		{ name : 'status', value: 'Ready to Dispatch', label: 'Ready to Dispatch' },
-																					  		{ name : 'status', value: 'On The Way', label: 'On The way' },
-																					  		{ name : 'status', value: 'Delivered', label: 'Delivered' },
-																					  		{ name : 'status', value: 'Cancelled', label: 'Cancelled' }
+																							{ name : 'status', value : '', 						label : 'All' },
+																							{ name : 'status', value : 'New', 					label : 'New' },
+																					  		{ name : 'status', value : 'Processing', 			label : 'Processing' },
+																					  		{ name : 'status', value : 'Ready to Dispatch', label : 'Ready to Dispatch' },
+																					  		{ name : 'status', value : 'On The Way', 			label : 'On The way' },
+																					  		{ name : 'status', value : 'Delivered', 			label : 'Delivered' },
+																					  		{ name : 'status', value : 'Cancelled', 			label : 'Cancelled' }
 																					  ],
 														'apiUrl' 				: "/api/"
 													}
@@ -78,7 +79,11 @@ class DeliveryDriversReport extends Component{
       .then(response =>{
       	console.log("vendors => ",response.data)      	
       	if (response.data && response.data.length > 0) {
-      		var vendorArray = [];
+      		var vendorArray = [{
+      			name : "vendor",
+   				label : "All",
+   				value : ""
+      		}];
       		for (var i = 0; i < response.data.length; i++) {
       			vendorArray.push({
       				name : "vendor",

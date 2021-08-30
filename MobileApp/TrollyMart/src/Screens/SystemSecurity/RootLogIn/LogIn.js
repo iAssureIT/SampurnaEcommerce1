@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import {
   Text,
   View,
@@ -9,7 +9,8 @@ import {
   Image,
   Modal,
   Alert,
-  BackHandler
+  BackHandler,
+  StyleSheet
 } from 'react-native';
 import { Icon }             from "react-native-elements";
 import axios                from "axios";
@@ -63,7 +64,7 @@ const window = Dimensions.get('window');
     const {setToast,navigation} = props; //setToast function bhetta
     const dispatch = useDispatch();
     const isFocused = useIsFocused();
-
+   
     // const backAction = () => {
     //   Alert.alert("","Are you sure you want to exit app?", [
     //     {
@@ -94,7 +95,7 @@ const window = Dimensions.get('window');
                 role      : "user"
               };
               axios
-                .post('/api/auth/post/login/mob_email', payload)
+                .post('/api/auth/post/login/mob_email_new', payload)
                 .then((res) => {
                   console.log("res",res);
                   setLoading(false);
@@ -145,9 +146,9 @@ const window = Dimensions.get('window');
                   }
                 })
                 .catch((error) => {
-                  console.log("error",error);
+                  console.log("error",error.message);
                   setLoading(false);
-                  setToast({text: 'Something went wrong.', color: 'red'});
+                  setToast({text: error.message, color: 'red'});
                 });
             }}
             validationSchema={LoginSchema}
@@ -189,7 +190,6 @@ const window = Dimensions.get('window');
     const [image, setImage] = useState({profile_photo: '', image: ''});
     const [userInfo,setUserInfo]=useState({});
     const [googleLoading, setGoogleLoading] = useState(false);
-    
   const logoutWithFacebook = () => {
     LoginManager.logOut();
     setUserInfo({})
@@ -402,12 +402,31 @@ const window = Dimensions.get('window');
       })
     }
 
+
+    // const checkType = (e)=>{
+    //   console.log("typeof(e)",typeof(e))
+    //   if(e.length>1){
+    //     if(isNumeric(e)){
+    //       setInputType('number');
+    //     }else{
+    //       setInputType('text');
+    //     }
+    //   }else{
+    //     setInputType('text');
+    //   }
+    //   setFieldValue('username',e)
+    // }
+
+    const isNumeric=(value)=>{
+      return /^-?\d+$/.test(value);
+  }
+
     return (
       <ImageBackground 
         source={require("../../../AppDesigns/currentApp/images/s2.png")} 
         style={[commonStyles.container]} 
         resizeMode="cover" >
-        <ScrollView style={{}}>
+        <ScrollView style={{}} >
               <View style={styles.syslogoLoginNEW}>
                   <Image
                   resizeMode="contain"
@@ -436,6 +455,7 @@ const window = Dimensions.get('window');
               // keyboardType    = "email-address"
               value           = {values.username}
             />
+            
             <FormInput
               labelName     = "Password"
               // placeholder   = "Enter Password"
@@ -451,9 +471,9 @@ const window = Dimensions.get('window');
                   style={{paddingRight: '5%'}}
                   onPress={() => togglePassword(!showPassword)}>
                   {showPassword ? (
-                    <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={18} />
+                    <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={hp(2.5)} />
                   ) : (
-                    <Icon style={{color:'#000'}} name="eye" type="entypo" size={18} />
+                    <Icon style={{color:'#000'}} name="eye" type="entypo" size={hp(2.5)} />
                   )}
                 </TouchableOpacity>
               }
@@ -463,7 +483,7 @@ const window = Dimensions.get('window');
             <View style={{flexDirection:"row",paddingHorizontal:wp(2),paddingBottom:hp(4),}}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('ForgotPassword')}  style={{flex:1,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                <Text style={[{fontSize:RFPercentage(1.5),color: "#033554",fontFamily:"Montserrat-Regular",opacity:1}]}>Forgot Password?</Text>
+                <Text style={[{fontSize:RFPercentage(1.6),color: "#033554",fontFamily:"Montserrat-Regular",opacity:1}]}>Forgot Password?</Text>
               </TouchableOpacity>
             </View>
             <FormButton
@@ -578,3 +598,30 @@ const window = Dimensions.get('window');
     </ImageBackground>
   );
 };
+
+const styles1 = StyleSheet.create({
+  containerStyle:{
+    //  borderWidth:1,
+    //  borderRadius:5,
+     width:"100%",
+    //  borderColor:"#ccc",
+    borderBottomWidth:1,
+    borderBottomColor:"#ccc",
+     backgroundColor:"transparent"
+   },
+   textInputStyle:{
+       height:hp(4),
+       backgroundColor:'transparent'
+   },
+   textContainerStyle:{
+     height:50,
+     padding:0,
+     backgroundColor:"transparent"
+   },
+   codeStyle:{
+     fontSize:RFPercentage(1.8),
+     width:'50%',
+     alignItems:"flex-start"
+   },
+  
+ });

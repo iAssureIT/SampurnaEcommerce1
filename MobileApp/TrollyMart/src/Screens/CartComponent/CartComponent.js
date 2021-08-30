@@ -1,10 +1,11 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import {
   Text,
   View,
   TouchableOpacity,
   Dimensions,
   Image,ActivityIndicator,
+  BackHandler
 } from 'react-native';
 import {Button,Icon,Tooltip}              from "react-native-elements";
 import Modal                      from "react-native-modal";
@@ -45,6 +46,7 @@ export const CartComponent = withCustomerToaster((props)=>{
   const [cartitemid,setCartItemId] = useState('');
   const [deleteVendor_id,setDeleteVendorId] = useState('');
   const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
+  const tooltipRef = useRef(null);
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     globalSearch    : store.globalSearch,
@@ -66,8 +68,23 @@ export const CartComponent = withCustomerToaster((props)=>{
   };
 
   useEffect(() => {
-    getData()
+    getData();
   },[props,isConnected]); 
+
+
+  useEffect(()=>{
+    BackHandler.addEventListener('hardwareBackPress', backAction);
+    // BackHandler.removeEventListener("hardwareBackPress", backAction);
+  },[])
+
+  const backAction = () =>  {
+    console.log("tooltipRef.current",tooltipRef.current);
+      if(tooltipRef.current){
+      tooltipRef.current.toggleTooltip();
+      return true;
+    }
+    return false;
+  }
 
   const getData=()=>{
     const {userId} = route.params;
@@ -288,8 +305,8 @@ const getshippingamount=(startRange, limitRange)=>{
             {cartData.vendorOrders.map((vendor, i) => {
               console.log("vendor.vendor_discountAmount",vendor.vendor_discountAmount);
               return (
-              <View style={{backgroundColor:"#fff",paddingBottom:15,paddingTop:15}}>
-                <View style={{paddingHorizontal:15}}>
+              <View style={{backgroundColor:"#fff",paddingBottom:hp(2),paddingTop:hp(2)}}>
+                <View style={{paddingHorizontal:wp(4)}}>
                   <Text style={[commonStyles.headerText,{alignSelf:"flex-start",fontSize:RFPercentage(2.5),marginBottom:10}]}>{vendor.vendor_id.companyName}</Text>
                 </View>  
                 {vendor.cartItems.map((item,index)=>{
@@ -413,7 +430,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       {cartData.minOrderAmount <= vendor.vendor_afterDiscountTotal ?
                           null
                           :
-                          <View style={{marginVertical:10,alignItems:'flex-end'}}>
+                          <View style={{marginVertical:hp(1.2),alignItems:'flex-end'}}>
                             <Text style={styles.minpurchase}>Minimum shopping amount is {cartData.minOrderAmount}</Text>
                           </View>
                         }
@@ -576,8 +593,8 @@ const getshippingamount=(startRange, limitRange)=>{
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
                         popover={tooltipClone}
-                        withOverlay={false}
-                        // onBackButtonPress={() => setReturnModal(false)}
+                        withOverlay={true}
+                        ref={tooltipRef}
                         >
                         <Icon name="information-outline" type={"material-community"} size={RFPercentage(2.6)}iconStyle={{}} color="#0335548C" />
                       </Tooltip>
@@ -683,7 +700,7 @@ const getshippingamount=(startRange, limitRange)=>{
          </View>
          <TouchableOpacity style={{flex:0.5,height:hp(8.5),backgroundColor:!disabled?"#5F6C74":colors.cartButton,justifyContent:'center',alignItems:'center'}}
             disabled       = {!disabled}
-            onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
+            onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true,"back":false})}
          >
           <Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color: "#eee"}}>Checkout</Text>
          </TouchableOpacity>

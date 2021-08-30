@@ -39,8 +39,19 @@ class GoogleMap extends React.Component{
 
     componentDidMount(){
         var windowHeight    = window.innerHeight;
-        var mapBlockheight  = windowHeight - 150;
-        this.setState({mapBlockheight : mapBlockheight});
+
+        if(this.props.callPosition && this.props.callPosition === "modal"){
+            console.log("callPosition = ",this.props.callPosition);
+            if(windowHeight > 900){
+                var mapBlockheight  = 760;
+            }else{
+                var mapBlockheight  = 650;
+            }
+        }else{
+            var mapBlockheight  = windowHeight - 150;
+        }
+        
+        this.setState({mapBlockheight : mapBlockheight});            
 
         var user_details    = JSON.parse(localStorage.getItem('userDetails'));
         if(user_details){

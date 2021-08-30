@@ -40,10 +40,14 @@ export const SearchList  = withCustomerToaster((props)=>{
   const [user_id,setUserId] = useState('');
   const listType = type+"List";
   const isFocused = useIsFocused();
-
+console.log("globalSearch",globalSearch);
   
   const capitalize=(str)=>{
     return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    const onScroll=(e)=>{
+
     }
 
     return (
@@ -53,7 +57,7 @@ export const SearchList  = withCustomerToaster((props)=>{
             <SearchSuggetion />
               :<ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
-                <View style={{marginTop:15,marginBottom:60}}>
+                <View style={{marginTop:hp(2),marginBottom:hp(8)}}>
                 {
                     globalSearch.searchList.length ===0 && productList.loading ?
                     <Loading />
@@ -71,6 +75,7 @@ export const SearchList  = withCustomerToaster((props)=>{
                         onEndReachedThreshold = {0.5}
                         marginTop       = {0}
                         paddingBottom   = {0}
+                        onScroll       = {onScroll}
                     />
                     :
                     <View style={{justifyContent:"center",alignItems:'center',marginTop:'40%'}}>

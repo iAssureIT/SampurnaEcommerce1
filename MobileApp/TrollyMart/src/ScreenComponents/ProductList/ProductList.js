@@ -223,11 +223,11 @@ export const ProductList = withCustomerToaster((props)=>{
               getCategoryList(item)
             }
           }>
-          <View style={[styles.flx5,{paddingHorizontal:10}]}>
+          <View style={[styles.flx5,{paddingHorizontal:wp(2.6)}]}>
               {item.discountPercent && item.discountPercent >0?
                   <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
-                    <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
-                    <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
+                    <Text style={{fontSize:RFPercentage(1.8),color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
+                    <Text style={{fontSize:RFPercentage(1.5),color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
                   </ImageBackground> :null
                 } 
               {userDetails.authService!=="guest" &&
@@ -235,7 +235,7 @@ export const ProductList = withCustomerToaster((props)=>{
               <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} disabled={item.availableQuantity === 0 ? true : false}>
                 <Image
                   source={item.isWish ? require('../../AppDesigns/currentApp/images/heartF.png'):require('../../AppDesigns/currentApp/images/wishlistE.png')}                  
-                  style={{ width: wp(3), height: hp(3) }}
+                  style={{ width: hp(2.5), height: hp(2.5) }}
                   resizeMode='contain'
                 />
               </TouchableOpacity>

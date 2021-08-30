@@ -63,6 +63,7 @@ exports.insert_category = (req,res,next)=>{
 		});
 	});
 };
+
 exports.update_category = (req,res,next)=>{
     
     // console.log("subCategory:" ,req.body.subCategory);
@@ -70,6 +71,7 @@ exports.update_category = (req,res,next)=>{
     processData();
     async function processData(){
         var categoryRankExist = await Category.findOne({"categoryRank" : req.body.categoryRank})
+        // var categoryRankExist = await Category.findOne({_id: { $ne: ObjectId(req.body.category_ID) }, "categoryRank" : req.body.categoryRank})
         console.log("categoryRankExist =>",categoryRankExist)
         if(categoryRankExist && categoryRankExist !== null && String(req.body.category_ID) !== String(categoryRankExist._id)){ 
             res.status(200).json({
@@ -78,9 +80,9 @@ exports.update_category = (req,res,next)=>{
         }else{
             console.log("req.body.subCategory => ",req.body.subCategory)
             if (req.body.subCategory && req.body.subCategory.length > 0) {
-                var subCategories = Array.from(new Set(req.body.subCategory.map(a => a.subCategory)))
+                var subCategories = Array.from(new Set(req.body.subCategory.map(a => a.subCategoryTitle)))
                                      .map(subCategory => {
-                                       return req.body.subCategory.find(a => (a.subCategory).lowerCase() === subCategory)
+                                       return req.body.subCategory.find(a => (a.subCategoryTitle).toLowerCase() === subCategory)
                                      })
             }else{
                 var subCategories = [];
@@ -153,10 +155,26 @@ exports.list_category = (req,res,next)=>{
         });
 };
 exports.list_category_with_limits = (req,res,next)=>{
+    
     // console.log(req.body.startRange, req.body.limitRange);
-    Category.find()
-    .skip(parseInt(req.body.startRange))
-    .limit(parseInt(req.body.limitRange))
+    var selector        = {};
+    selector['$and']    = [];
+
+    /**----------- Seach Sections. ------------ */
+    if(req.body.searchText && req.body.searchText !== ""){
+        selector["$and"].push({ 
+         $or : [           
+                { "section"     : {'$regex' : req.body.searchText , $options: "i" } },            
+                { "category"    : {'$regex' : req.body.searchText , $options: "i" } }, 
+            ]           
+        })
+    }else{
+        selector["$and"].push({  category : {"$ne" : ""}  })
+    }
+
+    Category.find(selector)
+    // .skip(parseInt(req.body.startRange))
+    // .limit(parseInt(req.body.limitRange))
     .sort({"createdAt" : -1})
     .then(data=>{
         // console.log('data', data);
@@ -206,7 +224,10 @@ exports.list_category_with_limits = (req,res,next)=>{
             }
         })
         // console.log("allData => ",allData)
-        res.status(200).json(allData);
+        res.status(200).json({
+            dataCount   : allData.length,
+            data        : allData.slice(parseInt(req.body.startRange), (parseInt(req.body.startRange) + parseInt(req.body.limitRange))) 
+        });
     })
     .catch(err =>{
         console.log(err);
@@ -231,7 +252,7 @@ exports.listFilterCategories = (req,res,next)=>{
                                                 []
             }
         })
-        console.log("allData => ",allData)
+        // console.log("allData => ",allData)
         res.status(200).json(allData);
     })
     .catch(err =>{
@@ -380,6 +401,77 @@ exports.fetch_category = (req,res,next)=>{
     });
 };
 
+exports.fetch_one_category = (req,res,next)=>{
+    console.log("insode fetch category => ", req.body);
+    // console.log(req.body.startRange, req.body.limitRange);
+    var selector        = {};
+    selector['$and']    = [];
+
+    /**----------- Seach Sections. ------------ */
+    // if(req.body.searchText && req.body.searchText !== ""){
+    //     selector["$and"].push({ 
+    //         subCategory : { 
+    //             $elemMatch: { subCategoryTitle: {'$regex' : req.body.searchText , $options: "i" } } 
+    //         }          
+    //     })
+    // }else{
+    //     selector["$and"].push({  
+    //         subCategory : { 
+    //             $elemMatch: { subCategoryTitle: {'$regex' : {"$ne" : ""} , $options: "i" } } 
+    //         }   })
+    // }
+
+    selector["$and"].push({_id : ObjectId(req.body.category_id)})
+    // console.log("selector => ",selector.$and[0].subCategory)
+    Category.findOne(selector)
+    .exec()
+    .then(data=>{
+        console.log("data =>" ,data)
+        if(data !== null){
+            res.status(200).json({
+                "_id"                   : data._id,
+                "section_ID"            : data.section_ID,
+                "section"               : data.section,
+                "category"              : data.category,
+                "categoryUrl"           : data.categoryUrl,
+                "categoryNameRlang"     : data.categoryNameRlang ? "<span class='RegionalFont'>"+data.categoryNameRlang+"</span>" : '-',
+                "categoryRank"          : data.categoryRank ? data.categoryRank : '',
+                "subCategory"           : data.subCategory 
+                                            ? 
+                                                (data.subCategory.map((a, i)=>{
+                                                    // console.log("a.subCategoryTitle=> ",a.subCategoryTitle)
+                                                    if(a.subCategoryTitle && a.subCategoryTitle !== undefined){
+                                                        return {
+                                                            _id                 : a._id+"-"+data._id,
+                                                            subCategoryTitle    : a.subCategoryTitle,
+                                                            subCategoryCode     : a.subCategoryCode,
+                                                            subCategoryImage    : a.subCategoryImage,
+                                                            subCategoryUrl      : a.subCategoryUrl,
+                                                            status              : a.status,
+                                                        }
+                                                    }  
+                                                                                                    
+                                                }))
+                                            :
+                                                [],
+                "categoryDescription"   : data.categoryDescription ? data.categoryDescription : '',
+                "categoryImage"         : data.categoryImage,
+                "categoryIcon"          : data.categoryIcon,
+                "status"                : data.status
+            })
+        }else{
+            res.status(200).json(data);
+        }
+        // res.status(200).json(data);
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
 exports.fetch_categories_by_section = (req,res,next)=>{
     Category.find({ section_ID: req.params.sectionID})
     .exec()
@@ -428,22 +520,40 @@ exports.fetch_categories_by_sectionUrl = (req,res,next)=>{
 };
 
 exports.delete_category = (req,res,next)=>{
-    // console.log("In Delete Categories => ", req.paramas.categoryID);
+    console.log("In Delete Categories => ", req.params.categoryID);
 
-    Category.deleteOne({_id:req.params.categoryID})
+    Product.findOne({category_ID : ObjectId(req.params.categoryID)})
     .exec()
-    .then(data=>{
-        // console.log("Data After Deleteing Category => ",data)
-        res.status(200).json({
-            "message": "Category Deleted Successfully!"
-        });
+    .then(pdata=>{
+        if (pdata) {
+            res.status(200).json({
+                deleted     : false,
+                message     : "You cannot delete this category as products are related to this category.!"
+            });
+        }else{
+            Category.deleteOne({_id : ObjectId(req.params.categoryID)})
+            .exec()
+            .then(data=>{
+                // console.log("Data After Deleteing Category => ",data)
+                res.status(200).json({
+                    deleted     : true,
+                    "message"   : "Category Deleted Successfully!"
+                });
+            })
+            .catch(err =>{
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+        }
     })
     .catch(err =>{
         console.log(err);
         res.status(500).json({
             error: err
         });
-    });
+    }); 
 };
 
 
@@ -479,32 +589,50 @@ exports.deleteAllCategories = (req, res, next) => {
 };
 
 exports.update_category_status = (req,res,next)=>{
-    // console.log("update_category_status Body = ", req.body);
+    console.log("update_category_status Body = ", req.body);
     // console.log(" req.body.item_id ====" ,req.body.item_id);
     // console.log(" req.body.status ====" ,req.body.status);
     Category.updateOne(
         { _id : ObjectId(req.body.item_id)},  
         { $set : 
             {
-                status                      : req.body.status,
+                'status'                      : req.body.status,
                 'subCategory.$[].status' 	: req.body.status,	
             }
         }
     )
     .exec()
-    .then(data=>{
-        // console.log("data => ", data);
-        
-    
-        // if(data.nModified == 1){
+    .then(async(data)=>{
+        console.log("data => ", data);
+    //     await Category.update(
+    //         { _id : ObjectId(req.body.item_id)},  
+    //         { $set : 
+    //             {
+    //                 // status                      : req.body.status,
+    //                 'subCategory.$[].status'     : req.body.status,  
+    //             }
+    //         }
+    //     )
+    //     .exec()
+    // .then(async(data1)=>{
+    //     console.log("data1 => ", data);
+    //     })
+    // .catch(err =>{
+    //     console.log(err);
+    //     // res.status(500).json({
+    //     //     error: err
+    //     // });
+    // });
+        await updateProductStatus(req.body.status, req.body.item_id);
+        if(data.nModified == 1){
             res.status(200).json({
-                "message": "Category Updated Successfully!"
+                "message": "Category " + req.body.status + " Successfully!"
             });
-        // }else{
-        //     res.status(401).json({
-        //         "message": "Section Not Found"
-        //     });
-        // }
+        }else{
+            res.status(200).json({
+                "message": "Failed to update category status"
+            });
+        }
     })
     .catch(err =>{
         console.log(err);
@@ -515,6 +643,7 @@ exports.update_category_status = (req,res,next)=>{
 };
 
 exports.update_subcategory_status = (req,res,next)=>{
+    console.log("body => ",req.body)
     Category.updateOne(
         { _id : ObjectId(req.body.item_id.split("-")[1]), 'subCategory._id' : ObjectId(req.body.item_id.split("-")[0])},  
         { $set : 
@@ -524,10 +653,17 @@ exports.update_subcategory_status = (req,res,next)=>{
         }
     )
     .exec()
-    .then(data=>{
-        res.status(200).json({
-            "message": "SubCategory Updated Successfully!"
-        });
+    .then(async(data)=>{
+        await updateProductStatus(req.body.status, req.body.item_id.split("-")[0]);
+        if (data.nModified === 1) {
+            res.status(200).json({
+                "message": "SubCategory " + req.body.status + " Successfully!"
+            });
+        } else {
+            res.status(200).json({
+                "message": "Failed to update SubCategory status!"
+            });
+        }
     })
     .catch(err =>{
         console.log(err);
@@ -536,6 +672,35 @@ exports.update_subcategory_status = (req,res,next)=>{
         });
     });
 };
+
+/** =========== updateProductStatus() =========== */
+var updateProductStatus = async(status, id) =>{
+    
+    return new Promise(function (resolve, reject) {
+        Product.updateMany(
+            {$or :
+                [
+                    {category_ID     : ObjectId(id)},
+                    {subCategory_ID  : ObjectId(id)}
+                ]
+            },
+            { $set : 
+                {
+                    status : status 
+                }
+            }
+        )
+        .exec()
+        .then(data=>{
+            // console.log("ProductData ===> ",data);
+            resolve(data);
+        }) 
+        .catch(err =>{
+            console.log(err);
+            reject(err);
+        })
+    });    
+} 
 
 /**========== fetch_categories_by_vendor ===========*/
 exports.fetch_categories_by_vendor = (req,res,next)=>{

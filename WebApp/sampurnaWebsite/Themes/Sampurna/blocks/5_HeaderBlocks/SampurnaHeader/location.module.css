@@ -510,7 +510,7 @@
 */
     .deliveryLocationFormModalWrapper{
         position: absolute;
-        top     : 100px;
+        top     : 200px;
         z-index : 9;
         /* top: 50px; */
     }

@@ -70,7 +70,7 @@ export const MyAccount =(props)=>{
     globalSearch.search ?
         <SearchSuggetion />
     :
-     <ScrollView style={[styles.acdashsuperparent,{marginBottom:hp(9)}]}>
+     <ScrollView style={[styles.acdashsuperparent,{marginBottom:hp(9)}]} showsVerticalScrollIndicator={false}>
             <View style={{flex:1,marginBottom:hp(5),justifyContent:'center'}}>
             {userDetails.authService=="guest" ?
                 <View>
@@ -116,7 +116,7 @@ export const MyAccount =(props)=>{
                     <View style={{marginLeft:wp(4),marginTop:hp(2)}}>
                         <Text style={[CommonStyles.label,{paddingVertical:5}]}>{userDetails.firstName+" "+userDetails.lastName}</Text>
                         {userDetails.email ?<Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color:"#aaa"}}>{userDetails.email}</Text>: null}
-                        {userDetails.mobile ?<Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color:"#aaa"}}>{"+"+userDetails?.isdCode+""+userDetails.mobile}</Text>: null}
+                        {userDetails.mobile ?<Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color:"#aaa"}}>{userDetails.isdCode ? ("+"+userDetails.isdCode) : ""}{userDetails.mobile}</Text>: null}
                     </View>       
                 </View>}    
                 <View style={styles1.horizontalLine} /> 
@@ -129,7 +129,7 @@ export const MyAccount =(props)=>{
                         <Text style={styles1.label}>My Orders</Text>
                     </View>
                     {userDetails.authService!=="guest" &&<View style={{alignItems:'center',paddingHorizontal:wp(3)}}>   
-                        <TouchableOpacity style={styles1.HorizontalBox} onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false})} >
+                        <TouchableOpacity style={styles1.HorizontalBox} onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false,"back":false})} >
                             {/* <Icon size={30} name='map-marker-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}                           
                             <Image source={require("../../AppDesigns/currentApp/images/address.png")} style={[styles.iconImg]} resizeMode="contain"/>                            
                         </TouchableOpacity>

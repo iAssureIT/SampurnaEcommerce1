@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React,{useState,useRef} from 'react';
 import {
   Text,
@@ -31,6 +32,7 @@ import {setUserDetails}     from '../../../redux/user/actions';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
 import PhoneInput           from "react-native-phone-number-input";
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({
@@ -121,7 +123,7 @@ const window = Dimensions.get('window');
                 .catch((error) => {
                   console.log("error",error);
                   setLoading(false);
-                  setToast({text: 'Something went wrong.', color: 'red'});
+                  setToast({text: error.message, color: 'red'});
                 })
               }else{
                 setToast({text: 'Please confirm your password', color: colors.warning});
@@ -200,8 +202,8 @@ const window = Dimensions.get('window');
           <View contentContainerStyle={[commonStyles.container,{flex:1}]} keyboardShouldPersistTaps="always" >
               <View style={{}}>
                 <View style={styles.boxOpacity}>
-                <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:Platform.OS === 'ios'? 45 : 15,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
-                    <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+                <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:wp(3),marginTop:Platform.OS === 'ios'? 45 : hp(2),height:hp(4),paddingRight:wp(1)}} onPress={()=> navigation.goBack()}>
+                    <Icon size={hp(3.5)} name='arrow-left' type='material-community' color={colors.theme} />
                 </TouchableOpacity>
                   <View style={styles.syslogo1}>
                       <Image
@@ -210,7 +212,7 @@ const window = Dimensions.get('window');
                       style={styles.syslogoimg1}
                       />
                   </View>
-                      <View style={{marginBottom:30,}}><Text style={styles.signupTitle}>Create an account..!</Text></View>
+                      <View style={{marginBottom:hp(4.1)}}><Text style={styles.signupTitle}>Create an account..!</Text></View>
                   <View style={commonStyles.formWrapper}>
                   <FormInput
                     labelName       = "First Name"
@@ -256,7 +258,7 @@ const window = Dimensions.get('window');
                     name            = "mobileNumber"
                   /> */}
                   <View style={{marginHorizontal:10}}>
-                    <Text style={{ fontSize: 14,paddingVertical:2}}>
+                    <Text style={{ fontSize: RFPercentage(1.8),paddingVertical:2}}>
                         <Text style={{fontFamily:'Montserrat-Medium', fontSize: RFPercentage(1.8),color:'#000'}}>Phone Number</Text>{' '}
                         <Text style={{color: 'red', fontSize: RFPercentage(1.8)}}>
                         *
@@ -285,7 +287,7 @@ const window = Dimensions.get('window');
                         textInputStyle={styles1.textInputStyle}
                         codeTextStyle={styles1.codeStyle}
                       />
-                    <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
+                    <Text style={{fontSize:RFPercentage(1.6),marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                   </View>       
                   <FormInput
                     labelName       = "Email Id"
@@ -319,9 +321,9 @@ const window = Dimensions.get('window');
                         style={{paddingHorizontal: '5%'}}
                         onPress={() => togglePassword(!showPassword)}>
                         {showPassword ? (
-                          <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={18} />
+                          <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={hp(2.5)} />
                         ) : (
-                          <Icon style={{color:'#000'}} name="eye" type="entypo" size={18} />
+                          <Icon style={{color:'#000'}} name="eye" type="entypo" size={hp(2.5)} />
                         )}
                       </TouchableOpacity>
                     }
@@ -344,15 +346,15 @@ const window = Dimensions.get('window');
                         style={{paddingHorizontal: '5%'}}
                         onPress={() => toggleConfirmPassword(!confirmPassword)}>
                         {confirmPassword ? (
-                          <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={18} />
+                          <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={hp(2.5)} />
                         ) : (
-                          <Icon style={{color:'#000'}} name="eye" type="entypo" size={18} />
+                          <Icon style={{color:'#000'}} name="eye" type="entypo" size={hp(2.5)} />
                         )}
                       </TouchableOpacity>
                     }
                     secureTextEntry={!confirmPassword}
                   />
-                  <View style={{paddingVertical:15}}>
+                  <View style={{paddingVertical:hp(2)}}>
                   <FormButton
                     title       = {'Sign Up'}
                     onPress     = {handleSubmit}
@@ -366,7 +368,7 @@ const window = Dimensions.get('window');
                         flexDirection   : 'row',
                         alignItems      : 'center',
                         justifyContent  : 'center',
-                        marginBottom    : 25,
+                        marginBottom    : hp(1),
                         paddingHorizontal:15
                       },
                     ]}>

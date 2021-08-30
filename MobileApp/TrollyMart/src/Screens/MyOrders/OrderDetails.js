@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   TextInput,Dimensions,
-  BackHandler
+  BackHandler,
+  Linking
 }                       from 'react-native';
 import { Icon, Card,Button,Input,Tooltip,CheckBox } from "react-native-elements";
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -417,6 +418,17 @@ const cancelorderbtn = (id,vendor_id) => {
 
 
 
+  const openAppSettings = () => {
+    if (Platform.OS === 'ios') {
+      Linking.openURL('app-settings:')
+    } else {
+      IntentLauncher.startActivity({
+        action: 'android.settings.APPLICATION_DETAILS_SETTINGS',
+        data: 'package:' + pkg
+      })
+    }
+  }
+
   const chooseFromLibrary = (props,state) => {
     console.log("props",props);
     var openType = props === 'openCamera' ? ImagePicker.openCamera : ImagePicker.openPicker;
@@ -485,24 +497,27 @@ const cancelorderbtn = (id,vendor_id) => {
              });
             break;
             case RESULTS.UNAVAILABLE:
+              openAppSettings()
           console.log(
             'This feature is not available (on this device / in this context)',
           );
           break;
         case RESULTS.DENIED:
+          openAppSettings()
           console.log(
             'The permission has not been requested / is denied but requestable',
           );
           break;
           case RESULTS.BLOCKED:
+            openAppSettings();
           console.log('The permission is denied and not requestable anymore');
           break;
         }
       })
       .catch(error => {
-        console.log("err",error)
+        console.log("1213",error)
         setImageLoading(false);
-      setToast({text: 'Something went wrong.', color: 'red'});
+       setToast({text: 'Something went wrong.', color: 'red'});
       });
   };
 

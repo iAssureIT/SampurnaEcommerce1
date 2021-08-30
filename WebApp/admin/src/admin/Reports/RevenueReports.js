@@ -52,7 +52,7 @@ class RevenueReports extends Component{
 			"tableHeading"      		: {
 													orderID    				: 'Order ID',
 													orderDate         	: 'Order Date', 
-													vendorName    			: 'vendor Name',
+													vendorName    			: 'Vendor Name',
 													orderAmount       	: 'Order Amount',
 													commissionPercentage : 'Commission Percentage',
 													commissionAmount 		: 'Commission Amount',

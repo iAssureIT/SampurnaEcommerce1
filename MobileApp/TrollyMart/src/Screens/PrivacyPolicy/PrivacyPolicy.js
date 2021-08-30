@@ -18,6 +18,8 @@ import HTML from 'react-native-render-html';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { useSelector }        from 'react-redux';
 import { NetWorkError } from '../../../NetWorkError.js';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const PrivacyPolicy  = (props)=>{
     const {navigation}=props;
@@ -97,7 +99,7 @@ export const PrivacyPolicy  = (props)=>{
             {store.globalSearch.search ?
               <SearchSuggetion />
                 :
-                <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+                <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                                 colors={['#ffffff','#03355480']}
@@ -110,8 +112,8 @@ export const PrivacyPolicy  = (props)=>{
                             pageBlockes.map((item,index)=>{
                                 // console.log("result",result);
                                 return(
-                                    <View style={{paddingHorizontal:15}}>
-                                        {item.block_id.blockDescription!=="" && <HTML alterChildren={alterChildren} ignoredTags={['br']} html={item.block_id.blockDescription}/>}
+                                    <View style={{paddingHorizontal:wp(4),fontSize:RFPercentage(1.8),color:'#000'}}>
+                                        {item.block_id.blockDescription!=="" && <HTML baseFontStyle={styles.htmlText1} style={{fontSize:RFPercentage(1.8),color:'#000'}} alterChildren={alterChildren} ignoredTags={['br']} html={item.block_id.blockDescription}/>}
                                         {item.block_id.fgImage1 &&<Image
                                             source={{uri:item.block_id.fgImage1}}
                                             style={{height:200,width:"100%"}}

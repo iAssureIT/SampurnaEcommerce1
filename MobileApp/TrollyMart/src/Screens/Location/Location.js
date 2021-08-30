@@ -384,15 +384,15 @@ export const Location = withCustomerToaster((props)=>{
                 isRowScrollable={true}
             />
         </View>    
-        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop: hp(Platform.OS==='ios'?72:77),backgroundColor:"#fff",minHeight:160,padding:15}}>
+        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop: hp(Platform.OS==='ios'?72:77),backgroundColor:"#fff",minHeight:160,padding:hp(2),}}>
             <Text style={{fontFamily:"Montserrat-Regular",marginBottom:5,fontSize:RFPercentage(2)}}>Delivery Location</Text>
             {delivery ?
-            <View style={{flexDirection:"row",justifyContent:"space-between",height:hp(9),paddingVertical:hp(1)}}>
+            <View style={{flexDirection:"row",justifyContent:"space-between",height:hp(8),paddingVertical:hp(1)}}>
                 <Icon name="crosshairs-gps" type='material-community' size={RFPercentage(2.5)} color="black" />
                 <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold",fontSize:RFPercentage(2.2)}}>Sorry, we don't deliver at this location.</Text>
             </View>
             :
-            <View style={{flexDirection:"row",justifyContent:"space-between",height:hp(9),paddingVertical:hp(1)}}>
+            <View style={{flexDirection:"row",justifyContent:"space-between",height:hp(8),paddingVertical:hp(1)}}>
                 <Icon name="crosshairs-gps" type='material-community' size={RFPercentage(2.5)} color="black" />
                 <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold",fontSize:RFPercentage(2.2)}}>{region? address?.addressLine2 : "-"}</Text>
             </View>

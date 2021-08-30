@@ -41,6 +41,9 @@ import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { NetWorkError } from '../../../NetWorkError.js';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 const window = Dimensions.get('window');
 const STAR_IMAGE = require('../../AppDesigns/currentApp/images/star.png')
 
@@ -311,7 +314,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
           productdata && productdata.productName  && productdata.discountedPrice ?
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" ref={scroll} showsVerticalScrollIndicator={false} >
             <View style={[styles.vendorNameBox,{}]}>
-                <Text numberOfLines={1} style={[CommonStyles.text,{fontSize:14,fontFamily:"Montserrat-Medium",color:"#000"}]}>{productdata.vendorName}</Text>
+                <Text numberOfLines={1} style={[CommonStyles.text,{fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Medium",color:"#000"}]}>{productdata.vendorName}</Text>
             </View> 
                 <CategoryList
                   navigation        = {navigation}
@@ -345,14 +348,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                       buttonStyle={{
                         borderColor: colors.cartButton,
                         borderWidth: 1,
-                        borderRadius: 25,
-                        minWidth: 30,
-                        minHeight: 30,
+                        borderRadius: hp(3),
+                        minWidth: hp(4),
+                        minHeight: hp(4),
                         backgroundColor: colors.cartButton,
                       }}
                       buttonTextStyle={{
                         color: '#fff',
-                        fontSize:20
+                        fontSize:RFPercentage(2.5)
                       }}
                       countTextStyle={{
                         color: colors.theme,
@@ -366,7 +369,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         onPress={() => handlePressAddCart()}
                         title={"Add To Cart"}
                         buttonStyle={[CommonStyles.addBtnStyle1,{backgroundColor:colors.cartButton}]}
-                        titleStyle={{fontFamily:'Montserrat-Regular',fontSize:13}}
+                        titleStyle={{fontFamily:'Montserrat-Regular',fontSize:RFPercentage(1.9)}}
                       /> 
                   </View>
                 </View>
@@ -425,14 +428,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                       </ImageBackground>
                       <TouchableOpacity style={[styles.wishlisthrtproductview]}
                         onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
-                        <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
+                        <Icon size={hp(2)} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
                       </TouchableOpacity>
                       <TouchableOpacity style={[styles.share]}
                         onPress={() =>onShare()} >
                           <Image
                             resizeMode="contain"
                             source={require("../../AppDesigns/currentApp/images/shareNEW.png")}
-                            style={{height:15,width:15,alignSelf:'center'}}
+                            style={{height:hp(2),width:hp(2),alignSelf:'center'}}
                             />
                         {/* <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} /> */}
                       </TouchableOpacity>
@@ -458,8 +461,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}&nbsp;</Text>
                   {productdata.discountPercent > 0 && <Text style={styles.discountPercent}> {productdata.discountPercent}%</Text>}
                 </View>
-                <View style={{height:50,width:100,marginLeft:30}}>
-                  <Text style={{color: "#000000",opacity: 0.5,fontSize:11}}>Size</Text>
+                <View style={{height:hp(7),width:wp(28),marginLeft:wp(7.5)}}>
+                  <Text style={{color: "#000000",opacity: 0.5,fontSize:RFPercentage(1.7)}}>Size</Text>
                   <Dropdown
                     onChangeText        = {(value) => filterProductSize(value)}
                     data                = {sizes}
@@ -470,8 +473,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     inputContainerStyle = {styles.ddInputContainer}
                     labelHeight         = {10}
                     tintColor           = {'#FF8800'}
-                    labelFontSize       = {15}
-                    fontSize            = {12}
+                    labelFontSize       = {RFPercentage(2.2)}
+                    fontSize            = {RFPercentage(1.8)}
                     baseColor           = {'#666'}
                     textColor           = {'#333'}
                     labelTextStyle      = {{ left: 5 }}
@@ -482,15 +485,15 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   />
                 </View>  
               </View>
-              <View style={{marginLeft:30}}>
-              <Text style={{color: "#000000",opacity: 0.5,fontSize:11}}>Colour</Text>
+              <View style={{marginLeft:wp(7.5)}}>
+              <Text style={{color: "#000000",opacity: 0.5,fontSize:RFPercentage(1.7)}}>Colour</Text>
                 <View style={{flexDirection:'row'}}>
                   <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flex:1}}>{
                     sizeIndex >=0 && variants[sizeIndex]?.color && variants[sizeIndex]?.color.length > 0 ?
                     variants[sizeIndex]?.color.map((color,index)=>{
                         return(
                           <TouchableOpacity 
-                            style={{width:18,height:16,marginTop:5,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:colorIndex === index ? 1 :0.5,paddingHorizontal:5,backgroundColor:color.toLowerCase()}}
+                            style={{width:hp(2.5),height:hp(2),marginTop:5,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:colorIndex === index ? 1 :0.5,paddingHorizontal:5,backgroundColor:color.toLowerCase()}}
                             onPress={()=>filterProductColor(index,color)}
                             >
                             {/* <Text>{color}</Text> */}
@@ -503,7 +506,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   </ScrollView>
                 </View>
               </View>    
-              <View style={{marginTop:15,flexDirection:'row'}}>
+              <View style={{marginTop:hp(2),flexDirection:'row'}}>
                 {/* <Icon color="#5B8E7E" name="clipboard-arrow-left" type="material-community" size={15}/> */}
                 <Image
                       source={require("../../AppDesigns/currentApp/images/return.png")}
@@ -511,12 +514,12 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                       resizeMode='contain'
                     />
                 {productdata.productReturnable &&  productdata.productReturnable === "returnable" ?
-                  <Text style={{color:"#000000",fontSize:12,fontFamily:"Montserrat-SemiBold"}}>&nbsp;&nbsp;Product return available.</Text>
+                  <Text style={{color:"#000000",fontSize:RFPercentage(1.8),fontFamily:"Montserrat-SemiBold"}}>&nbsp;&nbsp;Product return available.</Text>
                   :
-                  <Text style={{color:"#000000",fontSize:12,fontFamily:"Montserrat-SemiBold"}}>&nbsp;&nbsp;This item is non-returnable.</Text>
+                  <Text style={{color:"#000000",fontSize:RFPercentage(1.8),fontFamily:"Montserrat-SemiBold"}}>&nbsp;&nbsp;This item is non-returnable.</Text>
                 }
               </View>
-              <View style={{flexDirection:'row',height:32,marginTop:12}}>
+              <View style={{flexDirection:'row',height:hp(4),marginTop:hp(1.5)}}>
                   <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 0 ? "#EEEEEE" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(0)}>
                       <Text style={CommonStyles.label,{color:colors.cartButton,fontFamily:"Montserrat-SemiBold"}}>Overview</Text>
 
@@ -530,7 +533,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   productdata.productDetails ?
                   <Text style={styles.detaildetailstxt}>{productdata.productDetails}</Text>
                   :
-                  <Text style={{alignSelf:'center',color:"#333"}}>No details found.</Text>
+                  <Text style={{fontsize:RFPercentage(1.5),alignSelf:'center',color:"#333"}}>No details found.</Text>
                 :                
                 productReview.reviewlist && productReview.reviewlist.length >0 ?  
                  <View style={{backgroundColor:"#fff",}}>
@@ -569,7 +572,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         </View>                        
                       </View>                                        
                     </View>
-                    <View style={{ flex:1,flexDirection:'row',height:40,backgroundColor:"#EEEEEE",}}>
+                    <View style={{ flex:1,flexDirection:'row',height:hp(5.2),backgroundColor:"#EEEEEE",}}>
                       <Text style={styles.ratingD1T3}>There are {productReview.reviewlist.length} ratings and 2 customer reviews</Text>
                     </View>
                     {productReview.reviewlist.map((item,index)=>{
@@ -585,7 +588,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                           />
                           </View>  
                           <View style={{flex:0.65}}>
-                            <Text style={{color:'#000',fontSize:16}}>{item.customerName.split(' ')[0]}</Text>
+                            <Text style={{color:'#000',fontSize:RFPercentage(2.5)}}>{item.customerName.split(' ')[0]}</Text>
                             <Text style={[CommonStyles.label,{marginTop:5,fontSize:11}]}>{item.customerReview}</Text>
                           </View>
                           <View style={{flex:0.5,alignItems:'flex-end',marginRight:5}}>
@@ -615,7 +618,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                                 imageSize={12}
                                 readonly
                               /> */}
-                              <Text style={[CommonStyles.label,{fontSize:7}]}>&nbsp;&nbsp;{item.rating}</Text>
+                              <Text style={[CommonStyles.label,{fontSize:RFPercentage(1)}]}>&nbsp;&nbsp;{item.rating}</Text>
                               </Text>                              
                             </View>  
                           </View>    
@@ -624,7 +627,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     })}
                   </View>                  
                     :
-                    <Text style={{alignSelf:'center',color:"#333"}}>No review added.</Text>
+                    <Text style={{fontSize:RFPercentage(1.5),alignSelf:'center',color:"#333"}}>No review added.</Text>
                   }
                  
               </View>  

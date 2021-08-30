@@ -165,7 +165,6 @@ class UserAddress extends Component {
         
         saveAddress(event){
             event.preventDefault(); 
-            
             var formValues = {
                 "user_ID"           : this.state.user_ID,
                 "name"              : this.state.fullname,

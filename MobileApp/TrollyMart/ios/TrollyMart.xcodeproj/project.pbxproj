@@ -58,7 +58,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* TrollyMartTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrollyMartTests.m; sourceTree = "<group>"; };
 		1070D0C083692586D4DADFFC /* Pods-TrollyMart-TrollyMartTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMart-TrollyMartTests.release.xcconfig"; path = "Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests.release.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* TrollyMart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrollyMart.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Knock Knock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Knock Knock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		182E3BEB03A1A6783B6B5634 /* Pods-TrollyMartTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMartTests.release.xcconfig"; path = "Target Support Files/Pods-TrollyMartTests/Pods-TrollyMartTests.release.xcconfig"; sourceTree = "<group>"; };
 		40E16502123913B8F891E5DB /* libPods-TrollyMart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrollyMart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F0BB7221DA76BB560758F2 /* libPods-TrollyMart-TrollyMartTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrollyMart-TrollyMartTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,7 +250,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* TrollyMart.app */,
+				13B07F961A680F5B00A75B9A /* Knock Knock.app */,
 				00E356EE1AD99517003FC87E /* TrollyMartTests.xctest */,
 			);
 			name = Products;
@@ -294,6 +294,7 @@
 				4FBD284BB0F934E830BAE344 /* [CP] Copy Pods Resources */,
 				89BA72D567BDDBB881DD5189 /* [CP-User] [RNFB] Core Configuration */,
 				604CD3CDDA5D0CAD8011204F /* [CP-User] [RNFB] Crashlytics Configuration */,
+				78754EFB26DBA763006B3CBA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -301,7 +302,7 @@
 			);
 			name = TrollyMart;
 			productName = TrollyMart;
-			productReference = 13B07F961A680F5B00A75B9A /* TrollyMart.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Knock Knock.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -465,11 +466,9 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -506,6 +505,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\nif [[ ${PODS_ROOT} ]]; then\n  echo \"info: Exec FirebaseCrashlytics Run from Pods\"\n  \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nelse\n  echo \"info: Exec FirebaseCrashlytics Run from framework\"\n  \"${PROJECT_DIR}/FirebaseCrashlytics.framework/run\"\nfi\n";
+		};
+		78754EFB26DBA763006B3CBA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
 		};
 		89BA72D567BDDBB881DD5189 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -683,7 +701,7 @@
 				);
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ae.trollymart;
-				PRODUCT_NAME = TrollyMart;
+				PRODUCT_NAME = "Knock Knock";
 				SWIFT_OBJC_BRIDGING_HEADER = "TrollyMart-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -719,7 +737,7 @@
 				);
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ae.trollymart;
-				PRODUCT_NAME = TrollyMart;
+				PRODUCT_NAME = "Knock Knock";
 				SWIFT_OBJC_BRIDGING_HEADER = "TrollyMart-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

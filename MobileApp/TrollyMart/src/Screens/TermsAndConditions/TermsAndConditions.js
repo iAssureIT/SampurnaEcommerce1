@@ -17,6 +17,8 @@ import AsyncStorage             from '@react-native-async-storage/async-storage'
 import HTML from 'react-native-render-html';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { useSelector }        from 'react-redux';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export const TermsAndConditions  = (props)=>{
     const {navigation}=props;
@@ -70,10 +72,10 @@ export const TermsAndConditions  = (props)=>{
     } else {
         return (
         <View style={{flex:1,backgroundColor:"#fff"}}>
-          <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>
+          <View style={[styles.superparent,{paddingBottom:80,backgroundColor:"#fff"}]}>
                 {store.globalSearch.search ?
                     <SearchSuggetion />
-                :<ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+                :<ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                                 colors={['#ffffff','#03355480']}
@@ -85,8 +87,8 @@ export const TermsAndConditions  = (props)=>{
                         pageBlockes && pageBlockes.length>0?
                             pageBlockes.map((item,index)=>{
                                 return(
-                                    <View style={{flex:1,paddingHorizontal:15,fontSize:12,color:'#000'}}>
-                                         <HTML baseFontStyle={styles.htmlText1} style={{fontSize:12,color:'#000'}} ignoredTags={['br']} html={item.block_id.blockDescription}/>
+                                    <View style={{flex:1,paddingHorizontal:wp(4),fontSize:RFPercentage(1.8),color:'#000'}}>
+                                         <HTML baseFontStyle={styles.htmlText1} style={{fontSize:RFPercentage(1.8),color:'#000'}} ignoredTags={['br']} html={item.block_id.blockDescription}/>
                                         {item.block_id.fgImage1 &&<Image
                                             source={{uri:item.block_id.fgImage1}}
                                             style={{height:200,width:"100%"}}

@@ -3353,17 +3353,17 @@ exports.nearest_vendor_orders= (req, res, next) => {
 		},
 		{ "$project" : 
 			{
-			  	"_id"								: 1,
-				"orderID"							: 1,
-				"user_ID"							: 1,
-				"userName"							: 1,
-				"createdAt"                         : 1,
+			  	"_id"										: 1,
+				"orderID"								: 1,
+				"user_ID"								: 1,
+				"userName"								: 1,
+				"createdAt"                      : 1,
 				"vendorOrders.vendor_id"			: 1,
 				"vendorOrders.vendorLocation_id"	: 1,
 				"vendorOrders.orderStatus"			: 1,
-				"deliveryAddress"					: 1,
-				"vendorDetails.companyName"			: 1,
-				"vendorDetails.companyLogo"			: 1,
+				"deliveryAddress"						: 1,
+				"vendorDetails.companyName"		: 1,
+				"vendorDetails.companyLogo"		: 1,
 				"vendorDetails.locations"			: 1,
 				"vendorDetails.createdAt"			: 1,
 			}
@@ -4187,6 +4187,9 @@ exports.get_nearby_delivery_persons= (req, res, next) => {
 	});
 };
 
+/*###################### Reports Started From Here ######################*/
+
+
 // ---------------- Revenue Reports ----------------
 exports.revenue_reports = (req, res, next) => {
 	
@@ -4281,9 +4284,9 @@ exports.revenue_reports = (req, res, next) => {
 					vendorName 				: data[i].vendorDetails.companyName ? data[i].vendorDetails.companyName : "NA",					
 					orderAmount       	: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_afterDiscountTotal ? data[i].vendorOrders.vendor_afterDiscountTotal : 0) + "</div>",
 					commissionPercentage : commisionPercent + "%",
-					commissionAmount 		: "<div class='whiteSpaceNoWrap'> AED " + (commisionPercent > 0 ? ((data[i].vendorOrders.vendor_afterDiscountTotal)/commisionPercent).toFixed(2) : 0) + "</div>",
+					commissionAmount 		: "<div class='whiteSpaceNoWrap'> AED " + (commisionPercent > 0 ? ((data[i].vendorOrders.vendor_afterDiscountTotal * commisionPercent)/100).toFixed(2) : 0) + "</div>",
 					deliveryCharges 		: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_shippingChargesAfterDiscount ? data[i].vendorOrders.vendor_shippingChargesAfterDiscount : 0) + "</div>",
-					totalAmount 			: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_afterDiscountTotal ? ((data[i].vendorOrders.vendor_afterDiscountTotal - (commisionPercent > 0 ? (data[i].vendorOrders.vendor_afterDiscountTotal/commisionPercent) : 0))).toFixed(2) : 0) + "</div>"
+					totalAmount 			: "<div class='whiteSpaceNoWrap'> AED " + (data[i].vendorOrders.vendor_afterDiscountTotal ? ((data[i].vendorOrders.vendor_afterDiscountTotal - (commisionPercent > 0 ? ((data[i].vendorOrders.vendor_afterDiscountTotal * commisionPercent)/100) : 0))).toFixed(2) : 0) + "</div>"
 					// totalAmount 			: data[i].vendorOrders.vendor_netPayableAmount ? data[i].vendorOrders.vendor_netPayableAmount : 0
 				})	
 			}
@@ -4430,13 +4433,30 @@ exports.delivery_drivers_reports = (req, res, next) => {
 					}
 
 					if (pickupDateAndTime && pickupDateAndTime !== "NA" && deliveryDateAndTime && deliveryDateAndTime !== "NA") {
-						var startDateTime 				= moment(pickupDateAndTime, "DD/MM/YYYY HH:mm").format("DD/MM/YYYY HH:mm");
-			        	var endDateTime   				= moment(deliveryDateAndTime, "DD/MM/YYYY HH:mm").format("DD/MM/YYYY HH:mm");
+						// var startDateTime 				= moment(pickupDateAndTime, "DD/MM/YYYY HH:mm").format("DD/MM/YYYY HH:mm");
+			   //      	var endDateTime   				= moment(deliveryDateAndTime, "DD/MM/YYYY HH:mm").format("DD/MM/YYYY HH:mm");
 
-			        	var ms            				= moment(endDateTime,"DD/MM/YYYY HH:mm").diff(moment(startDateTime,"DD/MM/YYYY HH:mm"));
-			        	var duration      				= moment.duration(ms);
-			        	var timeDiffrence 				= Math.floor(duration.asHours()) + moment.utc(ms).format(":mm");
-						var timeRequiredForDelivery 	= timeDiffrence + " Hours";
+			   //      	var ms            				= moment(endDateTime,"DD/MM/YYYY HH:mm").diff(moment(startDateTime,"DD/MM/YYYY HH:mm"));
+			   //      	var duration      				= moment.duration(ms);
+			   //      	var timeDiffrence 				= Math.floor(duration.asHours()) + moment.utc(ms).format(":mm");
+						// var timeRequiredForDelivery 	= timeDiffrence + " Hours";
+						var diff 	= moment.duration(moment(deliveryDateAndTime).diff(moment(pickupDateAndTime)));
+
+						var days 	= parseInt(diff.asDays()); //84
+
+						var hours 	= parseInt(diff.asHours()); //2039 hours, but it gives total hours in given miliseconds which is not expacted.
+
+						hours 		= hours - days*24;  // 23 hours
+
+						var minutes = parseInt(diff.asMinutes()); //122360 minutes,but it gives total minutes in given miliseconds which is not expacted.
+
+						minutes 		= minutes - (days*24*60 + hours*60); //20 minutes.
+						console.log("diff => ",diff)
+						console.log("days => ",days)
+						console.log("hours => ",hours)
+						console.log("minutes => ",minutes)
+
+						var timeRequiredForDelivery 	= (days > 0 ? days + " Days, " : "") + (hours > 0 ? hours + " Hours, " : "") + (minutes + " Minutes");
 					}else{
 						var timeRequiredForDelivery 	= "NA";
 					}

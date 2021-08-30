@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "TrollyMart.app"
+               BuildableName = "Knock Knock.app"
                BlueprintName = "TrollyMart"
                ReferencedContainer = "container:TrollyMart.xcodeproj">
             </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "TrollyMart.app"
+            BuildableName = "Knock Knock.app"
             BlueprintName = "TrollyMart"
             ReferencedContainer = "container:TrollyMart.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "TrollyMart.app"
+            BuildableName = "Knock Knock.app"
             BlueprintName = "TrollyMart"
             ReferencedContainer = "container:TrollyMart.xcodeproj">
          </BuildableReference>

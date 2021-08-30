@@ -36,10 +36,8 @@ class Cart extends Component{
             <Header/>
             <div className={"col-12 "+Style.cartWrapper}>
                 <div className="row">                    
-                    {/*<SmallBanner bannerData={this.state.bannerData}/>*/}
                     <div className={"col-lg-10 offset-lg-1 NoPadding " +Style.cartTitle}>Shopping Cart</div>
-                    <CartProducts />
-                    
+                    <CartProducts />                    
                 </div>
               </div>
             <Footer/>

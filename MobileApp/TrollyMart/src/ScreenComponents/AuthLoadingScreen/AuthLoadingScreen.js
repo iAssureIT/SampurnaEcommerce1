@@ -37,10 +37,10 @@ import codePush               from 'react-native-code-push';
     console.log("state",state);
     dispatch({
       type: SET_NETWORK_CONNECTION,
-      payload :state.isConnected
+      payload :state.isInternetReachable
     });
     setPrevConnected(isConncted);
-    setConnected(state.isConnected);
+    setConnected(state.isInternetReachable);
   }
 
     useEffect(() => {

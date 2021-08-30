@@ -1,10 +1,11 @@
 import React, { Component }   from 'react';
-import $                      from 'jquery';
 import axios                  from 'axios';
 import Link                   from 'next/link';
 import Style                  from '../../10_eCommerceBlocks/ProductCarousel/ProductCarousel.module.css';
 import Carousel               from 'react-multi-carousel';
+import SubCategory            from '../SubCategory/SubCategory.js';
 import 'react-multi-carousel/lib/styles.css';
+
 class ShoppingVerticals extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +37,7 @@ class ShoppingVerticals extends Component {
     }, 
     };
   }
-  
+
   componentDidMount(){
       var itemList = [];      
       if(this.props.block_id){
@@ -99,12 +100,12 @@ class ShoppingVerticals extends Component {
         slidesToSlide: 1 // optional, default to 1.
       },
       tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 2,
+        breakpoint: { max: 1024, min: 768 },
+        items: 4,
         slidesToSlide: 1 // optional, default to 1.
       },
       mobile: {
-        breakpoint: { max: 465, min: 0 },
+        breakpoint: { max: 769, min: 366 },
         items: 1,
         slidesToSlide: 1 // optional, default to 1.
       }
@@ -118,12 +119,12 @@ class ShoppingVerticals extends Component {
         slidesToSlide: 1 // optional, default to 1.
       },
       tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 2,
+        breakpoint: { max: 1024, min: 768 },
+        items: 4,
         slidesToSlide: 1 // optional, default to 1.
       },
       mobile: {
-        breakpoint: { max: 465, min: 0 },
+        breakpoint: { max: 769, min: 366 },
         items: 1,
         slidesToSlide: 1 // optional, default to 1.
       }
@@ -149,6 +150,7 @@ class ShoppingVerticals extends Component {
             { this.state.groupSettings.showCarousel === true?
               this.state.itemList && this.state.itemList.length > 0 ?
               <div className="col-12 ">
+                
               {this.state.groupSettings.showOnlySection === true &&
               <Carousel 
                   className=" sectionCarousel"
@@ -194,6 +196,7 @@ class ShoppingVerticals extends Component {
                   }
               </Carousel>
               }
+
               {this.state.groupSettings.showOnlyCategory === true &&
               <Carousel 
                 className=" sectionCarousel"
@@ -234,45 +237,13 @@ class ShoppingVerticals extends Component {
                 }
               </Carousel>
               }
+
               {this.state.groupSettings.showOnlySubCategory === true &&
-              <Carousel 
-                className=" sectionCarousel"
-                swipeable={false}
-                draggable={true}
-                showDots={false}
-                responsive={CategoryResponsive}
-                ssr={true} // means to render carousel on server-side.
-                infinite={true}
-                autoPlay={false}
-                autoPlaySpeed={3000}
-                keyBoardControl={true}
-                customTransition="all .20"
-                transitionDuration={500}               
-                removeArrowOnDeviceType={["tablet", "mobile"]}
-                deviceType={this.props.deviceType}  
-                containerClass="carousel-container">
-                  {this.state.itemList.map((data, index) => {  
-                    { if(this.state.groupSettings.showOnlyCategory){
-                        url = "/vendor-list/"+data.itemUrl;
-                      }else{
-                        url = "/vendor-list/"+data.itemUrl;
-                      }
-                    }
-                    return (
-                    <div className="col-12 sectionCategoryBlock  "  key={index}> 
-                        <a href={url} className ="text-decoration-none secCateblock1 categoryblock"> 
-                          <div className="itemImg col-12 ">
-                            <div className="text-decoration-none product photo product-item-photo collage" tabIndex="-1" href={url}>
-                              <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.png"} alt="ItemImg" className={"subImg " } />
-                            </div>
-                          </div>
-                          <div className="col-12 item_Name text-center text-capitalize" title={data.item}>{data.item}</div>
-                        </a>                
-                    </div>                            
-                    );
-                  })
-                }
-              </Carousel>
+                <SubCategory 
+                  groupSettings = {this.state.groupSettings}
+                  itemList      = {this.state.itemList}
+                />
+                
               }
             </div>
             : 

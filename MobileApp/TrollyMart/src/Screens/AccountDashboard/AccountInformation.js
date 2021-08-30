@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Alert,
   Dimensions,StyleSheet,Image,ActivityIndicator
 } from 'react-native';
 import axios              from "axios";
@@ -30,6 +29,9 @@ import {
  import Modal  from "react-native-modal";
  import OTPInputView         from '@twotalltotems/react-native-otp-input';
  import { RadioButton }        from 'react-native-paper';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 const window = Dimensions.get('window');
 
@@ -69,6 +71,29 @@ export const AccountInformation=withCustomerToaster((props)=>{
     setCheckedEmailId(false)
   },[props,isFocused]);
 
+  
+  useEffect(() => {
+    if(checkedMobNo){
+      var new_schema = Yup.object().shape({
+        mobileNumber: Yup.string()
+        .required('This field is required'),
+      })
+    }else if(checkedEmailId){
+      var new_schema = Yup.object().shape({
+        email_id: Yup.string()
+        .required('This field is required')
+        .test(
+          'email validation test',
+          'Enter a valid email address',
+          emailValidator,
+        ),
+      })
+    }else{
+      var new_schema = intialSchema;
+    }
+    updateSchema(new_schema)
+  },[checkedEmailId,checkedMobNo]);
+
   const getData=async()=>{
     axios.get('/api/ecommusers/' + await AsyncStorage.getItem('user_id'))
     .then((response) => {
@@ -96,7 +121,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
       <React.Fragment>
        {isFocused && <Formik
           onSubmit={(values,fun) => {
-            // fun.resetForm(values);
+            console.log("initialSchema",schema)
               setBtnLoading(true);
             var {firstName, lastName,mobileNumber,email_id,current_password,isdCode,mobileChange,emailChange,otp} = values;
             if(otp!==''){
@@ -108,7 +133,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
             }
               axios.patch('/api/users/update/verify_user_otp',formValues)
               .then((response) => {
-                console.log("response1234",response);
+                setBtnLoading(false);
                 if(response.data.messageCode === true){
                   setModal(false);
                   setToast({text: response.data.message, color: 'green'});
@@ -117,7 +142,6 @@ export const AccountInformation=withCustomerToaster((props)=>{
                 }else{
                   setToast({text: response.data.message, color: colors.warning});
                 }
-                setBtnLoading(false);
                 // this.setState({profileupdated:true});
               })
               .catch((error) => {
@@ -142,17 +166,17 @@ export const AccountInformation=withCustomerToaster((props)=>{
               console.log("formValues",formValues);
               axios.patch('/api/users/update/user_profile_details',formValues)
               .then((response) => {
-                console.log("response123",response);
-                if(response.data.messageCode === true){
-                  setToast({text: response.data.message, color: 'green'});
+                if(response.data.messageCode){
+                  props.setToast({text: response.data.message, color: 'green'});
+                  setBtnLoading(false);
                   if(checkedMobNo){
                     setModal(true);
                   }
                   dispatch(getUserDetails(user_id));
                 }else{
-                  setToast({text: response.data.message, color: colors.warning});
+                  props.setToast({text: response.data.message, color: colors.warning});
+                  setBtnLoading(false);
                 }
-                setBtnLoading(false);
                 // this.setState({profileupdated:true});
               })
               .catch((error) => {
@@ -187,6 +211,8 @@ export const AccountInformation=withCustomerToaster((props)=>{
               setCheckedEmailId={setCheckedEmailId}
               updateSchema={updateSchema}
               otpModal={otpModal}
+              mobile = {userDetails && userDetails.mobile? userDetails.mobile:''}
+              email_id={userDetails && userDetails.email ?userDetails.email:''}
               setModal={setModal}
               {...formProps}
             />
@@ -216,7 +242,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
       setCheckedEmailId,
       updateSchema,
       otpModal,
-      setModal
+      setModal,
+      mobile,
+      email_id
     } = props;
     const [showPassword, togglePassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
@@ -228,20 +256,24 @@ export const AccountInformation=withCustomerToaster((props)=>{
     const [showCurrentPassword, toggleCurrentPassword] = useState(false);
     const phoneInput = useRef(null);
 
+
+
     const handleMob = ()=>{
       if(values.mobileNumber === ""){
         setToast({text: "Please fill all mandetory fields", color: colors.warning});
-      }else{
+      }else if(values.mobileNumber === mobile){
+        setToast({text: "It seems that you didn't change anything", color: colors.warning});
+      }else{  
         handleSubmit();
-        setFieldValue("mobileChange",true);
       }
     }
     const handleEmail = ()=>{
       if(values.email === "" || values.current_password === ""){
         setToast({text: "Please fill all mandetory fields", color: colors.warning});
-      }else{
+      }else if(values.email === email_id){
+        setToast({text: "It seems that you didn't change anything", color: colors.warning});
+      }else{  
         handleSubmit();
-        setFieldValue("emailChange",true);
       }
      }
 
@@ -263,10 +295,10 @@ export const AccountInformation=withCustomerToaster((props)=>{
         <React.Fragment>
           <View style={styles.profileparent}>
             <View style={{flex:1,backgroundColor:"#fff"}}>
-            <ScrollView contentContainerStyle={styles.container} style={{marginBottom:50}} keyboardShouldPersistTaps="handled" >
-                <View style={{ paddingHorizontal: 15, marginBottom: 30 }}>
-                  <View style={{ borderWidth: 1, borderColor: '#f1f1f1', backgroundColor: '#ccc', paddingVertical: 15, marginTop: 10 }}>
-                    <Text style={{ fontSize: 13, fontFamily: "Montserrat-SemiBold", color: '#333', paddingHorizontal: 15 }}>Profile Details : </Text>
+            <ScrollView contentContainerStyle={styles.container} style={{marginBottom:hp(5)}} keyboardShouldPersistTaps="handled" >
+                <View style={{ paddingHorizontal:wp(4), marginBottom: hp(4) }}>
+                  <View style={{ borderWidth: 1, borderColor: '#f1f1f1', backgroundColor: '#ccc', paddingVertical: hp(2), marginTop: 10 }}>
+                    <Text style={{ fontSize: RFPercentage(1.9), fontFamily: "Montserrat-SemiBold", color: '#333', paddingHorizontal: wp(4) }}>Profile Details : </Text>
                   </View>
                     <View style={styles.marTp15}>
                       <View style={commonStyles.formWrapper}>
@@ -300,18 +332,19 @@ export const AccountInformation=withCustomerToaster((props)=>{
                           title       = {'Update Profile'}
                           onPress     = {handleSubmit}
                           background  = {true}
+                          disabled   ={checkedMobNo || checkedEmailId}
                           // loading     = {btnLoading}
                         />
                         <CheckBox
                           title='Change Mobile No'
                           checked={checkedMobNo}
-                          onPress={() => {setCheckedMobNo(!checkedMobNo),setCheckedEmailId(false)}}
+                          onPress={() => {setCheckedMobNo(!checkedMobNo),setFieldValue('mobileChnage',!checkedEmailId),setCheckedEmailId(false)}}
                         />
                         
                         {checkedMobNo && <View style={{marginHorizontal:10,marginVertical:5}}>
-                        <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
+                        <Text style={{fontFamily:'Montserrat-SemiBold',  color: '#333',fontSize: RFPercentage(1.8),paddingVertical:hp(0.5)}}>
                             <Text>Phone Number</Text>{' '}
-                            <Text style={{color: 'red', fontSize: 12}}>
+                            <Text style={{color: 'red', fontSize: RFPercentage(1.8)}}>
                             *
                             </Text>
                         </Text>
@@ -335,7 +368,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                               textContainerStyle={styles1.textContainerStyle}
                               textInputStyle={styles1.textInputStyle}
                             />
-                          <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
+                          <Text style={{fontSize:RFPercentage(1.8),marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                           <FormButton
                             title       = {'Update Mobile No'}
                             onPress     = {handleMob}
@@ -346,7 +379,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                         <CheckBox
                           title='Change Email Id'
                           checked={checkedEmailId}
-                          onPress={() => {setCheckedEmailId(!checkedEmailId),setCheckedMobNo(false)}}
+                          onPress={() => {setCheckedEmailId(!checkedEmailId), setFieldValue("emailChange",!checkedEmailId),setCheckedMobNo(false)}}
                         />
                               
                         {checkedEmailId &&
@@ -378,9 +411,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
                           rightIcon={
                               <TouchableOpacity  style={{paddingHorizontal:'5%'}} onPress={() => toggleCurrentPassword(!showCurrentPassword)}>
                                 {showCurrentPassword ? (
-                                  <Icon name="eye" type="entypo" size={18} />
+                                  <Icon name="eye" type="entypo" size={ hp(2.5)} />
                                 ) : (
-                                  <Icon name="eye-with-line" type="entypo" size={18} />
+                                  <Icon name="eye-with-line" type="entypo" size={ hp(2.5)} />
                                 )}
                               </TouchableOpacity>
                             }
@@ -408,7 +441,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
             hideModalContentWhileAnimating={true}
             style={{ zIndex: 999 }}
             animationOutTiming={500}>
-            <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: 30, padding :10,height:500}}>
+            <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: hp(4), padding :10,height:500}}>
               <TouchableOpacity style={{flexDirection:"row",justifyContent:"flex-end"}} onPress={()=>setModal(false)}>
                   <Icon name="close" type="material-community" size={25} color={"#333"} />
               </TouchableOpacity>
@@ -434,7 +467,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                     code={values.otp}
                     // clearInputs={isEmptyString(values.otp)}  
                     />
-                    <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
+                    <Text style={{fontSize:RFPercentage(1.8),color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
                   <View style={{marginHorizontal:10}}>
                     <Text style={styles.otpLastText}>Didn't receive code?<Text onPress={()=>handleSubmit()} style={styles.otpLastText1}>Request again!</Text></Text>
                   </View>
@@ -442,9 +475,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
             </View>
           </Modal>
           <Modal 
-          animationType="slide"
-          transparent={true}
-          visible={btnLoading}
+          hasBackdrop={false}
+          coverScreen={false}
+          isVisible={btnLoading}
         >
         <View 
           style={{
@@ -473,7 +506,6 @@ export const AccountInformation=withCustomerToaster((props)=>{
      },
      textInputStyle:{
          height:50,
-         paddingTop:15,
          backgroundColor:"#fff"
      },
      textContainerStyle:{

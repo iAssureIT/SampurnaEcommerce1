@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from '../styles.js';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -189,12 +190,12 @@ export default StyleSheet.create({
 
   otpLastText:{
     color: '#aaa',
-    fontSize: 12,
+    fontSize: RFPercentage(1.8),
     fontFamily: "Montserrat-Regular",
   },
   otpLastText1:{
     color: '#033554',
-    fontSize: 14,
+    fontSize: RFPercentage(1.8),
     fontFamily: "Montserrat-Regular",
   },
 

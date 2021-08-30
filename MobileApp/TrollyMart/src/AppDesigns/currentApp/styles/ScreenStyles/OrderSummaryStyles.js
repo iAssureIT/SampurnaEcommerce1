@@ -343,7 +343,7 @@ superparent:{
     // flex:0.8,
   },
   addcmporder:{
-    backgroundColor:'#fff',marginTop:20,paddingHorizontal:5
+    backgroundColor:'#fff',marginTop:hp(2.5),paddingHorizontal:wp(1)
   },
   flx8:{
     flex:0.8,
@@ -524,7 +524,7 @@ superparent:{
     },
     inputWrapper : {
      flex:0.4,
-     height:23,
+     height:hp(4),
       // marginLeft:10,
       // borderColor:'#666',
       // borderColor:colors.theme,
@@ -607,7 +607,7 @@ superparent:{
     },
     ddItemText:{
       fontFamily:"Montserrat-Medium",
-      fontSize:10
+      fontSize:RFPercentage(1.5)
     },
     ddInputContainer:{
       // /borderWidth: 0,
@@ -618,7 +618,7 @@ superparent:{
       top:0,
       // left:5,
       fontFamily:"Montserrat-Regular",
-      fontSize:15,
+      fontSize:RFPercentage(2.2),
       paddingHorizontal:2,
     },
     ddStyle:{
@@ -626,7 +626,7 @@ superparent:{
       backgroundColor:"#fff",
       height:hp(2.5),
       width:wp(35),
-      fontSize:10,
+      fontSize:RFPercentage(1.5),
       borderWidth:1,
       borderColor:'#707070',
       borderRadius:4,

@@ -8,6 +8,8 @@ router.post('/post', 						checkAuth, sectionsController.insert_section);
 
 router.get('/get/list-with-limits/:startRange/:limitRange', checkAuth, sectionsController.get_sections_with_limits);
 
+router.post('/get/list-with-limits', checkAuth, sectionsController.get_sections_list_with_limits);
+
 router.patch('/patch', 						checkAuth, sectionsController.update_section);
 
 router.patch('/patch/status', 				checkAuth, sectionsController.update_section_status);
@@ -17,6 +19,8 @@ router.delete('/delete/:sectionID', 		checkAuth, sectionsController.delete_secti
 router.delete('/get/deleteAllSections', 	checkAuth, sectionsController.deleteAllSections);
 
 router.post('/get/list', 	                sectionsController.get_list_for_section_category_block);
+
+router.post('/get/list_by_url', 	          sectionsController.get_list_for_section_category_block_by_url);
 
 router.get('/get/list', 					sectionsController.get_sections);
 

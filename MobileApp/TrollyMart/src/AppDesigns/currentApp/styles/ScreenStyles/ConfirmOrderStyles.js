@@ -1,28 +1,30 @@
 import { StyleSheet, Dimensions,Platform } from 'react-native';
 import {colors} from '../styles.js';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
 
   formWrapper:{
-    marginTop:15,
+    marginTop:hp(2),
   },
   superparent:{
     flex:1,backgroundColor:'#f1f1f1'
   },
   
   parent:{
-    backgroundColor:'#fff',paddingHorizontal:10,paddingVertical:15,
+    backgroundColor:'#fff',paddingHorizontal:10,paddingVertical:hp(2),
   },
   ordervw:{
-    flexDirection:'row',flex:0.5,marginTop:15
+    flexDirection:'row',flex:0.5,marginTop:hp(2)
   },
   
   titletxt:{
-    fontSize:12,fontFamily:"Montserrat-SemiBold", color:'#666',paddingVertical:5
+    fontSize:RFPercentage(1.8),fontFamily:"Montserrat-SemiBold", color:'#666',paddingVertical:5
   },
   ordertxt:{
-    fontSize:12,fontFamily:"Montserrat-SemiBold", color:'#333',paddingVertical:5
+    fontSize:RFPercentage(1.8),fontFamily:"Montserrat-SemiBold", color:'#333',paddingVertical:5
   },
   icnvw:{
     flexDirection:'row',marginRight:10
@@ -31,7 +33,7 @@ export default StyleSheet.create({
     marginTop:5,marginRight:5,
   },
   rsprice:{
-    fontSize:12,fontFamily:"Montserrat-SemiBold",color:'#c10000'
+    fontSize:RFPercentage(1.8),fontFamily:"Montserrat-SemiBold",color:'#c10000'
   },
   imgvw:{
     flex:0.4,backgroundColor:'#f1f1f1',
@@ -44,10 +46,10 @@ export default StyleSheet.create({
     backgroundColor:'#f1f1f1',borderWidth:1,borderColor:'#f1f1f1',height:45,marginTop:'5%'
   },
   deleverydate:{
-    textAlign:'center',marginTop:10,fontSize:12,fontFamily:"Montserrat-SemiBold", color:'#333'
+    textAlign:'center',marginTop:10,fontSize:RFPercentage(1.8),fontFamily:"Montserrat-SemiBold", color:'#333'
   },
   confirmorder:{
-    fontSize:12,fontFamily:"Montserrat-SemiBold", color:'#333'
+    fontSize:RFPercentage(1.8),fontFamily:"Montserrat-SemiBold", color:'#333'
   },
   flx3:{flex:0.3},
 
@@ -62,7 +64,7 @@ export default StyleSheet.create({
     color: colors.buttonText2,
     fontFamily:"Montserrat-SemiBold",
     // textTransform: 'uppercase',
-    fontSize:11
+    fontSize:RFPercentage(1.7)
 
   },
   buttonContainer2:{
@@ -89,13 +91,13 @@ export default StyleSheet.create({
     color: colors.buttonText,
     fontFamily:"Montserrat-Regular",
     textTransform: 'uppercase',
-    fontSize:13
+    fontSize:RFPercentage(1.9)
 
   },
   buttonContainer1:{
 
-    marginTop:15,
-    marginBottom:15,
+    marginTop:hp(2),
+    marginBottom:hp(2),
     ...Platform.select({
       ios:{
         justifyContent:'center',

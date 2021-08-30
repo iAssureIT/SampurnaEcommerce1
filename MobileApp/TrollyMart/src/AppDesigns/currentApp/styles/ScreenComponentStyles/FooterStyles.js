@@ -2,6 +2,7 @@ import { StyleSheet,Platform } from 'react-native';
 import {colors} from '../styles.js';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { trackEvent } from 'appcenter-analytics';
 
 export default StyleSheet.create({
   footer: {
@@ -17,7 +18,7 @@ export default StyleSheet.create({
         position: 'absolute',
         // backgroundColor:"#fff",
         bottom: 0,
-        height: hp(10.5),
+        height: hp(13),
         // flexDirection: 'row',
         // backgroundColor:"#fff",
         // // backgroundColor: colors.footerColor,
@@ -82,8 +83,7 @@ export default StyleSheet.create({
 
   iconOuterWrapper: {
     flex: 0.2, 
-    backgroundColor: 
-    colors.cart, 
+    backgroundColor: colors.cart, 
     marginTop:hp(3),
     alignItems:'center',
     justifyContent:'center'

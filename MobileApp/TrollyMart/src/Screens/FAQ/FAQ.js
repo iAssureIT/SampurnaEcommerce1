@@ -20,6 +20,8 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { useSelector }        from 'react-redux';
 import { NetWorkError } from '../../../NetWorkError.js';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export const FAQ = (props)=>{
     const {navigation}=props;
@@ -96,9 +98,9 @@ export const FAQ = (props)=>{
                                     const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
                                     console.log("result",item.block_id.fgImage1)
                                     return(
-                                    <List.Accordion index={(index)} style={[styles.queBox]} onPress={handlePress} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:18,color:"#000000",fontFamily:"Montserrat-SemiBold",}]}>
-                                        <View style={[styles.queAns,{marginHorizontal:30}]}>
-                                            <Text style={{fontSize:12,color:'#000000',fontFamily:"Montserrat-Regular",}}>Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.</Text>
+                                    <List.Accordion index={(index)} style={[styles.queBox]} onPress={handlePress} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:RFPercentage(2.2),color:"#000000",fontFamily:"Montserrat-SemiBold",}]}>
+                                        <View style={[styles.queAns,{marginHorizontal:wp(6)}]}>
+                                            <Text style={{fontSize:RFPercentage(1.8),color:'#000000',fontFamily:"Montserrat-Regular",}}>Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.</Text>
                                         </View>
                                     </List.Accordion>
                                     )

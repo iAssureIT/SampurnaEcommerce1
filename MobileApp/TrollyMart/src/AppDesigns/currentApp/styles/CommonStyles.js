@@ -3,6 +3,7 @@ import {colors} from './styles.js';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
@@ -127,18 +128,18 @@ export default StyleSheet.create({
     },
     linkText:{
         color: colors.cartButton,
-        fontSize: 10,
+        fontSize: RFPercentage(1.5),
         fontFamily:"Montserrat-SemiBold",
         // textDecorationLine: 'underline'
     },
     linkLightText:{
         color: colors.textLight,
-        fontSize: 12,
+        fontSize: RFPercentage(1.8),
         fontFamily:"Montserrat-Regular",
         textDecorationLine: 'underline'
     },
     noDataFound :{
-        fontSize: 20, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#DC1919"
+        fontSize: RFPercentage(3), fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#DC1919"
     },
     screenHeader:{
         fontSize:RFPercentage(2.8),
@@ -169,7 +170,7 @@ export default StyleSheet.create({
     },
 
     formWrapper:{
-        paddingHorizontal:20,
+        paddingHorizontal:wp(6),
     },
     addBtnContainer:{
         // marginTop:15,

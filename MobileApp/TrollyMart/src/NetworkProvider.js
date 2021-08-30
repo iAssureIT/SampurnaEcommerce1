@@ -5,7 +5,8 @@ export const NetworkContext = React.createContext({ isConnected: true });
 
 export class NetworkProvider extends React.PureComponent {
   state = {
-    isConnected: true
+    isConnected: true,
+    isInternetReachable : true
   };
 
   componentDidMount() {
@@ -20,6 +21,8 @@ export class NetworkProvider extends React.PureComponent {
 
 
   handleConnectivityChange = state => {
+    console.log("state",state);
+    this.setState({isInternetReachable:state.isInternetReachable})
     if (state.isConnected) {
       this.setState({connection_Status: 'Online'});
     } else {

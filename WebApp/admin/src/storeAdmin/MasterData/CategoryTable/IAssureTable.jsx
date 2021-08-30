@@ -1,11 +1,11 @@
-import React, { Component }       	from 'react';
-import {Route, withRouter} 			from 'react-router-dom';
-import swal                     	from 'sweetalert2';
+import React, { Component }   from 'react';
+import {withRouter} 				from 'react-router-dom';
+import swal                   from 'sweetalert2';
 import axios 						from 'axios';
 import $ 							from "jquery";
 import jQuery 						from 'jquery';
-import _                      		from 'underscore';
-import S3FileUpload           		from 'react-s3';
+import _                      from 'underscore';
+import S3FileUpload           from 'react-s3';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
@@ -16,11 +16,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 
 const swalWithBootstrapButtons = swal.mixin({
-  customClass: {
-    confirmButton: 'btn btn-success',
-    cancelButton: 'btn btn-danger'
-  },
-  buttonsStyling: false
+  	customClass : {
+   	confirmButton 	: 'btn btn-success',
+    	cancelButton 	: 'btn btn-danger'
+  	},
+  	buttonsStyling : false
 })
 
 class IAssureTable extends Component {
@@ -42,7 +42,6 @@ class IAssureTable extends Component {
 		    "paginationArray" 			: [],
 		    "startRange" 				: 0,
 		    "limitRange" 				: 10,
-		    "activeClass" 				: 'activeCircle', 		    
 		    "normalData" 				: true,
 		    "callPage" 					: true,
 		    "pageCount" 				: 0,
@@ -101,64 +100,62 @@ class IAssureTable extends Component {
 		var id = event.target.id;
 		this.props.history.push(tableObjects.editUrl+id);
 	}
-    delete(e){
+   
+   async delete(e){
 	  	e.preventDefault();
-	  	var tableObjects =  this.props.tableObjects;
-		let id = e.target.id;
-		// axios.get('/api/products/get/one/'+id)
-		// 	.then((response)=>{
-		// 		console.log('response.data product==>>>',response.data);
-		// 		if(response.data && response.data._id && response.data.status === "Publish"){
-		// 			swal({
-		// 				text : "This product is in Order and Publish!",
-		// 			});
-		// 		}else{
-			swalWithBootstrapButtons.fire({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonText: 'Yes, delete it!',
-		  cancelButtonText: 'No, cancel!',
-		  reverseButtons: true
-		}).then((result) => {
-		  if (result.isConfirmed) {
-					axios({
-						method: tableObjects.deleteMethod,
-						url: tableObjects.apiLink+'/delete/'+id
-					}).then((response)=> {
-						// console.log(this.state.startRange, this.state.limitRange);
-						this.props.getData(this.state.startRange, this.state.limitRange);
-						swalWithBootstrapButtons.fire(
-					      'Deleted!',
-					      'Record has been deleted.',
-					      'success'
-				    )
-					}).catch(function (error) {
-						console.log('error', error);
-						swal.fire({
-						  icon: 'error',
-						  title: 'Oops...',
-						  text: 'Something went wrong!'
-						})
-					});	
-			// 	}
-			// })
-			// .catch((error)=>{
-			//   console.log('error', error);
-			// })
-		} else if (
-		    /* Read more about handling dismissals below */
-		    result.dismiss === swal.DismissReason.cancel
-		  ) {
-		    swalWithBootstrapButtons.fire(
-		      'Cancelled',
-		      'Your record is safe :)',
-		      'error'
-		    )
-		  }
-		})
-    } 
+	  	var tableObjects 	=  this.props.tableObjects;
+		let id 				= e.target.id;
+
+		var fetchOneRecord = await axios.get(tableObjects.getOneUrl + id)
+		console.log("fetchOneRecord => ",fetchOneRecord)
+		if(fetchOneRecord && fetchOneRecord.data !== undefined && fetchOneRecord.data !== null){
+			if (fetchOneRecord.data.status === "Published") {
+				swal.fire({
+				  icon 	: 'info',
+				  title 	: 'Sorry...',
+				  text 	: 'You can not delete "Published "'+ tableObjects.type +' !'
+				})
+			}else{
+				swalWithBootstrapButtons.fire({
+				  	title 				: 'Are you sure?',
+				  	text 					: "You won't be able to revert this!",
+				  	icon 					: 'warning',
+				  	showCancelButton 	: true,
+				  	confirmButtonText : 'Yes, delete it!',
+				  	cancelButtonText 	: 'No, cancel!',
+				  	reverseButtons 	: true
+				}).then((result) => {
+	  				if (result.isConfirmed) {
+						axios({
+							method 	: tableObjects.deleteMethod,
+							url 		: tableObjects.apiLink+'/delete/'+id
+						}).then((response)=> {
+								this.props.getData(this.state.startRange, this.state.limitRange);
+								swalWithBootstrapButtons.fire(
+							      response.data.deleted ? 'Deleted!' : "Sorry!",
+							      response.data.message,
+							      response.data.deleted ? 'success' : 'info'
+						    	)
+							}).catch(function (error) {
+								console.log('error', error);
+								swal.fire({
+								  icon 	: 'error',
+								  title 	: 'Oops...',
+								  text 	: 'Something went wrong!'
+								})
+							});	
+					}else if (result.dismiss === swal.DismissReason.cancel) {
+					   swalWithBootstrapButtons.fire(
+					      'Cancelled',
+					      'Your record is safe :)',
+					      'info'
+					   )
+					}
+				})
+			}
+		}	
+	} 
+
     sortNumber(key, tableData){
     	var nameA = '';
     	var nameB = '';
@@ -438,18 +435,13 @@ class IAssureTable extends Component {
 			}
 		});	
 	}
-	tableSearch(){
-    	var searchText = this.refs.tableSearch.value;
-		if(searchText && searchText.length !== 0) {
-			this.setState({
-				"normalData"  : false,
-				"searchData"  : true,
-			},()=>{
-				this.props.getSearchText(searchText, this.state.startRange, this.state.limitRange);
-			});	    	
-	    }else{
-			this.props.getData(this.state.startRange, this.state.limitRange);
-	    }    	 
+	tableSearch(event){
+    	var searchText = event.target.value;
+		
+			
+			this.props.getSearchText(searchText);		
+			
+	     	 
     }
     showNextPaginationButtons(){
     	var dataLength = this.state.dataCount;
@@ -828,25 +820,16 @@ class IAssureTable extends Component {
 					:
 					null        
 		       	}
-				<div className="col-lg-6  col-md-6  col-xs-12 col-sm-12 text-center mt50">
-	        		{/* <label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Filtered Products: <span >{this.state.dataCount}</span> </label> */}
-					{this.state.tableObjects.checkbox !== false
-					?
-						<label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Selected {this.state.tableObjects.type} : <span >{this.state.allid ? this.state.allid.length : '0'}</span> </label>
-					:
-						null
-					}
-					</div> 
 				{
-		       		this.state.tableObjects.searchApply === true ? 
-			       		<div className="col-lg-4  col-md-4  col-xs-12 col-sm-4 marginTop17 pull-right NoPadding">
-			        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
-			        		<div className="input-group">
-						        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
-						        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder="Search by Product Name, Brand, Section, Category, Item code"/>
-						    	<span className="input-group-addon" ><i className="fa fa-search"></i></span>
-						    </div>
-			        	</div>	
+		       		this.state.tableObjects.searchApply === true && this.props.currentView !== "SubCategory-Management-table" ? 
+			       		<div className="col-lg-10  col-md-10  col-xs-12 col-sm-12 marginTop17 pull-right NOpadding-right">
+				        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
+				        		<div className="input-group">
+							        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
+							        ref="tableSearch" id="tableSearch" name="tableSearch" placeholder={this.state.tableObjects.searchByPlaceholder}/>
+							    	<span className="input-group-addon" ><i className="fa fa-search"></i></span>
+							    </div>
+				        	</div>	
 		        	:
 		        	null
 		       	}

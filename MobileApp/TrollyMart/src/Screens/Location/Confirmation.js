@@ -155,13 +155,13 @@ export const Confirmation = withCustomerToaster((props)=>{
                   </TouchableOpacity>
                 } 
                 </View>  
-                <View style={{flex:.7,justifyContent:"flex-end",paddingHorizontal:40,paddingBottom:20}}>
+                <View style={{flex:.7,justifyContent:"flex-end",paddingHorizontal:wp(8),paddingBottom:hp(3)}}>
                     {/* <Image source={require("../../AppDesigns/currentApp/images/delivery.jpeg")} style={{height:300,width:300}}/> */}
-                    <Text style={{color:"#000000",fontFamily:"Montserrat-Regular",fontSize:12}}>Delivery Location</Text>
-                    <Text style={{color:"#EF4D4D",fontFamily:"Montserrat-Regular",fontSize:9}}>Set your delivery location to browse stores around you.</Text>
+                    <Text style={{color:"#000000",fontFamily:"Montserrat-Regular",fontSize:RFPercentage(1.8)}}>Delivery Location</Text>
+                    <Text style={{color:"#EF4D4D",fontFamily:"Montserrat-Regular",fontSize:RFPercentage(1.3)}}>Set your delivery location to browse stores around you.</Text>
                 </View>    
                 <View style={{flex:.3}}>
-                    <View style={{paddingHorizontal:30,marginBottom:15}}>
+                    <View style={{paddingHorizontal:wp(8),marginBottom:hp(2.2)}}>
                     <FormButton
                         title       = {'Current Location'}
                         onPress     = {()=>getPermission()}
@@ -170,7 +170,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                         // loading     = {btnLoading}
                         />
                     </View>  
-                    <View style={{paddingHorizontal:30,marginBottom:15}}>
+                    <View style={{paddingHorizontal:wp(8),marginBottom:hp(2.2)}}>
                       <FormButton
                           title       = {'Set Your Location'}
                           onPress     = {()=>navigation.navigate('Location',{type:'Manual'})}
@@ -183,7 +183,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                       <View style={{paddingHorizontal:30,marginBottom:15}}>
                         <FormButton
                           title       = {'Choose From Addresses'}
-                          onPress     = {()=>navigation.navigate('AddressDefaultComp',{delivery:false,disabled:true})}
+                          onPress     = {()=>navigation.navigate('AddressDefaultComp',{delivery:false,disabled:true,back:true})}
                           background  = {true}
                           // icon        = {{name: "crosshairs-gps",type : 'material-community',size: 18,color: "white"}}
                           // loading     = {btnLoading}

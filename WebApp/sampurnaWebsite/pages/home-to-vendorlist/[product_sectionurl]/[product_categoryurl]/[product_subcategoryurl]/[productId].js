@@ -2,8 +2,8 @@
 import React, { useState,useEffect } from 'react';
 import axios                from 'axios';
 import Link                 from 'next/link'
-import Header               from '../../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-import Footer               from '../../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+import Header               from '../../../../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
+import Footer               from '../../../../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import { components }       from 'react-select';
 import Style                from "./vendor-list.module.css";
 import { useRouter }        from 'next/router';
@@ -15,6 +15,9 @@ const HomeToVendorList = ()=> {
     const router = useRouter();
     const {product_sectionurl} = router.query;
     const {productId} = router.query;
+    const {product_categoryurl} = router.query;
+    const {product_subcategoryurl} = router.query;
+
     useEffect(()=>{
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));  
         if(sampurnaWebsiteDetails){
@@ -60,12 +63,10 @@ const HomeToVendorList = ()=> {
                         </div>
                            { Array.isArray(vendorList) && vendorList.length >0?
                                 vendorList.map((vendordata, index)=>{
-                                    // console.log("vendorList===",vendorList);
                                     return(
                                         <div className="col-6" key={index}>
                                             <div className={"col-12 card mt-4 " +Style.vendorCard}>
-                                            <Link href={"/product-detail/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+productId} className={+Style.vedorLink}>
-                                                {/* <Link href={"/products/"+vendordata.vendor_ID +"/"+sectionUrl} className={+Style.vedorLink}> */}
+                                            <Link href={"/product-detail/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/" +product_categoryurl +"/"+product_subcategoryurl+"/"+productId} className={+Style.vedorLink}>
                                                     <div className={"row card-body " +Style.cardBody}>
                                                         <div className={ "col-3 NoPadding "+Style.vendorLogo}>
                                                             {vendordata.vendorLogo?
@@ -77,11 +78,6 @@ const HomeToVendorList = ()=> {
                                                             <div className={"col-12 " +Style.vendorName}>{vendordata.vendorName}</div>
                                                             <div className={"col-12 mb-2  ellipsis " +Style.vendor_productName +" " +Style.ellipsis}>{vendordata.productName}</div>
                                                             <div className={"col-12 mb-2 " +Style.vendor_price}>AED&nbsp;{vendordata.productPrice.toFixed(2)}</div>
-                                                            {/* <div className={"col-12 text-right NoPadding " +Style.deliveryTime}>
-                                                                <span className={Style.HTVdelTime}>{vendordata.expectedDiliveryTime>0?vendordata.expectedDiliveryTime:0} &nbsp;min</span> 
-                                                                <span className={Style.HTVdelTime}>60 &nbsp;min</span>
-                                                                <img src="/images/eCommerce/time.png" className={"img "+Style.HTVtimeImg}></img>
-                                                            </div> */}
                                                         </div>
                                                     </div> 
                                             </ Link >

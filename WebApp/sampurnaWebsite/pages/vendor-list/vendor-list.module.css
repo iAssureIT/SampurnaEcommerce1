@@ -1,21 +1,44 @@
+.vendorlistWrapper{
+    margin-top: 50px;
+    background-color: #ff0;
+}
 .vendorCard{
     height: 116px;
     box-shadow: 0 0 10px 5px #000 !important;
     border-radius: 3px;
-    /*box-shadow: 0px 0px 8px 5px #000 !important;*/
     cursor: pointer;
-    /*border-radius: 0px;*/
-    /* background-image: url("/images/eCommerce/vendorCard.jpg"); */
     background-position: 100%;
     background-size: contain;
     border: none !important;
-    /* border: solid 2px #000; */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 95%;
+}
+.vendorLogo{
+    background-position: 100%;
+    height: 90px;
+    width: 90px;
+    margin-top: 20px;
+    margin-left: 20px;
+    border: 1px solid #666;
+    border-radius: 100%;
+    background-color: #fff;
 }
 .vendorLogoImg{
     border-radius: 100% !important;
-    height: 90px;
-    width: 90px;
+    width: 100%;
+    height: 100%;
 }
+
+.vendorCard a{
+    text-decoration: none !important;
+}
+.vendorListWrapper{
+    cursor: pointer;
+}
+
+
+
 .shopImg{
     height: 66px;
 }
@@ -56,13 +79,11 @@
     color: #fff;
     z-index: 1;
 }
-.vendorLogo{
-    margin-bottom: 20px;
-}
 .vendorlistTitle{
     font-size: 20px;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 50px;
 }
 .vendorlistTitle h4{
     font-size: 18px!important;
@@ -96,8 +117,9 @@
 }
 .vendorName{
     font-size: 20px;
-    overflow-wrap: break-word;
-    max-height:15px ;
+    overflow-wrap: break-word;    
+    height:125px ;
+    overflow: hidden;
     font-weight: 900!important;
     font-family: 'Montserrat-bold' !important;
 }
@@ -106,21 +128,6 @@
     top: 39px;
     right: 33px;
     font-size: 9px;
-}
-.vendorLogo{
-    /* height: 100%; */
-    margin-top: -7px;
-    /* height: 115px; */
-    border-radius:100%;
-    /* border:solid 2px #fff; */
-    border-radius: 100%;
-    background-position: 100%;
-}
-.vendorCard a{
-    text-decoration: none !important;
-}
-.vendorListWrapper{
-    cursor: pointer;
 }
 .vedorLink{
     cursor: pointer;
@@ -148,32 +155,37 @@
 }
 
 /*
- #############################################################################################################
+#############################################################################################################
                                 M E D I A  Q U E R I E S  R E S P O N S I V E
 ##############################################################################################################
+*/
 
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 860px) and (max-width: 1280px) { @media only screen and (max-device-width: 640px) {
+
+@media only screen and (max-device-width: 640px) {
+    .deliveryTimeWrapperDesc{
+        font-size: 11px;
+      }
+    .vendorName{
+        font-size: 10px;
+    }
+    .vendorCard{
+        height: 70px;
+    }
+}
+
+@media (min-width: 860px) and (max-width: 1280px) { 
     .categoryPhoto{
       min-height: 80px !important;
-  }
-  .categoryName{
+    }
+    .categoryName{
       top: 30px;
-  }
-  }
-    
+    }    
     .vendorCard{
         height: 120px;
         box-shadow: 2px 2px 3px #dddddd;
         cursor: pointer;
         background-position: 100%;
         border: solid 2px #000;
-    }
-    .vendorLogoImg{
-        border-radius: 100% !important;
-        height: 90px;
-        width: 90px !important;
-        /* border: solid 2px #ccc */
     }
     .vendorCard::before {
         content: "";
@@ -248,9 +260,6 @@
     }
     .vendorName{
         font-size: 20px;
-        overflow-wrap: break-word;
-        max-height:30px ;
-        
     }
     .delTime{
         font-size: 15px;
@@ -292,56 +301,97 @@
         font-size: 27px!important;
     }
 }
-@media only screen and (max-device-width: 640px) {
-    .deliveryTimeWrapperDesc{
-        font-size: 11px;
-      }
-    .vendorName{
-        font-size: 10px;
-    }
-    .vendorCard{
-        height: 70px;
-    }
-    .vendorLogoImg{
-        border-radius: 100% !important;
-        height: 44px;
-        width: 50px;
-    } 
-    }
-@media (min-width: 1280px) and (max-width: 1680px) {  
+
+@media (min-width: 1280px) and (max-width: 1440px) {  
     .globalAddToCartBtn{
       font-size: 14px !important;
     }
     .vendorCard{
-        height: 120px;
+        height: 190px;
+        width: 95%;
     }
-    .vendorLogoImg{
-        border-radius: 100% !important;
-        height: 90px;
-        width: 90px;
-    } 
+    .vendorLogo{
+        height: 95px;
+        width: 95px;
+    }
+    .vendorName{
+        font-size: 26px;
+        height: 80px;
+        margin-top: 20px;
+    }
+    .vendorlistTitle{
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
 }
-
-@media (min-width: 1680px) and (max-width: 1920px) {  
-    .vendorCard{
-        height: 150px;
-    }
-    .vendorLogoImg{
-        border-radius: 100% !important;
-        height: 110px;
-        width: 110px;
-    } 
-
+@media (min-width: 1440px) and (max-width: 1680px) {  
     .globalAddToCartBtn{
-      font-size: 16px !important;
+      font-size: 14px !important;
+    }
+    .vendorCard{
+        height: 190px;
+        width: 95%;
+    }
+    .vendorLogo{
+        height: 100px;
+        width: 100px;
     }
     .vendorName{
         font-size: 28px;
-        overflow-wrap: break-word;
-        max-height:30px ;
-        font-weight: 900!important;
-        font-family: 'Montserrat-bold' !important;
+        height: 90px;
+        margin-top: 20px;
     }
+    .vendorlistTitle{
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+    .deliveryTimeWrapper{
+        height: 66px !important;
+    }
+    .deliveryTimeWrapperDesc{
+        top: 10px;
+        font-size: 20px !important;
+    }
+    .deliveryTimeWrapperDesc1,
+    .deliveryTimeWrapperDesc2{
+        font-size: 30px !important;
+    }
+
+}
+
+
+@media (min-width: 1680px) and (max-width: 1920px) {  
+    .globalAddToCartBtn{
+      font-size: 16px !important;
+    }
+    .vendorCard{
+        height: 200px;
+    }
+    .vendorLogo{
+        height: 115px;
+        width: 115px;
+    }
+    .vendorName{
+        font-size: 32px;
+        height: 104px;
+        margin-top: 20px;
+    }
+    .vendorlistTitle{
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+    .deliveryTimeWrapper{
+        height: 71px !important;
+    }
+    .deliveryTimeWrapperDesc{
+        top: 15px;
+        font-size: 20px !important;
+    }
+    .deliveryTimeWrapperDesc1,
+    .deliveryTimeWrapperDesc2{
+        font-size: 30px !important;
+    }    
+
 }
 
 @media (min-width: 1920px) and (max-width: 2560px) {  
@@ -349,14 +399,30 @@
       font-size: 18px !important;
     }
     .vendorCard{
-        height: 160px;
-        width: 90%;
+        height: 209px;
     }
-    .vendorLogoImg{
-        border-radius: 100% !important;
+    .vendorLogo{
         height: 120px;
         width: 120px;
-    } 
-
+    }
+    .vendorName{
+        font-size: 40px;
+        margin-top: 25px;
+    }
+    .vendorlistTitle{
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+    .deliveryTimeWrapper{
+        height: 71px !important;
+    }
+    .deliveryTimeWrapperDesc{
+        top: 15px;
+        font-size: 20px !important;
+    }
+    .deliveryTimeWrapperDesc1,
+    .deliveryTimeWrapperDesc2{
+        font-size: 30px !important;
+    }
 }
   

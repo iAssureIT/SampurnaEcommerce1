@@ -4,7 +4,7 @@ import {
   Text,
   View,
   Image,
-  Alert,ActivityIndicator,
+  Alert,ActivityIndicator, TouchableOpacity,
 } from 'react-native';
 import { Button, Icon,}       from "react-native-elements";
 import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
@@ -229,7 +229,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
             headerTitle={"Payment Methods"}
           /> */}
           <View style={styles.superparent}>
-            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid >
+            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid showsVerticalScrollIndicator={false} >
               <View style={styles.formWrapper}>
                 <View style={styles.parent}>
                 <View style={{paddingVertical:20,paddingHorizontal:6}}>
@@ -242,7 +242,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                     />
                   </View>
                   <View style={styles.orderbrdr}>
-                    <View style={styles.flx3}>
+                    <TouchableOpacity style={styles.flx3}  onPress={() => {setChecked('third');setPaymentMethods('Online Payment')}}>
                       <RadioButton
                         value="third"
                         checkedIcon='dot-circle-o'
@@ -261,9 +261,9 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                       <View style={{flex:0.1,alignItems:'flex-end'}}>                        
                         <Image source={require("../../AppDesigns/currentApp/images/online-payment.png")} style={styles.iconImg} resizeMode="contain" />
                       </View>                    
-                    </View>
+                    </TouchableOpacity>
                   </View>
-                  <View style={styles.orderbrdr}>
+                  <TouchableOpacity style={styles.orderbrdr}  onPress={() => {setChecked('second');setPaymentMethods('Card On Delivery')}}>
                     <View style={styles.flx3}>
                       <RadioButton
                         style={styles.radiobtn}
@@ -284,8 +284,8 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         <Image source={require("../../AppDesigns/currentApp/images/pos-terminal.png")} style={styles.iconImg} resizeMode="contain" />
                       </View>                         
                     </View>
-                  </View>
-                  <View style={styles.orderbrdr}>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.orderbrdr} onPress={() => {setChecked('first');setPaymentMethods('Cash On Delivery')}}>
                     <View style={styles.flx3}>
                       <RadioButton
                         style={styles.radiobtn}
@@ -306,7 +306,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         <Image source={require("../../AppDesigns/currentApp/images/cash-on-delivery.png")} style={styles.iconImgCash} resizeMode="contain" />
                       </View>                       
                     </View>
-                  </View>
+                  </TouchableOpacity>
                   
                   {/* <View style={styles.orderbrdr}>
                     <View style={styles.flx3}>

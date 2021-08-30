@@ -615,30 +615,31 @@ export default StyleSheet.create({
     height:37,
     marginTop:15,
     marginBottom:15,
+    paddingHorizontal:10
     // backgroundImage: 'radial-gradient(circle, #ffffff, #e2e3ea, #c3c9d5, #a1b0c0, #7d98aa)',
   },
   HeaderText:{ 
-    fontSize:15,
+    fontSize:RFPercentage(2.2),
     fontWeight:'bold',
     zIndex:999,
     color:'#000',     
   },
   htmlText1:{
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     fontFamily:"Montserrat-Regular",
     color:'#000',
   },
   htmlText:{
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     fontFamily:"Montserrat-Regular",
     color:'#10344A',
   },
   textBox:{
-    marginHorizontal:21,
+    marginHorizontal:wp(5.5),
     paddingRight:5,
     borderRadius:9,
     color:'#10344A',
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     minHeight:95,
     fontFamily:"Montserrat-Regular",
     // // position:'absolute',
@@ -648,7 +649,7 @@ export default StyleSheet.create({
   },
 
   aboutImg:{
-    height:119,
+    height:hp(17),
     width:"100%",
     // marginBottom:95,
     // opacity: 0.8,
@@ -659,11 +660,11 @@ export default StyleSheet.create({
     elevation:2
   },
   queBox:{
-    height  :42,
+    height  :hp(5),
     borderRadius:15,
-    marginBottom:15,
+    marginBottom:hp(2),
     paddingVertical:0,
-    marginHorizontal:15,
+    marginHorizontal:wp(4),
    borderWidth:0.5,
     // borderColor:"#aaa",
   },
@@ -681,7 +682,7 @@ export default StyleSheet.create({
   },
 
   mailText:{
-    fontSize:14,
+    fontSize:RFPercentage(2.2),
     fontFamily:"Montserrat-SemiBold",
     color:'#000',
     marginBottom:15,
