@@ -97,7 +97,7 @@ class SignUpOTP extends Component{
 		this.props.updateFormValue("login");
 		$('#loginFormModal').show();	 
 	}
-  
+
 	render(){
 	    return(
 			<div className={"col-12 "+S.systemSecurityWrapper}>
@@ -109,7 +109,7 @@ class SignUpOTP extends Component{
 						</div>
 					</div>
 					<div className={"col-12 "+S.systemSecurityTitleWrapper}>
-						<span className={"font-weight-bolder border-0 "+S.systemSecurityTitle}>OTP</span>
+						<span className={"font-weight-bolder border-0 "+S.systemSecurityTitle1}>OTP</span>
 					</div>
 					<div className="col-12 mt-3">
 						<OtpInput

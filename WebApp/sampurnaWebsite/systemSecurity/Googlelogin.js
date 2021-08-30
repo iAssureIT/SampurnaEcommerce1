@@ -64,7 +64,7 @@ class Googlelogin extends Component{
 					// onFailure		= {responseGoogle}
 					cookiePolicy	= {'single_host_origin'}
 					isSignedIn		= {false}
-					className		= "googleBgColor"
+					className		= "googleBgColor d-flex justify-content-center"
 				>
 					<span className="googleTextWrapper">Continue With Google</span>
 				</GoogleLogin>

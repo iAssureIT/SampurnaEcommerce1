@@ -32,28 +32,31 @@
     text-align: center;
     padding-top: 40px;
 }
-.systemSecurityTitle{
-    font-family : 'Montserrat-Medium';
+.systemSecurityTitle1{
+    font-family: 'Montserrat-Medium';
     color: #033554;
+}
+.systemSecurityTitle2{
+    font-family: 'Montserrat-Bold' !important;
+    color: #033554;
+    font-weight: bold;
 }
 .systemSecurityTextWrapper{
     padding-top: 30px;
 }
 .systemSecurityTextWrapper span{
     font-size: 10px;
-    font-family : 'Montserrat-Light';
+    font-family: 'Montserrat-Light';
     font-weight: 300;
     color: #033554;
 }
 .systemSecurityTextWrapper a{
     font-size: 10px;
-    font-family : 'Montserrat-Regular';
+    font-family: 'Montserrat-Regular';
     color: #2E92CF;
 }
-.otpText{
-	margin-left: 0px !important;
-}
 .backToLogin{
+    font-family: 'Montserrat-Medium' !important;
     color: #033554 !important;
 }
 .systemSecurityTitleUnderline{
@@ -64,25 +67,51 @@
     width: 150px;
     margin-top: -2px;
 }
-.systemSecurityWrapper input::placeholder {
+.systemSecurityWrapper input::placeholder{
     font-size: 12px !important;
-    font-family : 'Montserrat-Light';
+    font-family: 'Montserrat-Light';
     font-weight: 300;
     color: #033554 !important;
 }
 .resetPasswordTitle{
     font-family: 'Montserrat-Bold' !important;
+    color: #033554;
 }
-.termsCondition{
+.otpTitle{
+    font-family: 'Montserrat-Bold' !important;
+}
+.systemSecurityTermsNConditionWrapper{
     font-size: 12px;
+}
+.systemSecurityTermsNConditionText{
+    font-size: 12px;
+    font-family: 'Montserrat-Light';
+    color: #033554;
+    cursor: pointer;
 }
 .resetInstruction{
     font-size: 8px !important;
     color: #000;
-    margin-top: -10px;
+    margin-top: -15px;
 }
-
-
+.forgotText{
+    font-size: 10px;
+    font-family: 'Montserrat-Light';
+    color: #0087DB;
+}
+.systemSecuritySignIn{
+    color: #033554 !important;
+}
+.otpText1{
+    color: #000000 !important;
+    font-family: 'Montserrat-Medium' !important;
+    opacity: 0.5 !important;
+}
+.otpText2{
+    color: #000000 !important;
+    font-family: 'Montserrat-Medium' !important;
+    opacity: 1 !important;
+}
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 
@@ -96,9 +125,6 @@
 /* [sm] Small Devices [Phone - Landscape, 576px and up] */
 @media (min-width: 576px){
 
-    .otpText{
-        margin-left: 58px !important;
-    }
 }
 
 
@@ -113,9 +139,6 @@
 
     .systemSecurityWrapper{
         height: 500px;
-    }
-    .otpText{
-        margin-left: 25px !important;
     }
 }
 
@@ -141,6 +164,39 @@
 /* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
 @media (min-width: 1920px){
 
+    .systemSecurityTitleWrapper{
+        padding-top: 120px;
+    }
+    .systemSecurityTitle1{
+        font-size: 30px;
+    }
+    .systemSecurityTitleUnderline{
+        width: 90px;
+    }
+    .systemSecurityTextWrapper{
+        padding-top: 60px;
+    }
+    .systemSecurityTextWrapper span{
+        font-size: 18px;
+    }
+    .systemSecurityTextWrapper a{
+        font-size: 18px;
+    }
+    .systemSecurityWrapper input::placeholder{
+        font-size: 21px !important;
+    }
+    .loginForm input{
+        margin-top: 25px;
+        font-size: 21px !important;
+    }
+    .forgotText{
+        font-size: 17px !important;
+        margin-top: 20px !important;
+    }
+    .orWrapper{
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
 }
 
 

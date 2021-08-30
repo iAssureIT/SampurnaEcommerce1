@@ -203,7 +203,7 @@
 }
 
 .labelCategory {
-  font-size          : 12px !important;
+  font-size          : 12px;
   margin-top         : -40px;
   /* background-color: #ddd; */
   cursor             : pointer;
@@ -220,15 +220,6 @@
   border          : none !important;
 }
 
-@media screen and (max-width: 480px) {
-  .card {
-    border      : 1px solid #f1f2f2;
-    /* max-width: 270px; */
-    /* margin   : 5px; */
-    height      : 385px;
-    padding     : 0px;
-  }
-}
 
 .ratebox {
   line-height     : normal;
@@ -700,36 +691,34 @@
 }
 
 .panelHeading {
-  padding      : 2px 10px !important;
+  padding      : 2px 10px;
   cursor       : pointer;
   border-bottom: solid 0.5px #eee;
 
 }
 
 .panelHeading span {
-  margin-left: 50px !important;
-  margin-top : -24px !important;
-  font-size  : 14px !important;
+  margin-left: 50px;
+  margin-top : -24px;
+  font-size  : 14px;
   color      : #000;
   /* font-weight: 500 !important; */
-  font-family        : 'Montserrat-Bold' !important;
+  /*font-family        : 'Montserrat-Bold' !important;*/
 
 }
 
 .panelHeading input {
-  margin-left: 36px !important;
+  margin-left: 36px;
 }
 
 .panelHeading h4 a {
+  margin-left    : 57px;
+  font-size      : 14px;
   text-decoration: none !important;
-  font-size      : 14px !important;
   color          : #000;
-  font-weight    : 500 !important;
-  margin-left    : 57px !important;
+  font-weight    : 500;
   display        : inline-block;
-  font-family :'Montserrat-bold'!important;
-
-
+  /*font-family :'Montserrat'!important;*/
 }
 
 .panelHeading h4 {
@@ -737,8 +726,8 @@
 
 }
 
-.vendorNameWrapper b {
-  /* margin-left: 58px; */
+.vendorNameWrapper {
+  font-size: 15px;
 }
 
 .changeVendorWrapper {
@@ -845,8 +834,8 @@
 }
 
 .brandFilterInput {
-  height: 15px !important;
-  width : 15px !important;
+  height: 15px ;
+  width : 15px ;
 }
 
 .brandInput {
@@ -891,7 +880,7 @@
 }
 
 .f14 {
-  font-size  : 14px !important;
+  font-size  : 14px;
   margin-left: -60px;
 }
 
@@ -900,14 +889,36 @@
     padding-left : 5px !important;
     padding-right: 5px !important;
   }
-
   .productDetailVendorName {
     font-size: 10px;
+  }  
+  .card {
+    border      : 1px solid #f1f2f2;
+    height      : 385px;
+    padding     : 0px;
   }
-  
+
 }
+
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
+
+
+
+@media (min-width: 480px) and (max-width: 768px) {  
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {  
+  .categoryFilterTitle{
+      font-size: 14px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px){
+}
+
+
+@media (min-width: 1280px) and (max-width: 1366px){
   .line {
     position          : absolute;
     height            : 2px;
@@ -948,25 +959,200 @@
   }
 }
 
-@media (min-width: 1537px) and (max-width: 1920px) {  
-  .panelHeading {
-    padding      : 5px 10px !important;
-  }
-}
-
-@media (min-width: 1600px) and (max-width: 2560px) {  
-  .panelHeading {
-    padding      : 5px 10px !important;
-  }
-}
-@media (min-width: 1080px) and (max-width: 1920px) {  
-
-}
-@media (min-width: 864px) and (max-width: 1536px) {  
-  
-}
-@media (min-width: 768px) and (max-width: 1024px) {  
+@media (min-width: 1336px) and (max-width: 1440px) {    
   .categoryFilterTitle{
-      font-size: 14px;
+    font-size: 18px;
+  }
+  .panelHeading h4 a, .panelHeading span{
+    margin-left    : 55px;
+    font-size      : 18px;
+    font-weight    : 100;
+    margin-top     : -36px;
+  }
+  .panelHeading{
+    padding: 18px 0px 12px 30px;
+  }
+  .brandFilterInput {
+    height: 20px;
+    width: 20px;
+  }
+  .brandInput{
+    margin-top: 10px;
+  }
+  .f14 {
+    font-size: 15px;
+    margin-left: -80px;
+  }
+  .labelCategory {
+    font-size : 15px;
+    background-color: #eee;
+  }
+  .ellipsis {
+    font-size: 16px;
+  }
+  .price{
+    font-size: 15px;
+  } 
+  .vendorNameWrapper{
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 1536px) {    
+  .categoryFilterTitle{
+    font-size: 18px;
+  }
+  .panelHeading h4 a, .panelHeading span{
+    margin-left    : 55px;
+    font-size      : 18px;
+    font-weight    : 100;
+    margin-top     : -36px;
+  }
+  .panelHeading{
+    padding: 18px 0px 12px 30px;
+  }
+  .brandFilterInput {
+    height: 20px;
+    width: 20px;
+  }
+  .brandInput{
+    margin-top: 10px;
+  }
+  .f14 {
+    font-size: 15px;
+    margin-left: -80px;
+  }
+  .labelCategory {
+    font-size : 15px;
+    background-color: #eee;
+  }
+  .ellipsis {
+    font-size: 16px;
+  }
+  .price{
+    font-size: 15px;
+  } 
+  .vendorNameWrapper{
+    font-size: 16px;
+  }
+}
+
+
+@media (min-width: 1536px) and (max-width: 1680px) {  
+  .categoryFilterTitle{
+    font-size: 20px;
+  }
+  .panelHeading h4 a, .panelHeading span{
+    margin-left    : 63px;
+    font-size      : 21px;
+    font-weight    : 100;
+    margin-top     : -36px;
+  }
+  .panelHeading{
+    padding: 18px 0px 12px 30px;
+  }
+  .brandFilterInput {
+    height: 20px;
+    width: 20px;
+  }
+  .brandInput{
+    margin-top: 10px;
+  }
+  .f14 {
+    font-size: 16px;
+    margin-left: -80px;
+  }
+  .labelCategory {
+    font-size : 16px;
+    background-color: #eee;
+  }
+  .ellipsis {
+    font-size: 18px;
+  }
+  .price{
+    font-size: 16px;
+  } 
+  .vendorNameWrapper{
+    font-size: 18px;
+  }
+}
+
+
+@media (min-width: 1680px) and (max-width: 1920px) {  
+  .categoryFilterTitle{
+    font-size: 20px;
+  }
+  .panelHeading h4 a, .panelHeading span{
+    margin-left    : 63px;
+    font-size      : 21px;
+    font-weight    : 100;
+    margin-top     : -36px;
+  }
+  .panelHeading{
+    padding: 18px 0px 12px 30px;
+  }
+  .brandFilterInput {
+    height: 20px;
+    width: 20px;
+  }
+  .brandInput{
+    margin-top: 10px;
+  }
+  .f14 {
+    font-size: 16px;
+    margin-left: -80px;
+  }
+  .labelCategory {
+    font-size : 16px;
+    background-color: #eee;
+  }
+  .ellipsis {
+    font-size: 18px;
+  }
+  .price{
+    font-size: 16px;
+  } 
+  .vendorNameWrapper{
+    font-size: 18px;
+  }
+}
+
+
+@media (min-width: 1920px){  
+  .categoryFilterTitle{
+    font-size: 22px;
+  }
+  .panelHeading h4 a, .panelHeading span{
+    margin-left    : 68px;
+    font-size      : 25px;
+    font-weight: 100;
+    margin-top: -36px;
+  }
+  .panelHeading{
+    padding: 18px 0px 12px 30px;
+  }
+  .brandFilterInput {
+    height: 20px;
+    width: 20px;
+  }
+  .brandInput{
+    margin-top: 10px;
+  }
+  .f14 {
+    font-size: 18px;
+    margin-left: -80px;
+  }
+  .labelCategory {
+    font-size : 18px;
+    background-color: #eee;
+  }
+  .ellipsis {
+    font-size: 20px;
+  }
+  .price{
+    font-size: 16px;
+  }
+  .vendorNameWrapper{
+    font-size: 18px;
   }
 }

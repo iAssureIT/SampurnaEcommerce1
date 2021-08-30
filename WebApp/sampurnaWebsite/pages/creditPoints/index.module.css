@@ -128,6 +128,75 @@
     }
 }
 
+@media only screen and (min-device-width: 1366px) {
+    .creditPointTitleWrapper{
+        font-size: 25px;
+    }
+
+    .CreditCurrentBalTitle1{
+        font-size: 13px;
+    }
+
+    .CreditCurrentBalTitle2{
+        font-size: 10px;
+    }
+
+    .CreditEarnedBalTitle1{
+        font-size: 13px;
+    }
+
+    .CreditDataPtTitle{
+        font-size: 15px;
+    }
+
+    .CreditTotalBalTitle{
+        font-size: 14px;
+    }
+
+    .CreditCurrentBalTitle{
+        font-size: 14px;
+    }
+
+    .CreditTotalPtTitle{
+        font-size: 15px;
+    }
+
+}
+
+@media only screen and (min-device-width: 1440px) {
+    .creditPointTitleWrapper{
+        font-size: 29px;
+    }
+
+    .CreditCurrentBalTitle1{
+        font-size: 14px;
+    }
+
+    .CreditCurrentBalTitle2{
+        font-size: 10px;
+    }
+
+    .CreditEarnedBalTitle1{
+        font-size: 14px;
+    }
+
+    .CreditDataPtTitle{
+        font-size: 16px;
+    }
+
+    .CreditTotalBalTitle{
+        font-size: 14px;
+    }
+
+    .CreditCurrentBalTitle{
+        font-size: 14px;
+    }
+
+    .CreditTotalPtTitle{
+        font-size: 16px;
+    }
+}
+
 
 @media only screen and (min-device-width: 1536px) {
     .creditPointTitleWrapper{

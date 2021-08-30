@@ -99,7 +99,7 @@ class ConfirmOTP extends Component{
 	render(){
 		return(
 			<div className={"col-12 "+S.systemSecurityWrapper}>
-				<div className="col-10 offset-1 mt-3">
+				<div className="col-12 mt-3">
 					<div className={"col-12 "+S.systemSecurityTextWrapper}>
 						<div className="row">
 							<a><img src="/images/eCommerce/go-back-arrow.png"></img>&nbsp;</a>
@@ -107,27 +107,27 @@ class ConfirmOTP extends Component{
 						</div>
 					</div>
 					<div className={"col-12 "+S.systemSecurityTitleWrapper}>
-						<span className={"font-weight-bolder border-0 "+S.systemSecurityTitle}>OTP</span>
+						<span className={S.systemSecurityTitle2}>OTP</span>
 					</div>
-                	<div className="col-12 mt-3">
-						<OtpInput
-							className="otpInputBox"
-							value={this.state.otp}
-							onChange={this.handleChange}
-							numInputs={4}
-							separator={<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}
-						/>
-					</div>
-					<div className={"col-12 "+S.systemSecurityTextWrapper}>
-						<div className="row">
-							<span className={"mt-xl-n2 "+S.otpText}>Didn't receive code?</span>&nbsp;&nbsp;
-							<a href="" className="mt-xl-n2 text-dark font-weight-bold" onClick={this.resendOTP.bind(this)}>Request again!</a>
+                	<div className="col-12 mt-4">
+						<div className="d-flex justify-content-center">
+							<OtpInput
+								className="otpInputBox"
+								value={this.state.otp}
+								onChange={this.handleChange}
+								numInputs={4}
+								separator={<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}
+							/>
 						</div>
 					</div>
-				</div>
-				<div className="col-10 offset-1 mt-4">
+					<div className={"col-12 "+S.systemSecurityTextWrapper}>
+						<div className="row d-flex justify-content-center">
+							<span className={"mt-xl-n2 "+S.otpText1}>Didn't receive code?</span>&nbsp;&nbsp;
+							<a href="" className={"mt-xl-n2 "+S.otpText2} onClick={this.resendOTP.bind(this)}>Request again!</a>
+						</div>
+					</div>
 					<div className="col-12">
-						<button className="col-12 otpBtns text-center" onClick={this.verifyOTP.bind(this)}>Verify</button>
+						<button className="col-12 mt-3 mb-4 otpBtns" onClick={this.verifyOTP.bind(this)}>Verify</button>
 					</div>
 				</div>
 			</div>

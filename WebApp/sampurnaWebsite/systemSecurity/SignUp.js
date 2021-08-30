@@ -269,30 +269,30 @@ class SignUp extends Component{
 		return(
 			<div className={"col-12 "+S.systemSecurityWrapper}>
 				<div className={"col-12 "+S.systemSecurityTitleWrapper}>
-					<span className={S.systemSecurityTitle}>SIGN UP</span>
+					<span className={S.systemSecurityTitle1}>SIGN UP</span>
 					<hr className={S.systemSecurityTitleUnderline}/>
 				</div>
 				<div className={"col-12 "+S.systemSecurityTextWrapper}>
 					<div className="row">
 						<span>Already have an account?</span>&nbsp;&nbsp;
-						<a href="" className="" onClick={this.openSignInModal.bind(this)}>Sign In</a>
+						<a href="" className={S.systemSecuritySignIn} onClick={this.openSignInModal.bind(this)}>Sign In</a>
 					</div>
 				</div>
 				<form id="signUpUser" className="row">
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
+					<div className="col-12 col-lg-6 form-group frmhgt textAlignLeft">
 						<input type="text" maxLength="25" className="form-control formcontrol1" id="firstname" ref="firstname" name="firstname" placeholder="First Name*" onChange={this.handleChange} data-text="firstNameV" />
 						<div className="errorMsg mt-1">{this.state.errors.firstname}</div>
 					</div>
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
+					<div className="col-12 col-lg-6 form-group frmhgt textAlignLeft">
 						<input type="text" maxLength="25" className="form-control formcontrol1" id="lastname" ref="lastname" name="lastname" placeholder="Last Name*" onChange={this.handleChange} data-text="lastNameV" />
 						<div className="errorMsg mt-1 ">{this.state.errors.lastname}</div>
 					</div>
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6  ">
+					<div className="col-12 col-lg-6 form-group frmhgt textAlignLeft">
 						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="Email ID*" onChange={this.handleChange} data-text="emailIDV" />
 						<div className="errorMsg mt-2">{this.state.errors.signupEmail}</div>
 					</div>
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 ">
-						<PhoneInput
+					<div className="col-12 col-lg-6 form-group frmhgt textAlignLeft">
+						{/* <PhoneInput
 							country={'ae'} 
 							value={this.state.mobNumber}
 							inputProps={{
@@ -309,7 +309,28 @@ class SignUp extends Component{
 								fields
 								});
 							}}
-						/>    
+						/> */}
+						<input
+							className="form-control formcontrol1"
+							type="tel"
+							id="phone"
+							name="phone"
+							ref="phone"
+							placeholder="Phone*"
+							pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+							onChange={mobNumber => { 
+								this.setState({ mobNumber })
+								let fields = this.state.fields;
+								fields["mobNumber"] = this.state.mobNumber;
+								this.setState({
+									fields
+								});
+							}}
+							inputProps={{
+								name: 'mobNumber',
+								required: true
+							}}
+						/>
 						<div className="errorMsg">{this.state.errors.mobNumber}</div> 
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
@@ -332,9 +353,9 @@ class SignUp extends Component{
 						</span>
 						<div className="errorMsg mt-1">{this.state.errors.signupConfirmPassword}</div>
 					</div>
-					<div className={"col-12 mt-2 shippingtimes "+S.termsCondition}>
-						<span><input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="" /></span>&nbsp;
-						<span className="" data-toggle="modal" data-target="#termsNconditionsmodal">Terms & Conditions</span>
+					<div className={"col-12 mt-2 shippingtimes "+S.systemSecurityTermsNConditionWrapper}>
+						<span><input className="" type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} /></span>&nbsp;
+						<span className={S.systemSecurityTermsNConditionText} data-toggle="modal" data-target="#termsNconditionsmodal">Terms & Conditions</span>
 						<span className="required">*</span>
 						<div className="errorMsg mt-1">{this.state.errors.termsNconditions}</div>
 					</div>

@@ -102,72 +102,72 @@ class SystemSecurityPopup extends React.Component{
     render(){
         return(
             <section id="loginFormModal" className={"col-12 modal "+Style.systemSecurityPopupWrapper} data-keyboard="false">
-                <div className="col-12 modal-dialog modal-xl">
+                <div className={"col-12 modal-dialog modal-xl"}>
                     <div className={"col-12 col-xl-10 offset-xl-1 modal-content "+Style.systemSecurityPopupModalContent}>
                         <div className={"col-12 modal-body "+Style.systemSecurityPopupModalBody}>
-                            <div className="row bg-transparent">
-                                <div className={"col-12 col-lg-6 col-xl-7 "+Style.systemSecurityPopupLeftImageWrapper}>
-                                    <img className={Style.systemSecurityPopupLeftImageLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt=""/>
-                                </div>
-                                <div className={"col-12 col-lg-6 col-xl-5 "+Style.systemSecurityPopupRightFormWrapper}>
-                                    <button type="button" className={"close mt-3 mr-5 "+Style.systemSecurityPopupCloseButton} data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>
-                                    {
-                                        this.props.formToShow === "login"
-                                        ?
-                                            <div className="col-12">
-                                                <Login />
-                                            </div>
-                                        :
-                                            null
-                                    }
-                                    {
-                                        this.props.formToShow === "signUp"
-                                        ?
-                                            <div className="col-12">
-                                                <SignUp />
-                                            </div>
-                                        :
-                                            null
-                                    }
-                                    {
-                                        this.props.formToShow === "signupotp"
-                                        ?
-                                            <div className="col-12">
-                                                <SignUpOTP />
-                                            </div>
-                                        :
-                                            null
-                                    }
-                                    {
-                                        this.props.formToShow === "forgotPassword"
-                                        ?
-                                            <div className="col-12">
-                                                <ForgotPassword />
-                                            </div>
-                                        :
-                                            null
-                                    }
-                                    {
-                                        this.props.formToShow === "confirmOtp"
-                                        ?
-                                            <div className="col-12">
-                                                <ConfirmOtp />
-                                            </div>
-                                        :
-                                            null
-                                    }
-                                    {
-                                        this.props.formToShow === "resetPassword"
-                                        ?
-                                            <div className="col-12">
-                                                <ResetPassword />
-                                            </div>
-                                        :
-                                            null
-                                    }
+                                <div className="row">
+                                    <div className={"col-12 col-lg-6 col-xl-7 "+Style.systemSecurityPopupLeftImageWrapper}>
+                                        <img className={Style.systemSecurityPopupLeftImageLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt=""/>
+                                    </div>
+                                    <div className={"col-12 col-lg-6 col-xl-5 "+Style.systemSecurityPopupRightFormWrapper}>
+                                        <button type="button" className={"close mt-3 mr-5 "+Style.systemSecurityPopupCloseButton} data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>
+                                        {
+                                            this.props.formToShow === "login"
+                                            ?
+                                                <div className="col-12">
+                                                    <Login />
+                                                </div>
+                                            :
+                                                null
+                                        }
+                                        {
+                                            this.props.formToShow === "signUp"
+                                            ?
+                                                <div className="col-12">
+                                                    <SignUp />
+                                                </div>
+                                            :
+                                                null
+                                        }
+                                        {
+                                            this.props.formToShow === "signupotp"
+                                            ?
+                                                <div className="col-12">
+                                                    <SignUpOTP />
+                                                </div>
+                                            :
+                                                null
+                                        }
+                                        {
+                                            this.props.formToShow === "forgotPassword"
+                                            ?
+                                                <div className="col-12">
+                                                    <ForgotPassword />
+                                                </div>
+                                            :
+                                                null
+                                        }
+                                        {
+                                            this.props.formToShow === "confirmOtp"
+                                            ?
+                                                <div className="col-12">
+                                                    <ConfirmOtp />
+                                                </div>
+                                            :
+                                                null
+                                        }
+                                        {
+                                            this.props.formToShow === "resetPassword"
+                                            ?
+                                                <div className="col-12">
+                                                    <ResetPassword />
+                                                </div>
+                                            :
+                                                null
+                                        }
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </section>
