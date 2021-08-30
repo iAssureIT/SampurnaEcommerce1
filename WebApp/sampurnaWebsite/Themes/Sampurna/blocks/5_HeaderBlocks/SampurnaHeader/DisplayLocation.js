@@ -8,7 +8,7 @@ import Router    from 'next/router';
 import Link      from 'next/link';
 import swal      from 'sweetalert';
 import store     from '../../../../../redux/store.js';
-import Style     from './HeaderNew.module.css';
+import Style     from './Header.module.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import {updateCartCount,setSampurnaWebsiteDetails }    from '../../../../../redux/actions/index.js'; 
 
@@ -80,7 +80,7 @@ class DisplayLocation extends React.Component{
 							?
 								<div className={"col-12 "+ Style.DisplayLocation}>
 									<div className={"row " + Style.DisplayLocation}>
-										<div className={"col-10 " + Style.deliveryAddress}>
+										<div className={"col-lg-10 col-7 " + Style.deliveryAddress}>
 											<div className="col-12">
 												<span className={Style.locationText}>
 													Your current location is - 
@@ -90,8 +90,8 @@ class DisplayLocation extends React.Component{
 												</span>
 											</div>
 										</div>
-										<div className={"col-2 "+ Style.DisplayLocation}>
-											<div className={"col-10 "+ Style.DisplayLocation}>
+										<div className={"col-lg-2 col-5 "+ Style.DisplayLocation}>
+											<div className={"col-lg-10 col-12 "+ Style.DisplayLocation}>
 												<button type="button" onClick={this.checkCart.bind(this)} className={Style.changelocationBtn1} data-toggle="modal" data-target="#locationModal" data-backdrop="true">
 													<span className={Style.changeLocationTitle}>
 														Change Location 

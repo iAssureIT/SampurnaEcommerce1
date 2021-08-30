@@ -5,7 +5,7 @@ import swal 		          from 'sweetalert';
 import Image                  from 'next/image';
 import { connect }            from 'react-redux';
 import  store                 from '../../../../../redux/store.js';
-import Style                  from './HeaderNew.module.css';
+import Style                  from './Header.module.css';
 import { updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }   from '../../../../../redux/actions/index.js'; 
 
 class MyCart extends React.Component { 

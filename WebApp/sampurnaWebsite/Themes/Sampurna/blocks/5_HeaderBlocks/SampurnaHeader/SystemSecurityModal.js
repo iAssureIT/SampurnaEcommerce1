@@ -15,7 +15,7 @@ import ResetPassword  from '../../../../../systemSecurity/ResetPassword.js';
 import SignUpOTP      from '../../../../../systemSecurity/SignUpOTP.js';
 import Websitelogo    from './Websitelogo.js';
 import {getForm,updateForm,updateCartCount}  from '../../../../../redux/actions';
-import Style                  from './HeaderNew.module.css';
+import Style                  from './Header.module.css';
 import SystemSecurityPopup   from './SystemSecurityPopup.js';
 
 const { publicRuntimeConfig } = getConfig();
@@ -250,7 +250,7 @@ class header extends React.Component {
                             </div>
                         </div>
                    : 
-                        <div className={"col-10 offset-lg-4 " + Style.signInWrapper}>
+                        <div className={"col-8 col-lg-10 offset-lg-4 offset-6 " + Style.signInWrapper}>
                             <div className="row">
                                 <a href="" data-toggle="modal" data-target="#loginFormModal" 
                                    data-backdrop="true" id="loginModal" area-hidden ="true"> 

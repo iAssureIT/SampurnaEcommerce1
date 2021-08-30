@@ -110,7 +110,6 @@
     text-transform: uppercase;
     font-size: 11px;
     font-weight: 600;
-    height: 100%;
     color: #DC1919;
 }
 .listSubTitles{
@@ -840,4 +839,78 @@
         .userName{
             font-size: 10px;
         }
+}
+@media (max-width: 640px) {
+    .headerWrapper{
+        min-height: 137px;
+        height: auto;
+    }
+    .logoImg{
+        height: 35px;
+    }
+    .signInWrapper{
+        margin-top: 3px;
+    }
+    .cartIcon{
+        margin-top: 5px;
+    }
+    .megamenu{
+        height: 110px;
+    }
+    .searchWrapper{
+        padding-top: 0px;
+    }
+    
+    .navbarHeader{
+        position: absolute;
+        top: -51px;
+    }
+    .mainMenu{
+        height: 360px;
+        background-color: #ddd;
+    }
+    .allCategories{
+        padding-left: 0px;
+    }
+    .listSubTitles,.mainMenu2{
+        padding-left: 0px;
+    }
+    .locationText{
+        padding-left: 0px;
+    }
+    .deliveryAddress{
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+    }
+    .locationText{
+        font-size: 10px;
+    }
+    .deliveryAddress{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .locationSubText{
+        font-size: 9px; 
+    }
+    .changeLocationTitle{
+        font-size: 10px;
+    }
+    .searchIcon{
+        width: 15%;
+    }
+    .locationHeaderwrapper{
+        height: 27px;
+    }
+    .navbarIcon {
+        border: 1px solid #fff;
+        color: #fff;
+        position: relative;
+    }
+    .navbarIcon2{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
 }

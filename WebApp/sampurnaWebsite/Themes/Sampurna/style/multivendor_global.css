@@ -1,4 +1,4 @@
-@import "../blocks/5_HeaderBlocks/SampurnaHeader/Header.css";
+/*@import "../blocks/5_HeaderBlocks/SampurnaHeader/Header.css";*/
 /* @import "../blocks/5_HeaderBlocks/Header/Header.css"; */
 @import "../blocks/6_FooterBlocks/Footer/Footer.css";
 @import "../blocks/11_SectionCatgBlock/SectionCatg/SectionCatg.css";
@@ -716,8 +716,8 @@ body {
 }
 
 #nprogress .bar {
-  background: #DC1919 !important;
-  color     : #DC1919 !important;
+  background: #D8AB46 !important;
+  color     : #D8AB46 !important;
   height    : 2px !important;
 }
 

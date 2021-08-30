@@ -10,6 +10,7 @@ import SystemSecurityModal    from './SystemSecurityModal.js';
 import Websitelogo            from './Websitelogo.js';
 import MyCart                 from './MyCart.js';
 import Wishlist               from './Wishlist.js';
+import Style                  from './Header.module.css';
 import {setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 
 class Header extends React.Component {
@@ -56,67 +57,120 @@ class Header extends React.Component {
           systemSecurityMl = 5;
         }
         return(   
-            <div className="col-12 headerWrapper NoPadding">
-                <div className="col-12 NoPadding multilevelType2MenuWrapper"> 
-                    <header>
-                        <nav className="navbar navbar-expand-md navbar-dark megamenu">
-                            <div className="col-12 NoPadding ">
-                                <div className="col-12 top-header NoPadding">
-                                    <div className="col-12 logoWrap"> 
-                                        <div className="row">
-                                            <div className="col-4 col-lg-2 col-md-2 col-sm-2 col-xl-2">
+            <div className={"col-12 " + Style.headerWrapper}>
+                <header>
+                    <div className="">
+                        <nav className={"navbar navbar-expand-md "+ Style.megamenuWrapper}>
+                        <div className="col-12">
+                            <div className="row">
+                                <div className={"col-12 col-lg-12 " + Style.megamenu}> 
+                                    <div className="row h-100">
+                                        <div className="col-lg-2 col-4  order-lg-1 order-1">
+                                            <div className="col-lg-12 col-12">
                                                 <Websitelogo />
                                             </div>
-
-                                            <SearchBar />
-                                            
-                                            <div className={"col-8 col-sm-5 col-md-4 col-lg-3 " +"col-xl-"+colWithLogin+" mt-1 systemSecurity"}> 
-                                                <div className="row">   
-                                                    <div className={"col-5 NoPadding ml-"+systemSecurityMl+ " systemSecurityModal"}>
-                                                        < SystemSecurityModal />
-                                                    </div>                             
-                                                    <div className={"col-"+wishlistCol +" NoPadding "}>                                                   
-                                                        < Wishlist />                                                
-                                                    </div>  
-                                                    <div className="col-3 col-sm-4 col-lg-3 col-xl-3 NoPadding ">
-                                                        < MyCart />    
-                                                    </div>                                      
-                                                </div>
+                                        </div>
+                                        <div className="col-lg-8 col-12 h-100 order-lg-2 order-3">
+                                            <div className="row">
+                                                <SearchBar />
                                             </div>
-                                            
+                                        </div>
+                                        <div className="col-lg-2 col-8 h-lg-100 h-50 order-lg-3 order-2">
+                                            <div className="row h-100">
+                                                <div className="col-6 h-100">
+                                                    <SystemSecurityModal />
+                                                </div>
+                                                <div className="col-2 h-100">
+                                                    < Wishlist /> 
+                                                </div>
+                                                <div className="col-4 h-100">
+                                                    <div className="row h-100">
+                                                        <MyCart />
+                                                    </div>
+                                                </div>
+                                           </div>
                                         </div>
                                     </div>
-                                </div> 
-                                <div className="col-12 NoPadding">
+                                    
+                                </div>
+                                <div className={"col-12 col-lg-12 "}>
+                                    <div className="row h-100">
+                                        <div className={"col-lg-12  navbar-header " + Style.navbarHeader}>
+                                            <button className={"navbar-toggler "+  Style.collapseBtn} type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                                                <span className={"navbar-toggler-icon " + Style.navbarIcon}>
+                                                    <i className={"fas fa-bars " + Style.navbarIcon2}></i>
+                                                </span>
+                                            </button>                             
+                                        </div>
+                                        <div id="collapsibleNavbar" className={"col-lg-12 col-12 collapse navbar-collapse " + Style.mainMenu + " " + Style.mainMenuWrapper}>
+                                            <div className="col-12 h-100">
+                                                <div className="row h-100">
+                                                <div className={"col-lg-2 col-12 " + Style.allCategories}>
+                                                    All Categories
+                                                </div>
+                                                <div className="col-lg-10 col-12">
+                                                    <div className="row h-100">
+                                                        <Megamenu />                                                </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={"col-12 " + Style.locationHeaderwrapper}>
+                                    <div className={"row " + Style.locationHeader}>
+                                        <DisplayLocation />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                    {/**/}
+                                    
+                                    {/*<div className={"col-8 col-sm-5 col-md-4 col-lg-3"}> 
+                                        <div className="row">   
+                                            <div className={"col-5 ml-"+systemSecurityMl}>
+                                                < SystemSecurityModal />
+                                            </div>                             
+                                            <div className={"col-"+wishlistCol}>                                                   
+                                                < Wishlist />                                                
+                                            </div>  
+                                            <div className="col-3 col-sm-4 col-lg-3 col-xl-3">
+                                                < MyCart />    
+                                            </div>                                      
+                                        </div>
+                                    </div>*/}
+                                
+                                {/*<div className="col-12">
                                     <div className="d-block d-lg-none navbar-header">
                                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                                             <span className="navbar-toggler-icon"></span>
                                         </button>                             
                                     </div>
-                                    <div id="collapsibleNavbar" className="col-12 collapse navbar-collapse navHeaderCollapse ">
+                                    <div id="collapsibleNavbar" className="col-12 collapse navbar-collapse">
                                         <Megamenu />
                                     </div>
-                                </div>                    
-                            </div>
+                                </div>*/}
+                                
                         </nav>
-                        <DisplayLocation />
-                        
-                        <div id="locationModal" className="col-12 modal in"  data-keyboard="false" >
-                            <div className="modal-dialog modal-xl " >
-                                <div className="modal-content ">                            
-                                    <div className="modal-body">                                          
-                                        <div className="modal-header">
-                                            <h6 className="modal-title">Your Delivery Location</h6>
-                                        </div>
-                                        <button type="button" className="close closeModalBtn"  data-dismiss="modal" >&times;</button>  
-                                        {/* <DeliveryLocationPopup/> */}
-                                        <DeliveryLocationPopupAfterLogin/>
+                    </div>
+                    {/*<DisplayLocation />*/}
+                    
+                    <div id="locationModal" className="col-12 modal in"  data-keyboard="false" >
+                        <div className="modal-dialog modal-xl " >
+                            <div className="modal-content ">                            
+                                <div className="modal-body">                                          
+                                    <div className="modal-header">
+                                        <h6 className="modal-title">Your Delivery Location</h6>
                                     </div>
+                                    <button type="button" className="close closeModalBtn"  data-dismiss="modal" >&times;</button>  
+                                   
+                                    <DeliveryLocationPopupAfterLogin/>
                                 </div>
-                            </div>  
+                            </div>
                         </div>  
-                    </header>
-                </div>
+                    </div>  
+                </header>      
             </div>         
         );        
     }

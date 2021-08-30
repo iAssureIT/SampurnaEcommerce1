@@ -11,6 +11,7 @@ import Head                  from 'next/head'
 const { publicRuntimeConfig } = getConfig();
 const SITE_NAME   =  publicRuntimeConfig.SITE_NAME; 
 const MYSITE_NAME =  publicRuntimeConfig.MYSITE_NAME; 
+// const Header      = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/SampurnaHeader/HeaderNew.js'));
 const Header      = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/SampurnaHeader/Header.js'));
 const Footer      = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/6_FooterBlocks/Footer/Footer.js'));
 

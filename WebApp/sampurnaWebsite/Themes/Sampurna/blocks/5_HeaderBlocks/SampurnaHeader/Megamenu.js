@@ -4,7 +4,7 @@ import Link  from 'next/link';
 
 // import { useRouter } from 'next/router'
 import $, { post }            from 'jquery';
-import Style                  from './HeaderNew.module.css';
+import Style                  from './Header.module.css';
 
 // const router = useRouter()
 

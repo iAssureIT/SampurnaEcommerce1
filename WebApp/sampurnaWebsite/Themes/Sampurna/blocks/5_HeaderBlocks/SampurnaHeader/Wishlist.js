@@ -4,7 +4,7 @@ import Link                   from 'next/link';
 import swal 		          from 'sweetalert';
 import Image                  from 'next/image';
 import $                      from 'jquery';
-import Style                  from './HeaderNew.module.css';
+import Style                  from './Header.module.css';
 
 class Wishlist extends React.Component {
 	constructor(props) {
