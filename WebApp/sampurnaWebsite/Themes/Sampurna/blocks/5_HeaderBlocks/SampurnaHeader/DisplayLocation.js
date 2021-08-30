@@ -91,15 +91,17 @@ class DisplayLocation extends React.Component{
 											</div>
 										</div>
 										<div className={"col-lg-2 col-5 "+ Style.DisplayLocation}>
-											<div className={"col-lg-10 col-12 "+ Style.DisplayLocation}>
-												<button type="button" onClick={this.checkCart.bind(this)} className={Style.changelocationBtn1} data-toggle="modal" data-target="#locationModal" data-backdrop="true">
-													<span className={Style.changeLocationTitle}>
-														Change Location 
-													</span>
-													<span className={Style.changeLocationIcon}>
-														<i className="fas fa-map-marker-alt" aria-hidden="true"></i>
-													</span>
-												</button>
+											<div className="row">
+												<div className={"col-lg-9 col-11 offset-1 col-sm-7 offset-sm-4 offset-lg-0 "+ Style.DisplayLocation}>
+													<button type="button" onClick={this.checkCart.bind(this)} className={Style.changelocationBtn1} data-toggle="modal" data-target="#locationModal" data-backdrop="true">
+														<span className={Style.changeLocationTitle}>
+															Change Location 
+														</span>
+														<span className={Style.changeLocationIcon}>
+															<i className="fas fa-map-marker-alt" aria-hidden="true"></i>
+														</span>
+													</button>
+												</div>
 											</div>
 										</div>
 									</div>

@@ -124,13 +124,13 @@ class header extends React.Component {
                                 {
                                     this.state.authService === "guest" && this.state.userId
                                     ?
-                                    <div className="row">
-                                        <div  className="col-12">
+                                    <div className={"row "}>
+                                        <div  className="col-12 offset-3">
                                             <span className={Style.userName}>
                                                 Hello Guest!
                                             </span>
                                         </div>
-                                        <span className={Style.userName}>
+                                        <span className={"col-12 offset-3 " + Style.myAccountTitle}>
                                             My Account 
                                             {/* <i className="fa fa-angle-down"></i> */}
                                         </span>
@@ -236,14 +236,22 @@ class header extends React.Component {
                                     </div>
                                         
                                      :
-                                        <div className="col-12 ">
-                                            <div className="col-12" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}>
-                                                <Link href="/my-account#v-pills-settings-tab">
-                                                    <a>My Orders</a>
-                                                </Link>
-                                            </div>
-                                            <div className="col-12 " data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true">
-                                                Sign In
+                                        <div className={"col-12 " + Style.listDropDownMenu2}>
+                                            <div className="row"> 
+                                                <div className={"col-12 "+  Style.userDetailsList2} onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}>
+                                                    <div className="row"> 
+                                                        <Link href="/my-account#v-pills-settings-tab">
+                                                            <div className={Style.userDetailsListTitle}>My Orders</div>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                                <div className={"col-12 "+  Style.userDetailsList1} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true">
+                                                   <div className="row"> 
+                                                       <div className={Style.userDetailsListTitle1}>
+                                                            Sign In
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                 }

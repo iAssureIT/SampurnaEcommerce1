@@ -65,7 +65,7 @@ class Header extends React.Component {
                             <div className="row">
                                 <div className={"col-12 col-lg-12 " + Style.megamenu}> 
                                     <div className="row h-100">
-                                        <div className="col-lg-2 col-4  order-lg-1 order-1">
+                                        <div className="col-lg-2 col-4 col-sm-6 order-lg-1 order-1">
                                             <div className="col-lg-12 col-12">
                                                 <Websitelogo />
                                             </div>
@@ -75,7 +75,7 @@ class Header extends React.Component {
                                                 <SearchBar />
                                             </div>
                                         </div>
-                                        <div className="col-lg-2 col-8 h-lg-100 h-50 order-lg-3 order-2">
+                                        <div className={"col-lg-2 col-8 col-sm-6 h-lg-100 h-50 order-lg-3 order-2 " + Style.mobileMargin}>
                                             <div className="row h-100">
                                                 <div className="col-6 h-100">
                                                     <SystemSecurityModal />
@@ -95,7 +95,7 @@ class Header extends React.Component {
                                 </div>
                                 <div className={"col-12 col-lg-12 "}>
                                     <div className="row h-100">
-                                        <div className={"col-lg-12  navbar-header " + Style.navbarHeader}>
+                                        <div className={"col-lg-12 col-2 navbar-header " + Style.navbarHeader}>
                                             <button className={"navbar-toggler "+  Style.collapseBtn} type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                                                 <span className={"navbar-toggler-icon " + Style.navbarIcon}>
                                                     <i className={"fas fa-bars " + Style.navbarIcon2}></i>

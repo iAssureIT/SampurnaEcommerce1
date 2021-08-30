@@ -150,7 +150,7 @@ class Searchbar extends React.Component {
             colWithLogin = 8;
        }
         return(  
-            <div className={"col-lg-12 col-9 offset-2 offset-lg-0 "+ Style.searchWrapper}>     
+            <div className={"col-lg-12 col-9 offset-2 col-sm-10 offset-sm-1 offset-lg-0 "+ Style.searchWrapper}>     
                 <div className="row">     
                     <div className="col-12">  
                         <div className="row"> 
