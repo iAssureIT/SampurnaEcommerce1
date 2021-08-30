@@ -325,17 +325,20 @@ font-weight: bolder;
   }
   .wishIcon{ 
     /*margin-top: 5px;*/
-    padding: 0px 0px;
-    margin: 9px 0px 0px 12px;
-    font-weight: bold;
-    font-size: 12px;
+    /*padding: 0px 0px;
+    margin: 9px 0px 0px 12px;*/
+    /*font-weight: bold;*/
+    position: absolute;
+    left: 151px;
+    top: 3px;
     border: transparent;
+    /*font-size: 12px;*/
+    
     z-index: 1;
     background: transparent;
-    position: absolute;
-    left: 74%!important;
-    top: 2%;
-    font-size: 20px;
+/*    position: absolute;*/
+    /*left: 74%!important;
+    top: 2%;*/
     font-weight: 700;
   }
   .exclusiveProduct .owl-nav button.owl-next{
@@ -376,6 +379,43 @@ font-weight: bolder;
   }
 
 
+@media only screen and (min-device-width: 1366px) {
+
+  .wishIcon{ 
+    left: 122px;
+    top: 9px;
+  }
+
+  .ImgWrapper{
+    height: 150px;
+  }
+}
+
+
+@media only screen and (min-device-width: 1440px) {
+
+  .wishIcon{ 
+    left: 133px;
+    top: 9px;
+  }
+
+  .ImgWrapper{
+    height: 150px;
+  }
+}
+
+
+
+@media only screen and (min-device-width: 1536px) {
+
+  .wishIcon{ 
+    left: 148px;
+  }
+
+  .ImgWrapper{
+    height: 158px;
+  }
+}
 
 @media only screen and (min-device-width: 1920px) {
   .globalAddToCartBtn {
@@ -392,5 +432,20 @@ font-weight: bolder;
 
   .price{
     font-size: 16px;
+  }
+
+  .wishIcon{ 
+    position: absolute;
+    left: 218px;
+    top: 12px;
+    border: transparent;
+    
+    z-index: 1;
+    background: transparent;
+    font-weight: 700;
+  }
+
+  .ImgWrapper{
+    height: 200px;
   }
 }

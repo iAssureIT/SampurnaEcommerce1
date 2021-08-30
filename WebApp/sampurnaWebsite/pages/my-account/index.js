@@ -115,7 +115,7 @@ class MyAccount extends Component{
             <section className="header ">
                 <Header />
                 <div className="container-fluid pb-5 MyaccountMainWrapper">
-                    <div className="col-10 ml-xl-4">
+                    <div className="col-12 ml-xl-4">
                         <div className="row">
                             <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 col-12">
                                 <header className="col-12 mt-4 mb-xl-4 pl-xl-0 text-left text-black">

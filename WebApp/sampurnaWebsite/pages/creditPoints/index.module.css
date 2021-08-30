@@ -133,6 +133,35 @@
     .creditPointTitleWrapper{
         font-size: 30px;
     }
+
+    .CreditCurrentBalTitle1{
+        font-size: 15px;
+    }
+
+    .CreditCurrentBalTitle2{
+        font-size: 10px;
+    }
+
+    .CreditEarnedBalTitle1{
+        font-size: 15px;
+    }
+
+    .CreditDataPtTitle{
+        font-size: 17px;
+    }
+
+    .CreditTotalBalTitle{
+        font-size: 14px;
+    }
+
+    .CreditCurrentBalTitle{
+        font-size: 15px;
+    }
+
+    .CreditTotalPtTitle{
+        font-size: 17px;
+    }
+
 }
 
 @media only screen and (min-device-width: 1920px) {

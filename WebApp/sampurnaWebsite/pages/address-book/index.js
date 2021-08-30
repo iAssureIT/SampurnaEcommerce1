@@ -241,10 +241,10 @@ class AddressBook extends Component{
                                                                     }
                                                                     <br /> Contact Number: {address.mobileNumber} 
                                                                 </div>
-                                                                <div className="col-12 pl-lg-0 pl-xl-0 pl-md-0 pl-sm-0 ">
+                                                                <div className="col-12 pl-lg-0 pl-xl-0 pl-md-0 pl-sm-0 ml-xl-3">
                                                                     <div className="row">
                                                                         {/* <button data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className=" col-lg-8 col-xl-8 col-8 mx-auto btn globalCommonBtn float-left">Edit Address</button>  */}
-                                                                        <div className="col-4 pt-4 pt-lg-1">
+                                                                        <div className="col-4 pt-4 pt-lg-2">
                                                                             <i className={"fa fa-pencil-square-o btn pull-right " +Style.editAddress} data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} aria-hidden="true"></i>
                                                                         </div>
                                                                         <div className={"col-8 pt-3 pt-lg-0 text-right " + Style.additionalAddressDeleteBtn}>
