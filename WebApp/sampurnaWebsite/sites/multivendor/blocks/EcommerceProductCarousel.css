@@ -738,10 +738,10 @@ background-color: transparent !important;
     font-size: 15px;
 }
 .wishIcon{
-    margin-top: 5px;
-    padding: 6px 6px;
+    /*margin-top: 5px;*/
+    /*padding: 6px 6px;*/
     font-weight: bold;
-    font-size: 12px;
+    /*font-size: 12px;*/
     border: transparent;
     /* border-radius: 15px; */
     color: #80b435;

@@ -110,3 +110,22 @@
     text-transform: capitalize;
     opacity       : 1;
 }
+
+@media only screen and (min-device-width: 1536px) {
+    .wishListMainTitle {
+        font-size: 30px;
+    }
+}    
+
+
+
+@media only screen and (min-device-width: 1920px) {
+    .wishListMainTitle {
+        font-size: 37px;
+    }
+
+    .areaName {
+        font-family: 'Montserrat-SemiBold';
+        font-size: 21px;
+    }
+}

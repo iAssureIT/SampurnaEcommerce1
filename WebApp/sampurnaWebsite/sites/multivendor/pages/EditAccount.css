@@ -53,30 +53,37 @@
 }
 
 #editAccount label {
-  font-size     : 10px ! important;
+  font-size     : 10px;
   /* font-weight: 700 ! important; */
 }
 
 #editAccount input {
-  font-size: 10px ! important;
+  font-size: 10px;
 }
 
 #editAccount span {
-  font-size: 10px ! important;
+  font-size: 10px;
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   #editAccount label {
-    font-size     : 14px ! important;
+    font-size     : 15px;
     /* font-weight: 700 ! important; */
   }
 
   #editAccount input {
-    font-size: 14px ! important;
+    font-size: 16px;
   }
 
   #editAccount span {
-    font-size: 14px ! important;
+    font-size: 16px;
   }
 }
+
+
+@media (min-width: 1920px) {
+    #editAccount label {
+      font-size: 16px;
+    }
+  }

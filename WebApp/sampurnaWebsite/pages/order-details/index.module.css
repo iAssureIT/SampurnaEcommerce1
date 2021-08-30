@@ -15,7 +15,7 @@
 
 .ptb15 {
 	padding  : 15px 0px !important;
-	font-size: 8px !important;
+	font-size: 8px;
 }
 
 .pnHIdden {
@@ -34,11 +34,11 @@
 }
 
 .singleProductDetail {
-	font-family   : 'Montserrat-Bold';
+	font-family   : 'Montserrat-Regular';
 	color         : #000000;
 	opacity       : 1;
 	letter-spacing: 0px;
-	font-size     : 14px !important;
+	font-size     : 14px;
 }
 
 .productNameOrderDetail {
@@ -47,6 +47,10 @@
 	opacity       : 0.6;
 	letter-spacing: 0px;
 	font-size     : 13px !important;
+}
+
+.productName, .productNameOrderDetail{
+	opacity: 50%;
 
 }
 
@@ -272,6 +276,7 @@
 	margin-bottom: 10px;	
 	position: relative;
 	z-index: 10;
+	font-family   : 'Montserrat-Bold';
 }
 .indicatorNum{
 	font-size: 15px;
@@ -357,7 +362,7 @@
 
 	.ptb15 {
 		padding  : 15px 0px !important;
-		font-size: 11px !important;
+		font-size: 11px;
 	}
 
 	.orderDetaiAmount {
@@ -365,7 +370,7 @@
 	}
 
 	.leftSideMyOrderHeaderWrapper {
-		font-family   : 'Montserrat-Regular';
+		font-family   : 'Montserrat-Medium';
 		letter-spacing: 0px;
 		color         : #FFFFFF;
 		opacity       : 1;
@@ -390,6 +395,14 @@
 		letter-spacing: 0px;
 		color         : #FFFFFF;
 		opacity       : 0.6;
+	}
+
+
+	.rightSideDateWrapper1 div{
+		text-overflow: ellipsis;
+	    overflow: hidden;
+	    white-space: nowrap;
+	    font-family: 'Montserrat-Medium';
 	}
 
 	.rightSideDateWrapper1 div i {
@@ -513,3 +526,81 @@
 
 
 
+
+
+.mainTitle {
+	font-size  : 24px;
+	margin     : 0px 0px 20px 0px;
+	font-family: 'Montserrat-Bold';
+	color      : #000000;
+}
+
+
+
+
+
+
+@media only screen and (min-device-width: 1536px) {
+    .mainTitle {
+		font-size: 30px;
+	}
+}
+
+
+@media only screen and (min-device-width: 1920px) {
+    .mainTitle {
+		font-size: 37px;
+	}
+
+	.ptb15{
+		font-size: 16px;
+		line-height: 1.8;
+	}
+
+	.myOrderDeliveryDetails{
+		font-family: 'Montserrat-Thin';
+	}
+
+	.myOrdersDetDateAndTime{
+		font-size: 18px;
+		font-family: 'Montserrat-Medium';
+	}
+
+	.stepRound{
+	    height: 48px;
+	    width: 48px;
+	}
+
+	.doneRound:after {
+    	font-size: 25px;
+    	top: 6px;
+    	left: 15px;
+	}
+
+	.indicatorNum{
+	    font-size: 25px;
+	    top: 6px;
+    	left: 15px;
+	}
+
+	.stepWrapper{
+		font-size: 15px;
+	}
+
+	.singleProductDetail {
+		font-size: 17px;
+	}
+
+	.productQuantity{
+		font-size: 17px;
+	}
+
+	.orderDetailVendorAmtWrapper{
+		margin-left: -109px;
+	}
+
+	.orderDetailVendorAmtInnerWrapper{
+		font-size: 17px;
+	}
+
+}

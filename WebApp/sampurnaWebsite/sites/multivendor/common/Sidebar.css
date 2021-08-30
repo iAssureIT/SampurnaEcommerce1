@@ -131,7 +131,7 @@
 .nav-pills .show>.nav-link {
     color           : #fff;
     background-color: #033554;
-    border-radius   : 5px 20px 5px !important;
+    /*border-radius   : 5px 20px 5px !important;*/
 }
 
 .nb-brand {
@@ -450,4 +450,5 @@ ul.Featured-Brands li {
         position: absolute;
         left    : -2%;
     }
+
 }

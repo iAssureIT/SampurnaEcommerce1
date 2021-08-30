@@ -319,7 +319,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                       <Text style={styles.free}>Net Banking</Text>
                     </View>
                   </View> */}
-                  <View style={{padding:Platform.OS==='ios'?40: 25}}>
+                  <View style={styles.orderbrdr}>
                     <FormButton
                       onPress={() => continuepage()}
                       title={"Confirm Order"}

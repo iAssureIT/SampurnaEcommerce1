@@ -209,7 +209,7 @@ text-align:right ! important;
     font-size: 14px ! important;
   }
 .orderTable>thead>tr>th{
-    font-size: 12px ! important;
+    font-size: 12px;
   }
 .orderTable h5{
     font-size: 10px  
@@ -236,7 +236,7 @@ text-align:right ! important;
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
 	.orderTable>thead>tr>th{
-        font-size: 14px ! important;
+        font-size: 14px;
         font-family: 'Montserrat-Bold';
         color      : #000000;
       }
@@ -245,4 +245,15 @@ text-align:right ! important;
     }  
   }
 
+
+
+
+
+@media only screen and (min-device-width: 1920px) {
+
+  .orderTable>thead>tr>th {
+        font-size: 20px;
+    }
+
+}
   

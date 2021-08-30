@@ -145,19 +145,19 @@ class AddressBook extends Component{
     }
     render(){
         return(      
-            <div className="col-lg-10 col-12 "> 
-            <div className=" col-12">
+            <div className="col-lg-10 col-12 pt-4 "> 
+            <div className="col-12">
             
-            <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
+            <div className="modal mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
                 <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
                     <div className={"modal-content  pb-0 "+Style.modalContentM}>    
                     <div className={"modal-header globalBgColor col-12 " +Style.modalHeaderM}>
                         <div className={"modal-title col-12 modalheadingcont pb-3  underline " +Style.f14BM }><img className={" "+Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" style={{height:"40px"}} alt="T&C MODAL-LOGO"/><p>Shipping Address</p></div>
-                        <button type="button" className={" close modalclosebut  "+Style.modalCloseButtonWrapperM} data-dismiss="modal">&times;</button>
+                        <button type="button" className={"close modalclosebut  "+Style.modalCloseButtonWrapperM} data-dismiss="modal">&times;</button>
                     </div> 
                         <div className={"modal-body addressModalBody "+Style.modalBg}>
                             <UserAddress 
-                                addressId ={this.state.addressId}  
+                                addressId ={this.state.addressId}
                             />
                         </div>
                     </div>
@@ -165,26 +165,27 @@ class AddressBook extends Component{
             </div>
             
             <Message messageData={this.state.messageData} /> </div>
-            <h4 className={"font-weight-bold "+ Style.accountDashBoardMainTitle}>My Addresses</h4>
-            <div className={ "container-flex "+Style.accountDashBoardInnerwrapper}>
-            <div className={"col-12 "+Style.creditHeader}>
+            <div className={"font-weight-bold "+ Style.accountDashBoardMainTitle}>My Addresses</div>
+            <div className={ "container-flex col-9 col-xl-11 "+Style.accountDashBoardInnerwrapper}>
+                <div className="row">
+                    <div className={"col-12 "+Style.creditHeader}>
                         <div className="row">
                             <div className={"col-12 px-lg-5 text-lg-left text-center "+Style.CreditTotalPtTitle}>Default Address</div>
                         </div>
-                        
-            </div>
+                    </div>                  
+                </div>
                 <div className="col-12 pt-4 ">
                     <div className="row">
-                        <div className="col-12 col-lg-12 py-4">
+                        <div className="col-12 col-lg-12 pt-2">
                             <div className="col-12"> 
                             {/* {console.log("this.props.recentAddressData[0]=",this.props.recentAddressData[0])} */}
                             { this.props.recentAddressData[0] ?
                                 <div className="col-12">
                                     <label className={" "+ Style.defaultBillingAddTitle}>Default Shipping / Billing Address</label>
-                                    <div className={" col-12 text-justify "+Style.addressInnerDescWrapper} > 
+                                    <div className={" col-12 text-justify px-0 "+Style.addressInnerDescWrapper} > 
                                         <div className="col-12">
                                             <span className="row">
-                                                <span className="col-5 ">
+                                                <span className="col-5 px-0 ">
                                                     <i className="fa fa-home" aria-hidden="true"></i> &nbsp;
                                                     <span className={Style.addType}>{this.props.recentAddressData[0].addType}</span>
                                                 </span>
@@ -193,7 +194,7 @@ class AddressBook extends Component{
                                                 </span>
                                             </span>
                                         </div>
-                                        <div className="col-8">
+                                        <div className="col-6 px-0">
                                             {this.props.recentAddressData[0].name}
                                             <br /> {this.props.recentAddressData[0].addressLine2 ? this.props.recentAddressData[0].addressLine2+", " : null} {this.props.recentAddressData[0].addressLine1} - {this.props.recentAddressData[0].pincode}.
                                             <br /> {/* {this.state.city},
@@ -212,18 +213,18 @@ class AddressBook extends Component{
                             } 
                             </div>
                         </div>
-                            <div className="col-12 col-lg-12 py-4">
+                            <div className="col-12 col-lg-12 pb-4">
                             <div className="col-12">
                                <div className="col-12">
                                    <label className={" "+ Style.defaultBillingAddTitle}>Additional Address Entries</label>
                                </div>
-                                <div className="col-11 mx-auto">
+                                <div className="col-10 mx-auto">
                                     <div className="row">
                                         {/* { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return( */}
                                         { this.props.recentAddressData && this.props.recentAddressData.length > 1 ? this.props.recentAddressData.map((address , index)=>{ if(index !== 0){ 
                                             // console.log("address==",address);
                                             return(  
-                                                    <div key={ 'address'+index} className={"col-12 col-lg-6 col-md-6  py-3 " +Style.additionAddress1}>
+                                                    <div key={ 'address'+index} className={"col-12 col-lg-6 col-md-6  py-3 px-4 " +Style.additionAddress1}>
                                                         <div className={"col-12 text-center " +Style.additionAddress}>
                                                                 <div className={"text-justify pt-2 "+Style.addressInnerDescWrapper}> 
                                                                 <div className="col-12 p-0 ">
@@ -243,11 +244,11 @@ class AddressBook extends Component{
                                                                 <div className="col-12 pl-lg-0 pl-xl-0 pl-md-0 pl-sm-0 ">
                                                                     <div className="row">
                                                                         {/* <button data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className=" col-lg-8 col-xl-8 col-8 mx-auto btn globalCommonBtn float-left">Edit Address</button>  */}
-                                                                        <div className="col-4">
+                                                                        <div className="col-4 pt-4 pt-lg-1">
                                                                             <i className={"fa fa-pencil-square-o btn pull-right " +Style.editAddress} data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} aria-hidden="true"></i>
                                                                         </div>
-                                                                        <div className="col-8 text-right">
-                                                                            <i id={address._id} onClick={this.deleteAddress.bind(this)} className={"fa fa-trash btn deleteAdd  text-right " +Style.deleteAddress} style={{ "fontSize": '14px' }}></i> 
+                                                                        <div className={"col-8 pt-3 pt-lg-0 text-right " + Style.additionalAddressDeleteBtn}>
+                                                                            <i id={address._id} onClick={this.deleteAddress.bind(this)} className={"fa fa-trash btn deleteAdd  text-right " +Style.deleteAddress}></i> 
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -265,10 +266,9 @@ class AddressBook extends Component{
                                                     </div>
                                                     </div>
                                         }             
-                                        <div className="col-12">
-                                            <div className="col-12 NOpadding py-4 py-lg-0">
+                                        <div className={"col-12 col-xl-12 " + Style.addNewAddressBtn}>
+                                            <div className="col-12 col-xl-12 NOpadding">
                                                 <div data-toggle="modal" data-target="#checkoutAddressModal" id="newAddress" onClick={()=>{this.setState({"addressId":""})}} className={"btn globalCommonBtn addressSaveBtn float-lg-right float-md-right" }>Add New Address</div>
-                                                
                                             </div>
                                         </div>
                                     </div>

@@ -431,3 +431,19 @@ font-family: 'Montserrat-Medium';
     }
 
 }
+
+
+
+
+
+
+
+
+
+@media only screen and (min-device-width: 1920px) {
+
+      .productPrize {
+        font-size: 17px;
+    }
+
+}

@@ -161,7 +161,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                     <Text style={{color:"#EF4D4D",fontFamily:"Montserrat-Regular",fontSize:RFPercentage(1.3)}}>Set your delivery location to browse stores around you.</Text>
                 </View>    
                 <View style={{flex:.3}}>
-                    <View style={{paddingHorizontal:wp(8),marginBottom:hp(2.2)}}>
+                    <View style={{paddingHorizontal:wp(8)}}>
                     <FormButton
                         title       = {'Current Location'}
                         onPress     = {()=>getPermission()}
@@ -170,7 +170,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                         // loading     = {btnLoading}
                         />
                     </View>  
-                    <View style={{paddingHorizontal:wp(8),marginBottom:hp(2.2)}}>
+                    <View style={{paddingHorizontal:wp(8)}}>
                       <FormButton
                           title       = {'Set Your Location'}
                           onPress     = {()=>navigation.navigate('Location',{type:'Manual'})}

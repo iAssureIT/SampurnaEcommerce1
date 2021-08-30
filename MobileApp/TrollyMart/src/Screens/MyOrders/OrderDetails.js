@@ -542,7 +542,7 @@ const cancelorderbtn = (id,vendor_id) => {
     })  
     }
      <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
-      <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Total Delivey Charges :</Text></View>
+      <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Total Delivery Charges :</Text></View>
       {/* <View style={{flex:.1}}><Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{order?.paymentDetails?.shippingChargesBeforeDiscount}</Text></View> */}
       <View style={{flex:.2}}><Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{order?.paymentDetails?.shippingCharges} {currency}</Text></View>
     </View>  
@@ -565,7 +565,7 @@ const cancelorderbtn = (id,vendor_id) => {
         <View style={styles.superparent}>
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} >
             <View style={{paddingVertical:24,paddingHorizontal:6}}>
-              <Text style={CommonStyles.screenHeader}>My Orders Details</Text>
+              <Text style={CommonStyles.screenHeader}>My Order Details</Text>
             </View>
             <View style={styles.formWrapper}>
               <View style={styles.parent}>

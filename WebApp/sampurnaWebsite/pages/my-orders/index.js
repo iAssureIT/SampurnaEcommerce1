@@ -309,7 +309,7 @@ export default class MyOrders extends Component {
   render() {
     // console.log("1. myorder page this.state.orderData=", this.state.orderData);
     return (
-      <div className="col-12" id="myOrderMainId">
+      <div className="col-12 pt-4" id="myOrderMainId">
         <div className="row">
           <Message messageData={this.state.messageData} />
           {
@@ -317,17 +317,17 @@ export default class MyOrders extends Component {
               <div className="col-12 loaderHeight"><Loader type="fullpageloader" /></div>
               :
               //  <div className="col-12"> 
-              <div className="col-12 col-xl-12 col-md-12 col-sm-12 px-0">
-                <div className={"col-12 "+ Style.myOrderMainTitle}>
-                  <h4 className={"table-caption mb-2 "}>My Orders</h4>
+              <div className="col-12 col-xl-12 col-md-12 col-sm-12">
+                <div className={"col-12 pl-0 "+ Style.myOrderMainTitle}>
+                  <span className={"table-caption mb-2 "}>My Orders</span>
                 </div>
 
-                <div className="container-flex">
+                <div className={"container-flex col-xl-11 row "+ Style.myOrderBox}>
                   {this.state.orderData && this.state.orderData.length > 0 ?
                     this.state.orderData.map((singleOrder, index) => {
                       // console.log("singleOrder=",singleOrder);
                       return (
-                        <div className={"col-10 offset-sm-1 NoPadding orderIdborder " + Style.orderIdborderNew} key={index}>
+                        <div className={"col-9 col-xl-11 NoPadding orderIdborder " + Style.orderIdborderNew} key={index}>
                           <div className="col-12  NoPadding orderNowrapper mb-4 " style={{
                             'backgroundColor': singleOrder.orderStatus === "New" && '#033554' ||
                               singleOrder.orderStatus === "Delivered" && '#3E9D5E' ||
@@ -336,7 +336,7 @@ export default class MyOrders extends Component {
                             <div className={"row " + Style.ptb15}>
                               <div className={"col-6 "+ Style.leftSideMyOrderHeaderWrapper}>
 
-                                <div className="col-12">
+                                <div className={"col-12 " + Style.myOrderLeftSideDetails}>
                                   <div className="col-12">{singleOrder.orderStatus==="New"?"New Order":singleOrder.orderStatus}</div>
                                   <div className="col-12">{"Order ID : " + (singleOrder.orderID)}</div>
                                   <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</span></div>
@@ -348,13 +348,13 @@ export default class MyOrders extends Component {
                               </div>
                               <div className={"col-6 " + Style.rightside}>
                                 <div className="">
-                                  <div className={"col-12 "+Style.rightSideDateWrapper}>
+                                  <div className={"col-12 "+Style.rightSideDateAndTime}>
                                     <span className="col-12 text-right d-lg-block d-xl-block d-none">Date : {moment(singleOrder.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;<span className={" "+ Style.rightSideDateWrapper2}></span>&nbsp;&nbsp;{moment(singleOrder.createdAt).format("hh:mm a")}</span>
 
                                     <span className="col-12 text-right d-block d-lg-none d-xl-none">{moment(singleOrder.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(singleOrder.createdAt).format("hh:mm A")}</span>
 
                                   </div>
-                                  <div className={"col-12 "+Style.rightSideDateWrapper1}>
+                                  <div className={"col-12 "+Style.deliveryDetails}>
                                     <div className="col-12"> <i className="fas fa-wallet"></i>&nbsp; {singleOrder.paymentDetails.paymentMethod}</div>
                                   </div>
                                   <div className={"col-12 "+Style.rightSideDateWrapper1}>
@@ -399,10 +399,10 @@ export default class MyOrders extends Component {
                                           <span className={"  orderStatusBadge mx-auto badge badge-danger NoPadding " + Style.orderStatusBadge2}><span className={" "+Style.statusTextWrapper}>{vendordata.orderStatus}</span></span>
                                         }
                                         {vendordata.orderStatus === "New" &&
-                                          <span className={"  orderStatusBadge mx-auto badge  NoPadding " + Style.orderStatusBadge1}><span className={" "+Style.statusTextWrapper}> New Order</span></span>
+                                          <span className={"  orderStatusBadge mx-auto badge  NoPadding " + Style.orderStatusBadge1}><span className={"col-12 "+Style.statusTextWrapper}> New Order</span></span>
                                         }
                                         {vendordata.orderStatus === "Processing" &&
-                                          <span className={"  orderStatusBadge mx-auto badge  NoPadding " + Style.orderStatusBadge1}><span className={" "+Style.statusTextWrapper}> Processing </span></span>
+                                          <span className={"  orderStatusBadge mx-auto badge  NoPadding " + Style.orderStatusBadge1}><span className={"col-12 "+Style.statusTextWrapper}> Processing </span></span>
                                         }
                                         {vendordata.orderStatus === "On the Way" &&
                                           <span className={"  orderStatusBadge orderStatusBadgeOnTheWay mx-auto badge badge-primary NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
@@ -411,7 +411,7 @@ export default class MyOrders extends Component {
                                           <span className={"  orderStatusBadge orderStatusBadgeOnTheWay mx-auto badge badge-primary  NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
                                         }
                                         {vendordata.orderStatus === "Delivered" &&
-                                          <span className={"  orderStatusBadge mx-auto badge badge-success NoPadding " + Style.orderStatusBadge }><span className={" "+Style.statusTextWrapper}>{vendordata.orderStatus}</span></span>
+                                          <span className={"  orderStatusBadge mx-auto badge badge-success NoPadding " + Style.orderStatusBadge }><span className={"col-12 "+Style.statusTextWrapper}>{vendordata.orderStatus}</span></span>
                                         }
 
                                       </div>

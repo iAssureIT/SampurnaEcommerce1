@@ -61,14 +61,14 @@ class Wishlist extends Component {
   render() {
     // console.log("recentWishlistData==",this.props.recentWishlistData);
     return (
-      <div className="col-12">
-      <div className={"row " +Style.wishlistProduct} id="WishlistMainId">
+      <div className="col-12 pt-4">
+      <div className={"row px-3 " +Style.wishlistProduct} id="WishlistMainId">
         <Message messageData={this.state.messageData} />
           <div className="row">
             <div className={"col-12 NoPadding"}>
-              <div className="col-12 mt-2 table-caption">
+              <div className="col-12 table-caption">
                   <div className="col-12 pl-lg-0">
-                    <h4 className="table-caption wishListMainTitle "> My Wishlist</h4>
+                    <span className="table-caption wishListMainTitle "> My Wishlist</span>
                   </div>
               </div>
               {
@@ -76,8 +76,8 @@ class Wishlist extends Component {
                 this.props.recentWishlistData.map((areaWiseWishlist, index) => {  
                    return(
                       <div className="col-12 mb-4" key={index}> 
-                          <div className="col-12 areaName mt-lg-1 mt-4 pb-1 pl-lg-0"><i className="fas fa-map-marker-alt" aria-hidden="true"></i>    &nbsp;&nbsp;{areaWiseWishlist.areaName}</div>
-                          <div className={"col-12 py-2 "+Style.wishlistBlockBorder}>
+                          <div className="col-12 areaName mt-lg-1 mt-4 pb-3 pl-lg-0 "><i className="fas fa-map-marker-alt" aria-hidden="true"></i>    &nbsp;&nbsp;{areaWiseWishlist.areaName}</div>
+                          <div className={"col-12 pt-4 px-5 "+Style.wishlistBlockBorder}>
                                 {areaWiseWishlist && areaWiseWishlist.products && areaWiseWishlist.products.length > 0
                                 ?
                                   <ProductListView 

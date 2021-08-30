@@ -578,7 +578,7 @@ uploadImage(event) {
                       </td>
                     <td className="textAlignCenter">
                       {
-                        <span className=" textAlignRight">{productdata.quantity}</span>
+                        <span className={"textAlignRight "+Style.productQuantity}>{productdata.quantity}</span>
 
                       }
                     </td>

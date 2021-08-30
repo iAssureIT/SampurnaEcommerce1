@@ -1,3 +1,8 @@
+@font-face {
+  font-family:'Montserrat-ExtraBold';
+  src: url('../../../fonts/Montserrat-ExtraBold.ttf');
+}
+
 
 .discounttag{
     position: absolute;
@@ -135,15 +140,16 @@
   .globalProdName{
     height: 25px;
     margin-bottom: -24px;
-    font-size: 14px!important;
+    font-size: 13px;
     /* cursor: pointer; */
   }
   .priceWrapper{
-    height: 25px;
+    height: 27px;
+    /*font-family: 'Montserrat-ExtraBold';*/
   }
   .price{
     font-size: 12px;
-    font-family: 'Montserrat-Regular';
+    font-family: 'Montserrat-ExtraBold';
     letter-spacing: 0px;
 color: #000000;
 opacity: 1;
@@ -160,7 +166,7 @@ opacity: 0.5;
   }
   .lineThroughPrice{
     font-size: 12px;
-    font-family: 'Montserrat-Regular';
+    font-family: 'Montserrat-SemiBold';
     letter-spacing: 0px;
 color: #000000;
 opacity: 0.5;
@@ -314,12 +320,13 @@ font-weight: bolder;
     white-space: nowrap;
     overflow: hidden;
     display: block;
-    font-size: 14px!important;
+    font-size: 13px;
     font-weight: 600;
   }
   .wishIcon{ 
-    margin-top: 5px;
+    /*margin-top: 5px;*/
     padding: 0px 0px;
+    margin: 9px 0px 0px 12px;
     font-weight: bold;
     font-size: 12px;
     border: transparent;
@@ -367,3 +374,23 @@ font-weight: bolder;
   .activeSubCategory a{
     color:#fff !important;  
   }
+
+
+
+@media only screen and (min-device-width: 1920px) {
+  .globalAddToCartBtn {
+      font-size: 13px;
+  }
+
+   .ellipsis{
+      font-size: 17px;
+  }
+
+  .sizeUnitName{
+    font-size: 14px;
+  }
+
+  .price{
+    font-size: 16px;
+  }
+}
