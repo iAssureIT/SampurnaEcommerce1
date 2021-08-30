@@ -6,7 +6,11 @@ import Image 					from 'next/image';
 import { connect }              from 'react-redux';
 import { bindActionCreators }   from 'redux';
 import {getForm,updateForm}     from '../redux/actions';
+
+
 import S                        from './systemSecurity.module.css';
+
+
 class ForgotPassword extends Component{
 
 	constructor(props){
@@ -32,12 +36,12 @@ class ForgotPassword extends Component{
         let fields 		= this.state.fields;
         let errors 		= {};
         let formIsValid = true;
-    
-        if (!fields["username"]){
+
+        if(!fields["username"]){
 			formIsValid 		= false;
 			errors["username"] 	= "Please enter your Email ID or Mobile Number.";
         }
-    
+
         this.setState({
 			errors: errors
         });
@@ -55,8 +59,8 @@ class ForgotPassword extends Component{
     sendOTP(evvalidateForment){
         event.preventDefault();
         var username = this.refs.username.value;
-		console.log("formValues==",username);
-		if(this.validateForm()){
+
+        if(this.validateForm()){
 			axios.patch('/api/auth/patch/set_send_otp/' + username) 
                 .then((forgotPassResponse) => {
                     console.log("forgotPassResponse.data.ID===",forgotPassResponse);
@@ -89,7 +93,7 @@ class ForgotPassword extends Component{
         return(
             <div className={"col-12 mobileViewNoPadding "+S.systemSecurityWrapper}>
                 <div className={"col-12 "+S.systemSecurityTitleWrapper}>
-					<span className={S.systemSecurityTitle}>FORGOT PASSWORD</span>
+					<span className={S.systemSecurityTitle1}>FORGOT PASSWORD</span>
 					<hr className={S.systemSecurityTitleUnderline2}/>
 				</div>
                 {

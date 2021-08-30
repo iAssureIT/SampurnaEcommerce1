@@ -158,7 +158,7 @@ class Login extends Component{
 					this.state.loggedIn === false &&
 						<div className="row">
 							<div className={"col-12 "+S.systemSecurityTitleWrapper}>
-								<span className={S.systemSecurityTitle}>SIGN IN</span>
+								<span className={S.systemSecurityTitle1}>SIGN IN</span>
 								<hr className={S.systemSecurityTitleUnderline}/>
 							</div>
 							<div className={"col-12 "+S.systemSecurityTextWrapper}>
@@ -167,7 +167,7 @@ class Login extends Component{
 									<a href="" className="" onClick={this.openSignUpModal.bind(this)}>Sign Up</a>
 								</div>
 							</div>
-							<form id="login" className="col-12">
+							<form id="login" className={"col-12 "+S.loginForm}>
 								<div className="row">
 									<div className="col-12 form-group frmhgt textAlignLeft NOpadding">
 										<div className="row">
@@ -192,15 +192,15 @@ class Login extends Component{
 										</div>
 										<span
 											toggle="#password-field"
-											className="field-icon toggle-password"
+											className="fa fa-fw fa-eye field-icon toggle-password"
 											onClick={this.togglePassword.bind(this)}
-											src="/images/eCommerce/view.png"
+											// src="/images/eCommerce/view.png"
 										></span>
 										<div className="errorMsg">{this.state.errors.loginpassword}</div>
 									</div>
 									<div className="col-12 mb25 text-right">
 										<div className="row loginforgotpass">
-											<a href='' className="col-12 pull-right NoPadding forgotText mt-n2" onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
+											<a href='' className={"col-12 pull-right NoPadding forgotText mt-n2 "+S.forgotText} onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
 										</div>
 									</div>
 									{
@@ -219,7 +219,7 @@ class Login extends Component{
 										:
 											<div className="col-12 mb-2 mt-2">
 												<div className="row">
-													<input id="logInBtn" type="button" className="col-12 btn signInBtn" value="Sign In" onClick={this.userlogin.bind(this)} />
+													<button id="logInBtn" type="button" className="col-12 btn signInBtn" value="Sign In" onClick={this.userlogin.bind(this)}>Sign In</button>
 												</div>
 											</div>
 									}
@@ -227,11 +227,11 @@ class Login extends Component{
 							</form>
 							<div className="col-12">
 								<div className="row">   
-									<div className="col-12">
+									<div className={"col-12 "+S.orWrapper}>
 										<div className="row">
-										<hr className="col-3 whiteClr"></hr>
-										<span className={"col-2 blueText mt-1 ml-n3 ml-sm-3 ml-lg-n1 text-center "+S.blueText}>OR&nbsp;</span>
-										<hr className="col-3 whiteClr"></hr>
+											<hr className="col-3 whiteClr"></hr>
+											<span className={"col-2 blueText mt-1 ml-n3 ml-sm-3 ml-lg-n1 text-center "+S.blueText}>OR&nbsp;</span>
+											<hr className="col-3 whiteClr"></hr>
 										</div>
 									</div>
 									<div className="col-12 facebookLoginBtn mb-2 mt-2">

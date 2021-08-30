@@ -8,9 +8,12 @@ import { connect } 				from 'react-redux';
 import { bindActionCreators }   from 'redux';
 import {getForm,updateForm} 	from '../redux/actions';
 
+
 import S from './systemSecurity.module.css';
 
+
 const { publicRuntimeConfig } = getConfig();
+
 
 class ResetPassword extends Component{
 
@@ -21,6 +24,7 @@ class ResetPassword extends Component{
             errors 		: {}
         }
     }
+
 	componentDidMount(){
         var userDetails =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
@@ -29,24 +33,25 @@ class ResetPassword extends Component{
 			})
         }
     }
+
 	resetPassword(event){
         event.preventDefault();
 		var formValues = {
 			pwd: this.refs.newPassword.value,
 		};
 		if(this.refs.newPassword.value === this.refs.confirmPassword.value ){
-		axios.patch('/api/auth/patch/change_password_using_otp/id/'+this.state.userId, formValues)
-	        .then((response)=>{
-				if(response){
-					this.setState({
-						"showMessage" : true,
-					})
-					swal(response.data.message);
-				}
-			})
-			.catch((error)=>{
-				console.log("reset Password error=",error);
-			})
+			axios.patch('/api/auth/patch/change_password_using_otp/id/'+this.state.userId, formValues)
+				.then((response)=>{
+					if(response){
+						this.setState({
+							"showMessage" : true,
+						})
+						swal(response.data.message);
+					}
+				})
+				.catch((error)=>{
+					console.log("reset Password error=",error);
+				})
 		}else{
 			swal("Password is not matching");
 		}
@@ -90,7 +95,7 @@ class ResetPassword extends Component{
 
 	render(){
         return(
-            <div className={"col-12 resetWrapper mobileViewNoPadding "+S.systemSecurityWrapper}>
+            <div className={"col-12 mobileViewNoPadding "+S.systemSecurityWrapper}>
                 <div className="col-12 mobileViewNoPadding">
 					<div className={"col-12 "+S.systemSecurityTextWrapper}>
 						<div className="row">
@@ -99,7 +104,7 @@ class ResetPassword extends Component{
 						</div>
 					</div>
 					<div className={"col-12 "+S.systemSecurityTitleWrapper}>
-						<p className={"font-weight-bolder border-0 "+S.systemSecurityTitle+" "+S.resetPasswordTitle}>RESET PASSWORD</p>
+						<p className={" "+S.resetPasswordTitle}>RESET PASSWORD</p>
 						<p className={" "+S.resetInstruction}>Please choose your new password</p>
 					</div>
 					<div className="col-12">
@@ -110,7 +115,6 @@ class ResetPassword extends Component{
 									<div className="col-12">
 										<form id="resetPassword">
 											<div className="col-12 mt-4 form-group frmhgt textAlignLeft">
-												{/* <label className="blueText">New Password</label><label className="astricsign">*</label> */}
 												<input
 													id="newPassword"
 													type="password"
@@ -131,7 +135,6 @@ class ResetPassword extends Component{
 												<div className="errorMsg mt-1">{this.state.errors.newPassword}</div>
 											</div>
 											<div className="col-12 mt-4 form-group frmhgt textAlignLeft">
-												{/* <label className="blueText">Confirm Password</label><label className="astricsign">*</label> */}
 												<input
 													id="confirmPassword"
 													type="password"
