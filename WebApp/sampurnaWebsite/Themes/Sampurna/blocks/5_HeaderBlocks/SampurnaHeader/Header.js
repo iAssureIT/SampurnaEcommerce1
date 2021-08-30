@@ -63,19 +63,19 @@ class Header extends React.Component {
                         <nav className={"navbar navbar-expand-md "+ Style.megamenuWrapper}>
                         <div className="col-12">
                             <div className="row">
-                                <div className={"col-12 col-lg-12 " + Style.megamenu}> 
+                                <div className={"col-12  " + Style.megamenu}> 
                                     <div className="row h-100">
-                                        <div className="col-lg-2 col-4 col-sm-6 order-lg-1 order-1">
-                                            <div className="col-lg-12 col-12">
+                                        <div className="col-xl-2 col-md-2 col-4 col-sm-6 order-1 order-md-1">
+                                            <div className="col-md-12 col-12">
                                                 <Websitelogo />
                                             </div>
                                         </div>
-                                        <div className="col-lg-8 col-12 h-100 order-lg-2 order-3">
+                                        <div className="col-xl-8 col-md-7 col-12 h-100 order-3 order-md-2">
                                             <div className="row">
                                                 <SearchBar />
                                             </div>
                                         </div>
-                                        <div className={"col-lg-2 col-8 col-sm-6 h-lg-100 h-50 order-lg-3 order-2 " + Style.mobileMargin}>
+                                        <div className={"col-xl-2 col-md-3 col-8 col-sm-6 h-lg-100 h-50 order-md-3 order-2 " + Style.mobileMargin}>
                                             <div className="row h-100">
                                                 <div className="col-6 h-100">
                                                     <SystemSecurityModal />
@@ -93,7 +93,7 @@ class Header extends React.Component {
                                     </div>
                                     
                                 </div>
-                                <div className={"col-12 col-lg-12 "}>
+                                <div className={"col-12"}>
                                     <div className="row h-100">
                                         <div className={"col-lg-12 col-2 navbar-header " + Style.navbarHeader}>
                                             <button className={"navbar-toggler "+  Style.collapseBtn} type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -105,10 +105,10 @@ class Header extends React.Component {
                                         <div id="collapsibleNavbar" className={"col-lg-12 col-12 collapse navbar-collapse " + Style.mainMenu + " " + Style.mainMenuWrapper}>
                                             <div className="col-12 h-100">
                                                 <div className="row h-100">
-                                                <div className={"col-lg-2 col-12 " + Style.allCategories}>
+                                                <div className={"col-md-2 col-12 " + Style.allCategories}>
                                                     All Categories
                                                 </div>
-                                                <div className="col-lg-10 col-12">
+                                                <div className="col-md-10 col-12">
                                                     <div className="row h-100">
                                                         <Megamenu />                                                </div>
                                                     </div>

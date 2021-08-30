@@ -258,7 +258,7 @@ class header extends React.Component {
                             </div>
                         </div>
                    : 
-                        <div className={"col-8 col-lg-10 offset-lg-4 offset-6 " + Style.signInWrapper}>
+                        <div className={"col-8 col-lg-10 offset-lg-4 col-md-12 offset-md-0 offset-6 " + Style.signInWrapper}>
                             <div className="row">
                                 <a href="" data-toggle="modal" data-target="#loginFormModal" 
                                    data-backdrop="true" id="loginModal" area-hidden ="true"> 

@@ -80,7 +80,7 @@ class DisplayLocation extends React.Component{
 							?
 								<div className={"col-12 "+ Style.DisplayLocation}>
 									<div className={"row " + Style.DisplayLocation}>
-										<div className={"col-lg-10 col-7 " + Style.deliveryAddress}>
+										<div className={"col-md-10 col-7 " + Style.deliveryAddress}>
 											<div className="col-12">
 												<span className={Style.locationText}>
 													Your current location is - 
@@ -90,9 +90,9 @@ class DisplayLocation extends React.Component{
 												</span>
 											</div>
 										</div>
-										<div className={"col-lg-2 col-5 "+ Style.DisplayLocation}>
+										<div className={"col-md-2 col-5 "+ Style.DisplayLocation}>
 											<div className="row">
-												<div className={"col-lg-9 col-11 offset-1 col-sm-7 offset-sm-4 offset-lg-0 "+ Style.DisplayLocation}>
+												<div className={"col-lg-9 col-md-11 col-11 offset-1 col-sm-7 offset-sm-4 offset-md-0 "+ Style.DisplayLocation}>
 													<button type="button" onClick={this.checkCart.bind(this)} className={Style.changelocationBtn1} data-toggle="modal" data-target="#locationModal" data-backdrop="true">
 														<span className={Style.changeLocationTitle}>
 															Change Location 

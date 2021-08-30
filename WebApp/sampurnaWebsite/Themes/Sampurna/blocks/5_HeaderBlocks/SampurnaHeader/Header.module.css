@@ -853,6 +853,90 @@
             font-size: 10px;
         }
 }
+@media (min-width: 1024px)and (max-width: 1200px){
+    .logoImg {
+        height: 38px;
+    }
+    .searchWrapper{
+        padding-top: 5px;
+    }
+    .signDivWrapper{
+        margin-top: 0px;
+    }
+    .wishListIconWrapper {
+        margin-top: 7px;
+    }
+    .cartCountWrapper{
+        right: 0px;
+    }
+    .signInWrapper{
+        margin-top: 5px;
+    }
+    .cartIcon{
+        margin-top: 6px;
+    }
+    .allCategories{
+        padding-left: 45px;
+        font-size: 11px;
+    }
+    .listSubTitles{
+        font-size: 9.5px;
+        padding-left: 5px;
+    }
+    .locationText{
+        padding-left: 30px;
+    }
+    .changelocationBtn1{
+        font-size:10px;
+    }
+}
+@media (min-width: 768px)and (max-width: 1023px){
+    .logoImg {
+        height: 38px;
+    }
+    .searchWrapper{
+        padding-top: 5px;
+    }
+    .signDivWrapper{
+        margin-top: 0px;
+        margin-left: -15px;
+    }
+    .wishListIconWrapper {
+        margin-top: 7px;
+        margin-left: -8px;
+    }
+    .cartCountWrapper{
+        right: 0px;
+    }
+    .signInWrapper{
+        margin-top: 5px;
+    }
+    .cartIcon{
+        margin-top: 6px;
+    }
+    .allCategories{
+        padding-left: 16px;
+        font-size: 10px;
+    }
+    .listSubTitles{
+        font-size: 8.5px;
+        padding-left: 5px;
+        padding-top: 10px;
+    }
+    .locationText{
+        padding-left: 0px;
+    }
+    .changelocationBtn1{
+        font-size:8.5px;
+    }
+    .userName{
+        font-size: 9px;
+    }
+    .myAccountTitle{
+        font-size: 10px;
+    }
+
+}
 @media (min-width: 640px) and (max-width: 767px) {
     .headerWrapper{
         min-height: 137px;
@@ -963,7 +1047,10 @@
         left: 80px!important;
     }
 }
-@media (min-width: 640px)and (max-width: 735px){
+
+
+
+@media (min-width: 640px)and (max-width: 767px){
     .changeLocationTitle{
         font-size: 12px;
     }
