@@ -106,12 +106,15 @@ export function getCartData() {
           .then((response)=>{ 
             if(response){   
               // console.log("my cart response =",response.data);
+              var cartBtnDisabled = false;
               if(response.data && response.data.vendorOrders && response.data.vendorOrders.length>0){
                 for(let i=0;i<response.data.vendorOrders.length;i++){
                     if(response.data.vendorOrders[i].vendor_netPayableAmount < response.data.minOrderAmount){
-                      var cartBtnDisabled = true;
                       response.data.vendorOrders[i].invalidOrder = "cartWarning";
                       response.data.vendorOrders[i].cartBtnDisabled = true;
+                      response.data.cartBtnDisabled = true;
+                    }else{
+                      response.data[cartBtnDisabled] = false;
                     }
                     for(let j=0;j<response.data.vendorOrders[i].cartItems.length;j++){
                       if(response.data.vendorOrders[i].cartItems[j].product_ID.availableQuantity===0){
@@ -123,10 +126,6 @@ export function getCartData() {
                       }
                     }
                 }
-                // dispatch({
-                //   type: 'SET_LOADING',
-                //   loading: true
-                // });
                 if(cartBtnDisabled){
                   response.data.cartBtnDisabled = true;
                 }

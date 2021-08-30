@@ -28,6 +28,7 @@ class ConfirmOTP extends Component{
 		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
+			console.log("userDetails ==",userDetails); 
 			console.log("userDetails ==",userDetails.userId); 
           	this.setState({
             	userId  : userDetails.userId,
@@ -62,7 +63,7 @@ class ConfirmOTP extends Component{
     	event.preventDefault();
 		var userDetails = JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
-			console.log("userDetails ==",userDetails.userId); 
+			console.log("userDetails inside verify otp ==",userDetails.userId); 
           	this.setState({
             	userId  : userDetails.userId,
 			})
@@ -78,10 +79,8 @@ class ConfirmOTP extends Component{
 					}
 				})
         		.catch((error)=>{
-            		console.log("error while resending otp==",error);
+            		console.log("error while verifying otp==",error);
         		})
-		}else{
-			swal("Please enter valid OTP");
 		}
 	}
 

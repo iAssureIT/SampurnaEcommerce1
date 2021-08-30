@@ -30,7 +30,7 @@ export async function getServerSideProps({query}){
   try{
     const res = await axios.get("api/pages/get/page_block/"+urlParam)
     const pageData = await res.data;
-    console.log("pageData=",pageData);
+    // console.log("pageData=",pageData);
     return {
       props:{
         pageData

@@ -59,16 +59,20 @@ class ForgotPassword extends Component{
 		if(this.validateForm()){
 			axios.patch('/api/auth/patch/set_send_otp/' + username) 
                 .then((forgotPassResponse) => {
-                    if(forgotPassResponse.data.message){
+                    console.log("forgotPassResponse.data.ID===",forgotPassResponse);
+                    if(forgotPassResponse.data.message !== "You are not allowed to change your password. Because you are login through google" ||
+                       forgotPassResponse.data.message !== "You are not allowed to change your password. Because you are login through facebook" 
+                    ){
                         var userDetails = {
 							userId : forgotPassResponse.data.ID,
 						}
-                        // swal(forgotPassResponse.data.message);
-                        swal("OTP sent on registered Email ID / Mobile Number");
-                        this.props.updateFormValue("confirmOtp");
                         localStorage.setItem('userDetails', JSON.stringify(userDetails));
-                        
-                    }                  
+                        swal(forgotPassResponse.data.message);
+                        // swal("OTP sent on registered Email ID / Mobile Number");
+                        this.props.updateFormValue("confirmOtp");
+                    }else{
+                        swal(forgotPassResponse.data.message);
+                    }               
                 })
                 .catch((error) => {
                     console.log("error===",error);
