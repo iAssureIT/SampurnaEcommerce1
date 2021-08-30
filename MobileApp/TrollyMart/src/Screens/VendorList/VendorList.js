@@ -4,10 +4,11 @@ import {
   TouchableOpacity,
   FlatList,
   RefreshControl,
+  Dimensions,
   Image
 } from 'react-native';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles.js';
-import { Card }                 from "react-native-elements";
+import { Card,Icon }                 from "react-native-elements";
 import axios                    from 'axios';
 import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
 import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
@@ -30,6 +31,7 @@ import {SET_CATEGORY_LIST,
     SET_CATEGORY_WISE_LIST}  from '../../redux/productList/types';
     import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+const window = Dimensions.get('window');
 
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
@@ -172,6 +174,7 @@ export const VendorList = withCustomerToaster((props)=>{
                 <SearchSuggetion />
                 :
                 <View style={[styles.container]} keyboardShouldPersistTaps="handled" >
+{/* 
                     <MenuCarouselSection
                         navigation  = {navigation} 
                         showImage   = {true}
@@ -182,7 +185,24 @@ export const VendorList = withCustomerToaster((props)=>{
                     />
                     <View style={{backgroundColor:colors.cartButton,marginTop:hp(1)}}>
                         <Text style={styles.topText}>Delivery time <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>9</Text><Text style={{fontFamily:'Montserrat-Bold'}}>am</Text> to <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>11</Text><Text style={{fontFamily:'Montserrat-Bold'}}>pm</Text> or next day delivery</Text>
+*/}
+                    { vendorList && vendorList.length >0 ?
+                    <View>
+                        <MenuCarouselSection
+                            navigation  = {navigation} 
+                            showImage   = {true}
+                            selected    = {section}
+                            boxHeight   = {4}
+                            fontSize    = {2}
+                            index       = {index}
+                        />                    
+                        <View style={{backgroundColor:colors.cartButton,marginTop:10}}>
+                            <Text style={styles.topText}>Delivery time <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>9</Text><Text style={{fontFamily:'Montserrat-Bold'}}>am</Text> to <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>11</Text><Text style={{fontFamily:'Montserrat-Bold'}}>pm</Text> or next day delivery</Text>
+                        </View>
                     </View>
+                    :
+                    null
+                    }
                     <View style={styles.proddets}>
                     {loading ?
                         <Loading />
@@ -215,9 +235,39 @@ export const VendorList = withCustomerToaster((props)=>{
                                 } 
                             /> 
                         :
-                        <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
-                            <Text style={CommonStyles.noDataFound}>We are currently not working in your area. However, we will come there soon. So please visit this website again shortly.</Text>
-                        </View>    
+                        // <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+                        //     <Text style={CommonStyles.noDataFound}>We are currently not working in your area. However, we will come there soon. So please visit this website again shortly.</Text>
+                        // </View>
+                    <View style={{flex:1,height:window.height-135,}}>
+                        <View style={{flex:1,height:300}}>
+                            <Image
+                            source={require("../../AppDesigns/currentApp/images/NoVendor.png")}
+                            style={{width:window.width,height:275}}
+                            resizeMode='contain'
+                            />
+                        </View>
+                        <View style={{flex:1,alignItems:'center',marginTop:170}}>
+                            <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:26,color:"#033554",opacity: 1}}>Coming Soon to you!</Text>
+                            <View style={{justifyContent:'center',alignItems:'center'}}>
+                                <Text style={{fontFamily:"Montserrat-Medium",fontSize:14,color:"#000"}}>We are expanding to your area very soon</Text>
+                                <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Italic",fontSize:10}]}>stay tuned</Text>
+                            </View>
+                        </View>
+                        <View style={{flex:1,height:70}}>
+                            <Image
+                                source={require("../../AppDesigns/currentApp/images/NoVendorFooter.png")}
+                                style={{width:window.width,minHeight:70}}
+                                resizeMode='contain'
+                                />
+                        </View>
+                        {/* 
+                        <View style={{alignItems:'center'}}>
+                          
+                        </View>
+                        <View style={{alignItems:'center',height:115}}>
+                            
+                        </View> */}
+                    </View>
                     }
                     </View>
                 </View>}

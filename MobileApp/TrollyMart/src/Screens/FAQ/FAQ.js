@@ -45,7 +45,7 @@ export const FAQ = (props)=>{
             setUserId(user_id)
         }); 
         getData();
-    },[]);
+    },[props]);
 
 
     const  openControlPanel = () => {
@@ -53,7 +53,7 @@ export const FAQ = (props)=>{
     }
 
     const getData=()=>{
-        Axios.get('/api/pages/get/page_block/about-us')
+        Axios.get('/api/blocks/get/'+props.block_id)
         .then(res=>{
             setLoading(false);
             setPageBlocks(res.data.pageBlocks)
