@@ -476,7 +476,7 @@ class EditAccount extends Component{
       }
     render(){
         return(
-            <section className="pt-4">
+            <section className="pt-4 pl-xl-3">
             <span className={"font-weight-bold " + Style.editAccountTitle}>My Profile</span>
             <div className={"col-lg-10 col-12 col-xl-9 accountInformationMainWrapper "+Style.accountInformationMainWrapper}id="accountInformationManiId">
             <div className="row">
