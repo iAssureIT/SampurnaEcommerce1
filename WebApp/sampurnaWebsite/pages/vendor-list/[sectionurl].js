@@ -16,17 +16,6 @@ class VendorList extends Component {
       }
       
       componentDidMount() {
-        // $(window).scroll(function() {
-        //     if ($(this).scrollTop()>670)
-        //      {
-        //         $('.myDiv').hide(1000);
-        //      }
-        //     else
-        //      {
-        //       $('.myDiv').show(1000);
-        //      }
-        //  });
-
          $(window).scroll(function() {
             if ($(this).scrollTop()>148){
                 $(".deliveryTimeStrip").css({"position": "fixed",
@@ -99,6 +88,7 @@ class VendorList extends Component {
       showMoreVendor(event){
           event.preventDefault();
       }
+
     render() {
         return(
             <div className={"col-12 " +Style.bgGray}>
@@ -192,6 +182,10 @@ class VendorList extends Component {
         )
     }
 }
+
+
+
+
 export default VendorList;
 
 

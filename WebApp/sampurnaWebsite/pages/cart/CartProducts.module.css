@@ -1,6 +1,21 @@
+.cartHeightWrapper{
+    margin-top: 50px;
+}
+
+.vendorTitle{
+    font-size: 20px;
+    font-weight: bold;
+    font-family   : 'Montserrat-Bold';
+    letter-spacing: 0px;
+    color         : #000000;
+    opacity       : 1;
+    /*margin-left: 8%;  */
+    margin-bottom: 10px;  
+}
+
 .singleVendorBox {
     /* margin-bottom:25px; */
-    border        : 1px solid #ddd;
+    border        : 1px solid #707070;
     border-radius : 19px;
     padding       : 15px;
     font-size     : 14px;
@@ -8,6 +23,8 @@
     letter-spacing: 0px;
     color         : #000000;
     opacity       : 1;
+    margin-left: 13%;
+    margin-bottom: 40px;
 }
 
 .singleRow {
@@ -15,19 +32,110 @@
     height       : auto;
 }
 
+.tableHeading{
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.cartProductImg{
+    width:  130px;
+}
+.productBrand{
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.quantityWrapper{
+    font-size: 12px;
+    margin-top: 10px;
+}
+.cartProductPrize{
+    font-size: 12px;
+    margin-top: 10px;
+}
+.cartOldprice{
+    font-size: 12px;
+    margin-top: 10px;    
+}
+
+.cartWishlist{
+    font-size: 12px;
+    color: #999;
+    margin-top: -10px;
+}
+.cartWishlistRed{
+    color: #f00 !important;    
+    font-size: 12px;
+    margin-top: -10px;
+}
+
+.trashIcon{
+    font-size: 12px;
+    color: #999;
+}
+.vendorWarning{
+    font-size: 12px;
+    color: #dc1919;
+    text-align: right;
+}
+.currency{
+    text-align: left;
+    width: 40%;
+    float: left;
+}
+.summeryCurrency{
+    text-align: left;
+    width: 50%;
+    float: left;
+}
+
+.amount{
+    text-align: right;
+    width: 40%;
+    float: left;
+}
+.summeryAmount{
+    text-align: right;
+    width: 50%;
+    float: left;
+}
+.summeryTotCurrency{
+    text-align: left;
+    width: 50%;
+    float: left;
+    font-weight: bold;
+}
+.summeryTotAmount{
+    text-align: right;
+    width: 50%;
+    float: left;
+    font-weight: bold;
+}
+.cartInnerTitleWrapperOfGrandTotal{
+    font-family   : 'Montserrat-Bold';
+    font-weight: bold;
+    font-size: 24px;
+    text-align: left;
+    float: left;
+    margin-left: -20px;
+}
+
+
 .discMsgColor {
     color    : black;
     font-size: 12px;
+    font-weight: bold;
 }
+
+
+
+
 .regularShippingCharge{
     text-decoration: line-through;
     color: #aaa;
 }
 .cartInnerTitleWrapperHidden1{
     text-align: right;
-}
-.cartInnerTitleWrapperOfGrandTotal{
-    font-size: 0.8rem;
 }
 .cartTotalLineWrapper {
     border     : 1px solid #e8e8e8 !important;
@@ -52,10 +160,9 @@
     color: #222222;
 }
 .productName {
-    margin-bottom : 0.5rem;
-  
+    margin-bottom : 0.5rem;  
     line-height   : 1.2;
-    font-size     : 12px !important;
+    font-size     : 12px;
     font-family: 'Montserrat-Medium';
     letter-spacing: 0px;
     color: #000000;
@@ -76,7 +183,6 @@
     display         : inline-block;
     background      : #f6f6f6;
     border-radius   : 7px;
-    /* margin-bottom: 10px; */
 }
 
 .bbBox {
@@ -96,17 +202,11 @@
 }
 
 .cartSummary1 {
+    font-size: 12px;
     max-height      : 200px ! important;
     height          : auto !important;
     display         : inline-block;
-    /* margin-top   : 15px; */
-    /* background   : #eee; */
-    /* border       : 1px solid #dedede; */
-    /* border-radius: 4px; */
-    /* margin-bottom: -15px; */
     margin-left     : -5.5% !important;
-    /* padding      : 15px; */
-
 }
 
 .tdCartWrapper {
@@ -115,14 +215,14 @@
 
 .checkoutBtn {
     background-color  : #033554 !important;
-    color             : var(--globaleCommBtnColor) !important;
-    border-radius     : var(--globaleCommBtnBorderRadius) !important;
-    border            : #033554 !important;
-    padding           : var(--globaleCommBtnPadding) !important;
-    -webkit-transition: var(--globalTransition) !important;
-    transition        : var(--globalTransition) !important;
-    margin-top        : var(--globaleCommBtnMarginTop) !important;
-    font-size         : var(--globaleCommBtnfontSize) !important;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 50px;
+    border-radius: 10px;
+    padding: 20px 0px;
+}
+.checkoutBtn:hover {
+    color: #fff;    
 }
 
 .infoCircle {
@@ -135,8 +235,8 @@
 }
 
 .cartInnerTitleWrapper {
-    font-size: 13px !important;
-    left     : -4% !important;
+    font-size: 13px;
+    left     : -4% ;
     font-family: 'Montserrat-Bold';
     color      : #000000;
 }
@@ -147,6 +247,7 @@
 }
 .cartInnerCurrencyWrapper1{
     text-align: right;
+    padding-left: 35px;
 }
 .savingaMTcOLOR {
     color: #3e9d5e !important;
@@ -167,7 +268,7 @@
 .cartTitle {
     font-size     : 20px;
     margin-left   : 41px;
-    margin-top    : 15px;
+    margin-top    : 50px;
     font-family   : 'Montserrat-Bold';
     color         : #000000;
     letter-spacing: 0px;
@@ -183,6 +284,7 @@
     margin-top: 3%;
 }
 .oldprice{
+    color: #666;
     font-size: 12px;
     text-decoration: line-through;
     -webkit-text-decoration-color: #DC1919;
@@ -192,23 +294,20 @@
 .vendorWiseinnerTitle{
     font-family: 'Montserrat-Medium'!important;
     color         : #000000!important;
-   
-
 }
-/* Extra large devices (large desktops, 1200px and up) */
 
-@media (min-width: 1920px)  {
-    .cartInnerCurrencyWrapper1{
-        text-align: right;
-    }
-    .tdCartWrapper {
-        right: -4% !important;
-    }
+.productDetails{
+    padding: 0px;
 }
-@media (min-width: 1200px) {
+
+
+/*==================  MEDIA QUERIES  ========================*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+
     .cartTitle {
         font-size     : 36px;
-        margin-left   : 41px;
+        margin-left   : 8%;
         margin-top    : 15px;
         font-family   : 'Montserrat-Bold';
         color         : #000000;
@@ -216,21 +315,12 @@
         opacity       : 1;
     }
 
-    .cartInnerTitleWrapper h5 strong {
-        font-size: 17px !important;
-    }
-
     .cartSummary1 {
         max-height      : 200px ! important;
         height          : auto !important;
         display         : inline-block;
-        /* margin-top   : 15px; */
-        /* background   : #eee; */
-        /* border       : 1px solid #dedede; */
-        /* border-radius: 4px; */
         margin-bottom   : -15px;
         margin-left     : 2.5% !important;
-        /* padding      : 15px; */
         font-family: 'Montserrat-Bold';
         color      : #000000;
     }
@@ -241,40 +331,815 @@
         position: fixed;
         top: 200px;    
     }
-    .vendorNameLargeScreen {
-        font-family   : 'Montserrat-Bold';
-        letter-spacing: 0px;
-        color         : #000000;
-        opacity       : 1;
-    }
     .emptycartImageWrapper{
         height:250px
     }
     .summaryClass {
         max-height      : 200px;
-        padding         : 15px;
+        padding         : 10px;
         height          : auto;
         margin-top      : 0px !important;
         border          : none;
         display         : inline-block;
         background      : #f6f6f6;
         border-radius   : 7px;
-        /* margin-bottom: 10px; */
+    }
+    .currency, .amount{
+        width: 50%;
+        font-size: 12px;
+    }
+    .vendorTitle{
+        font-size: 22px;
+        margin-bottom: 20px;  
+    }
+    .cartInnerCurrencyWrapper1{
+        padding-left: 10px;
+    }
+    .cartInnerCurrencyWrapper1{
+        text-align: right;
+    }
+    .cartInnerTitleWrapperOfGrandTotal{
+        margin-left: 0px;    
+    }
+
+    .tdCartWrapper {
+        right: -4% !important;
+        text-align: right;
+    }
+    .tdCartWrapper span{
+        text-align: right;
+    }
+    .singleVendorBox {
+        margin-left: 13%;
+    }
+    .tableHeading{
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+    .productBrand, .productName, .quantityWrapper, .cartProductPrize,.oldprice{
+        font-size: 11px;
+    }
+    .cartProductPrize{
+        padding: 0px !important;
+    }
+    .trashIcon{
+        margin-top: -6px;
+        position: absolute;
+    }
+
+    .cartWishlist{
+        margin-top: -15px;
+        position: absolute;
+    }
+    .cartWishlist, .trashIcon,.cartWishlistRed{
+        font-size: 12px;        
+    }
+    .vendorWarning{
+        font-size: 10px;
+    }
+    .summaryClass table td{
+        font-size: 12px; 
+    }
+    .cartInnerTitleWrapper, .summeryCurrency , .summeryAmount { 
+        font-size : 10px;
+    }
+    .summeryTotCurrency, .summeryTotAmount, .cartInnerTitleWrapperOfGrandTotal{
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    .checkoutBtn {
+        font-size: 15px;
+        height: 36px;
+        padding: 7px 0px;
+    }
+    .discMsgColor{
+        font-size: 12px;
     }
 }
 
-@media (min-width: 640px) {
+@media (min-width: 480px) and (max-width: 640px) {
+
+    .cartTitle {
+        font-size     : 36px;
+        margin-left   : 8%;
+        margin-top    : 15px;
+        font-family   : 'Montserrat-Bold';
+        color         : #000000;
+        letter-spacing: 0px;
+        opacity       : 1;
+    }
+
     .cartSummary1 {
         max-height      : 200px ! important;
         height          : auto !important;
         display         : inline-block;
-        /* margin-top   : 15px; */
-        /* background   : #eee; */
-        /* border       : 1px solid #dedede; */
-        /* border-radius: 4px; */
-        /* margin-bottom: -15px; */
+        margin-bottom   : -15px;
         margin-left     : 2.5% !important;
-        /* padding      : 15px; */
+        font-family: 'Montserrat-Bold';
+        color      : #000000;
+    }
+    .cartWrapper{
+        min-height: 600px;
+    }
+    .loaderWrapper{
+        position: fixed;
+        top: 200px;    
+    }
+    .emptycartImageWrapper{
+        height:250px
+    }
+    .summaryClass {
+        max-height      : 200px;
+        padding         : 10px;
+        height          : auto;
+        margin-top      : 0px !important;
+        border          : none;
+        display         : inline-block;
+        background      : #f6f6f6;
+        border-radius   : 7px;
+    }
+    .currency, .amount{
+        width: 50%;
+        font-size: 12px;
+    }
+    .vendorTitle{
+        font-size: 22px;
+        margin-bottom: 20px;  
+    }
+    .cartInnerCurrencyWrapper1{
+        padding-left: 10px;
+    }
+    .cartInnerCurrencyWrapper1{
+        text-align: right;
+    }
+    .cartInnerTitleWrapperOfGrandTotal{
+        margin-left: 0px;    
+    }
 
+    .tdCartWrapper {
+        right: -4% !important;
+        text-align: right;
+    }
+    .tdCartWrapper span{
+        text-align: right;
+    }
+    .singleVendorBox {
+        margin-left: 13%;
+    }
+    .tableHeading{
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+    .productBrand, .productName, .quantityWrapper, .cartProductPrize,.oldprice{
+        font-size: 11px;
+    }
+    .cartProductPrize{
+        padding: 0px !important;
+    }
+    .trashIcon{
+        margin-top: -6px;
+        position: absolute;
+    }
+
+    .cartWishlist{
+        margin-top: -15px;
+        position: absolute;
+    }
+    .cartWishlist, .trashIcon,.cartWishlistRed{
+        font-size: 12px;        
+    }
+    .vendorWarning{
+        font-size: 10px;
+    }
+    .summaryClass table td{
+        font-size: 12px; 
+    }
+    .cartInnerTitleWrapper, .summeryCurrency , .summeryAmount { 
+        font-size : 10px;
+    }
+    .summeryTotCurrency, .summeryTotAmount, .cartInnerTitleWrapperOfGrandTotal{
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    .checkoutBtn {
+        font-size: 15px;
+        height: 36px;
+        padding: 7px 0px;
+    }
+    .discMsgColor{
+        font-size: 12px;
     }
 }
+
+
+@media (min-width: 640px) and (max-width: 768px) {
+
+    .cartTitle {
+        font-size     : 36px;
+        margin-left   : 8%;
+        margin-top    : 15px;
+        font-family   : 'Montserrat-Bold';
+        color         : #000000;
+        letter-spacing: 0px;
+        opacity       : 1;
+    }
+
+    .cartSummary1 {
+        max-height      : 200px ! important;
+        height          : auto !important;
+        display         : inline-block;
+        margin-bottom   : -15px;
+        margin-left     : 2.5% !important;
+        font-family: 'Montserrat-Bold';
+        color      : #000000;
+    }
+    .cartWrapper{
+        min-height: 600px;
+    }
+    .loaderWrapper{
+        position: fixed;
+        top: 200px;    
+    }
+    .emptycartImageWrapper{
+        height:250px
+    }
+    .summaryClass {
+        max-height      : 200px;
+        padding         : 10px;
+        height          : auto;
+        margin-top      : 0px !important;
+        border          : none;
+        display         : inline-block;
+        background      : #f6f6f6;
+        border-radius   : 7px;
+    }
+    .currency, .amount{
+        width: 50%;
+        font-size: 12px;
+    }
+    .vendorTitle{
+        font-size: 22px;
+        margin-bottom: 20px;  
+    }
+    .cartInnerCurrencyWrapper1{
+        padding-left: 10px;
+    }
+    .cartInnerCurrencyWrapper1{
+        text-align: right;
+    }
+    .cartInnerTitleWrapperOfGrandTotal{
+        margin-left: 0px;    
+    }
+
+    .tdCartWrapper {
+        right: -4% !important;
+        text-align: right;
+    }
+    .tdCartWrapper span{
+        text-align: right;
+    }
+    .singleVendorBox {
+        margin-left: 13%;
+    }
+    .tableHeading{
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+    .productBrand, .productName, .quantityWrapper, .cartProductPrize,.oldprice{
+        font-size: 11px;
+    }
+    .cartProductPrize{
+        padding: 0px !important;
+    }
+    .trashIcon{
+        margin-top: -6px;
+        position: absolute;
+    }
+
+    .cartWishlist{
+        margin-top: -15px;
+        position: absolute;
+    }
+    .cartWishlist, .trashIcon,.cartWishlistRed{
+        font-size: 12px;        
+    }
+    .vendorWarning{
+        font-size: 10px;
+    }
+    .summaryClass table td{
+        font-size: 12px; 
+    }
+    .cartInnerTitleWrapper, .summeryCurrency , .summeryAmount { 
+        font-size : 10px;
+    }
+    .summeryTotCurrency, .summeryTotAmount, .cartInnerTitleWrapperOfGrandTotal{
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    .checkoutBtn {
+        font-size: 15px;
+        height: 36px;
+        padding: 7px 0px;
+    }
+    .discMsgColor{
+        font-size: 12px;
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) { 
+    .cartTitle {
+        font-size     : 28px;
+        margin-top    : 15px;
+    }
+    .singleRow{
+        margin-left: -16%;
+        width: 110%;        
+    }
+    .cartProductImg{
+        width:  90px;
+    }
+    .cartHeightWrapper{
+        margin-top: 35px;
+    }
+
+    .cartSummary1 {
+        max-height      : 200px ! important;
+        height          : auto !important;
+        display         : inline-block;
+        margin-bottom   : -15px;
+        margin-left     : 2.5% !important;
+        font-family     : 'Montserrat-Bold';
+        color           : #000000;
+    }
+    .cartWrapper{
+        min-height: 600px;
+    }
+    .loaderWrapper{
+        position: fixed;
+        top: 200px;    
+    }
+    .emptycartImageWrapper{
+        height:250px
+    }
+    .summaryClass {
+        max-height      : 200px;
+        padding         : 10px;
+        height          : auto;
+        margin-top      : 0px !important;
+        border          : none;
+        display         : inline-block;
+        background      : #f6f6f6;
+        border-radius   : 7px;
+    }
+    .currency, .amount{
+        width: 50%;
+        font-size: 12px;
+    }
+    .vendorTitle{
+        font-size: 22px;
+        margin-bottom: 20px;  
+    }
+    .cartInnerCurrencyWrapper1{
+        padding-left: 10px;
+    }
+    .cartInnerCurrencyWrapper1{
+        text-align: right;
+    }
+    .cartInnerTitleWrapperOfGrandTotal{
+        margin-left: 0px;    
+    }
+
+    .tdCartWrapper {
+        right: -4% !important;
+        text-align: right;
+    }
+    .tdCartWrapper span{
+        text-align: right;
+    }
+    .singleVendorBox {
+        margin-left: 13%;
+    }
+    .tableHeading{
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+    .productBrand, .productName, .quantityWrapper, .cartProductPrize,.oldprice{
+        font-size: 11px;
+    }
+    .cartProductPrize{
+        padding: 0px !important;
+    }
+    .trashIcon{
+        margin-top: -6px;
+        position: absolute;
+    }
+
+    .cartWishlist{
+        margin-top: -15px;
+        position: absolute;
+    }
+    .cartWishlist, .trashIcon,.cartWishlistRed{
+        font-size: 12px;        
+    }
+    .vendorWarning{
+        font-size: 10px;
+    }
+    .summaryClass table td{
+        font-size: 12px; 
+    }
+    .cartInnerTitleWrapper, .summeryCurrency , .summeryAmount { 
+        font-size : 10px;
+    }
+    .summeryTotCurrency, .summeryTotAmount, .cartInnerTitleWrapperOfGrandTotal{
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    .checkoutBtn {
+        font-size: 15px;
+        height: 36px;
+        padding: 7px 0px;
+    }
+    .discMsgColor{
+        font-size: 12px;
+    }
+}
+
+
+@media (min-width: 1024px) and (max-width: 1280px) { 
+    .cartTitle {
+        font-size     : 36px;
+        margin-left   : 8%;
+        margin-top    : 15px;
+        font-family   : 'Montserrat-Bold';
+        color         : #000000;
+        letter-spacing: 0px;
+        opacity       : 1;
+    }
+
+    .cartSummary1 {
+        max-height      : 200px ! important;
+        height          : auto !important;
+        display         : inline-block;
+        margin-bottom   : -15px;
+        margin-left     : 2.5% !important;
+        font-family: 'Montserrat-Bold';
+        color      : #000000;
+    }
+    .cartWrapper{
+        min-height: 600px;
+    }
+    .loaderWrapper{
+        position: fixed;
+        top: 200px;    
+    }
+    .emptycartImageWrapper{
+        height:250px
+    }
+    .summaryClass {
+        max-height      : 200px;
+        padding         : 10px;
+        height          : auto;
+        margin-top      : 0px !important;
+        border          : none;
+        display         : inline-block;
+        background      : #f6f6f6;
+        border-radius   : 7px;
+        margin-left: 95px;
+    }
+    .currency, .amount{
+        width: 50%;
+        font-size: 12px;
+    }
+    .vendorTitle{
+        font-size: 22px;
+        margin-bottom: 20px;  
+        margin-left: 90px;
+    }
+    .cartInnerCurrencyWrapper1{
+        padding-left: 10px;
+    }
+    .cartInnerCurrencyWrapper1{
+        text-align: right;
+    }
+    .cartInnerTitleWrapperOfGrandTotal{
+        margin-left: 0px;    
+    }
+
+    .tdCartWrapper {
+        right: -4% !important;
+        text-align: right;
+    }
+    .tdCartWrapper span{
+        text-align: right;
+    }
+    .singleVendorBox {
+        margin-left: 16%;
+    }
+    .tableHeading{
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+    .productBrand, .productName, .quantityWrapper, .cartProductPrize,.oldprice{
+        font-size: 11px;
+    }
+    .cartProductPrize{
+        padding: 0px !important;
+    }
+    .trashIcon{
+        margin-top: -6px;
+        position: absolute;
+    }
+
+    .cartWishlist{
+        margin-top: -15px;
+        position: absolute;
+    }
+    .cartWishlist, .trashIcon,.cartWishlistRed{
+        font-size: 12px;        
+    }
+    .vendorWarning{
+        font-size: 10px;
+    }
+    .summaryClass table td{
+        font-size: 12px; 
+    }
+    .cartInnerTitleWrapper, .summeryCurrency , .summeryAmount { 
+        font-size : 10px;
+    }
+    .summeryTotCurrency, .summeryTotAmount, .cartInnerTitleWrapperOfGrandTotal{
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    .checkoutBtn {
+        font-size: 15px;
+        height: 36px;
+        padding: 7px 0px;
+    }
+    .discMsgColor{
+        font-size: 12px;
+    }
+}
+
+
+@media (min-width: 1280px) and (max-width: 1366px) { 
+    .vendorTitle{
+        font-size: 24px;
+        margin-bottom: 20px;  
+    }
+}
+
+@media (min-width: 1366px) and (max-width: 1440px) { 
+    .cartTitle {
+        font-size: 50px; 
+        margin-left: 5%;
+    }    
+    .vendorTitle{
+        font-size: 24px;
+        margin-bottom: 20px;  
+        margin-left: 6%;
+    }
+    .singleVendorBox {
+        margin-left: 10%;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 1536px) { 
+    .cartTitle {
+        font-size: 56px; 
+        margin-left: 5%;
+        margin-top: 50px;
+    }
+    .vendorTitle{
+        font-size: 26px;
+        margin-bottom: 20px;  
+    }
+
+    .cartInnerCurrencyWrapper1{
+        text-align: right;
+    }
+    .tdCartWrapper {
+        right: -4% !important;
+        text-align: right;
+    }
+    .tdCartWrapper span{
+        text-align: right;
+    }
+    .singleVendorBox {
+        margin-left: 13%;
+    }
+    .tableHeading{
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+    .productBrand, .productName, .quantityWrapper, .cartProductPrize,.oldprice{
+        font-size: 14px;
+    }
+    .cartWishlist, .trashIcon,.cartWishlistRed{
+        font-size: 18px;        
+    }
+    .vendorWarning{
+        font-size: 14px;
+    }
+    .summaryClass{
+        max-height: 300px;
+        padding: 20px 30px;
+    }
+    .summaryClass table td{
+        font-size: 20px; 
+    }
+    .cartInnerTitleWrapper, .summeryCurrency , .summeryAmount { 
+        font-size : 19px;
+    }
+    .summeryTotCurrency, .summeryTotAmount, .cartInnerTitleWrapperOfGrandTotal{
+        font-size: 22px;
+        margin-top: 10px;
+    }
+    .checkoutBtn {
+        font-size: 22px;
+    }
+    .discMsgColor{
+        font-size: 18px;
+    }
+
+
+}
+
+@media (min-width: 1536px) and (max-width: 1680px) { 
+    .cartTitle {
+        font-size: 56px; 
+        margin-left: 5%;
+        margin-top: 50px;
+    }
+    .vendorTitle{
+        font-size: 27px;
+        margin-bottom: 20px;  
+    }
+    .cartInnerCurrencyWrapper1{
+        text-align: right;
+    }
+    .tdCartWrapper {
+        right: -4% !important;
+        text-align: right;
+    }
+    .tdCartWrapper span{
+        text-align: right;
+    }
+    .singleVendorBox {
+        margin-left: 13%;
+    }
+    .tableHeading{
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    .productBrand, .productName, .quantityWrapper, .cartProductPrize,.oldprice{
+        font-size: 15px;
+    }
+    .cartWishlist, .trashIcon,.cartWishlistRed{
+        font-size: 19px;        
+    }
+    .vendorWarning{
+        font-size: 15px;
+    }
+    .summaryClass{
+        max-height: 300px;
+        padding: 20px 30px;
+    }
+    .summaryClass table td{
+        font-size: 22px; 
+    }
+    .cartInnerTitleWrapper, .summeryCurrency , .summeryAmount { 
+        font-size : 21px;
+    }
+    .summeryTotCurrency, .summeryTotAmount, .cartInnerTitleWrapperOfGrandTotal{
+        font-size: 24px;
+        margin-top: 10px;
+    }
+    .checkoutBtn {
+        font-size: 23px;
+    }
+    .discMsgColor{
+        font-size: 18px;
+    }
+
+
+
+}
+
+@media (min-width: 1680px) and (max-width: 1920px) { 
+    .cartTitle {
+        font-size: 60px; 
+        margin-left: 5%;
+        margin-top: 50px;
+    }
+    .vendorTitle{
+        font-size: 28px;
+        margin-bottom: 20px;  
+    }
+    .cartInnerCurrencyWrapper1{
+        text-align: right;
+    }
+    .tdCartWrapper {
+        right: -4% !important;
+        text-align: right;
+    }
+    .tdCartWrapper span{
+        text-align: right;
+    }
+    .singleVendorBox {
+        margin-left: 13%;
+    }
+    .tableHeading{
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    .productBrand, .productName, .quantityWrapper, .cartProductPrize,.oldprice{
+        font-size: 15px;
+    }
+    .cartWishlist, .trashIcon,.cartWishlistRed{
+        font-size: 19px;        
+    }
+    .vendorWarning{
+        font-size: 15px;
+    }
+    .summaryClass{
+        max-height: 300px;
+        padding: 20px 30px;
+    }
+    .summaryClass table td{
+        font-size: 22px; 
+    }
+    .cartInnerTitleWrapper, .summeryCurrency , .summeryAmount { 
+        font-size : 22px;
+    }
+    .summeryTotCurrency, .summeryTotAmount, .cartInnerTitleWrapperOfGrandTotal{
+        font-size: 28px;
+    }
+    .checkoutBtn {
+        font-size: 23px;
+    }
+    .discMsgColor{
+        font-size: 18px;
+    }
+
+
+}
+
+@media (min-width: 1920px)  {
+    .cartInnerCurrencyWrapper1{
+        text-align: right;
+    }
+    .tdCartWrapper {
+        right: -4% !important;
+        text-align: right;
+    }
+    .tdCartWrapper span{
+        text-align: right;
+    }
+    .cartTitle {
+        font-size: 65px; 
+        margin-left: 5%;
+        margin-top: 50px;
+    }
+    .vendorTitle{
+        font-size: 30px;
+        margin-bottom: 10px;  
+    }
+    .singleVendorBox {
+        margin-left: 13%;
+    }
+    .tableHeading{
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+    .productBrand, .productName, .quantityWrapper, .cartProductPrize,.oldprice{
+        font-size: 17px;
+    }
+    .cartWishlist, .trashIcon,.cartWishlistRed{
+        font-size: 20px;        
+    }
+    .vendorWarning{
+        font-size: 16px;
+    }
+    .summaryClass{
+        max-height: 300px;
+        padding: 20px 30px;
+    }
+    .summaryClass table td{
+        font-size: 25px; 
+    }
+    .cartInnerTitleWrapper, .summeryCurrency , .summeryAmount { 
+        font-size : 25px;
+    }
+    .summeryTotCurrency, .summeryTotAmount, .cartInnerTitleWrapperOfGrandTotal{
+        font-size: 30px;
+    }
+    .checkoutBtn {
+        font-size: 25px;
+    }
+    .discMsgColor{
+        font-size: 19px;
+    }
+
+}
+
