@@ -255,7 +255,7 @@ export default class OrderDetails extends Component {
     // console.log("this.state.orderData.paymentDetails===",this.state.orderData.paymentDetails);
     // console.log("this.state.orderData.paymentDetails===",this.state.orderData);
     return (
-      <div className={"col-12 NoPadding " + Style.orderDetailMainWrapper} id="orderDetailMainID" >
+      <div className={"col-12 NoPadding pt-4 " + Style.orderDetailMainWrapper} id="orderDetailMainID" >
         <div className={" " + Style.container1}>
           <Message messageData={this.state.messageData} />
           {
@@ -263,7 +263,7 @@ export default class OrderDetails extends Component {
             <div className="col-12 NoPadding">
               <br />
               <div className="row">
-                <div className="col-12 ">
+                <div className="col-12 col-xl-10 ">
                   <div >
                     <h4 className={"table-caption mb-1 mt-4 " + Style.mainTitle}>My Order Details</h4>
                   </div>
@@ -286,13 +286,13 @@ export default class OrderDetails extends Component {
                       </div>
                       <div className={"col-6 " + Style.rightside}>
                         <div className="">
-                          <div className={"col-12 "+Style.rightSideDateWrapper}>
+                          <div className={"col-12 "+Style.myOrdersDetDateAndTime}>
                             <span className="col-12 text-right d-lg-block d-xl-block d-none">Date : {moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;<span className={" "+ Style.rightSideDateWrapper2}></span>&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm a")}</span>
 
                             <span className="col-12 text-right d-block d-lg-none d-xl-none">{moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm A")}</span>
 
                           </div>
-                          <div className={"col-12 "+Style.rightSideDateWrapper1}>
+                          <div className={"col-12 "+Style.myOrderDeliveryDetails}>
                             <div className="col-12"> <i className="fas fa-wallet"></i>&nbsp; {this.state.orderData.paymentDetails.paymentMethod}</div>
                           </div>
                           <div className={"col-12 "+Style.rightSideDateWrapper1}>
@@ -321,7 +321,7 @@ export default class OrderDetails extends Component {
                                     <div className="col-5 pull-right">
                                       {this.state.orderData.orderStatus !== "Cancelled" &&
                                         this.cancelButton(this.state.orderData.createdAt) &&
-                                        <div className="col-12 NoPadding ">
+                                        <div className="col-12 NoPadding">
                                           <div className={"col-12 text-right cancelOrderbtn " + Style.cancelBtn} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("hh:mm A")} </div>
                                         </div>
                                       }
@@ -330,7 +330,7 @@ export default class OrderDetails extends Component {
                                 </div>
                               </div>
                               {vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
-                                <div className="col-12 NoPadding ">
+                                <div className="col-12 NoPadding pb-xl-5 ">
                                   <div className="row">
                                     {
                                       this.state.labels.map((step,index)=>{

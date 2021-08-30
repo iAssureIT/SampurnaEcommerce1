@@ -53,8 +53,7 @@
         padding                : 15px;
         background             : #033554;
         color                  : #fff;
-        border-top-left-radius : 10px;
-        border-top-right-radius: 10px;
+        border-radius: 19px 19px 0px 0px;
         font-size              : 14px !important;
 
     }
@@ -127,4 +126,50 @@
         color         : #000000;
         letter-spacing: 0px;
     }
+}
+
+
+@media only screen and (min-device-width: 1536px) {
+    .creditPointTitleWrapper{
+        font-size: 30px;
+    }
+}
+
+@media only screen and (min-device-width: 1920px) {
+    .creditPointTitleWrapper{
+        font-size: 37px;
+    }
+
+    .creditWrapper{
+        /*width: 73%;*/
+    }
+
+    .CreditCurrentBalTitle1{
+        font-size: 20px;
+    }
+
+    .CreditCurrentBalTitle2{
+        font-size: 15px;
+    }
+
+    .CreditEarnedBalTitle1{
+        font-size: 20px;
+    }
+
+    .CreditDataPtTitle{
+        font-size: 23px;
+    }
+
+    .CreditTotalBalTitle{
+        font-size: 19px;
+    }
+
+    .CreditCurrentBalTitle{
+        font-size: 20px;
+    }
+
+    .CreditTotalPtTitle{
+        font-size: 23px;
+    }
+
 }

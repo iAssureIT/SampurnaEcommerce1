@@ -476,8 +476,9 @@ class EditAccount extends Component{
       }
     render(){
         return(
-            <div className={"col-lg-10 col-12 accountInformationMainWrapper "+Style.accountInformationMainWrapper}id="accountInformationManiId">
-            <h4 className="font-weight-bold">My Profile</h4>
+            <section className="pt-4">
+            <span className={"font-weight-bold " + Style.editAccountTitle}>My Profile</span>
+            <div className={"col-lg-10 col-12 col-xl-9 accountInformationMainWrapper "+Style.accountInformationMainWrapper}id="accountInformationManiId">
             <div className="row">
                 <div className={ " col-12 accountDashBoardInnerwrapper "+Style.accountDashBoardInnerwrapper}>
                     <Message messageData={this.state.messageData} />
@@ -665,6 +666,7 @@ class EditAccount extends Component{
                 </div>
             </div>
         </div>
+        </section>
         )
     }
 }

@@ -44,7 +44,7 @@ class ShoppingVerticals extends Component {
       axios.get('/api/blocks/get/'+this.props.block_id)    
       .then((blockresponse)=>{
         if(blockresponse.data){
-        // console.log("groupsettings response data====",blockresponse.data);                
+        /*console.log("groupsettings response data====",blockresponse.data);*/                
         this.setState({
            blockResponse    : blockresponse.data,
            groupSettings    : blockresponse.data.groupSettings,   
@@ -55,7 +55,7 @@ class ShoppingVerticals extends Component {
           .then((blockApiResponse)=>{
             console.log("blockApiResponse = > ",blockApiResponse)
             if(blockApiResponse.data){   
-              // console.log("blockApiResponse.data===",blockApiResponse.data); 
+              /*console.log("blockApiResponse.data===",blockApiResponse.data); */
             for(var i=0;i<blockApiResponse.data.length;i++){ 
                   itemList.push({
                     "itemImg" : blockApiResponse.data[i].itemImg && blockApiResponse.data[i].itemImg,
