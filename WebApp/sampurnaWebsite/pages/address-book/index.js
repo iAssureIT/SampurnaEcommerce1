@@ -145,7 +145,7 @@ class AddressBook extends Component{
     }
     render(){
         return(      
-            <div className="col-lg-10 col-12 pt-4 "> 
+            <div className="col-lg-12 col-xl-10 col-12 pt-4"> 
             <div className="col-12">
             
             <div className="modal mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
@@ -166,7 +166,7 @@ class AddressBook extends Component{
             
             <Message messageData={this.state.messageData} /> </div>
             <div className={"font-weight-bold "+ Style.accountDashBoardMainTitle}>My Addresses</div>
-            <div className={ "container-flex col-9 col-xl-11 "+Style.accountDashBoardInnerwrapper}>
+            <div className={ "container-flex col-9 col-lg-11 col-xl-11 "+Style.accountDashBoardInnerwrapper}>
                 <div className="row">
                     <div className={"col-12 "+Style.creditHeader}>
                         <div className="row">
@@ -241,7 +241,7 @@ class AddressBook extends Component{
                                                                     }
                                                                     <br /> Contact Number: {address.mobileNumber} 
                                                                 </div>
-                                                                <div className="col-12 pl-lg-0 pl-xl-0 pl-md-0 pl-sm-0 ml-xl-3">
+                                                                <div className="col-12 pl-lg-5 pl-xl-0 pl-md-0 pl-sm-0 ml-xl-3">
                                                                     <div className="row">
                                                                         {/* <button data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className=" col-lg-8 col-xl-8 col-8 mx-auto btn globalCommonBtn float-left">Edit Address</button>  */}
                                                                         <div className="col-4 pt-4 pt-lg-2">

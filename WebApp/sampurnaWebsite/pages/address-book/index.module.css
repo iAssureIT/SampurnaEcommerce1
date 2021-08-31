@@ -130,11 +130,26 @@
 
   }
 
+
+ 
+@media only screen and (min-device-width: 1024px) {
+
+  .addressInnerDescWrapper{
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+} 
+
+
 @media only screen and (min-device-width: 1366px) {
 
     .accountDashBoardMainTitle{
         font-size: 25px;
     }
+
+    .additionAddress{
+        height: 200px;
+    }   
 }  
 
 @media only screen and (min-device-width: 1440px) {
@@ -142,12 +157,17 @@
     .accountDashBoardMainTitle{
         font-size: 28px;
     }
+
+    .additionAddress{
+        height: 200px;
+    }
+
 }
 
 
 @media only screen and (min-device-width: 1536px) {
     .additionAddress{
-        height: 197px;
+        height: 200px;
     }
 
     .addNewAddressBtn{
@@ -156,6 +176,10 @@
 
     .accountDashBoardMainTitle{
         font-size: 30px;
+    }
+
+     .addressInnerDescWrapper{
+        font-size: 13px;
     }
 }
 
@@ -171,7 +195,8 @@
     }
 
     .additionalAddressDeleteBtn{
-        margin-left: 0px;
+        margin-left: -49px;
+        margin-top: 3px;
     }
 
     .defaultBillingAddTitle{
@@ -201,6 +226,7 @@
 
     .addressInnerDescWrapper{
         margin-bottom: 10px;
+        font-size: 15px;
     }
 
 }
