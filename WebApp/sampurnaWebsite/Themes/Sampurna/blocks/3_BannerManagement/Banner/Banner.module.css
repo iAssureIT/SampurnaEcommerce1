@@ -108,13 +108,17 @@
       background:  transparent !important;
       border: solid 1px #aaa;
   }
-@media (min-width: 1920px) and (max-width: 2559px) {
-    .swiperContainer{
-        height: 365px!important;
-    }
+@media (min-width: 1920px){
     .BgImg{
         height: 365px!important;
     }
+    .bannerContainerEcomm{
+        margin-bottom: 30px;
+    }
+    .swiperContainer{
+        height: 400px!important;
+    }
+
 }
   @media only screen and (max-device-width: 480px) {
     .titleWrapper{

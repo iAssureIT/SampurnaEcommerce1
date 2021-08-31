@@ -333,7 +333,7 @@ class DeliveryLocationPopup extends React.Component{
                     :
                         null
                 }            
-                <form className={"col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2"} style={{"position":"absolute", "top":this.state.formTopMargin}}>
+                <form className={"col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 " + Style.locationSetBlock} >
                     <div className="col-12">
                         <div className="row">
                             <div className="col-12 col-lg-3">

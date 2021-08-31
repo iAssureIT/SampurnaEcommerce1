@@ -1,9 +1,4 @@
-.yello{
-    background-color: #ff0;
-}
-.green{
-    background-color: #0ff;
-}
+
 .modal{
     z-index: 10000;
 }
@@ -13,7 +8,6 @@
     padding: 0!important;
     box-sizing: border-box;
     height: 132px;
-    background-color: #ff0;
 }
 .megamenuWrapper{
     margin: 0!important;
@@ -1202,7 +1196,7 @@
     
     .navbarHeader{
         position: absolute;
-        top: -51px;
+        top: -54px;
         left: -13px;
     }
     .mainMenu{
@@ -1236,7 +1230,7 @@
         font-size: 9px; 
     }
     .changeLocationTitle{
-        font-size: 10.5px;
+        font-size: 10px;
     }
     .searchIcon{
         width: 15%;

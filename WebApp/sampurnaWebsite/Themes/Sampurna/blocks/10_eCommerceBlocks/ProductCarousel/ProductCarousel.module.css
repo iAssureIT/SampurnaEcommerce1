@@ -1156,3 +1156,13 @@
     font-size: 18px;
   }
 }
+@media (min-width: 1920px)  {
+  .titleFont1,.titleFont{
+    font-size: 62px!important;
+    text-align: left!important;
+  }
+  .line{
+        width: 100%;
+    background-color: #000;
+  }
+}

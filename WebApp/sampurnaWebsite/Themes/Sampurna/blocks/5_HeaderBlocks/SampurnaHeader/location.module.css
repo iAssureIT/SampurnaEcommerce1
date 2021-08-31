@@ -1,6 +1,11 @@
 .currentOrSearchBar {
     background-color: burlywood;
 }
+.locationSetBlock{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
 .deliveryLocationCurrentButton {
     height          : 38px;
     background-color: #033554;

@@ -784,7 +784,7 @@ li a{
     background-size:100% 100%;
     background-repeat:no-repeat;
     margin-top:0px !important;
-    /* height:600px !important; */    
+    height:75vh !important; 
     z-index: 0;
 }
 

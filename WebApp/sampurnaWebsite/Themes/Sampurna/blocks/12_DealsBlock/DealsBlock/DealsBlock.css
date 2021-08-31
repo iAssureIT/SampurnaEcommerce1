@@ -16,8 +16,14 @@
     width: 100%;
     cursor: pointer;
 }
-@media (min-width: 1920px) and (max-width: 2559px) {
+@media (min-width: 1920px){
     .dealsBlock img{
         height: 368px;
+    }
+    .dealsBlock{
+        margin-top: 3rem!important;
+    }
+    .item_Name{
+        font-size: 19px;
     }
 }

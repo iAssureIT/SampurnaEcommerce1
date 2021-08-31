@@ -227,12 +227,14 @@ class HomePage extends React.Component {
 							groupSettings =	{this.state.supermarketGroupSettings}
 							blockTitle    = {"Supermarket"}
 					/>
-
-					<ProductCarouselBlock 
-						blockSettings   = {this.state.supermarketBlockSettings} 
-						productSettings = {this.state.productSettings}
-						blockTitle      = {"Your Supermarket"}
-					/>
+					
+					<div className="col-xl-12">
+						<ProductCarouselBlock 
+							blockSettings   = {this.state.supermarketBlockSettings} 
+							productSettings = {this.state.productSettings}
+							blockTitle      = {"Your Supermarket"}
+						/>
+					</div>
 
 					< DealsBlock 
 						dealSettings = { this.state.flowersDealSettings}
@@ -243,12 +245,13 @@ class HomePage extends React.Component {
 							groupSettings =	{this.state.flowersGroupSettings}
 							blockTitle    = {"Types Of Flowers"}
 					/>
-
-					<ProductCarouselBlock 
-						blockSettings   = {this.state.flowersBlockSettings} 
-						productSettings = {this.state.productSettings}
-						blockTitle      = {"Surprise Your Love One"}
-					/>
+					<div className="col-xl-12">
+						<ProductCarouselBlock 
+							blockSettings   = {this.state.flowersBlockSettings} 
+							productSettings = {this.state.productSettings}
+							blockTitle      = {"Surprise Your Love One"}
+						/>
+					</div>
 
 					<CategoryBlock 
 							groupSettings =	{this.state.saloonGroupSettings}
@@ -264,12 +267,13 @@ class HomePage extends React.Component {
 							groupSettings =	{this.state.subCategoryGroupSettings}
 							blockTitle    = {"Baby Products"}
 					/>
-
-					<ProductCarouselBlock 
-						blockSettings   = {this.state.babyBlockSettings} 
-						productSettings = {this.state.productSettings}
-						blockTitle      = {"Baby Care Products"}
-					/>
+					<div className="col-xl-12">
+						<ProductCarouselBlock 
+							blockSettings   = {this.state.babyBlockSettings} 
+							productSettings = {this.state.productSettings}
+							blockTitle      = {"Baby Care Products"}
+						/>
+					</div>
 
 					< Footer />
 				</div>
