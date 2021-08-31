@@ -46,6 +46,7 @@ export default class OrderDetails extends Component {
       user_ID: userDetails.user_id,
       email: userDetails.email,
       fullName: userDetails.firstName + " " + userDetails.lastName,
+      authService : userDetails.authService,
       currency: currency,
     }, () => {
       this.getMyOrders();
@@ -279,9 +280,11 @@ export default class OrderDetails extends Component {
                           <div className="col-12">{"Order Status : " + (this.state.orderData.orderStatus === "New"?"New Order":this.state.orderData.orderStatus)}</div>
                           <div className="col-12">{"Order ID : " + (this.state.orderData.orderID)}</div>
                           <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.netPayableAmount}</span></div>
-                          <div className="col-12">
-                            Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.creditPointsEarned}{this.state.orderData.paymentDetails.creditPointsValueEarned}</span>
-                          </div>
+                          {this.state.authService !== "guest" &&
+                            <div className="col-12">
+                              Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.creditPointsEarned}{this.state.orderData.paymentDetails.creditPointsValueEarned}</span>
+                            </div>
+                          }
                         </div>
                       </div>
                       <div className={"col-6 " + Style.rightside}>

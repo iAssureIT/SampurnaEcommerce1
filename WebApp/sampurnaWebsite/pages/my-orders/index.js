@@ -47,6 +47,7 @@ export default class MyOrders extends Component {
         user_ID: userDetails.user_id,
         email: userDetails.email,
         fullName: userDetails.firstName + " " + userDetails.lastName,
+        authService : userDetails.authService,
         currency: currency,
       }, () => {
         this.getMyOrders();
@@ -340,9 +341,11 @@ export default class MyOrders extends Component {
                                   <div className="col-12">{singleOrder.orderStatus==="New"?"New Order":singleOrder.orderStatus}</div>
                                   <div className="col-12">{"Order ID : " + (singleOrder.orderID)}</div>
                                   <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</span></div>
-                                  <div className="col-12">
-                                    Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</span>
-                                  </div>
+                                  {this.state.authService !== "guest" &&
+                                    <div className="col-12">
+                                      Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</span>
+                                    </div>
+                                  }
                                 </div>
                                 
                               </div>

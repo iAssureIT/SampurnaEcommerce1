@@ -81,6 +81,7 @@ class Checkout extends Component {
                 fullName: userDetails.firstname + " " + userDetails.lastname,
                 websiteModel: sampurnaWebsiteDetails.preferences.websiteModel,
                 currency: currency,
+                authService : userDetails.authService
             }, () => {
                 this.getCreditData();
                 this.getUserAddress();
@@ -282,8 +283,6 @@ class Checkout extends Component {
     placeOrder(event) {
         event.preventDefault();
         var addressValues = {};
-        // $("html, body").animate({ scrollTop: 550 }, 800);
-        // console.log("place order this.state.recentCartData.vendorOrders==",this.state.recentCartData);
         var vendorOrders = this.state.recentCartData.vendorOrders;
         // console.log("this.state.recentCartData.vendorOrders==",this.state.recentCartData);
         if (this.validateForm()) {
@@ -993,6 +992,7 @@ class Checkout extends Component {
                                             </div>
                                             {/* =======================================mb respnsve START=================== */}
                                             <div className="col-10 d-block d-lg-none d-xl-none mx-auto">
+                                                {this.state.authService !== "guest" &&
                                                 <div className="row mt-2 couponWrapper ">
                                                     <label className={" " + Style.f13N+" "+ Style.disccountCoupnWrapper}>Enter Discount Coupon Here <span className={" " + Style.dumySpan}>dumy span</span></label>
                                                     <div className={"form-group col-8 NoPadding " + Style.border1}>
@@ -1002,7 +1002,7 @@ class Checkout extends Component {
                                                         <button type="button" className={"col-12 btn pull-right " + Style.border2 + " " + Style.cuponBtn} onClick={this.applyCoupon.bind(this)}>APPLY</button>
                                                     </div>
                                                 </div>
-
+                                                }
                                                 <div className="row mt-2 mb-5 creditWrapper">
                                                     {this.state.creditdataTotalPoints > 0 ?
                                                         <label className={"col-12 " + Style.f13N}>Credit Points Available [{this.state.creditdataTotalPoints}] Points.  <span className={" " + Style.AEDColor}> Total Balance Available [{this.state.creditdataValue}] {this.state.currency}</span></label>
@@ -1316,9 +1316,11 @@ class Checkout extends Component {
                                                         </table>
                                                     </div>
                                                     <div className={"col-12  checkOutTerms " + Style.checkOutTerms}>
+                                                        {this.state.authService !== "guest" &&
                                                         <div className={Style.coupanTitle}>
                                                             You can use Either..
                                                         </div>
+                                                        }
                                                         <div className="col-12 ">
                                                             {this.state.recentCartData ?
 
@@ -1327,8 +1329,8 @@ class Checkout extends Component {
                                                                     <div className="row">
 
                                                                         <div className="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 ">
+                                                                            {this.state.authService !== "guest" &&
                                                                             <div className="col-12 col-lg-11 col-xl-9 col-md-10 col-sm-12 col-xs-12 mb-2 mt-2 couponCreditWrapper">
-                                                                                
                                                                                 <div className="row mt-5 couponWrapper ">
                                                                                     <div className="col-12">
                                                                                         <label className={"col-12 " + Style.f13N+" "+ Style.disccountCoupnWrapper}>Enter Discount Coupon Here</label>
@@ -1359,6 +1361,7 @@ class Checkout extends Component {
                                                                                     <div className={Style.errorMsg + " col-12 "+Style.mtErrMsg}>{this.state.creaditPointError}</div>
                                                                                 </div>
                                                                             </div>
+                                                                            }
                                                                         </div>
                                                                         <div className={"col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 font-weight-bold  pt-5 " + Style.totalAmountWrapper}>
                                                                             <div className={"row " + Style.f13N1}>
