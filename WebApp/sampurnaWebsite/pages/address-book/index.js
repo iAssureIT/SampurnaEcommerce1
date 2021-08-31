@@ -218,7 +218,7 @@ class AddressBook extends Component{
                                <div className="col-12">
                                    <label className={" "+ Style.defaultBillingAddTitle}>Additional Address Entries</label>
                                </div>
-                                <div className="col-10 mx-auto">
+                                <div className="col-10 col-lg-12 col-xl-10 mx-auto">
                                     <div className="row">
                                         {/* { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return( */}
                                         { this.props.recentAddressData && this.props.recentAddressData.length > 1 ? this.props.recentAddressData.map((address , index)=>{ if(index !== 0){ 

@@ -115,10 +115,10 @@ class MyAccount extends Component{
             <section className="header ">
                 <Header />
                 <div className="container-fluid pb-5 MyaccountMainWrapper">
-                    <div className="col-12 ml-xl-4">
+                    <div className="col-12 ml-xl-4 ml-lg-3">
                         <div className="row">
                             <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 col-12">
-                                <header className="col-12 mt-4 mb-xl-4 pl-xl-0 text-left text-black">
+                                <header className="col-12 mt-4 mb-xl-4 pl-xl-3 mb-lg-4 pl-lg-2 text-left text-black">
                                     <span className={"mx-2 "+ S.myAccountTitleWrapper}>My Account</span>       
                                 </header>
                                 {/* <!-- Tabs nav --> */}

@@ -135,8 +135,29 @@
 @media only screen and (min-device-width: 1024px) {
 
   .addressInnerDescWrapper{
-        font-size: 12px;
+        font-size: 11px;
         margin-bottom: 10px;
+    }
+
+   .additionAddress{
+        height: 145px;
+    }
+
+    .additionalAddressDeleteBtn{
+        margin-left: -15px;
+        margin-top: 3px;
+    }
+
+    .accountDashBoardMainTitle{
+        font-size: 25px;
+    }   
+
+    .addNewAddressBtn{
+        font-family   : Montserrat-Bold;
+    }
+
+    .CreditTotalPtTitle {
+        font-family   : Montserrat-Bold;
     }
 } 
 
@@ -148,8 +169,22 @@
     }
 
     .additionAddress{
-        height: 200px;
-    }   
+        height: 144px;
+    }
+
+    .addressInnerDescWrapper{
+        font-size: 10px;
+        margin-bottom: -56px;
+    }
+
+    .additionalAddressDeleteBtn{
+        margin-left: -3px;
+        margin-top: 2px;
+    }
+
+    .addNewAddressBtn{
+        margin-left: 98px;
+    }  
 }  
 
 @media only screen and (min-device-width: 1440px) {
@@ -159,7 +194,16 @@
     }
 
     .additionAddress{
-        height: 200px;
+        height: 163px;
+    }
+    .addressInnerDescWrapper{
+        font-size: 11px;
+        margin-bottom: -46px;
+    }
+
+    .additionalAddressDeleteBtn{
+        margin-left: -31px;
+        margin-top: 3px;
     }
 
 }
@@ -167,19 +211,25 @@
 
 @media only screen and (min-device-width: 1536px) {
     .additionAddress{
-        height: 200px;
+        height: 166px;
+    }
+
+    .addressInnerDescWrapper{
+        font-size: 13px;
+        margin-bottom: -29px;
+    }
+
+    .additionalAddressDeleteBtn {
+        margin-left: -19px;
+        margin-top: 2px;
     }
 
     .addNewAddressBtn{
-        margin-left: 80px;
+        margin-left: 108px;
     }
 
     .accountDashBoardMainTitle{
         font-size: 30px;
-    }
-
-     .addressInnerDescWrapper{
-        font-size: 13px;
     }
 }
 
@@ -190,13 +240,12 @@
     }
 
     .addNewAddressBtn{
-        margin-left: 60px;
-        font-family   : Montserrat-Bold;
+        margin-left: 120px;
     }
 
     .additionalAddressDeleteBtn{
-        margin-left: -49px;
-        margin-top: 3px;
+        margin-left: -45px;
+        margin-top: 1px;
     }
 
     .defaultBillingAddTitle{
@@ -209,24 +258,62 @@
 
     .CreditTotalPtTitle {
         font-size: 18px;
-        font-family   : Montserrat-Bold;
     }
 
     .additionAddress{
-        height: 219px;
+        height: 188px;
     }
 
     .editAddress, .deleteAddress{
         font-size: 18px;
     }
 
-    .addNewAddressBtn{
-        margin-left: 95px;
-    }
-
     .addressInnerDescWrapper{
-        margin-bottom: 10px;
+        margin-bottom: -15px;
         font-size: 15px;
     }
 
 }
+
+
+@media only screen and (min-device-width: 2560px) {
+
+    .accountDashBoardMainTitle{
+        font-size: 40px;
+    }
+
+    .addNewAddressBtn{
+        margin-left: 125px;
+    }
+
+    .defaultBillingAddTitle{
+        font-size: 21px;
+    }
+
+    .addressInnerDescWrapper{
+        font-size: 18px;
+    }
+
+    .CreditTotalPtTitle {
+        font-size: 21px;
+    }
+
+    .additionAddress{
+        height: 218px;
+    }
+
+    .editAddress, .deleteAddress{
+        font-size: 21px;
+    }
+
+    .addressInnerDescWrapper{
+        margin-bottom: 6px;
+        font-size: 20px;
+    }
+
+    .additionalAddressDeleteBtn {
+        margin-left: -96px;
+        margin-top: 1px;
+    }
+
+}    

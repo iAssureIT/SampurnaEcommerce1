@@ -538,6 +538,22 @@
 
 
 
+
+
+
+
+
+@media only screen and (min-device-width: 1024px) {
+
+	.myOrderDeliveryDetails{
+		font-family: 'Montserrat-Thin';
+	}
+
+	.myOrdersDetDateAndTime{
+		font-family: 'Montserrat-Medium';
+	}
+}
+
 @media only screen and (min-device-width: 1366px) {
     .mainTitle {
 		font-size: 25px;
@@ -582,12 +598,11 @@
 	}
 
 	.myOrderDeliveryDetails{
-		font-family: 'Montserrat-Thin';
+		/*font-family: 'Montserrat-Thin';*/
 	}
 
 	.myOrdersDetDateAndTime{
 		font-size: 18px;
-		font-family: 'Montserrat-Medium';
 	}
 
 	.stepRound{

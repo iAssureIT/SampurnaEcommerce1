@@ -963,9 +963,22 @@ option:focus, option:active{
   }
 }
 
-@media only screen and (min-device-width: 1366px) {
+
+
+
+
+
+@media only screen and (min-device-width: 1024px) {
   .globalCommonBtn {
     padding: 8px 50px;
+  }
+
+}  
+
+
+@media only screen and (min-device-width: 1366px) {
+  .globalCommonBtn {
+    padding: 8px 21px;
   }
 
 }  
