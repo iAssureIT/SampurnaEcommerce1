@@ -3,7 +3,10 @@ const { parse } = require('url')
 const conf = require('./next.config')
 const next = require('next')
 
-const dev = conf.publicRuntimeConfig.PORT !== 'production'
+const dev = conf.publicRuntimeConfig.NODE_ENV !== 'production'
+console.log("dev = ",dev);
+console.log("conf.publicRuntimeConfig.NODE_ENV = ",conf.publicRuntimeConfig.NODE_ENV);
+
 const app = next({ dev })
 const port = conf.publicRuntimeConfig.PORT;
 console.log("port=",port)
