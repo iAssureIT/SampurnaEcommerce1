@@ -53,7 +53,7 @@ export const FAQ = (props)=>{
     }
 
     const getData=()=>{
-        Axios.get('/api/blocks/get/'+props.block_id)
+        Axios.get('/api/pages/get/page_block/faq')
         .then(res=>{
             setLoading(false);
             setPageBlocks(res.data.pageBlocks)

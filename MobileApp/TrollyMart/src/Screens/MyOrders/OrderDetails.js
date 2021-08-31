@@ -1012,7 +1012,7 @@ const cancelorderbtn = (id,vendor_id) => {
             <Rating
               // showRating
               type='custom'
-              // ratingImage={WATER_IMAGE}
+              starImage={WATER_IMAGE}
               // ratingBackgroundColor='#EBEBEB'
               tintColor= '#EBEBEB'
               startingValue={rating}

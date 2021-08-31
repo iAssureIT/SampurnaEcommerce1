@@ -121,7 +121,7 @@ const getHeaderConfig = (title,backBtn) => {
     headerShown: true,
     headerTitle: title,
     headerTitleAlign: "left",
-    header: (props) => <HeaderBar2  headerTitle={title} backBtn={backBtn} />,
+    header: (props) => <HeaderBar2 headerTitle={title} backBtn={backBtn} />,
   };
 };
 
