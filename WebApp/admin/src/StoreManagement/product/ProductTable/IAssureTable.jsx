@@ -36,6 +36,7 @@ class IAssureTable extends Component {
 		    "twoLevelHeader" 			: props && props.twoLevelHeader ? props.twoLevelHeader : {},
 		    "tableObjects" 				: props && props.tableObjects ? props.tableObjects : {},		    
 		    isLoading               : props.isLoading,		    
+		    unCheck             : props.unCheckedProducts,		    
 		    "reA" 						: /[^a-zA-Z]/g,
 		    "reN" 						: /[^0-9]/g,
 		    "sort" 	  					: true,
@@ -64,6 +65,12 @@ class IAssureTable extends Component {
       	tableHeading	: this.props.tableHeading,
       	tableData 		: this.props.tableData,
       	dataCount 		: this.props.dataCount,
+      	isLoading      : this.props.isLoading,
+      	unCheck 			: this.props.unCheckedProducts
+      },()=>{
+      	if (this.state.unCheck) {
+      		this.unCheckAll();
+      	}
       });
 	  this.paginationFunction();
 	}
@@ -74,21 +81,24 @@ class IAssureTable extends Component {
         this.setState({
             tableData	    : nextProps.tableData,
             dataCount 		: nextProps.dataCount,
+            isLoading      : nextProps.isLoading,
+            unCheck 			: nextProps.unCheckedProducts
         })
         if(nextProps){
 	        this.setState({
-	            tableData     : nextProps.tableData,
+	            tableData     		: nextProps.tableData,
 	            completeDataCount : nextProps.completeDataCount,
+	            unCheck 				: nextProps.unCheckedProducts
 	        },()=>{
 		        this.paginationFunction();
-		        if(nextProps.unCheckedUser&&this.state.tableData){
+		        	if(nextProps.unCheckedProducts && this.state.tableData){
 			        $('.allSelector').prop('checked',false);
 			        this.state.tableData.map((a,i)=>{
 			        this.setState({
 			        [a._id] : false,
 			        allid : []
 			        },()=>{
-			        this.props.setunCheckedUser(false)
+			        // this.props.setunCheckedUser(false)
 			        })
 			        });
 		        }
@@ -663,6 +673,23 @@ class IAssureTable extends Component {
 	        });
 	    }
     }
+
+    unCheckAll() {      	
+		this.state.tableData.map((a,i)=>{
+		        this.setState({
+		        	[a._id] : false,
+		        },()=>{
+		        	if(this.state.tableData.length===(i+1)){
+	      				this.setState({allid:[]},()=>{
+	      					// console.log("here id=======================",this.state.allid);
+    	this.props.selectedProducts(this.state.allid);
+	      				})
+		        	}
+		        })
+		        return a._id;
+	        });
+	    
+    }
     showImageModal(event){
     	//$('#showImageModal').show();
     	// console.log("event",event.target)
@@ -811,8 +838,8 @@ class IAssureTable extends Component {
 	       	<div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NoPadding">	
 		       	{
 		       		this.state.tableObjects.paginationApply === true ?
-			       		<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 NoPadding">
-							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17 NOpadding">Show</label>
+			       		<div className="col-lg-2 col-md-3 col-sm-6 col-xs-12 NOpadding-left">
+							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Data Per Page</label>
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 								<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">
 									<option value="Not Selected" disabled>Select Limit</option>
@@ -827,13 +854,13 @@ class IAssureTable extends Component {
 					:
 					null        
 		       	}
-				<div className="col-lg-6  col-md-6  col-xs-12 col-sm-12 text-center mt50">
+				<div className="col-lg-2 col-md-3 col-sm-6 col-xs-12 text-center NOPadding marginTop17">
 	        		{/* <label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Filtered Products: <span >{this.state.dataCount}</span> </label> */}
-					<label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Selected Products: <span >{this.state.allid ? this.state.allid.length : '0'}</span> </label>
+					<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17"> Selected Products : <span >{this.state.allid ? this.state.allid.length : '0'}</span> </label>
 				</div> 
 				{
 		       		this.state.tableObjects.searchApply === true ? 
-			       		<div className="col-lg-4  col-md-4  col-xs-12 col-sm-4 marginTop17 pull-right NoPadding">
+			       		<div className="col-lg-8 col-md-6 col-sm-12 col-xs-12 pull-right  NOpadding-right">
 			        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
 			        		<div className="input-group">
 						        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
@@ -872,7 +899,9 @@ class IAssureTable extends Component {
 										Object.entries(this.state.tableHeading).map( 
 											([key, value], i)=> {
 												return(
-													<th key={i} className="umDynamicHeader srpadd textAlignLeft">{value} <span onClick={this.sort.bind(this)} id={key} className="fa fa-sort tableSort"></span></th>
+													<th key={i} className="umDynamicHeader srpadd textAlignLeft">{value}
+													 {/*<span onClick={this.sort.bind(this)} id={key} className="fa fa-sort tableSort"></span>*/}
+													 </th>
 												);								
 											}
 										) 
@@ -886,36 +915,28 @@ class IAssureTable extends Component {
 	                            </tr>
 	                        </thead>
 	                        <tbody>
-	                           { 	this.state.isLoading
-                        	?
-                        		<tr className="trAdmin">
-                           		<td colSpan={Object.keys(this.state.tableHeading).length+1} className="noTempData textAlignCenter">
-                           			<div id="tableLoaderDiv">  
-						                    	<Loader
-						                        loaded          = {false}
-						                        lines           = {13}
-						                        length          = {20}
-						                        width           = {8}
-						                        radius          = {10}
-						                        corners         = {1}
-						                        rotate          = {0}
-						                        direction       = {1}
-						                        color           = "#a5d8ff"
-						                        speed           = {1}
-						                        trail           = {60}
-						                        shadow          = {false}
-						                        hwaccel         = {false}
-						                        className       = "spinner"
-						                        zIndex          = {2e9}
-						                        top             = "55%"
-						                        left            = "50%"
-						                        scale           = {1.0}
-						                        loadedClassName = "loadedContent"
-						                    	/> 
-						                	</div>
-                           		</td>
-                        		</tr>
-                        	:
+	                           {this.state.isLoading
+	                  	?
+	                  		<tr className="trAdmin">
+	                     		<td colSpan={Object.keys(this.state.tableHeading).length+1} className="noTempData textAlignCenter">
+	                     			<div className="container">
+    											<div className="row">
+								               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center dataLoaderWrapper">
+								                	<p>Loading</p>
+								                	<span>Data is Loading. Just a moment please...</span><br/>
+								                	<div className="dataLoader">
+														   <span></span>
+														   <span></span>
+														   <span></span>
+														   <span></span>
+														   <span></span>
+														</div>
+													</div>
+												</div>
+											</div>
+	                     		</td>
+	                  		</tr>
+	                  	:
                         	this.state.tableData && this.state.tableData.length > 0 ?
 	                           		this.state.tableData.map( 
 										(value, i)=> {		
@@ -984,12 +1005,12 @@ class IAssureTable extends Component {
 													<td className="textAlignCenter">
 														<span class="displayInline">
 															<a href={"/product-details/"+value._id} className="" title="View" data-ID={value._id}>
-	                                                            <i className="fa fa-eye" aria-hidden="true"></i>
-	                                                        </a>&nbsp; &nbsp;
-															<i className="fa fa-pencil" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 
-															<i className={"fa fa-image "} id={value._id} name={value.productNameBasic} nameRlang={value.productNameRlang} data-toggle="modal" title="Upload Product Image" data-target={"#productImageModal"} onClick={this.showImageModal.bind(this)}></i>&nbsp; &nbsp;
+                                                <i className="fa fa-eye productActionIcon" aria-hidden="true"></i>
+                                            	</a>&nbsp; &nbsp;
+															<i className="fa fa-pencil productActionIcon" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 
+															<i className={"fa fa-image productActionIcon"} id={value._id} name={value.productNameBasic} nameRlang={value.productNameRlang} data-toggle="modal" title="Upload Product Image" data-target={"#productImageModal"} onClick={this.showImageModal.bind(this)}></i>&nbsp; &nbsp;
 														
-															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id} title="Delete" onClick={this.delete.bind(this)}></i>}
+															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash productActionIcon redFont "+value._id} id={value._id} title="Delete" onClick={this.delete.bind(this)}></i>}
 															{/*{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>}*/}
 															</span>
 														<div className="modal fade" id={"showDeleteModal-"+(value._id)} role="dialog">

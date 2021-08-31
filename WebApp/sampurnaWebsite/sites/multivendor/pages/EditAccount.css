@@ -68,30 +68,62 @@
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-device-width: 1200px) {
   #editAccount label {
-    font-size     : 15px;
+    font-size     : 12px;
     /* font-weight: 700 ! important; */
   }
 
   #editAccount input {
-    font-size: 16px;
+    font-size: 12px;
   }
 
   #editAccount span {
-    font-size: 16px;
+    font-size: 12px;
   }
 }
 
-@media (min-device-width: 1536px) {
+
+@media (min-device-width: 1366px) {
+
     #editAccount label {
-      font-size: 12px;
+      font-size: 13px;
     }
 
     #editAccount span {
-      font-size: 12px;
+      font-size: 13px;
+    }
+
+    #editAccount input {
+      font-size: 13px;
+  }
+
+ } 
+
+@media (min-device-width: 1440px) {
+     #editAccount label {
+      font-size: 14px;
+    }
+
+    #editAccount span {
+      font-size: 14px;
     }
 
     #editAccount input {
       font-size: 14px;
+  }
+
+ } 
+
+@media (min-device-width: 1536px) {
+    #editAccount label {
+      font-size: 15px;
+    }
+
+    #editAccount span {
+      font-size: 15px;
+    }
+
+    #editAccount input {
+      font-size: 15px;
   }
 
 

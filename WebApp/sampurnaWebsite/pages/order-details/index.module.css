@@ -538,6 +538,26 @@
 
 
 
+@media only screen and (min-device-width: 1366px) {
+    .mainTitle {
+		font-size: 25px;
+	}
+
+	.orderDetailVendorAmtInnerWrapper{
+		font-size: 10px;
+	}
+}
+
+@media only screen and (min-device-width: 1440px) {
+    .mainTitle {
+		font-size: 28px;
+	}
+
+	.orderDetailVendorAmtInnerWrapper{
+		font-size: 13px;
+	}
+}
+
 
 
 @media only screen and (min-device-width: 1536px) {
@@ -546,7 +566,7 @@
 	}
 
 	.orderDetailVendorAmtInnerWrapper{
-		font-size: 9px;
+		font-size: 13px;
 	}
 }
 

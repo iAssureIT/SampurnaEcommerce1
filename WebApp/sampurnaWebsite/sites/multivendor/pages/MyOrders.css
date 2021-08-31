@@ -63,11 +63,31 @@
 
 
 
+@media only screen and (min-device-width: 1366px) {
+	.showDetailsBtn {
+        padding: 5px;
+        font-size: 15px;
+     }  
+}	
 
+@media only screen and (min-device-width: 1440px) {
+	.showDetailsBtn {
+        padding: 5px;
+        font-size: 15px;
+     }  
+}	
+
+@media only screen and (min-device-width: 1536px) {
+	.showDetailsBtn {
+        padding: 5px;
+        font-size: 15px;
+     }  
+}	
 
 
 @media only screen and (min-device-width: 1920px) {
-	.showDetailsBtn{
-		font-size: 16px;
-	}
+	.showDetailsBtn {
+        padding: 6px;
+        font-size: 16px;
+     }  
 }	

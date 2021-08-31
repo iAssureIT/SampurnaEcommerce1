@@ -702,7 +702,7 @@ const getshippingamount=(startRange, limitRange)=>{
             disabled       = {!disabled}
             onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true,"back":false})}
          >
-          <Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color: "#eee"}}>Checkout</Text>
+          <Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color: "#eee"}} disabled = {!disabled}  onPress= {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true,"back":false})}>Checkout</Text>
          </TouchableOpacity>
       </View>:null}
   </React.Fragment>

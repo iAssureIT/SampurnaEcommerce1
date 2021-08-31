@@ -20,28 +20,24 @@ import { getWishList } 		    from '../../redux/wishDetails/actions';
 import { useNavigation }      from '@react-navigation/native';
 import { ActivityIndicator }  from 'react-native-paper';
 import { getSearchResult } 	  from '../../redux/globalSearch/actions';
-import { useIsFocused }       from "@react-navigation/native";
 import FastImage              from 'react-native-fast-image';
-import { Alert } from 'react-native';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 export const ProductList = withCustomerToaster((props)=>{
-  const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id,vendor,onEndReachedThreshold,type,subCategory} = props; 
-  const isFocused     = useIsFocused();
+  const {setToast,category_ID,loading,section_id,payload,vendorLocation_id,onEndReachedThreshold,type,subCategory} = props; 
   const navigation    = useNavigation();
   const dispatch 		  = useDispatch();
   const [productsDetails,setProductDetails] = useState([]);
   const [packsizes,setPacksizes]            = useState('');
   const [user_id,setUserId]                 = useState('');
   const [limit,setLimit]                    = useState(props.limit);
-  const [refreshing,setRefresh]             = useState(false);
 
   useEffect(() => {
     getData();
   // },[props]);
-  },[props.limit,props.newProducts,isFocused]);
+  },[props.limit,props.newProducts]);
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,

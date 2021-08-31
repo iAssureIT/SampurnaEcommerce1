@@ -240,7 +240,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
         globalSearch.search ?
             <SearchSuggetion />
         :
-        <View style={[styles.addsuperparent,{marginBottom:Platform.OS==='ios'?60:40,paddingBottom:Platform.OS==='ios'?20:10}]}>
+        <View style={[styles.addsuperparent,{marginBottom:Platform.OS==='ios'?60:40,paddingBottom:Platform.OS==='ios'?20:hp(8)}]}>
           <ScrollView  keyboardShouldPersistTaps='handled' style={styles.formWrapper} keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false}>
            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} >
               <View style={{ backgroundColor: '#fff', paddingHorizontal: 15, marginBottom: "5%" }}>
@@ -468,6 +468,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                 </Text>
                   <Dropdown
                     // label               = 'Type of Address'
+                    fontSize            = {RFPercentage(1.8)}
                     placeholder         = {"-- Select Address Type --"}                    
                     containerStyle      = {styles.ddContainer}
                     // dropdownOffset      = {{ top: 55, left: 0 }}
@@ -480,6 +481,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                     textColor           = {'#000'}
                     style               = {styles.ddStyle}
                     data                = {ShippingType}
+                    dropdownMargins     = {{min:3, max:8}}
                     // value               = {values.addresstype}
                     underlineColorAndroid ='transparent'
                     // onChangeText={(addresstype) => { this.setState({ addresstype }) }}

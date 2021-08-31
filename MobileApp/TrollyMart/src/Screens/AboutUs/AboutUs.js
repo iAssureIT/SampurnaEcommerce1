@@ -76,7 +76,7 @@ export const AboutUs = (props)=>{
                 store.globalSearch.search ?
                   <SearchSuggetion />
                 :
-                <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>
+                <View style={[styles.superparent,{paddingBottom:hp(10),backgroundColor:"#fff"}]}>
                     <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}

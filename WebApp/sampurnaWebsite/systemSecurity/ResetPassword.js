@@ -40,18 +40,19 @@ class ResetPassword extends Component{
 			pwd: this.refs.newPassword.value,
 		};
 		if(this.refs.newPassword.value === this.refs.confirmPassword.value ){
-			axios.patch('/api/auth/patch/change_password_using_otp/id/'+this.state.userId, formValues)
-				.then((response)=>{
-					if(response){
-						this.setState({
-							"showMessage" : true,
-						})
-						swal(response.data.message);
-					}
-				})
-				.catch((error)=>{
-					console.log("reset Password error=",error);
-				})
+		axios.patch('/api/auth/patch/change_password_using_otp/id/'+this.state.userId, formValues)
+	        .then((response)=>{
+				if(response){
+					this.setState({
+						"showMessage" : true,
+					})
+					// swal(response.data.message);
+					swal("Thank you! Password changed successfully");
+				}
+			})
+			.catch((error)=>{
+				console.log("reset Password error=",error);
+			})
 		}else{
 			swal("Password is not matching");
 		}

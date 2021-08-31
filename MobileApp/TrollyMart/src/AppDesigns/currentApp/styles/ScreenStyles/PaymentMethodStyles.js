@@ -14,7 +14,7 @@ export default StyleSheet.create({
   superparent: {
     flex: 1, 
     backgroundColor: '#fff',
-    paddingBottom:70,
+    paddingBottom:hp(6.5),
   },
   parent: {
     backgroundColor: '#fff', 
@@ -114,14 +114,14 @@ export default StyleSheet.create({
   vwwishlist: {
     marginBottom: '10%',
     alignItems:"center",
-     marginTop: 15,
-     height:hp(30),
+    marginTop: hp(1),
+    height:hp(28),
     //  backgroundColor:'red',
     justifyContent:'center'
   },
   imgwdht:{
     width: wp(40),
-    height: hp(30),
+    height: hp(28),
     resizeMode:'contain',
   },
   totaldata: {

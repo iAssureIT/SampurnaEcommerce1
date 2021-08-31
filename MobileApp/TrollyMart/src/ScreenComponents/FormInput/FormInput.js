@@ -26,7 +26,7 @@ export const FormInput = props => {
       // containerStyle={{height:500}}
       inputContainerStyle= {styles.containerStyle}
       // leftIconContainerStyle={styles.leftIconContainerStyle}
-      errorStyle={{ color: 'red' ,margin:0,fontSize:RFPercentage(1.6)}}
+      errorStyle={{ color: 'red' ,margin:0,fontSize:RFPercentage(1.8),fontFamily:"Montserrat-Regular"}}
       inputStyle={styles.inputPlace}
     />
   );

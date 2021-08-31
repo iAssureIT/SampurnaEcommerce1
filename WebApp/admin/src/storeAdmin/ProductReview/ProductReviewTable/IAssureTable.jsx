@@ -1,6 +1,6 @@
 import React, { Component }       	from 'react';
-import {Route, withRouter} 			from 'react-router-dom';
-import swal                     	from 'sweetalert';
+import {withRouter} 			from 'react-router-dom';
+import swal                   from 'sweetalert2';
 import axios 						from 'axios';
 import $ 							from 'jquery';
 import jQuery 						from 'jquery';
@@ -8,32 +8,36 @@ import './IAssureTable.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 
-// axios.defaults.baseURL = 'http://gangaapi.iassureit.com';
-// axios.defaults.headers.post['Content-Type'] = 'application/json';
+const swalWithBootstrapButtons = swal.mixin({
+  	customClass : {
+   	confirmButton 	: 'btn btn-success',
+    	cancelButton 	: 'btn btn-danger'
+  	},
+  	buttonsStyling : false
+})
 
-var sum = 0;
 class IAssureTable extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			"dataCount" 				: props && props.dataCount ? props.dataCount : [],
-		    "tableData" 				: props && props.tableData ? props.tableData : [],
-		    "tableHeading"				: props && props.tableHeading ? props.tableHeading : {},
-		    "twoLevelHeader" 			: props && props.twoLevelHeader ? props.twoLevelHeader : {},
-		    "tableObjects" 				: props && props.tableObjects ? props.tableObjects : {},		    
-		    "reA" 						: /[^a-zA-Z]/g,
-		    "reN" 						: /[^0-9]/g,
-		    "sort" 	  					: true,
-		    "examMasterData2" 			: '',
-		    "activeClass" 				: 'activeCircle',
-		    "paginationArray" 			: [],
-		    "startRange" 				: 0,
-		    "limitRange" 				: 10,
-		    "activeClass" 				: 'activeCircle', 		    
-		    "normalData" 				: true,
-		    "callPage" 					: true,
-		    "pageCount" 				: 0,
-		    "valI" 						: 1
+			"dataCount" 				: props.dataCount,
+			"tableData" 				: props && props.tableData ? props.tableData : [],
+			"tableHeading"				: props && props.tableHeading ? props.tableHeading : {},
+			"twoLevelHeader" 			: props && props.twoLevelHeader ? props.twoLevelHeader : {},
+			"tableObjects" 			: props && props.tableObjects ? props.tableObjects : {},		    
+			isLoading               : props.isLoading,
+			"reA" 						: /[^a-zA-Z]/g,
+			"reN" 						: /[^0-9]/g,
+			"sort" 	  					: true,
+			"examMasterData2" 		: '',
+			"paginationArray" 		: [],
+			"startRange" 				: 0,
+			"limitRange" 				: 10,
+			"activeClass" 				: 'activeCircle', 		    
+			"normalData" 				: true,
+			"callPage" 					: true,
+			"pageCount" 				: 0,
+			"valI" 						: 1,
 		}
 		this.delete = this.delete.bind(this);
 	}
@@ -44,20 +48,25 @@ class IAssureTable extends Component {
       	tableHeading	: this.props.tableHeading,
       	tableData 		: this.props.tableData,
       	dataCount 		: this.props.dataCount,
+      	isLoading      : this.props.isLoading,
+      },()=>{
+      	this.paginationFunction();
       });
-      this.paginationFunction();
 	}
 	componentWillReceiveProps(nextProps) {
 		if(this.state.callPage === true){
         	this.paginationFunction();
-        }
-        this.setState({
-            tableData	    : nextProps.tableData,
-            dataCount 		: nextProps.dataCount,
-        })
-        
-        
-    }
+      }
+
+		this.setState({
+		   tableData	   : nextProps.tableData,
+		   dataCount 		: nextProps.dataCount,
+		   isLoading      : nextProps.isLoading,
+		},()=>{
+			this.paginationFunction();
+		}) 
+   }
+
 	edit(event){
 		event.preventDefault();
 		$("html,body").scrollTop(0);
@@ -68,19 +77,45 @@ class IAssureTable extends Component {
     delete(e){
 	  	e.preventDefault();
 	  	var tableObjects =  this.props.tableObjects;
-		let id = e.target.id;
-		axios({
-	        method: tableObjects.deleteMethod,
-	        url: tableObjects.apiLink+'/delete/'+id
-	    }).then((response)=> {
-			console.log(this.state.startRange, this.state.limitRange);
-	    	this.props.getData(this.state.startRange, this.state.limitRange);
-	        swal({
-	        	title : response.data.message
-	        });
-	    }).catch(function (error) {
-	        console.log('error', error);
-	    });
+		var id = e.target.id;
+		swalWithBootstrapButtons.fire({
+		  	title 				: 'Are you sure?',
+		  	text 					: "You won't be able to revert this!",
+		  	icon 					: 'warning',
+		  	showCancelButton 	: true,
+		  	confirmButtonText : 'Yes, delete it!',
+		  	cancelButtonText 	: 'No, cancel!',
+		  	reverseButtons 	: true
+		}).then((result) => {
+			if (result.isConfirmed) {
+				axios({
+			        method: tableObjects.deleteMethod,
+			        url: tableObjects.apiLink+'/delete/'+id
+			    }).then((response)=> {
+			    	console.log("response => ",response.data)
+			    	this.props.getData(this.state.startRange, this.state.limitRange);
+			        
+			        swalWithBootstrapButtons.fire(
+					      response.data.deleted ? 'Deleted!' : "Sorry!",
+					      response.data.message,
+					      response.data.deleted ? 'success' : 'info'
+				    	)
+			    }).catch(function (error) {
+			        console.log('error', error);
+						swal.fire({
+						  icon 	: 'error',
+						  title 	: 'Oops...',
+						  text 	: 'Something went wrong!'
+						})
+					});	
+			}else if (result.dismiss === swal.DismissReason.cancel) {
+			   swalWithBootstrapButtons.fire(
+			      'Cancelled',
+			      'Your record is safe :)',
+			      'info'
+			   )
+			}
+		})
     } 
     sortNumber(key, tableData){
     	var nameA = '';
@@ -252,41 +287,60 @@ class IAssureTable extends Component {
 			this.sortString(key, tableData);
 		}
     }
-   	paginationFunction(event){
+   /*===========  ===========*/
+   paginationFunction(){
 		var dataLength = this.state.dataCount;
+		// console.log("dataLength => ",dataLength)
 		const maxRowsPerPage = this.state.limitRange;
+		// console.log("maxRowsPerPage 299=> ",maxRowsPerPage)
 		var paginationNum = dataLength/maxRowsPerPage;
-		var pageCount = Math.ceil(paginationNum) > 20? 20 : Math.ceil(paginationNum);
+		// console.log("paginationNum 301 => ",paginationNum)
+		var pageCount = Math.ceil(paginationNum) > 20 ? 20 : Math.ceil(paginationNum);
+		// console.log("Math.ceil(paginationNum)",Math.ceil(paginationNum))
+		// console.log("pageCount 306 => ",pageCount)
 		this.setState({
-			valI : 1,
-			pageCount : pageCount,
+			valI 			: 1,
+			pageCount 	: pageCount,
 			// callPage : false
+		},()=>{
+			// console.log("pageCount 308=> ",this.state.pageCount)
+			this.showPagination(1, this.state.pageCount);		
 		})
-		this.showPagination(1, pageCount);
-		
 	}
+
+	/*===========  ===========*/
 	showPagination(valI, pageCount){
+		// console.log("pageCount ==> 309",pageCount)
+		// console.log("val I ==> 309",valI)
 		var paginationArray = [];
-		for (var i=valI; i<=pageCount;i++){
-			var countNum = this.state.limitRange * i;
+
+		for (var i = valI; i <= pageCount; i++){
+			var countNum 	= this.state.limitRange * i;
 			var startRange = countNum - this.state.limitRange;
+			// console.log("this.state.limitRange ==> ",this.state.limitRange)
+			// console.log("countNum ==> ",countNum)
+			// console.log("startRange ==> ",startRange)
+			// console.log("i ==>",i)
 			if(i === 1){
 				var activeClass = 'activeCircle';
 			}else{
 				activeClass = '';
 			}
 			paginationArray.push(
-				<li key={i} className={"queDataCircle page-link "+activeClass+" parseIntagination"+i} id={countNum+'|'+startRange} onClick={this.getStartEndNum.bind(this)} title={"Click to jump on "+i+ " page"}>{i}</li>
+				<li key={i} className={"queDataCircle page-link "+activeClass+" parseIntagination"+i} id={this.state.limitRange+'|'+startRange} onClick={this.getStartEndNum.bind(this)} title={"Click to jump on "+i+ " page"}>{i}</li>
 			);
 		}
+
 		if(pageCount>=1){				
 			this.setState({
 				paginationArray : paginationArray,
 			},()=>{
+				// console.log("paginationArray 326 ==> ",this.state.paginationArray)
 			});
 		}
 		return paginationArray;
 	}
+
 	getStartEndNum(event){	
 		event.preventDefault();
 		var limitRange = $(event.target).attr('id').split('|')[0];
@@ -313,27 +367,12 @@ class IAssureTable extends Component {
 		},()=>{
 			$('li').removeClass('activeCircle');
 			this.paginationFunction();
-			if(this.state.normalData === true){
-				this.props.getData(startRange, this.state.limitRange);
-			}	
-			if(this.state.searchData === true){
-				this.tableSearch();
-			}
+			this.props.getData(startRange, this.state.limitRange);
 		});	
 	}
-	tableSearch(){
-    	var searchText = this.refs.tableSearch.value;
-		if(searchText && searchText.length !== 0) {
-			this.setState({
-				"normalData"  : false,
-				"searchData"  : true,
-			},()=>{
-				this.props.getSearchText(searchText, this.state.startRange, this.state.limitRange);
-			});	    	
-	    }else{
-			this.props.getData(this.state.startRange, this.state.limitRange);
-	    }    	 
-    }
+	tableSearch(event){
+    	this.props.getSearchText(event.target.value);   	 
+   }
     showNextPaginationButtons(){
     	var dataLength = this.state.dataCount;
 		const maxRowsPerPage = this.state.limitRange;
@@ -481,8 +520,8 @@ class IAssureTable extends Component {
 	       	<div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12">	
 		       	{
 		       		this.state.tableObjects.paginationApply === true ?
-			       		<div className="col-lg-1 col-md-1 col-sm-1 col-xs-2 NOpadding">
-							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17 NOpadding">Data Per Page</label>
+			       		<div className="col-lg-2 col-md-3 col-sm-6 col-xs-12 NOpadding">
+							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Data Per Page</label>
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 								<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">
 									<option value="Not Selected" disabled>Select Limit</option>
@@ -497,15 +536,12 @@ class IAssureTable extends Component {
 					:
 					null        
 		       	}
-				   <div className="col-lg-4 col-md-4 col-xs-12 col-sm-12 totalDataCount">Total Reviews : <b>{this.state.dataCount}</b>
-					   
-				   </div>
 				{
 		       		this.state.tableObjects.searchApply === true ? 
-			       		<div className="col-lg-4  col-md-4  col-xs-12 col-sm-12 marginTop17 NOpadding pull-right">
+			       		<div className="col-lg-10  col-md-9  col-xs-12 col-sm-12 NOpadding-right pull-right">
 			        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
 			        		<div className="input-group">
-						        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" ref="tableSearch" id="tableSearch" name="tableSearch"/>
+						        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" ref="tableSearch" id="tableSearch" name="tableSearch"  placeholder={this.props.tableObjects.searchPlaceholder}/>
 						    	<span className="input-group-addon"><i className="fa fa-search"></i></span>
 						    </div>
 			        	</div>	
@@ -540,7 +576,9 @@ class IAssureTable extends Component {
 													// 	);	
 													// }else{
 														return(
-															<th key={i} className="umDynamicHeader srpadd textAlignLeft">{value} <span onClick={this.sort.bind(this)} id={key} className="fa fa-sort tableSort"></span></th>
+															<th key={i} className="umDynamicHeader srpadd textAlignLeft">{value} 
+															{/*<span onClick={this.sort.bind(this)} id={key} className="fa fa-sort tableSort"></span>*/}
+															</th>
 														);	
 													// }
 																							
@@ -554,7 +592,29 @@ class IAssureTable extends Component {
 	                            </tr>
 	                        </thead>
 	                        <tbody>
-	                           { this.state.tableData && this.state.tableData.length > 0 ?
+	                           { this.state.isLoading
+	                  	?
+	                  		<tr className="trAdmin">
+	                     		<td colSpan={Object.keys(this.state.tableHeading).length+1} className="noTempData textAlignCenter">
+	                     			<div className="container">
+    											<div className="row">
+								               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center dataLoaderWrapper">
+								                	<p>Loading</p>
+								                	<span>Data is Loading. Just a moment please...</span><br/>
+								                	<div className="dataLoader">
+														   <span></span>
+														   <span></span>
+														   <span></span>
+														   <span></span>
+														   <span></span>
+														</div>
+													</div>
+												</div>
+											</div>
+	                     		</td>
+	                  		</tr>
+	                  	: 
+	                  		this.state.tableData && this.state.tableData.length > 0 ?
 	                           		this.state.tableData.map( 
 										(value, i)=> {													
 											return(
@@ -563,22 +623,23 @@ class IAssureTable extends Component {
 													{
 														Object.entries(value).map( 
 															([key, value1], i)=> {
+																var textAlign = '';
 																if($.type(value1) === 'string'){
 																	var regex = new RegExp(/(<([^>]+)>)/ig);
 																	var value2 = value1 ? value1.replace(regex,'') : '';
 																	var aN = value2.replace(this.state.reA, "");
 																	if(aN && $.type( aN ) === 'string'){
-																		var textAlign = 'textAlignLeft';
+																		textAlign = 'textAlignLeft';
 																	}else{
 																		var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
 																		if(bN){
-																			var textAlign = 'textAlignRight';
+																			textAlign = 'textAlignRight';
 																		}else{
-																			var textAlign = 'textAlignLeft';
+																			textAlign = 'textAlignLeft';
 																		}
 																	}
 																}else{
-																	var textAlign = 'textAlignRight';
+																	textAlign = 'textAlignRight';
 																}	
 																var found = Object.keys(this.state.tableHeading).filter((k)=> {
 																  return k === key;
@@ -603,87 +664,16 @@ class IAssureTable extends Component {
 															<a href={"/product-reviews-&-ratings/"+value._id} className="" title="View" data-ID={value._id}>
 	                                                            <i className="fa fa-eye" title="View Customer Review" aria-hidden="true"></i>
 	                                                        </a>&nbsp; &nbsp;
-															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete Customer Review" data-target={"#showDeleteModal-"+(value._id)}></i>}
+															<i className={"fa fa-trash redFont "+value._id} id={value._id} onClick={this.delete.bind(this)} title="Delete Customer Review"></i>
 															{/* <i className="fa fa-eye" title="View Customer Review" id={value._id} ></i>&nbsp; &nbsp;  */}
 														</span>
-														<div className="modal fade" id={"showCommentModal-"+(value._id)} role="dialog">
-	                                                        <div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                          <div className="modal-content adminModal-content col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 noPadding">
-	                                                            <div className="modal-header adminModal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
-																	<h4 className="col-lg-4 col-md-4 col-sm-4 col-xs-6 textAlignLeft customerName">{value.customerName}</h4>
-																	<div className="adminCloseCircleDiv pull-right  col-lg-1 col-lg-offset-7 col-md-1 col-md-offset-7 col-sm-1 col-sm-offset-7 col-xs-12 NOpadding-left NOpadding-right">
-																		<button type="button" className="adminCloseButton" data-dismiss="modal" data-target={"#showCommentModal-"+(value._id)}>&times;</button>
-																	</div>
-	                                                            </div>
-	                                                            <div className="modal-body adminModal-body col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                              <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 prodImg">
-																	  <img src={value.productImages[0]} className="img-responsive" />
-																  </div>
-																  <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 textAlignLeft">
-																	  <h4>{value.productName}</h4>
-																	  <p>{value.customerReview}</p>
-																	  {
-																		  fiveStar.map((a, i)=>{
-																			  if(i< value.rating){
-																				var star = 'activestar';
-																			  }else{
-																				var star = 'deactivestar'
-																			  }
-																			  return(
-																				<i key={i} className={"fa fa-star "+star}></i>
-																			  );
-																		  })
-																	  }
-																  </div>
-																  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 textAlignLeft adminComment">
-																	<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Admin Comments</label>
-																	<textarea rows="5" id="adminComment" value={this.state.adminComment} onChange={this.handleChange.bind(this)} name="adminComment" ref="adminComment" className="col-lg-12 col-md-12 col-sm-12 col-xs-12"></textarea>
-																  </div>
-	                                                            </div>
-	                                                            <div className="modal-footer adminModal-footer col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-	                                                                <button type="button" className="btn adminCancel-btn col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1" data-dismiss="modal">CANCEL</button>
-	                                                              </div>
-	                                                              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-	                                                                <button onClick={this.submitReview.bind(this)} id={(value._id).replace(/-/g, "/")} type="button" className="btn examDelete-btn col-lg-4 col-lg-offset-7 col-md-4 col-md-offset-7 col-sm-8 col-sm-offset-3 col-xs-10 col-xs-offset-1" data-dismiss="modal">SUBMIT</button>
-	                                                              </div>
-	                                                            </div>
-	                                                          </div>
-	                                                        </div>
-	                                                    </div>
-
-
-														<div className="modal fade" id={"showDeleteModal-"+(value._id)} role="dialog">
-	                                                        <div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                          <div className="modal-content adminModal-content col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 noPadding">
-	                                                            <div className="modal-header adminModal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                            <div className="adminCloseCircleDiv pull-right  col-lg-1 col-lg-offset-11 col-md-1 col-md-offset-11 col-sm-1 col-sm-offset-11 col-xs-12 NOpadding-left NOpadding-right">
-	                                                              <button type="button" className="adminCloseButton" data-dismiss="modal" data-target={"#showDeleteModal-"+(value._id)}>&times;</button>
-	                                                            </div>
-	                                                           
-	                                                            </div>
-	                                                            <div className="modal-body adminModal-body col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                              <h4 className="blackLightFont textAlignCenter examDeleteFont col-lg-12 col-md-12 col-sm-12 col-xs-12">Are you sure you want to delete?</h4>
-	                                                            </div>
-	                                                            
-	                                                            <div className="modal-footer adminModal-footer col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-	                                                                <button type="button" className="btn adminCancel-btn col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1" data-dismiss="modal">CANCEL</button>
-	                                                              </div>
-	                                                              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-	                                                                <button onClick={this.delete.bind(this)} id={(value._id).replace(/-/g, "/")} type="button" className="btn examDelete-btn col-lg-4 col-lg-offset-7 col-md-4 col-md-offset-7 col-sm-8 col-sm-offset-3 col-xs-10 col-xs-offset-1" data-dismiss="modal">DELETE</button>
-	                                                              </div>
-	                                                            </div>
-	                                                          </div>
-	                                                        </div>
-	                                                    </div>
 													</td>
 												</tr>
 											);										
 										}
 									) 	
 									:
-									<tr className="trAdmin"><td colSpan={12} className="noTempData textAlignCenter">No Record Found!</td></tr>               		
+									<tr className="trAdmin"><td colSpan={Object.keys(this.state.tableHeading).length+2} className="noTempData textAlignCenter">No Record Found!</td></tr>               		
 								}
 	                    	</tbody>
 	                    </table>

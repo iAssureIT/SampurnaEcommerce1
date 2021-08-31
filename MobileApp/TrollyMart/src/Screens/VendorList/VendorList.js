@@ -127,8 +127,9 @@ export const VendorList = withCustomerToaster((props)=>{
                                     backgroundColor:"#fff",
                                     alignSelf:'center'
                                 }} resizeMode="contain" 
-                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :
-                                <Image 
+                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> 
+                                :
+                                <FastImage 
                                 source          =   {require("../../AppDesigns/currentApp/images/notavailable.png")} 
                                 style      =   {{
                                     borderRadius:hp(100),
@@ -139,7 +140,7 @@ export const VendorList = withCustomerToaster((props)=>{
                                     backgroundColor:"#fff",
                                     alignSelf:'center'
                                 }} resizeMode="contain" 
-                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></Image>
+                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage>
                                 }
                         </View>
                         <View style={{justifyContent:'center',alignItems:'center',height:wp(18)}}>

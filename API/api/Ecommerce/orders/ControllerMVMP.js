@@ -807,6 +807,7 @@ exports.returnProduct = (req, res, next) => {
 							returnProductImages 	: req.body.returnProductImages,
 							section_id 				: returnedProduct[0].section_ID,
 							category_id 			: returnedProduct[0].category_ID,
+							subCategory_id 		: returnedProduct[0].subCategory_ID,
 							originalPrice           : returnedProduct[0].originalPrice,
 							discountPercent         : returnedProduct[0].discountPercent,
 							discountedPrice         : returnedProduct[0].discountedPrice,
@@ -4215,11 +4216,12 @@ exports.revenue_reports = (req, res, next) => {
 		})
 	}
 	/**----------- Status Filter ------------ */		
-	if(req.body.status && req.body.status !== "" && req.body.status !== undefined && req.body.status !== null){       
-		selector["$and"].push({
-			'vendorOrders.orderStatus' : req.body.status			 
-		})
-	}
+	// if(req.body.status && req.body.status !== "" && req.body.status !== undefined && req.body.status !== null){       
+	// 	selector["$and"].push({
+	// 		'vendorOrders.orderStatus' : req.body.status			 
+	// 	})
+	// }
+	selector["$and"].push({ "vendorOrders.orderStatus" : 'Delivered' })
 	/**----------- Vendor Filter ------------ */		
 	if(req.body.vendor && req.body.vendor !== "" && req.body.vendor !== undefined && req.body.vendor !== null){       
 		selector["$and"].push({
@@ -4337,11 +4339,12 @@ exports.delivery_drivers_reports = (req, res, next) => {
 		})
 	}
 
-	/**----------- Status Filter ------------ */
-	// if(req.body.searchText && req.body.searchText !== ""){
-		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
-		selector["$and"].push({ "vendorOrders.orderStatus" : 'Delivered' })
-	// }
+	/**----------- Vendor Filter ------------ */		
+	if(req.body.vendor && req.body.vendor !== "" && req.body.vendor !== undefined && req.body.vendor !== null){       
+		selector["$and"].push({
+			'vendorOrders.vendor_id' : ObjectId(req.body.vendor)			 
+		})
+	}
 
 	/**----------- Seach Orders by OrderID, VendorName, User Name etc. ------------ */
 	if(req.body.searchText && req.body.searchText !== ""){
@@ -4356,6 +4359,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 					]
 		})
 	}
+	console.log("selector =>",selector)
 	
   	Orders.aggregate([
 		{ "$unwind" : "$vendorOrders"},
@@ -4400,6 +4404,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 				"vendorOrders.paymentDetails.amountPaid"				: 1,
 				"vendorOrders.paymentDetails.modeOfPayment"			: 1,
 				"vendorOrders.paymentDetails.deliveryPerson_id"		: 1,
+				"vendorOrders.vendor_netPayableAmount"					: 1,
 				"vendorOrders.deliveryStatus"								: 1,
 				"driverDetails.profile.fullName"							: 1,
 				"driverDetails.profile.employeeID"						: 1,
@@ -4451,11 +4456,7 @@ exports.delivery_drivers_reports = (req, res, next) => {
 						var minutes = parseInt(diff.asMinutes()); //122360 minutes,but it gives total minutes in given miliseconds which is not expacted.
 
 						minutes 		= minutes - (days*24*60 + hours*60); //20 minutes.
-						console.log("diff => ",diff)
-						console.log("days => ",days)
-						console.log("hours => ",hours)
-						console.log("minutes => ",minutes)
-
+						
 						var timeRequiredForDelivery 	= (days > 0 ? days + " Days, " : "") + (hours > 0 ? hours + " Hours, " : "") + (minutes + " Minutes");
 					}else{
 						var timeRequiredForDelivery 	= "NA";

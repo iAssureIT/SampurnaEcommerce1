@@ -68,6 +68,8 @@ router.put('/multiple', 										        productController.update_product_multi
 
 router.get('/get/count', 										        productController.count_product);
 
+router.post('/get/all/count', 										        productController.count_all_products);
+
 router.get('/get/published/count',  							        productController.count_published_product);
 
 router.get('/get/vendorwisecount/:vendorID', 					        productController.count_vendor_product);

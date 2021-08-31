@@ -242,15 +242,15 @@ export const Location = withCustomerToaster((props)=>{
         if(userDetails && userDetails.user_id){
             dispatch(getWishList(userDetails.user_id))
         }    
-        navigation.navigate('App');
-        // navigation.dispatch(
-        // CommonActions.reset({
-        //     index: 1,
-        //     routes: [
-        //     { name: 'App' },
-        //     ],
-        // })
-        // );
+        // navigation.navigate('App');
+        navigation.dispatch(
+        CommonActions.reset({
+            index: 1,
+            routes: [
+            { name: 'App' },
+            ],
+        })
+        );
     }  
 
     return (

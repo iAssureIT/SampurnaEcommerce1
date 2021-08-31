@@ -71,7 +71,7 @@ export default StyleSheet.create({
     color: "#000000",
     opacity: 0.5,
     // marginTop:5,
-    marginBottom:3,
+    // marginBottom:3,
 	},
   subcatimgbig:{
     height:180,
@@ -552,7 +552,7 @@ export default StyleSheet.create({
     fontSize:RFPercentage(1.9),fontFamily:"Montserrat-SemiBold",marginBottom:10,marginTop:10
   },
   detailclr:{
-    backgroundColor:'#fff',paddingVertical:hp(5),borderRadius:3,paddingTop:0
+    backgroundColor:'#fff',paddingVertical:hp(6.5),borderRadius:3,paddingTop:0
   },
   detailcolor:{
     fontSize:RFPercentage(2.5),fontFamily:"Montserrat-SemiBold",color:'#333'
@@ -620,7 +620,7 @@ export default StyleSheet.create({
   },
 
   vendorNameBox:{
-    height:20,
+    height:hp(3),
     backgroundColor:'#ccc',
     marginBottom:10,
     paddingHorizontal:10,
@@ -688,7 +688,7 @@ export default StyleSheet.create({
     color: "#5B8E7E",
     opacity: 1,
     fontSize:RFPercentage(1.5),
-    marginBottom:5,
+    // marginBottom:5,
   },
   backText:{
     fontFamily:"Montserrat-SemiBold",
@@ -711,13 +711,13 @@ export default StyleSheet.create({
 
   ratingD1T2:{
     fontFamily:"Montserrat-Medium",
-    fontSize:9,
+    fontSize:RFPercentage(1.5),
     color:'#000'
   },
 
   ratingD1T3:{
     fontFamily:"Montserrat-Medium",
-    fontSize:9,
+    fontSize:RFPercentage(1.5),
     color:'#777777',
     paddingHorizontal:15,
     marginTop:15,
@@ -725,7 +725,7 @@ export default StyleSheet.create({
 
   ratingNumber:{
     fontFamily:"Montserrat-Medium",
-    fontSize:21,
+    fontSize:RFPercentage(3),
     color:'#000',
   },
 
@@ -736,7 +736,7 @@ export default StyleSheet.create({
 
   date:{
     fontFamily:"Montserrat-Medium",
-    fontSize:11,
+    fontSize:RFPercentage(1.7),
     color:'#000',
   },
 

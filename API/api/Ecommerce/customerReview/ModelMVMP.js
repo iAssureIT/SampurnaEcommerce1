@@ -12,6 +12,7 @@ const customerReviewSchema = mongoose.Schema({
 	product_id           	: { type: mongoose.Schema.Types.ObjectId, ref: 'products' },
 	section_id              : { type: mongoose.Schema.Types.ObjectId, ref: 'sections' },
 	category_id             : { type: mongoose.Schema.Types.ObjectId, ref: 'categories' },	
+	subCategory_id          : { type: mongoose.Schema.Types.ObjectId, ref: 'categories' },	
 	rating               	: Number,
 	status               	: String,
 	adminComments 				: [{

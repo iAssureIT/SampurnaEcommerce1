@@ -19,6 +19,11 @@ export default StyleSheet.create({
     fontSize:11
 
   },
+  htmlText1:{
+    fontSize:RFPercentage(1.8),
+    fontFamily:"Montserrat-Regular",
+    color:'#000',
+  },
   buttonContainer2:{
     ...Platform.select({
       ios:{
@@ -33,7 +38,7 @@ export default StyleSheet.create({
   },
    button1:{
     backgroundColor: colors.button1,
-    height: 45,
+    height: hp(5),
     width:"100%",
   },
   cartdetails:{
@@ -456,11 +461,7 @@ superparent:{
         }
       })
     },
-    button1:{
-      backgroundColor: colors.button1,
-      height: hp(7),
-      width:"100%",
-    },
+   
     buttonContainer1:{
       width:'100%',
       marginTop:15,
@@ -674,35 +675,29 @@ superparent:{
       flexDirection:'row',marginTop:20,justifyContent:'space-between'
     },
     cancelvwbtn:{
-      flex:0.48,
-      borderRadius:3,
-      shadowColor: '#fff',
+      flex:0.5,marginRight:10,borderRadius:3,shadowColor: '#fff',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.2,
       elevation: 5,
-      paddingRight:15
     },
     ordervwbtn:{
-      flex:0.48,
-      borderRadius:3,
-      shadowColor: '#fff',
+      flex:0.5,borderRadius:3,shadowColor: '#fff',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.2,
       shadowRadius: 2,
       elevation: 5,
-      paddingLeft:15
     },
     buttonText1:{
       color: colors.buttonText,
       fontFamily:"Montserrat-Regular",
       textTransform: 'uppercase',
-      fontSize:RFPercentage(2.3)    
+      fontSize:RFPercentage(1.8)    
       // borderColor:'#c10000',
   
     },
     buttonRED:{
       backgroundColor: colors.buttonRED,
-      height: hp(7),
+      height: hp(5),
       width:"100%",
     },
     buttonContainer2:{

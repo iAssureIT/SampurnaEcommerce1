@@ -19,6 +19,7 @@ exports.insertCustomerReview = (req,res,next)=>{
 			vendor_id 				: req.body.vendor_id,
 			section_id 				: product.section_ID,
 			category_id 			: product.category_ID,
+			subCategory_id 		: product.subCategory_ID,
 			vendorLocation_id 	: req.body.vendorLocation_id,
 			rating          		: req.body.rating,
 			customerReview  		: req.body.customerReview,
@@ -43,7 +44,7 @@ exports.insertCustomerReview = (req,res,next)=>{
 
 /*=========== Get Review List ===========*/
 exports.list_review = (req,res,next)=>{
-	// console.log("req body get All Reviews => ", req.body)
+	console.log("req body get All Reviews => ", req.body)
 	var selector        = {};
 	selector['$and']    = [];
 
@@ -62,6 +63,11 @@ exports.list_review = (req,res,next)=>{
 			{"category_id" : ObjectId(req.body.category)}
 		)
 	}
+	if(req.body.subCategory !== "" && req.body.subCategory !== undefined){
+		selector["$and"].push(
+			{"subCategory_id" : ObjectId(req.body.subCategory)}
+		)
+	}
 	if(req.body.status !== "" && req.body.status !== undefined){
 		selector["$and"].push(
 			{"status" : req.body.status}
@@ -71,10 +77,26 @@ exports.list_review = (req,res,next)=>{
 			{"status" : {$ne : ""}}
 		)
 	}
+	if(req.body.searchText && req.body.searchText !== ""){
+		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$and"].push({ 
+			"$or" : [
+						{ "orderDetails.orderID" 												: parseInt(req.body.searchText) },
+						{ "customerName" 											: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "vendorDetails.companyName" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "userDetails.profile.fullName" 					: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productDetails.productName" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "sectionDetails.section" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.category" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.subCategory.subCategoryTitle": {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productDetails.productCode"						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productDetails.itemCode"							: {'$regex' : req.body.searchText , $options: "i" } },
+					]
+		})
+	}
 	console.log("selector => ",selector)
 
 	CustomerReview.aggregate([
-		{ $match : selector },
 		{ $lookup:{
 				from 			: 'products',
 				localField 		: 'product_id',
@@ -117,6 +139,7 @@ exports.list_review = (req,res,next)=>{
 				as 					: 'orderDetails'
 			}
 		},
+		{ $match : selector },
 		{ $sort: {
 				createdAt : -1
 			}
@@ -128,7 +151,7 @@ exports.list_review = (req,res,next)=>{
 				'orderDetails.orderID'     : 1,
 				product_id      				: 1,
 				vendor_id 						: 1,
-				vendorLocation_id 				: 1,
+				vendorLocation_id 			: 1,
 				rating          				: 1,
 				customerReview  				: 1,
 				status          				: 1,
@@ -144,12 +167,15 @@ exports.list_review = (req,res,next)=>{
 			}
 		}
 	])
-	.skip(parseInt(req.body.startRange))
-	.limit(parseInt(req.body.limitRange))
+	// .skip(parseInt(req.body.startRange))
+	// .limit(parseInt(req.body.limitRange))
 	.exec()
 	.then(data=>{
 		// console.log("data => ",data)
-		res.status(200).json(data);
+		res.status(200).json({
+			dataCount 	: data.length,
+			data 			: data.slice(parseInt(req.body.startRange), (parseInt(req.body.limitRange) + parseInt(req.body.startRange)))
+		});
 	})
 	.catch(err =>{
 		console.log(err);
@@ -518,15 +544,26 @@ exports.listCustomerReviewbucustomerid = (req,res,next)=>{
 	 });
 };
 exports.delete_review = (req,res,next)=>{
+	console.log("req.params.reviewID => ",req.params.reviewID)
 	 CustomerReview.deleteOne({_id:req.params.reviewID})
 	 .exec()
 	 .then(data=>{
-		  res.status(200).json({
-				"message": "Review Deleted Successfully."
-		  });
+	console.log("data => ",data)
+	 		if (data.deletedCount === 1) {
+	 			res.status(200).json({
+			  		deleted 	: true,
+					"message": "Review deleted successfully."
+			  });
+	 		} else {
+			  res.status(200).json({
+			  		deleted 	: false,
+					"message": "Failed to delete review."
+			  });
+	 			
+	 		}
 	 })
 	 .catch(err =>{
-		  console.log(err);
+		  console.log(" Error => ",err);
 		  res.status(500).json({
 				error: err
 		  });

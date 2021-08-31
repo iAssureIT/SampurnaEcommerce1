@@ -72,7 +72,7 @@ export const TermsAndConditions  = (props)=>{
     } else {
         return (
         <View style={{flex:1,backgroundColor:"#fff"}}>
-          <View style={[styles.superparent,{paddingBottom:80,backgroundColor:"#fff"}]}>
+          <View style={[styles.superparent,{paddingBottom:hp(11),backgroundColor:"#fff"}]}>
                 {store.globalSearch.search ?
                     <SearchSuggetion />
                 :<ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>

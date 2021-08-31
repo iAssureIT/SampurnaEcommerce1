@@ -789,11 +789,12 @@ class UserReport extends Component {
 														{this.state.customizedFiltersArray && this.state.customizedFiltersArray.length > 0
 															?
 																this.state.customizedFiltersArray.map((filtersdata, i) => {
+																	if(filtersdata.inputType !== ""){
+																	
 																	return (
 																		<div key={i} className="form-margin col-lg-3 col-md-6 col-sm-12 col-xs-12" >
 																			<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">{filtersdata.inputLabel}</label>
 																			{/*{console.log("filtersdata.inputName => ",filtersdata.inputName)}*/}
-																			{console.log("this.state => ",this.state[filtersdata.inputName])}
 																			{filtersdata.inputType === "select"
 																			?
 																				<Select
@@ -807,6 +808,7 @@ class UserReport extends Component {
 																		  }
 																		</div>								                                    	
 																	);
+																	}
 															  })
 														:
 															null

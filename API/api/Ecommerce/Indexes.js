@@ -25,7 +25,6 @@ db.products.createIndex({fileName : 1});
 db.cart.createIndex({user_ID : 1});
 
 
-
 //===========  Categories 	==============
 db.categories.createIndex({category : 1});
 db.categories.createIndex({categoryUrl : 1});

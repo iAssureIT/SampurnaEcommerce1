@@ -223,13 +223,8 @@ export const PaymentMethod = withCustomerToaster((props)=>{
 
       return (
         <React.Fragment>
-          {/* <HeaderBar3
-            goBack={navigation.goBack}
-            navigate={navigation.navigate}
-            headerTitle={"Payment Methods"}
-          /> */}
           <View style={styles.superparent}>
-            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid showsVerticalScrollIndicator={false} >
+            <ScrollView contentContainerStyle={{}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid showsVerticalScrollIndicator={false} >
               <View style={styles.formWrapper}>
                 <View style={styles.parent}>
                 <View style={{paddingVertical:20,paddingHorizontal:6}}>

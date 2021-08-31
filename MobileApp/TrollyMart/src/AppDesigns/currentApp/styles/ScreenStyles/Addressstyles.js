@@ -327,7 +327,7 @@ export default StyleSheet.create({
     flex:1,marginBottom:5,
   },
   continuebtn:{
-    flex:1,marginBottom:hp(6.5),
+    flex:1,marginBottom:hp(9.5),
   },
   addcmpchkbxslect:{
     backgroundColor:'#fff',

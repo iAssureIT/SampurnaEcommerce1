@@ -95,7 +95,7 @@ export const PrivacyPolicy  = (props)=>{
                 toggle={() => toggle()}
                 openControlPanel={() => openControlPanel()}
             /> */}
-            <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>
+            <View style={[styles.superparent,{paddingBottom:hp(11),backgroundColor:"#fff"}]}>
             {store.globalSearch.search ?
               <SearchSuggetion />
                 :

@@ -109,7 +109,7 @@ export default StyleSheet.create({
       },
       errorText:{
         color: colors.errorText,
-        fontSize: 12,
+        fontSize: RFPercentage(1.8),
         fontFamily:"Montserrat-Regular",
       },
 

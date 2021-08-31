@@ -3,16 +3,45 @@ import $ from 'jquery';
 import axios from 'axios';
 import "./ProductDetails.css";
 import _ from 'underscore';
-import ReactImageZoom from 'react-image-zoom';
+// import ReactImageZoom from 'react-image-zoom';
+// import 'owl.carousel/dist/assets/owl.carousel.css';
+// import 'owl.carousel/dist/assets/owl.theme.default.css';
+// import Loadable from 'react-loadable';
+// const OwlCarousel = Loadable({
+// 	Loader: () => import('react-owl-carousel'),
+// 	loading() {
+// 		return <div className="col-sm-12 col-xs-12 col-lg-2 col-lg-offset-5 col-md-12 loadingImg"><img src="../images/Loadersglms.gif" className="img-responsive" alt="loading" /></div>
+// 	}
+// });
+import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
-import Loadable from 'react-loadable';
-const OwlCarousel = Loadable({
-	Loader: () => import('react-owl-carousel'),
-	loading() {
-		return <div className="col-sm-12 col-xs-12 col-lg-2 col-lg-offset-5 col-md-12 loadingImg"><img src="../images/Loadersglms.gif" className="img-responsive" alt="loading" /></div>
-	}
-});
+
+const options = {
+  margin: 10,
+  responsiveClass: true,
+  nav: true,
+  autoplay: false,
+  navText: ["Prev", "Next"],
+  smartSpeed: 1000,
+  responsive: {
+      0: {
+          items: 1,
+      },
+      400: {
+          items: 1,
+      },
+      600: {
+          items: 2,
+      },
+      700: {
+          items: 3,
+      },
+      1000: {
+          items: 5,
+      }
+  },
+};
 const user_ID = localStorage.getItem("user_ID");
 class ProductDetails extends Component {
 	constructor(props) {
@@ -46,6 +75,7 @@ class ProductDetails extends Component {
 		// console.log("this.props.match.params.productID",this.props.match.params.productID);
 		axios.get("/api/products/get/one/" + this.props.match.params.productID)
 		.then((response) => {
+			console.log("response.data => ",response.data)
 			this.setState({
 				productData: response.data,
 				selectedImage: response.data.productImage[0],
@@ -56,9 +86,21 @@ class ProductDetails extends Component {
 		.catch((error) => {
 			console.log('error', error);
 		})
-		this.getWishData();
-		this.reviewAverage();
-		this.getMyReview();
+		// this.getWishData();
+		// this.reviewAverage();
+		// this.getMyReview();
+		var currency = localStorage.getItem('currency');
+		
+		axios.get("/api/adminPreference/get")
+	  	.then(preference =>{
+		 	this.setState({
+				websiteModel  : preference.data[0].websiteModel,
+				currency  : preference.data[0].currency,
+		 	},()=>{});
+	  	})
+	  	.catch(error=>{
+		 	console.log("Error in getting adminPreference = ", error);
+	  	}) 
 	}
 	getWishData(){
 		const userid = localStorage.getItem('user_ID');
@@ -98,6 +140,7 @@ class ProductDetails extends Component {
 			var id = event.target.id;
 			axios.get('/api/products/get/one/' + id)
 				.then((response) => {
+					console.log("response => ",response.data)
 					var totalForQantity = parseInt(Number(this.state.totalQuanity) * response.data.discountedPrice);
 					const userid = localStorage.getItem('user_ID');
 					// this.props.fetchCartData();
@@ -304,24 +347,54 @@ class ProductDetails extends Component {
 		})
 	}
 	render() {
-		const props = { width: 400, height: 350, zoomWidth: 750, offset: { vertical: 0, horizontal: 30 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:500px;width:750px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.state.selectedImage ? this.state.selectedImage : "/images/notavailable.jpg" };
+		const props = { width: "60%", height: 350, zoomWidth: 750, offset: { vertical: 0, horizontal: 30 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:500px;width:750px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.state.selectedImage ? this.state.selectedImage : "/images/notavailable.jpg" };
 		return (
-			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt20 content">
-                
-				<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 pageContent padding30">
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <a className="btn btn-primary pull-right" href="/product-list">Go Back</a>
-                    </div>
+			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding content">                
+				<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 pageContent">
+              	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 backBtnDiv">
+                  <a className="btn btn-primary" href="/product-list">Go Back</a>
+              	</div>
 					<div className="col-lg-5 col-md-5 col-sm-12 col-xs-12 stickyDiv">
-						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 imageContainer imgCont">
-							<div className="prod-detail-slider prod-detail-filpCommon">
-								<div id="react-app" className={"item img-responsiveProduct"}>
-									<ReactImageZoom {...props} />
-								</div>
-							</div>
+						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 imageContainer">
+							{/*<div className="prod-detail-slider prod-detail-filpCommon">
+								<div id="react-app" className={"item img-responsiveProduct"}>*/}
+									{/*<ReactImageZoom {...props} />*/}
+									<img src={this.state.selectedImage ? this.state.selectedImage : "/images/notavailable.jpg"} alt="product"/>
+								{/*</div>
+							</div>*/}
 						</div>
-						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 imageContainer mt50">
-							<div className="">
+						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 slideImageContainer marginTop17">
+							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+								<OwlCarousel className="slider-items owl-carousel" {...options}>
+                      	{this.state.productData && this.state.productData.productImage && this.state.productData.productImage.length > 0 
+										?
+											this.state.productData.productImage.map((data, index) => {
+												return (
+													<div key={index} className="item carouselImageDiv"  >
+														<div className="row">
+															{
+																data && <img data-index={index} id="change-image" onClick={this.changeImage} src={data} alt="default" />
+															}
+														</div>
+													</div>
+												);
+											})
+										:
+											"No Product Images Available..."
+									}
+                      {/*<div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>
+                      <div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>
+                      <div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>
+                      <div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>
+                      <div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>
+                      <div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>
+                      <div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>
+                      <div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>
+                      <div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>
+                      <div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>
+                      <div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>
+                      <div class="item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"/></div>*/}
+                  </OwlCarousel>
 								{/*<OwlCarousel
 									className="owl-theme productview"
 									margin={0}
@@ -330,13 +403,13 @@ class ProductDetails extends Component {
 									autoplay={true}
 									autoplayHoverPause={true}
 								>*/}
-									{
-										this.state.productData && this.state.productData.productImage && this.state.productData.productImage.length > 0 ?
+									{/*{this.state.productData && this.state.productData.productImage && this.state.productData.productImage.length > 0 
+										?
 											this.state.productData.productImage.map((data, index) => {
 												
 												// if (!_.isEmpty(data)) {
 												return (
-													<div key={index} className="item col-lg-12 col-md-12 col-sm-12 col-xs-12 miniImagesInNew"  >
+													<div key={index} className="item col-lg-3 col-md-4 col-sm-6 col-xs-12 miniImagesInNew"  >
 														<div className="row">
 															{
 																data && <img data-index={index} id="change-image" onClick={this.changeImage} src={data} alt="default" />
@@ -346,21 +419,21 @@ class ProductDetails extends Component {
 												);
 												// }
 											})
-											:
+										:
 											null
 									}
-								{/*</OwlCarousel>*/}
+								</OwlCarousel>*/}
 							</div>
 						</div>
 					</div>
 
-					<div className="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1 col-sm-12 col-xs-12 ">
+					<div className="col-lg-7 col-md-7 col-sm-12 col-xs-12 ">
 						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div className="row">
 								<div id="brand"><label className="productNameClassNewBrand"> {this.state.productData.brand} </label></div>
 								
 								<div ><span className="productNameClassNew RegionalFont"> {this.state.productData.productNameRlang}</span></div>
-								<div ><span className="productNameClassNew"> {this.state.productData.productName}</span> <span className="productCode"> (Product Code: {this.state.productData.productCode})</span></div>
+								<div ><span className="productNameClassNew"> {this.state.productData.productName}</span> <span className="productCode"> (<b> Product Code : </b> {this.state.productData.productCode} , <b> Item Code : </b> {this.state.productData.itemCode} )</span></div>
 								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<div className="row">
 										 {/* <p className="">{this.state.reviewData.length>0?<a href="#gotoreview" className="anchorclr">Be the first to review this product</a>: null} </p> */}
@@ -370,43 +443,81 @@ class ProductDetails extends Component {
 									<div className="undrln row"> </div>
 								</div>
 								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div className="row">
+									<div className="row borderBottomLine">
 										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mb15">
-											<span className="priceEcommerceNew" ><i className={"fa fa-" + this.state.productData.currency}></i>&nbsp;{this.state.productData.discountedPrice}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											{this.state.productData.discountPercent ? <span className="originalPrice"><i className={"fa fa-" + this.state.productData.currency}>&nbsp;{this.state.productData.originalPrice}</i></span> : null} &nbsp; &nbsp;
+											<span className="priceEcommerceNew" >{this.state.currency + " " + this.state.productData.discountedPrice}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											{this.state.productData.discountPercent ? <span className="originalPrice"> {this.state.currency + " " + this.state.productData.originalPrice}</span> : null} &nbsp; &nbsp;
 											{this.state.productData.discountPercent ?<span className="discountPercent">{this.state.productData.discountPercent}% off</span>: null}
 										</div>
+										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mb15">
+											<span className="productSize" > <b> Size : </b> <span className="sizeAndUnit"> {this.state.productData.size ? (this.state.productData.size + " " + this.state.productData.unit) : "-- NA --"}</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<span className="productColor"> <b className="colorTitle"> Color : </b> <div className="productColorDiv" style={{background : this.state.productData.color}}></div>{this.state.productData.color ? this.state.productData.color : "No Color"} </span> &nbsp; &nbsp;	
+										</div>
+										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mb15">
+											<span className="productSize" > <b> Available Quantity : </b> <span className="availableQuantity"> {this.state.productData.availableQuantity ? (this.state.productData.availableQuantity) : 0}</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<span className="productColor"> <b className="colorTitle"> Total : </b> <span className="totalAmountCalc">{this.state.currency + " " + parseInt(this.state.productData.availableQuantity) * parseInt(this.state.productData.discountedPrice)} </span></span> &nbsp; &nbsp;	
+										</div>
+										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mb15">
+											<span className="vendorDetailsDiv" > <b> Vendor : </b> <span className="vendorDetailsName"> {this.state.productData.vendorName ? this.state.productData.vendorName : "-- NA --"}</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										</div>
 										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-											{this.state.reviewAverage ?<div> <div className="col-lg-1 col-md-1 product-reviews-summary ratebox">{this.state.reviewAverage} &nbsp;<i class="fa fa-star"></i></div> &nbsp; {this.state.reviewData.length} ratings and reviews</div> : null}
+											{this.state.reviewAverage ? <div> <div className="col-lg-1 col-md-1 product-reviews-summary ratebox">{this.state.reviewAverage} &nbsp;<i class="fa fa-star"></i></div> &nbsp; {this.state.reviewData.length} ratings and reviews</div> : null}
 										</div>
 									</div>
 
-									<div className="row listspace">
-										{this.state.productData.featureList ?
-											<span className="col-md-12 col-lg-12 col-sm-12 col-xs-12 paddingleftzero paddingrightzero ttl" >
-												Features
-											</span>
+									<div className="row listspace borderBottomLine">										
+										<span className="col-md-12 col-lg-12 col-sm-12 col-xs-12 featuresTitle ttl" >
+											Features
+										</span>											
+										{this.state.productData.featureList 
+											?
+												<div className="col-md-12 col-sm-12 col-xs-12 col-lg-12 ttllist featuresData" dangerouslySetInnerHTML={{__html: this.state.productData.featureList}}></div>
 											:
-											null
+												<div className="col-md-12 col-sm-12 col-xs-12 col-lg-12 ttllist featuresData" dangerouslySetInnerHTML={{__html: "No Product Features Available..."}}></div>
 										}
-										<div className="col-md-12 col-sm-12 col-xs-12 col-lg-12 ttllist" dangerouslySetInnerHTML={{__html: this.state.productData.featureList}}></div>
-
 									</div>
 								</div>
 								
 
 							</div>
 						</div>
-						{
-							this.state.productData.productDetails ? 
-							<div id="gotoreview" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mt">
-								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding topspace detailtitle">DESCRIPTION</div>
-								<div className="spcbx topspace15"></div>
-								<div className="col-md-12 col-sm-12 col-xs-12 col-lg-12 ttllist" dangerouslySetInnerHTML={{__html: this.state.productData.productDetails}}></div>
-							</div>
+						<div id="gotoreview" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mt borderBottom">
+							<span className="col-md-12 col-lg-12 col-sm-12 col-xs-12 featuresTitle ttl" >
+								Description
+							</span>
+							<div className="spcbx topspace15"></div>
+							{this.state.productData.productDetails 
+								? 
+									<div className="col-md-12 col-sm-12 col-xs-12 col-lg-12 description" dangerouslySetInnerHTML={{__html: this.state.productData.productDetails}}></div>
+								:
+									<div className="col-md-12 col-sm-12 col-xs-12 col-lg-12 description" dangerouslySetInnerHTML={{__html: "No Product Description Available..."}}></div>
+							}
+						</div>
+						
+						<div id="gotoreview" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mt borderBottom">
+							<span className="col-md-12 col-lg-12 col-sm-12 col-xs-12 featuresTitle ttl" >
+								Attributes
+							</span>
+							{this.state.productData.attributes && this.state.productData.attributes 
+							? 
+								<table className="attributeTable">
+									{this.state.productData.attributes.map((attribute, i)=>{
+										return(
+											<tr key={i}>
+												<td><b>{attribute.attributeName}</b></td>
+												<td>{attribute.attributeValue}</td>
+											</tr>
+										)
+									})}
+								</table>
 							:
-							null
-						}
+								<table className="attributeTable">
+									<tr>
+										<td colSpan="2">No Product Attributes Available...</td>
+									</tr>
+								</table>
+							}
+						</div>
 					</div>
 				</div>
 				

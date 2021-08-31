@@ -143,11 +143,11 @@ export const OrderDetails = withCustomerToaster((props)=>{
 }, [props,isFocused,store.isConnected]);
 
 
-useEffect(() => {
-  BackHandler.addEventListener("hardwareBackPress", backAction);
-  return () =>
-  BackHandler.removeEventListener("hardwareBackPress", backAction);
-},[]);
+// useEffect(() => {
+//   BackHandler.addEventListener("hardwareBackPress", backAction);
+//   return () =>
+//   BackHandler.removeEventListener("hardwareBackPress", backAction);
+// },[]);
 
 
 const backAction = () => {
@@ -739,11 +739,12 @@ const cancelorderbtn = (id,vendor_id) => {
                                         </View>
                                       }  
                                       <View style={{flex:.5}}>
-                                        {pitem.isReview ?
+                                      <Text  style={styles.linkText} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);clearReview();}}>Feedback</Text>
+
+                                        {/* {pitem.isReview ?
                                           <Text  style={styles.linkText} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem.product_ID)}}>Feedback</Text>
                                           :
-                                          <Text  style={styles.linkText} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);clearReview();}}>Feedback</Text>
-                                        } 
+                                        }  */}
                                       </View>  
                                   </View>}
                                 </View>
@@ -880,7 +881,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
                       <Tooltip 
                         containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                        ref={ref}
+                        // ref={ref}
                         width={wp(95)} 
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
@@ -893,14 +894,14 @@ const cancelorderbtn = (id,vendor_id) => {
                    
                     <View style={{marginVertical:5,borderColor:"#ddd"}} />
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.53}}>
+                        <View style={{ flex: 0.57}}>
                           <Text style={styles.totalAmountG}>Grand Total</Text>
                         </View>
-                        <View style={{ flex: 0.45,flexDirection:'row'}}>
-                          <View style={{flex:.36,alignItems:"flex-end"}}>
+                        <View style={{ flex: 0.38,flexDirection:'row'}}>
+                          <View style={{flex:.4}}>
                               <Text style={[styles.ogpriceG,{opacity: 0.5}]}>{currency} </Text>
                           </View> 
-                          <View style={{flex:.57,alignItems:'flex-end'}}>
+                          <View style={{flex:.6,alignItems:'flex-end'}}>
                               <Text style={styles.totalAmountG}>{order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                           </View>                        
                         </View>
@@ -966,9 +967,9 @@ const cancelorderbtn = (id,vendor_id) => {
           hideModalContentWhileAnimating={true}
           style={{ zIndex: 999,marginHorizontal:0,marginBottom:0, backgroundColor: "#EBEBEB",borderTopLeftRadius: 15,borderTopRightRadius: 15, }}
           animationOutTiming={500}>
-          <ScrollView contentContainerStyle={{paddingBottom: 50}}>
+          <ScrollView contentContainerStyle={{paddingBottom:hp(6.5)}}>
           <View style={{alignItems:'flex-end',padding:15}}>
-              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:20}]} onPress={()=>setModal(false)}>X</Text>
+              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:RFPercentage(3)}]} onPress={()=>setModal(false)}>X</Text>
             </View>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1}}>
               <View style={{flex:0.3,marginBottom:20,padding:5}}>
@@ -1054,12 +1055,12 @@ const cancelorderbtn = (id,vendor_id) => {
                 }
                </View> 
                 <TouchableOpacity 
-                    style={{flex:0.1,height:35,width:35,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
+                    style={{height:hp(5),width:hp(5),elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
                     onPress={() => chooseFromLibrary('openPicker','Review')}
                   >
                   <Image source={require('../../AppDesigns/currentApp/images/insert_image.png')}
                       resizeMode="contain"
-                      style={{height:18,width:18}}
+                      style={{height:hp(2),width:hp(2)}}
                     />
                 </TouchableOpacity>                
               </View>              
@@ -1081,11 +1082,11 @@ const cancelorderbtn = (id,vendor_id) => {
           onBackButtonPress={() => setReturnModal(false)}
           coverScreen={false}
           hideModalContentWhileAnimating={true}
-          style={{ zIndex: 999,marginHorizontal:0,marginBottom:0,flex:1,paddingBottom:45,}}
+          style={{ zIndex: 999,marginHorizontal:0,marginBottom:0,flex:1,paddingBottom:hp(8),}}
           animationOutTiming={500}>
           <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 30}}>
             <View style={{alignItems:'flex-end',padding:15}}>
-              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:20}]} onPress={()=>setReturnModal(false)}>X</Text>
+              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:RFPercentage(3)}]} onPress={()=>setReturnModal(false)}>X</Text>
             </View>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1,borderTopLeftRadius: 15,borderTopRightRadius: 15,}}>
               <View style={{flex:0.3,marginBottom:20}}>
@@ -1127,7 +1128,7 @@ const cancelorderbtn = (id,vendor_id) => {
               </View>  
             </View>}
                <View style={[styles.marginBL20]}>
-               <View style={[styles.labelDrop]}><Text style={{fontSize:13,fontFamily:"Montserrat-Bold",color:'#000000',}}>Reason for Return<Text style={[CommonStyles.errorText,{fontSize:12}]}>*</Text></Text></View>
+               <View style={[styles.labelDrop]}><Text style={{fontSize:RFPercentage(1.9),fontFamily:"Montserrat-Bold",color:'#000000',}}>Reason for Return<Text style={[CommonStyles.errorText,{fontSize:RFPercentage(1.8)}]}>*</Text></Text></View>
               <View style={[styles.inputWrapper]}>              
                 <View style={styles.inputTextWrapper}>                  
                   <Dropdown
@@ -1179,7 +1180,7 @@ const cancelorderbtn = (id,vendor_id) => {
               {/* <Text style={styles.tomorroworder}>Your order will be delivered to you by in 60 Minutes.</Text> */}
             </View>           
               <View style={{marginHorizontal:20,}}>
-                <View style={[styles.labelDrop]}><Text style={{fontSize:13,fontFamily:"Montserrat-Bold",color:'#000000',}}>Comment<Text style={[CommonStyles.errorText,{fontSize:12}]}>*</Text></Text></View>
+                <View style={[styles.labelDrop]}><Text style={{fontSize:RFPercentage(1.9),fontFamily:"Montserrat-Bold",color:'#000000',}}>Comment<Text style={[CommonStyles.errorText,{fontSize:RFPercentage(1.8)}]}>*</Text></Text></View>
                 <Input
                   // label   = "Comment"  
                   labelStyle = {styles.labelDrop} 
@@ -1217,16 +1218,16 @@ const cancelorderbtn = (id,vendor_id) => {
                 }
                </View> 
                 <TouchableOpacity 
-                    style={{flex:0.1,height:35,width:35,elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:100,borderColor:colors.cartButton,borderWidth:0.5}}
+                    style={{height:hp(5),width:hp(5),elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:100,borderColor:colors.cartButton,borderWidth:0.5}}
                     onPress={() => chooseFromLibrary('openPicker','Return')}
                   >
                   <Image source={require('../../AppDesigns/currentApp/images/insert_image.png')}
                       resizeMode="contain"
-                      style={{height:18,width:18}}
+                      style={{height:hp(2),width:hp(2)}}
                     />
                 </TouchableOpacity>                
               </View> 
-                <Text style={{fontSize:12,fontFamily:'Montserrat-Regular',color:"#033554",marginHorizontal:20,}}>Refund to :</Text>
+                <Text style={{fontSize:RFPercentage(1.8),fontFamily:'Montserrat-Regular',color:"#033554",marginHorizontal:20,}}>Refund to :</Text>
                 <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}} onPress={() => {setChecked('first');setRefund('source')}}>
                   <CheckBox
                     value="first"
@@ -1234,7 +1235,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     checkedColor='#033554'                              
                     uncheckedIcon='circle-o'
                     uncheckedColor='#033554'
-                    size={10}
+                    size={RFPercentage(1.2)}
                     checked={checked === 'first' ? true : false}
                     disabled={order?.paymentDetails?.paymentMethod === "creditdebitcard" ?false : true}
                     onPress={() => {setChecked('first');setRefund('source')}}
@@ -1250,7 +1251,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     checkedColor='#033554'                              
                     uncheckedIcon='circle-o'
                     uncheckedColor='#033554'
-                    size={10}
+                    size={RFPercentage(1.2)}
                     checked={checked === 'second' ? true : false}
                     onPress={() => {setChecked('second');setRefund('credit')}}
                     containerStyle={{paddingVertical:3}}
@@ -1264,7 +1265,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     checkedColor='#033554'                              
                     uncheckedIcon='circle-o'
                     uncheckedColor='#033554'
-                    size={10}
+                    size={RFPercentage(1.2)}
                     checked={checkedTerms}
                     onPress={()=>setTermsChecked(!checkedTerms)}
                     containerStyle={{paddingVertical:3}}
@@ -1286,20 +1287,28 @@ const cancelorderbtn = (id,vendor_id) => {
           onBackdropPress={() => setTermsModal(false)}
           onRequestClose={() => setTermsModal(false)}
           coverScreen={true}
-          hasBackdrop={false}
+          hasBackdrop={true}
           style={{ zIndex: 999 }}
           deviceHeight={window.height}
           deviceWidtht={window.width}
          >
-          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10}}>
+          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: 30, paddingHorizontal: 10}}>
+          <View style={{flexDirection:'row',height:hp(4),alignItems:'center',justifyContent:'space-between',borderBottomWidth:0.5,borderColor:"#eee",marginTop:5}}>   
+              <View style={{paddingHorizontal: wp(1.5)}}>
+                <Text style={CommonStyles.label}>Return policy</Text>
+              </View>  
+              <TouchableOpacity style={{justifyContent:"flex-end",padding:5,height:hp(4),width:hp(4)}} onPress={()=>setTermsModal(false)}>
+                  <Icon name="close" type="material-community" size={RFPercentage(3)} />
+              </TouchableOpacity> 
+           </View> 
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
                 {
                     pageBlockes && pageBlockes.length>0?
                         pageBlockes.map((item,index)=>{
                             const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
                             return(
-                                <View style={{flex:1,paddingHorizontal:15}}>
-                                    {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription}/>}
+                                <View style={{flex:1,paddingHorizontal:wp(4),fontSize:RFPercentage(1.8),color:'#000'}}>
+                                    {result!=="" && <HTML baseFontStyle={styles.htmlText1} style={{fontSize:RFPercentage(1.8),color:'#000'}} ignoredTags={['br']} html={item.block_id.blockDescription}/>}
                                     {item.block_id.fgImage1 &&<Image
                                         source={{uri:item.block_id.fgImage1}}
                                         style={{height:200,width:"100%"}}

@@ -24,7 +24,8 @@ class DeliveryDriversReport extends Component{
 														//Array to add different customized filters
 													{
 														'inputLabel' 			: "Status", 			
-														'inputType' 			: "select",
+														'inputType' 			: "",
+														// 'inputType' 			: "select",
 														'inputDefaultValue' 	: "--Select--",
 														'inputPlaceholder' 	: "",
 														'inputName' 			: "status",
