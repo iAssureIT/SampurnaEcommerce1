@@ -183,7 +183,7 @@ const FormBody = (props) => {
         globalSearch    : store.globalSearch
       }));
     return (
-        <View style={{flex:1,backgroundColor:"#fff",paddingVertical:15}}>
+        <View style={{flex:1,backgroundColor:"#fff",paddingVertical:15,marginBottom:hp(6.5)}}>
         {store.globalSearch.search ?
               <SearchSuggetion />
           :
@@ -259,12 +259,12 @@ const FormBody = (props) => {
                             textContainerStyle={styles1.textContainerStyle}
                             textInputStyle={styles1.textInputStyle}
                         />
-                        <Text style={{fontSize:RFPercentage(1.8),marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
+                        <Text style={{fontSize:RFPercentage(1.8),marginTop:2,color:"#f00",fontFamily:"Montserrat-Regular"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                     </View> 
                     <View style={{marginBottom:10,marginHorizontal:10}}>
                         <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: RFPercentage(1.8),paddingBottom:hp(2)}}>
                             <Text>Message</Text>{' '}
-                            <Text style={{color: 'red', fontSize: 12}}>
+                            <Text style={{color: 'red', fontSize: RFPercentage(1.8)}}>
                             *
                             </Text>
                         </Text>

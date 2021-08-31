@@ -5,22 +5,15 @@ import {
   View,
   Image,
   Dimensions,
-  Alert,ActivityIndicator,
+  Alert,BackHandler,
 } from 'react-native';
 import { Button, Icon,}       from "react-native-elements";
-import Modal                  from "react-native-modal";
-import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}               from '../../ScreenComponents/Footer/Footer.js';
-import axios                  from 'axios';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
-import { RadioButton }        from 'react-native-paper';
-import AsyncStorage           from '@react-native-async-storage/async-storage';
 import {withCustomerToaster}  from '../../redux/AppState.js';
 import { connect,
   useDispatch,
   useSelector }               from 'react-redux';
-import {getCartCount } 		              from '../../redux/productList/actions';
 import openSocket               from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
 import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
@@ -45,6 +38,18 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
     preferences     : store.storeSettings.preferences,
   }));
   const {currency}=store.preferences;
+
+//   useEffect(() => {
+//     BackHandler.addEventListener("hardwareBackPress", backAction);
+//     return () =>
+//     BackHandler.removeEventListener("hardwareBackPress", backAction);
+//   },[]);
+
+  const backAction = () => {
+    navigation.navigate('Dashboard');
+    return true
+  };
+
   console.log("order",order);
       return (
         <View style={{backgroundColor:"#fff",minHeight:window.height}}>

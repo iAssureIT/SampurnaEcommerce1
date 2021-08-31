@@ -10,6 +10,7 @@ import styles                   from '../../AppDesigns/currentApp/styles/ScreenC
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import { connect,useDispatch,useSelector }      from 'react-redux';
 import {SET_CATEGORY_WISE_LIST} from '../../redux/productList/types';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export const SubCategoryList =(props)=>{
   const {user_id,navigation,boxHeight} =props;
@@ -87,7 +88,7 @@ export const SubCategoryList =(props)=>{
               vendor:props.vendor
             });
         }}>
-            <Text style={[styles.sectionTitle,{color:"#848586",fontSize:11,fontFamily:"Montserrat-Bold"}]}>{item.label}</Text>
+            <Text style={[styles.sectionTitle,{color:"#848586",fontSize:RFPercentage(1.7),fontFamily:"Montserrat-Bold"}]}>{item.label}</Text>
           </TouchableOpacity>  
         }
       </View>

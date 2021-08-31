@@ -80,23 +80,25 @@ export const CategoryList = (props)=>{
               payload.scroll          = false;
               payload.startRange      = 0;
               payload.limitRange      = 10;
-              dispatch({
-                type : SET_CATEGORY_WISE_LIST,
-                payload : []
-              })
-              dispatch({
-                type: STOP_SCROLL,
-                payload: false,
-              });
-              dispatch(getCategoryWiseList(payload));
-                navigation.push('VendorProducts',
-                {
-                  vendor            : props.vendor,
-                  category          : item.category,
-                  section           : props.section,
-                  index             : props.index,
-                  vendorLocation_id : props.vendorLocation_id,
+              if(props.index!==0){
+                dispatch({
+                  type : SET_CATEGORY_WISE_LIST,
+                  payload : []
+                })
+                dispatch({
+                  type: STOP_SCROLL,
+                  payload: false,
                 });
+                dispatch(getCategoryWiseList(payload));
+                  navigation.push('VendorProducts',
+                  {
+                    vendor            : props.vendor,
+                    category          : item.category,
+                    section           : props.section,
+                    index             : props.index,
+                    vendorLocation_id : props.vendorLocation_id,
+                  });
+                }   
             }}>
             {showImage === true? 
             <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#000",height:boxHeight, shadowColor: '#202020',

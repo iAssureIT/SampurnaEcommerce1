@@ -2736,8 +2736,8 @@ exports.set_send_otp = (req, res, next) => {
 	)
 	.then(user => {
 		if(user !== null){
-			//console.log('user => ',user)
-			if (user.authService !== "" || user.authService !== undefined) {
+			console.log('user => ',user)
+			if (user.authService === "google" || user.authService === "facebook") {
 				res.status(200).json({ 
 					message : "You are not allowed to change your password. Because you are login through " + user.authService
 				});

@@ -3,14 +3,9 @@ import {NavigationContainer}      from '@react-navigation/native';
 import { createStackNavigator,CardStyleInterpolators,TransitionPresets }   from '@react-navigation/stack';
 import { createDrawerNavigator }  from '@react-navigation/drawer';
 // import { createAppContainer }     from 'react-navigation';
-import { Animated, Easing }       from 'react-native';
-import axios                      from 'axios';
-import {AuthLoadingScreen}        from '../ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js';
 import {InAppNotification}          from '../ScreenComponents/InAppNotification/InAppNotification.js';
-import {Menu}                     from '../ScreenComponents/Menu/Menu.js';
 
 /*----SystemSecurity -----*/
-import {RootLogIn }               from '../Screens/SystemSecurity/RootLogIn/RootLogIn.js';
 import {LogIn}                    from '../Screens/SystemSecurity/RootLogIn/LogIn.js';
 import {ForgotPassword}           from '../Screens/SystemSecurity/ForgotPassword/ForgotPassword.js';
 import {ResetPassword}            from '../Screens/SystemSecurity/ResetPassword/ResetPassword.js';
@@ -18,20 +13,15 @@ import {RootSignUp}               from '../Screens/SystemSecurity/Signup/RootSig
 import {OTPVerification}          from '../Screens/SystemSecurity/OTPVerification/OTPVerification.js';
 import {ForgotPasswordOTP}        from '../Screens/SystemSecurity/ForgotPasswordOTP/ForgotPasswordOTP.js';
 import Dashboard                  from '../Screens/Dashboard/Dashboard.js';
-import {CategoriesComponent}      from'../Screens/CategoriesComponent/CategoriesComponent.js';
-import {SubCategoriesComp}        from'../Screens/CategoriesComponent/SubCategoriesComp.js';
 import {SubCatCompView}           from'../Screens/CategoriesComponent/SubCatCompView.js';
 import {CartComponent}            from '../Screens/CartComponent/CartComponent.js';
 // import ConfirmOrderComponent      from '../Screens/ConfirmOrderComponent/ConfirmOrderComponent.js';
 import {AddressDefaultComp}       from '../Screens/AddressComponent/AddressDefaultComp.js';
 import AddressComponent         from '../Screens/AddressComponent/AddressComponent.js';
-import AddressComponentforaddress from '../Screens/AddressComponent/AddressComponentforaddressmenu.js';
 import AddressMenu                from'../Screens/AddressComponent/AddressMenu.js';
 import {WishlistComponent}        from'../Screens/WishlistComponent/WishlistComponent.js';
 import {MyOrder}                  from '../Screens/MyOrders/MyOrder.js';
 import {SupportSystem}            from '../Screens/Help&Support/SupportSystem.js';
-import Stores                     from '../Screens/Stores/Stores.js';
-import StoreDetails               from '../Screens/Stores/StoreDetails.js';
 import {AllProductList}           from '../Screens/AllProductList/AllProductList.js';
 import {SearchList}               from '../Screens/SearchList/SearchList.js';
 import {OrderDetails}             from '../Screens/MyOrders/OrderDetails.js';
@@ -39,7 +29,6 @@ import {AccountDashboard}         from '../Screens/AccountDashboard/AccountDashb
 import {MyAccount}                from '../Screens/MyAccount/MyAccount.js';
 import {AccountInformation}       from'../Screens/AccountDashboard/AccountInformation.js';
 import {ResetPwd}                   from'../Screens/AccountDashboard/ResetPwd.js';
-import MyProductReview            from'../Screens/MyProductReview/MyProductReview.js';
 import {OrderSummary}             from'../Screens/OrderSummary/OrderSummary.js';
 import {PaymentMethod}            from '../Screens/PaymentMethod/PaymentMethod.js';
 import {PaymentConfirmation}      from '../Screens/PaymentMethod/PaymentConfirmation.js';
@@ -109,29 +98,23 @@ export const BottomNavScreen = () => (
     <App.Screen name="CartComponent"               component={CartComponent} options={getHeaderConfig("My Cart",true)}/>
     <App.Screen name="WishlistComponent"           component={WishlistComponent} options={getHeaderConfig("My Wishlist",true)}/>
     <App.Screen name="InAppNotification"           component={InAppNotification} options={getHeaderConfig("Notifications",true)}/> 
-    <App.Screen name="CategoriesComponent"         component={CategoriesComponent} options={getHeaderConfig("Dashboard",true)}/>
-    <App.Screen name="SubCategoriesComp"           component={SubCategoriesComp}options={getHeaderConfig("Product List",true)} />
     <App.Screen name="AllProductList"              component={AllProductList} options={getHeaderConfig("Product List",true)}/>
     <App.Screen name="SearchList"                  component={SearchList} options={getHeaderConfig("Search List",true)}/>
     <App.Screen name="SubCatCompView"              component={SubCatCompView} options={getHeaderConfig("Product Details",true)}/>
     {/* <App.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} options={getHeaderConfig("Dashboard")}/> */}
     <App.Screen name="AddressDefaultComp"          component={AddressDefaultComp} options={getHeaderConfig("Delivery Addresses",true)}/>
     <App.Screen name="AddressComponent"            component={AddressComponent} options={getHeaderConfig("Add Address",true)}/>
-    <App.Screen name="AddressComponentforaddress"  component={AddressComponentforaddress} options={getHeaderConfig("Dashboard")}/>
     <App.Screen name="AddressMenu"                 component={AddressMenu} options={getHeaderConfig("Dashboard")}/>
     <App.Screen name="MyOrder"                     component={MyOrder} options={getHeaderConfig("My Orders",true)}/>
     <App.Screen name="OrderDetails"                component={OrderDetails} options={getHeaderConfig("Orders Details",true)}/>
     <App.Screen name="AccountDashboard"            component={AccountDashboard} options={getHeaderConfig("Account Dashboard",true)}/>
     <App.Screen name="ResetPwd"                    component={ResetPwd} options={getHeaderConfig("Reset Password",true)}/>
     <App.Screen name="AccountInformation"          component={AccountInformation} options={getHeaderConfig("Account Information",true)}/>
-    <App.Screen name="MyProductReview"             component={MyProductReview} options={getHeaderConfig("Dashboard")}/>
     <App.Screen name="SupportSystem"               component={SupportSystem} options={getHeaderConfig("Help & Support",true)}/>
     <App.Screen name="OrderSummary"                component={OrderSummary} options={getHeaderConfig("Order Summary",true)}/>
     <App.Screen name="PaymentMethod"               component={PaymentMethod} options={getHeaderConfig("Payment Methods",true)}/>
-    <App.Screen name="PaymentConfirmation"         component={PaymentConfirmation} options={getHeaderConfig("Payment Confirmation",true)}/>
+    <App.Screen name="PaymentConfirmation"         component={PaymentConfirmation} options={getHeaderConfig("Payment Confirmation",false)}/>
     <App.Screen name="PaymentFailed"              component={PaymentFailed} options={getHeaderConfig("Payment Failed",true)}/>
-    <App.Screen name="Stores"                      component={Stores} options={getHeaderConfig("Dashboard")}/>
-    <App.Screen name="StoreDetails"                component={StoreDetails} options={getHeaderConfig("Dashboard")}/>
     <App.Screen name="VendorList"                  component={VendorList} options={getHeaderConfig("Vendor List",true)}/>
     <App.Screen name="ProductVendorList"           component={ProductVendorList} options={getHeaderConfig("Vendor List",true)}/>
     <App.Screen name="VendorProducts"              component={VendorProducts} options={getHeaderConfig("Product List",true)}/>
@@ -147,7 +130,6 @@ const RegisterRoutes = createStackNavigator();
 export const RegisterStack = () => (
   <RegisterRoutes.Navigator headerMode="none"  initialRouteName="LogIn" screenOptions={horizontalAnimation}>
     <RegisterRoutes.Screen name={"LogIn"}             component={LogIn} />
-    <RegisterRoutes.Screen name={"RootLogIn"}         component={RootLogIn} />
     <RegisterRoutes.Screen name={"ResetPassword"}     component={ResetPassword} />
     <RegisterRoutes.Screen name={"OTPVerification"}   component={OTPVerification} />
     <RegisterRoutes.Screen name={"ForgotPassword"}    component={ForgotPassword} />

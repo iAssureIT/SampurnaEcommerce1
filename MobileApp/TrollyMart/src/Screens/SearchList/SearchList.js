@@ -25,7 +25,7 @@ import { useIsFocused } from "@react-navigation/native";
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 
-
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const window = Dimensions.get('window');
 export const SearchList  = withCustomerToaster((props)=>{
   // console.log("props",props);

@@ -107,7 +107,7 @@ const ToastProviderComponent = props => {
           backgroundColor: props.toast?.color,
           fontFamily: 'Montserrat-Regular',
         });
-      }, 1000)
+      }, 600)
 
     }
   }, [props]);

@@ -97,12 +97,8 @@ export const HorizontalProductList =(props)=>{
             <View style={styles.flx1}>
             {item.discountPercent && item.discountPercent >0?
                 <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
-                    {item.discountPercent && item.discountPercent >0?
-                    <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
-                      <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
-                      <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
-                    </ImageBackground> :null
-                  } 
+                      <Text style={{fontSize:RFPercentage(1.8),color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
+                      <Text style={{fontSize:RFPercentage(1.5),color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
                   </ImageBackground> :null
               }   
               {
@@ -140,8 +136,8 @@ export const HorizontalProductList =(props)=>{
                   {props.addToCart &&<View style={{flex:.2}}>
                     <TouchableOpacity 
                       onPress={() =>addToCart(item._id,item.vendor_ID)}
-                    style={{height:25,width:25,borderWidth:1,borderRadius:100,marginRight:15,justifyContent:'center',alignItems:"center",borderColor:colors.cartButton}}>
-                      <Icon name="plus" type="material-community" size={20} color={colors.cartButton} iconStyle={{alignSelf:'flex-end'}}/>
+                    style={{height:hp(4),width:hp(4),borderWidth:1,borderRadius:100,marginRight:15,justifyContent:'center',alignItems:"center",borderColor:colors.cartButton}}>
+                      <Icon name="plus" type="material-community" size={RFPercentage(3)} color={colors.cartButton} iconStyle={{alignSelf:'flex-end'}}/>
                     </TouchableOpacity>  
                   </View>}  
                 </View>

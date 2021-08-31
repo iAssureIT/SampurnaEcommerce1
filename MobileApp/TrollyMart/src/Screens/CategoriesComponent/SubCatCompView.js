@@ -313,13 +313,13 @@ export const SubCatCompView = withCustomerToaster((props)=>{
           :
           productdata && productdata.productName  && productdata.discountedPrice ?
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" ref={scroll} showsVerticalScrollIndicator={false} >
-            <View style={[styles.vendorNameBox,{}]}>
-                <Text numberOfLines={1} style={[CommonStyles.text,{fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Medium",color:"#000"}]}>{productdata.vendorName}</Text>
-            </View> 
+              <View style={{backgroundColor:"#EEEEEE",marginTop:3,height:hp(2.5)}}>
+                    <Text numberOfLines={1} style={[{paddingHorizontal:5,fontSize:RFPercentage(1.6),color:"#333"}]}>{vendor?.vendorName ? vendor?.vendorName : vendor?.companyName}</Text>
+                </View> 
                 <CategoryList
                   navigation        = {navigation}
                   showImage         = {true}
-                  boxHeight         = {34}
+                  boxHeight         = {hp(4)}
                   // setSubCategory    = {setSubCategory}
                   section           = {productdata.section}
                   index             = {index}
@@ -330,7 +330,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                 <SubCategoryList
                   navigation        = {navigation}
                   showImage         = {true}
-                  boxHeight         = {34}
+                  boxHeight         = {hp(4)}
                   subCategoryList   =  {subCategory}
                   selected          = {productdata.subCategory}
                   section           = {productdata.section.replace(/\s/g, '-')}
@@ -385,7 +385,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         activePageIndicatorStyle={{width:20,height:3,backgroundColor:"#999"}}
                         pageIndicatorOffset={30}
                         >
-                        
                         {productdata.productImage.map((image, index) => {
                         return (
                           <FastImage
@@ -402,19 +401,19 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                       })}
                       </Carousel>
                       {userDetails.authService !== "guest" ?
-                          <TouchableOpacity style={[styles.wishlisthrtproductview,{right:10}]}
+                          <TouchableOpacity style={[styles.wishlisthrtproductview]}
                             onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
-                            <Icon size={15} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
+                            <Icon size={hp(2)} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
                           </TouchableOpacity>
                           :
                             null
                           }
-                          <TouchableOpacity style={[styles.share,{right:10,top:userDetails.authService==='guest'?10: 50}]}
+                          <TouchableOpacity style={[styles.share,{top:userDetails.authService==='guest'?hp(4): hp(8)}]}
                             onPress={() =>onShare()} > 
                             <Image
                             resizeMode="contain"
                             source={require("../../AppDesigns/currentApp/images/shareNEW.png")}
-                            style={{height:15,width:15,alignSelf:'center'}}
+                            style={{height:hp(2),width:hp(2),alignSelf:'center'}}
                             />
                             {/* <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} /> */}
                           </TouchableOpacity>
@@ -430,7 +429,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
                         <Icon size={hp(2)} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
                       </TouchableOpacity>
-                      <TouchableOpacity style={[styles.share]}
+                      <TouchableOpacity style={[styles.share,{top:userDetails.authService==='guest'?hp(4): hp(8)}]}
                         onPress={() =>onShare()} >
                           <Image
                             resizeMode="contain"
@@ -521,11 +520,11 @@ export const SubCatCompView = withCustomerToaster((props)=>{
               </View>
               <View style={{flexDirection:'row',height:hp(4),marginTop:hp(1.5)}}>
                   <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 0 ? "#EEEEEE" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(0)}>
-                      <Text style={CommonStyles.label,{color:colors.cartButton,fontFamily:"Montserrat-SemiBold"}}>Overview</Text>
+                      <Text style={{color:colors.cartButton,fontFamily:"Montserrat-SemiBold",fontSize:RFPercentage(1.8)}}>Overview</Text>
 
                   </TouchableOpacity>  
                   <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 1 ? "#EEEEEE" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(1)}>
-                      <Text style={CommonStyles.label,{color:colors.cartButton,fontFamily:"Montserrat-SemiBold"}}>Rating & Feedback</Text>
+                      <Text style={{color:colors.cartButton,fontFamily:"Montserrat-SemiBold",fontSize:RFPercentage(1.8)}}>Rating & Feedback</Text>
                   </TouchableOpacity>  
               </View>
               <View style={{backgroundColor:"#EEEEEE",paddingVertical:5}}>
@@ -533,7 +532,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   productdata.productDetails ?
                   <Text style={styles.detaildetailstxt}>{productdata.productDetails}</Text>
                   :
-                  <Text style={{fontsize:RFPercentage(1.5),alignSelf:'center',color:"#333"}}>No details found.</Text>
+                  <Text style={{fontsize:RFPercentage(1.8),alignSelf:'center',color:"#333"}}>No details found.</Text>
                 :                
                 productReview.reviewlist && productReview.reviewlist.length >0 ?  
                  <View style={{backgroundColor:"#fff",}}>
@@ -546,7 +545,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                             default={5}
                             update={(e)=>{this.setState({stars: e})}}
                             spacing={4}
-                            starSize={14}
+                            starSize={RFPercentage(2.2)}
                             display={productReview.avgRating}
                             count={5}
                             fullStar={require('../../AppDesigns/currentApp/images/star.png')}
@@ -589,7 +588,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                           </View>  
                           <View style={{flex:0.65}}>
                             <Text style={{color:'#000',fontSize:RFPercentage(2.5)}}>{item.customerName.split(' ')[0]}</Text>
-                            <Text style={[CommonStyles.label,{marginTop:5,fontSize:11}]}>{item.customerReview}</Text>
+                            <Text style={[CommonStyles.label,{marginTop:5,fontSize:RFPercentage(1.7)}]}>{item.customerReview}</Text>
                           </View>
                           <View style={{flex:0.5,alignItems:'flex-end',marginRight:5}}>
                             <Text style={styles.date}>{moment(item.createdAt).format('DD/MM/YYYY')}</Text>
@@ -600,25 +599,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                                 default={2.5}
                                 update={(val)=>{this.setState({stars: val})}}
                                 spacing={4}
-                                starSize={14}
+                                starSize={RFPercentage(2.2)}
                                 display={item.rating}
                                 count={5}
                                 fullStar={require('../../AppDesigns/currentApp/images/star.png')}
                                 // emptyStar={require('./images/starEmpty.png')}
                                 // halfStar={require('./images/starHalf.png')}
                             />
-                              {/* <Rating
-                                // showRating
-                                type='custom'
-                                ratingImage={STAR_IMAGE}
-                                ratingBackgroundColor='#EEEEEE'
-                                startingValue={item.rating}
-                                // onFinishRating={(e)=>setRating(e)}
-                                style={{alignSelf:"flex-start",backgroundColor:'#EEEEEE'}}                                
-                                imageSize={12}
-                                readonly
-                              /> */}
-                              <Text style={[CommonStyles.label,{fontSize:RFPercentage(1)}]}>&nbsp;&nbsp;{item.rating}</Text>
+                              <Text style={[CommonStyles.label,{fontSize:RFPercentage(2.2)}]}>&nbsp;&nbsp;{item.rating}</Text>
                               </Text>                              
                             </View>  
                           </View>    
@@ -627,7 +615,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     })}
                   </View>                  
                     :
-                    <Text style={{fontSize:RFPercentage(1.5),alignSelf:'center',color:"#333"}}>No review added.</Text>
+                    <Text style={{fontSize:RFPercentage(1.8),alignSelf:'center',color:"#333"}}>No review added.</Text>
                   }
                  
               </View>  

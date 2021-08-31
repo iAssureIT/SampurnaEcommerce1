@@ -58,7 +58,7 @@ const VendorProducts = (props)=>{
   var diffClampScrollY= Animated.diffClamp(scrollY,0,HEADER_HEIGHT);
   var headerY= Animated.interpolate(diffClampScrollY,{
     inputRange:[0,HEADER_HEIGHT],
-    outputRange:[0,-hp(12)]
+    outputRange:[0,-hp(11)]
   })
     // var diffClamp= Animated.diffClamp(scrollY,0,185)
     // var translateY = diffClamp.interpolate({

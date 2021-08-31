@@ -645,12 +645,12 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
           style={{ zIndex: 999,paddingVertical:Platform.OS==='ios'?30:0 }}
           animationOutTiming={500}>
           <View style={{ backgroundColor: "#fff", borderRadius: 20}}>
-            <View style={{flexDirection:'row',height:30,alignItems:'center',justifyContent:'space-between',borderBottomWidth:0.5,borderColor:"#eee",marginTop:5}}>   
-              <View style={{paddingHorizontal: 5}}>
+            <View style={{flexDirection:'row',height:hp(4),alignItems:'center',justifyContent:'space-between',borderBottomWidth:0.5,borderColor:"#eee",marginTop:5}}>   
+              <View style={{paddingHorizontal: wp(1.5)}}>
                 <Text style={CommonStyles.label}>Terms & conditions</Text>
               </View>  
-              <TouchableOpacity style={{justifyContent:"flex-end",padding:5,height:30,width:50}} onPress={()=>setModal(false)}>
-                  <Icon name="close" type="material-community" size={20} />
+              <TouchableOpacity style={{justifyContent:"flex-end",padding:5,height:hp(4),width:hp(4)}} onPress={()=>setModal(false)}>
+                  <Icon name="close" type="material-community" size={RFPercentage(3)} />
               </TouchableOpacity> 
            </View>   
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
@@ -660,7 +660,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                             const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
                             return(
                                 <View style={{flex:1,paddingHorizontal:15}}>
-                                    {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription}/>}
+                                    {result!=="" && <HTML ignoredTags={['br']} baseFontStyle={styles.htmlText1} style={{fontSize:RFPercentage(1.8),color:'#000'}} html={item.block_id.blockDescription}/>}
                                     {item.block_id.fgImage1 &&<Image
                                         source={{uri:item.block_id.fgImage1}}
                                         style={{height:200,width:"100%"}}
@@ -796,7 +796,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
             {/* <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
               <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
             </View> */}
-            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: RFPercentage(2.5), textAlign: 'center', marginTop: 20 }}>
+            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: RFPercentage(1.8), textAlign: 'center', marginTop: 20 }}>
               Are you sure you want to remove this coupon?
             </Text>
             <View style={styles.cancelbtn}>
@@ -839,7 +839,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
             {/* <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
               <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
             </View> */}
-            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: RFPercentage(2.5), textAlign: 'center', marginTop: 20 }}>
+            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: RFPercentage(1.8), textAlign: 'center', marginTop: 20 }}>
               Are you sure you want to remove this credit points?
             </Text>
             <View style={styles.cancelbtn}>

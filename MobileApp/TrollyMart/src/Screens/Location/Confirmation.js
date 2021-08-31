@@ -180,7 +180,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                           />
                     </View>
                     {deliveryAddress.length > 0?
-                      <View style={{paddingHorizontal:30,marginBottom:15}}>
+                      <View style={{paddingHorizontal:wp(8),marginBottom:15}}>
                         <FormButton
                           title       = {'Choose From Addresses'}
                           onPress     = {()=>navigation.navigate('AddressDefaultComp',{delivery:false,disabled:true,back:true})}

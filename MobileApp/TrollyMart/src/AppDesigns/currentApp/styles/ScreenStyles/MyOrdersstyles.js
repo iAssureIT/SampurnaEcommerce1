@@ -19,7 +19,7 @@ export default StyleSheet.create({
   },
   formWrapper:{
     flex:1,
-    marginBottom:40
+    marginBottom:hp(6.5)
   },
   categoryTitle:{
    color:'#333',textAlign:'center',marginTop:5,marginBottom:10,fontSize:13,fontFamily:"Montserrat-Regular",flexWrap: 'wrap' 
@@ -280,13 +280,13 @@ export default StyleSheet.create({
     color:'#c10000',marginRight:10
   },
   img15:{
-    width: hp(6),height:hp(6),
+    width: wp(17),height:hp(8),
     resizeMode:'contain',
     
   },
   imgMain:{
-    width:81,
-    height:76,
+    width:hp(11),
+    height:hp(11),
     backgroundColor:'#fff',
     alignSelf:'center',
     borderWidth:2,
@@ -298,7 +298,7 @@ export default StyleSheet.create({
   },
 
   labelDrop:{
-    fontSize:13,
+    fontSize:RFPercentage(1.9),
     fontFamily:"Montserrat-Bold",
     color:'#000000',
     marginBottom:10,
@@ -526,13 +526,13 @@ export default StyleSheet.create({
   },
 
   free:{
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     fontFamily:'Montserrat-Medium',
     color:'#000',
     // marginTop:-5,
   },
   free1:{
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     fontFamily:'Montserrat-Medium',
     color:'#033554',
     // marginTop:-5,
@@ -739,22 +739,22 @@ export default StyleSheet.create({
 
   vendorName1:{
     fontFamily:'Montserrat-SemiBold',
-    fontSize:14,
+    fontSize:RFPercentage(2.2),
     color:'#000',
     alignSelf:'flex-end',
-    marginBottom:20,
+    marginBottom:hp(3),
     marginRight:20,
   },
 
   cancelOrderText:{
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     fontFamily:'Montserrat-Medium',
     color:"#E88686",
     textDecorationLine:'underline',
   },
   linkText:{
     alignSelf:'flex-end',
-    fontSize:12,
+    fontSize:RFPercentage(1.8),
     textDecorationLine:'underline',
     fontFamily:"Montserrat-Regular",
     color: "#033554"
