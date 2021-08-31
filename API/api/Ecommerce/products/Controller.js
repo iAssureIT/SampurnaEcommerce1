@@ -1490,35 +1490,157 @@ exports.list_productby_type_category = (req,res,next)=>{
 		});
 	});
 };
-exports.list_product_with_limits = (req,res,next)=>{
-	// console.log('req', req.body);
-	Products.find()
-	.sort({ "createdAt": -1 })
-	.exec()
-	.then(data=>{
-		var allData = data.map((x, i)=>{
-			// console.log("allData x",x)
-			var productNameRlang = x.productNameRlang ? "<br><span class='RegionalFont'>"+x.productNameRlang+"</span>" : '';
-			var categoryNameRlang = x.categoryNameRlang ? "<br><span class='RegionalFont'>"+x.categoryNameRlang+"</span>" : '';
-			return {
-				"_id"                   : x._id,
-				"vendorName"            : x.vendorName,
-				"productNameBasic"      : x.productName + "<br>Product Code: "+x.productCode+ "<br>Item Code: "+x.itemCode,
-				"productNameRlang"      : x.productNameRlang,
-				"productName"           : "<span>"+(x.productName +productNameRlang)+"<br></span>"+"Product Code: "+x.productCode+ "<br>Item Code: "+x.itemCode,
-				"section"               : x.section,
-				"category"              : x.category +categoryNameRlang,
-				"subCategory"           : x.subCategory,
-				"originalPrice"         : "<span class='textAlignRight'>"+"<i class='fa fa-"+x.currency+"'></i>&nbsp;"+x.originalPrice+"</span>",
-				"discountPercent"       : "<span class='textAlignRight'>"+x.discountPercent+"%"+"</span>",
-				"discountedPrice"       : "<span class='textAlignRight'>"+"<i class='fa fa-"+x.currency+"'></i>&nbsp;"+x.discountedPrice+"</span>",
-				"availableQuantity"     : x.availableQuantity,
-				"featured"              : x.featured,
-				"exclusive"             : x.exclusive,
-				"status"                : x.status
-			}
+
+exports.list_product_with_limits = (req,res,next)=>{	
+	console.log('req', req.body);
+	var selector        = {};
+	selector['$and']    = [];
+
+	if(req.body.vendor !== "" && req.body.vendor !== undefined){
+		selector["$and"].push(
+			{"vendor_ID" : ObjectId(req.body.vendor)}
+		)
+	}
+	if(req.body.section !== "" && req.body.section !== undefined){
+		selector["$and"].push(
+			{"section_ID" : ObjectId(req.body.section)}
+		)
+	}
+	if(req.body.category !== "" && req.body.category !== undefined){
+		selector["$and"].push(
+			{"category_ID" : ObjectId(req.body.category)}
+		)
+	}
+	if(req.body.subCategory !== "" && req.body.subCategory !== undefined){
+		selector["$and"].push(
+			{"subCategory_ID" : ObjectId(req.body.subCategory)}
+		)
+	}
+	if(req.body.status !== "" && req.body.status !== undefined){
+		selector["$and"].push(
+			{"status" : req.body.status}
+		)
+	}else{
+		selector["$and"].push(
+			{"status" : {$ne : ""}}
+		)
+	}
+	if(req.body.searchText && req.body.searchText !== ""){
+		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$and"].push({ 
+			"$or" : [
+						{ "vendorDetails.companyName" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productName" 											: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "brand" 													: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "subCategory"											: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "sectionDetails.section" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.category" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.subCategory.subCategoryTitle": {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productCode"											: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "itemCode"												: {'$regex' : req.body.searchText , $options: "i" } },
+					]
 		})
-		res.status(200).json(allData.slice(req.body.startRange, req.body.limitRange));
+	}
+	Products.aggregate([
+		{ $lookup : {
+				from 				: 'entitymasters',
+				localField 			: 'vendor_ID',
+				foreignField 		: '_id',
+				as 					: 'vendorDetails'
+			}
+		},	
+		{ $lookup : {
+				from 				: 'sections',
+				localField 			: 'section_ID',
+				foreignField 		: '_id',
+				as 					: 'sectionDetails'
+			}
+		},
+		{ $lookup : {
+				from 				: 'categories',
+				localField 			: 'category_ID',
+				foreignField 		: '_id',
+				as 					: 'categoryDetails'
+			}
+		},
+		{ $match : selector },
+		{ $sort: {
+				createdAt : -1
+			}
+		},
+		{$project : 
+			{
+				_id      							: 1,
+				vendor_ID 							: 1,
+				section_ID 							: 1,
+				category_ID 						: 1,
+				subCategory_ID 					: 1,
+				status          					: 1,
+				createdAt       					: 1,
+				"productName"						: 1,
+				"brand"								: 1,
+				"productCode" 						: 1,
+				"itemCode" 							: 1,
+				"originalPrice" 					: 1,
+				"discountPercent" 				: 1,
+				"discountedPrice" 				: 1,
+				"availableQuantity" 				: 1,
+				"featured" 							: 1,
+				"exclusive" 						: 1,
+				"vendorDetails.companyName"	: 1,
+				"categoryDetails.category"		: 1,
+				"categoryDetails.subCategory"	: 1,
+				"sectionDetails.section"		: 1
+			}
+		}
+	])
+	// .exec()
+	.skip(parseInt(req.body.startRange))
+	.limit(parseInt(req.body.limitRange))
+	.then(async(data)=>{
+		var allData = []
+		for (var i = 0; i < data.length; i++) {
+				var subCategory = "";
+				if(data[i].categoryDetails && data[i].categoryDetails.length > 0){
+							// console.log("data[i].categoryDetails.subCategory => ",data[i].subCategory_ID)
+					if(data[i].subCategory_ID && data[i].subCategory_ID !== undefined && data[i].subCategory_ID !== null){
+						var filteredSubcategory = data[i].categoryDetails[0].subCategory.filter(subCategory => String(subCategory._id) === String(data[i].subCategory_ID));
+						if(filteredSubcategory && filteredSubcategory.length > 0){
+							subCategory = filteredSubcategory[0].subCategoryTitle;
+							// console.log("subCategory => ",subCategory)
+						}
+					}
+				}
+				var inventoryData 		= await ProductInventory.findOne({productCode : data[i].productCode, itemCode : data[i].itemCode, vendor_ID : ObjectId(data[i].vendor_ID)},{currentQuantity : 1})
+				var availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 
+				// console.log("availableQuantity => ",availableQuantity)
+				allData.push({
+									"_id"                   : data[i]._id,
+									// "productNameBasic"      : data[i].productName + "<br>Product Code: "+data[i].productCode+ "<br>Item Code: "+data[i].itemCode,
+									// "productNameRlang"      : data[i].productNameRlang,
+									"productName"           : "<div><b>"+(data[i].productName)+"</b><br></div>"+"<span class='whiteSpaceNoWrap'> Product Code: "+data[i].productCode+ "</span><br><span class='whiteSpaceNoWrap'> Item Code: " + data[i].itemCode + "</span>",
+									"vendorName"            : data[i].vendorDetails && data[i].vendorDetails.length > 0 ? data[i].vendorDetails[0].companyName : "-",
+									"section"               : data[i].sectionDetails && data[i].sectionDetails.length > 0 ? data[i].sectionDetails[0].section : "-",
+									"category"              : data[i].categoryDetails && data[i].categoryDetails.length > 0 ? data[i].categoryDetails[0].category : "-",
+									"subCategory"           : subCategory,
+									"brand"           		: data[i].brand,
+									"originalPrice"         : "<span class='textAlignRight'>" + (data[i].originalPrice).toFixed(2) + "</span>",
+									"discountPercent"       : "<span class='textAlignRight'>" + data[i].discountPercent + "%" + "</span>",
+									"discountedPrice"       : "<span class='textAlignRight'>" + (data[i].discountedPrice).toFixed(2) + "</span>",
+									"availableQuantity"     : availableQuantity,
+									"featured"              : data[i].featured,
+									"exclusive"             : data[i].exclusive,
+									"status"                : data[i].status
+								})
+			}
+		// })
+		if(i >= data.length){
+			// console.log(allData)
+			res.status(200).json({
+				// dataCount 	: allData.length,
+				data 			: allData
+			});
+		}
 	})
 	.catch(err =>{
 		console.log(err);
@@ -1527,6 +1649,98 @@ exports.list_product_with_limits = (req,res,next)=>{
 		});
 	});
 };
+
+exports.count_all_products = (req,res,next)=>{	
+	console.log('req', req.body);
+	var selector        = {};
+	selector['$and']    = [];
+
+	if(req.body.vendor !== "" && req.body.vendor !== undefined){
+		selector["$and"].push(
+			{"vendor_ID" : ObjectId(req.body.vendor)}
+		)
+	}
+	if(req.body.section !== "" && req.body.section !== undefined){
+		selector["$and"].push(
+			{"section_ID" : ObjectId(req.body.section)}
+		)
+	}
+	if(req.body.category !== "" && req.body.category !== undefined){
+		selector["$and"].push(
+			{"category_ID" : ObjectId(req.body.category)}
+		)
+	}
+	if(req.body.subCategory !== "" && req.body.subCategory !== undefined){
+		selector["$and"].push(
+			{"subCategory_ID" : ObjectId(req.body.subCategory)}
+		)
+	}
+	if(req.body.status !== "" && req.body.status !== undefined){
+		selector["$and"].push(
+			{"status" : req.body.status}
+		)
+	}else{
+		selector["$and"].push(
+			{"status" : {$ne : ""}}
+		)
+	}
+	if(req.body.searchText && req.body.searchText !== ""){
+		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$and"].push({ 
+			"$or" : [
+						{ "vendorDetails.companyName" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productName" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "sectionDetails.section" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.category" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.subCategory.subCategoryTitle": {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productCode"						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "itemCode"							: {'$regex' : req.body.searchText , $options: "i" } },
+					]
+		})
+	}
+	Products.aggregate([
+		{ $lookup : {
+				from 				: 'entitymasters',
+				localField 			: 'vendor_ID',
+				foreignField 		: '_id',
+				as 					: 'vendorDetails'
+			}
+		},	
+		{ $lookup : {
+				from 				: 'sections',
+				localField 			: 'section_ID',
+				foreignField 		: '_id',
+				as 					: 'sectionDetails'
+			}
+		},
+		{ $lookup : {
+				from 				: 'categories',
+				localField 			: 'category_ID',
+				foreignField 		: '_id',
+				as 					: 'categoryDetails'
+			}
+		},
+		{ $match : selector },
+		{ $sort: {
+				createdAt : -1
+			}
+		}
+	])
+	.exec()
+	.then(data=>{		
+		res.status(200).json({
+			dataCount 	: data.length
+		});
+		
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+};
+
 exports.list_product_with_vendor = (req,res,next)=>{
 	// console.log('req', req.body);
 	Products.find({"vendor_ID" : req.body.vendor_ID})
@@ -3316,7 +3530,7 @@ exports.vendorProductCount = (req,res,next)=>{
 
 exports.productBulkAction = (req, res, next) => {
 	var field = req.body.selectedAction;
-	// console.log('field', field);
+	console.log('req.body', req.body);
 	switch (field) {
 		case 'Draft':
 			Products.updateMany(
@@ -3326,7 +3540,7 @@ exports.productBulkAction = (req, res, next) => {
 			.exec()
 			.then(data => {
 				return res.status(200).json({
-					"msg": 'Selected products are set as draft.',
+					"msg": 'Selected products are drafted successfully..',
 				});
 			})
 			.catch(err => {
@@ -3343,7 +3557,7 @@ exports.productBulkAction = (req, res, next) => {
 			.exec()
 			.then(data => {
 				return res.status(200).json({
-					"msg": 'Selected products are published.',
+					"msg": 'Selected products are published successfully..',
 				});
 			})
 			.catch(err => {
@@ -3369,7 +3583,7 @@ exports.productBulkAction = (req, res, next) => {
 				}
 
 				return res.status(200).json({
-					"msg": 'Selected products are unpublished.',
+					"msg": 'Selected products are unpublished successfully..',
 				});
 
 			})
@@ -3386,7 +3600,7 @@ exports.productBulkAction = (req, res, next) => {
 			.exec()
 			.then(data => {
 				return res.status(200).json({
-					"msg": 'Selected products are deleted.',
+					"msg": 'Selected products are deleted successfully..',
 				});
 			})
 			.catch(err => {
@@ -3557,7 +3771,7 @@ var insertUnitOfMeasurment = async(unit, created) =>{
 
 /*============= Product Inventory Update =============*/
 exports.bulkProductUpdate = (req,res,next)=>{
-	console.log("req.body bulkProductUpdate => ",req.body);
+	// console.log("req.body bulkProductUpdate => ",req.body);
 	
 	var record          = []; 
 	var failedRecords   = [];
@@ -3976,7 +4190,7 @@ var updateProductBulkRecords = async (data) => {
 				productCode 			: data.productCode,  
 				itemCode 				: data.itemCode, 
 			});
-			console.log("inventoryData => ",inventoryData)
+			// console.log("inventoryData => ",inventoryData)
 			if (inventoryData !== null) {
 				var updateinventory = await ProductInventory.updateOne(
 					{ 
@@ -4022,7 +4236,7 @@ var updateProductBulkRecords = async (data) => {
 					});	
 				});
 
-				console.log("Update Inventory => ",updateinventory)
+				// console.log("Update Inventory => ",updateinventory)
 				if (updateinventory !== undefined && updateinventory !== null) {
 					if (updateinventory.statusCode === "Success") {						  
 						Products.updateOne(
@@ -4379,7 +4593,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
 
 	main();
 	async function main(){
-		// console.log("req.body => ",req.body);
+		console.log("req.body => ",req.body);
 		var userLat         = req.body.userLatitude;
 		var userLong        = req.body.userLongitude;
 		var selector        = {};

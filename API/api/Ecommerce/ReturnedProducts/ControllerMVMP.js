@@ -31,6 +31,11 @@ exports.get_returned_products = (req,res,next)=>{
 			{"category_id" : ObjectId(req.body.category)}
 		)
 	}
+	if(req.body.subCategory !== "" && req.body.subCategory !== undefined){
+		selector["$and"].push(
+			{"subCategory_id" : ObjectId(req.body.subCategory)}
+		)
+	}
 	if(req.body.returnStatus !== "" && req.body.returnStatus !== undefined){
 		selector["$and"].push(
 			{"returnStatus" : req.body.returnStatus}
@@ -40,13 +45,30 @@ exports.get_returned_products = (req,res,next)=>{
 			{"returnStatus" : {$ne : ""}}
 		)
 	}
-	console.log("selector => ",selector)
+
+	if(req.body.searchText && req.body.searchText !== ""){
+		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$and"].push({ 
+			"$or" : [
+						{ "orderID" 												: parseInt(req.body.searchText) },
+						{ "vendorDetails.companyName" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "userDetails.profile.fullName" 					: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productDetails.productName" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "sectionDetails.section" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.category" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.subCategory.subCategoryTitle": {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productDetails.productCode"						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productDetails.itemCode"							: {'$regex' : req.body.searchText , $options: "i" } },
+					]
+		})
+	}
+	// console.log("selector => ",selector)
 
 	ReturnedProducts.aggregate([
 		
 		{ $lookup:
 			{
-				from 			: 'products',
+				from 				: 'products',
 				localField 		: 'product_id',
 				foreignField 	: '_id',
 				as 				: 'productDetails'
@@ -54,28 +76,28 @@ exports.get_returned_products = (req,res,next)=>{
 		},
 		{ $lookup : 
 			{
-				from 				: 'entitymasters',
+				from 					: 'entitymasters',
 				localField 			: 'vendor_id',
 				foreignField 		: '_id',
 				as 					: 'vendorDetails'
 			}
 		},
 		{ $lookup : {
-				from 				: 'users',
+				from 					: 'users',
 				localField 			: 'user_id',
 				foreignField 		: '_id',
 				as 					: 'userDetails'
 			}
 		},		
 		{ $lookup : {
-				from 				: 'sections',
+				from 					: 'sections',
 				localField 			: 'section_id',
 				foreignField 		: '_id',
 				as 					: 'sectionDetails'
 			}
 		},
 		{ $lookup : {
-				from 				: 'categories',
+				from 					: 'categories',
 				localField 			: 'category_id',
 				foreignField 		: '_id',
 				as 					: 'categoryDetails'
@@ -88,11 +110,14 @@ exports.get_returned_products = (req,res,next)=>{
 			}
 		}
 	])
-	.skip(parseInt(req.body.startRange))
-	.limit(parseInt(req.body.limitRange))
+	// .skip(parseInt(req.body.startRange))
+	// .limit(parseInt(req.body.limitRange))
 	.then(data=>{
 		// console.log("data = > ",data)
-		res.status(200).json(data);
+		res.status(200).json({
+			dataCount 	: data.length,
+			data 			: data.slice(parseInt(req.body.startRange), (parseInt(req.body.limitRange) + parseInt(req.body.startRange)))
+		});
 	})
 	.catch(err =>{
 		res.status(500).json({error: err});

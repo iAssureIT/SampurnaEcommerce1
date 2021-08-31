@@ -35,13 +35,13 @@ exports.user_signup_user = (req, res, next) => {
 		if(req.body.email && req.body.pwd && req.body.role){
 			var emailId  	= req.body.email;
 			var role_lower 	= String(req.body.role).toLowerCase();
-			console.log("role ", role_lower);
+			// console.log("role ", role_lower);
 
 			if (role_lower && emailId) {
 				Role.findOne({ role: role_lower })
 					.exec()
 					.then(role => {
-						console.log("role",role);
+						// console.log("role",role);
 
 						if (role && role !== null) {
 							User.find({ "username": emailId.toLowerCase() })
@@ -121,7 +121,7 @@ exports.user_signup_user = (req, res, next) => {
 															}
 															// console.log("userNotificationValues email => ",userNotificationValues);
 															var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
-															console.log("send_notification_to_user => ",send_notification_to_user)
+															// console.log("send_notification_to_user => ",send_notification_to_user)
 															//send Notification, email, sms to admin
 															var adminNotificationValues = {
 																"event"			: "SignUp",
@@ -527,7 +527,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 		if(req.body.mobNumber && req.body.pwd && req.body.role) {
 			var mobNumber = req.body.mobNumber;
 			var userRole = (req.body.role).toLowerCase();
-			console.log("userRole 1 => ",userRole);
+			// console.log("userRole 1 => ",userRole);
 			if (userRole && mobNumber) {
 				Role.findOne({ role: userRole })
 					.exec()
@@ -675,7 +675,7 @@ exports.check_userID_EmailOTP = (req, res, next) => {
 	User.find({ _id: ObjectID(req.params.ID), "profile.otpEmail": req.params.emailotp })
 		.exec()
 		.then(data => {
-			console.log("data",data);
+			// console.log("data",data);
 			if (data.length > 0) {
 				User.updateOne(
 					{ _id: ObjectID(req.params.ID) },
@@ -862,12 +862,12 @@ exports.check_username_EmailOTP = (req, res, next) => {
 
 /**=========== User Login ===========*/
 exports.user_login_using_email = (req, res, next) => {
-	console.log("user_login_using_email req.body = ",req.body);
+	// console.log("user_login_using_email req.body = ",req.body);
 	
 	var emailId = (req.body.email).toLowerCase(); 
 	var role  	= (req.body.role).toLowerCase();
-	console.log("emailId => ", emailId);
-	console.log("role => ", role);
+	// console.log("emailId => ", emailId);
+	// console.log("role => ", role);
 	User.findOne({
 		"username" 	: emailId,
 		"roles" 		: role,
@@ -1033,8 +1033,8 @@ exports.resetPassword = (req, res, next) => {
 			if (previousPassword) {
 				// console.log(" Condition => ",(bcrypt.compare(req.body.currentPassword, previousPassword)))
 				bcrypt.compare(req.body.currentPassword, previousPassword, (error, result) => {
-					console.log("error => ",error)
-					console.log("result => ",result)
+					// console.log("error => ",error)
+					// console.log("result => ",result)
 					if (error) {
 						return res.status(200).json({
 							message 	: 'You entered wrong current password',
@@ -1056,7 +1056,7 @@ exports.resetPassword = (req, res, next) => {
 								}
 							)
 							.then(data => {
-								console.log("data => ",data)
+								// console.log("data => ",data)
 								if (data.nModified === 1) {
 									res.status(200).json({
 										message 	: "Password reset successfully",
@@ -1439,7 +1439,7 @@ exports.user_login_with_companyID = (req, res, next) => {
 };
 
 exports.logouthistory = (req, res, next) => {
-	console.log("Logout Body",req.body);
+	// console.log("Logout Body",req.body);
 	var emailId = req.body.emailId;
 	User.findOne({ _id: req.body.user_ID })
 		.exec()
@@ -2339,7 +2339,7 @@ exports.user_login_mob_email_new = (req, res, next) => {
 
 
 exports.user_signup_social_media = (req, res, next) => {
-	console.log("req body",req.body);
+	// console.log("req body",req.body);
 		if(req.body.pwd && req.body.role) {
 			var userRole = (req.body.role).toLowerCase();
 			if (userRole) {
@@ -2555,7 +2555,7 @@ exports.user_signup_social_media = (req, res, next) => {
 
 
 exports.user_signup_guest_login = (req, res, next) => {
-	console.log("req body",req.body);
+	// console.log("req body",req.body);
 		if(req.body.pwd && req.body.role) {
 			var userRole = (req.body.role).toLowerCase();
 			if (userRole) {
@@ -2720,7 +2720,7 @@ exports.user_signup_guest_login = (req, res, next) => {
 
 /**=========== Forgot Password Send OTP ===========*/
 exports.set_send_otp = (req, res, next) => {
-	console.log("req body => ",req.params);
+	// console.log("req body => ",req.params);
 	
 	User.findOne(
 		{$or:
@@ -2756,7 +2756,7 @@ exports.set_send_otp = (req, res, next) => {
 					)
 					.exec()
 					.then(async(data) => {
-						console.log("data",data);
+						// console.log("data",data);
 						// if (data.nModified === 1) {
 							var userName = user.profile.firstname;
 							// console.log("userName => ",userName);

@@ -270,86 +270,88 @@ class AddNewProductImages extends Component{
     render(){
         // console.log('this', this.state.s3urlArray);
         return(
-            <div className="container-fluid col-lg-12 col-md-12 col-xs-12 col-sm-12">
-              <div className="row">
-                <div className="formWrapper col-lg-12 col-md-12 col-xs-12 col-sm-12 ">
-                    <section className="content">
+            <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOPadding">
+              <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOPadding">
+                    <section className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOPadding content">
                       <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 pageContent">
-                        <div className="row">
-                            <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 titleaddcontact">
-                              <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 contactdeilsmg pageHeader">
+                            <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 titleaddcontact NOPadding">
+                              <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 contactdeilsmg pageHeader NOpadding-left">
                                   Add Product Image                            
                                </div>
                               <hr className="hr-head container-fluid row"/>
                             </div>
-                            <div className="box-body">
-                                <div className="">
-                                    <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                            <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                
+                                    <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOPadding">
                                         <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 addProdImgVidTitle">
-                                            Product Name : {this.state.productTitle}
+                                            <b> Product Name : </b> {this.state.productTitle}
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
-                                        <label>Product Image<span className="imageUploadInstructions">(Upload Maximum 408px X 366px Image)</span></label>
+                                    <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 productImageUploadForm">
+                                        <div className="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
+                                            {/*<label>Product Image<span className="imageUploadInstructions">(Upload Maximum 408px X 366px Image)</span></label>
 
-                                        
-                                        <div className="input-group">
-                                            <span className="input-group-addon" id="basic-addon1"><i className="fa fa-file-image-o" aria-hidden="true"></i></span>
-                                            <div aria-describedby="basic-addon1">
-                                                <input type="file" className="form-control commonFilesUpld" accept=".jpg,.jpeg,.png" multiple onChange={this.uploadProductImage.bind(this)} />
-                                            </div>
+                                            
+                                            <div className="input-group">
+                                                <span className="input-group-addon" id="basic-addon1"><i className="fa fa-file-image-o" aria-hidden="true"></i></span>
+                                                <div aria-describedby="basic-addon1">
+                                                    <input type="file" className="form-control commonFilesUpld" accept=".jpg,.jpeg,.png" multiple onChange={this.uploadProductImage.bind(this)} />
+                                                </div>
+                                            </div>*/}
+                                            <label class="custom-file-upload-subCategory productImageUploadLabel" style={{fontSize: "20px"}}>
+                                                <input type="file"  accept=".jpg,.jpeg,.png" multiple onChange={this.uploadProductImage.bind(this)} title="Upload Product Images....." />
+                                                <i class="fa fa-cloud-upload"></i><br/> Product Image
+                                            </label>
                                         </div>
-                                    </div>
-                                    <div className="col-lg-12">
-                                        <div className="row productImgWrapper">
-                                        {this.state.productImageArray && this.state.productImageArray.length > 0?
-                                            this.state.productImageArray.map((imageData, index)=>{
-                                                return(
-                                                    <div className="col-lg-2 productImgCol" key={index}>
-                                                        <div className="prodImage">
-                                                            <div className="prodImageInner">
-                                                                <span className="prodImageCross" title="Delete" data-imageUrl={imageData} id={imageData} onClick={this.deleteProductImage.bind(this)}>x</span>
+                                        <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                            <div className="row productImgWrapper">
+                                            {this.state.productImageArray && this.state.productImageArray.length > 0?
+                                                this.state.productImageArray.map((imageData, index)=>{
+                                                    return(
+                                                        <div className="col-lg-2 col-md-2 col-xs-12 col-sm-4 productImgCol" key={index}>
+                                                            <div className="prodImage productImageBorder">
+                                                                <div className="prodImageInner">
+                                                                    <span className="prodImageCross" title="Delete" data-imageUrl={imageData} id={imageData} onClick={this.deleteProductImage.bind(this)}>x</span>
+                                                                </div>
+                                                                <img aria-hidden="true" data-toggle="modal" data-target={"#openImageModal"+index} title="view Image" src={imageData} alt="Product Image" className="img-responsive" />
                                                             </div>
-                                                            <img aria-hidden="true" data-toggle="modal" data-target={"#openImageModal"+index} title="view Image" src={imageData} alt="Product Image" className="img-responsive" />
-                                                        </div>
-                                                        <div className="modal fade" id={"openImageModal"+index} role="dialog">
-                                                            <div className="modal-dialog">
-                                                                <div className="modal-content">
-                                                                    <div className="modal-header">
-                                                                        <a href="#" data-dismiss="modal" aria-hidden="true" className="close pull-right"><i className="fa fa-times-circle-o fa-lg venClosePadd" aria-hidden="true"></i></a>
-                                                                        </div>
-                                                                    <div className="modal-body">
-                                                                        <div className="row">
-                                                                            <div className="col-lg-12 text-left productImageModallMarginBtm">
-                                                                                <img src={imageData} alt="Product Image" className="img-responsive" />
+                                                            <div className="modal fade" id={"openImageModal"+index} role="dialog">
+                                                                <div className="modal-dialog">
+                                                                    <div className="modal-content">
+                                                                        <div className="modal-header">
+                                                                            <a href="#" data-dismiss="modal" aria-hidden="true" className="close pull-right"><i className="fa fa-times-circle-o fa-lg venClosePadd" aria-hidden="true"></i></a>
+                                                                            </div>
+                                                                        <div className="modal-body">
+                                                                            <div className="row">
+                                                                                <div className="col-lg-12 text-left productImageModallMarginBtm">
+                                                                                    <img src={imageData} alt="Product Image" className="img-responsive" />
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                );
-                                            })
-                                            :
-                                            null
-                                        }
+                                                    );
+                                                })
+                                                :
+                                                null
+                                            }
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 mb30">
+                                            <button className="submitBtn btn btnSubmit col-lg-2 col-lg-offset-10 col-md-2 col-md-offset-10 col-sm-3 col-sm-offset-9 col-xs-3 col-xs-offset-9 marginTop17 pull-right" onClick={this.saveProductImages.bind(this)} >
+                                                Save
+                                            </button>
                                         </div>
                                     </div>
-                                    <div className="col-lg-12">
-                                        <button className="submitBtn btn btnSubmit col-lg-2 col-lg-offset-10 col-md-2 col-md-offset-10 col-sm-3 col-sm-offset-9 col-xs-3 col-xs-offset-9 marginTop17 pull-right" onClick={this.saveProductImages.bind(this)} >
-                                            Save
-                                        </button>
-                                    </div>
-                                </div>
                             </div>
 
                             
-                          </div>
+                          
                         </div>
                       </section>
                     </div>
-                  </div>
                 </div>
         );
     }

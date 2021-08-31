@@ -24,7 +24,8 @@ class RevenueReports extends Component{
 														//Array to add different customized filters
 													{
 														'inputLabel' 			: "Status", 			
-														'inputType' 			: "select",
+														// 'inputType' 			: "select",
+														'inputType' 			: "",
 														'inputDefaultValue' 	: "--Select--",
 														'inputPlaceholder' 	: "",
 														'inputName' 			: "status",
@@ -56,7 +57,7 @@ class RevenueReports extends Component{
 													orderAmount       	: 'Order Amount',
 													commissionPercentage : 'Commission Percentage',
 													commissionAmount 		: 'Commission Amount',
-													deliveryCharges 		: 'Delivery Charges',
+													deliveryCharges 		: 'Service Charges',
 													totalAmount 			: 'Total Amount'
 			},
       	tableObjects      		: {
@@ -74,7 +75,11 @@ class RevenueReports extends Component{
       .then(response =>{
       	console.log("vendors => ",response.data)      	
       	if (response.data && response.data.length > 0) {
-      		var vendorArray = [];
+      		var vendorArray = [{
+      			name : "vendor",
+   				label : "All",
+   				value : ""
+      		}];
       		for (var i = 0; i < response.data.length; i++) {
       			vendorArray.push({
       				name : "vendor",

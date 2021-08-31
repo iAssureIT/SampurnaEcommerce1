@@ -357,7 +357,7 @@ class ReturnedProductView extends Component{
 												:
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 adminCommentBox marginBottom10">
 														<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 vendorCommentDiv">
-															<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 vendorCommentContent"> "Admin / Vendor has not yet commented on Customer Review."</div>				                                            
+															<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 vendorCommentContent"> "Admin / Vendor has not yet commented on Customer's Return Request."</div>				                                            
 														</div>
 													</div>
 												}

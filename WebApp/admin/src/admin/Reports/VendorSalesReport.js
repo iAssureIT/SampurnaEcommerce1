@@ -181,7 +181,6 @@ class VendorSalesReport extends Component{
    }
 
    getCategories(section_id){
-   	console.log("iiiiiiiiii => ",section_id)
    	axios.get("/api/category/get/filter/categories/"+section_id)
       .then(response =>{
       	console.log("categories => ",response.data)      	
