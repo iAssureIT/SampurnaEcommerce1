@@ -55,7 +55,8 @@ class Message extends Component{
         console.log("messageData--",this.props.messageData);
         return(
             <div className={Style.alertBox}>
-            {
+            
+            {/*
                 this.props.messageData.alertType && this.props.messageData.alertType === 'inpage' ?
                 <div className={"alert alert-"+this.props.messageData.class} role="alert">
                     <div className={this.props.messageData.icon+" inpagemessage"} dangerouslySetInnerHTML={{__html : ("&nbsp;"+this.props.messageData.message)}}></div>
@@ -72,7 +73,7 @@ class Message extends Component{
                     </div>
                 :
                 null
-            }
+            */}
             </div>
         )
     }
