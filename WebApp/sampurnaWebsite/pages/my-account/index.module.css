@@ -89,9 +89,6 @@
 
 }*/
 
-
-
-
 @media only screen and (min-device-width: 1024px) {
 
      .sideBarTabNames{
@@ -213,11 +210,11 @@
     }
 
     .sideBarTabNames{
-        font-size: 32px;
+        font-size: 30px;
     }
 
     .myAccountTitleWrapper{
-        font-size: 60px;
+        font-size: 50px;
     }
 
     .myAccountMainDiv{
@@ -225,7 +222,7 @@
     }
 
     .sideBarTabNameAllignment{
-        padding-left: 130px;
+        padding-left: 70px;
     }
 
 }

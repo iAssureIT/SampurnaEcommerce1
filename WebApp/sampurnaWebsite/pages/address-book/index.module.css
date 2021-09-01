@@ -131,15 +131,6 @@
   }
 
 
-
-
-
-
-
-
-
-
-
  
 @media only screen and (min-device-width: 1024px) {
 
@@ -288,7 +279,7 @@
 @media only screen and (min-device-width: 2560px) {
 
     .accountDashBoardMainTitle{
-        font-size: 47px;
+        font-size: 40px;
     }
 
     .addNewAddressBtn{
@@ -325,4 +316,4 @@
         margin-top: 1px;
     }
 
-}
+}    

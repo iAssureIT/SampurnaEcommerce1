@@ -62,7 +62,7 @@ class CartProducts extends Component {
           }
        
         await this.props.fetchCartData();
-
+        
         if (this.props.recentCartData && this.props.recentCartData.vendorOrders) {
             console.log("this.props.recentCartData => ",this.props.recentCartData );
             
@@ -130,43 +130,15 @@ class CartProducts extends Component {
 
     cartquantityincrease(event) {
         event.preventDefault();
+        // $('.fullpageloader').show();
         const product_ID = event.target.getAttribute('productid');
         const vendor_id = event.target.getAttribute('vendor_id');
+        const size = event.target.getAttribute('size');
         const quantity = parseInt(event.target.getAttribute('dataquntity'));
         var availableQuantity = parseInt(event.target.getAttribute('availablequantity'));
         const quantityAdded = parseInt(quantity + 1);
+        var totalWeight = quantityAdded * size;
 
-        if (this.state.websiteModel === "FranchiseModel") {
-            const size = event.target.getAttribute('size');
-            const unit = event.target.getAttribute('unit');
-            var totalWeight = quantityAdded * size;
-            if (unit === "gm") {
-                if (totalWeight >= 1000) {
-                    totalWeight = totalWeight / 1000;
-                    totalWeight = totalWeight + " KG";
-                } else {
-                    totalWeight = totalWeight + " GM";
-                }
-            } else {
-                totalWeight = totalWeight + " " + unit;
-            }
-            const formValues = {
-                "user_ID": this.state.user_ID,
-                "product_ID": product_ID,
-                "totalWeight": totalWeight,
-                "vendor_ID": vendor_id,
-                "quantityAdded": quantityAdded,
-            }
-            // console.log("formValues====",formValues);  
-            axios.patch("/api/carts/quantity", formValues)
-                .then((response) => {
-                    this.props.fetchCartData();
-                })
-                .catch((error) => {
-                    console.log("error => ", error);
-                })
-
-        } else {
             const formValues = {
                 "user_ID": this.state.user_ID,
                 "product_ID": product_ID,
@@ -197,15 +169,16 @@ class CartProducts extends Component {
                     .then((response) => {
                         // console.log("increament response=>",response.data);
                         this.props.fetchCartData();
+                        // $('.fullpageloader').hide();
                     })
                     .catch((error) => {
                         console.log("error => ", error);
                     })
             }
-        }
     }
 
     cartquantitydecrease(event) {
+        // $('.fullpageloader').show();
         event.preventDefault();
         const cartitemid = event.target.getAttribute('id');
         const vendor_id = event.target.getAttribute('vendor_id');
@@ -222,6 +195,7 @@ class CartProducts extends Component {
         axios.patch("/api/carts/quantity", formValues)
             .then((response) => {
                 this.props.fetchCartData();
+                // $('.fullpageloader').hide();
             })
             .catch((error) => {
                 console.log("error => ", error);
@@ -229,6 +203,7 @@ class CartProducts extends Component {
     }
 
     proceedToCheckout(event) {
+        $('.fullpageloader').show();
         event.preventDefault();
         for (let i = 0; i < this.props.recentCartData.vendorOrders.length; i++) {
             // console.log("this.props.recentCartData.vendorOrders[i].cartItems===",this.props.recentCartData.vendorOrders[i].cartItems);
@@ -315,7 +290,7 @@ class CartProducts extends Component {
             "product_ID"          : id
         }
           
-          console.log("inside wishlist==",formValues);
+        //   console.log("inside wishlist==",formValues);
           axios.post('/api/wishlist/post', formValues)
             .then((response) => {
               this.setState({
@@ -364,10 +339,7 @@ class CartProducts extends Component {
                 <div className="col-12  ">
                     <div className="col-12  pl-0">
                         <div className="col-12 cartHeight">
-                            {this.props.loading 
-                            ?
-                                <Loader type="fullpageloader" />
-                            :
+                            <Loader type="fullpageloader" />
                                 <div className="row">                                    
                                     <Message messageData={this.state.messageData} />
                                     {
@@ -763,7 +735,7 @@ class CartProducts extends Component {
 
 
                                 </div>
-                            }
+                            
                         </div>
                     </div>
                 </div>

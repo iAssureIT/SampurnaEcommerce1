@@ -683,7 +683,6 @@ class Checkout extends Component {
                         $('#couponCode').val('');
                     }
                     swal(couponResponse.data.message);
-
                 }
             })
             .catch(err => {
@@ -692,13 +691,15 @@ class Checkout extends Component {
     }
     applyCreditPoint(event) {
         event.preventDefault();
-        var creaditPointValueEnter = parseInt(this.refs.creaditPoint.value);
+        console.log("this.refs.creaditPoint.value=",this.refs.creaditPoint.value);
+        var creaditPointValueEnter = parseFloat(this.refs.creaditPoint.value);
         console.log("my creaditPoint===",creaditPointValueEnter);
         const formValues = {
             "user_ID": this.state.user_ID,
-            creditPointsValueUsed: parseFloat(creaditPointValueEnter)
+            // creditPointsValueUsed: parseFloat(creaditPointValueEnter)
+            creditPointsValueUsed: creaditPointValueEnter
         }
-        // console.log("formValues==",formValues);
+        console.log("formValues==",formValues);
         // console.log("this.state.creditdataValue===",this.state.creditdataValue);
         if(creaditPointValueEnter === 0 || creaditPointValueEnter === ''){
             this.setState({
@@ -893,6 +894,7 @@ class Checkout extends Component {
                         {/* =======================================mb respnsve END=================== */}
 
                         <div className={"col-10 NoPadding offset-1 d-none d-lg-block d-xl-block " + Style.cartTitle}>Order Summary</div>
+                        {/* <Loader type="fullpageloader" /> */}
                         {this.props.loading ?
                             <Loader type="fullpageloader" />
                             :

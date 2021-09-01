@@ -3,7 +3,7 @@ import $                      from 'jquery';
 import axios                  from 'axios';
 import Image                  from 'next/image';
 import Link                   from 'next/link';
-import Message                from '../../StaticBlocks/Message/Message.js';
+// import Message                from '../Message/Message.js';
 import Style                  from './SingleProduct.module.css';
 import { connect }            from 'react-redux';
 import store                  from '../../../../../redux/store.js'; 
@@ -207,6 +207,7 @@ class SingleProduct extends Component{
    
 
     render(){
+      console.log("Product ===",this.props);
       var categoryUrl = (this.props.data.category?this.props.data.category:"").replace(/\s+/g, '-').toLowerCase();                    
       var subCategoryUrl = (this.props.data.subCategory?this.props.data.subCategory:"-").replace(/\s+/g, '-').toLowerCase();                    
 
@@ -230,7 +231,7 @@ class SingleProduct extends Component{
       return (
         <div className="col-12">
           <div className="row">
-            <Message messageData={this.state.messageData} /> 
+            {/* <Message messageData={this.state.messageData} />  */}
             <div className={" col-12  NoPadding " +Style.mobileViewPadding +" "+Style.productWrapper} > 
                 <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                 <div className={"col-12 NoPadding"}>

@@ -84,13 +84,6 @@
 
 
 
-
-
-
-
-
-
-
 @media only screen and (min-device-width: 1024px) {
     .editAccountTitle{
         font-size: 25px;
@@ -123,6 +116,8 @@
     }
 }    
 
+
+
 @media only screen and (min-device-width: 1920px) {
     .editAccountTitle{
         font-size: 37px;
@@ -131,11 +126,4 @@
     .editAccountFont{
         font-size: 16px;
     }
-}
-
-@media only screen and (min-device-width: 2560px) {
-    .editAccountTitle{
-        font-size: 47px;
-    }
-
 }
