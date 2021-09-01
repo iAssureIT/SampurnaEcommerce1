@@ -322,7 +322,7 @@ class DeliveryLocationPopup extends React.Component{
             var class1 = "zindex1"
         }
         return(
-            <section className={"col-12 locationPage locationBg "} style={{"height" : this.state.mapBlockheight}} >
+            <section className={"col-12 locationPage locationBg " + Style.locationPageWrapper}>
                 {
                     this.state.latLong.lat && this.state.latLong.lng
                     ?
@@ -333,17 +333,17 @@ class DeliveryLocationPopup extends React.Component{
                     :
                         null
                 }            
-                <form className={"col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 " + Style.locationSetBlock} >
+                <form className={"col-11 col-sm-11  col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 " + Style.locationSetBlock} >
                     <div className="col-12">
                         <div className="row">
-                            <div className="col-12 col-lg-3">
+                            <div className="col-12 col-sm-3 col-lg-3">
                                 <div className="row">
                                     <button type="button" className={"col-12 btn "+Style.deliveryLocationCurrentButton} onClick={this.takeCurrentLocation.bind(this)}>
                                         <img src="/images/eCommerce/location.svg" alt="ChangeLocationButton"></img>&nbsp; Current Location
                                     </button>
                                 </div>
                             </div>
-                            <div className="col-12 col-lg-2 mt-3 mt-lg-0">
+                            <div className="col-12 col-sm-3 col-lg-2 mt-3 mt-lg-0">
                                 <div className="ml-2">
                                     <div className={"col-3 "+Style.deliveryLocationORLine1}></div>
                                     <div className={"col-4 "+Style.deliveryLocationORTextWrapper}>
@@ -352,7 +352,7 @@ class DeliveryLocationPopup extends React.Component{
                                     <div className={"col-3 "+Style.deliveryLocationORLine2}></div>
                                 </div>
                             </div>
-                            <div className="col-12 col-lg-7 mt-3 mt-lg-0">
+                            <div className="col-12 col-sm-6 col-lg-7 mt-3 mt-lg-0">
                                 <div className="row">
                                     <PlacesAutocomplete
                                         value                       = {this.state.address}

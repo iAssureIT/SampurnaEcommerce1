@@ -136,7 +136,7 @@ class header extends React.Component {
                                         </span>
                                     </div>
                                     :
-                                    <div className="row">
+                                    <div className={"row " + Style.signDivWrapper }>
                                         <div  className="col-12">
                                             <span className={Style.userName}>
                                                 {"Hello " + this.state.userName}

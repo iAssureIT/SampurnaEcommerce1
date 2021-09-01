@@ -122,6 +122,7 @@
 
 .footer_bottom{
   background-color:#000000;
+  padding-bottom: 25px;
 }
 
 /*.footer_bottom p{
@@ -265,8 +266,9 @@
   padding-left: 0px !important;
   padding-right: 0px !important;
   /* background: #f3f3f3 !important; */
-  padding: 30px 0px 0px 0px;
-  margin-top: -4px;
+  padding: 0px 0px 0px 0px;
+  padding-bottom: 25px;
+
 }
 .footerWrapper{
   /* min-height: 400px; */
@@ -326,7 +328,8 @@
 
 .payCard2{
   width: 46px;
-  height: 28px;
+  height: 25px;
+  background-position: center;
   background: #fff url("/images/eCommerce/mastercard-logo-473B8726A9-seeklogo.com.png") 0% 0% no-repeat padding-box;
   opacity: 1;
   float:left;
@@ -336,7 +339,8 @@
 
 .payCard1{
   width: 46px;
-  height: 28px;
+  height: 25px;
+  background-position: center;
   background: #fff url("/images/eCommerce/visa-logo.png") 0% 0% no-repeat padding-box;
   opacity: 1;
   float:left;
@@ -413,8 +417,7 @@
 
 .footer3Class {
   font-size:12px;
-  color:#fff;
-  font-family:'Montserrat-Regular';
+  color:#999;
 }
 
 .ml0{
@@ -438,11 +441,11 @@
 .sectionName .sectionurl{
   /*color: #444 !important;*/
   color: #ffffff !important;  
-  font-size: 14px;
+  font-size: 15px;
   text-decoration: none;
-  font-weight: 700;
   margin-top: 20px;
   margin-bottom: 20px !important;
+  font-family:'Montserrat-Medium';
 }
 .categortTitle{
   /* margin-bottom:8px; */
@@ -451,7 +454,7 @@
     /*font-weight: 500;*/
     /*font-size:14px;*/
     font-size: 13px !important;;
-    color:#fff;
+    color:#ddd;
     /*color: #444 !important;*/
     text-decoration: none !important;
     transition: 0.3s ease;
@@ -465,12 +468,12 @@
 .socialMediaIcons .fab{
   border-radius: 100%;
   border:var(--border2px) !important;
-  padding-top: 8px;
+  padding-top: 7px;
   float: left;
   color: var(--color);
   margin-top: 20px;
-  height: 32px;
-  width: 32px;
+  height: 28px;
+  width: 28px;
   text-align: center;
   margin-left: 15px;
   background-color: #ffffff;  
@@ -483,6 +486,20 @@
 }
 .socialMediaIcons{
   text-align: right;
+}
+.footerNew{
+  padding-right: 3%!important;
+  opacity: 1!important;
+  background: #222!important;
+}
+.phoneT{
+  font-family:'Montserrat-Regular';
+  color: #fff;
+  font-size: 13px!important;
+}
+.footerNumber{
+  font-family:'Montserrat-Medium';
+  font-size: 15px;
 }
 @media only screen and (max-device-width: 480px) {    
   .categoryFooterWrapper{
@@ -548,3 +565,49 @@
 /* .BookStore_logo a{
   float: right ! important;
 }*/
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .phoneT{
+    font-size: 19px!important;
+  }
+  .footerNumber {
+    font-size: 20px!important;
+  }
+  .sectionName .sectionurl {
+    font-size: 20px!important;
+  }
+  .categortTitle span {
+    font-size: 16px!important;
+  }
+  .socialMediaIcons .fab {
+    height: 32px;
+    width: 32px;
+    padding-top: 8px;
+  }
+
+}
+@media  (max-width: 413px) {
+  .footerNew {
+    padding-right: 0%!important;
+  }
+  .phoneT {
+    font-size: 12px;
+  }
+
+  .footerNumber {
+    font-size: 11px;
+  }
+  .footerNumberWrapper{
+    display: inline-block;
+  }
+  .textEnd{
+    text-align: center!important;
+  }
+  .footer3 , .footer_bottom{
+    min-height: 343px;
+    height: auto;
+  }
+  .footer3Class {
+    position: absolute;
+    bottom: -190px;
+  }
+}

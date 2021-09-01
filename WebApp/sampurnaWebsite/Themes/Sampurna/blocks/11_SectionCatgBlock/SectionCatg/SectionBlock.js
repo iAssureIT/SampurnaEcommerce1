@@ -74,11 +74,11 @@ class SectionBlock extends Component {
     };
 
     return (
-      <div className="col-12 mt20">
+      <div className={"col-12 " + Style.secssionMargin}>
           {this.props.groupSettings.showTitle?
             <div className="col-12">
               <div className="col-12 productcomponentheading text-center text-lg-left">
-                <div className={ "col-12 mt-4 " +Style.title4}>
+                <div className={ "col-12 " +Style.title4}>
                     <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont1 } data-trans="#blog_1554730795823_title">{this.state.blockTitle} <span className={"line " +Style.line}></span></h1>
                     <span className={"hide "+Style.span} id="blog_1554730795823_title"></span>
 			        	</div>

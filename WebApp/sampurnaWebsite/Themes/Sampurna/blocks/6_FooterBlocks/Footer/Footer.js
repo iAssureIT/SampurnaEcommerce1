@@ -51,8 +51,27 @@ export default class Footer extends Component {
        return(
         <div className="col-12 NoPadding footerWrapper" >
         <div className="col-12 footerNew ">
-            <div className="col-12 col-xl-8 col-lg-8 float-right ">
-                <div className="col-12 textEnd "><i className="fa fa-phone fIcon "></i><span className="phoneT">Phone &nbsp;&nbsp;:&nbsp;&nbsp;</span>  +971 04 591 1186 &nbsp;&nbsp;&nbsp;&nbsp; <i className="fas fa-envelope fIcon"></i><span className="phoneT">Mail Us &nbsp;&nbsp;:&nbsp;&nbsp; </span> support@knock-knockeshop.com</div>
+            <div className="col-12 col-xl-8 col-lg-8 float-md-right float-left">
+                <div className="col-12 textEnd ">
+                <span className="footerNumberWrapper">
+                    <i className="fa fa-phone fIcon "></i>
+                    <span className="phoneT">
+                        Phone &nbsp;&nbsp;:&nbsp;&nbsp;
+                    </span> 
+                    <span className="footerNumber">
+                        +971 04 591 1186 
+                    </span> &nbsp;&nbsp;&nbsp;&nbsp;
+                    </span> 
+                    <span className="footerNumberWrapper">
+                        <i className="fas fa-envelope fIcon"></i>
+                        <span className="phoneT">
+                            Mail Us &nbsp;&nbsp;:&nbsp;&nbsp; 
+                        </span>
+                        <span className="footerNumber">
+                            support@knock-knockeshop.com 
+                        </span> 
+                    </span> 
+                </div>
             </div>
         </div>
         {this.state.deliveryLocation?

@@ -51,7 +51,7 @@ class SubCategory extends Component {
     
     return (
       <div className="col-12 mt20">
-          <div className="col-12 rowPadding mb-4">
+          <div className="col-12 rowPadding">
             { this.props.groupSettings.showCarousel === true?
               this.props.itemList && this.props.itemList.length > 0 ?
               <div className="col-12 ">

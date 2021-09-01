@@ -6,6 +6,10 @@
     top: 50%;
     transform: translateY(-50%);
 }
+.heightGoogleMap{
+    height: 72vh;
+    width: 100%;
+}
 .deliveryLocationCurrentButton {
     height          : 38px;
     background-color: #033554;
@@ -294,7 +298,9 @@
     right   : -20px;
 }
 
-
+.locationPageWrapper{
+    height: 80vh;
+}
 /* =========================Media Query============================================== */
 
 @media only screen and (max-device-width: 480px) {
@@ -533,3 +539,41 @@
 
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+@media only screen and (max-device-width: 480px) {
+    .deliveryLocationORLine1{
+        margin-left: 15px;
+    }
+}
+@media (min-width: 640px)and (max-width: 767px){
+    .deliveryLocationCurrentButton{
+        font-size: 11px;
+        margin-top: 15px;
+    }
+    .heightGoogleMap{
+        height: 70vh;
+    }
+
+}
+@media (min-width: 768px)and (max-width: 1023px){
+    .deliveryLocationCurrentButton{
+        margin-top: 15px;
+    }
+    .heightGoogleMap{
+        height: 75vh;
+    }
+}
+@media (min-width: 1024px)and (max-width: 1200px){
+    .heightGoogleMap{
+        height: 74vh;
+    }
+}
+@media (min-width: 1920px) and (max-width: 2559px) {
+    .heightGoogleMap{
+        height: 75vh;
+    }
+}
+@media (min-width: 2560px) {
+    .heightGoogleMap{
+        height: 77vh;
+    }
+}

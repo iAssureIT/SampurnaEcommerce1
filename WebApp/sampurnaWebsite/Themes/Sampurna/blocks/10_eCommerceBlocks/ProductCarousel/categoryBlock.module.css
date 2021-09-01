@@ -189,6 +189,12 @@
       top: 58px;
       font-size: 33px;
   }
+  .titleFont1{
+      margin-bottom: 40px !important;
+  }
+  .titleFont{
+    margin-bottom: 80px!important;
+  }
 }
 
 

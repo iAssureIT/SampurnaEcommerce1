@@ -72,10 +72,10 @@
     margin-top: 20px;
     margin-bottom: -25px;
 }
-.navbar-header{
+/*.navbar-header{
     padding-bottom: 10px;
     margin-top: -30px;
-}
+}*/
 .dropDownLevel1 a,
 .dropDownLevel1 .sectionForMobile{
     color: #222222;
@@ -292,10 +292,10 @@ ul:hover > .dropDownLevel3 {
     height: 33px;
     margin-top: -10px;
 }
-.navbar-header{
+/*.navbar-header{
     margin-bottom: 5px;
     margin-left: 5px;
-}
+}*/
 .cartCount{
     color: #fff;
     padding: 0px 4px;
@@ -818,6 +818,10 @@ li a{
 }
 
 @media only screen and (max-device-width: 480px) {
+    .headerLoginButton{
+        margin-top: -6px;
+    }
+    
     .multilevelType2MenuWrapper .navbar{
         padding-top: 10px !important;
     }
@@ -847,9 +851,9 @@ li a{
    .userEmail{
        padding-top: -5px;
    }
-    .navbar-toggler-icon{
+   /* .navbar-toggler-icon{
         font-size: 10px !important;
-    }
+    }*/
     .sectionForMobile{
         color: #FFF;
         text-align: left !important;
@@ -895,7 +899,7 @@ li a{
     }
 }
 
-@media (min-device-width: 1080px) and (max-device-width: 1920px) {
+@media (min-device-width: 1080px) and (max-device-width: 1919px) {
     .systemSecurityModal{
         margin-left: 18px !important;
     }
@@ -909,11 +913,11 @@ li a{
         height: 45px;
         margin-top: -5px;
     }
-    .navbar-header{
+   /* .navbar-header{
         margin-bottom: -10px;
         margin-left: 5px;
     }
-
+*/
 
 
 
@@ -1732,5 +1736,26 @@ li a{
         height: 900px !important;
         width: 1600px !important;
         left: -210px;
+    }
+}
+@media (min-width: 1440px) and (max-width: 1919px) {
+    .headerLoginButton {
+        height: 40px;
+        width: 115px;
+        font-size: 18px;
+    }
+}
+@media (min-width: 1920px) and (max-width: 2559px) {
+    .headerLoginButton {
+        height: 45px;
+        width: 130px;
+        font-size: 21px;
+    }
+}
+@media  (min-width: 2560px) {
+    .headerLoginButton {
+        height: 50px;
+        width: 130px;
+        font-size: 23px;
     }
 }

@@ -64,11 +64,11 @@ class SubCategoryBlock extends Component {
     };
     
   return (
-      <div className="col-12 mt20">
+      <div className="col-12">
           {this.props.groupSettings.showTitle?
             <div className="col-12">
               <div className="col-12 productcomponentheading text-center text-lg-left">
-              <div className={ "col-12 mt-4 " +Style.title4}>
+              <div className={ "col-12 " +Style.title4}>
                     <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont1 } data-trans="#title">{this.props.blockTitle} <span className={"line " +Style.line}></span></h1>
                     <span className={"hide "+Style.span} id="title"></span>
 			        	</div>
@@ -77,7 +77,7 @@ class SubCategoryBlock extends Component {
           :
             null
           }  
-          <div className="col-12 rowPadding mb-4">
+          <div className="col-12 rowPadding">
             { this.props.groupSettings.showCarousel === true?
               Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
               <div className="col-12 ">

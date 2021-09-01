@@ -117,7 +117,7 @@ class ShoppingVerticals extends Component {
                   }
                 </Carousel>                    
                 :
-                <div className="row dealsBlock mt-4 mb-4">                      
+                <div className="row dealsBlock">                      
                   {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                       this.state.itemList.map((data, index) => {   

@@ -532,7 +532,7 @@ submitCart(event) {
           {this.props.blockSettings.showTitle && this.state.newProducts && this.state.newProducts.length > 0 ?
             <div className="col-12">
               <div className={"col-12 " +Style.productcomponentheading +" " +Style.textCenter}>                
-                <div className={ "col-12 mt-4 " +Style.title4}>
+                <div className={ "col-12 " +Style.title4}>
                   <div className="">
                     <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont } data-trans="#blog_1554730795823_title">{this.state.blockTitle} 
                       <span className={"line " +Style.line}></span>

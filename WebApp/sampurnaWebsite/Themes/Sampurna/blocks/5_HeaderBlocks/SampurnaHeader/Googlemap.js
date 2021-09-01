@@ -67,7 +67,7 @@ class GoogleMap extends React.Component{
                 {
                     this.props.latLongDetails
                     ?
-                        <div style={{ height: this.state.mapBlockheight, width: '100%' }}>
+                        <div className={Style.heightGoogleMap}>
                             <GoogleMapReact
                                 bootstrapURLKeys    = {{ key: this.props.googleapiKey }}
                                 defaultCenter       = {this.props.latLongDetails}

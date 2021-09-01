@@ -22,7 +22,7 @@
 }
 .wrapper2{
   padding-top: 30px;
-  height: 90px;
+  height: 75px;
 }
 .wrapper3{
   padding-top: 10px;
@@ -390,6 +390,13 @@
 
 
 }
+.aboutClass a{
+   color:#aaa !important;
+   font-size: 12px;
+}
+.aboutClass a:hover{
+  text-decoration: none;
+}
 
 .logo{
   height: 100px;
@@ -550,6 +557,7 @@
   font-size: 14px ! important;
 }
 .footerTitleWrapper{
+  font-size: 14px!important;
   color: #fff!important;
   position: absolute!important;
 }
@@ -622,9 +630,7 @@
   /* margin-left:27%; */
 }
 
-.aboutClass a{
-   color:#fff !important;
-}
+
 
 .aboutHeight{
   min-height:40px;
@@ -635,11 +641,11 @@
 }
 .aboutHeight1{
   min-height:40px;
-  margin-top: 26px!important;
+  margin-top: 40px!important;
 }
 .aboutHeight2{
   min-height:40px;
-  margin-top: 18px!important;
+  margin-top: 13px!important;
 }
 /* .footerTitleWrapper{
   position: absolute!important;
@@ -667,10 +673,42 @@
 }
 
 /* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
-@media (min-width:1920px){
-
+@media (min-width: 1920px){
   .footerBottom {
-    padding-top: 106px;
-    padding-bottom: 106px;
+      padding-top: 106px;
+      padding-bottom: 106px;
+  }
+  .logoTop{
+    margin-top: 50px;
+    padding-left: 40px!important;
+  }
+  .aboutClass a{
+    font-size: 16px;
+  }
+  .footer3Class a{
+    font-size: 15px;
+  }
+  .wrapper2{
+    padding-top: 40px;
+    height: 100px;
+  }
+  .footerTitleWrapper{
+    font-size: 18px;
+  }
 }
+@media  (max-width: 413px) {
+  .logoTop{
+    margin-top: 30px;
+  }
+  .wrapper2{
+    padding-top: 0px;
+  }
+  .wrapper3{
+    position: absolute;
+    bottom: -130px;
+  }
+  .aboutHeight1{
+    margin-top: -40px!important;
+  }
+
 }
