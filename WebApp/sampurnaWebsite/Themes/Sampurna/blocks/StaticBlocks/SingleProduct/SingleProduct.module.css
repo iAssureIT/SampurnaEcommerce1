@@ -471,3 +471,21 @@ font-weight: bolder;
     height: 200px;
   }
 }
+
+
+@media only screen and (min-device-width: 2560px) {
+
+  .wishIcon{ 
+    left: 339px;
+    top: 12px;
+  }  
+
+  .ImgWrapper{
+    height: 234px;
+  }
+
+  .NoAvailableImg{
+    height: 200px;
+  }
+
+}  

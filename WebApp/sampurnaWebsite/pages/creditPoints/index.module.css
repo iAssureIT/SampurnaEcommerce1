@@ -306,3 +306,12 @@
     }
 
 }
+
+
+@media only screen and (min-device-width: 1920px) {
+
+    .creditPointTitleWrapper{
+        font-size: 47px;
+    }
+
+    }
