@@ -76,6 +76,17 @@ export const RejectedOrder =(props)=> {
         setRefresh(true);
         getList(date);
     }
+
+    const goToMap=(latitude,longitude)=>{
+        const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+        const latLng = `${latitude},${longitude}`;
+        const label = 'Custom Label';
+        const url = Platform.select({
+          ios: `${scheme}${label}@${latLng}`,
+          android: `${scheme}${latLng}(${label})`
+        });
+        Linking.openURL(url); 
+      }
  
 
     const previous =()=>{
@@ -109,8 +120,9 @@ export const RejectedOrder =(props)=> {
                         backgroundColor:"#F3C2C2",
                         minHeight:100,
                         borderRadius:7,
-                        marginHorizontal:20,
+                        marginHorizontal:10,
                         elevation:2,
+                        marginTop:15,
                         marginBottom:15
                     }}
                 >
@@ -137,10 +149,14 @@ export const RejectedOrder =(props)=> {
                             <Text style={[CommonStyles.boxLine1C]}>Address</Text>
                         </View>
                         <View style={{flex:0.8,flexDirection:"row"}}>
-                            <Text numberOfLines={2} style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item?.deliveryAddress?.addressLine1+" "+item?.deliveryAddress?.addressLine2}</Text>
-                            <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end'}} onPress={()=>goToMap(item?.deliveryAddress?.latitude,item?.deliveryAddress?.longitude)}>
-                                <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>
-                            </TouchableOpacity>
+                            <View style={{flex:0.8}}>
+                                <Text numberOfLines={2} style={[CommonStyles.boxLine2C,{fontFamily:"Montserrat-Regular"}]}> : {item?.deliveryAddress?.addressLine1+" "+item?.deliveryAddress?.addressLine2}</Text>
+                            </View>
+                            <View style={{flex:0.2}}>
+                                <TouchableOpacity style={{}} onPress={()=>goToMap(item?.deliveryAddress?.latitude,item?.deliveryAddress?.longitude)}>
+                                    <Icon name="map-marker-radius" type="material-community" size={20} color='#fff' iconStyle={{ali:'flex-end'}}/>
+                                </TouchableOpacity>
+                            </View>                    
                         </View>                        
                     </View>                     
                 </View>

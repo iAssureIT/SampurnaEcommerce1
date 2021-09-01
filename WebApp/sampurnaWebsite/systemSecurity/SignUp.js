@@ -87,18 +87,19 @@ class SignUp extends Component{
 			  errors["lastname"] = "Name should only contain letters.";
 			}
 		}
-		if (!fields["signupEmail"]) {
-			formIsValid = false;
-			errors["signupEmail"] = "Please enter your email.";
-		  }
-		  if (typeof fields["signupEmail"] !== "undefined") {
-			//regular expression for email validation
-			var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
-			if (!pattern.test(fields["signupEmail"])) {
-			  formIsValid = false;
-			  errors["signupEmail"] = "Please enter valid email.";
-			}
-		  }
+		// if (!fields["signupEmail"]) {
+		// 	formIsValid = false;
+		// 	errors["signupEmail"] = "Please enter your email.";
+		//   }
+		//   if (typeof fields["signupEmail"] !== "undefined") {
+		// 	//regular expression for email validation
+		// 	var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
+		// 	if (!pattern.test(fields["signupEmail"])) {
+		// 	  formIsValid = false;
+		// 	  errors["signupEmail"] = "Please enter valid email.";
+		// 	}
+		//   }
+
 		if (!fields["mobNumber"]) {
 			formIsValid = false;
 			errors["mobNumber"] = "This field is required.";
@@ -198,6 +199,21 @@ class SignUp extends Component{
 			[event.target.name]: event.target.value,
 			formerrors
 		}); 
+
+		// if(event.target.name === "signupEmail"){
+		// 	let fields = this.state.fields;
+		// 	let errors = {};
+		// 	let formIsValid = true;
+
+		// 	if (typeof fields["signupEmail"] !== "undefined") {
+		// 	//regular expression for email validation
+		// 	var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
+		// 	if (!pattern.test(fields["signupEmail"])) {
+		// 	  formIsValid = false;
+		// 	  errors["signupEmail"] = "Please enter valid email.";
+		// 	}
+		//   }
+		// }
 
 		let fields = this.state.fields;
 		fields[event.target.name] = event.target.value;

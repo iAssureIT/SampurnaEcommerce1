@@ -111,6 +111,16 @@
     opacity       : 1;
 }
 
+@media only screen and (min-device-width: 1024px) {
+    .wishListMainTitle {
+        font-size: 25px;
+    }
+
+    .areaName {
+        font-family: 'Montserrat-SemiBold';
+    }
+}   
+
 @media only screen and (min-device-width: 1366px) {
     .wishListMainTitle {
         font-size: 25px;
@@ -139,7 +149,6 @@
     }
 
     .areaName {
-        font-family: 'Montserrat-SemiBold';
         font-size: 21px;
     }
 }

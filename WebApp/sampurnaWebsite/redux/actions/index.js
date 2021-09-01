@@ -216,10 +216,11 @@ export function getWishlistData(){
       "userLat"             : latitude, 
       "userLong"            : longitude
     }
+    console.log("wishlist ==== ",formValues);
     axios.post('/api/wishlist/get/userwishlist', formValues)    
     .then((response) => {
       if(response){
-        // console.log('action wishlist data', response.data);
+        console.log('action wishlist data', response.data);
         dispatch(setWishlistData(response.data));
       }
     })

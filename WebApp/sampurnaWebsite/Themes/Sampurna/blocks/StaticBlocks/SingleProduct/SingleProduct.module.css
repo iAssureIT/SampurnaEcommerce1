@@ -379,6 +379,19 @@ font-weight: bolder;
   }
 
 
+@media only screen and (min-device-width: 1024px) {
+
+  .wishIcon{ 
+    left: 122px;
+    top: 9px;
+  }
+
+  .ImgWrapper {
+    height: 157px;
+  }
+}  
+
+
 @media only screen and (min-device-width: 1366px) {
 
   .wishIcon{ 

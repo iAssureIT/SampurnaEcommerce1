@@ -128,6 +128,42 @@
     }
 }
 
+
+@media only screen and (min-device-width: 1024px) {
+    .creditPointTitleWrapper{
+        font-size: 25px;
+        font-family: 'Montserrat-Bold';
+    }
+
+    .CreditCurrentBalTitle1{
+        font-size: 10px;
+    }
+
+    .CreditCurrentBalTitle2{
+        font-size: 6px;
+    }
+
+    .CreditEarnedBalTitle1{
+        font-size: 11px;
+    }
+
+    .CreditDataPtTitle{
+        font-size: 13px;
+    }
+
+    .CreditTotalBalTitle{
+        font-size: 12px;
+    }
+
+    .CreditCurrentBalTitle{
+        font-size: 8px;
+    }
+
+    .CreditTotalPtTitle{
+        font-size: 12px;
+    }
+}    
+
 @media only screen and (min-device-width: 1366px) {
     .creditPointTitleWrapper{
         font-size: 25px;

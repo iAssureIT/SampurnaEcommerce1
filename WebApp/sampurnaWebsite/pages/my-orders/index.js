@@ -47,6 +47,7 @@ export default class MyOrders extends Component {
         user_ID: userDetails.user_id,
         email: userDetails.email,
         fullName: userDetails.firstName + " " + userDetails.lastName,
+        authService : userDetails.authService,
         currency: currency,
       }, () => {
         this.getMyOrders();
@@ -327,7 +328,7 @@ export default class MyOrders extends Component {
                     this.state.orderData.map((singleOrder, index) => {
                       // console.log("singleOrder=",singleOrder);
                       return (
-                        <div className={"col-9 col-xl-11 NoPadding orderIdborder " + Style.orderIdborderNew} key={index}>
+                        <div className={"col-9 col-lg-12 col-xl-11 NoPadding orderIdborder " + Style.orderIdborderNew} key={index}>
                           <div className="col-12  NoPadding orderNowrapper mb-4 " style={{
                             'backgroundColor': singleOrder.orderStatus === "New" && '#033554' ||
                               singleOrder.orderStatus === "Delivered" && '#3E9D5E' ||
@@ -340,9 +341,11 @@ export default class MyOrders extends Component {
                                   <div className="col-12">{singleOrder.orderStatus==="New"?"New Order":singleOrder.orderStatus}</div>
                                   <div className="col-12">{"Order ID : " + (singleOrder.orderID)}</div>
                                   <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</span></div>
-                                  <div className="col-12">
-                                    Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</span>
-                                  </div>
+                                  {this.state.authService !== "guest" &&
+                                    <div className="col-12">
+                                      Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</span>
+                                    </div>
+                                  }
                                 </div>
                                 
                               </div>
@@ -378,7 +381,7 @@ export default class MyOrders extends Component {
                                         <div className={"col-4 NoPadding "}>
                                           <span className={" " + Style.myOrderVendorNameWrapper}>{vendordata.vendorName}</span> &nbsp;
                                         </div>
-                                        <div className={"col-lg-6 col-8 col-sm-4 mb-2 " + Style.middleText}>
+                                        <div className={"col-lg-4 col-8 col-sm-4 mb-2 " + Style.middleText}>
                                           <div className="row ">
                                             <div className="col-12">
                                               <div className="row">

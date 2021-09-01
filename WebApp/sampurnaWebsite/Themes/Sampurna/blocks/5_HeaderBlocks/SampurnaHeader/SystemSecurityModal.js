@@ -182,7 +182,7 @@ class header extends React.Component {
                                                                     {
                                                                         this.state.userData 
                                                                             ? 
-                                                                                this.state.userData.email 
+                                                                                this.state.userData.email?this.state.userData.email:"No email available" 
                                                                             : 
                                                                                 null
                                                                     }

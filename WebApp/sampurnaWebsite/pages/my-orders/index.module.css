@@ -181,6 +181,28 @@
 	}
 }
 
+@media only screen and (min-device-width: 1024px) {
+	.myOrderMainTitle{
+  		font-size: 25px;
+  	}
+
+  	.myOrderLeftSideDetails{
+		font-family   : 'Montserrat-Medium';
+	}
+
+	.deliveryDetails{
+		font-family   : 'Montserrat-Light';
+	}
+
+	.rightSideDateAndTime{
+		font-family   : 'Montserrat-Medium';
+	}
+
+	.middleText{
+		font-family   : 'Montserrat-Medium';
+	}
+}
+
 @media only screen and (min-device-width: 1366px) {
 	.myOrderMainTitle{
   		font-size: 25px;
@@ -219,17 +241,14 @@
 	}
 
 	.myOrderLeftSideDetails{
-		font-family   : 'Montserrat-Medium';
 		line-height: 1.8;
 	}
 
 	.deliveryDetails{
 		font-size: 18px;
-		font-family   : 'Montserrat-Light';
 	}
 
 	.rightSideDateAndTime{
-		font-family   : 'Montserrat-Medium';
 	}
 
 	.myOrderVendorNameWrapper{
@@ -238,7 +257,34 @@
 
 	.middleText{
 		font-size: 20px;
-		font-family   : 'Montserrat-Medium';
+	}
+}
+
+
+@media only screen and (min-device-width: 2560px) {
+
+	.myOrderMainTitle{
+  		font-size: 40px;
+  	}
+
+  	.statusTextWrapper{
+		font-size: 23px;
+	}
+
+	.ptb15 {
+		font-size: 19px !important;
+	}
+
+	.deliveryDetails{
+		font-size: 21px;
+	}
+
+	.myOrderVendorNameWrapper{
+		font-size: 28px;
+	}
+
+	.middleText{
+		font-size: 23px;
 	}
 
 }

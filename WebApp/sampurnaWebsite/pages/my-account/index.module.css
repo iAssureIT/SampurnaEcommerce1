@@ -100,7 +100,12 @@
     }
 
     .myAccountTitleWrapper{
-        font-size: 25px;
+        font-size: 26px;
+    }
+
+    .myAccountSideWrapper{
+        margin-top: 23px !important;
+        margin-left: -10px;
     }
 } 
 
@@ -181,6 +186,31 @@
 
     .sideBarTabNames{
         font-size: 25px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 50px;
+    }
+
+    .myAccountMainDiv{
+        margin-top: 30px;
+    }
+
+    .sideBarTabNameAllignment{
+        padding-left: 70px;
+    }
+
+}
+
+@media only screen and (min-device-width: 2560px) {
+
+    .myAccountSideWrapper{
+        margin-top: 47px !important;
+        margin-left: -9px;
+    }
+
+    .sideBarTabNames{
+        font-size: 30px;
     }
 
     .myAccountTitleWrapper{

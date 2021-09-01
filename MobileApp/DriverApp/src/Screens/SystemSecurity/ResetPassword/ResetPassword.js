@@ -127,7 +127,7 @@ export const ResetPassword = withCustomerToaster((props) => {
     return (
           <View style={{paddingHorizontal:20,paddingVertical:15,flex:1}}>
           <View style={styles.boxOpacity}>
-          <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:15,height:30,paddingRight:5}} onPress={()=> navigation.goBack()}>
+          <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:10,marginTop:15,height:30,paddingRight:5}} onPress={()=> navigation?.goBack()}>
               <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
           </TouchableOpacity>
           <Image

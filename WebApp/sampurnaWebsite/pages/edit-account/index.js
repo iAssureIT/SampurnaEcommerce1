@@ -233,8 +233,11 @@ class EditAccount extends Component{
             "newPassword"  	        : this.state.newPassword,
             "currentPassword"       : this.state.resetCurrentPassword,
         }
+        }else{
+            swal("Password not matching");
+        }
         if(formValues){
-            // console.log("formValues===",formValues);
+            console.log("formValues===",formValues);
             axios.patch('/api/auth/patch/reset_password', formValues)
             .then((response)=> {  
                 if(response){  
@@ -272,9 +275,6 @@ class EditAccount extends Component{
                 }, 3000);
             });
        }
-    }else{
-        swal("Password not matching");
-    }
     }
 
     updateUserMobile(event){
@@ -335,6 +335,7 @@ class EditAccount extends Component{
     }
     updateUserEmail(event){
         event.preventDefault();
+        if(this.state.currentPassword){
         var formvalues = {
             "user_id"           : this.state.user_ID,
             "firstname"         : this.state.firstName,
@@ -386,21 +387,42 @@ class EditAccount extends Component{
                 }, 3000);
             });
        }
+    }else{
+        swal("Please insert your current password");
+    }
     }
 
     changeMobile(event){
         this.setState({
             changeMobile : event.target.checked
+        },()=>{
+            if(this.state.changeEmail === false && this.state.changePassword === false && this.state.changeMobile === false){
+                $('.updateBasicInfo').show();
+            }else{
+                $('.updateBasicInfo').hide();
+            }
         })
     }
     changeEmail(event){
         this.setState({
             changeEmail : event.target.checked
+        },()=>{
+            if(this.state.changeEmail === false && this.state.changePassword === false && this.state.changeMobile === false){
+                $('.updateBasicInfo').show();
+            }else{
+                $('.updateBasicInfo').hide();
+            }
         })
     }
     changePassword(event){
         this.setState({
             changePassword : event.target.checked
+        },()=>{
+            if(this.state.changeEmail === false && this.state.changePassword === false && this.state.changeMobile === false){
+                $('.updateBasicInfo').show();
+            }else{
+                $('.updateBasicInfo').hide();
+            }
         })
     }
 
@@ -475,6 +497,9 @@ class EditAccount extends Component{
           }   
       }
     render(){
+        if(this.state.changeEmail === false && this.state.changePassword === false && this.state.changeMobile === false){
+            $('.updateBasicInfo').show();
+        }
         return(
             <section className="pt-4 pl-xl-3">
             <span className={"font-weight-bold " + Style.editAccountTitle}>My Profile</span>
@@ -513,8 +538,10 @@ class EditAccount extends Component{
                                                     </div>
                                                     </div>
                                                 </div>
+                                                {/* <div className="col-12 float-right">
+                                                    <button className="btn globalCommonBtn editAccount col-12  float-right" onClick={this.updateUserBasicInfo.bind(this)}>Submit</button>
+                                                </div> */}
 
-                                              
                                             </div>
                                         </div>
                                         <div className="col-12 mt-1 ">
@@ -523,8 +550,6 @@ class EditAccount extends Component{
                                                     <input type="checkbox" id="changeEmail" checked={this.state.changeEmail} onChange={this.changeEmail.bind(this)}/> &nbsp; <span>Change Email</span> 
                                                 </div>
                                             </div>
-                                       
-                                            
                                                 
                                                 { this.state.changeEmail === true &&
                                                     // <div className="col-12">
@@ -548,15 +573,15 @@ class EditAccount extends Component{
                                                                     <div className="errorMsg mt-1 ">{this.state.errors.currentPassword}</div>
                                                                 </div>
                                                             </div> 
-                                                            {/* <div className="col-12 float-right">
-                                                                <button className="btn globalCommonBtn editAccount col-12 float-right" onClick={this.updateUserEmail.bind(this)}>Submit</button>
-                                                            </div> */}
+                                                            <div className="col-12 float-right">
+                                                                <button className="btn globalCommonBtn editAccount col-12  float-right" onClick={this.updateUserEmail.bind(this)}>Submit</button>
+                                                            </div>
+                                                            
                                                         </div>
                                                     
                                                 } 
                                                 <div className={"col-12 mt-2 " +Style.horizontalLine}></div>
                                             </div>
-                                       
 
                                         <div className="col-12 mt-1 ">
                                             <div className="col-12">
@@ -569,9 +594,6 @@ class EditAccount extends Component{
                                                             <div className="col-xl-5 col-lg-5 col-sm-5 col-md-5  col-12 mb-2 NoPadding">
                                                                 <label className={"mt15 " + Style.editAccountFont}>Mobile Number<span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                                 <br />
-                                                                {/* <div id="mobNumber" className={"col-12 "+Style.editAccInputWrapper}>
-                                                                    <input className="col-12 form-control" type="text" maxLength="10" ref="mobNumber" name="mobNumber" id="mobNumber" placeholder="Eg. 9876543210" value={this.state.mobNumber} onChange={this.onChange.bind(this)} required/> 
-                                                                </div> */}
                                                                 <PhoneInput
                                                                     country={'ae'} 
                                                                     value={this.state.mobNumber}
@@ -595,9 +617,9 @@ class EditAccount extends Component{
                                                                     }} />
                                                                 <div className="col-12 errorMsg mt-1 ">{this.state.errors.mobNumber}</div>
                                                             </div>
-                                                            {/* <div className="col-12 float-right">
+                                                            <div className="col-12 NoPadding float-right">
                                                                 <button className="btn globalCommonBtn editAccount col-12 float-right" onClick={this.updateUserMobile.bind(this)}>Submit</button>
-                                                            </div> */}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 }
@@ -647,18 +669,18 @@ class EditAccount extends Component{
                                                                     <div className="errorMsg mt-1 ">{this.state.errors.confirmPassword}</div>
                                                                 </div>
                                                             </div> 
-                                                            {/* <div className="col-12 float-right">
+                                                            <div className="col-12 float-right">
                                                                 <button className="btn globalCommonBtn editAccount col-12 float-right" onClick={this.updateUserPassword.bind(this)}>Submit</button>
-                                                            </div> */}
+                                                            </div>
                                                         </div>
                                                     } 
                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-12 float-right">
-                                             <button className="btn globalCommonBtn editAccount col-12 float-right" onClick={this.updateUserPassword.bind(this)}>Submit</button>
-                                       </div>
+                                        <div className="col-12 float-right updateBasicInfo">
+                                            <button className="btn globalCommonBtn editAccount  col-12  float-right" onClick={this.updateUserBasicInfo.bind(this)}>Submit</button>
+                                        </div>
                                 </form>
                             {/* </div> */}
                         </div>
