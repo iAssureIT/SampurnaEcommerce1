@@ -30,7 +30,6 @@ export default function home({pageData}){
 	return(
 	    <div className="col-12">
 			<div className="row">
-				|| Jay Shri Krishna ||
         		{
 					sampurnaWebsiteDetails && sampurnaWebsiteDetails.deliveryLocation  && sampurnaWebsiteDetails.deliveryLocation.address
 					?

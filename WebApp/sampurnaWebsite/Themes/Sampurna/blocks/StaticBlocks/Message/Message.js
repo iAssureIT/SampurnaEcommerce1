@@ -4,7 +4,7 @@ import  Style from "./Message.module.css";
 class Message extends Component{
     constructor(props) {
         super(props);
-        this.props.messageData={
+        this.state = {
             messageData : {},
             alertType   : "outpage",
             class       : "",
@@ -52,7 +52,7 @@ class Message extends Component{
         })
     }
     render(){
-        console.log("messageData--",this.props.messageData);
+        console.log("this.props --> ",this.props);
         return(
             <div className={Style.alertBox}>
             

@@ -3,7 +3,7 @@ import {connect}            from 'react-redux';
 import store                from '../../redux/store.js';
 import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
-import SingleProduct        from '../../Themes/Sampurna/blocks/StaticBlocks/SingleProduct/SingleProduct.js';
+// import SingleProduct        from '../../Themes/Sampurna/blocks/StaticBlocks/SingleProduct/SingleProduct.js';
 import Style                from './index.module.css';
 
 class SearchProduct extends Component {
@@ -58,7 +58,7 @@ class SearchProduct extends Component {
                       this.props.searchData.data.map((data, index) => {       
                         return (
                           <div className={" col-3 "}  key={index}> 
-                              < SingleProduct 
+                              {/*< SingleProduct 
                                 data = {data} 
                                 productSettings   = {this.state.productSettings}
                                 userLatitude      = {this.state.deliveryLocation.latitude}
@@ -66,7 +66,7 @@ class SearchProduct extends Component {
                                 user_ID           = {this.state.user_ID}
                                 vendor_ID         = {data.vendor_ID}
                                 vendorlocation_ID = {data.vendorLocation_id}
-                              />
+                              />*/}
                           </div>                            
                         );
                       })
