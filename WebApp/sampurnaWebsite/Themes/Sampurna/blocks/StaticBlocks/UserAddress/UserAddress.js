@@ -4,11 +4,11 @@ import axios                from 'axios';
 import jQuery               from 'jquery';
 import swal                 from 'sweetalert';
 import PhoneInput 			from 'react-phone-input-2';
-import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
-import Style                from './index.module.css';
+import Message              from '../Message/Message.js';
+import Style                from './UserAddress.module.css';
 import { connect }          from 'react-redux';
-import  store               from '../../redux/store.js'; 
-import {getAddressData}     from '../../redux/actions/index.js'; 
+import  store               from '../../../../../redux/store.js'; 
+import {getAddressData}     from '../../../../../redux/actions/index.js'; 
 class UserAddress extends Component {
     constructor(props) {
         super(props);

@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
-import $, { post } from 'jquery';
-import jQuery from 'jquery';
-import Link from 'next/link';
-import axios from 'axios';
-import Router from 'next/router';
-import Loaderspinner from 'react-loader-spinner';
-import Header from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-import Footer from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
-import SmallBanner from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
-import Message from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
-import UserAddress from './UserAddress.js';
-import Loader from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-import { ntc } from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
-import { connect } from 'react-redux';
-import store from '../../redux/store.js';
+import $, { post }          from 'jquery';
+import jQuery               from 'jquery';
+import Link                 from 'next/link';
+import axios                from 'axios';
+import Router               from 'next/router';
+import Loaderspinner        from 'react-loader-spinner';
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
+import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
+import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
+import UserAddress          from '../../Themes/Sampurna/blocks/StaticBlocks/UserAddress/UserAddress.js';
+import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
+import { ntc }              from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
+import { connect }          from 'react-redux';
+import store                from '../../redux/store.js';
 import { getCartData, getAddressData } from '../../redux/actions/index.js';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import moment from 'moment';
-import swal from 'sweetalert';
-import WebsiteLogo from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
-import Style from './index.module.css';
-import ReactTooltip from 'react-tooltip';
+import moment               from 'moment';
+import swal                 from 'sweetalert';
+import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
+import Style                from './index.module.css';
+import ReactTooltip         from 'react-tooltip';
 
 class Checkout extends Component {
     constructor(props) {

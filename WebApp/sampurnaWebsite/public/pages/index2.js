@@ -4,7 +4,7 @@ import MasterPage                      from '../MasterPage/MasterPage.js';
 import LocationPage                    from '../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/LocationPage.js'
 import HomePage                        from '../Themes/Sampurna/blocks/HomePage/HomePage.js';
 
-export default function home({pageData}){
+export default function App({pageData}){
 	const [sampurnaWebsiteDetails,setSampurnaWebsiteDetails] = useState({});
 	const [userDetails,setUserDetails] = useState({});
 	const [userId,setUserId] = useState();
@@ -31,13 +31,13 @@ export default function home({pageData}){
 	    <div className="col-12">
 			<div className="row">
 				|| Jay Shri Krishna ||
-        		{
+        		{/*
 					sampurnaWebsiteDetails && sampurnaWebsiteDetails.deliveryLocation  && sampurnaWebsiteDetails.deliveryLocation.address
 					?
 						< HomePage />
         			:
 						< LocationPage />
-				}
+				*/}
 			</div>
 		</div>
   	)

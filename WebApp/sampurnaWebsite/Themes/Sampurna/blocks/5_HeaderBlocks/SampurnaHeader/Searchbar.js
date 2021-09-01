@@ -5,9 +5,10 @@ import swal 		          from 'sweetalert';
 import Image                  from 'next/image';
 import Router                 from 'next/router'; 
 import { connect }            from 'react-redux';
-import Style                  from './Header.module.css';
 import  store                 from '../../../../../redux/store.js';
 import { setSearchDetails }   from '../../../../../redux/actions/index.js'; 
+
+import Style                  from './Header.module.css';
 
 class Searchbar extends React.Component {
 	constructor(props) {

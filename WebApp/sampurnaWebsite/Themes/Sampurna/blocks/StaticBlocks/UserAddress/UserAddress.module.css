@@ -1,0 +1,2068 @@
+@font-face {
+    font-family: 'Montserrat-Black';
+    src        : url('../../../fonts/Montserrat-Black.ttf');
+}
+
+.checkoutWrapper {
+    min-height: 600px;
+}
+.f11N {
+    font-size     : 11px;
+    font-family   : 'Montserrat-Medium';
+    letter-spacing: 0px;
+    opacity       : 1;
+    color         : #000000 !important;
+}
+
+.orderReviewsWrapper {
+    margin-bottom             : 20px;
+    background                : #FFFFFF 0% 0% no-repeat padding-box;
+    border                    : 0.5px solid #ededed;
+    margin-top                : -10px;
+    border-bottom-left-radius : 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.checkOutTerms {
+    background   : #FFFFFF 0% 0% no-repeat padding-box;
+    border       : 0.5px solid #ededed;
+    border-radius: 6px;
+}
+
+.mtErrMsg {
+    margin-top: -10px !important;
+    font-size: 10px;
+}
+
+.ma {
+    margin: auto !important;
+}
+
+.eCommTitle {
+    background-color: #033554;
+    color           : #fff;
+    font-weight     : bold;
+    border-radius   : 6px 6px 0px 0px;
+    padding: 15px;
+    margin-bottom: 10px;
+    padding-left: 30px;
+}
+
+.codRadio {
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
+}
+
+.tableWrapper input[type='radio']:after {
+    width: 22px;
+    height:22px;
+    border-radius: 15px;
+    top: -6px;
+    left: -3px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.tableWrapper input[type='radio']:checked:after {
+    background-color: #033554;
+}
+
+.tableBorderNone {
+    border    : none !important;
+    margin-top: -10px !important;
+}
+
+.productHeaderWrapper th {
+    font-size  : 12px;
+    font-family: 'Montserrat-Bold';
+    color      : #000000;
+}
+
+.productHeaderWrapper1 {
+    font-family: 'Montserrat-Bold';
+    color      : #000000;
+}
+
+.checkoutBrandTitle {
+    letter-spacing: 0px !important;
+    color         : #000000 !important;
+    opacity       : 1 !important;
+    font-family   : 'Montserrat-Medium' !important;
+    font-size     : 14px;
+    font-weight: bold;
+}
+
+.checkoutProductName {
+    letter-spacing: 0px !important;
+    color         : #000000 !important;
+    opacity       : 0.9 !important;
+    font-family   : 'Montserrat-Regular' !important;
+    font-size     : 12px;
+}
+
+.modalMainWrapper {
+    box-sizing: border-box;
+    border-radius: 19px !important;
+}
+
+.productHeaderWrapper {
+    border-bottom: 1px solid #ddd;
+}
+
+.infoCircle {
+    color      : #ccc;
+    cursor     : pointer !important;
+    margin-left: -15px !important;
+}
+
+.paymentMethod {
+    margin-top    : 30px;
+    padding-bottom: 20px;
+    background    : #FFFFFF 0% 0% no-repeat padding-box;
+    border        : 0.5px solid #ededed;
+    border-radius : 6px;
+}
+
+.shippingAddress {
+    word-break    : break-all;
+    margin-top    : 20px;
+    margin-bottom : 20px;
+    padding-bottom: 20px;
+    background    : #FFFFFF 0% 0% no-repeat padding-box;
+    border        : 0.5px solid #ededed;
+    /*height      : 936px;*/
+    height        : auto;
+    border-radius : 6px;
+    /* overflow   : auto; */
+}
+
+.paymentMethodTitle {
+    padding      : 15px;
+    font-size    : 14px;
+    margin-bottom: 10px;
+    padding-left : 35px;
+}
+
+.orderReviews {
+    margin-top    : 30px;
+    padding-bottom: 30px;
+    /* border     : 1px solid #ddd; */
+    margin-bottom : 20px;
+    border-radius : 6px;
+    overflow-x    : hidden !important;
+}
+
+.pnHidden {
+    color: #fff !important;
+
+}
+
+.onlinePayment {
+    font-size: 10px;
+    margin-left: 18px;
+    font-weight: 300;
+    color: #333;
+}
+
+.cardDelivery {
+    /*margin-top: -13px !important;*/
+    margin-left: 15px;
+}
+
+.osTableItems {
+    font-size  : 14px;
+    white-space: nowrap;
+    margin-left: 20px;
+    margin-top: 18px;
+}
+
+.checkoutAddrWrap{
+    margin-left: 10px;
+}
+
+.addressType{
+    font-size: 12px;
+}
+
+
+.f14_1{
+    font-size  : 14px;
+    white-space: nowrap;
+    margin-left: -2px;
+    margin-top: 15px;
+}
+.checkoutADDCss {
+    font-size   : 12px;
+    line-height : 1.2;
+    /*margin-top:100px !important;*/
+}
+.addressMargin{
+    margin-left: 0px;
+}
+.addressMargin input{
+    margin-top: 12px;
+}
+
+.f11N {
+    font-size  : 9px;
+    font-weight: 500;
+}
+
+.vendorBgColorSM {
+    background             : #133554;
+    padding                : 10px;
+    color                  : white;
+    border-top-left-radius : 5px;
+    border-top-right-radius: 5px;
+}
+
+.AEDColor {
+    letter-spacing: 0px;
+    color         : #000000 !important;
+    text-transform: capitalize;
+    opacity       : 0.6;
+    font-family   : 'Montserrat-Medium';
+    font-weight   : 600;
+    font-size     : 12px;
+}
+
+.deleteCredit {
+    color : #f00;
+    cursor: pointer;
+}
+
+.orclass {
+    color    : #000;
+    font-size: 13px;
+    float    : left;
+}
+
+.grey {
+    color : #ccc;
+    height: 15px;
+}
+
+.totalAmountWrapper {
+    
+}
+
+
+.f13N {
+    font-size  : 12px;
+    color      : #000;
+    margin-top : -6px;
+    margin-left: 2px;
+}
+
+.f13N input {
+    height: 18px;
+}
+
+.f14B {
+    font-size    : 12px;
+    /*font-weight:bold;*/
+    margin-top   : 2px;
+
+}
+
+.f14BM p {
+    font-size     : 12px !important;
+    /* font-weight: bold; */
+    margin-top    : 15px;
+    margin-left   : 71%;
+    position      : absolute;
+
+}
+
+.modalCloseButtonWrapper {
+    position: relative;
+    right: 25px;
+    cursor     : pointer;
+}
+
+.modalCloseButtonWrapperM {
+    position: absolute;
+    right: 16px;
+    cursor: pointer !important;
+    top: 15px;
+    font-size: 20px;
+}
+
+.modalLogoWrapper {
+    position   : absolute;
+    height     : 25px;
+    left       : 2%;
+    top        : 10%;
+}
+
+.modalLogoWrapperM {
+    position   : absolute;
+    height     : 29px;
+    margin-left: -10px;
+    margin-top : 11px;
+}
+
+.f16 {
+    font-size: 16px;
+}
+
+.f161 {
+    font-size  : 16px;
+    font-family: 'Montserrat-Black';
+
+}
+
+.f1612 {
+    font-size     : 16px;
+    font-family   : 'Montserrat-Black';
+    font-weight: bold;
+    /* margin-left: -4% !important; */
+}
+
+.bold {
+    font-weight: 900 !important;
+    color      : #000;
+}
+
+.border1 {
+    border-radius: 6px 0px 0px 6px !important;
+    height       : 38px;
+    border-color : #429F61;
+    background   : #eee;
+    font-weight: 300;
+    font-size: 13px;
+    width: 100%;
+    color: #000;
+    padding-left: 10px;
+}
+
+.border1::placeholder {
+    color: #666;
+    font-size: 20px;
+}
+
+.border2 {
+    border-radius: 0px 6px 6px 0px;
+    height       : 38px;
+}
+
+.border3 {
+    border-radius: 6px 0px 0px 6px !important;
+    height       : 25px;
+    border-color : #429F61;
+    font-weight: 300;
+    font-size: 13px;
+    width: 100%;
+    color: #000;
+}
+
+
+.orline {
+    border-bottom: 1px solid #ccc !important;
+    float        : left;
+    margin-top   : 10px !important;
+}
+
+.cuponBtn {
+    padding         : 5px;
+    font-size       : 12px;
+    height          : 38px;
+    background-color: #033554 !important;
+    color           : #fff !important;
+}
+
+.currencyColor {
+    color      : #000000;
+    text-align : left;
+    font-family: 'Montserrat-Medium';
+    padding-right: 10px;
+}
+.finalCurrency{
+    text-align: right;
+    padding-right: 10px;
+    opacity: 0.4;
+    width: 50%;
+    float: left;
+}
+.finalAmount{
+    width: 50%;
+    float: left;
+    text-align: right;
+}
+.currencyColor11 {
+    color      : #000000;
+    text-align : left;
+    opacity    : 0.4;
+    font-family: 'Montserrat-Medium';
+    font-weight: 600;
+}
+
+.currencyColor12 {
+    letter-spacing: 0px;
+    color         : #E88686;
+    opacity       : 1;
+}
+
+.currencyColor121 {
+    letter-spacing: 0px;
+    color         : #E88686;
+    opacity       : 0.4;
+}
+
+.currencyColor1 {
+    color: #3E9D5E !important;
+}
+
+.checkoutCurrencyWrapper {
+    right: -5% !important;
+    text-align: right;
+}
+
+.checkoutCurrencyWrapper2 {
+    right: -7% !important;
+    text-align: right;
+}
+
+.addressWrapper {
+    height: auto;
+}
+
+.headerH {
+    max-height: 100px !important;
+}
+
+.modalHeader {
+    background-color       : #033554;
+    border-bottom          : 0px !important;
+    border-top-left-radius : 19px !important;
+    border-top-right-radius: 19px !important;
+}
+
+.modalHeaderM {
+    background-color       : #033554;
+    border-bottom          : 0px !important;
+    border-top-left-radius : 19px !important;
+    border-top-right-radius: 19px !important;
+    padding-bottom         : 45px !important;
+}
+
+.close1 {
+    font-size       : 24px !important;
+    /*opacity       : 1 !important;*/
+    color           : #fff;
+    /*border-radius : 3px;*/
+    font-weight     : 100;
+    padding         : 0px 5px !important;
+    background-color: #033554 !important;
+    /*margin-right  : 20px;*/
+    border          : 1px solid #033554 !important;
+    vertical-align  : text-top !important;
+    text-align      : top !important;
+    margin-top      : 0px !important;
+}
+
+.modalT {
+    font-size  : 12px !important;
+    font-weight: 300 !important;
+    margin-top : 12px !important;
+}
+
+.formcontrol1 {
+    border       : none !important;
+    border-bottom: 1px solid #ced4da !important;
+    border-radius: 0px !important;
+}
+
+.formcontrol1:focus {
+    border       : none !important;
+    border-bottom: 1px solid #ced4da !important;
+    border-radius: 0px !important;
+    outline      : none !important;
+}
+
+
+
+.modalBg {
+    background-color          : #fff;
+    padding-bottom            : 50px !important;
+    border-bottom-left-radius : 19px !important;
+    border-bottom-right-radius: 19px !important;
+}
+
+.listColor {
+    color      : #333;
+    font-size  : 12px;
+    font-weight: 200 ;
+    min-height : 300px;
+    height     : auto;
+}
+
+.saveBtn {
+    letter-spacing: 0px !important;
+    color         : #FFFFFF !important;
+    opacity       : 1 !important;
+
+    height       : 47px;
+    border-radius: 6px !important;
+    background-color  : #033554;
+    box-shadow   : 0px 0px 6px #00004D;
+    border-radius: 6px !important;
+    opacity      : 1 !important;
+    border       : none !important;
+}
+
+.saveBtn:hover {
+    box-shadow   : 0px 0px 15px #00004D;
+}
+
+.addBTN {
+    background-color  : #033554 !important;
+    height            : 55px;
+    font-size         : 12px;
+    color             : #fff !important;
+    border            : 1px somportant;
+    text-align        : center;
+    padding           : 6px 20px;
+    /* margin-top     : 5px !important; */
+    -webkit-transition: 0.6s ease !important;
+    transition        : 0.6s ease !important;
+    font-weight       : 600 !important;
+    margin-top        : 20px;
+    border-radius: 6px;
+    box-shadow: 3px 3px 6px #000;
+}
+
+.form-control {
+    border       : none !important;
+    border-bottom: solid 1px #ced4da !important;
+}
+
+.addBTN1 {
+    background-color  : #033554 !important;
+    height            : 55px;
+    font-size         : 12px;
+    color             : #fff !important;
+    border            : 1px solid #033554 !important;
+    border-radius     : 4px !important;
+    text-align        : center;
+    padding           : 18px 20px;
+    /* margin-top     : 5px !important; */
+    -webkit-transition: 0.6s ease !important;
+    transition        : 0.6s ease !important;
+    font-weight       : 600 !important;
+    box-shadow        : -3px 3px 6px #0000004D !important;
+}
+.addBTN1:hover {
+    color             : #000 !important;
+    border            : 1px solid lightgray !important;
+    border-radius     : 6px !important;
+    background-color  : #fff !important;
+}
+.modalBodyRadius {
+    border-radius: 19px !important;
+}
+
+.modalContent {
+    border-radius: 25px !important;
+}
+
+.modalContentM {
+    border-radius: 25px !important;
+    margin-bottom: 45px !important;
+}
+
+.modal-content {
+    border-radius: 3px !important;
+}
+
+.cartTitle {
+    font-size     : 36px;
+    margin-left   : 41px;
+    margin-top    : 15px;
+    font-family   : 'Montserrat-Bold';
+    color         : #000000;
+    opacity       : 1;
+    letter-spacing: 0px;
+}
+
+.errorMsg {
+    font-size: 10px;
+    color    : #f00;
+}
+.tableWrapper{
+    width: 96%;
+    margin: auto;
+}
+.singleRow {
+    /* border: 0.5px solid lightgray; */
+}
+
+.dumySpan {
+    color: #fff !important;
+}
+
+.GrandTotalBoxMobileView {
+    min-height         : 420px !important;
+    height             : auto;
+    /* background-color: aquamarine; */
+}
+.GrandTotalBoxRightMargin{
+    right: -4%;
+}
+.coupanTitle{
+    font-size: 15px;
+    margin-top: 10px;
+    text-transform: capitalize;
+    font-weight: 300;
+    margin-bottom: -20px;
+}
+.grandTotalMargin{
+    right: -5%;
+}
+.f1612{
+    /*margin-left: -5% !important;*/
+}
+.modalMainWrapper .modalSaveBtn{
+    width: 50%!important;
+    margin-top: 20px !important;
+}
+.modalMainWrapper .mobileInput{
+    width: 50% !important;
+    margin-left: 2.5% !important;
+}
+.modalMainWrapper .houseNumberMargin{
+    margin-top: 20px!important;
+}
+.modalMainWrapper .shippingInput{
+    margin-top: 20px!important;
+}
+.modalMainWrapper .formcontrol12{
+    margin-top: 10px!important;
+    height: 40px;
+    width: 100%;
+    margin: auto;
+
+}
+.modalMainWrapper .formcontrol12:focus {
+    /*width: auto;*/
+    margin-left: 0px;
+}
+.modalMainWrapper .addressModal{
+    padding: 25px!important;
+    top: 20px!important;
+}
+.addressModal label{
+    font-size: 12px;
+    font-weight: bold;
+}
+.fieldWrapper{
+    width: 95%;
+    margin: auto;
+    margin-top: 20px;    
+}
+.fieldWrapper input{
+    font-size: 12px;
+    margin: 10px 0px;
+}
+
+.vendorNameTooltipMargin{
+    margin-top: -15px;    
+}
+
+.disccountCoupnWrapper {
+    letter-spacing: 0px;
+    color         : #000000 !important;
+    text-transform: capitalize;
+    opacity       : 0.6;
+    font-family   : 'Montserrat-Medium';
+    font-weight   : 600;
+}
+
+.creditColorCheckout {
+    letter-spacing: 0px;
+    color         : #DC1919;
+    text-transform: capitalize;
+}
+
+
+.imgTD{
+    width: 150px;
+}
+
+.imgTD img{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.termsNconditionsmodal{
+    font-size: 10px;
+    font-weight: normal;
+    opacity: 0.8;
+    cursor: pointer;
+}
+.termsNconditionsmodal:hover{
+    font-weight: bold;
+}
+.acceptTerms {
+    height: 20px;
+    width: 20px;
+    margin-top: -8px;
+}
+.termConditionErrorMsg{
+    font-size: 10px;
+    color: #f00;
+    margin-top: -5px;
+    margin-left: 20px;
+}
+
+.productDetails{
+    width: 60%;
+    float: left;
+}
+.mobImg{
+    float: left;
+}
+
+
+
+@media (min-width: 640px) {
+    .modalLogoWrapper {
+        position   : absolute;
+        height     : 25px;
+        left: 2%;
+        top : 10%;
+    }
+
+    .GrandTotalBoxMobileView {
+        min-height  : 420px !important;
+        height      : auto;
+        margin-right: 85px !important;
+    }
+
+    .f13N {
+        font-size  : 12px;
+        color      : #000;
+        margin-top : -6px;
+        margin-left: -29px !important;
+    }
+    .shippingWrap {
+        font-size  : 12px;
+        color      : #000;
+    }
+
+    .f13NE {
+        font-size     : 12px ;
+        color         : #000;
+        margin-top    : -6px;
+        /* margin-left: -29px !important; */
+        letter-spacing: 0px;
+        color         : #000000 !important;
+        text-transform: capitalize;
+        opacity       : 0.6;
+        font-family   : 'Montserrat-Medium';
+        font-weight   : 500;
+    }
+
+    .f13NTerms {
+        font-size  : 12px ;
+        color      : #000;
+        margin-top : -6px;
+        margin-left: -3px !important;
+    }
+
+    .f13N1 {
+        font-size  : 12px ;
+        color      : #000;
+        margin-top : 6px!important;
+        margin-left: 6px !important;
+    }
+    .f13N1 span{
+        margin-bottom: 25px !important;
+        /*display: block;*/
+    }
+
+    .f13N2 {
+        font-size  : 12px ;
+        color      : #000;
+        margin-top : -6px;
+        margin-left: 0px !important;
+    }
+
+    .addBTN {
+        background-color  : #033554 !important;
+        height            : 55px;
+        font-size         : 12px;
+        color             : #fff !important;
+        border            : 1px solid #033554 !important;
+        border-radius     : 4px !important;
+        text-align        : center;
+        padding           : 6px 20px;
+        /* margin-top     : 5px !important; */
+        -webkit-transition: 0.6s ease !important;
+        transition        : 0.6s ease !important;
+        font-weight       : 600 !important;
+        margin-right      : 0px !important;
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .acceptTerms {
+        margin-top: -18px;
+    }
+    .grandTotalMargin{
+        right: -5%;
+    }
+    .f1612 {
+        font-size: 14px;
+    }
+    .f161 {
+        font-size: 14px;
+    }
+    .f13NTerms {
+        margin-left: -9px !important;
+    }
+    .checkoutCurrencyWrapper {
+        right: -3% !important;
+    }
+    .checkoutCurrencyWrapper2 {
+        right: -5% !important;
+    }
+    .cartTitle {
+        font-size     : 30px;
+        margin-left   : 6%;
+    }    
+    .tableWrapper{
+        width: 96%;
+    }    
+    .paymentMethodTitle{
+        height: 60px;
+        padding-top: 20px;
+        font-size: 16px;
+        padding-left: 45px;
+    }
+    .osTableItems{
+        font-size: 13px;
+        margin-top: 25px;
+    }
+    .codRadio {
+        height: 22px;
+        width: 22px;
+    }
+    .tableWrapper input[type='radio']:after {
+        height: 25px;
+        width: 25px;
+        top: -1px;
+        left: -1px;
+    }
+    .onlinePayment {
+        font-size: 13px;
+        margin-left: 20px;
+    }
+    .addressType{
+        font-size: 13px;
+    }
+    .checkoutADDCss{
+        font-size: 13px;
+    }
+    .addBTN1{
+        font-size: 14px;
+        height: 45px;
+        padding-top: 14px;
+    }
+    .modalHeaderM{
+        padding: 62px 0px;
+    }
+    .modalHeader{
+        padding: 30px;
+        font-size: 13px;
+    }
+    .modalHeader img{
+        height: 34px;
+    }
+    .f14B{
+        font-size: 13px;
+        top: 30px;
+    }
+    .modalLogoWrapper{
+        width: 110px;
+        height: 34px;
+        margin-top: -30px;        
+    }
+    .modalLogoWrapperM{
+        height: 42px;
+        width: 142px;
+        margin-left: 40px;
+        margin-top: -10px;        
+    }
+    .addressModal label{
+        font-size: 13px;
+    }
+    .modalMainWrapper .formcontrol12{
+        height: 42px;
+    }
+    .fieldWrapper input{
+        font-size: 13px;
+    }
+    .saveBtn{
+        height: 57px;
+        font-size: 18px;
+    }
+    .modalCloseButtonWrapperM{
+        right: 30px;
+        top: 30px;
+        font-size: 30px;
+    }
+    .modalCloseButtonWrapper{
+        right: 30px;
+        font-size: 30px;
+        top: -6px;
+    }
+    .productHeaderWrapper1{
+        font-size: 17px;
+    }
+    .productHeaderWrapper th {
+        font-size: 12px;
+    }
+    .checkoutBrandTitle, .checkoutProductName,.f11N {
+        font-size: 12px;
+    }
+    .f13N, .AEDColor, .border1::placeholder{
+        font-size: 12px;
+    }
+    .coupanTitle{
+        font-size: 12px;
+    }
+    .border1, .border2{
+        height: 58px;
+        font-size: 11px;
+    }
+    .f13N1{
+        font-size: 11px;
+    }
+    .mtErrMsg{
+        font-size: 10px;
+    }
+    .shippingWrap, .termsNconditionsmodal{
+        font-size: 11px;
+    }
+    .termConditionErrorMsg{
+        font-size: 10px;   
+        margin-top: -15px;
+        margin-left: 32px;
+    }
+    .border3 {
+        height    : 30px;
+        font-size : 11px;
+    }
+    .addBTN{
+        font-size: 16px;
+        height: 50px;
+    }
+    .listColor{
+        font-size: 11px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1200px) {
+    .acceptTerms {
+        margin-top: -18px;
+    }
+    .grandTotalMargin{
+        right: -5%;
+    }
+    .f1612 {
+        font-size: 14px;
+    }
+    .f161 {
+        font-size: 14px;
+    }
+    .f13NTerms {
+        margin-left: -9px !important;
+    }
+    .checkoutCurrencyWrapper {
+        right: -3% !important;
+    }
+    .checkoutCurrencyWrapper2 {
+        right: -5% !important;
+    }
+    .cartTitle {
+        font-size     : 30px;
+        margin-left   : 6%;
+    }    
+    .tableWrapper{
+        width: 96%;
+    }    
+    .paymentMethodTitle{
+        height: 60px;
+        padding-top: 20px;
+        font-size: 16px;
+        padding-left: 45px;
+    }
+    .osTableItems{
+        font-size: 13px;
+        margin-top: 25px;
+    }
+    .codRadio {
+        height: 22px;
+        width: 22px;
+    }
+    .tableWrapper input[type='radio']:after {
+        height: 25px;
+        width: 25px;
+        top: -1px;
+        left: -1px;
+    }
+    .onlinePayment {
+        font-size: 13px;
+        margin-left: 20px;
+    }
+    .addressType{
+        font-size: 13px;
+    }
+    .checkoutADDCss{
+        font-size: 13px;
+    }
+    .addBTN1{
+        font-size: 14px;
+        height: 45px;
+        padding-top: 14px;
+    }
+    .modalHeaderM{
+        padding: 62px 0px;
+    }
+    .modalHeader{
+        padding: 30px;
+        font-size: 13px;
+    }
+    .modalHeader img{
+        height: 34px;
+    }
+    .f14B{
+        font-size: 13px;
+        top: 30px;
+    }
+    .modalLogoWrapper{
+        width: 110px;
+        height: 34px;
+        margin-top: -30px;        
+    }
+    .modalLogoWrapperM{
+        height: 42px;
+        width: 142px;
+        margin-left: 40px;
+        margin-top: -10px;        
+    }
+    .addressModal label{
+        font-size: 13px;
+    }
+    .modalMainWrapper .formcontrol12{
+        height: 42px;
+    }
+    .fieldWrapper input{
+        font-size: 13px;
+    }
+    .saveBtn{
+        height: 57px;
+        font-size: 18px;
+    }
+    .modalCloseButtonWrapperM{
+        right: 30px;
+        top: 30px;
+        font-size: 30px;
+    }
+    .modalCloseButtonWrapper{
+        right: 30px;
+        font-size: 30px;
+        top: -6px;
+    }
+    .productHeaderWrapper1{
+        font-size: 17px;
+    }
+    .productHeaderWrapper th {
+        font-size: 12px;
+    }
+    .checkoutBrandTitle, .checkoutProductName,.f11N {
+        font-size: 12px;
+    }
+    .f13N, .AEDColor, .border1::placeholder{
+        font-size: 12px;
+    }
+    .coupanTitle{
+        font-size: 12px;
+    }
+    .border1, .border2{
+        height: 58px;
+        font-size: 11px;
+    }
+    .f13N1{
+        font-size: 11px;
+    }
+    .mtErrMsg{
+        font-size: 10px;
+    }
+    .shippingWrap, .termsNconditionsmodal{
+        font-size: 11px;
+    }
+    .termConditionErrorMsg{
+        font-size: 10px;   
+        margin-top: -15px;
+        margin-left: 32px;
+    }
+    .border3 {
+        height    : 30px;
+        font-size : 11px;
+    }
+    .addBTN{
+        font-size: 16px;
+        height: 50px;
+    }
+    .listColor{
+        font-size: 11px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1366px) {
+    .grandTotalMargin{
+        right: -5%;
+    }
+    .f1612 {
+        font-size: 16px;
+    }
+    .f161 {
+        font-size: 16px;
+    }
+    .f13NTerms {
+        margin-left: -9px !important;
+    }
+    .checkoutCurrencyWrapper {
+        right: -3% !important;
+    }
+    .checkoutCurrencyWrapper2 {
+        right: -5% !important;
+    }
+    .cartTitle {
+        font-size     : 36px;
+        margin-left   : 7%;
+    }    
+    .tableWrapper{
+        width: 96%;
+    }    
+    .paymentMethodTitle{
+        height: 80px;
+        padding-top: 20px;
+        font-size: 16px;
+        padding-left: 45px;
+    }
+    .osTableItems{
+        font-size: 13px;
+        margin-top: 25px;
+    }
+    .codRadio {
+        height: 22px;
+        width: 22px;
+    }
+    .tableWrapper input[type='radio']:after {
+        height: 25px;
+        width: 25px;
+        top: -1px;
+        left: -1px;
+    }
+    .onlinePayment {
+        font-size: 13px;
+        margin-left: 20px;
+    }
+    .addressType{
+        font-size: 13px;
+    }
+    .checkoutADDCss{
+        font-size: 13px;
+    }
+    .addBTN1{
+        font-size: 18px;
+        height: 60px;
+        padding-top: 24px;
+    }
+    .modalHeaderM{
+        padding: 62px 0px;
+    }
+    .modalHeader{
+        padding: 30px;
+        font-size: 13px;
+    }
+    .modalHeader img{
+        height: 34px;
+    }
+    .f14B{
+        font-size: 13px;
+    }
+    .modalLogoWrapper{
+        width: 110px;
+        height: 34px;
+    }
+    .modalLogoWrapperM{
+        height: 42px;
+        width: 142px;
+        margin-left: 40px;
+        margin-top: -10px;        
+    }
+    .addressModal label{
+        font-size: 13px;
+    }
+    .modalMainWrapper .formcontrol12{
+        height: 42px;
+    }
+    .fieldWrapper input{
+        font-size: 13px;
+    }
+    .saveBtn{
+        height: 57px;
+        font-size: 18px;
+    }
+    .modalCloseButtonWrapperM{
+        right: 30px;
+        top: 30px;
+        font-size: 30px;
+    }
+    .modalCloseButtonWrapper{
+        right: 30px;
+        font-size: 30px;
+    }
+    .productHeaderWrapper1{
+        font-size: 17px;
+    }
+    .productHeaderWrapper th {
+        font-size: 12px;
+    }
+    .checkoutBrandTitle, .checkoutProductName,.f11N {
+        font-size: 12px;
+    }
+    .f13N, .AEDColor, .border1::placeholder{
+        font-size: 12px;
+    }
+    .coupanTitle{
+        font-size: 12px;
+    }
+    .border1, .border2{
+        height: 58px;
+        font-size: 12px;
+    }
+    .f13N1{
+        font-size: 12px;
+    }
+    .mtErrMsg{
+        font-size: 11px;
+    }
+    .shippingWrap, .termsNconditionsmodal{
+        font-size: 13px;
+    }
+    .termConditionErrorMsg{
+        font-size: 11px;   
+        margin-top: -15px;
+        margin-left: 32px;
+    }
+    .border3 {
+        height    : 30px;
+        font-size : 11px;
+    }
+    .addBTN{
+        font-size: 18px;
+        height: 55px;
+    }
+    .listColor{
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 1366px) and (max-width: 1440px) {
+    .grandTotalMargin{
+        right: -5%;
+    }
+    .f1612 {
+        font-size: 18px;
+    }
+    .f161 {
+        font-size: 18px;
+    }
+    .f13NTerms {
+        margin-left: -9px !important;
+    }
+    .checkoutCurrencyWrapper {
+        right: -3% !important;
+    }
+    .checkoutCurrencyWrapper2 {
+        right: -5% !important;
+    }
+    .cartTitle {
+        font-size     : 40px;
+        margin-left   : 4%;
+    }    
+    .tableWrapper{
+        width: 96%;
+    }    
+    .paymentMethodTitle{
+        height: 80px;
+        padding-top: 20px;
+        font-size: 18px;
+        padding-left: 45px;
+    }
+    .osTableItems{
+        font-size: 15px;
+        margin-top: 25px;
+    }
+    .codRadio {
+        height: 22px;
+        width: 22px;
+    }
+    .tableWrapper input[type='radio']:after {
+        height: 25px;
+        width: 25px;
+        top: -1px;
+        left: -1px;
+    }
+    .onlinePayment {
+        font-size: 15px;
+        margin-left: 20px;
+    }
+    .addressType{
+        font-size: 15px;
+    }
+    .checkoutADDCss{
+        font-size: 15px;
+    }
+    .addBTN1{
+        font-size: 20px;
+        height: 60px;
+        padding-top: 24px;
+    }
+    .modalHeaderM{
+        padding: 62px 0px;
+    }
+    .modalHeader{
+        padding: 30px;
+        font-size: 15px;
+    }
+    .modalHeader img{
+        height: 34px;
+    }
+    .f14B{
+        font-size: 15px;
+    }
+    .modalLogoWrapper{
+        width: 110px;
+        height: 34px;
+    }
+    .modalLogoWrapperM{
+        height: 42px;
+        width: 142px;
+        margin-left: 40px;
+        margin-top: -10px;        
+    }
+    .addressModal label{
+        font-size: 14px;
+    }
+    .modalMainWrapper .formcontrol12{
+        height: 42px;
+    }
+    .fieldWrapper input{
+        font-size: 14px;
+    }
+    .saveBtn{
+        height: 57px;
+        font-size: 20px;
+    }
+    .modalCloseButtonWrapperM{
+        right: 30px;
+        top: 30px;
+        font-size: 30px;
+    }
+    .modalCloseButtonWrapper{
+        right: 30px;
+        font-size: 30px;
+    }
+    .productHeaderWrapper1{
+        font-size: 20px;
+    }
+    .productHeaderWrapper th {
+        font-size: 15px;
+    }
+    .checkoutBrandTitle, .checkoutProductName,.f11N {
+        font-size: 14px;
+    }
+    .f13N, .AEDColor, .border1::placeholder{
+        font-size: 15px;
+    }
+    .coupanTitle{
+        font-size: 15px;
+    }
+    .border1, .border2{
+        height: 58px;
+        font-size: 15px;
+    }
+    .f13N1{
+        font-size: 16px;
+    }
+    .mtErrMsg{
+        font-size: 13px;
+    }
+    .shippingWrap, .termsNconditionsmodal{
+        font-size: 15px;
+    }
+    .termConditionErrorMsg{
+        font-size: 13px;   
+        margin-top: -15px;
+        margin-left: 32px;
+    }
+    .border3 {
+        height    : 33px;
+        font-size : 13px;
+    }
+    .addBTN{
+        font-size: 20px;
+        height: 65px;
+    }
+    .listColor{
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 1536px) {
+    .grandTotalMargin{
+        right: -5%;
+    }
+    .f1612 {
+        font-size: 21px;
+    }
+    .f161 {
+        font-size: 21px;
+    }
+    .f13NTerms {
+        margin-left: -9px !important;
+    }
+    .checkoutCurrencyWrapper {
+        right: -3% !important;
+    }
+    .checkoutCurrencyWrapper2 {
+        right: -5% !important;
+    }
+    .cartTitle {
+        font-size     : 45px;
+        margin-left   : 4%;
+    }    
+    .tableWrapper{
+        width: 96%;
+    }    
+    .paymentMethodTitle{
+        height: 80px;
+        padding-top: 20px;
+        font-size: 20px;
+        padding-left: 45px;
+    }
+    .osTableItems{
+        font-size: 16px;
+        margin-top: 25px;
+    }
+    .codRadio {
+        height: 22px;
+        width: 22px;
+    }
+    .tableWrapper input[type='radio']:after {
+        height: 25px;
+        width: 25px;
+        top: -1px;
+        left: -1px;
+    }
+    .onlinePayment {
+        font-size: 16px;
+        margin-left: 20px;
+    }
+    .addressType{
+        font-size: 16px;
+    }
+    .checkoutADDCss{
+        font-size: 16px;
+    }
+    .addBTN1{
+        font-size: 22px;
+        height: 65px;
+        padding-top: 24px;
+    }
+    .modalHeaderM{
+        padding: 62px 0px;
+    }
+    .modalHeader{
+        padding: 30px;
+        font-size: 16px;
+    }
+    .modalHeader img{
+        height: 34px;
+    }
+    .f14B{
+        font-size: 16px;
+    }
+    .modalLogoWrapper{
+        width: 110px;
+        height: 34px;
+    }
+    .modalLogoWrapperM{
+        height: 42px;
+        width: 142px;
+        margin-left: 40px;
+        margin-top: -10px;        
+    }
+    .addressModal label{
+        font-size: 15px;
+    }
+    .modalMainWrapper .formcontrol12{
+        height: 42px;
+    }
+    .fieldWrapper input{
+        font-size: 15px;
+    }
+    .saveBtn{
+        height: 57px;
+        font-size: 22px;
+    }
+    .modalCloseButtonWrapperM{
+        right: 30px;
+        top: 30px;
+        font-size: 30px;
+    }
+    .modalCloseButtonWrapper{
+        right: 30px;
+        font-size: 30px;
+    }
+    .productHeaderWrapper1{
+        font-size: 22px;
+    }
+    .productHeaderWrapper th {
+        font-size: 16px;
+    }
+    .checkoutBrandTitle, .checkoutProductName,.f11N {
+        font-size: 15px;
+    }
+    .f13N, .AEDColor, .border1::placeholder{
+        font-size: 16px;
+    }
+    .coupanTitle{
+        font-size: 16px;
+    }
+    .border1, .border2{
+        height: 58px;
+        font-size: 16px;
+    }
+    .f13N1{
+        font-size: 17px;
+    }
+    .mtErrMsg{
+        font-size: 14px;
+    }
+    .shippingWrap, .termsNconditionsmodal{
+        font-size: 16px;
+    }
+    .termConditionErrorMsg{
+        font-size: 14px;   
+        margin-top: -15px;
+        margin-left: 32px;
+    }
+    .border3 {
+        height    : 36px;
+        font-size : 14px;
+    }
+    .addBTN{
+        font-size: 22px;
+        height: 65px;
+    }
+    .listColor{
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1536px) and (max-width: 1680px) {
+    .grandTotalMargin{
+        right: -5%;
+    }
+    .f1612 {
+        /*margin-left: -4% !important;*/
+        font-size: 24px;
+    }
+    .f161 {
+        font-size: 24px;
+    }
+    .f13NTerms {
+        margin-left: -9px !important;
+    }
+    .checkoutCurrencyWrapper {
+        right: -3% !important;
+    }
+    .checkoutCurrencyWrapper2 {
+        right: -5% !important;
+    }
+    .cartTitle {
+        font-size     : 60px;
+        margin-left   : 4%;
+    }    
+    .tableWrapper{
+        width: 96%;
+    }    
+    .paymentMethodTitle{
+        height: 80px;
+        padding-top: 20px;
+        font-size: 21px;
+        padding-left: 45px;
+    }
+    .osTableItems{
+        font-size: 20px;
+        margin-top: 25px;
+    }
+    .codRadio {
+        height: 22px;
+        width: 22px;
+    }
+    .tableWrapper input[type='radio']:after {
+        height: 25px;
+        width: 25px;
+        top: -3px;
+        left: -1px;
+    }
+    .onlinePayment {
+        font-size: 18px;
+        margin-left: 20px;
+    }
+    .addressType{
+        font-size: 20px;
+    }
+    .checkoutADDCss{
+        font-size: 20px;
+    }
+    .addBTN1{
+        font-size: 22px;
+        height: 85px;
+        padding-top: 24px;
+    }
+    .modalHeaderM{
+        padding: 62px 0px;
+    }
+    .modalHeader{
+        padding: 30px;
+        font-size: 17px;
+    }
+    .modalHeader img{
+        height: 34px;
+    }
+    .f14B{
+        font-size: 17px;
+    }
+    .modalLogoWrapper{
+        width: 110px;
+        height: 34px;
+    }
+    .modalLogoWrapperM{
+        height: 42px;
+        width: 142px;
+        margin-left: 40px;
+        margin-top: -10px;        
+    }
+    .addressModal label{
+        font-size: 16px;
+    }
+    .modalMainWrapper .formcontrol12{
+        height: 42px;
+    }
+    .fieldWrapper input{
+        font-size: 16px;
+    }
+    .saveBtn{
+        height: 57px;
+        font-size: 24px;
+    }
+    .modalCloseButtonWrapperM{
+        right: 30px;
+        top: 30px;
+        font-size: 35px;
+    }
+    .modalCloseButtonWrapper{
+        right: 30px;
+        font-size: 35px;
+    }
+    .productHeaderWrapper1{
+        font-size: 26px;
+    }
+    .productHeaderWrapper th {
+        font-size: 18px;
+    }
+    .checkoutBrandTitle, .checkoutProductName,.f11N {
+        font-size: 16px;
+    }
+    .f13N, .AEDColor, .border1::placeholder{
+        font-size: 17px;
+    }
+    .coupanTitle{
+        font-size: 17px;
+    }
+    .border1, .border2{
+        height: 58px;
+        font-size: 17px;
+    }
+    .f13N1{
+        font-size: 19px;
+    }
+    .mtErrMsg{
+        font-size: 15px;
+    }
+    .shippingWrap, .termsNconditionsmodal{
+        font-size: 17px;
+    }
+    .termConditionErrorMsg{
+        font-size: 15px;   
+        margin-top: -15px;
+        margin-left: 32px;
+    }
+    .border3 {
+        height    : 40px;
+        font-size : 15px;
+    }
+    .addBTN{
+        font-size: 24px;
+        height: 85px;
+    }
+    .listColor{
+        font-size: 15px;
+    }
+
+}
+
+@media (min-width: 1680px) and (max-width: 1920px) {
+    .grandTotalMargin{
+        right: -5%;
+    }
+    .f1612 {
+        /*margin-left: -4% !important;*/
+        font-size: 26px;
+    }
+    .f161 {
+        font-size: 26px;
+    }
+    .f13NTerms {
+        margin-left: -9px !important;
+    }
+    .checkoutCurrencyWrapper {
+        right: -3% !important;
+    }
+    .checkoutCurrencyWrapper2 {
+        right: -5% !important;
+    }
+    .cartTitle {
+        font-size     : 60px;
+        margin-left   : 4%;
+    }    
+    .tableWrapper{
+        width: 96%;
+    }    
+    .paymentMethodTitle{
+        height: 80px;
+        padding-top: 20px;
+        font-size: 23px;
+        padding-left: 45px;
+    }
+    .osTableItems{
+        font-size: 22px;
+        margin-top: 25px;
+    }
+    .codRadio {
+        height: 22px;
+        width: 22px;
+    }
+    .tableWrapper input[type='radio']:after {
+        height: 25px;
+        width: 25px;
+        top: -5px;
+        left: -1px;
+    }
+    .onlinePayment {
+        font-size: 20px;
+        margin-left: 20px;
+    }
+    .addressType{
+        font-size: 22px;
+    }
+    .checkoutADDCss{
+        font-size: 22px;
+    }
+    .addBTN1{
+        font-size: 22px;
+        height: 85px;
+        padding-top: 24px;
+    }
+    .modalHeaderM{
+        padding: 62px 0px;
+    }
+    .modalHeader{
+        padding: 30px;
+        font-size: 18px;
+    }
+    .modalHeader img{
+        height: 34px;
+    }
+    .f14B{
+        font-size: 18px;
+    }
+    .modalLogoWrapper{
+        width: 110px;
+        height: 34px;
+    }
+    .modalLogoWrapperM{
+        height: 42px;
+        width: 142px;
+        margin-left: 40px;
+        margin-top: -10px;        
+    }
+    .addressModal label{
+        font-size: 18px;
+    }
+    .modalMainWrapper .formcontrol12{
+        height: 42px;
+    }
+    .fieldWrapper input{
+        font-size: 17px;
+    }
+    .saveBtn{
+        height: 57px;
+        font-size: 25px;
+    }
+    .modalCloseButtonWrapperM{
+        right: 30px;
+        top: 30px;
+        font-size: 35px;
+    }
+    .modalCloseButtonWrapper{
+        right: 30px;
+        font-size: 35px;
+    }
+    .productHeaderWrapper1{
+        font-size: 28px;
+    }
+    .productHeaderWrapper th {
+        font-size: 19px;
+    }
+    .checkoutBrandTitle, .checkoutProductName,.f11N {
+        font-size: 16px;
+    }
+    .f13N, .AEDColor, .border1::placeholder{
+        font-size: 18px;
+    }
+    .coupanTitle{
+        font-size: 18px;
+    }
+    .border1, .border2{
+        height: 58px;
+        font-size: 18px;
+    }
+    .f13N1{
+        font-size: 22px;
+    }
+    .mtErrMsg{
+        font-size: 15px;
+    }
+    .shippingWrap, .termsNconditionsmodal{
+        font-size: 18px;
+    }
+    .termConditionErrorMsg{
+        font-size: 15px;   
+        margin-top: -15px;
+        margin-left: 32px;
+    }
+    .border3 {
+        height    : 45px;
+        font-size : 15px;
+    }
+    .addBTN{
+        font-size: 25px;
+        height: 85px;
+    }
+    .listColor{
+        font-size: 15px;
+    }
+
+}
+
+@media (min-width: 1920px) and (max-width: 2560px) {
+    .grandTotalMargin{
+        right: -5%;
+    }
+    .f1612 {
+        /*margin-left: -4% !important;*/
+        font-size: 30px;
+    }
+    .f161 {
+        font-size: 30px;
+    }
+    .f13NTerms {
+        margin-left: -9px !important;
+    }
+    .checkoutCurrencyWrapper {
+        right: -3% !important;
+    }
+    .checkoutCurrencyWrapper2 {
+        right: -5% !important;
+    }
+    .cartTitle {
+        font-size     : 65px;
+        margin-left   : 4%;
+    }    
+    .tableWrapper{
+        width: 96%;
+    }    
+    .paymentMethodTitle{
+        height: 80px;
+        padding-top: 20px;
+        font-size: 25px;
+        padding-left: 45px;
+    }
+    .osTableItems{
+        font-size: 25px;
+        margin-top: 25px;
+    }
+    .codRadio {
+        height: 22px;
+        width: 22px;
+    }
+    .tableWrapper input[type='radio']:after {
+        height: 25px;
+        width: 25px;
+        top: -5px;
+        left: -1px;
+    }
+    .onlinePayment {
+        font-size: 20px;
+        margin-left: 20px;
+    }
+    .addressType{
+        font-size: 25px;
+    }
+    .checkoutADDCss{
+        font-size: 25px;
+    }
+    .addBTN1{
+        font-size: 23px;
+        height: 85px;
+        padding-top: 24px;
+    }
+    .modalHeaderM{
+        padding: 62px 0px;
+    }
+    .modalHeader{
+        padding: 30px;
+        font-size: 19px;
+    }
+    .modalHeader img{
+        height: 34px;
+    }
+    .f14B{
+        font-size: 19px;
+    }
+    .modalLogoWrapper{
+        width: 110px;
+        height: 34px;
+    }
+    .modalLogoWrapperM{
+        height: 42px;
+        width: 142px;
+        margin-left: 40px;
+        margin-top: -10px;        
+    }
+    .addressModal label{
+        font-size: 18px;
+    }
+    .modalMainWrapper .formcontrol12{
+        height: 42px;
+    }
+    .fieldWrapper input{
+        font-size: 18px;
+    }
+    .saveBtn{
+        height: 57px;
+        font-size: 27px;
+    }
+    .modalCloseButtonWrapperM{
+        right: 30px;
+        top: 30px;
+        font-size: 35px;
+    }
+    .modalCloseButtonWrapper{
+        right: 30px;
+        font-size: 35px;
+    }
+    .productHeaderWrapper1{
+        font-size: 30px;
+    }
+    .productHeaderWrapper th {
+        font-size: 20px;
+    }
+    .checkoutBrandTitle, .checkoutProductName,.f11N {
+        font-size: 17px;
+    }
+    .f13N, .AEDColor, .border1::placeholder{
+        font-size: 20px;
+    }
+    .coupanTitle{
+        font-size: 18px;
+    }
+    .border1, .border2{
+        height: 58px;
+        font-size: 20px;
+    }
+    .f13N1{
+        font-size: 25px;
+    }
+    .mtErrMsg{
+        font-size: 15px;
+    }
+    .shippingWrap, .termsNconditionsmodal{
+        font-size: 20px;
+    }
+    .termConditionErrorMsg{
+        font-size: 15px;   
+        margin-top: -15px;
+        margin-left: 32px;
+    }
+    .border3 {
+        height    : 45px;
+        font-size : 15px;
+    }
+    .addBTN{
+        font-size: 27px;
+        height: 85px;
+    }
+    .listColor{
+        font-size: 15px;
+    }
+
+}
+
+@media  (min-width: 2560px) {
+    .orderDetailVendorAmtWrapper {
+        left: 3.4%;
+    }
+    .checkoutCurrencyWrapper {
+        right: -2% !important;
+    }
+    .checkoutCurrencyWrapper2 {
+        right: -3% !important;
+    }
+    .f1612 {
+        margin-left: -2% !important;
+    }
+    .grandTotalMargin{
+        right: -2%;
+    }
+    .f13NTerms {
+        margin-left: -16px !important;
+    }
+}
+

@@ -9,13 +9,14 @@ import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/Smal
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
 import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
-import UserAddress          from '../../pages/checkout/UserAddress.js';
-import Account              from '../../pages/account/index.js';
+import UserAddress          from '../../Themes/Sampurna/blocks/StaticBlocks/UserAddress/UserAddress.js';
+
+// import Account              from '../../pages/account/index.js';
 import EditAccount          from '../../pages/edit-account/index.js'
 import AddressBook          from  '../../pages/address-book/index.js'
 import MyOrders             from '../../pages/my-orders/index.js'
 import Wishlist             from  '../../pages/wishlist/index.js'
-import Productreview        from '../../pages/productreview/index.js'
+// import Productreview        from '../../pages/productreview/index.js'
 import OrderDetails         from '../../pages/order-details/index.js';
 import CreditPoints         from '../../pages/creditPoints/index.js';
 import S                    from './index.module.css';
@@ -28,7 +29,6 @@ class MyAccount extends Component{
                 title : "ACCOUNT DASHBOARD",
                 breadcrumb : 'Account Dashboard',
                 backgroungImage : "/images/eCommerce/my_account.png",
-
             },
             addressId :'',
             order_id : '',
@@ -57,8 +57,7 @@ class MyAccount extends Component{
 				})
                
             }
-        }
-        
+        }        
     }
    
     getUserData(){
@@ -184,7 +183,7 @@ class MyAccount extends Component{
                                     </div> */}
                                     
                                     <div className="tab-pane    bg-white pb-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                                    <AddressBook/>
+                                    {/*<AddressBook/>*/}
                                     </div>
                                     
                                     <div className={this.state.url1==="#v-pills-settings-tab"?"tab-pane bg-white  show active":"tab-pane bg-white "}id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">

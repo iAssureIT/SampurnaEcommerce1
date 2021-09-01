@@ -10,8 +10,8 @@ import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Mess
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
 // import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
-import UserAddress              from '../../pages/checkout/UserAddress.js';
-import Style                  from './index.module.css';
+import UserAddress          from '../../Themes/Sampurna/blocks/StaticBlocks/UserAddress/UserAddress.js';
+import Style                from './index.module.css';
 
 
 class Account extends Component{

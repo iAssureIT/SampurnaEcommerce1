@@ -3,11 +3,11 @@ import $                    from 'jquery';
 import axios                from 'axios';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
-import UserAddress          from '../../pages/checkout/UserAddress.js';
+import UserAddress          from '../../Themes/Sampurna/blocks/StaticBlocks/UserAddress/UserAddress.js';
 import { connect }          from 'react-redux';
 import store                from '../../redux/store.js';
 import { getCartData, getAddressData } from '../../redux/actions/index.js';
-import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
+// import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import Style                from './index.module.css';
 
 class AddressBook extends Component{

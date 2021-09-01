@@ -3,15 +3,17 @@ import axios                from 'axios';
 import $                    from 'jquery';
 import dynamic              from 'next/dynamic';
 import getConfig            from 'next/config';
+
 import {connect}            from 'react-redux';
+import store                from '../../redux/store.js';
+import {setBlockData ,setProductApiUrl,getCartData} from '../../redux/actions/index.js';
+
 import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
-import CartProducts         from './CartProducts.js';
-import store                from '../../redux/store.js';
-import Style                from'./CartProducts.module.css';
+import CartProducts         from '../../Themes/Sampurna/blocks/StaticBlocks/CartProducts/CartProducts.js';
+import Style                from '../../Themes/Sampurna/blocks/StaticBlocks/CartProducts/CartProducts.module.css';
 
-import {setBlockData ,setProductApiUrl,getCartData} from '../../redux/actions/index.js';
 
 const { publicRuntimeConfig } = getConfig();
 const SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
