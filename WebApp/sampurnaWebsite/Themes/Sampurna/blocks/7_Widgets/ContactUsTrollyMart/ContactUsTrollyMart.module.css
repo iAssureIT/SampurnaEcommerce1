@@ -29,7 +29,7 @@
 }
 .contactusFormWrapperLeftSide{
 	/*height: 550px;*/
-	min-height: 550px;
+	/*min-height: 550px;*/
 	background-color: #fff;
 	border-bottom-left-radius: 4px;
 	border-top-left-radius: 4px;
@@ -46,7 +46,8 @@
 }
 .contactusFormInputInsideWrapper{
 	border: none;
-	border-bottom: 1px solid lightgray;
+	border-bottom: 1px solid #bbb;
+	border-radius: 0px;
 	box-shadow: none;
 	background-color: transparent;
 }
@@ -240,7 +241,7 @@
 		margin-left: 13px;
 	}
 	.contactusFormWrapperLeftSide{
-		min-height: 450px;
+		/*min-height: 450px;*/
 		height: auto;
 		border-bottom-left-radius: 4px;
 		border-top-left-radius: 4px;
@@ -280,7 +281,7 @@
 		font-size: 14px;
 	}
 	.hero{
-		height: 35px;
+		/*height: 35px;*/
 		align-items: center;
 		flex-direction: column;
 		justify-content: center;
@@ -362,6 +363,61 @@
 	}
 }
 
+@media (min-width:1536px){
+
+	.contactUsTrollyBreadcumWrapper{
+		height: 250px;
+		background-size: cover;
+	}
+
+	.contactUsTrollyMainWrapper{
+		min-height: 730px;
+	}
+
+	.contactusFormInputWrapper{
+		font-size: 13px;
+	}
+
+	.contactusFormInputInsideWrapper{
+		margin-top: -10px;
+	}
+
+	.contactusFormWrapperLeftSide{
+		/*min-height: 483px;*/
+	}
+
+	.contactusFormWrapperMain{
+		margin-top: 177px;
+	}
+
+	.emailWrapperContactUsOne{
+		margin-left: 30px;
+		margin-top: -21px;
+	}
+
+	.emailWrapperContactUsTwo{
+		margin-left: 15px;
+		/*padding-top: 5px;*/
+	}
+
+	.social_links a {
+	    width: 30px;
+	    height: 30px;
+	    padding: 3px 0px 0px 0px;
+	    font-size: 16px;
+	}
+
+	.phoneFontAwesomeWrapper{
+		font-size: 12px;
+	}
+	
+	.contactUsPhoneNumber{
+		padding-left: 27px;
+		margin-top: -19px;
+	}
+
+}
+
 
 /* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
 @media (min-width:1920px){
@@ -379,6 +435,134 @@
 		min-height: 974px;
 	}
 
+	.getInTouchSubTitle{
+		font-size: 26px;
+		opacity: 0.6;
+	}
+
+	.contactusFormWrapperLeftSide{
+		min-height: 524px;
+	}
+
+	.contactusFormInputWrapper{
+		font-size: 18px;
+	}
+
+	.getInTouchBtnWrapper{
+	    height: 40px;
+	    width: 120px;
+	    margin-top: 20px;
+	    font-size: 16px;
+	    border-bottom-left-radius: 29px;
+	    border-bottom-right-radius: 0px;
+	    border-top-left-radius: 29px;
+	    border-top-right-radius: 25px;
+	    font-family: 'Montserrat-thin' !important;
+	}
+
+	.emailWrapperContactUsOne{
+		margin-left: 30px;
+		margin-top: -30px;
+	}
+
+	.emailWrapperContactUsTwo{
+		margin-left: 15px;
+		/*padding-top: 5px;*/
+	}
+
+	.social_links a {
+	    width: 37px;
+	    height: 37px;
+	    padding: 4px 0px 0px 0px;
+	    font-size: 20px;
+	}
+
+	.phoneFontAwesomeWrapper{
+		font-size: 16px;
+	}
+
+	.contactUsPhoneNumber{
+		padding-left: 25px;
+		margin-top: -28px;
+	}
+
+}
+
+
+
+@media (min-width:2560px){
+
+	.contactUsTrollyBreadcumWrapper{
+		height: 400px;
+		background-position: center;
+		background-size: 100% 180%;
+	}
+
+	.contactusFormWrapperMain{
+		margin-top: 279px;
+	}
+
+	.contactUsTrollyMainWrapper{
+		min-height: 899px;
+		padding-bottom: 625px;
+	}
+
+	.getInTouchSubTitle{
+		font-size: 26px;
+	}
+
+	.contactusFormWrapperLeftSide{
+		/*min-height: 648px*/
+	}
+
+	.contactusFormInputWrapper{
+		font-size: 21px;
+	}
+
+	.getInTouchBtnWrapper{
+	    height: 50px;
+	    width: 150px;
+	    font-size: 17px;
+	    margin-top: 10px;
+	    border-bottom-left-radius: 29px;
+	    border-bottom-right-radius: 0px;
+	    border-top-left-radius: 29px;
+	    border-top-right-radius: 25px;
+	}
+
+	.phoneFontAwesomeWrapper{
+		font-size: 18px;
+	}
+
+	.contactUsPhoneNumber{
+		padding-left: 35px;
+	}
+
+	.emailWrapperContactUs {
+	    margin-top: -28px;
+	}
+
+	.emailWrapperContactUsOne{
+		padding-left: 8px;
+		margin-top: -32px;
+	}
+
+	.emailWrapperContactUsTwo{
+		padding-left: 25px;
+		padding-top: 5px;
+	}
+
+	.contactAddress{
+    	padding-left: 25px;
+    	margin-top: -6px;
+	}
+
+	.social_links a {
+	    width: 40px;
+	    height: 40px;
+	    padding: 5px 0px 0px 0px;
+	    font-size: 20px;
+	}
 }
 
 
