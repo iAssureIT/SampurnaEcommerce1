@@ -26,6 +26,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 export const ProductList = withCustomerToaster((props)=>{
+  console.log("props",props);
   const {setToast,category_ID,loading,section_id,payload,vendorLocation_id,onEndReachedThreshold,type,subCategory} = props; 
   const navigation    = useNavigation();
   const dispatch 		  = useDispatch();
@@ -33,6 +34,7 @@ export const ProductList = withCustomerToaster((props)=>{
   const [packsizes,setPacksizes]            = useState('');
   const [user_id,setUserId]                 = useState('');
   const [limit,setLimit]                    = useState(props.limit);
+  const [disabled,setDisabled]=useState(false)
 
   useEffect(() => {
     getData();
@@ -50,6 +52,8 @@ export const ProductList = withCustomerToaster((props)=>{
   const {stop_scroll,userDetails,location,stop_scroll_search}=store;
   const getData=async()=>{
     setProductDetails(props.newProducts);
+
+    setDisabled(props.disabled);
     // setLimit(props.limit)
     var data =  await AsyncStorage.multiGet(['user_id', 'token']);
     setUserId(data[0][1]);
@@ -204,7 +208,7 @@ export const ProductList = withCustomerToaster((props)=>{
   const _renderlist = ({ item, index })=>{
     return (
       <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
-        <TouchableOpacity style={{opacity:item.availableQuantity === 0 ? 0.5:1,backgroundColor: 'white',borderRadius:20,}} disabled={item.availableQuantity === 0 ?  true : props.disabled ? props.disabled : false} onPress={() => 
+        <TouchableOpacity style={{opacity:item.availableQuantity === 0 || props.disabled  ? 0.5:1,backgroundColor: 'white',borderRadius:20,}} disabled={item.availableQuantity === 0 ?  true : props.disabled ? props.disabled : false} onPress={() => 
           {navigation.navigate('SubCatCompView', { 
               productID           : item._id,
               currency            : currency,
@@ -220,12 +224,12 @@ export const ProductList = withCustomerToaster((props)=>{
             }
           }>
           <View style={[styles.flx5,{paddingHorizontal:wp(2.6)}]}>
-              {item.discountPercent && item.discountPercent >0?
+              {/* {item.discountPercent && item.discountPercent >0?
                   <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
                     <Text style={{fontSize:RFPercentage(1.8),color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
                     <Text style={{fontSize:RFPercentage(1.5),color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
                   </ImageBackground> :null
-                } 
+                }  */}
               {userDetails.authService!=="guest" &&
               
               <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} disabled={item.availableQuantity === 0 ? true : false}>
@@ -284,7 +288,7 @@ export const ProductList = withCustomerToaster((props)=>{
                         :
                         <View style={{flex:.2,alignSelf:'flex-end'}}>
                           <TouchableOpacity 
-                          disabled={props.disabled}
+                          disabled={disabled}
                             onPress={() => vendorLocation_id ?
                               item.vendor_ID ? 
                               addToCart(item._id,item.vendor_ID) 
@@ -297,7 +301,7 @@ export const ProductList = withCustomerToaster((props)=>{
                               addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
                           }
                           style={{height:hp(4),width:hp(4),borderWidth:2,borderRadius:100,justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton}}>
-                            <Icon name="plus" type="entypo" size={RFPercentage(3)} color={props.disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/>
+                            <Icon name="plus" type="entypo" size={RFPercentage(3)} color={disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/>
                           </TouchableOpacity>  
                         </View>}
                       <Text numberOfLines={2} style={[styles.nameprod]} ellipsizeMode='middle'>{item.productName}</Text>

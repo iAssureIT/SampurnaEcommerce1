@@ -843,6 +843,7 @@ const cancelorderbtn = (id,vendor_id) => {
                         </View>
                       </View> */}
                     </View>
+                    {order?.paymentDetails?.afterDiscountCouponAmount > 0 ?
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.57 }}>
                         <Text style={styles.totalAmount}>Discount Coupon</Text>
@@ -860,7 +861,26 @@ const cancelorderbtn = (id,vendor_id) => {
                       <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
                         </View>
                       </View> */}
-                    </View>                    
+                    </View>:null}  
+                    {order?.paymentDetails?.creditPointsValueUsed > 0 ?
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.57 }}>
+                        <Text style={styles.totalAmount}>Redeem Valu</Text>
+                      </View>
+                      <View style={{ flex: 0.38,flexDirection:'row' }}>
+                        <View style={{flex:.4}}>
+                            <Text style={[styles.ogpriceC,{opacity: 1,color:'#EF9A9A'}]}>{currency} </Text>
+                        </View> 
+                        <View style={{flex:.6,alignItems:'flex-end'}}>
+                            <Text style={styles.ogpriceR}>{order.paymentDetails && order.paymentDetails.creditPointsValueUsed.toFixed(2)}</Text>
+                        </View>                        
+                      </View>
+                      {/* <View style={{ flex: 0.35 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                      <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
+                        </View>
+                      </View> */}
+                    </View>:null}                   
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totalAmount}>Total Delivery Charges </Text>
@@ -885,7 +905,7 @@ const cancelorderbtn = (id,vendor_id) => {
                         width={wp(95)} 
                         height={tooltipSize.h + 30}
                         backgroundColor={colors.theme}
-                        onRequestClose={() =>  tooltipRef.current.toggleTooltip()}
+                        // onRequestClose={() =>  tooltipRef.current.toggleTooltip()}
                         popover={tooltipClone}>
                             <Icon name="information-outline" type={"material-community"} size={RFPercentage(2.6)} color={'#A6B7C2'} />
                         </Tooltip>

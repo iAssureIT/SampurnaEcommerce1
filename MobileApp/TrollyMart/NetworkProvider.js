@@ -13,17 +13,16 @@ export class NetworkProvider extends React.PureComponent {
     NetInfo?.addEventListener(this.handleConnectivityChange);
   }
 
-  componentWillUnmount() {
-    NetInfo?.removeEventListener(this.handleConnectivityChange);
-  }
-
-  // handleConnectivityChange = isConnected => this.setState({ isConnected });
-
+  // componentWillUnmount() {
+  //   NetInfo?.removeEventListener(this.handleConnectivityChange);
+  // }
 
   handleConnectivityChange = state => {
     console.log("state",state);
-    this.setState({isInternetReachable:state.isInternetReachable})
-    if (state.isConnected) {
+    if(state.isInternetReachable){
+      this.setState({isInternetReachable:state.isInternetReachable})
+    }
+    if(state.isConnected) {
       this.setState({connection_Status: 'Online'});
     } else {
       this.setState({connection_Status: 'Offline'});

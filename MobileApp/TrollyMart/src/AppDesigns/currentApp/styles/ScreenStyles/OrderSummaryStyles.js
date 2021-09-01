@@ -488,7 +488,7 @@ superparent:{
       borderBottomColor: "transparent"
     },
       inputTextWrapper : {
-      width:'88%'
+      width:'100%'
     },
     textTitle:{
       fontFamily:"Montserrat-Regular",
@@ -524,7 +524,7 @@ superparent:{
       alignItems:'center',
     },
     inputWrapper : {
-     flex:0.4,
+     flex:0.5,
      height:hp(4),
       // marginLeft:10,
       // borderColor:'#666',
@@ -626,7 +626,7 @@ superparent:{
       fontFamily:"Montserrat-Regular",
       backgroundColor:"#fff",
       height:hp(2.5),
-      width:wp(35),
+      width:'90%',
       fontSize:RFPercentage(1.5),
       borderWidth:1,
       borderColor:'#707070',
