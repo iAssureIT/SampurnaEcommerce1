@@ -111,6 +111,7 @@
     opacity       : 1;
 }
 
+
 @media only screen and (min-device-width: 1024px) {
     .wishListMainTitle {
         font-size: 25px;
@@ -133,7 +134,6 @@
         font-size: 28px;
     }
 }   
-
 
 @media only screen and (min-device-width: 1536px) {
     .wishListMainTitle {

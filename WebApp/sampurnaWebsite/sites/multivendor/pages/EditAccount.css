@@ -65,6 +65,10 @@
   font-size: 10px;
 }
 
+
+
+
+
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-device-width: 1200px) {
   #editAccount label {
@@ -96,7 +100,7 @@
       font-size: 13px;
   }
 
- } 
+} 
 
 @media (min-device-width: 1440px) {
      #editAccount label {
@@ -111,7 +115,7 @@
       font-size: 14px;
   }
 
- } 
+} 
 
 @media (min-device-width: 1536px) {
     #editAccount label {
@@ -126,12 +130,11 @@
       font-size: 15px;
   }
 
-
-  }
+}
 
 
 @media (min-device-width: 1920px) {
     #editAccount label {
       font-size: 16px;
     }
-  }
+}
