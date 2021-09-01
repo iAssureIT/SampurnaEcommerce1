@@ -69,6 +69,8 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
                           setToast({text: response.data.message, color: colors.warning});
                       }else if(response.data.message == 'OTP_NOT_UPDATED'){
                           setToast({text: 'Something went wrong.', color: 'red'});
+                      }else{
+                        setToast({text: response.data.message, color: colors.warning});
                       }
                   })
                   .catch(error => {

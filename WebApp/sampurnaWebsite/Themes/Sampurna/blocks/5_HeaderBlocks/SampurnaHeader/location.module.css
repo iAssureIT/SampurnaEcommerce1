@@ -507,6 +507,27 @@
 /* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
 @media (min-width: 1440px){
 
+    .systemSecurityPopupWrapper{
+        margin-top: 50px;
+    }
+    .systemSecurityPopupModalBody{
+        height: 740px;
+    }
+    .systemSecurityPopupLeftImageWrapper{
+        height: 740px;
+    }
+    .systemSecurityPopupRightFormWrapper{
+        height: 740px;
+    }
+    .systemSecurityPopupLeftImageLogoWrapper{
+        margin-top: 315px !important;
+    }
+    .systemSecurityPopupCloseButton{
+        position: absolute;
+        z-index : 999;
+        right   : -20px;
+        font-size: 40px !important;
+    }
 }
 
 

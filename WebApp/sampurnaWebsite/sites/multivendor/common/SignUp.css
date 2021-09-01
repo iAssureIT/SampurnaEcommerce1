@@ -434,9 +434,11 @@ input[type=number] {
 #loginFormModal .form-control:focus{
 	background-color:transparent !important;
 }
+
 .form-control{
-	font-size: 12px !important;
+	/*font-size: 12px !important;*/
 }
+
 .facebookBtn{
 	background-color:#3B5998 !important;
 	color:#fff !important;
@@ -623,21 +625,6 @@ input.middle:focus {
 /* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
 @media (min-width: 1440px){
 
-}
-
-
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1536px and up] */
-@media (min-width: 1536px){
-
-}
-
-
-/* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
-@media (min-width: 1920px){
-
-	/* .systemSecurityPopupWrapper .modal-xl{
-		max-width: 1700px;
-	} */
 	.modal-xl{
 		max-width: 1700px;
 	}
@@ -664,6 +651,59 @@ input.middle:focus {
 		height: 39px !important;
 		font-size: 16px !important;
 		margin-top: 10px !important;
+	}
+}
+
+
+/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1536px and up] */
+@media (min-width: 1536px){
+
+}
+
+
+/* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
+@media (min-width: 1920px){
+
+	.modal-xl{
+		max-width: 1700px;
+	}
+	.signInBtn{
+		height: 54px !important;
+		font-size: 22px !important;
+		font-weight: normal !important;
+		margin-top: 40px !important;
+	}
+	.kep-login-facebook{
+		height: 39px !important;
+	}
+	.facebookLoginBtn button {
+		font-size: 16px !important;
+	}
+	.googleLoginBtn button{
+		height: 39px !important;
+		margin-top: 10px !important;
+	}
+	.googleTextWrapper{
+		font-size: 16px !important;
+	}
+	.guestBtn{
+		height: 39px !important;
+		font-size: 16px !important;
+		margin-top: 10px !important;
+	}
+	.infoText{
+		font-size: 18px;
+	}
+	.otpBtns{
+		height: 54px !important;
+		font-size: 22px !important;
+		font-weight: normal !important;
+	}
+	.forgotText{
+		font-size: 16px !important;
+	}
+	.loginforgotpass{
+		margin-top: 15px !important;
 	}
 }
 

@@ -542,7 +542,6 @@
 
 
 
-
 @media only screen and (min-device-width: 1024px) {
 
 	.myOrderDeliveryDetails{
@@ -573,7 +572,6 @@
 		font-size: 13px;
 	}
 }
-
 
 
 @media only screen and (min-device-width: 1536px) {
@@ -640,6 +638,6 @@
 
 	.orderDetailVendorAmtInnerWrapper{
 		font-size: 15px;
-	}
+}
 
 }

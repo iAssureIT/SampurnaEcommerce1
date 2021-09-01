@@ -55,8 +55,9 @@ export const FAQ = (props)=>{
     const getData=()=>{
         Axios.get('/api/pages/get/page_block/faq')
         .then(res=>{
+            console.log("res",res);
             setLoading(false);
-            setPageBlocks(res.data.pageBlocks)
+            setPageBlocks(res.data.pageBlocks[res.data.pageBlocks.length-1].block_id.repeatedBlocks)
         })
         .catch(error=>{
             if (error.response.status == 401) {
@@ -91,18 +92,17 @@ export const FAQ = (props)=>{
                                     <Text style={[styles.HeaderText]}>FAQ</Text>
                             </RadialGradient>
                         </View>
-                        <List.Section title="">
+                        <List.Section title="" style={{backgroundColor:"#fff"}} >
                         {
                             pageBlockes && pageBlockes.length>0?
                                 pageBlockes.map((item,index)=>{
-                                    const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
-                                    console.log("result",item.block_id.fgImage1)
+                                    const result = item.Description.replace(/<[^>]+>/g, '');
                                     return(
-                                    <List.Accordion index={(index)} style={[styles.queBox]} onPress={handlePress} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:RFPercentage(2.2),color:"#000000",fontFamily:"Montserrat-SemiBold",}]}>
-                                        <View style={[styles.queAns,{marginHorizontal:wp(6)}]}>
-                                            <Text style={{fontSize:RFPercentage(1.8),color:'#000000',fontFamily:"Montserrat-Regular",}}>Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.</Text>
-                                        </View>
-                                    </List.Accordion>
+                                        <List.Accordion index={(index)} style={[styles.queBox]}  titleNumberOfLines={5} onPress={handlePress} title={item.Title} titleStyle={[CommonStyles.normalText,{fontSize:RFPercentage(2.2),color:"#000000",fontFamily:"Montserrat-SemiBold",}]}>
+                                            <View style={[styles.queAns,{marginHorizontal:wp(6)}]}>
+                                                <Text style={{fontSize:RFPercentage(1.8),color:'#000000',fontFamily:"Montserrat-Regular",textTransform:'capitalize'}}>{result}</Text>
+                                            </View>
+                                        </List.Accordion>
                                     )
                                 })
                             :

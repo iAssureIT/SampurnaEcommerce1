@@ -14,6 +14,7 @@ import { localNotificationService } from './src/LocalNotificationService';
 import { setToast } from './src/redux/AppState';
 import store from './src/redux/store';
 import { AuthLoadingScreen } from "./src/ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js";
+import NetInfo from '@react-native-community/netinfo';
 
 console.log("REACT_APP_BASE_URL", REACT_APP_BASE_URL);
 axios.defaults.baseURL = REACT_APP_BASE_URL;
@@ -41,7 +42,7 @@ const App = (props) => {
     setTimeout(() => {
       console.log("called to hide splash")
       SplashScreen.hide();
-    }, 1500);
+    }, 3000);
     const unSubscribe = store.subscribe(() => {
       setAppToast(store.getState()?.appStateReducer?.toastState);
       setToken(store.getState()?.userReducer?.token || '');
@@ -106,6 +107,7 @@ const ToastProviderComponent = props => {
           duration: Snackbar.LENGTH_LONG,
           backgroundColor: props.toast?.color,
           fontFamily: 'Montserrat-Regular',
+          numberOfLines:3
         });
       }, 600)
 

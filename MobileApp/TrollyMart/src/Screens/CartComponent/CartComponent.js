@@ -73,7 +73,7 @@ export const CartComponent = withCustomerToaster((props)=>{
 
 
   useEffect(()=>{
-    BackHandler.addEventListener('hardwareBackPress', backAction);
+    // BackHandler.addEventListener('hardwareBackPress', backAction);
     // BackHandler.removeEventListener("hardwareBackPress", backAction);
   },[])
 
@@ -315,7 +315,15 @@ const getshippingamount=(startRange, limitRange)=>{
                       <View key={index} style={styles.proddetails}>
                         <View style={styles.flxdir}>
                           <View style={[styles.flxmgNEW,{paddingRight:5}]}>
-                            <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id })}>
+                            <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', {   productID: item.product_ID._id,
+                              currency : currency,
+                              vendorLocation_id   :vendor.vendorLocation_id,
+                              location            : store.location,
+                              index               : index,
+                              vendor_id           : vendor.vendor_id._id,
+                              category            : item.product_ID.category,
+                              subCategory         : item.product_ID.subCategory,
+                              vendor              : vendor.vendor_id})}>
                               {/* {item.product_ID.productNameRlang ?
                               <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
                               :  */}
@@ -335,7 +343,17 @@ const getshippingamount=(startRange, limitRange)=>{
                               </View>
                             </View>                            
                           </View>
-                            <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id})}>
+                            <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { 
+                              productID: item.product_ID._id,
+                              currency : currency,
+                              vendorLocation_id   :vendor.vendorLocation_id,
+                              location            : store.location,
+                              index               : index,
+                              vendor_id           : vendor.vendor_id._id,
+                              category            : item.product_ID.category,
+                              subCategory         : item.product_ID.subCategory,
+                              vendor              : vendor.vendor_id
+                              })}>
                               {item.product_ID.productImage.length > 0 ?
                                 <FastImage
                                   style={styles.imgwdht}

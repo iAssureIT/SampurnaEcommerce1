@@ -7,12 +7,17 @@ import { colors } from './src/AppDesigns/currentApp/styles/styles';
 
 export class ExampleComponent extends React.PureComponent {
   static contextType = NetworkContext;
+  
   render() {
+    console.log("this?.context",this?.context);
     return(
-      Platform.OS!== "ios" &&!this?.context?.isInternetReachable &&<View style={{justifyContent:"center",backgroundColor:colors.warning,flexDirection:'row'}}>
+      Platform.OS!== "ios" ?
+       this?.context?.connection_Status === "Offline" &&<View style={{justifyContent:"center",backgroundColor:colors.warning,flexDirection:'row'}}>
             <ActivityIndicator size={15} color="#fff"/>
             <Text style={{alignSelf:"center",color:"#fff"}}>Wating for network...</Text>
       </View>
+      :
+      null
     )  
         
   }

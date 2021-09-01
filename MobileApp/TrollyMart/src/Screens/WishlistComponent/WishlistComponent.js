@@ -37,7 +37,6 @@ const [refreshing,setRefresh]= useState(false)
     isConnected: store.netWork.isConnected,
     userDetails : store.userDetails
   }));
-  console.log("store",store)
   const {wishList,globalSearch,loading,isConnected,userDetails} = store;
   const [user_id,setUserId] = useState('');
   const dispatch              = useDispatch();
@@ -86,7 +85,7 @@ const [refreshing,setRefresh]= useState(false)
             </View>
               <View style={{paddingBottom:hp(10)}}>
                   {wishList.map((item,index)=>{
-                    console.log("item",item);
+                    console.log("parseInt(item?.distance)",parseInt(item.distance) <= item.maxDistanceRadius ? false :true);
                     return(
                       <View key={index} style={{paddingHorizontal:wp(4)}}>
                         <View style={{flexDirection:"row"}}>
@@ -113,7 +112,7 @@ const [refreshing,setRefresh]= useState(false)
                             userId      = {user_id} 
                             categories  = {[]}
                             loading     = {loading}
-                            disabled      = {parseInt(item.distance) <= item.maxDistanceRadius ? false :true}
+                            disabled    = {parseInt(item.distance) < item.maxDistanceRadius ? false :true}
                             marginTop     = {0}
                             paddingBottom  = {0}
                             type           = {'wishlist'}

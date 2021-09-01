@@ -2145,7 +2145,11 @@ exports.user_login_mob_email_new = (req, res, next) => {
 	var username 	= (req.body.username).toLowerCase(); 
 	var role 		= (req.body.role).toLowerCase();
 	if(isNumeric(username) && username.length>10){
-		username = username.slice(username.length-10);
+		if(username.startsWith('971')){
+			username = username.slice(username.length-9);
+		}else{
+			username = username.slice(username.length-10);
+		}		
 	}
 	if(username.startsWith('0')){
 		username = username.substring(1);

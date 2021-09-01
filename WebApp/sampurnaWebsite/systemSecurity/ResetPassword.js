@@ -114,7 +114,7 @@ class ResetPassword extends Component{
 								this.state.showMessage === false
 								?
 									<div className="col-12">
-										<form id="resetPassword">
+										<form id="resetPassword" className={S.resetPasswordForm}>
 											<div className="col-12 mt-4 form-group frmhgt textAlignLeft">
 												<input
 													id="newPassword"

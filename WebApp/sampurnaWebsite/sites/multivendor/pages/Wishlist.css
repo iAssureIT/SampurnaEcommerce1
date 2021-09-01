@@ -111,6 +111,7 @@
     opacity       : 1;
 }
 
+
 @media only screen and (min-device-width: 1024px) {
     .wishListMainTitle {
         font-size: 25px;
@@ -134,14 +135,11 @@
     }
 }   
 
-
 @media only screen and (min-device-width: 1536px) {
     .wishListMainTitle {
         font-size: 30px;
     }
 }    
-
-
 
 @media only screen and (min-device-width: 1920px) {
     .wishListMainTitle {
@@ -150,5 +148,11 @@
 
     .areaName {
         font-size: 21px;
+    }
+}
+
+@media only screen and (min-device-width: 2560px) {
+    .wishListMainTitle {
+        font-size: 47px;
     }
 }

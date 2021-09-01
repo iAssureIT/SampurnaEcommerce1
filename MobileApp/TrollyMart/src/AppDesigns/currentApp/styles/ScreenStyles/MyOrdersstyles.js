@@ -615,7 +615,6 @@ export default StyleSheet.create({
     height:37,
     marginTop:15,
     marginBottom:15,
-    paddingHorizontal:10
     // backgroundImage: 'radial-gradient(circle, #ffffff, #e2e3ea, #c3c9d5, #a1b0c0, #7d98aa)',
   },
   HeaderText:{ 
@@ -660,16 +659,17 @@ export default StyleSheet.create({
     elevation:2
   },
   queBox:{
-    height  :hp(5),
     borderRadius:15,
     marginBottom:hp(2),
     paddingVertical:0,
+    borderWidth:0.5,
     marginHorizontal:wp(4),
-   borderWidth:0.5,
+    backgroundColor:"#fff",
+    elevation:5
     // borderColor:"#aaa",
   },
   queAns:{
-    minHeight:118,
+    minHeight:50,
     paddingHorizontal:10,
     paddingVertical:10,
     marginTop:-13,

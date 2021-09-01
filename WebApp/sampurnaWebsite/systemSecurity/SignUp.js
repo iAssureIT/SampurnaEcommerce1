@@ -294,7 +294,7 @@ class SignUp extends Component{
 						<a href="" className={S.systemSecuritySignIn} onClick={this.openSignInModal.bind(this)}>Sign In</a>
 					</div>
 				</div>
-				<form id="signUpUser" className="row">
+				<form id="signUpUser" className={"row "+S.signUpUser}>
 					<div className="col-12 col-lg-6 form-group frmhgt textAlignLeft">
 						<input type="text" maxLength="25" className="form-control formcontrol1" id="firstname" ref="firstname" name="firstname" placeholder="First Name*" onChange={this.handleChange} data-text="firstNameV" />
 						<div className="errorMsg mt-1">{this.state.errors.firstname}</div>

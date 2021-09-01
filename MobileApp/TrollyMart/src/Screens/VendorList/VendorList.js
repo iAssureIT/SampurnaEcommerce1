@@ -187,7 +187,7 @@ export const VendorList = withCustomerToaster((props)=>{
                     <View style={{backgroundColor:colors.cartButton,marginTop:hp(1)}}>
                         <Text style={styles.topText}>Delivery time <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>9</Text><Text style={{fontFamily:'Montserrat-Bold'}}>am</Text> to <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>11</Text><Text style={{fontFamily:'Montserrat-Bold'}}>pm</Text> or next day delivery</Text>
 */}
-                    { vendorList && vendorList.length >0 ?
+                    {/* { vendorList && vendorList.length >0 ? */}
                     <View>
                         <MenuCarouselSection
                             navigation  = {navigation} 
@@ -201,9 +201,9 @@ export const VendorList = withCustomerToaster((props)=>{
                             <Text style={styles.topText}>Delivery time <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>9</Text><Text style={{fontFamily:'Montserrat-Bold'}}>am</Text> to <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>11</Text><Text style={{fontFamily:'Montserrat-Bold'}}>pm</Text> or next day delivery</Text>
                         </View>
                     </View>
-                    :
+                    {/* :
                     null
-                    }
+                    } */}
                     <View style={styles.proddets}>
                     {loading ?
                         <Loading />
@@ -239,28 +239,28 @@ export const VendorList = withCustomerToaster((props)=>{
                         // <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
                         //     <Text style={CommonStyles.noDataFound}>We are currently not working in your area. However, we will come there soon. So please visit this website again shortly.</Text>
                         // </View>
-                    <View style={{flex:1,height:window.height-135,}}>
-                        <View style={{flex:1,height:300}}>
+                    <View style={{height:window.height-135,}}>
+                        <View style={{height:300}}>
                             <Image
                             source={require("../../AppDesigns/currentApp/images/NoVendor.png")}
                             style={{width:window.width,height:275}}
                             resizeMode='contain'
                             />
                         </View>
-                        <View style={{flex:1,alignItems:'center',marginTop:170}}>
+                        <View style={{alignItems:'center'}}>
                             <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:26,color:"#033554",opacity: 1}}>Coming Soon to you!</Text>
                             <View style={{justifyContent:'center',alignItems:'center'}}>
                                 <Text style={{fontFamily:"Montserrat-Medium",fontSize:14,color:"#000"}}>We are expanding to your area very soon</Text>
                                 <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Italic",fontSize:10}]}>stay tuned</Text>
                             </View>
                         </View>
-                        <View style={{flex:1,height:70}}>
+                        {/* <View style={{height:70,backgroundColor:"#ff0"}}>
                             <Image
                                 source={require("../../AppDesigns/currentApp/images/NoVendorFooter.png")}
-                                style={{width:window.width,minHeight:70}}
+                                style={{height:'100%',width:"100%"}}
                                 resizeMode='contain'
                                 />
-                        </View>
+                        </View> */}
                         {/* 
                         <View style={{alignItems:'center'}}>
                           

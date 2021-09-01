@@ -7,29 +7,20 @@ import {
   Dimensions,
   Alert,BackHandler,
 } from 'react-native';
-import { Button, Icon,}       from "react-native-elements";
+import {Icon}       from "react-native-elements";
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
-import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
 import {withCustomerToaster}  from '../../redux/AppState.js';
-import { connect,
-  useDispatch,
-  useSelector }               from 'react-redux';
+import { useSelector }               from 'react-redux';
 import openSocket               from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
-import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const window = Dimensions.get('window');
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
-
-
-
-
-// import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export const PaymentConfirmation = withCustomerToaster((props)=>{
   const {navigation,route,setToast}=props;
@@ -39,11 +30,11 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
   }));
   const {currency}=store.preferences;
 
-//   useEffect(() => {
-//     BackHandler.addEventListener("hardwareBackPress", backAction);
-//     return () =>
-//     BackHandler.removeEventListener("hardwareBackPress", backAction);
-//   },[]);
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+    return () =>
+    BackHandler.removeEventListener("hardwareBackPress", backAction);
+  },[]);
 
   const backAction = () => {
     navigation.navigate('Dashboard');
@@ -83,7 +74,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                         <View style={{flex:0.4}}>
                             <Text style={styles.label}>Receipt from</Text>
                         </View>
-                        <View style={{flex:0.4,alignItems:"flex-end"}}>
+                        <View style={{flex:0.45,alignItems:"flex-end"}}>
                             <Text style={styles.text}>Knock Knock</Text>
                         </View>
                     </View> 
@@ -95,7 +86,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                         />
                             <Text style={styles.label}>Amount</Text>
                         </View>
-                        <View style={{flex:0.4,flexDirection:'row',justifyContent:'flex-end'}}>
+                        <View style={{flex:0.45,flexDirection:'row',justifyContent:'flex-end'}}>
                             <Text style={[styles.label,{fontSize:RFPercentage(2.3)}]}>{currency}: </Text><Text style={[styles.label1]}>{order.paymentDetails.netPayableAmount}</Text>
                         </View>
                     </View> 
@@ -107,11 +98,11 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                         />
                             <Text style={styles.label}>Date</Text>
                         </View>
-                        <View style={{flex:0.4,alignItems:'flex-end'}}>
+                        <View style={{flex:0.45,alignItems:'flex-end'}}>
                             <Text style={styles.label}>{moment(order.createdAt).format('ll')}</Text>
                         </View>
                     </View>
-                <View style={{paddingHorizontal:wp(5)}}>
+                <View style={{paddingHorizontal:wp(2)}}>
                     <View style={{flexDirection:"row",marginTop:hp(3)}}>
                         <View style={{flex:0.5}}>
                             <Text style={styles.label2}>Order No.</Text>

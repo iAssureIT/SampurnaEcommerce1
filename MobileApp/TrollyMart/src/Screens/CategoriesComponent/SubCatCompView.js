@@ -299,6 +299,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     );
 }
 
+console.log("vendor",vendor);
+
     return (
       <View style={{backgroundColor:"#fff",flex:1}}>
          {!isConnected?

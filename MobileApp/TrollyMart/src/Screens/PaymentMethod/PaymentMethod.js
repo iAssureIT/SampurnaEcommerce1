@@ -4,13 +4,9 @@ import {
   Text,
   View,
   Image,
-  Alert,ActivityIndicator, TouchableOpacity,
+  TouchableOpacity,
 } from 'react-native';
-import { Button, Icon,}       from "react-native-elements";
 import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import Modal                  from "react-native-modal";
-import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}               from '../../ScreenComponents/Footer/Footer.js';
 import axios                  from 'axios';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
@@ -25,8 +21,6 @@ import openSocket               from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
 import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 import { NetWorkError } from '../../../NetWorkError.js';
-import { Platform } from 'react-native';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
@@ -38,7 +32,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
   const [checked,setChecked]                = useState('third');
   const [btnLoading,setBtnLoading]          = useState(false);
-  const [paymentmethods,setPaymentMethods]  = useState("Credit/Debit Card");
+  const [paymentmethods,setPaymentMethods]  = useState("Online Payment");
   // const [environment,setEnvironment]        = useState(false);
   const [namepayg,setNamePayg]              = useState('');
   const [partnerid,setPartnerId]            = useState('');
@@ -93,7 +87,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
 
   const paymentgateway=()=>{
     setChecked('second');
-    setPaymentMethods("Credit/Debit Card");
+    setPaymentMethods("Online Payment");
   }
 
   const continuepage=(id)=>{
