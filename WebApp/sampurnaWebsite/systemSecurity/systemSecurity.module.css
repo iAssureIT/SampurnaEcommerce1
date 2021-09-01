@@ -92,7 +92,7 @@
 .resetInstruction{
     font-size: 8px !important;
     color: #000;
-    margin-top: -15px;
+    margin-top: -20px;
 }
 .forgotText{
     font-size: 10px;
@@ -152,6 +152,43 @@
 /* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
 @media (min-width: 1440px){
 
+    .systemSecurityTitleWrapper{
+        padding-top: 80px;
+    }
+    .systemSecurityTitle1{
+        font-size: 30px;
+    }
+    .systemSecurityTitleUnderline{
+        width: 90px;
+    }
+    .systemSecurityTextWrapper{
+        padding-top: 40px;
+    }
+    .systemSecurityTextWrapper span{
+        font-size: 18px;
+    }
+    .systemSecurityTextWrapper a{
+        font-size: 18px;
+    }
+    .systemSecurityWrapper input::placeholder{
+        font-size: 21px !important;
+    }
+    .loginForm input{
+        margin-top: 25px;
+        font-size: 21px !important;
+    }
+    .forgotText{
+        font-size: 17px !important;
+        margin-top: 20px !important;
+    }
+    .orWrapper{
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
+    .signUpUser input{
+        margin-top: 25px !important;
+        font-size: 21px !important;
+    }
 }
 
 
@@ -189,6 +226,12 @@
         margin-top: 25px;
         font-size: 21px !important;
     }
+    .resetPasswordForm input::placeholder{
+        font-size: 21px !important;
+    }
+    .resetPasswordForm input{
+        font-size: 21px !important;
+    }
     .forgotText{
         font-size: 17px !important;
         margin-top: 20px !important;
@@ -196,6 +239,18 @@
     .orWrapper{
         margin-top: 10px !important;
         margin-bottom: 10px !important;
+    }
+    .systemSecurityTermsNConditionText{
+        font-size: 21px;
+    }
+    .systemSecurityTitleUnderline2{
+        width: 250px;
+    }
+    .resetPasswordTitle{
+        font-size: 25px !important;
+    }
+    .resetInstruction{
+        font-size: 14px !important;
     }
 }
 
