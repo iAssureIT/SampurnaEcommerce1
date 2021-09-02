@@ -23,14 +23,14 @@ export default class Std3Repeated_Carousel extends Component{
                 "blockSubTitle"      : "The Company Of The Year 2018",
                 "blockDescription"   : "",
                 "bgImage"            : "",
-                "fgImage1"           : ["/images/CMSImages/BlockFGImg.png","/images/CMSImages/RepeatedBlockFGImg.png","/images/CMSImages/BlockFGVideoImg.png","/images/CMSImages/RepeatedBlockFGImg.png"],
+                "fgImage1"           : "",
                 "fgImage2"           : "",
                 "repeatedBlocks"     : [
                     {
                         Title        : "",
                         SubTitle     : "Lorem Ipsum1",
                         Description  : "Lorem Ipsum1 is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-    					FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+    					FGImage1     : "",
 	    				FGImage2     : "",
 		    			BGImage      : "",
                         Link         : "https://iassureit.com"
@@ -39,7 +39,7 @@ export default class Std3Repeated_Carousel extends Component{
                         Title        : "",
                         SubTitle     : "Lorem Ipsum2",
                         Description  : "Lorem Ipsum2 is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-			    		FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+			    		FGImage1     : "",
 				    	FGImage2     : "",
 					    BGImage      : "",
                         Link         : "https://iassureit.com"
@@ -48,7 +48,7 @@ export default class Std3Repeated_Carousel extends Component{
                         Title        : "",
                         SubTitle     : "Lorem Ipsum3",
                         Description  : "Lorem Ipsum3 is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-					    FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+					    FGImage1     : "",
 					    FGImage2     : "",
 					    BGImage      : "",
                         Link         : "https://iassureit.com"
@@ -57,7 +57,7 @@ export default class Std3Repeated_Carousel extends Component{
                         Title        : "",
                         SubTitle     : "Lorem Ipsum4",
                         Description  : "Lorem Ipsum4 is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-    					FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+    					FGImage1     : "",
 	    				FGImage2     : "",
 		    			BGImage      : "",
                         Link         : "https://iassureit.com"

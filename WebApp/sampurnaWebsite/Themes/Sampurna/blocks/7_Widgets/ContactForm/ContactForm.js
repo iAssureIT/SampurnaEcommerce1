@@ -1,25 +1,7 @@
 import React, {Component} from 'react';
 import axios              from 'axios';
-// import Image              from 'next/image';
 import swal               from 'sweetalert2';
-
-
 import s from './ContactForm.module.css';
-// import AddressBlock       from "./AddressBlock.js";
-
-
-// const formValid = formerrors=>{
-//     console.log("formerrors",formerrors);
-//     let valid = true;
-//     Object.values(formerrors).forEach(val=>{
-//         val.length>0 && (valid = false);
-//     })
-//     return valid;
-// }
-// const clientnameRegex = RegExp(/^[A-za-z']+( [A-Za-z']+)*$/);
-// const emailRegex = RegExp (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-
-
 export default class ContactForm extends Component{
 
 	constructor(props){
@@ -37,14 +19,14 @@ export default class ContactForm extends Component{
                     {
                         Title        : "Mail Us:", 
                         SubTitle     : "admin@bookstore.com", 
-                        FGImage1     : "images/CMSBlockType/7_Widgets/mail.png",
+                        FGImage1     : "",
                         Link         : "",
                         Description  : ""
                     },
                     { 
                         Title        : "Phone Us:", 
                         SubTitle     : "9090909900 / 8008808800", 
-                        FGImage1     : "images/CMSBlockType/7_Widgets/phone.png",
+                        FGImage1     : "",
                         Link         : "",
                         Description  : ""
                     },
@@ -86,46 +68,6 @@ export default class ContactForm extends Component{
             block_id:this.props.block_id
         });
     }
-
-	// constructor(props){
-	// 	super(props);
-	// 	this.state = {
-	// 		"name"          : "",
-	// 		"email"         : "",
-	// 		"Subject"       : "",
-	// 		"message"       : "",
-	// 		formerrors : {
-    //             clientName  : " ",
-    //             clientEmail : " "
-    //         },
-    //     };
-    //     this.handleChange = this.handleChange.bind(this);
-	// }
-
-	// handleChange(event){
-	// 	event.preventDefault();
-	// 	const datatype = event.target.getAttribute('data-text');
-	// 	const {name,value} = event.target;
-	// 	const formerrors = this.state.formerrors;
-	// 	console.log("datatype",datatype);
-	// 	switch (datatype){
-    //         case 'clientName': formerrors.clientName = clientnameRegex.test(value)? '' : "Please enter valid name";
-    //             break;
-    //         case 'clientEmail': formerrors.clientEmail = emailRegex.test(value)? '' : "Please enter valid mail address";
-    //             break;
-    //         default:
-    //             break;
-	// 	}
-	// 	this.setState({ 
-	// 		formerrors,
-	// 	    [name]:value,
-    //             "name"     : this.refs.name.value,
-	// 	        "email"    : this.refs.email.value,
-	// 	        "Subject"  : this.refs.Subject.value,
-    //             "message"  : this.refs.message.value
-    //             "mobile"   : this.refs.mobile.value
-	// 	});
-    // }
 
     handleChange(event){
 		event.preventDefault();
@@ -196,22 +138,8 @@ export default class ContactForm extends Component{
                 this.state.message  = "";
                 this.state.mobile   = "";
     }
-
-    // Submit(event){
-    //     event.preventDefault();
-    //         var dataArray={
-    //         "name"     : this.refs.name.value,
-    //         "email"    : this.refs.email.value,
-    //         "Subject"  : this.refs.Subject.value,
-    //         "message"  : this.refs.message.value,
-    //     }
-    //     console.log("dataArray =>",dataArray);
-    // }
-
 	render(){
 		return(
-
-            
             <div className={"col-12 contactFormWrapper "+s.contactFormWrapper}>
                 <div className="row">
                     <div className={"col-12 col-lg-4  addressWrapper "+s.addressWrapper}>

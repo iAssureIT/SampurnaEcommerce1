@@ -30,7 +30,7 @@ export default class Std2Repeated_WithoutImg extends Component{
                         Title        : "HEAD OFFICE",
                         SubTitle     : "Pune(INDIA)",
                         Description  : "#323, Amanora Chambers, Magarpatta, Pune, Maharashtra 411028",
-                        FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+                        FGImage1     : "",
                         FGImage2     : "",
                         BGImage      : "",
                         Link         : ""
@@ -39,7 +39,7 @@ export default class Std2Repeated_WithoutImg extends Component{
                         Title        : "PHONE",
                         SubTitle     : "+91 99233 93733",
                         Description  : "",
-                        FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+                        FGImage1     : "",
                         FGImage2     : "",
                         BGImage      : "",
                         Link         : ""
@@ -48,7 +48,7 @@ export default class Std2Repeated_WithoutImg extends Component{
                         Title        : "EMAIL",
                         SubTitle     : "i@iassureit.com", 
                         Description  : "",
-                        FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+                        FGImage1     : "",
                         FGImage2     : "",
                         BGImage      : "",
                         Link         : ""
