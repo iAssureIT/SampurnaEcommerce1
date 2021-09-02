@@ -99,3 +99,11 @@
         font-size: 16px;
      }  
 }	
+
+
+@media only screen and (min-device-width: 1920px) {
+	.showDetailsBtn {
+        padding: 13px;
+        font-size: 20px;
+     }  
+}	
