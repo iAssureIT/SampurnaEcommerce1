@@ -43,40 +43,6 @@ class ProductreviewList extends Component {
         console.log('error', error);
       })
   }
-  getoneproductdetails(event) {
-    var productID = event.target.id;
-    var customerID = localStorage.getItem('user_ID');
-    var orderID = event.target.getAttribute('orderID');
-    this.setState({ orderID: orderID });
-    axios.get("/api/products/get/one/" + productID)
-      .then((response) => {
-        this.setState({
-          oneproductdetails: response.data
-        }, () => {
-          // console.log('oneproductdetails', this.state.oneproductdetails);
-        })
-      })
-      .catch((error) => {
-        console.log('error', error);
-      })
-
-    axios.get("/api/customerreview/get/order/list/" + customerID + "/" + orderID + "/" + productID)
-      .then((response) => {
-        this.setState({
-          rating_ID: response.data._id,
-          customerID: response.data.customerID,
-          customerName: response.data.customerName,
-          customerReview: response.data.customerReview,
-          orderID: response.data.orderID,
-          productID: response.data.productID,
-          rating: response.data.rating,
-          ratingReview: response.data.rating
-        })
-      })
-      .catch((error) => {
-        console.log('error', error);
-      })
-  }
   render() {
     return (
       <div className="col-12 mb-4 mt-4">
@@ -94,7 +60,7 @@ class ProductreviewList extends Component {
                               <div className="col-2 h-75 ">
                                 <img className="customerPic mt-4" src="/images/eCommerce/notavailable.png" alt="Customer-Pic" />
                                 {/* {data.customerName?data.customerName.substring(0, 1):null} */}
-                                <div > {data.customerName}</div>
+                                <div className="col-12"> {data.customerName}</div>
                               </div>
                               <div className="col-6 bg-default text-left mt-4 pb-4 h-100">
                                 <div className="col-12 starRatingBlock mb-4">

@@ -68,7 +68,7 @@ class ProductViewEcommerce extends Component{
 		});
 		
 		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
-      var userDetails          	=  JSON.parse(localStorage.getItem('userDetails'));
+        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         
 		if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
 			this.setState({
@@ -81,7 +81,7 @@ class ProductViewEcommerce extends Component{
 			this.setState({ 
 				"userLatitude"  : sampurnaWebsiteDetails.deliveryLocation.latitude,
 				"userLongitude" : sampurnaWebsiteDetails.deliveryLocation.longitude,
-				"delLocation"   : sampurnaWebsiteDetails.deliveryLocation.address,
+				"delLocation"   : sampurnaWebsiteDetails.deliveryLocation.address ? sampurnaWebsiteDetails.deliveryLocation.address : "",
 			});
 		  }
 		if(userDetails){
@@ -89,9 +89,6 @@ class ProductViewEcommerce extends Component{
 				this.setState({
 					user_ID       :  userDetails.user_id,
 					authService   :  userDetails.authService,
-					// userLongitude : userDetails.userLatitude,
-					// userLongitude : userDetails.userLongitude,
-					"delLocation" : sampurnaWebsiteDetails.deliveryLocation.address,
 				},()=>{
 				})
             }

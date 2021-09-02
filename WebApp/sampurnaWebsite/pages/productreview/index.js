@@ -4,46 +4,28 @@ import $            from 'jquery';
 import _            from 'underscore';
 import moment       from "moment";
 import swal         from 'sweetalert';
-
-// import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-// import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
-// import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
-import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 
 class Productreview extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviewData: "",
-      bannerData: {
-        title: "PRODUCT REVIEW",
-        breadcrumb: 'Product reviews',
-        backgroungImage: '/images/eCommerce/cartBanner.png',
-      },
-      wishlist: [],
-      products: [],
-      abc: [],
-      quantity: 1
-
+      reviewData: [],
     }
-    // window.scrollTo(0, 0);
   }
-  componentDidMount() {
 
+  componentDidMount() {
     var userid = localStorage.getItem('user_ID');
-        this.setState({
-            user_ID : userid,
-            websiteModel : localStorage.getItem('websiteModel')
-        },()=>{
-            this.getMyReview();
-        })
+    this.getMyReview();
+    this.setState({
+        user_ID : userid,
+        websiteModel : localStorage.getItem('websiteModel')
+    },()=>{
+    })
   }
 
   getMyReview() {
-    
     axios.get("/api/customerReview/get/user/list/" + this.state.user_ID)
       .then((response) => {
         this.setState({
