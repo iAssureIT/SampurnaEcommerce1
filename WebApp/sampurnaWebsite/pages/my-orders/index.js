@@ -323,12 +323,12 @@ export default class MyOrders extends Component {
                   <span className={"table-caption mb-2 "}>My Orders</span>
                 </div>
 
-                <div className={"container-flex col-xl-12 row "+ Style.myOrderBox}>
+                <div className={"container-flex col-xl-12 px-0 "+ Style.myOrderBox}>
                   {this.state.orderData && this.state.orderData.length > 0 ?
                     this.state.orderData.map((singleOrder, index) => {
                       // console.log("singleOrder=",singleOrder);
                       return (
-                        <div className={"col-9 col-lg-12 col-xl-11 NoPadding orderIdborder " + Style.orderIdborderNew} key={index}>
+                        <div className={"col-12 col-lg-12 col-md-12 col-xl-11 NoPadding orderIdborder " + Style.orderIdborderNew} key={index}>
                           <div className="col-12  NoPadding orderNowrapper mb-4 " style={{
                             'backgroundColor': singleOrder.orderStatus === "New" && '#033554' ||
                               singleOrder.orderStatus === "Delivered" && '#3E9D5E' ||

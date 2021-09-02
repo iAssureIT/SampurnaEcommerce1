@@ -502,8 +502,8 @@ class EditAccount extends Component{
         }
         return(
             <section className="pt-4 pl-xl-3">
-            <span className={"font-weight-bold " + Style.editAccountTitle}>My Profile</span>
-            <div className={"col-lg-10 col-12 col-xl-9 accountInformationMainWrapper "+Style.accountInformationMainWrapper}id="accountInformationManiId">
+            <div className={"font-weight-bold pb-md-1 pl-md-2 " + Style.editAccountTitle}>My Profile</div>
+            <div className={"col-lg-10 col-12 col-xl-9 col-md-11 accountInformationMainWrapper "+Style.accountInformationMainWrapper}id="accountInformationManiId">
             <div className="row">
                 <div className={ " col-12 accountDashBoardInnerwrapper "+Style.accountDashBoardInnerwrapper}>
                     <Message messageData={this.state.messageData} />

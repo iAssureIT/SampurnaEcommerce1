@@ -129,10 +129,47 @@
 }
 
 
+@media only screen and (min-device-width: 768px) {
+    
+    .creditPointTitleWrapper{
+        font-size: 23px;
+        font-family: 'Montserrat-Bold';
+    }
+
+    .CreditCurrentBalTitle1{
+        font-size: 9px;
+    }
+
+    .CreditCurrentBalTitle2{
+        font-size: 8px;
+    }
+
+    .CreditEarnedBalTitle1{
+        font-size: 10px;
+    }
+
+    .CreditDataPtTitle{
+        font-size: 11px;
+    }
+
+    .CreditTotalBalTitle{
+        font-size: 10px;
+    }
+
+    .CreditCurrentBalTitle{
+        font-size: 10px;
+    }
+
+    .CreditTotalPtTitle{
+        font-size: 10px;
+    }
+
+}    
+
 @media only screen and (min-device-width: 1024px) {
+    
     .creditPointTitleWrapper{
         font-size: 25px;
-        font-family: 'Montserrat-Bold';
     }
 
     .CreditCurrentBalTitle1{
@@ -140,7 +177,7 @@
     }
 
     .CreditCurrentBalTitle2{
-        font-size: 6px;
+        font-size: 9px;
     }
 
     .CreditEarnedBalTitle1{
@@ -152,11 +189,11 @@
     }
 
     .CreditTotalBalTitle{
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .CreditCurrentBalTitle{
-        font-size: 8px;
+        font-size: 11px;
     }
 
     .CreditTotalPtTitle{
@@ -165,6 +202,7 @@
 }    
 
 @media only screen and (min-device-width: 1366px) {
+    
     .creditPointTitleWrapper{
         font-size: 25px;
     }
@@ -174,7 +212,7 @@
     }
 
     .CreditCurrentBalTitle2{
-        font-size: 10px;
+        font-size: 11px;
     }
 
     .CreditEarnedBalTitle1{
@@ -200,8 +238,9 @@
 }
 
 @media only screen and (min-device-width: 1440px) {
+    
     .creditPointTitleWrapper{
-        font-size: 29px;
+        font-size: 28px;
     }
 
     .CreditCurrentBalTitle1{
@@ -209,7 +248,7 @@
     }
 
     .CreditCurrentBalTitle2{
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .CreditEarnedBalTitle1{
@@ -221,11 +260,11 @@
     }
 
     .CreditTotalBalTitle{
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .CreditCurrentBalTitle{
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .CreditTotalPtTitle{
@@ -235,6 +274,7 @@
 
 
 @media only screen and (min-device-width: 1536px) {
+    
     .creditPointTitleWrapper{
         font-size: 30px;
     }
@@ -244,7 +284,7 @@
     }
 
     .CreditCurrentBalTitle2{
-        font-size: 10px;
+        font-size: 13px;
     }
 
     .CreditEarnedBalTitle1{
@@ -256,11 +296,11 @@
     }
 
     .CreditTotalBalTitle{
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .CreditCurrentBalTitle{
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .CreditTotalPtTitle{
@@ -269,6 +309,7 @@
 }
 
 @media only screen and (min-device-width: 1920px) {
+    
     .creditPointTitleWrapper{
         font-size: 37px;
     }
@@ -307,19 +348,41 @@
 
 }
 
-
-@media only screen and (min-device-width: 1920px) {
-
-    .creditPointTitleWrapper{
-        font-size: 47px;
-    }
-
-    }
-
-
 @media only screen and (min-device-width: 2560px) {
 
-     .creditPointTitleWrapper{
+    .creditPointTitleWrapper{
         font-size: 40px;
+    }
+
+     .creditWrapper{
+        /*width: 73%;*/
+    }
+
+    .CreditCurrentBalTitle1{
+        font-size: 22px;
+    }
+
+    .CreditCurrentBalTitle2{
+        font-size: 17px;
+    }
+
+    .CreditEarnedBalTitle1{
+        font-size: 22px;
+    }
+
+    .CreditDataPtTitle{
+        font-size: 25px;
+    }
+
+    .CreditTotalBalTitle{
+        font-size: 21px;
+    }
+
+    .CreditCurrentBalTitle{
+        font-size: 22px;
+    }
+
+    .CreditTotalPtTitle{
+        font-size: 25px;
     }
 }    

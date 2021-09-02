@@ -89,10 +89,63 @@
 
 }*/
 
+@media only screen and (min-device-width: 480px) {
+
+    .sideBarTabNames{
+        font-size: 12px;
+    }
+
+    .sideBarTabNameAllignment{
+        padding-left: 20px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 25px;
+    }
+
+    .myAccountSideWrapper{
+        margin-top: 0px !important;
+        margin-left: 0px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 6px !important;
+    }
+} 
+
+
+@media only screen and (min-device-width: 768px) {
+
+    .sideBarTabNames{
+        font-size: 12px;
+    }
+
+    .sideBarTabNameAllignment{
+        padding-left: 20px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 25px;
+    }
+
+    .myAccountSideWrapper{
+        margin-top: 23px !important;
+        margin-left: -10px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 6px !important;
+    }
+} 
+
 @media only screen and (min-device-width: 1024px) {
 
-     .sideBarTabNames{
+    .sideBarTabNames{
         font-size: 12px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 10px !important;
     }
 
     .sideBarTabNameAllignment{
@@ -105,7 +158,7 @@
 
     .myAccountSideWrapper{
         margin-top: 23px !important;
-        margin-left: -10px;
+        margin-left: 0px;
     }
 } 
 
@@ -114,6 +167,10 @@
 
      .sideBarTabNames{
         font-size: 17px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 15px !important;
     }
 
     .sideBarTabNameAllignment{
@@ -132,7 +189,11 @@
 @media only screen and (min-device-width: 1440px) {
 
     .sideBarTabNames{
-        font-size: 19px;
+        font-size: 17px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 15px !important;
     }
 
     .sideBarTabNameAllignment{
@@ -153,25 +214,20 @@
 @media only screen and (min-device-width: 1536px) {
     
     .sideBarTabNames{
-        font-size: 19px;
+        font-size: 18px;
     }
 
     .myAccountTitleWrapper{
         font-size: 38px;
     }
 
-    /*.myAccountMainDiv{
-        margin-top: 20px;
-    }*/ 
-    
-
     .myAccountSideWrapper{
-        margin-top: 29px !important;
+        margin-top: 33px !important;
         margin-left: -10px;
     }
 
     .sideBarTabNameAllignment{
-        padding-left: 60px;
+        padding-left: 50px;
     }
 
 }
@@ -180,8 +236,12 @@
 @media only screen and (min-device-width: 1920px) {
 
     .myAccountSideWrapper{
-        margin-top: 47px !important;
+        margin-top: 40px !important;
         margin-left: -9px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 15px !important;
     }
 
     .sideBarTabNames{
@@ -205,8 +265,12 @@
 @media only screen and (min-device-width: 2560px) {
 
     .myAccountSideWrapper{
-        margin-top: 47px !important;
+        margin-top: 40px !important;
         margin-left: -9px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 15px !important;
     }
 
     .sideBarTabNames{

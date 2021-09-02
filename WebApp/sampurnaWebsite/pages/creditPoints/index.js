@@ -54,10 +54,10 @@ class CreditPoints extends Component{
     render(){
         return(
             <div className={ "col-lg-9 float-lg-left col-12 NoPadding accountMainWrapper pb-4 mt-4 "+Style.accountMainWrapper} id="creditPointMainId"> 
-              <div className="col-12 pt-4">
+              <div className="col-12 mt-4 pt-md-0">
                       <div className={"table-caption mb-1 "+Style.creditPointTitleWrapper}>My Credit Points</div>
                   </div>
-                <div className={"col-12 col-xl-12 pt-5  "+Style.creditWrapper}>
+                <div className={"col-12 col-xl-12 pt-5 "+Style.creditWrapper}>
                     <div className={"col-12 "+Style.creditHeader}>
                         <div className="row">
                             <div className={"col-4 px-lg-5 text-lg-left text-center "+Style.CreditTotalPtTitle}>Total Points</div>
@@ -89,8 +89,8 @@ class CreditPoints extends Component{
                                     data &&
                                     <div className={"col-12 mt-4 py-2 "+ Style.CreditPointInnerBox}key={index}>
                                         <div className="row">
-                                        <div className={"col-4 px-lg-5 my-auto text-lg-left text-center "+Style.CreditCurrentBalTitle1}>&nbsp;{data.transactionDate ? moment(data.transactionDate).format('MM/DD/YYYY'):null}</div>
-                                        <div className="col-4 px-lg-5 text-lg-left text-center">
+                                        <div className={"col-4 px-lg-6 my-auto text-lg-left text-center "+Style.CreditCurrentBalTitle1}>&nbsp;{data.transactionDate ? moment(data.transactionDate).format('MM/DD/YYYY'):null}</div>
+                                        <div className="col-4 px-lg-6 text-lg-left text-center">
                                             
                                             <div className={" "+Style.CreditCurrentBalTitle1}><b>{data.typeOfTransaction}</b></div>
                                             <div className={" "+Style.CreditCurrentBalTitle2}>Order ID - {data.orderID}</div>
