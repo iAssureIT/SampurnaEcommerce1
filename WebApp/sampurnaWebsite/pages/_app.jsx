@@ -85,7 +85,10 @@ Router.events.on('routeChangeError', () => NProgress.done());
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossOrigin="anonymous"/>
         {/*<script type="application/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js'></script>*/}
-        <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossOrigin="anonymous"></script>
+
+        {/*<script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>*/}
         {/* <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script> */}
         <meta name="google-site-verification" content="289838416253-abo3h9t3cktstph4mp30vliol7d3ene5.apps.googleusercontent.com" />
         <meta name="google-signin-client_id" content="289838416253-abo3h9t3cktstph4mp30vliol7d3ene5.apps.googleusercontent.com" />
