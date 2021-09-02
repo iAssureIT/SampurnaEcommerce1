@@ -637,6 +637,7 @@ class ProductViewEcommerce extends Component{
 								}
 								<div className={"col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 " +Style.topSpace}>
 									<Message messageData={this.state.messageData} />
+										{console.log("this.state.productData=",this.state.productData)}
 										{
 											this.state.productData
 											?
@@ -869,7 +870,16 @@ class ProductViewEcommerce extends Component{
 																						<span className="col-6">{this.state.productData.size}</span>
 																					</div>
 																			}
+
+																			<div className={"ml-5 ml-sm-0 "+Style.productInformationWrapper}><b>Product Details</b></div>
+																			{
+																				this.state.productData.productDetails &&
+																					<div className="col-12 singleProductDetail">
+																						<span className="col-12">{this.state.productData.productDetails}</span>
+																					</div>
+																			}
 																		</div>
+
 																		{
 																			this.state.productData.productReturnable === "returnable"
 																			?

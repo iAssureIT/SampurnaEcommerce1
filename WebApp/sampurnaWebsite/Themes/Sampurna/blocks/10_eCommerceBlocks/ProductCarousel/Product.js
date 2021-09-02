@@ -231,7 +231,7 @@ class Product extends Component{
           "product_ID"          : id
       }
         
-        console.log("inside wishlist==",formValues);
+        // console.log("inside wishlist==",formValues);
         axios.post('/api/wishlist/post', formValues)
           .then((response) => {
             this.setState({

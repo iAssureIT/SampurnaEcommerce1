@@ -207,7 +207,7 @@ class SingleProduct extends Component{
    
 
     render(){
-      console.log("Product ===",this.props);
+      // console.log("Product ===",this.props);
       var categoryUrl = (this.props.data.category?this.props.data.category:"").replace(/\s+/g, '-').toLowerCase();                    
       var subCategoryUrl = (this.props.data.subCategory?this.props.data.subCategory:"-").replace(/\s+/g, '-').toLowerCase();                    
 

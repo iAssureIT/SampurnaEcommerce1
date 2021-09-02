@@ -115,7 +115,7 @@ class CartProducts extends Component {
                                         messageData: {},
                                     })
                                 }, 1500);
-                                this.props.fetchCartData();
+                                // this.props.fetchCartData();
                                 this.props.updateCartCount();
                             }
                         })
@@ -197,7 +197,7 @@ class CartProducts extends Component {
                 axios.patch("/api/carts/quantity", formValues)
                     .then((response) => {
                         // console.log("increament response=>",response.data);
-                        this.props.fetchCartData();
+                        // this.props.fetchCartData();
                     })
                     .catch((error) => {
                         console.log("error => ", error);
@@ -288,7 +288,7 @@ class CartProducts extends Component {
                                 messageData: {},
                             })
                         }, 1500);
-                        this.props.fetchCartData();
+                        // this.props.fetchCartData();
                     })
                     .catch((error) => {
                         console.log("error => ", error);
@@ -316,7 +316,7 @@ class CartProducts extends Component {
             "product_ID"          : id
         }
           
-          console.log("inside wishlist==",formValues);
+        //   console.log("inside wishlist==",formValues);
           axios.post('/api/wishlist/post', formValues)
             .then((response) => {
               this.setState({
@@ -333,7 +333,7 @@ class CartProducts extends Component {
                   messageData: {},
                 })
               }, 2000);
-              this.props.fetchCartData();
+            //   this.props.fetchCartData();
             })
             .catch((error) => {
               console.log('error', error);
@@ -365,11 +365,12 @@ class CartProducts extends Component {
                 <div className="col-12  ">
                     <div className="col-12  pl-0">
                         <div className="col-12 cartHeight">
-                            {this.props.loading 
+                            <Loader type="fullpageloader" />
+                            {/* {this.props.loading 
                             ?
                                 <Loader type="fullpageloader" />
-                            :
-                                <div className="row">                                    
+                            : */}
+                            <div className="row">                                    
                                     <Message messageData={this.state.messageData} />
                                     {
                                         this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length > 0 ?
@@ -764,7 +765,7 @@ class CartProducts extends Component {
 
 
                                 </div>
-                            }
+                            
                         </div>
                     </div>
                 </div>
