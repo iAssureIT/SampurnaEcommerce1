@@ -78,7 +78,7 @@ class Checkout extends Component {
             this.setState({
                 user_ID: userDetails.user_id,
                 email: userDetails.email,
-                fullName: userDetails.firstname + " " + userDetails.lastname,
+                fullName: userDetails.firstName + " " + userDetails.lastName,
                 websiteModel: sampurnaWebsiteDetails.preferences.websiteModel,
                 currency: currency,
                 authService : userDetails.authService
@@ -89,10 +89,14 @@ class Checkout extends Component {
 
                 axios.get('/api/users/get/' + this.state.user_ID)
                     .then(result => {
-                        this.setState({
-                            mobile: result.data.mobile,
-                            email: result.data.email,
-                        })
+                        if(result){
+                            // console.log("userData==",result);
+                            this.setState({
+                                mobile: result.data.mobile,
+                                email: result.data.email,
+                                fullName: result.data.firstname + " " + result.data.lastname,
+                            })
+                        }
                     })
                     .catch(err => {
                         console.log('Error /api/users/get', err);
@@ -691,15 +695,15 @@ class Checkout extends Component {
     }
     applyCreditPoint(event) {
         event.preventDefault();
-        console.log("this.refs.creaditPoint.value=",this.refs.creaditPoint.value);
+        // console.log("this.refs.creaditPoint.value=",this.refs.creaditPoint.value);
         var creaditPointValueEnter = parseFloat(this.refs.creaditPoint.value);
-        console.log("my creaditPoint===",creaditPointValueEnter);
+        // console.log("my creaditPoint===",creaditPointValueEnter);
         const formValues = {
             "user_ID": this.state.user_ID,
             // creditPointsValueUsed: parseFloat(creaditPointValueEnter)
             creditPointsValueUsed: creaditPointValueEnter
         }
-        console.log("formValues==",formValues);
+        // console.log("formValues==",formValues);
         // console.log("this.state.creditdataValue===",this.state.creditdataValue);
         if(creaditPointValueEnter === 0 || creaditPointValueEnter === ''){
             this.setState({
@@ -931,7 +935,7 @@ class Checkout extends Component {
                                                 </div>
                                                 {
                                                     this.props.recentAddressData && this.props.recentAddressData.length > 0 ?
-                                                        <div className="">
+                                                        <div className={" col-12 NoPadding " }>
                                                             <div className={"col-12 NoPadding " + Style.shippingAddress}>
                                                                 <div className={"col-12 " + Style.eCommTitle + " " + Style.paymentMethodTitle}>Address <span className="required">*</span></div>
                                                                 <div className={"col-12 pt-4 " + Style.addressWrapper}>

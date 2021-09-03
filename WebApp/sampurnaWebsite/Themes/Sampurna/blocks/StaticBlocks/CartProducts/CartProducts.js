@@ -115,7 +115,7 @@ class CartProducts extends Component {
                                         messageData: {},
                                     })
                                 }, 1500);
-                                // this.props.fetchCartData();
+                                this.props.fetchCartData();
                                 this.props.updateCartCount();
                             }
                         })
@@ -192,7 +192,7 @@ class CartProducts extends Component {
             "quantityAdded": quantityAdded,
             "vendor_ID": vendor_id,
         }
-        console.log("formValues===",formValues);
+        // console.log("formValues===",formValues);
         axios.patch("/api/carts/quantity", formValues)
             .then((response) => {
                 this.props.fetchCartData();
@@ -261,7 +261,7 @@ class CartProducts extends Component {
                                 messageData: {},
                             })
                         }, 1500);
-                        // this.props.fetchCartData();
+                        this.props.fetchCartData();
                     })
                     .catch((error) => {
                         console.log("error => ", error);
@@ -290,7 +290,7 @@ class CartProducts extends Component {
             "product_ID"          : id
           }
           
-          console.log("inside wishlist => ",formValues);
+        //   console.log("inside wishlist => ",formValues);
 
           axios.post('/api/wishlist/post', formValues)
             .then((response) => {
@@ -311,7 +311,7 @@ class CartProducts extends Component {
                   messageData: {},
                 })
               }, 2000);
-            //   this.props.fetchCartData();
+              this.props.fetchCartData();
             })
             .catch((error) => {
               console.log('error', error);
@@ -496,27 +496,36 @@ class CartProducts extends Component {
                                                                                                             </div>
                                                                                                             <div className="col-6 col-sm-12 col-xs-12 col-md-4 col-lg-1 col-xl-1 text-center my-3 ">
                                                                                                                 {vendorData.product_ID.isWish===true?
-                                                                                                                    <span className={"fa fa-heart "+Style.cartWishlistRed}
+                                                                                                                    // <span className={"fa fa-heart "+Style.cartWishlistRed}
+                                                                                                                    <img  src="/images/eCommerce/heartSolid.svg"
+                                                                                                                          className="cursor-pointer"
                                                                                                                           id={vendorData.product_ID._id}
                                                                                                                           vendorid={vendorWiseCartData.vendor_id._id} 
                                                                                                                           vendorLocation_id={vendorWiseCartData.vendorLocation_id} 
-                                                                                                                          onClick={this.addtowishlist.bind(this)}>
-                                                                                                                    </span>
+                                                                                                                          onClick={this.addtowishlist.bind(this)}
+                                                                                                                          style={{ width: "15px" }}
+                                                                                                                    />
                                                                                                                 :
-                                                                                                                    <span className={"far fa-heart "+Style.cartWishlist}
+                                                                                                                    // <span className={"far fa-heart "+Style.cartWishlist}
+                                                                                                                    <img  src="/images/eCommerce/blackHeart.svg"
+                                                                                                                          className="cursor-pointer"
                                                                                                                           id={vendorData.product_ID._id} 
                                                                                                                           vendorid={vendorWiseCartData.vendor_id._id} 
                                                                                                                           vendorLocation_id={vendorWiseCartData.vendorLocation_id} 
-                                                                                                                          onClick={this.addtowishlist.bind(this)}>
-                                                                                                                    </span>
+                                                                                                                          onClick={this.addtowishlist.bind(this)} 
+                                                                                                                          style={{width: "15px" }}
+                                                                                                                    />
+                                                                                                                    
                                                                                                                 }
                                                                                                                 <br/><br/>
-                                                                                                                <span className={"fa fa-trash "+Style.trashIcon} 
+                                                                                                                {/* <span className={"fa fa-trash "+Style.trashIcon}  */}
+                                                                                                                <img  src="/images/eCommerce/trash.svg"
+                                                                                                                      className="cursor-pointer"
                                                                                                                       id={vendorData._id} 
                                                                                                                       vendorid={vendorWiseCartData.vendor_id._id} 
-                                                                                                                      onClick={this.Removefromcart.bind(this)}>
-                                                                                                                        <a href="/" style={{ color: "#337ab7" }} > </a>
-                                                                                                                </span>
+                                                                                                                      onClick={this.Removefromcart.bind(this)}
+                                                                                                                      style={{ width: "15px" }}
+                                                                                                                />
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>

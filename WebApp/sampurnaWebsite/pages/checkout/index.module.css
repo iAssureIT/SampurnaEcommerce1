@@ -183,7 +183,7 @@
 }
 
 .checkoutAddrWrap{
-    margin-left: 10px;
+    margin-left: 0px;
 }
 
 .addressType{
@@ -205,8 +205,16 @@
 .addressMargin{
     margin-left: 0px;
 }
+.addressBox{
+    max-height: 400px; 
+    overflow-y: scroll;
+}
+.addressWrapper {
+    max-height: 400px; 
+    overflow-y: scroll;
+}
 .addressMargin input{
-    margin-top: 12px;
+    /* margin-top: 12px; */
 }
 
 .f11N {
@@ -429,9 +437,7 @@
     text-align: right;
 }
 
-.addressWrapper {
-    height: auto;
-}
+
 
 .headerH {
     max-height: 100px !important;

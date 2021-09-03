@@ -122,7 +122,7 @@ export default class OrderDetails extends Component {
     socket.on('getSingleOrder', (response) => {
       // console.log("response==",response);
       if (response) {
-        // console.log("socket response.data=>", response);
+        console.log("socket response.data=>", response);
         this.setState({
           orderData: response,
           loading: false

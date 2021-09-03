@@ -12,6 +12,7 @@ const Message = (props)=> {
     //         message     : ""
     //     })
     // }
+        // console.log("message props==",props)
         return(
             <div className={Style.alertBox}>
             {
@@ -38,3 +39,13 @@ const Message = (props)=> {
 }
 
 export default Message
+{/* <div className="row ml-auto pull-right outpageMessage">
+                        <div className="alert-group">
+                            <div className={"alert alert-success alert-dismissable " +Style.alertMessage}>
+                                <button type="button" className="close" onClick={close.bind(this)}>×</button>
+                                <div className="fa fa-check-circle inpagemessage" dangerouslySetInnerHTML={{__html : ("&nbsp;"+"gdc bhdgjycdg  ")}} ></div>
+                            </div>
+                        </div>
+                    </div>
+            </div> */}
+
