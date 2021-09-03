@@ -6,6 +6,9 @@
   font-family:'Montserrat-Thin';
   src: url('../../../fonts/Montserrat-Regular.ttf');
 }
+.footerTopIcons img{
+  height: 12px;
+}
 .footer {
   text-align: center;
 }

@@ -1,5 +1,5 @@
 .bannerContainerEcomm{
-    /* margin-bottom: 170px; */
+    height: 360px;
 }
 .bannerContainerEcomm .item .BgImg{
     height: 315px;
@@ -113,10 +113,14 @@
         height: 365px!important;
     }
     .bannerContainerEcomm{
-        margin-bottom: 30px;
+        margin-bottom: 10px;
+        height: 385px;
     }
     .swiperContainer{
         height: 400px!important;
+    }
+    .showDots{
+        margin-top: -30px !important;
     }
 
 }

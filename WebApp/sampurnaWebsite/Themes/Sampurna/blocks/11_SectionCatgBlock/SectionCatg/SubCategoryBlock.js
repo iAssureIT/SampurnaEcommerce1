@@ -69,7 +69,7 @@ class SubCategoryBlock extends Component {
             <div className="col-12">
               <div className="col-12 productcomponentheading text-center text-lg-left">
               <div className={ "col-12 " +Style.title4}>
-                    <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont1 } data-trans="#title">{this.props.blockTitle} <span className={"line " +Style.line}></span></h1>
+                    <h1 className={"col-12 title_inner4 lang_trans " +Style.titleFont1 } data-trans="#title">{this.props.blockTitle} <span className={"line " +Style.line}></span></h1>
                     <span className={"hide "+Style.span} id="title"></span>
 			        	</div>
               </div>
@@ -80,7 +80,7 @@ class SubCategoryBlock extends Component {
           <div className="col-12 rowPadding">
             { this.props.groupSettings.showCarousel === true?
               Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
-              <div className="col-12 ">
+              <div className="">
               <Carousel 
                 className=" sectionCarousel"
                 swipeable={false}
@@ -105,7 +105,7 @@ class SubCategoryBlock extends Component {
                       }
                     }
                     return (
-                    <div className="col-12 sectionCategoryBlock subCategoryBlock  "  key={index}> 
+                    <div className="col-12 sectionCategoryBlock subCategoryBlock d-flex justify-content-center "  key={index}> 
                         <a href={url} className ="text-decoration-none secCateblock1 categoryblock"> 
                           <div className="itemImg col-12 ">
                             <div className="text-decoration-none product photo product-item-photo collage" tabIndex="-1" href={url}>

@@ -1,14 +1,19 @@
-
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src        : url('../../../fonts/Montserrat-Regular.ttf');
+}
 .modal{
     z-index: 10000;
 }
-
+.headerWrapper header{
+    font-family: 'Montserrat-Regular';
+}
 .headerWrapper{
     margin: 0!important;
     padding: 0!important;
     box-sizing: border-box;
     height: 132px;
-    font-family:'Montserrat-Regular';
+    
 }
 .megamenuWrapper{
     margin: 0!important;
@@ -53,6 +58,14 @@
     transform: translate(-50% , -50%);
     color: #fff;   
 }
+.homeSearchIcon1{
+    position: absolute;
+    top: 50%;
+    left: 15px ;
+    font-size: 13px;
+    transform: translate(0 , -50%);
+    color: #000;   
+}
 .searchBarInput{
     background: #E8E8E8;
     padding: 0.375rem 2rem;;
@@ -69,7 +82,7 @@
 }
 .signInTitle{
     position: absolute;
-    font-size: 14px;
+    font-size: 17px;
     color: #000;
    /* font-weight: 600;*/
     display: inline-block;
@@ -162,10 +175,11 @@
     height: 22px;
     font-size: 12px;
     font-weight: 300;
-    width: 100%;
+    width: 96%;
     background-image: linear-gradient(to left, #cccccc, #d9d9d9, #e5e5e5, #f2f2f2, #ffffff);
     text-align: left;
     padding-left: 10px;
+    margin-left: 2%;
 }
 .changelocationBtn1:active{
     border: none;
@@ -174,6 +188,10 @@
     position: absolute;
     right: 5px;
 }
+.changeLocationIcon img{
+    height: 14px;
+}
+
 .changeLocationTitle{
     padding-left: 0px;
     margin-left: -5px;
@@ -385,7 +403,7 @@
             padding-left: 20px;
         }
         .changeLocationTitle{
-            font-size: 22px;
+            font-size: 23px;
             margin-left: 0px;
         }
         .changeLocationIcon{
@@ -460,6 +478,9 @@
         .userDetailsListTitle1{
             font-size: 25px;
         }
+        .changeLocationIcon img{
+            height: 25px;
+        }
 }
 @media (min-width: 1920px) and (max-width: 2559px) {
         .headerWrapper{
@@ -469,7 +490,7 @@
             height: 100px;
         }
         .logoImg{
-            height: 60px;
+            height: 62px;
         }
         .searchBarInput,.signInWrapper,.cartIcon{
             height: 50px;
@@ -513,12 +534,15 @@
             padding-left: 20px;
         }
         .changeLocationTitle{
-            font-size: 18px;
+            font-size: 19px;
             margin-left: 0px;
         }
         .changeLocationIcon{
             font-size: 19px;
-            right: 10px;
+            right: 7px;
+        }
+        .changeLocationIcon img{
+            height: 20px;
         }
         .signInIcon{
             right: 10px;
@@ -528,8 +552,8 @@
             height: 36px;
         }
         .signDivWrapper{
-            margin-top: 13px;
-            margin-left: 2px;
+            margin-top: 12px;
+            margin-left: 0px;
         }
         .wishListIcon{
             height: 45px;
@@ -544,11 +568,11 @@
             right: -15px;
         }
         .userName{
-            font-size: 14px;
+            font-size: 16px;
             width: 110px;
         }
         .myAccountTitle{
-            font-size: 17px;
+            font-size: 18px;
         }
         .cartCountWrapper{
             height: 23px;
@@ -643,7 +667,10 @@
         }
         .changeLocationIcon{
             font-size: 16px;
-            right: 10px;
+            right: 5px;
+        }
+        .changeLocationIcon img{
+            height: 18px;
         }
         .signInIcon{
             right: 10px;

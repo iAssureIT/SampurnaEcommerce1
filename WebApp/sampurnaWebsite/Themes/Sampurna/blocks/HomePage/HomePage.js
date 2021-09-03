@@ -211,70 +211,103 @@ class HomePage extends React.Component {
 			<div className="col-12">
 				<div className="row">
 					< Header />
-					
-					< Banner />
-
-					< SectionBlock 
-							groupSettings =	{this.state.SectionGroupSettings}
-							blockTitle    = {"All Sections"}	
-					/>
-
-					< DealsBlock 
-						dealSettings = { this.state.superMarketDealSettings}
-						blockTitle = {""}
-					/>
-					
-					<CategoryBlock 
-							groupSettings =	{this.state.supermarketGroupSettings}
-							blockTitle    = {"Supermarket"}
-					/>
-					
-					<div className="col-xl-12">
-						<ProductCarouselBlock 
-							blockSettings   = {this.state.supermarketBlockSettings} 
-							productSettings = {this.state.productSettings}
-							blockTitle      = {"Your Supermarket"}
-						/>
-					</div>
-					<div className={ Style.blockSixMargin } >
-						< DealsBlock 
-							dealSettings = { this.state.flowersDealSettings}
-							blockTitle = {""}
-						/>
+					<div className={"col-12 firstBlockHome"}>
+						<div className="row">
+							< Banner />
+						</div>
 					</div>
 
-					<SubCategoryBlock 
-							groupSettings =	{this.state.flowersGroupSettings}
-							blockTitle    = {"Types Of Flowers"}
-					/>
-					<div className={"col-xl-12 " + Style.blockEightMargin } >
-						<ProductCarouselBlock 
-							blockSettings   = {this.state.flowersBlockSettings} 
-							productSettings = {this.state.productSettings}
-							blockTitle      = {"Surprise Your Love One"}
-						/>
+					<div className={"col-12 " + Style.secondBlockHome}>
+						<div className="row">
+							< SectionBlock 
+									groupSettings =	{this.state.SectionGroupSettings}
+									blockTitle    = {"All Sections"}	
+							/>
+						</div>
 					</div>
-
-					<CategoryBlock 
-							groupSettings =	{this.state.saloonGroupSettings}
-							blockTitle    = {"Beauty Saloon At Your Door Step"}
-					/>
-
-					< DealsBlock 
-						dealSettings = { this.state.saloonDealSettings}
-						blockTitle = {""}
-					/>
-
-					<SubCategoryBlock 
-							groupSettings =	{this.state.subCategoryGroupSettings}
-							blockTitle    = {"Baby Products"}
-					/>
-					<div className={"col-xl-12 " + Style.marginBottomLastBlock}>
-						<ProductCarouselBlock 
-							blockSettings   = {this.state.babyBlockSettings} 
-							productSettings = {this.state.productSettings}
-							blockTitle      = {"Baby Care Products"}
-						/>
+					<div className={"col-12 " + Style.thirdBlockHome}>
+						<div className="row">
+							< DealsBlock 
+								dealSettings = { this.state.superMarketDealSettings}
+								blockTitle = {""}
+							/>
+						</div>
+					</div>
+					<div className={"col-12 " + Style.fourthBlockHome}>
+						<div className="row">
+							<CategoryBlock 
+									groupSettings =	{this.state.supermarketGroupSettings}
+									blockTitle    = {"Supermarket"}
+							/>
+						</div>
+					</div>
+					
+					<div className={"col-12 " + Style.fifthBlockHome}>
+						<div className="row">
+							<ProductCarouselBlock 
+								blockSettings   = {this.state.supermarketBlockSettings} 
+								productSettings = {this.state.productSettings}
+								blockTitle      = {"Your Supermarket"}
+							/>
+						</div>
+					</div>
+					<div className={"col-12 " + Style.sixthBlockHome } >
+						<div className="row">
+							< DealsBlock 
+								dealSettings = { this.state.flowersDealSettings}
+								blockTitle = {""}
+							/>
+						</div>
+					</div>
+					<div className={"col-12 seventhBlockHome" } >
+						<div className="row">
+							<SubCategoryBlock 
+									groupSettings =	{this.state.flowersGroupSettings}
+									blockTitle    = {"Types Of Flowers"}
+							/>
+						</div>
+					</div>
+					<div className={"col-xl-12 " + Style.eightBlockHome } >
+						<div className="row">
+							<ProductCarouselBlock 
+								blockSettings   = {this.state.flowersBlockSettings} 
+								productSettings = {this.state.productSettings}
+								blockTitle      = {"Surprise Your Love One"}
+							/>
+						</div>
+					</div>
+					<div className={"col-xl-12 " + Style.nineBlockHome } >
+						<div className="row">
+							<CategoryBlock 
+									groupSettings =	{this.state.saloonGroupSettings}
+									blockTitle    = {"Beauty Saloon At Your Door Step"}
+							/>
+						</div>
+					</div>
+					<div className={"col-xl-12 " + Style.tenBlockHome } >
+						<div className="row">
+							< DealsBlock 
+								dealSettings = { this.state.saloonDealSettings}
+								blockTitle = {""}
+							/>
+						</div>
+					</div>
+					<div className={"col-xl-12 " + Style.elevenBlockHome } >
+						<div className="row">
+							<SubCategoryBlock 
+									groupSettings =	{this.state.subCategoryGroupSettings}
+									blockTitle    = {"Baby Products"}
+							/>
+						</div>
+					</div>
+					<div className={"col-xl-12 " + Style.tewlveBlockHome}>
+						<div className="row">
+							<ProductCarouselBlock 
+								blockSettings   = {this.state.babyBlockSettings} 
+								productSettings = {this.state.productSettings}
+								blockTitle      = {"Baby Care Products"}
+							/>
+						</div>
 					</div>
 
 					< Footer />

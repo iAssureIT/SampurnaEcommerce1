@@ -54,7 +54,9 @@ export default class Footer extends Component {
             <div className="col-12 col-xl-8 col-lg-8 float-md-right float-left">
                 <div className="col-12 textEnd ">
                 <span className="footerNumberWrapper">
-                    <i className="fa fa-phone fIcon "></i>
+                    <span className="footerTopIcon">
+                        <img src= "/images/eCommerce/telephone.png" />
+                    </span>
                     <span className="phoneT">
                         Phone &nbsp;&nbsp;:&nbsp;&nbsp;
                     </span> 
@@ -63,7 +65,9 @@ export default class Footer extends Component {
                     </span> &nbsp;&nbsp;&nbsp;&nbsp;
                     </span> 
                     <span className="footerNumberWrapper">
-                        <i className="fas fa-envelope fIcon"></i>
+                        <span className="footerTopIcon">
+                            <img src= "/images/eCommerce/mail.png" />
+                        </span>
                         <span className="phoneT">
                             Mail Us &nbsp;&nbsp;:&nbsp;&nbsp; 
                         </span>
@@ -133,11 +137,11 @@ export default class Footer extends Component {
 
                 <div className={"col-12 col-sx-12 col-md-12 col-xl-6 col-lg-6 container " +S.wrapper1}>
                     <div className={"col-12 d-flex justify-content-center "+S.wrapper2}>
-                        <div className="socialMediaIcons"><Link href="https://www.instagram.com/knockknock_eshop/" passhref={true}><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
-                        <div className="socialMediaIcons"><Link href="https://www.facebook.com/Knock-Knock-103575731986682" passhref={true}><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>                        
-                        <div className="socialMediaIcons"><Link href="https://www.youtube.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
-                        <div className="socialMediaIcons"><Link href="https://www.linkedin.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
-                        <div className="socialMediaIcons"><Link href="https://twitter.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                    
+                        <div className="socialMediaIcons"><Link href="https://www.instagram.com/knockknock_eshop/" passhref={true}><a  target="_blank"><img src= "/images/eCommerce/footerIcon1.png" /></a></Link></div>                
+                        <div className="socialMediaIcons"><Link href="https://www.facebook.com/Knock-Knock-103575731986682" passhref={true}><a  target="_blank"><img src= "/images/eCommerce/footerIcon2.png" /></a></Link></div>                        
+                        <div className="socialMediaIcons"><Link href="https://www.youtube.com/knockknockeshop" passhref={true}><a  target="_blank"><img src= "/images/eCommerce/footerIcon3.png" /></a></Link></div>                                               
+                        <div className="socialMediaIcons"><Link href="https://www.linkedin.com/knockknockeshop" passhref={true}><a  target="_blank"><img src= "/images/eCommerce/footerIcon4.png" /></a></Link></div>
+                        <div className="socialMediaIcons"><Link href="https://twitter.com/knockknockeshop" passhref={true}><a  target="_blank"><img src= "/images/eCommerce/footerIcon5.png" /></a></Link></div>                    
                     </div>
                     <div className={"col-12 d-flex justify-content-center "+S.wrapper3}>
                             <div className={"text-center " +S.aboutClass}><Link href="/about-us" passhref={true}><a ><span>&nbsp;About Us</span></a></Link></div>

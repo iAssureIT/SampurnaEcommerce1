@@ -7,9 +7,12 @@
   font-family: 'Montserrat-Regular';
   src        : url('../../../fonts/Montserrat-Regular.ttf');
 }
+.categoryBlockWrapper{
+    margin-top: 35px;
+}
 .secssionMargin{
-  margin-top: 20px;
-  margin-bottom: 0px;
+  /*margin-top: 20px;
+  margin-bottom: -15px;*/
 }
 .carouselNewWrapper{
   /*padding: 14px !important;*/
@@ -203,6 +206,8 @@
   white-space        : nowrap;
   margin-top         : 0px;
   text-align         : center !important;
+  padding-top        : 7px;
+  top                : -7px;
 }
 
 .labelCategory {
@@ -259,7 +264,7 @@
 }
 
 .ImgWrapper {
-  height    : 160px;
+  height    : 175px;
   margin-top: 20px;
 }
 
@@ -484,7 +489,8 @@
   border       : 1px solid #ddd;
   margin-top   : 5px;
   margin-bottom: 5px;
-  height       : 248px;
+  width: 200px;
+  height: 260px;
   border-radius: 15px;
 }
 
@@ -878,18 +884,18 @@
 
 .titleFont {
   font-size    : 18px !important;
-  margin-top   : 40px !important;
-  margin-bottom: 60px !important;
   text-align   : center !important;
+  margin-bottom: 30px;
   font-family: 'Montserrat-ExtraBold';
+  text-align: left!important;
 }
 
 .titleFont1 {
   font-size    : 18px !important;
-  margin-top   : 40px !important;
-  margin-bottom: 22px !important;
   text-align   : center !important;
+  margin-bottom: 40px;
   font-family: 'Montserrat-ExtraBold';
+  text-align: left!important;
 }
 
 .f14 {
@@ -963,9 +969,7 @@
   }
   .vendorNameWrapper{
     font-size: 12px;
-  }
-  .vendorNameWrapper{
-    padding-left: 15px;
+     padding-left: 15px;
   }
   .chaneVendorBtn{
     padding-right: 15px;
@@ -1037,14 +1041,12 @@
     /*margin          :0 auto;*/
     /*margin-bottom   : 45px;*/
     bottom            : 0;
-    top               : 30;
+    top               : 32px;
 
   }
 
   .titleFont {
     font-size       : 36px !important;
-    margin-top      : 30px !important;
-    margin-bottom   : 40px !important;
     text-align      : left !important;
     /* overflow     : hidden!important; */
     color           : #000 !important;
@@ -1052,8 +1054,6 @@
 
   .titleFont1 {
     font-size       : 36px !important;
-    margin-top      : 30px !important;
-    margin-bottom   : 22px !important;
     text-align      : left !important;
     /* overflow     : hidden!important; */
     color           : #000 !important;
@@ -1110,10 +1110,31 @@
     font-size: 14px;
     padding-left: 55px;
   }
+  .titleFont1,.titleFont{
+    font-size: 50px!important;
+  }
+  .line{
+        width: 100%;
+      background-color: #000;
+          top: 45px;
+  }
+  .categoryblock .itemImg img {
+      width: 260px;
+      height: 240px;
+  }
+  .productCaroselBlock{
+    width: 165px;
+    height: 229px;
+  }
+  .ImgWrapper{
+      height: 145px;
+      margin-top: 20px;
+  }
+
 }
 
 
-@media (min-width: 1680px) and (max-width: 1920px) {  
+@media (min-width: 1680px) and (max-width: 1919px) {  
   .categoryFilterTitle{
     font-size: 22px;
   }
@@ -1151,6 +1172,26 @@
     font-size: 16px;
     padding-left: 55px;
   }
+  .titleFont1,.titleFont{
+    font-size: 55px!important;
+  }
+  .line{
+        width: 100%;
+      background-color: #000;
+          top: 50px;
+  }
+  .categoryblock .itemImg img {
+      width: 280px;
+      height: 260px;
+  }
+  .productCaroselBlock{
+    width: 185px;
+    height: 249px;
+  }
+  .ImgWrapper{
+      height: 155px;
+      margin-top: 30px;
+  }
 }
 
 
@@ -1182,10 +1223,10 @@
     background-color: #eee;
   }
   .ellipsis {
-    font-size: 20px;
+    font-size: 16px;
   }
   .price{
-    font-size: 16px;
+    font-size: 11px;
   }
   .vendorNameWrapper{
     font-size: 18px;
@@ -1213,7 +1254,28 @@
   }
   .line{
         width: 100%;
-    background-color: #000;
+      background-color: #000;
+  }
+  .productCaroselBlock{
+    width: 205px;
+    height: 269px;
+  }
+  .NoAvailableImg{
+    top: 0px;
+    width: 100%;
+  }
+  .ImgWrapper{
+    height: 165px;
+    margin-top: 40px;
+  }
+  .titleFont1{
+    margin-bottom: 60px;
+  }
+  .titleFont{
+    margin-bottom: 60px;
+  }
+  .line{
+    top: 55px;
   }
   /*.categoryBlockWrapper .item_Name{
     font-size: 18px;

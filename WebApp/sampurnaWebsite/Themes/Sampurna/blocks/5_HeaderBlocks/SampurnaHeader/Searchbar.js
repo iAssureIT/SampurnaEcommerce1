@@ -155,6 +155,7 @@ class Searchbar extends React.Component {
                 <div className="row">     
                     <div className="col-12">  
                         <div className="row"> 
+                            <i className={"fas fa-search "+ Style.homeSearchIcon1}></i>
                             <input type="text" placeholder="Search the items" id="browsers"
                             list="datalist"
                             onKeyPress={this.searchProducts.bind(this)} 

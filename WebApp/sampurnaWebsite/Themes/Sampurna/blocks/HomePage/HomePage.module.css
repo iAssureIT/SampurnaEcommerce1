@@ -1,10 +1,53 @@
-.marginBottomLastBlock{
+.thirdBlockHome{
+	margin-top: 10px;
+}
+.fourthBlockHome{
+	margin-top: 30px;
+}
+.fifthBlockHome{
+	margin-top: 20px;
+}
+.sixthBlockHome{
+	margin-top: 40px;
+	margin-bottom: 35px;
+}
+.eightBlockHome{
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+.tenBlockHome{
+	margin-top: 30px;
+	margin-bottom: 35px;
+}
+.tewlveBlockHome{
+	margin-top: 25px;
 	margin-bottom: 40px;
-	margin-top: 10px;
 }
-.blockEightMargin{
-	margin-top: 10px;
-}
-.blockSixMargin{
-	margin-top: 10px;
+@media (min-width: 1920px)  {
+	.secondBlockHome{
+		margin-top: 50px;
+	}
+	.thirdBlockHome{
+		margin-bottom: 30px;
+	}
+	.fifthBlockHome{
+		margin-top: 30px;
+	}
+	.sixthBlockHome{
+	    margin-bottom: 60px;
+	  }
+	.eightBlockHome{
+		margin-top: 30px;
+	}
+	.nineBlockHome{
+		margin-top: 30px;
+	}
+	.tenBlockHome{
+		margin-bottom: 60px;
+	}
+	.tewlveBlockHome{
+		margin-top: 50px;
+		margin-bottom: 60px;
+	}
+	
 }

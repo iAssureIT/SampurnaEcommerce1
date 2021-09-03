@@ -27,8 +27,14 @@ const sortOptions = [
 ];
 
 const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 3000, min: 1920 },
+    items: 6,
+    slidesToSlide: 1
+  },
   desktop: {
-    breakpoint: { max: 2000, min: 1024 },
+    breakpoint: { max: 1910, min: 1024 },
     items: 5,
     slidesToSlide: 1 // optional, default to 1.
   },
@@ -534,7 +540,7 @@ submitCart(event) {
               <div className={"col-12 " +Style.productcomponentheading +" " +Style.textCenter}>                
                 <div className={ "col-12 " +Style.title4}>
                   <div className="">
-                    <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont } data-trans="#blog_1554730795823_title">{this.state.blockTitle} 
+                    <h1 className={"col-12 title_inner4 lang_trans " +Style.titleFont } data-trans="#blog_1554730795823_title">{this.state.blockTitle} 
                       <span className={"line " +Style.line}></span>
                     </h1>
                     <span className={"hide "+Style.span} id="blog_1554730795823_title"></span>
@@ -548,7 +554,7 @@ submitCart(event) {
           } 
 
         <div className={"col-12  "}>
-          <div className={"col-12  "}>
+          <div className={""}>
             {this.state.newProducts && this.state.newProducts.length > 0 ?
               <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
                 <div className={"col-12 mt-50 mb-50 " +Style.carouselWraper}>
@@ -556,7 +562,7 @@ submitCart(event) {
                     {this.state.ProductsLoading === false ?                     
                       <Loader type="carouselloader" productproductWrapperLoaderNo = {4}/>                    
                     :
-                    <div className={"col-12 " +Style.rowPadding}>               
+                    <div className={"" +Style.rowPadding}>               
                     { this.props.blockSettings.showCarousel === true
                       ?
                     <Carousel  
@@ -593,10 +599,11 @@ submitCart(event) {
                               var categoryUrl    = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;  
                               var subCategoryUrl = data.subCategory?(data.subCategory).replace(/\s+/g, '-').toLowerCase():null;                   
                             return (
-                                <div key={index} className={"col-12 " }>                          
-                                <div className={"col-12 NoPadding " +Style.productCaroselBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
-                                  <div className={"col-12 NoPadding"}>
-                                    <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
+                                <div key={index} className={"col-12 d-flex justify-content-center " }>                          
+                                <div className={"col-12  d-flex justify-content-center" }>                                 
+                                <div className={"col-12  d-flex justify-content-center" }>                                 
+                                  <div className={Style.productCaroselBlock +" " +Style.productInnerWrap}>
+                                    <div className={"col-12  " +Style.productImg}>
                                       
                                       {/* <div className={"col-lg-12 NoPadding " +Style.wishlistBtn}>
                                         {this.props.productSettings.displayWishlist === true?
@@ -721,6 +728,7 @@ submitCart(event) {
                                       </div>
                                     </div>
                                   </div>
+                                </div>
                                 </div>
                             </div>                            
                             );

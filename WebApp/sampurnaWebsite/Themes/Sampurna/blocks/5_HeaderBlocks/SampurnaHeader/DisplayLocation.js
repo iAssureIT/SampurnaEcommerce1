@@ -98,7 +98,7 @@ class DisplayLocation extends React.Component{
 															Change Location 
 														</span>
 														<span className={Style.changeLocationIcon}>
-															<i className="fas fa-map-marker-alt" aria-hidden="true"></i>
+															<img src= "/images/eCommerce/locationHome.svg" />
 														</span>
 													</button>
 												</div>

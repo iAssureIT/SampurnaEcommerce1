@@ -531,7 +531,10 @@ class ProductViewEcommerce extends Component{
 						<div className={"row " +Style.vendorBar}>
 							<div className={"col-8 col-sm-9 col-lg-9 col-xl-9 "+Style.vendorNameWrapper}> 
 								<div className={"col-12 mobileNoPadding"}>
-									<b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
+									<span className={Style.venderName}>Vendor - </span>
+                  <span className={Style.venderName2}>
+                     {this.state.vendorData? this.state.vendorData.companyName:null}
+                  </span>
 								</div>
 							</div>
 							<div className={"col-4 col-lg-3 col-sm-3 col-xl-3 text-right "+Style.chaneVendorBtn }>

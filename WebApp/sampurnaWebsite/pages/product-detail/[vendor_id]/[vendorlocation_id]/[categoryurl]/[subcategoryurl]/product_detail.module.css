@@ -54,6 +54,14 @@
 .vendorNameWrapper b {
 	/* margin-left: 58px; */
 }
+.vendorNameWrapper{
+    font-size: 12px;
+     padding-left: 45px;
+  }
+  .chaneVendorBtn{
+    font-size: 12px;
+    padding-right: 60px;
+  }
 .venderName{
 	font-family   : 'Montserrat-Regular'
 }
@@ -66,6 +74,7 @@
 
 .chaneVendorBtn a {
 	text-decoration: underline;
+	    font-family: 'Montserrat-Regular';
 	/* margin-left : 74.9%; */
 	color          : #033554 !important;
 }
@@ -272,6 +281,7 @@
 	font-size    : 22px;
 	color        : #000;
 	margin-bottom: 5px;
+	font-family: 'Montserrat-Regular';
 }
 
 .productDetailsInfo {
@@ -520,6 +530,16 @@
 @media (min-width: 1900px) {
 	.cartBTN {
 		margin-left: -60px;
+	}
+	.vendorNameWrapper {
+    font-size: 18px;
+	    padding-left: 55px;
+	}
+	.chaneVendorBtn a {
+	    font-size: 18px;
+	}
+	.chaneVendorBtn {
+	    padding-right: 95px;
 	}
 }
 

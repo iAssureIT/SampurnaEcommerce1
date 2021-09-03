@@ -79,7 +79,7 @@ class SubCategory extends Component {
                       }
                     }
                     return (
-                    <div className="col-12 sectionCategoryBlock subCategoryBlock  "  key={index}> 
+                    <div className="col-12 sectionCategoryBlock subCategoryBlock d-flex justify-content-center "  key={index}> 
                         <a href={url} className ="text-decoration-none secCateblock1 categoryblock"> 
                           <div className="itemImg col-12 ">
                             <div className="text-decoration-none product photo product-item-photo collage" tabIndex="-1" href={url}>

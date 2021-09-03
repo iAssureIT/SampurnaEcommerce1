@@ -2,6 +2,11 @@
   font-family:'Montserrat-Regular';
   src: url('../../../fonts/Montserrat-Regular.ttf');
 }
+.footerTopIcon img{
+  height: 14px;
+  margin-right: 10px;
+}
+
 .footer {
   text-align: center;
 }
@@ -465,10 +470,9 @@
   transition: 0.3s ease;
 }
 
-.socialMediaIcons .fab{
+.socialMediaIcons img{
   border-radius: 100%;
   border:var(--border2px) !important;
-  padding-top: 7px;
   float: left;
   color: var(--color);
   margin-top: 20px;
@@ -476,14 +480,13 @@
   width: 28px;
   text-align: center;
   margin-left: 15px;
-  background-color: #ffffff;  
   /*background-color: transparent;*/
   transition: 0.6s ease;
 }
-.socialMediaIcons .fab:hover{
+/*.socialMediaIcons img:hover{
   background-color: var(--color);
   color: #fff;
-}
+}*/
 .socialMediaIcons{
   text-align: right;
 }
@@ -565,7 +568,7 @@
 /* .BookStore_logo a{
   float: right ! important;
 }*/
-@media (min-width: 1920px) and (max-width: 2559px) {
+@media (min-width: 1920px){
   .phoneT{
     font-size: 19px!important;
   }
@@ -578,11 +581,13 @@
   .categortTitle span {
     font-size: 16px!important;
   }
-  .socialMediaIcons .fab{
-    height: 32px;
-    width: 32px;
-
-    
+  .socialMediaIcons img{
+    height: 28px;
+    width: 27px;  
+  }
+  .footerTopIcon img{
+      height: 21px;
+      margin-top: -3px;
   }
 
 }

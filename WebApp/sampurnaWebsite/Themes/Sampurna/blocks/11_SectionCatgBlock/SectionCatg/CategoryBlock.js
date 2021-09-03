@@ -75,12 +75,12 @@ class CategoryBlock extends Component {
     };
     
     return (
-      <div className={"col-12 " + Style.categoryBlockWrapper}>
+      <div className={"col-12 "}>
           {this.props.groupSettings.showTitle?
             <div className="col-12">
               <div className="col-12 productcomponentheading text-center text-lg-left">
               <div className={ "col-12 " +Style.title4}>
-                    <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont1 } data-trans="#blog_1554730795823_title">{this.props.blockTitle} <span className={"line " +Style.line}></span></h1>
+                    <h1 className={"col-12 title_inner4 lang_trans " +Style.titleFont1 } data-trans="#blog_1554730795823_title">{this.props.blockTitle} <span className={"line " +Style.line}></span></h1>
                     <span className={"hide "+Style.span} id="blog_1554730795823_title"></span>
 			        	</div>
               </div>
@@ -88,10 +88,10 @@ class CategoryBlock extends Component {
           :
             null
           }   
-          <div className="col-12 rowPadding ">
+          <div className={"col-12 rowPadding " + Style.categoryBlockWrapper}>
             { this.props.groupSettings.showCarousel === true?
               this.state.itemList && this.state.itemList.length > 0 ?
-              <div className="col-12 ">             
+              <div className="">             
               <Carousel 
                 className=" sectionCarousel"
                 swipeable={false}
@@ -116,7 +116,7 @@ class CategoryBlock extends Component {
                       }
                     }
                     return (
-                    <div className="col-12 sectionCategoryBlock  "  key={index}> 
+                    <div className="col-12 sectionCategoryBlock d-flex justify-content-center "  key={index}> 
                         <a href={url} className ="text-decoration-none secCateblock1 categoryblock"> 
                           <div className="itemImg col-12 ">
                             <div className="text-decoration-none product photo product-item-photo collage" tabIndex="-1" href={url}>
