@@ -173,6 +173,7 @@ const window = Dimensions.get('window');
     });
     
   const FormBody = (props) => {
+    console.log("props",props);
     const {
       handleChange,
       handleSubmit,
@@ -183,7 +184,8 @@ const window = Dimensions.get('window');
       setLoading,
       navigation,
       dispatch,
-      values
+      values,
+      resetForm
     } = props;
     const [openModal, setModal] = useState(false);
     const [showPassword, togglePassword] = useState(false);
@@ -197,6 +199,7 @@ const window = Dimensions.get('window');
 
   const google_login = async () => {
       try {
+        resetForm(values);
         setLoading(true);
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
@@ -273,6 +276,7 @@ const window = Dimensions.get('window');
     };
 
     const loginWithFacebook = () => {
+      resetForm(values);
       // setLoading(true);
       // Attempt a login using the Facebook login dialog asking for default permissions.
       LoginManager.logInWithPermissions(['public_profile']).then(
@@ -583,6 +587,7 @@ const window = Dimensions.get('window');
           animationType="slide"
           transparent={true}
           visible={btnLoading}
+          animationInTiming={1} animationOutTiming={1}
         >
         <View 
           style={{

@@ -161,7 +161,8 @@ export const Tab2 = () => (
     style: {
       height: 0,
       margin:0,
-      padding:0
+      padding:0,
+      position:'absolute'
    }
   }}
   >

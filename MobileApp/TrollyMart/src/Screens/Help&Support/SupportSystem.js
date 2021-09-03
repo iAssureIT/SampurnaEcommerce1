@@ -12,12 +12,12 @@ import {
   Linking,
   KeyboardAvoidingView
 } from 'react-native';
-import {Footer}                   from '../../ScreenComponents/Footer/Footer.js';
+import {Footer}                 from '../../ScreenComponents/Footer/Footer.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import Axios                    from 'axios';
-import { colors }   from '../../AppDesigns/currentApp/styles/styles.js';
+import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
-import PhoneInput           from "react-native-phone-number-input";
+import PhoneInput               from "react-native-phone-number-input";
 import {emailValidator,specialCharacterValidator,mobileValidator}     from '../../config/validators.js';
 import {Formik}             from 'formik';
 import {FormPhoneInput}          from '../../ScreenComponents/PhoneInput/PhoneInput';
@@ -26,9 +26,9 @@ import {FormInput}          from '../../ScreenComponents/FormInput/FormInput';
 import * as Yup             from 'yup';
 import {setToast, withCustomerToaster} from '../../redux/AppState.js';
 import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import { Dimensions } from 'react-native';
-import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
-import { useSelector }        from 'react-redux';
+import { Dimensions }           from 'react-native';
+import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { useSelector }          from 'react-redux';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import { Icon }                 from "react-native-elements";
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
@@ -57,6 +57,8 @@ export const SupportSystem = withCustomerToaster((props)=>{
     const [companyEmail,setCompanyEmail]    = useState('');
     const [companyPhone,setCompanyPhone]    = useState('');
     const [website_url,setWebsiteURL]       = useState('');
+    const phoneInput = useRef(null);
+
 
     useEffect(() => {
         AsyncStorage.multiGet(['token', 'user_id'])
@@ -150,6 +152,7 @@ export const SupportSystem = withCustomerToaster((props)=>{
                 companyPhone={companyPhone}
                 companyEmail={companyEmail}
                 website_url={website_url}
+                phoneInput={phoneInput}
                 {...formProps}
               />
             )}
@@ -174,9 +177,11 @@ const FormBody = (props) => {
         companyEmail,
         companyPhone,
         website_url,
-        values
+        values,
+        phoneInput
     } = props;
-    const phoneInput = useRef(null);
+    console.log("values",values);
+    console.log("phoneInput",phoneInput.current);
     const [value, setValue] = useState("");
     const [valid, setValid] = useState(false);
     const store = useSelector(store => ({
@@ -244,6 +249,7 @@ const FormBody = (props) => {
                             defaultValue={value}
                             defaultCode="AE"
                             value           = {values.mobile_no}
+                            defaultValue    = {values.mobile_no}
                             layout="second"
                             onChangeText={(text) => {
                             const checkValid = phoneInput.current?.isValidNumber(text);
@@ -255,6 +261,7 @@ const FormBody = (props) => {
                             setFieldValue('countryCode',countryCode)
                             setValid(checkValid);
                             }}
+                            clearButtonMode='always'
                             containerStyle= {styles1.containerStyle}
                             textContainerStyle={styles1.textContainerStyle}
                             textInputStyle={styles1.textInputStyle}

@@ -6,14 +6,10 @@ import {
   View,ge,
 } from 'react-native';
 import {Icon,Image}                  from "react-native-elements";
-import {HeaderBar3}               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}                   from '../../ScreenComponents/Footer/Footer.js';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {Linking}                from 'react-native'
-import Axios                    from 'axios';
 import { colors,website_url }   from '../../AppDesigns/currentApp/styles/styles.js';
-import AsyncStorage             from '@react-native-async-storage/async-storage';
 import HTML from 'react-native-render-html';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { useSelector }        from 'react-redux';

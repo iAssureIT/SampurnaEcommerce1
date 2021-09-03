@@ -57,6 +57,7 @@ export const CartComponent = withCustomerToaster((props)=>{
   const {globalSearch,location,userDetails,isConnected}=store;
   const {currency}=store.preferences;
   
+  console.log("userDetails",userDetails)
 
 
   const minusIcon = (isDisabled) => {
@@ -250,6 +251,13 @@ const getshippingamount=(startRange, limitRange)=>{
 
   if(cartData && cartData.vendorOrders && cartData.vendorOrders.length>0){
   var disabled = cartData.vendorOrders.every(el => el.vendor_afterDiscountTotal >= cartData.minOrderAmount);
+  }
+
+  const navigateTo=()=>{
+    userDetails.authService ==="guest" ?
+    navigation.navigate('AddressComponent',{"delivery":true})
+     :
+     navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true,"back":false})
   }
 
 
@@ -521,7 +529,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                       <View style={[styles.flxdata,{paddingVertical:5}]}>
                         <View style={{ flex: 0.5 }}>
-                          <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:RFPercentage(2.6)}}>Totals</Text>
+                          <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:RFPercentage(2.6)}}>Total</Text>
                         </View>
                         <View style={{ flex: 0.2 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -718,7 +726,7 @@ const getshippingamount=(startRange, limitRange)=>{
          </View>
          <TouchableOpacity style={{flex:0.5,height:hp(8.5),backgroundColor:!disabled?"#5F6C74":colors.cartButton,justifyContent:'center',alignItems:'center'}}
             disabled       = {!disabled}
-            onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true,"back":false})}
+            onPress        = {() => navigateTo() }
          >
           <Text style={{fontSize:RFPercentage(2.6),fontFamily:"Montserrat-Medium",color: "#eee"}} disabled = {!disabled}  onPress= {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true,"back":false})}>Checkout</Text>
          </TouchableOpacity>

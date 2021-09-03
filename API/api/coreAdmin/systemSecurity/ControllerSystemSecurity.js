@@ -194,7 +194,7 @@ exports.user_signup_user = (req, res, next) => {
 								.then(user => {
 									if (user.length > 0) {
 										return res.status(200).json({
-											message: 'Mobile number already exits.'
+											message: 'Mobile number already exists.'
 										});
 									} else {
 										bcrypt.hash(req.body.pwd, 10, (err, hash) => {
@@ -302,7 +302,7 @@ exports.user_signup_user = (req, res, next) => {
 									});
 								});
 						} else {
-							res.status(200).json({ message: "Role does not exits" });
+							res.status(200).json({ message: "Role does not exists" });
 						}
 					})
 					.catch(err => {
@@ -373,7 +373,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 								.then(user => {
 									if (user.length > 0) {
 										return res.status(200).json({
-											message: 'Email Id already exits.'
+											message: 'Email Id already exists.'
 										});
 									} else {
 										bcrypt.hash(req.body.pwd, 10, (err, hash) => {
@@ -509,7 +509,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 									});
 								});
 						} else {
-							res.status(200).json({ message: "Role does not exits" });
+							res.status(200).json({ message: "Role does not exists" });
 						}
 					})
 					.catch(err => {
@@ -538,7 +538,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 								.then(user => {
 									if (user.length > 0) {
 										return res.status(200).json({
-											message: 'Mobile number already exits.'
+											message: 'Mobile number already exists.'
 										});
 									} else {
 										bcrypt.hash(req.body.pwd, 10, (err, hash) => {
@@ -653,7 +653,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 									});
 								});
 						} else {
-							res.status(200).json({ message: "Role does not exits" });
+							res.status(200).json({ message: "Role does not exists" });
 						}
 					})
 					.catch(err => {
@@ -2540,7 +2540,7 @@ exports.user_signup_social_media = (req, res, next) => {
 									});
 								});
 						} else {
-							res.status(200).json({ message: "Role does not exits" });
+							res.status(200).json({ message: "Role does not exists" });
 						}
 					})
 					.catch(err => {
@@ -2705,7 +2705,7 @@ exports.user_signup_guest_login = (req, res, next) => {
 									});
 								});
 						} else {
-							res.status(200).json({ message: "Role does not exits" });
+							res.status(200).json({ message: "Role does not exists" });
 						}
 					})
 					.catch(err => {

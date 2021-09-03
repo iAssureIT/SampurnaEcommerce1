@@ -105,7 +105,7 @@ export default StyleSheet.create({
   acdashsuperparent:{
     flex:1,
     backgroundColor:'#fff',
-    padding:20
+    padding:wp(5),
   },
   button:{
     marginRight:10,

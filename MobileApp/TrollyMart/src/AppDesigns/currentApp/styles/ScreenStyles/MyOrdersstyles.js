@@ -754,7 +754,7 @@ export default StyleSheet.create({
   },
   linkText:{
     alignSelf:'flex-end',
-    fontSize:RFPercentage(1.8),
+    fontSize:RFPercentage(1.6),
     textDecorationLine:'underline',
     fontFamily:"Montserrat-Regular",
     color: "#033554"
