@@ -187,23 +187,23 @@ export const PaymentMethod = withCustomerToaster((props)=>{
             //     })
             // }
               // =================== Notification OTP ==================
-              var sendData = {
-                "event": "3",
-                "toUser_id": user_ID,
-                "toUserRole": "user",
-                "variables": {
-                  "Username": res.data.userFullName,
-                  "amount": res.data.total,
-                  "orderid": res.data.orderID,
-                  "shippingtime": res.data.shippingtime,
-                }
-              }
-              console.log('sendDataToUser==>', sendData)
-              axios.post('/api/masternotifications/post/sendNotification', sendData)
-                .then((res) => {
+              // var sendData = {
+              //   "event": "3",
+              //   "toUser_id": userID,
+              //   "toUserRole": "user",
+              //   "variables": {
+              //     "Username": res.data.userFullName,
+              //     "amount": res.data.total,
+              //     "orderid": res.data.orderID,
+              //     "shippingtime": res.data.shippingtime,
+              //   }
+              // }
+              // console.log('sendDataToUser==>', sendData)
+              // axios.post('/api/masternotifications/post/sendNotification', sendData)
+                // .then((res) => {
                   // console.log('sendDataToUser in result==>>>', res.data)
-                })
-                .catch((error) => { console.log('notification error: ', error) })
+                // })
+                // .catch((error) => { console.log('notification error: ', error) })
               // =================== Notification ==================
             })
       })

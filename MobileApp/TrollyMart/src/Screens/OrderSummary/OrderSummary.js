@@ -191,9 +191,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
           setToast({text: res.data.message, color:res.data.message === "Coupon Applied Successfully!" ? 'green':colors.warning});
           setCartData(res.data.data);
           setCouponCode('');
-          if(res.data.message === "Coupon Applied Successfully!"){
-            setCouponModal(false);
-          }
+          setCouponModal(false);
       })
       .catch(err=>{
         setCouponCode('');
@@ -498,7 +496,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                         data                = {getTimes}
                         value               = {shippingTiming}
                         containerStyle      = {styles.ddContainer}
-                        dropdownOffset      = {{ top: 73, left: 0 }}
+                        dropdownOffset      = {{ top: 75, left: 20 }}
                         itemTextStyle       = {styles.ddItemText}
                         inputContainerStyle = {styles.ddInputContainer}
                         labelHeight         = {RFPercentage(1.5)}
@@ -509,6 +507,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                         textColor           = {'#333'}
                         labelTextStyle      = {{ left: 5 }}
                         style               = {styles.ddStyle}
+                        pickerStyle         = {{width:wp(42)}}
                         disabledLineType    = 'none'
                         underlineColor      ='transparent'
                       />

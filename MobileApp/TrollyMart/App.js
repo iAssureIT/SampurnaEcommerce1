@@ -30,9 +30,6 @@ const App = (props) => {
   const dispatch = useDispatch();
 
 
-
-
-
   useEffect(() => {
     // enableScreens(false);
     LogBox.ignoreAllLogs();

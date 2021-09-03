@@ -95,7 +95,18 @@ class MyAccount extends Component{
     }
   
     getOrderId(orderId){
-        this.setState({order_id:orderId})
+        this.setState({
+                        order_id:orderId
+                      }, 
+                      ()=>{console.log("this.state.order_id => ",this.state.order_id);} 
+                    );
+        $(".nav-link").removeClass("active");$("#v-pills-settings-tab").addClass("active");
+        $("#v-pills-settings2").css("display", "block"); $("#v-pills-settings2").addClass("active");
+        $("#v-pills-settings3").css("display", "none");
+        $("#v-pills-home").css("display", "none"); 
+        $("#v-pills-settings").css("display", "none"); 
+        $("#v-pills-settings1").css("display", "none");
+        $("#v-pills-messages").css("display", "none");
     }
     
     render(){
@@ -135,12 +146,13 @@ class MyAccount extends Component{
                                                              } id="v-pills-profile-tab" 
                                                     data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" 
                                                     aria-selected="false" onClick={()=>{ $("#v-pills-profile").addClass("active");
-                                                                                         $("#v-pills-home").css("display", "block");$("#v-pills-home").addClass("active");
+                                                                                         $("#v-pills-home").css("display", "block");
+                                                                                         $("#v-pills-home").removeClass("fade");$("#v-pills-home").addClass("active");
                                                                                          $("#v-pills-settings").css("display", "none"); 
-                                                                                         $("#v-pills-settings3").css("display", "none");
                                                                                          $("#v-pills-settings1").css("display", "none");
+                                                                                         $("#v-pills-settings2").css("display", "none"); $("#v-pills-settings2").removeClass("active");
+                                                                                         $("#v-pills-settings3").css("display", "none");
                                                                                          $("#v-pills-messages").css("display", "none");
-                                                                                         console.log("v-pills-home => ",$("#v-pills-home"));
                                                                                        }}>
                                                     <i className={"fa fa-info-circle mr-3" + S.sideBarTabNameAllignment}></i>
                                                     <span className={S.sideBarTabNames}>My Profile</span>
@@ -152,10 +164,11 @@ class MyAccount extends Component{
                                             data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" 
                                             onClick={()=>{ $(".nav-link").removeClass("active");$("#v-pills-messages-tab").addClass("active");
                                                            $("#v-pills-messages").css("display", "block");
-                                                           $("#v-pills-settings").css("display", "none");
+                                                           $("#v-pills-settings").css("display", "none"); 
+                                                           $("#v-pills-settings1").css("display", "none");
+                                                           $("#v-pills-settings2").css("display", "none"); $("#v-pills-settings2").removeClass("active");
                                                            $("#v-pills-settings3").css("display", "none");
                                                            $("#v-pills-home").css("display", "none"); 
-                                                           $("#v-pills-settings1").css("display", "none")
                                                         }}>
                                             <i className={"fas fa-map-marker-alt mr-3 " + S.sideBarTabNameAllignment}></i>
                                             <span className={S.sideBarTabNames}>My Addresses</span>
@@ -169,10 +182,11 @@ class MyAccount extends Component{
                                                      } id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" 
                                                      onClick={()=>{$(".nav-link").removeClass("active");$("#v-pills-settings-tab").addClass("active");
                                                                    $("#v-pills-settings").css("display", "block");
-                                                                   $("#v-pills-settings3").css("display", "none");
                                                                    $("#v-pills-home").css("display", "none"); 
-                                                                   $("#v-pills-settings1").css("display", "none")
                                                                    $("#v-pills-messages").css("display", "none");
+                                                                   $("#v-pills-settings1").css("display", "none");
+                                                                   $("#v-pills-settings2").css("display", "none"); $("#v-pills-settings2").removeClass("active");
+                                                                   $("#v-pills-settings3").css("display", "none");
                                                                 }}>
                                             <i className={"fa fa-shopping-cart mr-3 " + S.sideBarTabNameAllignment}></i>
                                             <span className={S.sideBarTabNames}> My Orders</span>
@@ -185,10 +199,11 @@ class MyAccount extends Component{
                                                         "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3"
                                                      } id="v-pills-settings1-tab" data-toggle="pill" href="#v-pills-settings1" role="tab" aria-controls="v-pills-settings1" aria-selected="false" 
                                                      onClick={()=>{ $(".nav-link").removeClass("active");$("#v-pills-settings1-tab").addClass("active");
-                                                                    $("#v-pills-settings").css("display", "none");
-                                                                    $("#v-pills-settings3").css("display", "none"); 
                                                                     $("#v-pills-home").css("display", "none");
+                                                                    $("#v-pills-settings").css("display", "none"); 
                                                                     $("#v-pills-settings1").css("display", "block");
+                                                                    $("#v-pills-settings2").css("display", "none"); $("#v-pills-settings2").removeClass("active");
+                                                                    $("#v-pills-settings3").css("display", "none");
                                                                     $("#v-pills-messages").css("display", "none");
                                                              }}>
                                             <i className={"fa fa-heart mr-3 " + S.sideBarTabNameAllignment}></i>
@@ -202,10 +217,11 @@ class MyAccount extends Component{
                                                         "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3"
                                                      } id="v-pills-settings3-tab" data-toggle="pill" href="#v-pills-settings3" role="tab" aria-controls="v-pills-settings3" aria-selected="false" 
                                                      onClick={()=>{ $(".nav-link").removeClass("active");$("#v-pills-settings3-tab").addClass("active");
-                                                                    $("#v-pills-settings").css("display", "none");
                                                                     $("#v-pills-settings3").css("display", "block");
                                                                     $("#v-pills-home").css("display", "none"); 
+                                                                    $("#v-pills-settings").css("display", "none"); 
                                                                     $("#v-pills-settings1").css("display", "none");
+                                                                    $("#v-pills-settings2").css("display", "none"); $("#v-pills-settings2").removeClass("active");
                                                                     $("#v-pills-messages").css("display", "none");
                                                                   }}>
                                             <i className={"fa fa-money-bill mr-3 " + S.sideBarTabNameAllignment}></i>
@@ -282,8 +298,12 @@ class MyAccount extends Component{
                                           id="v-pills-settings3" role="tabpanel" aria-labelledby="v-pills-settings3-tab">
                                         <CreditPoints />
                                     </div>
-                                    <div className={this.state.url1==="#v-pills-settings2-tab"?"tab-pane  bg-white pb-5 show active":"tab-pane   bg-white pb-5"} id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings2-tab">
-                                        {this.state.order_id!==""&&<OrderDetails order_id={this.state.order_id} />}
+                                    <div className={this.state.url1==="#v-pills-settings2-tab"
+                                                    ? "tab-pane bg-white pb-5 show active"
+                                                    : "tab-pane bg-white pb-5"
+                                                   } id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings2-tab">
+
+                                        {this.state.order_id !== "" && <OrderDetails order_id={this.state.order_id} />}
                                         {/* <MyOrders getOrderId={this.getOrderId.bind(this)}/> */}
                                     </div>
                                     

@@ -115,7 +115,7 @@ class CartProducts extends Component {
                                         messageData: {},
                                     })
                                 }, 1500);
-                                // this.props.fetchCartData();
+                                this.props.fetchCartData();
                                 this.props.updateCartCount();
                             }
                         })
@@ -145,6 +145,9 @@ class CartProducts extends Component {
                 "quantityAdded": quantityAdded,
                 "vendor_ID": vendor_id,
             }
+            console.log("quantityAdded => ",quantityAdded);
+            console.log("availableQuantity => ",availableQuantity);
+
             if (quantityAdded > availableQuantity) {
                 this.setState({
                     messageData: {
@@ -154,7 +157,10 @@ class CartProducts extends Component {
                         "class": "success",
                         "autoDismiss": true
                     }
+                },()=>{
+                    console.log("this.state.messageData = ",this.state.messageData);
                 })
+
                 setTimeout(() => {
                     this.setState({
                         messageData: {},
@@ -165,7 +171,7 @@ class CartProducts extends Component {
                 // console.log("formValues===",formValues);
                 axios.patch("/api/carts/quantity", formValues)
                     .then((response) => {
-                        this.props.fetchCartData();
+                        this.props.fetchCartData();                        
                     })
                     .catch((error) => {
                         console.log("error => ", error);
@@ -186,7 +192,7 @@ class CartProducts extends Component {
             "quantityAdded": quantityAdded,
             "vendor_ID": vendor_id,
         }
-        console.log("formValues===",formValues);
+        // console.log("formValues===",formValues);
         axios.patch("/api/carts/quantity", formValues)
             .then((response) => {
                 this.props.fetchCartData();
@@ -255,7 +261,7 @@ class CartProducts extends Component {
                                 messageData: {},
                             })
                         }, 1500);
-                        // this.props.fetchCartData();
+                        this.props.fetchCartData();
                     })
                     .catch((error) => {
                         console.log("error => ", error);
@@ -269,8 +275,9 @@ class CartProducts extends Component {
         event.preventDefault();
         if (this.state.user_ID) {
           var id = event.target.id;
-          console.log("vendorId",event.target.getAttribute('vendorid'));
-          console.log("vendorLocationId",event.target.getAttribute('vendorLocation_id'));
+          console.log("vendorId => ",event.target.getAttribute('vendorid'));
+          console.log("vendorLocationId => ",event.target.getAttribute('vendorLocation_id'));
+          
           var formValues = {
             "user_ID"             : this.state.user_ID,
             "userDelLocation"     : {
@@ -281,26 +288,30 @@ class CartProducts extends Component {
             "vendor_id"           : event.target.getAttribute('vendorid'),
             "vendorLocation_id"   : event.target.getAttribute('vendorLocation_id'),
             "product_ID"          : id
-        }
+          }
           
-        //   console.log("inside wishlist==",formValues);
+        //   console.log("inside wishlist => ",formValues);
+
           axios.post('/api/wishlist/post', formValues)
             .then((response) => {
-              this.setState({
-                messageData: {
-                  "type": "outpage",
-                  "icon": "fa fa-check-circle",
-                  "message": "&nbsp; " + response.data.message,
-                  "class": "success",
-                  "autoDismiss": true
-                }
-              })
+              console.log("response => ",response.data);
+              var msg = {
+                            "type": "outpage",
+                            "icon": "fa fa-check-circle",
+                            "message": "&nbsp; " + response.data.message,
+                            "class": "success",
+                            "autoDismiss": true
+                        };
+              console.log("msg => ",msg);
+
+              this.setState({ messageData: msg },()=>{console.log("this.state.messageData = ",this.state.messageData); } );
+
               setTimeout(() => {
                 this.setState({
                   messageData: {},
                 })
               }, 2000);
-            //   this.props.fetchCartData();
+              this.props.fetchCartData();
             })
             .catch((error) => {
               console.log('error', error);
@@ -485,27 +496,36 @@ class CartProducts extends Component {
                                                                                                             </div>
                                                                                                             <div className="col-6 col-sm-12 col-xs-12 col-md-4 col-lg-1 col-xl-1 text-center my-3 ">
                                                                                                                 {vendorData.product_ID.isWish===true?
-                                                                                                                    <span className={"fa fa-heart "+Style.cartWishlistRed}
+                                                                                                                    // <span className={"fa fa-heart "+Style.cartWishlistRed}
+                                                                                                                    <img  src="/images/eCommerce/heartSolid.svg"
+                                                                                                                          className="cursor-pointer"
                                                                                                                           id={vendorData.product_ID._id}
                                                                                                                           vendorid={vendorWiseCartData.vendor_id._id} 
                                                                                                                           vendorLocation_id={vendorWiseCartData.vendorLocation_id} 
-                                                                                                                          onClick={this.addtowishlist.bind(this)}>
-                                                                                                                    </span>
+                                                                                                                          onClick={this.addtowishlist.bind(this)}
+                                                                                                                          style={{ width: "15px" }}
+                                                                                                                    />
                                                                                                                 :
-                                                                                                                    <span className={"far fa-heart "+Style.cartWishlist}
+                                                                                                                    // <span className={"far fa-heart "+Style.cartWishlist}
+                                                                                                                    <img  src="/images/eCommerce/blackHeart.svg"
+                                                                                                                          className="cursor-pointer"
                                                                                                                           id={vendorData.product_ID._id} 
                                                                                                                           vendorid={vendorWiseCartData.vendor_id._id} 
                                                                                                                           vendorLocation_id={vendorWiseCartData.vendorLocation_id} 
-                                                                                                                          onClick={this.addtowishlist.bind(this)}>
-                                                                                                                    </span>
+                                                                                                                          onClick={this.addtowishlist.bind(this)} 
+                                                                                                                          style={{width: "15px" }}
+                                                                                                                    />
+                                                                                                                    
                                                                                                                 }
                                                                                                                 <br/><br/>
-                                                                                                                <span className={"fa fa-trash "+Style.trashIcon} 
+                                                                                                                {/* <span className={"fa fa-trash "+Style.trashIcon}  */}
+                                                                                                                <img  src="/images/eCommerce/trash.svg"
+                                                                                                                      className="cursor-pointer"
                                                                                                                       id={vendorData._id} 
                                                                                                                       vendorid={vendorWiseCartData.vendor_id._id} 
-                                                                                                                      onClick={this.Removefromcart.bind(this)}>
-                                                                                                                        <a href="/" style={{ color: "#337ab7" }} > </a>
-                                                                                                                </span>
+                                                                                                                      onClick={this.Removefromcart.bind(this)}
+                                                                                                                      style={{ width: "15px" }}
+                                                                                                                />
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>

@@ -238,10 +238,10 @@ export default StyleSheet.create({
     color:"#F9F9F9",fontFamily:"Montserrat-SemiBold",fontSize:RFPercentage(2.5)
   },
   label2:{
-    fontFamily:"Montserrat-Medium",color: "#000000",fontSize:RFPercentage(2.2)
+    fontFamily:"Montserrat-Medium",color: "#000000",fontSize:RFPercentage(2.1)
   },
   label3:{
-    fontFamily:"Montserrat-Bold",color: "#000000",fontSize:RFPercentage(2.2)
+    fontFamily:"Montserrat-Bold",color: "#000000",fontSize:RFPercentage(2.1)
   }
 
 })

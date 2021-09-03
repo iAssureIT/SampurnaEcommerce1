@@ -8,7 +8,8 @@ import {
   ActivityIndicator,
   TextInput,Dimensions,
   BackHandler,
-  Linking
+  Linking,
+  ImageBackground
 }                       from 'react-native';
 import { Icon, Card,Button,Input,Tooltip,CheckBox } from "react-native-elements";
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -98,6 +99,9 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [imageLoading,setImageLoading] = useState(false);
   const [modalTerms,setTermsModal] = useState(false);
   const [pageBlockes,setPageBlocks]       = useState([]);
+  const [removeReturnImage,setRemoveReturnImage] = useState(false);
+  const [removeReviewImage,setRemoveReviewImage] = useState(false);
+  const [index,setIndex]=useState(-1);
   const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
   const ref = useRef()
   const store = useSelector(store => ({
@@ -177,7 +181,7 @@ const getReasons_func=()=>{
 
 
 const getTerms=()=>{
-  axios.get('/api/pages/get/page_block/terms-and-conditions')
+  axios.get('/api/pages/get/page_block/terms-and-conditions-mobile')
   .then(res=>{
       console.log("res",res);
       setPageBlocks(res.data.pageBlocks)
@@ -550,6 +554,18 @@ const cancelorderbtn = (id,vendor_id) => {
     { onLayout: (e) => setTooltipSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height }) }
   )
 
+
+  const deleteReturnImage=()=>{
+    console.log("index1",index);
+    returnProductImages.splice(index,1)
+  }
+
+  const deleteReviewImage=()=>{
+    console.log("index2",index);
+    reviewProductImages.splice(index,1)
+  }
+
+
     console.log("vendorDetails",vendorDetails);
     return (
       <React.Fragment>
@@ -657,7 +673,7 @@ const cancelorderbtn = (id,vendor_id) => {
                           vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === 'Cancelled'  || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === 'Delivered') ?
                           null
                           :
-                          <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40,alignItems:'flex-end'}]}>
+                          store.userDetails.authService !=='guest' &&<View style={[styles.orderdetailsstatus,{paddingRight:0,height:40,alignItems:'flex-end'}]}>
                             {vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled' && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Delivered') ?
                             <View style={{justifyContent:'center',paddingRight:5}}>
                               <Text style={styles.cancelOrderText} onPress={()=>cancelorderbtn(order._id,vendor.vendor_id._id)}>Cancel this order</Text>
@@ -726,7 +742,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                       </Text>
                                   </View>
                                 </View>
-                                <View style={{marginVertical:5}}>
+                                {store.userDetails.authService!=='guest'&& <View style={{marginVertical:5}}>
                                   {labels.indexOf(vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status) >= 3 &&
                                     <View style={[styles.flxdir,{marginTop:10,flex:1}]}>
                                       {pitem.productStatus?
@@ -747,7 +763,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                         }  */}
                                       </View>  
                                   </View>}
-                                </View>
+                                </View>}
                               </View>  
                             </View>
                           );
@@ -1062,12 +1078,14 @@ const cancelorderbtn = (id,vendor_id) => {
                   reviewProductImages && reviewProductImages.length > 0 ?
                   reviewProductImages.map((item,index)=>{
                     return(
-                      <Image
+                      <ImageBackground
                         source={{uri:item}}
                         resizeMode="cover"
                         style={{height:50,width:50,marginRight:15,marginBottom:15,backgroundColor:"#f1f1f1"}}
                         PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
-                      />
+                      >
+                        <Icon name="close" type="font-awesome"  size={15} color='#f00' iconStyle={{alignSelf:"flex-end"}} onPress={()=>{setRemoveReviewImage(true),setIndex(index)}} TouchableComponent={TouchableOpacity}/>
+                      </ImageBackground>
                     )
                   })
                   :
@@ -1225,12 +1243,14 @@ const cancelorderbtn = (id,vendor_id) => {
                   returnProductImages && returnProductImages.length > 0 ?
                   returnProductImages.map((item,index)=>{
                     return(
-                      <Image
+                      <ImageBackground
                         source={{uri:item}}
                         resizeMode="cover"
                         style={{height:50,width:50,marginRight:15,marginBottom:15,backgroundColor:"#f1f1f1"}}
                         PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
-                      />
+                      >
+                        <Icon name="close" type="font-awesome"  size={15} color='#f00' iconStyle={{alignSelf:"flex-end"}} TouchableComponent={TouchableOpacity} onPress={()=>{setRemoveReturnImage(true);setIndex(index)}}/>
+                      </ImageBackground>
                     )
                   })
                   :
@@ -1350,6 +1370,87 @@ const cancelorderbtn = (id,vendor_id) => {
           animationOutTiming={500}>
               <Loading />
         </Modal>
+
+        <Modal isVisible={removeReturnImage}
+        onBackdropPress={() => setRemoveReturnImage(false)}
+        onRequestClose={() => setRemoveReturnImage(false)}
+        onDismiss={() =>  setRemoveReturnImage(false)}
+        coverScreen={true}
+        // transparent
+        // hideModalContentWhileAnimating={true}
+        style={{ paddingHorizontal: '5%', zIndex: 999 }}
+        animationInTiming={1} animationOutTiming={1}>
+        <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
+          <View style={{ justifyContent: 'center', backgroundColor: "transparent", overflow: 'hidden' }}>
+            <Icon size={RFPercentage(7.5)} name='shopping-cart' type='feather' color='#666' style={{}} />
+          </View>
+          <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: RFPercentage(2.5), textAlign: 'center', marginTop: 20 }}>
+            Are you sure you want to remove this from cart?
+          </Text>
+          <View style={styles.cancelbtn}>
+            <View style={styles.cancelvwbtn}>
+              <TouchableOpacity>
+                <Button
+                  onPress={() => setRemoveReturnImage(false)}
+                  titleStyle={styles.buttonText1}
+                  title="NO"
+                  buttonStyle={styles.buttonRED}
+                  containerStyle={styles.buttonContainer2}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.ordervwbtn}>
+                <Button
+                  onPress={() => {setRemoveReturnImage(false),deleteReturnImage()}}
+                  titleStyle={styles.buttonText1}
+                  title="Yes"
+                  buttonStyle={styles.button1}
+                  containerStyle={styles.buttonContainer2}
+                />
+            </View>
+          </View>
+        </View>
+      </Modal>
+      <Modal isVisible={removeReviewImage}
+        onBackdropPress={() => setRemoveReviewImage(false)}
+        onRequestClose={() => setRemoveReviewImage(false)}
+        onDismiss={() =>  setRemoveReviewImage(false)}
+        coverScreen={true}
+        // transparent
+        // hideModalContentWhileAnimating={true}
+        style={{ paddingHorizontal: '5%', zIndex: 999 }}
+        animationInTiming={1} animationOutTiming={1}>
+        <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
+          <View style={{ justifyContent: 'center', backgroundColor: "transparent", overflow: 'hidden' }}>
+            <Icon size={RFPercentage(7.5)} name='shopping-cart' type='feather' color='#666' style={{}} />
+          </View>
+          <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: RFPercentage(2.5), textAlign: 'center', marginTop: 20 }}>
+            Are you sure you want to remove this from cart?
+          </Text>
+          <View style={styles.cancelbtn}>
+            <View style={styles.cancelvwbtn}>
+              <TouchableOpacity>
+                <Button
+                  onPress={() => setRemoveReviewImage(false)}
+                  titleStyle={styles.buttonText1}
+                  title="NO"
+                  buttonStyle={styles.buttonRED}
+                  containerStyle={styles.buttonContainer2}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.ordervwbtn}>
+                <Button
+                  onPress={() => {setRemoveReviewImage(false),deleteReviewImage()}}
+                  titleStyle={styles.buttonText1}
+                  title="Yes"
+                  buttonStyle={styles.button1}
+                  containerStyle={styles.buttonContainer2}
+                />
+            </View>
+          </View>
+        </View>
+      </Modal>
       </React.Fragment>
     );
   })

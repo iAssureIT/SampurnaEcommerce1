@@ -440,12 +440,16 @@ font-weight: bolder;
 @media only screen and (min-device-width: 1366px) {
 
   .wishIcon{ 
-    left: 133px;
-    top: 7px;
+    left: 126px;
+    top: 4px;
   }
 
   .ImgWrapper{
     height: 150px;
+  }
+
+  .NoAvailableImg{
+    height: 122px;
   }
 }
 
@@ -460,6 +464,10 @@ font-weight: bolder;
   .ImgWrapper{
     height: 150px;
   }
+
+  .NoAvailableImg{
+    height: 119px;
+  }
 }
 
 
@@ -472,6 +480,10 @@ font-weight: bolder;
 
   .ImgWrapper{
     height: 158px;
+  }
+
+  .NoAvailableImg{
+    height: 127px;
   }
 }
 

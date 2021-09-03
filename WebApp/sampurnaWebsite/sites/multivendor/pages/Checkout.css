@@ -335,9 +335,10 @@ font-family: 'Montserrat-Medium';
 }
 
 .close {
-    font-size  : 20px;
-    font-weight: 600;
-    opacity    : 1;
+    font-size: 28px;
+    font-weight: 100;
+    opacity: 1;
+    color: #033554;
 }
 
 .checkoutADDCss {

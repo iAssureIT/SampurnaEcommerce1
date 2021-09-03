@@ -120,46 +120,46 @@ export const MyAccount =(props)=>{
                     </View>       
                 </View>}    
                 <View style={styles1.horizontalLine} /> 
-                <View style={{flexDirection:'row',justifyContent:'center',paddingHorizontal:wp(5)}}>
-                    <View style={{alignItems:'center',paddingHorizontal:wp(5)}}>   
+                <View style={{flexDirection:'row',justifyContent:'center'}}>
+                    <View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=>navigation.navigate('MyOrder')}>
                             {/* <Icon size={30} name='shopping-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
                             <Image source={require("../../AppDesigns/currentApp/images/shopping-bag.png")} style={[styles.iconImg,{height:hp(6),width:hp(6)}]} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={styles1.label}>My Orders</Text>
                     </View>
-                    {userDetails.authService!=="guest" &&<View style={{alignItems:'center',paddingHorizontal:wp(3)}}>   
+                    {userDetails.authService!=="guest" &&<View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false,"back":false})} >
                             {/* <Icon size={30} name='map-marker-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}                           
                             <Image source={require("../../AppDesigns/currentApp/images/address.png")} style={[styles.iconImg]} resizeMode="contain"/>                            
                         </TouchableOpacity>
                         <Text style={[styles1.label]}>My Address</Text>
                     </View>}
-                    {userDetails.authService!=="guest" &&<View style={{alignItems:'center',paddingHorizontal:wp(3)}}>   
+                    {userDetails.authService!=="guest" &&<View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=>navigation.navigate('RewardsPoint')}>
                             {/* <Icon size={30} name='award' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/> */}
                             <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} resizeMode="contain" />
                         </TouchableOpacity>
-                        <Text style={[styles1.label]}>My Credit Points</Text>
+                        <Text style={[styles1.label,{alignSelf:'center'}]}>My Credit Points</Text>
                     </View>}
                 </View>    
                 <View style={styles1.horizontalLine} />
-                <View style={{flexDirection:'row',justifyContent:'center'}}>
-                    <View style={{alignItems:'center',paddingHorizontal:hp(4)}}>   
+                <View style={{flexDirection:'row',justifyContent:'center',paddingHorizontal:wp(4)}}>
+                    <View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('AboutUs')}>
                             {/* <Icon size={20} name='shopping-bag' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/> */}
                             <Image source={require("../../AppDesigns/currentApp/images/profile-information.png")} style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>About Us</Text>
                     </View>
-                    <View style={{alignItems:'center',paddingHorizontal:hp(4)}}>   
+                    <View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=> navigation.navigate('SupportSystem')} >
                             {/* <Icon size={20} name='card-account-mail-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
                             <Image source={require("../../AppDesigns/currentApp/images/ContactUs.png")} style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Contact Us</Text>
                     </View>
-                    <View style={{alignItems:'center',paddingHorizontal:hp(4)}}>   
+                    <View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('FAQ')}>
                             {/* <Icon size={20} name='frequently-asked-questions' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
                             <Image source={require("../../AppDesigns/currentApp/images/FAQ.png")} style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain"/>
@@ -167,15 +167,15 @@ export const MyAccount =(props)=>{
                         <Text style={[styles1.label1]}>FAQ</Text>
                     </View>
                 </View>   
-                <View style={{flexDirection:'row',justifyContent:'center',marginTop:hp(2)}}>
-                    <View style={{alignItems:'center',paddingHorizontal:hp(2)}}>   
+                <View style={{flexDirection:'row',justifyContent:'center',marginTop:hp(2),paddingHorizontal:hp(6)}}>
+                    <View style={{alignItems:'center',flex:0.5}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('TermsConditions')}>
                             {/* <Icon size={20} name='text-box-check-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
                             <Image source={require("../../AppDesigns/currentApp/images/compliant.png")} style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain"/>
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Terms and Conditions</Text>
                     </View>
-                    <View style={{alignItems:'center',paddingHorizontal:hp(2)}}>   
+                    <View style={{alignItems:'center',flex:0.5}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=> navigation.navigate('PrivacyPolicy')} >
                             {/* <Icon size={20} name='book-lock' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
                             <Image source={require("../../AppDesigns/currentApp/images/PrivacyPolicy.png")} style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain"/>
@@ -303,7 +303,7 @@ const styles1 = StyleSheet.create({
     },
     label : {
         fontFamily:"Montserrat-Medium",
-        fontSize:RFPercentage(2),
+        fontSize:RFPercentage(1.8),
         color:'#000',
     },
     label1 : {
@@ -314,6 +314,6 @@ const styles1 = StyleSheet.create({
     signSignUpBox:{
         marginHorizontal:wp(10),marginTop:hp(1),height:hp(4),borderWidth:0.5,borderRadius:8,justifyContent:'center',alignItems:'center',width:wp(70),alignSelf:'center'
     },
-    horizontalLine:{borderWidth:0.5,borderColor:"#e1e1e1",width:wp(90),alignSelf:'center',marginVertical:hp(2)}
+    horizontalLine:{borderWidth:0.5,borderColor:"#e1e1e1",width:wp(80),alignSelf:'center',marginVertical:hp(2.5)}
   });
   

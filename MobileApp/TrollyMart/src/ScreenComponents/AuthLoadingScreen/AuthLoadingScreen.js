@@ -21,9 +21,9 @@ import { ActivityIndicator } from 'react-native-paper';
 import {SET_NETWORK_CONNECTION} from '../../redux/netWork/types'
 import NetInfo from '@react-native-community/netinfo';
 import codePush               from 'react-native-code-push';
+import SplashScreen from 'react-native-splash-screen';
 
  export const AuthLoadingScreen=(props)=>{
-    const {navigation}=props;
     const [user_id,setUserId]     = useState(null);
     const [userToken,setUserToken]= useState(null);
     const [location,setLocation]  = useState(null);
@@ -46,6 +46,7 @@ import codePush               from 'react-native-code-push';
     useEffect(() => {
       NetInfo.addEventListener(handleConnectivityChange);
       _bootstrapAsync();
+    
       // if(!isPreConncted){
       //   codePush.restartApp();
       // }

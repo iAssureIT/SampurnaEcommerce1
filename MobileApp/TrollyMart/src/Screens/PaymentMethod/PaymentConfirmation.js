@@ -103,7 +103,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                         </View>
                     </View>
                 <View style={{paddingHorizontal:wp(2)}}>
-                    <View style={{flexDirection:"row",marginTop:hp(3)}}>
+                    <View style={{flexDirection:"row",marginTop:hp(2.5)}}>
                         <View style={{flex:0.5}}>
                             <Text style={styles.label2}>Order No.</Text>
                         </View>
@@ -111,7 +111,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                             <Text style={styles.label3}>{order.orderID}</Text>
                         </View>
                     </View>
-                    <View style={{flexDirection:"row",marginTop:hp(3)}}>
+                    <View style={{flexDirection:"row",marginTop:hp(2.5)}}>
                         <View style={{flex:0.5}}>
                             <Text style={styles.label2}>Mobile:</Text>
                         </View>
@@ -119,7 +119,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                             <Text style={styles.label3}>{order?.deliveryAddress?.mobileNumber ? order?.deliveryAddress?.mobileNumber : "NA"}</Text>
                         </View>
                     </View>
-                    <View style={{flexDirection:"row",marginTop:hp(3)}}>
+                    <View style={{flexDirection:"row",marginTop:hp(2.5)}}>
                         <View style={{flex:0.5}}>
                             <Text style={styles.label2}>Total:</Text>
                         </View>
@@ -127,7 +127,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                             <Text style={styles.label3}>{currency} {order.paymentDetails.netPayableAmount} </Text>
                         </View>
                     </View>
-                    <View style={{flexDirection:"row",marginTop:hp(2)}}>
+                    <View style={{flexDirection:"row",marginTop:hp(2.5)}}>
                         <View style={{flex:0.5}}>
                             <Text style={styles.label2}>Payment Method:</Text>
                         </View>
@@ -136,7 +136,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                         </View>
                     </View>
                 </View>    
-                <TouchableOpacity style={{flexDirection:'row',marginTop:hp(4),justifyContent:'center',alignItems:'center'}}  onPress  = {() => navigation.navigate('OrderDetails', { orderid: order._id })}>
+                <TouchableOpacity style={{flexDirection:'row',marginTop:hp(3.5),justifyContent:'center',alignItems:'center'}}  onPress  = {() => navigation.navigate('OrderDetails', { orderid: order._id })}>
                     <Icon name="eye" type='material-community' size={RFPercentage(2.8)} color="#fff" iconStyle={{paddingHorizontal:3}}/>
                     <Text style={[CommonStyles.label,{color:"#fff",fontFamily:"Montserrat-Regular",textDecorationLine:'underline'}]}>View my order</Text>
                 </TouchableOpacity>

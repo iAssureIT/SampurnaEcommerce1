@@ -25,6 +25,7 @@ import ActionButton       from 'react-native-action-button';
 import SearchSuggetion    from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import Loading from '../../ScreenComponents/Loading/Loading.js';
 
   export const AddressDefaultComp = withCustomerToaster((props)=>{
     const {setToast,navigation,route} = props; 
@@ -35,6 +36,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
     const [adddata,setAddData]  = useState('');
     const [selectedindex,setSelectedIndex]  = useState(-1);
     const [user_id,setUserId] = useState('');
+    const [loading,setLoading]=useState(false);
     const dispatch = useDispatch();
     const {delivery,disabled,back}=route.params;
     const store = useSelector(store => ({
@@ -43,6 +45,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
     }));
     
     useEffect(() => {
+      setLoading(true);
       getAddressList();
       setSelectedIndex(-1)
     },[props]); 
@@ -61,9 +64,9 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
       console.log("formValues",formValues);
       axios.post('/api/ecommusers/myaddresses',formValues)
         .then((response) => {
-          console.log("response",response);
           var deliveryAddress = response.data.deliveryAddress;
           setDeliveryAddress(deliveryAddress);
+          setLoading(false);
           if(response.data.deliveryAddress.length == 0) {
             navigation.navigate('AddressComponent',{"delivery":delivery})
           }
@@ -158,6 +161,9 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
     return (
       <React.Fragment>
         {
+          loading?
+          <Loading/>
+          :
         store.globalSearch.search ?
             <SearchSuggetion />
         :

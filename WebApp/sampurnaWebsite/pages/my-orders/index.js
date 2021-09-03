@@ -438,11 +438,12 @@ export default class MyOrders extends Component {
                                 }
                               </div>
                               <div className="col-lg-7  pull-right orderBtnWrapper">
-                                <button className="btn col-6 col-sm-4 col-lg-6 col-xl-6 float-right " onClick={() => this.props.getOrderId(singleOrder._id)}>
-                                  <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-lg-9 float-right showDetailsBtn "} 
-                                  >Show Details
+                                <button className="btn col-6 col-sm-4 col-lg-6 col-xl-6 float-right " 
+                                        onClick={() => this.props.getOrderId(singleOrder._id)}>
+                                  <a id="v-pills-settings2-tab" data-toggle="pill" 
+                                       href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-lg-9 float-right showDetailsBtn "} > 
+                                        Show Details 
                                   </a>
-                                  {/* <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className="col-lg-9 float-right showDetailsBtn  NOpadding myAccMenu myAccMenuATag" onClick={()=>{(this.state.currentUrl==="/my-account"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account#v-pills-settings2"||this.state.currentUrl==="/my-account#v-pills-settings-tab")? window.location.reload() :null }}><Link href="/#v-pills-settings2-tab">Show Details</Link></a> */}
                                 </button>
                               </div>
                             </div>

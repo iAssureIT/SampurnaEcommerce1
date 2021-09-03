@@ -127,26 +127,25 @@ class ProductsView extends Component {
           "review_id": this.state.rating_ID,
           "rating": this.state.rating,
           "customerReview": $('.feedbackForm textarea').val(),
-          "reviewProductImages": reviewProductImages.push(this.state.imgUrl),
+          "reviewProductImages": this.state.imgUrl ? reviewProductImages.push(this.state.imgUrl) : "",
+          // "product_id": event.target.getAttribute('productid'),
+          // "vendor_id": this.props.vendorWiseOrderData.vendor_id._id,
+          // "vendorLocation_id": event.target.getAttribute('vendorlocationid'),
+          // "status": "New",
         }
 
         console.log("formValues=", formValues);
         axios.patch("/api/customerReview/patch/customer/review", formValues)
           .then((response) => {
+            swal({ text: response.data.message });
+            $('.feedbackForm textarea').val("");
             this.setState({
-              messageData: {
-                "type": "outpage",
-                "icon": "fa fa-check-circle",
-                "message": "Review Updated successfuly",
-                "class": "success",
-                "autoDismiss": true
-              }
+              rating : 1,
+              imgUrl : "",
             })
-            setTimeout(() => {
-              this.setState({
-                messageData: {},
-              })
-            }, 3000);
+            // swal({ text: response.data.message }).then(function () {
+            //   window.location.reload();
+            // });
             var modal = document.getElementByClass('feedBackModal');
             modal.style.display = "none";
             $('.modal-backdrop').remove();
@@ -177,9 +176,12 @@ class ProductsView extends Component {
         axios.post("/api/customerReview/post", formValues)
           .then((response) => {
             if (response) {
-              swal({ text: response.data.message }).then(function () {
-                window.location.reload();
-              });
+              swal({ text: response.data.message });
+              $('.feedbackForm textarea').val("");
+              this.setState({
+                rating : 1,
+                imgUrl : "",
+              })
             }
             var modal = document.getElementByClass('feedBackModal');
             modal.style.display = "none";
@@ -506,6 +508,7 @@ uploadImage(event) {
   }
 
   render() {
+    console.log("OrderData==",this.props.orderData);
     return (
       <div className="col-12 productViewMainwrapper">
         <div className="col-12 d-none d-lg-block d-xl-block">
