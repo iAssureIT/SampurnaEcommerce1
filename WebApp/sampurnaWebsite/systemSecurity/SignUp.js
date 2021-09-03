@@ -1,6 +1,7 @@
 import React, { Component } 	from 'react';
 import $ 						from "jquery";
-import PhoneInput 				from 'react-phone-input-2';
+import PhoneInput               from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import swal 					from 'sweetalert';
 import axios 					from 'axios';
 import { connect } 				from 'react-redux';
@@ -33,12 +34,13 @@ class SignUp extends Component{
 				signupPassword: '',
 				role: ''
 			},
-			formerrors: {
-				firstNameV: "",
-				lastNameV: "",
-				mobileV: "",
-				emailIDV: "",
-			},
+			signupEmail : "",
+			// formerrors: {
+			// 	firstNameV: "",
+			// 	lastNameV: "",
+			// 	mobileV: "",
+			// 	emailIDV: "",
+			// },
 			termsCondition: ["The price of products  is as quoted on the site from time to time.",
 				"Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.",
 				"Products marked as 'non-returnable' on the product detail page cannot be returned.",
@@ -87,10 +89,12 @@ class SignUp extends Component{
 			  errors["lastname"] = "Name should only contain letters.";
 			}
 		}
-		if (!fields["signupEmail"]) {
+		if(this.state.signupEmail!==""){ 
+		  if (!fields["signupEmail"]) {
 			formIsValid = false;
 			errors["signupEmail"] = "Please enter your email.";
 		  }
+		}
 		  if (typeof fields["signupEmail"] !== "undefined") {
 			//regular expression for email validation
 			var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
@@ -154,7 +158,8 @@ class SignUp extends Component{
 			var formValues = {
 				firstname   : this.state.firstname,
 				lastname    : this.state.lastname,
-				mobNumber   : (this.state.mobNumber).split("971")[1],
+				// mobNumber   : (this.state.mobNumber).split("971")[1],
+				mobNumber   : this.state.mobNumber,
 				pincode     : "",
 				email       : this.state.signupEmail,
 				pwd         : this.state.signupPassword,
@@ -193,29 +198,15 @@ class SignUp extends Component{
 	}
 
 	handleChange(event){
-		const formerrors = this.state.formerrors;
-		
+		// const formerrors = this.state.formerrors;
+		// console.log("formerrors=",formerrors);
 		this.setState({
 			[event.target.name]: event.target.value,
-			formerrors
+			// formerrors
 		}); 
 
-		// if(event.target.name === "signupEmail"){
-		// 	let fields = this.state.fields;
-		// 	let errors = {};
-		// 	let formIsValid = true;
-
-		// 	if (typeof fields["signupEmail"] !== "undefined") {
-		// 	//regular expression for email validation
-		// 	var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
-		// 	if (!pattern.test(fields["signupEmail"])) {
-		// 	  formIsValid = false;
-		// 	  errors["signupEmail"] = "Please enter valid email.";
-		// 	}
-		//   }
-		// }
-
 		let fields = this.state.fields;
+		// console.log("fields===",fields);
 		fields[event.target.name] = event.target.value;
 		this.setState({
 		  fields
@@ -304,29 +295,31 @@ class SignUp extends Component{
 						<div className="errorMsg mt-1 ">{this.state.errors.lastname}</div>
 					</div>
 					<div className="col-12 col-lg-6 form-group frmhgt textAlignLeft">
-						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="Email ID*" onChange={this.handleChange} data-text="emailIDV" />
+						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="Email ID" onChange={this.handleChange} data-text="emailIDV" />
 						<div className="errorMsg mt-2">{this.state.errors.signupEmail}</div>
 					</div>
 					<div className="col-12 col-lg-6 form-group frmhgt textAlignLeft">
-						{/* <PhoneInput
-							country={'ae'} 
-							value={this.state.mobNumber}
-							inputProps={{
-								name: 'mobNumber',
-								required: true
-							}}
-							name="phone"
-							placeholder="Phone*"
-							onChange={mobNumber => { 
+					<PhoneInput
+						country={'ae'} 
+						value={this.state.mobNumber}
+						inputProps={{
+							name: 'mobNumber',
+							required: true
+						}}
+						name="phone"
+						placeholder="Phone*"
+						onChange={mobNumber => { 
 							this.setState({ mobNumber })
-								let fields = this.state.fields;
-								fields["mobNumber"] = this.state.mobNumber;
-								this.setState({
-								fields
-								});
-							}}
-						/> */}
-						<input
+							console.log("Mobile no==",this.state.mobNumber);
+							
+							let fields = this.state.fields;
+							fields["mobNumber"] = this.state.mobNumber;
+							this.setState({
+							fields
+							});
+						}}
+					/>
+						{/* <input
 							className="form-control formcontrol1"
 							type="tel"
 							id="phone"
@@ -346,7 +339,7 @@ class SignUp extends Component{
 								name: 'mobNumber',
 								required: true
 							}}
-						/>
+						/> */}
 						<div className="errorMsg">{this.state.errors.mobNumber}</div> 
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
