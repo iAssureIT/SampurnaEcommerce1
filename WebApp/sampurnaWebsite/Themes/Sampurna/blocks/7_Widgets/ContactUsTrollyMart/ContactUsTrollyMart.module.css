@@ -142,6 +142,14 @@
 	display: none;
 }
 
+.socialMediaFooterIcons{
+	height: 20px;
+}
+
+.getInTouchIcon{
+	height: 12px;
+}
+
 /*.contactUscontent{
 	font-size: 13px;
 	color: #FFF;

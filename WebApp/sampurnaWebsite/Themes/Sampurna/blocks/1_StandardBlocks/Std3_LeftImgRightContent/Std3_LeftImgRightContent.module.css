@@ -1,11 +1,11 @@
+
 .stdBlockFGImage{
 	height: 190px;
-    width: 100%;
-    border-radius: 10px;
+    border-radius: 19px;
 	margin-top: 30px;
 }
 .stdBlockDescriptionBlack{
-    font-size: 20px !important;
+    font-size: 20px;
     color: #000;
 	text-align: justify;
 	margin-top: 20px;
@@ -15,61 +15,19 @@
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 
-
-/* [xs] Extra Small Devices [Phone - Portrait, less than 575px] */
-@media (max-width: 575px){
-  /* No media query for "xs'' since this is the default in Bootstrap 4 because it is "Mobile First" */
-}
-
-
-/* [sm] Small Devices [Phone - Landscape, 576px and up] */
-@media (min-width: 576px){
-
-	.stdBlockFGImage{
-		height: 300px;
-		width: 75%;
-	}
-}
-
-
-/* [md] Medium Devices [Tablet - Portrait, 768px and up] */
-@media (min-width: 768px){
-
-}
-
-
-/* [lg] Large Devices [Tablet - Landscape, 992px and up] */
-@media (min-width: 992px){
+@media (min-device-width: 1200px){
 
 	.stdBlockWrapper{
 		height: 430px;
 	}
-	.stdBlockFGImage{
-		width: 100%;
-	}
-	.stdBlockDescriptionBlack{
-		font-size: 20px !important;
-		margin-top: 90px;
-		margin-left: 40px;
-		margin-right: 0px;
-		text-align: right;
-	}
-}
-
-
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1200px and up] */
-@media (min-width: 1200px){
-
-	.stdBlockWrapper{
-		height: 430px;
-	}
+	
 	.stdBlockFGImage{
 		height: 300px;
-		width: 75%;
 		margin-left: 0px;
 	}
+	
 	.stdBlockDescriptionBlack{
-		font-size: 20px !important;
+		font-size: 20px;
 		margin-top: 90px;
 		margin-left: 50px;
 		margin-right: 80px;
@@ -78,22 +36,110 @@
 }
 
 
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1366px and up] */
-@media (min-width:1366px){
+@media (min-device-width: 1366px){
+
+	.stdBlockFGImage{
+        height: 309px;
+    }
+
+    .stdBlockDescriptionBlack{
+        font-size: 19px;
+        margin-top: 115px;
+        margin-left: 181px;
+    	margin-right: 58px;
+        text-align: justify;
+    }
+
+    .stdBlockWrapper {
+        margin-bottom: 90px;
+    }
 
 }
 
 
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
-@media (min-width:1440px){
+@media (min-device-width: 1440px){
+
+	.stdBlockFGImage{
+        height: 300px;
+    }
+
+    .stdBlockDescriptionBlack{
+        font-size: 20px;
+        margin-top: 105px;
+        margin-left: 185px;
+    	margin-right: 58px;
+        text-align: justify;
+    }
+
+    .stdBlockWrapper {
+        margin-bottom: 23px;
+    }
 
 }
 
+@media (min-device-width: 1536px){
 
-/* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
-@media (min-width:1920px){
+	.stdBlockFGImage{
+        height: 362px;
+        margin-left: 61px;
+    }
+
+    .stdBlockDescriptionBlack{
+        font-size: 21px;
+        margin-top: 133px;
+        margin-left: 205px;
+    	margin-right: 54px;
+        text-align: justify;
+    }
+
+    .stdBlockWrapper {
+        margin-bottom: 120px;
+    }
 
 }
 
+/*@media (min-device-width: 1640px){
 
-/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+}*/
+
+@media (min-device-width: 1920px){
+
+	.stdBlockFGImage{
+        height: 460px;	
+        margin-left: 103px;
+    }
+
+    .stdBlockDescriptionBlack{
+        font-size: 22px;
+        margin-top: 200px;
+        margin-left: 212px;
+        text-align: justify;
+    }
+
+    .stdBlockWrapper{
+    	height: 430px;
+    	padding-bottom: 520px;
+	}
+
+}
+
+@media (min-device-width: 2560px){
+
+	.stdBlockFGImage{
+        height: 543px;
+    }
+
+    .stdBlockDescriptionBlack{
+        font-size: 28px;
+        margin-top: 210px;
+        margin-left: 233px;
+        text-align: justify;
+    }
+
+    .stdBlockWrapper{
+    	height: 430px;
+    	padding-bottom: 611px;
+	}
+
+}
+

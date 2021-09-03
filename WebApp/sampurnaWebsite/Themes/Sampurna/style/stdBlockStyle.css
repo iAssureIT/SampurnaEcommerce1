@@ -51,10 +51,6 @@
     text-align: center;
 }
 
-.stdBlockFGImage {
-    width: 85%;
-}
-
 .stdBlockVideoWrapper {
     height    : auto;
     text-align: center;
@@ -116,10 +112,6 @@
         font-size: 16px;
     }
 
-    .stdBlockFGImage {
-        width: 55%;
-    }
-
     .stdBlockFGVideo {
         padding: 0px 60px 0px 60px;
     }
@@ -145,10 +137,6 @@
     .stdBlockDescriptionBlack,
     .stdBlockDescriptionWhite {
         font-size: 25px;
-    }
-
-    .stdBlockFGImage {
-        width: 60%;
     }
 
     .stdBlockLeftFGImage {
@@ -186,10 +174,6 @@
         margin-top    : 10px;
     }
 
-    .stdBlockFGImage {
-        width: 67%;
-    }
-
     .stdBlockLeftFGImage {
         width: 95%;
     }
@@ -225,14 +209,27 @@
         margin-top    : 10px;
     }
 
-    .stdBlockFGImage {
-        width: 55%;
-    }
-
     .stdBlockFGVideo {
         padding: 0px 60px 0px 60px;
     }
 }
 
+
+@media (min-width: 1366px) {
+
+    .stdBlockWrapper{
+        margin-bottom: 40px;
+    }
+
+}
+
+
+@media (min-width: 1440px) {
+
+    .stdBlockWrapper{
+        margin-bottom: 40px;
+    }
+
+}
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

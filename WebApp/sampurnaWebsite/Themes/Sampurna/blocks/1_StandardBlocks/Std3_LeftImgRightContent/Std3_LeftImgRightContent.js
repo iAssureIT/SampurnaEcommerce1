@@ -72,10 +72,10 @@ export default class Std3_LeftImgRightContent extends Component{
                 <div className="col-12 stdBlockContentWrapper">
                     <div className="row">
                         <div className="col-12 col-lg-6 stdBlockImageWrapper">
-                        <img className={"stdBlockFGImage "+S.stdBlockFGImage} src={this.state.blocks.fgImage1} alt="" title="" />
+                        <img className={"stdBlockFGImage img-fluid "+S.stdBlockFGImage} src={this.state.blocks.fgImage1} alt="" title="" />
                         </div>
                         <div className="col-12 col-lg-6 stdBlockDescriptionWrapper">
-                            <p className={"stdBlockDescriptionBlack "+S.stdBlockDescriptionBlack} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
+                            <p className={"stdBlockDescriptionBlack col-xl-8 "+S.stdBlockDescriptionBlack} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
                         </div>
                     </div>
                 </div>

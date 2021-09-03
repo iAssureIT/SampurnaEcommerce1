@@ -202,7 +202,7 @@ export default class ContactUsTrollyMart extends Component{
 											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} />
 										</div>
 										<div className={"col-lg-12 pb-lg-5 pb-0 mt-xl-3 "+S.getInTouchBtnMainWrapper}>
-											<button type="button" className={"btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="far fa-paper-plane" aria-hidden="true"></i></button>
+											<button type="button" className={"btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;{/*<i className="far fa-paper-plane" aria-hidden="true"></i>*/}<img src="/images/eCommerce/send.png" className={S.getInTouchIcon} alt="get in touch image not found" /></button>
 										</div>
 									</form>
 								</div>
@@ -211,16 +211,16 @@ export default class ContactUsTrollyMart extends Component{
 								<div className="col-12">
 									<h3 className={"pt-lg-5 mt-lg-5 mt-xl-1 mt-4 pt-3 getInTouchSubTitle "+S.getInTouchSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h3>
 								</div>
-								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-phone"}></i>&nbsp;&nbsp;&nbsp;
+								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}>{/*<i className={"fa fa-phone"}></i>*/}<img src="/images/eCommerce/phone-call.png" alt="phone image not found" />&nbsp;&nbsp;&nbsp;
 									<div className={S.contactUsPhoneNumber}>+971 45911186</div>
 								</div>
-								<div className={"col-12 pt-lg-4 pt-3 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>
+								<div className={"col-12 pt-lg-4 pt-3 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}>{/*<i className={"fa fa-envelope"}></i>*/}<img src="/images/eCommerce/mail.png" alt="mail image not found" />
 
 									<div className={S.emailWrapperContactUsOne}>support@knock-knockeshop.com</div>
 									<div className={ "col-12 " +S.emailWrapperContactUsTwo}>info@trollymart.ae</div>
 									
 								</div>
-								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-address-card"}></i>
+								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}>{/*<i className={"fa fa-address-card"}></i>*/}{/*<img src="/images/eCommerce/01-home.png" alt="mail image not found" />*/}
 									<div className={S.emailWrapperContactUs}>
 										<span className={"col-12 " +S.contactAddress}>Head Office : Unit 201, Level – 1, Gate Avenue – South Zone DIFC, Dubai – UAE </span><br/>
 										<span className={"col-12 " +S.contactAddress}>Branch Address : Palace Tower 1 Office Building, Office No:1405, S.P Oasis Street, Dubai Silicon Oasis, Dubai – UAE</span> <br/>
@@ -230,11 +230,11 @@ export default class ContactUsTrollyMart extends Component{
 								</div>
 								<div className={"col-12 hero "+S.hero}>
 									<div className={"social_links pt-lg-4 pt-4 pt-xl-2 "+S.social_links}>
-										<a href="https://www.instagram.com/knockknock_eshop/" target="_blank"><i className="fab fa-instagram"></i></a>
-										<a href="https://www.facebook.com/Knock-Knock-103575731986682" target="_blank"><i className="fab fa-facebook-f"></i></a>
-										<a href="https://www.youtube.com/knockknockeshop" target="_blank"><i className="fab fa-youtube" target="_blank"></i></a>
-										<a href="https://www.linkedin.com/knockknockeshop" target="_blank"><i className="fab fa-linkedin"></i></a>
-										<a href="https://twitter.com/knockknockeshop" target="_blank"><i className="fab fa-twitter"></i></a>
+										<a href="https://www.instagram.com/knockknock_eshop/" target="_blank">{/*<i className="fab fa-instagram"></i>*/}<img src="/images/eCommerce/MaskGroup5.png" className={S.socialMediaFooterIcons} alt="instagram image not found" /></a>
+										<a href="https://www.facebook.com/Knock-Knock-103575731986682" target="_blank">{/*<i className="fab fa-facebook-f"></i>*/}<img src="/images/eCommerce/MaskGroup1.png" className={S.socialMediaFooterIcons} alt="facebook image not found" /></a>
+										<a href="https://www.youtube.com/knockknockeshop" target="_blank">{/*<i className="fab fa-youtube" target="_blank"></i>*/}<img src="/images/eCommerce/MaskGroup6.png" className={S.socialMediaFooterIcons} alt="youtube image not found" /></a>
+										<a href="https://www.linkedin.com/knockknockeshop" target="_blank">{/*<i className="fab fa-linkedin"></i>*/}<img src="/images/eCommerce/MaskGroup3.png" className={S.socialMediaFooterIcons} alt="linkedin image not found" /></a>
+										<a href="https://twitter.com/knockknockeshop" target="_blank">{/*<i className="fab fa-twitter"></i>*/}<img src="/images/eCommerce/MaskGroup1.png" className={S.socialMediaFooterIcons} alt="twitter image not found" /></a>
 									</div>
 								</div>
 								{/*<div className={"col-12 "+S.contactUscontent}>

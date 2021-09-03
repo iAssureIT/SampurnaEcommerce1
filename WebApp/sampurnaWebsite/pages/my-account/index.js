@@ -141,8 +141,10 @@ class MyAccount extends Component{
                                         {this.state.authService==="" &&
                                             <div className="col-12 NoPadding">
                                                 <a className={this.state.url1==="" 
-                                                              ? "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 active" 
-                                                              : "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3" 
+                                                              ?
+                                                                "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 active" 
+                                                              : 
+                                                                "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3" 
                                                              } id="v-pills-profile-tab" 
                                                     data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" 
                                                     aria-selected="false" onClick={()=>{ $("#v-pills-profile").addClass("active");
@@ -154,7 +156,8 @@ class MyAccount extends Component{
                                                                                          $("#v-pills-settings3").css("display", "none");
                                                                                          $("#v-pills-messages").css("display", "none");
                                                                                        }}>
-                                                    <i className={"fa fa-info-circle mr-3" + S.sideBarTabNameAllignment}></i>
+                                                    {/*<i className={"fa fa-info-circle mr-3 " + S.sideBarTabNameAllignment}></i>*/}
+                                                    <img src="/images/eCommerce/avatar.png" alt="my profile image not found" className={"mr-3 " + S.sideBarTabNameAllignment}/>
                                                     <span className={S.sideBarTabNames}>My Profile</span>
                                                 </a>
                                             </div>
@@ -170,15 +173,16 @@ class MyAccount extends Component{
                                                            $("#v-pills-settings3").css("display", "none");
                                                            $("#v-pills-home").css("display", "none"); 
                                                         }}>
-                                            <i className={"fas fa-map-marker-alt mr-3 " + S.sideBarTabNameAllignment}></i>
+                                            {/*<i className={"fas fa-map-marker-alt mr-3 " + S.sideBarTabNameAllignment}></i>*/}
+                                            <img src="/images/eCommerce/01-home.png" alt="my addresses image not found" className={"mr-3 " + S.sideBarTabNameAllignment}/>
                                             <span className={S.sideBarTabNames}>My Addresses</span>
                                         </a>
                     
                                         <a className={this.state.url1==="#v-pills-settings-tab" 
                                                       ? 
-                                                        "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 active mx-2 "
+                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 active "
                                                       : 
-                                                        "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mx-2"
+                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3"
                                                      } id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" 
                                                      onClick={()=>{$(".nav-link").removeClass("active");$("#v-pills-settings-tab").addClass("active");
                                                                    $("#v-pills-settings").css("display", "block");
@@ -188,7 +192,8 @@ class MyAccount extends Component{
                                                                    $("#v-pills-settings2").css("display", "none"); $("#v-pills-settings2").removeClass("active");
                                                                    $("#v-pills-settings3").css("display", "none");
                                                                 }}>
-                                            <i className={"fa fa-shopping-cart mr-3 " + S.sideBarTabNameAllignment}></i>
+                                            {/*<i className={"fa fa-shopping-cart mr-3 " + S.sideBarTabNameAllignment}></i>*/}
+                                            <img src="/images/eCommerce/shopping-bag.png" alt="my orders image not found" className={"mr-3 " + S.sideBarTabNameAllignment}/>
                                             <span className={S.sideBarTabNames}> My Orders</span>
                                         </a>
 
@@ -206,7 +211,8 @@ class MyAccount extends Component{
                                                                     $("#v-pills-settings3").css("display", "none");
                                                                     $("#v-pills-messages").css("display", "none");
                                                              }}>
-                                            <i className={"fa fa-heart mr-3 " + S.sideBarTabNameAllignment}></i>
+                                            {/*<i className={"fa fa-heart mr-3 " + S.sideBarTabNameAllignment}></i>*/}
+                                            <img src="/images/eCommerce/heart.png" alt="wishlist image not found" className={"mr-3 " + S.sideBarTabNameAllignment}/>
                                             <span className={S.sideBarTabNames}> My Wishlist</span>
                                         </a>
 
@@ -224,7 +230,8 @@ class MyAccount extends Component{
                                                                     $("#v-pills-settings2").css("display", "none"); $("#v-pills-settings2").removeClass("active");
                                                                     $("#v-pills-messages").css("display", "none");
                                                                   }}>
-                                            <i className={"fa fa-money-bill mr-3 " + S.sideBarTabNameAllignment}></i>
+                                            {/*<i className={"fa fa-money-bill mr-3 " + S.sideBarTabNameAllignment}></i>*/}
+                                            <img src="/images/eCommerce/cards.png" alt="credit image not found" className={"mr-3 " + S.sideBarTabNameAllignment}/>
                                             <span className={S.sideBarTabNames}> Credit Points</span>
                                         </a>
 
