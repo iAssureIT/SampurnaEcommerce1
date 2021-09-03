@@ -51,7 +51,7 @@ class SingleProduct extends Component{
           },()=>{
               // this.props.getWishlistData();
               this.props.getWishlistDataLocationWise();
-              // this.props.fetchWishlist();
+              this.props.fetchWishlist();
           }); 
         }
     }
@@ -180,7 +180,7 @@ class SingleProduct extends Component{
             }, 2000);
             this.props.getWishlistDataLocationWise();
             // this.props.getWishlistData();
-            // this.props.fetchWishlist();
+            this.props.fetchWishlist();
             
           })
           .catch((error) => {
@@ -211,10 +211,11 @@ class SingleProduct extends Component{
       var categoryUrl = (this.props.data.category?this.props.data.category:"").replace(/\s+/g, '-').toLowerCase();                    
       var subCategoryUrl = (this.props.data.subCategory?this.props.data.subCategory:"-").replace(/\s+/g, '-').toLowerCase();                    
 
-      // console.log("single wishlist=",this.props.recentWishlist,"=====",this.props.data._id);
+      console.log("Id=",this.props.data._id);
+      console.log("single wishlist=",this.props.recentWishlist);
      
         var x = this.props.recentWishlist && this.props.recentWishlist.length> 0 ? this.props.recentWishlist.filter((wishlistItem) => wishlistItem._id === this.props.data._id) : [];                              
-        // console.log("x==",x);
+        console.log("x==",x);
         var heartImg = '/images/eCommerce/heartSolid.svg'
         var tooltipMsg = '';
         if (x && x.length > 0) {
@@ -384,15 +385,14 @@ const mapStateToProps = state => (
     cartCount          : state.data.cartCount,
     recentCartData     : state.data.recentCartData,
     recentWishlistData : state.data.recentWishlistData,
-    recentWishlist     : state.data.recentWishlist,
-    // productApiUrl      : state.data.productApiUrl   
+    recentWishlist     : state.data.recentWishlist,   
   } 
 );
 
 const mapDispatchToProps = {
   fetchCartData                : getCartData, 
   updateCartCount              : updateCartCount,
-  // fetchWishlist                : getWishlist,
+  fetchWishlist                : getWishlist,
   getWishlistDataLocationWise  : getWishlistData,
 };
 

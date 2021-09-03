@@ -158,8 +158,7 @@ class SignUp extends Component{
 			var formValues = {
 				firstname   : this.state.firstname,
 				lastname    : this.state.lastname,
-				// mobNumber   : (this.state.mobNumber).split("971")[1],
-				mobNumber   : this.state.mobNumber,
+				mobNumber   : (this.state.mobNumber).split("971")[1],
 				pincode     : "",
 				email       : this.state.signupEmail,
 				pwd         : this.state.signupPassword,
@@ -170,36 +169,37 @@ class SignUp extends Component{
 				authService : "",
 				isdCode     : "971",
 			}
-			axios.post('/api/auth/post/signup/user/otp',formValues)
-			.then((signupResponse) =>{
-				if(signupResponse){
-					if(signupResponse.data.result){
-						var userDetails = {
-							firstname	: signupResponse.data.result.profile.firstname,
-							lastname	: signupResponse.data.result.profile.lastname,
-							email		: signupResponse.data.result.profile.email,
-							mobNumber   : signupResponse.data.result.profile.mobile,
-							authService : "",
-							userId      : signupResponse.data.ID,
-							roles		: signupResponse.data.result.roles[0],
+			if(formValues){
+				// console.log("formValues==",formValues);
+				axios.post('/api/auth/post/signup/user/otp',formValues)
+				.then((signupResponse) =>{
+					if(signupResponse){
+						if(signupResponse.data.result){
+							var userDetails = {
+								firstname	: signupResponse.data.result.profile.firstname,
+								lastname	: signupResponse.data.result.profile.lastname,
+								email		: signupResponse.data.result.profile.email,
+								mobNumber   : signupResponse.data.result.profile.mobile,
+								authService : "",
+								userId      : signupResponse.data.ID,
+								roles		: signupResponse.data.result.roles[0],
+							}
+							localStorage.setItem('userDetails', JSON.stringify(userDetails));
+							swal("Thank you!! Your account created Successfully. Please Check your SMS, We have sent verification code on your mobile number.");
+							this.props.updateFormValue("signupotp");
+						}else{
+							swal(signupResponse.data.message);
 						}
-						localStorage.setItem('userDetails', JSON.stringify(userDetails));
-						swal("Thank you!! Your account created Successfully. Please Check your SMS, We have sent verification code on your mobile number.");
-						this.props.updateFormValue("signupotp");
-					}else{
-						swal(signupResponse.data.message);
 					}
-				}
-			})
-			.catch((error)=>{
-				console.log("getting error while signup user",error);
-			})
+				})
+				.catch((error)=>{
+					console.log("getting error while signup user",error);
+				})
+			}
 		}
 	}
 
 	handleChange(event){
-		// const formerrors = this.state.formerrors;
-		// console.log("formerrors=",formerrors);
 		this.setState({
 			[event.target.name]: event.target.value,
 			// formerrors
@@ -301,6 +301,7 @@ class SignUp extends Component{
 					<div className="col-12 col-lg-6 form-group frmhgt textAlignLeft">
 					<PhoneInput
 						country={'ae'} 
+						countryCodeEditable = {false}
 						value={this.state.mobNumber}
 						inputProps={{
 							name: 'mobNumber',
@@ -363,9 +364,10 @@ class SignUp extends Component{
 						<div className="errorMsg mt-1">{this.state.errors.signupConfirmPassword}</div>
 					</div>
 					<div className={"col-12 mt-2 shippingtimes "+S.systemSecurityTermsNConditionWrapper}>
-						<span><input className="" type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} /></span>&nbsp;
-						<span className={S.systemSecurityTermsNConditionText} data-toggle="modal" data-target="#termsNconditionsmodal">Terms & Conditions</span>
-						<span className="required">*</span>
+						<span className="mt-2">
+							<input className="mt-2" type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} />
+						</span>&nbsp;&nbsp;
+						<span className={S.systemSecurityTermsNConditionText} data-toggle="modal" data-target="#termsNconditionsmodal">Terms & Conditions*</span>
 						<div className="errorMsg mt-1">{this.state.errors.termsNconditions}</div>
 					</div>
 					{
@@ -382,7 +384,7 @@ class SignUp extends Component{
 								</div>
 							</div>
 						:
-							<div className="col-12 mt-3 mt-lg-2 mt-xl-5 mb-5">
+							<div className="col-12 col-sm-6 col-lg-7 col-xl-7 mx-auto mt-3 mt-lg-2 mt-xl-3 mb-5">
 								<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12 btn otpBtns">Sign Up</button>
 							</div>
 					}

@@ -280,7 +280,7 @@ class Product extends Component{
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;
       var SMCol = 12/this.props.blockSettings.noOfProductPerSMRow;
       var XSCol = 12/this.props.blockSettings.noOfProductPerXSRow;
-      // console.log("this.props.recentWishlist===",this.props.recentWishlist);
+      console.log("this.props.recentWishlist===",this.props.recentWishlist);
       return (
         <div className="row">
           <Message messageData={this.state.messageData} /> 
@@ -437,7 +437,7 @@ const mapStateToProps = state => (
   {
     cartCount          : state.data.cartCount,
     recentCartData     : state.data.recentCartData,
-    recentWishlistData : state.data.recentWishlistData,
+    // recentWishlistData : state.data.recentWishlistData,
     recentWishlist     : state.data.recentWishlist,
     productApiUrl      : state.data.productApiUrl
     
@@ -447,7 +447,8 @@ const mapStateToProps = state => (
 const mapDispatchToProps = {
   fetchCartData    : getCartData, 
   updateCartCount  : updateCartCount,
-  getWishlistData  : getWishlistData,
+  // getWishlistData  : getWishlistData,
   fetchWishlist    : getWishlist,
+
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Product);

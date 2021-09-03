@@ -395,6 +395,8 @@ input[type=number] {
 	background-color: transparent !important;
 	border-bottom: 1px solid #ced4da !important;
 	width: 100% !important;
+	font-size: 12px !important;
+	color: #033554 !important;
 }
 .formcontrol1{
     background-color: transparent !important;
