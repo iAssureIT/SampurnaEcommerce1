@@ -164,7 +164,7 @@ body {
 .react_multiple_carousel__arrow_right,
 .react_multiple_carousel__arrow_right:hover{
   right:0px;
-  background-image:url("/images/eCommerce/arrowRight.svg") !important;
+  background-image:url("/images/eCommerce/arrowRight.png") !important;
   background-size: 75px 25px !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -175,21 +175,19 @@ body {
 .react_multiple_carousel__arrow_left,
 .react_multiple_carousel__arrow_left:hover{
   left:0px;
-  background-image:url("/images/eCommerce/arrowRight.svg") !important;
+  background-image:url("/images/eCommerce/arrowLeft.png") !important;
   background-size: 75px 25px !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   top: 25px;
-  transform:scaleX(-1);
 }
 
 
 
 .react_multiple_carousel__arrow_right2,
 .react_multiple_carousel__arrow_right2:hover{
-  right:0px;
-  background-image:url("/images/eCommerce/arrowRight.svg") !important;
-  background-size: 150px 50px !important;
+  background-image:url("/images/eCommerce/arrowRight.png") !important;
+  /*background-size: 150px 50px !important;*/
   background-repeat: no-repeat !important;
   background-position: center !important;
   top: 120px;
@@ -198,17 +196,59 @@ body {
 
 .react_multiple_carousel__arrow_left2,
 .react_multiple_carousel__arrow_left2:hover{
-  left:0px;
-  background-image:url("/images/eCommerce/arrowRight.svg") !important;
-  background-size: 150px 50px !important;
+  background-image:url("/images/eCommerce/arrowLeft.png") !important;
+  /*background-size: 150px 50px !important;*/
   background-repeat: no-repeat !important;
   background-position: center !important;
-  transform:scaleX(-1);
   top: 120px;
   left: -5px;
 }
 
+.react_multiple_carousel__arrow_right2,
+.react_multiple_carousel__arrow_right2:hover{
+  background-image:url("/images/eCommerce/arrowRight.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  top: 120px;
+  right: -5px;
+}
 
+.react_multiple_carousel__arrow_left2,
+.react_multiple_carousel__arrow_left2:hover{
+  background-image:url("/images/eCommerce/arrowLeft.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  top: 120px;
+  left: -5px;
+}
+
+.react_multiple_carousel__arrow_right_section,
+.react_multiple_carousel__arrow_right_section:hover{
+  background-image:url("/images/eCommerce/arrowRight.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  top: 100px;
+  right: -12px;
+}
+
+.react_multiple_carousel__arrow_left_section,
+.react_multiple_carousel__arrow_left_section:hover{
+  background-image:url("/images/eCommerce/arrowLeft.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  top: 100px;
+  left: -12px;
+}
+
+.sectionCarousel{
+  width: 103%;
+  margin-left: -1%;
+}
+.secCateblock {
+  width: 90%;
+  display: block;
+  margin-left: 5%;
+}
 
 
 
@@ -849,6 +889,16 @@ body {
   padding-right: 0 !important;
 }
 
+select:focus {
+  outline: 0 !important;
+}
+option:focus, option:active{
+
+  box-shadow: none !important;
+  outline: none !important;
+ 
+ }
+
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   .mobileViewNoPadding {
@@ -926,17 +976,8 @@ body {
   .stdBlockSeparatorBlueWrapper {
     display: none;
   }
-
 }
-select:focus {
-  outline: 0 !important;
-}
-option:focus, option:active{
 
-  box-shadow: none !important;
-  outline: none !important;
- 
- }
 @media only screen and (min-width: 1920px) {
   .cartWishlistColor{
     color     : #aaa !important;
@@ -982,6 +1023,15 @@ option:focus, option:active{
   .globalCommonBtn {
     padding: 8px 50px;
   }
+  .react_multiple_carousel__arrow_right_section,
+  .react_multiple_carousel__arrow_right_section:hover{
+    top: 40px;
+  }
+
+  .react_multiple_carousel__arrow_left_section,
+  .react_multiple_carousel__arrow_left_section:hover{
+    top: 40px;
+  }
 
 }  
 
@@ -990,6 +1040,15 @@ option:focus, option:active{
   .globalCommonBtn {
     padding: 8px 21px;
   }
+  .react_multiple_carousel__arrow_right_section,
+  .react_multiple_carousel__arrow_right_section:hover{
+    top: 60px;
+  }
+
+  .react_multiple_carousel__arrow_left_section,
+  .react_multiple_carousel__arrow_left_section:hover{
+    top: 60px;
+  }
 
 }  
 
@@ -997,6 +1056,15 @@ option:focus, option:active{
   .globalCommonBtn {
     padding: 6px 40px;
     font-size: 14px;
+  }
+  .react_multiple_carousel__arrow_right_section,
+  .react_multiple_carousel__arrow_right_section:hover{
+    top: 60px;
+  }
+
+  .react_multiple_carousel__arrow_left_section,
+  .react_multiple_carousel__arrow_left_section:hover{
+    top: 60px;
   }
 
 }  
@@ -1007,24 +1075,54 @@ option:focus, option:active{
     padding: 7px 45px;
     font-size: 15px;
   }
+  .react_multiple_carousel__arrow_right_section,
+  .react_multiple_carousel__arrow_right_section:hover{
+    top: 75px;
+  }
+
+  .react_multiple_carousel__arrow_left_section,
+  .react_multiple_carousel__arrow_left_section:hover{
+    top: 75px;
+  }
 
 }  
+
+
 
 @media only screen and (min-device-width: 1920px) {
   .globalCommonBtn {
     padding: 8px 68px;
     font-size: 16px;
   }
-
   .addressSaveBtn{
     padding: 10px 40px 10px 40px !important;
   }
-
   .wishListIconColor{
     height: 30px;
   }
+  .react_multiple_carousel__arrow_right_section,
+  .react_multiple_carousel__arrow_right_section:hover{
+    top: 90px;
+  }
+  .react_multiple_carousel__arrow_left_section,
+  .react_multiple_carousel__arrow_left_section:hover{
+    top: 90px;
+  }  
+
 }  
 
+
+@media only screen and (min-device-width: 1921px) {
+  .react_multiple_carousel__arrow_right_section,
+  .react_multiple_carousel__arrow_right_section:hover{
+    top: 125px;
+  }
+
+  .react_multiple_carousel__arrow_left_section,
+  .react_multiple_carousel__arrow_left_section:hover{
+    top: 125px;
+  }  
+}
 
 @media only screen and (min-device-width: 2560px) {
   .globalCommonBtn {

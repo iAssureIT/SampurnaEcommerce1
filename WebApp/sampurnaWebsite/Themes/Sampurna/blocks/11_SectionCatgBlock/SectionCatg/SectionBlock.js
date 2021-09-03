@@ -5,14 +5,15 @@ import Style                  from '../../10_eCommerceBlocks/ProductCarousel/Pro
 import Carousel               from 'react-multi-carousel';
 import SubCategory            from '../SubCategory/SubCategory.js';
 import 'react-multi-carousel/lib/styles.css';
+import CustomRightArrow       from '../../StaticBlocks/CustomArrows/CustomRightArrowSection.js';
+import CustomLeftArrow        from '../../StaticBlocks/CustomArrows/CustomLeftArrowSection.js';
 
 class SectionBlock extends Component {
   constructor(props) {
     super(props);
     this.state = {      
       productType             : props.type,
-      itemList                : [
-      ],
+      itemList                : [],
       Productsloading         : true,
     };
   }
@@ -94,7 +95,7 @@ class SectionBlock extends Component {
               {this.props.groupSettings.showOnlySection === true &&
                 <Carousel 
                   className=" sectionCarousel"
-                  swipeable={false}
+                  swipeable={true}
                   draggable={true}
                   showDots={false}
                   responsive={responsive}
@@ -108,7 +109,10 @@ class SectionBlock extends Component {
                   removeArrowOnDeviceType={["tablet", "mobile"]}
                   itemClass="carousel-item-padding-40-px"
                   deviceType={this.props.deviceType}  
-                  containerClass="carousel-container">
+                  containerClass="carousel-container"
+                  customRightArrow={<CustomRightArrow />}
+                  customLeftArrow={<CustomLeftArrow />}
+                  >
                     {this.state.itemList.map((data, index) => {
                       { if(this.props.groupSettings.showOnlySection){
                           url = "/vendor-list/"+data.itemUrl;
