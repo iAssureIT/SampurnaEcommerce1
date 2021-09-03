@@ -1,6 +1,7 @@
 import React, { Component } 	from 'react';
 import $ 						from "jquery";
-import PhoneInput 				from 'react-phone-input-2';
+import PhoneInput               from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import swal 					from 'sweetalert';
 import axios 					from 'axios';
 import { connect } 				from 'react-redux';
@@ -33,12 +34,13 @@ class SignUp extends Component{
 				signupPassword: '',
 				role: ''
 			},
-			formerrors: {
-				firstNameV: "",
-				lastNameV: "",
-				mobileV: "",
-				emailIDV: "",
-			},
+			signupEmail : "",
+			// formerrors: {
+			// 	firstNameV: "",
+			// 	lastNameV: "",
+			// 	mobileV: "",
+			// 	emailIDV: "",
+			// },
 			termsCondition: ["The price of products  is as quoted on the site from time to time.",
 				"Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.",
 				"Products marked as 'non-returnable' on the product detail page cannot be returned.",
@@ -87,10 +89,12 @@ class SignUp extends Component{
 			  errors["lastname"] = "Name should only contain letters.";
 			}
 		}
-		if (!fields["signupEmail"]) {
+		if(this.state.signupEmail!==""){ 
+		  if (!fields["signupEmail"]) {
 			formIsValid = false;
 			errors["signupEmail"] = "Please enter your email.";
 		  }
+		}
 		  if (typeof fields["signupEmail"] !== "undefined") {
 			//regular expression for email validation
 			var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
@@ -165,57 +169,44 @@ class SignUp extends Component{
 				authService : "",
 				isdCode     : "971",
 			}
-			axios.post('/api/auth/post/signup/user/otp',formValues)
-			.then((signupResponse) =>{
-				if(signupResponse){
-					if(signupResponse.data.result){
-						var userDetails = {
-							firstname	: signupResponse.data.result.profile.firstname,
-							lastname	: signupResponse.data.result.profile.lastname,
-							email		: signupResponse.data.result.profile.email,
-							mobNumber   : signupResponse.data.result.profile.mobile,
-							authService : "",
-							userId      : signupResponse.data.ID,
-							roles		: signupResponse.data.result.roles[0],
+			if(formValues){
+				// console.log("formValues==",formValues);
+				axios.post('/api/auth/post/signup/user/otp',formValues)
+				.then((signupResponse) =>{
+					if(signupResponse){
+						if(signupResponse.data.result){
+							var userDetails = {
+								firstname	: signupResponse.data.result.profile.firstname,
+								lastname	: signupResponse.data.result.profile.lastname,
+								email		: signupResponse.data.result.profile.email,
+								mobNumber   : signupResponse.data.result.profile.mobile,
+								authService : "",
+								userId      : signupResponse.data.ID,
+								roles		: signupResponse.data.result.roles[0],
+							}
+							localStorage.setItem('userDetails', JSON.stringify(userDetails));
+							swal("Thank you!! Your account created Successfully. Please Check your SMS, We have sent verification code on your mobile number.");
+							this.props.updateFormValue("signupotp");
+						}else{
+							swal(signupResponse.data.message);
 						}
-						localStorage.setItem('userDetails', JSON.stringify(userDetails));
-						swal("Thank you!! Your account created Successfully. Please Check your SMS, We have sent verification code on your mobile number.");
-						this.props.updateFormValue("signupotp");
-					}else{
-						swal(signupResponse.data.message);
 					}
-				}
-			})
-			.catch((error)=>{
-				console.log("getting error while signup user",error);
-			})
+				})
+				.catch((error)=>{
+					console.log("getting error while signup user",error);
+				})
+			}
 		}
 	}
 
 	handleChange(event){
-		const formerrors = this.state.formerrors;
-		
 		this.setState({
 			[event.target.name]: event.target.value,
-			formerrors
+			// formerrors
 		}); 
 
-		// if(event.target.name === "signupEmail"){
-		// 	let fields = this.state.fields;
-		// 	let errors = {};
-		// 	let formIsValid = true;
-
-		// 	if (typeof fields["signupEmail"] !== "undefined") {
-		// 	//regular expression for email validation
-		// 	var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
-		// 	if (!pattern.test(fields["signupEmail"])) {
-		// 	  formIsValid = false;
-		// 	  errors["signupEmail"] = "Please enter valid email.";
-		// 	}
-		//   }
-		// }
-
 		let fields = this.state.fields;
+		// console.log("fields===",fields);
 		fields[event.target.name] = event.target.value;
 		this.setState({
 		  fields
@@ -304,29 +295,32 @@ class SignUp extends Component{
 						<div className="errorMsg mt-1 ">{this.state.errors.lastname}</div>
 					</div>
 					<div className="col-12 col-lg-6 form-group frmhgt textAlignLeft">
-						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="Email ID*" onChange={this.handleChange} data-text="emailIDV" />
+						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="Email ID" onChange={this.handleChange} data-text="emailIDV" />
 						<div className="errorMsg mt-2">{this.state.errors.signupEmail}</div>
 					</div>
 					<div className="col-12 col-lg-6 form-group frmhgt textAlignLeft">
-						{/* <PhoneInput
-							country={'ae'} 
-							value={this.state.mobNumber}
-							inputProps={{
-								name: 'mobNumber',
-								required: true
-							}}
-							name="phone"
-							placeholder="Phone*"
-							onChange={mobNumber => { 
+					<PhoneInput
+						country={'ae'} 
+						countryCodeEditable = {false}
+						value={this.state.mobNumber}
+						inputProps={{
+							name: 'mobNumber',
+							required: true
+						}}
+						name="phone"
+						placeholder="Phone*"
+						onChange={mobNumber => { 
 							this.setState({ mobNumber })
-								let fields = this.state.fields;
-								fields["mobNumber"] = this.state.mobNumber;
-								this.setState({
-								fields
-								});
-							}}
-						/> */}
-						<input
+							console.log("Mobile no==",this.state.mobNumber);
+							
+							let fields = this.state.fields;
+							fields["mobNumber"] = this.state.mobNumber;
+							this.setState({
+							fields
+							});
+						}}
+					/>
+						{/* <input
 							className="form-control formcontrol1"
 							type="tel"
 							id="phone"
@@ -346,7 +340,7 @@ class SignUp extends Component{
 								name: 'mobNumber',
 								required: true
 							}}
-						/>
+						/> */}
 						<div className="errorMsg">{this.state.errors.mobNumber}</div> 
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
@@ -370,9 +364,10 @@ class SignUp extends Component{
 						<div className="errorMsg mt-1">{this.state.errors.signupConfirmPassword}</div>
 					</div>
 					<div className={"col-12 mt-2 shippingtimes "+S.systemSecurityTermsNConditionWrapper}>
-						<span><input className="" type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} /></span>&nbsp;
-						<span className={S.systemSecurityTermsNConditionText} data-toggle="modal" data-target="#termsNconditionsmodal">Terms & Conditions</span>
-						<span className="required">*</span>
+						<span className="mt-2">
+							<input className="mt-2" type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} />
+						</span>&nbsp;&nbsp;
+						<span className={S.systemSecurityTermsNConditionText} data-toggle="modal" data-target="#termsNconditionsmodal">Terms & Conditions*</span>
 						<div className="errorMsg mt-1">{this.state.errors.termsNconditions}</div>
 					</div>
 					{
@@ -389,7 +384,7 @@ class SignUp extends Component{
 								</div>
 							</div>
 						:
-							<div className="col-12 mt-3 mt-lg-2 mt-xl-5 mb-5">
+							<div className="col-12 col-sm-6 col-lg-7 col-xl-7 mx-auto mt-3 mt-lg-2 mt-xl-3 mb-5">
 								<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12 btn otpBtns">Sign Up</button>
 							</div>
 					}

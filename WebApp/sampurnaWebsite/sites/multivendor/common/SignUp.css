@@ -292,7 +292,7 @@ input[type=number] {
 	background-repeat: no-repeat !important;
 	background-position: center !important;
 }
-#loginFormModal .form-control{
+#loginFormModal .formcontrol1{
 	height: 42px !important;
 	border-radius: 0px !important;
 	border-bottom: solid 1px #ccc !important;
@@ -380,12 +380,23 @@ input[type=number] {
 	margin-top: 60px;
 	height: 39px!important;
 }
-#signUpUser .form-control{
+#signUpUser .formcontrol1{
     background-color: transparent !important;
     font-size: 12px;
     border:none !important;
     border-bottom: 1px solid #ced4da !important;
     border-radius: 0px !important;
+}
+.react-tel-input .flag-dropdown{
+	background-color: transparent !important;
+	border: none !important;
+}
+.react-tel-input .form-control{
+	background-color: transparent !important;
+	border-bottom: 1px solid #ced4da !important;
+	width: 100% !important;
+	font-size: 12px !important;
+	color: #033554 !important;
 }
 .formcontrol1{
     background-color: transparent !important;

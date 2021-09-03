@@ -451,7 +451,7 @@
         height                   : 500px;
         display                  : block;
         background-image         : url("/images/eCommerce/loginBackground.png");
-        background-size          : 100% 100%;
+        /*background-size          : 100% 100%;*/
         background-repeat        : no-repeat;
         text-align               : center;
         background-color         : #000;

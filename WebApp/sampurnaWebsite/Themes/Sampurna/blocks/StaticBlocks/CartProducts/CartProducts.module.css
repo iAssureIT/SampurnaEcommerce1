@@ -2,6 +2,14 @@
     margin-top: 50px;
 }
 
+.alertMessage{
+    position: fixed;
+    z-index: 1000;
+    top: 25px !important;
+    right: 42px !important;
+    display: block;
+}
+
 .vendorTitle{
     font-size: 20px;
     font-weight: bold;
@@ -1088,6 +1096,7 @@
 @media (min-width: 1920px)  {
     .cartInnerCurrencyWrapper1{
         text-align: right;
+        margin-left: 20px;
     }
     .tdCartWrapper {
         right: -4% !important;
@@ -1133,6 +1142,7 @@
     }
     .summeryTotCurrency, .summeryTotAmount, .cartInnerTitleWrapperOfGrandTotal{
         font-size: 30px;
+        padding-left: 15px;
     }
     .checkoutBtn {
         font-size: 25px;

@@ -148,6 +148,7 @@ class DeliveryLocationPopup extends React.Component{
                                 }
                             }
                         }
+                        if(country === "United Arab Emirates"){
                         var deliveryLocation = {
                             "address"   : country === "United Arab Emirates" ? response.results[0].formatted_address : that.state.address,
                             "city"      : city,
@@ -169,20 +170,18 @@ class DeliveryLocationPopup extends React.Component{
                                 "latitude"   : position.coords.latitude,
                                 "longitude"  : position.coords.longitude,
                             });
-                            if(deliveryLocation.country === "United Arab Emirates"){
-                                if(that.props.sampurnaWebsiteDetails){
-                                    var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
-                                    sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-                                }else{
-                                    var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
-                                }
-                                localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
-                                store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                            if(that.props.sampurnaWebsiteDetails){
+                                var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
+                                sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
                             }else{
-                                swal("Sorry!! Delivery is not possible out of UAE");
+                                var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
                             }
-                        }
-                            // that.setState({ address: deliveryLocation.address });                              
+                            localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
+                            store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                        } 
+                        }else{
+                            swal("Oh no! This location is outside of our service area");
+                        }                             
                     },
                     (error) => {
                         console.error(error);
@@ -219,7 +218,7 @@ class DeliveryLocationPopup extends React.Component{
                 window.location.reload();
                 Router.push('/');
             }else{
-                swal("Sorry!! Delivery is not possible out of UAE");
+                swal("Oh no! This location is outside of our service area");
             }
         }else{
             this.setState({

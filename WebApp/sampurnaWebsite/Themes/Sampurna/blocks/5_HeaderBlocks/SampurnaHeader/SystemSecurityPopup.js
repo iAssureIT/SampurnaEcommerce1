@@ -106,10 +106,21 @@ class SystemSecurityPopup extends React.Component{
                     <div className={"col-12 col-xl-10 offset-xl-1 modal-content "+Style.systemSecurityPopupModalContent}>
                         <div className={"col-12 modal-body "+Style.systemSecurityPopupModalBody}>
                                 <div className="row">
-                                    <div className={"col-12 col-lg-6 col-xl-7 "+Style.systemSecurityPopupLeftImageWrapper}>
+                                    <div className={this.props.formToShow === "signUp"
+                                                    ? "col-12 col-lg-4 col-xl-4 "+Style.systemSecurityPopupLeftImageWrapper
+                                                    : "col-12 col-lg-6 col-xl-7 "+Style.systemSecurityPopupLeftImageWrapper
+                                                   }
+                                        style={this.props.formToShow === "signUp"
+                                                ? {backgroundSize: "200% 100%"}
+                                                : {backgroundSize: "100% 100%"}
+                                              }
+                                    >
                                         <img className={Style.systemSecurityPopupLeftImageLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt=""/>
                                     </div>
-                                    <div className={"col-12 col-lg-6 col-xl-5 "+Style.systemSecurityPopupRightFormWrapper}>
+                                    <div className={this.props.formToShow === "signUp"
+                                                    ? "col-12 col-lg-8 col-xl-8 "+Style.systemSecurityPopupRightFormWrapper
+                                                    : "col-12 col-lg-6 col-xl-5 "+Style.systemSecurityPopupRightFormWrapper
+                                                    }>
                                         <button type="button" className={"close mt-3 mr-5 "+Style.systemSecurityPopupCloseButton} data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>
                                         {
                                             this.props.formToShow === "login"
@@ -123,7 +134,7 @@ class SystemSecurityPopup extends React.Component{
                                         {
                                             this.props.formToShow === "signUp"
                                             ?
-                                                <div className="col-12">
+                                                <div className="col-10 mx-auto">
                                                     <SignUp />
                                                 </div>
                                             :

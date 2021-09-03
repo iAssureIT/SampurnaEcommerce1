@@ -167,7 +167,7 @@ class ProductViewEcommerce extends Component{
 	}
 
 	setProductData(productData){
-		console.log("productData = ",productData );
+		// console.log("productData = ",productData );
 
 		this.setState({	
 			activeColor   : productData.color ? productData.color:"",		
@@ -510,8 +510,6 @@ class ProductViewEcommerce extends Component{
 
 	}
 
-
-
 	render(){
 		var x 			= this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
 		var wishClass 	= '';
@@ -637,7 +635,7 @@ class ProductViewEcommerce extends Component{
 								}
 								<div className={"col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 " +Style.topSpace}>
 									<Message messageData={this.state.messageData} />
-										{console.log("this.state.productData=",this.state.productData)}
+										{/* {console.log("this.state.productData=",this.state.productData)} */}
 										{
 											this.state.productData
 											?
