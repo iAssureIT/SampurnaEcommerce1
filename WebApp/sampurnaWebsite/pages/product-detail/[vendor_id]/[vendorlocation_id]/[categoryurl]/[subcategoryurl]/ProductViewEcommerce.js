@@ -68,7 +68,7 @@ class ProductViewEcommerce extends Component{
 		});
 		
 		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
-      var userDetails          	=  JSON.parse(localStorage.getItem('userDetails'));
+        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         
 		if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
 			this.setState({
@@ -81,7 +81,7 @@ class ProductViewEcommerce extends Component{
 			this.setState({ 
 				"userLatitude"  : sampurnaWebsiteDetails.deliveryLocation.latitude,
 				"userLongitude" : sampurnaWebsiteDetails.deliveryLocation.longitude,
-				"delLocation"   : sampurnaWebsiteDetails.deliveryLocation.address,
+				"delLocation"   : sampurnaWebsiteDetails.deliveryLocation.address ? sampurnaWebsiteDetails.deliveryLocation.address : "",
 			});
 		  }
 		if(userDetails){
@@ -89,9 +89,6 @@ class ProductViewEcommerce extends Component{
 				this.setState({
 					user_ID       :  userDetails.user_id,
 					authService   :  userDetails.authService,
-					// userLongitude : userDetails.userLatitude,
-					// userLongitude : userDetails.userLongitude,
-					"delLocation" : sampurnaWebsiteDetails.deliveryLocation.address,
 				},()=>{
 				})
             }
@@ -637,6 +634,7 @@ class ProductViewEcommerce extends Component{
 								}
 								<div className={"col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 " +Style.topSpace}>
 									<Message messageData={this.state.messageData} />
+										{console.log("this.state.productData=",this.state.productData)}
 										{
 											this.state.productData
 											?
@@ -869,7 +867,16 @@ class ProductViewEcommerce extends Component{
 																						<span className="col-6">{this.state.productData.size}</span>
 																					</div>
 																			}
+
+																			<div className={"ml-5 ml-sm-0 "+Style.productInformationWrapper}><b>Product Details</b></div>
+																			{
+																				this.state.productData.productDetails &&
+																					<div className="col-12 singleProductDetail">
+																						<span className="col-12">{this.state.productData.productDetails}</span>
+																					</div>
+																			}
 																		</div>
+
 																		{
 																			this.state.productData.productReturnable === "returnable"
 																			?

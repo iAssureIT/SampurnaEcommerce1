@@ -3,8 +3,6 @@ import axios              from 'axios';
 
 
 import S from './Aboutusbanner.module.css';
-
-
 export default class Aboutusbanner extends Component{
 
     constructor(props){
@@ -16,7 +14,7 @@ export default class Aboutusbanner extends Component{
                 "blockTitle"         : "Banner Title",
                 "blockSubTitle"      : "",
                 "blockDescription"   : "",
-                "bgImage"            : "/images/CMSBlockType/7_Widgets/Aboutusbanner.jpg",
+                "bgImage"            : " ",
                 "fgImage1"           : "",
                 "fgImage2"           : "",
                 "repeatedBlocks"     : [

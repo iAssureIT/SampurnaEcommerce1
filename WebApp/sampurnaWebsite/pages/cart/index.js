@@ -1,22 +1,9 @@
 import React, { Component } from 'react';
-import axios                from 'axios';
-import $                    from 'jquery';
-import dynamic              from 'next/dynamic';
-import getConfig            from 'next/config';
-
-import {connect}            from 'react-redux';
-import store                from '../../redux/store.js';
-import {setBlockData ,setProductApiUrl,getCartData} from '../../redux/actions/index.js';
-
 import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
-import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import CartProducts         from '../../Themes/Sampurna/blocks/StaticBlocks/CartProducts/CartProducts.js';
 import Style                from '../../Themes/Sampurna/blocks/StaticBlocks/CartProducts/CartProducts.module.css';
 
-
-const { publicRuntimeConfig } = getConfig();
-const SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
 class Cart extends Component{
     constructor(props) {
         super(props);
@@ -24,14 +11,7 @@ class Cart extends Component{
             products : [],
         }
     } 
-    componentDidMount(){
-        // this.getWishlistData();
-    }
-    getWishlistData() {
-        var user_ID = localStorage.getItem('user_ID');  
-        var productApi = "/api/wishlist/get/userwishlist/"+user_ID;
-        store.dispatch(setProductApiUrl(productApi));
-    }
+    
     render(){
         return(
           <div>
@@ -48,27 +28,4 @@ class Cart extends Component{
     }
 }
 
-export async function getServerSideProps({query}){
-	const urlParam = 'wishlist-carousel'
-	const res = await axios.get("api/pages/get/page_block/"+urlParam)
-	const pageDatapop = await res.data;
-  
-	return {
-	  props:{
-		  pageDatapop,
-	  }
-	}
-}
-  
-  const mapStateToProps = state => (
-	// console.log("mapStateToProps in produt page",state.data),
-	{data: state.data}
-  );
-  
-  const mapDispatchToProps = {
-    setBlockData: setBlockData,
-    setProductApiUrl: setProductApiUrl
-  };
-  
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
-
+export default Cart

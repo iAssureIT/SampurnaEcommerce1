@@ -22,14 +22,14 @@ export default class Testimonials extends React.Component {
             "blockComponentName": "Testimonials",
             "blockType"         : "7_Widgets",
             "bgImage"           : "",
-            "fgImage"           : "/images/CMSImages/BlockFGImg.png",
+            "fgImage"           : "",
 
             "repeatedBlocks"    : [
                                 
               { 
                   Title      : "Mr Paras Surana", 
                   SubTitle   : "Director - Prabandhan Management Consulting", 
-                  Image      : "/images/CMSImages/RepeatedBlockFGImg.png",
+                  Image      : "",
                   Link       : "", 
                   Description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed sed risus pretium quam vulputate dignissim suspendisse.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed sed risus pretium quam vulputate dignissim suspendisse.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed sed risus pretium quam vulputate dignissim suspendisse.",
 
@@ -38,7 +38,7 @@ export default class Testimonials extends React.Component {
               { 
                   Title      : "Mr. Imran,", 
                   SubTitle   : "Director - Prabandhan Management Consulting", 
-                  Image      : "/images/CMSImages/RepeatedBlockFGImg.png",
+                  Image      : "",
                   Link       : "", 
                   Description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed sed risus pretium quam vulputate dignissim suspendisse.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed sed risus pretium quam vulputate dignissim suspendisse.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed sed risus pretium quam vulputate dignissim suspendisse.",
               },
@@ -46,7 +46,7 @@ export default class Testimonials extends React.Component {
               { 
                   Title      : "Mr Mohd Imran,", 
                   SubTitle   : "Director - Prabandhan Management Consulting", 
-                  Image      : "/images/CMSImages/RepeatedBlockFGImg.png",
+                  Image      : "",
                   Link       : "", 
                   Description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed sed risus pretium quam vulputate dignissim suspendisse.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed sed risus pretium quam vulputate dignissim suspendisse.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed sed risus pretium quam vulputate dignissim suspendisse.",
 

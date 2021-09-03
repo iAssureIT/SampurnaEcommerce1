@@ -384,28 +384,64 @@ font-weight: bolder;
 
 
 
+@media only screen and (min-device-width: 768px) {
 
+  .wishIcon{ 
+    left: 123px;
+    top: 5px;
+  }
+
+ .ImgWrapper{
+    height: 97px;
+  }
+
+  .sizeUnitName{
+    font-size: 9px;
+  }
+
+  .discounttag {
+    font-size: 8px;
+    margin-top: -5px;
+    padding-left: 16px;
+    padding-top: 8px;
+    margin-left: 12px; 
+  }
+
+  .NoAvailableImg{
+    height: 75px;
+  }
+
+}  
 
 
 
 @media only screen and (min-device-width: 1024px) {
 
+  .discounttag {
+    padding-left: 15px;
+  }
+
   .wishIcon{ 
-    left: 122px;
-    top: 9px;
+    left: 134px;
+    top: 5px;
   }
 
   .ImgWrapper {
-    height: 157px;
+    height: 129px;
   }
+
+  .NoAvailableImg{
+    height: 100px;
+  }
+
 }  
 
 
 @media only screen and (min-device-width: 1366px) {
 
   .wishIcon{ 
-    left: 122px;
-    top: 9px;
+    left: 133px;
+    top: 7px;
   }
 
   .ImgWrapper{
@@ -470,6 +506,11 @@ font-weight: bolder;
   .ImgWrapper{
     height: 200px;
   }
+
+  .NoAvailableImg{
+    height: 165px;
+  }
+
 }
 
 

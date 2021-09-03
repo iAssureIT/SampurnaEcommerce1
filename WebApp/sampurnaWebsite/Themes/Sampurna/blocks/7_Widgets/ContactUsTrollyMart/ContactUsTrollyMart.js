@@ -2,13 +2,8 @@ import React, {Component}		from 'react';
 import axios					from 'axios';
 import $						from 'jquery';
 import jQuery					from 'jquery';
-import validate					from "jquery-validation";
 import Swal						from 'sweetalert2';
-// import Link 					from 'next/link';
-
-
 import S						from './ContactUsTrollyMart.module.css';
-
 
 export default class ContactUsTrollyMart extends Component{
 
@@ -28,7 +23,7 @@ export default class ContactUsTrollyMart extends Component{
 				"blockTitle"  		  : "AltMed Center",
 				"blockSubTitle"       : "Contact Us",
 				"blockDescription"    : "Mauris lobortis ullamcorper sagittis. Mauris lobortis ullamcorper sagittis. Integer eleifend sagittis fringilla nam dapibus libero.",
-				"bgImage" 			  : "/images/CMSImages/Sampurna/GetInTouch.png",
+				"bgImage" 			  : "",
 				"blockContact"        : "",
 				"blockEmail"          : "",
 			},
@@ -40,7 +35,7 @@ export default class ContactUsTrollyMart extends Component{
 
 	componentDidMount(){
 
-		this.dynamicvalidation();
+		// this.dynamicvalidation();
 
 		{
             axios.get('/api/blocks/get/'+this.props.block_id)
@@ -66,58 +61,58 @@ export default class ContactUsTrollyMart extends Component{
 		});
 	}
 
-	dynamicvalidation(){
+	// dynamicvalidation(){
 
-        $.validator.addMethod("regxName", function (value, element, regexpr) {
-            return regexpr.test(value);
-        }, "Please enter valid name");
-         $.validator.addMethod("regxEmail", function (value, element, regexpr) {
-            return regexpr.test(value);
-        }, "Please enter valid email");
-         $.validator.addMethod("regxMessage", function (value, element, regexpr) {
-            return regexpr !== value;
-        }, "Please enter appropriate message");
+    //     $.validator.addMethod("regxName", function (value, element, regexpr) {
+    //         return regexpr.test(value);
+    //     }, "Please enter valid name");
+    //      $.validator.addMethod("regxEmail", function (value, element, regexpr) {
+    //         return regexpr.test(value);
+    //     }, "Please enter valid email");
+    //      $.validator.addMethod("regxMessage", function (value, element, regexpr) {
+    //         return regexpr !== value;
+    //     }, "Please enter appropriate message");
 
-        jQuery.validator.setDefaults({
-            debug: true,
-            success: "valid"
-        });
+    //     jQuery.validator.setDefaults({
+    //         debug: true,
+    //         success: "valid"
+    //     });
 
-		$("#ContactUs").validate({
-            rules: {
-                name: {
-                	regxName: /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
-                    required: true
-                },
-                email: {
-					regxEmail: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$|^$)/,
-                    required: true,
-                },
-                message: {
-                	regxMessage:  /^[A-Za-z][A-Za-z0-9\-\s]/,
-                    required: true
-                },
-				mobile: {
-                	regxMessage: /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/,
-                    required: true
-                },
-            },
-            errorPlacement: function (error, element) {
-                if (element.attr("name") === "name") {
-                    error.insertAfter("#name");
-                }
-                if (element.attr("name") === "email") {
-                    error.insertAfter("#email");
-                }
-				if (element.attr("name") === "mobile") {
-                    error.insertAfter("#mobile");
-                }
-                if (element.attr("name") === "message") {
-                    error.insertAfter("#message");
-                }
-            }
-        });
-    }
+	// 	$("#ContactUs").validate({
+    //         rules: {
+    //             name: {
+    //             	regxName: /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
+    //                 required: true
+    //             },
+    //             email: {
+	// 				regxEmail: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$|^$)/,
+    //                 required: true,
+    //             },
+    //             message: {
+    //             	regxMessage:  /^[A-Za-z][A-Za-z0-9\-\s]/,
+    //                 required: true
+    //             },
+	// 			mobile: {
+    //             	regxMessage: /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/,
+    //                 required: true
+    //             },
+    //         },
+    //         errorPlacement: function (error, element) {
+    //             if (element.attr("name") === "name") {
+    //                 error.insertAfter("#name");
+    //             }
+    //             if (element.attr("name") === "email") {
+    //                 error.insertAfter("#email");
+    //             }
+	// 			if (element.attr("name") === "mobile") {
+    //                 error.insertAfter("#mobile");
+    //             }
+    //             if (element.attr("name") === "message") {
+    //                 error.insertAfter("#message");
+    //             }
+    //         }
+    //     });
+    // }
 
 	handleChange(event){
 		event.preventDefault();

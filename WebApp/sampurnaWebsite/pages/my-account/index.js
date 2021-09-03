@@ -46,9 +46,9 @@ class MyAccount extends Component{
         if(userDetails){
             if(userDetails.user_id){
 				this.setState({
-                    url           :defaultUrl,
-                    url1          :dynamicUrl,
-					user_ID       :  userDetails.user_id,
+                    url           : defaultUrl,
+                    url1          : dynamicUrl,
+					user_ID       : userDetails.user_id,
 					userLongitude : userDetails.userLatitude,
 					userLongitude : userDetails.userLongitude,
                     authService   : userDetails.authService
@@ -105,95 +105,181 @@ class MyAccount extends Component{
         document.body.clientHeight, document.documentElement.clientHeight
         );
         // console.log('Full document height, with scrolled out part: ' + scrollHeight);
-        if (this.state.url1==="#v-pills-settings-tab"||this.state.url1==="#v-pills-settings1-tab"||this.state.url1==="#v-pills-settings3-tab") {
+        if (this.state.url1==="#v-pills-settings-tab"  || this.state.url1==="#v-pills-settings1-tab" || this.state.url1==="#v-pills-settings3-tab") {
             window.scroll(0, 0);
-          }
+        }
+        console.log("this.state.url1 => ",this.state.url1);
 
         return(
             // <!-- Demo header-->
             <section className="header ">
                 <Header />
                 <div className="container-fluid pb-5 MyaccountMainWrapper">
-                    <div className="col-12 ml-xl-4 ml-lg-3">
+                    <div className="col-12 ml-xl-4">
                         <div className="row">
-                            <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 col-12">
-                                <header className="col-12 mt-4 mb-xl-4 pl-xl-3 mb-lg-4 pl-lg-2 text-left text-black">
+                            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-xs-12 col-12">
+                                <header className="col-12 mt-4 mb-xl-4 pl-xl-3 mb-lg-4 pl-lg-2 mb-md-4 pl-md-2 text-left text-black">
                                     <span className={"mx-2 "+ S.myAccountTitleWrapper}>My Account</span>       
                                 </header>
+
                                 {/* <!-- Tabs nav --> */}
-                                {this.state.authService !=="guest" &&
-                                <div className={"nav flex-column nav-pills nav-pills-custom navPillsWrapper col-xl-12 "+S.navPillsWrapper+" "+S.myAccountMainDiv} id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                    {this.state.authService==="" &&
-                                    <div className="col-12 NoPadding">
-                                        {/* <a className={this.state.url==="/my-account"?"nav-link mb-4 p-3   active rounded":"nav-link mb-4 p-3  "}  id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">
-                                            <i className="fa fa-user-circle mr-3"></i>
-                                            <span className=" small ">Account Dashboard</span>
-                                        </a> */}
+                                {this.state.authService !== "guest" &&
+                                    <div className={"nav flex-column nav-pills nav-pills-custom navPillsWrapper col-xl-12 "+S.navPillsWrapper+" "+S.myAccountMainDiv} 
+                                          id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+                                        {this.state.authService==="" &&
+                                            <div className="col-12 NoPadding">
+                                                <a className={this.state.url1==="" 
+                                                              ? "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 active" 
+                                                              : "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3" 
+                                                             } id="v-pills-profile-tab" 
+                                                    data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" 
+                                                    aria-selected="false" onClick={()=>{ $("#v-pills-profile").addClass("active");
+                                                                                         $("#v-pills-home").css("display", "block");$("#v-pills-home").addClass("active");
+                                                                                         $("#v-pills-settings").css("display", "none"); 
+                                                                                         $("#v-pills-settings3").css("display", "none");
+                                                                                         $("#v-pills-settings1").css("display", "none");
+                                                                                         $("#v-pills-messages").css("display", "none");
+                                                                                         console.log("v-pills-home => ",$("#v-pills-home"));
+                                                                                       }}>
+                                                    <i className={"fa fa-info-circle mr-3" + S.sideBarTabNameAllignment}></i>
+                                                    <span className={S.sideBarTabNames}>My Profile</span>
+                                                </a>
+                                            </div>
+                                        }
+
+                                        <a className="nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3" id="v-pills-messages-tab" 
+                                            data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" 
+                                            onClick={()=>{ $(".nav-link").removeClass("active");$("#v-pills-messages-tab").addClass("active");
+                                                           $("#v-pills-messages").css("display", "block");
+                                                           $("#v-pills-settings").css("display", "none");
+                                                           $("#v-pills-settings3").css("display", "none");
+                                                           $("#v-pills-home").css("display", "none"); 
+                                                           $("#v-pills-settings1").css("display", "none")
+                                                        }}>
+                                            <i className={"fas fa-map-marker-alt mr-3 " + S.sideBarTabNameAllignment}></i>
+                                            <span className={S.sideBarTabNames}>My Addresses</span>
+                                        </a>
                     
-                                        {/* <a className={this.state.url==="/my-account"?"nav-link mb-4 p-3   active rounded":"nav-link mb-4 p-3  "} id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"onClick={()=>{ $("#myOrderMainId").css("display", "none"); $("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "block"); $("#WishlistMainId").css("display", "none")}}>
-                                            <i className="fa fa-info-circle mr-3"></i>
-                                            <span className=" small ">Account Information</span>
-                                        </a> */}
-                                        <a className=" nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" onClick={()=>{ $("#myOrderMainId").css("display", "none"); $("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "block"); $("#WishlistMainId").css("display", "none")}}>
-                                            <i className={"fa fa-info-circle mr-3 " + S.sideBarTabNameAllignment}></i>
+                                        <a className={this.state.url1==="#v-pills-settings-tab" 
+                                                      ? 
+                                                        "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 active mx-2 "
+                                                      : 
+                                                        "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mx-2"
+                                                     } id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" 
+                                                     onClick={()=>{$(".nav-link").removeClass("active");$("#v-pills-settings-tab").addClass("active");
+                                                                   $("#v-pills-settings").css("display", "block");
+                                                                   $("#v-pills-settings3").css("display", "none");
+                                                                   $("#v-pills-home").css("display", "none"); 
+                                                                   $("#v-pills-settings1").css("display", "none")
+                                                                   $("#v-pills-messages").css("display", "none");
+                                                                }}>
+                                            <i className={"fa fa-shopping-cart mr-3 " + S.sideBarTabNameAllignment}></i>
+                                            <span className={S.sideBarTabNames}> My Orders</span>
+                                        </a>
+
+                                        <a className={this.state.url1==="#v-pills-settings1-tab" 
+                                                      ?
+                                                        "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mx-2 active"
+                                                      : 
+                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3"
+                                                     } id="v-pills-settings1-tab" data-toggle="pill" href="#v-pills-settings1" role="tab" aria-controls="v-pills-settings1" aria-selected="false" 
+                                                     onClick={()=>{ $(".nav-link").removeClass("active");$("#v-pills-settings1-tab").addClass("active");
+                                                                    $("#v-pills-settings").css("display", "none");
+                                                                    $("#v-pills-settings3").css("display", "none"); 
+                                                                    $("#v-pills-home").css("display", "none");
+                                                                    $("#v-pills-settings1").css("display", "block");
+                                                                    $("#v-pills-messages").css("display", "none");
+                                                             }}>
+                                            <i className={"fa fa-heart mr-3 " + S.sideBarTabNameAllignment}></i>
+                                            <span className={S.sideBarTabNames}> My Wishlist</span>
+                                        </a>
+
+                                        <a className={this.state.url1==="#v-pills-settings3-tab"
+                                                      ?
+                                                        "nav-link mb-xl-4 mx-2 py-xl-4 mb-lg-3 py-lg-3 active"
+                                                      :
+                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3"
+                                                     } id="v-pills-settings3-tab" data-toggle="pill" href="#v-pills-settings3" role="tab" aria-controls="v-pills-settings3" aria-selected="false" 
+                                                     onClick={()=>{ $(".nav-link").removeClass("active");$("#v-pills-settings3-tab").addClass("active");
+                                                                    $("#v-pills-settings").css("display", "none");
+                                                                    $("#v-pills-settings3").css("display", "block");
+                                                                    $("#v-pills-home").css("display", "none"); 
+                                                                    $("#v-pills-settings1").css("display", "none");
+                                                                    $("#v-pills-messages").css("display", "none");
+                                                                  }}>
+                                            <i className={"fa fa-money-bill mr-3 " + S.sideBarTabNameAllignment}></i>
+                                            <span className={S.sideBarTabNames}> Credit Points</span>
+                                        </a>
+
+                                        {/*<a className=" nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" onClick={()=>{ $("#myOrderMainId").css("display", "none"); $("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "block"); $("#WishlistMainId").css("display", "none")}}>
+                                            <i className={"fa fa-info-circle mr-xl-3 mr-lg-3 mr-md-2 " + S.sideBarTabNameAllignment}></i>
                                             <span className={S.sideBarTabNames}>My Profile</span>
                                         </a>
                                     </div>}
-                                    <a className="nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onClick={()=>{ $("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
-                                        <i className={"fas fa-map-marker-alt mr-3 " + S.sideBarTabNameAllignment}></i>
-                                        {/* <img src="/images/eCommerce/locationHome.svg" className="mr-3" alt="ChangeLocationButton"></img> */}
+                                    <a className="nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onClick={()=>{ $("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
+                                        <i className={"fas fa-map-marker-alt mr-xl-3 mr-lg-3 mr-md-2 " + S.sideBarTabNameAllignment}></i>
                                         <span className={S.sideBarTabNames}>My Addresses</span></a>
                 
-                                    <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3  active mx-2 ": "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mx-2  "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onClick={()=>{$("#myOrderMainId").css("display", "block");$("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
-                                        <i className={"fa fa-shopping-cart mr-3 " + S.sideBarTabNameAllignment}></i>
+                                    <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 active mx-2 ": "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 mx-2 "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onClick={()=>{$("#myOrderMainId").css("display", "block");$("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
+                                        <i className={"fa fa-shopping-cart mr-xl-3 mr-lg-3 mr-md-2 " + S.sideBarTabNameAllignment}></i>
                                         <span className={S.sideBarTabNames}> My Orders</span></a>
 
-                                    <a className={this.state.url1==="#v-pills-settings1-tab" ?"nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mx-2  active":"nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 "} id="v-pills-settings1-tab" data-toggle="pill" href="#v-pills-settings1" role="tab" aria-controls="v-pills-settings1" aria-selected="false" onClick={()=>{$("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "none"); $("#accountInformationManiId").css("display", "none");$("#WishlistMainId").css("display", "block")}}>
-                                    <i className={"fa fa-heart mr-3 " + S.sideBarTabNameAllignment}></i>
+                                    <a className={this.state.url1==="#v-pills-settings1-tab" ?"nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mx-2 mb-md-3 py-md-2 mb-3 py-3 active":"nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 "} id="v-pills-settings1-tab" data-toggle="pill" href="#v-pills-settings1" role="tab" aria-controls="v-pills-settings1" aria-selected="false" onClick={()=>{$("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "none"); $("#accountInformationManiId").css("display", "none");$("#WishlistMainId").css("display", "block")}}>
+                                    <i className={"fa fa-heart mr-xl-3 mr-lg-3 mr-md-2 " + S.sideBarTabNameAllignment}></i>
                                     <span className={S.sideBarTabNames}> My Wishlist</span></a>
 
-                                    <a className={this.state.url1==="#v-pills-settings3-tab"?"nav-link mb-xl-4 mx-2 py-xl-4 mb-lg-3 py-lg-3  active":"nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 "} id="v-pills-settings3-tab" data-toggle="pill" href="#v-pills-settings3" role="tab" aria-controls="v-pills-settings3" aria-selected="false" onClick={()=>{ $("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "block");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
-                                    <i className={"fa fa-money-bill mr-3 " + S.sideBarTabNameAllignment}></i>
-                                    <span className={S.sideBarTabNames}> Credit Points</span></a>
+                                    <a className={this.state.url1==="#v-pills-settings3-tab"?"nav-link mb-xl-4 mx-2 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 active":"nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 "} id="v-pills-settings3-tab" data-toggle="pill" href="#v-pills-settings3" role="tab" aria-controls="v-pills-settings3" aria-selected="false" onClick={()=>{ $("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "block");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
+                                    <i className={"fa fa-money-bill mr-xl-3 mr-lg-3 mr-md-2 " + S.sideBarTabNameAllignment}></i>
+                                    <span className={S.sideBarTabNames}> Credit Points</span></a>*/}
 
-                                    {/* <a className="nav-link mb-5 p-3 " id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false">
-                                    <i className="fa fa-star mr-3"></i>
-                                    <span className=" small ">My Product Reviews</span></a> */}
-                                </div>
+
+                                    </div>
                                 }
-                                { this.state.authService==="guest"&&
-                                    <div className={"nav flex-column nav-pills nav-pills-custom navPillsWrapper "+S.navPillsWrapper} id="v-pills-tab" role="tablist" aria-orientation="vertical">   
-                                         <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-xl-4 mx-2 p-3  active": "nav-link mx-2 mb-xl-4 p-3  "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
-                                        <i className=" mr-3"></i>
-                                        <span className=" small  " > My Orders</span></a>
+
+                                { 
+                                    this.state.authService==="guest" &&
+                                    <div className={"nav flex-column nav-pills nav-pills-custom navPillsWrapper "+S.navPillsWrapper} 
+                                                    id="v-pills-tab" role="tablist" aria-orientation="vertical">   
+                                        <a className={this.state.url1==="#v-pills-settings-tab" 
+                                                      ? 
+                                                        "nav-link mb-xl-4 mx-2 p-3  active"
+                                                      : 
+                                                        "nav-link mx-2 mb-xl-4 p-3"
+                                                     } id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                            <i className=" mr-3"></i>
+                                            <span className="small" > My Orders</span>
+                                        </a>
                                     </div>
                                 }
                             </div>
                 
+
                             <div className={"col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 col-12 mt-5 "+S.myAccountSideWrapper}>
                                 {/* <!-- Tabs content --> */}
                                 <div className="tab-content" id="v-pills-tabContent">
-                                    <div className={this.state.url==="/my-account"?"tab-pane fade  bg-white  pb-5 show active":"tab-pane fade  rounded bg-white  pb-5"} id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                       {/* <Account/>                           */}
+                                    <div className={this.state.url1==="" 
+                                                    ? "tab-pane fade bg-white pb-5 show active" 
+                                                    : "tab-pane fade bg-white pb-5"
+                                                   } id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                        <EditAccount/>
                                     </div>
                                     
-                                    {/* <div className="tab-pane fade  bg-white pb-5" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                                    <EditAccount/>
-                                    </div> */}
-                                    
-                                    <div className="tab-pane    bg-white pb-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                                    {/*<AddressBook/>*/}
+                                    <div className="tab-pane bg-white pb-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                        <AddressBook/>
                                     </div>
                                     
-                                    <div className={this.state.url1==="#v-pills-settings-tab"?"tab-pane bg-white  show active":"tab-pane bg-white "}id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                    <div className={this.state.url1==="#v-pills-settings-tab"?"tab-pane bg-white  show active":"tab-pane bg-white "} 
+                                        id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                                         <MyOrders getOrderId={this.getOrderId.bind(this)}/>
                                     </div>
 
-                                    <div className={this.state.url1==="#v-pills-settings1-tab"?"tab-pane  bg-white pb-5 show active":"tab-pane   bg-white pb-5"} id="v-pills-settings1" role="tabpanel" aria-labelledby="v-pills-settings1-tab">
+                                    <div className={this.state.url1==="#v-pills-settings1-tab"?"tab-pane  bg-white pb-5 show active":"tab-pane   bg-white pb-5"} 
+                                        id="v-pills-settings1" role="tabpanel" aria-labelledby="v-pills-settings1-tab">
                                         <Wishlist/>
                                     </div>
-                                    <div className={this.state.url1==="#v-pills-settings3-tab"?"tab-pane  bg-white pb-5 show active":"tab-pane  bg-white pb-5"} id="v-pills-settings3" role="tabpanel" aria-labelledby="v-pills-settings3-tab">
+                                    <div className={this.state.url1==="#v-pills-settings3-tab"?"tab-pane  bg-white pb-5 show active":"tab-pane  bg-white pb-5"} 
+                                          id="v-pills-settings3" role="tabpanel" aria-labelledby="v-pills-settings3-tab">
                                         <CreditPoints />
                                     </div>
                                     <div className={this.state.url1==="#v-pills-settings2-tab"?"tab-pane  bg-white pb-5 show active":"tab-pane   bg-white pb-5"} id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings2-tab">

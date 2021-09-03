@@ -69,11 +69,16 @@
 
 
 
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-device-width: 1200px) {
+
+@media (min-device-width: 768px) {
+   #editAccount label {
+    font-size: 8px;
+  }
+}  
+
+@media (min-device-width: 1024px) {
   #editAccount label {
-    font-size     : 12px;
-    /* font-weight: 700 ! important; */
+    font-size: 11px;
   }
 
   #editAccount input {

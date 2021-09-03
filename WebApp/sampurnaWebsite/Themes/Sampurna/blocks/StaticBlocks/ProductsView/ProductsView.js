@@ -4,11 +4,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import Link from 'next/link';
 import S3 from 'react-aws-s3';
-
 import StarRatingComponent  from 'react-star-rating-component';
-// // import Message              from '../Message/Message.js';
-import ProductReview        from './ProductsView.js';
-import ReturnForm           from './ReturnForm.js';
 import swal                 from 'sweetalert';
 import Style                from './index.module.css';
 
@@ -134,7 +130,7 @@ class ProductsView extends Component {
           "reviewProductImages": reviewProductImages.push(this.state.imgUrl),
         }
 
-        // console.log("formValues=", formValues);
+        console.log("formValues=", formValues);
         axios.patch("/api/customerReview/patch/customer/review", formValues)
           .then((response) => {
             this.setState({
@@ -579,7 +575,7 @@ uploadImage(event) {
                         {
                           <span className={"productPrize textAlignRight "+Style.productPrize}>
                             {this.props.currency}
-                            &nbsp;{productdata.discountedPrice.toFixed(2)}
+                            &nbsp;{productdata.discountedPrice.toFixed(2) * productdata.quantity }
                           </span>
                         }
 
@@ -645,12 +641,13 @@ uploadImage(event) {
                                   <div className="clearfix "></div>
                                 </div>
                                 <span className={"col-12 " + Style.errormsg}>{this.state.reviewStarError}</span>
-                                <div className="row inputrow">
-                                  <label className={"col-12 mt15 text-left "+Style.feedbackLable}>Leave a feedback...</label>
-                                  <div className="col-12 ">
-                                    <textarea rows="5" className={"col-12 "+Style.feedbackBox} onChange={this.handleChangeReview.bind(this)} value={this.state.customerReview} name="customerReview"></textarea>
-                                    <div className={"col-12 text-left NoPadding " + Style.errormsg}>{this.state.errors.customerReview}</div>
-                                  </div>
+                                <div className="col-12 inputrow">
+                                    <label className={"col-12 mt15 text-left "+Style.feedbackLable}>Leave a feedback...</label>
+                                    <div className="row">
+                                      <textarea rows="5" className={"col-12 "+Style.feedbackBox} onChange={this.handleChangeReview.bind(this)} value={this.state.customerReview} name="customerReview"></textarea>
+                                      <div className={"col-12 text-left NoPadding " + Style.errormsg}>{this.state.errors.customerReview}</div>
+                                    </div>
+                                  
                                 </div>
                                 <div className={"col-12 "}>
                                   <div className="col-12">

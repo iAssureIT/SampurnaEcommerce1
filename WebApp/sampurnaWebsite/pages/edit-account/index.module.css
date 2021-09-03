@@ -30,7 +30,7 @@
     min-height      : 230px;
     background-color: white;
     border          : 1px solid #033554;
-    border-radius   : 19px;
+    border-radius   : 11px;
 }
 
 .asterikSign{
@@ -84,15 +84,28 @@
 
 
 
-@media only screen and (min-device-width: 1024px) {
+
+
+@media only screen and (min-device-width: 768px) {
     .editAccountTitle{
-        font-size: 25px;
+        font-size: 23px;
         font-family: "Montserrat-Bold";
      }
 
     .editAccountFont{
         font-family: "Montserrat-Medium";
+    }
+
+    .accountInformationMainWrapper{
+        margin-left: 12px;
     }    
+}
+
+
+@media only screen and (min-device-width: 1024px) {
+    .editAccountTitle{
+        font-size: 25px;
+     }
 }
 
 
@@ -126,4 +139,11 @@
     .editAccountFont{
         font-size: 16px;
     }
+}
+
+@media only screen and (min-device-width: 1920px) {
+     .editAccountTitle{
+        font-size: 40px;
+    }
+
 }

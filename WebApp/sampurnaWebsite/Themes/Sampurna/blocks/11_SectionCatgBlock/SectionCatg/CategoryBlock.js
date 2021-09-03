@@ -28,7 +28,7 @@ class CategoryBlock extends Component {
                   itemList.push({
                     "itemImg" : blockApiResponse.data[i].itemImg && blockApiResponse.data[i].itemImg,
                     // "itemUrl" : blockApiResponse.data[i].itemUrl,
-                    "itemUrl" : this.props.groupSettings.showOnlySection === true ?  blockApiResponse.data[i].itemUrl : this.props.groupSettings.section,
+                    "itemUrl" : this.props.groupSettings.showOnlySection === true ?  blockApiResponse.data[i].itemUrl : this.props.groupSettings.sectionUrl,
                     "item"    : blockApiResponse.data[i].itemName,
                   })      
             } 

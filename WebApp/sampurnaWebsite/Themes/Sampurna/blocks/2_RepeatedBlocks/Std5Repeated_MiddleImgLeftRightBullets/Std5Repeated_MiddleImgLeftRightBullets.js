@@ -22,7 +22,7 @@ export default class Std5Repeated_MiddleImgLeftRightBullets extends Component{
                 "blockTitle"         : "Standard 5 Repeated - Middle Image Left Right Bullets",
                 "blockSubTitle"      : "",
                 "blockDescription"   : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                "fgImage1"           : "/images/CMSImages/BlockFGImg.png",
+                "fgImage1"           : "",
                 "fgImage2"           : "",
                 "bgImage"            : "",
                 "repeatedBlocks"     : [
@@ -30,7 +30,7 @@ export default class Std5Repeated_MiddleImgLeftRightBullets extends Component{
                         Title        : "Lorem ipsum",
                         SubTitle     : "",
                         Description  : "Innovation is the backbone of company's development methodology. We produce amazing micro-innovations at every step in app to give you that 'wow' effect",
-    					FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+    					FGImage1     : "",
 	    				FGImage2     : "",
 		    			BGImage      : "",
                         Link         : ""
@@ -39,7 +39,7 @@ export default class Std5Repeated_MiddleImgLeftRightBullets extends Component{
                         Title        : "Lorem ipsum",
                         SubTitle     : "",
                         Description  : "Innovation is the backbone of company's development methodology. We produce amazing micro-innovations at every step in app to give you that 'wow' effect",
-			    		FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+			    		FGImage1     : "",
 				    	FGImage2     : "",
 					    BGImage      : "",
                         Link         : ""
@@ -48,7 +48,7 @@ export default class Std5Repeated_MiddleImgLeftRightBullets extends Component{
                         Title        : "Lorem ipsum",
                         SubTitle     : "",
                         Description  : "Innovation is the backbone of company's development methodology. We produce amazing micro-innovations at every step in app to give you that 'wow' effect",
-    					FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+    					FGImage1     : "",
 	    				FGImage2     : "",
 		    			BGImage      : "",
                         Link         : ""
@@ -57,7 +57,7 @@ export default class Std5Repeated_MiddleImgLeftRightBullets extends Component{
                         Title        : "Lorem ipsum",
                         SubTitle     : "",
                         Description  : "Innovation is the backbone of company's development methodology. We produce amazing micro-innovations at every step in app to give you that 'wow' effect",
-			    		FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+			    		FGImage1     : "",
 				    	FGImage2     : "",
 					    BGImage      : "",
                         Link         : ""
@@ -66,7 +66,7 @@ export default class Std5Repeated_MiddleImgLeftRightBullets extends Component{
                         Title        : "Lorem ipsum",
                         SubTitle     : "",
                         Description  : "Innovation is the backbone of company's development methodology. We produce amazing micro-innovations at every step in app to give you that 'wow' effect",
-    					FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+    					FGImage1     : "",
 	    				FGImage2     : "",
 		    			BGImage      : "",
                         Link         : ""
@@ -75,7 +75,7 @@ export default class Std5Repeated_MiddleImgLeftRightBullets extends Component{
                         Title        : "Lorem ipsum",
                         SubTitle     : "",
                         Description  : "Innovation is the backbone of company's development methodology. We produce amazing micro-innovations at every step in app to give you that 'wow' effect",
-			    		FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+			    		FGImage1     : "",
 				    	FGImage2     : "",
 					    BGImage      : "",
                         Link         : ""
@@ -84,7 +84,7 @@ export default class Std5Repeated_MiddleImgLeftRightBullets extends Component{
                         Title        : "Lorem ipsum",
                         SubTitle     : "",
                         Description  : "Innovation is the backbone of company's development methodology. We produce amazing micro-innovations at every step in app to give you that 'wow' effect",
-    					FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+    					FGImage1     : "",
 	    				FGImage2     : "",
 		    			BGImage      : "",
                         Link         : ""
@@ -93,7 +93,7 @@ export default class Std5Repeated_MiddleImgLeftRightBullets extends Component{
                         Title        : "Lorem ipsum",
                         SubTitle     : "",
                         Description  : "Innovation is the backbone of company's development methodology. We produce amazing micro-innovations at every step in app to give you that 'wow' effect",
-			    		FGImage1     : "/images/CMSImages/RepeatedBlockFGImg.png",
+			    		FGImage1     : "",
 				    	FGImage2     : "",
 					    BGImage      : "",
                         Link         : ""

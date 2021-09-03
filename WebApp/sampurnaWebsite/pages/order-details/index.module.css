@@ -46,7 +46,7 @@
 	color         : #000000 !important;
 	opacity       : 0.6;
 	letter-spacing: 0px;
-	font-size     : 13px !important;
+	font-size     : 13px;
 }
 
 .productName, .productNameOrderDetail{
@@ -551,6 +551,18 @@
 	.myOrdersDetDateAndTime{
 		font-family: 'Montserrat-Medium';
 	}
+
+	.ptb15{
+		font-size: 12px;
+		line-height: 2;
+	}
+
+	.rightSideDateWrapper1 div{
+		text-overflow: ellipsis;
+	    overflow: hidden;
+	    white-space: nowrap;
+	    font-family: 'Montserrat-Medium';
+	}
 }
 
 @media only screen and (min-device-width: 1366px) {
@@ -560,6 +572,11 @@
 
 	.orderDetailVendorAmtInnerWrapper{
 		font-size: 10px;
+	}
+
+	.ptb15{
+		font-size: 13px;
+		line-height: 2;
 	}
 }
 
@@ -571,6 +588,11 @@
 	.orderDetailVendorAmtInnerWrapper{
 		font-size: 13px;
 	}
+
+	.ptb15{
+		font-size: 14px;
+		line-height: 1.8;
+	}
 }
 
 
@@ -581,6 +603,11 @@
 
 	.orderDetailVendorAmtInnerWrapper{
 		font-size: 13px;
+	}
+
+	.ptb15{
+		font-size: 15px;
+		line-height: 1.8;
 	}
 }
 
@@ -638,6 +665,65 @@
 
 	.orderDetailVendorAmtInnerWrapper{
 		font-size: 15px;
-}
+	}
 
 }
+
+
+@media only screen and (min-device-width: 2560px) {
+
+	.mainTitle {
+		font-size: 38px;
+	}
+
+	.ptb15{
+		font-size: 20px;
+		line-height: 1.8;
+	}
+
+	.myOrderDeliveryDetails{
+		/*font-family: 'Montserrat-Thin';*/
+	}
+
+	.myOrdersDetDateAndTime{
+		font-size: 22px;
+	}
+
+	.stepRound{
+	    height: 48px;
+	    width: 48px;
+	}
+
+	.doneRound:after {
+    	font-size: 29px;
+    	top: 4px;
+    	left: 12px;
+	}
+
+	.indicatorNum{
+	    font-size: 27px;
+	    top: 4px;
+    	left: 15px;
+	}
+
+	.stepWrapper{
+		font-size: 19px;
+	}
+
+	.singleProductDetail {
+		font-size: 21px;
+	}
+
+	.productQuantity{
+		font-size: 21px;
+	}
+
+	.orderDetailVendorAmtWrapper{
+		margin-left: -109px;
+	}
+
+	.orderDetailVendorAmtInnerWrapper{
+		font-size: 19px;
+	}
+
+}	

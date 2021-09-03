@@ -115,7 +115,7 @@ class CartProducts extends Component {
                                         messageData: {},
                                     })
                                 }, 1500);
-                                this.props.fetchCartData();
+                                // this.props.fetchCartData();
                                 this.props.updateCartCount();
                             }
                         })
@@ -136,45 +136,14 @@ class CartProducts extends Component {
         const quantity = parseInt(event.target.getAttribute('dataquntity'));
         var availableQuantity = parseInt(event.target.getAttribute('availablequantity'));
         const quantityAdded = parseInt(quantity + 1);
-
-        if (this.state.websiteModel === "FranchiseModel") {
-            const size = event.target.getAttribute('size');
-            const unit = event.target.getAttribute('unit');
-            var totalWeight = quantityAdded * size;
-            if (unit === "gm") {
-                if (totalWeight >= 1000) {
-                    totalWeight = totalWeight / 1000;
-                    totalWeight = totalWeight + " KG";
-                } else {
-                    totalWeight = totalWeight + " GM";
-                }
-            } else {
-                totalWeight = totalWeight + " " + unit;
-            }
-            const formValues = {
-                "user_ID": this.state.user_ID,
-                "product_ID": product_ID,
-                "totalWeight": totalWeight,
-                "vendor_ID": vendor_id,
-                "quantityAdded": quantityAdded,
-            }
-            // console.log("formValues====",formValues);  
-            axios.patch("/api/carts/quantity", formValues)
-                .then((response) => {
-                    this.props.fetchCartData();
-                })
-                .catch((error) => {
-                    console.log("error => ", error);
-                })
-
-        } else {
+        const size = event.target.getAttribute('size');
+        var totalWeight = parseInt(quantityAdded * size);
+        const unit = event.target.getAttribute('unit');
             const formValues = {
                 "user_ID": this.state.user_ID,
                 "product_ID": product_ID,
                 "quantityAdded": quantityAdded,
-                "totalWeight": totalWeight,
                 "vendor_ID": vendor_id,
-                "quantityAdded": quantityAdded,
             }
             if (quantityAdded > availableQuantity) {
                 this.setState({
@@ -196,14 +165,12 @@ class CartProducts extends Component {
                 // console.log("formValues===",formValues);
                 axios.patch("/api/carts/quantity", formValues)
                     .then((response) => {
-                        // console.log("increament response=>",response.data);
                         this.props.fetchCartData();
                     })
                     .catch((error) => {
                         console.log("error => ", error);
                     })
             }
-        }
     }
 
     cartquantitydecrease(event) {
@@ -219,7 +186,7 @@ class CartProducts extends Component {
             "quantityAdded": quantityAdded,
             "vendor_ID": vendor_id,
         }
-        // console.log("formValues===",formValues);
+        console.log("formValues===",formValues);
         axios.patch("/api/carts/quantity", formValues)
             .then((response) => {
                 this.props.fetchCartData();
@@ -288,7 +255,7 @@ class CartProducts extends Component {
                                 messageData: {},
                             })
                         }, 1500);
-                        this.props.fetchCartData();
+                        // this.props.fetchCartData();
                     })
                     .catch((error) => {
                         console.log("error => ", error);
@@ -316,7 +283,7 @@ class CartProducts extends Component {
             "product_ID"          : id
         }
           
-          console.log("inside wishlist==",formValues);
+        //   console.log("inside wishlist==",formValues);
           axios.post('/api/wishlist/post', formValues)
             .then((response) => {
               this.setState({
@@ -333,7 +300,7 @@ class CartProducts extends Component {
                   messageData: {},
                 })
               }, 2000);
-              this.props.fetchCartData();
+            //   this.props.fetchCartData();
             })
             .catch((error) => {
               console.log('error', error);
@@ -359,17 +326,14 @@ class CartProducts extends Component {
       }
     
     render() {
-        console.log("this.props.recentCartData===",this.props.recentCartData);
+        // console.log("this.props.recentCartData===",this.props.recentCartData);
         return (
             <div className={"col-12 "+Style.cartHeightWrapper}>
                 <div className="col-12  ">
                     <div className="col-12  pl-0">
                         <div className="col-12 cartHeight">
-                            {this.props.loading 
-                            ?
-                                <Loader type="fullpageloader" />
-                            :
-                                <div className="row">                                    
+                            <Loader type="fullpageloader" />
+                            <div className="row">                                    
                                     <Message messageData={this.state.messageData} />
                                     {
                                         this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length > 0 ?
@@ -750,9 +714,6 @@ class CartProducts extends Component {
                                                 src={"/images/eCommerce/emptycart.png"}
                                                 alt="ProductImg" 
                                                 className={"img-responsive  "+Style.emptycartImageWrapper}
-                                               
-                                                
-                                                layout={'intrinsic'}
                                                 />
                                                 <h2 className={Style.cartEmptyTitle}>Your cart is empty!</h2>
                                                 <a href="/" className={Style.cartEmptySubTitle}>
@@ -764,7 +725,7 @@ class CartProducts extends Component {
 
 
                                 </div>
-                            }
+                            
                         </div>
                     </div>
                 </div>

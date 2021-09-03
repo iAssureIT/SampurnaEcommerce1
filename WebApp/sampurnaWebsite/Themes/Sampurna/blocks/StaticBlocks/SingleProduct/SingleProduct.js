@@ -207,7 +207,7 @@ class SingleProduct extends Component{
    
 
     render(){
-      console.log("Product ===",this.props);
+      // console.log("Product ===",this.props);
       var categoryUrl = (this.props.data.category?this.props.data.category:"").replace(/\s+/g, '-').toLowerCase();                    
       var subCategoryUrl = (this.props.data.subCategory?this.props.data.subCategory:"-").replace(/\s+/g, '-').toLowerCase();                    
 
@@ -256,7 +256,7 @@ class SingleProduct extends Component{
                         <img                                           
                           src={Array.isArray(this.props.data.productImage) && this.props.data.productImage.length > 0 && this.props.data.productImage[0] ? this.props.data.productImage[0] : "/images/eCommerce/notavailable.png"}
                           alt="ProductImg" 
-                          className={"img-responsive " +Style.NoAvailableImg }
+                          className={"img-fluid " +Style.NoAvailableImg }
                           height={this.props.data.productImage[0] ? "140px" : '130px'} 
                           layout={'intrinsic'}
                         />

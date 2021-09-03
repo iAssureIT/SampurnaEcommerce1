@@ -59,7 +59,7 @@ class Wishlist extends Component {
   }
 
   render() {
-    console.log("recentWishlistData==",this.props.recentWishlistData);
+    // console.log("recentWishlistData==",this.props.recentWishlistData);
     return (
       <div className="col-12 pt-4">
       <div className={"row px-xl-3 " +Style.wishlistProduct} id="WishlistMainId">
@@ -76,7 +76,7 @@ class Wishlist extends Component {
                 this.props.recentWishlistData.map((areaWiseWishlist, index) => {  
                    return(
                       <div className="col-12 mb-4" key={index}> 
-                          <div className="col-12 areaName mt-lg-1 mt-4 pb-3 pl-lg-0 "><i className="fas fa-map-marker-alt" aria-hidden="true"></i>    &nbsp;&nbsp;{areaWiseWishlist.areaName}</div>
+                          <div className="col-12 areaName mt-lg-1 mt-4 pb-3 pl-lg-0 mt-md-0"><i className="fas fa-map-marker-alt" aria-hidden="true"></i>    &nbsp;&nbsp;{areaWiseWishlist.areaName}</div>
                           <div className={"col-12 pt-4 mx-0 "+Style.wishlistBlockBorder}>
                                 {areaWiseWishlist && areaWiseWishlist.products && areaWiseWishlist.products.length > 0
                                 ?

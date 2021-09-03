@@ -19,8 +19,8 @@ export default class StaffBannerWithForm extends React.Component {
 	            "blockDescription"  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, Sed sed risus pretium quam vulputate dignissim suspendisse.",
 	            "blockComponentName": "TemplateOverview",
 	            "blockType"         : "7_Widgets",
-				"bgImage"           : "/images/CMSImages/BlockBGImg.jpeg",
-				"fgImage"           : "/images/CMSImages/BlockFGImg.png",
+				"bgImage"           : "",
+				"fgImage"           : "",
 				
 	            "repeatedBlocks"    : [
 	                                
