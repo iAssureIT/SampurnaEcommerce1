@@ -295,7 +295,7 @@
 .systemSecurityPopupCloseButton {
     position: absolute;
     z-index : 999;
-    right   : -25px;
+    right   : -35px;
 }
 
 .locationPageWrapper{

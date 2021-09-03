@@ -1,6 +1,7 @@
 import axios             from 'axios';
 import { useRouter }     from "next/router";
 import Aboutusbanner     from '../../Themes/Sampurna/blocks/7_Widgets/Aboutusbanner/Aboutusbanner';
+import StandardTextBlock from '../../Themes/Sampurna/blocks/1_StandardBlocks/Std5_PlainContent/Std5_PlainContent.js';
 import Header            from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer            from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 
@@ -13,7 +14,6 @@ function TermsAndConditions({pageData}) {
     // console.log("pageData==",pageData);
     var Aboutusbanner_block_id = pageData.pageBlocks[0].block_id._id ? pageData.pageBlocks[0].block_id._id : ""
     var standardTxt_block_id = pageData.pageBlocks[1].block_id._id ? pageData.pageBlocks[1].block_id._id : ""
-    
   }
   return (
     pageData ? 
