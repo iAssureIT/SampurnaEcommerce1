@@ -95,7 +95,18 @@ class MyAccount extends Component{
     }
   
     getOrderId(orderId){
-        this.setState({order_id:orderId})
+        this.setState({
+                        order_id:orderId
+                      }, 
+                      ()=>{console.log("this.state.order_id => ",this.state.order_id);} 
+                    );
+        $(".nav-link").removeClass("active");$("#v-pills-settings-tab").addClass("active");
+        $("#v-pills-settings2").css("display", "block"); $("#v-pills-settings2").addClass("active");
+        $("#v-pills-settings3").css("display", "none");
+        $("#v-pills-home").css("display", "none"); 
+        $("#v-pills-settings").css("display", "none"); 
+        $("#v-pills-settings1").css("display", "none");
+        $("#v-pills-messages").css("display", "none");
     }
     
     render(){

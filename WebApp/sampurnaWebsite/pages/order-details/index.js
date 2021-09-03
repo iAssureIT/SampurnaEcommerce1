@@ -79,6 +79,24 @@ export default class OrderDetails extends Component {
     })
   }
 
+  componentDidUpdate(prevProps){
+    if(this.props.order_id !== prevProps.order_id){
+      window.scroll(0,0);
+      var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+      var currency = sampurnaWebsiteDetails.preferences.currency;
+      var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+      this.setState({
+        user_ID: userDetails.user_id,
+        email: userDetails.email,
+        fullName: userDetails.firstName + " " + userDetails.lastName,
+        currency: currency,
+      }, () => {
+        this.getMyOrders();
+        this.getMyUser();
+      });
+    }
+  }
+
   // getMyOrders() {
   //     axios.get("/api/orders/get/one/" +this.props.order_id)
   //     .then((response) => {
