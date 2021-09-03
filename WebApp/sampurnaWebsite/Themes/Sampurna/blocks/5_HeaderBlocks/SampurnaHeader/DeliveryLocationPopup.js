@@ -338,7 +338,7 @@ class DeliveryLocationPopup extends React.Component{
                         <div className="row">
                             <div className="col-12 col-sm-3 col-lg-3">
                                 <div className="row">
-                                    <button type="button" className={"col-12 btn "+Style.deliveryLocationCurrentButton} onClick={this.takeCurrentLocation.bind(this)}>
+                                    <button type="button" className={"col-12 col-lg-9 offset-lg-3 btn "+Style.deliveryLocationCurrentButton} onClick={this.takeCurrentLocation.bind(this)}>
                                         <img src="/images/eCommerce/location.svg" alt="ChangeLocationButton"></img>&nbsp; Current Location
                                     </button>
                                 </div>
@@ -361,7 +361,7 @@ class DeliveryLocationPopup extends React.Component{
                                         highlightFirstSuggestion    = {true}>
 
                                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                            <div className={"col-12 "+Style.deliveryLocationSearchWrapper}>
+                                            <div className={"col-12 col-lg-10 "+Style.deliveryLocationSearchWrapper}>
                                                 <div className={"deliveryLocationSearch "+Style.deliveryLocationSearch}>
                                                     <input type="text"
                                                         {...getInputProps({
@@ -400,7 +400,7 @@ class DeliveryLocationPopup extends React.Component{
                             </div>
                         </div>
                     </div>
-                    <div className="col-12">
+                    <div className="col-12 col-lg-11">
                         <div className="row pull-right">
                             <button type="button" className={"btn mt-3 mt-lg-3 mt-xl-3 "+Style.deliveryLocationSaveButton} onClick={this.saveLocation.bind(this)}>Save and Close</button>
                         </div>
