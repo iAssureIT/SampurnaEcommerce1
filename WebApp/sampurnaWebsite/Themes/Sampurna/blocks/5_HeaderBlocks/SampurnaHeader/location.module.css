@@ -295,7 +295,7 @@
 .systemSecurityPopupCloseButton {
     position: absolute;
     z-index : 999;
-    right   : -20px;
+    right   : -25px;
 }
 
 .locationPageWrapper{
@@ -525,7 +525,7 @@
     .systemSecurityPopupCloseButton{
         position: absolute;
         z-index : 999;
-        right   : -20px;
+        right   : -25px;
         font-size: 40px !important;
     }
 }
@@ -592,9 +592,49 @@
     .heightGoogleMap{
         height: 75vh;
     }
+    .deliveryLocationSearchWrapper input{
+        height: 45px !important;
+    }
+    .deliveryLocationCurrentButton{
+        height: 43px;
+        font-size: 16px;
+    }
+    .deliveryLocationORLine1,.deliveryLocationORLine2{
+        margin-top: 22px !important;
+    }
+    .deliveryLocationORText{
+        height: 35px;
+        width: 35px;
+        font-size: 13px !important;
+        margin-top: 5px;
+    }
+    .deliveryLocationSaveButton{
+        height: 43px;
+        font-size: 16px;
+    }
 }
 @media (min-width: 2560px) {
     .heightGoogleMap{
         height: 77vh;
+    }
+    .deliveryLocationSearchWrapper input{
+        height: 50px !important;
+    }
+    .deliveryLocationCurrentButton{
+        height: 48px;
+        font-size: 16px;
+    }
+    .deliveryLocationORLine1,.deliveryLocationORLine2{
+        margin-top: 25px !important;
+    }
+    .deliveryLocationORText{
+        height: 35px;
+        width: 35px;
+        font-size: 13px !important;
+        margin-top: 7px;
+    }
+    .deliveryLocationSaveButton{
+        height: 48px;
+        font-size: 16px;
     }
 }

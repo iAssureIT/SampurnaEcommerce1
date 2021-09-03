@@ -300,7 +300,7 @@ class Product extends Component{
                 var categoryUrl = (data.category?data.category:"").replace(/\s+/g, '-').toLowerCase();                    
                 var subCategoryUrl = (data.subCategory?data.subCategory:"-").replace(/\s+/g, '-').toLowerCase();                    
               return (
-                <div className={" col-sm-6 col-12  col-lg-4 col-md-3 col-xl-3  " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
+                <div className={" col-sm-6 col-12  col-lg-4 col-md-4 col-xl-3  " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
                   <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                     <div className={"col-12 NoPadding"}>
                       <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
@@ -396,7 +396,7 @@ class Product extends Component{
                             :null
                           }                              
                           <div className={"col-12 NoPadding " +Style.NoPadding}>
-                            <div className={"col-12 NoPadding " +Style.NoPadding}>                                  
+                            <div className={"col-12 NoPadding " +Style.NoPadding + " " + Style.addcartBtnWraper}>                                  
                               { 
                                 data.availableQuantity > 0 ?
                                   <div className={"col-12 " +Style.NoPadding}>

@@ -129,7 +129,7 @@ class VendorList extends Component {
                                                                             null
                                                                         }
                                                                     </div>   
-                                                                    <div className={"col-8 offset-1 pull-right"}>
+                                                                    <div className={"col-8 offset-lg-1 pull-right"}>
                                                                         <div className={"col-12 NoPadding " +Style.vendorName}>
                                                                             {vendordata.vendorName}
                                                                         </div>

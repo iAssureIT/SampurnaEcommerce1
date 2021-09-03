@@ -561,7 +561,7 @@ class ProductViewEcommerce extends Component{
 							null
 					}
 				</div>
-				<div className="col-12 mt20 mb20 boxBorder mobileViewNoPadding">
+				<div className={"col-12 mt20 mb20 boxBorder mobileViewNoPadding " + Style.boxTopBorder}>
 					<div className="row">
 						<div className={"col-12 col-lg-2 col-xl-2 col-md-2 col-sm-12 col-xs-12 mt-2 NoPadding FiltersBlock NoPadding" +Style.FilterBlkBox}>
 							{

@@ -75,7 +75,7 @@ class CategoryBlock extends Component {
     };
     
     return (
-      <div className="col-12">
+      <div className={"col-12 " + Style.categoryBlockWrapper}>
           {this.props.groupSettings.showTitle?
             <div className="col-12">
               <div className="col-12 productcomponentheading text-center text-lg-left">

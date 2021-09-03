@@ -133,7 +133,7 @@
 
 .productcomponentheading {
   padding      : 0px !important;
-  margin-bottom: -30px;
+  margin-bottom: 0px;
   margin-top   : 0px;
 }
 
@@ -246,8 +246,8 @@
 .carouselInnerBlock1 {
   padding-left : 0px;
   padding-right: 0px;
-  margin-bottom: 40px;
-  margin-top: 70px;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 .card {
@@ -506,9 +506,12 @@
 .vendorName {
   font-size: 12px;
 }
-
+.chaneVendorBtn{
+  padding-right: 60px;
+}
 .chaneVendorBtn a {
   text-decoration: underline;
+  font-family: 'Montserrat-Regular';
   /* margin-left : 74.9%; */
   color          : #033554 !important;
 }
@@ -575,6 +578,7 @@
   overflow     : hidden;
   display      : block;
   font-size    : 14px;
+  font-family: 'Montserrat-Regular';
 }
 
 .wishIcon {
@@ -700,6 +704,7 @@
   cursor       : pointer;
   border-bottom: solid 0.5px #eee;
 
+
 }
 
 .panelHeading span {
@@ -713,7 +718,7 @@
 }
 
 .panelHeading input {
-  margin-left: 36px;
+  margin-left: 10px;
 }
 
 .panelHeading h4 a {
@@ -732,7 +737,8 @@
 }
 
 .vendorNameWrapper {
-  font-size: 15px;
+  font-size: 13px;
+  padding-left: 45px;
 }
 
 .changeVendorWrapper {
@@ -875,6 +881,7 @@
   margin-top   : 40px !important;
   margin-bottom: 60px !important;
   text-align   : center !important;
+  font-family: 'Montserrat-ExtraBold';
 }
 
 .titleFont1 {
@@ -882,13 +889,65 @@
   margin-top   : 40px !important;
   margin-bottom: 22px !important;
   text-align   : center !important;
+  font-family: 'Montserrat-ExtraBold';
 }
 
 .f14 {
   font-size  : 14px;
   margin-left: -60px;
 }
+.categoryFilterTitle{
+    font-size: 15px;
+  }
+  .panelHeading h4 a, .panelHeading span{
+    margin-left    : 35px;
+    font-size      : 13px;
+    font-weight    : 100;
+    margin-top     : -30px;
+    font-family: 'Montserrat-Medium';
+  }
+  .panelHeading{
+    padding: 18px 0px 12px 30px;
+  }
+  .brandFilterInput {
+    height: 20px;
+    width: 20px;
+  }
+  .brandInput{
+    margin-top: 10px;
+  }
+  .f14 {
+    font-size: 15px;
+    margin-left: -80px;
+    font-family   : 'Montserrat-Regular';
+  }
+  .labelCategory {
+    font-size : 15px;
+    
+  }
+  .labelCategory .yk16xz{
+    background-color: #C2C1C1!important;
+  }
+  .ellipsis {
+    font-size: 16px;
+  }
+  .price{
+    font-size: 15px;
+    font-family   : 'Montserrat-ExtraBold';
+  } 
+  .addcartBtnWraper button{
+  font-family   : 'Montserrat-Regular';
+}
 
+  .vendorNameWrapper{
+    font-size: 13px;
+  }
+  .venderName{
+  font-family   : 'Montserrat-Regular';
+  }
+  .venderName2{
+    font-family   : 'Montserrat-Medium';
+  }
 @media only screen and (max-device-width: 480px) {
   .mobileViewPadding {
     padding-left : 5px !important;
@@ -902,6 +961,25 @@
     height      : 385px;
     padding     : 0px;
   }
+  .vendorNameWrapper{
+    font-size: 12px;
+  }
+  .vendorNameWrapper{
+    padding-left: 15px;
+  }
+  .chaneVendorBtn{
+    padding-right: 15px;
+  }
+  .chaneVendorBtn{
+    font-size: 12px;
+  }
+  .f14{
+    margin-left: -70px;
+  }
+  .panelHeading a,
+  .panelHeading span{
+    margin-left: 25px;
+  }
 
 }
 
@@ -909,17 +987,43 @@
 
 
 
-@media (min-width: 480px) and (max-width: 768px) {  
-
+@media (min-width: 480px) and (max-width: 767px) {  
+  .chaneVendorBtn{
+      padding-right: 30px;
+  }
+  .chaneVendorBtn a{
+    font-size: 12px;
+  }
+  .vendorNameWrapper{
+    padding-left: 0px;
+  }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {  
+@media (min-width: 768px) and (max-width: 1023px) {  
   .categoryFilterTitle{
       font-size: 14px;
+  }
+  .chaneVendorBtn{
+      padding-right: 0px;
+  }
+  .chaneVendorBtn a{
+    font-size: 13px;
+  }
+  .vendorNameWrapper{
+    padding-left: 0px;
+  }
+  .discounttag{
+      margin-top: -6px;
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1280px){
+  .vendorNameWrapper{
+    padding-left: 30px;
+  }
+  .chaneVendorBtn{
+    padding-right: 28px;
+  }
 }
 
 
@@ -939,8 +1043,8 @@
 
   .titleFont {
     font-size       : 36px !important;
-    margin-top      : 0px !important;
-    margin-bottom   : 30px !important;
+    margin-top      : 30px !important;
+    margin-bottom   : 40px !important;
     text-align      : left !important;
     /* overflow     : hidden!important; */
     color           : #000 !important;
@@ -948,7 +1052,7 @@
 
   .titleFont1 {
     font-size       : 36px !important;
-    margin-top      : 0px !important;
+    margin-top      : 30px !important;
     margin-bottom   : 22px !important;
     text-align      : left !important;
     /* overflow     : hidden!important; */
@@ -964,93 +1068,18 @@
   }
 }
 
-@media (min-width: 1336px) and (max-width: 1440px) {    
+
+  
+
+
+
+@media (min-width: 1440px) and (max-width: 1680px) {  
   .categoryFilterTitle{
     font-size: 18px;
   }
   .panelHeading h4 a, .panelHeading span{
-    margin-left    : 55px;
-    font-size      : 18px;
-    font-weight    : 100;
-    margin-top     : -36px;
-  }
-  .panelHeading{
-    padding: 18px 0px 12px 30px;
-  }
-  .brandFilterInput {
-    height: 20px;
-    width: 20px;
-  }
-  .brandInput{
-    margin-top: 10px;
-  }
-  .f14 {
-    font-size: 15px;
-    margin-left: -80px;
-  }
-  .labelCategory {
-    font-size : 15px;
-    background-color: #eee;
-  }
-  .ellipsis {
-    font-size: 16px;
-  }
-  .price{
-    font-size: 15px;
-  } 
-  .vendorNameWrapper{
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 1440px) and (max-width: 1536px) {    
-  .categoryFilterTitle{
-    font-size: 18px;
-  }
-  .panelHeading h4 a, .panelHeading span{
-    margin-left    : 55px;
-    font-size      : 18px;
-    font-weight    : 100;
-    margin-top     : -36px;
-  }
-  .panelHeading{
-    padding: 18px 0px 12px 30px;
-  }
-  .brandFilterInput {
-    height: 20px;
-    width: 20px;
-  }
-  .brandInput{
-    margin-top: 10px;
-  }
-  .f14 {
-    font-size: 15px;
-    margin-left: -80px;
-  }
-  .labelCategory {
-    font-size : 15px;
-    background-color: #eee;
-  }
-  .ellipsis {
-    font-size: 16px;
-  }
-  .price{
-    font-size: 15px;
-  } 
-  .vendorNameWrapper{
-    font-size: 16px;
-  }
-}
-
-
-@media (min-width: 1536px) and (max-width: 1680px) {  
-  .categoryFilterTitle{
-    font-size: 20px;
-  }
-  .panelHeading h4 a, .panelHeading span{
-    margin-left    : 63px;
-    font-size      : 21px;
-    font-weight    : 100;
+    margin-left    : 35px;
+    font-size      : 16px;
     margin-top     : -36px;
   }
   .panelHeading{
@@ -1078,18 +1107,19 @@
     font-size: 16px;
   } 
   .vendorNameWrapper{
-    font-size: 18px;
+    font-size: 14px;
+    padding-left: 55px;
   }
 }
 
 
 @media (min-width: 1680px) and (max-width: 1920px) {  
   .categoryFilterTitle{
-    font-size: 20px;
+    font-size: 22px;
   }
   .panelHeading h4 a, .panelHeading span{
-    margin-left    : 63px;
-    font-size      : 21px;
+    margin-left    : 55px;
+    font-size      : 20px;
     font-weight    : 100;
     margin-top     : -36px;
   }
@@ -1118,19 +1148,19 @@
     font-size: 16px;
   } 
   .vendorNameWrapper{
-    font-size: 18px;
+    font-size: 16px;
+    padding-left: 55px;
   }
 }
 
 
 @media (min-width: 1920px){  
   .categoryFilterTitle{
-    font-size: 22px;
+    font-size: 24px;
   }
   .panelHeading h4 a, .panelHeading span{
-    margin-left    : 68px;
-    font-size      : 25px;
-    font-weight: 100;
+    margin-left    : 55px;
+    font-size      : 22px;
     margin-top: -36px;
   }
   .panelHeading{
@@ -1144,8 +1174,8 @@
     margin-top: 10px;
   }
   .f14 {
-    font-size: 18px;
-    margin-left: -80px;
+    font-size: 20px;
+    margin-left: -85px;
   }
   .labelCategory {
     font-size : 18px;
@@ -1159,6 +1189,21 @@
   }
   .vendorNameWrapper{
     font-size: 18px;
+    padding-left: 55px;
+  }
+  .ImgWrapper{
+    height: 200px;
+     margin-top: 50px;
+  }
+  .productBlock{
+    height: 380px;
+
+  }
+  .chaneVendorBtn{
+    padding-right: 95px;
+  }
+  .chaneVendorBtn a{
+    font-size: 18px;
   }
 }
 @media (min-width: 1920px)  {
@@ -1170,4 +1215,7 @@
         width: 100%;
     background-color: #000;
   }
+  /*.categoryBlockWrapper .item_Name{
+    font-size: 18px;
+  }*/
 }

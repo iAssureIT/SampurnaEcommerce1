@@ -1,10 +1,13 @@
 @font-face {
 	font-family: 'Montserrat-Regular.ttf';
 	src        : url('/WebApp/sampurnaWebsite/Themes/Sampurna/fonts/Montserrat-Regular.ttf');
+}.boxTopBorder{
+	border-top: 1px solid #eee;
 }
 
-
-
+.productDetailsWrapper{
+	margin-bottom: -40px;
+}
 .returnabletxt{
 	font-weight: 600;
 	font-size: 15px;
@@ -51,7 +54,12 @@
 .vendorNameWrapper b {
 	/* margin-left: 58px; */
 }
-
+.venderName{
+	font-family   : 'Montserrat-Regular'
+}
+.venderName2{
+	font-family   : 'Montserrat-Medium'
+}
 .vendorBar {
 	margin-top: -4px;
 }
@@ -148,7 +156,6 @@
 	height             : 70px;
 	z-index            : 100;
 	font-size          : 14px;
-	font-weight        : 700;
 	margin-top         : 0px;
 	text-align         : center !important;
 }
@@ -264,7 +271,6 @@
 .productNameClassNew {
 	font-size    : 22px;
 	color        : #000;
-	font-weight  : bold;
 	margin-bottom: 5px;
 }
 
@@ -490,8 +496,6 @@
 
 	.productNameClassNew {
 		font-size: 22px;
-
-		font-weight   : bold;
 		margin-bottom : 5px;
 		letter-spacing: 0px;
 		color         : #000000;

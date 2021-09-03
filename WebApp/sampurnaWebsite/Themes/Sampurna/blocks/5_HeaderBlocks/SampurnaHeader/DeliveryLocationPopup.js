@@ -402,7 +402,7 @@ class DeliveryLocationPopup extends React.Component{
                     </div>
                     <div className="col-12">
                         <div className="row pull-right">
-                            <button type="button" className={"btn mt-3 mt-lg-3 mt-xl-2 "+Style.deliveryLocationSaveButton} onClick={this.saveLocation.bind(this)}>Save and Close</button>
+                            <button type="button" className={"btn mt-3 mt-lg-3 mt-xl-3 "+Style.deliveryLocationSaveButton} onClick={this.saveLocation.bind(this)}>Save and Close</button>
                         </div>
                     </div>
                 </form>

@@ -15,7 +15,7 @@ const ProductDetailsEcommerce = (props)=>{
   	const [productId, setProductId] = useState(router.query.productId);
 
 	return(
-         <div className="col-12 NoPadding">
+         <div className={"col-12 NoPadding "}>
 			<Header/>
 			<div className="container-flex backColorGray">
 				<ProductViewEcommerce 

@@ -8,6 +8,7 @@ import CategoryBlock                   from '../11_SectionCatgBlock/SectionCatg/
 import SubCategoryBlock                from '../11_SectionCatgBlock/SectionCatg/SubCategoryBlock.js';
 import DealsBlock                      from '../12_DealsBlock/DealsBlock/DealsBlock.js';
 import ProductCarouselBlock            from '../10_eCommerceBlocks/ProductCarousel/ProductCarouselBlock.js';
+import Style                           from './HomePage.module.css';
 
 class HomePage extends React.Component {
 	constructor(props) {
@@ -235,17 +236,18 @@ class HomePage extends React.Component {
 							blockTitle      = {"Your Supermarket"}
 						/>
 					</div>
-
-					< DealsBlock 
-						dealSettings = { this.state.flowersDealSettings}
-						blockTitle = {""}
-					/>
+					<div className={ Style.blockSixMargin } >
+						< DealsBlock 
+							dealSettings = { this.state.flowersDealSettings}
+							blockTitle = {""}
+						/>
+					</div>
 
 					<SubCategoryBlock 
 							groupSettings =	{this.state.flowersGroupSettings}
 							blockTitle    = {"Types Of Flowers"}
 					/>
-					<div className="col-xl-12">
+					<div className={"col-xl-12 " + Style.blockEightMargin } >
 						<ProductCarouselBlock 
 							blockSettings   = {this.state.flowersBlockSettings} 
 							productSettings = {this.state.productSettings}
@@ -267,7 +269,7 @@ class HomePage extends React.Component {
 							groupSettings =	{this.state.subCategoryGroupSettings}
 							blockTitle    = {"Baby Products"}
 					/>
-					<div className="col-xl-12">
+					<div className={"col-xl-12 " + Style.marginBottomLastBlock}>
 						<ProductCarouselBlock 
 							blockSettings   = {this.state.babyBlockSettings} 
 							productSettings = {this.state.productSettings}

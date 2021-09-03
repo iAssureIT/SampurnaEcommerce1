@@ -482,7 +482,7 @@ submitCart(event) {
     
     return (
       !this.state.loading ?
-      <div className={"col-12 " +Style.NoPadding}>        
+      <div className={"col-12 " +Style.NoPadding + " " + Style.productDetailsWrapper}>        
           <Message messageData={this.state.messageData} />  
           <div className={"col-12 NoPadding "}>
           {this.state.newProducts && this.state.newProducts.length > 0 ?
@@ -500,7 +500,10 @@ submitCart(event) {
                           <div className="col-12">
                             <div className="row">
                                 <span className={"col-8 col-lg-9 col-sm-9 col-xl-9 pb-2 pt-2 "+Style.vendorNameWrapper}> 
-                                  <b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
+                                  <span className={Style.venderName}>Vendor - </span>
+                                  <span className={Style.venderName2}>
+                                     {this.state.vendorData? this.state.vendorData.companyName:null}
+                                  </span>
                                 </span>
                                 <span className={"col-4 col-lg-3 col-sm-3 col-xl-3 text-right pt-1   "+Style.chaneVendorBtn }> 
                                     <Link href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 NoPadding t "+Style.changeVendorWrapper} >Change Vendor</Link>
@@ -619,10 +622,10 @@ submitCart(event) {
                         }
                     </div>
                     <div className={"col-lg-10 col-xl-10 col-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
-                      <div className="row">
-                        <div className={"col-12 " +Style.rightSidefilter}>
+                      <div className="col-12">
+                        <div className={" " +Style.rightSidefilter}>
                             <div className={"col-12 "}>
-                              <div className={"col-6 float-right col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding  "+Style.sortPbWrapper}>     
+                              <div className={"col-6 col-lg-2 col-xl-2 col-md-3 col-sm-4 NoPadding offset-6 offset-sm-8 offset-md-9 offset-lg-10 "+Style.sortPbWrapper}>     
                                 <div className="form-group">
                                     <label className={"labelform d-block d-lg-block d-xl-block d-sm-block col-12 NoPadding "+Style.f14}>
                                       Sort By<span className="astrick"></span>
@@ -640,6 +643,7 @@ submitCart(event) {
                         </div>
                       </div> 
 
+                      <div className="col-12">
                       <div className="col-12">
                           {this.state.newProducts.length>=1?
                             <Product newProducts={this.state.newProducts}
@@ -662,6 +666,7 @@ submitCart(event) {
                               </div>
                             </div>
                           }
+                      </div>
                       </div>
                       </div>                  
                     </div>                    
