@@ -120,8 +120,7 @@
     overflow-wrap: break-word;    
     height:125px ;
     overflow: hidden;
-    font-weight: 900!important;
-    font-family: 'Montserrat-bold' !important;
+    font-weight: bold;
 }
 .delTime{
     position: absolute;
@@ -363,23 +362,25 @@
       font-size: 14px !important;
     }
     .vendorCard{
-        height: 140px;
-        width: 95%;
+        height: 105px;
+        width: 85%;
+        margin-left: 8%;
     }
     .vendorLogo{
-        height: 95px;
-        width: 95px;
+        height:65px;
+        width: 65px;
         margin-left: 5px;
         margin-top: 0px;
     }
     .vendorName{
-        font-size: 26px;
+        font-size: 20px;
         height: 80px;
         margin-top: 0px;
     }
     .vendorlistTitle{
-        font-size: 28px;
+        font-size: 20px;
         margin-bottom: 30px;
+        margin-left: 3%;
     }
 }
 @media (min-width: 1440px) and (max-width: 1679px) {  
@@ -452,7 +453,7 @@
 
 }
 
-@media (min-width: 1920px) and (max-width: 2560px) {  
+@media (min-width: 1920px) {  
     .globalAddToCartBtn{
       font-size: 18px !important;
     }
@@ -462,10 +463,12 @@
     .vendorLogo{
         height: 120px;
         width: 120px;
+        margin-top: 20px;
+        margin-left: 20px;
     }
     .vendorName{
-        font-size: 40px;
-        margin-top: 25px;
+        font-size: 40px;        
+        margin-top: 15px;
     }
     .vendorlistTitle{
         font-size: 30px;

@@ -29,15 +29,16 @@ const sortOptions = [
 class ProductListView extends Component {
   constructor(props) {
     super(props);
-    this.state = {      
+    this.state = { 
+      messageData        : {},
       productType        : props.type,
-      newProducts        : [],      
+      newProducts        : [],
       products           : [],
       modalIDNew         : [],
       wishList           : [],
       relatedProductArray: [],
       discountedProducts : [],
-      productSettings    : {          
+      productSettings    : {
           displayAssurenceIcon: false,
           displayBrand: true,
           displayCategory: false,
@@ -302,7 +303,7 @@ submitCart(event) {
         this.setState({
           messageData: {},
         })
-      }, 2000);
+      }, 6000);
     }
   }
   
@@ -353,7 +354,7 @@ submitCart(event) {
             messageData: {
               "type": "outpage",
               "icon": "fa fa-check-circle",
-              "message": "&nbsp; " + response.data.message,
+              "message": response.data.message,
               "class": "success",
               "autoDismiss": true
             }
@@ -362,7 +363,7 @@ submitCart(event) {
             this.setState({
               messageData: {},
             })
-          }, 2000);
+          }, 6000);
           // this.props.getWishlistData();
           this.props.fetchWishlist();
         })
@@ -387,7 +388,7 @@ submitCart(event) {
           this.setState({
             messageData: {},
           })
-        }, 2000);
+        }, 6000);
       }
     }
   }
@@ -469,7 +470,10 @@ submitCart(event) {
   showRatingBlock(event){
     event.preventDefault();
   }
-
+  close(event){
+    event.preventDefault();
+    this.setState({ messageData:{} });
+  }
   render() {
     // console.log("brand ===",this.state.brandData);
     const { effect } = this.state;
@@ -483,7 +487,23 @@ submitCart(event) {
     return (
       !this.state.loading ?
       <div className={"col-12 " +Style.NoPadding + " " + Style.productDetailsWrapper}>        
-          <Message messageData={this.state.messageData} />  
+          {/*<Message messageData={this.state.messageData} />*/} 
+
+          <div className="row ml-auto pull-right outpageMessage"
+              style={this.state.messageData.message ? {display:"block"}: {display: "none"}}>
+              <div className="alert-group">
+                  <div className={this.state.messageData.class 
+                                  ? "alert alert-"+this.state.messageData.class+" alert-dismissable " +Style.alertMessage
+                                  : "alert alert-dismissable " + Style.alertMessage}>
+                      <button type="button" className="close" onClick={this.close.bind(this)}>×</button>
+                      <div className={this.state.messageData.icon? this.state.messageData.icon+" inpagemessage" : "inpagemessage" } >
+                         &nbsp;&nbsp; {this.state.messageData.message ? this.state.messageData.message : ""}
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
           <div className={"col-12 NoPadding "}>
           {this.state.newProducts && this.state.newProducts.length > 0 ?
             <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
@@ -687,8 +707,7 @@ submitCart(event) {
                         </div>
                       </div>
                     }  
-                    </div>
-                 
+                    </div>                 
                   </div>
                 </div>
                 } 

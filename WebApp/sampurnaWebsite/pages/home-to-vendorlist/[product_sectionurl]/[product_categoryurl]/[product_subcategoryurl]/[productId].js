@@ -55,11 +55,12 @@ const HomeToVendorList = ()=> {
         return(
             <section className={ Style.bgGray}>
                 <Header />    
-                <div className={"container " +Style.bgHeight}>
-                    <div className="col-12">
-                    <div className={" row " +Style.bgGray}>
+                <div className={Style.vendorListWrapper+" " +Style.bgHeight}>
+                    <div className={"col-12 "+Style.bgGray}>
                         <div className="col-12">
-                            <div className={"col-12 text-center  mt-5 mb2 " +Style.vendorlistTitle}> <h6>Select Shop</h6></div>
+                            <div className={"col-12 mt-5 mb2 " +Style.vendorlistTitle}> 
+                                Select Shop
+                            </div>
                         </div>
                            { Array.isArray(vendorList) && vendorList.length >0?
                                 vendorList.map((vendordata, index)=>{
@@ -76,8 +77,12 @@ const HomeToVendorList = ()=> {
                                                         </div>   
                                                         <div className={"col-9 "}>
                                                             <div className={"col-12 " +Style.vendorName}>{vendordata.vendorName}</div>
-                                                            <div className={"col-12 mb-2  ellipsis " +Style.vendor_productName +" " +Style.ellipsis}>{vendordata.productName}</div>
-                                                            <div className={"col-12 mb-2 " +Style.vendor_price}>AED&nbsp;{vendordata.productPrice.toFixed(2)}</div>
+                                                            <div className={"col-12 mb-2 " +Style.vendor_productName +" " +Style.ellipsis}>
+                                                                {vendordata.productName}
+                                                            </div>
+                                                            <div className={"col-12 mb-2 " +Style.vendor_price}>
+                                                                AED&nbsp;{vendordata.productPrice.toFixed(2)}
+                                                            </div>
                                                         </div>
                                                     </div> 
                                             </ Link >
@@ -93,7 +98,6 @@ const HomeToVendorList = ()=> {
                                     </div>
                                 </div>
                             }
-                        </div>
                     </div>
                 </div>
                  { Array.isArray(vendorList) && vendorList.length >10?

@@ -36,6 +36,7 @@ class CartProducts extends Component {
                 backgroungImage: '/images/cartBanner.png',
             },
             CheckoutBtn: true,
+            messageData:{}
         }
     }
 
@@ -114,7 +115,7 @@ class CartProducts extends Component {
                                     this.setState({
                                         messageData: {},
                                     })
-                                }, 1500);
+                                }, 5000);
                                 this.props.fetchCartData();
                                 this.props.updateCartCount();
                             }
@@ -165,7 +166,7 @@ class CartProducts extends Component {
                     this.setState({
                         messageData: {},
                     })
-                }, 1500);
+                }, 5000);
             }
             else {
                 // console.log("formValues===",formValues);
@@ -215,7 +216,7 @@ class CartProducts extends Component {
                 messageData: {
                     "type": "outpage",
                     "icon": "fa fa-exclamation-circle",
-                    "message": "&nbsp; Please remove sold out products from cart to proceed to checkout.",
+                    "message": "Please remove sold out products from cart to proceed to checkout.",
                     "class": "warning",
                     "autoDismiss": true
                 }
@@ -260,7 +261,7 @@ class CartProducts extends Component {
                             this.setState({
                                 messageData: {},
                             })
-                        }, 1500);
+                        }, 3000);
                         this.props.fetchCartData();
                     })
                     .catch((error) => {
@@ -298,7 +299,7 @@ class CartProducts extends Component {
               var msg = {
                             "type": "outpage",
                             "icon": "fa fa-check-circle",
-                            "message": "&nbsp; " + response.data.message,
+                            "message": response.data.message,
                             "class": "success",
                             "autoDismiss": true
                         };
@@ -310,7 +311,7 @@ class CartProducts extends Component {
                 this.setState({
                   messageData: {},
                 })
-              }, 2000);
+              }, 6000);
               this.props.fetchCartData();
             })
             .catch((error) => {
@@ -332,14 +333,34 @@ class CartProducts extends Component {
               this.setState({
                 messageData: {},
               })
-            }, 2000);
+            }, 6000);
         }
       }
+
+    close(event){
+        event.preventDefault();
+        this.setState({ messageData: {} });
+    }
+
     
     render() {
-        // console.log("this.props.recentCartData===",this.props.recentCartData);
+        console.log("this.state.messageData.message => ",this.state.messageData.message);
         return (
             <div className={"col-12 "+Style.cartHeightWrapper}>
+                <div className="row ml-auto pull-right outpageMessage"
+                    style={this.state.messageData.message ? {display:"block"}: {display: "none"}}>
+                    <div className="alert-group">
+                        <div className={this.state.messageData.class 
+                                        ? "alert alert-"+this.state.messageData.class+" alert-dismissable " +Style.alertMessage
+                                        : "alert alert-dismissable " + Style.alertMessage}>
+                            <button type="button" className="close" onClick={this.close.bind(this)}>×</button>
+                            <div className={this.state.messageData.icon? this.state.messageData.icon+" inpagemessage" : "inpagemessage" } >
+                               &nbsp;&nbsp; {this.state.messageData.message ? this.state.messageData.message : ""}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="col-12  ">
                     <div className="col-12  pl-0">
                         <div className="col-12 cartHeight">
