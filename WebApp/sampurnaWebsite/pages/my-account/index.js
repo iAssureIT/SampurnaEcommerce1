@@ -135,12 +135,12 @@ class MyAccount extends Component{
                                                              } id="v-pills-profile-tab" 
                                                     data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" 
                                                     aria-selected="false" onClick={()=>{ $("#v-pills-profile").addClass("active");
-                                                                                         $("#v-pills-home").css("display", "block");$("#v-pills-home").addClass("active");
+                                                                                         $("#v-pills-home").css("display", "block");
+                                                                                         $("#v-pills-home").removeClass("fade");$("#v-pills-home").addClass("active");
                                                                                          $("#v-pills-settings").css("display", "none"); 
                                                                                          $("#v-pills-settings3").css("display", "none");
                                                                                          $("#v-pills-settings1").css("display", "none");
                                                                                          $("#v-pills-messages").css("display", "none");
-                                                                                         console.log("v-pills-home => ",$("#v-pills-home"));
                                                                                        }}>
                                                     <i className={"fa fa-info-circle mr-3" + S.sideBarTabNameAllignment}></i>
                                                     <span className={S.sideBarTabNames}>My Profile</span>

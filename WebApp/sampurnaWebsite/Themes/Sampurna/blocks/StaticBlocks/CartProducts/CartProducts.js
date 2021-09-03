@@ -145,6 +145,9 @@ class CartProducts extends Component {
                 "quantityAdded": quantityAdded,
                 "vendor_ID": vendor_id,
             }
+            console.log("quantityAdded => ",quantityAdded);
+            console.log("availableQuantity => ",availableQuantity);
+
             if (quantityAdded > availableQuantity) {
                 this.setState({
                     messageData: {
@@ -154,7 +157,10 @@ class CartProducts extends Component {
                         "class": "success",
                         "autoDismiss": true
                     }
+                },()=>{
+                    console.log("this.state.messageData = ",this.state.messageData);
                 })
+
                 setTimeout(() => {
                     this.setState({
                         messageData: {},
@@ -165,7 +171,7 @@ class CartProducts extends Component {
                 // console.log("formValues===",formValues);
                 axios.patch("/api/carts/quantity", formValues)
                     .then((response) => {
-                        this.props.fetchCartData();
+                        this.props.fetchCartData();                        
                     })
                     .catch((error) => {
                         console.log("error => ", error);
@@ -269,8 +275,9 @@ class CartProducts extends Component {
         event.preventDefault();
         if (this.state.user_ID) {
           var id = event.target.id;
-          console.log("vendorId",event.target.getAttribute('vendorid'));
-          console.log("vendorLocationId",event.target.getAttribute('vendorLocation_id'));
+          console.log("vendorId => ",event.target.getAttribute('vendorid'));
+          console.log("vendorLocationId => ",event.target.getAttribute('vendorLocation_id'));
+          
           var formValues = {
             "user_ID"             : this.state.user_ID,
             "userDelLocation"     : {
@@ -281,20 +288,24 @@ class CartProducts extends Component {
             "vendor_id"           : event.target.getAttribute('vendorid'),
             "vendorLocation_id"   : event.target.getAttribute('vendorLocation_id'),
             "product_ID"          : id
-        }
+          }
           
-        //   console.log("inside wishlist==",formValues);
+          console.log("inside wishlist => ",formValues);
+
           axios.post('/api/wishlist/post', formValues)
             .then((response) => {
-              this.setState({
-                messageData: {
-                  "type": "outpage",
-                  "icon": "fa fa-check-circle",
-                  "message": "&nbsp; " + response.data.message,
-                  "class": "success",
-                  "autoDismiss": true
-                }
-              })
+              console.log("response => ",response.data);
+              var msg = {
+                            "type": "outpage",
+                            "icon": "fa fa-check-circle",
+                            "message": "&nbsp; " + response.data.message,
+                            "class": "success",
+                            "autoDismiss": true
+                        };
+              console.log("msg => ",msg);
+
+              this.setState({ messageData: msg },()=>{console.log("this.state.messageData = ",this.state.messageData); } );
+
               setTimeout(() => {
                 this.setState({
                   messageData: {},
