@@ -139,7 +139,7 @@ class ProductListView extends Component {
     } 
   }
 
-    setAllData(){
+  setAllData(){
       var formValues = {};
       var subcategoryArray = false;
       var noCategoryUrl   = true;
@@ -209,104 +209,102 @@ class ProductListView extends Component {
       })
   }
 
-
-
-showMoreProduct(event){
-  event.preventDefault();
-  this.setState({
-    "seeMore" : true
-  })
-  var formValues = {
-    "vendor_ID"      : this.state.vendor_ID,
-    "sectionUrl"     : this.state.sectionUrl,
-    "categoryUrl"    : this.state.categoryUrl,
-    "subCategoryUrl" : this.props.blockSettings.subCategory !== "all"?[this.props.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
-    "userLatitude"   : this.state.userLatitude,
-    "userLongitude"  : this.state.userLongitude,
-    "startRange"     : this.state.startRange,
-    "limitRange"     : this.state.limitRange + 28,
-  }
-  this.getProductList(this.props.blockSettings.blockApi,formValues);
-}
-
-getProductList(productApiUrl,formValues){
-    // console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
-    axios.post(productApiUrl,formValues)     
-    .then((response)=>{
-      if(response.data){  
-        if(this.state.seeMore){
-          this.setState({
-            newProducts    : this.state.newProducts.concat(response.data),                         
-          },()=>{
-            // console.log("newProducts=>",this.state.newProducts.length);
-            if(this.state.newProducts.length>0){
-              this.setState({
-                ProductsLoading : true,
-                loading         : false
-              });  
-            } 
-            if(this.state.newProducts.length <= this.state.limitRange){
-                $('.seeMoreBtnWrapper').hide();
-            }
-        });
-        }else{
-          this.setState({
-            newProducts    : response.data,                         
-          },()=>{
-            if(this.state.newProducts.length>0){
-              this.setState({
-                ProductsLoading : true,
-                loading         : false
-              });  
-            } 
-          })
-        }
-      }
+  showMoreProduct(event){
+    event.preventDefault();
+    this.setState({
+      "seeMore" : true
     })
-    .catch((error)=>{
-        console.log('error while getting product data', error);
-    })
-  }
-
-submitCart(event) { 
-    if(this.state.user_ID){
-    var id = event.target.id;
-    var availableQuantity = event.target.getAttribute('availablequantity');
-    var currProId = event.target.getAttribute('currpro');
-    var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
-    var productCartData = recentCartData.filter((a) => a.product_ID === id);
-    var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
-    var formValues ={};  
-      formValues = {
-        "user_ID"    : this.state.user_ID,
-        "product_ID" : event.target.id,
-        "quantity"   : 1,   
-        "vendorName" : event.target.getAttribute('vendor_name'),
-        "vendor_ID"  : event.target.getAttribute('vendor_id'),       
-      }      
+    var formValues = {
+      "vendor_ID"      : this.state.vendor_ID,
+      "sectionUrl"     : this.state.sectionUrl,
+      "categoryUrl"    : this.state.categoryUrl,
+      "subCategoryUrl" : this.props.blockSettings.subCategory !== "all"?[this.props.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
+      "userLatitude"   : this.state.userLatitude,
+      "userLongitude"  : this.state.userLongitude,
+      "startRange"     : this.state.startRange,
+      "limitRange"     : this.state.limitRange + 28,
     }
-    this.addCart(formValues, quantityAdded, availableQuantity);
+    this.getProductList(this.props.blockSettings.blockApi,formValues);
+  }
 
-    if(this.state.showLoginAs==="modal"){
-      $('#loginFormModal').show();       
-    }else{
-      this.setState({
-        messageData: {
-          "type": "outpage",
-          "icon": "fa fa-exclamation-circle",
-          "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",   
-          "class": "danger",
-          "autoDismiss": true
+  getProductList(productApiUrl,formValues){
+      // console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
+      axios.post(productApiUrl,formValues)     
+      .then((response)=>{
+        if(response.data){  
+          if(this.state.seeMore){
+            this.setState({
+              newProducts    : this.state.newProducts.concat(response.data),                         
+            },()=>{
+              // console.log("newProducts=>",this.state.newProducts.length);
+              if(this.state.newProducts.length>0){
+                this.setState({
+                  ProductsLoading : true,
+                  loading         : false
+                });  
+              } 
+              if(this.state.newProducts.length <= this.state.limitRange){
+                  $('.seeMoreBtnWrapper').hide();
+              }
+          });
+          }else{
+            this.setState({
+              newProducts    : response.data,                         
+            },()=>{
+              if(this.state.newProducts.length>0){
+                this.setState({
+                  ProductsLoading : true,
+                  loading         : false
+                });  
+              } 
+            })
+          }
         }
       })
-      setTimeout(() => {
-        this.setState({
-          messageData: {},
-        })
-      }, 6000);
-    }
+      .catch((error)=>{
+          console.log('error while getting product data', error);
+      })
   }
-  
+
+  submitCart(event) { 
+      if(this.state.user_ID){
+      var id = event.target.id;
+      var availableQuantity = event.target.getAttribute('availablequantity');
+      var currProId = event.target.getAttribute('currpro');
+      var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
+      var productCartData = recentCartData.filter((a) => a.product_ID === id);
+      var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
+      var formValues ={};  
+        formValues = {
+          "user_ID"    : this.state.user_ID,
+          "product_ID" : event.target.id,
+          "quantity"   : 1,   
+          "vendorName" : event.target.getAttribute('vendor_name'),
+          "vendor_ID"  : event.target.getAttribute('vendor_id'),       
+        }      
+      }
+      this.addCart(formValues, quantityAdded, availableQuantity);
+
+      if(this.state.showLoginAs==="modal"){
+        $('#loginFormModal').show();       
+      }else{
+        this.setState({
+          messageData: {
+            "type": "outpage",
+            "icon": "fa fa-exclamation-circle",
+            "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",   
+            "class": "danger",
+            "autoDismiss": true
+          }
+        })
+        setTimeout(() => {
+          this.setState({
+            messageData: {},
+          })
+        }, 6000);
+      }
+  }
+    
   addCart(formValues, quantityAdded, availableQuantity) {
       axios.post('/api/carts/post', formValues)
         .then((response) => {
@@ -331,7 +329,7 @@ submitCart(event) {
           console.log('cart post error', error);
         })
   }
-  
+    
   addtowishlist(event) {
     event.preventDefault();
     if (this.state.user_ID) {
@@ -397,18 +395,18 @@ submitCart(event) {
     this.setState({ effect });
     var sortBy = effect.value;   
     if (sortBy === "alphabeticallyAsc") {
-			let field = 'productName';
+  		let field = 'productName';
       sortBy = 'AZ';	
-		}else if (sortBy === "alphabeticallyDsc") {
-			let field = 'productName';
+  	}else if (sortBy === "alphabeticallyDsc") {
+  		let field = 'productName';
       sortBy = 'ZA';
-		}else if (sortBy === "priceAsc") {
-			let field = 'discountedPrice';
+  	}else if (sortBy === "priceAsc") {
+  		let field = 'discountedPrice';
       sortBy = 'PL';
-		}else if (sortBy === "priceDsc") {
-			let field = 'discountedPrice';
+  	}else if (sortBy === "priceDsc") {
+  		let field = 'discountedPrice';
       sortBy = 'PH';
-		} 
+  	} 
 
     var formValues = {
       "vendor_ID"      : this.state.vendor_ID,
@@ -469,7 +467,9 @@ submitCart(event) {
 
   showRatingBlock(event){
     event.preventDefault();
+
   }
+  
   close(event){
     event.preventDefault();
     this.setState({ messageData:{} });

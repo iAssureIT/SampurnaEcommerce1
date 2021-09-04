@@ -7,6 +7,14 @@
   font-family: 'Montserrat-Regular';
   src        : url('../../../fonts/Montserrat-Regular.ttf');
 }
+.alertMessage{
+    position: fixed;
+    z-index: 1000;
+    top: 25px !important;
+    right: 42px !important;
+    display: block;
+}
+
 .categoryBlockWrapper{
     margin-top: 35px;
 }
