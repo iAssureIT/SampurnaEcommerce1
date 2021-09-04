@@ -65,10 +65,13 @@
     padding-right: 60px;
   }
 .venderName{
-	font-family   : 'Montserrat-Regular'
+	font-family   : 'Montserrat-Regular';
 }
 .venderName2{
-	font-family   : 'Montserrat-Medium'
+	font-family   : 'Montserrat-Medium';
+}
+.priceFont{
+	font-family   : 'Montserrat-Light';
 }
 .vendorBar {
 	margin-top: -4px;
@@ -280,11 +283,15 @@
 }
 
 .productNameClassNew {
-	font-size    : 22px;
+	font-size    : 30px;
 	color        : #000;
 	margin-bottom: 5px;
+	font-family: 'Montserrat-Regular';
+	margin-right: 5px;
 }
-
+.productCode{
+	font-family: 'Montserrat-Light';
+}
 .productDetailsInfo {
 	/* border-top : solid 1px #bbb; */
 }
@@ -298,6 +305,7 @@
 	color                : #999;
 	text-decoration      : line-through;
 	text-decoration-color: #DC1919;
+	font-family: 'Montserrat-Light';
 }
 
 .priceColorMain {
@@ -317,6 +325,7 @@
 	margin        : 20px !important;
 	/* font-family:'Montserrat-Regular.ttf'; */
 	font-style    : normal !important;
+	font-family: 'Montserrat-Light';
 }
 
 .brandName1 {
@@ -389,8 +398,8 @@
 
 .heartPosition {
 	position: absolute;
-	top     : -70px;
-	right   : 0px;
+	top: -40px;
+  right: -65px;
 }
 
 .topSpace {
@@ -400,7 +409,7 @@
 .percentOff {
 	color      : #033554;
 	font-size  : 16px;
-	font-weight: bold;
+	font-family   : 'Montserrat-Bold';
 }
 
 .percentOffTxt {
@@ -519,10 +528,8 @@
 		border-bottom : 1px solid #ededed;
 		font-size     : 12px !important;
 		margin        : 0px !important;
-		font-weight   : bolder !important;
 		letter-spacing: 0px;
 		opacity       : 1;
-		font-family   : 'Montserrat-Regular'
 	}
 }
 

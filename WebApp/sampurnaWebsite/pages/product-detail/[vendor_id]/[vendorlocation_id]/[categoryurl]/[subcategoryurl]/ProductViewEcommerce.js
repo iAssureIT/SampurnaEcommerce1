@@ -661,14 +661,14 @@ class ProductViewEcommerce extends Component{
 															?
 																<div className={"col-12 globalProductItemName NoPadding productDetailsMB"} title={this.state.productData.productNameRlang}>
 																	<span className={" RegionalFont ellipsis globalProdName "+Style.productNameClassNew}>{this.state.productData.productNameRlang}</span>&nbsp;&nbsp;&nbsp;   
-																	<span className=""><span className="productCode">({this.state.productData.productCode+'-'+this.state.productData.itemCode})</span></span>
+																	<span className=""><span className={"productCode " + Style.productCode}>({this.state.productData.productCode+'-'+this.state.productData.itemCode})</span></span>
 																</div>
 															:
 																<div className={"col-12 globalProductItemName NoPadding" } title={this.state.productData.productName}>
-																	{/* <div><span className={Style.productNameClassNew}>{this.state.productData.productName}</span><span className="productCode">{this.state.productData.productCode+'-'+this.state.productData.itemCode}</span></div> */}
+																	{/* <div><span className={Style.productNameClassNew}>{this.state.productData.productName}</span><span className={"productCode " + Style.productCode}>{this.state.productData.productCode+'-'+this.state.productData.itemCode}</span></div> */}
 																	<div className="col-12 NoPadding">
 																		<span className={Style.productNameClassNew}>{this.state.productData.productName}</span>&nbsp;
-																		<span className="productCode">{this.state.productData.itemCode}</span>
+																		<span className={"productCode "+ Style.productCode}>{this.state.productData.itemCode}</span>
 																	</div>
 																</div>
 														}
@@ -682,7 +682,7 @@ class ProductViewEcommerce extends Component{
 																<div className={"col-12 NoPadding "+Style.priceWrapperPD}>
 																	<div className="col-12 NoPadding priceWrapper mb-2">
 																		<span className={" " +Style.f123}>
-																			<span className="col-2 NoPadding">Price </span>&nbsp;: &nbsp;
+																			<span className={"col-2 NoPadding " + Style.priceFont}>Price </span>&nbsp;: &nbsp;
 																			<strike className={" " +Style.disPriceColor}>&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</strike>&nbsp;&nbsp;&nbsp;
 																			<span className={Style.percentOff}>{this.state.productData.discountPercent}% </span>
 																			<span className={Style.percentOffTxt}>OFF</span> &nbsp;
