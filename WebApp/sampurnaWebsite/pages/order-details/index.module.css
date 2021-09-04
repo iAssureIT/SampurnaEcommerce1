@@ -598,7 +598,7 @@
 	}
 
 	.orderDetailVendorAmtInnerWrapper{
-		font-size: 10px;
+		font-size: 13px;
 	}
 
 	.ptb15{
@@ -687,11 +687,11 @@
 	}
 
 	.orderDetailVendorAmtWrapper{
-		margin-left: -109px;
+		margin-left: -57px;
 	}
 
 	.orderDetailVendorAmtInnerWrapper{
-		font-size: 15px;
+		font-size: 18px;
 	}
 
 }
