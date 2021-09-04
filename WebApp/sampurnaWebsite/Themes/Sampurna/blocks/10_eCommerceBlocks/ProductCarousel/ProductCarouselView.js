@@ -341,25 +341,6 @@ render() {
                                 var subCategoryUrl = (data.subCategory?data.subCategory:"-").replace(/\s+/g, '-').toLowerCase(); 
                                                
                             return (
-                              // <div className={" col-12 " +Style.mobileViewPadding }  key={index}> 
-                              //   {data
-                              //   ?
-                              //     < SingleProduct 
-                              //       data               = {data} 
-                              //       distance           = {this.props.distance}
-                              //       maxDistanceRadius  = {this.props.maxDistanceRadius}
-                              //       productSettings    = {this.state.productSettings}
-                              //       blockSettings      = {this.state.blockSettings}
-                              //       userLatitude       = {this.state.userLatitude}
-                              //       userLongitude      = {this.state.userLongitude}
-                              //       user_ID            = {this.state.user_ID}
-                              //       vendor_ID          = {data.vendor_ID}
-                              //       vendorlocation_ID  = {data.vendorLocation_id}
-                              //     />
-                              //   :
-                              //     null
-                              //   }
-                              // </div>  
                                 <div className="col-12">
                                     {/* <Message messageData={this.state.messageData} />  */}
                                     <div className={" col-12  NoPadding " +Style.mobileViewPadding +" "+Style.productWrapper} > 
@@ -500,6 +481,7 @@ render() {
                                         </div>
                                         </div>
                                     </div>  
+                           
                            );
                             
                             })

@@ -385,7 +385,7 @@ const mapStateToProps = state => (
     cartCount          : state.data.cartCount,
     recentCartData     : state.data.recentCartData,
     recentWishlistData : state.data.recentWishlistData,
-    recentWishlist     : state.data.recentWishlist,   
+    recentWishlist     : state.data.recentWishlist   
   } 
 );
 
