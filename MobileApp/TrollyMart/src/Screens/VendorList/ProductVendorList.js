@@ -129,7 +129,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                         PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :
                         
                         <Image 
-                            source          =   {require("../../AppDesigns/currentApp/images/notavailable.png")} 
+                        source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/notavailable.png'}}
                             style      =   {{
                                 borderRadius:100,
                                 borderWidth:0.5,

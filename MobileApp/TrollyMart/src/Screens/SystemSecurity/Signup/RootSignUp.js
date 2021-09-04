@@ -208,7 +208,7 @@ const window = Dimensions.get('window');
                   <View style={styles.syslogo1}>
                       <Image
                       resizeMode="contain"
-                      source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
+                      source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trollymart-black.png'}}
                       style={styles.syslogoimg1}
                       />
                   </View>

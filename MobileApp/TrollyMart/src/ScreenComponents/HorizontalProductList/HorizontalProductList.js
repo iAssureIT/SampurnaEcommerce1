@@ -117,7 +117,7 @@ export const HorizontalProductList =(props)=>{
                   </FastImage>
                   :
                   <Image
-                    source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                  source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/notavailable.png'}}
                     style={styles.subcatimg}
                     resizeMode="contain"
                   />

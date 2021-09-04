@@ -49,7 +49,7 @@ export const Menu = (props)=>{
             width={90}
             height={90}
             rounded
-            source={require('../../AppDesigns/currentApp/images/user.jpg')}                 
+            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/user.jpg'}}
           />
         <View style={{paddingTop:40,paddingLeft:4}}>
           <Text style={{fontSize:18,color: "#333"}}>Hi, {firstName ? firstName : "Guest"}</Text>

@@ -409,7 +409,9 @@ export const Location = withCustomerToaster((props)=>{
             </View>        
         </View>
         {region&&<View pointerEvents="none" style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0,zIndex:30, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
-            <Image pointerEvents="none" source={require("../../AppDesigns/currentApp/images/pin.png")} style={{height:hp(5),width:hp(5),resizeMode:'contain'}}/>
+            <Image pointerEvents="none" 
+                   source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/pin.png'}}
+                   style={{height:hp(5),width:hp(5),resizeMode:'contain'}}/>
         </View>}    
          {region&&<MapView
                 provider={PROVIDER_GOOGLE}

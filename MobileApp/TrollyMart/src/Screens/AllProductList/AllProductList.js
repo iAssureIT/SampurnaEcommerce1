@@ -61,6 +61,7 @@ export const AllProductList  = withCustomerToaster((props)=>{
                     :
                     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
                       <Image
+                        source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/noproduct.png'}}
                         source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
                       />
 

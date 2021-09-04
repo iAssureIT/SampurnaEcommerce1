@@ -85,7 +85,7 @@ export const MyAccount =(props)=>{
                             </View>
                             <Image
                                 resizeMode="contain"
-                                source={require("../../AppDesigns/currentApp/images/trollymart-black.png")}
+                                source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trollymart-black.png'}}
                                 style={[{marginLeft:wp(1),marginTop:hp(7),height:hp(4),width:wp(25)}]}
                             />
                         </View>
@@ -99,7 +99,7 @@ export const MyAccount =(props)=>{
                  <View> 
                     <Image
                         resizeMode="contain"
-                        source={require("../../AppDesigns/currentApp/images/trollymart-black.png")}
+                        source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trollymart-black.png'}}
                         style={styles1.syslogoimg}
                     />
                     <View style={{flexDirection:'row',alignItems:'flex-end'}}>
@@ -107,7 +107,7 @@ export const MyAccount =(props)=>{
                         {userDetails.authService===""&&<TouchableOpacity  onPress={()=>navigation.navigate('AccountInformation')}>
                         <Image
                         resizeMode="contain"
-                        source={require("../../AppDesigns/currentApp/images/editNEW.png")}
+                        source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/editNEW.png'}}
                         style={{height:hp(2),width:hp(2),marginLeft:wp(1),marginBottom:4}}
                         />
                             {/* <Icon size={15} name='edit' type='font-awesome' color={colors.textLight} iconStyle={[styles1.iconStyle,{marginLeft:12}]}/> */}
@@ -124,21 +124,27 @@ export const MyAccount =(props)=>{
                     <View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=>navigation.navigate('MyOrder')}>
                             {/* <Icon size={30} name='shopping-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/shopping-bag.png")} style={[styles.iconImg,{height:hp(6),width:hp(6)}]} resizeMode="contain" />
+                            <Image 
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/shopping-bag.png'}}
+                            style={[styles.iconImg,{height:hp(6),width:hp(6)}]} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={styles1.label}>My Orders</Text>
                     </View>
                     {userDetails.authService!=="guest" &&<View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false,"back":false})} >
                             {/* <Icon size={30} name='map-marker-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}                           
-                            <Image source={require("../../AppDesigns/currentApp/images/address.png")} style={[styles.iconImg]} resizeMode="contain"/>                            
+                            <Image 
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/address.png'}}
+                            style={[styles.iconImg]} resizeMode="contain"/>                            
                         </TouchableOpacity>
                         <Text style={[styles1.label]}>My Address</Text>
                     </View>}
                     {userDetails.authService!=="guest" &&<View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox} onPress={()=>navigation.navigate('RewardsPoint')}>
                             {/* <Icon size={30} name='award' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/cards.png")} style={styles.iconImg} resizeMode="contain" />
+                            <Image 
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/cards.png'}}
+                            style={styles.iconImg} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={[styles1.label,{alignSelf:'center'}]}>My Credit Points</Text>
                     </View>}
@@ -148,21 +154,27 @@ export const MyAccount =(props)=>{
                     <View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('AboutUs')}>
                             {/* <Icon size={20} name='shopping-bag' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/profile-information.png")} style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain" />
+                            <Image 
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/profile-information.png'}}
+                            style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>About Us</Text>
                     </View>
                     <View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=> navigation.navigate('SupportSystem')} >
                             {/* <Icon size={20} name='card-account-mail-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/ContactUs.png")} style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain" />
+                            <Image 
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/ContactUs.png'}}
+                            style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain" />
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Contact Us</Text>
                     </View>
                     <View style={{alignItems:'center',flex:0.33}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('FAQ')}>
                             {/* <Icon size={20} name='frequently-asked-questions' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/FAQ.png")} style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain"/>
+                            <Image 
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/FAQ.png'}}
+                            style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain"/>
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>FAQ</Text>
                     </View>
@@ -171,14 +183,18 @@ export const MyAccount =(props)=>{
                     <View style={{alignItems:'center',flex:0.5}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('TermsConditions')}>
                             {/* <Icon size={20} name='text-box-check-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/compliant.png")} style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain"/>
+                            <Image 
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/compliant.png'}}
+                            style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain"/>
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Terms and Conditions</Text>
                     </View>
                     <View style={{alignItems:'center',flex:0.5}}>   
                         <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=> navigation.navigate('PrivacyPolicy')} >
                             {/* <Icon size={20} name='book-lock' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                            <Image source={require("../../AppDesigns/currentApp/images/PrivacyPolicy.png")} style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain"/>
+                            <Image 
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/PrivacyPolicy.png'}}
+                            style={[styles.iconImg],{height:hp(3),width:hp(3)}} resizeMode="contain"/>
                         </TouchableOpacity>
                         <Text style={[styles1.label1]}>Privacy Policy</Text>
                     </View>
@@ -189,7 +205,9 @@ export const MyAccount =(props)=>{
                         <View style={{alignItems:'center',paddingHorizontal:hp(1)}}>   
                             <TouchableOpacity style={styles1.HorizontalBox1}  onPress={()=> logout()} >
                                 {/* <Icon size={20} name='logout' type='material-community' color={colors.theme} style={styles1.iconStyle}/> */}
-                                <Image source={require("../../AppDesigns/currentApp/images/logout.png")} style={[styles.iconImg],{height:hp(3),width:hp(3)}} />
+                                <Image 
+                                source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/logout.png'}}
+                                style={[styles.iconImg],{height:hp(3),width:hp(3)}} />
                             </TouchableOpacity>
                             <Text style={[styles1.label1]}>Log Out</Text>
                         </View>                        

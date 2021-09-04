@@ -92,7 +92,7 @@ const window = Dimensions.get('window');
               };
               console.log("payload",payload);
               axios
-                .post('/api/auth/post/login/mob_email', payload)
+                .post('/api/auth/post/login/mob_email_new', payload)
                 .then((res) => {
                   console.log("res",res);
                   setLoading(false);

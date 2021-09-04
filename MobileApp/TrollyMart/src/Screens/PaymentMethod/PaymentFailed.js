@@ -58,14 +58,14 @@ export const PaymentFailed = withCustomerToaster((props)=>{
                     <View style={{flex:0.6,alignItems:'flex-end'}}>
                      <Image
                             resizeMode="contain"
-                            source={require("../../AppDesigns/currentApp/images/warning.png")}
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/warning.png'}}
                             style={{height:50,width:80}}
                             />
                     </View> 
                     <View style={{flex:0.4,alignItems:'flex-end'}}>
                         <Image
                             resizeMode="contain"
-                            source={require("../../AppDesigns/currentApp/images/trollymart-black.png")}
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trollymart-black.png'}}
                             style={{height:50,width:80}}
                             />
                     </View>    

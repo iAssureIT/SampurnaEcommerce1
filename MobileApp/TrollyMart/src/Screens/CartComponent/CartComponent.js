@@ -436,7 +436,7 @@ const getshippingamount=(startRange, limitRange)=>{
                                 /> */}
                                   <Image
                                     resizeMode="contain"
-                                    source={require("../../AppDesigns/currentApp/images/trash.png")}
+                                    source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trash.png'}}
                                     style={{height:hp(2.4),width:hp(2.4),marginLeft:15,marginTop:5}}
                                     />
                                 </TouchableOpacity>
@@ -656,7 +656,7 @@ const getshippingamount=(startRange, limitRange)=>{
             </View>
             <View style={{height:hp(60),justifyContent:'center',alignItems:'center'}}>
               <Image
-                source={require("../../AppDesigns/currentApp/images/empty-cart.png")}
+                source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/empty-cart.png'}}
                 style={{width:window.width,height:300, opacity: 0.5}}
                 resizeMode='contain'
               />

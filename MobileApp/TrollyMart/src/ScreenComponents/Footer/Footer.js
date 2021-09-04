@@ -133,7 +133,9 @@ export const Footer =(props)=>{
                   }} >
                  {/* <Icon name="shopping-cart" type="feather" size={25} color={index === 2 ? colors.footerText :colors.theme}  /> */}
                  
-                 <Image source={require("../../AppDesigns/currentApp/images/cart.png")} style={{height:hp(3.5),width:hp(3.5)}} />
+                 <Image 
+                  source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/cart.png'}}
+                  style={{height:hp(3.5),width:hp(3.5)}} />
                  <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Cart</Text>
                 {
                   cartCount > 0 ?

@@ -197,7 +197,7 @@ export const RejectedOrder =(props)=> {
                     onPress={() => openDatePicker(true)}
                     style={{
                     paddingVertical: 5,
-                    width:120,
+                    width:160,
                     borderRadius: 5,
                     backgroundColor: colors.white,
                     alignItems:'center'

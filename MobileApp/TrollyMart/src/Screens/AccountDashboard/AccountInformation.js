@@ -449,7 +449,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                 <View style={{height: 160,paddingHorizontal:10,justifyContent:'flex-start'}}>
                   <Image
                     style={{height: 60, width: 150,backgroundColor:'white', alignSelf: 'flex-start'}}
-                    source={require("../../AppDesigns/currentApp/images/trollymart-black.png")}
+                    source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trollymart-black.png'}}
                     resizeMode="contain"
                   />
                 </View>

@@ -132,7 +132,7 @@ const [refreshing,setRefresh]= useState(false)
             </View>
             <View style={{height:window.height-230,justifyContent:'center',alignItems:'center'}}>
               <Image
-                source={require("../../AppDesigns/currentApp/images/empty_wishlist.png")}
+                source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/empty_wishlist.png'}}
                 style={{width:window.width,height:300,opacity:0.5}}
                 resizeMode='contain'
               />

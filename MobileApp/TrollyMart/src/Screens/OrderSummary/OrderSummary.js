@@ -298,7 +298,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                       >
                         <Image
                             resizeMode="contain"
-                            source={require("../../AppDesigns/currentApp/images/editBlack.png")}
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/editBlack.png'}}
                             style={{height:hp(2.5),width:hp(2.5)}}
                             />
                         {/* <Icon name="edit" type="font-awesome" size={15}/> */}
@@ -322,7 +322,8 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
               <View style={{paddingLeft:wp(3)}}>
                 {store?.userDetails?.authService !== "guest" ?
                 cartData?.paymentDetails?.afterDiscountCouponAmount === 0 && cartData?.paymentDetails?.creditPointsUsed === 0 ? <TouchableOpacity style={{flexDirection:"row",marginTop:10,alignItems:'center'}} onPress={()=>{setCouponModal(true)}}>
-                    <Image source={require('../../AppDesigns/currentApp/images/coupon.png')}
+                    <Image 
+                      source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/coupon.png'}}
                       resizeMode="contain"
                       style={{height:hp(2),width:hp(2)}}
                     />

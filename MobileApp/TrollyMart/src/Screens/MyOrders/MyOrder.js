@@ -359,7 +359,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                           </View>
                           {/* <View style={{borderWidth:0.5,marginVertical:15,borderColor:"#999"}}/> */}
                           <Image
-                            source={require("../../AppDesigns/currentApp/images/order_sepration.png")}
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/order_sepration.png'}}
                             // resizeMode="contain"
                             style={{width:"100%",marginTop:15}}
                           />
@@ -370,7 +370,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                       :
                       <View style={{height:window.height-230,justifyContent:'center',alignItems:'center'}}>
                         <Image
-                          source={require("../../AppDesigns/currentApp/images/empty-order.png")}
+                          source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/empty-order.png'}}
                           style={{width:window.width,height:300}}
                           resizeMode='contain'
                         />

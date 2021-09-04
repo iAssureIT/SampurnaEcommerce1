@@ -121,7 +121,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
             <View style={styles.syslogo}>
                 <Image
                 resizeMode="contain"
-                source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
+                source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trollymart-black.png'}}
                 style={styles.syslogoimg}
                 />
             </View>

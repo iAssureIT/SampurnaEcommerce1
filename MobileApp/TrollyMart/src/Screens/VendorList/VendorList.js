@@ -242,7 +242,7 @@ export const VendorList = withCustomerToaster((props)=>{
                     <View style={{height:window.height-135,}}>
                         <View style={{height:300}}>
                             <Image
-                            source={require("../../AppDesigns/currentApp/images/NoVendor.png")}
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/NoVendor.png'}}
                             style={{width:window.width,height:275}}
                             resizeMode='contain'
                             />
@@ -256,8 +256,8 @@ export const VendorList = withCustomerToaster((props)=>{
                         </View>
                         {/* <View style={{height:70,backgroundColor:"#ff0"}}>
                             <Image
-                                source={require("../../AppDesigns/currentApp/images/NoVendorFooter.png")}
                                 style={{height:'100%',width:"100%"}}
+                                source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/NoVendorFooter.png'}}                                
                                 resizeMode='contain'
                                 />
                         </View> */}

@@ -717,7 +717,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                   resizeMode="contain"
                                 />:
                                 <Image
-                                  source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                                  source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/notavailable.png'}}
                                   style={styles.img15}
                                   resizeMode="contain"
                                 />
@@ -1019,7 +1019,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       borderRadius:9,overflow: "hidden"}}
                   />:
                   <Image
-                    source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                    source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/notavailable.png'}}
                     style={styles.imgMain}
                     resizeMode='contain'
                     imageStyle={{ borderWidth:2,
@@ -1096,7 +1096,8 @@ const cancelorderbtn = (id,vendor_id) => {
                     style={{height:hp(5),width:hp(5),elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
                     onPress={() => chooseFromLibrary('openPicker','Review')}
                   >
-                  <Image source={require('../../AppDesigns/currentApp/images/insert_image.png')}
+                  <Image 
+                      source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/insert_image.png'}}
                       resizeMode="contain"
                       style={{height:hp(2),width:hp(2)}}
                     />
@@ -1137,8 +1138,8 @@ const cancelorderbtn = (id,vendor_id) => {
                       borderColor:'#033554',
                       borderRadius:9,overflow: "hidden"}}
                   />:
-                  <Image
-                    source={require("../../AppDesigns/currentApp/images/notavailable.png")}
+                  <Image                    
+                    source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/notavailable.png'}}
                     style={styles.imgMain}
                     resizeMode='contain'
                     imageStyle={{ borderWidth:2,
@@ -1261,7 +1262,8 @@ const cancelorderbtn = (id,vendor_id) => {
                     style={{height:hp(5),width:hp(5),elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:100,borderColor:colors.cartButton,borderWidth:0.5}}
                     onPress={() => chooseFromLibrary('openPicker','Return')}
                   >
-                  <Image source={require('../../AppDesigns/currentApp/images/insert_image.png')}
+                  <Image 
+                      source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/insert_image.png'}}
                       resizeMode="contain"
                       style={{height:hp(2),width:hp(2)}}
                     />

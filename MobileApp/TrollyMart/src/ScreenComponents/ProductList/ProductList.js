@@ -234,7 +234,7 @@ export const ProductList = withCustomerToaster((props)=>{
               
               <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} disabled={item.availableQuantity === 0 ? true : false}>
                 <Image
-                  source={item.isWish ? require('../../AppDesigns/currentApp/images/heartF.png'):require('../../AppDesigns/currentApp/images/wishlistE.png')}                  
+                  source={item.isWish ? {uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/heartF.png'} : {uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/wishlistE.png'}}                  
                   style={{ width: hp(2.5), height: hp(2.5) }}
                   resizeMode='contain'
                 />
@@ -264,7 +264,7 @@ export const ProductList = withCustomerToaster((props)=>{
               }
                 {item.availableQuantity === 0 &&
                   <Image 
-                    source={require("../../AppDesigns/currentApp/images/soldout1.png")}
+                    source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/soldout1.png'}}
                     style={styles.soldout}
                   />}
           
@@ -370,7 +370,7 @@ export const ProductList = withCustomerToaster((props)=>{
           ListEmptyComponent            = {
             <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
             <Image
-              source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+              source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/noproduct.png'}}
             />
           </View>
         }

@@ -54,14 +54,14 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                         {/* <Icon color="#fff" name="check" type="font-awesome" size={73} iconStyle={{elevation:15}}/> */}
                         <Image
                         resizeMode="contain"
-                        source={require("../../AppDesigns/currentApp/images/payment_success.png")}
+                        source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/payment_success.png'}}
                         style={{height:hp(10),width:wp(20)}}
                         />
                     </View> 
                     <View style={{flex:0.4,alignItems:'flex-end'}}>
                         <Image
                             resizeMode="contain"
-                            source={require("../../AppDesigns/currentApp/images/Logo.png")}
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/Logo.png'}}
                             style={{height:hp(6),width:wp(20)}}
                             />
                     </View>    
@@ -80,7 +80,8 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                     </View> 
                     <View style={{flexDirection:"row",marginTop:hp(2),justifyContent:'center'}}>
                         <View style={{flex:0.4,flexDirection:'row',alignItems:'center'}}>
-                        <Image source={require('../../AppDesigns/currentApp/images/wallet.png')}
+                        <Image 
+                        source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/wallet.png'}}
                         resizeMode="contain"
                         style={{height:hp(3),width:wp(6),marginRight:wp(1)}}
                         />
@@ -92,7 +93,8 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                     </View> 
                     <View style={{flexDirection:"row",marginTop:hp(2),justifyContent:'center'}}>
                         <View style={{flex:0.4,flexDirection:'row',alignItems:'center'}}>
-                        <Image source={require('../../AppDesigns/currentApp/images/calendar.png')}
+                        <Image 
+                        source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/calendar.png'}}
                         resizeMode="contain"
                         style={{height:hp(3),width:wp(6),marginRight:wp(1)}}
                         />

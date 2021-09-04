@@ -227,7 +227,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                   <View style={styles.vwwishlist}>
                     <Image
                       style={styles.imgwdht}
-                      source={require("../../AppDesigns/currentApp/images/PaymentMethod.png")}
+                      source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/PaymentMethod.png'}}
                     />
                   </View>
                   <View style={styles.orderbrdr}>
@@ -248,7 +248,9 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         <Text style={styles.freeL2}> (Credit/Debit Card) </Text>
                       </View>  
                       <View style={{flex:0.1,alignItems:'flex-end'}}>                        
-                        <Image source={require("../../AppDesigns/currentApp/images/online-payment.png")} style={styles.iconImg} resizeMode="contain" />
+                        <Image 
+                        source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/online-payment.png'}}
+                        style={styles.iconImg} resizeMode="contain" />
                       </View>                    
                     </TouchableOpacity>
                   </View>
@@ -270,7 +272,9 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         <Text style={styles.free}>Card on Delivery</Text>
                       </View>  
                       <View style={{flex:0.1,alignItems:'flex-end'}}>                        
-                        <Image source={require("../../AppDesigns/currentApp/images/pos-terminal.png")} style={styles.iconImg} resizeMode="contain" />
+                        <Image 
+                          source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/pos-terminal.png'}}
+                          style={styles.iconImg} resizeMode="contain" />
                       </View>                         
                     </View>
                   </TouchableOpacity>
@@ -292,7 +296,9 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         <Text style={styles.free}>Cash on Delivery</Text>
                       </View>  
                       <View style={{flex:0.1,alignItems:'flex-end'}}>                        
-                        <Image source={require("../../AppDesigns/currentApp/images/cash-on-delivery.png")} style={styles.iconImgCash} resizeMode="contain" />
+                        <Image 
+                        source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/cash-on-delivery.png'}}
+                        style={styles.iconImgCash} resizeMode="contain" />
                       </View>                       
                     </View>
                   </TouchableOpacity>

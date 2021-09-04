@@ -434,7 +434,7 @@ const window = Dimensions.get('window');
               <View style={styles.syslogoLoginNEW}>
                   <Image
                   resizeMode="contain"
-                  source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
+                  source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trollymart-black.png'}}
                   style={styles.syslogoimgLogin}
                   />
               </View>
@@ -544,7 +544,7 @@ const window = Dimensions.get('window');
                   }}>
                   <Image
                     resizeMode="contain"
-                    source={require("../../../AppDesigns/currentApp/images/google.png")}
+                    source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/google.png'}}
                     style={{height:"100%",width:"100%"}}
                   />
                   {/* <Icon name='google' type='font-awesome' size={36} color="#EA4335"/> */}

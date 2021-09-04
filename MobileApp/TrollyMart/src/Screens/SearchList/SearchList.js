@@ -80,7 +80,7 @@ console.log("globalSearch",globalSearch);
                     :
                     <View style={{justifyContent:"center",alignItems:'center',marginTop:'40%'}}>
                     <Image 
-                      source={require('../../AppDesigns/currentApp/images/No-Products-Available.png')}
+                      source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/No-Products-Available.png'}}
                       style={{height:300,width:300}}
                       resizeMode="contain"
                     />

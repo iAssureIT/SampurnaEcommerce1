@@ -414,7 +414,7 @@ console.log("vendor",vendor);
                             onPress={() =>onShare()} > 
                             <Image
                             resizeMode="contain"
-                            source={require("../../AppDesigns/currentApp/images/shareNEW.png")}
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/shareNEW.png'}}
                             style={{height:hp(2),width:hp(2),alignSelf:'center'}}
                             />
                             {/* <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} /> */}
@@ -435,7 +435,7 @@ console.log("vendor",vendor);
                         onPress={() =>onShare()} >
                           <Image
                             resizeMode="contain"
-                            source={require("../../AppDesigns/currentApp/images/shareNEW.png")}
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/shareNEW.png'}}
                             style={{height:hp(2),width:hp(2),alignSelf:'center'}}
                             />
                         {/* <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} /> */}
@@ -449,7 +449,7 @@ console.log("vendor",vendor);
                     </View>
                     <View style={{ flex:0.2,justifyContent:'center',marginRight:5, alignItems:'flex-end'}}>                        
                       <Text style={styles.starAvg}><Image
-                        source={require("../../AppDesigns/currentApp/images/star.png")}
+                        source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/star.png'}}
                         style={styles.starimg}
                         resizeMode="contain"
                       />&nbsp;{productReview.avgRating}<Text>({productReview?.reviewlist?.length})</Text></Text>
@@ -510,7 +510,7 @@ console.log("vendor",vendor);
               <View style={{marginTop:hp(2),flexDirection:'row'}}>
                 {/* <Icon color="#5B8E7E" name="clipboard-arrow-left" type="material-community" size={15}/> */}
                 <Image
-                      source={require("../../AppDesigns/currentApp/images/return.png")}
+                      source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/return.png'}}
                       style={styles.saleimgRe}
                       resizeMode='contain'
                     />

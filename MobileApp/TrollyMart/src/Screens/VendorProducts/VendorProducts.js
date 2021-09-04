@@ -117,7 +117,7 @@ const VendorProducts = (props)=>{
       {/* <Icon color={"#333"} name="sort" /> */}
       <Image
       resizeMode="contain"
-      source={require("../../AppDesigns/currentApp/images/sort.png")}
+      source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/sort.png'}}
       style={{height:50,width:80}}
       />
     </View>
@@ -195,7 +195,7 @@ console.log("subCategory",subCategory)
                   <TouchableOpacity style={styles.iconStyle} onPress={()=>setShowFilters(true)}>
                     <Image
                       resizeMode="contain"
-                      source={require("../../AppDesigns/currentApp/images/filter.png")}
+                      source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/filter.png'}}
                       style={{height:hp(4),width:hp(4)}}
                       />
                   </TouchableOpacity>
@@ -203,7 +203,7 @@ console.log("subCategory",subCategory)
                   {/* <Icon name="sort" type="material-community" color={"#333"} size={20} /> */}
                   <Image
                   resizeMode="contain"
-                  source={require("../../AppDesigns/currentApp/images/sort.png")}
+                  source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/sort.png'}}
                   style={{height:hp(4),width:hp(3)}}
                   />
                 </TouchableOpacity>
@@ -239,7 +239,7 @@ console.log("subCategory",subCategory)
             :
             <View style={{height:window.height,justifyContent:"center",alignItems:'center'}}>
               <Image 
-                source={require('../../AppDesigns/currentApp/images/No-Products-Available.png')}
+                source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/No-Products-Available.png'}}
                 style={{height:300,width:300}}
                 resizeMode="contain"
               />

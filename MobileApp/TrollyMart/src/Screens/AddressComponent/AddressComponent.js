@@ -256,6 +256,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                 name            = "contactperson"
                 errors          = {errors}
                 touched         = {touched}
+                keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
                 // style           = {styles.inputText} 
                 // iconName        = {'user-circle-o'}
                 // iconType        = {'font-awesome'}
@@ -296,6 +297,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                     name            = "addressLine1"
                     errors          = {errors}
                     touched         = {touched}
+                    keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
                     // iconName        = {'user-circle-o'}
                     // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
@@ -311,6 +313,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                     errors          = {errors}
                     touched         = {touched}
                     editable        = {false}
+                    keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
                     // iconName        = {'user-circle-o'}
                     // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
@@ -336,6 +339,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                     keyboardAppearance        = {'light'} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
                     listViewDisplayed         = {false}    // true/false/undefined
                     fetchDetails              = {true}
+                    keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
                     // onChangeText              = {(from)}
                     // value                     = {from}
                     enablePoweredByContainer  = {false}
@@ -416,6 +420,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                     name            = "fromcity"
                     errors          = {errors}
                     touched         = {touched}
+                    keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
                     // iconName        = {'user-circle-o'}
                     // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
@@ -444,6 +449,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                     name            = "fromcountry"
                     errors          = {errors}
                     touched         = {touched}
+                    keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
                     // iconName        = {'user-circle-o'}
                     // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
@@ -457,6 +463,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                     name            = "fromPincode"
                     errors          = {errors}
                     touched         = {touched}
+                    keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
                     // iconName        = {'user-circle-o'}
                     // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"

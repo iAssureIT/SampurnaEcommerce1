@@ -152,7 +152,7 @@ const FormBody = (props) => {
           <View style={{height:hp(22),paddingHorizontal:wp(7),justifyContent:'flex-start'}}>
             <Image
               style={{height: hp(10), width:wp(42),backgroundColor:'white', alignSelf: 'flex-start'}}
-              source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
+              source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trollymart-black.png'}}
               resizeMode="contain"
             />
           </View>

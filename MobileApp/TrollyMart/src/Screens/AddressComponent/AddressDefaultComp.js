@@ -178,7 +178,9 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
               </View>
               <View style={{flex:0.2,alignItems:'flex-end'}}>
                 <TouchableOpacity style={styles.addBtnClass} onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,address:undefined})}>
-                    <Image source={require("../../AppDesigns/currentApp/images/addressNew.png")} style={styles.addBtnImg} resizeMode="cover" />
+                    <Image 
+                    source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/addressNew.png'}}
+                    style={styles.addBtnImg} resizeMode="cover" />
                 </TouchableOpacity>
               </View>
               
@@ -219,7 +221,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                               <TouchableOpacity  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})} style={{paddingHorizontal:wp(4)}}>                              
                                 <Image
                                   resizeMode="contain"
-                                  source={require("../../AppDesigns/currentApp/images/edit_white.png")}
+                                  source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/edit_white.png'}}
                                   style={{height:hp(1.8),width:hp(1.8),marginLeft:15,opacity:0.6}}
                                   />
                               </TouchableOpacity>                            
@@ -254,7 +256,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                             <TouchableOpacity  onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery,"address":item})}>                              
                                 <Image
                                   resizeMode="contain"
-                                  source={require("../../AppDesigns/currentApp/images/editNEW.png")}
+                                  source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/editNEW.png'}}
                                   style={{height:hp(1.8),width:hp(1.8),marginLeft:15}}
                                   />
                               </TouchableOpacity>

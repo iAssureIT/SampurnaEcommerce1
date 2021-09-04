@@ -121,7 +121,7 @@ export const Product = withCustomerToaster((props)=>{
                 </FastImage>
                 :
                 <Image
-                    source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/notavailable.png'}}
                     style={styles.subcatimg}
                 />
             }

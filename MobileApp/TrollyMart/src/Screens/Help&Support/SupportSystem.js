@@ -118,7 +118,9 @@ export const SupportSystem = withCustomerToaster((props)=>{
                 .then((response)=>{
                     console.log("res=-0-0",response);
                     setLoading(false)
+                    setFieldValue('mobile_no','')
                     setToast({text:"Thank you for contacting us, we will respond as soon as possible.!",color:"green"})
+                    
 				}) 
                 .catch(function(error){
 					console.log(error);
@@ -137,7 +139,7 @@ export const SupportSystem = withCustomerToaster((props)=>{
              
             }}          
 
-            validationSchema={ValidationSchema}
+            validationSchema={ValidationSchema}            
             initialValues={{
                 name: '',
                 email: '',
@@ -197,7 +199,7 @@ const FormBody = (props) => {
                 <View style={{ paddingHorizontal: 15 }}>
                     <View style={{ height:200,backgroundColor:'#fff',marginBottom: 15,marginLeft:5}}>
                          <Image 
-                            source = {require("../../AppDesigns/currentApp/images/contact_us1.png")}
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/contact_us1.png'}}
                             style={{height:200, width:window.width-5}} 
                             resizeMode={'contain'}
                         />
@@ -248,6 +250,7 @@ const FormBody = (props) => {
                             ref={phoneInput}
                             defaultValue={value}
                             defaultCode="AE"
+                            name = 'mobile_no'
                             value           = {values.mobile_no}
                             defaultValue    = {values.mobile_no}
                             layout="second"

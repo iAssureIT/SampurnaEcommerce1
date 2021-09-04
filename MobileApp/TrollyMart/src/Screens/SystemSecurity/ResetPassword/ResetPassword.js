@@ -132,7 +132,7 @@ export const ResetPassword = withCustomerToaster((props) => {
           </TouchableOpacity> */}
           <Image
             style={{height: 120, width: 150, alignSelf: 'center'}}
-            source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
+            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trollymart-black.png'}}
             resizeMode="contain"
           />
            <View style={styles.textTitleWrapper}><Text style={commonStyle.headerText}>Reset Password</Text></View>
