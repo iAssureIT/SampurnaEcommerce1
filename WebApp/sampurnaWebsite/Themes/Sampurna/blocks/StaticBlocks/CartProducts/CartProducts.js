@@ -694,15 +694,19 @@ class CartProducts extends Component {
                                                                                                                 <div className="col-6 text-right NoPadding font-weight-bold "> &nbsp;<span className={Style.regularShippingCharge}>{vendorWiseCartData.vendor_shippingCharges}&nbsp;{this.state.currency}</span>&nbsp;<span>{vendorWiseCartData.vendor_shippingChargesAfterDiscount}</span> &nbsp;{this.state.currency}</div>
                                                                                                                 }
                                                                                                             </div>
-                                                                                                            <div className="row">
-                                                                                                                <div className={"col-6 text-left " + Style.cartInnerTitleWrapper4}>Total Delivery Charges :</div>
-                                                                                                                <div className={"col-6 text-right NoPadding font-weight-bold "+ Style.cartInnerTitleWrapperHidden1 }>{this.props.recentCartData.paymentDetails.shippingCharges}&nbsp; {this.state.currency}</div>
-                                                                                                            </div>
+                                                                                                            
                                                                                                         </div>
+                                                                                                        
                                                                                                     </div>
                                                                                                 )
                                                                                             })
                                                                                             }
+                                                                                            <div className=" container">
+                                                                                                <div className="row">
+                                                                                                    <div className={"col-6 text-left " + Style.cartInnerTitleWrapper4}>Total Delivery Charges :</div>
+                                                                                                    <div className={"col-6 text-right font-weight-bold "+ Style.cartInnerTitleWrapperHidden1 } >{this.props.recentCartData.paymentDetails.shippingCharges}&nbsp; {this.state.currency}</div>
+                                                                                                </div>
+                                                                                            </div>
                                                                                            
                                                                                         </ReactTooltip>
                                                                                 </div>

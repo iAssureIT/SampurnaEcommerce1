@@ -38,7 +38,7 @@ export default class Footer extends Component {
                     this.setState({ 
                         categoryData : response.data
                     },()=>{
-                        // console.log("categoryData===",this.state.categoryData);
+                        console.log("categoryData===",this.state.categoryData);
                     })
                 }
             })
@@ -94,7 +94,7 @@ export default class Footer extends Component {
                             index<10? 
                             <div className="col-6 col-xl-2 col-lg-2 col-md-4 col-sm-4" key={index}>
                                 <div className=" col-12 NoPadding sectionName">
-                                    <Link href={"vendor-list/"+data.sectionUrl} passhref={true}>
+                                    <Link href={data.sectionUrl} passhref={true}>
                                         <a className="sectionurl footerSubT " ><span>{data.section}</span></a>
                                     </Link>
                                     {/* <a href={"vendor-list/"+data.sectionUrl} className="sectionurl footerSubT" ><span>{data.section}</span></a> */}
@@ -104,7 +104,7 @@ export default class Footer extends Component {
                                         catindex<8?  
                                             <div key={catindex} className="">                                   
                                                 <div className="categortTitle">
-                                                    <Link href={"vendor-list/"+data.sectionUrl} passhref={true}>
+                                                    <Link href={data.sectionUrl} passhref={true}>
                                                         <a><span className="f9">{cateoryDetails.category}</span></a>
                                                     </Link>
                                                      {/* <a href={""+data.sectionUrl}><span className="f9">{cateoryDetails.category}</span></a> */}
