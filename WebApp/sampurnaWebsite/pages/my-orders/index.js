@@ -392,7 +392,7 @@ export default class MyOrders extends Component {
                                             </div>
                                             <div className="col-12 title NoPadding">
 
-                                              <span className="col-12 mx-lg-5 ">No.of products : {vendordata.vendor_numberOfProducts} </span>
+                                              <span className="col-12 mx-lg-5 ">No. of products: {vendordata.vendor_numberOfProducts} </span>
 
                                             </div>
                                           </div>

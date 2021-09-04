@@ -150,6 +150,10 @@
 	height: 12px;
 }
 
+.contactUsPhoneIcon, .contactUsMailIcon{
+	height: 15px;
+}
+
 /*.contactUscontent{
 	font-size: 13px;
 	color: #FFF;

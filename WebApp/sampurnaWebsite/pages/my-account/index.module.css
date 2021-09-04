@@ -1,6 +1,27 @@
+
 @font-face {
   font-family:'Montserrat-SemiBold';
   src: url('../../Themes/Sampurna/fonts/Montserrat-SemiBold.ttf');
+}
+
+@font-face {
+  font-family:'Montserrat-Bold';
+  src: url('../../Themes/Sampurna/fonts/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family:'Montserrat-Regular';
+  src: url('../../Themes/Sampurna/fonts/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family:'Montserrat-Medium';
+  src: url('../../Themes/Sampurna/fonts/Montserrat-Medium.ttf');
+}
+
+@font-face {
+  font-family:'Montserrat-Thin';
+  src: url('../../Themes/Sampurna/fonts/Montserrat-Thin.ttf');
 }
 
 .navPillsWrapper a {
@@ -118,13 +139,14 @@
 
     .sideBarTabNameAllignment{
         padding-left: 38px;
+        margin-top: -5px;
     }
 
     .myAccountTitleWrapper{
         font-size: 32px;
     }
     .myAccountSideWrapper{
-        margin-top: 29px !important;
+        margin-top: 24px !important;
         margin-left: -10px;
     }
 }    
@@ -141,6 +163,7 @@
 
     .sideBarTabNameAllignment{
         padding-left: 35px;
+        margin-top: -7px;
     }
 
     .myAccountTitleWrapper{
@@ -148,7 +171,7 @@
     }
 
     .myAccountSideWrapper{
-        margin-top: 29px !important;
+        margin-top: 25px !important;
         margin-left: -10px;
     }
 }
@@ -165,12 +188,13 @@
     }
 
     .myAccountSideWrapper{
-        margin-top: 33px !important;
+        margin-top: 26px !important;
         margin-left: -10px;
     }
 
     .sideBarTabNameAllignment{
         padding-left: 50px;
+        margin-top: -8px;
     }
 
 }
@@ -201,6 +225,7 @@
 
     .sideBarTabNameAllignment{
         padding-left: 70px;
+        margin-top: -8px;
     }
 
 }
@@ -230,6 +255,7 @@
 
     .sideBarTabNameAllignment{
         padding-left: 130px;
+        margin-top: -14px;
     }
 
 }
