@@ -240,8 +240,42 @@ body {
   left: -12px;
 }
 
+.react_multiple_carousel__arrow_right_catg,
+.react_multiple_carousel__arrow_right_catg:hover{
+  background-image:url("/images/eCommerce/arrowRight.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  top: 115px;
+  right: 15px;
+}
+.react_multiple_carousel__arrow_left_catg,
+.react_multiple_carousel__arrow_left_catg:hover{
+  background-image:url("/images/eCommerce/arrowLeft.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  top: 115px;
+  left: 15px;
+}
+
+.react_multiple_carousel__arrow_right_subcatg,
+.react_multiple_carousel__arrow_right_subcatg:hover{
+  background-image:url("/images/eCommerce/arrowRight.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  top: 150px;
+  right: 20px;
+}
+.react_multiple_carousel__arrow_left_subcatg,
+.react_multiple_carousel__arrow_left_subcatg:hover{
+  background-image:url("/images/eCommerce/arrowLeft.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  top: 150px;
+  left: 20px;
+}
+
 .sectionCarousel{
-  width: 103%;
+  width: 102%;
   margin-left: -1%;
 }
 .secCateblock {
@@ -293,7 +327,7 @@ body {
 
 .errorMsg {
   color      : var(--globalErrColor) !important;
-  font-size  : 10px !important;
+  font-size  : 10px;
   line-height: 12px;
 }
 .sizeVariantTab .nav-link{
@@ -1032,6 +1066,29 @@ option:focus, option:active{
   .react_multiple_carousel__arrow_left_section:hover{
     top: 40px;
   }
+  .react_multiple_carousel__arrow_right_catg,
+  .react_multiple_carousel__arrow_right_catg:hover{
+    top: 50px;
+    right: 0px;
+  }
+
+  .react_multiple_carousel__arrow_left_catg,
+  .react_multiple_carousel__arrow_left_catg:hover{
+    top: 50px;
+    left: 0px;
+  }
+  .react_multiple_carousel__arrow_right_subcatg,
+  .react_multiple_carousel__arrow_right_subcatg:hover{
+    top: 60px;
+    right: 0px;
+  }
+  .react_multiple_carousel__arrow_left_subcatg,
+  .react_multiple_carousel__arrow_left_subcatg:hover{
+    top: 60px;
+    left: 0px;
+  }
+
+
 
 }  
 
@@ -1049,6 +1106,29 @@ option:focus, option:active{
   .react_multiple_carousel__arrow_left_section:hover{
     top: 60px;
   }
+  .react_multiple_carousel__arrow_right_catg,
+  .react_multiple_carousel__arrow_right_catg:hover{
+    top: 80px;
+    right: 0px;
+  }
+  .react_multiple_carousel__arrow_left_catg,
+  .react_multiple_carousel__arrow_left_catg:hover{
+    top: 80px;
+    left: 0px;
+  }
+
+  .react_multiple_carousel__arrow_right_subcatg,
+  .react_multiple_carousel__arrow_right_subcatg:hover{
+    top: 90px;
+    right: 0px;
+  }
+  .react_multiple_carousel__arrow_left_subcatg,
+  .react_multiple_carousel__arrow_left_subcatg:hover{
+    top: 90px;
+    left: 0px;
+  }
+
+
 
 }  
 
@@ -1067,13 +1147,36 @@ option:focus, option:active{
     top: 60px;
   }
 
+  .react_multiple_carousel__arrow_right_catg,
+  .react_multiple_carousel__arrow_right_catg:hover{
+    top: 100px;
+    right: 0px;
+  }
+
+  .react_multiple_carousel__arrow_left_catg,
+  .react_multiple_carousel__arrow_left_catg:hover{
+    top: 100px;
+    left: 0px;
+  }
+  .react_multiple_carousel__arrow_right_subcatg,
+  .react_multiple_carousel__arrow_right_subcatg:hover{
+    top: 110px;
+    right: 0px;
+  }
+  .react_multiple_carousel__arrow_left_subcatg,
+  .react_multiple_carousel__arrow_left_subcatg:hover{
+    top: 110px;
+    left: 0px;
+  }
+
+
 }  
 
 
 @media only screen and (min-device-width: 1536px) {
   .globalCommonBtn {
     padding: 7px 45px;
-    font-size: 15px;
+    font-size: 15px;    
   }
   .react_multiple_carousel__arrow_right_section,
   .react_multiple_carousel__arrow_right_section:hover{
@@ -1084,6 +1187,28 @@ option:focus, option:active{
   .react_multiple_carousel__arrow_left_section:hover{
     top: 75px;
   }
+
+  .react_multiple_carousel__arrow_right_catg,
+  .react_multiple_carousel__arrow_right_catg:hover{
+    top: 100px;
+    right: 15px;
+  }
+  .react_multiple_carousel__arrow_left_catg,
+  .react_multiple_carousel__arrow_left_catg:hover{
+    top: 100px;
+    left: 15px;
+  }
+  .react_multiple_carousel__arrow_right_subcatg,
+  .react_multiple_carousel__arrow_right_subcatg:hover{
+    top: 115px;
+    right: 10px;
+  }
+  .react_multiple_carousel__arrow_left_subcatg,
+  .react_multiple_carousel__arrow_left_subcatg:hover{
+    top: 115px;
+    left: 10px;
+  }
+
 
 }  
 
@@ -1107,21 +1232,54 @@ option:focus, option:active{
   .react_multiple_carousel__arrow_left_section,
   .react_multiple_carousel__arrow_left_section:hover{
     top: 90px;
+  }
+
+  .errorMsg {
+    font-size: 16px;
+    padding-top: 8px;
   }  
+  .react_multiple_carousel__arrow_right_catg,
+  .react_multiple_carousel__arrow_right_catg:hover{
+    top: 115px;
+    right: 15px;
+  }
+  .react_multiple_carousel__arrow_left_catg,
+  .react_multiple_carousel__arrow_left_catg:hover{
+    top: 115px;
+    left: 15px;
+  }
+  .react_multiple_carousel__arrow_right_subcatg,
+  .react_multiple_carousel__arrow_right_subcatg:hover{
+    top: 120px;
+    right: 20px;
+  }
+  .react_multiple_carousel__arrow_left_subcatg,
+  .react_multiple_carousel__arrow_left_subcatg:hover{
+    top: 120px;
+    left: 20px;
+  }
 
 }  
 
 
 @media only screen and (min-device-width: 1921px) {
-  .react_multiple_carousel__arrow_right_section,
-  .react_multiple_carousel__arrow_right_section:hover{
-    top: 125px;
+ 
+  .react_multiple_carousel__arrow_right_catg,
+  .react_multiple_carousel__arrow_right_catg:hover{
+    top: 150px;
+    right: 15px;
+  }
+  .react_multiple_carousel__arrow_left_catg,
+  .react_multiple_carousel__arrow_left_catg:hover{
+    top: 150px;
+    left: 15px;
   }
 
-  .react_multiple_carousel__arrow_left_section,
-  .react_multiple_carousel__arrow_left_section:hover{
-    top: 125px;
-  }  
+  .errorMsg {
+    font-size: 16px;
+    padding-top: 8px;
+  }
+
 }
 
 @media only screen and (min-device-width: 2560px) {
@@ -1136,5 +1294,10 @@ option:focus, option:active{
 
   .wishListIconColor{
     height: 30px;
+  }
+
+  .errorMsg {
+    font-size: 16px;
+    padding-top: 8px;
   }
 }  

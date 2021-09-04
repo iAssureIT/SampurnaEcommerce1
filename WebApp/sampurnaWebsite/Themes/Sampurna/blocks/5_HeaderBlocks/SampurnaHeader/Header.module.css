@@ -6,7 +6,7 @@
     z-index: 10000;
 }
 .headerWrapper header{
-    font-family: 'Montserrat-Regular';
+    /*font-family: 'Montserrat-Regular';*/
 }
 .headerWrapper{
     margin: 0!important;

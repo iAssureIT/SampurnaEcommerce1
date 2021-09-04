@@ -58,7 +58,7 @@ class SearchProduct extends Component {
                       this.props.searchData.data.map((data, index) => {       
                         return (
                           <div className={" col-3 "}  key={index}> 
-                              {/*< SingleProduct 
+                              {/* < SingleProduct 
                                 data = {data} 
                                 productSettings   = {this.state.productSettings}
                                 userLatitude      = {this.state.deliveryLocation.latitude}
@@ -66,7 +66,7 @@ class SearchProduct extends Component {
                                 user_ID           = {this.state.user_ID}
                                 vendor_ID         = {data.vendor_ID}
                                 vendorlocation_ID = {data.vendorLocation_id}
-                              />*/}
+                              /> */}
                           </div>                            
                         );
                       })

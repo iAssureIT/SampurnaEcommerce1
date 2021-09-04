@@ -123,18 +123,18 @@ class SectionBlock extends Component {
                         }
                       }
                       return (
-                      <div className="col-12 sectionCategoryBlock  "  key={index}> 
+                      <div className="col-12 sectionCategoryBlock"  key={index}> 
                           {this.props.groupSettings.showOnlySection === true &&
-                          <a href={url} className ="secCateblock"> 
-                            <div className="itemImg col-12 NoPadding d-flex justify-content-center">
-                              <div className="product photo product-item-photo collage">
-                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.png"} alt="ItemImg" className={"subImg " } />
+                            <a href={url} className ="secCateblock"> 
+                              <div className="itemImg col-12 NoPadding d-flex justify-content-center">
+                                <div className="product photo product-item-photo collage">
+                                  <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.png"} alt="ItemImg" className={"subImg"} />
+                                </div>
                               </div>
-                            </div>
-                            <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>
-                          </a>
+                              <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>
+                            </a>
                           }                         
-                      </div>                            
+                      </div>
                       );
                     })
                   }
@@ -158,7 +158,7 @@ class SectionBlock extends Component {
                     }
                     }                     
                     return (
-                      <div className={"col-"+XLcol +" " +"NoPadding"} key={index}>
+                      <div className={"col-"+XLcol +" " +"NoPadding"} key={"item-"+index}>
                         <a href={url} className ="secCateblock sectionCategoryBlock"> 
                             <div className="productImg col-12 ">
                               <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
