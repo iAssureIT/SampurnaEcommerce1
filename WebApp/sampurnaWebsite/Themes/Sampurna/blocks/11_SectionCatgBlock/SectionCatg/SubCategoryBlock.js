@@ -3,7 +3,11 @@ import axios                  from 'axios';
 import Link                   from 'next/link';
 import Style                  from '../../10_eCommerceBlocks/ProductCarousel/ProductCarousel.module.css';
 import Carousel               from 'react-multi-carousel';
+
 import 'react-multi-carousel/lib/styles.css';
+import CustomRightArrow       from '../../StaticBlocks/CustomArrows/CustomRightArrowSubCatg.js';
+import CustomLeftArrow        from '../../StaticBlocks/CustomArrows/CustomLeftArrowSubCatg.js';
+
 class SubCategoryBlock extends Component {
   constructor(props) {
     super(props);
@@ -96,7 +100,10 @@ class SubCategoryBlock extends Component {
                 transitionDuration={500}               
                 removeArrowOnDeviceType={["tablet", "mobile"]}
                 deviceType={this.props.deviceType}  
-                containerClass="carousel-container">
+                containerClass="carousel-container"
+                customRightArrow={<CustomRightArrow />}
+                customLeftArrow={<CustomLeftArrow />}
+                >
                   {Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {  
                     { if(this.props.groupSettings.showOnlyCategory){
                         url = "/vendor-list/"+data.itemUrl;
