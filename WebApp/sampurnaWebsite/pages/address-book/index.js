@@ -226,7 +226,7 @@ class AddressBook extends Component{
                                             return(  
                                                     <div key={ 'address'+index} className={"col-12 col-lg-6 col-md-6  py-3 px-4 " +Style.additionAddress1}>
                                                         <div className={"col-12 text-center " +Style.additionAddress}>
-                                                                <div className={"text-justify pt-2 "+Style.addressInnerDescWrapper}> 
+                                                                <div className={"text-justify pt-2  "+Style.addressInnerDescWrapper+" "+Style.customBoxPropperties}> 
                                                                 <div className="col-12 p-0 ">
                                                                     <i className="fa fa-home" aria-hidden="true"></i> &nbsp;
                                                                     <span className={Style.addType}>{address.addType}</span>

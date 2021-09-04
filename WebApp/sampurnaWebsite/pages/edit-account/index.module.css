@@ -106,6 +106,10 @@
     .editAccountTitle{
         font-size: 25px;
      }
+
+      .accountInformationMainWrapper{
+        margin-left: 0px;
+    }  
 }
 
 
@@ -113,6 +117,10 @@
     .editAccountTitle{
         font-size: 25px;
     }
+
+    .accountInformationMainWrapper{
+        margin-left: 0px;
+    }  
 }    
 
 
@@ -120,6 +128,10 @@
     .editAccountTitle{
         font-size: 28px;
     }
+
+    .accountInformationMainWrapper{
+        margin-left: 0px;
+    } 
 }    
 
 
@@ -127,6 +139,10 @@
     .editAccountTitle{
         font-size: 30px;
     }
+
+    .accountInformationMainWrapper{
+        margin-left: 0px;
+    }  
 }    
 
 
@@ -139,11 +155,19 @@
     .editAccountFont{
         font-size: 16px;
     }
+
+    .accountInformationMainWrapper{
+        margin-left: 0px;
+    }  
 }
 
 @media only screen and (min-device-width: 1920px) {
      .editAccountTitle{
         font-size: 40px;
     }
+
+    .accountInformationMainWrapper{
+        margin-left: 0px;
+    }  
 
 }

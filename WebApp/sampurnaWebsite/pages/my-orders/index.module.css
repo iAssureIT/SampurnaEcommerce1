@@ -300,6 +300,18 @@
 	.middleText{
 		font-size: 13px;
 	}
+
+	.orderStatusBadge1{
+		margin-left: 132px;
+	}
+
+	.orderStatusBadge2{
+		margin-left: 132px;
+	}
+
+	.orderStatusBadge{
+		margin-left: 132px;
+	}
 }
 
 @media only screen and (min-device-width: 1440px) {
@@ -330,6 +342,18 @@
 
 	.middleText{
 		font-size: 14px;
+	}
+
+	.orderStatusBadge1{
+		margin-left: 140px;
+	}
+
+	.orderStatusBadge2{
+		margin-left: 140px;
+	}
+
+	.orderStatusBadge{
+		margin-left: 140px;
 	}
 }
 
@@ -362,6 +386,19 @@
 	.middleText{
 		font-size: 15px;
 	}
+
+	.orderStatusBadge1{
+		margin-left: 153px;
+	}
+
+	.orderStatusBadge2{
+		margin-left: 153px;
+	}
+
+	.orderStatusBadge{
+		margin-left: 153px;
+	}
+
 }	
 
 @media only screen and (min-device-width: 1920px) {
@@ -400,6 +437,18 @@
 
 	.orderIdborderNew{
 		border-radius: 19px;
+	}
+
+	.orderStatusBadge1{
+		margin-left: 195px;
+	}
+
+	.orderStatusBadge2{
+		margin-left: 195px;
+	}
+
+	.orderStatusBadge{
+		margin-left: 195px;
 	}
 }
 
@@ -440,6 +489,18 @@
 
 	.orderIdborderNew{
 		border-radius: 19px;
+	}
+
+	.orderStatusBadge1{
+		margin-left: 274px;
+	}
+
+	.orderStatusBadge2{
+		margin-left: 274px;
+	}
+
+	.orderStatusBadge{
+		margin-left: 274px;
 	}
 
 }
