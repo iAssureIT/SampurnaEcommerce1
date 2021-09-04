@@ -80,7 +80,7 @@ class SubCategoryBlock extends Component {
           <div className="col-12 rowPadding">
             { this.props.groupSettings.showCarousel === true?
               Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
-              <div className="">
+              <div className="col-12 ">
               <Carousel 
                 className=" sectionCarousel"
                 swipeable={false}

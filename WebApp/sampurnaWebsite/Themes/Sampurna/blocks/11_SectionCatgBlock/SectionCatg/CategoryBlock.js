@@ -88,10 +88,10 @@ class CategoryBlock extends Component {
           :
             null
           }   
-          <div className={"col-12 rowPadding " + Style.categoryBlockWrapper}>
+          <div className="col-12 rowPadding ">
             { this.props.groupSettings.showCarousel === true?
               this.state.itemList && this.state.itemList.length > 0 ?
-              <div className="">             
+              <div className="col-12 ">             
               <Carousel 
                 className=" sectionCarousel"
                 swipeable={false}
@@ -116,7 +116,7 @@ class CategoryBlock extends Component {
                       }
                     }
                     return (
-                    <div className="col-12 sectionCategoryBlock d-flex justify-content-center "  key={index}> 
+                    <div className="col-12 sectionCategoryBlock  d-flex justify-content-center "  key={index}> 
                         <a href={url} className ="text-decoration-none secCateblock1 categoryblock"> 
                           <div className="itemImg col-12 ">
                             <div className="text-decoration-none product photo product-item-photo collage" tabIndex="-1" href={url}>

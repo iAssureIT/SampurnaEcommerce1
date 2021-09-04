@@ -1029,14 +1029,14 @@ class Checkout extends Component {
 
                                                 <div className={"col-12 col-sm-8 mx-auto " + Style.GrandTotalBoxMobileView}>
                                                     <div className="row">
-                                                        <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{ fontSize: "12px" }}>Final Total Amount :</div>
+                                                        <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{ fontSize: "12px" }}>Final Total :</div>
                                                         <div className={"col-6 mb-1 pr-0 "}>
                                                             <span className={"col-3 pr-0 " + Style.currencyColor} style={{ fontSize: "12px" }}>{this.state.currency}</span><span className="col-3 pl-0 " style={{ fontSize: "12px" }}> {this.state.recentCartData.paymentDetails ? (this.state.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : "0.00"}</span>
                                                         </div>
                                                     </div>
 
                                                     <div className="row">
-                                                        <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{ fontSize: "12px" }}>Total Saving Amount  :</div>
+                                                        <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{ fontSize: "12px" }}>Total Saving :</div>
                                                         <div className={"col-6 mb-1 pr-0"}>
                                                             <span className={"col-3 pr-0 " + Style.currencyColor} style={{ fontSize: "12px" }}>{this.state.currency}</span><span className="col-3 pl-0 " style={{ fontSize: "12px" }}> {this.state.recentCartData.paymentDetails.discountAmount > 0 ? this.state.recentCartData.paymentDetails.discountAmount.toFixed(2) : "0.00"}</span>
                                                         </div>
@@ -1371,12 +1371,12 @@ class Checkout extends Component {
                                                                         </div>
                                                                         <div className={"col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 font-weight-bold  pt-5 " + Style.totalAmountWrapper}>
                                                                             <div className={"row " + Style.f13N1}>
-                                                                                <span className="col-6 mb-1">Final Total Amount :</span>
+                                                                                <span className="col-6 mb-1">Final Total :</span>
                                                                                 <span className={"col-6 mb-1 " + Style.checkoutCurrencyWrapper}>
                                                                                     <div className={"col-6 " + Style.finalCurrency}>{this.state.currency}</div>
                                                                                     <div className={"col-5 " + Style.finalAmount}> {this.state.recentCartData.paymentDetails ? (this.state.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00}</div>
                                                                                 </span>
-                                                                                <span className="col-6 pr-0 mb-1">Total Saving Amount :</span>
+                                                                                <span className="col-6 pr-0 mb-1">Total Saving :</span>
                                                                                 {/* <span className="col-6 mb-1 textAlignRight">
                                                         <span className={"text-center "+Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}
                                                     </span> */}

@@ -1,7 +1,9 @@
 .cartHeightWrapper{
     margin-top: 50px;
 }
-
+.t6dbb2c16-9484-4311-96c6-72f7dd2c3613.place-left {
+    margin-left: 5px!important;
+}
 .alertMessage{
     position: fixed;
     z-index: 1000;
@@ -90,17 +92,21 @@
     text-align: left;
     width: 40%;
     float: left;
+    margin-left: -190%;
+
 }
 .summeryCurrency{
     text-align: left;
     width: 50%;
     float: left;
+
 }
 
 .amount{
     text-align: right;
     width: 40%;
     float: left;
+    margin-left: -35%;
 }
 .summeryAmount{
     text-align: right;
@@ -214,7 +220,7 @@
     max-height      : 200px ! important;
     height          : auto !important;
     display         : inline-block;
-    margin-left     : -5.5% !important;
+    margin-left     : 0% !important;
 }
 
 .tdCartWrapper {
@@ -895,6 +901,17 @@
         font-size: 24px;
         margin-bottom: 20px;  
     }
+    .summeryTotCurrency{
+            font-size: 20px;
+            margin-top: 4px;
+    }
+    .summeryTotAmount{
+            font-size: 20px;
+            margin-top: 4px;
+    }
+    .cartInnerCurrencyWrapper1{
+        margin-left: 20px;
+    }
 }
 
 @media (min-width: 1366px) and (max-width: 1440px) { 
@@ -969,6 +986,20 @@
     .discMsgColor{
         font-size: 18px;
     }
+    .currency{
+        margin-left: -70%;
+    }
+    .amount{
+        margin-left: 30%;
+    }
+    .cartInnerCurrencyWrapper1{
+        margin-left: 20px;
+    }
+    .infoCircle{
+        font-size: 17px;
+        margin-top: 5px !important;
+            margin-right: -3px;
+    }
 
 
 }
@@ -1029,9 +1060,21 @@
     .discMsgColor{
         font-size: 18px;
     }
+    .currency{
+        margin-left: -80%;
+    }
+    .amount{
+        margin-left: 20%;
+    }
 
-
-
+    .cartInnerCurrencyWrapper1{
+        margin-left: 20px;
+    }
+    .infoCircle{
+        font-size: 18px;
+        margin-top: 6px !important;
+            margin-right: -3px;
+    }
 }
 
 @media (min-width: 1680px) and (max-width: 1920px) { 
@@ -1089,11 +1132,28 @@
     .discMsgColor{
         font-size: 18px;
     }
-
-
+    .currency{
+        margin-left: -95%;
+    }
+    .amount{
+        margin-left: 15%;
+    }
+    .cartInnerCurrencyWrapper1{
+        margin-left: 20px;
+    }
+    .infoCircle{
+        font-size: 19px;
+        margin-top: 6px !important;
+            margin-right: -3px;
+    }
 }
 
 @media (min-width: 1920px)  {
+    .infoCircle{
+        font-size: 20px;
+        margin-top: 9px !important;
+            margin-right: -3px;
+    }
     .cartInnerCurrencyWrapper1{
         text-align: right;
         margin-left: 20px;
@@ -1149,6 +1209,12 @@
     }
     .discMsgColor{
         font-size: 19px;
+    }
+    .currency{
+        margin-left: -110%;
+    }
+    .amount{
+        margin-left: 0%;
     }
 
 }

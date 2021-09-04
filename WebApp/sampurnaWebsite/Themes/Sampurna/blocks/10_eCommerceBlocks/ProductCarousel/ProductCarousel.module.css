@@ -1232,7 +1232,7 @@
     font-size: 18px;
     padding-left: 55px;
   }
-  .ImgWrapper{
+  .productBlock .ImgWrapper{
     height: 200px;
      margin-top: 50px;
   }
@@ -1264,7 +1264,7 @@
     top: 0px;
     width: 100%;
   }
-  .ImgWrapper{
+  .productCaroselBlock .ImgWrapper{
     height: 165px;
     margin-top: 40px;
   }

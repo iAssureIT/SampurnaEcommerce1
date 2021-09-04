@@ -218,7 +218,7 @@ class HomePage extends React.Component {
 					</div>
 
 					<div className={"col-12 " + Style.secondBlockHome}>
-						<div className="row">
+						<div className="">
 							< SectionBlock 
 									groupSettings =	{this.state.SectionGroupSettings}
 									blockTitle    = {"All Sections"}	
@@ -243,7 +243,7 @@ class HomePage extends React.Component {
 					</div>
 					
 					<div className={"col-12 " + Style.fifthBlockHome}>
-						<div className="row">
+						<div className="">
 							<ProductCarouselBlock 
 								blockSettings   = {this.state.supermarketBlockSettings} 
 								productSettings = {this.state.productSettings}
@@ -268,7 +268,7 @@ class HomePage extends React.Component {
 						</div>
 					</div>
 					<div className={"col-xl-12 " + Style.eightBlockHome } >
-						<div className="row">
+						<div className="">
 							<ProductCarouselBlock 
 								blockSettings   = {this.state.flowersBlockSettings} 
 								productSettings = {this.state.productSettings}
@@ -301,7 +301,7 @@ class HomePage extends React.Component {
 						</div>
 					</div>
 					<div className={"col-xl-12 " + Style.tewlveBlockHome}>
-						<div className="row">
+						<div className="">
 							<ProductCarouselBlock 
 								blockSettings   = {this.state.babyBlockSettings} 
 								productSettings = {this.state.productSettings}

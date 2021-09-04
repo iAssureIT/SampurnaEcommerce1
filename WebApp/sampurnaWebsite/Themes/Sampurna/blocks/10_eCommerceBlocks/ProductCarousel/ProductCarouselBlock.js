@@ -554,7 +554,7 @@ submitCart(event) {
           } 
 
         <div className={"col-12  "}>
-          <div className={""}>
+          <div className={"col-12"}>
             {this.state.newProducts && this.state.newProducts.length > 0 ?
               <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
                 <div className={"col-12 mt-50 mb-50 " +Style.carouselWraper}>

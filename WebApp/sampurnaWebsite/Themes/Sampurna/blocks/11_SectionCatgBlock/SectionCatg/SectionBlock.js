@@ -88,10 +88,10 @@ class SectionBlock extends Component {
           :
             null
           }   
-          <div className="col-12">
+          <div className="col-12 rowPadding ">
             { this.props.groupSettings.showCarousel === true?
               this.state.itemList && this.state.itemList.length > 0 ?
-              <div className=" ">
+              <div className="col-12 ">
               {this.props.groupSettings.showOnlySection === true &&
                 <Carousel 
                   className=" sectionCarousel"
@@ -123,11 +123,10 @@ class SectionBlock extends Component {
                         }
                       }
                       return (
-                        <div className="col-12">
-                      <div className="col-12 sectionCategoryBlock d-flex justify-content-center "  key={index}> 
+                      <div className="col-12 sectionCategoryBlock  "  key={index}> 
                           {this.props.groupSettings.showOnlySection === true &&
                           <a href={url} className ="secCateblock"> 
-                            <div className="itemImg col-12 NoPadding">
+                            <div className="itemImg col-12 NoPadding d-flex justify-content-center">
                               <div className="product photo product-item-photo collage">
                                 <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.png"} alt="ItemImg" className={"subImg " } />
                               </div>
@@ -135,7 +134,6 @@ class SectionBlock extends Component {
                             <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>
                           </a>
                           }                         
-                      </div>                            
                       </div>                            
                       );
                     })

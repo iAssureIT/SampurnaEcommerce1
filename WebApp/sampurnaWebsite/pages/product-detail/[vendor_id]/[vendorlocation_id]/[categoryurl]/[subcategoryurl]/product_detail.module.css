@@ -6,6 +6,7 @@
 }
 
 .productDetailsWrapper{
+
 	margin-bottom: -40px;
 }
 .returnabletxt{
@@ -35,6 +36,7 @@
 .boxBorderInner {
 	box-shadow    : 4px 8px 3px 6px #00000029;
 	/* border-left:solid 1px #ccc; */
+
 }
 
 .FilterBlkBox {
@@ -281,7 +283,6 @@
 	font-size    : 22px;
 	color        : #000;
 	margin-bottom: 5px;
-	font-family: 'Montserrat-Regular';
 }
 
 .productDetailsInfo {
@@ -304,8 +305,7 @@
 	letter-spacing: 0px;
 	color         : #000000;
 	opacity       : 1;
-	font-family   : 'Montserrat-Regular';
-	font-weight   : bolder;
+	font-weight: 700;
 }
 
 .brandName {
