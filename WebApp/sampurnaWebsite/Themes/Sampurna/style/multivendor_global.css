@@ -327,7 +327,7 @@ body {
 
 .errorMsg {
   color      : var(--globalErrColor) !important;
-  font-size  : 10px !important;
+  font-size  : 10px;
   line-height: 12px;
 }
 .sizeVariantTab .nav-link{
@@ -1232,6 +1232,11 @@ option:focus, option:active{
   .react_multiple_carousel__arrow_left_section,
   .react_multiple_carousel__arrow_left_section:hover{
     top: 90px;
+  }
+
+  .errorMsg {
+    font-size: 16px;
+    padding-top: 8px;
   }  
   .react_multiple_carousel__arrow_right_catg,
   .react_multiple_carousel__arrow_right_catg:hover{
@@ -1258,15 +1263,7 @@ option:focus, option:active{
 
 
 @media only screen and (min-device-width: 1921px) {
-  .react_multiple_carousel__arrow_right_section,
-  .react_multiple_carousel__arrow_right_section:hover{
-    top: 125px;
-  }
-
-  .react_multiple_carousel__arrow_left_section,
-  .react_multiple_carousel__arrow_left_section:hover{
-    top: 125px;
-  }  
+ 
   .react_multiple_carousel__arrow_right_catg,
   .react_multiple_carousel__arrow_right_catg:hover{
     top: 150px;
@@ -1276,6 +1273,11 @@ option:focus, option:active{
   .react_multiple_carousel__arrow_left_catg:hover{
     top: 150px;
     left: 15px;
+  }
+
+  .errorMsg {
+    font-size: 16px;
+    padding-top: 8px;
   }
 
 }
@@ -1292,5 +1294,10 @@ option:focus, option:active{
 
   .wishListIconColor{
     height: 30px;
+  }
+
+  .errorMsg {
+    font-size: 16px;
+    padding-top: 8px;
   }
 }  
