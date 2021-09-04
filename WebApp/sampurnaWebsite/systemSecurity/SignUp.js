@@ -35,12 +35,6 @@ class SignUp extends Component{
 				role: ''
 			},
 			signupEmail : "",
-			// formerrors: {
-			// 	firstNameV: "",
-			// 	lastNameV: "",
-			// 	mobileV: "",
-			// 	emailIDV: "",
-			// },
 			termsCondition: ["The price of products  is as quoted on the site from time to time.",
 				"Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.",
 				"Products marked as 'non-returnable' on the product detail page cannot be returned.",
