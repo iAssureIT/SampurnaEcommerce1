@@ -1,0 +1,94 @@
+.margin0{
+	margin:0px !important;
+}
+.SearchIN{
+	padding-top: 15px !important;
+	cursor: pointer;
+}
+.customPillsBlogs{
+	margin-top: 20px;
+ font-family:'Montserrat',sans-serif;
+}
+.customPillsBlogs li{
+	color: #333 !important;
+	font-size: 21px;
+	font-weight: bold;
+	 font-family:'Montserrat',sans-serif;
+
+	margin-right: 15px;
+}
+.customPillsBlogs>li.active>a, .customPillsBlogs>li.active>a:focus, .customPillsBlogs>li.active>a:hover{
+	background-color: transparent !important;
+	color: #201a47 !important;
+}
+.customPillsBlogsSmall{
+ font-family:'Montserrat',sans-serif;
+}
+.customPillsBlogsSmall li{
+	color: #333 !important;
+	font-size: 140%;
+	font-weight: bold;
+}
+.customPillsBlogsSmall li>a{
+	padding:0px !important;
+	padding-top:10px !important;
+	margin-right: 15px;
+
+}
+.customPillsBlogsSmall>li.active>a, .customPillsBlogsSmall>li.active>a:focus, .customPillsBlogsSmall>li.active>a:hover{
+	background-color: transparent !important;
+	color: #201a47 !important;
+}
+.descriptionData{
+	padding: 15px;
+}
+.blogBody{
+	border:1px solid #aaa;
+	padding: 20px;
+	height: auto;
+	cursor: pointer;
+	margin-top: 20px;
+	margin-bottom:  20px;
+
+}
+.blogContent{
+	margin-top: 20px;
+
+}
+
+.blogImage{
+	height: 350px;
+	margin-top: 20px;
+
+}
+.blogImage img{
+	height: 100%;
+	width: 100%;
+}
+.logoOfBlogs{
+	height: 42px;
+	border-radius: 50%;
+}
+.nameOfBoggerAB{
+	padding-left: 15px !important;
+	margin: 0px !important;
+
+}
+.dropDownMenuDiv a{
+ padding: 10px;
+}
+.blogContantDiv{
+	line-height: 25px;
+	font-size: 13px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #aaa;
+
+}
+.blogContantDiv label{
+	font-size: 25px;
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+.commentSectioAB{
+	padding-top: 10px;
+}

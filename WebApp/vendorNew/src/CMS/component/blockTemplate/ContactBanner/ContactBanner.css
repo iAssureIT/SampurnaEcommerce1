@@ -1,0 +1,39 @@
+.contactUsBannerWrapper{
+	height: 700px;
+	background-color: #fff;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	font-family: 'Montserrat', sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+.contactUsBannerTextWrapper{
+	height: 700px;
+}
+.contactUsBannerTitle{
+	font-size: 80px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 1000;
+	color: #f1f1f1;
+    line-height: 1;
+	letter-spacing: 2.5px;
+	margin-top: 230px;
+	margin-left: 50px;
+
+	animation: textMotion1 1.5s ease-in-out 2s;
+}
+@keyframes textMotion1{
+     0%{transform: translateX(0px);}
+    20%{transform: translateX(-150px);}
+    40%{transform: translateX(75px);}
+	60%{transform: translateX(-37px);}
+    80%{transform: translateX(0px);}
+} 
+.contactUsBannerImageWrapper{
+	height: 700px;
+}
+.contactUsBannerImage{
+	height: 450px;
+	margin: auto;
+	margin-top: 80px;
+}

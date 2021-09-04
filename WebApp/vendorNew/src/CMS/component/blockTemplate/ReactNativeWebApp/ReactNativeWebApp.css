@@ -1,0 +1,205 @@
+.ReactNativeWrapper{
+    height: 800px;
+	margin: 0px;
+    padding: 0px;
+}
+.ReactNativeBgImage{
+    height: 800px;
+    background-color: #fff;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font-family: 'Montserrat', sans-serif;
+}
+.ReactNativeTitleWrapper{
+    height: 108px;
+    /* text-align: center; */
+    margin-left: 96px;
+    margin-top: 3px;
+}
+.ReactNativeTitle1{
+    font-size: 32px;
+    font-family: 'Montserrat', sans-serif;
+    color: #f1f1f1;
+    margin-top:20px;
+    cursor: pointer;
+    transition: 0.1s;
+    float: left;
+    margin-left: 109px;
+}
+.ReactNativeTextNImageWrapper{
+    height: 750px;
+}
+.ReactNativeTextWrapper{
+    height: 750px;
+    margin-top: 208px;
+}
+.ReactNativeText1{
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 550;
+    color: #f1f1ff;
+    text-align: justify;
+    letter-spacing: 0.5px;
+    margin-left: 110px;
+    margin-right: 20px;
+}
+.ReactNativeImageWrapper{
+    height: 750px;
+    margin-top: 165px;
+}
+.ReactNativeImage{
+    height: 450px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    /* margin: auto; */
+    transition: 0.1s;
+    margin-top: 50px;
+}
+
+.ReactNativeImage1{
+    height: 80px;
+    width: 80px;
+    border-radius: 100% 100%;
+    float: left;
+    /* margin-top: -8px; */
+}
+.ReactNativeBlockTitleSideImg{
+    height:80px;
+    width: 80px;
+    border-radius: 100% 100%;
+    background-color: #fff;
+    position: absolute;
+}
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+@media (min-width:992px) and (max-width:1200px){
+    .ReactNativeWrapper{
+        height: 970px;
+    }
+    .ReactNativeBgImage{
+        height: 970px;
+    }
+    .ReactNativeDashWrapper{
+        height: 20px !important;
+        margin-top: 161px !important;
+    }
+    .ReactNativeDashWrapper ul{
+        margin-top: -12px !important;
+    }
+    .ReactNativeDashWrapper .dash1{
+        margin-left: -25% !important;
+    }
+    .ReactNativeTitleWrapper{
+        height: 100px !important;
+    }
+    .ReactNativeTextNImageWrapper{
+        height: 450px !important;
+        margin-top: 10px !important;
+    }
+    .ReactNativeTextWrapper{
+        height: 390px !important;
+    }
+    .ReactNativeText1{
+        text-align: justify; 
+        margin-left: 10% !important; 
+    }
+    .ReactNativeImageWrapper{
+        height: 450px !important;
+    }
+    .ReactNativeImage{
+        margin-left: 20px !important;
+    }
+}
+
+@media (min-width:768px) and  (max-width:991px){
+    .ReactNativeWrapper{
+        height: 1611px;        
+    }
+    .ReactNativeBgImage{
+        height: 1611px;
+    }
+    .ReactNativeDashWrapper{
+        height: 20px !important;
+        margin-top: 301px !important;
+    }
+    .ReactNativeDashWrapper ul{
+        margin-top: -12px !important;
+    }
+    .ReactNativeDashWrapper .dash1{
+        margin-left: 40% !important;
+    }
+    .ReactNativeTitleWrapper{
+        height: 100px !important;
+    } 
+    .ReactNativeTextNImageWrapper{
+        height: 900px !important;
+        margin-top: 0px !important;
+    }
+    .ReactNativeTextWrapper{
+        height: 390px !important;
+     }
+    .ReactNativeText1{
+        text-align: justify; 
+        margin-left: 0% !important; 
+    }
+    .ReactNativeImageWrapper{
+        height: 500px !important;       
+    }
+    .ReactNativeImage{
+        height: 480px !important;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        box-sizing: border-box;
+    }   
+}
+
+@media (max-width:768px){
+    .ReactNativeWrapper{
+        height: 1670px !important;
+    }
+    .ReactNativeBgImage{
+        height: 1670px !important;
+    }
+    .ReactNativeDashWrapper{
+        height: 20px !important;
+        margin-top: 70px !important;
+    }
+    .ReactNativeDashWrapper ul{
+        margin-top: -12px !important;
+    }
+    .ReactNativeDashWrapper .dash1{
+        margin-left: 24% !important;
+    }
+    .ReactNativeTitleWrapper{
+        height: 150px !important;
+    }
+    .ReactNativeTitle1{
+        font-size: 23px !important;
+    }
+    .ReactNativeTextNImageWrapper{
+        height: 900px !important;
+        margin-top: -56px !important;
+    }  
+    .ReactNativeTextWrapper{
+        height: 520px !important;
+    }
+    .ReactNativeText1{
+        text-align: justify;
+        margin-left: 0% !important;
+    } 
+    .ReactNativeImageWrapper{
+        height: 300px !important;
+        margin-top: 80px;
+    }
+    .ReactNativeImage{
+        height: 300px !important;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        margin-left: 0px !important;
+        margin: auto;
+        box-sizing: border-box;
+    }
+}
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

@@ -1,0 +1,75 @@
+.cargoWrapper{
+	background-color:#f9f9f9;
+}
+.ShipMainBlk{
+	padding-left:101px;
+
+}
+.shipTitle{
+	font-weight:bold;
+	font-size:30px;
+}
+.shipSubTitle{
+	color:#ffb400;
+	font-weight:bold;
+	padding-top:15px;
+}
+.shipDescrp{
+	color: #767676;
+    
+    font-size: 15px;
+    line-height: 27px;
+    margin: 0;
+}
+.NumBox{
+	/*background-color:#ccc;*/
+	height:70px;
+}
+.NumBox i{
+	font-size:38px;
+	float:left;
+	margin-right:10px;
+	margin-top:8px;
+	color:#8b8c8d;
+}
+.numDetail{
+	font-family: raleway;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffb400;
+    margin-left:40px;
+}
+.num{
+	color: #4e4e4e;
+    float: none;
+    font-family: raleway;
+    font-size: 35px;
+    font-weight: 800;
+}
+.unldBtn{
+	margin-top:50px;
+	background: #575757;
+    color: #fff;
+    height:45px;
+    font-family: raleway;
+    font-size: 12px;
+    font-weight: 700;
+    overflow: hidden;
+    padding: 15px 39px;
+    position: relative;
+    text-transform: uppercase;
+    z-index: 0;
+}
+.unldBtn:hover{
+	color:#fff;
+	background-color:#ffb400;
+	border:none;
+}
+.fa-plane{
+	margin-right:5px;
+}
+.imgBox img{
+	float:right;
+	margin-right:110px;
+
+}

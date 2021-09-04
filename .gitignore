@@ -4,19 +4,22 @@ API/nodemon.js
 MobileApp/eCommApp/node_modules
 
 WebApp/admin/node_modules
-WebApp/vendor/node_modules
+WebApp/vendorOld/node_modules
+WebApp/vendorNew/node_modules
 WebApp/franchise/node_modules
 WebApp/ba/node_modules
 WebApp/sampurnaWebsite/node_modules
 
 WebApp/admin/.env
-WebApp/vendor/.env
+WebApp/vendorOld/.env
+WebApp/vendorNew/.env
 WebApp/franchise/.env
 WebApp/ba/.env
 WebApp/sampurnaWebsite/next.config.js
 
 WebApp/admin/build
-WebApp/vendor/build
+WebApp/vendorNew/build
+WebApp/vendorOld/build
 WebApp/franchise/build
 WebApp/ba/build
 WebApp/sampurnaWebsite/build

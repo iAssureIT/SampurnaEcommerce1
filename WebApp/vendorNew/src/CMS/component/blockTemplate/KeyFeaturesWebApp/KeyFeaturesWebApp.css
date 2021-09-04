@@ -1,0 +1,125 @@
+.keyFeaturesWebAppWrapper{
+    height: 550px;
+    background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+}
+.keyFeaturesWebAppDashWrapper{
+    height: 10px;
+}
+.keyFeaturesWebAppDashWrapper ul{
+    list-style: none;
+}
+.keyFeaturesWebAppDashWrapper ul li{
+  float: left;
+}
+.keyFeaturesWebAppDashWrapper .dash1{
+    height: 1px;
+    width: 20px;
+    margin: 2px 2px 2px 40px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.keyFeaturesWebAppDashWrapper .dash2{
+    height: 1px;
+    width: 50px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.keyFeaturesWebAppDashWrapper .dash3{
+    height: 1px;
+    width: 20px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.keyFeaturesWebAppTextWrapper{
+    height: 100px;
+    text-align: center;
+}
+.keyFeaturesWebAppTitle{
+    font-size: 46px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #555555;
+    margin: auto;
+    margin-top: 14px;
+}
+.keyFeaturesWebAppTextNImageWrapper{
+    height: 450px;
+    margin-top: 60px;
+}
+.keyFeaturesWebAppLeftRepeatedBlockWrapper{
+    height:auto;
+    padding-top: 20px;
+}
+.keyFeaturesWebAppRepeatedBlock{
+    height: 150px;
+    margin-top:-33px;
+}
+.keyFeaturesWebAppLeftRepeatedBlockWrapper .keyFeaturesWebAppRepeatedBlockTextWrapper{
+    height: 150px;
+   
+    text-align: justify;
+}
+.keyFeaturesWebAppRepeatedBlockTitle{
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #555555;
+    margin-left: 30px;
+    font-weight: 700;
+}
+.keyFeaturesWebAppRepeatedBlockDescription{
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #555555;
+    margin-left: 30px;
+}
+.keyFeaturesWebAppIconWrapper{
+    height: 150px;
+}
+.keyFeaturesWebAppIconCircleWrapper{
+    height: 55px;
+    width: 55px;
+    background-color: #fff;
+    border-radius: 100%;
+    padding-top: 0.1px;
+    margin-left: 13px;
+    box-shadow: 5px 5px 20px #ccc;
+    text-align: center;
+}
+.keyFeaturesWebAppIcon{
+    height: 32px;
+    margin-top: 11.5px;
+}
+
+.keyFeaturesWebAppImageWrapper{
+   height: 680px;
+   text-align: center;
+}
+.keyFeaturesWebAppImage{
+    height: 430px;
+   margin-left: 55px;
+}
+
+.keyFeaturesWebAppRightRepeatedBlockWrapper{
+    height: 450px;
+    padding-top: 20px;
+    text-align: justify;
+}
+.keyFeaturesWebAppRightRepeatedBlockWrapper .keyFeaturesWebAppRepeatedBlockTextWrapper{
+    height: 150px;
+    text-align: justify;
+}
+.keyFeaturesWebAppRightRepeatedBlockWrapper .keyFeaturesWebAppRepeatedBlockDescription{
+    margin-left: 0px;
+    margin-right: 30px;
+}
+.keyFeaturesWebAppRightRepeatedBlockWrapper .keyFeaturesWebAppIconCircleWrapper{
+    margin-left: -28px;
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

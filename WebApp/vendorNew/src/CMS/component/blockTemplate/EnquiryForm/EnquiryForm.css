@@ -1,0 +1,103 @@
+.MainWrapper{
+	height: 863px;
+	/*background-color: #ccc;*/
+}
+.MainWrapper img{
+	width:100%;
+	background-size: cover;
+}
+.EnqFormWrapper{
+	height: 700px;
+	z-index:10;
+	position:absolute;
+	top:14%;
+	left:5%;
+	background: #eaebef none repeat scroll 0 0;
+    float: left;
+    padding: 70px 40px;
+    border: 5px solid #fafafa;
+    max-height: 795px;
+}
+.formHeader{
+	/*background-color: #bbb;*/
+	height: 70px;
+}
+.formHeader div{
+	/*color: #555555;*/
+    float: left;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.formHeader div i{
+	color:#ffb400;
+	margin-right: 5px;
+	margin-left: 10px;
+	
+}
+.formHeader h3{
+	color: #272727;
+    font-family: raleway;
+    font-size: 27px;
+    font-weight: 800;
+    margin-left: 26px;
+}
+.EnqFormWrapper form{
+	/*background: #ddd;*/
+	height: 385px;
+	padding:15px 0px;
+}
+.EnqFormWrapper form input{
+	height:50px;
+}
+.EnqFormWrapper form select{
+	height:50px;
+	color:#a7a7a7;
+	font-size:13px;
+}
+.EnqFormWrapper form .formDes{
+	height:95px;
+}
+.extraServ{
+	height: 80px;
+	/*background: #aaa;*/
+}
+.extraServ .fa-paper-plane{
+	color: #ffb400;
+	margin-right: 6px;
+
+}
+.extser{
+	margin-left:40px;
+	font-weight:bold;
+	margin-bottom: 10px;
+}
+.checkboxes label{
+	font-size: 12px;
+    font-weight: 600;
+}
+.checkbox1 {
+	padding-left:42px;
+	font-size: 12px;
+    font-weight: 600;
+}
+.checkbox1 input{
+	margin-right:5px;
+}
+.checkboxes input{
+	margin-right:5px;
+}
+.checkBtn{
+	font-size:12px;
+	background: #ffb400;
+	height:45px;
+	margin-left:30px;
+	border:none;
+	font-weight: bold;	
+}
+.checkBtn i{
+	margin-right:6px;
+}
+.opt1{
+	color:#a7a7a7;
+}

@@ -1,0 +1,33 @@
+.blockquote{
+	margin: 27px 0px 27px 0px;
+    padding: 0px 0px 0px 27px;
+    background-color: #f4f4f4;
+    border-left: 5px solid #201A47 !important;
+
+    /*border-color: #0cb4ce !important;*/
+}
+.blogBox p{
+	color: #444;
+	text-align: justify;
+}
+.sCont{
+	font-size: 14px;
+}
+.userbtn{
+	padding: 8px 30px;
+    width: 155px;
+    margin-bottom: 25px;
+    cursor: pointer;
+	border: 1px solid #dddddd;
+	background-color: #201A47;
+	columns: #111;
+}
+.userbtn:hover{
+	background-color: #dddddd;
+	color: #fff;
+}
+.blogDateSBP{
+  font-size: 20px;
+  font-weight: normal;
+  font-family: 'Montserrat',sans-serif;
+}

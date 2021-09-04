@@ -145,6 +145,64 @@ app.use("/startup", startupRoutes);
 /*========== Deals management ===========*/
 const addDeals                              = require("./api/Ecommerce/DealsManagement/Routes.js");
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*========== New Vendor Routes Start ===========*/
+
+const productsVendorRoutes	     = require("./api/Vendor/products/ProductRoutes"); 
+app.use("/api/vendor/product", 	 productsVendorRoutes);
+
+/*========== New Vendor Routes End ===========*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // app.use("/api/users", 						usersRoutes);
 app.use("/api/auth", 						systemRoutes);
 app.use("/api/users", 						usersRoutes);	
@@ -159,7 +217,7 @@ app.use("/api/designationmaster",			designationMasterRoutes);
 app.use("/api/masternotifications",	 		masternotificationRoutes);
 app.use('/api/notifications', 				notificationRoutes);
 app.use("/api/locationtypemaster", 			locationTypeMasterRoutes);	
-app.use("/api/products", 					productsRoutes);
+app.use("/api/products", 					productsRoutes);	
 app.use("/api/distancerange", 				distanceRangeRoutes);
 app.use("/api/category", 					categoryRoutes);
 app.use("/api/orders", 						ordersRoutes);

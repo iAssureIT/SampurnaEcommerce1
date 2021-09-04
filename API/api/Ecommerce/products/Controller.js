@@ -1742,7 +1742,7 @@ exports.count_all_products = (req,res,next)=>{
 };
 
 exports.list_product_with_vendor = (req,res,next)=>{
-	// console.log('req', req.body);
+	// console.log('1503 ====> req', req.body);
 	Products.find({"vendor_ID" : req.body.vendor_ID})
 	.sort({ "createdAt": -1 })
 	.exec()
@@ -3530,7 +3530,6 @@ exports.vendorProductCount = (req,res,next)=>{
 
 exports.productBulkAction = (req, res, next) => {
 	var field = req.body.selectedAction;
-	console.log('req.body', req.body);
 	switch (field) {
 		case 'Draft':
 			Products.updateMany(

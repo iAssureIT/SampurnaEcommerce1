@@ -1,0 +1,42 @@
+.textonimage{
+	position: absolute;
+	top: 85px;
+	left: 35px;
+}
+
+.textonimage1{
+	position: absolute;
+	z-index: 2;
+	margin-top: 50px;
+	right: 85px;
+}
+
+#slideSample2 ul li{
+	height: 30px;
+	width: 260px;
+	margin: 5px;
+	padding: 5px;
+	background-color: #ffffff;
+}
+
+#tableId td{
+	background-color: #f7f7f7 !important;
+	border-top: 5px solid #bfd4d7;
+}
+#tableId th{
+	background-color: #f7f7f7 !important;
+	border-top: 5px solid #bfd4d7;
+}
+
+#iotableId{
+	width: 65%;
+	    margin: 45px 0px 10px 235px;
+	    border: 1px solid #222;
+}
+
+#iotableId th{
+	background-color: #4F818B;
+	color: #ffffff;
+	font-weight: 600;
+	text-align: center;
+}

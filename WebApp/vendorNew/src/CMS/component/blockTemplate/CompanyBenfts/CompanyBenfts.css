@@ -1,0 +1,139 @@
+.toggle-item {
+    float: left;
+    margin-top: 5px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.toggle-item > h3 {
+    background: #2f2f2f;
+    color: #FFF;
+    cursor: pointer;
+    float: left;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 20px 25px 20px 45px;
+    position: relative;
+    width: 100%;
+    font-family: raleway;
+}
+
+.toggle-item > h3 > i {
+    float: left;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+.toggle-item > h3 > span {
+    background: #FFF none repeat scroll 0 0;
+    color: #444;
+    float: right;
+    font-size: 13px;
+    height: 21px;
+    line-height: 21px;
+    position: absolute;
+    right: 25px;
+    text-align: center;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 21px;
+}
+
+.toggle-item > h3.active > span {
+    background: #EFEFEF
+}
+
+.toggle-item > h3.active > span > i {
+    position: relative;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.toggle-item > h3 > span i {
+    line-height: 20px;
+}
+
+
+.toggle-item > h3.active {
+    background: transparent none repeat scroll 0 0;
+      color: #ffb400;
+    font-size: 16px;
+
+    transition: all 0.3s linear 0s;
+}
+
+.toggle-item .mycontent {
+    float: left;
+    display: none;
+    padding: 0 45px 30px;
+    width: 100%;
+}
+
+.simple-text > p {
+    color: #555555;
+    font-size: 13px;
+    line-height: 26px;
+}
+
+.toggle-item.activate {
+    background: #FFF
+}
+
+.toggle-item.activate > h3 {
+    font-size: 16px
+}
+
+.title2 > strong i {
+    margin-right: 5px;
+}
+.title2 {
+    float: left;
+    margin-bottom: 15px;
+    width: 100%;
+}
+ .title2 > strong{
+    color: #ffb400;
+    float: left;
+    font-family: lato;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    width: 100%;
+
+ }
+ .toggle-item{
+    transition: all 0.3s linear 0s;
+ }
+ .zoomIn {
+    -webkit-animation-name: zoomIn;
+    animation-name: zoomIn;
+}
+.animated {
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+@keyframes zoomIn{
+    0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.3,.3,.3);
+    transform: scale3d(.3,.3,.3);
+}
+50% {
+    opacity: 1;
+}
+}
+.mycolumn{
+    height: 500px;
+    padding-top:30px;
+}

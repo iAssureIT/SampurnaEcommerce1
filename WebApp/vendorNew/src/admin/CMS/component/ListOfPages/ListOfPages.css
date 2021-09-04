@@ -1,0 +1,71 @@
+.listHeading{
+	padding: 5px;
+	text-align: center;
+}
+.clrwht{
+	color: #fff;
+}
+.deletIcon:hover{
+	color: #f00;
+	cursor: pointer;
+}
+.onHoverClick:hover{
+	color: #f00;
+	cursor: pointer;
+}
+.CNPBtn{
+    position: relative;
+    background-color: #3c8dbc;
+    border-radius: 13px;
+    width: 190px;
+    color: #fff;
+    box-shadow: #999 0px 0px 9px 0px;
+    top: 15px;
+    margin: 0px !important;
+}
+.CNPBtn .btn{
+	margin: 0px !important;
+}
+.c350{
+	height: 325px !important;
+	width: 100%;
+}
+.h315{
+	height: 345px;
+}
+
+.box-body2{
+	background: #fff;
+    min-height: 400px;
+    color: #333;
+}
+.thead-dark{
+	background-color: #666;
+	color: #fff;
+}
+.bgBluemodalTitle{
+	background: linear-gradient(90deg,#3c8dbc 0,#3c8dbc) !important;
+	color: #fff;
+}
+.bgImgLOP{
+	/*background-image: url("/images/25708584.jpg");*/
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+#newTemplateForm input textarea{
+	border-radius: 20px;
+}
+.mtop70{
+	margin-top: 90px;
+}
+
+#createnewPageModal .lb666 {
+	color: #666;
+}
+.borderBox{
+/*border: 1px solid #666;*/
+    height: 310px;
+    padding: 8px;
+    /* margin: 5px; */
+    box-shadow: #666 0px 0px 10px 0px;
+}

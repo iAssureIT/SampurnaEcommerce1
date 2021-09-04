@@ -1,0 +1,160 @@
+.selectDiv{
+    height: 205px;
+    background-size: 100% 100%;
+}
+.noPadLR{
+    padding: 0px;
+}
+.ctext{
+    text-align: center;
+}
+.selectDiv1{
+    height: 500px;
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+.blockdemo1{
+    height: 228px;
+    width: 100%;
+}
+.selectOption{
+    display: block;
+    margin-top: 115px;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.selectOption input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmarkselect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #ccc8c8;
+    border: 1px solid #8f8f8f;
+    padding: 9px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* On mouse-over, add a grey background color */
+.selectOption:hover input ~ .checkmarkselect {
+    background-color: #dedddd;
+}
+
+/* When the checkbox is checked, add a blue background */
+.selectOption input:checked ~ .checkmarkselect {
+    background-color: #838a40;
+    border: 1px solid #838a40;
+}
+
+/* Create the answercheckmarkselect/indicator (hidden when not checked) */
+.checkmarkselect:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the answercheckmarkselect when checked */
+.selectOption input:checked ~ .checkmarkselect:after {
+    /*display: block;*/
+}
+
+/* Style the answercheckmarkselect/indicator */
+.selectOption .checkmarkselect:after {
+    left: 6px;
+    top: 1px;
+    width: 7px;
+    height: 13px;
+    border: solid #666;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.designList{
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #ffffff;
+    box-shadow: 3px 2px 8px -2px #e0dfdf;
+    padding: 10px;
+    margin: 10px 0px;
+}
+
+.designList:hover{
+    box-shadow: 0px 0px 17px 0px #0be60b;
+    cursor: pointer;
+
+}
+.verticallyMiddle{
+    margin-top: 110px;
+}
+.mtop25{
+    margin-top: 25px;
+}
+
+.designList1{
+
+     border-radius: 8px;
+    border: 1px solid #f3f3f3;
+    box-shadow: 3px 2px 8px -2px #e0dfdf;
+    padding: 10px;
+    margin: 25px 0px;
+}
+
+.designList1:hover{
+    box-shadow: 0px 0px 17px 0px #0be60b;
+    
+}
+.designList1 img{
+    /*height: 171px;
+    width: 100%;*/
+    /*border: 1px solid #333;*/
+
+}
+
+
+.designList1 img:hover{
+   /* box-shadow: 0px 0px 17px 0px #0be60b;*/
+    
+}
+
+.designList a{
+    text-decoration: none;
+}
+.box-body {
+    background-color: #fff;
+    /*margin-top: 35px;*/
+    border: 2px solid #2a88bc;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.panel-default {
+     border-color: transparent!important; 
+}
+
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: transparent!important;
+    border-color: transparent!important;
+}

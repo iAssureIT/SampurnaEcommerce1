@@ -1,0 +1,34 @@
+.AllBlogsbannerWall{
+  height: 435px;
+  /*background-color:  #444;*/
+  padding: 0px !important;
+  position: relative;
+    text-align: center;
+    color: white;
+    background-image: url("https://wealthyvia.s3.ap-south-1.amazonaws.com/website/ceo.png");
+    background-size: 100% 100%;
+
+}
+.nopadding{
+  padding: 0px;
+}
+.AllBlogscentered {
+  background-color: #191818ba;
+  padding: 0px !important;
+  height: 435px;
+
+}
+.AllBlogstextcentered{
+  position: absolute;
+  top: 22%;
+  left: 0%;
+  
+}
+
+.fs72{
+  font-weight: 600;
+  font-size: 72px;
+}
+.fs24{
+  font-size: 22px;
+}

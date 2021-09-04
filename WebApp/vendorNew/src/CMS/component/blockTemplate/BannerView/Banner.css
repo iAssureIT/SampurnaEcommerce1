@@ -1,0 +1,16 @@
+.bannerContainerEcomm .react-multi-carousel-list{
+    height: 700px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+.bannerContainerEcomm .item img{
+    height: 600px;
+    width: 100%;
+    margin-top: -270px;
+}
+.bannerContainerEcomm .react-multi-carousel-dot-list .react-multi-carousel-dot{
+    margin-top: -100px !important;
+}
+/* .bannerWrapper{
+    height: 400px;
+} */

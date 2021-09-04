@@ -1,0 +1,59 @@
+.ModeOfPaymtWrapper{
+    min-height: 500px;
+}
+.ModeOfPaymtWrapper .sptextBox1{
+	background-color:#fff;
+	height:150px;
+	margin-top:-100px;
+	z-index:1;
+	padding: 35px 35px 35px;
+	border-radius:8px;
+	border: 3px solid #fafafa;
+	background: #fcfcfc none repeat scroll 0 0;
+}
+.ModeOfPaymtWrapper .sptextBox1:hover + .icnBox {
+	margin-top:-185px;
+	transition-timing-function: ease-in;
+	 transition: 0.3s;	
+	
+}
+.ModeOfPaymtWrapper .sptextBox1 .mheading{
+	/*color:#404040;*/
+	/*font-weight:bold;*/
+	font-size: 19px;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 100%;
+    font-family: source sans pro;
+    color: #323232;
+
+}.ModeOfPaymtWrapper .sptextBox1 .mheading:hover{
+	color: #ffb400;
+	cursor:pointer;
+}
+.ModeOfPaymtWrapper .sptextBox1 .paragraph{
+	color: #868686;
+}
+
+.ModeOfPaymtWrapper .img2{
+	width:100%;
+}
+.mainDiv:hover .icnBox {
+	margin-top:-185px;
+	 transition-timing-function: ease-in;
+	 transition: 0.3s;	
+}
+.icnBox{
+	height: 75px;
+    background-color: #fff;
+    border-radius: 100%;
+    z-index: 1;
+    width: 29%;
+    margin-top: -176px;
+    margin-left: 115px;
+}
+.icnBox i{
+	font-size:35px;
+	margin-top:10px;
+	color:#8b8c8d;
+}

@@ -1,0 +1,181 @@
+.contactFormWrapper{
+	height: 650px;
+	background-color: #fff;
+	margin: 0px;
+	padding: 0px;
+}
+.addressWrapper{
+	height: 650px;
+	padding-left: 50px;
+}
+.addressTitleWrapper{
+	margin-top: 100px;
+	text-align: center;
+}
+.addressTitle{
+	font-size: 30px;
+	color: #555;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
+}
+.locationPinNTextWrapper{
+	height: 100px;
+	margin-top: 30px;
+}
+.locationPinWrapper{
+	height: 80px;
+	width: 80px;
+	background-color: #fff;
+	box-shadow: 1px 1px 5px 1px #dad6d6;
+	z-index: 50;
+}
+.locationPin{
+	height: 69px;
+	width: 100%;
+	margin-top: 4px;
+}
+.locationTextWrapper{
+	height: 100px;
+	position: absolute;
+	padding-left: 0px !important;
+	margin-left: 62px;
+}
+.locationText1{
+	font-size: 21px;
+	margin-left: 38px;
+	color: #555555;
+	font-family: 'Montserrat', sans-serif;
+}
+.locationText2{
+	font-size: 17px;
+	margin-left: 38px;
+	color: #555555;
+	font-family: 'Montserrat', sans-serif;
+}
+.formWrapper1{
+	height: 500px;
+}
+.formWrapper2{
+	height: 480px;
+	background-color: #fff;
+	margin-top: 100px;
+	box-shadow: 2px 2px 10px 2px #dad6d6;
+}
+.formTitle{
+	font-size: 18px;
+	color: #555;
+	font-weight: bold;
+	font-family: 'Montserrat', sans-serif;
+	margin-top: 40px;
+	margin-left: 15px;
+}
+.formRow{
+	margin-top: 20px;
+}
+.inputField{
+	background-color: #e3f2fd !important;
+	border-radius: 5px;
+}
+input::placeholder, textarea::placeholder{
+	font-size: 12px !important;
+	font-family: 'Montserrat', sans-serif !important;
+}
+.button1{
+	height: 50px;
+	background-color: #008eff;
+}
+.formImage1{
+	height: 100px;
+	width: 100px;
+	position: absolute;
+	margin-left: -25px;  
+	margin-top: 74px;
+}
+.formImage1 img{	
+	width: 100%;
+}
+.formImage2{
+	height: 216px;
+	position: absolute;
+	margin-left: 9px; 
+	margin-top: -21px;  
+}
+.formImage2 img{
+	width: 100%;
+}
+.formImage3{
+	height: 143px;
+	width: 107px;
+	position: absolute;
+	margin-left: 76px;
+	margin-top: 433px;
+}
+.formImage3 img{
+	height: 150px;
+}
+.formImage4{
+	height: 94px;
+	width: 107px;
+	position: absolute;
+	margin-left: 343px;
+	margin-top: 8px;
+}
+.formImage4 img{
+	width: 100%;
+}
+.formImage5{
+	height: 131px;
+	width: 108px;
+	position: absolute;
+	margin-left: 738px;
+	margin-top: 48px;
+}
+.formImage5 img{
+	width: 100%;
+}
+.formImage6{
+	width: 17%;
+	position: absolute;
+	margin-left: 605px;
+    margin-top: 329px;
+}
+.formImage6 img{
+	width: 100%;
+}
+.formImage7{
+	height: 453px;
+	position: absolute;
+	margin-left: -148px; 
+	margin-top: 43px; 
+}
+.formImage7 img{
+	width: 91%;
+}
+.formImage8{
+	height: 162px;
+	position: absolute; 
+	margin-left: 328px;
+	margin-top: -90px;
+}
+.formImage8 img{
+	height: 145px;
+}
+.formImage9{
+	height: 138px;
+	position: absolute;
+	margin-left: 332px;
+	margin-top: 392px
+}
+.formImage9 img{
+	height: 129px;
+}
+.formImage10{
+	height: 450px;
+	width: 217px;
+	position: absolute;
+	margin-left: 336px;
+    margin-top: -99px;
+}
+.formImage10 img{
+	height: 453px;	
+}

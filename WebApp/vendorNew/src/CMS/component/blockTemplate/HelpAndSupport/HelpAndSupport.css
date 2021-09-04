@@ -1,0 +1,30 @@
+.subNavBlock{
+    z-index: 2;
+    /* position:absolute; */
+    margin-top: 20px;
+
+}
+.HelpAndSupportWrapper{
+    padding: '15px 0px 15px 0px'
+}
+
+.HelpAndSupportSubWrapper{
+    background-color:white;
+    text-align:center; 
+    padding: 40px 0px 40px 0px;
+    text-align: center;
+    box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.09);
+}
+
+.servicesBannerImg{
+    transform-style: preserve-3d;
+    -webkit-transition: all 1.0s ease;
+    width: 32px;
+  }
+.servicesBannerImg:hover{
+    transform: rotateY(180deg);
+} 
+.rotateImg{
+    transform-style: preserve-3d;
+    -webkit-transition: all 1.0s ease;
+}

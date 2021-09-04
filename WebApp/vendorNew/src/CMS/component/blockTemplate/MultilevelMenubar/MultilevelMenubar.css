@@ -1,0 +1,245 @@
+/* .cmsHeader{
+    display: none;
+} */
+.MultilevelMenubarWrapper .navbar-inverse{
+    border: none;
+     background: #1f425d none repeat scroll 0 0;
+}
+.MultilevelMenubarWrapper .MultilevelMenubarWrapper{
+    /*background-image: url("/images/multilevel2BG.jpg");*/
+    background-position: center;
+    height: 800px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0);
+    background-attachment: scroll;
+    /* left: 0px; */
+    background-position: 50% 0px;
+}
+.MultilevelMenubarWrapper .navbar{
+    height: 100px;
+   
+}
+.MultilevelMenubarWrapper .navHeaderCollapse{
+    float:right;
+}
+
+.MultilevelMenubarWrapper .container{
+    margin-top: 20px;
+}
+
+.MenuDesignTitle{
+    text-align: center;
+    font-size: 25px;
+    margin: 30px 0px;
+    border-bottom: solid 2px #ccc;
+    padding-bottom: 30px;
+}
+.dropdown{
+    position: relative;
+}
+.DropdownMenu{
+    transition: .3s ease;
+}
+.dropdown:hover >:first-child{
+    color: #ffb400 !important;
+}
+
+
+.mutilevelDropdown li:hover{
+    text-transform: uppercase;
+    font: 700 13px/40px "Roboto Slab"!important
+}
+
+.MultilevelMenubarWrapper .mutilevelDropdown1,
+.MultilevelMenubarWrapper .mutilevelDropdown2,
+.MultilevelMenubarWrapper .mutilevelDropdown3,
+.MultilevelMenubarWrapper .mutilevelDropdown4{
+    
+    opacity:0;
+    visibility: hidden;
+    position:absolute;
+    z-index: 200;
+    width: 250px;
+    padding: 9px 2px;
+    background-color: #fff;
+    color:#000;
+    border: none !important;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+.mutilevelDropdown1 li,
+.mutilevelDropdown2 li,
+.mutilevelDropdown3 li
+.mutilevelDropdown4 li{
+    width: 100%;
+}
+.mutilevelDropdown1 li a,
+.mutilevelDropdown2 li a,
+.mutilevelDropdown3 li a,
+.mutilevelDropdown4 li a{
+    padding: 10px 5px;
+}
+.mutilevelDropdown1 .fa-angle-right,
+.mutilevelDropdown2 .fa-angle-right,
+.mutilevelDropdown3 .fa-angle-right{
+    margin-top: 15px;
+    font-size: 12px;
+    margin-right: 5px;
+}
+.MultilevelMenubarWrapper a:hover {
+    color: #eee !important;
+}
+.navbar-inverse .navbar-nav>.open>a{
+    background-color: transparent !important;
+}
+.DropdownMenu{
+    transition: 0.4s ease;
+}
+
+.mutilevelDropdown2,
+.mutilevelDropdown3,
+.mutilevelDropdown4{
+    left:250px;
+    top: -9px;
+    display: block; 
+    position:absolute;
+}
+.MultilevelMenubarWrapper .dropDownLevel1:hover .MultilevelMenubarWrapper .mutilevelDropdown1,
+.dropDownLevel1:hover .mega-menu-warpper{
+    display: block; 
+    opacity: 1;
+    visibility: visible;
+    border-top:2px solid #ffb400;
+}
+.dropDownLevel2:hover .mutilevelDropdown2,
+.dropDownLevel3:hover .mutilevelDropdown3,
+.dropDownLevel4:hover .mutilevelDropdown4{
+    opacity: 1;
+    visibility: visible;  
+}
+.mutilevelDropdown1 li>a{
+    font-size: 15px;
+    height: auto;
+
+}
+
+.mutilevelDropdown2 li>a{
+    font-size: 14px;
+    height: auto;
+}
+
+.parentMenu a,
+.dropDownLevel1 a{
+    color: #fff !important;
+    text-transform: capitalize;
+    font: 700 18px/40px "Roboto Slab"!important
+}
+.mutilevelDropdown1 li a{
+    color: #000 !important;
+    text-transform: capitalize;
+    font: 700 13px/40px "Roboto Slab"!important;
+    padding-left:10px !important;
+}
+.mega-menu-warpper{
+    width: 1280px;
+    position: absolute;
+    left: -810px;
+    /* left: -643px; */
+    background: #fff;
+    z-index: 200;
+    padding: 20px 10px;
+    visibility: hidden;
+    opacity: 0;
+    height: 400px;
+    display: inline-block;
+}
+.mega-menu-warpper ul{
+    display: inline-block ;
+    height: 380px;
+}
+.ulDropdown{
+    width: auto;
+    height: 300px;
+    -webkit-column-count: 4;
+       -moz-column-count: 4;
+            column-count: 4; 
+}
+ul{
+    padding: 0px;
+}
+.ulDropdown li{
+    display: inline-block;
+}
+.MultilevelMenubarWrapper .faicon{
+    margin-left: 5px;
+    margin-right: 5px;
+    display:none;
+}
+.MultilevelMenubarWrapper .navbar-center li :before{
+    background: #d4d4d4 none repeat scroll 0 0;
+    /*background-color: #ffb400;*/
+    content: "";
+    height: 6px;
+    left: -4px;
+    margin-top: -3px;
+    position: absolute;
+    top: 50%;
+    width: 6px;
+    border-radius: 50%;
+      transition: all .25s linear;
+    -webkit-transition: all .25s linear;
+
+}
+/*.MultilevelMenubarWrapper .navbar-center li a:after{
+    background: #ffb400 none repeat scroll 0 0;
+    background-color: #ffb400;
+    content: "";
+    height: 6px;
+     left: -6px; 
+    margin-top: -3px;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+     -webkit-transform: translateX(30px); 
+    -moz-transform: translateX(30px);
+    -ms-transform: translateX(30px);
+    -o-transform: translateX(30px);
+     transform: translateX(30px); 
+    width: 6px;
+     transition: all .25s linear;
+    -webkit-transition: all .25s linear;
+  
+
+}*/
+.MultilevelMenubarWrapper .navbar-brand img{
+    width: 100%;
+    background-size: cover;
+    margin-top:-28px;
+}
+.navbar{
+    margin-bottom:0px!important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*============= right navbar ================ */
+.rightNavbar{
+    margin-top: 10px;
+}
+.rightNavbar li a{
+    color:#fff !important;
+    font-size: 12px;
+}

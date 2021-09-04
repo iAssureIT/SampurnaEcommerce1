@@ -918,6 +918,7 @@ exports.user_login_using_email = (req, res, next) => {
 										roles 			: user.roles,
 										loginTokens 	: (user.services.resume.loginTokens).slice(-1)[0],
 										companyID 		: user.profile.companyID,
+										company_id 		: user.profile.company_id,
 										userDetails 	: {
 															firstName 		: user.profile.firstname,
 															lastName 		: user.profile.lastname,

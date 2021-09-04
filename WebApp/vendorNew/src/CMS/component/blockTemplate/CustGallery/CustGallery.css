@@ -1,0 +1,25 @@
+.list-inline li img{
+	height: 400px;
+	width: 100%;
+}
+.item .active img{
+	width: 100%;
+	background-size: cover;
+	height: 400px;
+}
+
+
+
+.img-thumbnail{
+	width: 100%;
+	background-size: cover;
+}
+.galleryWrapper{
+	height:850px;
+	background: #ddd;
+}
+#gallery img {
+	 height: 75vw;
+	 object-fit: cover;
+}
+ 

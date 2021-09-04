@@ -1,0 +1,102 @@
+
+.block{
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    
+}
+.block img{
+    height: auto;
+    max-width: 100%;
+}
+.block .divImage {
+    max-width: 100%;
+    transition: all 0.5s;
+    display: block;
+    width: 100%;
+    transform: scale(1);
+}
+.block:hover .divImage{
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+    opacity: 0.8;
+
+}
+/*unimandai*/
+.images-logo{
+    transform: translate(0px, 80px);
+    position: relative;
+    z-index: 999;
+}
+.flatSaleBlock{
+    font-size: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+    }
+
+.image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: 220px!important;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    border-radius: 8px;
+  }
+  
+.special-content {
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font: 300 15px/30px "Roboto";
+    letter-spacing: 3px;
+    color: #2b2b2b;
+    background-color: #eee;
+    margin-top: 15px;
+}
+.newBlock{
+    margin-top: 135px;
+}
+.imageposition{
+    padding-right: 20px;
+}
+
+.flatsale{
+    background-color: #ffffff ! important;
+
+}
+.viewdetails{
+    border-radius: 0px;
+}
+.shopNow{
+    background-color: #fff;
+    border: 1px solid #fff;
+    color: #80b435;
+    font-size: 12px;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+.bigSaleImg{
+    height: 300px !important;
+}
+.bigSaleWrapper {
+    background-position: 100% 100% !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    height: 450px;
+}
+
+@media only screen and (max-device-width: 480px) {    
+    .flatSaleBlock{
+        font: 300 24px/50px "Roboto Slab";
+        margin-left: 0px;
+    }
+    .newBlock{
+        margin-top: 100px;
+    }
+    .bigSaleWrapper{
+        height: 300px;
+    }
+
+}

@@ -1,0 +1,692 @@
+.backColor{
+  background: #f1f1f1;
+  padding: 15px;
+}
+@font-face {
+  font-family: 'KrutiDevRegular';
+  src: url("/fonts/KrutiDevRegular.ttf");
+}
+
+.hii{background-color:red;}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+.paddingLeftCss{
+  padding-left: 0;
+}
+.paddingRightCss{
+  padding-right: 0;
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+#sidebar{
+  height: 100vh!important;
+}
+.sidebar-mini{
+  margin-top: 10px;
+}
+.App-link {
+  color: #61dafb;
+}
+.inputFields{
+  height: 85px;
+}
+button:focus { outline: none !important ; }
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*--------------------------background colors of admin page -----------*/
+
+.headerbackgroundcolor
+{
+    background-color: #fff;
+  }
+
+.headereffect
+{
+    /* width: 94%!important; */
+  }
+
+.dashboardeffect
+{
+  width: 94%!important;
+  margin-left: 4% !important;
+}
+.dashcontentBox{
+  margin-left: 14.8%;
+  width: 87%;
+  padding: 2%;
+
+}
+.leftsidebarbackgroundcolor{
+  position: fixed !important;
+  top: 0;
+  left: 15px;
+}
+
+.dasbordbackgroundcolor{
+  background-color: #eee;
+  height:au;
+}
+
+.emptyclass{
+  height: 100px;
+}
+
+/*.....................Main.css........................*/
+body {
+  font-family:'Relay-Regular';
+  background-color:#ffffff !important;
+  font-size: 14px !important;
+}
+
+@font-face{
+  font-family:'Relay-Regular';
+  src: url("/fonts/Relay-Regular.ttf");
+}
+
+.form-control{
+font-size:14px; 
+}
+.main-container{
+  width: 100%;
+}
+.formWrapper{
+  /*background: #ecf0f5;*/
+  /*margin-left: 22%;*/
+  /* z-index: 820; */
+  /*width: 78%;*/
+  min-height: auto;
+
+}
+.toLower{
+  text-transform: lowercase;
+}
+.titleHeader {
+    height: 62px;
+}
+input::placeholder{
+  font-size: 11px !important;
+  letter-spacing: 1px;
+  color: #cacaca;
+}
+input, select{
+  color: #333 !important;
+}
+.pageHeader{
+  font-size: 20px !important;
+  color: #333333 !important;
+  /*font-weight: bold;*/
+  padding:10px;
+}
+
+.pageSubHeader{
+  font-size: 16px;
+  color: #333333;
+  font-weight: bold;
+  padding-bottom: 12px;
+}
+/*Form input lable*/
+.formLable{
+  font-size: 12px !important;
+  color: #333333;
+  /*font-weight: normal;*/
+  padding:0;
+  margin-bottom: 2px !important;
+}
+.paddingZeroo{
+  padding: 0 !important;
+}
+
+/*add this class next to form-control*/
+.inputBox{
+  height: 30px !important;
+  border: none !important;
+  font-size: 12px !important;
+}
+.valid_box{
+  height: 70px;
+}
+.inputBox:hover{
+
+  box-shadow: none !important;
+}
+
+/*Add this class next to input-group*/
+.inputBox-main{
+  border: 1px solid #979797 !important;
+  border-radius: 3px !important;
+  height: 30px !important;
+  font-size: 12px !important;
+}
+.form-line-active input:focus, .form-line-active textarea:focus {
+    border: 1px solid #039BE5 !important; 
+    box-shadow: none !important;
+    
+ }
+
+.inputBox-main:hover{
+  border: 1px solid #039BE5 !important;
+  box-shadow: 0 3px 10px 0 rgba(0,0,0,.15);
+}
+
+/*input icon*/
+.inputIcon{
+  height: 30px !important;
+  font-size: 18px !important;
+  color: #979797 !important;
+  background-color: #ffffff !important;
+  border: none !important;
+}
+.fa-calendar{
+  font-size: 12px;
+}
+.iconSize12{
+  font-size: 14px !important;
+}
+/*Close and clear*/
+/* .inputBox::placeholder
+{
+  font-size: 12px !important;
+  color: #cacaca;
+} */
+
+.clear{
+  height: 40px;
+  background: none;
+  border: 1px solid #039BE5 !important;
+  font-size: 12px;
+  color: #039BE5;
+}
+.clear:hover{
+  color: #039BE5;
+
+}
+
+/*All submit buttons*/
+.submit{
+  height: 40px;
+  background-color: #039BE5;
+  color: #fff;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  border-radius: 5px;
+  border: none;
+}
+
+.submit:hover{
+  color: #ffffff !important;
+}
+
+/*Breadcrumb Start*/
+ .breadcrumbCustom {
+  border-radius: 20px !important;
+  height: 30px;
+  color : #2E3951;
+  font-size: 12px;
+  margin-top: 17px;
+  background-color: #F8F8F8 !important;
+  padding: 6px 20px;
+}
+.breadcrumbCustom li a{
+  text-decoration: none;
+  font-size: 12px;
+  color: #2E3951;
+}
+.breadcrumbCustom li .active{
+  text-decoration: none;
+  font-size: 12px;
+  color: #666666;
+}
+.breadcrumbCustom li{
+  font-size: 12px;
+  color: #666666;
+}
+.home-icon{
+  color : #2E3951;
+  font-size: 14px;
+}
+
+/*Breadcrumb End*/
+
+
+/*Search start*/
+.search{
+  border-radius: 20px;
+  height: 30px;
+}
+/* .search[placeholder]{
+  font-family:'Relay-Regular';
+  font-size: 12px;
+  color: #cacaca;
+  padding-left: 35px;
+  
+} */
+/*Search End*/
+
+/*React table css for all react tables*/
+.ReactTable .rt-thead.-header {
+  background-color: #039BE5 !important;
+  color      :#f2f2f2 !important;
+  font-size  : 14px !important;
+  text-align : right !important;
+  padding-top:5px;
+  border: 1px solid #eee;
+    text-align:left;
+}
+.ReactTable .rt .td{
+  padding: 10px;
+}
+/*React Table End*/
+.ReactTable 
+{
+  text-align : left !important;
+}
+
+/*Error msg for jquety Validation*/
+.errorMsg{
+  color:red !important;
+  font-size: 11px !important;
+  letter-spacing : 1px;
+}
+.error{
+  color:red !important;
+  font-family: 'Relay-Regular';
+  font-size: 11px !important;
+  letter-spacing : 0.4px;
+}
+
+
+/*add it to next to form group*/
+.inputBox-height{
+  height: 85px !important;
+}
+
+
+/*Page header bottom horizontal line*/
+.hr-head{
+  border:0.25px solid #ccc;
+  width: 100%;
+}
+
+/*Page subheader bottom horizontal line*/
+.hr-subhead{
+  border:0.25px solid #999;
+  width: 97%;
+  color: #333333 !important;
+    font-weight: 500;
+}
+
+
+/*Page content */
+.pageContent{
+  background-color: #ffffff !important;
+  padding-bottom: 15px;
+  margin-bottom :15px;
+  /*min-height: 1120px;*/
+}
+
+.asterix{
+  color: #ff4444;
+}
+
+.br97{
+  border: 1px solid #979797 !important;
+}
+
+.brn{
+  border-right: none !important;
+}
+
+.fz14{
+  font-size: 14px;
+}
+
+.fz16{
+  font-size: 16px !important;
+}
+  
+.fz18{
+  font-size: 18px !important;
+}
+.fz12{
+  font-size: 12px;
+}
+
+.h40{
+  height: 40px !important;
+}
+
+.fontF{
+  font-family:'Relay-Regular;'
+}
+
+.br3{
+  border-radius: 3px;
+}
+
+.loadingImg{
+  margin-left: 600px;
+  margin-top:  180px;
+}
+
+
+/******************************Admin Security common css************************************/
+
+
+.signUpBackground{
+  background-image: url("/images/signupbackground.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+@media only screen and (min-width: 200px) and (max-width: 1200px) {
+  .middlepo{
+    height: 555px;
+    /*overflow-y: scroll;*/
+}
+}
+
+.middleblock{
+  
+  box-shadow: 0 0 10px #aaa;
+  background-color: #fff;
+  /*height: 405px !important;*/
+  padding: 20px;
+}
+  
+.securityNameTitle{
+  font-size: 22px!important;
+}
+.bottomLinksOuter {
+    font-weight: bold;
+    margin-top: 8%;
+    margin-bottom: 6%;
+}
+.bottomLinksOuter a{
+  font-size: 16px !important;
+}
+
+.signInput{
+  border: 1px solid #cacaca !important;
+  height: 38px !important;
+}
+
+.signInput:hover{
+  border: 1px solid #039BE5 !important;
+  box-shadow: 1px 1px 1.5px #039BE5;
+}
+.inputhgt{
+  height: 45px;
+  margin-bottom: 28px;
+  /*margin-left: 6.5px;*/
+}
+
+.showHideSignDiv{
+    top:-30px;
+    float: right;
+    margin-right: 9px;
+    z-index: 999;
+    position: relative;
+}
+.nameParts{
+  text-transform: capitalize;
+
+}
+.toUpper{
+  text-transform: uppercase;
+}
+
+/*Manage Location forms table color*/
+.tbl_color{
+   background-color: #039be5 !important;
+}
+
+.securityWrapper {
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+/**********************swal**********************************/
+.msgModalWrapper{
+  margin-top: 15%;
+
+}
+.msgModalContent{
+  /*width: 67%;*/
+  border-radius: 2px !important;
+  width: 482px;
+  /*margin-top: 172px;*/
+   
+
+  /*margin-left: ;*/
+}
+.msgModalHeader{
+    /*border-bottom-color: #f4f4f4;*/
+    background: #039BE5;
+    padding: 30px;
+    border-radius: 2px ;
+}
+.deleteBTNModal{
+  background-color: #ff4444;
+  color:#fff;
+}
+.updateBTNModal{
+  background-color: #039BE5;
+  color: #fff;
+}
+
+.msgModalfooter{
+  padding-bottom: 7px;
+    padding-top: 7px;
+  
+}
+.msgModalbody{
+  padding: 55px;
+  color: #333;
+}
+.mdh{
+background-color: #039be5 !important;
+ /* padding-bottom: 34px !important;*/
+     padding-bottom: 10px !important;
+}
+
+.mb{
+    height: 165px;
+}
+.paracenter{
+  margin-top: 55px;
+}
+
+/*input[type=date]{
+  padding-left: 70px;
+  z-index: -1;
+
+}*/
+
+
+
+.mrAc{
+margin-right: 12px;
+}
+/*================End of Global Css==================*/
+.mt{
+  margin-top: 20px;
+}
+.fa{
+  cursor: pointer;
+}
+
+
+
+.blackFont{
+    color: #333;
+  }
+  .redFont{
+    color: #ea0202;
+  }
+  .NOpadding{
+    padding-left: 0px; 
+    padding-right: 0px;
+  }
+  .NOpadding-left{
+      padding-left: 0px;
+  }
+  .NOpadding-right{
+      padding-right: 0px;
+  }
+  .adminModal-header {
+      border-radius: 9px 9px 0 0;
+      background:var(--blue-color);
+      color: #fff;
+      border: none;
+  }
+  .adminModal-content{
+    background: transparent;
+  }
+  .adminModal-body {
+    /* padding-top: 70px; */
+    padding-bottom: 70px;
+    background: #fff;
+  }
+  .adminModal-footer {
+      border-radius: 0 0 9px 9px;
+      background: #eee;
+      padding-top: 15px!important;
+      padding-bottom: 0!important;
+  }
+  .adminCancel-btn, .adminFinish-btn {
+      margin-bottom: 15px;
+      box-shadow: 2px 2px 9px -2px #2189d1;
+      font-weight: 600;
+  }
+  .btnUpdate{
+      color: #fff;
+      background: #2189d1;
+      margin-bottom: 15px;
+      box-shadow: 2px 2px 9px -2px #2189d1;
+  }
+/*  .btnSubmit{
+      color: #fff;
+      background: #2189d1;
+      margin-bottom: 15px;
+      box-shadow: 2px 2px 9px -2px #2189d1; 
+  }*/
+  .adminCloseCircleDiv {
+      display: inline-grid;
+      box-shadow: 3px 4px 7px -3px #666!important;
+      height: 30px;
+      width: 30px;
+      background: #fff;
+      border-radius: 100%;
+  }
+  .adminCloseButton {
+      font-weight: 700;
+      line-height: 1;
+      color: #000;
+      text-shadow: 0 1px 0 #fff;
+      -webkit-appearance: none;
+      padding: 0;
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+      font-size: 24px!important;
+      opacity: 1!important;
+      float: left;
+  }
+  .textAlignCenter {
+      text-align: center!important;
+  }
+  .textAlignLeft {
+      text-align: left!important;
+  }
+  .textAlignRight {
+      text-align: right!important;
+  }
+  .btnSubmit,.btnUpdate{
+    color: #FFF;
+    background-color: #2189d2;
+    margin-bottom: 30px;
+    box-shadow: 2px 2px 2px #2189d2;
+}
+.btnSubmit:hover{
+  background-color: #2189d1;
+  border-top-color: #2189d1; 
+  color: #fff;
+  box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18),0 4px 15px 0 rgba(0,0,0,0.15);
+}
+.noPadding{
+  padding: 0px !important;
+}
+.marginBottom{
+  margin-bottom: 20px;
+}
+.roleinputbox{
+  border: 1px solid #ddd;
+}
+.form-margin{
+  margin-top: 15px;
+}
+.marginBottomCSS{
+  margin-bottom:55px;
+}
+.padding30{
+  padding: 30px;
+}
+
+/*table head css All order Page*/
+th{
+  z-index: 1!important;
+}
+.main-footer{
+  padding-top: 12px !important;
+  position: fixed;
+  bottom: 0;
+}
+.pageHeader{
+  margin-top: -10px !important;
+}
+.fieldTab{
+  font-size: 13px;
+}
+
+.btn:hover  {
+  opacity: 0.6;
+  transition: 0.3s;
+  box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8),
+          6px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover :after {
+  opacity: 1;
+  right: 0;
+  transition: 0.3s;
+}
+
+.weighttitle{
+  font-weight: normal !important;
+}
+
+.RegionalFont{
+  font-family: 'KrutiDevRegular';
+}

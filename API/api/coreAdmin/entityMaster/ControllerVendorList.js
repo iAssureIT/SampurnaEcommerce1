@@ -250,6 +250,22 @@ exports.getProductWiseVendorList = (req,res,next)=>{
     }); 
 };
 
+
+exports.singleVendorDetails = (req, res, next)=>{
+    console.log("iiiiiiiiiiiiiiiiiiiiiiiiiiiiii====",req.params.vid);
+    EntityMaster.findOne({_id : req.params.vid})        
+        .exec()
+        .then(data=>{
+        console.log("data iiii====",data);
+
+            res.status(200).json(data);
+
+        })
+        .catch(err =>{
+            res.status(500).json({ error: err });
+        }); 
+};
+
 /**=========== calcUserVendorDist() ===========*/
 function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
     return new Promise(function(resolve,reject){

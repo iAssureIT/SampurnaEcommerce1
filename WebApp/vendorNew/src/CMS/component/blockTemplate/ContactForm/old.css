@@ -1,0 +1,226 @@
+.contactformBgwrapp{
+	height: 800px;
+	background-color:#FFF;
+}
+.contactmainwrapp{
+	height: 700px;
+	background-color: #FFF;
+}
+.addresswrapp{
+	height:580px ;
+	 
+}
+.mtop30cf{
+	margin-top: 100px;
+	
+
+} 
+.locationstext{
+	font-size: 30px;
+	color: #555;
+	font-family: 'Montserrat', sans-serif;
+}
+.bt020{
+	height: 100px;
+	margin-top: 30px;
+}
+.rect-block{
+	height: 80px;
+	width: 80px;
+	background-color: #FFF;
+	box-shadow: 1px 1px 5px 1px  #dad6d6; 
+	z-index: 50;
+	
+	
+	
+}
+.rect-block img{
+	height: 69px;
+	width: 100%;
+	margin-top: 4px;
+	
+}
+.bttitle20{
+	height: 100px;
+	position: absolute; 
+	padding-left: 0px!important;
+	margin-left: 62px; 
+}
+.locationtitle1{
+	font-size: 21px;
+	margin-left: 38px;
+	color: #555555;
+	font-family: 'Montserrat', sans-serif;
+}
+.locationtitle2{
+	font-size: 17px;
+	margin-left: 38px;
+	color: #555555;
+	font-family: 'Montserrat', sans-serif;
+
+}
+.contactformwrapp{
+	height: 500px;
+	
+}
+.contactformwrapp2{
+	height: 480px;
+	background-color: #fff;
+	margin-top: 100px;
+	box-shadow: 2px 2px 10px 2px #dad6d6; 
+
+}
+.h1connecttitle{
+	
+		font-size: 18px;
+		color: #555555;
+		font-weight: bold;
+		font-family: 'Montserrat', sans-serif;
+		margin-left: 15px;
+		
+	}
+	.bgdiv2{
+		margin-top: 20px;
+	}
+	.bg0color0{
+    
+		background-color: #e3f2fd!important;
+	}
+	.button2{
+		margin-left: 2px;
+		color: #FFFFFF;
+		margin-top: 20px;
+		height: 50px;
+		background-color: #18ccf7;
+		font-weight: 600;
+		font-size: 16px;
+	
+	}
+	.cformbgimage1 {
+		height: 100px;
+		width: 100px;
+		position: absolute;
+		margin-left: -25px;  
+		margin-top: 74px; 
+		
+	}
+	.cformImg1 img{
+		
+		width: 100%;
+	}
+	.cformbgimage2 {
+		height: 216px;
+		position: absolute;
+		margin-left: 9px; 
+		margin-top: -21px;  
+	}
+	.cformbgimage2 img{
+		width: 100%;
+	
+
+	}
+	.cformbgimage4 {
+		height: 143px;
+		width: 107px;
+		position: absolute;
+		margin-left: 76px;
+		margin-top: 433px;
+	}
+	.cformbgimage4 img{
+		height: 150px;	}
+	.cformbgimage5 {
+		height: 94px;
+		width: 107px;
+		position: absolute;
+		margin-left: 343px;
+		margin-top: 8px;
+	}
+	.cformbgimage5 img{
+		width: 100%;
+	}
+	.cformbgimage7 {
+		height: 131px;
+		width: 108px;
+		position: absolute;
+		margin-left: 738px;
+		margin-top: 48px;
+	}
+	.cformbgimage7 img {
+		width: 100%;
+	}
+	.cformbgimage8 {
+		width: 17%;
+		position: absolute;
+		margin-left: 700px;
+		margin-top: 338px;
+	}
+	.cformbgimage8 img {
+		width: 100%;
+
+	}
+	.cformbgimage3 {
+		height: 453px;
+		position: absolute;
+		margin-left: -148px; 
+		margin-top: 43px; 
+	}
+	.cformbgimage3 img{
+		width: 91%;
+		
+		
+	}
+	.cformbgimage6 {
+		height: 162px;
+		position: absolute; 
+		margin-left: 428px;
+		margin-top: -90px;
+	}
+	.cformbgimage6 img {
+		height: 145px;
+	}
+	.cformbgimage10 {
+			height: 138px;
+			position: absolute;
+			margin-left: 432px;
+			margin-top: 392px
+	}
+	.cformbgimage10 img{
+	
+		height: 129px;
+		
+
+	}
+	
+	.cformbgimage9 {
+		height: 450px;
+		width: 217px;
+		position: absolute;
+		margin-left: 459px;
+		margin-top: -107px;
+	}
+	.cformbgimage9 img {
+		 height: 453px;
+		
+	}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

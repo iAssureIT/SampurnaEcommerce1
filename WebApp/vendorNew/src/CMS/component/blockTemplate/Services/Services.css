@@ -1,0 +1,583 @@
+.serviceswrapper{
+  height: 950px;
+  background-color:#fff; 
+  margin-top: 12px;
+}
+
+  .serviceheight{
+	height:900px;
+	background-image: url("/images/3.png"); 
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  animation: move-wave 3s;
+  -webkit-animation: move-wave 3s;
+  -webkit-animation-delay: 1s;
+  animation-delay: 1s;
+  
+}
+.whatdowrapper{
+  height: 20px;
+  padding-top: 8px;
+  
+  
+}
+.whatwedobox{
+  list-style: none;
+  margin: auto;
+  
+
+}
+.whatwedobox li{
+float: left;
+}
+.whatdash1{
+  height: 1px;
+  width: 20px;
+  margin:2px 2px 2px 10px;
+  border: 2px solid #376bff;
+  border-radius: 10px;
+}
+.whatdash1{
+  margin-left: 29%;
+}
+.whatdash2{
+  height: 1px;
+  width: 50px;
+  margin:2px;
+  border: 2px solid #376bff;
+  border-radius: 10px;
+}
+.whatdash3 {
+  height: 1px;
+  width: 20px;
+  margin:2px;
+  border: 2px solid  #376bff;
+  border-radius: 10px;
+}
+
+
+.textwrapper{
+  height: 50px;
+  margin-top: 10px; 
+}
+.mainOuterCircle{
+   height: 841px;
+   padding:50px;
+   width: 841px;
+   position: absolute;
+   margin-left: 19%;
+   /* background-color: red; */
+   border-radius: 100% 100%;
+   margin-top: -100px;
+   border:2px dashed #dddddd;
+   cursor: pointer;
+}
+.mainInnerCircle{
+  height: 786px;
+  padding:50px;
+  width: 786px;
+  position: absolute;
+  margin-left: -3%;
+  /* background-color: red; */
+  border-radius: 100% 100%;
+  margin-top: -23px;
+  border:2px dashed #dddddd;
+  cursor: pointer;
+}
+.Animatedcircle{
+  width:45px;
+  height:45px;
+  background: #376bff;
+  border-radius:100% 100%;
+  position:absolute;
+  top:0; bottom:0; left:0;right:0;
+  overflow:hidden;
+  margin:auto;
+  animation: circle 9s linear infinite;
+}
+
+@keyframes circle{
+  0%{
+    transform:rotate(0deg)
+              translate(-165px)
+              rotate(0deg);
+  
+  }
+  100%{
+    transform:rotate(360deg)
+              translate(-165px)
+              rotate(-360deg);
+  }
+}
+.h1titble00{
+  font-size: 49px;
+  font-family: 'Montserrat', sans-serif;
+  color: #333333;
+  letter-spacing: 3px;
+}
+.Hexagonwrapper00{
+  height: 820px;
+  margin-top: 169px; 
+  
+}
+.hexagon1{
+  background-image: url("/images/10.png");
+   height: 270px; 
+   width: 301px;
+	 background-size: 100% 100%; 
+	 position: absolute;
+   margin-left: 38.4%; 
+   margin-top: -3%;
+  
+}
+
+strong{
+  font-weight: 1000;
+}
+.serviceimgblock{
+  height: 60px;
+  width: 60px;
+  margin-top: 71px;
+  margin-left: 120px;
+  
+
+}
+.serviceimgblock img{
+  width: 100%;
+  margin-left: -2px;
+ 
+}
+.heprizeapps{
+   height: 68px; 
+   width: 164px; 
+   /* background-color: red; */
+   margin-left: 70px; 
+  font-size: 22px;
+  letter-spacing: 1px;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 16px;
+
+}
+
+.hexagon2{
+   background-image: url("/images/11.png"); 
+  height: 270px; 
+   width: 301px;
+	 background-size: 100% 100%; 
+	 position: absolute;
+   margin-left: 38.4%; 
+   margin-top: 13.5%;
+}
+.hexagon2:hover{
+ height: 270px; 
+  width: 301px;
+  background-size: 100% 100%; 
+  position: absolute;
+  margin-left: 38.4%; 
+  margin-top: 13.5%;
+   animation:spin 4s linear infinite;
+   cursor: pointer;
+
+}
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); }}
+.h1services{
+  height: 68px;
+  width: 164px;
+  margin-left: 70px;
+  margin-top: 119px;
+  font-size: 22px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-family: 'Montserrat', sans-serif;
+
+
+}
+
+.hexagon3{
+  background-image: url("/images/10.png");
+  height: 270px; 
+  width: 301px;
+  background-size: 100% 100%; 
+  position: absolute;
+  margin-left: 38.4%; 
+  margin-top: 30%;
+  cursor: pointer;
+
+}
+.serviceimgblock2{
+  height: 60px;
+  width: 60px;
+  margin-top: 71px;
+  margin-left: 120px;
+}
+.serviceimgblock2 img{
+  width: 100%;
+ 
+}
+.hstaffaugmtion{
+  
+  width: 164px;
+  margin-left: 70px;
+  font-size: 22px;
+  letter-spacing: 1px;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 16px;
+  line-height:1.2;
+} 
+.hexagon4{
+  background-image: url("/images/10.png");
+  height: 270px; 
+   width: 301px;
+  background-size: 100% 100%; 
+  position: absolute;
+  margin-left: 23%;
+  margin-top: 5%;
+  cursor: pointer;
+}
+.serviceimgblock3{
+  height: 60px;
+  width: 60px;
+  margin-top: 71px;
+  margin-left: 120px;
+
+}
+.serviceimgblock3 img{
+width: 100%;
+margin-top:20px;
+}
+.hwebapps{
+  height: 68px;
+  width: 164px;
+  /* background-color: red; */
+  margin-left: 70px;
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin-top: 16px;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.hexagon5{
+  background-image: url("/images/10.png");
+  height: 270px; 
+  width: 301px;
+  background-size: 100% 100%; 
+  position: absolute;
+  margin-left: 23%;
+  margin-top: 22%;
+  cursor: pointer;
+}
+.serviceimgblock4{
+  height: 60px;
+  width: 60px;
+  margin-top: 71px;
+  margin-left: 120px;
+
+
+}
+.serviceimgblock4 img{
+ width: 100%;
+}
+.hbportals{
+  height: 68px;
+  width: 164px;
+  /* background-color: red;  */
+  margin-left: 70px;
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin-top: 16px;
+  font-family: 'Montserrat', sans-serif;
+
+}
+.hexagon6{
+  background-image: url("/images/10.png");
+  height: 270px; 
+  width: 301px;
+	background-size: 100% 100%; 
+	position: absolute;
+  margin-left: 53.8%;  
+  margin-top: 5%;
+  cursor: pointer;
+}
+.serviceimgblock5{
+  height: 60px;
+  width: 60px;
+  margin-top: 71px;
+  margin-left: 120px;
+
+}
+.serviceimgblock5 img{
+ width: 100%;
+}
+.hmapps{
+  height: 68px;
+  width: 164px;
+  margin-left: 70px;
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin-top: 16px;
+  font-family: 'Montserrat', sans-serif;
+
+}
+.hexagon7{
+  background-image: url("/images/10.png");
+  height: 270px; 
+  width: 301px;
+	background-size: 100% 100%; 
+	position: absolute;
+  margin-left: 53.8%;  
+  margin-top: 22%;
+  cursor: pointer;
+
+}
+.serviceimgblock6{
+  height: 60px;
+  width: 60px;
+  margin-top: 71px;
+  margin-left: 120px;
+
+}
+.serviceimgblock6 img{
+  width: 100%;
+}
+.heportal{
+  height: 68px;
+  width: 164px;
+  margin-left: 70px;
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin-top: 16px;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+
+
+ 
+/* ==========================================Media Query===================================================== */
+ 
+
+
+/* ================================================Tablets and  ipad===================== */
+
+ @media  (min-width:992px) and (max-width: 1200px){
+  .serviceswrapper{
+    height: 850px;
+    background-color:#fff; 
+          
+  }
+  .whatdowrapper{
+    height: 20px;
+    padding-top: 8px;
+   
+  }
+  .whatdash1{
+    margin-left: -25%;
+  }
+  
+  
+ 
+  .hexagon1{
+    margin-left: 33.8%;
+    margin-top: -3%
+   }
+   .hexagon2{
+    margin-left: 33.8%; 
+    margin-top: 20%;
+
+
+  } 
+  .hexagon3{
+    margin-left: 33.8%; 
+    margin-top: 43%;
+
+  } 
+   .hexagon4{
+    margin-left: 13%;
+    margin-top: 9%;
+
+  } 
+  .hexagon5{
+    margin-left: 13%; 
+   margin-top: 32%;
+
+
+  } 
+   .hexagon6{
+    margin-left: 54.5%;  
+    margin-top: 9%;
+
+
+  } 
+   .hexagon7{
+    margin-left: 54.5%;  
+    margin-top: 32%;
+
+  }   
+
+  
+  
+  
+}
+ 
+
+   
+ 
+  
+  
+ /* ================================================Mobile view===================== */
+   @media (min-width: 768px) and  (max-width: 991px){
+
+    .serviceswrapper{
+      height: 850px;
+    }
+    .Hexagonwrapper00{
+      height: 700px;
+    }
+    
+   .whatdash1{
+      margin-left: 40%;
+    }
+    .hexagon1{
+      margin-left: 28.5%;
+      margin-top: -3%
+     }
+     .hexagon2{
+      margin-left: 28.5%; 
+      margin-top: 27.5%;
+
+  
+    } 
+    .hexagon3{
+      margin-left: 28.5%; 
+      margin-top: 58%;
+
+    } 
+     .hexagon4{
+      margin-left: 0%;
+      margin-top: 12%;
+
+    } 
+    .hexagon5{
+      margin-left: 0%; 
+     margin-top: 42%;
+  
+  
+    } 
+     .hexagon6{
+      margin-left: 57%;  
+      margin-top: 12%;
+ 
+  
+    } 
+     .hexagon7{
+      margin-left: 57%;  
+      margin-top: 42%;
+ 
+    }  
+  
+    
+    
+    
+}
+   
+
+
+ @media (max-width: 767px){
+  .serviceswrapper{
+    height: 1750px;
+    
+  }
+  .Hexagonwrapper00{
+    height: 1760px;
+  }
+  .serviceheight{
+    height: 1770px;
+   
+  }
+  .whatdowrapper{
+    height: 20px;
+    padding-top: 8px;
+    
+    
+  }
+  
+  .whatdash1{
+    margin-left: 24%!important; 
+   
+  }
+  .Hexagonwrapper00{
+    height: 1700px;
+   
+
+  }
+  .whatdotextwrapper{
+    height: 50px;
+    padding-top: 0px;
+  
+   
+  
+   
+  }
+   .h1titble00{
+    font-size:40px ;
+    font-weight: 1000;
+  } 
+  
+  
+  .hexagon1{
+    margin-left: 4.4%; 
+   margin-top: -10%;
+ 
+   }
+   .hexagon2{
+    margin-left: 4.4%; 
+    margin-top: 55%;
+ 
+
+  } 
+  .hexagon3{
+   margin-left: 4.4%; 
+   margin-top: 120%;
+
+  } 
+   .hexagon4{
+    margin-left: 4.4%; 
+   margin-top: 185%;
+
+  } 
+  .hexagon5{
+    margin-left: 4.4%; 
+   margin-top: 250%;
+
+
+  } 
+   .hexagon6{
+    margin-left: 4.4%; 
+    margin-top: 315%;
+ 
+
+  } 
+   .hexagon7{
+    margin-left: 4.4%; 
+   margin-top: 380%;
+
+  }  
+
+
+  
+
+}
+  
+
+
+
+
+
+
+
+
+
+
+
+

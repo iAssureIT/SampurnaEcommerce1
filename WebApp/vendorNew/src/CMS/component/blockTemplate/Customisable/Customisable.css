@@ -1,0 +1,203 @@
+.customisableWrapper{
+    height: 600px;
+    background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+.customisableDashWrapper{
+    height: 10px;
+}
+.customisableDashWrapper ul{
+    list-style: none;
+}
+.customisableDashWrapper ul li{
+  float: left;
+}
+.customisableDashWrapper .dash1{
+    height: 1px;
+    width: 20px;
+    margin: 2px 2px 2px 40px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.customisableDashWrapper .dash2{
+    height: 1px;
+    width: 50px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.customisableDashWrapper .dash3{
+    height: 1px;
+    width: 20px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.customisableTitleWrapper{
+    height: 100px;
+    text-align: center;
+}
+.customisableTitle1{
+    font-size: 46px;
+    font-family: 'Montserrat', sans-serif;
+    color: #555555;
+    margin: auto;
+    margin-top: 14px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.customisableImageNTextWrapper{
+    height: 490px;
+}
+.customisableImageWrapper{
+   height: 490px;
+}
+.customisableImage{
+    height: 430px;
+    margin: auto;
+    margin-top: 20px;
+    transition: 0.1s;
+}
+.customisableImage:hover{
+    animation: textMotion4 1.5s ease-in-out;
+}
+@keyframes textMotion4{
+    0%{transform: translateX(0px);}
+   20%{transform: translateX(-100px);}
+   40%{transform: translateX(50px);}
+   60%{transform: translateX(-25px);}
+   80%{transform: translateX(0px);}
+}
+.customisableTextWrapper{
+    height: 490px;
+    padding-top: 40px;
+    margin-left: -67px;
+}
+.customisableText1{
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 550;
+    color: #555555;
+    text-align: justify;
+    letter-spacing: 0.5px;
+    margin-left: 110px;
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+@media (min-width:992px) and (max-width:1200px){
+    .customisableWrapper{
+        height: 620px !important;  
+    }
+    .customisableDashWrapper{
+        height: 20px;
+    }
+    .customisableDashWrapper ul{
+        margin-top: 5px !important
+    }
+    .customisableDashWrapper .dash1{
+        margin-left: -25% !important
+    }
+    .customisableImageNTextWrapper{
+        height: 845px !important;
+    }
+    .customisableImageWrapper{
+        height: 440px;
+    }
+    .customisableImage{
+        height: 430px;
+        margin-left: 0% !important;
+    }
+    .customisableTextWrapper{
+        height: 500px !important;
+        padding-top: 0px !important;
+        margin-left: 0px !important;
+    }
+    .customisableText{
+        text-align: justify;
+        padding: 0px !important;
+    }
+}
+
+@media (min-width:768px) and (max-width:991px){
+    .customisableWrapper{
+        height: 970px !important;  
+    }
+    .customisableDashWrapper{
+        height: 20px;
+    }
+    .customisableDashWrapper ul{
+        padding-top: 5px !important;
+    }
+    .customisableDashWrapper .dash1{
+        margin-left: 40% !important;
+    }
+    .customisableTitleWrapper{
+        height: 100px;
+    }
+    .customisableImageNTextWrapper{
+        height: 845px !important;
+    }
+    .customisableImageWrapper{
+        height: 440px;
+    }
+    .customisableImage{
+        height: 430px;
+        margin-left: 17% !important;
+    }
+    .customisableTextWrapper{
+        height: 400px !important;
+        padding-top: 0px !important;
+        margin-left: 0px !important;
+    }
+    .customisableText{
+        text-align: justify;
+        padding: 0px !important;
+    }
+}
+
+@media (max-width:767px){
+    .customisableWrapper{
+        height: 1220px !important;
+    }
+    .customisableDashWrapper{
+        height: 20px;
+    }
+    .customisableDashWrapper ul{
+        padding-top: 5px !important;
+    }
+    .customisableDashWrapper .dash1{
+        margin-left: 22% !important
+    }
+    .customisableTitleWrapper{
+        height: 100px;
+    }
+    .customisableTitle1{
+        font-size: 30px !important;
+    }
+    .customisableImageNTextWrapper{
+        height: 1100px !important;
+    }
+    .customisableImageWrapper{
+        height: 440px;
+    }
+    .customisableImage{
+        height: 430px;
+        margin-left: -1% !important;
+    }
+    .customisableTextWrapper{
+        height: 640px !important;
+        padding-top: 0px !important;
+        margin-left: 0px !important;
+    }
+    .customisableText{
+        text-align: justify;
+        padding: 0px !important;
+    }
+}
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

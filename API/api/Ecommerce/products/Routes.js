@@ -187,5 +187,4 @@ router.get('/check-item-code-exits/:itemcode',							productController.checkItem
 
 router.post('/get/product_list_by_section', 					        productController.product_list_by_section);
 
-
 module.exports = router;

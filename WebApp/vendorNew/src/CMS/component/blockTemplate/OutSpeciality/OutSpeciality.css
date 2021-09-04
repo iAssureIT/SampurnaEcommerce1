@@ -1,0 +1,312 @@
+.specialhightwrapper{
+    height: 700px;
+    background-color: #fff!important;        
+   
+}
+.dashboxwrapper{
+    height: 20px;
+    margin-top:-10px;
+}
+
+.BlueStrip{
+  height:100px;
+  background: #376bff;
+}
+
+  .dashBox{
+    list-style: none;
+    margin: auto;
+  }
+  .dashBox li{
+  float: left;
+  }
+  .dash1{
+    height: 1px;
+    width: 20px;
+    margin:2px 2px 2px 54px!important;
+    border: 2px solid #376bff!important;
+    border-radius: 10px;
+  }
+  .dash2{
+    height: 1px;
+    width: 50px;
+    margin:2px;
+    border: 2px solid #376bff!important;
+    border-radius: 10px;
+  }
+  .dash3 {
+    height: 1px;
+    width: 20px;
+    margin:2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+  }
+
+
+.specialityheading{
+    height: 108px;
+       
+    
+}
+.h2title{
+    font-size: 49px;
+    font-family: 'Montserrat', sans-serif;
+    color: #333333;
+    letter-spacing: 3px;
+    
+}
+
+.col1{
+    border-bottom: 20px solid #376bff;
+    height: 300px;
+    background-color: #fff;
+     margin-top: 65px; 
+    box-shadow: 2px 2px 8px 3px #dad6d6;
+    cursor: pointer;
+    transition: all 500ms ease-in-out;
+}
+.col1:hover{
+    border-bottom: 20px solid #376bff;
+    height: 300px;
+    background-color: #fff;
+     margin-top: 45px; 
+    box-shadow: 2px 2px 8px 3px #dad6d6;
+    cursor: pointer;
+    box-shadow: 0px 12px 30px 0px rgba(0, 0, 0, 0.2);
+    transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.iconCircle{
+	height: 126px;
+    margin:auto; 
+    width: 126px;     
+    margin-top: -159px; 
+    background-color: #ffffff; 
+    border-radius: 50%;
+    box-shadow: 4px -4px 12px -4px #dad6d6;
+    
+}
+.innerCircle{
+	position: relative;
+    margin:auto;
+    top: 39px;
+}
+.sptextBox1{
+    color: #333333;
+    margin-top: 65px;
+}
+.sptextBox1 h2{
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.sptextBox1 p{
+    text-align: justify;
+    padding-right: 0px;
+    color: #555555;
+    margin-top:4px;
+}
+
+.rmore{
+
+    position: relative;
+    top: 20px;
+    letter-spacing: 1.2px !important;
+    color: #376bff !important;
+    font-weight: 600;
+}
+
+.mainheading{
+    height: 100px;
+    width: 400px;
+    margin-top: 0px;
+}
+
+.mheading{
+    font-weight:bold!important;
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+.paragraph{
+    font-family: 'Montserrat', sans-serif;
+    font-size:20px;
+    line-height: 1;
+    letter-spacing:0.5px;
+}
+
+/* .rmore {
+    height: 100px;
+    width: 300px;
+    font-size: 15px;  
+    position: absolute;
+    top: 173px;
+    letter-spacing: 1.2px !important;
+    color: #376bff !important;
+    cursor: pointer;
+    left: 40;
+    padding-top: 23px;
+    font-family: 'Montserrat', sans-serif;
+
+} */
+.red{
+    width:30px;
+    height:27px;
+    position:absolute;
+    top:-275px; bottom:0; left:0;right:0;
+    overflow:hidden;
+    margin:auto;
+    
+    animation: Circulate 11s infinite linear;}
+
+    @keyframes Circulate {
+        /* notice the only differences are the first rotate() property */
+        
+        from {
+           
+            transform:
+                /* starting position offset */
+                rotate(20deg)
+                /* half circle size + .5px(for precision) */
+                translate(-62.5px)
+                /* how much the icon should rotate as it goes around */
+                rotate(-40deg);
+        }
+        to {
+           
+          
+            transform:
+                /* full circle rotation: 360 + 20 offset */
+                rotate(380deg)
+                /* half circle size + .5px(for precision) */
+                translate(-62.5px)
+                /* how much the icon should rotate as it goes around */
+                rotate(-40deg);
+        }
+    }
+
+  
+  
+  /* ==================================Media Query================================================= */
+@media (min-width:992px) and (max-width:1200px){
+    .specialhightwrapper{
+        height: 638px!important;
+        
+        
+        }
+        .dashboxwrapper{
+            height: 20px;
+        }
+        .dashBox{
+            margin-top: 5px!important;
+        }
+        .dash1{
+            margin-left: -25%!important;
+        }
+        .specialityheading{
+            height: 130px;
+            
+        }
+        .iconCircle{
+            left: 21%; 
+        
+        }
+        .paragraph{
+            text-align: justify;
+           
+        }
+        .sptextBox1 p{
+            padding-left: 0px;
+        }
+
+
+       
+
+
+}
+@media (min-width:768px) and (max-width:991px){
+    .specialhightwrapper{
+        height: 1516px!important;
+        
+        }
+        .dashboxwrapper{
+            height: 20px;
+            
+        }
+        .dashBox{
+            padding-top: 5px!important;
+        }
+        .dash1{
+            margin-left: 40%!important;
+        }
+        .specialityheading{
+            height: 130px;
+            
+        }
+        .col1{
+             margin-top: 36px;
+        }
+        .iconCircle{
+            left: 40%; 
+        
+        }
+        .paragraph{
+            text-align: justify;
+           
+        }
+        .sptextBox1 p{
+            padding-left: 0px;
+        }
+
+
+}
+@media (max-width: 767px){
+    .specialhightwrapper{
+        height: 1549px;
+        }
+    .dashboxwrapper{
+        height: 20px;
+    }
+    .dashBox{
+        padding-top: 5px!important;
+    }
+    .dash1{
+        margin-left: 22%!important;
+    }
+    .specialityheading{
+        height: 130px;
+    }
+    .h2title{
+        font-size: 39px;
+        font-family: 'Montserrat', sans-serif;
+        color: #555555;
+        margin-top: 14px;
+    }
+    .osDiv{
+    
+        width: 91%;
+        height: 1420px;
+        top: -48px; 
+        left: -4%;
+     }
+    .col1{
+    height: 427px;
+     width: 106%; 
+     left:-2%;
+     margin-top: 36px;
+    } 
+    .iconCircle{
+        left: 27%; 
+    
+    }
+    .paragraph{
+        text-align: justify;
+       
+    }
+    .sptextBox1 p{
+        padding-left: 0px;
+    }  
+}
+
+
+
