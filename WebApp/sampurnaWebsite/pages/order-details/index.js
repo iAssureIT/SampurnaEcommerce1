@@ -282,9 +282,9 @@ export default class OrderDetails extends Component {
             <div className="col-12 NoPadding">
               <br />
               <div className="row">
-                <div className="col-12 col-xl-10 ">
+                <div className="col-12 col-xl-10 pl-xl-1 ">
                   <div >
-                    <h4 className={"table-caption mb-1 mt-4 " + Style.mainTitle}>My Order Details</h4>
+                    <h4 className={"table-caption mb-1 mt-4 pb-xl-2 " + Style.mainTitle}>My Order Details</h4>
                   </div>
                   <div className={"col-12 NoPadding orderDetailsTopBlock "+ Style.orderDetailsTopBlock}>
                     <div className="col-12 NoPadding orderDetailsTop " style={{
