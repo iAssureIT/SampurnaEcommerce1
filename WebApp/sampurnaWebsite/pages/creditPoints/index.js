@@ -55,7 +55,7 @@ class CreditPoints extends Component{
         return(
             <div className={ "col-lg-9 float-lg-left col-12 NoPadding accountMainWrapper pb-4 mt-4 "+Style.accountMainWrapper} id="creditPointMainId"> 
               <div className="col-12 mt-4 pt-md-0">
-                      <div className={"table-caption mb-1 "+Style.creditPointTitleWrapper}>My Credit Points</div>
+                      <div className={"table-caption mb-1 pb-xl-1 "+Style.creditPointTitleWrapper}>My Credit Points</div>
                   </div>
                 <div className={"col-12 col-xl-12 pt-5 "+Style.creditWrapper}>
                     <div className={"col-12 "+Style.creditHeader}>

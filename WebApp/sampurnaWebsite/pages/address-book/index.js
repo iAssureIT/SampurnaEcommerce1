@@ -165,7 +165,7 @@ class AddressBook extends Component{
             </div>
             
             <Message messageData={this.state.messageData} /> </div>
-            <div className={"font-weight-bold "+ Style.accountDashBoardMainTitle}>My Addresses</div>
+            <div className={"font-weight-bold pb-xl-2 "+ Style.accountDashBoardMainTitle}>My Addresses</div>
             <div className={ "container-flex col-9 col-lg-11 col-xl-11 "+Style.accountDashBoardInnerwrapper}>
                 <div className="row">
                     <div className={"col-12 "+Style.creditHeader}>
@@ -194,7 +194,7 @@ class AddressBook extends Component{
                                                 </span>
                                             </span>
                                         </div>
-                                        <div className="col-6 px-0">
+                                        <div className={"col-6 px-0 "+ Style.homeMyAddress}>
                                             {this.props.recentAddressData[0].name}
                                             <br /> {this.props.recentAddressData[0].addressLine2 ? this.props.recentAddressData[0].addressLine2+", " : null} {this.props.recentAddressData[0].addressLine1} - {this.props.recentAddressData[0].pincode}.
                                             <br /> {/* {this.state.city},
@@ -226,11 +226,12 @@ class AddressBook extends Component{
                                             return(  
                                                     <div key={ 'address'+index} className={"col-12 col-lg-6 col-md-6  py-3 px-4 " +Style.additionAddress1}>
                                                         <div className={"col-12 text-center " +Style.additionAddress}>
-                                                                <div className={"text-justify pt-2 "+Style.addressInnerDescWrapper}> 
+                                                                <div className={"text-justify pt-2  "+Style.addressInnerDescWrapper+" "+Style.customBoxPropperties}> 
                                                                 <div className="col-12 p-0 ">
-                                                                    <i className="fa fa-home" aria-hidden="true"></i> &nbsp;
+                                                                    <i className={"fa fa-home "+ Style.homeIcon} aria-hidden="true"></i> &nbsp;
                                                                     <span className={Style.addType}>{address.addType}</span>
                                                                 </div>
+                                                                <span className={Style.additionAddressBox}>
                                                                 {address.name}
                                                                     <br /> {address.addressLine2 ? address.addressLine2+", " : null} {address.addressLine1}
                                                                     {/* {this.state.city},
@@ -240,6 +241,7 @@ class AddressBook extends Component{
                                                                         <span> <br />Pincode : {address.pincode +"."}</span>
                                                                     }
                                                                     <br /> Contact Number: {address.mobileNumber} 
+                                                                 </span>   
                                                                 </div>
                                                                 <div className="col-12 pl-lg-5 pl-xl-0 pl-md-0 pl-sm-0 ml-xl-3">
                                                                     <div className="row">

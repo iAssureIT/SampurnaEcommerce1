@@ -1,3 +1,27 @@
+
+@font-face {
+  font-family:'Montserrat-Medium';
+  src: url('../../Themes/Sampurna/fonts/Montserrat-SemiBold.ttf');
+}
+
+@font-face {
+  font-family:'Montserrat-Bold';
+  src: url('../../Themes/Sampurna/fonts/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family:'Montserrat-Regular';
+  src: url('../../Themes/Sampurna/fonts/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family:'Montserrat-Thin';
+  src: url('../../Themes/Sampurna/fonts/Montserrat-Thin.ttf');
+}
+
+
+
+
 .accUserDetails h6{
     font-size: 14px !important;
 }
@@ -101,6 +125,16 @@
     color: #000 !important;
     font-family   : Montserrat-Regular;
 }
+
+.homeMyAddress{
+    opacity: 0.4;
+}
+
+.additionAddressBox{
+    opacity: 0.4;
+}
+
+
   @media (min-width: 1200px) {
     .CreditTotalPtTitle {
         font-size     : 18px;
@@ -114,9 +148,7 @@
         height: 155px;
         font-size:14px ;
         font-family   : Montserrat-Medium;
-        opacity       : 0.6;
         color         : #000;
-        opacity: 0.6;
         letter-spacing: 0px;
     }
 
@@ -159,6 +191,10 @@
     .CreditTotalPtTitle {
         font-family   : Montserrat-Bold;
     }
+
+     .customBoxPropperties{
+        /*opacity: 0.4;*/
+    }
 } 
 
 
@@ -184,7 +220,12 @@
 
     .addNewAddressBtn{
         margin-left: 98px;
-    }  
+    } 
+
+     .customBoxPropperties{
+        /*opacity: 0.4;*/
+    } 
+
 }  
 
 @media only screen and (min-device-width: 1440px) {
@@ -204,6 +245,10 @@
     .additionalAddressDeleteBtn{
         margin-left: -31px;
         margin-top: 3px;
+    }
+
+     .customBoxPropperties{
+        /*opacity: 0.4;*/
     }
 
 }
@@ -230,6 +275,10 @@
 
     .accountDashBoardMainTitle{
         font-size: 30px;
+    }
+
+     .customBoxPropperties{
+        /*opacity: 0.4;*/
     }
 }
 
@@ -273,6 +322,10 @@
         font-size: 15px;
     }
 
+     .customBoxPropperties{
+        /*opacity: 0.4;*/
+    }
+
 }
 
 
@@ -314,6 +367,10 @@
     .additionalAddressDeleteBtn {
         margin-left: -96px;
         margin-top: 1px;
+    }
+
+     .customBoxPropperties{
+        /*opacity: 0.4;*/
     }
 
 }    
