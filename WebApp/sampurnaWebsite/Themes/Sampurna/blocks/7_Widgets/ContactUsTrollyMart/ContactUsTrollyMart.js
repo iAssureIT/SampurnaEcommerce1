@@ -17,6 +17,8 @@ export default class ContactUsTrollyMart extends Component{
 				clientName  : "",
 				clientEmail : "",
 			},
+			fields: {},
+			errors: {},
 			blocks: {
 				"blockType"       	  : "7_Widgets",
 				"blockComponentName"  : "ContactUsTrollyMart",
@@ -32,15 +34,77 @@ export default class ContactUsTrollyMart extends Component{
 		}; 
 		this.handleChange = this.handleChange.bind(this);
 	}
+	
+	validateForm(){ 
+		let fields = this.state.fields;
+		let errors = {};
+		let formIsValid = true;
 
+		if (!fields["name"]) {
+			formIsValid = false;
+			errors["name"] = "This field is required.";
+		}
+
+		if (typeof fields["name"] !== "undefined") {
+		  var pattern = new RegExp(/^[a-z]([-']?[a-z]+)*/)
+		  if (!pattern.test(fields["name"])) {
+			formIsValid = false;
+			errors["name"] = "Name should only contain letters.";
+		  }else{
+			errors["name"] = "";
+		  }
+		}
+		
+		if (!fields["message"]) {
+			formIsValid = false;
+			errors["message"] = "This field is required.";
+		}
+
+		// if (typeof fields["message"] !== "undefined") {
+		// 	var pattern = new RegExp(/^[A-Za-z]*$/)
+		// 	if (!pattern.test(fields["message"])) {
+		// 	  formIsValid = false;
+		// 	  errors["message"] = "Message should only contain letters.";
+		// 	}
+		// }
+		 
+		  if (!fields["email"]) {
+			formIsValid = false;
+			errors["email"] = "Please enter your email.";
+		  }
+		
+		  if (typeof fields["email"] !== "undefined") {
+			//regular expression for email validation
+			var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
+			if (!pattern.test(fields["email"])) {
+			  formIsValid = false;
+			  errors["email"] = "Please enter valid email.";
+			}
+		  }
+
+		if (!fields["mobile"]) {
+			formIsValid = false;
+			errors["mobile"] = "This field is required.";
+		}
+		if (typeof fields["mobile"] !== "undefined") {
+			//regular expression for email validation
+			var pattern = new RegExp(/^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/);
+			if (!pattern.test(fields["mobile"])) {
+			  formIsValid = false;
+			  errors["mobile"] = "Please enter valid mobile.";
+			}
+		  }
+
+		this.setState({
+		  errors: errors
+		});
+		return formIsValid;
+	  }
 	componentDidMount(){
-
-		// this.dynamicvalidation();
-
 		{
             axios.get('/api/blocks/get/'+this.props.block_id)
                 .then((response)=>{
-                	console.log("res=-0-0",response.data);
+                	// console.log("res=-0-0",response.data);
                     if(response.data){
 						this.setState({
 							blocks:response.data,
@@ -61,121 +125,55 @@ export default class ContactUsTrollyMart extends Component{
 		});
 	}
 
-	// dynamicvalidation(){
-
-    //     $.validator.addMethod("regxName", function (value, element, regexpr) {
-    //         return regexpr.test(value);
-    //     }, "Please enter valid name");
-    //      $.validator.addMethod("regxEmail", function (value, element, regexpr) {
-    //         return regexpr.test(value);
-    //     }, "Please enter valid email");
-    //      $.validator.addMethod("regxMessage", function (value, element, regexpr) {
-    //         return regexpr !== value;
-    //     }, "Please enter appropriate message");
-
-    //     jQuery.validator.setDefaults({
-    //         debug: true,
-    //         success: "valid"
-    //     });
-
-	// 	$("#ContactUs").validate({
-    //         rules: {
-    //             name: {
-    //             	regxName: /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
-    //                 required: true
-    //             },
-    //             email: {
-	// 				regxEmail: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$|^$)/,
-    //                 required: true,
-    //             },
-    //             message: {
-    //             	regxMessage:  /^[A-Za-z][A-Za-z0-9\-\s]/,
-    //                 required: true
-    //             },
-	// 			mobile: {
-    //             	regxMessage: /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/,
-    //                 required: true
-    //             },
-    //         },
-    //         errorPlacement: function (error, element) {
-    //             if (element.attr("name") === "name") {
-    //                 error.insertAfter("#name");
-    //             }
-    //             if (element.attr("name") === "email") {
-    //                 error.insertAfter("#email");
-    //             }
-	// 			if (element.attr("name") === "mobile") {
-    //                 error.insertAfter("#mobile");
-    //             }
-    //             if (element.attr("name") === "message") {
-    //                 error.insertAfter("#message");
-    //             }
-    //         }
-    //     });
-    // }
-
 	handleChange(event){
 		event.preventDefault();
 		const datatype 		= event.target.getAttribute('data-text');
 		const {name,value} 	= event.target;
-		const formerrors 	= this.state.formerrors;
 		this.setState({
-      		formerrors,
-        	[name] : value,
-      	});
-    }
-
+			[event.target.name]: event.target.value,
+		}); 
+		let fields = this.state.fields;
+		fields[event.target.name] = event.target.value;
+		this.setState({
+		  fields
+		});
+	}
 	Submit(event){
 	    event.preventDefault();
-	    console.log("i'm in submit event" );
 	    var adminEmail = this.state.blockEmail;
-		const formValues2 = {
-	        "email" 	: adminEmail,
-	        "text"		: "",
-	        "mail"		: 'Dear Admin, <br/>'+
-							"Following new query/feedback came from website! <br/> <br/>" +
-							"============================  <br/> <br/>" + 
-							"<b>Client Name: </b>"   + this.state.name + '<br/>'+
-							"<b>Client Email: </b>"  + this.state.email + '<br/><br/>'+
-							"<pre> " + this.state.message + "</pre>" + 
-							"<br/><br/> ============================ " + 
-							"<br/><br/> This is a system generated email! " ,
-		};
+			if(this.validateForm()){
+			const formValues2 = {
+				"email" 	: adminEmail,
+				"text"		: "",
+				"mail"		: 'Dear Admin, <br/>'+
+								"Following new query/feedback came from website! <br/> <br/>" +
+								"============================  <br/> <br/>" + 
+								"<b>Client Name: </b>"   + this.state.name + '<br/>'+
+								"<b>Client Email: </b>"  + this.state.email + '<br/><br/>'+
+								"<pre> " + this.state.message + "</pre>" + 
+								"<br/><br/> ============================ " + 
+								"<br/><br/> This is a system generated email! " ,
+			};
 
-		console.log("formValues2" , formValues2);
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'Great!!',
+					text: 'Thank you for contacting us!!',
+					footer: 'We will get back to you shortly!!',
+					showConfirmButton: false,
+				})
 
-		if ($('#ContactUs').valid()){
-			Swal.fire({
-				position: 'center',
-				icon: 'success',
-				title: 'Great!!',
-				text: 'Thank you for contacting us!!',
-				footer: 'We will get back to you shortly!!',
-				showConfirmButton: false,
-			})
-		}else{
-			Swal.fire({
-				position: 'center',
-				icon: 'error',
-				title: 'Oops!!',
-				text: 'Please fill the details!',
-				// footer: 'We will get back to you shortly!!',
-				showConfirmButton: false,
-			})
+			this.setState({
+				name    : "",
+				email   : "",
+				message : "",
+				mobile  : ""
+			});
 		}
-
-		this.setState({
-			name    : "",
-			email   : "",
-			message : "",
-			mobile  : ""
-		});
 	}
 
 	render(){
-
-		console.log("state ===", this.state.name,  + " |" + this.state.email  + "|" + this.state.message )
-
 		return(
 			<section className={"col-12 contactUsTrollyMainWrapper "+S.contactUsTrollyMainWrapper}>
 				<div className="row">
@@ -188,18 +186,22 @@ export default class ContactUsTrollyMart extends Component{
 										<div className="form-group">
 											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Your Name <span className="required">*</span></label>
 											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="name" name="name" id="name" ref="name" required value={this.state.name} onChange={this.handleChange.bind(this)} />
+											<div className="errorMsg mt-1">{this.state.errors.name}</div>
 										</div>
 										<div className="form-group mt-5 mt-xl-3">
 											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Email <span className="required">*</span></label>
 											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="email" name="email" type="email" id="email" ref="email" data-text="clientEmail" required value={this.state.email} onChange={this.handleChange.bind(this)} />
+											<div className="errorMsg mt-1">{this.state.errors.email}</div>
 										</div>
 										<div className="form-group mt-5 mt-xl-3">
 											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Phone <span className="required">*</span></label>
 											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="mobile" name="mobile" type="number" id="mobile" ref="mobile" required value={this.state.mobile} value={this.state.mobile} onChange={this.handleChange.bind(this)} />
+											<div className="errorMsg mt-1">{this.state.errors.mobile}</div>
 										</div>
 										<div className="form-group mt-5 mt-xl-3">
 											<label for="name" className={"control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>How we can help you? <span className="required">*</span></label>
 											<input className={"form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} />
+											<div className="errorMsg mt-1">{this.state.errors.message}</div>
 										</div>
 										<div className={"col-lg-12 pb-lg-5 pb-0 mt-xl-3 "+S.getInTouchBtnMainWrapper}>
 											<button type="button" className={"btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;{/*<i className="far fa-paper-plane" aria-hidden="true"></i>*/}<img src="/images/eCommerce/send.png" className={S.getInTouchIcon} alt="get in touch image not found" /></button>
@@ -224,7 +226,6 @@ export default class ContactUsTrollyMart extends Component{
 									<div className={S.emailWrapperContactUs}>
 										<span className={"col-12 " +S.contactAddress}>Head Office : Unit 201, Level – 1, Gate Avenue – South Zone DIFC, Dubai – UAE </span><br/>
 										<span className={"col-12 " +S.contactAddress}>Branch Address : Palace Tower 1 Office Building, Office No:1405, S.P Oasis Street, Dubai Silicon Oasis, Dubai – UAE</span> <br/>
-										
 									</div>
 
 								</div>
