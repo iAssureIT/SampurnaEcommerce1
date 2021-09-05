@@ -369,4 +369,11 @@ export default StyleSheet.create({
     borderColor: "#033554",
 
   },
+
+  header1:{
+    fontSize:RFPercentage(2.8),
+    fontFamily:"Montserrat-Bold",
+    color:'#000',
+    lineHeight:RFPercentage(3.2),
+  },
 })

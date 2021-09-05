@@ -123,6 +123,9 @@ export default StyleSheet.create({
     label :{
         fontSize: RFPercentage(2.5), fontFamily: 'Montserrat-SemiBold',color:"#333",lineHeight:RFPercentage(2.8)
     },
+    labelWish :{
+        fontSize: RFPercentage(2.1), fontFamily: 'Montserrat-SemiBold',color:"#000",lineHeight:RFPercentage(2.8)
+    },
     text :{
         fontSize: RFPercentage(2.5), fontFamily: 'Montserrat-Regular',color:"#333"
     },

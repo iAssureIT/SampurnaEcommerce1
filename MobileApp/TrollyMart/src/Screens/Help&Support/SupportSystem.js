@@ -205,7 +205,7 @@ const FormBody = (props) => {
                         />
                     </View>
                     <View style={{flex:1,alignSelf: 'center', justifyContent: 'center', alignItem: 'center'}}>
-                        <Text style={[styles.mailText]}>knockknock@gmail.com</Text>
+                        <Text style={[styles.mailText]}>support@knock-knockeshop.com</Text>
                     </View>                   
                 </View>  
 
@@ -241,7 +241,7 @@ const FormBody = (props) => {
                         />
                     </View>    
                     <View style={{marginHorizontal:10,marginBottom:5}}>
-                        <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: RFPercentage(1.8),paddingVertical:2}}>
+                        <Text style={{fontFamily:'Montserrat-Medium',color:'#000', fontSize: RFPercentage(1.8),paddingVertical:2}}>
                             <Text>Phone Number</Text>{' '}
                             <Text style={{color: 'red', fontSize: RFPercentage(1.8)}}>
                             </Text>
@@ -272,7 +272,7 @@ const FormBody = (props) => {
                         <Text style={{fontSize:RFPercentage(1.8),marginTop:2,color:"#f00",fontFamily:"Montserrat-Regular"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                     </View> 
                     <View style={{marginBottom:10,marginHorizontal:10}}>
-                        <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: RFPercentage(1.8),paddingBottom:hp(2)}}>
+                        <Text style={{fontFamily:'Montserrat-Medium',color:'#000', fontSize: RFPercentage(1.8),paddingBottom:hp(2)}}>
                             <Text>Message</Text>{' '}
                             <Text style={{color: 'red', fontSize: RFPercentage(1.8)}}>
                             *
@@ -291,7 +291,7 @@ const FormBody = (props) => {
                         <Text style={CommonStyles.errorText}>{touched['message'] && errors['message'] ? errors['message'] : ''}</Text>
                     </View>
                     <View style={{flex:1,alignItems:'flex-end',marginRight:10}}>
-                        <View style={{width:wp(30)}}>
+                        <View style={{width:wp(20)}}>
                             <FormButton
                             title       = {'Send'}
                             onPress     = {handleSubmit}
