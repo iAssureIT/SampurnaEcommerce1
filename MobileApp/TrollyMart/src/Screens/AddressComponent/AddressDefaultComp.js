@@ -246,7 +246,7 @@ import Loading from '../../ScreenComponents/Loading/Loading.js';
                       </TouchableOpacity>
                       :
                       <View style={{borderRadius:9}} >
-                         <View style={{height:hp(3),backgroundColor:"#B7B7B7",flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15}}>
+                         <View style={{height:hp(3),backgroundColor:"#B7B7B7",flexDirection:"row",borderTopLeftRadius:7,borderTopRightRadius:7,justifyContent:'space-between',alignItems:'center',paddingHorizontal:15}}>
                           {/* <Image
                               resizeMode="contain"
                               source={require("../../AppDesigns/currentApp/images/home_gray.png")}

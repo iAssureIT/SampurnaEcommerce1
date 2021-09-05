@@ -259,7 +259,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
           <View style={{paddingVertical:5}}>
               <Text style={[commonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
               <View style={{flexDirection:"row",justifyContent:'space-between'}}>
-                <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text></View>
+                <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Service Charges : </Text></View>
                 <View style={{flex:.1}}>{
                   vendor.vendor_shippingChargesAfterDiscount !== vendor.vendor_shippingCharges &&
                     <Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text>
@@ -271,7 +271,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
     })  
     }
     <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
-      <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Total Delivery Charges :</Text></View>
+      <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Total Service Charges :</Text></View>
       <View style={{flex:.1}}>{
           cartData?.paymentDetails?.shippingChargesBeforeDiscount !== cartData?.paymentDetails?.shippingCharges &&
           <Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{cartData?.paymentDetails?.shippingChargesBeforeDiscount}</Text>
@@ -287,12 +287,12 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
     return (
       <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
       { !loading ?
-        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:"#fff"}}keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid showsVerticalScrollIndicator={false}	>
+        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:"#fff",paddingBottom:hp(5)}}keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid showsVerticalScrollIndicator={false}	>
               <View style={styles.addcmporder}> 
                 <View style={{backgroundColor:"#fff",flexDirection:"row",justifyContent:'space-between',alignItems:'center'}}>
-                    <Text style={commonStyles.screenHeader}>Address</Text>
+                    <Text style={{fontSize:RFPercentage(2.4),fontFamily:"Montserrat-Regular",color:"#000"}}>Address</Text>
                     <TouchableOpacity 
-                        style={{height:hp(5),width:hp(5),elevation:15,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,}}
+                        style={styles.addAddressIcon}
                         // onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
                         onPress={()=> navigation.navigate('AddressComponent',{"delivery":true,"address":addData})}
                       >
@@ -306,7 +306,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                 </View>  
                 <View style={{borderWidth:0.5,borderColor:'#707070',marginTop:10,borderRadius:9,borderColor:"#707070",paddingHorizontal:10}}>
                   <View style={styles.orderaddchkbx}>
-                    <View style={{justifyContent:'flex-end',marginRight:wp(2)}}><Text style={styles.blueDot}></Text></View>
+                    <View style={[styles.blueDot,{justifyContent:'flex-end',marginRight:wp(2)}]}></View>
                     <View style={{flex:0.95}}><Text style={styles.addname}>{addDataName}</Text></View>                    
                   </View>
                   <View style={{paddingHorizontal:wp(3.6)}}>
@@ -420,7 +420,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                     </View>}
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.5 }}>
-                        <Text style={styles.totaldata1}>Total Delivery Charges</Text>
+                        <Text style={styles.totaldata1}>Total Service Charges</Text>
                       </View>
                       <View style={{ flex: 0.15 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
@@ -555,14 +555,10 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                                       </TouchableOpacity>
                                       
                                     </View>
-                                    <View style={{flex:0.4,marginTop:10}}>
+                                    <View style={{flex:0.4,marginTop:10,paddingRight:10}}>
                                       <TouchableOpacity onPress={() => navigation.navigate('', { productID: item.product_ID })}>
-                                        {item.product_ID.productNameRlang ?
-                                        <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
-                                        : 
                                         <Text style={styles.productname1}>{item.product_ID.productName}</Text>
-                                        }
-                                        </TouchableOpacity>
+                                      </TouchableOpacity>
                                       <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>                                     
                                       <View style={[styles.flxdir,{alignItems:"center"}]}>
                                           <Text style={[styles.QText]}>Quantity : <Text style={styles.QNum}>{item.quantity}</Text><Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
@@ -571,7 +567,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                                       </View>
                                   </View>
                                   <View style={{flexDirection:'row',flex:0.35,marginTop:10}}>
-                                      <View style={{flex:0.4,alignItems:"flex-start"}}>
+                                      <View style={{flex:0.4,alignItems:"flex-end"}}>
                                         <Text style={styles.currency1Iteam}>{currency} </Text>
                                       </View>
                                       <View style={{flex:0.6,alignItems:"flex-end"}}>
@@ -592,7 +588,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                           <Text style={styles.vendorTotalText}>{vendor.vendor_id.companyName}</Text>
                         </View>
                         <View style={{flexDirection:'row',flex:0.35}}>
-                            <View style={{flex:0.4,alignItems:'flex-start'}}>
+                            <View style={{flex:0.4,alignItems:'flex-end'}}>
                               <Text style={styles.currency1Iteam}>{currency} </Text>
                             </View>
                             <View style={{flex:0.6,alignItems:'flex-end'}}>
@@ -608,7 +604,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                         <Text style={styles.vendorTotalText}>You Saved </Text>
                       </View>
                       <View style={{flexDirection:'row',flex:0.35}}>
-                          <View style={{flex:0.4,alignItems:'flex-start'}}>
+                          <View style={{flex:0.4,alignItems:'flex-end'}}>
                             <Text style={styles.currency1Iteam}>{currency} </Text>
                           </View>
                           <View style={{flex:0.6,alignItems:'flex-end'}}>
@@ -640,9 +636,9 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
       <Modal1 isVisible={modal}
           onBackdropPress={() => setModal(false)}
           onRequestClose={() => setModal(false)}
-          coverScreen={true}
+          coverScreen={false}
           hideModalContentWhileAnimating={true}
-          style={{ zIndex: 999,paddingVertical:Platform.OS==='ios'?30:0 }}
+          style={{ zIndex: 999,paddingTop:hp(2),paddingBottom:hp(10),alignSelf:'center'}}
           animationOutTiming={500}>
           <View style={{ backgroundColor: "#fff", borderRadius: 20}}>
             <View style={{flexDirection:'row',height:hp(4),alignItems:'center',justifyContent:'space-between',borderBottomWidth:0.5,borderColor:"#eee",marginTop:5}}>   

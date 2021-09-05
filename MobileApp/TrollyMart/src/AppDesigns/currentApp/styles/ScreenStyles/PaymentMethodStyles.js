@@ -39,7 +39,7 @@ export default StyleSheet.create({
   flx3:{
     // flex:0.9,
     flexDirection:"row",
-    height:hp(6),
+    height:hp(7),
     paddingHorizontal:wp(1),
     backgroundColor:'#F9F9F9',
     marginBottom:hp(2),

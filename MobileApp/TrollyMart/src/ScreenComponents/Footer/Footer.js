@@ -158,7 +158,7 @@ export const Footer =(props)=>{
                 navigation.navigate(userDetails.authService!=="guest" ? 'WishlistComponent' :"Auth")
                 }}>
                 <Icon name={index === 3 ? "heart":"heart-outline"} type="material-community" size={RFPercentage(3)} color={index === 3 ? colors.footerText :colors.theme}  />
-                <Text  style={[styles.footerTitle,{color:index === 2 ? colors.footerText :colors.theme}]}>Wishlist</Text>
+                <Text  style={[styles.footerTitle,{color:index === 3 ? colors.footerText :colors.theme}]}>Wishlist</Text>
               </TouchableOpacity>
             </View>}
              <View style={styles.iconOuterWrapper}>

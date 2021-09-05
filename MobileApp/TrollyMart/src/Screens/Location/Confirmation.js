@@ -155,12 +155,12 @@ export const Confirmation = withCustomerToaster((props)=>{
                   </TouchableOpacity>
                 } 
                 </View>  
-                <View style={{flex:.65,justifyContent:"flex-end",paddingHorizontal:wp(8),paddingBottom:hp(3)}}>
+                <View style={{flex:.7,justifyContent:"flex-end",paddingHorizontal:wp(8),paddingBottom:hp(3)}}>
                     {/* <Image source={require("../../AppDesigns/currentApp/images/delivery.jpeg")} style={{height:300,width:300}}/> */}
                     <Text style={{color:"#000000",fontFamily:"Montserrat-Regular",fontSize:RFPercentage(2)}}>Delivery Location</Text>
                     <Text style={{color:"#EF4D4D",fontFamily:"Montserrat-Regular",fontSize:RFPercentage(1.3)}}>Set your delivery location to browse stores around you.</Text>
                 </View>    
-                <View style={{flex:.35}}>
+                <View style={{flex:.3}}>
                     <View style={{paddingHorizontal:wp(8)}}>
                     <FormButton
                         title       = {'Current Location'}

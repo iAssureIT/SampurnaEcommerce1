@@ -12,6 +12,24 @@ export default StyleSheet.create({
 // 
     // width:"80%",
   },
+  addAddressIcon:{
+    height:hp(5),
+    width:hp(5),
+    marginRight:3,
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:"#fff",
+    borderRadius:50,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    
+    elevation: 5
+  },
   buttonText2:{
     color: colors.buttonText2,
     fontFamily:"Montserrat-SemiBold",
@@ -61,7 +79,7 @@ superparent:{
     flex:0.25,paddingHorizontal:5
   },
   imgwdht:{
-    width: hp(10), height:hp(10),
+    width: hp(8), height:hp(8),
   },
   cartlogoimg:{
      width:'70%',height:40,
@@ -92,7 +110,7 @@ superparent:{
     fontSize:13,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap'
   },
   productname1:{
-    fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Medium",flexWrap:'wrap',color:'#000',
+    fontSize:RFPercentage(2),fontFamily:"Montserrat-Medium",flexWrap:'wrap',color:'#000',
   },
   tomorroworder:{
     fontSize:13,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap',marginTop:10,
@@ -187,7 +205,7 @@ superparent:{
     // textAlign:'center'
   },
   flxdata:{
-    flex:1,flexDirection:"row",paddingVertical:5
+    flex:1,flexDirection:"row",paddingVertical:5,alignItems:'center'
   },
   orderbrdr:{
     flex:1,flexDirection:"row",
@@ -740,7 +758,7 @@ superparent:{
       fontSize: RFPercentage(2), fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
     },
     currency1Iteam:{
-      fontSize: RFPercentage(2.4), fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4
+      fontSize: RFPercentage(2.4), fontFamily:"Montserrat-Regular", color: '#000000',opacity:0.4
     },
     currency1G:{
       fontSize: RFPercentage(2.4), fontFamily:"Montserrat-Medium", color: '#000000',opacity:0.4

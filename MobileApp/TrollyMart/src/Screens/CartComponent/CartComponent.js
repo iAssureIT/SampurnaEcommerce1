@@ -270,7 +270,7 @@ const getshippingamount=(startRange, limitRange)=>{
           <View style={{paddingVertical:5}}>
               <Text style={[commonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
               <View style={{flexDirection:"row",justifyContent:'space-between'}}>
-                <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text></View>
+                <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Service charges : </Text></View>
                 <View style={{flex:.1}}>{
                   vendor.vendor_shippingChargesAfterDiscount !== vendor.vendor_shippingCharges &&
                     <Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text>
@@ -282,7 +282,7 @@ const getshippingamount=(startRange, limitRange)=>{
     })  
     }
     <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
-      <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Total Delivery Charges :</Text></View>
+      <View style={{flex:.7}}><Text style={[commonStyles.text,{color:"#fff"}]}>Total Service charges :</Text></View>
       <View style={{flex:.1}}>{
           cartData?.paymentDetails?.shippingChargesBeforeDiscount !== cartData?.paymentDetails?.shippingCharges &&
           <Text style={[commonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{cartData?.paymentDetails?.shippingChargesBeforeDiscount}</Text>
@@ -315,7 +315,7 @@ const getshippingamount=(startRange, limitRange)=>{
               return (
               <View style={{backgroundColor:"#fff",paddingBottom:hp(2),paddingTop:hp(2)}}>
                 <View style={{paddingHorizontal:wp(4)}}>
-                  <Text style={[commonStyles.headerText,{alignSelf:"flex-start",fontSize:RFPercentage(2.5),marginBottom:10}]}>{vendor.vendor_id.companyName}</Text>
+                  <Text style={[commonStyles.headerText,{alignSelf:"flex-start",fontSize:RFPercentage(2.5),marginBottom:10,color:"#000"}]}>{vendor.vendor_id.companyName}</Text>
                 </View>  
                 {vendor.cartItems.map((item,index)=>{
                   return(
@@ -390,8 +390,8 @@ const getshippingamount=(startRange, limitRange)=>{
                                   borderColor: colors.cartButton,
                                   borderWidth: 1,
                                   borderRadius: 25,
-                                  minWidth: hp(4),
-                                  minHeight: hp(4),
+                                  minWidth: hp(3.3),
+                                  minHeight: hp(3.3),
                                   backgroundColor: colors.cartButton,
                                 }}
                                 buttonTextStyle={{
@@ -420,7 +420,7 @@ const getshippingamount=(startRange, limitRange)=>{
                               <View style={styles.proddeletes}>
                               {userDetails.authService!=="guest" ?
                                 <TouchableOpacity style={[styles.wishlisthrt]} onPress={() => {addToWishList(item.product_ID._id,vendor),cartData.vendorOrders[i].cartItems[index].product_ID.isWish = !cartData.vendorOrders[i].cartItems[index].product_ID.isWish}} >
-                                  <Icon size={RFPercentage(2.8)} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.product_ID.isWish ?'red':'#999'} iconStyle={{}}/>
+                                  <Icon size={RFPercentage(2.5)} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.product_ID.isWish ?'red':'#999'} iconStyle={{}}/>
                                 </TouchableOpacity>
                                 :
                                 null
@@ -437,7 +437,7 @@ const getshippingamount=(startRange, limitRange)=>{
                                   <Image
                                     resizeMode="contain"
                                     source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trash.png'}}
-                                    style={{height:hp(2.4),width:hp(2.4),marginLeft:15,marginTop:5}}
+                                    style={{height:hp(2),width:hp(2.4),marginLeft:15,marginTop:5}}
                                     />
                                 </TouchableOpacity>
                               </View>
@@ -527,9 +527,9 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                     </View>
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
-                      <View style={[styles.flxdata,{paddingVertical:5}]}>
+                      <View style={[styles.flxdata,{paddingVertical:10}]}>
                         <View style={{ flex: 0.5 }}>
-                          <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:RFPercentage(2.6)}}>Total</Text>
+                          <Text style={[styles.totaldata],{fontFamily:"Montserrat-Bold",color:'#000',fontSize:RFPercentage(2.4)}}>Total</Text>
                         </View>
                         <View style={{ flex: 0.2 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -547,11 +547,12 @@ const getshippingamount=(startRange, limitRange)=>{
                 )
               })}
 
-                <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row", justifyContent: 'flex-start' }}>
-                  <Text style={styles.billText}>Total Amount</Text>
-                </View>
+                
                 <View style={styles.totaldetails1}>
-                  <View style={styles.flxdata}>                    
+                  <View style={{ flex:1,backgroundColor:'#fff',justifyContent: 'flex-start',paddingVertical:hp(2),paddingHorizontal:5}}>
+                    <Text style={styles.billText}>Total Amount</Text>
+                  </View>
+                  <View style={styles.flxdata1}>                    
                     <View style={{ flex: 0.65 }}>
                       <Text style={styles.totaldata1}>Total Amount </Text>
                     </View>
@@ -562,11 +563,11 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View> */}
                     <View style={{ flex: 0.3 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.afterDiscountTotal && cartData.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
+                        <Text style={styles.totalpriceincartfinal}>{cartData.paymentDetails.afterDiscountTotal && cartData.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
                       </View>
                     </View>
                   </View>
-                  <View style={styles.flxdata}>
+                  <View style={styles.flxdata1}>
                     <View style={{ flex: 0.65 }}>
                       <Text style={styles.totaldata1}>Total Saved </Text>
                     </View>
@@ -582,9 +583,9 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                     </View>
                   </View>
-                  <View style={styles.flxdata}>
+                  <View style={styles.flxdata1}>
                     <View style={{ flex: 0.65 }}>
-                      <Text style={styles.totaldata1}>Total Tax  </Text>
+                      <Text style={styles.totaldata1}>Total VAT  </Text>
                     </View>
                     {/* <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -593,14 +594,14 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View> */}
                     <View style={{ flex: 0.3 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                    <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.taxAmount.toFixed(2)}</Text>
+                    <Text style={styles.totalpriceincartfinal}>{cartData.paymentDetails.taxAmount.toFixed(2)}</Text>
                       </View>
                     </View>
                   </View>
                   
-                  <View style={styles.flxdata}>
+                  <View style={styles.flxdata1}>
                     <View style={{ flex: 0.65 }}>
-                      <Text style={styles.totaldata1}>Total Delivery Charges </Text>
+                      <Text style={styles.totaldata1}>Total Service charges </Text>
                     </View>
                     {/* <View style={{ flex: 0.1 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end'}}>
@@ -609,7 +610,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View> */}
                     <View style={{ flex: 0.3 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
+                        <Text style={styles.totalpriceincartfinal}>{cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
                       </View>
                     </View>
                     <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
@@ -627,7 +628,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>  
                   </View>
                   <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
-                  <View style={styles.flxdata}>
+                  <View style={styles.flxdata1}>
                     <View style={{ flex: 0.65 }}>
                       <Text style={[styles.totaldata]}>Grand Total</Text>
                     </View>

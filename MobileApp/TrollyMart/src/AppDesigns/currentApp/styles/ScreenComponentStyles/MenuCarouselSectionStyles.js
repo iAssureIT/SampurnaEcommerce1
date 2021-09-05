@@ -12,6 +12,7 @@ export default StyleSheet.create({
 	mainrightside: {
 		minWidth: wp(35),
 		padding: 4,
+		
 		// backgroundColor:"#fff"
 	},
 	sectionImages:{

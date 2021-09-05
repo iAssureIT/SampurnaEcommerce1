@@ -127,7 +127,7 @@ export default StyleSheet.create({
         fontSize: RFPercentage(2.1), fontFamily: 'Montserrat-SemiBold',color:"#000",lineHeight:RFPercentage(2.8)
     },
     text :{
-        fontSize: RFPercentage(2.5), fontFamily: 'Montserrat-Regular',color:"#333"
+        fontSize: RFPercentage(2), fontFamily: 'Montserrat-Regular',color:"#333"
     },
     linkText:{
         color: colors.cartButton,
