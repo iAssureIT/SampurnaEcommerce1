@@ -1622,16 +1622,16 @@ exports.list_product_with_limits = (req,res,next)=>{
 				var inventoryData 		= await ProductInventory.findOne({productCode : data[i].productCode, itemCode : data[i].itemCode, vendor_ID : ObjectId(data[i].vendor_ID)},{currentQuantity : 1})
 				var availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 
 				// console.log("availableQuantity => ",availableQuantity)
-				let vendorBarcode = data[i].vendorBarcode && "</span><br><span class='whiteSpaceNoWrap'>" +  data[i].vendorBarcode !== undefined ? "Vendor Barcode: " + data[i].vendorBarcode : " " + "</span><br>"
-				let vendorItemcode = data[i].vendorItemcode && "</span><br><span class='whiteSpaceNoWrap'>" + data[i].vendorItemcode !== undefined ?  "Vendor Itemcode: " +  data[i].vendorItemcode : " " + "</span>"
+				let vendorBarcode =  data[i].vendorBarcode !== undefined && data[i].vendorBarcode!==''  ? "</span><br><span class='whiteSpaceNoWrap'> Vendor Barcode: " + data[i].vendorBarcode + "</span>" : "</span><br><span class='whiteSpaceNoWrap'> Vendor Barcode: " + "NA" + "</span>"
+				let vendorItemcode = data[i].vendorItemcode !== undefined && data[i].vendorItemcode !== '' ? "</span><br><span class='whiteSpaceNoWrap'> Vendor Itemcode: " +  data[i].vendorItemcode + "</span>" : "</span><br><span class='whiteSpaceNoWrap'>Vendor Itemcode: " + "NA" + "</span>"
 				allData.push({
 									"_id"                   : data[i]._id,
 									// "productNameBasic"      : data[i].productName + "<br>Product Code: "+data[i].productCode+ "<br>Item Code: "+data[i].itemCode,
 									// "productNameRlang"      : data[i].productNameRlang,
-									"productName"           : "<div><b>"+(data[i].productName)+"</b><br></div>"+"<span class='whiteSpaceNoWrap'> Product Code: "+data[i].productCode+"</span><br><span class='whiteSpaceNoWrap'> Item Code: " + data[i].itemCode + "</span><br>" 								
-																// + "</span><br><span class='whiteSpaceNoWrap'> Vendor Barcode: " + data[i].vendorBarcode + "</span>" 
+									"productName"           : "<div><b>"+(data[i].productName)+"</b><br></div>"+"<span class='whiteSpaceNoWrap'> Product Code: "+data[i].productCode+"</span><br><span class='whiteSpaceNoWrap'> Item Code: " + data[i].itemCode + "</span>" 								
+																// + "</span><br><span class='whiteSpaceNoWrap'> Vendor Barcode: " + data[i].vendorBarcode !== undefined ? data[i].vendorBarcode : "NA" + "</span>" 
 																// + "</span><br><span class='whiteSpaceNoWrap'> Vendor Itemcode: " + data[i].vendorItemcode + "</span>" ,
-																+ vendorBarcode + "<br>"+vendorItemcode, 
+																+ vendorBarcode +vendorItemcode, 
 									"vendorName"            : data[i].vendorDetails && data[i].vendorDetails.length > 0 ? data[i].vendorDetails[0].companyName : "-",
 									"section"               : data[i].sectionDetails && data[i].sectionDetails.length > 0 ? data[i].sectionDetails[0].section : "-",
 									"category"              : data[i].categoryDetails && data[i].categoryDetails.length > 0 ? data[i].categoryDetails[0].category : "-",
