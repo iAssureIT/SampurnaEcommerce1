@@ -456,6 +456,12 @@ export default StyleSheet.create({
   flxdata:{
     flex:1,flexDirection:"row"
   },
+  flxdataNew:{
+    flex:1,flexDirection:"row",marginBottom:15,
+  },
+  flxdataLastNew:{
+    flex:1,flexDirection:"row",marginBottom:22,
+  },
   totaldata:{
     fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Regular", color:'#000000',opacity: 0.4
   },

@@ -809,7 +809,7 @@ const cancelorderbtn = (id,vendor_id) => {
                   }
                 <View style={styles.prodinfoparent13}>
                   <View style={styles.totaldetails}>
-                    <View style={styles.flxdata}>
+                    <View style={styles.flxdataNew}>
                       <View style={{ flex: 0.57 }}>
                         <Text style={styles.totalAmount}>Final Total </Text>
                       </View>
@@ -822,7 +822,7 @@ const cancelorderbtn = (id,vendor_id) => {
                         </View>                        
                       </View>
                     </View>
-                    <View style={styles.flxdata}>
+                    <View style={styles.flxdataNew}>
                       <View style={{ flex: 0.57 }}>
                         <Text style={styles.totalAmount}>Total Savings </Text>
                       </View> 
@@ -841,7 +841,7 @@ const cancelorderbtn = (id,vendor_id) => {
                         </View>
                       </View> */}
                     </View>
-                    <View style={styles.flxdata}>
+                    <View style={styles.flxdataNew}>
                       <View style={{ flex: 0.57 }}>
                         <Text style={styles.totalAmount}>Total VAT</Text>
                       </View> 
@@ -860,7 +860,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View> */}
                     </View>
                     {order?.paymentDetails?.afterDiscountCouponAmount > 0 ?
-                    <View style={styles.flxdata}>
+                    <View style={styles.flxdataNew}>
                       <View style={{ flex: 0.57 }}>
                         <Text style={styles.totalAmount}>Discount Coupon</Text>
                       </View>
@@ -879,7 +879,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View> */}
                     </View>:null}  
                     {order?.paymentDetails?.creditPointsValueUsed > 0 ?
-                    <View style={styles.flxdata}>
+                    <View style={styles.flxdataNew}>
                       <View style={{ flex: 0.57 }}>
                         <Text style={styles.totalAmount}>Redeem Valu</Text>
                       </View>
@@ -897,7 +897,7 @@ const cancelorderbtn = (id,vendor_id) => {
                         </View>
                       </View> */}
                     </View>:null}                   
-                    <View style={styles.flxdata}>
+                    <View style={styles.flxdataLastNew}>
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totalAmount}>Total Delivery Charges </Text>
                       </View> 
@@ -1005,7 +1005,7 @@ const cancelorderbtn = (id,vendor_id) => {
           animationOutTiming={500}>
           <ScrollView contentContainerStyle={{paddingBottom:hp(6.5)}}>
           <View style={{alignItems:'flex-end',padding:15}}>
-              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:RFPercentage(3)}]} onPress={()=>setModal(false)}>X</Text>
+              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:RFPercentage(3),color:'#000'}]} onPress={()=>setModal(false)}>X</Text>
             </View>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1}}>
               <View style={{flex:0.3,marginBottom:20,padding:5}}>
@@ -1104,7 +1104,7 @@ const cancelorderbtn = (id,vendor_id) => {
                 </TouchableOpacity>                
               </View>              
              
-               <View style = {{marginHorizontal:40,marginBottom:15}}>
+               <View style = {{marginHorizontal:40,marginBottom:40}}>
                 <FormButton 
                   onPress    = {()=>submitReview()}
                   title       = {'Submit'}                  
@@ -1125,7 +1125,7 @@ const cancelorderbtn = (id,vendor_id) => {
           animationOutTiming={500}>
           <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 30}}>
             <View style={{alignItems:'flex-end',padding:15}}>
-              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:RFPercentage(3)}]} onPress={()=>setReturnModal(false)}>X</Text>
+              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:RFPercentage(3),color:'#000'}]} onPress={()=>setReturnModal(false)}>X</Text>
             </View>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1,borderTopLeftRadius: 15,borderTopRightRadius: 15,}}>
               <View style={{flex:0.3,marginBottom:20}}>
@@ -1176,11 +1176,11 @@ const cancelorderbtn = (id,vendor_id) => {
                     onChangeText        = {(value) => setReason(value)}
                     data                = {getReasons}
                     value               = {reason}
-                    containerStyle      = {styles.ddContainer}
+                    // containerStyle      = {styles.ddContainer}
                     dropdownOffset      = {{ top: 95, left: 15 }}
                     pickerStyle={{width:"85%"}}
                     itemTextStyle       = {styles.ddItemText}
-                    inputContainerStyle = {styles.ddInputContainer}
+                    inputContainerStyle   = {styles.containerStyle}
                     labelHeight         = {10}
                     tintColor           = {'#FF8800'}
                     labelFontSize       = {15}
@@ -1315,7 +1315,7 @@ const cancelorderbtn = (id,vendor_id) => {
                   />
                   <Text style={styles.free1}>I agree to <Text style={{textDecorationLine:'underline'}} onPress={()=>setTermsModal(true)}>Return Policy</Text></Text>
               </TouchableOpacity>
-              <View style = {{marginHorizontal:40,marginBottom:25,marginTop:20}}>
+              <View style = {{marginHorizontal:50,marginBottom:25,marginTop:20}}>
                 <FormButton 
                     onPress    = {()=>submitReturn()}
                     title       = {'Submit'}
