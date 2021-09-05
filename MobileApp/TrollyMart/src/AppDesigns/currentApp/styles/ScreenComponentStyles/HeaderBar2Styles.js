@@ -108,13 +108,13 @@ export default StyleSheet.create({
       ios: {
         alignItems:'center',
         justifyContent:'center',
-        height:hp(8),
+        height:hp(6),
         // paddingTop: 25,
       },
       android: {
       alignItems:'center',
       justifyContent:'center',
-      height:hp(10),
+      height:hp(7),
         // borderTopWidth: 3,
         // borderTopColor: colors.theme,
         // minHeight: 55,
@@ -169,7 +169,7 @@ export default StyleSheet.create({
     shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 10,
-    height: hp(6),
+    height: hp(4),
   },
 
   searchInput: {
@@ -180,8 +180,8 @@ export default StyleSheet.create({
 
   location:{
     flex:.3,
-    height:hp(6),
-    padding:hp(1),
+    height:hp(4),
+    padding:hp(0.2),
     backgroundColor:'#E7E7E7',
     borderRadius:5,
     // paddingHorizontal:5,

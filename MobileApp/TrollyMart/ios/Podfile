@@ -13,13 +13,11 @@ target 'TrollyMart' do
     :hermes_enabled => true
   )
 
-  pod 'Firebase/Crashlytics'
-
-  pod 'Firebase/Analytics'
-
   pod 'Firebase/Auth'
 
   pod 'Firebase/Firestore'
+
+  pod 'RNFBCrashlytics', :path => '../node_modules/@react-native-firebase/crashlytics'
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 

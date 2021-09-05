@@ -81,7 +81,7 @@ export const HorizontalSecCatList =(props)=>{
                   imageStyle={{borderRadius:15}}
                   resizeMode="cover"
                 >
-                   <View style={{height:25,backgroundColor:'rgba(0, 0, 0, 0.6)',borderBottomLeftRadius:15,borderBottomRightRadius:15,justifyContent:'center'}}>
+                   <View style={{height:hp(3),backgroundColor:'rgba(0, 0, 0, 0.5)',borderBottomLeftRadius:15,borderBottomRightRadius:15,justifyContent:'center'}}>
                     <Text numberOfLines={2} style={styles.nameprod}>{item.itemName}</Text>
                   </View>
                   </ImageBackground>
@@ -92,7 +92,7 @@ export const HorizontalSecCatList =(props)=>{
                   imageStyle={{borderRadius:15}}
                   resizeMode="contain"
                 >
-                 <View style={{height:25,backgroundColor:'rgba(0, 0, 0, 0.6)',borderBottomLeftRadius:15,borderBottomRightRadius:15,justifyContent:'center'}}>
+                 <View style={{height:hp(3),backgroundColor:'rgba(0, 0, 0, 0.5)',borderBottomLeftRadius:15,borderBottomRightRadius:15,justifyContent:'center'}}>
                     <Text numberOfLines={2} style={styles.nameprod}>{item.itemName}</Text>
                   </View>
                   </ImageBackground>
@@ -111,10 +111,11 @@ export const HorizontalSecCatList =(props)=>{
 
     return (
       productList && productList.length > 0 ?
-        <View style={{marginHorizontal:5}}>
-          <Text style={{fontSize: RFPercentage(3), fontFamily: 'Montserrat-Bold',paddingVertical:5,color:"#000000",textShadowColor: 'rgba(0, 0, 0, 0.4)',textShadowOffset: {width: -1, height: 1},textShadowRadius:6,marginBottom:5}}>{props.blockTitle}</Text>
+        <View style={{marginHorizontal:5,marginBottom:15}}>
+          <Text style={{fontSize: RFPercentage(2.5), fontFamily: 'Montserrat-Bold',paddingVertical:5,color:"#000000",textShadowColor: 'rgba(0, 0, 0, 0.4)',textShadowOffset: {width: -1, height: 1},textShadowRadius:2,marginBottom:5}}>{props.blockTitle}</Text>
             <FlatList
               horizontal = {true}
+              contentContainerStyle={{backgroundColor:"#F9F4EE",height:hp(18),alignItems:'center'}}
               data={productList}
               renderItem={item => _renderlist(item)}
               keyExtractor={item => item._id}

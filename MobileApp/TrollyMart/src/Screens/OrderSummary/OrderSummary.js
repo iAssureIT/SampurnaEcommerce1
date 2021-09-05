@@ -206,7 +206,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
   const redeemPoints=()=>{
     if(parseFloat(creditPointsUsed) === 0){
       setCouponModal(false);
-      setRedeemPoints(0);
+      setRedeemPoints('');
       setToast({text: "Oops! Credit points are invalid", color:colors.warning});
     }else{
       var payload={
@@ -220,11 +220,11 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
           setCouponModal(false);
           setToast({text: "Redeem Points Applied Successfully!",color:'green'});
           setCartData(res.data);
-          setRedeemPoints(0);
+          setRedeemPoints('');
           // setCouponCode('');
       })
       .catch(err=>{
-        setRedeemPoints(0);
+        setRedeemPoints('');
         console.log("err",err);
       })
     }  

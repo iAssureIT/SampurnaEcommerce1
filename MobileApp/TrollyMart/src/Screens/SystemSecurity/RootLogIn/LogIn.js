@@ -475,9 +475,9 @@ const window = Dimensions.get('window');
                   style={{paddingRight: '5%'}}
                   onPress={() => togglePassword(!showPassword)}>
                   {showPassword ? (
-                    <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={hp(2.5)} />
+                    <Icon style={{color:'#000'}} name="eye-with-line" type="entypo" size={hp(2)} />
                   ) : (
-                    <Icon style={{color:'#000'}} name="eye" type="entypo" size={hp(2.5)} />
+                    <Icon style={{color:'#000'}} name="eye" type="entypo" size={hp(2)} />
                   )}
                 </TouchableOpacity>
               }
@@ -502,14 +502,13 @@ const window = Dimensions.get('window');
                   flexDirection   : 'row',
                   alignItems      : 'center',
                   justifyContent  : 'center',
-                  marginTop       : '3%',
                   // marginBottom    : 25,
                 },
               ]}>
                 <View style={{flexDirection:"row"}}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                  <Text style={{fontSize:RFPercentage(1.5),fontFamily:"Montserrat-Medium",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:RFPercentage(1.8),fontFamily:"Montserrat-SemiBold",fontWeight:'600'}]}> Sign Up</Text></Text>                  
+                  <Text style={{fontSize:RFPercentage(1.5),fontFamily:"Montserrat-Medium",}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:RFPercentage(1.7),fontFamily:"Montserrat-SemiBold",fontWeight:'600'}]}> Sign Up</Text></Text>                  
                 </TouchableOpacity>                
                 </View>
             </View>
@@ -529,8 +528,8 @@ const window = Dimensions.get('window');
                     backgroundColor:"#fff",
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: hp(6), 
-                    height: hp(6),
+                    width: hp(5), 
+                    height: hp(5),
                     borderRadius:100,
                     shadowColor: "#000",
                     shadowOffset: {
@@ -556,8 +555,8 @@ const window = Dimensions.get('window');
                     alignItems: 'center',
                     justifyContent: 'center',
                     alignContent:'center',
-                    width: hp(6), 
-                    height: hp(6),
+                    width: hp(5), 
+                    height: hp(5),
                     borderRadius:100,
                     shadowColor: "#000",
                     shadowOffset: {

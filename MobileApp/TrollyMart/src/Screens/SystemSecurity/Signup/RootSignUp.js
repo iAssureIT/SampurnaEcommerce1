@@ -202,7 +202,7 @@ const window = Dimensions.get('window');
           <View contentContainerStyle={[commonStyles.container,{flex:1}]} keyboardShouldPersistTaps="always" >
               <View style={{}}>
                 <View style={styles.boxOpacity}>
-                <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:wp(3),marginTop:Platform.OS === 'ios'? 45 : hp(2),height:hp(4),paddingRight:wp(1)}} onPress={()=> navigation.goBack()}>
+                <TouchableOpacity style={{alignSelf:'flex-start',paddingHorizontal:wp(3),marginTop:Platform.OS === 'ios'? hp(1) : hp(2),height:hp(4),paddingRight:wp(1)}} onPress={()=> navigation.goBack()}>
                     <Icon size={hp(3.5)} name='arrow-left' type='material-community' color={colors.theme} />
                 </TouchableOpacity>
                   <View style={styles.syslogo1}>

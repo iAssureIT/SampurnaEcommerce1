@@ -136,8 +136,8 @@ android {
         applicationId "com.trollymart"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 14
-        versionName "0.1.11"
+        versionCode 15
+        versionName "0.1.12"
     }
     signingConfigs {
         release {

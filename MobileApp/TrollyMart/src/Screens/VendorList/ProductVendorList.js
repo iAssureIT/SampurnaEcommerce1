@@ -1,7 +1,7 @@
 import React ,{useState,useEffect} from 'react';
 import {
   Text, View, 
-  TouchableOpacity, Image, FlatList, Alert,SafeAreaView,RefreshControl,ImageBackground
+  TouchableOpacity, Image, FlatList
 } from 'react-native';
 // import DropDownPicker from 'react-native-dropdown-picker';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles.js';
@@ -14,10 +14,8 @@ import {
         useDispatch,
         useSelector }           from 'react-redux';
 import { ActivityIndicator }    from 'react-native-paper';
-import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {MenuCarouselSection}    from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import { ScrollView }           from 'react-native';
-import {Footer}                 from '../../ScreenComponents/Footer/Footer.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {STOP_SCROLL}          from '../../redux/productList/types';
@@ -25,6 +23,8 @@ import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/Sea
 import { NetWorkError } from '../../../NetWorkError.js';
 import { useIsFocused }       from '@react-navigation/native';
 import FastImage              from 'react-native-fast-image';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 export const ProductVendorList = withCustomerToaster((props)=>{
@@ -95,7 +95,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
 
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity style={{paddingHorizontal:15,paddingLeft:30,marginBottom:5}} 
+            <TouchableOpacity style={{marginBottom:hp(0.5),alignItems:'center'}}
                 onPress={()=> 
                 {
                     navigation.navigate('SubCatCompView', { 
@@ -109,7 +109,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                 }),getCategoryList(item)}} 
                 activeOpacity={1}
             >                  
-            <Card containerStyle={{padding:0,borderRadius:7,height:100,marginRight:0,elevation:5}} wrapperStyle={{alignItems:'center',flexDirection:'row'}}>
+            <Card containerStyle={[styles.containerStyle,{height:wp(25)}]}  wrapperStyle={{alignItems:'center',flexDirection:'row'}}>
                 <View style={styles.logoBox1}>
                     {item.vendorLogo ? 
                         <FastImage 
@@ -118,14 +118,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                                                 priority: FastImage.priority.high, 
                                                 cache: FastImage.cacheControl.immutable,
                                             }} 
-                        style      =   {{
-                            borderRadius:100,
-                            borderWidth:0.5,
-                            borderColor:'#033554',
-                            height:75,
-                            width:75,
-                            backgroundColor:"#fff",
-                        }} resizeMode="cover" 
+                                            style     =   {styles.imageStyle1}  resizeMode="cover" 
                         PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> :
                         
                         <Image 
@@ -141,7 +134,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                             PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></Image>
                         }
                 </View>
-                <View style={{flex:1,height:100,justifyContent:'center',paddingLeft:60}}>
+                <View style={{flex:1,height:wp(25),justifyContent:'center',paddingLeft:wp(18)}}>
                     <Text style={[CommonStyles.subHeaderText,{color:"#000",alignSelf:"flex-start"}]}>{item.vendorName}</Text >
                     <Text numberOfLines={2} style={[CommonStyles.text,{color:"#000"}]}>{item.productName}</Text>
                     <Text style={[CommonStyles.text,{color:"#000"}]}>{store?.preferences?.currency} {item.productPrice.toFixed(2)}</Text>
@@ -167,15 +160,19 @@ export const ProductVendorList = withCustomerToaster((props)=>{
             <SearchSuggetion />
             :
             <ScrollView contentContainerStyle={[styles.container]} keyboardShouldPersistTaps="handled" >
-                <MenuCarouselSection
-                    navigation  = {navigation} 
-                    type        = {value}
-                    showImage   = {true}
-                    selected    = {section}
-                    boxHeight   = {4}
-                    fontSize    = {2}
-                    index       = {index}
-                />
+                <View>
+                        <MenuCarouselSection
+                            navigation  = {navigation} 
+                            showImage   = {true}
+                            selected    = {section}
+                            boxHeight   = {4}
+                            fontSize    = {2}
+                            index       = {index}
+                        />                    
+                        <View style={{backgroundColor:colors.cartButton,height:hp(4)}}>
+                            <Text style={styles.topText}>Delivery time <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>9</Text><Text style={{fontFamily:'Montserrat-Bold'}}>am</Text> to <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>11</Text><Text style={{fontFamily:'Montserrat-Bold'}}>pm</Text> or next day delivery</Text>
+                        </View>
+                    </View>
                 <View style={styles.proddets}>
                 {loading ?
                     <Loading />

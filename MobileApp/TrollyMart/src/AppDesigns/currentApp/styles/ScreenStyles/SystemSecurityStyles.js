@@ -65,7 +65,7 @@ export default StyleSheet.create({
         flexDirection: 'row', alignItems: "flex-start",alignSelf:'flex-start', marginHorizontal:wp(6),height:100,
     },
     syslogoLoginNEW:{
-        flexDirection: 'row',marginTop:Platform.OS==='ios'?55:hp(3.5),marginHorizontal:20
+        flexDirection: 'row',marginTop:Platform.OS==='ios'?hp(1):hp(3.5),marginHorizontal:20
     },
     textLine1:{
         fontFamily:"Montserrat-Regular",
@@ -77,7 +77,7 @@ export default StyleSheet.create({
         height:80,        
     },
     syslogoimgLogin:{
-        width: '50%',
+        width: '40%',
         height:hp(14),        
     },
 });

@@ -30,10 +30,9 @@ export default StyleSheet.create({
 		borderColor: '#999'
 	},
 	productContainer: {
+		height:hp(15),
 		// width:"42.5%",
 		// paddingVertical:5,
-		backgroundColor:"#fff",
-		marginBottom:15,
 		borderRadius:15,
 		// shadowColor: "#000",
 		elevation: 5,

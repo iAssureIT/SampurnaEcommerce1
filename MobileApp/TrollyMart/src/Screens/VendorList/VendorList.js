@@ -108,52 +108,38 @@ export const VendorList = withCustomerToaster((props)=>{
 
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity  style={{marginBottom:hp(0.5),alignItems:'flex-end'}} onPress={()=>goToProductList(item)} activeOpacity={1}>                
-                <Card containerStyle={{padding:0,borderRadius:7,height:wp(18),width:"91%",marginHorizontal:0,elevation:5}} wrapperStyle={{}}>
-                        <View style={styles.logoBox}>
-                            {item.vendorLogo ? 
+            <TouchableOpacity style={{marginBottom:hp(0.5),alignItems:'center'}} onPress={()=>goToProductList(item)} activeOpacity={1}>                
+                <Card containerStyle={styles.containerStyle} wrapperStyle={{}}>
+                    <View style={styles.logoBox}>
+                        {item.vendorLogo ? 
+                        <FastImage 
+                            source  =   {{
+                                            uri:item.vendorLogo,
+                                            priority: FastImage.priority.high, 
+                                            cache: FastImage.cacheControl.immutable,
+                                        }} 
+                            style     =   {styles.imageStyle} 
+                            resizeMode="contain" 
+                            PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> 
+                            :
                             <FastImage 
-                                source          =   {{
-                                                        uri:item.vendorLogo,
-                                                        priority: FastImage.priority.high, 
-                                                        cache: FastImage.cacheControl.immutable,
-                                                    }} 
-                                style      =   {{
-                                    borderRadius:hp(100),
-                                    borderWidth:0.5,
-                                    borderColor:'#033554',
-                                    height:wp(13),
-                                    width:wp(13),
-                                    backgroundColor:"#fff",
-                                    alignSelf:'center'
-                                }} resizeMode="contain" 
-                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage> 
-                                :
-                                <FastImage 
-                                source          =   {require("../../AppDesigns/currentApp/images/notavailable.png")} 
-                                style      =   {{
-                                    borderRadius:hp(100),
-                                    borderWidth:0.5,
-                                    borderColor:'#033554',
-                                    height:wp(13),
-                                    width:wp(13),
-                                    backgroundColor:"#fff",
-                                    alignSelf:'center'
-                                }} resizeMode="contain" 
-                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage>
-                                }
-                        </View>
-                        <View style={{justifyContent:'center',alignItems:'center',height:wp(18)}}>
-                            <Text numberOfLines={1} style={[{color:"#000",paddingLeft:wp(10),alignSelf:"flex-start",fontSize:RFPercentage(2),fontFamily:"Montserrat-Bold"}]}>{item.vendorName}</Text >
-                        </View> 
-                        {/* <View style={{height:20,flexDirection:'row',alignItems:'center',justifyContent:'flex-end',marginRight:5}}>
-                            <Text style={[{color:"#000",opacity:1,fontSize:10,marginTop:5}]}>60 Mins </Text>
-                            <Image
-                                source      = {require("../../AppDesigns/currentApp/images/time.png")} 
-                                style       =   {{height:15,marginTop:8,width:15}} 
-                                resizeMode  = "contain" 
-                                PlaceholderContent={<ActivityIndicator color={colors.theme}/>}/>
-                        </View>     */}
+                            source    =   {require("../../AppDesigns/currentApp/images/notavailable.png")} 
+                            style     =   {styles.imageStyle} 
+                            resizeMode="contain" 
+                            PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></FastImage>
+                            }
+                    </View>
+                    <View style={{justifyContent:'center',alignItems:'center',height:wp(18)}}>
+                        <Text numberOfLines={1} style={[{color:"#000",paddingLeft:wp(12),alignSelf:"flex-start",fontSize:RFPercentage(2),fontFamily:"Montserrat-Bold"}]}>{item.vendorName}</Text >
+                    </View> 
+                    {/* <View style={{height:20,flexDirection:'row',alignItems:'center',justifyContent:'flex-end',marginRight:5}}>
+                        <Text style={[{color:"#000",opacity:1,fontSize:10,marginTop:5}]}>60 Mins </Text>
+                        <Image
+                            source      = {require("../../AppDesigns/currentApp/images/time.png")} 
+                            style       =   {{height:15,marginTop:8,width:15}} 
+                            resizeMode  = "contain" 
+                            PlaceholderContent={<ActivityIndicator color={colors.theme}/>}/>
+                    </View>     */}
                     
                 </Card>   
             </TouchableOpacity>        
@@ -175,19 +161,6 @@ export const VendorList = withCustomerToaster((props)=>{
                 <SearchSuggetion />
                 :
                 <View style={[styles.container]} keyboardShouldPersistTaps="handled" >
-{/* 
-                    <MenuCarouselSection
-                        navigation  = {navigation} 
-                        showImage   = {true}
-                        selected    = {section}
-                        boxHeight   = {4}
-                        fontSize    = {2}
-                        index       = {index}
-                    />
-                    <View style={{backgroundColor:colors.cartButton,marginTop:hp(1)}}>
-                        <Text style={styles.topText}>Delivery time <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>9</Text><Text style={{fontFamily:'Montserrat-Bold'}}>am</Text> to <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>11</Text><Text style={{fontFamily:'Montserrat-Bold'}}>pm</Text> or next day delivery</Text>
-*/}
-                    {/* { vendorList && vendorList.length >0 ? */}
                     <View>
                         <MenuCarouselSection
                             navigation  = {navigation} 
@@ -197,13 +170,10 @@ export const VendorList = withCustomerToaster((props)=>{
                             fontSize    = {2}
                             index       = {index}
                         />                    
-                        <View style={{backgroundColor:colors.cartButton,marginTop:10}}>
+                        <View style={{backgroundColor:colors.cartButton,height:hp(4)}}>
                             <Text style={styles.topText}>Delivery time <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>9</Text><Text style={{fontFamily:'Montserrat-Bold'}}>am</Text> to <Text style={{fontSize:RFPercentage(3),fontFamily:'Montserrat-Bold'}}>11</Text><Text style={{fontFamily:'Montserrat-Bold'}}>pm</Text> or next day delivery</Text>
                         </View>
                     </View>
-                    {/* :
-                    null
-                    } */}
                     <View style={styles.proddets}>
                     {loading ?
                         <Loading />
@@ -260,15 +230,29 @@ export const VendorList = withCustomerToaster((props)=>{
                                 source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/NoVendorFooter.png'}}                                
                                 resizeMode='contain'
                                 />
-                        </View> */}
-                        {/* 
-                        <View style={{alignItems:'center'}}>
-                          
-                        </View>
-                        <View style={{alignItems:'center',height:115}}>
+                            </View>
+                            <View style={{alignItems:'center'}}>
+                                <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:26,color:"#033554",opacity: 1}}>Coming Soon to you!</Text>
+                                <View style={{justifyContent:'center',alignItems:'center'}}>
+                                    <Text style={{fontFamily:"Montserrat-Medium",fontSize:14,color:"#000"}}>We are expanding to your area very soon</Text>
+                                    <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-SemiBold",fontSize:10}]}>stay tuned</Text>
+                                </View>
+                            </View>
+                            {/* <View style={{height:70,backgroundColor:"#ff0"}}>
+                                <Image
+                                    source={require("../../AppDesigns/currentApp/images/NoVendorFooter.png")}
+                                    style={{height:'100%',width:"100%"}}
+                                    resizeMode='contain'
+                                    />
+                            </View> */}
+                            {/* 
+                            <View style={{alignItems:'center'}}>
                             
-                        </View> */}
-                    </View>
+                            </View>
+                            <View style={{alignItems:'center',height:115}}>
+                                
+                            </View> */}
+                        </View>
                     }
                     </View>
                 </View>}

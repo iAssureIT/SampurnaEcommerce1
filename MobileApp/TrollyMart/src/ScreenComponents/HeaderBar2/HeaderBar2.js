@@ -154,7 +154,7 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 
           }}>
           <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center',height:40}}>
-            <Icon size={RFPercentage(4)} name='arrow-left' type='material-community' color='#fff' />
+            <Icon size={RFPercentage(4)} name='chevron-left' type='material-community' color='#fff' size={RFPercentage(3)}/>
           </View>
         </TouchableOpacity>}
         <View style={styles.searchvw}>
@@ -177,7 +177,7 @@ import { RFPercentage } from "react-native-responsive-fontsize";
             value               = {searchText}
             onSubmitEditing     = {()=>updateSearch()}
             returnKeyType       = 'search'
-            searchIcon          = {<Icon name="search" type="font-awesome" size={RFPercentage(2.5)} color={"#000"}/>}
+            searchIcon          = {<Icon name="search" type="font-awesome" size={RFPercentage(2)} color={"#000"}/>}
             onClear              ={()=>{ 
               dispatch({type : SET_SUGGETION_LIST, payload  : []});
               dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
@@ -191,7 +191,7 @@ import { RFPercentage } from "react-native-responsive-fontsize";
         </View>
           <TouchableOpacity style={styles.location} onPress={()=>checkCart()}>
               <Icon name="crosshairs-gps" type="material-community" size={RFPercentage(1.6)} color={colors.black} iconStyle={{marginTop:2.5}}/>
-              <Text numberOfLines={2} style={{flex:.98,color:colors.textLight,fontSize:RFPercentage(1.6)}}>{location?.address.addressLine2}</Text>
+              <Text numberOfLines={2} style={{flex:.98,color:colors.textLight,fontSize:RFPercentage(1.4)}}>{location?.address.addressLine2}</Text>
           </TouchableOpacity>
           <Modal isVisible={modal}
         onBackdropPress={() => setModal(false)}

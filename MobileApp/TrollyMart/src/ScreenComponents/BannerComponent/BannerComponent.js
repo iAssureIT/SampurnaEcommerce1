@@ -33,7 +33,7 @@ export const BannerComponent=()=>{
     return (
       <View key={index}>
         <ImageBackground 
-          style={{ width:"100%", height: hp(20),borderRadius:5}} 
+          style={{ width:"100%", height: hp(18),borderRadius:5}} 
           imageStyle={{borderRadius:15}}
           source={bannerImages}
           resizeMode={"stretch"}

@@ -167,7 +167,7 @@ export const HorizontalProductList =(props)=>{
 
     return (
       <View style={{marginHorizontal:5}}>
-      <Text style={{fontSize: RFPercentage(3), fontFamily: 'Montserrat-Bold',color:"#000000",textShadowColor: 'rgba(0, 0, 0, 0.4)',textShadowOffset: {width: -1, height: 1},textShadowRadius:6,marginBottom:5}}>{props.blockTitle}</Text>
+      <Text style={{fontSize: RFPercentage(2.5), fontFamily: 'Montserrat-Bold',color:"#000000",textShadowColor: 'rgba(0, 0, 0, 0.4)',textShadowOffset: {width: -1, height: 1},textShadowRadius:2,marginBottom:5}}>{props.blockTitle}</Text>
         {productList && productList.length > 0 ?
           <FlatList
             horizontal          = {true}

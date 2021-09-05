@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		74D0EE31E226AF57446EB43B /* libPods-TrollyMart-TrollyMartTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F0BB7221DA76BB560758F2 /* libPods-TrollyMart-TrollyMartTests.a */; };
 		78047DBF26C41D5500A17F4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38EA266F3605004A4ED2 /* GoogleService-Info.plist */; };
-		7853A65926D6303C007180F8 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7853A65826D6303C007180F8 /* Dynamic.swift */; };
 		7853A65D26D7F72F007180F8 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7853A65A26D7F72F007180F8 /* Montserrat-Regular.ttf */; };
 		7853A65E26D7F72F007180F8 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7853A65B26D7F72F007180F8 /* Montserrat-SemiBold.ttf */; };
 		7853A65F26D7F72F007180F8 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7853A65C26D7F72F007180F8 /* Montserrat-Bold.otf */; };
@@ -66,7 +65,6 @@
 		78047DB526C3FDD100A17F4D /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		78047DBD26C406FD00A17F4D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		7853A65726D62F8A007180F8 /* TrollyMart-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TrollyMart-Bridging-Header.h"; sourceTree = "<group>"; };
-		7853A65826D6303C007180F8 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		7853A65A26D7F72F007180F8 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		7853A65B26D7F72F007180F8 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		7853A65C26D7F72F007180F8 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.otf"; path = "../assets/fonts/Montserrat-Bold.otf"; sourceTree = "<group>"; };
@@ -227,7 +225,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				7853A65826D6303C007180F8 /* Dynamic.swift */,
 				7853A65726D62F8A007180F8 /* TrollyMart-Bridging-Header.h */,
 				7C68E7D72694B449004C7F19 /* File.swift */,
 				7C6A38E7266F3605004A4ED2 /* TrollyMart */,
@@ -466,9 +463,11 @@
 			files = (
 			);
 			inputFileListPaths = (
+				"",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
+				"",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -515,14 +514,13 @@
 			);
 			inputPaths = (
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"";
+			shellPath = "${PODS_ROOT}/FirebaseCrashlytics/run";
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
 		};
 		89BA72D567BDDBB881DD5189 /* [CP-User] [RNFB] Core Configuration */ = {
@@ -590,7 +588,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C34B64D266E590B0078724F /* §.m in Sources */,
-				7853A65926D6303C007180F8 /* Dynamic.swift in Sources */,
 				7C68E7D82694B449004C7F19 /* File.swift in Sources */,
 				7C6A38F1266F3605004A4ED2 /* main.m in Sources */,
 			);

@@ -143,7 +143,7 @@ export const Confirmation = withCustomerToaster((props)=>{
     return (
         <View>
             <ImageBackground source={require("../../AppDesigns/currentApp/images/LocationBg.jpg")} style={{height:window.height, justifyContent:"flex-end"}}>
-                <View style={{alignItems:"flex-start",paddingTop:15,paddingLeft:15}}>
+                <View style={{alignItems:"flex-start",paddingTop:hp(2),paddingLeft:15}}>
                   {/* <TouchableOpacity onPress={()=> navigation.canGoBack() ?  navigation.goBack() : backAction()}> */}
                 {navigation.canGoBack() ?
                  <TouchableOpacity style={{}} onPress={()=>navigation.goBack()}>
@@ -155,12 +155,12 @@ export const Confirmation = withCustomerToaster((props)=>{
                   </TouchableOpacity>
                 } 
                 </View>  
-                <View style={{flex:.7,justifyContent:"flex-end",paddingHorizontal:wp(8),paddingBottom:hp(3)}}>
+                <View style={{flex:.65,justifyContent:"flex-end",paddingHorizontal:wp(8),paddingBottom:hp(3)}}>
                     {/* <Image source={require("../../AppDesigns/currentApp/images/delivery.jpeg")} style={{height:300,width:300}}/> */}
-                    <Text style={{color:"#000000",fontFamily:"Montserrat-Regular",fontSize:RFPercentage(1.8)}}>Delivery Location</Text>
+                    <Text style={{color:"#000000",fontFamily:"Montserrat-Regular",fontSize:RFPercentage(2)}}>Delivery Location</Text>
                     <Text style={{color:"#EF4D4D",fontFamily:"Montserrat-Regular",fontSize:RFPercentage(1.3)}}>Set your delivery location to browse stores around you.</Text>
                 </View>    
-                <View style={{flex:.3}}>
+                <View style={{flex:.35}}>
                     <View style={{paddingHorizontal:wp(8)}}>
                     <FormButton
                         title       = {'Current Location'}
@@ -180,7 +180,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                           />
                     </View>
                     {deliveryAddress.length > 0?
-                      <View style={{paddingHorizontal:wp(8),marginBottom:15}}>
+                      <View style={{paddingHorizontal:wp(8),marginBottom:hp(2)}}>
                         <FormButton
                           title       = {'Choose From Addresses'}
                           onPress     = {()=>navigation.navigate('AddressDefaultComp',{delivery:false,disabled:true,back:true})}
