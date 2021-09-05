@@ -48,6 +48,8 @@ const productsSchema = mongoose.Schema({
     bestSeller                : Boolean,
     type                      : String,
     unit                      : String,
+    vendorBarcode             : String,    
+    vendorItemcode            : String,
     attributes                : [ 
         {
             index            : String,

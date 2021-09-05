@@ -833,6 +833,8 @@ class IAssureTable extends Component {
     	this.props.saveProductImages(this.state.productImage,this.state.productID,this.state.productImageArray)
     }
 	render(){
+		console.log("this.state.tableData=====",this.state.tableData)
+
 		// console.log('productImageArray',this.state.productImageArray)
         return (
 	       	<div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12 NoPadding">	
@@ -983,7 +985,8 @@ class IAssureTable extends Component {
 																});
 																if(found.length > 0){
 																	if(key !== 'id'){
-																		return(<td className={textAlign} key={i}><div className={textAlign} dangerouslySetInnerHTML={{ __html:value1}}></div></td>); 						
+																		return(<td className={textAlign} key={i}><div className={textAlign} dangerouslySetInnerHTML={{ __html:value1}}></div></td>);						
+
 																	}
 																}
 															}

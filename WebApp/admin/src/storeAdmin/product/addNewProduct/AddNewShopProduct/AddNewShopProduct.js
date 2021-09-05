@@ -609,6 +609,8 @@ class AddNewShopProduct extends Component {
 			 categoryNameRlang : response.data.categoryNameRlang,
 			 subCategory: response.data.subCategory + '|' + response.data.subCategory_ID,
 			 brand: response.data.brand,
+			 vendorBarcode : response.data.vendorBarcode,
+			 vendorItemcode: response.data.vendorItemcode,
 			 brandNameRlang: response.data.brandNameRlang,
 			 productCode: response.data.productCode,
 			 itemCode: response.data.itemCode,
@@ -708,9 +710,11 @@ class AddNewShopProduct extends Component {
 		"category_ID" : this.refs.category.value.split('|')[1],
 		"category"    : this.refs.category.value.split('|')[0],
 		"categoryNameRlang" : this.state.categoryNameRlang,
-		"subCategory_ID": this.refs.subCategory.value.split('|')[1].split("-")[0],
-		"subCategory" : this.refs.subCategory.value.split('|')[0],
+		"subCategory_ID": this.refs.subCategory.value.split('|')[1] ? this.refs.subCategory.value.split('|')[1].split("-")[0] : null,
+		"subCategory" : this.refs.subCategory.value ? this.refs.subCategory.value.split('|')[0] : null,		
 		"brand"       : this.refs.brand.value,
+		"vendorBarcode"  : this.refs.vendorBarcode.value,
+		"vendorItemcode" : this.refs.vendorItemcode.value,
 		"brandNameRlang" : this.refs.brandNameRlang.value,
 		"productCode" : this.refs.productCode.value,
 		"itemCode"    : this.refs.itemCode.value,
@@ -778,6 +782,8 @@ class AddNewShopProduct extends Component {
 					 category: "Select Category",
 					 subCategory: "Select Sub-Category",
 					 brand: "",
+					 vendorBarcode : "",
+					 vendorItemcode: "",
 					 brandNameRlang : "",
 					 productCode: "",
 					 itemCode: "",
@@ -818,6 +824,10 @@ class AddNewShopProduct extends Component {
 					 }
 			 })
 
+		  }else{
+			swal({
+				title: "Please enter Product details",
+			  });
 		  }
 		 }
 		 
@@ -925,9 +935,13 @@ class AddNewShopProduct extends Component {
 		"category_ID"       : this.refs.category.value.split('|')[1],
 		"category"          : this.refs.category.value.split('|')[0],
 		"categoryNameRlang" : this.state.categoryNameRlang,
-		"subCategory_ID"    : this.refs.subCategory.value.split('|')[1].split("-")[0],
-		"subCategory"       : this.refs.subCategory.value.split('|')[0],
+		"subCategory_ID"    : this.refs.subCategory.value.split('|')[1] ? this.refs.subCategory.value.split('|')[1].split("-")[0] : null,
+		"subCategory"       : this.refs.subCategory.value ? this.refs.subCategory.value.split('|')[0] : null,
+		// "subCategory_ID"    : this.refs.subCategory.value.split('|')[1].split("-")[0],
+		// "subCategory"       : this.refs.subCategory.value.split('|')[0],
 		"brand"             : this.refs.brand.value,
+		"vendorBarcode"     : this.refs.vendorBarcode.value,
+		"vendorItemcode"    : this.refs.vendorItemcode.value,
 		"brandNameRlang"    : this.refs.brandNameRlang.value,
 		"productCode"       : this.refs.productCode.value,
 		"itemCode"          : this.refs.itemCode.value,
@@ -973,6 +987,8 @@ class AddNewShopProduct extends Component {
 				  categoryNameRlang : "",
 				  subCategory: "Select Sub-Category",
 				  brand: "",
+				  vendorBarcode   : "",
+		          vendorItemcode  : "",
 				  brandNameRlang :"",
 				  productCode: "",
 				  itemCode: "",
@@ -1454,8 +1470,8 @@ class AddNewShopProduct extends Component {
 											 </div>
 										  </div>
 										  	<div className="mt addNewProductWrap col-lg-12 col-md-12 col-sm-12 col-xs-12 add-new-productCol">
-												<div className=" col-lg-2 col-md-2 col-sm-12 col-xs-12 ">
-													<label>Universal Product Code</label>
+												<div className=" col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+													<label>Universal Product Code <i className="redFont">*</i></label>
 													<input onChange={this.handleChange.bind(this)} value={this.state.universalProductCode} id="universalProductCode" name="universalProductCode" type="text" className="form-control " placeholder="Universal Product Code" aria-describedby="basic-addon1" ref="universalProductCode" />
 												</div>
 												<div className=" col-lg-2 col-md-2 col-sm-12 col-xs-12 ">
@@ -1507,23 +1523,30 @@ class AddNewShopProduct extends Component {
 												  }
 												</select>
 											 </div>
-
-											 <div className="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-												<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">{this.state.taxName ? this.state.taxName : 'Tax'} Included <i className="redFont">*</i></label>
-												<label class="taxswitch">
-												  <input type="checkbox" onChange={this.changeTaxInclude.bind(this)} checked={this.state.taxInclude} id="taxInclude" name="taxInclude" ref="taxInclude" className="NOpadding" />
-												  <span class="taxslider taxround"></span>
-												</label>
-											 </div>
 										  </div>
-										  <div className="mt addNewProductWrap col-lg-12 col-md-12 col-sm-12 col-xs-12 add-new-productCol">
-												<div className=" col-lg-2 col-md-2 col-sm-12 col-xs-12 ">
-													<label>Is product returnable ?</label>
+										  <div className="mt addNewProductWrap col-lg-12 col-md-12 col-sm-12 col-xs-12 add-new-productCol">											    
+												<div className=" col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+													<label>Is product returnable ? <i className="redFont">*</i></label>
 													<select className="form-control selectdropdown" ref="productReturnable" id="productReturnable" name="productReturnable" value={this.state.productReturnable} onChange={this.handleChange.bind(this)}>
 														<option value="" disabled>Select Type</option>
 														<option value="returnable">returnable </option>
 														<option value="non-returnable">non-returnable</option>
 													</select>
+												</div>
+												<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 inputFields">
+													<label>Vendor Barcode</label>
+													<input value={this.state.vendorBarcode} name="vendorBarcode" id="vendorBarcode" type="text" className="form-control productBrandName" placeholder="Vendor Barcode" aria-label="Vendor Barcode" aria-describedby="basic-addon1" ref="vendorBarcode" onChange={this.handleChange.bind(this)} />
+												</div>
+												<div className="col-lg-2 col-md-2 col-sm-2 col-xs-2 inputFields">
+													<label>Vendor Itemcode</label>
+													<input value={this.state.vendorItemcode} name="vendorItemcode" id="vendorItemcode" type="text" className="form-control productBrandName" placeholder="Vendor Itemcode" aria-label="Vendor Itemcode" aria-describedby="basic-addon1" ref="vendorItemcode" onChange={this.handleChange.bind(this)} />
+												</div>
+												<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+													<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">{this.state.taxName ? this.state.taxName : 'Tax'} Included <i className="redFont">*</i></label>
+													<label class="taxswitch">
+													<input type="checkbox" onChange={this.changeTaxInclude.bind(this)} checked={this.state.taxInclude} id="taxInclude" name="taxInclude" ref="taxInclude" className="NOpadding" />
+													<span class="taxslider taxround"></span>
+													</label>
 												</div>
 											</div>
 										  <div className="mt addNewProductWrap col-lg-12 col-md-12 col-sm-12 col-xs-12 add-new-productCol">

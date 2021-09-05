@@ -295,10 +295,10 @@ class ProductList extends Component {
 
 		var formValues = {		  	
 			startRange 		: startRange,
-         limitRange 		: limitRange,
-         searchText 		: this.state.searchText,
+            limitRange 		: limitRange,
+            searchText 		: this.state.searchText,
 			vendor 			: this.state.vendor ? this.state.vendor.value : "",
-			section 			: this.state.section ? this.state.section.value : "",
+			section 		: this.state.section ? this.state.section.value : "",
 			category 		: this.state.category ? this.state.category.value : "",
 			subCategory 	: this.state.subCategory ? this.state.subCategory.value : "",
 			status 			: this.state.status ? this.state.status.value : ""
@@ -308,7 +308,7 @@ class ProductList extends Component {
 		.then((response) => {
 			// console.log("reponse for admin list",response);
 		  	var tableData = response.data.data.map((a, i) => {
-			  	// console.log("a.vendorName----",a.vendorName);
+			  	console.log("a.vendorName----",a);
 				return {
 					productName 		: a.productName,
 					vendor  				: a.vendorName,

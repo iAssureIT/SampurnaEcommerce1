@@ -63,6 +63,8 @@ exports.insert_product = (req,res,next)=>{
 				tags                      : req.body.tags,
 				offered                   : req.body.offered,
 				unit                      : req.body.unit,
+				vendorBarcode             : req.body.vendorBarcode,
+				vendorItemcode            : req.body.vendorItemcode,
 				size                      : req.body.size,
 				universalProductCode      : req.body.universalProductCode,
 				color                     : req.body.color,
@@ -892,7 +894,9 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
 						exclusive                 : data.exclusive,
 						featured                  : data.featured,
 						newProduct                : data.newProduct,
-						bestSeller                : data.bestSeller,  
+						bestSeller                : data.bestSeller,
+						vendorBarcode             : data.vendorBarcode,
+						vendorItemcode            : data.vendorItemcode,  
 						tags                      : data.tags,
 						taxInclude                : data.taxInclude,
 						taxName                   : taxObject ? taxObject.taxName : 'No Tax',
@@ -914,7 +918,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
 						itemCode                  : data.itemCode ? data.itemCode : "",
 						productName               : data.productName,
 						shortDescription          : data.shortDescription ? data.shortDescription : "",
-						productReturnable          : data.productReturnable ? data.productReturnable : "",
+						productReturnable         : data.productReturnable ? data.productReturnable : "",
 						currentQuantity           : data.availableQuantity ? data.availableQuantity : "",
 						originalPrice             : data.originalPrice,
 						discountPercent           : data.discountPercent,
@@ -1084,6 +1088,8 @@ exports.update_product = (req,res,next)=>{
 				tags                      : req.body.tags,
 				offered                   : req.body.offered,
 				unit                      : req.body.unit,
+				vendorBarcode             : req.body.vendorBarcode,
+				vendorItemcode            : req.body.vendorItemcode,
 				size                      : req.body.size,
 				universalProductCode      : req.body.universalProductCode,
 				color                     : req.body.color,
@@ -1213,7 +1219,7 @@ exports.list_product = (req,res,next)=>{
 	// Products.find().sort({'itemCode': 1})     
 	.exec()
 	.then(data=>{
-		// console.log("data",data);
+		console.log("1222 =======data",data);
 		// if(data.length > 0){
 			 res.status(200).json(data);
 		// }else{
@@ -1574,23 +1580,25 @@ exports.list_product_with_limits = (req,res,next)=>{
 				vendor_ID 							: 1,
 				section_ID 							: 1,
 				category_ID 						: 1,
-				subCategory_ID 					: 1,
+				subCategory_ID 						: 1,
 				status          					: 1,
 				createdAt       					: 1,
 				"productName"						: 1,
 				"brand"								: 1,
 				"productCode" 						: 1,
 				"itemCode" 							: 1,
+				"vendorBarcode"						: 1,
+				"vendorItemcode"					: 1,
 				"originalPrice" 					: 1,
-				"discountPercent" 				: 1,
-				"discountedPrice" 				: 1,
+				"discountPercent" 					: 1,
+				"discountedPrice" 					: 1,
 				"availableQuantity" 				: 1,
 				"featured" 							: 1,
 				"exclusive" 						: 1,
-				"vendorDetails.companyName"	: 1,
-				"categoryDetails.category"		: 1,
-				"categoryDetails.subCategory"	: 1,
-				"sectionDetails.section"		: 1
+				"vendorDetails.companyName"	        : 1,
+				"categoryDetails.category"		    : 1,
+				"categoryDetails.subCategory"	    : 1,
+				"sectionDetails.section"		    : 1
 			}
 		}
 	])
@@ -1614,11 +1622,16 @@ exports.list_product_with_limits = (req,res,next)=>{
 				var inventoryData 		= await ProductInventory.findOne({productCode : data[i].productCode, itemCode : data[i].itemCode, vendor_ID : ObjectId(data[i].vendor_ID)},{currentQuantity : 1})
 				var availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 
 				// console.log("availableQuantity => ",availableQuantity)
+				let vendorBarcode = data[i].vendorBarcode && "</span><br><span class='whiteSpaceNoWrap'>" +  data[i].vendorBarcode !== undefined ? "Vendor Barcode: " + data[i].vendorBarcode : " " + "</span><br>"
+				let vendorItemcode = data[i].vendorItemcode && "</span><br><span class='whiteSpaceNoWrap'>" + data[i].vendorItemcode !== undefined ?  "Vendor Itemcode: " +  data[i].vendorItemcode : " " + "</span>"
 				allData.push({
 									"_id"                   : data[i]._id,
 									// "productNameBasic"      : data[i].productName + "<br>Product Code: "+data[i].productCode+ "<br>Item Code: "+data[i].itemCode,
 									// "productNameRlang"      : data[i].productNameRlang,
-									"productName"           : "<div><b>"+(data[i].productName)+"</b><br></div>"+"<span class='whiteSpaceNoWrap'> Product Code: "+data[i].productCode+ "</span><br><span class='whiteSpaceNoWrap'> Item Code: " + data[i].itemCode + "</span>",
+									"productName"           : "<div><b>"+(data[i].productName)+"</b><br></div>"+"<span class='whiteSpaceNoWrap'> Product Code: "+data[i].productCode+"</span><br><span class='whiteSpaceNoWrap'> Item Code: " + data[i].itemCode + "</span><br>" 								
+																// + "</span><br><span class='whiteSpaceNoWrap'> Vendor Barcode: " + data[i].vendorBarcode + "</span>" 
+																// + "</span><br><span class='whiteSpaceNoWrap'> Vendor Itemcode: " + data[i].vendorItemcode + "</span>" ,
+																+ vendorBarcode + "<br>"+vendorItemcode, 
 									"vendorName"            : data[i].vendorDetails && data[i].vendorDetails.length > 0 ? data[i].vendorDetails[0].companyName : "-",
 									"section"               : data[i].sectionDetails && data[i].sectionDetails.length > 0 ? data[i].sectionDetails[0].section : "-",
 									"category"              : data[i].categoryDetails && data[i].categoryDetails.length > 0 ? data[i].categoryDetails[0].category : "-",
@@ -4135,7 +4148,7 @@ var updateProductBulk = async (section_ID, section, categoryObject,data,taxObjec
 						productUrl                : !isNaN(data.productName) ? data.productName.replace(/\s+/g, '-').toLowerCase() : null,
 						productDetails            : data.productDetails ? data.productDetails : "",
 						shortDescription          : data.shortDescription ? data.shortDescription : "",
-						productReturnable          : data.productReturnable ? data.productReturnable : "",
+						productReturnable         : data.productReturnable ? data.productReturnable : "",
 						featureList               : data.featureList ? data.featureList : "",
 						attributes                : data.attributes ? data.attributes : [],
 						currency                  : data.currency ? data.currency.toLowerCase() : "inr",
@@ -4148,6 +4161,8 @@ var updateProductBulk = async (section_ID, section, categoryObject,data,taxObjec
 						status                    : "Draft",
 						offered                   : data.offered,
 						unit                      : data.unit ? data.unit : "",
+						vendorBarcode             : data.vendorBarcode ? data.vendorBarcode: "",
+						vendorItemcode            : data.vendorItemcode ? data.vendorItemcode: "",
 						size                      : data.size ? data.size : "",
 						color                     : data.color ? data.color : "",
 						exclusive                 : data.exclusive,

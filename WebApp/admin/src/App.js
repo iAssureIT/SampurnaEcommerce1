@@ -20,7 +20,7 @@ axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-// console.log("baseURL",axios.defaults.baseURL)
+console.log("baseURL",axios.defaults.baseURL)
 
 function App(){
   return(
