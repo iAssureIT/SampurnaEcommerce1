@@ -126,13 +126,13 @@ export default StyleSheet.create({
 		borderRadius:4,
 		shadowColor: "#000",
 		shadowOffset: {
-		  width: 0,
-		  height: 7,
+			width: -2,
+			height: 2,
 		},
-		shadowOpacity: 0.43,
-		shadowRadius: 9.51,
-
-		elevation: 10,
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		
+		elevation: 5,
 		borderWidth:1,
 		borderColor:"#f1f1f1",
 		backgroundColor:"#fff"

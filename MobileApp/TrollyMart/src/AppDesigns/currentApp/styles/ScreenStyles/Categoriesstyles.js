@@ -66,12 +66,14 @@ export default StyleSheet.create({
   },
   discountpricecut: {
 		textDecorationLine: 'line-through',
-    fontSize:RFPercentage(2),
+    textDecorationColor:"#DC1919",
+    textDecorationStyle:'solid',
+    fontSize:RFPercentage(2.2),
     fontFamily:"Montserrat-Regular",
     color: "#000000",
     opacity: 0.5,
     // marginTop:5,
-    // marginBottom:3,
+    marginBottom:1,
 	},
   subcatimgbig:{
     height:180,
@@ -688,7 +690,7 @@ export default StyleSheet.create({
     color: "#5B8E7E",
     opacity: 1,
     fontSize:RFPercentage(2),
-    // marginBottom:5,
+    marginBottom:1,
   },
   backText:{
     fontFamily:"Montserrat-SemiBold",
@@ -698,8 +700,7 @@ export default StyleSheet.create({
     paddingTop:20,
     paddingBottom:10,
     textAlign:'center',
-    borderBottomWidth:0.5, 
-    borderColor:'#6E6E6E'   
+     
     // backgroundColor:'red',
   },
 

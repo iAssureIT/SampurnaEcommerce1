@@ -15,6 +15,8 @@ import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchS
 import { useSelector }        from 'react-redux';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import AsyncStorage         from '@react-native-async-storage/async-storage';
+import Axios                from "axios";
 
 export const TermsAndConditions  = (props)=>{
     const {navigation}=props;
@@ -38,7 +40,7 @@ export const TermsAndConditions  = (props)=>{
     }
 
     const getData=()=>{
-        Axios.get('/api/pages/get/page_block/terms-and-conditions')
+        Axios.get('/api/pages/get/page_block/terms-and-conditions-mobile')
         .then(res=>{
             console.log("res",res);
             setLoading(false);

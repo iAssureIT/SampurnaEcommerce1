@@ -469,7 +469,7 @@ console.log("vendor",vendor);
                     data                = {sizes}
                     value               = {sizes[sizeIndex]?.label}
                     containerStyle      = {styles.ddContainer}
-                    dropdownOffset      = {{ top: 83, left: 0 }}
+                    dropdownOffset      = {{ top: hp(9.5), left: 0 }}
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
                     labelHeight         = {10}
@@ -627,6 +627,7 @@ console.log("vendor",vendor);
               >
                   <Text style={styles.backText}>Back To Top</Text>                  
               </TouchableOpacity>
+              <View style={{borderBottomWidth:0.5,borderColor:'#6E6E6E',width:"80%",alignSelf:'center'}} />
               <View style={styles.detailclr}>
                 <HorizontalProductList 
                     // blockTitle   = {"You May Also Like"}

@@ -125,7 +125,7 @@ export const HorizontalProductList =(props)=>{
             </View>
             <View style={[styles.flx1, styles.protxt]}>
               <View style={{flexDirection:'row',flex:1}}>
-                  <View style={{flex:.8}}>
+                  <View style={{flex:.75}}>
                     {/* {item.brand ?
                   
                       <Text numberOfLines={1} style={[styles.productName]}>{item.brand}</Text>
@@ -133,10 +133,10 @@ export const HorizontalProductList =(props)=>{
                       null
                     } */}
                   </View>
-                  {props.addToCart &&<View style={{flex:.2}}>
+                  {props.addToCart &&<View style={{flex:.25}}>
                     <TouchableOpacity 
                       onPress={() =>addToCart(item._id,item.vendor_ID)}
-                    style={{height:hp(4),width:hp(4),borderWidth:1,borderRadius:100,marginRight:15,justifyContent:'center',alignItems:"center",borderColor:colors.cartButton}}>
+                    style={{height:hp(3.5),width:hp(3.5),borderWidth:1,borderRadius:100,justifyContent:'center',alignItems:"center",borderColor:colors.cartButton}}>
                       <Icon name="plus" type="material-community" size={RFPercentage(3)} color={colors.cartButton} iconStyle={{alignSelf:'flex-end'}}/>
                     </TouchableOpacity>  
                   </View>}  
