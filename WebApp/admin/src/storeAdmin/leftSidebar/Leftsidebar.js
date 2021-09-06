@@ -186,7 +186,7 @@ export default class AdminDashboard extends Component{
 
 						{/*Product Management*/}
 						<li className="treeview" >
-							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("productmanagement")} title="Product Management">
+							<a href="#" onClick={()=>this.openMenu("productmanagement")} title="Product Management">
 								<i className="fa fa-product-hunt" aria-hidden="true"></i>
 								<span className="smsidenames sidebarMenuTitle">Product Management</span>
 								<span className="pull-right-container">
@@ -229,7 +229,7 @@ export default class AdminDashboard extends Component{
 
 						{/*Inventory Management*/}
 {/*						<li className="treeview" >
-							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("inventorymanagement")} title="Inventory Management">
+							<a href="#" onClick={()=>this.openMenu("inventorymanagement")} title="Inventory Management">
 								<i className="fa fa-tasks" aria-hidden="true"></i>
 								<span className="smsidenames sidebarMenuTitle">Inventory Management</span>
 								<span className="pull-right-container">
@@ -254,7 +254,7 @@ export default class AdminDashboard extends Component{
 
 						{/*Order Management*/}
 						<li className="treeview" >
-							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("ordermanagement")} title="Order Management">
+							<a href="#" onClick={()=>this.openMenu("ordermanagement")} title="Order Management">
 								<i className="fa fa-shopping-cart" aria-hidden="true"></i>
 								<span className="smsidenames sidebarMenuTitle">Order Management</span>
 								<span className="pull-right-container">
@@ -270,7 +270,7 @@ export default class AdminDashboard extends Component{
 							{Array.isArray(this.state.orderStatusData) && this.state.orderStatusData.map( (data,index)=>{
 								var status = (data.orderStatus).replace(/\s+/g, '-').toLowerCase();
 								return(
-									<li className="noPadLR"> 
+									<li className="noPadLR" key={index}> 
 										<a href={"/orders-list/"+status} data-id={"/orders-list/"+status} title={data.orderStatus + " Orders"} onClick={this.activeMenu.bind(this)}>
 											<i className="fa fa-circle-o dashr" />{data.orderStatus + " Orders"}
 										</a> 
@@ -342,7 +342,7 @@ export default class AdminDashboard extends Component{
 
 						{/*Reports Management*/}
 						<li className="treeview" >
-							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("reportsmanagement")} title="Reports Management">
+							<a href="#" onClick={()=>this.openMenu("reportsmanagement")} title="Reports Management">
 								<i className="fa fa-file-excel-o" aria-hidden="true"></i>
 								<span className="smsidenames sidebarMenuTitle">Reports Management</span>
 								<span className="pull-right-container">
@@ -466,7 +466,7 @@ export default class AdminDashboard extends Component{
 								</a>
 							</li>					
 								// <li className="treeview" >
-								// 	<a href="JavaScript:void(0);" onClick={()=>this.openMenu("corporateData")} title="Corporate Master">
+								// 	<a href="#" onClick={()=>this.openMenu("corporateData")} title="Corporate Master">
 								// 		<i className="fa fa-users" aria-hidden="true"></i>
 								// 		<span className="smsidenames sidebarMenuTitle">Inventory Management </span>
 								// 		<span className="pull-right-container">
@@ -567,7 +567,7 @@ export default class AdminDashboard extends Component{
 						 {//
 						// this.state.websiteModel === "MarketPlace" ?
 						// <li className="treeview" >
-						//   <a href="JavaScript:void(0);" onClick={()=>this.openMenu("baData")} title="Contract Management">
+						//   <a href="#" onClick={()=>this.openMenu("baData")} title="Contract Management">
 						//     <i className="fa fa-file" aria-hidden="true"></i>
 						//     <span className="smsidenames sidebarMenuTitle">Business Associate</span>
 						//     <span className="pull-right-container">
@@ -597,7 +597,7 @@ export default class AdminDashboard extends Component{
 							this.state.websiteModel === "MarketPlace" ?
 							// console.log("data===",this.state.websiteModel)
 									<li className="treeview" >
-										<a href="JavaScript:void(0);" onClick={()=>this.openMenu("bussinessData")} title="BA Master">
+										<a href="#" onClick={()=>this.openMenu("bussinessData")} title="BA Master">
 											<i className="fa fa-book" aria-hidden="true"></i>
 											<span className="smsidenames sidebarMenuTitle">BA Master</span>
 											<span className="pull-right-container">

@@ -1453,7 +1453,7 @@ exports.logouthistory = (req, res, next) => {
 					},
 					{
 						$set: {
-							
+								"services.resume.loginTokens.$.hashedToken": "",
 								"services.resume.loginTokens.$.logoutTimeStamp": new Date(),
 						}
 					}

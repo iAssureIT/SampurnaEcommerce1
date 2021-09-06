@@ -418,7 +418,7 @@ class Header extends Component {
 					{/*</a>*/}
 					<nav className="navbar navbar-static-top" role="navigation">
 						<div className="col-lg-3 col-md-4 col-sm-4 col-xs-4 padd0">
-							<a href="javascript:void(0)" className="sidebar-toggle marginTop11 marginLeft12" data-toggle="push-menu" role="button">
+							<a href="#" className="sidebar-toggle marginTop11 marginLeft12" data-toggle="push-menu" role="button">
 								<span className="sr-only">
 									Toggle navigation
                   				</span>

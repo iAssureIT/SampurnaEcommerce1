@@ -53,8 +53,9 @@ class BulkProductImageUpload extends Component{
 		var token       = userDetails.token;
 		axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;   
 
-		this.getData();
-		this.getDatawithlimit(this.state.startRange , this.state.limitRange);
+		this.getDataCount();
+		// this.getDatawithlimit(this.state.startRange , this.state.limitRange);
+		this.getDataSection(this.state.startRange , this.state.limitRange);
 
 
 		axios.get("/api/adminPreference/get")
@@ -91,7 +92,7 @@ class BulkProductImageUpload extends Component{
 	  	}) 
 
 		// this.getCount();
-		this.getData(this.state.startRange, this.state.limitRange);
+		this.getDataCount(this.state.startRange, this.state.limitRange);
 
 		this.getSectionData();
 		// this.productCountByStatus();
@@ -231,13 +232,13 @@ class BulkProductImageUpload extends Component{
 		  	})
 	 	}      
 	}
-	getData(){
-		axios.get('/api/products/get/list')
+
+	getDataCount(){
+		axios.get('/api/products/get/newcount')
 		.then((response)=>{
-				// console.log('response = ', response.data)
+			console.log(" data count => ",response.data);
 				this.setState({
-					// allshopproductimages : response.data
-					dataCount : response.data.length
+					dataCount : response.data.dataCount
 				})
 		})
 		.catch((error)=>{
@@ -256,46 +257,46 @@ class BulkProductImageUpload extends Component{
 								});
 						}
 		})
-}
-
-getDatawithlimit(startRange , limitRange){
-	
-	let payload = {
-		startRange : startRange,
-		limitRange : limitRange,
 	}
 
-	axios.post('/api/products/get/list/limit',payload)
-	.then((response)=>{
-			// console.log('response 68 = ', response.data)
-			this.setState({
-				allshopproductimages : response.data
-			})
-	})
-	.catch((error)=>{
-			console.log('error', error);
-			if(error.message === "Request failed with status code 401"){
-							var userDetails =  localStorage.removeItem("userDetails");
-							localStorage.clear();
-							swal({  
-									title : "Your Session is expired.",                
-									text  : "You need to login again. Click OK to go to Login Page"
-							})
-							.then(okay => {
-									if (okay) {
-											window.location.href = "/login";
-									}
-							});
-					}
-	})
-}
+	getDatawithlimit(startRange , limitRange){
+		
+		let payload = {
+			startRange : startRange,
+			limitRange : limitRange,
+		}
+
+		axios.post('/api/products/get/listimgproduct/limit',payload)
+		.then((response)=>{
+				// console.log('response 68 = ', response.data)
+				this.setState({
+					allshopproductimages : response.data
+				})
+		})
+		.catch((error)=>{
+				console.log('error', error);
+				if(error.message === "Request failed with status code 401"){
+								var userDetails =  localStorage.removeItem("userDetails");
+								localStorage.clear();
+								swal({  
+										title : "Your Session is expired.",                
+										text  : "You need to login again. Click OK to go to Login Page"
+								})
+								.then(okay => {
+										if (okay) {
+												window.location.href = "/login";
+										}
+								});
+						}
+		})
+	}
 
 	getSearchText(searchText) {
 		this.setState({
-		searchText : searchText
+			searchText : searchText
 		},()=>{
 			console.log("this.state.searchText" ,this.state.searchText)
-		this.getDatawithlimit(0, this.state.limitRange);
+			this.getDataSection(0, this.state.limitRange);
 		})
 	}
 
@@ -508,14 +509,14 @@ getDatawithlimit(startRange , limitRange){
 			var formValue = {
 				productImage        : this.state.productImageArray[i].productImage,
 				productSmallImage   : this.state.productImageArray[i].productSmallImage,
-				vendorID      		: this.state.productImageArray[i].vendorID,
-				productCode      	: this.state.productImageArray[i].productCode,
-				itemCode      		: this.state.productImageArray[i].itemCode
+				vendorID      		  : this.state.productImageArray[i].vendorID,
+				productCode      	  : this.state.productImageArray[i].productCode,
+				itemCode      		  : this.state.productImageArray[i].itemCode
 			}
 			axios.patch('/api/products/patch/bulkimages/', formValue)
 			.then((response)=>{
 				// console.log('itemCodeNotExist', this.state.itemCodeNotExist);
-				this.getData();
+				this.getDataCount();
 				// if(this.state.itemCodeNotExist !== ''){
 				//   swal(response.data.message+" some images not uploaded because item code does not exist");
 				// }else{
@@ -581,7 +582,7 @@ getDatawithlimit(startRange , limitRange){
 				
 					axios.patch('/api/products/remove/image', formValues)
 					.then((res)=>{
-						this.getData();
+						this.getDataCount();
 					})
 					.catch((error)=>{
 						console.log('errro', error);
@@ -590,9 +591,7 @@ getDatawithlimit(startRange , limitRange){
 			} else {
 				swal("Your image is safe!");
 			}
-		});
-
- 
+		}); 
 	}
 	showItemCodeError(e){
 		e.preventDefault();
@@ -601,7 +600,7 @@ getDatawithlimit(startRange , limitRange){
 
 
 		 /**=========== handleChangeFilters() ===========*/
-		 handleChangeFilters(event){     
+		handleChangeFilters(event){     
 			var name    = event.name;
   
 			this.setState({ 
@@ -624,26 +623,28 @@ getDatawithlimit(startRange , limitRange){
 			});
 	   };
 	   
-	   getDataSection(startRange, limitRange) {
+	getDataSection(startRange, limitRange) {
 		// this.setState({ 
 		// 	messageData 		: {}, 
 		// 	isLoadingData 		: true			
 		// })
+		
+		console.log("startRange = "+startRange+" | limitRange = "+limitRange);
 
 		var formValues = {		  	
 			startRange 		: startRange,
-            limitRange 		: limitRange,
-            searchText 		: this.state.searchText,
+         limitRange 		: limitRange,
+         searchText 		: this.state.searchText,
 			vendor 			: this.state.vendor ? this.state.vendor.value : "",
-			section 		: this.state.section ? this.state.section.value : "",
+			section 			: this.state.section ? this.state.section.value : "",
 			category 		: this.state.category ? this.state.category.value : "",
 			subCategory 	: this.state.subCategory ? this.state.subCategory.value : "",
 			status 			: this.state.status ? this.state.status.value : ""
 		}
 		// this.getCount(formValues);
-		axios.post('/api/products/get/list/filter', formValues)
+		axios.post('/api/products/get/listimgproduct/filter', formValues)
 		.then((response) => {
-			console.log("reponse for admin 647 list =======",response.data.data);
+			// console.log("reponse for admin 647 list =======",response.data.data);
 		  	// var tableData = response.data.data.map((a, i) => {
 			//   	// console.log("a.vendorName----",a);
 			// 	  return {
@@ -664,6 +665,8 @@ getDatawithlimit(startRange , limitRange){
 			// 		_id 					: a._id
 			// 	}
 		  	// })
+		 	console.log("response.data.data => ",response.data.data);
+
 		 	this.setState({
 		 		// dataCount 		: response.data.dataCount,
 				 allshopproductimages 			: response.data.data,
@@ -1028,7 +1031,7 @@ getDatawithlimit(startRange , limitRange){
 									// twoLevelHeader 		= {this.state.twoLevelHeader}
 									dataCount 				= {this.state.dataCount}
 									tableData 				= {this.state.allshopproductimages}
-									getData 					= {this.getDatawithlimit.bind(this)}
+									getData 					= {this.getDataSection.bind(this)}
 									tableObjects 			= {this.state.tableObjects}
 									// selectedProducts 		= {this.selectedProducts.bind(this)}
 									getSearchText 			= {this.getSearchText.bind(this)}

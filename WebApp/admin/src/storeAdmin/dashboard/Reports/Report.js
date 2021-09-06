@@ -21,7 +21,8 @@ class Report extends Component{
       display:props.display,
       tableHeading:props.tableHeading,
       websiteModel: props.websiteModel,
-      data:[]
+      data:[],
+      loading : false
     }
   }
    
@@ -58,17 +59,21 @@ class Report extends Component{
     if(this.state.apiData){
       var Method = this.state.apiData.method;
       var Path = this.state.apiData.path;
+      this.setState({loading:true});
         axios({
           method: Method,
           url: Path
         })
         .then((response)=>{ 
+          // console.log("Report response.data => ",response.data);
           const result = response.data.filter(function(data,index){
             return index <= 6
           });
 
           this.setState({data:result},()=>{
-            console.log("data =>",this.state.data)
+            this.setState({loading:false});
+
+            // console.log("data =>",this.state.data)
           })
         })
         .catch((error)=>{
@@ -121,49 +126,54 @@ class Report extends Component{
                   </tr>
                   </thead>
                   <tbody className="fontSmall">
-                  {this.state.data && this.state.data.length > 0 ?
-                    this.state.data.map((data,index)=>{
-                      var franchiseName = data.allocatedToFranchise ? data.allocatedToFranchise.companyName : '';
-                      console.log("data reports",data);
-                      let products = [];
-                      if (data.products && data.products.length > 0) {
-                        console.log("Yes");                      
-                        data.products.map((product,index)=>{
-                          console.log("product => ",product)
-                          products.push(product.productName);
+                    {this.state.data && this.state.data.length > 0 
+                      ?
+                        this.state.data.map((data,index)=>{
+                          console.log("132 line data = ",data);
+
+{/*                          let products = [];
+                          let totalAmount = 0;
+                          if (data.vendorOrders && data.vendorOrders.length > 0){
+                            data.vendorOrders.map((oneOrder,index)=>{
+                              if(oneOrder.products && oneOrder.products.length > 0) {
+                                oneOrder.products.map((product,index)=>{
+                                  console.log("product.productName = ",product.productName);
+                                  products.push(product.productName);
+                                  totalAmount = totalAmount + oneOrder.;
+                                })
+                              }
+                            });
+                          };
+*/}
+                          console.log("data.orderStatus  = ",data.orderStatus );
+
+                            let statusClass = '';
+                            statusClass = data.orderStatus === "New"           ? "label label-warning"     : "" ;
+                            statusClass = data.orderStatus === "Processing"    ? " label label-warning"    : "" ;
+                            statusClass = data.orderStatus === "Ready to Dispatch"  ? "label label-default" : "" ;
+                            statusClass = data.orderStatus === "On the Way"    ? "label label-success"     : "" ;
+                            statusClass = data.orderStatus === "Delivered"     ? "label label-success"     : "" ;
+                            statusClass = data.orderStatus === "Cancelled"     ? "label label-danger"      : "" ;
+                            return(
+                              <tr key={index}>
+                                <td><a className="href-link" href={"/view-order/"+data._id}>{data.orderID}</a></td>
+                                <td>{data.deliveryAddress.city}</td>
+                                <td className="itemtd">Total Products: {data.order_numberOfProducts}</td>
+                                <td>AED {data.paymentDetails.netPayableAmount}</td>
+                                <td><span className={statusClass}>{data.orderStatus}</span></td>
+                              </tr>
+                            )
                         })
-                      
-                      let currentStatus  = data.deliveryStatus.length - 1;
-                      let deliveryStatus = data.deliveryStatus[currentStatus].status;
-                      let statusClass = '';
-                      statusClass = deliveryStatus === "New Order"    ? "label label-warning"   : 
-                      statusClass = deliveryStatus === "Verified"    ? " label label-warning"   : 
-                      statusClass = deliveryStatus === "Inspection"  ? "label label-default" :
-                      statusClass = deliveryStatus === "Dispatch Approved"  ? "label label-success" :
-                      statusClass = deliveryStatus === "Dispatch"    ? "label label-success" :
-                      statusClass = deliveryStatus === "To Deliver"    ? "label label-info" :
-                      statusClass = deliveryStatus === "Delivery Initiated"    ? "label label-primary" :
-                      statusClass = deliveryStatus === "Delivered & Paid"   ? "label label-success" : 
-                      statusClass = deliveryStatus === "Returned"   ? "label label-default" : 
-                      statusClass = deliveryStatus === "Cancelled"   ? "label label-danger" : ""
-                      return(
-                        <tr key={index}>
-                          <td><a className="href-link" href={"/viewOrder/"+data._id}>{data.orderID}</a></td>
-                          <td className="itemtd">{products.toString()}</td>
-                          {this.state.websiteModel === 'FranchiseModel' ?
-                          <td>{franchiseName}</td>
-                          : null }
-                          <td><i className="fa fa-inr"></i>{data.total}</td>
-                          {/* {console.log("statusClass",statusClass)} */}
-                          <td><span className={statusClass}>{deliveryStatus}</span>
+                      :
+                        <tr>
+                          <td colSpan="5" className="textAlignCenter">
+                            {this.state.loading 
+                              ? <span> Data Loading <i className="fa fa-spinner fa-spin"></i> </span>
+                              : <span> No Data Found </span>
+                            }
                           </td>
                         </tr>
-                      )
-                      }
-                    })
-                    :
-                    <tr><td colSpan="5" className="textAlignCenter">No Data Found</td></tr>
-                  }
+                    }
                   </tbody>
                 </table>
               </div>

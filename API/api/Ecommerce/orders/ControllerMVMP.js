@@ -1193,6 +1193,23 @@ exports.list_order = (req, res, next) => {
 		});
 	 });
 };
+
+exports.list_order_for_dashboard = (req, res, next) => {
+  Orders.find({})
+	 .populate("allocatedToFranchise")
+	 .sort({ createdAt: -1 })
+	 .limit(10)
+	 .then(data => {
+		// console.log("allocatedToFranchise===>>>",data);
+		res.status(200).json(data);
+	 })
+	 .catch(err => {
+		console.log(err);
+		res.status(500).json({
+		  error: err
+		});
+	 });
+};
 exports.vendor_order_list = (req, res, next) => {
   Orders.aggregate([
 	 { "$unwind": "$products" },

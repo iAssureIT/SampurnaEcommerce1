@@ -32,6 +32,8 @@ router.patch('/cancel/order', 													                orderController.cance
 
 router.get('/get/list', 																		orderController.list_order);
 
+router.get('/get/list/fordashboard', 																		orderController.list_order_for_dashboard);
+
 router.get('/get/franchisewise/list/:franchiseID', 										        orderController.list_franchise_order);
 
 router.post('/get/vendorwiselist/:vendorID', 												    orderController.vendor_order_list);

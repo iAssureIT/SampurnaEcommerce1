@@ -1263,7 +1263,7 @@ exports.list_limit_product_data = (req,res,next)=>{
 };
 
 exports.list_product_with_FilterData = (req,res,next)=>{	
-	// console.log('req', req.body);
+	console.log('list_product_with_FilterData = ', req.body);
 	var selector        = {};
 	selector['$and']    = [];
 
@@ -1300,15 +1300,14 @@ exports.list_product_with_FilterData = (req,res,next)=>{
 		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
 		selector["$and"].push({ 
 			"$or" : [
-						{ "vendorDetails.companyName" 						: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "productName" 											: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "brand" 													: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "subCategory"											: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "sectionDetails.section" 							: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "categoryDetails.category" 							: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "categoryDetails.subCategory.subCategoryTitle": {'$regex' : req.body.searchText , $options: "i" } },
-						{ "productCode"											: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "itemCode"												: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "vendorDetails.companyName" 	: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productName" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "brand" 								: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "section" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "category" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "subCategory"						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productCode"						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "itemCode"							: {'$regex' : req.body.searchText , $options: "i" } },
 					]
 		})
 	}
@@ -1345,7 +1344,10 @@ exports.list_product_with_FilterData = (req,res,next)=>{
 				vendor_ID 							: 1,
 				section_ID 							: 1,
 				category_ID 						: 1,
-				subCategory_ID 						: 1,
+				subCategory_ID 					: 1,
+				section 								: 1,
+				category 							: 1,
+				subCategory							: 1,
 				status          					: 1,
 				createdAt       					: 1,
 				"productName"						: 1,
@@ -1370,7 +1372,7 @@ exports.list_product_with_FilterData = (req,res,next)=>{
 	])
 	// .exec()
 	.skip(parseInt(req.body.startRange))
-	.limit(parseInt(req.body.limitRange))
+	.limit(parseInt(req.body.limitRange - req.body.startRange))
 	.then(async(data)=>{
 		var allData = []
 		for (var i = 0; i < data.length; i++) {
@@ -1722,18 +1724,23 @@ exports.list_product_with_limits = (req,res,next)=>{
 		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
 		selector["$and"].push({ 
 			"$or" : [
-						{ "vendorDetails.companyName" 						: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "productName" 											: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "brand" 													: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "subCategory"											: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "sectionDetails.section" 							: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "categoryDetails.category" 							: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "categoryDetails.subCategory.subCategoryTitle": {'$regex' : req.body.searchText , $options: "i" } },
-						{ "productCode"											: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "itemCode"												: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "vendorDetails.companyName"	: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productName" 					: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "brand" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "section" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "category" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "subCategory"					: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productCode"					: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "itemCode"						: {'$regex' : req.body.searchText , $options: "i" } },
 					]
 		})
 	}
+
+						// { "subCategory"											: {'$regex' : req.body.searchText , $options: "i" } },
+						// { "sectionDetails.section" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						// { "categoryDetails.category" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						// { "categoryDetails.subCategory.subCategoryTitle": {'$regex' : req.body.searchText , $options: "i" } },
+
 	Products.aggregate([
 		{ $lookup : {
 				from 				: 'entitymasters',
@@ -1977,6 +1984,7 @@ exports.list_product_with_vendor = (req,res,next)=>{
 		});
 	});
 };
+
 exports.count_product = (req,res,next)=>{
 	Products.find({})
 	.exec()
@@ -2004,6 +2012,23 @@ exports.count_product = (req,res,next)=>{
 		});
 	});
 };
+
+exports.new_count_product = (req,res,next)=>{
+	Products.count()
+	.exec()
+	.then(data=>{
+		console.log("data count => ", data);
+		res.status(200).json({"dataCount":data});
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+};
+
+
 
 exports.count_published_product = (req,res,next)=>{
 	Products.find({'status' : 'Publish'})

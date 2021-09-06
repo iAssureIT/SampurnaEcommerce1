@@ -58,6 +58,7 @@ class IAssureTable extends Component {
 			productNameRlang      : ''
 		}
 		this.delete = this.delete.bind(this);
+
 	}
 	componentDidMount() {
 	  $("html,body").scrollTop(0); 
@@ -78,6 +79,8 @@ class IAssureTable extends Component {
 	  this.paginationFunction();
 	}
 	componentWillReceiveProps(nextProps) {
+		console.log("props.tableData = ",nextProps.tableData);
+		
 		if(this.state.callPage === true){
         	this.paginationFunction();
         }

@@ -68,6 +68,8 @@ router.put('/multiple', 										        productController.update_product_multi
 
 router.get('/get/count', 										        productController.count_product);
 
+router.get('/get/newcount', 										        productController.new_count_product);
+
 router.post('/get/all/count', 										        productController.count_all_products);
 
 router.get('/get/published/count',  							        productController.count_published_product);
@@ -190,8 +192,8 @@ router.post('/get/product_list_by_section', 					        productController.produ
 
 /*===================== New API's By Ranjan =====================*/
 
-router.post('/get/list/limit', 												productController.list_limit_product_data);
-router.post('/get/list/filter', 											productController.list_product_with_FilterData);
+router.post('/get/listimgproduct/limit', 	productController.list_limit_product_data);
+router.post('/get/listimgproduct/filter', productController.list_product_with_FilterData);
 
 
 

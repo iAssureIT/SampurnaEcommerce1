@@ -147,11 +147,11 @@ export default class Dashboard extends Component{
             <div className="row">
               <Report
                 display={true}
-                tableHeading={this.state.websiteModel === 'FranchiseModel' ? ["Order Id","Item","Franchise","Amount","Status"] : ["Order Id","Item","Amount","Status"]}
+                tableHeading={this.state.websiteModel === 'FranchiseModel' ? ["Order Id","Item","Franchise","Amount","Status"] : ["Order Id","City","Number of Products","Amount","Status"]}
                 boxColor="box-primary"
                 websiteModel={this.state.websiteModel}
                 title="Latest Orders"
-                api={{"method":"get","path":"/api/orders/get/list"}}
+                api={{"method":"get","path":"/api/orders/get/list/fordashboard"}}
                 redirectlink="/allorders" />
 
               {this.state.websiteModel === 'FranchiseModel' ? 

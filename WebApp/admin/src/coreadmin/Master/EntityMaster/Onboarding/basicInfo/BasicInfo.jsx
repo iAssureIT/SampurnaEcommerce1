@@ -872,16 +872,23 @@ class BasicInfo extends Component {
 	}
   }
   changeMobile(event) {
-	this.setState({
-	  companyPhone: event
-	}, () => {
-	  if (this.state.companyPhone) {
+	if(event.length > 12){
+		return true;
+	}else{		
 		this.setState({
-		  companyPhoneAvailable: this.state.companyPhone === "+" || (this.state.companyPhone.length < 11 && this.state.companyPhone.length > 12) ? false : true
-		},()=>{
-		})
-	  }
-	})
+		  companyPhone: event
+		}, () => {
+			console.log("this.state.companyPhone length reached to ",this.state.companyPhone.length );
+
+			if (this.state.companyPhone) {
+				this.setState({
+				  companyPhoneAvailable: this.state.companyPhone === "+" || (this.state.companyPhone.length < 11 && this.state.companyPhone.length > 12) ? false : true
+				},()=>{
+				})
+			}
+		});
+	}
+
   }
   deleteLogo(event) {
 	event.preventDefault();
@@ -1097,7 +1104,7 @@ class BasicInfo extends Component {
 
 							  <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 							  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding" id="companyPhone">  
-								<label className="labelform  NOpadding-left">Contact Number<i className="astrick">*</i></label>
+								<label className="labelform NOpadding-left">Contact Number<i className="astrick">*</i></label>
 								<PhoneInput
 								  country = {'ae'}
 								  value   = {this.state.companyPhone}
@@ -1106,8 +1113,15 @@ class BasicInfo extends Component {
 									name: 'companyPhone',
 									required: true
 								  }}
-								  onChange={this.changeMobile.bind(this)}
-								  
+									isValid={(value, country) => {
+										console.log("phone value = ",value);
+									    if (value.length > 12) {
+									      return "UAE Phone is max 10 digits." ;
+									    } else {
+									      return true;
+									    }
+									}}								  
+								  onChange={this.changeMobile.bind(this)}								  
 								/>
 								{this.state.companyPhoneAvailable ? null : <label className="error">Please enter valid mobile number</label>}
 								</div>
