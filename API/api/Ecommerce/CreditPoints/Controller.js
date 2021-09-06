@@ -11,7 +11,7 @@ exports.get_credit_points = (req, res, next) => {
 	.then(async(creditpointsdata)=>{
 		// console.log("creditpointsdata => ",creditpointsdata)
 		var creditPointsPolicy   = await CreditPointsPolicy.findOne();   
-		if(creditPointsPolicy !== null && creditPointsPolicy.expiryLimitInDays){
+		if(creditPointsPolicy !== null){
 			var expiryLimitInDays 	= creditPointsPolicy.expiryLimitInDays;
 			var creditPointValue 	= creditPointsPolicy.creditPointValue;
 		}         
@@ -20,7 +20,7 @@ exports.get_credit_points = (req, res, next) => {
 				_id 			: creditpointsdata._id,
 				user_id 		: creditpointsdata.user_id,
 				totalPoints 	: creditpointsdata.totalPoints,
-				totalPointsValue : (creditpointsdata.totalPoints * creditPointValue).toFixed(2),
+				totalPointsValue : (parseInt(creditpointsdata.totalPoints) * parseFloat(creditPointValue)).toFixed(2),
 				transactions 	: creditpointsdata.transactions && creditpointsdata.transactions.length > 0
 									? 
 										(creditpointsdata.transactions.map((a, i)=>{	
@@ -30,7 +30,7 @@ exports.get_credit_points = (req, res, next) => {
 													order_id    		: a.order_id._id,
 													orderID    			: a.order_id.orderID,
 													transactionDate     : a.transactionDate,
-													expiryDate 			: moment(a.transactionDate, "MM/DD/YYYY").add(expiryLimitInDays, 'days'),
+													expiryDate 			: creditPointsPolicy.expiryLimitInDays ? moment(a.transactionDate, "MM/DD/YYYY").add(expiryLimitInDays, 'days') : "",
 													purchaseAmount    	: a.purchaseAmount,
 													shippingCharges     : a.shippingCharges,
 													totalAmount         : a.totalAmount,

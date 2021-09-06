@@ -1451,7 +1451,16 @@ exports.fetch_order = (req, res, next) => {
 					if(j>=data.vendorOrders.length){
 						var returnData = data;
 						returnData.maxDurationForCancelOrder = maxDurationForCancelOrder;
-						var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(returnData.user_ID), 'transactions.order_id' : ObjectId(req.params.orderID), "transactions.typeOfTransaction" : "Original Order"},{'transactions.$' : 1});
+						var creditPointsData = await CreditPoints.findOne({
+														user_id 		: ObjectId(returnData.user_ID), 
+														transactions: { 
+															$elemMatch: { 
+																typeOfTransaction : 'Original Order', 
+																order_id : ObjectId(req.params.orderID) 
+															} 
+														}
+													},
+													{'transactions.$' : 1});
 						
 						if(creditPointsData && creditPointsData !== null && creditPointsData.transactions && creditPointsData.transactions.length > 0){
 							var creditPolicyData = await CreditPointsPolicy.findOne();
