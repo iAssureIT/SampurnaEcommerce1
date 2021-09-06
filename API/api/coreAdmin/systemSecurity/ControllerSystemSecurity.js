@@ -2742,16 +2742,15 @@ exports.set_send_otp = (req, res, next) => {
 	)
 	.then(user => {
 		if(user !== null){
-			console.log('user => ',user)
-			if (user.authService === "google" || user.authService === "facebook") {
+			if (user.authService !== "" && user.authService !== undefined) {
 				res.status(200).json({ 
 					message : "You are not allowed to change your password. Because you are login through " + user.authService
 				});
 			} else {
+					console.log("status", user.profile.status);
 	 			if ((user.profile.status).toLowerCase() === "active" || (user.profile.status).toLowerCase() === "unverified") {
 	 				// var otpMobile = getRandomInt(1000, 9999);
 					 var otpMobile = 1234;
-					// console.log("optEmail", optEmail, req.body);
 					User.updateOne(
 						{ "_id": ObjectID(user._id)},
 						{
@@ -2780,7 +2779,7 @@ exports.set_send_otp = (req, res, next) => {
 							// console.log("notification formvalues => ",userNotificationValues)
 							var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
 							res.status(200).json({ 
-								message 	: "OTP sent on registered mobile number", 
+								message 	: req.params.username.includes("@") ? "OTP sent on your registered email Id" : "OTP sent on your registered mobile number", 
 								ID 		: user._id,
 								profile 	: user.profile 
 							})
@@ -2806,6 +2805,10 @@ exports.set_send_otp = (req, res, next) => {
 				} else if ((user.profile.status).toLowerCase() == "unverified") {
 					res.status(200).json({ 
 						message : "User is unverified" 
+					});
+				}else{
+					res.status(200).json({ 
+						message : "User is not active" 
 					});
 				}
 			}
