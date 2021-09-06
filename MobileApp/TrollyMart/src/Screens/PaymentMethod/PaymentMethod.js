@@ -22,6 +22,7 @@ import {REACT_APP_BASE_URL} from '@env'
 import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 import { NetWorkError } from '../../../NetWorkError.js';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { Button, Icon,Input,Tooltip,CheckBox }   from "react-native-elements";
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 // import {AppEventsLogger} from 'react-native-fbsdk';    
@@ -232,7 +233,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                   </View>
                   <View style={styles.orderbrdr}>
                     <TouchableOpacity style={styles.flx3}  onPress={() => {setChecked('third');setPaymentMethods('Online Payment')}}>
-                      <RadioButton
+                      {/* <RadioButton
                         value="third"
                         checkedIcon='dot-circle-o'
                         color={colors.cartButton}                             
@@ -242,6 +243,18 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         // color={colors.theme}
                         status={checked === 'third' ? 'checked' : 'unchecked'}
                         onPress={() => {setChecked('third');setPaymentMethods('Online Payment')}}
+                      /> */}
+                       <CheckBox
+                            containerStyle={styles.radiobtn}
+                            checkedIcon='dot-circle-o'
+                            checkedColor='#033554'                              
+                            uncheckedIcon='circle-o'
+                            uncheckedColor='#033554'
+                            size={RFPercentage(3)}
+                            center
+                            title=''
+                            checked={checked === 'third' ? true : false}
+                            onPress={() => {setChecked('third');setPaymentMethods('Online Payment')}}
                       />
                       <View style={{flex:0.8}}>
                         <Text style={styles.free}>Online Payment </Text>
@@ -256,7 +269,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                   </View>
                   <TouchableOpacity style={styles.orderbrdr}  onPress={() => {setChecked('second');setPaymentMethods('Card On Delivery')}}>
                     <View style={styles.flx3}>
-                      <RadioButton
+                      {/* <RadioButton
                         style={styles.radiobtn}
                         checkedIcon='dot-circle-o'
                         color='#033554'                              
@@ -267,6 +280,18 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         value="second"
                         status={checked === 'second' ? 'checked' : 'unchecked'}
                         onPress={() => {setChecked('second');setPaymentMethods('Card On Delivery')}}
+                      /> */}
+                       <CheckBox
+                            containerStyle={styles.radiobtn}
+                            checkedIcon='dot-circle-o'
+                            checkedColor='#033554'                              
+                            uncheckedIcon='circle-o'
+                            uncheckedColor='#033554'
+                            size={RFPercentage(3)}
+                            center
+                            title=''
+                            checked={checked === 'second' ? true : false}
+                            onPress={() => {setChecked('second');setPaymentMethods('Card On Delivery')}}
                       />
                       <View style={{flex:0.8}}>
                         <Text style={styles.free}>Card on Delivery</Text>
@@ -280,7 +305,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.orderbrdr} onPress={() => {setChecked('first');setPaymentMethods('Cash On Delivery')}}>
                     <View style={styles.flx3}>
-                      <RadioButton
+                      {/* <RadioButton
                         style={styles.radiobtn}
                         checkedIcon='dot-circle-o'
                         color='#033554'                              
@@ -291,6 +316,18 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         // color={colors.theme}
                         status={checked === 'first' ? 'checked' : 'unchecked'}
                         onPress={() => {setChecked('first');setPaymentMethods('Cash On Delivery')}}
+                      /> */}
+                      <CheckBox
+                            containerStyle={styles.radiobtn}
+                            checkedIcon='dot-circle-o'
+                            checkedColor='#033554'                              
+                            uncheckedIcon='circle-o'
+                            uncheckedColor='#033554'
+                            size={RFPercentage(3)}
+                            center
+                            title=''
+                            checked={checked === 'first' ? true : false}
+                            onPress={() => {setChecked('first');setPaymentMethods('Cash On Delivery')}}
                       />
                       <View style={{flex:0.8}}>
                         <Text style={styles.free}>Cash on Delivery</Text>

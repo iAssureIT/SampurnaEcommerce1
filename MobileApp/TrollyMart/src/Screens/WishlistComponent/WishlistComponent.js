@@ -92,20 +92,7 @@ const [refreshing,setRefresh]= useState(false)
                           <Icon name= "map-marker" type = 'material-community' size={hp(2.5)} color= "red" style={{paddingHorizontal:wp(1)}}/>
                           <Text style={[CommonStyles.labelWish,{flex:1}]}>{item.areaName}</Text>
                         </View>  
-                        <View style=
-                        {{
-                          backgroundColor: '#fff',
-                          width: '100%',
-                          minHeight: 200,
-                          marginTop:hp(2),
-                          marginBottom:hp(2.8),
-                          borderRadius:5,
-                          shadowColor: '#00000040',
-                          shadowOffset: { width: 0, height: 10 },
-                          shadowOpacity:  0.4,
-                          shadowRadius: 5,
-                          elevation: 5,
-                          }}>
+                        <View style={styles.wishlistbox}>
                           <ProductList 
                             navigate    = {navigation.navigate} 
                             newProducts = {item.products}  

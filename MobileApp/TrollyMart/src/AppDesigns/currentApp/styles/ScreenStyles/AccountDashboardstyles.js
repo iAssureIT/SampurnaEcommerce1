@@ -320,14 +320,14 @@ export default StyleSheet.create({
   },
 
   iconImg:{
-    height:hp(4),
-    width:hp(5),
+    height:hp(3),
+    width:hp(3),
     resizeMode:'cover',
   },
 
   copyRightText:{
     color:'#000',
-    fontSize:RFPercentage(1.8),
+    fontSize:RFPercentage(1.5),
     fontFamily:"Montserrat-Regular",
     opacity: 0.5,
   },
@@ -371,7 +371,7 @@ export default StyleSheet.create({
   },
 
   header1:{
-    fontSize:RFPercentage(2.8),
+    fontSize:RFPercentage(2.5),
     fontFamily:"Montserrat-Bold",
     color:'#000',
     lineHeight:RFPercentage(3.2),

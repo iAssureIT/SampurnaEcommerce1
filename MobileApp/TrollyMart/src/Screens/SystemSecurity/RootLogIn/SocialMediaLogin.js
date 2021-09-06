@@ -289,8 +289,8 @@ const window = Dimensions.get('window');
                     backgroundColor:"#fff",
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: hp(5), 
-                    height: hp(5),
+                    width: hp(4), 
+                    height: hp(4),
                     borderRadius:100,
                     shadowColor: "#000",
                     shadowOffset: {
@@ -315,8 +315,8 @@ const window = Dimensions.get('window');
                     backgroundColor:"#4267B2",
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: hp(4.7), 
-                    height: hp(4.7),
+                    width: hp(3.7), 
+                    height: hp(3.7),
                     borderRadius:100,
                     shadowColor: "#000",
                     shadowOffset: {

@@ -139,11 +139,11 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                     </View>
                 </View>    
                 <TouchableOpacity style={{flexDirection:'row',marginTop:hp(3.5),justifyContent:'center',alignItems:'center'}}  onPress  = {() => navigation.navigate('OrderDetails', { orderid: order._id })}>
-                    <Icon name="eye" type='material-community' size={RFPercentage(2.8)} color="#fff" iconStyle={{paddingHorizontal:3}}/>
+                    <Icon name="eye-outline" type='material-community' size={RFPercentage(2.4)} color="#fff" iconStyle={{paddingHorizontal:3}}/>
                     <Text style={[CommonStyles.label,{color:"#fff",fontFamily:"Montserrat-Regular",textDecorationLine:'underline'}]}>View my order</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginTop:10,marginBottom:100}}  onPress  = {() => navigation.navigate('Dashboard')}>
-                    <Icon name="reply" type='material-community' size={RFPercentage(2.8)} color="#fff" iconStyle={{paddingHorizontal:3}}/>
+                    <Icon name="reply" type='material-community' size={RFPercentage(2.4)} color="#fff" iconStyle={{paddingHorizontal:3}}/>
                     <Text style={[CommonStyles.label,{color:"#fff",fontFamily:"Montserrat-Regular",textDecorationLine:'underline'}]}>Go back to homepage</Text>
                 </TouchableOpacity>
             </View>

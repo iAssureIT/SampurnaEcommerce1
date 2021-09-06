@@ -32,6 +32,15 @@ export default StyleSheet.create({
     // borderBottomColor: '#ccc',
     // paddingBottom:15,
     paddingHorizontal:hp(5),
+    shadowColor: "#000",
+shadowOffset: {
+	width: -2,
+	height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+
+elevation: 5,
   },
   flx7:{
     flex:0.9
@@ -73,13 +82,13 @@ export default StyleSheet.create({
     fontSize: 12, fontFamily: "Montserrat-SemiBold", color: '#333'
   },
   free: {
-    fontSize: RFPercentage(2.5), fontFamily: "Montserrat-SemiBold", color: '#000',marginLeft:30
+    fontSize: RFPercentage(2.2), fontFamily: "Montserrat-SemiBold", color: '#000',marginLeft:10
   },
   freeL2: {
-    fontSize: RFPercentage(1.8), fontFamily: "Montserrat-Regular", color: '#A6A6A6',marginLeft:30
+    fontSize: RFPercentage(1.8), fontFamily: "Montserrat-Regular", color: '#A6A6A6',marginLeft:10
   },
   radiobtn: {
-    fontSize: RFPercentage(2.2),padding:0,margin:0,flex: 1, 
+    fontSize: RFPercentage(2.2),padding:0,margin:0
   },
   prodname: {
     flex: 1, fontSize: 13, flexWrap: "wrap", fontFamily: "Montserrat-Regular", color: '#666', paddingVertical: 5
@@ -114,7 +123,6 @@ export default StyleSheet.create({
   vwwishlist: {
     marginBottom: '10%',
     alignItems:"center",
-    marginTop: hp(1),
     height:hp(28),
     //  backgroundColor:'red',
     justifyContent:'center'

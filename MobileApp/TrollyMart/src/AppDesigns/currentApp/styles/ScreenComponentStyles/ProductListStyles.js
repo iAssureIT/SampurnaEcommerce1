@@ -150,14 +150,14 @@ export default StyleSheet.create({
 		borderRadius:15,
 		// shadowColor: "#000",
 		shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 2,
-},
-shadowOpacity: 0.25,
-shadowRadius: 3.84,
+		shadowOffset: {
+			width: -3,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
 
-elevation: 5,
+		elevation: 5,
 		borderColor:colors.cartButton,
 		borderWidth:0.5,
 	},

@@ -224,12 +224,13 @@ export const MyOrder = withCustomerToaster((props)=>{
                         <View style={[styles.prodinfoparent]}>
                           <View style={{paddingHorizontal:0}}>                            
                             <View style={{paddingHorizontal:20}}>
-                            <View style={{marginBottom:20}}><Text style={{fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Bold",color:order.orderStatus === "New" ? colors.cartButton : order.orderStatus === "Delivered" ? colors.success :colors.danger}}>{order.orderStatus}</Text></View>
+                            <View style={{marginBottom:20}}><Text style={{fontSize:RFPercentage(2),fontFamily:"Montserrat-Bold",color:order.orderStatus === "New" ? colors.cartButton : order.orderStatus === "Delivered" ? colors.success :colors.danger}}>{order.orderStatus} {order.orderStatus === "New" && "Order"}</Text></View>
                               <View style={{flexDirection:'row'}}>
                                 <View style={[styles.orderid]}>
                                   <Text style={styles.orderidinfo}>Order ID : {order.orderID}</Text>
                                 </View>
                                 <View style={styles.orderAmount}>
+
                                   <Text style={styles.orderidinfo}>Total Amount {currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)} </Text>
                                 </View>
                             </View>                             
@@ -296,7 +297,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                                   <View style={{flexDirection:'row',marginVertical:30}}>
                                       <View style={{flex:0.7,borderRightWidth:0.5,borderColor:"#0000004F",paddingHorizontal:15}}>
                                           <Text style={styles.totalpriceincart}>Amount : {item.vendor_afterDiscountTotal && item.vendor_afterDiscountTotal.toFixed(2)} {currency}</Text>
-                                          <Text style={styles.totalpriceincart}>No Of Products : {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
+                                          <Text style={styles.totalpriceincart}>{item.vendor_numberOfProducts && item.vendor_numberOfProducts} Items</Text>
                                       </View>
                                       <View style={{flex:0.49,paddingHorizontal:15}}>
                                       <View style={{alignSelf:'center',marginTop:12,justifyContent:'center',alignItems:'center',borderRadius:2,width:wp(30),height:hp(2.2),marginLeft:5,
@@ -336,7 +337,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                                   store.userDetails.authService !=='guest' && <View style={styles.orderdetailsstatus}>
                                     {order.orderStatus && (order.orderStatus !== 'Cancelled' && order.orderStatus !== 'Delivered') &&
                                     <View style={[styles.orderdetailsstatus,{paddingRight:0,height:hp(3)}]}>
-                                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",fontSize:RFPercentage(2),color:colors.danger,textDecorationLine:'underline'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('LT')}</Text>
+                                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",fontSize:RFPercentage(1.6),color:"#E88686",textDecorationLine:'underline'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('LT')}</Text>
                                     </View>}
                                   </View>
                                   :

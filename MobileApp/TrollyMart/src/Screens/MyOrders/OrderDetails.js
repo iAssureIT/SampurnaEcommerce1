@@ -6,8 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  TextInput,Dimensions,
-  BackHandler,
+  Dimensions,
   Linking,
   ImageBackground
 }                       from 'react-native';
@@ -25,21 +24,20 @@ import { connect,
   useSelector }             from 'react-redux';
 import StepIndicator        from 'react-native-step-indicator';
 import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import CountDown            from 'react-native-countdown-component';
 import Modal                from "react-native-modal";
 import { useIsFocused }     from "@react-navigation/native";
 import openSocket           from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
-import { Dropdown }             from 'react-native-material-dropdown-v2-fixed';
-import { RadioButton }        from 'react-native-paper';
-import ImagePicker              		from 'react-native-image-crop-picker';
-import {PERMISSIONS, request, RESULTS} 	from 'react-native-permissions';
-import { RNS3 }                 		from 'react-native-aws3';
-import HTML from 'react-native-render-html';
-import { NetWorkError } from '../../../NetWorkError.js';
-import {Picker} from '@react-native-picker/picker';
+import { Dropdown }         from 'react-native-material-dropdown-v2-fixed';
+import ImagePicker          from 'react-native-image-crop-picker';
+import {PERMISSIONS, 
+        request, 
+        RESULTS} 	          from 'react-native-permissions';
+import { RNS3 }             from 'react-native-aws3';
+import HTML                 from 'react-native-render-html';
+import { NetWorkError }     from '../../../NetWorkError.js';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
@@ -47,26 +45,26 @@ const WATER_IMAGE = require("../../AppDesigns/currentApp/images/star.png")
 const window = Dimensions.get('window');
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
   const customStyles = {
-    stepIndicatorSize                 : hp(4),
-    currentStepIndicatorSize          : hp(4),
+    stepIndicatorSize                 : hp(3),
+    currentStepIndicatorSize          : hp(3),
     separatorStrokeWidth              : 2,
     currentStepStrokeWidth            : 3,
     stepStrokeCurrentColor            : colors.warning,
     stepStrokeWidth                   : 3,
     stepStrokeFinishedColor           : colors.success,
-    stepStrokeUnFinishedColor         : '#aaaaaa',
+    stepStrokeUnFinishedColor         : '#C9C9C9',
     separatorFinishedColor            : colors.success,
-    separatorUnFinishedColor          : '#aaaaaa',
+    separatorUnFinishedColor          : '#C9C9C9',
     stepIndicatorFinishedColor        : colors.success,
-    stepIndicatorUnFinishedColor      : '#aaaaaa',
+    stepIndicatorUnFinishedColor      : '#C9C9C9',
     stepIndicatorCurrentColor         : colors.warning,
-    stepIndicatorLabelFontSize        : RFPercentage(2.1),
-    currentStepIndicatorLabelFontSize : RFPercentage(2.1),
+    stepIndicatorLabelFontSize        : RFPercentage(1.8),
+    currentStepIndicatorLabelFontSize : RFPercentage(1.8),
     stepIndicatorLabelCurrentColor    : '#ffffff',
     stepIndicatorLabelFinishedColor   : '#ffffff',
     stepIndicatorLabelUnFinishedColor : '#ffffff',
-    labelColor                        : '#999999',
-    labelSize                         : RFPercentage(2.1),
+    labelColor                        : '#C9C9C9',
+    labelSize                         : RFPercentage(1.8),
     currentStepLabelColor             : colors.warning,
   }
 export const OrderDetails = withCustomerToaster((props)=>{
@@ -534,7 +532,7 @@ const cancelorderbtn = (id,vendor_id) => {
           <View style={{paddingVertical:5}}>
               <Text style={[CommonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
               <View style={{flexDirection:"row",justifyContent:'space-between'}}>
-                <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text></View>
+                <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Service Charges : </Text></View>
                 <View style={{flex:.1}}>{
                   vendor.vendor_shippingChargesAfterDiscount !== vendor.vendor_shippingCharges &&
                     <Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text>
@@ -546,7 +544,7 @@ const cancelorderbtn = (id,vendor_id) => {
     })  
     }
      <View style={{marginTop:30,flexDirection:'row',justifyContent:'space-between'}}>
-      <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Total Delivery Charges :</Text></View>
+      <View style={{flex:.7}}><Text style={[CommonStyles.text,{color:"#fff"}]}>Total Service Charges :</Text></View>
       {/* <View style={{flex:.1}}><Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{order?.paymentDetails?.shippingChargesBeforeDiscount}</Text></View> */}
       <View style={{flex:.2}}><Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{order?.paymentDetails?.shippingCharges} {currency}</Text></View>
     </View>  
@@ -603,29 +601,6 @@ const cancelorderbtn = (id,vendor_id) => {
                         {store.userDetails.authService !== "guest"&&<View style={[{flex:0.54,alignItems:'flex-end'}]}>
                           <Text numberOfLines={2} style={[styles.totaldata,{color: "#000000",opacity: 1}]}>Credit points earned &nbsp;{order.paymentDetails.creditPointsEarned}</Text>
                         </View>}
-                        {/* {positionOrder === 3  &&
-                        <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>
-                          <View style={[styles.vendorStatus,
-                                (positionOrder === 0 ? 
-                                {backgroundColor:'#017BFE'}
-                                :
-                                positionOrder === 1 ? 
-                                {backgroundColor:colors.warning}
-                                :
-                                positionOrder === 2 ? 
-                                {backgroundColor:"#EB984E"}
-                                :
-                                positionOrder === 3 ?  
-                                {backgroundColor:colors.success}
-                                :
-                                positionOrder === 4 ?  
-                                {backgroundColor:colors.red}
-                                :
-                                "#eee")
-                              ]}>
-                          <Text style={[styles.totaldata,{padding:5,color:"#fff"}]}>{order.orderStatus}</Text>
-                        </View>
-                      </View>} */}
                     </View>
                     <View style={{flexDirection:"row",marginTop:5,justifyContent:'space-between'}}>
                         <View style={[{flex:0.44}]}>
@@ -637,24 +612,10 @@ const cancelorderbtn = (id,vendor_id) => {
                     </View>
                   </View>  
                 </View>  
-                  {/* <View style={styles.addressdetais}>
-                    <Text style={styles.addtitle}>Shipping Address <Text style={styles.addressdets}>: {order.deliveryAddress ? order.deliveryAddress.addressLine2+" "+order.deliveryAddress.addressLine1 : "NA"}</Text></Text>
-                    <Text style={styles.addtitle}>Mobile Number <Text style={styles.addressdets}>: {order.deliveryAddress ?  order.deliveryAddress.mobileNumber : "NA"}</Text></Text>
-                  </View> */}
                   {
                     order && order.vendorOrders.length > 0 ?
                     order.vendorOrders.map((vendor,i)=>{
                       var position = 0;
-                      // if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "New" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Verified") {
-                      //   position = 0;
-                      // } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Packed" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Inspection" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
-                      //   position = 1;
-                      // } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Dispatch" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ===  "Delivery Initiated") {
-                      //   position = 2;
-                      // } 
-                      // else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Delivered & Paid") {
-                      //   position = 4;
-                      // }  
                       var vendorStatus = vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status;
                       console.log("vendorStatus",vendorStatus);
                       if(vendorStatus ===labelsArray[2]){
@@ -693,10 +654,10 @@ const cancelorderbtn = (id,vendor_id) => {
                               <View style={styles.orderstatus}>
                                 <StepIndicator
                                   customStyles={customStyles}
-                                  labelTextStyle={{fontSize:RFPercentage(2.1),fontFamily:"Montserrat-Regular",}}
+                                  labelTextStyle={{fontSize:RFPercentage(1.8),fontFamily:"Montserrat-Regular",}}
                                   currentPosition={postion1}
                                   labels={labels}
-                                  labelStyle={{fontSize:RFPercentage(2.1),fontFamily:"Montserrat-Regular",}}
+                                  labelStyle={{fontSize:RFPercentage(1.8),fontFamily:"Montserrat-Regular",}}
                                   stepCount={4}
                                 />
                               </View>
@@ -724,9 +685,9 @@ const cancelorderbtn = (id,vendor_id) => {
                               }
                               </View>
                               <View style={{flex:0.4,paddingHorizontal:5}}>
-                                <Text style={[styles.prodinfo,{fontSize:RFPercentage(1.8),textTransform:'capitalize'}]}>{pitem.brand}</Text>
+                                <Text style={[styles.prodinfo,{fontSize:RFPercentage(1.6),textTransform:'capitalize'}]}>{pitem.brand}</Text>
                                 <Text numberOfLines={2} style={styles.prodinfo}>{pitem.productName}</Text>
-                                <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:RFPercentage(2.2),marginTop:7}}>
+                                <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:RFPercentage(2),marginTop:7}}>
                                     Quantity 
                                   <Text style={styles.prodinfo}>&nbsp;&nbsp; {pitem.quantity}</Text> 
                                 </Text>
@@ -734,10 +695,10 @@ const cancelorderbtn = (id,vendor_id) => {
                               </View>
                               <View style={{flex:0.4}}>
                                 <View style={{flex:1,flexDirection:'row',alignItems:'center'}}>
-                                  <View style={{flex:.35}}>
+                                  <View style={{flex:.3,alignItems:'flex-end'}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
-                                  <View style={{flex:.65,alignItems:'flex-end'}}>
+                                  <View style={{flex:.7,alignItems:'flex-end'}}>
                                       <Text style={styles.ogprice}> {(pitem.discountedPrice * pitem.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                       </Text>
                                   </View>
@@ -771,28 +732,28 @@ const cancelorderbtn = (id,vendor_id) => {
                         <View style={[styles.totaldetails,{paddingRight:5}]}>
                           <View style={styles.flxdata}>
                               <View style={{ flex: 0.3}}/>
-                              <View style={{ flex: 0.4}}>
+                              <View style={{ flex: 0.3}}>
                                 <Text style={styles.totalAmount}>Total</Text>
                               </View>
-                              <View style={{flex:0.45,flexDirection:'row'}}>
-                                  <View style={{flex:.4}}>
+                              <View style={{flex:0.4,flexDirection:'row'}}>
+                                  <View style={{flex:.35,alignItems:'flex-end'}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
-                                  <View style={{flex:.6,alignItems:'flex-end'}}>
+                                  <View style={{flex:.65,alignItems:'flex-end'}}>
                                       <Text style={styles.ogprice}>{vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
                                   </View>
                                 </View>
                             </View>
                             <View style={styles.flxdata}>
                                 <View style={{ flex: 0.3}}/>
-                                <View style={{ flex: 0.4}}>
+                                <View style={{ flex: 0.3}}>
                                   <Text style={styles.totalAmount}>You Save </Text>
                                 </View> 
-                                <View style={{flex:0.45,flexDirection:'row'}}>
-                                  <View style={{flex:.4}}>
+                                <View style={{flex:0.4,flexDirection:'row'}}>
+                                  <View style={{flex:.35,alignItems:'flex-end'}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
-                                  <View style={{flex:.6,alignItems:'flex-end'}}>
+                                  <View style={{flex:.65,alignItems:'flex-end'}}>
                                       <Text style={[styles.ogprice,{color:colors.success}]}>{vendor.vendor_discountAmount.toFixed(2)}</Text>
                                   </View>
                                 </View>
@@ -881,7 +842,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     {order?.paymentDetails?.creditPointsValueUsed > 0 ?
                     <View style={styles.flxdataNew}>
                       <View style={{ flex: 0.57 }}>
-                        <Text style={styles.totalAmount}>Redeem Valu</Text>
+                        <Text style={styles.totalAmount}>Redeem Value</Text>
                       </View>
                       <View style={{ flex: 0.38,flexDirection:'row' }}>
                         <View style={{flex:.4}}>
@@ -899,7 +860,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     </View>:null}                   
                     <View style={styles.flxdataLastNew}>
                       <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totalAmount}>Total Delivery Charges </Text>
+                        <Text style={styles.totalAmount}>Total Service Charges </Text>
                       </View> 
                       <View style={{ flex: 0.4,flexDirection:'row' }}>
                         <View style={{flex:.4}}>
