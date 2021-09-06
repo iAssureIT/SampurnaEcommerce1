@@ -862,7 +862,7 @@ exports.check_username_EmailOTP = (req, res, next) => {
 
 /**=========== User Login ===========*/
 exports.user_login_using_email = (req, res, next) => {
-	// console.log("user_login_using_email req.body = ",req.body);
+	console.log("user_login_using_email req.body = ",req.body);
 	
 	var emailId = (req.body.email).toLowerCase(); 
 	var role  	= (req.body.role).toLowerCase();
@@ -1727,6 +1727,7 @@ exports.set_send_emailotp_usingID = (req, res, next) => {
 
 /**=========== Resend OTP on Signup ===========*/
 exports.set_send_mobileotp_usingID = (req, res, next) => {
+	console.log("inside set_send_mobileotp_usingID", req.body);
 	User.findOne({ _id: (req.params.user_id)})
 	.then(user => {
 		if(user){
@@ -2821,4 +2822,38 @@ exports.set_send_otp = (req, res, next) => {
 			error 	: err
 		});
 	});				
+};
+
+
+
+exports.change_password_withoutotp = (req, res, next) => {
+	console.log("inside change_password_withoutotp", req.body);
+	bcrypt.hash(req.body.pwd, 10, (err, hash) => {
+		if (err) {
+			return res.status(500).json({
+				message: "Some problem occured in Password encryption!",
+				error: err
+			});
+		} else {
+			User.updateOne(
+					{ _id: req.body.user_id},
+					{
+						$set: { "services.password.bcrypt" 	: hash },
+					}
+				)
+				.then(data => {			
+					console.log("updatedata =>",data);
+					res.status(201).json({ 
+						message 	: "Password Changed successfully!", 
+					})
+				})
+				.catch(err => {
+					res.status(500).json({
+						message 	: "Failed to Reset the password",
+						error 		: err
+					});
+				});
+		}
+	});
+	
 };

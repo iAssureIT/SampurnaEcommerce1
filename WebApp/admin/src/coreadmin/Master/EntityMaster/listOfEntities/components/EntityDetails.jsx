@@ -115,50 +115,50 @@ class EntityDetails extends Component {
 		// $('#deleteEntityModal').show();
   
   			swalWithBootstrapButtons.fire({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonText: 'Yes, delete it!',
-		  cancelButtonText: 'No, cancel!',
-		  reverseButtons: true
-		}).then((result) => {
-		  if (result.isConfirmed) {
-		  	axios.delete("/api/entitymaster/delete/"+id)
-		  	.then((response) => {
-				console.log("delete response => ",response.data)
-				// this.getData(this.state.startRange, this.state.limitRange);
-				// if(!this.state.redirectToURL){
-				// }else{				
-				// 	this.props.history.push(tableObjects.editUrl);
-				// }
-				if (response.data.deleted) {
-					swalWithBootstrapButtons.fire(
-				      'Deleted!',
-				      (this.state.entityType === "appCompany" ? "Organizational Settings" :this.state.entityType) + ' has been deleted.',
-				      'success'
-			    )
-				}else{
-					swal.fire({
-				  icon: 'error',
-				  title: 'Oops...',
-				  text: 'Failed to delete!'
-				})
-				}
-				this.props.getEntities();
-	  this.props.hideForm();
-	  this.getEntitiesInfo(this.state.id)
-				// window.location.reload();
+				  title: 'Are you sure you want to Inactivate this Vendor?',
+				  text: "All Products of this Vendor would be Unpublished!",
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonText: 'Yes, Inactivate Vendor!',
+				  cancelButtonText: 'No, Cancel!',
+				  reverseButtons: true
+				}).then((result) => {
+				  if (result.isConfirmed) {
+				  	axios.delete("/api/entitymaster/delete/"+id)
+				  	.then((response) => {
+						console.log("delete response => ",response.data)
+						// this.getData(this.state.startRange, this.state.limitRange);
+						// if(!this.state.redirectToURL){
+						// }else{				
+						// 	this.props.history.push(tableObjects.editUrl);
+						// }
+						if (response.data.deleted) {
+							swalWithBootstrapButtons.fire(
+						      'Inactivated the Vendor!',
+						      (this.state.entityType === "appCompany" ? "Organizational Settings" :this.state.entityType) + ' has been Inactivated.',
+						      'success'
+					    )
+						}else{
+							swal.fire({
+						  icon: 'error',
+						  title: 'Oops...',
+						  text: 'Failed to Inactivate this vendor!'
+						})
+						}
+						this.props.getEntities();
+					  this.props.hideForm();
+					  this.getEntitiesInfo(this.state.id)
+						// window.location.reload();
 
-				// this.props.getData(this.state.startRange, this.state.limitRange);
-			}).catch((error) => {
-				console.log("error => ",error);
-				swal.fire({
-				  icon: 'error',
-				  title: 'Oops...',
-				  text: 'Something went wrong!'
-				})
-			});
+						// this.props.getData(this.state.startRange, this.state.limitRange);
+					}).catch((error) => {
+						console.log("error => ",error);
+						swal.fire({
+						  icon: 'error',
+						  title: 'Oops...',
+						  text: 'Something went wrong!'
+						})
+					});
 		    
 		  } else if (
 		    /* Read more about handling dismissals below */
@@ -180,12 +180,12 @@ class EntityDetails extends Component {
     	console.log("response =>", response.data)
    		if (response.data.deleted) {
    			swal({
-              text : (this.state.entityType === "appCompany" ? "Organizational Settings" :this.state.entityType) +" is deleted successfully.",
+              text : (this.state.entityType === "appCompany" ? "Organizational Settings" :this.state.entityType) +" is Inactivated successfully.",
 	  		});
 			$(".swal-text").css("text-transform", "capitalize");
 
 	    }else{
-   			swal({text : "Failed to delete.",});
+   			swal({text : "Failed to Inactivate.",});
    		}
       this.props.getEntities();
 	  this.props.hideForm();
@@ -237,7 +237,7 @@ class EntityDetails extends Component {
 						    		<div id={this.state.entityInfo._id} className=" col-lg-6 noPadding"  title="Edit" data-index data-id={this.state.entityInfo._id} onClick={this.editBasicform.bind(this)}>	
 									    <i className="fa fa-pencil "  aria-hidden="true" ></i>
 									  </div>
-									  <div id={this.state.entityInfo._id} className="col-lg-6 noPadding"  title="delete" data-index data-id={this.state.entityInfo._id} onClick={this.deleteEntity.bind(this)}>	
+									  <div id={this.state.entityInfo._id} className="col-lg-6 noPadding"  title="Inacticate this vendor" data-index data-id={this.state.entityInfo._id} onClick={this.deleteEntity.bind(this)}>	
 									    <i className="fa fa-trash "  aria-hidden="true" ></i>
 									  </div>
 						    	</div>

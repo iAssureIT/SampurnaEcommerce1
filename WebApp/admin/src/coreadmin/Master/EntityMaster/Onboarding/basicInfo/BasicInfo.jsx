@@ -369,10 +369,14 @@ class BasicInfo extends Component {
 	  } else {
 		axios.post('/api/entitymaster/post', formValues)
 		.then((response) => {
-		  // console.log("response",response);
-		  swal((this.state.pathname === "appCompany" ? "Organzational Settings" : this.state.pathname ) + " created successfully.");
-		  $(".swal-text").css("text-transform", "capitalize");
-		  this.props.history.push('/' + this.state.pathname + '/location-details/' + response.data.entityID)
+			console.log("response",response.data);
+			if(response.data.duplicated){
+				swal("This company already exists in your vendor list!","Please provide unique name.","error");
+			}else{
+				swal((this.state.pathname === "appCompany" ? "Organzational Settings" : this.state.pathname ) + " created successfully.");
+				$(".swal-text").css("text-transform", "capitalize");
+				this.props.history.push('/' + this.state.pathname + '/location-details/' + response.data.entityID)				
+			}
 		})
 		.catch((error) => {
 		  console.log("Error => ",error);

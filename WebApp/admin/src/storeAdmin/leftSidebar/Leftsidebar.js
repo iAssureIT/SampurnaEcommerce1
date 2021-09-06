@@ -227,24 +227,8 @@ export default class AdminDashboard extends Component{
 							</ul>
 						</li>
 
-						{/*Product Review Management*/}
-						<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
-							<a href="/product-reviews-&-ratings"  title="Product Review Management" onClick={()=>this.openMenu("productreviewmanagement")}>
-								<i className="fa fa-comments" aria-hidden="true"></i>
-								<span className="sidebarMenuTitle">Product Reviews</span>
-							</a>
-						</li>
-
-						{/*Returned Product Management*/}
-						<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
-							<a href="/returned-products"  title="Returned Product Management" onClick={()=>this.openMenu("returnedproductmanagement")}>
-								<i className="fa fa-undo" aria-hidden="true"></i>
-								<span className="sidebarMenuTitle">Returned Products</span>
-							</a>
-						</li>
-
 						{/*Inventory Management*/}
-						<li className="treeview" >
+{/*						<li className="treeview" >
 							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("inventorymanagement")} title="Inventory Management">
 								<i className="fa fa-tasks" aria-hidden="true"></i>
 								<span className="smsidenames sidebarMenuTitle">Inventory Management</span>
@@ -265,27 +249,8 @@ export default class AdminDashboard extends Component{
 								</li>	  	 						
 							</ul>
 						</li>
+*/}
 
-						{/*Deals Management*/}
-						<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
-							<a href="/add-deals"  title="Deals Management" onClick={()=>this.openMenu("dealsmanagement")}>
-								<i className="fa fa-money" aria-hidden="true"></i>
-								<span className="sidebarMenuTitle">Deals Management</span>
-							</a>
-						</li>
-
-						{/*Coupon Management*/}
-						{this.state.showCoupenCode !== 'No'
-						?
-							<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
-								<a href="/coupon-management" title="Coupon Management" onClick={()=>this.openMenu("couponmanagement")}>
-									<i className="fa fa-gift" aria-hidden="true"></i>
-									<span className="sidebarMenuTitle">Coupon Management</span>
-								</a>
-							</li>
-						: 
-							null
-						}  
 
 						{/*Order Management*/}
 						<li className="treeview" >
@@ -417,6 +382,49 @@ export default class AdminDashboard extends Component{
 								}								
 							</ul>
 						</li>
+
+
+
+
+
+						{/*Deals Management*/}
+						<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
+							<a href="/add-deals"  title="Deals Management" onClick={()=>this.openMenu("dealsmanagement")}>
+								<i className="fa fa-money" aria-hidden="true"></i>
+								<span className="sidebarMenuTitle">Deals Management</span>
+							</a>
+						</li>
+
+						{/*Coupon Management*/}
+						{this.state.showCoupenCode !== 'No'
+						?
+							<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
+								<a href="/coupon-management" title="Coupon Management" onClick={()=>this.openMenu("couponmanagement")}>
+									<i className="fa fa-gift" aria-hidden="true"></i>
+									<span className="sidebarMenuTitle">Coupon Management</span>
+								</a>
+							</li>
+						: 
+							null
+						}  
+
+						{/*Product Review Management*/}
+						<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
+							<a href="/product-reviews-&-ratings"  title="Product Review Management" onClick={()=>this.openMenu("productreviewmanagement")}>
+								<i className="fa fa-comments" aria-hidden="true"></i>
+								<span className="sidebarMenuTitle">Product Reviews</span>
+							</a>
+						</li>
+
+						{/*Returned Product Management*/}
+						<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
+							<a href="/returned-products"  title="Returned Product Management" onClick={()=>this.openMenu("returnedproductmanagement")}>
+								<i className="fa fa-undo" aria-hidden="true"></i>
+								<span className="sidebarMenuTitle">Returned Products</span>
+							</a>
+						</li>
+
+
 
 						{/*Vendor Management*/}
 						{this.state.websiteModel === "MarketPlace" ||this.state.websiteModel === "SingleOwner" 

@@ -1143,6 +1143,8 @@ exports.post_list_deleted_users = (req,res,next)=>{
 	}
 };
 exports.user_update_password_withoutotp_ID = (req, res, next) => {
+	console.log("user_update_password_withoutotp_ID body => ",req.body );
+	
 	User.findOne({ _id: req.params.ID })
 		.exec()
 		.then(user => {

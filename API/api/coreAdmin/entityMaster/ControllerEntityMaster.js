@@ -1,6 +1,7 @@
 const mongoose          = require("mongoose");
 const NodeGeocoder      = require('node-geocoder');
 const EntityMaster      = require('./ModelEntityMaster');
+const Products          = require('../../Ecommerce/products/Model.js');
 const PersonMaster      = require('../personMaster/ModelPersonMaster.js');
 const DepartmentMaster  = require('../departmentMaster/ModelDepartmentMaster.js');
 const DesignationMaster = require('../designationMaster/ModelDesignationMaster.js');
@@ -14,20 +15,23 @@ const sendNotification  = require("../../coreAdmin/notificationManagement/SendNo
 // var request = require('request-promise');
 // const gloabalVariable = require('../../nodemon.js');
 exports.insertEntity = (req,res,next)=>{
-    insertEntityFun();
-    async function insertEntityFun(){
+    insertEntityFunc();
+
+    async function insertEntityFunc(){
+        console.log("basic info post => ",req.body);
         var getnext = await getNextSequence(req.body.entityType)
         // if(req.body.entityType == 'corporate'){var str = "C"+parseInt(getnext)}else if(req.body.entityType == 'vendor'){var str = "V"+parseInt(getnext)}else{var str = 1}
 
         EntityMaster.findOne({  
             companyName               : req.body.companyName,
-            groupName                 : req.body.groupName,
-            companyEmail              : req.body.companyEmail, 
-            companyPhone              : req.body.companyPhone,
-            website                   : req.body.website   
+            // groupName                 : req.body.groupName,
+            // companyEmail              : req.body.companyEmail, 
+            // companyPhone              : req.body.companyPhone,
+            // website                   : req.body.website   
         })
         .exec()
         .then(data=>{
+            console.log("Company Name data = ",data);
             if (data) {
                 res.status(200).json({ duplicated : true });
             }else{
@@ -95,7 +99,10 @@ function getNextSequence(entityType) {
 }
 
 exports.listEntity = (req,res,next)=>{
-    EntityMaster.find({entityType:req.params.entityType}).sort({createdAt : -1})    
+    EntityMaster.find({entityType:req.params.entityType, 
+                        profileStatus:"New"
+                    })
+        .sort({createdAt : -1})    
         .exec()
         .then(data=>{
             res.status(200).json(data);
@@ -107,18 +114,35 @@ exports.listEntity = (req,res,next)=>{
         });
 };
 
-exports.listFilterEntity = (req,res,next)=>{
-    EntityMaster.find({entityType : req.params.entityType}, {companyName : 1}).sort({companyName : 1})    
-        .exec()
-        .then(data=>{
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            res.status(500).json({
-                error: err
-            });
-        });
+exports.listInactiveEntity = (req,res,next)=>{
+    EntityMaster.find({entityType:req.params.entityType, profileStatus:"inactive"})
+                .sort({createdAt : -1})    
+                .exec()
+                .then(data=>{
+                    res.status(200).json(data);
+                })
+                .catch(err =>{
+                    res.status(500).json({
+                        error: err
+                    });
+                });
 };
+
+exports.listFilterEntity = (req,res,next)=>{
+    EntityMaster.find({entityType : req.params.entityType}, {companyName : 1})
+                .sort({companyName : 1})
+                .exec()
+                .then(data=>{
+                    res.status(200).json(data);
+                })
+                .catch(err =>{
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+};
+
+
 exports.listEntity_franchise = (req,res,next)=>{
     EntityMaster.find({entityType:req.params.entityType,_id:req.params.franchiseId}).sort({createdAt : -1})    
         .exec()
@@ -133,7 +157,28 @@ exports.listEntity_franchise = (req,res,next)=>{
 };
 
 exports.listSupplier = (req,res,next)=>{
-    EntityMaster.find({entityType:req.params.entityType,supplierOf:req.params.company_id}).sort({createdAt : -1})    
+    EntityMaster.find({entityType:req.params.entityType,
+                        supplierOf:req.params.company_id,
+                        profileStatus : "New"
+                })
+        .sort({createdAt : -1})    
+        .exec()
+        .then(data=>{
+            res.status(200).json(data);
+        })
+        .catch(err =>{
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
+exports.listInactiveSupplier = (req,res,next)=>{
+    EntityMaster.find({entityType:req.params.entityType,
+                        supplierOf:req.params.company_id,
+                        profileStatus : "inactive"
+                })
+        .sort({createdAt : -1})    
         .exec()
         .then(data=>{
             res.status(200).json(data);
@@ -146,7 +191,21 @@ exports.listSupplier = (req,res,next)=>{
 };
 
 exports.countEntity = (req,res,next)=>{
-    EntityMaster.find({entityType:req.params.entityType}).count()       
+    EntityMaster.find({entityType:req.params.entityType, profileStatus:"New"}).count()       
+        .exec()
+        .then(data=>{
+            res.status(200).json({count: data});
+        })
+        .catch(err =>{
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
+exports.countInactiveEntity = (req,res,next)=>{
+    EntityMaster.find({entityType:req.params.entityType, profileStatus:"inactive"}).count()       
         .exec()
         .then(data=>{
             res.status(200).json({count: data});
@@ -889,14 +948,29 @@ exports.updateSingleContact = (req,res,next)=>{
 };
 
 exports.deleteEntity = (req,res,next)=>{
-    console.log("*****************deleteEntity***************** ")
+    console.log("*****************Inactivate the Entity***************** ")
     console.log("req.params.entityID => ",req.params.entityID)
-    EntityMaster.deleteOne({ _id : ObjectId(req.params.entityID)})
-    .exec()
+    EntityMaster.update(
+                            { _id : ObjectId(req.params.entityID)},
+                            {$set : { profileStatus : "inactive"}}
+                        )
     .then(data=>{
-    console.log("data => ",data)
+        console.log("data => ",data)
+        //make all products of this vendor as "Unpublished"
+        Products.update(
+                {"vendor_ID" :req.params.entityID},
+                {$set : {"status" : "Unpublished"}},
+                {multi: true}
+        )
+        .then(updateProduct =>{
 
-        res.status(200).json({ deleted : true });
+            res.status(200).json({ deleted : true });
+
+        })
+        .catch(err =>{
+            res.status(500).json({ error: err });
+        });
+
     })
     .catch(err =>{
         res.status(500).json({ error: err });
@@ -957,6 +1031,7 @@ exports.filterEntities = (req,res,next)=>{
     var selector = {}; 
     selector['$and']=[];
 
+    selector["$and"].push({ profileStatus: "New" })
     selector["$and"].push({ entityType : { $regex : req.body.entityType,$options: "i"} })
     //selector.entityType = {$regex : req.body.entityType,$options: "i"}  
     if (req.body.stateCode) {
@@ -985,17 +1060,65 @@ exports.filterEntities = (req,res,next)=>{
     }
 
     EntityMaster.find(selector)
-    .sort({createdAt : -1})
-    .exec()
-    .then(data=>{
-        res.status(200).json(data);
-    })
-    .catch(err =>{
-        res.status(500).json({
-            error: err
-        });
-    });
+            .sort({createdAt : -1})
+            .exec()
+            .then(data=>{
+                res.status(200).json(data);
+            })
+            .catch(err =>{
+                res.status(500).json({
+                    error: err
+                });
+            });
 };
+
+exports.filterInactiveEntities = (req,res,next)=>{
+    var selector = {}; 
+    selector['$and']=[];
+
+    selector["$and"].push({ profileStatus: "inactive" })
+    selector["$and"].push({ entityType : { $regex : req.body.entityType,$options: "i"} })
+    //selector.entityType = {$regex : req.body.entityType,$options: "i"}  
+    if (req.body.stateCode) {
+        selector["$and"].push({ locations : { $elemMatch: { stateCode : req.body.stateCode } }  })
+        //selector.locations = { $elemMatch: { stateCode : req.body.stateCode } }     
+    }
+    if (req.body.district) {
+        selector["$and"].push({ locations : { $elemMatch: { district : { $regex : req.body.district, $options: "i"} } }  })
+    }
+    if (req.body.initial && req.body.initial != 'All') {
+        //selector.companyName = {$regex : "^"+req.body.initial,$options: "i"} 
+        selector["$and"].push({ companyName : { $regex : "^"+req.body.initial,$options: "i"}   })
+    }
+    if (req.body.searchStr && req.body.searchStr != '') {
+        selector['$or']=[];
+        if (req.body.initial && req.body.initial != 'All') {
+            selector["$and"].push({ companyName : { $regex : "^"+req.body.initial,$options: "i"}   })
+        }
+        
+        selector["$or"].push({ companyName : { $regex : req.body.searchStr, $options: "i"}  })
+        selector["$or"].push({ groupName   : { $regex : req.body.searchStr, $options: "i"}  })
+        selector["$or"].push({ locations   : { $elemMatch: { addressLine1 : { $regex : req.body.searchStr, $options: "i"} } }  })
+        selector["$or"].push({ locations   : { $elemMatch: { area : { $regex : req.body.searchStr, $options: "i"} } }  })
+        selector["$or"].push({ locations   : { $elemMatch: { district : { $regex : req.body.searchStr, $options: "i"} } }  })
+        selector["$or"].push({ locations   : { $elemMatch: { stateCode : { $regex : req.body.searchStr, $options: "i"} } }  })
+    }
+
+    EntityMaster.find(selector)
+            .sort({createdAt : -1})
+            .exec()
+            .then(data=>{
+                res.status(200).json(data);
+            })
+            .catch(err =>{
+                res.status(500).json({
+                    error: err
+                });
+            });
+};
+
+
+
 exports.filterEntities_grid = (req,res,next)=>{
     
     var selector = {}; 
@@ -1040,9 +1163,70 @@ exports.filterEntities_grid = (req,res,next)=>{
     });
 };
 
+exports.filterInactiveEntities_grid = (req,res,next)=>{
+    
+    var selector = {}; 
+    selector['$and']=[];
+
+    selector["$and"].push({ profileStatus : "New" });
+    selector["$and"].push({ entityType : { $regex : req.body.entityType,$options: "i"} });
+    if (req.body.stateCode) {
+        selector["$and"].push({ locations : { $elemMatch: { stateCode : req.body.stateCode } }  })
+    }
+    if (req.body.district) {
+        selector["$and"].push({ locations : { $elemMatch: { district : { $regex : req.body.district, $options: "i"} } }  })
+    }
+    if (req.body.initial && req.body.initial != 'All') {
+        selector["$and"].push({ companyName : { $regex : "^"+req.body.initial,$options: "i"}   })
+    }
+    if (req.body.searchStr && req.body.searchStr != '') {
+        selector['$or']=[];
+        if (req.body.initial && req.body.initial != 'All') {
+            selector["$and"].push({ companyName : { $regex : "^"+req.body.initial,$options: "i"}   })
+        }
+        
+        selector["$or"].push({ companyName : { $regex : req.body.searchStr, $options: "i"}  })
+        selector["$or"].push({ groupName   : { $regex : req.body.searchStr, $options: "i"}  })
+        selector["$or"].push({ locations   : { $elemMatch: { addressLine1 : { $regex : req.body.searchStr, $options: "i"} } }  })
+        selector["$or"].push({ locations   : { $elemMatch: { area : { $regex : req.body.searchStr, $options: "i"} } }  })
+        selector["$or"].push({ locations   : { $elemMatch: { district : { $regex : req.body.searchStr, $options: "i"} } }  })
+        selector["$or"].push({ locations   : { $elemMatch: { stateCode : { $regex : req.body.searchStr, $options: "i"} } }  })
+    }
+
+    EntityMaster.find(selector)
+    .sort({createdAt : -1})
+    .skip(req.body.startRange)
+    .limit(req.body.limitRange)
+    .exec()
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
 exports.fetchEntities = (req, res, next)=>{
     // console.log("req.body => ",req.body)
-    EntityMaster.find({entityType : req.body.type})
+    EntityMaster.find({entityType : req.body.type, profileStatus:"New"})
+                .sort({createdAt : -1})
+                .skip(req.body.startRange)
+                .limit(req.body.limitRange)
+                .exec()
+                .then(data=>{
+                    // console.log("data => ",data)
+                    res.status(200).json(data);
+                })
+                .catch(err =>{
+                    res.status(500).json({ error: err });
+                }); 
+};
+
+exports.fetchInactiveEntities = (req, res, next)=>{
+    // console.log("req.body => ",req.body)
+    EntityMaster.find({entityType : req.body.type, profileStatus:"inactive"})
         .sort({createdAt : -1})
         .skip(req.body.startRange)
         .limit(req.body.limitRange)
@@ -1055,6 +1239,8 @@ exports.fetchEntities = (req, res, next)=>{
             res.status(500).json({ error: err });
         }); 
 };
+
+
 exports.CompanyfromEntities = (req, res, next)=>{
     EntityMaster.find({})
         .sort({createdAt : -1})

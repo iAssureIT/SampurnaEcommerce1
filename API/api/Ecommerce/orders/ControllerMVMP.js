@@ -32,7 +32,7 @@ const DriverTracking 		= require('../driverTracking/Model.js')
 
 /*========== Insert Orders ==========*/
 exports.insert_orders = (req, res, next) => {
-	// console.log("Inside order post",req.body); 
+	console.log("Inside order post",req.body); 
 
 	if (req.body.vendorOrders && req.body.vendorOrders.length > 0) {
 		processOrders();

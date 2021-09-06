@@ -1214,6 +1214,7 @@ exports.update_product_multiple = (req,res,next)=>{
 };
 
 exports.list_product = (req,res,next)=>{
+	console.log("list_product body = ", req.body);
 	// Products.find({"status": "Publish"}).sort({'productName': 1})       
 	Products.find({"status": "Publish"}).sort({'itemCode': 1})  
 	// Products.find().sort({'itemCode': 1})     
@@ -1498,38 +1499,26 @@ exports.list_productby_type_category = (req,res,next)=>{
 };
 
 exports.list_product_with_limits = (req,res,next)=>{	
-	console.log('req', req.body);
+	console.log('list_product_with_limits body = ', req.body);
 	var selector        = {};
 	selector['$and']    = [];
 
 	if(req.body.vendor !== "" && req.body.vendor !== undefined){
-		selector["$and"].push(
-			{"vendor_ID" : ObjectId(req.body.vendor)}
-		)
+		selector["$and"].push({"vendor_ID" : ObjectId(req.body.vendor)});
 	}
 	if(req.body.section !== "" && req.body.section !== undefined){
-		selector["$and"].push(
-			{"section_ID" : ObjectId(req.body.section)}
-		)
+		selector["$and"].push( {"section_ID" : ObjectId(req.body.section)} );
 	}
 	if(req.body.category !== "" && req.body.category !== undefined){
-		selector["$and"].push(
-			{"category_ID" : ObjectId(req.body.category)}
-		)
+		selector["$and"].push( {"category_ID" : ObjectId(req.body.category)} ); 
 	}
 	if(req.body.subCategory !== "" && req.body.subCategory !== undefined){
-		selector["$and"].push(
-			{"subCategory_ID" : ObjectId(req.body.subCategory)}
-		)
+		selector["$and"].push( {"subCategory_ID" : ObjectId(req.body.subCategory)} );
 	}
 	if(req.body.status !== "" && req.body.status !== undefined){
-		selector["$and"].push(
-			{"status" : req.body.status}
-		)
+		selector["$and"].push( {"status" : req.body.status} );
 	}else{
-		selector["$and"].push(
-			{"status" : {$ne : ""}}
-		)
+		selector["$and"].push( {"status" : {$ne : ""}} );
 	}
 	if(req.body.searchText && req.body.searchText !== ""){
 		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
@@ -1664,7 +1653,7 @@ exports.list_product_with_limits = (req,res,next)=>{
 };
 
 exports.count_all_products = (req,res,next)=>{	
-	console.log('req', req.body);
+	// console.log('req', req.body);
 	var selector        = {};
 	selector['$and']    = [];
 
@@ -3543,6 +3532,7 @@ exports.vendorProductCount = (req,res,next)=>{
 
 exports.productBulkAction = (req, res, next) => {
 	var field = req.body.selectedAction;
+	// console.log('req.body', req.body);
 	switch (field) {
 		case 'Draft':
 			Products.updateMany(

@@ -20,6 +20,7 @@ const textSwitch={
 	paddingRight   : 2,
 	paddingLeft    : 2,
 	paddingTop     : 2, 
+	loading  		: true,
 }
 class DealsManagement extends React.Component {
 	constructor(props) {
@@ -112,7 +113,7 @@ class DealsManagement extends React.Component {
 			regxsubCategory: "-- Select Sub-Category --"
 		  },
 		  dealImg:{
-			required:true,
+			required:false,
 		  },
 		  dealInPercentage:{
 			required:true,
@@ -227,6 +228,7 @@ class DealsManagement extends React.Component {
 		this.setState({
 			errors: errors
 		  });
+		alert("formIsValid = ",formIsValid);
 		  return formIsValid;
 	}
 
@@ -333,29 +335,30 @@ class DealsManagement extends React.Component {
 				enddate               : this.state.enddate,
 			}
 	
-	  console.log("formValues====",formValues);
+	   console.log("formValues====",formValues);
 		if ($('#addDealsForm').valid()) {
-		axios.post('/api/deals/post',formValues)
-			.then( (response)=> {
-				if (response.data) {
-					swal("Your deal added successfully.");
-					this.setState({
-						section 		      : 'all',
-						category 		      : 'all',
-						subCategory 		  : 'all',
-						dealInPercentage  : "",
-						updateAllProductPrice : "" ,  
-						dealImg               : "",   
-						startdate             : "",
-						enddate               : "", 
-						
-					});	 
-					this.getData(this.state.startRange, this.state.limitRange);
-				}   	 
-			})
-			.catch(function (error) {        
-				console.log(error);
-			});
+			this.setState({loading:true});
+			axios.post('/api/deals/post',formValues)
+				.then( (response)=> {
+					if (response.data) {
+						swal("Your deal added successfully.");
+						this.setState({
+							loading 				: false,
+							section 		      : 'all',
+							category 		   : 'all',
+							subCategory 		: 'all',
+							dealInPercentage  : "",
+							updateAllProductPrice : "" ,  
+							dealImg           : "",   
+							startdate         : "",
+							enddate           : "", 							
+						});	 
+						this.getData(this.state.startRange, this.state.limitRange);
+					}   	 
+				})
+				.catch(function (error) {        
+					console.log(error);
+				});
 		}
 	}
 	
@@ -377,59 +380,59 @@ class DealsManagement extends React.Component {
 	// 		});
 	// }
 	updateDealsInfo(event) {
-	  event.preventDefault();
-	  if ($('#addDealsForm').valid()) {
-		var formValues = {
-			deal_id 					: this.state.editId,
-		  section               : this.state.section && this.state.section === "all" ? this.state.section : this.state.section.split("_")[1],
-		  category              : this.state.category && this.state.category === "all" ? this.state.category : this.state.category.split("_")[1],
-		  subCategory           : this.state.subCategory && this.state.subCategory ==="all" ? this.state.subCategory : this.state.subCategory.split("_")[1],
-		  sectionID             : this.state.section && this.state.section === "all" ? this.state.section : this.state.section.split("_")[0],
-		  categoryID            : this.state.category && this.state.category === "all" ? this.state.category : this.state.category.split("_")[0],
-		  subCategoryID         : this.state.subCategory && this.state.subCategory ==="all" ? this.state.subCategory : this.state.subCategory.split("_")[0],
-		  dealInPercentage      : this.state.dealInPercentage,
-		  dealImg               : this.state.dealImg,
-		  updateAllProductPrice : this.state.updateAllProductPrice,
-		  startdate             : this.state.startdate,
-		  enddate               : this.state.enddate,
-	  }
-	  axios.patch('/api/deals/patch',formValues)
-		  .then((response) => {
-			swal({
-			  text: "Deal Updated Successfully",
-			});
-			this.getData(this.state.startRange, this.state.limitRange);
-			this.setState({
-				updateType : false,
-			  section 		      : 'all',
-			  category 		      : 'all',
-			  subCategory 		  : 'all',
-			  dealInPercentage  : "",
-			  updateAllProductPrice : "" ,  
-			  dealImg               : "",   
-			  startdate             : "",
-			  enddate               : "", 
-			  
-		  });	
-			this.props.history.push('/add-deals');
-		  })
-		  .catch((error) => {
-			console.log('error', error);
-			if(error.message === "Request failed with status code 401"){
-				var userDetails =  localStorage.removeItem("userDetails");
-				localStorage.clear();
-				swal({  
-					title : "Your Session is expired.",                
-					text  : "You need to login again. Click OK to go to Login Page"
-				})
-				.then(okay => {
-				if (okay) {
-					window.location.href = "/login";
-				}
+	  	event.preventDefault();
+		if ($('#addDealsForm').valid()) {
+			var formValues = {
+				deal_id 					: this.state.editId,
+			  section               : this.state.section && this.state.section === "all" ? this.state.section : this.state.section.split("_")[1],
+			  category              : this.state.category && this.state.category === "all" ? this.state.category : this.state.category.split("_")[1],
+			  subCategory           : this.state.subCategory && this.state.subCategory ==="all" ? this.state.subCategory : this.state.subCategory.split("_")[1],
+			  sectionID             : this.state.section && this.state.section === "all" ? this.state.section : this.state.section.split("_")[0],
+			  categoryID            : this.state.category && this.state.category === "all" ? this.state.category : this.state.category.split("_")[0],
+			  subCategoryID         : this.state.subCategory && this.state.subCategory ==="all" ? this.state.subCategory : this.state.subCategory.split("_")[0],
+			  dealInPercentage      : this.state.dealInPercentage,
+			  dealImg               : this.state.dealImg,
+			  updateAllProductPrice : this.state.updateAllProductPrice,
+			  startdate             : this.state.startdate,
+			  enddate               : this.state.enddate,
+		   }
+		   axios.patch('/api/deals/patch',formValues)
+			  .then((response) => {
+				swal({
+				  text: "Deal Updated Successfully",
 				});
-			  }
-		  });
-	  }
+				this.getData(this.state.startRange, this.state.limitRange);
+				this.setState({
+					updateType : false,
+				  section 		      : 'all',
+				  category 		      : 'all',
+				  subCategory 		  : 'all',
+				  dealInPercentage  : "",
+				  updateAllProductPrice : "" ,  
+				  dealImg               : "",   
+				  startdate             : "",
+				  enddate               : "", 
+				  
+			  });	
+				this.props.history.push('/add-deals');
+			  })
+			  .catch((error) => {
+				console.log('error', error);
+				if(error.message === "Request failed with status code 401"){
+					var userDetails =  localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({  
+						title : "Your Session is expired.",                
+						text  : "You need to login again. Click OK to go to Login Page"
+					})
+					.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+					});
+				  }
+			  });
+	   }
   
 	}
 
@@ -790,6 +793,7 @@ class DealsManagement extends React.Component {
 				// console.log("radiobox ===",this.state.updateAllProductPrice);
 			})
 	 }
+
 	render() {
 		return (
 			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 pageContent">
@@ -923,9 +927,19 @@ class DealsManagement extends React.Component {
 										{
 											this.state.updateType
 											?
-											<button  type="submit" className="col-lg-2 col-md-3 col-sm-6 col-xs-12 btn btn-primary pull-right sendtxtmsgbtn" onClick={this.updateDealsInfo.bind(this)}>Update</button>
+												this.state.loading 
+												?
+													<button  type="submit" className="col-lg-2 col-md-3 col-sm-6 col-xs-12 btn btn-primary pull-right sendtxtmsgbtn" onClick={this.updateDealsInfo.bind(this)}>Update</button>
+												:
+													<button  type="submit" className="col-lg-2 col-md-3 col-sm-6 col-xs-12 btn btn-primary pull-right sendtxtmsgbtn" onClick={this.updateDealsInfo.bind(this)}>Update</button>	
 											:
-											<button  type="submit" className="col-lg-2 col-md-3 col-sm-6 col-xs-12 btn btn-primary pull-right sendtxtmsgbtn" onClick={this.submitDealsInfo.bind(this)}>Submit</button>
+												this.state.loading 
+												?
+													<button  type="submit" className="col-lg-2 col-md-3 col-sm-6 col-xs-12 btn btn-primary pull-right sendtxtmsgbtn" onClick={this.submitDealsInfo.bind(this)}>
+														Submit &nbsp; <i className="fa fa-spinner fa-spin"></i>
+													</button>
+												:
+													<button  type="submit" className="col-lg-2 col-md-3 col-sm-6 col-xs-12 btn btn-primary pull-right sendtxtmsgbtn" onClick={this.submitDealsInfo.bind(this)}>Submit</button>
 										}
 									</div> 
 									

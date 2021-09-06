@@ -636,12 +636,13 @@ class IAssureTableUM extends Component {
 		var conPassword 	= this.state["resetPasswordConfirm" + id];
 		var formValues 	= {
 			"pwd" : conPassword,
+			"user_id" : id
 		}
 		
 		if (password && conPassword) {
 			if (password === conPassword) {
 				
-				axios.patch('/api/auth/patch/change_password_withoutotp/id/' + id, formValues)
+				axios.patch('/api/auth/patch/change_password_withoutotp/id', formValues)
 					.then((res) => {
 						swal({
 							title : " ",

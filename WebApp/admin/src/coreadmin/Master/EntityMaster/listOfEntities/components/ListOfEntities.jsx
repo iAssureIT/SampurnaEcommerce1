@@ -376,7 +376,7 @@ class ListOfEntities extends Component {
 	hideForm(){
 		this.setState({ showDetails : false });
 	}
-	shortByAlpha(event) {
+	sortByAlpha(event) {
 		event.preventDefault();
 
 		for (var key in document.querySelectorAll('.alphab')) {
@@ -653,19 +653,24 @@ class ListOfEntities extends Component {
 								</div> */}
 								<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
 									<h4 className="col-lg-5 col-md-5 col-xs-12 col-sm-12 textTransformUppercase weighttitle">{this.state.pathname ? this.state.pathname : "Entity"} List</h4>
-                                    {this.props.bulkRequired 
+                              {this.props.bulkRequired 
 										?
-                                            <ul className="nav tabNav nav-pills col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                                <li className="active text-center pull-right toggle-selection sentanceCase"><a className="fieldTab" data-toggle="pill" href="#bulk" onClick={this.redirectToBulkUpload.bind(this)}>{this.state.pathname + " Bulk Upload"}</a></li>
-                                                <li className="active text-center pull-right toggle-selection sentanceCase"><a className="fieldTab" data-toggle="pill" href="#manual" onClick={this.redirectTo.bind(this)}>{"Add "+this.state.pathname + " Manually"}</a></li>
-                                            </ul>
-                                        : 
-										<ul className="nav tabNav nav-pills col-lg-7 col-md-7 col-sm-12 col-xs-12">
-											{/* <li className="text-center pull-right toggle-selection sentanceCase"><a className="fieldTab" data-toggle="pill" href="#bulk">{this.state.pathname + " Bulk Upload"}</a></li> */}
-											<li className="active text-center pull-right toggle-selection sentanceCase"><a className="fieldTab" data-toggle="pill" href="#manual" onClick={this.redirectTo.bind(this)} >{"Add "+this.state.pathname}</a></li>
-										</ul>
-                                    }
-                                </div>
+                                <ul className="nav tabNav nav-pills col-lg-7 col-md-7 col-sm-12 col-xs-12">
+												<a className="vendorListLink" href="/vendor/list/inactive">
+													InActive Vendors
+												</a>										
+                                    <li className="active text-center pull-right toggle-selection sentanceCase"><a className="fieldTab" data-toggle="pill" href="#bulk" onClick={this.redirectToBulkUpload.bind(this)}>{this.state.pathname + " Bulk Upload"}</a></li>
+                                    <li className="active text-center pull-right toggle-selection sentanceCase"><a className="fieldTab" data-toggle="pill" href="#manual" onClick={this.redirectTo.bind(this)}>{"Add "+this.state.pathname + " Manually"}</a></li>
+                                </ul>
+                           	: 
+											<ul className="nav tabNav nav-pills col-lg-7 col-md-7 col-sm-12 col-xs-12">
+												<a className="vendorListLink" href="/vendor/list/inactive">
+													InActive Vendors
+												</a>										
+												<li className="active text-center pull-right toggle-selection sentanceCase"><a className="fieldTab" data-toggle="pill" href="#manual" onClick={this.redirectTo.bind(this)} >{"Add "+this.state.pathname}</a></li>
+											</ul>
+                            	}
+                        </div>
 
 
 								
@@ -730,33 +735,33 @@ class ListOfEntities extends Component {
 											</div>
 
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-													<button type="button" className="btn alphab atozbtn allBtn"  id="filterallalphab" onClick={this.shortByAlpha.bind(this)} name="initial" value={this.state.initial} onChange={this.handleChange}>All</button>
-													<button type="button" className="btn alphab atozbtn" value="A" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>A</button>
-													<button type="button" className="btn alphab atozbtn" value="B" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>B</button>
-													<button type="button" className="btn alphab atozbtn" value="C" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>C</button>
-													<button type="button" className="btn alphab atozbtn" value="D" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>D</button>
-													<button type="button" className="btn alphab atozbtn" value="E" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>E</button>
-													<button type="button" className="btn alphab atozbtn" value="F" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>F</button>
-													<button type="button" className="btn alphab atozbtn" value="G" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>G</button>
-													<button type="button" className="btn alphab atozbtn" value="H" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>H</button>
-													<button type="button" className="btn alphab atozbtn" value="I" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>I</button>
-													<button type="button" className="btn alphab atozbtn" value="J" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>J</button>
-													<button type="button" className="btn alphab atozbtn" value="K" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>K</button>
-													<button type="button" className="btn alphab atozbtn" value="L" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>L</button>
-													<button type="button" className="btn alphab atozbtn" value="M" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>M</button>
-													<button type="button" className="btn alphab atozbtn" value="N" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>N</button>
-													<button type="button" className="btn alphab atozbtn" value="O" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>O</button>
-													<button type="button" className="btn alphab atozbtn" value="P" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>P</button>
-													<button type="button" className="btn alphab atozbtn" value="Q" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>Q</button>
-													<button type="button" className="btn alphab atozbtn" value="R" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>R</button>
-													<button type="button" className="btn alphab atozbtn" value="S" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>S</button>
-													<button type="button" className="btn alphab atozbtn" value="T" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>T</button>
-													<button type="button" className="btn alphab atozbtn" value="U" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>U</button>
-													<button type="button" className="btn alphab atozbtn" value="V" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>V</button>
-													<button type="button" className="btn alphab atozbtn" value="W" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>W</button>
-													<button type="button" className="btn alphab atozbtn" value="X" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>X</button>
-													<button type="button" className="btn alphab atozbtn" value="Y" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>Y</button>
-													<button type="button" className="btn alphab atozbtn" value="Z" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>Z</button>
+													<button type="button" className="btn alphab atozbtn allBtn"  id="filterallalphab" onClick={this.sortByAlpha.bind(this)} name="initial" value={this.state.initial} onChange={this.handleChange}>All</button>
+													<button type="button" className="btn alphab atozbtn" value="A" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>A</button>
+													<button type="button" className="btn alphab atozbtn" value="B" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>B</button>
+													<button type="button" className="btn alphab atozbtn" value="C" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>C</button>
+													<button type="button" className="btn alphab atozbtn" value="D" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>D</button>
+													<button type="button" className="btn alphab atozbtn" value="E" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>E</button>
+													<button type="button" className="btn alphab atozbtn" value="F" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>F</button>
+													<button type="button" className="btn alphab atozbtn" value="G" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>G</button>
+													<button type="button" className="btn alphab atozbtn" value="H" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>H</button>
+													<button type="button" className="btn alphab atozbtn" value="I" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>I</button>
+													<button type="button" className="btn alphab atozbtn" value="J" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>J</button>
+													<button type="button" className="btn alphab atozbtn" value="K" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>K</button>
+													<button type="button" className="btn alphab atozbtn" value="L" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>L</button>
+													<button type="button" className="btn alphab atozbtn" value="M" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>M</button>
+													<button type="button" className="btn alphab atozbtn" value="N" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>N</button>
+													<button type="button" className="btn alphab atozbtn" value="O" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>O</button>
+													<button type="button" className="btn alphab atozbtn" value="P" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>P</button>
+													<button type="button" className="btn alphab atozbtn" value="Q" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>Q</button>
+													<button type="button" className="btn alphab atozbtn" value="R" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>R</button>
+													<button type="button" className="btn alphab atozbtn" value="S" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>S</button>
+													<button type="button" className="btn alphab atozbtn" value="T" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>T</button>
+													<button type="button" className="btn alphab atozbtn" value="U" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>U</button>
+													<button type="button" className="btn alphab atozbtn" value="V" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>V</button>
+													<button type="button" className="btn alphab atozbtn" value="W" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>W</button>
+													<button type="button" className="btn alphab atozbtn" value="X" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>X</button>
+													<button type="button" className="btn alphab atozbtn" value="Y" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>Y</button>
+													<button type="button" className="btn alphab atozbtn" value="Z" onClick={this.sortByAlpha.bind(this)} onChange={this.handleChange}>Z</button>
 											</div>
 										</div>
 

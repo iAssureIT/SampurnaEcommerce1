@@ -56,6 +56,7 @@ import VendorBasicInfo from '../Master/VendorMaster/VendorBasicInfo.js';
 import VendorLocationDetails from '../Master/VendorMaster/VendorLocationDetails.js';
 import VendorContactDetails from '../Master/VendorMaster/VendorContactDetails.js';
 import VendorListOfEntities from '../Master/VendorMaster/VendorListOfEntities.js';
+import VendorListOfInactiveEntities from '../Master/VendorMaster/VendorListOfInactiveEntities.js';
 import BulkUpload           from '../Master/BulkUpload/BulkUpload.js';
 import FileWiseVendorList   from '../../coreadmin/Master/EntityMaster/listOfEntities/components/FileWiseVendorList.js';
 
@@ -254,6 +255,7 @@ class CoreLayout extends Component {
                 <Route path="/vendor/contact-details" exact strict component={VendorContactDetails} />
                 <Route path="/vendor/contact-details/:entityID/:contactID" exact strict component={VendorContactDetails} />
                 <Route path="/vendor/list" exact strict component={VendorListOfEntities} /> 
+                <Route path="/vendor/list/inactive" exact strict component={VendorListOfInactiveEntities} /> 
                 <Route path="/vendor-bulk-upload" exact strict component={BulkUpload} />
                 <Route path="/file-wise-vendor-list" exact strict component={FileWiseVendorList} />
 

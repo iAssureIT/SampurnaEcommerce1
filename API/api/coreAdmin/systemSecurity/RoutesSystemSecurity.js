@@ -39,7 +39,7 @@ router.post('/post/signup/guest_login',UserController.user_signup_guest_login);
 router.patch('/patch/set_send_otp/:username',           UserController.set_send_otp); 
 
 router.patch('/patch/setsendmobileotpusingID/:user_id', UserController.set_send_mobileotp_usingID);//working
-router.patch('/patch/change_password_withoutotp/id/:user_id', UserController.set_send_mobileotp_usingID);//working
+router.patch('/patch/change_password_withoutotp/id', UserController.change_password_withoutotp);//working
 router.patch('/patch/change_password_using_otp/id/:user_id', UserController.user_update_password_with_mobileOTP_ID);//working
 
 

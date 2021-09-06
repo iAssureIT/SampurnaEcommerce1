@@ -335,7 +335,9 @@ class VendorsDetails extends Component {
 													    	<a><i className="fa fa-pencil penmrleft" aria-hidden="true" ></i>&nbsp;&nbsp;<span className="mrflfedit">Edit</span></a>
 													    </li>
 													    <li id className="styleContactActbtn" data-id={this.props.id} onClick={this.deleteVendor.bind(this)}>
-													    	<a><i className="fa fa-trash-o" aria-hidden="true" ></i>&nbsp;Delete</a>
+													    	<a><i className="fa fa-trash-o" aria-hidden="true" title="Inactivate this vendor"></i>
+													    		&nbsp;Delete
+													    	</a>
 													    </li>
 												    </ul>
 												</div>

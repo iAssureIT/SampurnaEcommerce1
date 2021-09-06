@@ -1,3 +1,8 @@
+.vendorListLink{
+    float: right;
+    margin-top: 10px;
+    font-weight: bold;
+}
 .titleprofile1{
 	color: #000;
     padding: 0px 18px;

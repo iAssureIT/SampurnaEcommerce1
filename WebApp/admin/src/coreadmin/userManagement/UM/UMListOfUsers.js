@@ -1309,10 +1309,10 @@ selectedRole(event) {
 											<IAssureTableUM
 												completeDataCount 	={this.state.completeDataCount}
 												twoLevelHeader 		={this.state.twoLevelHeader}
-												getData={this.getData.bind(this)}
-												tableHeading={this.state.tableHeading}
-												tableData={this.state.tableData}
-												companyID={this.state.companyID}
+												getData 					={this.getData.bind(this)}
+												tableHeading 			={this.state.tableHeading}
+												tableData 				={this.state.tableData}
+												companyID 				={this.state.companyID}
 												tableObjects={this.state.tableObjects}
 												getSearchText={this.getSearchText.bind(this)}
 												selectedUser={this.selectedUser.bind(this)}

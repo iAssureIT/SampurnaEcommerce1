@@ -97,4 +97,19 @@ router.delete('/deleteContact/:entityID/:contactID', 		checkAuth, entityMaster.d
 //Get details to display contact details
 router.get('/get/one', entityMaster.appCompanyDetails);
 
+
+//============  For Inactive Companies ============
+
+router.post('/getAll/inactive', entityMaster.fetchInactiveEntities);
+
+router.get('/get/list/inactive/:entityType/:company_id',checkAuth, entityMaster.listInactiveSupplier);
+
+router.get('/get/inactive/:entityType', checkAuth, entityMaster.listInactiveEntity);
+
+router.get('/get/count/inactive/:entityType', checkAuth, entityMaster.countInactiveEntity);
+
+router.post('/get/filterEntities/inactive', entityMaster.filterInactiveEntities);
+
+
+
 module.exports = router;

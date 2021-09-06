@@ -66,7 +66,8 @@ class ProductList extends Component {
 			limitRange 				: 10,
 			selector 				: {},
 			unCheckedProducts 	: false,
-			isLoadingData 			: false
+			isLoadingData 			: false,
+			searchText 				: ""
 		};
 		window.scrollTo(0, 0);
 	}
@@ -815,6 +816,13 @@ class ProductList extends Component {
 							  	}													  	
 							{/*</div>*/}																				
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">	 
+							{this.state.searchText && this.state.searchText !== "" 
+								? <div className="text-danger" style={{width:"80%",margin:"auto",fontSize:"10px", overflowWrap:"break-word"}}> 
+									Products are searched for Vendor company Name, Product Name, Brand, Section, Category, SubCategory, subCategoryTitle, productCode, itemCode only.
+								  </div>
+								: null 
+							}
+
 								<IAssureTable
 									tableHeading			= {this.state.tableHeading}
 									twoLevelHeader 		= {this.state.twoLevelHeader}
