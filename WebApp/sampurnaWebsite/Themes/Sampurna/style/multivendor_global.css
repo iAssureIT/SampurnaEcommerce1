@@ -948,7 +948,8 @@ option:focus, option:active{
     color           : #fff !important;
     border          : 1px solid #033554 !important;
     text-align      : center;
-    padding         : 8px 68px;
+    /*padding         : 8px 68px;*/
+    padding: 10px 40px 10px 53px;
     /* margin-top   : 5px !important; */
     transition      : 0.6s ease !important;
     font-weight     : 600 !important;
@@ -1039,11 +1040,19 @@ option:focus, option:active{
 }
 
 
+
+
+
+
+
+
+
 @media only screen and (min-device-width: 768px) {
-  .globalCommonBtn {
+
+  /*.addressSaveBtn{
+    padding: 10px 40px 10px 40px;
     font-size: 10px;
-    padding: 4px 32px;
-  }
+  }*/
 
   .wishListIconColor{
     height: 20px;
@@ -1051,12 +1060,12 @@ option:focus, option:active{
 
 }  
 
-
-
 @media only screen and (min-device-width: 1024px) {
-  .globalCommonBtn {
-    padding: 8px 50px;
-  }
+  
+ /* .addressSaveBtn{
+    padding: 10px 40px 10px 40px;
+  }*/
+  
   .react_multiple_carousel__arrow_right_section,
   .react_multiple_carousel__arrow_right_section:hover{
     top: 40px;
@@ -1066,6 +1075,7 @@ option:focus, option:active{
   .react_multiple_carousel__arrow_left_section:hover{
     top: 40px;
   }
+  
   .react_multiple_carousel__arrow_right_catg,
   .react_multiple_carousel__arrow_right_catg:hover{
     top: 50px;
@@ -1077,11 +1087,13 @@ option:focus, option:active{
     top: 50px;
     left: 0px;
   }
+  
   .react_multiple_carousel__arrow_right_subcatg,
   .react_multiple_carousel__arrow_right_subcatg:hover{
     top: 60px;
     right: 0px;
   }
+  
   .react_multiple_carousel__arrow_left_subcatg,
   .react_multiple_carousel__arrow_left_subcatg:hover{
     top: 60px;
@@ -1094,9 +1106,11 @@ option:focus, option:active{
 
 
 @media only screen and (min-device-width: 1366px) {
-  .globalCommonBtn {
-    padding: 8px 21px;
-  }
+  
+ /* .addressSaveBtn{
+    padding: 10px 40px 10px 40px;
+  }*/
+  
   .react_multiple_carousel__arrow_right_section,
   .react_multiple_carousel__arrow_right_section:hover{
     top: 60px;
@@ -1106,11 +1120,13 @@ option:focus, option:active{
   .react_multiple_carousel__arrow_left_section:hover{
     top: 60px;
   }
+  
   .react_multiple_carousel__arrow_right_catg,
   .react_multiple_carousel__arrow_right_catg:hover{
     top: 80px;
     right: 0px;
   }
+  
   .react_multiple_carousel__arrow_left_catg,
   .react_multiple_carousel__arrow_left_catg:hover{
     top: 80px;
@@ -1122,6 +1138,7 @@ option:focus, option:active{
     top: 90px;
     right: 0px;
   }
+  
   .react_multiple_carousel__arrow_left_subcatg,
   .react_multiple_carousel__arrow_left_subcatg:hover{
     top: 90px;
@@ -1133,10 +1150,12 @@ option:focus, option:active{
 }  
 
 @media only screen and (min-device-width: 1440px) {
-  .globalCommonBtn {
-    padding: 6px 40px;
+
+ /* .addressSaveBtn{
+    padding: 10px 40px 10px 40px;
     font-size: 14px;
-  }
+  }*/
+  
   .react_multiple_carousel__arrow_right_section,
   .react_multiple_carousel__arrow_right_section:hover{
     top: 60px;
@@ -1174,10 +1193,12 @@ option:focus, option:active{
 
 
 @media only screen and (min-device-width: 1536px) {
-  .globalCommonBtn {
-    padding: 7px 45px;
-    font-size: 15px;    
-  }
+/*
+  .addressSaveBtn{
+    padding: 10px 40px 10px 40px;
+    font-size: 15px;
+  }*/
+  
   .react_multiple_carousel__arrow_right_section,
   .react_multiple_carousel__arrow_right_section:hover{
     top: 75px;
@@ -1193,16 +1214,19 @@ option:focus, option:active{
     top: 100px;
     right: 15px;
   }
+  
   .react_multiple_carousel__arrow_left_catg,
   .react_multiple_carousel__arrow_left_catg:hover{
     top: 100px;
     left: 15px;
   }
+  
   .react_multiple_carousel__arrow_right_subcatg,
   .react_multiple_carousel__arrow_right_subcatg:hover{
     top: 115px;
     right: 10px;
   }
+  
   .react_multiple_carousel__arrow_left_subcatg,
   .react_multiple_carousel__arrow_left_subcatg:hover{
     top: 115px;
@@ -1215,20 +1239,23 @@ option:focus, option:active{
 
 
 @media only screen and (min-device-width: 1920px) {
-  .globalCommonBtn {
+ /* .globalCommonBtn {
     padding: 8px 68px;
+  }*/
+  /*.addressSaveBtn{
+    padding: 10px 40px 10px 40px;
     font-size: 16px;
-  }
-  .addressSaveBtn{
-    padding: 10px 40px 10px 40px !important;
-  }
+  }*/
+  
   .wishListIconColor{
     height: 30px;
   }
+  
   .react_multiple_carousel__arrow_right_section,
   .react_multiple_carousel__arrow_right_section:hover{
     top: 90px;
   }
+  
   .react_multiple_carousel__arrow_left_section,
   .react_multiple_carousel__arrow_left_section:hover{
     top: 90px;
@@ -1238,21 +1265,25 @@ option:focus, option:active{
     font-size: 16px;
     padding-top: 8px;
   }  
+  
   .react_multiple_carousel__arrow_right_catg,
   .react_multiple_carousel__arrow_right_catg:hover{
     top: 115px;
     right: 15px;
   }
+  
   .react_multiple_carousel__arrow_left_catg,
   .react_multiple_carousel__arrow_left_catg:hover{
     top: 115px;
     left: 15px;
   }
+  
   .react_multiple_carousel__arrow_right_subcatg,
   .react_multiple_carousel__arrow_right_subcatg:hover{
     top: 120px;
     right: 20px;
   }
+  
   .react_multiple_carousel__arrow_left_subcatg,
   .react_multiple_carousel__arrow_left_subcatg:hover{
     top: 120px;
@@ -1263,12 +1294,18 @@ option:focus, option:active{
 
 
 @media only screen and (min-device-width: 1921px) {
- 
+  
+  /*.addressSaveBtn{
+    padding: 10px 40px 10px 40px;
+    font-size: 16px;
+  }*/
+
   .react_multiple_carousel__arrow_right_catg,
   .react_multiple_carousel__arrow_right_catg:hover{
     top: 150px;
     right: 15px;
   }
+  
   .react_multiple_carousel__arrow_left_catg,
   .react_multiple_carousel__arrow_left_catg:hover{
     top: 150px;
@@ -1280,17 +1317,26 @@ option:focus, option:active{
     padding-top: 8px;
   }
 
+  .react_multiple_carousel__arrow_left_section,
+  .react_multiple_carousel__arrow_left_section:hover{
+    top: 125px;
+  }  
+
+  .errorMsg {
+    font-size: 16px;
+    padding-top: 8px;
+  }
 }
 
 @media only screen and (min-device-width: 2560px) {
-  .globalCommonBtn {
+ /* .globalCommonBtn {
     padding: 8px 92px;
     font-size: 19px;
-  }
+  }*/
 
-  .addressSaveBtn{
-    padding: 10px 40px 10px 40px !important;
-  }
+  /*.addressSaveBtn{
+    padding: 10px 40px 10px 40px;
+  }*/
 
   .wishListIconColor{
     height: 30px;

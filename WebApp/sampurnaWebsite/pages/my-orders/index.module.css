@@ -447,7 +447,7 @@
 @media only screen and (min-device-width: 1920px) {
 	
 	.myOrderMainTitle{
-  		font-size: 37px;
+  		font-size: 25px;
   	}
 
   	.statusTextWrapper{
@@ -503,6 +503,10 @@
 
 	.statusTextWrapper {
 		/*padding: 5px 5px 20px 5px;*/
+	}
+
+	.emptyOrderStrip{
+		font-size: 22px;
 	}
 }
 

@@ -165,7 +165,7 @@ class AddressBook extends Component{
             </div>
             
             <Message messageData={this.state.messageData} /> </div>
-            <div className={"font-weight-bold pb-xl-2 "+ Style.accountDashBoardMainTitle}>My Addresses</div>
+            <div className={"font-weight-bold pb-xl-3 "+ Style.accountDashBoardMainTitle}>My Addresses</div>
             <div className={ "container-flex col-9 col-lg-11 col-xl-11 "+Style.accountDashBoardInnerwrapper}>
                 <div className="row">
                     <div className={"col-12 "+Style.creditHeader}>
@@ -177,7 +177,7 @@ class AddressBook extends Component{
                 <div className="col-12 pt-4 ">
                     <div className="row">
                         <div className="col-12 col-lg-12 pt-2">
-                            <div className="col-12"> 
+                            <div className={"col-12 "+Style.addressSpaceInbetween}> 
                             {/* {console.log("this.props.recentAddressData[0]=",this.props.recentAddressData[0])} */}
                             { this.props.recentAddressData[0] ?
                                 <div className="col-12">
@@ -208,7 +208,7 @@ class AddressBook extends Component{
                                 <div className="col-12">
                                     <label className={" "+ Style.defaultBillingAddTitle}>Default Billing Address</label>
                                     <p className={" "+Style.addressInnerDescWrapper}>You have not set a default billing address.</p>
-                                    <div data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn mt-2  mt-0 float-lg-right float-md-right">Add Billing Address</div>
+                                    <div data-toggle="modal" data-target="#checkoutAddressModal" className={"btn globalCommonBtn addressSaveBtn mt-2  mt-0 float-lg-right float-md-right "+ Style.addBillingSaveBtn}>Add Billing Address</div>
                                 </div> 
                             } 
                             </div>
@@ -218,13 +218,13 @@ class AddressBook extends Component{
                                <div className="col-12">
                                    <label className={" "+ Style.defaultBillingAddTitle}>Additional Address Entries</label>
                                </div>
-                                <div className="col-10 col-lg-12 col-xl-10 mx-auto">
+                                <div className="col-10 col-lg-12 col-xl-10 px-xl-0">
                                     <div className="row">
                                         {/* { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return( */}
                                         { this.props.recentAddressData && this.props.recentAddressData.length > 1 ? this.props.recentAddressData.map((address , index)=>{ if(index !== 0){ 
                                             // console.log("address==",address);
                                             return(  
-                                                    <div key={ 'address'+index} className={"col-12 col-lg-6 col-md-6  py-3 px-4 " +Style.additionAddress1}>
+                                                    <div key={ 'address'+index} className={"col-12 col-lg-6 col-md-6 py-3 px-4 " +Style.additionAddress1}>
                                                         <div className={"col-12 text-center " +Style.additionAddress}>
                                                                 <div className={"text-justify pt-2  "+Style.addressInnerDescWrapper+" "+Style.customBoxPropperties}> 
                                                                 <div className="col-12 p-0 ">
@@ -263,9 +263,9 @@ class AddressBook extends Component{
                                             })
                                             :
                                                     <div className="col-12">
-                                                    <div className="col-12">
-                                                    <p className={"text-justify "+Style.addressInnerDescWrapper}>You have no other address entries in your address book.</p> 
-                                                    </div>
+                                                        <div className="col-12">
+                                                            <p className={"text-justify "+Style.addressInnerDescWrapper}>You have no other address entries in your address book.</p> 
+                                                        </div>
                                                     </div>
                                         }             
                                         <div className={"col-12 col-xl-12 " + Style.addNewAddressBtn}>

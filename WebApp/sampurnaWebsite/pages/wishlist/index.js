@@ -68,7 +68,7 @@ class Wishlist extends Component {
             <div className={"col-12 NoPadding"}>
               <div className="col-12 table-caption">
                   <div className="col-12 pl-lg-0">
-                    <span className="table-caption wishListMainTitle pb-xl-2 "> My Wishlist</span>
+                    <span className="table-caption wishListMainTitle pb-xl-3"> My Wishlist</span>
                   </div>
               </div>
               {

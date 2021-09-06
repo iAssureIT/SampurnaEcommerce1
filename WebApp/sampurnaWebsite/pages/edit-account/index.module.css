@@ -51,7 +51,7 @@
     min-height      : 230px;
     background-color: white;
     border          : 1px solid #033554;
-    border-radius   : 11px;
+    border-radius   : 19px;
 }
 
 .asterikSign{
@@ -170,7 +170,15 @@
 
 @media only screen and (min-device-width: 1920px) {
     .editAccountTitle{
-        font-size: 37px;
+        font-size: 25px;
+    }
+
+    #editAccount span {
+        font-size: 16px;
+    }
+
+    #editAccount input {
+        font-size: 16px;
     }
 
     .editAccountFont{
@@ -179,6 +187,7 @@
 
     .accountInformationMainWrapper{
         margin-left: 0px;
+        margin-top: 4px;
     }  
 }
 

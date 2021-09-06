@@ -192,9 +192,6 @@
         font-family   : Montserrat-Bold;
     }
 
-     .customBoxPropperties{
-        /*opacity: 0.4;*/
-    }
 } 
 
 
@@ -222,10 +219,6 @@
         margin-left: 98px;
     } 
 
-     .customBoxPropperties{
-        /*opacity: 0.4;*/
-    } 
-
 }  
 
 @media only screen and (min-device-width: 1440px) {
@@ -247,14 +240,11 @@
         margin-top: 3px;
     }
 
-     .customBoxPropperties{
-        /*opacity: 0.4;*/
-    }
-
 }
 
 
 @media only screen and (min-device-width: 1536px) {
+    
     .additionAddress{
         height: 166px;
     }
@@ -277,24 +267,12 @@
         font-size: 30px;
     }
 
-     .customBoxPropperties{
-        /*opacity: 0.4;*/
-    }
 }
 
 @media only screen and (min-device-width: 1920px) {
 
     .accountDashBoardMainTitle{
-        font-size: 37px;
-    }
-
-    .addNewAddressBtn{
-        margin-left: 120px;
-    }
-
-    .additionalAddressDeleteBtn{
-        margin-left: -45px;
-        margin-top: 1px;
+        font-size: 25px;
     }
 
     .defaultBillingAddTitle{
@@ -318,12 +296,30 @@
     }
 
     .addressInnerDescWrapper{
-        margin-bottom: -15px;
+        /*margin-bottom: -15px;*/
+        margin-bottom: -90px;
         font-size: 15px;
     }
 
-     .customBoxPropperties{
-        /*opacity: 0.4;*/
+    .addressSpaceInbetween{
+        margin-bottom: 100px;
+    }
+
+    .addNewAddressBtn{
+        margin-left: 200px;
+        margin-bottom: 24px;
+        padding: 10px 40px 10px 43px;
+    }
+
+    .addBillingSaveBtn{
+        padding: 10px 40px 10px 43px;
+        font-size: 16px;
+        margin-right: -20px;
+    }
+
+    .additionalAddressDeleteBtn{
+        margin-left: -45px;
+        margin-top: 1px;
     }
 
 }
@@ -336,7 +332,7 @@
     }
 
     .addNewAddressBtn{
-        margin-left: 125px;
+        margin-left: 242px;
     }
 
     .defaultBillingAddTitle{
@@ -369,8 +365,21 @@
         margin-top: 1px;
     }
 
-     .customBoxPropperties{
-        /*opacity: 0.4;*/
+    .addNewAddressBtn{
+        margin-left: 200px;
+        margin-bottom: 24px;
+        padding: 10px 40px 10px 43px;
+    }
+
+    .addBillingSaveBtn{
+        padding: 10px 40px 10px 43px;
+        font-size: 16px;
+        margin-right: -20px;
+    }
+
+    .additionalAddressDeleteBtn{
+        margin-left: -45px;
+        margin-top: 1px;
     }
 
 }    

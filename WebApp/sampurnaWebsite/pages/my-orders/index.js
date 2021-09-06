@@ -320,7 +320,7 @@ export default class MyOrders extends Component {
               //  <div className="col-12"> 
               <div className="col-12 col-xl-12 col-md-12 col-sm-12">
                 <div className={"col-12 pl-0 "+ Style.myOrderMainTitle}>
-                  <div className={"table-caption mb-2 pb-xl-0 "}>My Orders</div>
+                  <div className={"table-caption mb-2 pb-xl-3"}>My Orders</div>
                 </div>
 
                 <div className={"container-flex col-xl-12 px-0 "+ Style.myOrderBox}>
@@ -425,7 +425,7 @@ export default class MyOrders extends Component {
                               :
                               <div className="col-12 textAlignCenter">
                                 <div className="mt-2 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
-                                <img src="/images/eCommerce/emptyorder.png" alt="" />
+                                <img src="/images/eCommerce/emptyorder.png" alt="empty order image not found" />
                               </div>
                           }
                           <div className={"col-12 " + Style.vendorRowBottom}>
@@ -452,9 +452,9 @@ export default class MyOrders extends Component {
                       )
                     })
                     :
-                    <div className="col-12 textAlignCenter">
-                      <div className="mt-2 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
-                      <img src="/images/eCommerce/emptyorder.png" alt="" />
+                    <div className="col-12 textAlignCenter px-0">
+                      <div className={"mt-2 alert alert-warning textAlignCenter "+ Style.emptyOrderStrip}><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
+                      <img src="/images/eCommerce/emptyorder.png" className="img-fluid"  alt="empty order image not found" />
                     </div>
                   }
                 </div>
