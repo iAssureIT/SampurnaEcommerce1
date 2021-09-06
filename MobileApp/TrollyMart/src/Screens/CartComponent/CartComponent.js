@@ -553,7 +553,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     <Text style={styles.billText}>Total Amount</Text>
                   </View>
                   <View style={styles.flxdata1}>                    
-                    <View style={{ flex: 0.54 }}>
+                    <View style={{ flex: 0.56 }}>
                       <Text style={styles.totaldata1}>Total Amount </Text>
                     </View>
                     <View style={{ flex: 0.15 }}>
@@ -561,14 +561,14 @@ const getshippingamount=(startRange, limitRange)=>{
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
                       </View>
-                    <View style={{ flex: 0.3 }}>
+                    <View style={{ flex: 0.25 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                         <Text style={styles.totalpriceincartfinal}>{cartData.paymentDetails.afterDiscountTotal && cartData.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
                       </View>
                     </View>
                   </View>
                   <View style={styles.flxdata1}>
-                    <View style={{ flex: 0.54 }}>
+                    <View style={{ flex: 0.56 }}>
                       <Text style={styles.totaldata1}>Total Saved </Text>
                     </View>
                     <View style={{ flex: 0.15 }}>
@@ -576,7 +576,7 @@ const getshippingamount=(startRange, limitRange)=>{
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
                       </View>
-                    <View style={{ flex: 0.3 }}>
+                    <View style={{ flex: 0.25 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                         {/* <Text style={styles.totalpriceincart}> - </Text> */}
                         <Text style={[styles.totalpriceincartTotalG]}>{cartData.paymentDetails.discountAmount.toFixed(2)}</Text>
@@ -584,7 +584,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>
                   </View>
                   <View style={styles.flxdata1}>
-                    <View style={{ flex: 0.54 }}>
+                    <View style={{ flex: 0.56 }}>
                       <Text style={styles.totaldata1}>Total VAT</Text>
                     </View>
                     <View style={{ flex: 0.15 }}>
@@ -592,7 +592,7 @@ const getshippingamount=(startRange, limitRange)=>{
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
                       </View>
-                    <View style={{ flex: 0.3 }}>
+                    <View style={{ flex: 0.25 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                     <Text style={styles.totalpriceincartfinal}>{cartData.paymentDetails.taxAmount.toFixed(2)}</Text>
                       </View>
@@ -607,7 +607,7 @@ const getshippingamount=(startRange, limitRange)=>{
                           <Text style={styles.currency1}>{currency}</Text>
                         </View>
                       </View>
-                    <View style={{ flex: 0.3 }}>
+                    <View style={{ flex: 0.25 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                         <Text style={styles.totalpriceincartfinal}>{cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
                       </View>

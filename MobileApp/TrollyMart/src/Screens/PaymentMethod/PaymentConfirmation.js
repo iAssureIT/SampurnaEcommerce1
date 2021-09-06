@@ -61,7 +61,7 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                     <View style={{flex:0.4,alignItems:'flex-end'}}>
                         <Image
                             resizeMode="contain"
-                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/Logo.png'}}
+                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/trollymart-black.png'}}
                             style={{height:hp(6),width:wp(20)}}
                             />
                     </View>    
@@ -139,7 +139,12 @@ export const PaymentConfirmation = withCustomerToaster((props)=>{
                     </View>
                 </View>    
                 <TouchableOpacity style={{flexDirection:'row',marginTop:hp(3.5),justifyContent:'center',alignItems:'center'}}  onPress  = {() => navigation.navigate('OrderDetails', { orderid: order._id })}>
-                    <Icon name="eye-outline" type='material-community' size={RFPercentage(2.4)} color="#fff" iconStyle={{paddingHorizontal:3}}/>
+                    <Image 
+                        source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/view@2x.png'}}
+                        resizeMode="contain"
+                        style={{height:hp(4),width:wp(4),marginRight:wp(1.5),marginTop:hp(0.5)}}
+                        />
+                    {/* <Icon name="eye-outline" type='material-community' size={RFPercentage(2.4)} color="#fff" iconStyle={{paddingHorizontal:3}}/> */}
                     <Text style={[CommonStyles.label,{color:"#fff",fontFamily:"Montserrat-Regular",textDecorationLine:'underline'}]}>View my order</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginTop:10,marginBottom:100}}  onPress  = {() => navigation.navigate('Dashboard')}>

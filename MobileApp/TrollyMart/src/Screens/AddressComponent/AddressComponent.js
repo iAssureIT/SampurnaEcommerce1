@@ -478,7 +478,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                     fontSize            = {RFPercentage(1.8)}
                     placeholder         = {"-- Select Address Type --"}                    
                     containerStyle      = {styles.ddContainer}
-                    // dropdownOffset      = {{ top: 55, left: 0 }}
+                    dropdownOffset      = {{ top: 88, left: 0 }}
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
                     // labelHeight         = {10}

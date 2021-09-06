@@ -66,7 +66,7 @@ export default StyleSheet.create({
   },
   discountpricecut: {
 		textDecorationLine: 'line-through',
-    fontSize:RFPercentage(1.8),
+    fontSize:RFPercentage(2),
     fontFamily:"Montserrat-Regular",
     color: "#000000",
     opacity: 0.5,
@@ -687,7 +687,7 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Regular",
     color: "#5B8E7E",
     opacity: 1,
-    fontSize:RFPercentage(1.5),
+    fontSize:RFPercentage(2),
     // marginBottom:5,
   },
   backText:{
