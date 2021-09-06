@@ -1214,13 +1214,14 @@ exports.update_product_multiple = (req,res,next)=>{
 };
 
 exports.list_product = (req,res,next)=>{
-	console.log("list_product body = ", req.body);
+	// console.log("list_product body = ", req.body);
+	// console.log("1222 =======data inside ");
 	// Products.find({"status": "Publish"}).sort({'productName': 1})       
 	Products.find({"status": "Publish"}).sort({'itemCode': 1})  
 	// Products.find().sort({'itemCode': 1})     
 	.exec()
 	.then(data=>{
-		console.log("1222 =======data",data);
+		// console.log("1 =======data");
 		// if(data.length > 0){
 			 res.status(200).json(data);
 		// }else{
@@ -1235,6 +1236,199 @@ exports.list_product = (req,res,next)=>{
 		});
 	});
 };
+
+
+
+exports.list_limit_product_data = (req,res,next)=>{
+
+	Products.find({"status": "Publish"}).sort({'itemCode': 1})  
+	// .exec()
+	.skip(parseInt(req.body.startRange))
+	.limit(parseInt(req.body.limitRange))
+	.then(data=>{
+		// console.log("1222 =======data",data);
+		// if(data.length > 0){
+			 res.status(200).json(data);
+		// }else{
+		//      res.status(200).json("It seems that you don't have any product added or you have added products but not yet published.");
+		// }
+	   
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+};
+
+exports.list_product_with_FilterData = (req,res,next)=>{	
+	// console.log('req', req.body);
+	var selector        = {};
+	selector['$and']    = [];
+
+	if(req.body.vendor !== "" && req.body.vendor !== undefined){
+		selector["$and"].push(
+			{"vendor_ID" : ObjectId(req.body.vendor)}
+		)
+	}
+	if(req.body.section !== "" && req.body.section !== undefined){
+		selector["$and"].push(
+			{"section_ID" : ObjectId(req.body.section)}
+		)
+	}
+	if(req.body.category !== "" && req.body.category !== undefined){
+		selector["$and"].push(
+			{"category_ID" : ObjectId(req.body.category)}
+		)
+	}
+	if(req.body.subCategory !== "" && req.body.subCategory !== undefined){
+		selector["$and"].push(
+			{"subCategory_ID" : ObjectId(req.body.subCategory)}
+		)
+	}
+	if(req.body.status !== "" && req.body.status !== undefined){
+		selector["$and"].push(
+			{"status" : req.body.status}
+		)
+	}else{
+		selector["$and"].push(
+			{"status" : {$ne : ""}}
+		)
+	}
+	if(req.body.searchText && req.body.searchText !== ""){
+		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$and"].push({ 
+			"$or" : [
+						{ "vendorDetails.companyName" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productName" 											: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "brand" 													: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "subCategory"											: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "sectionDetails.section" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.category" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.subCategory.subCategoryTitle": {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productCode"											: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "itemCode"												: {'$regex' : req.body.searchText , $options: "i" } },
+					]
+		})
+	}
+	Products.aggregate([
+		{ $lookup : {
+				from 				: 'entitymasters',
+				localField 			: 'vendor_ID',
+				foreignField 		: '_id',
+				as 					: 'vendorDetails'
+			}
+		},	
+		{ $lookup : {
+				from 				: 'sections',
+				localField 			: 'section_ID',
+				foreignField 		: '_id',
+				as 					: 'sectionDetails'
+			}
+		},
+		{ $lookup : {
+				from 				: 'categories',
+				localField 			: 'category_ID',
+				foreignField 		: '_id',
+				as 					: 'categoryDetails'
+			}
+		},
+		{ $match : selector },
+		{ $sort: {
+				createdAt : -1
+			}
+		},
+		{$project : 
+			{
+				_id      							: 1,
+				vendor_ID 							: 1,
+				section_ID 							: 1,
+				category_ID 						: 1,
+				subCategory_ID 						: 1,
+				status          					: 1,
+				createdAt       					: 1,
+				"productName"						: 1,
+				"brand"								: 1,
+				"productCode" 						: 1,
+				"itemCode" 							: 1,
+				// "vendorBarcode"						: 1,
+				// "vendorItemcode"					: 1,
+				"originalPrice" 					: 1,
+				// "discountPercent" 					: 1,
+				// "discountedPrice" 					: 1,
+				// "availableQuantity" 				: 1,
+				// "featured" 							: 1,
+				// "exclusive" 						: 1,
+				// "vendorDetails.companyName"	        : 1,
+				// "categoryDetails.category"		    : 1,
+				// "categoryDetails.subCategory"	    : 1,
+				"sectionDetails.section"		    : 1,
+				"productImage" 						: 1,
+			}
+		}
+	])
+	// .exec()
+	.skip(parseInt(req.body.startRange))
+	.limit(parseInt(req.body.limitRange))
+	.then(async(data)=>{
+		var allData = []
+		for (var i = 0; i < data.length; i++) {
+				var subCategory = "";
+				if(data[i].categoryDetails && data[i].categoryDetails.length > 0){
+							// console.log("data[i].categoryDetails.subCategory => ",data[i].subCategory_ID)
+					if(data[i].subCategory_ID && data[i].subCategory_ID !== undefined && data[i].subCategory_ID !== null){
+						var filteredSubcategory = data[i].categoryDetails[0].subCategory.filter(subCategory => String(subCategory._id) === String(data[i].subCategory_ID));
+						if(filteredSubcategory && filteredSubcategory.length > 0){
+							subCategory = filteredSubcategory[0].subCategoryTitle;
+							// console.log("subCategory => ",subCategory)
+						}
+					}
+				}
+				var inventoryData 		= await ProductInventory.findOne({productCode : data[i].productCode, itemCode : data[i].itemCode, vendor_ID : ObjectId(data[i].vendor_ID)},{currentQuantity : 1})
+				var availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 
+				let vendorBarcode =  data[i].vendorBarcode !== undefined && data[i].vendorBarcode!==''  ? "</span><br><span class='whiteSpaceNoWrap'> Vendor Barcode: " + data[i].vendorBarcode + "</span>" : "</span><br><span class='whiteSpaceNoWrap'> Vendor Barcode: " + "NA" + "</span>"
+				let vendorItemcode = data[i].vendorItemcode !== undefined && data[i].vendorItemcode !== '' ? "</span><br><span class='whiteSpaceNoWrap'> Vendor Itemcode: " +  data[i].vendorItemcode + "</span>" : "</span><br><span class='whiteSpaceNoWrap'>Vendor Itemcode: " + "NA" + "</span>"
+				allData.push({
+									"_id"                   : data[i]._id,
+									"productName"           : data[i].productName,
+									"productCode"           : data[i].productCode,
+									"itemCode"				: data[i].itemCode,
+									// +"</span><br><span class='whiteSpaceNoWrap'> Item Code: " + data[i].itemCode + "</span>" 								
+																// + vendorBarcode +vendorItemcode, 
+									"vendorName"            : data[i].vendorDetails && data[i].vendorDetails.length > 0 ? data[i].vendorDetails[0].companyName : "-",
+									"section"               : data[i].sectionDetails && data[i].sectionDetails.length > 0 ? data[i].sectionDetails[0].section : "-",
+									"category"              : data[i].categoryDetails && data[i].categoryDetails.length > 0 ? data[i].categoryDetails[0].category : "-",
+									"subCategory"           : subCategory,
+									"brand"           		: data[i].brand,
+									"originalPrice"         : data[i].originalPrice.toFixed(2),
+									// "discountPercent"       : "<span class='textAlignRight'>" + data[i].discountPercent + "%" + "</span>",
+									// "discountedPrice"       : "<span class='textAlignRight'>" + (data[i].discountedPrice).toFixed(2) + "</span>",
+									// "availableQuantity"     : availableQuantity,
+									// "featured"              : data[i].featured,
+									// "exclusive"             : data[i].exclusive,
+									"status"                : data[i].status,
+									"productImage" 			: data[i].productImage
+								})
+			}
+		// })
+		if(i >= data.length){
+			// console.log(allData)
+			res.status(200).json({
+				// dataCount 	: allData.length,
+				data 			: allData
+			});
+		}
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+};
+
+
 exports.list_productimage_with_vendor = (req,res,next)=>{
 	Products.find({"vendor_ID": req.params.vendorID })       
 	.exec()
@@ -1499,7 +1693,11 @@ exports.list_productby_type_category = (req,res,next)=>{
 };
 
 exports.list_product_with_limits = (req,res,next)=>{	
-	console.log('list_product_with_limits body = ', req.body);
+
+	// console.log('list_product_with_limits body = ', req.body);
+
+	// console.log('req', req.body);
+
 	var selector        = {};
 	selector['$and']    = [];
 

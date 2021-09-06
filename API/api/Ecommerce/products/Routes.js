@@ -187,4 +187,12 @@ router.get('/check-item-code-exits/:itemcode',							productController.checkItem
 
 router.post('/get/product_list_by_section', 					        productController.product_list_by_section);
 
+
+/*===================== New API's By Ranjan =====================*/
+
+router.post('/get/list/limit', 												productController.list_limit_product_data);
+router.post('/get/list/filter', 											productController.list_product_with_FilterData);
+
+
+
 module.exports = router;

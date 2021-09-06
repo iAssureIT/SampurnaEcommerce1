@@ -1,6 +1,7 @@
 import React, { Component }       	from 'react';
 import {Route, withRouter} 			from 'react-router-dom';
 import swal                     	from 'sweetalert2';
+import Swal                     	from 'sweetalert';
 import axios 						from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
@@ -701,6 +702,53 @@ class IAssureTable extends Component {
     	this.setState({productID:productId, productName:event.target.getAttribute('name'),productNameRlang:event.target.getAttribute('namerlang')})
 
     }
+
+    deleteproductImages(event){
+
+		event.preventDefault(); 
+		var id  			= event.target.getAttribute('data-productid');
+		var image 			= event.target.getAttribute('data-image');
+		var imageName 		= image.split("/").pop();
+		var smallImageName 	= imageName.split(".")[0] + "_small_image." + imageName.split(".")[1];
+		var split 			= image.split("/");
+		var smallImageLink  = split.slice(0, split.length - 1).join("/") + "/" + smallImageName;
+		
+		console.log("image 715 => ", image)
+		console.log("smallImageLink 716 => ", smallImageLink)
+		
+		var formValues = {
+			product_ID  	: id,
+			imageLink 		: image,
+			smallImageLink 	: smallImageLink
+		}
+
+		Swal({
+			title 		: "Are you sure you want to delete this image?",
+			text 		: "Once deleted, you will not be able to recover this image!",
+			// icon 		: "warning",
+			buttons 	: true,
+			dangerMode 	: true,
+		})
+		.then((success) => {
+			if (success) {
+				Swal("Your image is deleted!");
+				
+					axios.patch('/api/products/remove/image', formValues)
+					.then((res)=>{
+						// this.getData();
+                        this.props.getData(this.state.startRange, this.state.limitRange);
+					})
+					.catch((error)=>{
+						console.log('errro', error);
+					})
+			
+			} else {
+				Swal("Your image is safe!");
+			}
+		});
+
+ 
+	}
     getImageData(id){
         // console.log('id',id);
         axios.get('/api/products/get/one/'+id)
@@ -895,12 +943,11 @@ class IAssureTable extends Component {
 									}
 	                            </tr>
 	                            <tr className="">
-	                            <th className="umDynamicHeader srpadd textAlignLeft">
+	                            {/* <th className="umDynamicHeader srpadd textAlignLeft">
 									<div className="uMDetailContainer">
 										<input type="checkbox" className="allSelector col-lg-1 col-md-1 col-sm-3 col-xs-1" name="allSelector" onChange={this.checkAll.bind(this)}/>
-								    	{/* <span className="uMDetailCheck"></span> */}
 								    </div>
-								</th>
+								</th> */}
 		                            { this.state.tableHeading ?
 										Object.entries(this.state.tableHeading).map( 
 											([key, value], i)=> {
@@ -914,10 +961,6 @@ class IAssureTable extends Component {
 										:
 										<th className="umDynamicHeader srpadd textAlignLeft"></th>
 									}
-									<th className="umDynamicHeader srpadd textAlignLeft">Featured</th>
-									<th className="umDynamicHeader srpadd textAlignLeft">Exclusive</th>
-									<th className="umDynamicHeader srpadd textAlignLeft">Status</th>
-									<th className="umDynamicHeader srpadd textAlignLeft">Action</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody>
@@ -949,8 +992,7 @@ class IAssureTable extends Component {
 											// console.log("value",value)											
 											return(
 												<tr key={i} className="">
-													<td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>
-													
+													<td> {i+1} </td>												
 													{
 														Object.entries(value).map( 
 															([key, value1], i)=> {
@@ -996,55 +1038,28 @@ class IAssureTable extends Component {
 															}
 														)
 													}
-													<td className="col-lg-1 textAlignCenter">
-                                                      <i onClick={this.changeAttribute.bind(this)} data-attribute="featured" data-ID={value._id} data-attributeValue={value.featured} title={ (value.featured === true )? "Disable It" : "Enable It" } className={'fa fa-check-circle prodCheckboxDim ' + ( value.featured === true ? "prodCheckboxDimSelected" : "prodCheckboxDimNotSelected" )} aria-hidden="true"></i>
+                                                    <td>
+                                                    {
+                                                        value.productImage.length > 0 ? 
+                                                            <div className="col-lg-12 col-md-12 col-sm-12, col-xs-12 deleteimagewrapper bulkimagebg">  
+                                                                {  
+                                                                    value.productImage.map((imgdata,index)=>{
+                                                                        return(
+                                                                            <div className="deleteImgBlkUpldCol" key={index}>
+                                                                                {/* imgdata */}
+                                                                                <i className="fa fa-times deleteImgBlkUpldSign" aria-hidden="true" data-image={imgdata} data-productid={value._id}   onClick={this.deleteproductImages.bind(this)}></i>
+                                                                                <img src={imgdata} className=""/>
+                                                                            </div>
+                                                                        );
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        :
+                                                        <div className="bulkImgUpldNotShown">
+                                                            No Images Available
+                                                        </div>
+                                                    }
                                                     </td>
-                                                    <td className="col-lg-1 textAlignCenter">
-                                                        <i onClick={this.changeAttribute.bind(this)} data-attribute="exclusive" data-ID={value._id} data-attributeValue={value.exclusive} title={( value.exclusive === true ? "Disable It" : "Enable It" )}  className={'fa fa-check-circle prodCheckboxDim ' + ( value.exclusive === true ? "prodCheckboxDimSelected" : "prodCheckboxDimNotSelected" )} aria-hidden="true"></i>
-                                                    </td>
-													
-                                                    <td className="col-lg-1">
-                                                        <div className={( value.status === ("Unpublish") ? ("prodStatUnpublish") : (value.status === ("Publish") ? ("prodStatPublish") : ("prodStatDraft")) )}>{value.status}</div>
-                                                        {/* <div onClick={this.changeStatusOfProd.bind(this)} data-ID={value._id} className={( value.status === ("Unpublish") ? ("prodStatUnpublish") : (value.status === "Publish" ? "prodStatPublish" : "prodStatDraft") )} data-status={value.status} >
-                                                            {(value.status === ("Unpublish") ? ("Unpublished") : (value.status === ("Draft") ? ("Draft") : ("Published")))}
-                                                        </div> */}
-                                                    </td>
-													<td className="textAlignCenter">
-														<span class="displayInline">
-															<a href={"/product-details/"+value._id} className="" title="View" data-ID={value._id}>
-                                                <i className="fa fa-eye productActionIcon" aria-hidden="true"></i>
-                                            	</a>&nbsp; &nbsp;
-															<i className="fa fa-pencil productActionIcon" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 
-															<i className={"fa fa-image productActionIcon"} id={value._id} name={value.productNameBasic} nameRlang={value.productNameRlang} data-toggle="modal" title="Upload Product Image" data-target={"#productImageModal"} onClick={this.showImageModal.bind(this)}></i>&nbsp; &nbsp;
-														
-															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash productActionIcon redFont "+value._id} id={value._id} title="Delete" onClick={this.delete.bind(this)}></i>}
-															{/*{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>}*/}
-															</span>
-														<div className="modal fade" id={"showDeleteModal-"+(value._id)} role="dialog">
-	                                                        <div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                          <div className="modal-content adminModal-content col-lg-6 col-lg-offset-4 col-md-6 col-md-offset-4 col-sm-10 col-sm-offset-1 col-xs-12 noPadding">
-	                                                            <div className="modal-header adminModal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                            <div className="adminCloseCircleDiv pull-right  col-lg-1 col-lg-offset-11 col-md-1 col-md-offset-11 col-sm-1 col-sm-offset-11 col-xs-12 NOpadding-left NOpadding-right">
-	                                                              <button type="button" className="adminCloseButton" data-dismiss="modal" data-target={"#showDeleteModal-"+(value._id)}>&times;</button>
-	                                                            </div>
-	                                                           
-	                                                            </div>
-	                                                            <div className="modal-body adminModal-body col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                              <h4 className="blackLightFont textAlignCenter examDeleteFont col-lg-12 col-md-12 col-sm-12 col-xs-12">Are you sure you want to delete?</h4>
-	                                                            </div>
-	                                                            
-	                                                            <div className="modal-footer adminModal-footer col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-	                                                                <button type="button" className="btn adminCancel-btn col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1" data-dismiss="modal">CANCEL</button>
-	                                                              </div>
-	                                                              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-	                                                                <button onClick={this.delete.bind(this)} id={(value._id).replace(/-/g, "/")} type="button" className="btn examDelete-btn col-lg-4 col-lg-offset-7 col-md-4 col-md-offset-7 col-sm-8 col-sm-offset-3 col-xs-10 col-xs-offset-1 floatRight" data-dismiss="modal">DELETE</button>
-	                                                              </div>
-	                                                            </div>
-	                                                          </div>
-	                                                        </div>
-	                                                    </div>
-													</td>
 												</tr>
 											);										
 										}

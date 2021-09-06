@@ -6,6 +6,9 @@ import _                      from 'underscore';
 import S3FileUpload           from 'react-s3';
 import { Alert } from 'bootstrap';
 import Compressor from 'compressorjs';
+import Select               from 'react-select';
+import IAssureTable         from "./IAssureTable.jsx";
+
 
 class BulkProductImageUpload extends Component{
 	constructor(props){
@@ -15,7 +18,32 @@ class BulkProductImageUpload extends Component{
 				allshopproductimages : [],
 				productImageArray : [],
 				progressLength : 0,
-				itemCodeNotExist :''
+				itemCodeNotExist :'',
+				startRange 				: 0,
+				limitRange 				: 10,
+				selector 				: {},
+				statusArray 			: [
+					{name : 'status', label : 'All', value : ''},
+					{name : 'status', label : 'Publish', value : 'Publish'},
+					{name : 'status', label : 'Draft', value : 'Draft'},
+					{name : 'status', label : 'Unpublish', value : 'Unpublish'}
+				],
+				tableHeading: {
+					srNo 				: 'Sr no.',
+					productCode		: 'Product Code',
+					itemCode			: 'Item Code',
+					productName		: 'Product Name',
+					originalPrice		: 'Original Price',
+					images				: 'Images',
+				},
+				tableObjects 			: {
+					paginationApply 	: true,
+					searchApply 		: true,
+					deleteMethod 		: 'delete',
+					apiLink 				: '/api/products',
+					editUrl 				: '/add-product/'
+				},
+				dataCount : "",
 			}
 
 	}
@@ -26,13 +54,190 @@ class BulkProductImageUpload extends Component{
 		axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;   
 
 		this.getData();
+		this.getDatawithlimit(this.state.startRange , this.state.limitRange);
+
+
+		axios.get("/api/adminPreference/get")
+	  	.then(preference =>{
+		 	// console.log("preference = ",preference.data);
+		 	this.setState({
+				websiteModel  : preference.data[0].websiteModel,
+				currency  : preference.data[0].currency,
+		 	},()=>{
+			  	// console.log("this.state.websiteModel in comp",this.state.websiteModel);
+			  	if(this.state.websiteModel =="MarketPlace"){
+
+			  		// console.log(" this.state.tableHeading bove", this.state.tableHeading);
+			  		this.setState({
+					 	tableHeading: {
+							"productName" 		: 'Product Details',
+							"section"			: 'Section',
+							"category"			: 'Category',
+							"vendor"				: 'Vendor',
+							"originalPrice"	: 'Original Price',
+							"discountPercent"	: 'Discount Percent',
+							"discountedPrice"	: 'Discounted Price',
+							// "availableQuantity": 'Available Quantity',
+						}
+			  		})				  
+				}
+			  	if(this.state.websiteModel === "MarketPlace"){
+					this.getVendorList();
+			  	}
+		 	});
+	  	})
+	  	.catch(error=>{
+		 	console.log("Error in getting adminPreference = ", error);
+	  	}) 
+
+		// this.getCount();
+		this.getData(this.state.startRange, this.state.limitRange);
+
+		this.getSectionData();
+		// this.productCountByStatus();
+	}
+
+
+		/**=========== getVendorList() ===========*/
+		getVendorList() {
+			axios.get("/api/entitymaster/get/filter/vendor")
+			.then(response =>{
+				  if (response.data && response.data.length > 0) {
+					var vendorArray = [{
+						name    	: "vendor",
+						label 	: "All",
+						value 	: ""
+					}];
+	
+					for (var i = 0; i < response.data.length; i++) {
+						vendorArray.push({
+							name    	: "vendor",
+							label 	: response.data[i].companyName,
+							value 	: response.data[i]._id
+						})
+					}
+					if (i >= response.data.length) {
+						this.setState({
+							  vendorArray : vendorArray
+						},()=>{})
+					}
+				  }else{
+					this.setState({
+						vendorArray : []
+					})
+				  }
+			})
+			.catch(error=>{
+				  console.log("Error => ", error);
+			})
+		}
+
+	/**=========== getSectionData() ===========*/
+	getSectionData() {
+		axios.get("/api/sections/get/filter/sections")
+		.then(response =>{
+		  if (response.data && response.data.length > 0) {
+				var sectionArray = [{
+					 name    : "section",
+					 label : "All",
+					 value : ""
+				}];
+				for (var i = 0; i < response.data.length; i++) {
+					 sectionArray.push({
+						  name    : "section",
+						  label : response.data[i].section,
+						  value : response.data[i]._id
+					 })
+				}
+				if (i >= response.data.length) {
+					 this.setState({
+						  sectionArray : sectionArray
+					 },()=>{})
+				}
+		  }else{
+				this.setState({
+					 sectionArray : []
+				})
+		  }
+		})
+		  .catch(error=>{
+		  console.log("Error => ", error);
+		  })
+	}
+
+	/**===========  ===========*/
+	getCategoryData(section_id) {
+		axios.get("/api/category/get/filter/categories/"+section_id)
+		.then(response =>{    
+		  if (response.data && response.data.length > 0) {
+				var categoryArray = [{
+					 name    : "category",
+					 label : "All",
+					 value : ""
+				}];
+				for (var i = 0; i < response.data.length; i++) {
+					 categoryArray.push({
+						  name : "category",
+						  label : response.data[i].category,
+						  value : response.data[i]._id
+					 })
+				}
+				if (i >= response.data.length) {
+					 this.setState({
+						  categories      : response.data,
+						  categoryArray  : categoryArray
+					 },()=>{})
+				}
+		  }else{
+				this.setState({
+					 categoryArray : []
+				})
+		  }
+		})
+		  .catch(error=>{
+		  console.log("Error => ", error);
+		  }) 
+	}
+
+	/**=========== getSubCategoryData() ===========*/
+	getSubCategoryData(category_id){
+
+	 	if (this.state.categories && this.state.categories.length > 0) {
+		  	var selectedcategory = this.state.categories.filter(category => String(category._id) === String(category_id))
+		  	
+		  	if (selectedcategory && selectedcategory.length > 0 && selectedcategory[0].subCategory && selectedcategory[0].subCategory.length > 0) {
+				var subCategories   	= selectedcategory[0].subCategory;
+				var subCategoryArray = [{
+					name  : "subCategory",
+				  	label : "All",
+				  	value : ""
+				}];
+				for (var i = 0; i < subCategories.length; i++) {
+					subCategoryArray.push({
+						name 		: "subCategory",
+						label 		: subCategories[i].subCategoryTitle,
+						value 		: subCategories[i]._id
+					})
+				}
+				if (i >= subCategories.length) {
+					this.setState({
+						subCategoryArray    : subCategoryArray
+					},()=>{})
+				}
+		  	}
+	 	}else{
+		  	this.setState({
+				subCategoryArray : []
+		  	})
+	 	}      
 	}
 	getData(){
 		axios.get('/api/products/get/list')
 		.then((response)=>{
-				console.log('response = ', response.data)
+				// console.log('response = ', response.data)
 				this.setState({
-					allshopproductimages : response.data
+					// allshopproductimages : response.data
+					dataCount : response.data.length
 				})
 		})
 		.catch((error)=>{
@@ -53,6 +258,58 @@ class BulkProductImageUpload extends Component{
 		})
 }
 
+getDatawithlimit(startRange , limitRange){
+	
+	let payload = {
+		startRange : startRange,
+		limitRange : limitRange,
+	}
+
+	axios.post('/api/products/get/list/limit',payload)
+	.then((response)=>{
+			// console.log('response 68 = ', response.data)
+			this.setState({
+				allshopproductimages : response.data
+			})
+	})
+	.catch((error)=>{
+			console.log('error', error);
+			if(error.message === "Request failed with status code 401"){
+							var userDetails =  localStorage.removeItem("userDetails");
+							localStorage.clear();
+							swal({  
+									title : "Your Session is expired.",                
+									text  : "You need to login again. Click OK to go to Login Page"
+							})
+							.then(okay => {
+									if (okay) {
+											window.location.href = "/login";
+									}
+							});
+					}
+	})
+}
+
+	getSearchText(searchText) {
+		this.setState({
+		searchText : searchText
+		},()=>{
+			console.log("this.state.searchText" ,this.state.searchText)
+		this.getDatawithlimit(0, this.state.limitRange);
+		})
+	}
+
+	productCountByStatus(){
+		axios.get('/api/products/get/productCountByStatus')
+		.then((response) => {
+			this.setState({
+				productCountByStatus: response.data
+			})
+		})
+		.catch((error) => {
+
+		})
+	}
 
 	componentWillReceiveProps(nextProps){
 		this.setState({
@@ -341,7 +598,150 @@ class BulkProductImageUpload extends Component{
 		e.preventDefault();
 		swal("Itemcode of selected images not exists.")
 	}
-		
+
+
+		 /**=========== handleChangeFilters() ===========*/
+		 handleChangeFilters(event){     
+			var name    = event.name;
+  
+			this.setState({ 
+				  [name]  : event
+			},()=>{
+				  if (name === "section") {
+					   this.setState({
+							category    : null,
+							subCategory : null
+					   })
+					   this.getCategoryData(this.state[name].value);
+				  }
+				  if (name === "category") {
+					   this.setState({
+							subCategory : null
+					   })
+					   this.getSubCategoryData(this.state[name].value);
+				  }
+				  this.getDataSection(0, this.state.limitRange);
+			});
+	   };
+	   
+	   getDataSection(startRange, limitRange) {
+		// this.setState({ 
+		// 	messageData 		: {}, 
+		// 	isLoadingData 		: true			
+		// })
+
+		var formValues = {		  	
+			startRange 		: startRange,
+            limitRange 		: limitRange,
+            searchText 		: this.state.searchText,
+			vendor 			: this.state.vendor ? this.state.vendor.value : "",
+			section 		: this.state.section ? this.state.section.value : "",
+			category 		: this.state.category ? this.state.category.value : "",
+			subCategory 	: this.state.subCategory ? this.state.subCategory.value : "",
+			status 			: this.state.status ? this.state.status.value : ""
+		}
+		// this.getCount(formValues);
+		axios.post('/api/products/get/list/filter', formValues)
+		.then((response) => {
+			console.log("reponse for admin 647 list =======",response.data.data);
+		  	// var tableData = response.data.data.map((a, i) => {
+			//   	// console.log("a.vendorName----",a);
+			// 	  return {
+			// 		productCode 		: a.productCode,
+			// 		productName 		: a.productName,
+			// 		itemCode 			: a.itemCode,
+			// 		// vendor  				: a.vendorName,
+			// 		section  			: a.section,
+			// 		category 			: a.category,
+			// 		subCategory 		: a.subCategory,
+			// 		// brand 				: a.brand,
+			// 		originalPrice 		: "<div class='whiteSpaceNoWrap'>" + (this.state.currency && this.state.currency !== undefined ? this.state.currency : "") + " " + a.originalPrice + "</div>",
+			// 		// discountPercent 	: a.discountPercent,
+			// 		// discountedPrice 	: "<div class='whiteSpaceNoWrap'>" + (this.state.currency && this.state.currency !== undefined ? this.state.currency : "") + " " + a.discountedPrice + "</div>",
+			// 		status  				: a.status,
+			// 		// featured  			: a.featured,
+			// 		// exclusive  			: a.exclusive,
+			// 		_id 					: a._id
+			// 	}
+		  	// })
+		 	this.setState({
+		 		// dataCount 		: response.data.dataCount,
+				 allshopproductimages 			: response.data.data,
+			  	// isLoadingData 		: false,
+			  	// unCheckedProducts : false
+		 	})
+		})
+		.catch((error) => {
+			console.log('error', error);
+		})
+	}
+	   
+
+	   getCategoryData(section_id) {
+		axios.get("/api/category/get/filter/categories/"+section_id)
+		.then(response =>{    
+		  if (response.data && response.data.length > 0) {
+				var categoryArray = [{
+					 name    : "category",
+					 label : "All",
+					 value : ""
+				}];
+				for (var i = 0; i < response.data.length; i++) {
+					 categoryArray.push({
+						  name : "category",
+						  label : response.data[i].category,
+						  value : response.data[i]._id
+					 })
+				}
+				if (i >= response.data.length) {
+					 this.setState({
+						  categories      : response.data,
+						  categoryArray  : categoryArray
+					 },()=>{})
+				}
+		  }else{
+				this.setState({
+					 categoryArray : []
+				})
+		  }
+		})
+		  .catch(error=>{
+		  console.log("Error => ", error);
+		  }) 
+	}
+		/**=========== getSubCategoryData() ===========*/
+		getSubCategoryData(category_id){
+
+			if (this.state.categories && this.state.categories.length > 0) {
+				 var selectedcategory = this.state.categories.filter(category => String(category._id) === String(category_id))
+				 
+				 if (selectedcategory && selectedcategory.length > 0 && selectedcategory[0].subCategory && selectedcategory[0].subCategory.length > 0) {
+				   var subCategories   	= selectedcategory[0].subCategory;
+				   var subCategoryArray = [{
+					   name  : "subCategory",
+						 label : "All",
+						 value : ""
+				   }];
+				   for (var i = 0; i < subCategories.length; i++) {
+					   subCategoryArray.push({
+						   name 		: "subCategory",
+						   label 		: subCategories[i].subCategoryTitle,
+						   value 		: subCategories[i]._id
+					   })
+				   }
+				   if (i >= subCategories.length) {
+					   this.setState({
+						   subCategoryArray    : subCategoryArray
+					   },()=>{})
+				   }
+				 }
+			}else{
+				 this.setState({
+				   subCategoryArray : []
+				 })
+			}      
+	   }
+   
 	render(){
 		return( 
 
@@ -458,7 +858,7 @@ class BulkProductImageUpload extends Component{
 											<div className="create-email-template-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 												<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOPadding">
 													<div className="HRMSWrapper col-lg-12 col-md-12 col-xs-12 col-sm-12 NOPadding">
-														<table className="table iAssureITtable-bordered table-striped table-hover">
+														{/* <table className="table iAssureITtable-bordered table-striped table-hover">
 															<thead className="tempTableHeader">
 																<tr >
 																	<th className="col-lg-1 umDynamicHeader srpadd">Sr no.</th>
@@ -486,7 +886,6 @@ class BulkProductImageUpload extends Component{
 																								data.productImage.map((imgdata,index)=>{
 																									return(
 																										<div className="deleteImgBlkUpldCol" key={index}>
-																											{/* imgdata */}
 																											<i className="fa fa-times deleteImgBlkUpldSign" aria-hidden="true" data-image={imgdata} data-productid={data._id}   onClick={this.deleteproductImages.bind(this)}></i>
 																											<img src={imgdata} className=""/>
 																										</div>
@@ -505,7 +904,142 @@ class BulkProductImageUpload extends Component{
 																	})
 																}   
 															</tbody>
-														</table>
+														</table> */}
+
+
+
+								<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left NOpadding-right">
+									 <h4 className="weighttitle NOpadding-right"> Product Image List</h4>
+								</div> 
+
+								{/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt NOPadding">
+									<div className="col-lg-3">
+										<div className="publishedBox" >
+											<span className="publishedBoxIcon bg-aqua"><i className="fa fa-shopping-cart"></i></span>
+											<div className="publishedBoxContent">
+												<span className="publishedBoxtext">Total Products</span><br />
+												<span className="publishedBoxNumber">{Array.isArray(this.state.productCountByStatus)&&this.state.productCountByStatus.length>0 ? this.state.productCountByStatus[0].total : 0}</span>
+											</div>
+										</div>
+									</div>
+									<div className="col-lg-3">
+									  	<div className="publishedBox" >
+											<span className="publishedBoxIcon bg-green"><i className="fa fa-shopping-cart"></i></span>
+											<div className="publishedBoxContent">
+												<span className="publishedBoxtext">Published Products</span><br />
+												<span className="publishedBoxNumber">{Array.isArray(this.state.productCountByStatus)&&this.state.productCountByStatus.length>0 ? this.state.productCountByStatus[0].totalPublish : 0}</span>
+											</div>
+									  	</div>
+								 	</div>
+								 	<div className="col-lg-3">
+									  	<div className="publishedBox" >
+											<span className="publishedBoxIcon bg-redcolor"><i className="fa fa-shopping-cart"></i></span>
+											<div className="publishedBoxContent">
+												<span className="publishedBoxtext">Unpublished Products</span><br />
+												<span className="publishedBoxNumber">{Array.isArray(this.state.productCountByStatus)&&this.state.productCountByStatus.length>0 ? this.state.productCountByStatus[0].totalUnpublish : 0}</span>
+											</div>
+									  	</div>
+								 	</div>
+								 	<div className="col-lg-3">
+									  	<div className="publishedBox" >
+											<span className="publishedBoxIcon bg-yellow"><i className="fa fa-shopping-cart"></i></span>
+											<div className="publishedBoxContent">
+												<span className="publishedBoxtext">Draft Products</span><br />
+												<span className="publishedBoxNumber">{Array.isArray(this.state.productCountByStatus)&&this.state.productCountByStatus.length>0 ? this.state.productCountByStatus[0].totalDraft : 0}</span>
+											</div>
+									  	</div>
+								 	</div>
+								</div> */} 
+							 	{/* <div className="searchProductFromList col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTopp NoPadding">
+								  	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bulkEmployeeContent">
+								  		<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+											<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Bulk Action</label>
+											<Select
+												value       = {this.state.bulkAction}
+												name        = "bulkAction"
+												onChange    = {this.bulkActionChange.bind(this)}
+												options     = {this.state.bulkActionArray}
+										  	/>
+								  		</div>
+								  	</div>
+								</div> */}
+								<div className="searchProductFromList col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTopp NOPadding"><br/>                                    
+									<div className="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Section</label>
+										<Select
+											value       = {this.state.section}
+											name        = "section"
+											onChange    = {this.handleChangeFilters.bind(this)}
+											options     = {this.state.sectionArray}
+									  	/>
+									</div>
+									<div className="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Category</label>
+										<Select
+											value       = {this.state.category}
+											name        = "category"
+											onChange    = {this.handleChangeFilters.bind(this)}
+											options     = {this.state.categoryArray}
+									  	/>
+									</div>
+									<div className="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">SubCategory</label>
+										<Select
+										  	value       = {this.state.subCategory}
+										  	name        = "subCategory"
+										  	onChange    = {this.handleChangeFilters.bind(this)}
+										  	options     = {this.state.subCategoryArray}
+									  	/>
+									</div>
+									{/* <div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Status</label>
+										<Select
+											value       = {this.state.status}
+											name        = "status"
+											onChange    = {this.handleChangeFilters.bind(this)}
+											options     = {this.state.statusArray}
+									  	/>
+									</div>                               */}
+							  	</div>
+
+							  	{this.state.preference === "MarketPlace"  || this.state.websiteModel === "MarketPlace"
+								? 
+									<div className="searchProductFromList col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTopp NOPadding">
+										<div className="form-group col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-12 col-xs-12">
+										  	<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Vendor</label>
+										  	<Select
+												value       = {this.state.vendor}
+												name        = "vendor"
+												onChange    = {this.handleChangeFilters.bind(this)}
+												options    	= {this.state.vendorArray}
+											/>
+									 	</div>
+									</div> 
+								:
+									null 
+							  	}													  	
+
+
+
+														
+														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">	 
+								<IAssureTable
+									tableHeading			= {this.state.tableHeading}
+									// twoLevelHeader 		= {this.state.twoLevelHeader}
+									dataCount 				= {this.state.dataCount}
+									tableData 				= {this.state.allshopproductimages}
+									getData 					= {this.getDatawithlimit.bind(this)}
+									tableObjects 			= {this.state.tableObjects}
+									// selectedProducts 		= {this.selectedProducts.bind(this)}
+									getSearchText 			= {this.getSearchText.bind(this)}
+									// setunCheckedProducts = {this.setunCheckedProducts.bind(this)}
+									// unCheckedProducts 	= {this.state.unCheckedProducts}
+									// saveProductImages 	= {this.saveProductImages.bind(this)}
+									// isLoading          	= {this.state.isLoadingData}
+								/>	
+							</div>
+
+
 													</div>
 												</div>
 											</div>
