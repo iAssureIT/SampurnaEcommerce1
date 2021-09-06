@@ -966,7 +966,7 @@ const cancelorderbtn = (id,vendor_id) => {
           animationOutTiming={500}>
           <ScrollView contentContainerStyle={{paddingBottom:hp(6.5)}}>
           <View style={{alignItems:'flex-end',padding:15}}>
-              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:RFPercentage(3),color:'#000'}]} onPress={()=>setModal(false)}>X</Text>
+              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Medium",fontSize:RFPercentage(2.5),color:'#000'}]} onPress={()=>setModal(false)}>X</Text>
             </View>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1}}>
               <View style={{flex:0.3,marginBottom:20,padding:5}}>
@@ -1086,7 +1086,7 @@ const cancelorderbtn = (id,vendor_id) => {
           animationOutTiming={500}>
           <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 30}}>
             <View style={{alignItems:'flex-end',padding:15}}>
-              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Bold",fontSize:RFPercentage(3),color:'#000'}]} onPress={()=>setReturnModal(false)}>X</Text>
+              <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Medium",fontSize:RFPercentage(2.5),color:'#000'}]} onPress={()=>setReturnModal(false)}>X</Text>
             </View>
           {vendorDetails&&<View style={[styles.prodorders],{backgroundColor:'#EBEBEB',flexDirection:"row",flex:1,borderTopLeftRadius: 15,borderTopRightRadius: 15,}}>
               <View style={{flex:0.3,marginBottom:20}}>
@@ -1261,7 +1261,7 @@ const cancelorderbtn = (id,vendor_id) => {
                   />
                   <Text style={styles.free}>Add to Credit Points</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}}  onPress={()=>setTermsChecked(true)}>
+                <TouchableOpacity style={{flexDirection:'row',alignItems:'center',marginTop:5}}  onPress={()=>setTermsChecked(true)}>
                   <CheckBox
                     style={styles.radiobtn}
                     checkedIcon='dot-circle-o'
