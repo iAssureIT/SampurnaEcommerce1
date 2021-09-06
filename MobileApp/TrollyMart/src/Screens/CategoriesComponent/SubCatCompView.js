@@ -522,11 +522,11 @@ console.log("vendor",vendor);
               </View>
               <View style={{flexDirection:'row',height:hp(4),marginTop:hp(1.5)}}>
                   <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 0 ? "#EEEEEE" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(0)}>
-                      <Text style={{color:colors.cartButton,fontFamily:"Montserrat-SemiBold",fontSize:RFPercentage(1.8)}}>Overview</Text>
+                      <Text style={{color:colors.cartButton,fontFamily:"Montserrat-SemiBold",fontSize:RFPercentage(1.8)}}>Product Details</Text>
 
                   </TouchableOpacity>  
                   <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 1 ? "#EEEEEE" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(1)}>
-                      <Text style={{color:colors.cartButton,fontFamily:"Montserrat-SemiBold",fontSize:RFPercentage(1.8)}}>Rating & Feedback</Text>
+                      <Text style={{color:colors.cartButton,fontFamily:"Montserrat-SemiBold",fontSize:RFPercentage(1.8)}}>Feedbacks</Text>
                   </TouchableOpacity>  
               </View>
               <View style={{backgroundColor:"#EEEEEE",paddingVertical:5}}>

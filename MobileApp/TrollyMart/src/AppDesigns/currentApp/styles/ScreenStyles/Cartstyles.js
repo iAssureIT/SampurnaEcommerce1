@@ -412,7 +412,7 @@ superparent:{
     fontSize: RFPercentage(2.2), fontFamily:"Montserrat-Medium", color: '#000000',
   },
   currencyNEW:{
-    fontSize: 18, fontFamily:"Montserrat-Bold", color: '#000000',
+    fontSize: RFPercentage(3), fontFamily:"Montserrat-Bold", color: '#000000',
   },
 	discountpricecut: {
 		fontSize: RFPercentage(1.8), 
