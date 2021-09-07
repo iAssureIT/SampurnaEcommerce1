@@ -53,27 +53,27 @@ class CreditPoints extends Component{
     }
     render(){
         return(
-            <div className={ "col-lg-9 float-lg-left col-12 NoPadding accountMainWrapper pb-4 mt-4 "+Style.accountMainWrapper} id="creditPointMainId"> 
+            <div className={ "col-lg-10 float-lg-left col-12 NoPadding accountMainWrapper pb-4 mt-4 mt-lg-3 mt-xl-4 " + Style.accountMainWrapper} id="creditPointMainId"> 
               <div className="col-12 mt-4 pt-md-0">
-                      <div className={"table-caption mb-1 pb-xl-3 "+Style.creditPointTitleWrapper}>My Credit Points</div>
+                      <div className={"table-caption mb-1 pb-xl-3 pl-xl-2 pb-lg-3 pb-md-3 pb-3 " + Style.creditPointTitleWrapper}>My Credit Points</div>
                   </div>
-                <div className={"col-12 col-xl-12 pt-5 "+Style.creditWrapper}>
-                    <div className={"col-12 "+Style.creditHeader}>
-                        <div className="row">
-                            <div className={"col-4 px-lg-5 text-lg-left text-center "+Style.CreditTotalPtTitle}>Total Points</div>
-                            <div className="col-4 text-left"></div>
+                <div className={"col-12 col-xl-12 pt-5 " + Style.creditWrapper}>
+                    <div className={"col-12 py-2 " + Style.creditHeader}>
+                        <div className="row px-3">
+                            <div className={"col-4 " + Style.CreditTotalPtTitle}>Total Points</div>
+                            <div className="col-4"></div>
 
-                            <div className={"col-4 px-lg-5 text-lg-right text-center "+Style.CreditDataPtTitle}>{this.state.creditdata&&this.state.creditdata.totalPoints} Points</div>
+                            <div className={"col-4 text-lg-right " + Style.CreditDataPtTitle}>{this.state.creditdata&&this.state.creditdata.totalPoints} Points</div>
                         </div>
-                        <div className="row">
-                            <div className={"col-4 px-lg-5 text-lg-left text-center "+Style.CreditCurrentBalTitle}>Current Balance</div>
-                            <div className="col-4 text-left"></div>
-                            <div className={"col-4 px-lg-5 text-lg-right text-center "+Style.CreditTotalBalTitle}>{this.state.currency}&nbsp;{this.state.creditdata && this.state.creditdata.totalPointsValue}</div>
+                        <div className="row text-lg-right px-3">
+                            <div className={"col-4 text-lg-left " + Style.CreditCurrentBalTitle}>Current Balance</div>
+                            <div className="col-4"></div>
+                            <div className={"col-4 " + Style.CreditTotalBalTitle}>{this.state.currency}&nbsp;{this.state.creditdata && this.state.creditdata.totalPointsValue}</div>
                         </div>
                     </div>
                     {this.state.creditdata && this.state.creditdata.transactions && this.state.creditdata.transactions.length>0
                     ?
-                    <div className={"col-12 pl-0 pr-0 "+Style.creditHeaderBottom}>
+                    <div className={"col-12 pl-0 pr-0 " + Style.creditHeaderBottom}>
                     <table className="table table-borderless orderTable">
                         <thead className="d-none">
                             <tr>
@@ -87,16 +87,16 @@ class CreditPoints extends Component{
                               
                                 return(
                                     data &&
-                                    <div className={"col-12 mt-4 py-2 "+ Style.CreditPointInnerBox}key={index}>
+                                    <div className={"col-12 mt-4 py-2 " + Style.CreditPointInnerBox}key={index}>
                                         <div className="row">
-                                        <div className={"col-4 px-lg-6 my-auto text-lg-left text-center "+Style.CreditCurrentBalTitle1}>&nbsp;{data.transactionDate ? moment(data.transactionDate).format('MM/DD/YYYY'):null}</div>
-                                        <div className="col-4 px-lg-6 text-lg-left text-center">
+                                        <div className={"col-4 my-auto " + Style.CreditCurrentBalTitle1}>&nbsp;{data.transactionDate ? moment(data.transactionDate).format('MM/DD/YYYY'):null}</div>
+                                        <div className="col-4 ">
                                             
                                             <div className={" "+Style.CreditCurrentBalTitle1}><b>{data.typeOfTransaction}</b></div>
                                             <div className={" "+Style.CreditCurrentBalTitle2}>Order ID - {data.orderID}</div>
                                             <div className={" "+Style.CreditCurrentBalTitle2}>Expiry Date  {moment(data.expiryDate).format('MM/DD/YYYY')}</div>
                                         </div>
-                                        <div className={"col-4 my-auto px-lg-5 text-lg-right text-center "+Style.CreditEarnedBalTitle1}>{parseInt(data.earnedPoints) < 0 ? <span className={Style.minusCreditPoint}>{data.earnedPoints} </span> : <span>+{data.earnedPoints}</span> }</div>
+                                        <div className={"col-4 my-auto " + Style.CreditEarnedBalTitle1}>{parseInt(data.earnedPoints) < 0 ? <span className={Style.minusCreditPoint}>{data.earnedPoints} </span> : <span>+{data.earnedPoints}</span> }</div>
                                         {/* <div className={"col-4 my-auto px-lg-5 text-lg-right text-center "+Style.CreditEarnedBalTitle1}>{parseInt(data.earnedPoints) > 0 ? data.earnedPoints : <span>-{data.earnedPoints}</span> }</div> */}
                                     </div>
                                     </div> 
@@ -107,7 +107,7 @@ class CreditPoints extends Component{
                     </table>
                     </div>
                     :
-                    <div className="col-12 text-center my-auto">Your Wallet is empty</div>
+                    <div className={"col-12 text-center my-auto " + Style.creditEmptyMessage}>Your Wallet is empty</div>
                  }
                     
                </div>

@@ -310,7 +310,7 @@ export default class MyOrders extends Component {
   render() {
     // console.log("1. myorder page this.state.orderData=", this.state.orderData);
     return (
-      <div className="col-12 pt-4" id="myOrderMainId">
+      <div className="col-12 pt-4 mt-lg-3 mt-xl-0" id="myOrderMainId">
         <div className="row">
           <Message messageData={this.state.messageData} />
           {
@@ -320,7 +320,7 @@ export default class MyOrders extends Component {
               //  <div className="col-12"> 
               <div className="col-12 col-xl-12 col-md-12 col-sm-12">
                 <div className={"col-12 pl-0 "+ Style.myOrderMainTitle}>
-                  <div className={"table-caption mb-2 pb-xl-3"}>My Orders</div>
+                  <div className={"table-caption mb-2 pb-xl-3 pl-xl-2 pb-md-2 pb-lg-2 pb-3"}>My Orders</div>
                 </div>
 
                 <div className={"container-flex col-xl-12 px-0 "+ Style.myOrderBox}>

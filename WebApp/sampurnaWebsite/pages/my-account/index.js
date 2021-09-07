@@ -126,10 +126,10 @@ class MyAccount extends Component{
             <section className="header ">
                 <Header />
                 <div className="container-fluid pb-5 MyaccountMainWrapper">
-                    <div className="col-12 ml-xl-4">
+                    <div className="col-12 ml-xl-4 ml-lg-3 ml-md-3 ml-2">
                         <div className="row">
-                            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-xs-12 col-12">
-                                <header className="col-12 mt-4 mb-xl-4 pl-xl-3 pb-xl-1 mb-lg-4 pl-lg-2 mb-md-4 pl-md-2 text-left text-black">
+                            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-sm-12 col-12">
+                                <header className="col-12 mt-4 mb-xl-4 pl-xl-3 pb-xl-1 mb-lg-4 pl-lg-2 mb-md-4 pl-md-2 mb-4 pl-3 text-left text-black">
                                     <span className={"mx-2 "+ S.myAccountTitleWrapper}>My Account</span>       
                                 </header>
 
@@ -142,9 +142,9 @@ class MyAccount extends Component{
                                             <div className="col-12 NoPadding">
                                                 <a className={this.state.url1==="" 
                                                               ?
-                                                                "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3 active" 
+                                                                "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3 py-sm-3 mb-sm-3 py-3 mb-3 active" 
                                                               : 
-                                                                "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3" 
+                                                                "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3 py-sm-3 mb-sm-3 py-3 mb-3" 
                                                              } id="v-pills-profile-tab" 
                                                     data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" 
                                                     aria-selected="false" onClick={()=>{ $("#v-pills-profile").addClass("active");
@@ -163,7 +163,7 @@ class MyAccount extends Component{
                                             </div>
                                         }
 
-                                        <a className="nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3" id="v-pills-messages-tab" 
+                                        <a className="nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3 py-sm-3 mb-sm-3 py-3 mb-3" id="v-pills-messages-tab" 
                                             data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" 
                                             onClick={()=>{ $(".nav-link").removeClass("active");$("#v-pills-messages-tab").addClass("active");
                                                            $("#v-pills-messages").css("display", "block");
@@ -180,9 +180,9 @@ class MyAccount extends Component{
                     
                                         <a className={this.state.url1==="#v-pills-settings-tab" 
                                                       ? 
-                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3 active "
+                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3 py-sm-3 mb-sm-3 py-3 mb-3 active "
                                                       : 
-                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3"
+                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3 py-4 mb-3"
                                                      } id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" 
                                                      onClick={()=>{$(".nav-link").removeClass("active");$("#v-pills-settings-tab").addClass("active");
                                                                    $("#v-pills-settings").css("display", "block");
@@ -199,9 +199,9 @@ class MyAccount extends Component{
 
                                         <a className={this.state.url1==="#v-pills-settings1-tab" 
                                                       ?
-                                                        "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mx-2 py-md-3 mb-md-3 active"
+                                                        "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mx-2 py-md-3 mb-md-3 py-sm-3 mb-sm-3 py-3 mb-3 active"
                                                       : 
-                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3"
+                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3 py-sm-3 mb-sm-3 py-3 mb-3"
                                                      } id="v-pills-settings1-tab" data-toggle="pill" href="#v-pills-settings1" role="tab" aria-controls="v-pills-settings1" aria-selected="false" 
                                                      onClick={()=>{ $(".nav-link").removeClass("active");$("#v-pills-settings1-tab").addClass("active");
                                                                     $("#v-pills-home").css("display", "none");
@@ -218,9 +218,9 @@ class MyAccount extends Component{
 
                                         <a className={this.state.url1==="#v-pills-settings3-tab"
                                                       ?
-                                                        "nav-link mb-xl-4 mx-2 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3 active"
+                                                        "nav-link mb-xl-4 mx-2 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3 py-sm-3 mb-sm-3 py-3 mb-3 active"
                                                       :
-                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3"
+                                                        "nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 py-md-3 mb-md-3 py-sm-3 mb-sm-3 py-3 mb-3"
                                                      } id="v-pills-settings3-tab" data-toggle="pill" href="#v-pills-settings3" role="tab" aria-controls="v-pills-settings3" aria-selected="false" 
                                                      onClick={()=>{ $(".nav-link").removeClass("active");$("#v-pills-settings3-tab").addClass("active");
                                                                     $("#v-pills-settings3").css("display", "block");

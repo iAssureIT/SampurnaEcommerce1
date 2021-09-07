@@ -145,7 +145,7 @@ class AddressBook extends Component{
     }
     render(){
         return(      
-            <div className="col-lg-12 col-xl-10 col-12 pt-4"> 
+            <div className="col-lg-12 col-xl-10 col-12 pt-4 mt-lg-3 mt-xl-0"> 
             <div className="col-12">
             
             <div className="modal mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
@@ -165,8 +165,8 @@ class AddressBook extends Component{
             </div>
             
             <Message messageData={this.state.messageData} /> </div>
-            <div className={"font-weight-bold pb-xl-3 "+ Style.accountDashBoardMainTitle}>My Addresses</div>
-            <div className={ "container-flex col-9 col-lg-11 col-xl-11 "+Style.accountDashBoardInnerwrapper}>
+            <div className={"font-weight-bold pb-xl-3 pl-xl-2 pb-md-3 pb-lg-3 pb-3 "+ Style.accountDashBoardMainTitle}>My Addresses</div>
+            <div className={ "container-flex col-12 col-lg-11 col-md-11 col-xl-11 "+Style.accountDashBoardInnerwrapper}>
                 <div className="row">
                     <div className={"col-12 "+Style.creditHeader}>
                         <div className="row">

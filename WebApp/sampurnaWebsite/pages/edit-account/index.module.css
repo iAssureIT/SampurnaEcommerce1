@@ -108,8 +108,9 @@
 
 
 @media only screen and (min-device-width: 768px) {
+    
     .editAccountTitle{
-        font-size: 23px;
+        font-size: 18px;
         font-family: "Montserrat-Bold";
      }
 
@@ -118,14 +119,15 @@
     }
 
     .accountInformationMainWrapper{
-        margin-left: 12px;
+        margin-left: 15px;
     }    
 }
 
 
 @media only screen and (min-device-width: 1024px) {
+    
     .editAccountTitle{
-        font-size: 25px;
+        font-size: 19px;
      }
 
       .accountInformationMainWrapper{
@@ -135,19 +137,21 @@
 
 
 @media only screen and (min-device-width: 1366px) {
+    
     .editAccountTitle{
-        font-size: 25px;
+        font-size: 20px;
     }
 
     .accountInformationMainWrapper{
-        margin-left: 0px;
+        margin-left: -10px;
     }  
 }    
 
 
 @media only screen and (min-device-width: 1440px) {
+    
     .editAccountTitle{
-        font-size: 28px;
+        font-size: 21px;
     }
 
     .accountInformationMainWrapper{
@@ -157,8 +161,9 @@
 
 
 @media only screen and (min-device-width: 1536px) {
+    
     .editAccountTitle{
-        font-size: 30px;
+        font-size: 22px;
     }
 
     .accountInformationMainWrapper{
@@ -169,6 +174,7 @@
 
 
 @media only screen and (min-device-width: 1920px) {
+    
     .editAccountTitle{
         font-size: 25px;
     }
@@ -177,7 +183,7 @@
         font-size: 16px;
     }
 
-    #editAccount input {
+    #editAccount input{
         font-size: 16px;
     }
 
@@ -186,18 +192,27 @@
     }
 
     .accountInformationMainWrapper{
-        margin-left: 0px;
+        margin-left: -6px;
         margin-top: 4px;
+    }
+
+    .accountSideSpacing{
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    .profileSubmitBtn{
+        padding: 7px 90px 8px 90px;
     }  
 }
 
 @media only screen and (min-device-width: 2560px) {
-     .editAccountTitle{
-        font-size: 40px;
+    
+    .editAccountTitle{
+        font-size: 30px;
     }
 
     .accountInformationMainWrapper{
         margin-left: 0px;
-    }  
-
+    }
 }

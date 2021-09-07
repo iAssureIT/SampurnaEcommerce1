@@ -141,6 +141,14 @@
     #editAccount label {
       font-size: 16px;
     }
+
+    #editAccount span {
+      font-size: 16px;
+    }
+
+    #editAccount input {
+      font-size: 16px;
+  }
 }
 
 @media (min-device-width: 2560px) {

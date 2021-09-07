@@ -225,7 +225,7 @@
 @media only screen and (min-device-width: 768px) {
 	
 	.myOrderMainTitle{
-  		font-size: 23px;
+  		font-size: 18px;
   	}
 
   	.myOrderLeftSideDetails{
@@ -274,10 +274,16 @@
 }
 
 
+@media only screen and (min-device-width: 768px) {
+	.myOrderMainTitle{
+  		font-size: 18px;
+  	}
+}
+
 @media only screen and (min-device-width: 1024px) {
 	
 	.myOrderMainTitle{
-  		font-size: 25px;
+  		font-size: 19px;
   	}
 
   	.myOrderLeftSideDetails{
@@ -304,12 +310,16 @@
 		font-size: 8px;
 	}
 
+	.emptyOrderStrip{
+		font-size: 15px;
+	}
+
 }
 
 @media only screen and (min-device-width: 1366px) {
 	
 	.myOrderMainTitle{
-  		font-size: 25px;
+  		font-size: 20px;
   	}
 
   	.myOrderLeftSideDetails{
@@ -353,7 +363,7 @@
 @media only screen and (min-device-width: 1440px) {
 	
 	.myOrderMainTitle{
-  		font-size: 28px;
+  		font-size: 21px;
   	}
 
   	.statusTextWrapper{
@@ -400,7 +410,7 @@
 @media only screen and (min-device-width: 1536px) {
 	
 	.myOrderMainTitle{
-  		font-size: 30px;
+  		font-size: 22px;
   	}
 
   	.statusTextWrapper{
@@ -514,7 +524,7 @@
 @media only screen and (min-device-width: 2560px) {
 
 	.myOrderMainTitle{
-  		font-size: 40px;
+  		font-size: 30px;
   	}
 
   	.statusTextWrapper{
@@ -549,7 +559,6 @@
 		margin-left: 274px;
 		height: 37px;
 		font-size: 26px;
-		
 	}
 
 	.orderStatusBadge2{
@@ -559,6 +568,10 @@
 
 	.orderStatusBadge{
 		margin-left: 274px;
+	}
+
+	.emptyOrderStrip{
+		font-size: 24px;
 	}
 
 }

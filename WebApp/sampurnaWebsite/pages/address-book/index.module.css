@@ -163,6 +163,17 @@
   }
 
 
+
+
+
+
+@media only screen and (min-device-width: 768px) {
+
+    .accountDashBoardMainTitle{
+        font-size: 18px;
+    }
+
+} 
  
 @media only screen and (min-device-width: 1024px) {
 
@@ -181,7 +192,7 @@
     }
 
     .accountDashBoardMainTitle{
-        font-size: 25px;
+        font-size: 19px;
     }   
 
     .addNewAddressBtn{
@@ -198,7 +209,7 @@
 @media only screen and (min-device-width: 1366px) {
 
     .accountDashBoardMainTitle{
-        font-size: 25px;
+        font-size: 20px;
     }
 
     .additionAddress{
@@ -224,7 +235,7 @@
 @media only screen and (min-device-width: 1440px) {
 
     .accountDashBoardMainTitle{
-        font-size: 28px;
+        font-size: 21px;
     }
 
     .additionAddress{
@@ -244,6 +255,10 @@
 
 
 @media only screen and (min-device-width: 1536px) {
+
+    .accountDashBoardMainTitle{
+        font-size: 22px;
+    }
     
     .additionAddress{
         height: 166px;
@@ -261,10 +276,6 @@
 
     .addNewAddressBtn{
         margin-left: 108px;
-    }
-
-    .accountDashBoardMainTitle{
-        font-size: 30px;
     }
 
 }
@@ -328,7 +339,7 @@
 @media only screen and (min-device-width: 2560px) {
 
     .accountDashBoardMainTitle{
-        font-size: 40px;
+        font-size: 30px;
     }
 
     .addNewAddressBtn{

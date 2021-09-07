@@ -61,14 +61,14 @@ class Wishlist extends Component {
   render() {
     // console.log("recentWishlistData==",this.props.recentWishlistData);
     return (
-      <div className="col-12 pt-4">
-      <div className={"col-12 px-xl-0 " +Style.wishlistProduct} id="WishlistMainId">
+      <div className="col-12 pt-4 mt-lg-3 pl-lg-3 mt-xl-0 pl-xl-3 pl-0">
+      <div className={"col-12 px-xl-0 px-lg-0 px-md-0 px-0 " +Style.wishlistProduct} id="WishlistMainId">
         <Message messageData={this.state.messageData} />
           <div className="row">
             <div className={"col-12 NoPadding"}>
               <div className="col-12 table-caption">
-                  <div className="col-12 pl-lg-0">
-                    <span className="table-caption wishListMainTitle pb-xl-3"> My Wishlist</span>
+                  <div className="col-12 pl-lg-0 pl-md-0">
+                    <span className="table-caption wishListMainTitle pb-xl-3 pl-xl-2 pb-md-2 pb-lg-2 pb-3"> My Wishlist</span>
                   </div>
               </div>
               {

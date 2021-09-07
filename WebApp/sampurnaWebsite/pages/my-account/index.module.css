@@ -52,36 +52,91 @@
 
 /**********************************************************Media Query***************************************************************/
 
-
-@media only screen and (min-device-width: 480px) {
+@media only screen and (min-device-width: 320px) {
 
     .sideBarTabNames{
-        font-size: 12px;
+        font-size: 13px;
     }
 
     .sideBarTabNameAllignment{
-        padding-left: 20px;
+        padding-left: 30px;
     }
 
     .myAccountTitleWrapper{
-        font-size: 25px;
-    }
-
-    .myAccountSideWrapper{
-        margin-top: 0px !important;
-        margin-left: 0px;
+        font-size: 19px;
     }
 
     .navPillsWrapper a {
-        border-radius: 6px !important;
+        border-radius: 9px !important;
     }
-} 
+}
+
+
+@media only screen and (min-device-width: 360px) {
+
+    .sideBarTabNames{
+        font-size: 14px;
+    }
+
+    .sideBarTabNameAllignment{
+        padding-left: 45px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 20px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 9px !important;
+    }
+}
+
+@media only screen and (min-device-width: 375px) {
+
+    .sideBarTabNames{
+        font-size: 14px;
+    }
+
+    .sideBarTabNameAllignment{
+        padding-left: 55px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 21px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 9px !important;
+    }
+}
+
+
+
+@media only screen and (min-device-width: 414px) {
+
+    .sideBarTabNames{
+        font-size: 14px;
+    }
+
+    .sideBarTabNameAllignment{
+        padding-left: 75px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 22px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 9px !important;
+    }
+
+}
 
 
 @media only screen and (min-device-width: 768px) {
 
     .sideBarTabNames{
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .sideBarTabNameAllignment{
@@ -89,16 +144,16 @@
     }
 
     .myAccountTitleWrapper{
-        font-size: 25px;
-    }
-
-    .myAccountSideWrapper{
-        margin-top: 23px !important;
-        margin-left: -10px;
+        font-size: 22px;
     }
 
     .navPillsWrapper a {
-        border-radius: 6px !important;
+        border-radius: 8px !important;
+    }
+
+    .myAccountSideWrapper{
+        margin-top: 11px !important;
+        margin-left: -15px;
     }
 } 
 
@@ -106,6 +161,10 @@
 
     .sideBarTabNames{
         font-size: 12px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 26px;
     }
 
     .navPillsWrapper a {
@@ -116,35 +175,58 @@
         padding-left: 15px;
     }
 
-    .myAccountTitleWrapper{
-        font-size: 26px;
-    }
-
     .myAccountSideWrapper{
-        margin-top: 23px !important;
-        margin-left: 0px;
+        margin-top: 0px !important;
+        margin-left: -14px;
     }
 } 
 
-
-@media only screen and (min-device-width: 1366px) {
+@media only screen and (min-device-width: 1280px) {
 
      .sideBarTabNames{
-        font-size: 17px;
+        font-size: 16px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 29px;
     }
 
     .navPillsWrapper a {
-        border-radius: 15px !important;
+        border-radius: 11px !important;
     }
 
     .sideBarTabNameAllignment{
         padding-left: 38px;
         margin-top: -5px;
     }
+    
+    .myAccountSideWrapper{
+        margin-top: 24px !important;
+        margin-left: -10px;
+    }
+
+}    
+
+
+@media only screen and (min-device-width: 1366px) {
+
+    .sideBarTabNames{
+        font-size: 16px;
+    }
 
     .myAccountTitleWrapper{
-        font-size: 32px;
+        font-size: 29px;
     }
+
+    .navPillsWrapper a {
+        border-radius: 11px !important;
+    }
+
+    .sideBarTabNameAllignment{
+        padding-left: 38px;
+        margin-top: -5px;
+    }
+    
     .myAccountSideWrapper{
         margin-top: 24px !important;
         margin-left: -10px;
@@ -157,6 +239,10 @@
         font-size: 17px;
     }
 
+    .myAccountTitleWrapper{
+        font-size: 32px;
+    }
+
     .navPillsWrapper a {
         border-radius: 15px !important;
     }
@@ -166,12 +252,8 @@
         margin-top: -7px;
     }
 
-    .myAccountTitleWrapper{
-        font-size: 35px;
-    }
-
     .myAccountSideWrapper{
-        margin-top: 25px !important;
+        margin-top: 27px !important;
         margin-left: -10px;
     }
 }
@@ -184,11 +266,11 @@
     }
 
     .myAccountTitleWrapper{
-        font-size: 38px;
+        font-size: 35px;
     }
 
     .myAccountSideWrapper{
-        margin-top: 26px !important;
+        margin-top: 29px !important;
         margin-left: -10px;
     }
 
@@ -203,8 +285,12 @@
 @media only screen and (min-device-width: 1920px) {
 
     .myAccountSideWrapper{
-        margin-top: 40px !important;
+        margin-top: 33px !important;
         margin-left: -9px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 38px;
     }
 
     .navPillsWrapper a {
@@ -215,16 +301,12 @@
         font-size: 19px;
     }
 
-    .myAccountTitleWrapper{
-        font-size: 40px;
-    }
-
     .myAccountMainDiv{
         margin-top: 30px;
     }
 
     .sideBarTabNameAllignment{
-        padding-left: 70px;
+        padding-left: 95px;
         margin-top: -8px;
     }
 
@@ -233,8 +315,12 @@
 @media only screen and (min-device-width: 2560px) {
 
     .myAccountSideWrapper{
-        margin-top: 40px !important;
+        margin-top: 28px !important;
         margin-left: -9px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 41px;
     }
 
     .navPillsWrapper a {
@@ -242,11 +328,7 @@
     }
 
     .sideBarTabNames{
-        font-size: 30px;
-    }
-
-    .myAccountTitleWrapper{
-        font-size: 50px;
+        font-size: 24px;
     }
 
     .myAccountMainDiv{
@@ -254,7 +336,7 @@
     }
 
     .sideBarTabNameAllignment{
-        padding-left: 130px;
+        padding-left: 150px;
         margin-top: -14px;
     }
 
