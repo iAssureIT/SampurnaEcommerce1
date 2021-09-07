@@ -734,7 +734,7 @@ superparent:{
       borderWidth:1,
       borderTopLeftRadius:6,
       borderBottomLeftRadius:6,
-      backgroundColor:'#CBD0D4',
+      backgroundColor:'#E5EAEE',
       // marginVertical:5,
       borderColor:"#ccc",
       paddingHorizontal: 0,

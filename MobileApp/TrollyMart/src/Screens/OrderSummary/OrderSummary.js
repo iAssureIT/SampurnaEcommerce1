@@ -640,14 +640,14 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
           hideModalContentWhileAnimating={true}
           style={{ zIndex: 999,paddingTop:hp(2),paddingBottom:hp(10),alignSelf:'center'}}
           animationOutTiming={500}>
-          <View style={{ backgroundColor: "#fff", borderRadius: 20}}>
-            <View style={{flexDirection:'row',height:hp(4),alignItems:'center',justifyContent:'space-between',borderBottomWidth:0.5,borderColor:"#eee",marginTop:5}}>   
+          <View style={{ backgroundColor: "#fff", borderRadius: 10}}>
+            <View style={{borderTopLeftRadius: 10,borderTopRightRadius:10,backgroundColor:'#033554',flexDirection:'row',height:hp(6),alignItems:'center',justifyContent:'space-between',borderBottomWidth:0.5,borderColor:"#eee"}}>   
               <View style={{paddingHorizontal: wp(1.5)}}>
-                <Text style={CommonStyles.label}>Terms & conditions</Text>
+                <Text style={[CommonStyles.label,{color:'#fff',marginLeft:10}]}>Terms & conditions</Text>
               </View>  
-              <TouchableOpacity style={{justifyContent:"flex-end",padding:5,height:hp(4),width:hp(4)}} onPress={()=>setModal(false)}>
-                  <Icon name="close" type="material-community" size={RFPercentage(3)} />
-              </TouchableOpacity> 
+              <TouchableOpacity style={{justifyContent:"flex-end",marginRight:10,padding:5,height:hp(4),width:hp(4)}} onPress={()=>setModal(false)}>
+                  <Icon name="close" color="#fff" type="material-community" size={RFPercentage(3)} />
+              </TouchableOpacity>
            </View>   
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
                 {
@@ -704,10 +704,10 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                     <Text style={tab ? styles1.tabText : styles1.tabText1}>Coupon Code</Text>
                 </TouchableOpacity> 
                 <TouchableOpacity style={!tab ? styles1.tab : styles1.tab1} onPress={()=>selectedTab(false)}>
-                    <Text style={!tab ? styles1.tabText : styles1.tabText1}>Credit Points <Text style={{color:colors.cartButton}}>{cartData?.totalCreditPoints}</Text></Text>
+                    <Text style={!tab ? styles1.tabText : styles1.tabText1}>Credit Points <Text style={{color:'#DC1919'}}>{cartData?.totalCreditPoints}</Text></Text>
                 </TouchableOpacity>
              </View>  
-            <View style={{height:hp(16),backgroundColor:"#E2E2E2",paddingHorizontal:28}}>
+            <View style={{height:hp(16),backgroundColor:"#fff",paddingHorizontal:28}}>
               {tab?
               <View style={{flexDirection:"row",height:hp(7),marginTop:25}}>
                   <View style={{flex:.7}}>
@@ -928,6 +928,7 @@ const styles1 = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
     height:hp(7.5),
+    backgroundColor:"#fff",    
   },
   tabText:{
     fontFamily:"Montserrat-Bold",

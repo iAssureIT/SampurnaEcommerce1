@@ -300,8 +300,13 @@ export const ProductList = withCustomerToaster((props)=>{
                               :
                               addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
                           }
-                          style={{height:hp(4),width:hp(4),borderWidth:2,borderRadius:100,justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton}}>
-                            <Icon name="plus" type="entypo" size={RFPercentage(3)} color={disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/>
+                          style={{justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton}}>
+                            <Image
+                              resizeMode="contain"
+                              source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/addtocarticon@2x.png'}}
+                              style={{height:hp(7),width:hp(7)}}
+                            />
+                            {/* <Icon name="plus" type="entypo" size={RFPercentage(3)} color={disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/> */}
                           </TouchableOpacity>  
                         </View>}
                       <Text numberOfLines={2} style={[styles.nameprod]} ellipsizeMode='middle'>{item.productName}</Text>
