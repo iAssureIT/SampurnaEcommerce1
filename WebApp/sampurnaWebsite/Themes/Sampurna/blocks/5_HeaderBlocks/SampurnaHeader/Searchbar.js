@@ -14,7 +14,7 @@ class Searchbar extends React.Component {
 	constructor(props) {
 		super(props);
 		 this.state = {
-          
+            searchText : ""          
          }
     }    
     componentDidMount(){
@@ -38,15 +38,18 @@ class Searchbar extends React.Component {
     }
 
     searchProducts(event) {   
-        // console.log("event.keycode",event.key);  
         // this.getRelatedSearches(event);
         if (event.key === "Enter") {
-            this.getRelatedSearches1(event);
+            // console.log("event.keycode",event);  
+            this.getProducts(event);
         }
-      }
+    }
 
-      getRelatedSearches(event){
-        var searchText = this.refs.tableSearch.value.trim();
+    getRelatedSearches(event){
+        // var searchText = this.refs.tableSearch.value.trim();
+        var searchText = event.currentTarget.value;
+        this.setState({searchText : searchText});
+
         if(searchText !== null){    
           var payload ={"searchText":searchText}
           if(payload){
@@ -57,11 +60,7 @@ class Searchbar extends React.Component {
                     // console.log("searchResponse==",searchResponse.data);
                     this.setState({
                         "relatedSearches" : searchResponse.data,
-                        "searchText"      : searchText,
-                    },()=>{
-                        
-                       
-                    })
+                    },()=>{ })
                 }
             })
             .catch((error)=>{
@@ -69,10 +68,12 @@ class Searchbar extends React.Component {
             })  
           }      
         }  
-      }
+    }
 
-      getProducts(event){
+    getProducts(event){
         event.preventDefault();
+        console.log("inside getProducts - ",this.state.searchText);
+
         var formValues = {
             "searchstr"         : this.state.searchText,
             "user_id"           : this.state.user_ID,
@@ -85,17 +86,18 @@ class Searchbar extends React.Component {
             axios.post("/api/products/get/search/website",formValues)
             .then((searchProductRes)=>{
                 if(searchProductRes){
-                    // console.log("searchProductRes===",searchProductRes);
-                    Router.push('/search-product/'+this.state.searchText);
+                    console.log("searchProductRes => ",searchProductRes);
                     store.dispatch(setSearchDetails(searchProductRes)) ;
+                    Router.push('/search-product/'+this.state.searchText);
                 }
             })
             .catch((error)=>{
                 console.log("error while search api=",error);
             })
         }
-      }
-      getRelatedSearches1(event){
+    }
+    
+    getRelatedSearches1(event){
         var searchText = this.refs.tableSearch.value.trim();
         // console.log("searchText==",searchText);
         if(searchText !== null){  
@@ -141,9 +143,9 @@ class Searchbar extends React.Component {
             })  
           }      
         }  
-      } 
+    } 
 
-   render(){
+    render(){
         var colWithLogin;
        if(this.state.user_ID && this.state.authService !=="Guest"){
             colWithLogin = 7;
@@ -157,14 +159,13 @@ class Searchbar extends React.Component {
                         <div className="row"> 
                             <i className={"fas fa-search "+ Style.homeSearchIcon1}></i>
                             <input type="text" placeholder="Search the items" id="browsers"
+                            value={this.state.searchText}
                             list="datalist"
                             onKeyPress={this.searchProducts.bind(this)} 
                             // onClick={this.searchProducts.bind(this)}
                             onChange={this.getRelatedSearches.bind(this)} 
                             className={"form-control "+ Style.searchBarInput} ref="tableSearch" id="tableSearch" name="tableSearch" />
-                            <span className={Style.searchIcon} 
-                                onClick={this.getProducts.bind(this)}
-                            >
+                            <span className={Style.searchIcon} onClick={this.getProducts.bind(this)}>
                                 <i className={"fas fa-search "+ Style.homeSearchIcon}></i>
                             </span>
 

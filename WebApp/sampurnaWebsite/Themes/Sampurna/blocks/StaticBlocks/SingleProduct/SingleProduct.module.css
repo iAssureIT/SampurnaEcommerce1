@@ -3,7 +3,9 @@
   src: url('../../../fonts/Montserrat-ExtraBold.ttf');
 }
 
-
+.searchProductWrapper{
+  min-height: 500px;
+}
 .discounttag{
     position: absolute;
     /* background-color: var(--Discountcolor) !important; */

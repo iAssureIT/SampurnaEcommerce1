@@ -2873,34 +2873,46 @@ exports.list_productby_subcategory = (req,res,next)=>{
 // };
 
 exports.search_product = (req,res,next)=>{
-	// console.log("req.body => ",req.body);
+	console.log("req.body => ",req.body);
 	// console.log("req body in se// localStorage.setItem("pincode", response.data.pincode);arch ==>",req.body);
 	// console.log("req params in search ==>",req.params);
-	Products.find(
-			{
+	/*
 				"$and" : [
 				{ "$or": 
 					[
-					{"productName"                : {'$regex' : req.body.searchstr , $options: "i"} },
-					{"brand"                      : {'$regex' : req.body.searchstr , $options: "i"} },
-					{"section"                    : {'$regex' : req.body.searchstr , $options: "i"} },
-					{"category"                   : {'$regex' : req.body.searchstr , $options: "i"} },
-					{"subCategory"                : {'$regex' : req.body.searchstr , $options: "i"} },
-					{"productDetails"             : {'$regex' : req.body.searchstr , $options: "i"} }, 
-					{"shortDescription"           : {'$regex' : req.body.searchstr , $options: "i"} }, 
-					{"featureList.feature"        : {'$regex' : req.body.searchstr , $options: "i"} }, 
-					{"attributes.attributeName"   : {'$regex' : req.body.searchstr , $options: "i"} },
-					{"attributes.attributeValue"  : {'$regex' : req.body.searchstr , $options: "i"} } 
+						{"productName"                : {'$regex' : req.body.searchstr , $options: "i"} },
+						{"brand"                      : {'$regex' : req.body.searchstr , $options: "i"} },
+						{"section"                    : {'$regex' : req.body.searchstr , $options: "i"} },
+						{"category"                   : {'$regex' : req.body.searchstr , $options: "i"} },
+						{"subCategory"                : {'$regex' : req.body.searchstr , $options: "i"} },
+						{"productDetails"             : {'$regex' : req.body.searchstr , $options: "i"} }, 
+						{"shortDescription"           : {'$regex' : req.body.searchstr , $options: "i"} }, 
+						{"featureList.feature"        : {'$regex' : req.body.searchstr , $options: "i"} }, 
+						{"attributes.attributeName"   : {'$regex' : req.body.searchstr , $options: "i"} },
+						{"attributes.attributeValue"  : {'$regex' : req.body.searchstr , $options: "i"} } 
 					] 
 				},
 				{ "$or": [{"status":"Publish"}] }
 				]
+
+	*/
+	Products.find(
+			{
+				"status":"Publish",
+				"$or": 
+					[
+						{"productName"                : {'$regex' : req.body.searchstr , $options: "i"} },
+						{"brand"                      : {'$regex' : req.body.searchstr , $options: "i"} },
+						{"section"                    : {'$regex' : req.body.searchstr , $options: "i"} },
+						{"category"                   : {'$regex' : req.body.searchstr , $options: "i"} },
+						{"subCategory"                : {'$regex' : req.body.searchstr , $options: "i"} },
+					] 
 			}
 		)
 	// .limit(parseInt(req.body.limit))
 	.populate("vendor_ID")
 	.then(async(products)=>{
-		// console.log("products",products);
+		// console.log("products => ",products);
 		var userLat         = req.body.userLatitude;
 		var userLong        = req.body.userLongitude;
 		
@@ -2914,6 +2926,9 @@ exports.search_product = (req,res,next)=>{
 				
 				// console.log("uniqueVendors=> ",uniqueVendors);     
 				FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
+				
+				// console.log("FinalVendorSequence => ",FinalVendorSequence);     
+
 			}
 			for (let k = 0; k < products.length; k++) {
 				var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID._id)},{currentQuantity : 1});
@@ -5186,9 +5201,11 @@ function getVendorSequence(uniqueVendors, userLat, userLong) {
 								
 								var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, userLat, userLong);
 								
+								console.log("vendorDist => ", vendorDist);
+
 								vendorDetails[i].locationsj =   {
 																	"vendor_ID"         : vendor_ID, 
-																	"vendorDistance"    : vendorDist ? vendorDist.toFixed(2) : '',
+																	"vendorDistance"    : vendorDist >=0 ? vendorDist.toFixed(2) : '',
 																	"vendorLocation_id" : vendorDetails[i].locations[j]._id
 																};
 								vendorLocations.push(vendorDetails[i].locationsj);
@@ -5201,7 +5218,7 @@ function getVendorSequence(uniqueVendors, userLat, userLong) {
 
 						if(vendorLocations && vendorLocations.length > 0){
 							// console.log("distanceLimit => ",distanceLimit);
-							// console.log("vendorLocations => ",vendorLocations);
+							console.log("vendorLocations => ",vendorLocations);
 							// FinalVendorSequence           = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))] 
 							if(distanceLimit){
 								var FinalVendorSequence = [...new Map(vendorLocations.filter(vendorLocation => parseFloat(vendorLocation.vendorDistance) <= parseFloat(distanceLimit)).sort((b, a) => parseFloat(a.vendorDistance) - parseFloat(b.vendorDistance)).map(item =>[item[key], item])).values()];
