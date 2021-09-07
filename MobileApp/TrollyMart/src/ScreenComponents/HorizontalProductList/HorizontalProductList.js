@@ -136,8 +136,13 @@ export const HorizontalProductList =(props)=>{
                   {props.addToCart &&<View style={{flex:.25}}>
                     <TouchableOpacity 
                       onPress={() =>addToCart(item._id,item.vendor_ID)}
-                    style={{height:hp(3.5),width:hp(3.5),borderWidth:1,borderRadius:100,justifyContent:'center',alignItems:"center",borderColor:colors.cartButton}}>
-                      <Icon name="plus" type="material-community" size={RFPercentage(3)} color={colors.cartButton} iconStyle={{alignSelf:'flex-end'}}/>
+                      style={{justifyContent:'center',alignItems:"center",borderColor:colors.cartButton}}>
+                        <Image
+                          resizeMode="contain"
+                          source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/addtocarticon@2x.png'}}
+                          style={{height:hp(7),width:hp(7)}}
+                        />
+                      {/* <Icon name="plus" type="material-community" size={RFPercentage(3)} color={colors.cartButton} iconStyle={{alignSelf:'flex-end'}}/> */}
                     </TouchableOpacity>  
                   </View>}  
                 </View>
