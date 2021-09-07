@@ -206,6 +206,20 @@
 } 
 
 
+@media only screen and (min-device-width: 1280px) {
+
+    .editAddress, .deleteAddress{
+        font-size: 18px;
+        margin-top: 0px;
+    }
+
+    .addressInnerDescWrapper{
+        font-size: 10px;
+        margin-bottom: -56px;
+    }
+
+}    
+
 @media only screen and (min-device-width: 1366px) {
 
     .accountDashBoardMainTitle{
@@ -214,6 +228,11 @@
 
     .additionAddress{
         height: 144px;
+    }
+
+    .editAddress, .deleteAddress{
+        font-size: 18px;
+        margin-top: 2px;
     }
 
     .addressInnerDescWrapper{
@@ -227,10 +246,27 @@
     }
 
     .addNewAddressBtn{
-        margin-left: 98px;
+        margin-left: 68px;
     } 
 
 }  
+
+
+@media only screen and (min-device-width: 1280px) {
+
+    .addNewAddressBtn{
+        margin-left: 61px;
+    }
+
+}    
+
+@media only screen and (min-device-width: 1366px) {
+
+    .addNewAddressBtn{
+        margin-left: 68px;
+    }
+
+}    
 
 @media only screen and (min-device-width: 1440px) {
 
@@ -241,6 +277,12 @@
     .additionAddress{
         height: 163px;
     }
+
+    .editAddress, .deleteAddress{
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
     .addressInnerDescWrapper{
         font-size: 11px;
         margin-bottom: -46px;
@@ -249,6 +291,10 @@
     .additionalAddressDeleteBtn{
         margin-left: -31px;
         margin-top: 3px;
+    }
+
+    .addNewAddressBtn{
+        margin-left: 68px;
     }
 
 }
@@ -264,6 +310,11 @@
         height: 166px;
     }
 
+    .editAddress, .deleteAddress{
+        font-size: 18px;
+        margin-top: -2px;
+    }
+
     .addressInnerDescWrapper{
         font-size: 13px;
         margin-bottom: -29px;
@@ -275,7 +326,7 @@
     }
 
     .addNewAddressBtn{
-        margin-left: 108px;
+        margin-left: 77px;
     }
 
 }
@@ -304,6 +355,7 @@
 
     .editAddress, .deleteAddress{
         font-size: 18px;
+        margin-top: 80px;
     }
 
     .addressInnerDescWrapper{
@@ -317,8 +369,8 @@
     }
 
     .addNewAddressBtn{
-        margin-left: 200px;
-        margin-bottom: 24px;
+        margin-left: 104px;
+        margin-bottom: -9px;
         padding: 10px 40px 10px 43px;
     }
 
@@ -330,7 +382,6 @@
 
     .additionalAddressDeleteBtn{
         margin-left: -45px;
-        margin-top: 1px;
     }
 
 }
@@ -364,6 +415,7 @@
 
     .editAddress, .deleteAddress{
         font-size: 21px;
+        margin-top: 8px;
     }
 
     .addressInnerDescWrapper{
@@ -377,8 +429,8 @@
     }
 
     .addNewAddressBtn{
-        margin-left: 200px;
-        margin-bottom: 24px;
+        margin-left: 141px;
+        margin-bottom: -5px;
         padding: 10px 40px 10px 43px;
     }
 
@@ -389,8 +441,8 @@
     }
 
     .additionalAddressDeleteBtn{
-        margin-left: -45px;
-        margin-top: 1px;
+        margin-left: -95px;
+        margin-top: 0px;
     }
 
 }    
