@@ -2498,6 +2498,7 @@ exports.totalOrdersByState = (req, res, next) => {
 		});
 	 });
 };
+
 exports.sectionRevenue = (req, res, next) => {
   Orders.aggregate([
 	 {
@@ -2521,6 +2522,41 @@ exports.sectionRevenue = (req, res, next) => {
 		});
 	 });
 };
+
+
+exports.sectionRevenueVendorOrders = (req, res, next) => {
+  Orders.aggregate([  
+		{$unwind: "$vendorOrders"}, 
+		{$unwind: "$vendorOrders.products"},
+		{$group: {
+						"_id": "$vendorOrders.products.section",
+						"revenue" : {"$sum" : {$round:[{$multiply: ["$vendorOrders.products.discountedPrice", "$vendorOrders.products.discountedPrice"]},0]} } 
+					}
+		},
+		{$sort : {"revenue" : -1} }
+	])
+  .exec()
+	 .then(data => {
+	 	if(data.length > 0){
+	 		data.map( (value,index)=>{
+	 			return value.revenue.toFixed(0);
+	 		})
+	 		// console.log("data = ",data);
+			res.status(200).json(data);
+	 	}else{
+			res.status(200).json({});
+	 	}
+	 })
+	 .catch(err => {
+		console.log(err);
+		res.status(500).json({
+		  error: err
+		});
+	 });
+};
+
+
+
 exports.categoryRevenue = (req, res, next) => {
   Orders.aggregate([
 	 {
@@ -3018,6 +3054,9 @@ exports.franchiseSectionRevenue = (req, res, next) => {
 	 });
 };
 exports.getMonthwiseOrders = (req,res,next)=>{
+	
+	console.log("getMonthwiseOrders => ",req.body );
+
 	 let selector = {};
 	 let franchiseID = req.body.franchiseID ? req.body.franchiseID : '';
 	 if(franchiseID){
@@ -3029,13 +3068,13 @@ exports.getMonthwiseOrders = (req,res,next)=>{
 		  {$match:selector},
 		  {$group: {
 				_id: {$month: "$createdAt"}, 
-				totalCost: {$sum: "$total"}, 
+				totalCost: {$sum: "$paymentDetails.netPayableAmount"}, 
 				numberoforders: {$sum: 1} 
 		  }}
 	 ])
 	 .exec()
 	 .then(orderDetails=>{
-		// console.log("orderDetails",orderDetails);
+		console.log("orderDetails",orderDetails);
 		  var returnData = []
 		  var totalCost = "" ;
 		  var totalOrders = "" ;

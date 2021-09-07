@@ -92,7 +92,7 @@ router.get('/get/totalOrdersByPeriod/:startTime', 											    checkAuth, orde
 
 router.get('/get/totalOrdersByState', 															checkAuth, orderController.totalOrdersByState);
 
-router.get('/get/sectionRevenue', 																checkAuth, orderController.sectionRevenue);
+router.get('/get/sectionRevenue', 																checkAuth, orderController.sectionRevenueVendorOrders);
 
 router.get('/get/categoryRevenue', 																checkAuth, orderController.categoryRevenue);
 

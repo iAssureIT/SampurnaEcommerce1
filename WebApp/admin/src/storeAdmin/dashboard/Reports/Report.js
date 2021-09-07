@@ -129,7 +129,6 @@ class Report extends Component{
                     {this.state.data && this.state.data.length > 0 
                       ?
                         this.state.data.map((data,index)=>{
-                          console.log("132 line data = ",data);
 
 {/*                          let products = [];
                           let totalAmount = 0;
@@ -145,10 +144,9 @@ class Report extends Component{
                             });
                           };
 */}
-                          console.log("data.orderStatus  = ",data.orderStatus );
 
                             let statusClass = '';
-                            statusClass = data.orderStatus === "New"           ? "label label-warning"     : "" ;
+                            statusClass = data.orderStatus === "New"           ? "label label-info"     : "" ;
                             statusClass = data.orderStatus === "Processing"    ? " label label-warning"    : "" ;
                             statusClass = data.orderStatus === "Ready to Dispatch"  ? "label label-default" : "" ;
                             statusClass = data.orderStatus === "On the Way"    ? "label label-success"     : "" ;
@@ -156,7 +154,7 @@ class Report extends Component{
                             statusClass = data.orderStatus === "Cancelled"     ? "label label-danger"      : "" ;
                             return(
                               <tr key={index}>
-                                <td><a className="href-link" href={"/view-order/"+data._id}>{data.orderID}</a></td>
+                                <td><a className="href-link" href={"/orders-list/all/view-order/"+data._id} target="_blank">{data.orderID}</a></td>
                                 <td>{data.deliveryAddress.city}</td>
                                 <td className="itemtd">Total Products: {data.order_numberOfProducts}</td>
                                 <td>AED {data.paymentDetails.netPayableAmount}</td>

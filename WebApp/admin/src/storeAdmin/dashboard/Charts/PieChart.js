@@ -73,6 +73,9 @@ export default class PieChart extends Component{
           url: Path
         })
         .then((response)=>{ 
+          
+          // console.log("piechart response = ",response.data);
+
           var catLables = [];
           var piechartcolor =[];
           var totalEstimate = [];
@@ -132,30 +135,34 @@ export default class PieChart extends Component{
             </div>
             <div className="box-body no-padding">
               
-              {this.state.data && this.state.data.datasets[0].data.length > 0 ?
-              <Pie height={200} data={this.state.data}options={{legend: {display: true, position: 'bottom',align:'start',
-                labels: {
-                  boxWidth: 15
-                }},
-                plugins: {
-                   labels: [{
-                     
-                    // render: 'label',
-                    // position: 'outside',
-                    // fontColor: '#000',
-                    // textMargin: 8
-                  },
-                  {
-                    render: 'percentage',
-                    fontColor: '#fff',
-                  }
-                   ]} }} />
-                   :
-                   <div className="text-center">
-                   <img className="chartStyle" src="/images/pie-gif.gif"/>
-                   <p className="noChartData">No Data Found</p>
-                   </div>
-                 }
+              {this.state.data && this.state.data.datasets[0].data.length > 0 
+                ?
+                  <Pie height={300} 
+                       data={this.state.data} 
+                       options={{legend: {display: true, position: 'bottom', align:'start',
+                                labels: {
+                                  boxWidth: 15
+                                }},
+                                plugins: {
+                                   labels: [{                     
+                                              // render: 'label',
+                                              // position: 'outside',
+                                              // fontColor: '#000',
+                                              // textMargin: 8
+                                            },
+                                            {
+                                              render: 'percentage',
+                                              fontColor: '#fff',
+                                            }
+                                   ]} 
+                                 }} 
+                    />
+                :
+                  <div className="text-center">
+                    <img className="chartStyle" src="/images/pie-gif.gif"/>
+                    <p className="noChartData">No Data Found</p>
+                  </div>
+              }
             </div>
           </div>
         </div> 

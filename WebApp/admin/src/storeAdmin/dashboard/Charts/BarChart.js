@@ -24,6 +24,7 @@ const options = {
     responsive: true,
     maintainAspectRatio: false     
 };
+
 export default class BarChart extends Component{
   
   constructor(props) {
@@ -52,7 +53,7 @@ export default class BarChart extends Component{
     var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
     var token       = userDetails.token;
     axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
-
+    
     if(this.props.display){
       this.setState({
         boxColor: this.props.boxColor,
@@ -95,6 +96,9 @@ export default class BarChart extends Component{
           data : PostData
         })
         .then((response)=>{ 
+          
+          console.log("barchart response => ",response.data);
+
           var booking = [];
           var piechartcolor =[];
           var totalEstimate = [];
@@ -136,7 +140,7 @@ export default class BarChart extends Component{
   render(){ 
     return(
       this.state.display ?
-        <div className="col-md-8">
+        <div className="col-xs-12">
           <div className={"dashbox "+this.state.boxColor}>
             <div className="box-header with-border">
               <h3 className="box-title">{this.state.title}</h3>

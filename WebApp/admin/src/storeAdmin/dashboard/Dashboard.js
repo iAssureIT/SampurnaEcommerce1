@@ -14,61 +14,65 @@ import axios             from 'axios';
 export default class Dashboard extends Component{
 	constructor(props) {
 	   super(props);
+    var currentYear     = moment().format('YYYY');
+    var yearDateStart   = new Date("1/1/" + currentYear);
+    var yearDateEnd     = new Date (yearDateStart.getFullYear(), 11, 31);
+    var startDate       = new Date(yearDateStart);
+    var endDate         = new Date(yearDateEnd);
+    var startDateString = moment(startDate).format('YYYY-MM-DD'); // 2016-07-15
+    var endDateString   = moment(endDate).format('YYYY-MM-DD'); // 2016-07-15
+
+
 	    this.state = {
 	      monthStart    : "",
 	      monthEnd      : "",
-	      yearStart     : "",
-        yearEnd       : "",
         fromToDateObj : {}, 
-        yearObj       : {},
-        websiteModel  : ""
+        websiteModel  : "",
+        yearStart : startDateString,
+        yearEnd   : endDateString,
+        yearObj   : {'startDate':yearDateStart,'endDate':yearDateEnd}
 	    }
 	}
 	   
 	componentDidMount(){
     var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
-    var token       = userDetails.token;
+    var token         = userDetails.token;
     axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
 
     $('#dashbordid').removeClass('dashboard-component');
-    var websiteModel = localStorage.getItem('websiteModel');
-    console.log("websiteModel---->",websiteModel);
-    var yyyy = moment().format("YYYY");
-    var monthNum = moment().format("MM");
-    var currentMonth = yyyy+"-"+monthNum;
+    var websiteModel  = localStorage.getItem('websiteModel');
+    var yyyy          = moment().format("YYYY");
+    var monthNum      = moment().format("MM");
+    var currentMonth  = yyyy+"-"+monthNum;
     
     var monthDateStart = new Date(moment(currentMonth).month("YYYY-MM"));//Find out first day of month with currentMonth
-    var monthDateEnd = new Date(moment(currentMonth).add(1,"M"));
+    var monthDateEnd  = new Date(moment(currentMonth).add(1,"M"));
+
+
     this.setState({
-      monthStart:monthDateStart,
-      monthEnd:monthDateEnd,
+      monthStart    : monthDateStart,
+      monthEnd      : monthDateEnd,
       fromToDateObj : {'startDate':monthDateStart,'endDate':monthDateEnd},
       websiteModel : websiteModel
     });
 
     
-    var currentYear = moment().format('YYYY');
-    var yearDateStart = new Date("1/1/" + currentYear);
-    var yearDateEnd = new Date (yearDateStart.getFullYear(), 11, 31);
-    var startDate = new Date(yearDateStart);
-    var endDate = new Date(yearDateEnd);
-    var startDateString = moment(startDate).format('YYYY-MM-DD'); // 2016-07-15
-    var endDateString = moment(endDate).format('YYYY-MM-DD'); // 2016-07-15
+    // console.log("startDateString---->",startDateString);
+    // console.log("endDateString---->",endDateString);
 
-    this.setState({
-      yearStart : startDateString,
-      yearEnd: endDateString,
-      yearObj : {'startDate':yearDateStart,'endDate':yearDateEnd}
-    },()=>{
-    })
+    // this.setState({
+    //   yearStart : startDateString,
+    //   yearEnd   : endDateString,
+    //   yearObj   : {'startDate':yearDateStart,'endDate':yearDateEnd}
+    // },()=>{
+    // })
   }
   
   render(){
     return(
         <div className="row">
            <section className="content-header">
-              <h1>
-                
+              <h1>                
                 <small></small>
               </h1>
               <ol className="breadcrumb">
@@ -152,36 +156,38 @@ export default class Dashboard extends Component{
                 websiteModel={this.state.websiteModel}
                 title="Latest Orders"
                 api={{"method":"get","path":"/api/orders/get/list/fordashboard"}}
-                redirectlink="/allorders" />
+                redirectlink="/orders-list/all" />
 
               {this.state.websiteModel === 'FranchiseModel' ? 
-              <ProgressBlock 
-                  display={true}
-                  bgColor="bg-yellow"
-                  faIcon="fa-user"
-                  Field={{"FieldName":"Top Franchise Sale","method":"get","path":"/api/orders/get/topFranchiseSale/"}}
-                  compairField={{"method":"get","path":"/api/orders/get/totalSale/"}}
-              />
+                <ProgressBlock 
+                    display={true}
+                    bgColor="bg-yellow"
+                    faIcon="fa-user"
+                    Field={{"FieldName":"Top Franchise Sale","method":"get","path":"/api/orders/get/topFranchiseSale/"}}
+                    compairField={{"method":"get","path":"/api/orders/get/totalSale/"}}
+                />
               :
-              <PieChart
-                display={true}
-           			boxColor="box-success"
-           			title="Section-Wise Sale"
-                api={{"method":"get","path":"/api/orders/get/sectionRevenue"}} />
-              }
+                <PieChart
+                  display={true}
+             			boxColor="box-success"
+             			title="Section-Wise Sale (Lifetime)"
+                  api={{"method":"get","path":"/api/orders/get/sectionRevenue"}} />
+                }
             </div>
            	<div className="row">
            		<BarChart
                 display={true}
            			boxColor="box-warning"
            			title="Month-Wise Sale"
-                api={{"method":"post","path":"/api/orders/get/getMonthwiseOrders/" ,"PostData":{"startDate":this.state.yearStart,"endDate":this.state.yearEnd}}}/>
-              <PieChart
+                api={{"method":"post","path":"/api/orders/get/getMonthwiseOrders/" ,
+                      "PostData":{"startDate":this.state.yearStart,
+                                  "endDate":this.state.yearEnd}}}/>
+              {/*<PieChart
                 display={true}
            			boxColor="box-success"
            			title="Category-Wise Sale"
                 api={{"method":"get","path":"/api/orders/get/categoryRevenue"}} />
-              {/* <BarChart
+               <BarChart
                 display={false}R
                 boxColor="box-success"
                 title="Monthly Booking"
