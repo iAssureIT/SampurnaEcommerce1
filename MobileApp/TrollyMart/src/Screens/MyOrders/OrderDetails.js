@@ -684,7 +684,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                 />
                               }
                               </View>
-                              <View style={{flex:0.4,paddingHorizontal:5}}>
+                              <View style={{flex:0.45,paddingHorizontal:5}}>
                                 <Text style={[styles.prodinfo,{fontSize:RFPercentage(1.6),textTransform:'capitalize'}]}>{pitem.brand}</Text>
                                 <Text numberOfLines={2} style={styles.prodinfo}>{pitem.productName}</Text>
                                 <Text style={{color:"#B2B2B2",fontFamily:"Montserrat-Medium",fontSize:RFPercentage(2),marginTop:7}}>
@@ -693,12 +693,12 @@ const cancelorderbtn = (id,vendor_id) => {
                                 </Text>
                              
                               </View>
-                              <View style={{flex:0.4}}>
+                              <View style={{flex:0.35}}>
                                 <View style={{flex:1,flexDirection:'row',alignItems:'center'}}>
-                                  <View style={{flex:.3,alignItems:'flex-end'}}>
+                                  <View style={{flex:.4,alignItems:'flex-end'}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
-                                  <View style={{flex:.7,alignItems:'flex-end'}}>
+                                  <View style={{flex:.6,alignItems:'flex-end'}}>
                                       <Text style={styles.ogprice}> {(pitem.discountedPrice * pitem.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                       </Text>
                                   </View>
@@ -712,11 +712,11 @@ const cancelorderbtn = (id,vendor_id) => {
                                         </View>
                                         :
                                         <View style={{flex:.5}}>
-                                          <Text style={[styles.linkText,{alignSelf:"flex-start"}]} onPress={()=>{setReturnModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Return</Text>
+                                          <Text style={[styles.linkText,{alignSelf:"center"}]} onPress={()=>{setReturnModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Return</Text>
                                         </View>
                                       }  
                                       <View style={{flex:.5}}>
-                                      <Text  style={styles.linkText} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);clearReview();}}>Feedback</Text>
+                                      <Text  style={styles.linkText} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);clearReview();}}>Review</Text>
 
                                         {/* {pitem.isReview ?
                                           <Text  style={styles.linkText} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem.product_ID)}}>Feedback</Text>
@@ -731,30 +731,30 @@ const cancelorderbtn = (id,vendor_id) => {
                         })}
                         <View style={[styles.totaldetails,{paddingRight:5}]}>
                           <View style={styles.flxdata}>
-                              <View style={{ flex: 0.3}}/>
+                              <View style={{ flex: 0.35}}/>
                               <View style={{ flex: 0.3}}>
                                 <Text style={styles.totalAmount}>Total</Text>
                               </View>
-                              <View style={{flex:0.4,flexDirection:'row'}}>
-                                  <View style={{flex:.35,alignItems:'flex-end'}}>
+                              <View style={{flex:0.35,flexDirection:'row'}}>
+                                  <View style={{flex:.45,alignItems:'flex-end'}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
-                                  <View style={{flex:.65,alignItems:'flex-end'}}>
-                                      <Text style={styles.ogprice}>{vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
+                                  <View style={{flex:.55,alignItems:'flex-end'}}>
+                                      <Text style={styles.totalPrice}>{vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
                                   </View>
                                 </View>
                             </View>
-                            <View style={styles.flxdata}>
-                                <View style={{ flex: 0.3}}/>
+                            <View style={[styles.flxdata,{marginTop:5}]}>
+                                <View style={{ flex: 0.35}}/>
                                 <View style={{ flex: 0.3}}>
                                   <Text style={styles.totalAmount}>You Save </Text>
                                 </View> 
-                                <View style={{flex:0.4,flexDirection:'row'}}>
-                                  <View style={{flex:.35,alignItems:'flex-end'}}>
+                                <View style={{flex:0.35,flexDirection:'row'}}>
+                                  <View style={{flex:.45,alignItems:'flex-end'}}>
                                       <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                                   </View> 
-                                  <View style={{flex:.65,alignItems:'flex-end'}}>
-                                      <Text style={[styles.ogprice,{color:colors.success}]}>{vendor.vendor_discountAmount.toFixed(2)}</Text>
+                                  <View style={{flex:.55,alignItems:'flex-end'}}>
+                                      <Text style={[styles.totalPrice,{color:colors.success}]}>{vendor.vendor_discountAmount.toFixed(2)}</Text>
                                   </View>
                                 </View>
                               </View>
@@ -771,10 +771,10 @@ const cancelorderbtn = (id,vendor_id) => {
                 <View style={styles.prodinfoparent13}>
                   <View style={styles.totaldetails}>
                     <View style={styles.flxdataNew}>
-                      <View style={{ flex: 0.57 }}>
+                      <View style={{ flex: 0.60 }}>
                         <Text style={styles.totalAmount}>Final Total </Text>
                       </View>
-                      <View style={{ flex: 0.38,flexDirection:'row' }}>
+                      <View style={{ flex: 0.35,flexDirection:'row' }}>
                         <View style={{flex:.4}}>
                             <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
@@ -784,10 +784,10 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View>
                     </View>
                     <View style={styles.flxdataNew}>
-                      <View style={{ flex: 0.57 }}>
+                      <View style={{ flex: 0.60 }}>
                         <Text style={styles.totalAmount}>Total Savings </Text>
                       </View> 
-                      <View style={{ flex: 0.38,flexDirection:'row' }}>
+                      <View style={{ flex: 0.35,flexDirection:'row' }}>
                         <View style={{flex:.4}}>
                             <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
@@ -803,10 +803,10 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View> */}
                     </View>
                     <View style={styles.flxdataNew}>
-                      <View style={{ flex: 0.57 }}>
+                      <View style={{ flex: 0.60 }}>
                         <Text style={styles.totalAmount}>Total VAT</Text>
                       </View> 
-                      <View style={{ flex: 0.38,flexDirection:'row' }}>
+                      <View style={{ flex: 0.35,flexDirection:'row' }}>
                         <View style={{flex:.4}}>
                             <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
@@ -822,10 +822,10 @@ const cancelorderbtn = (id,vendor_id) => {
                     </View>
                     {order?.paymentDetails?.afterDiscountCouponAmount > 0 ?
                     <View style={styles.flxdataNew}>
-                      <View style={{ flex: 0.57 }}>
+                      <View style={{ flex: 0.60 }}>
                         <Text style={styles.totalAmount}>Discount Coupon</Text>
                       </View>
-                      <View style={{ flex: 0.38,flexDirection:'row' }}>
+                      <View style={{ flex: 0.35,flexDirection:'row' }}>
                         <View style={{flex:.4}}>
                             <Text style={[styles.ogpriceC,{opacity: 1,color:'#EF9A9A'}]}>{currency} </Text>
                         </View> 
@@ -841,10 +841,10 @@ const cancelorderbtn = (id,vendor_id) => {
                     </View>:null}  
                     {order?.paymentDetails?.creditPointsValueUsed > 0 ?
                     <View style={styles.flxdataNew}>
-                      <View style={{ flex: 0.57 }}>
+                      <View style={{ flex: 0.60 }}>
                         <Text style={styles.totalAmount}>Redeem Value</Text>
                       </View>
-                      <View style={{ flex: 0.38,flexDirection:'row' }}>
+                      <View style={{ flex: 0.35,flexDirection:'row' }}>
                         <View style={{flex:.4}}>
                             <Text style={[styles.ogpriceC,{opacity: 1,color:'#EF9A9A'}]}>{currency} </Text>
                         </View> 
@@ -859,10 +859,10 @@ const cancelorderbtn = (id,vendor_id) => {
                       </View> */}
                     </View>:null}                   
                     <View style={styles.flxdataLastNew}>
-                      <View style={{ flex: 0.6 }}>
+                      <View style={{ flex: 0.63 }}>
                         <Text style={styles.totalAmount}>Total Service Charges </Text>
                       </View> 
-                      <View style={{ flex: 0.4,flexDirection:'row' }}>
+                      <View style={{ flex: 0.37,flexDirection:'row' }}>
                         <View style={{flex:.4}}>
                             <Text style={[styles.ogpriceC,{opacity: 0.5}]}>{currency} </Text>
                         </View> 
@@ -884,17 +884,17 @@ const cancelorderbtn = (id,vendor_id) => {
                         backgroundColor={colors.theme}
                         // onRequestClose={() =>  tooltipRef.current.toggleTooltip()}
                         popover={tooltipClone}>
-                            <Icon name="information-outline" type={"material-community"} size={RFPercentage(2.6)} color={'#A6B7C2'} />
+                            <Icon name="information-outline" type={"material-community"} size={RFPercentage(2.2)} color={'#A6B7C2'} />
                         </Tooltip>
                     </View>  
                     </View>
                    
-                    <View style={{marginVertical:5,borderColor:"#ddd"}} />
+                    <View style={{marginVertical:hp(0.5),borderColor:"#ddd"}} />
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.57}}>
+                        <View style={{ flex: 0.58}}>
                           <Text style={styles.totalAmountG}>Grand Total</Text>
                         </View>
-                        <View style={{ flex: 0.38,flexDirection:'row'}}>
+                        <View style={{ flex: 0.37,flexDirection:'row'}}>
                           <View style={{flex:.4}}>
                               <Text style={[styles.ogpriceG,{opacity: 0.5}]}>{currency} </Text>
                           </View> 
@@ -1054,7 +1054,16 @@ const cancelorderbtn = (id,vendor_id) => {
                 }
                </View> 
                 <TouchableOpacity 
-                    style={{height:hp(5),width:hp(5),elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5}}
+                    style={{height:hp(5),width:hp(5),marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:50,borderColor:colors.cartButton,borderWidth:0.5,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: -2,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                    elevation: 5,
+                  }}
                     onPress={() => chooseFromLibrary('openPicker','Review')}
                   >
                   <Image 
@@ -1220,7 +1229,15 @@ const cancelorderbtn = (id,vendor_id) => {
                 }
                </View> 
                 <TouchableOpacity 
-                    style={{height:hp(5),width:hp(5),elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:100,borderColor:colors.cartButton,borderWidth:0.5}}
+                    style={{height:hp(5),width:hp(5),elevation:5,marginRight:3,justifyContent:'center',alignItems:'center',backgroundColor:"#fff",borderRadius:100,borderColor:colors.cartButton,borderWidth:0.5,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: -2,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                    elevation: 5}}
                     onPress={() => chooseFromLibrary('openPicker','Return')}
                   >
                   <Image 

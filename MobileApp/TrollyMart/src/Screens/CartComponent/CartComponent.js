@@ -622,14 +622,14 @@ const getshippingamount=(startRange, limitRange)=>{
                         withOverlay={true}
                         ref={tooltipRef}
                         >
-                        <Icon name="information-outline" type={"material-community"} size={RFPercentage(2.6)}iconStyle={{}} color="#0335548C" />
+                        <Icon name="information-outline" type={"material-community"} size={RFPercentage(2.2)}iconStyle={{}} color="#0335548C" />
                       </Tooltip>
                     </View>  
                   </View>
                   <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
 
                   <View style={styles.flxdata1}>
-                    <View style={{ flex: 0.6}}>
+                    <View style={{ flex: 0.56}}>
                       <Text style={[styles.totaldata]}>Grand Total</Text>
                     </View>
                     <View style={{ flex: 0.15 }}>
@@ -637,7 +637,7 @@ const getshippingamount=(startRange, limitRange)=>{
                           <Text style={styles.currencyNEW}>{currency}</Text>
                         </View>
                       </View>
-                    <View style={{ flex: 0.3 }}>
+                    <View style={{ flex: 0.25 }}>
                       <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                         <Text style={styles.totalpriceincartTotal}>{cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                       </View>

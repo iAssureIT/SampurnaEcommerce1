@@ -295,12 +295,13 @@ export const MyOrder = withCustomerToaster((props)=>{
                                       
                                   </View>  
                                   <View style={{flexDirection:'row',marginVertical:30}}>
-                                      <View style={{flex:0.7,borderRightWidth:0.5,borderColor:"#0000004F",paddingHorizontal:15}}>
+                                      <View style={{flex:0.5,paddingHorizontal:15,height:hp(6),justifyContent:'center'}}>
                                           <Text style={styles.totalpriceincart}>Amount : {item.vendor_afterDiscountTotal && item.vendor_afterDiscountTotal.toFixed(2)} {currency}</Text>
                                           <Text style={styles.totalpriceincart}>{item.vendor_numberOfProducts && item.vendor_numberOfProducts} Items</Text>
                                       </View>
-                                      <View style={{flex:0.49,paddingHorizontal:15}}>
-                                      <View style={{alignSelf:'center',marginTop:12,justifyContent:'center',alignItems:'center',borderRadius:2,width:wp(30),height:hp(2.2),marginLeft:5,
+                                      <View style={{borderRightWidth:0.5,borderColor:"#0000004F",height:hp(6)}}/>
+                                      <View style={{flex:0.49,paddingHorizontal:15,height:hp(6),justifyContent:'center'}}>
+                                      <View style={{alignSelf:'center',justifyContent:'center',alignItems:'center',borderRadius:2,width:wp(30),height:hp(2.2),marginLeft:5,
                                        backgroundColor: position === 0 ? 
                                         colors.info
                                         :

@@ -227,7 +227,7 @@ superparent:{
     fontSize:14,fontFamily:"Montserrat-Regular", color:'#666'
   },
   totaldata:{
-    fontSize:RFPercentage(2.7),fontFamily:"Montserrat-Bold", color:'#000',fontWeight:"900",
+    fontSize:RFPercentage(2.5),fontFamily:"Montserrat-Bold", color:'#000',fontWeight:"900",
   },
   totaldata1:{
     fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Bold", color:'#000'
@@ -248,7 +248,7 @@ superparent:{
   flxdata1:{
     flex:1,flexDirection:"row",
     marginBottom:7,
-    paddingHorizontal:15,
+    paddingLeft:15,
     paddingVertical:10
   },
   flxdatalogo:{
@@ -313,7 +313,7 @@ superparent:{
   },
 
   totalpriceincartTotal:{
-    fontSize:RFPercentage(2.7),
+    fontSize:RFPercentage(2.5),
     fontFamily:"Montserrat-Bold", 
     color:'#000000',
   },
@@ -412,7 +412,7 @@ superparent:{
     fontSize: RFPercentage(2.2), fontFamily:"Montserrat-Medium", color: '#000000',
   },
   currencyNEW:{
-    fontSize: RFPercentage(3), fontFamily:"Montserrat-Bold", color: '#000000',
+    fontSize: RFPercentage(2.5), fontFamily:"Montserrat-Bold", color: '#000000',
   },
 	discountpricecut: {
 		fontSize: RFPercentage(1.8), 

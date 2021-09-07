@@ -202,6 +202,15 @@ export default StyleSheet.create({
   ordercancelsstatus:{
     flex:0.4,
     paddingLeft:10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: -2,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   orderdetailsstatus:{
     flex:0.6,
@@ -472,6 +481,9 @@ export default StyleSheet.create({
   ogprice: {
 		fontSize: RFPercentage(2), fontFamily: "Montserrat-Medium",  color: '#333', alignItems: 'center',
   },
+  totalPrice: {
+		fontSize: RFPercentage(2), fontFamily: "Montserrat-Bold",  color: '#333', alignItems: 'center',
+  },
   ogpriceC: {
 		fontSize: RFPercentage(2), fontFamily: "Montserrat-Regular",  color: '#333', alignItems: 'center',
   },
@@ -482,7 +494,7 @@ export default StyleSheet.create({
 		fontSize: RFPercentage(2), fontFamily: "Montserrat-SemiBold", color: '#EF9A9A', alignItems: 'center',
   },
   ogpriceG: {
-		fontSize: RFPercentage(2), fontFamily: "Montserrat-SemiBold", color: '#000000', alignItems: 'center',opacity:0.4
+		fontSize: RFPercentage(2.3), fontFamily: "Montserrat-SemiBold", color: '#000000', alignItems: 'center',opacity:0.4
 	},
   	discountpricecut: {
 		fontSize: RFPercentage(1.8), fontFamily: "Montserrat-SemiBold",
@@ -560,8 +572,8 @@ export default StyleSheet.create({
     width:'100%',
     // marginLeft:10,
     // borderColor:'#666',
-    borderColor:colors.theme,
-    borderWidth:1,
+    borderColor:"#707070",
+    borderWidth:0.5,
     flexDirection:'row',
     borderRadius: 5,
   },
@@ -753,7 +765,7 @@ export default StyleSheet.create({
   },
   linkText:{
     alignSelf:'flex-end',
-    fontSize:RFPercentage(1.6),
+    fontSize:RFPercentage(1.5),
     textDecorationLine:'underline',
     fontFamily:"Montserrat-Regular",
     color: "#033554"

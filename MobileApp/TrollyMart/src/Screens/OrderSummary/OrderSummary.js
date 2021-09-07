@@ -532,7 +532,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                             return(
                               <View key={index}>
                                 <View key={index} style={styles.proddetails}>
-                                  <View style={styles.flxdir}>
+                                  <View style={[styles.flxdir,{alignItems:'center'}]}>
                                     <View style={[styles.flxpd]}>
                                       <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
                                         {item.product_ID.productImage.length > 0 ?
