@@ -30,8 +30,6 @@ Array.prototype.sortBy = function(p) {
   });
 }
 
-
-
 class ProductViewEcommerce extends Component{
 
 	constructor(props){

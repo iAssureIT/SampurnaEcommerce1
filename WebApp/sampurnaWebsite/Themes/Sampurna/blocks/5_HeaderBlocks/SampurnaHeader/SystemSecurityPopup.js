@@ -30,15 +30,6 @@ class SystemSecurityPopup extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            pageData            : {},
-            Blocks              : [],
-            blocks              : "",
-            ListOfBlocks        : "",
-            pageHead : {
-                pageAuthor      : "",
-                pageDescription : "",
-                pageWords       : [""],
-            },
             userDetails         : [],
             preferencedata      : [],
             loggedIn            : false,
@@ -101,9 +92,12 @@ class SystemSecurityPopup extends React.Component{
     
     render(){
         return(
-            <section id="loginFormModal" className={"col-12 modal "+Style.systemSecurityPopupWrapper} data-keyboard="false">
+            <section id="loginFormModal" className={"col-12 modal fade "+Style.systemSecurityPopupWrapper}  role="dialog" data-backdrop="static" data-keyboard="false">
                 <div className={"col-12 modal-dialog modal-xl"}>
                     <div className={"col-12 col-xl-10 offset-xl-1 modal-content "+Style.systemSecurityPopupModalContent}>
+                        {/* <div className="modal-header col-12 NoPadding">
+                            <button type="button" className="close pt-0 closeModal pull-right" data-dismiss="modal">&times;</button>
+                        </div> */}
                         <div className={"col-12 modal-body "+Style.systemSecurityPopupModalBody}>
                                 <div className="row">
                                     <div className={this.props.formToShow === "signUp"
@@ -121,7 +115,9 @@ class SystemSecurityPopup extends React.Component{
                                                     ? "col-12 col-lg-8 col-xl-8 "+Style.systemSecurityPopupRightFormWrapper
                                                     : "col-12 col-lg-6 col-xl-5 "+Style.systemSecurityPopupRightFormWrapper
                                                     }>
-                                        <button type="button" className={"close mt-3 mr-5 "+Style.systemSecurityPopupCloseButton} data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>
+                                    {/* <button type="button" className={"close mt-3 mr-5 "+Style.systemSecurityPopupCloseButton} data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button> */}
+                                    <button type="button" className={"close pt-0 closeModal pull-right "+Style.systemSecurityPopupCloseButton} 
+                                        onClick={this.CloseModal.bind(this)} data-dismiss="modal">&times;</button>    
                                         {
                                             this.props.formToShow === "login"
                                             ?

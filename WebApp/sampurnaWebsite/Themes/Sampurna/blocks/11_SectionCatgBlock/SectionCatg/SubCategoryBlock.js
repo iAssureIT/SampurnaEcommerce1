@@ -22,7 +22,7 @@ class SubCategoryBlock extends Component {
       // console.log("this.props.groupSetting==",this.props.groupSettings);     
         axios.post(this.props.groupSettings.blockApi, this.props.groupSettings)      
         .then((blockApiResponse)=>{
-          console.log("blockApiResponse = > ",blockApiResponse)
+          // console.log("blockApiResponse = > ",blockApiResponse)
           if(blockApiResponse.data.length>0){   
             // console.log("blockApiResponse.data===",blockApiResponse.data); 
           for(var i=0;i<blockApiResponse.data.length;i++){ 

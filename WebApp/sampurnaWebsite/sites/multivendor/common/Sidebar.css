@@ -25,15 +25,6 @@
 .MyaccountMainWrapper .small {
     font-weight: 600 !important;
 }
-
-.react-multiple-carousel__arrow--right {
-    position  : absolute !important;
-    right     : calc(-1.3% + 1px) !important;
-    background: none !important;
-    z-index   : 999 !important;
-
-}
-
 .sectionCarousel .react-multiple-carousel__arrow--right::before {
     content  : "\276D" !important;
     color    : gray !important;
@@ -42,34 +33,41 @@
     top      : -30px !important;
 
 }
-
-.react-multiple-carousel__arrow--left {
-    position  : absolute !important;
-    left      : calc(-1.3% + 1px) !important;
-    background: none !important;
-    z-index   : 999 !important;
-
-}
-
 .sectionCarousel .react-multiple-carousel__arrow--left::before {
     content  : "\276C" !important;
     color    : gray !important;
     font-size: 30px !important;
     z-index  : 999 !important;
     top      : -30px !important;
-
-
+}
+.categoryCarousel .react-multiple-carousel__arrow--left {
+    position  : absolute !important;
+    /* left      : calc(-2.3% + 1px) !important; */
+    left      : 0px !important;
+    background: none !important;
+    z-index   : 999 !important;
+}
+.categoryCarousel .react-multiple-carousel__arrow--right {
+    position  : absolute !important;
+    /* right     : calc(-2.3% + 1px) !important; */
+    right     : 0px !important;
+    background: none !important;
+    z-index   : 999 !important;
 }
 
-.react-multiple-carousel__arrow--right::before {
+/* .react-multiple-carousel__arrow--left {
+    position  : absolute !important;
+    left      : calc(-1.3% + 1px) !important;
+    background: none !important;
+    z-index   : 999 !important;
+} */
+
+/* .react-multiple-carousel__arrow--right::before {
     content  : "\276D" !important;
     color    : gray !important;
     font-size: 30px !important;
     z-index  : 999 !important;
-
-
 }
-
 .react-multiple-carousel__arrow--left {
     position  : absolute !important;
     left      : calc(-1.3% + 1px) !important;
@@ -77,33 +75,21 @@
     z-index   : 999 !important;
     display: block;
 
-}
-
-.categoryCarousel .react-multiple-carousel__arrow--left {
+} */
+/* .react-multiple-carousel__arrow--right {
     position  : absolute !important;
-    left      : calc(-2.3% + 1px) !important;
+    right     : calc(-1.3% + 1px) !important;
     background: none !important;
     z-index   : 999 !important;
 
-}
+} */
 
-.categoryCarousel .react-multiple-carousel__arrow--right {
-    position  : absolute !important;
-    right     : calc(-2.3% + 1px) !important;
-    background: none !important;
-    z-index   : 999 !important;
-
-}
-
-.react-multiple-carousel__arrow--left::before {
+/* .react-multiple-carousel__arrow--left::before {
     content  : "\276C" !important;
     color    : gray !important;
     font-size: 30px !important;
     z-index  : 999 !important;
-
-
-
-}
+} */
 
 .SingleProductMainWrapper .react-multiple-carousel__arrow--left::before {
     content  : "\276C" !important;
@@ -122,11 +108,6 @@
     top      : -18px !important;
 
 }
-
-/* .active{
-	background-color:#033554 !important;
-	color:#fff !important;
-} */
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
@@ -203,27 +184,6 @@ select:focus {
     color        : #222222 !important;
     cursor       : pointer !important;
     min-height   : 25px !important;
-    /* margin-top   : 13px;
-}
-.css-yk16xz-control:focus {
-    border: none !important;
-  }
-
-.css-1wa3eu0-placeholder {
-    color: #222222 !important;
-    top  : 40%;
-}
-
-.css-tlfecz-indicatorContainer {
-    color  : #222222 !important;
-    padding: 0px 6px 0px 5px !important;
-}
-
-.css-1okebmr-indicatorSeparator {
-    color           : #222222 !important;
-    background-color: #222222 !important;
-    /* margin-bottom: 13px;
-    margin-top      : 6px; */
 }
 
 .form-control:disabled,

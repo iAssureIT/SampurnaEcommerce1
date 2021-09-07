@@ -40,7 +40,7 @@ class ShoppingVerticals extends Component {
                 for(var i=0;i<blockApiResponse.data.length;i++){ 
                     itemList.push({
                       "dealImg" : blockApiResponse.data[i].dealImg?blockApiResponse.data[i].dealImg:"",
-                      "dealUrl" : blockApiResponse.data[i].section.replace(' ','-').toLowerCase(),
+                      "dealUrl" : blockApiResponse.data[i].section.replace(/\s+/g, '-').toLowerCase()
                     })      
                 } 
 

@@ -342,7 +342,7 @@ class SignUp extends Component{
 							onChange={this.handleChange.bind(this)}
 							value={this.state.signupPassword}  autoComplete="off"
 						/>
-						<span toggle="#signupPassword" class="fa fa-fw fa-eye field-icon toggle-password"
+						<span toggle="#signupPassword" class="fa fa-fw fa-eye-slash field-icon toggle-password"
 							onClick={this.togglePassword.bind(this)}>
 						</span>
 						<div className="errorMsg mt-1">{this.state.errors.signupPassword}</div>
@@ -352,7 +352,7 @@ class SignUp extends Component{
 							onChange={this.handleChange.bind(this)}
 							value={this.state.signupConfirmPassword}  autoComplete="off"
 						/>
-						<span toggle="#signupConfirmPassword" class="fa fa-fw fa-eye field-icon toggle-password"
+						<span toggle="#signupConfirmPassword" class="fa fa-eye-slash fa-fw field-icon toggle-password"
 							onClick={this.toggleConfirmPassword.bind(this)}>
 						</span>
 						<div className="errorMsg mt-1">{this.state.errors.signupConfirmPassword}</div>

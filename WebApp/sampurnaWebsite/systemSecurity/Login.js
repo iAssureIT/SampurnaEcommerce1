@@ -17,7 +17,6 @@ import Googlelogin            from './Googlelogin.js'
 import LoginAsGuest           from './LoginAsGuest.js';
 import S 					  from './systemSecurity.module.css';
 
-
 class Login extends Component{
 
 	constructor(){
@@ -29,9 +28,8 @@ class Login extends Component{
         		email 	: '',
         		pwd		: '',
       		},
-      		formerrors: {
-				emailIDV : "",
-			},
+			loginusername : "",
+			loginpassword : "",
 			messageData: {
         		"type"	: "",
 			},
@@ -171,8 +169,9 @@ class Login extends Component{
 								<div className="row">
 									<div className="col-12 form-group frmhgt textAlignLeft NOpadding">
 										<div className="row">
-											<input type="email" className="form-control formcontrol1" ref="loginusername" id="loginusername" name="loginusername" placeholder="Phone Number / Email ID*"  onChange={this.handleChange.bind(this)}/>
-											<span className="text-danger">{this.state.formerrors.emailIDV}</span>
+											<input type="email" className="form-control formcontrol1" ref="loginusername" id="loginusername" name="loginusername" placeholder="Phone Number / Email ID*"  
+											defaultValue={this.state.loginusername}
+											onChange={this.handleChange.bind(this)} autoComplete="off"/>
 											<div className="errorMsg">{this.state.errors.loginusername}</div>
 										</div>
 									</div>
@@ -186,13 +185,13 @@ class Login extends Component{
 												name="loginpassword"
 												placeholder="Password*"
 												onChange={this.handleChange.bind(this)}
-												value={this.state.loginpassword}
+												defaultValue={this.state.loginpassword}
 												autoComplete="off"
 											/>
 										</div>
 										<span
 											toggle="#password-field"
-											className="fa fa-fw fa-eye field-icon toggle-password"
+											className="fa fa-eye-slash fa-fw field-icon toggle-password"
 											onClick={this.togglePassword.bind(this)}
 											// src="/images/eCommerce/view.png"
 										></span>

@@ -18,9 +18,11 @@ class VendorList extends Component {
       componentDidMount() {
          $(window).scroll(function() {
             if ($(this).scrollTop()>148){
+                // console.log("$(this).scrollTop()==",$(this).scrollTop());
                 $(".deliveryTimeStrip").css({"position": "fixed",
                 "top": 0});
             }else{
+                // console.log("$(this).scrollTop()==",$(this).scrollTop());
                 $(".deliveryTimeStrip").css({"position": "relative",
                 "top": 0});
             }

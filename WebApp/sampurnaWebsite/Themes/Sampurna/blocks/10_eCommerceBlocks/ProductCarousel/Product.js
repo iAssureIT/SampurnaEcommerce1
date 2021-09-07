@@ -280,7 +280,7 @@ class Product extends Component{
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;
       var SMCol = 12/this.props.blockSettings.noOfProductPerSMRow;
       var XSCol = 12/this.props.blockSettings.noOfProductPerXSRow;
-      console.log("this.props.recentWishlist===",this.props.recentWishlist);
+      // console.log("this.props.recentWishlist===",this.props.recentWishlist);
       return (
         <div className="row">
           <Message messageData={this.state.messageData} /> 
