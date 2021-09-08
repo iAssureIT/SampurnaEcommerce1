@@ -360,18 +360,22 @@
 }
 
 .appleCard{
-  width: 124px;
-  height: 42px;
+  /*width: 124px;*/
+  height: 35px;
   float: left;
-  background-size: 120px;  
+ /* background-size: 120px;  
   background-image:url("/images/eCommerce/1.gif");
   background-repeat:no-repeat;
   cursor: pointer;
-  /*background: transparent url("/images/eCommerce/1.gif") 0% 0% no-repeat padding-box;*/
+  background: transparent url("/images/eCommerce/1.gif") 0% 0% no-repeat padding-box;
   opacity: 1;
   object-fit: fill !important;  
-  float:left;
-
+  float:left;*/
+/*  background-color: #f00;*/
+}
+.appStoreLogo{
+  /*width: 100%;*/
+  height: 35px;
 }
 .androidCard a
 .appleCard a{
@@ -379,17 +383,17 @@
   height: 100%;
 }
 .androidCard{
-  width: 124px;
+  /*width: 124px;*/
   float: left;
   height: 42px;
-  cursor: pointer;
+  /*cursor: pointer;
   background-size: 120px;
   background-image:url("/images/eCommerce/1_grpEUqlOJE6Fysw7ErWIBQ.gif");
   background-repeat:no-repeat;
-  /*background: transparent url("/images/eCommerce/1_grpEUqlOJE6Fysw7ErWIBQ.gif") 100% 100% no-repeat padding-box;*/
+  background: transparent url("/images/eCommerce/1_grpEUqlOJE6Fysw7ErWIBQ.gif") 100% 100% no-repeat padding-box;
   opacity: 1;
   object-fit: fill !important;
-  float:left;
+  float:left;*/
 
 
 }
@@ -469,10 +473,11 @@
   text-decoration: none !important;
   transition: 0.3s ease;
 }
-
-.socialMediaIcons img{
+.categortTitle span:hover{
+    text-decoration: underline!important;
+}
+.socialMediaIcons{
   border-radius: 100%;
-  border:var(--border2px) !important;
   float: left;
   color: var(--color);
   margin-top: 20px;
@@ -481,8 +486,9 @@
   text-align: center;
   margin-left: 15px;
   /*background-color: transparent;*/
-  transition: 0.6s ease;
+  transition: all 1s ease;
 }
+
 /*.socialMediaIcons img:hover{
   background-color: var(--color);
   color: #fff;
@@ -581,7 +587,7 @@
   .categortTitle span {
     font-size: 16px!important;
   }
-  .socialMediaIcons img{
+  .socialMediaIcons{
     height: 28px;
     width: 27px;  
   }

@@ -303,7 +303,16 @@
 }
 
 .locationPageWrapper{
-    height: 80vh;
+    font-family:'Montserrat-Regular';
+}
+.deliveryLocationCurrentButton{
+    margin-left: 70px;
+}
+.deliveryLocationSearchWrapper{
+    margin-left: -18px;
+}
+.deliveryLocationSaveButton{
+    margin-right: 28px;
 }
 /* =========================Media Query============================================== */
 
@@ -624,6 +633,15 @@
     .heightGoogleMap {
         height: 770px;
     }
+    .deliveryLocationCurrentButton{
+        margin-left: 80px;
+    }
+    .deliveryLocationSearchWrapper{
+        margin-left: -26px;
+    }
+    .deliveryLocationSaveButton{
+        margin-right: 40px;
+    }
 }
 @media (min-width: 1920px) and (max-width: 2559px) {
    .heightGoogleMap {
@@ -652,8 +670,26 @@
     .deliveryLocationSaveButton{
         margin-right: 15px;
     }
+    .deliveryLocationCurrentButton{
+        margin-left: 90px;
+    }
+    .deliveryLocationSearchWrapper{
+        margin-left: -32px;
+    }
+    .deliveryLocationSaveButton{
+        margin-right: 48px;
+    }
 }
 @media (min-width: 2560px) {
+    .deliveryLocationCurrentButton{
+        margin-left: 110px;
+    }
+    .deliveryLocationSearchWrapper{
+        margin-left: -40px;
+    }
+    .deliveryLocationSaveButton{
+        margin-right: 63px;
+    }
     .heightGoogleMap {
         height: 1370px;
     }

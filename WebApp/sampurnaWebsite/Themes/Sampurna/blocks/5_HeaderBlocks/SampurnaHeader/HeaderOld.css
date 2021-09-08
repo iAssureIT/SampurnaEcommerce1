@@ -937,7 +937,7 @@ li a{
         margin-top: -5px;
     }
     .locationBg {
-        height: 650px!important;
+        height: 728px!important;
     }
 
 }
@@ -991,7 +991,7 @@ li a{
         margin-top: -5px;
     }
     .locationBg {
-        height: 650px!important;
+        height: 710px!important;
     }
 }
 
@@ -1033,7 +1033,7 @@ li a{
 }
 @media  (min-width: 2560px) {
     .locationBg {
-        height: 700px!important;
+      height: 1202px!important;
     }
     .headerLoginButton {
         height: 50px;

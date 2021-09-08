@@ -14,6 +14,7 @@ export default class Footer extends Component {
            companyInfo   :"",
            Locationdata  :[],
            categoryData  :[],
+           hover         : "",
         }
     }
     
@@ -45,6 +46,22 @@ export default class Footer extends Component {
             .catch((error)=>{
                 console.log('error', error);
             })
+    }
+    hover(event){
+        var id = event.currentTarget.id;
+    
+            this.setState({
+                hover: id
+            })
+             
+    }
+    notHover(event){
+        var id = event.currentTarget.id;
+
+            this.setState({
+                hover: ""
+            })
+        
     }
 
     render(){
@@ -137,11 +154,66 @@ export default class Footer extends Component {
 
                 <div className={"col-12 col-sx-12 col-md-12 col-xl-6 col-lg-6 container " +S.wrapper1}>
                     <div className={"col-12 d-flex justify-content-center "+S.wrapper2}>
-                        <div className="socialMediaIcons"><Link href="https://www.instagram.com/knockknock_eshop/" passhref={true}><a  target="_blank"><img src= "/images/eCommerce/footerIcon1.png" /></a></Link></div>                
-                        <div className="socialMediaIcons"><Link href="https://www.facebook.com/Knock-Knock-103575731986682" passhref={true}><a  target="_blank"><img src= "/images/eCommerce/footerIcon2.png" /></a></Link></div>                        
-                        <div className="socialMediaIcons"><Link href="https://www.youtube.com/knockknockeshop" passhref={true}><a  target="_blank"><img src= "/images/eCommerce/footerIcon3.png" /></a></Link></div>                                               
-                        <div className="socialMediaIcons"><Link href="https://www.linkedin.com/knockknockeshop" passhref={true}><a  target="_blank"><img src= "/images/eCommerce/footerIcon4.png" /></a></Link></div>
-                        <div className="socialMediaIcons"><Link href="https://twitter.com/knockknockeshop" passhref={true}><a  target="_blank"><img src= "/images/eCommerce/footerIcon5.png" /></a></Link></div>                    
+                        <div id="socialMediaIcons1"  className="socialMediaIcons" onMouseEnter={this.hover.bind(this)} onMouseLeave={this.notHover.bind(this)}>
+                            <Link href="https://www.instagram.com/knockknock_eshop/" passhref={true}>
+                                <a  target="_blank">
+                                { this.state.hover === "socialMediaIcons1"
+                                    ?
+                                    <img src= "/images/eCommerce/hover1.png" />
+                                    :
+                                    <img src= "/images/eCommerce/footerIcon1.png" />
+                                }
+                                </a>
+                            </Link>
+                        </div>                
+                        <div id="socialMediaIcons2" className="socialMediaIcons" onMouseEnter={this.hover.bind(this)} onMouseLeave={this.notHover.bind(this)}>
+                            <Link href="https://www.facebook.com/Knock-Knock-103575731986682" passhref={true}>
+                                <a  target="_blank">
+                                    { this.state.hover === "socialMediaIcons2"
+                                        ?
+                                        <img src= "/images/eCommerce/hover2.png" />
+                                        :
+                                        <img src= "/images/eCommerce/footerIcon2.png" />
+                                    }
+                                </a>
+                            </Link>
+                        </div>                        
+                        <div id="socialMediaIcons3" className="socialMediaIcons" onMouseEnter={this.hover.bind(this)} onMouseLeave={this.notHover.bind(this)}>
+                            <Link href="https://www.youtube.com/knockknockeshop" passhref={true}>
+                                <a  target="_blank">
+                                    { this.state.hover === "socialMediaIcons3"
+                                        ?
+                                        <img src= "/images/eCommerce/hover3.png" />
+                                        :
+                                        <img src= "/images/eCommerce/footerIcon3.png" />
+                                    }
+                                </a>
+                            </Link>
+                        </div>                                               
+                        <div id="socialMediaIcons4" className="socialMediaIcons" onMouseEnter={this.hover.bind(this)} onMouseLeave={this.notHover.bind(this)}>
+                            <Link href="https://www.linkedin.com/knockknockeshop" passhref={true}>
+                                <a  target="_blank">
+                                   { this.state.hover === "socialMediaIcons4"
+                                        ?
+                                        <img src= "/images/eCommerce/hover4.png" />
+                                        :
+                                        <img src= "/images/eCommerce/footerIcon4.png" />
+                                    }
+                                </a>
+                            </Link>
+                        </div>
+                        <div id="socialMediaIcons5" className="socialMediaIcons" onMouseEnter={this.hover.bind(this)} onMouseLeave={this.notHover.bind(this)}>
+                            <Link href="https://twitter.com/knockknockeshop" passhref={true}>
+                                <a  target="_blank">
+                                    { this.state.hover === "socialMediaIcons5"
+                                        ?
+                                        <img src= "/images/eCommerce/hover5.png" />
+                                        :
+                                        <img src= "/images/eCommerce/footerIcon5.png" />
+                                    }
+                                </a>
+                            </Link>
+                        </div>                    
                     </div>
                     <div className={"col-12 d-flex justify-content-center "+S.wrapper3}>
                             <div className={"text-center " +S.aboutClass}><Link href="/about-us" passhref={true}><a ><span>&nbsp;About Us</span></a></Link></div>
@@ -169,8 +241,16 @@ export default class Footer extends Component {
                     <div className={"col-12 col-sm-6 float-left  col-lg-12 col-md-12 " +S.aboutHeight2}>
                         <div className={"col-12 "+S.footerTitleWrapper}>We are in</div>
                         <div className={"col-12 col-sm-12 col-lg-12 col-md-12 mt-lg-2 mt-sm-2 mt-4" }>
-                            <a className="appleCard col-6" href={"https://www.apple.com/ae/app-store/"} target="_blank" passhref={"true"}></a>  
-                            <a className="androidCard col-6" href={"https://play.google.com/store/apps/details?id=com.trollymart"} target="_blank" passhref={"true"}></a>  
+                            <a className="appleCard col-6" href={"https://www.apple.com/ae/app-store/"} target="_blank" passhref={"true"}>
+                                <div className="row">
+                                    <img src= "/images/eCommerce/1.gif" className="appStoreLogo"/>
+                                </div>
+                            </a>  
+                            <a className="androidCard col-6" href={"https://play.google.com/store/apps/details?id=com.trollymart"} target="_blank" passhref={"true"}>
+                                <div className="row">
+                                    <img src= "/images/eCommerce/1_grpEUqlOJE6Fysw7ErWIBQ.gif" className="appStoreLogo"/>
+                                </div>
+                            </a>  
                         </div>
                     </div> 
                 </div>

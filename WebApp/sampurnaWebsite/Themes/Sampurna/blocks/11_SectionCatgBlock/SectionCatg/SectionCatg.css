@@ -114,14 +114,14 @@
     }
 }*/
 @media (min-width: 1440px) and (max-width: 1679px) {  
-    .secCateblock .itemImg img {
+    /*.secCateblock .itemImg img {
         height: 170px;
         width: 200px;
     }
     .categoryblock .itemImg img {
           width: 260px;
           height: 240px;
-      }
+      }*/
 }
 
 @media (min-width: 1680px) and (max-width: 1919px) {  

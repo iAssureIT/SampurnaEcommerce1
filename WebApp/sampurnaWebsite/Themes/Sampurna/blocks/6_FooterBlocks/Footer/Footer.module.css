@@ -16,7 +16,9 @@
     margin-bottom: 20px;
     margin-top: 5px;
 }
-
+/*.aboutClass:hover{
+  text-decoration: underline!important;
+}*/
 .logo-nb img{
   height: 70px;
 }
@@ -28,7 +30,7 @@
   height: 75px;
 }
 .wrapper3{
-  padding-top: 10px;
+  padding-top: 15px;
 }
 .wrapper4{
   padding-top: 10px;
@@ -368,28 +370,25 @@
 }
 
 .appleCard{
-  width: 124px;
+  /*width: 124px;*/
   height: 42px;
-  background-size: 124px;  
-  background-image:url("/images/eCommerce/1.gif");
-  background-repeat:no-repeat;
   /*background: transparent url("/images/eCommerce/1.gif") 0% 0% no-repeat padding-box;*/
-  opacity: 1;
-  object-fit: fill !important;  
-  float:left;
+/*  opacity: 1;
+  object-fit: fill !important;  */
+ /* float:left;*/
 
 }
 
 .androidCard{
-  width: 124px;
+ /* width: 124px;*/
   height: 42px;
-  background-size: 124px;
+/*  background-size: 124px;
   background-image:url("/images/eCommerce/1_grpEUqlOJE6Fysw7ErWIBQ.gif");
-  background-repeat:no-repeat;
+  background-repeat:no-repeat;*/
   /*background: transparent url("/images/eCommerce/1_grpEUqlOJE6Fysw7ErWIBQ.gif") 100% 100% no-repeat padding-box;*/
-  opacity: 1;
-  object-fit: fill !important;
-  float:left;
+ /* opacity: 1;
+  object-fit: fill !important;*/
+  /*float:left;*/
 
 
 }
@@ -674,6 +673,21 @@
     font-family:'Montserrat-Regular';
   }
 }
+@media (min-device-width: 1440px) and (max-device-width: 1535px) {
+  .wrapper3{
+    padding-top: 20px;
+  }
+}
+@media (min-width: 1536px) and (max-width: 1679px) {
+  .wrapper3{
+    padding-top: 20px;
+  }
+}
+@media (min-device-width: 1680px) and (max-device-width: 1919px) {
+  .wrapper3{
+    padding-top: 20px;
+  }
+}
 
 /* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
 @media (min-width: 1920px){
@@ -697,6 +711,9 @@
   }
   .footerTitleWrapper{
     font-size: 18px;
+  }
+  .wrapper3{
+    padding-top: 0px;
   }
 }
 @media  (max-width: 413px) {
