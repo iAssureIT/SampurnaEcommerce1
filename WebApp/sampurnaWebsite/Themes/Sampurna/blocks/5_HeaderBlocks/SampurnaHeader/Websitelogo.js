@@ -57,7 +57,7 @@ class WebsiteLogo extends React.Component{
                         src={this.state.CompanyLogo 
                                 ? this.state.CompanyLogo 
                                 : "/images/eCommerce/TrollyLogo.png"}
-                        className={Style.logoImg}
+                        className={ Style.logoImg}
                         height ={40}
                         layout={'intrinsic'}
                     />

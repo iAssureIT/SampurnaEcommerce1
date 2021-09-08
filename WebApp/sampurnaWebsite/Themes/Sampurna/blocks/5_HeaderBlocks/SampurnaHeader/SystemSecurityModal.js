@@ -70,16 +70,18 @@ class header extends React.Component {
               this.setState({
                 userData : res.data.profile,
                 userName : res.data.profile.firstname,
+                email    : res.data.profile.email,
                 firstname: res.data.profile.firstname.substring(0, 1),
                 lastname : res.data.profile.lastname.substring(0, 1)
               },()=>{
-                // console.log("userData==============",this.state.userData);
+             console.log("userData==============",this.state.userData);
               })
             }else{
               this.setState({
                 userData  : "",
                 firstname : "",
-                lastname  : ""
+                lastname  : "",
+                email     : "" 
               },()=>{
     
               })
@@ -120,11 +122,11 @@ class header extends React.Component {
                     this.state.loggedIn 
                     ? 
                         <div className={"dropdown h-100 " + Style.myAccDropdown}>
-                            <div className={"col-12 h-100 "+ Style.signDivWrapper}>  
+                            <div className={"col-12 h-100 "}>  
                                 {
                                     this.state.authService === "guest" && this.state.userId
                                     ?
-                                    <div className={"row "}>
+                                    <div className={"row " + Style.signDivWrapper2}>
                                         <div  className="col-12 offset-3">
                                             <span className={Style.userName}>
                                                 Hello Guest!
@@ -143,7 +145,7 @@ class header extends React.Component {
                                             </span>
                                         </div>
                                         <div className={"col-12 " + Style.myAccountTitle}>
-                                            My Account 
+                                            {this.state.email}
                                             {/* <i className="fa fa-angle-down"></i> */}
                                         </div>
                                     </div>

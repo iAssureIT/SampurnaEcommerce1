@@ -5,14 +5,17 @@
 .modal{
     z-index: 10000;
 }
+.searchBarInput::placeholder {
+    font-size: 13px!important;
+}
 .headerWrapper header{
-    /*font-family: 'Montserrat-Regular';*/
+    font-family: 'Montserrat-Regular';
 }
 .headerWrapper{
     margin: 0!important;
     padding: 0!important;
     box-sizing: border-box;
-    height: 132px;
+    height: 117px;
 }
 .megamenuWrapper{
     margin: 0!important;
@@ -20,7 +23,7 @@
 }
 .megamenu{
     width: 100%;
-    height: 75px;
+    height: 60px;
     background-color: var(--globalColor);
     padding-top: 15px;
 }
@@ -36,10 +39,11 @@
     background-color: #f00;
 }*/
 .logoImg{
-    height: 43px;
+    width: 120px;
+    height: 35px;
 }
 .searchWrapper{
-    padding-top: 10px;
+    padding-top: 0px;
 }
 .searchIcon{
     position: absolute;
@@ -47,8 +51,8 @@
     width: 6%;
     height: 100%;
     background-color: var(--yellowBgColor);
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.50rem;
+    border-bottom-right-radius: 0.50rem;
     cursor: pointer;
 }
 .homeSearchIcon{
@@ -68,21 +72,31 @@
 }
 .searchBarInput{
     background: #E8E8E8;
-    padding: 0.375rem 2rem;;
+    padding: 0.375rem 1.2rem;;
     color: #000000;
     height: 32px;
+    font-family: 'Montserrat-Regular';
+    border-radius: 0.50rem;
+
+}
+.searchBarInput::placeholder {
+    color: #bbb;
 }
 .signInWrapper{
     position: relative;
     background-color: #fff;
-    margin-top: 10px;
-    height: 32px;
+    margin-top: 2px;
+    height: 30px;
     border-radius: 0.25rem;
     padding: 0.25rem 1.5rem;;
 }
+.signDivWrapper2{
+    margin-top: 2px;
+    margin-left: -7px;
+}
 .signInTitle{
     position: absolute;
-    font-size: 17px;
+    font-size: 15px;
     color: #000;
    /* font-weight: 600;*/
     display: inline-block;
@@ -108,8 +122,8 @@
     color: #000;
 }
 .cartIcon{
-    height: 32px;
-    margin-top: 10px;
+    height: 30px;
+    margin-top: 5px;
 }
 /*============================Nav List============================================*/
 .allCategories{
@@ -124,7 +138,7 @@
     height: 100%;
     display: inline-block;
     padding-top: 8px;
-    font-size: 10px;
+    font-size: 11px;
     text-transform: uppercase;
     /*font-weight: 600;*/
     padding-left: 9px;
@@ -279,7 +293,8 @@
 
 }
 .signDivWrapper{
-    margin-top: 8px;
+    margin-top: 2px;
+    margin-left: -9px;
 }
 .myAccDropdown{
     transition: all 0.6s;
@@ -287,9 +302,13 @@
 }
 .myAccountTitle{
     color: #fff;
-    font-size: 13px;
+    font-size: 10px;
     margin-top: -1px;
+    width: 80px;
     display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .signDivWrapper:hover,.myAccountTitle:hover{
     cursor: pointer;
@@ -334,41 +353,52 @@
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
+    margin-top: 32px!important;
 }
 .listDropDownMenu2{
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
 }
 .wishListIconWrapper{
-    margin-top: 11px;
+    margin-top: 4px;
+    margin-left: 5px;
 }
 .wishListIcon{
-    height: 30px;
+    height: 22px;
 }
 .cartIconWrapper{
-    margin-top: 11px;
+    margin-top: 5px;
 }
 .cartLogo{
-    height: 30px;
+    height: 25px;
 }
 /*================================================================*/
 @media  (min-width: 2560px) {
         .headerWrapper{
-            height: 223px;
+            height: 213px;
         }
         .megamenu{
-            height: 110px;
+            height: 100px;
         }
         .logoImg{
-            height: 70px;
+            width: 160px;
+            height: 60px;
             margin-left: 35px;
+            margin-top: 5px;
         }
         .searchBarInput,.signInWrapper,.cartIcon{
-            height: 60px;
+            height: 50px;
+        }
+        .searchWrapper{
+            padding-top: 10px;
         }
         .signInWrapper{
             width: 100%;
             margin-left: 0%;
+            margin-top: 10px;
+        }
+        .cartIcon{
+            margin-top: 10px;
         }
         .signInTitle{
             font-size: 26px;
@@ -380,13 +410,13 @@
             height: 60px;
         }
         .allCategories{
-            padding-top: 12px;
+            padding-top: 14px;
             font-size: 22px;
             padding-left: 100px;
         }
         .listSubTitles{
-            padding-top: 13px;
-            font-size: 19px;
+            padding-top: 15px;
+            font-size: 20px;
             padding-left: 15px;
         }
         .locationHeaderwrapper{
@@ -426,18 +456,28 @@
             font-size: 20px;
             width: 150px;
         }
+        .signDivWrapper2{
+            margin-top: 5px;
+            margin-left: 10px;
+        }
         .myAccountTitle{
-            font-size: 25px;
+            font-size: 18px;
         }
         .signDivWrapper{
             margin-top: 8px;
             margin-left: 4px;
         }
+        .wishListIconWrapper{
+            margin-top: 14px;
+        }
+        .cartIconWrapper{
+            margin-top: 13px;
+        }
         .wishListIcon{
-            height: 58px;
+            height: 40px;
         }
         .cartLogo{
-            height: 60px;
+            height: 48px;
         }
         .cartCountWrapper{
             height: 25px;
@@ -481,22 +521,41 @@
         .changeLocationIcon img{
             height: 25px;
         }
+        .searchBarInput::placeholder {
+            font-size: 22px!important;
+        }
 }
 @media (min-width: 1920px) and (max-width: 2559px) {
         .headerWrapper{
-            height: 193px;
+            height: 160px;
         }
         .megamenu{
-            height: 100px;
+            height: 80px;
         }
         .logoImg{
-            height: 62px;
-        }
-        .searchBarInput,.signInWrapper,.cartIcon{
-            height: 50px;
+            width: 130px;
+            height: 40px;
+            margin-top: 3px;
+            margin-left: 10px;
         }
         .searchBarInput{
-            font-size: 15px!important;
+            height: 47px;
+        }
+        .searchBarInput::placeholder {
+            font-size: 18px!important;
+        }
+        .cartIcon{
+            height: 46px;
+            margin-top: 5px;
+        }
+        .signInWrapper{
+            width: 124px;
+            height: 44px;
+            margin-top: 4px;
+            margin-left: -6px;
+        }
+        .searchWrapper{
+            padding-top: 2px;
         }
         .signInTitle{
             font-size: 22px;
@@ -508,25 +567,25 @@
             height: 28px;
         }
         .mainMenuWrapper{
-            height: 50px;
+            height: 40px;
         }
         .allCategories{
-            padding-top: 13px;
+            padding-top: 8px;
             font-size: 18px;
             padding-left: 70px;
         }
         .listSubTitles{
-            padding-top: 15px;
-            font-size: 14px;
+            padding-top: 9px;
+            font-size: 17px;
             padding-left: 13px;
         }
         .locationHeaderwrapper{
-            height: 43px;
+            height: 40px;
         }
         .locationText{
             font-size: 19px;
             display: inline-block;
-            padding-top: 8px;
+            padding-top: 7px;
             padding-left: 55px;
         }
         .locationSubText{
@@ -534,32 +593,45 @@
             padding-left: 20px;
         }
         .changeLocationTitle{
-            font-size: 19px;
+            font-size: 13px;
             margin-left: 0px;
         }
         .changeLocationIcon{
-            font-size: 19px;
+            top: 6px;
             right: 7px;
         }
         .changeLocationIcon img{
-            height: 20px;
+            height: 17px;
         }
         .signInIcon{
-            right: 10px;
+            right: 5px;
+        }
+        .cartIconWrapper{
+            margin-top: 5px;
         }
         .changelocationBtn1{
-            margin-top: 4px;
-            height: 36px;
+            width: 160px;
+            height: 30px;
+            margin-top: 6px;
+            margin-left: 25%;
         }
         .signDivWrapper{
-            margin-top: 12px;
+            margin-top: 2px;
             margin-left: 0px;
         }
+        .signDivWrapper2{
+            margin-top: 3px;
+            margin-left: 3px;
+        }
+        .wishListIconWrapper{
+            margin-top: 7px;
+            margin-left: 6px;
+        }
         .wishListIcon{
-            height: 45px;
+            height: 34px;
         }
         .cartLogo{
-            height: 47px;
+            height: 46px;
         }
         .cartCountWrapper{
             height: 25px;
@@ -568,11 +640,12 @@
             right: -15px;
         }
         .userName{
-            font-size: 16px;
+            font-size: 18px;
             width: 110px;
         }
         .myAccountTitle{
-            font-size: 18px;
+            font-size: 13px;
+            width: 110px;
         }
         .cartCountWrapper{
             height: 23px;
@@ -581,7 +654,7 @@
         }
         .listDropDownMenu{
             width: 280px;
-            top: 14px!important;
+            top: 18px!important;
         }
         .userDetalisWrapper{
             margin-top: 9%;
@@ -614,14 +687,25 @@
         }
 }
 @media (min-width: 1680px) and (max-width: 1919px) {
-    .headerWrapper{
-            height: 178px;
+        .searchBarInput::placeholder {
+            font-size: 16px!important;
+        }
+        .searchWrapper{
+            padding-top: 2px;
+        }
+        .signDivWrapper2{
+            margin-left: 0px;
+        }
+        .headerWrapper{
+            height: 162px;
         }
         .megamenu{
-            height: 95px;
+            height: 80px;
         }
         .logoImg{
-            height: 55px;
+            width: 140px;
+            height: 45px;
+            margin-top: 3px;
         }
         .searchBarInput,.signInWrapper,.cartIcon{
             height: 45px;
@@ -640,22 +724,25 @@
         }
         .allCategories{
             padding-top: 10px;
-            font-size: 16px;
+            font-size: 18px;
             padding-left: 70px;
         }
         .listSubTitles{
             padding-top: 11px;
-            font-size: 13px;
+            font-size: 16px;
             padding-left: 7px;
         }
         .locationHeaderwrapper{
             height: 48px;
         }
         .locationText{
-            font-size: 16px;
+            font-size: 18px;
             display: inline-block;
-            padding-top: 9px;
+            padding-top: 6px;
             padding-left: 55px;
+        }
+        .listDropDownMenu{
+            top: 16px!important;
         }
         .locationSubText{
             font-size: 15px;
@@ -683,14 +770,14 @@
             height: 30px;
         }
         .signDivWrapper{
-            margin-top: 13px;
+            margin-top: 3px;
             margin-left: -5px;
         }
         .wishListIcon{
-            height: 43px;
+            height: 35px;
         }
         .cartLogo{
-            height: 45px;
+            height: 40px;
         }
         .cartCountWrapper{
             height: 23px;
@@ -700,15 +787,15 @@
             right: -20px;
         }
         .userName{
-            font-size: 13px;
+            font-size: 15px;
             width: 95px;
         }
         .myAccountTitle{
-            font-size: 15px;
+            font-size: 13px;
         }
         .listDropDownMenu{
             width: 250px;
-            top: 8px!important;
+            top: 16px!important;
             left: -45px;
         }
         .userDetalisWrapper{
@@ -742,20 +829,28 @@
         }
 }
 @media (min-width: 1440px) and (max-width: 1679px) {
+        .searchBarInput::placeholder {
+            font-size: 15px!important;
+        }
         .headerWrapper{
-            height: 163px;
+            height: 148px;
         }
         .megamenu{
-            height: 90px;
+            height: 75px;
         }
         .logoImg{
-            height: 50px;
+            width: 140px;
+            height: 45px;
+            margin-top: 1px;
+        }
+        .searchWrapper {
+            padding-top: 2px;
         }
         .searchBarInput,.signInWrapper,.cartIcon{
             height: 40px;
         }
         .signInTitle{
-            font-size: 15px;
+            font-size: 18px;
         } 
         .searchIcon{
             font-size: 25px;
@@ -767,22 +862,22 @@
             height: 40px;
         }
         .allCategories{
-            padding-top: 10px;
-            font-size: 14px;
+            padding-top: 8px;
+            font-size: 16px;
             padding-left: 70px;
         }
         .listSubTitles{
-            padding-top: 11px;
-            font-size: 11px;
+            padding-top: 10px;
+            font-size: 13px;
             padding-left: 7px;
         }
         .locationHeaderwrapper{
             height: 43px;
         }
         .locationText{
-            font-size: 14px;
+            font-size: 16px;
             display: inline-block;
-            padding-top: 7px;
+            padding-top: 4px;
             padding-left: 55px;
         }
         .locationSubText{
@@ -808,14 +903,21 @@
             height: 27px;
         }
         .signDivWrapper{
-            margin-top: 13px;
-            margin-left: -5px;
+            margin-top: 3px;
+            margin-left: -10px;
+        }
+        .wishListIconWrapper{
+            margin-top: 6px;
+            margin-left: 5px;
+        }
+        .signDivWrapper2{
+            margin-left: -10px;
         }
         .wishListIcon{
-            height: 40px;
+            height: 31px;
         }
         .cartLogo{
-            height: 42px;
+            height: 36px;
         }
         .cartCountWrapper{
             height: 23px;
@@ -825,7 +927,7 @@
             right: -20px;
         }
         .userName{
-            font-size: 12px;
+            font-size: 14px;
             width: 90px;
         }
         .myAccountTitle{
@@ -833,7 +935,7 @@
         }
         .listDropDownMenu{
             width: 230px;
-            top: 5px!important;
+            top: 12px!important;
             left: -45px;
         }
         .userDetalisWrapper{
