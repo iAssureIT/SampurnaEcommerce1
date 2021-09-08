@@ -241,40 +241,58 @@ class ProductViewEcommerce extends Component{
 		if(this.state.user_ID){
 			var id 					= event.target.id;
 			var availableQuantity 	= event.target.getAttribute('availableQuantity');
-			const formValues = {
-				"user_ID"             : this.state.user_ID,
-				"product_ID"          : event.target.id,
-				"quantity"            : 1,   
-				"vendor_ID"           : this.props.vendor_id,  
-				"vendorLocation_id"   : this.props.vendorlocation_id, 
-				"userLatitude"        : this.state.userLatitude,
-				"userLongitude"       : this.state.userLongitude,
-				"vendorName"          : event.target.getAttribute('vendor_name'),
-			} 
-			  
-			if(formValues){
-			axios.post('/api/carts/post', formValues)
-				.then((response) => {
-					this.props.fetchCartData();
-          			this.props.updateCartCount();
+				if (this.state.totalQuanity >= availableQuantity) {
 					this.setState({
-						messageData : {
-							"type" : "outpage",
-							"icon" : "fa fa-check-circle",
-							"message" : "&nbsp; "+response.data.message,
-							"class": "success",
-							"autoDismiss" : true
-						}
+					messageData: {
+						"type": "outpage",
+						"icon": "fa fa-check-circle",
+						"message": "Last " + availableQuantity + " items taken by you",
+						"class": "success",
+						"autoDismiss": true
+					}
 					})
 					setTimeout(() => {
+					this.setState({
+						messageData: {},
+					})
+					}, 2000);
+				} else {
+				const formValues = {
+					"user_ID"             : this.state.user_ID,
+					"product_ID"          : event.target.id,
+					"quantity"            : this.state.totalQuanity,   
+					"vendor_ID"           : this.props.vendor_id,  
+					"vendorLocation_id"   : this.props.vendorlocation_id, 
+					"userLatitude"        : this.state.userLatitude,
+					"userLongitude"       : this.state.userLongitude,
+					"vendorName"          : event.target.getAttribute('vendor_name'),
+				} 
+				if(formValues){
+					// console.log("formvalues===",formValues);
+				axios.post('/api/carts/post', formValues)
+					.then((response) => {
+						// console.log("response===",response.data);
+						this.props.fetchCartData();
+						this.props.updateCartCount();
 						this.setState({
-							messageData   : {},
+							messageData : {
+								"type" : "outpage",
+								"icon" : "fa fa-check-circle",
+								"message" : "&nbsp; "+response.data.message,
+								"class": "success",
+								"autoDismiss" : true
+							}
 						})
-					}, 3000);
-				})
-				.catch((error) => {
-					console.log('error', error);
-				})
+						setTimeout(() => {
+							this.setState({
+								messageData   : {},
+							})
+						}, 3000);
+					})
+					.catch((error) => {
+						console.log('error', error);
+					})
+				}
 			}
 		}else{
 			if(this.state.websiteModel && this.state.showLoginAs==='modal'){
@@ -380,20 +398,11 @@ class ProductViewEcommerce extends Component{
 			}
 		}
 	}
-
 	addQuantity(){
 		var totalQuanity = this.state.totalQuanity
 		totalQuanity++;
-		$('#addQuantity').addClass('auto');
-		$('#addQuantity').css('background-color', '#fff');
-		$('#decreaseQuantity').addClass('auto');
-		$('#decreaseQuantity').css('background-color', '#fff');
-		var recentCartData = this.props.recentCartData && this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
-		var productCartData = recentCartData.filter((a)=>a.product_ID === this.props.productID);
-		var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
-		if(Number(totalQuanity) > Number(this.state.quanityLimit) || quantityAdded >= Number(this.state.quanityLimit)){
-			$('#addQuantity').css('background-color', '#ccc');
-			$('#addQuantity').addClass('no-drop');
+		var availableQuantity 	= event.target.getAttribute('availableQuantity');
+		if (totalQuanity >= availableQuantity) {
 			this.setState({
 				messageData: {
 					"type"			: "inpage",
@@ -409,6 +418,7 @@ class ProductViewEcommerce extends Component{
 				})
 			}, 5000);
 		}else{
+			// console.log("totalQuanity===",this.state.totalQuanity);
 			this.setState({ totalQuanity: totalQuanity });
 			document.getElementById('totalQuanity').innerHTML = totalQuanity;
 		}
@@ -417,17 +427,10 @@ class ProductViewEcommerce extends Component{
 	decreaseQuantity(){
 		var totalQuanity = this.state.totalQuanity
 		totalQuanity--;
-		$('#addQuantity').addClass('auto');
-		$('#addQuantity').css('background-color', '#fff');
-		$('#decreaseQuantity').addClass('auto');
-		$('#decreaseQuantity').css('background-color', '#fff');
 		if(Number(totalQuanity) === 1 || Number(totalQuanity) > 1){
 			this.setState({ totalQuanity: totalQuanity }, () => {
 				document.getElementById('totalQuanity').innerHTML = this.state.totalQuanity;
 			});
-		}else{
-			$('#decreaseQuantity').addClass('no-drop');
-			$('#decreaseQuantity').css('background-color', '#ccc');
 		}
 	}
 	
@@ -819,8 +822,8 @@ class ProductViewEcommerce extends Component{
 																								1
 																							</div>
 																							<div className={"col-6 float-left NoPadding " +Style.marginNo}>
-																								<i className={"fa fa-plus qtyIncrease globaleCommLargeBtn " +Style.radiusB2 +" "+Style.marginNo+" "+Style.OrderNumIncWrapper1} id="addQuantity" onClick={this.addQuantity.bind(this)}></i><br />
-																								<i className={"fa fa-minus qtyIncrease globaleCommLargeBtn " +Style.radiusB3 +" "+Style.marginNo+" "+Style.OrderNumIncWrapper1} id="decreaseQuantity" onClick={this.decreaseQuantity.bind(this)}></i>
+																								<i className={"fa fa-plus qtyIncrease globaleCommLargeBtn " +Style.radiusB2 +" "+Style.marginNo+" "+Style.OrderNumIncWrapper1} id="addQuantity" availablequantity={this.state.productData.availableQuantity} onClick={this.addQuantity.bind(this)}></i><br />
+																								<i className={"fa fa-minus qtyIncrease globaleCommLargeBtn " +Style.radiusB3 +" "+Style.marginNo+" "+Style.OrderNumIncWrapper1} id="decreaseQuantity" availablequantity={this.state.productData.availableQuantity} onClick={this.decreaseQuantity.bind(this)}></i>
 																							</div>
 																						</div>
 																						<div className="col-6 NOpadding mobileViewPaddingLeft">

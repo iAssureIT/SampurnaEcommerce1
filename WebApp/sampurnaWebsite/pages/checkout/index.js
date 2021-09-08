@@ -744,7 +744,7 @@ class Checkout extends Component {
     }
 
     render() {
-        // console.log("this.state.recentAddressData===", this.props.recentAddressData);
+        console.log("this.state.recentAddressData===", this.state.recentCartData);
         // console.log("fetchAddressData===",this.props.recentAddressData);
         return (
             <div className="col-12 NoPadding">
@@ -797,7 +797,7 @@ class Checkout extends Component {
 
                                             <tbody>
                                                 {vendorWiseData.cartItems && vendorWiseData.cartItems.map((cartdata, index) => {
-                                                    // console.log("productdata=",productdata);
+                                                    // console.log("productdata=",cartdata.product_ID.size);
                                                     var categoryUrl = (cartdata.product_ID.category ? cartdata.product_ID.category:"").replace(/\s+/g, '-').toLowerCase();                    
                                                     var subCategoryUrl = (cartdata.product_ID.subCategory ? cartdata.product_ID.subCategory:"-").replace(/\s+/g, '-').toLowerCase();
                                                     return (
@@ -813,6 +813,12 @@ class Checkout extends Component {
                                                                         <h5 className="productName mt-2">{cartdata.product_ID.productName}</h5>
                                                                     }
                                                                 </a>
+
+                                                                {cartdata.product_ID.size ?
+                                                                        <h5 className="productName mt-2">{cartdata.product_ID.size +" " +cartdata.product_ID.unit}</h5>
+                                                                        :
+                                                                        ""
+                                                                }
 
                                                                 {cartdata.product_ID.discountPercent ?
                                                                     <div className={"col-12 NoPadding " + Style.f11N}>
@@ -883,11 +889,7 @@ class Checkout extends Component {
                                                 </td>
                                             </tr>
                                         </div>
-
-
-
                                     </div>
-
                                 ) //end return   
                             })// end fechcartData map
                             :
@@ -1043,7 +1045,7 @@ class Checkout extends Component {
                                                     </div>
 
                                                     <div className="row">
-                                                        <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{ fontSize: "12px" }}>Total Tax  :</div>
+                                                        <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{ fontSize: "12px" }}>Total VAT  :</div>
                                                         <div className={"col-6 mb-1 pr-0"}>
                                                             <span className={"col-3 pr-0 " + Style.currencyColor} style={{ fontSize: "12px" }}>{this.state.currency}</span><span className="col-3 pl-0 " style={{ fontSize: "12px" }}> {this.state.recentCartData.paymentDetails.taxAmount > 0 ? this.state.recentCartData.paymentDetails.taxAmount.toFixed(2) : "0.00"}</span>
                                                         </div>
@@ -1064,7 +1066,7 @@ class Checkout extends Component {
                                                     </div>
 
                                                     <div className="row">
-                                                        <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{ fontSize: "12px" }}>Total Delivery Charges :</div>
+                                                        <div className="col-6 mb-1 pl-0 pr-0 mt-1" style={{ fontSize: "12px" }}>Total Service Charges :</div>
                                                         <div className={"col-6 mb-1 pr-0"}>
                                                             <span className={"col-3 pr-0 " + Style.currencyColor} style={{ fontSize: "12px" }}>{this.state.currency}</span><span className="col-3 pl-0 " style={{ fontSize: "12px" }}> {this.state.recentCartData.paymentDetails ? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : "0.00"}</span>
                                                         </div>
@@ -1214,6 +1216,12 @@ class Checkout extends Component {
                                                                                                                             <h5 className={"productName "+ Style.checkoutProductName}>{cartdata.product_ID.productName}</h5>
                                                                                                                         }
                                                                                                                     </a>
+
+                                                                                                                    {cartdata.product_ID.size ?
+                                                                                                                            <h5 className="productName mt-2">{cartdata.product_ID.size +" " +cartdata.product_ID.unit}</h5>
+                                                                                                                            :
+                                                                                                                            ""
+                                                                                                                    }
 
                                                                                                                     {/* {cartdata.product_ID.discountPercent ?
                                                                                                                         <div className={"col-12 NoPadding " + Style.f11N}>
@@ -1385,7 +1393,7 @@ class Checkout extends Component {
                                                                                     <div className={"col-5 " + Style.finalAmount}> {this.state.recentCartData.paymentDetails.discountAmount > 0 ? this.state.recentCartData.paymentDetails.discountAmount.toFixed(2) : "0.00"}</div>
                                                                                 </span>
 
-                                                                                <span className="col-6 mb-1">Total Tax :</span>
+                                                                                <span className="col-6 mb-1">Total VAT :</span>
                                                                                 {/* <span className="col-6 mb-1 textAlignRight">
                                                         <span className={"text-left mx-auto "+Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount : "0.00"}
                                                     </span> */}
@@ -1421,7 +1429,7 @@ class Checkout extends Component {
                                                                                         <span className={Style.deleteCredit} onClick={this.deleteCredit.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
                                                                                     }
                                                                                 </span>
-                                                                                <span className="col-6 mb-1">Total Delivery Charges :</span>
+                                                                                <span className="col-6 mb-1">Total Service Charges :</span>
                                                                                 <span className={"col-6 mb-1 " + Style.checkoutCurrencyWrapper}>
                                                                                     {/* <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 } */}
                                                                                     <div className={"col-6 " + Style.finalCurrency}>{this.state.currency}</div>
@@ -1443,7 +1451,7 @@ class Checkout extends Component {
                                                                                 </div> */}
                                                                                                     <div className="container">
                                                                                                         <div className="row">
-                                                                                                            <div className="col-6 text-left">Delivery Charges&nbsp; :</div>
+                                                                                                            <div className="col-6 text-left">Service Charges&nbsp; :</div>
                                                                                                             <div className="col-6 text-right NoPadding font-weight-bold "> &nbsp;{vendorWiseCartData.vendor_shippingCharges.toFixed(2)} &nbsp;{this.state.currency}</div>
                                                                                                         </div>
                                                                                                     </div>
@@ -1454,7 +1462,7 @@ class Checkout extends Component {
 
                                                                                         <div className="container pb-2">
                                                                                             <div className="row">
-                                                                                                <div className="col-6 text-left">Total Delivery Charges&nbsp; :</div>&nbsp;&nbsp;
+                                                                                                <div className="col-6 text-left">Total Service Charges&nbsp; :</div>&nbsp;&nbsp;
                                                                                                 <div className="col-5 text-right NoPadding font-weight-bold ">&nbsp;&nbsp;&nbsp;{this.props.recentCartData && this.props.recentCartData.paymentDetails && this.props.recentCartData.paymentDetails.shippingCharges.toFixed(2)} &nbsp;{this.state.currency}</div>
                                                                                             </div>
                                                                                         </div>

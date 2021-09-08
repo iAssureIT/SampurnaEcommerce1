@@ -292,7 +292,7 @@ addtowishlist(event) {
 
 render() {
       // console.log("ProductCarouselView this.props.newProducts==",this.props)
-      console.log("this.state.authService==",this.state.authService);
+      // console.log("this.state.authService==",this.state.authService);
     return (
         <div className={"col-12 " }>        
             <Message messageData={this.state.messageData} />  
@@ -324,7 +324,7 @@ render() {
                         Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
                             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
                                 var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];
-                               console.log("wishlist===",this.props.recentWishlistData);
+                              //  console.log("wishlist===",this.props.recentWishlistData);
                               //  console.log("data===",data);
 
                                 var tooltipMsg = '';
@@ -341,7 +341,7 @@ render() {
                                 var subCategoryUrl = (data.subCategory?data.subCategory:"-").replace(/\s+/g, '-').toLowerCase(); 
                                                
                             return (
-                                <div className="col-12">
+                                <div className="col-12" key={index}>
                                     {/* <Message messageData={this.state.messageData} />  */}
                                     <div className={" col-12  NoPadding " +Style.mobileViewPadding +" "+Style.productWrapper} > 
                                         <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
@@ -351,9 +351,9 @@ render() {
                                                 {data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)}%<div className={" "+Style.offTxt}>off</div></div> : null}
                                                 {this.state.productSettings.displayWishlist === true?
                                                     this.state.user_ID && this.state.authService!=="guest"?
-                                                      <button type="submit" id={data._id} title={tooltipMsg} className={" abc pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)}><img src={heartImg} id={data._id} className={" col-12  wishListIconColor "} /></button>
+                                                      <button type="submit" id={data._id} title={tooltipMsg} className={" abc pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)}><img src={heartImg} id={data._id} className={" col-12 NoPadding wishListIconColor "} /></button>
                                                     :
-                                                      <button type="submit" id={data._id} title={tooltipMsg} className={ " pull-right " +Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><img src={heartImg} id={data._id} className={" col-12  wishListIconColor "} /></button>
+                                                      <button type="submit" id={data._id} title={tooltipMsg} className={ " pull-right " +Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><img src={heartImg} id={data._id} className={" col-12 NoPadding  wishListIconColor "} /></button>
                                                 :null
                                                 }
                                               

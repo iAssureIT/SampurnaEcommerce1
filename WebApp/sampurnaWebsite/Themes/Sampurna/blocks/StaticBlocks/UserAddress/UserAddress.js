@@ -66,7 +66,7 @@ class UserAddress extends Component {
         axios.get("/api/ecommusers/" +this.state.user_ID)
             .then((response) => {
             if(response){
-                // console.log("user response ",response);
+                console.log("user response ",response);
                 if(this.state.addressId){
                     var deliveryAddress = response.data.deliveryAddress.filter((a) => String(a._id) === String(this.state.addressId));
                     if(deliveryAddress){
@@ -97,17 +97,17 @@ class UserAddress extends Component {
                     }
                 }else{
                     this.setState({
-                        "fullname"    : '',
+                        "fullname"    : response.data.profile.fullName ? response.data.profile.fullName : "",
                         "mobileNumber": '',
-                        "email"       : '',
+                        "email"       : response.data.profile.email ? response.data.profile.email : "",
                         "modaladdType": '',
                         "city"        : this.state.city ? this.state.city : "",
-                        "area"        : this.state.area,
+                        "area"        : this.state.area ? this.state.area : "",
                         "address1"    : '',
-                        "address"     : this.state.address,
+                        "address"     : this.state.address ? this.state.address : "",
                         "pincode"     : this.state.pincode ? this.state.pincode:"",
-                        "latitude"    : this.state.latitude,
-                        "longitude"   : this.state.longitude,
+                        "latitude"    : this.state.latitude ? this.state.latitude : "",
+                        "longitude"   : this.state.longitude ? this.state.longitude : "",
                     },()=>{
                     });
                 }

@@ -51,7 +51,8 @@
     width:  130px;
 }
 .productBrand{
-    font-size: 12px;
+    font-size: 14px;
+    font-family: 'Montserrat-regular';
     font-weight: bold;
     margin-top: 10px;
 }
@@ -90,7 +91,7 @@
 }
 .currency{
     text-align: left;
-    width: 40%;
+    width:55%;
     float: left;
     /*margin-left: -190%;*/
 }

@@ -57,31 +57,7 @@ class Product extends Component{
     }
 
     addCart(formValues, quantityAdded, availableQuantity) {
-      if(this.state.webSiteModel === 'FranchiseModel'){
-        axios.post('/api/carts/post', formValues)
-          .then((response) => {
-            this.props.fetchCartData();
-            this.setState({
-              messageData: {
-                "type": "outpage",
-                "icon": "fa fa-check-circle",
-                "message": "&nbsp; " + response.data.message,
-                "class": "success",
-                "autoDismiss": true
-              }
-            })
-            setTimeout(() => {
-              this.setState({
-                messageData: {},
-              })
-            }, 2000);
-          })
-          .catch((error) => {
-            console.log('error', error);
-          })
-      }else{
       if (quantityAdded >= availableQuantity) {
-      
         this.setState({
           messageData: {
             "type": "outpage",
@@ -121,7 +97,6 @@ class Product extends Component{
             console.log('error', error);
           })
       }
-    }//end else websiteModel
     }
   
     submitCart(event) {
@@ -172,11 +147,7 @@ class Product extends Component{
         }   
         // console.log("formValues=",formValues);   
       }
-  
-      this.addCart(formValues, quantityAdded, availableQuantity);
-      this.setState({
-        ['sizeCollage' + currProId]: false
-      })
+    this.addCart(formValues, quantityAdded, availableQuantity);
     }else{
       if(this.state.showLoginAs === "modal"){
         $('#loginFormModal').show();       
