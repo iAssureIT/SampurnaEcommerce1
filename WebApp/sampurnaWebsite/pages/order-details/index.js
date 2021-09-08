@@ -271,7 +271,7 @@ export default class OrderDetails extends Component {
   }
 
   render() {
-    // console.log("this.state.orderData.paymentDetails===",this.state.orderData.paymentDetails);
+    // console.log("this.state.orderData.paymentDetails===",this.state.orderData);
     // console.log("this.state.orderData.paymentDetails===",this.state.orderData);
     return (
       <div className={"col-12 NoPadding pt-4 " + Style.orderDetailMainWrapper} id="orderDetailMainID" >
@@ -326,6 +326,7 @@ export default class OrderDetails extends Component {
                     {
                       this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?
                         this.state.orderData.vendorOrders.map((vendordata, index) => {
+                          // console.log("vendordata===",vendordata);
                           var labels = this.state.labelsArray;
                           var index1 = this.state.labels.map(e => e.label).indexOf(vendordata.orderStatus);
                           

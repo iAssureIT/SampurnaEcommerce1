@@ -21,12 +21,25 @@ class ProductsView extends Component {
       "returnProductImages": [],
       "returnProductError": '',
       fields: {},
-      errors: {}
+      errors: {},
+      authService : "",
+      submitBtn:"enabled"
     }
   }
 
   componentDidMount() {
     this.getReturnReasons();
+    var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+    var currency = sampurnaWebsiteDetails.preferences.currency;
+    var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+    // console.log("userDetails===",userDetails);
+    this.setState({
+      user_ID: userDetails.user_id,
+      email: userDetails.email,
+      fullName: userDetails.firstName + " " + userDetails.lastName,
+      currency: currency,
+      authService : userDetails.authService,
+    })
   }
 
   getS3Details() {
@@ -447,6 +460,56 @@ uploadImage(event) {
         })
     }
   }
+  deleteReview(event){
+    event.preventDefault();
+    var productID = event.target.getAttribute('productId');
+    var customerID = event.target.getAttribute('customerId');
+    var orderID = event.target.getAttribute('orderId');
+    this.setState({ orderID: orderID });
+    var formValues = {
+      "customer_id": customerID,
+      "order_id": orderID,
+      "product_id": productID
+    }
+    // console.log("formValues=", formValues);
+    if (formValues) {
+      axios.post("/api/customerReview/get/single/customer/review", formValues)
+        .then((response) => {
+          if (response.data) {
+            console.log("single review==",response.data);
+            this.setState({
+              rating_ID: response.data._id,
+            }, () => {
+              swal({
+                title: "Are you sure?",
+                text: "Are you sure that you want to delete this review?",
+                icon: "warning",
+                dangerMode: true,
+                buttons: true,
+                })
+                .then(willDelete => {
+                    if (willDelete) {
+                        axios.delete('/api/customerReview/delete/'+this.state.rating_ID)
+                        .then((deleteResponse) => {
+                          if (deleteResponse) {
+                              swal("Review deleted.");
+                          }
+                        })
+                        .catch((error) => {
+                          console.log("error while deleting Review==", error);
+                        })
+                    } else {
+                        swal("Your Review is safe!");
+                    }
+                })
+              })
+            }
+        })
+        .catch((error) => {
+          console.log('error', error);
+        })
+    }
+  }
 
   selecteReason(event) {
     event.preventDefault();
@@ -482,16 +545,18 @@ uploadImage(event) {
       "reasonForReturn": this.state.reasonForReturn,
       "customerComment": this.state.customerReturnComment,
       "refund": this.state.paymentRefundSource,
-      "returnProductImages": this.state.returnProductImages.push(this.state.imgUrl)
+      "returnProductImages": this.state.returnProductImages.push(this.state.imgUrl),
+      "checkReturnPolicy"  : this.state.isChecked,
     }
-
-    // console.log("formValues=",formValues);
-
-    if (formValues && this.state.reasonForReturn && this.state.customerReturnComment && this.state.paymentRefundSource && this.state.returnProductImages) {
+    if (formValues && this.state.reasonForReturn && this.state.customerReturnComment!=="" && this.state.paymentRefundSource && this.state.returnProductImages) {
+      console.log("formValues=",formValues);
       axios.patch("/api/orders/patch/returnproduct", formValues)
         .then((response) => {
           if (response.data) {
             // console.log("single review==",response.data);
+            this.setState({
+              "submitBtn" : "enabled",
+            })
             swal({ text: response.data.message }).then(function () {
               window.location.reload();
             });
@@ -502,7 +567,8 @@ uploadImage(event) {
         })
     } else {
       this.setState({
-        "returnProductError": "All feilds are mandatory"
+        "returnProductError": "All feilds are mandatory",
+        "submitBtn" : "disabled",
       })
     }
   }
@@ -576,26 +642,30 @@ uploadImage(event) {
                       </td>
                       <td className={"textAlignRight "+Style.orderDetailSubTotalWrapper}>
                         {
-                          <span className={"productPrize textAlignRight "+Style.productPrize}>
+                          <span className={"productPrize abc textAlignRight "+Style.productPrize}>
                             {this.props.currency}
-                            &nbsp;{productdata.discountedPrice.toFixed(2) * productdata.quantity }
+                            &nbsp;{(productdata.discountedPrice.toFixed(2) * productdata.quantity).toFixed(2) }
                           </span>
                         }
 
-                        {this.props.orderStatus === "Delivered" ?
+                        {this.props.orderStatus === "Delivered" && this.state.authService !== "guest" ?
                           <span className={" " + Style.returnReviewBtnWrapper}>
-                          
-                            {/* {productdata.productReturnable === "returnable"  && productdata.productStatus? */}
+                            {/* {productdata.productReturnable === "returnable"  && productdata.productStatus? */
+                              console.log("productdata.productReturnable==",productdata.productReturnable)
+                            }
                             {productdata.productStatus ?
-                              <div className={"mt-2 " + Style.returnReviewBtn} productId={productdata.product_ID} >{productdata.productStatus}</div>
+                                <div className={"mt-2 " + Style.returnReviewBtn} productId={productdata.product_ID} >{productdata.productStatus}</div>
                               :
-                              <div className={"mt-2 " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#returnModal_" + productdata.product_ID}>Return</div>
+                                <div className={"mt-2 " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#returnModal_" + productdata.product_ID}>Return</div>
                             }
                               {productdata.isReview ?
-                              <div className={"mt-1 " + Style.returnReviewBtn} productId={productdata.product_ID} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Edit Review</div>
+                                <div>
+                                  <span className={"mt-1 " + Style.returnReviewBtn} productId={productdata.product_ID} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Edit Review  </span>
+                                  &nbsp; <i className="fa fa-trash cursor-pointer" productId={productdata.product_ID} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.deleteReview.bind(this)} style = {{cursor :"pointer",fontSize : "15px"}}></i>
+                                </div>
                               :
-                              <div className={"mt-1 " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Feedback</div>
-                            }
+                                <div className={"mt-1 " + Style.returnReviewBtn} productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_" + productdata.product_ID}>Feedback</div>
+                              }
                           </span>
                           : null
                         }
@@ -727,7 +797,7 @@ uploadImage(event) {
                                   <div className={" col-12 mb-2 text-left NoPadding " + Style.errorMsg} >{this.state.returnProductError}</div>
                                   <label className={"col-12 NoPadding text-left "+Style.feedbackLable}> Reason for Return <span className="errorMsg">  </span></label>
                                   <select onChange={this.selecteReason.bind(this)} className={"col-12 form-control "} ref="reasonOfReturn" name="reasonOfReturn" >
-                                    <option name="reasonOfReturn" selected="true">-- Select --</option>
+                                    <option name="reasonOfReturn" selected="true">-- Select reason --</option>
                                     {
                                       this.state.returnsReasons && this.state.returnsReasons.length > 0 ?
                                         this.state.returnsReasons.map((data, index) => {
@@ -775,10 +845,18 @@ uploadImage(event) {
                                     <div className={"col-12 NoPadding mt-2 mb-2 text-left" + Style.eCommTitle + " " + Style.paymentMethodTitle +" "+Style.feedbackLable}>Refund to : <span className="required"></span></div>
                                     <div className={"form-check mt-2 "}>
                                       <label className={"form-check-label "+Style.orderDetailRadioButtonLabel}>
-                                        <input type="radio" className={"form-check-input webModelInput " +Style.returnRadioBtn} name="paymentRefundSource" type="radio" id="paymentRefundSource" value="source"
+                                        {this.props.orderData.paymentDetails.paymentMethod === "Cash On Delivery" ?
+                                          <input type="radio" className={"form-check-input webModelInput " +Style.returnRadioBtn} name="paymentRefundSource" type="radio" id="paymentRefundSource" value="source"
+                                            disabled
+                                            onClick={this.handleRefundPayment.bind(this)}
+                                          />
+                                        :
+                                          <input type="radio" className={"form-check-input webModelInput " +Style.returnRadioBtn} name="paymentRefundSource" type="radio" id="paymentRefundSource" value="source"
                                           checked={this.state.paymentRefundSource === "source"}
                                           onClick={this.handleRefundPayment.bind(this)}
-                                        />The Source( valid for card payment only)
+                                          />
+                                        }
+                                        The Source( valid for card payment only)
                                       </label>
                                     </div>
                                     <div className="form-check mt-2" >
@@ -791,18 +869,21 @@ uploadImage(event) {
                                     </div>
                                     <div className="errorMsg col-11 ml-2">{this.state.refundToError}</div>
                                   </div>
-                                  {/* <div className={"col-12 NoPadding text-left "}>
-                                    <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="I agree to return policy" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" />
-                                    <div className="col-11 col-xl-11 col-md-11 termsWrapper">
-                                        <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree to Return Policy</span>
+                                  <div className={"col-12 text-left mt-2"}>
+                                    <div className="row">
+                                      <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="I agree to return policy" onClick={this.checkboxClick.bind(this)} className="mt-1" />
+                                      <div className="col-10">
+                                          <a className={Style.privacyPolicy} target="_blank" href="/privacy-policy">I agree to <span className={Style.returnLink}>Return Policy</span></a>
+                                      </div>
                                     </div>
-                                  </div> */}
+                                  </div>
                                 </form>
                               </div>
                               <div className={"modal-footer "+Style.reviewModalFooter}>
                                 <div className="col-6 col-sm-6 col-lg-4 col-xl-4 mx-auto ">
                                   {!productdata.status ?
                                     <button className={"btn btn-primary pull-right col-12 "+Style.feedbackBtn}
+                                      
                                       onClick={this.returnProduct.bind(this)}
                                       productid={productdata && productdata.product_ID}
                                       vendor_id={this.props.vendorWiseOrderData.vendor_id}
