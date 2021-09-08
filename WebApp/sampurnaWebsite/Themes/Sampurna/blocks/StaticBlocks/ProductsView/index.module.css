@@ -21,6 +21,17 @@
 .pnHIdden {
 	color: #fff !important;
 }
+.privacyPolicy{
+	/* color: #000 !important; */
+	margin-top: -3px !important;
+	font-size: 13px !important;
+}
+.returnLink{
+	text-decoration: underline;
+}
+.privacyPolicy:hover{
+	text-decoration: none;
+}
 
 .orderDetailMainWrapper {
 	/* margin-top: -545px!important; */
