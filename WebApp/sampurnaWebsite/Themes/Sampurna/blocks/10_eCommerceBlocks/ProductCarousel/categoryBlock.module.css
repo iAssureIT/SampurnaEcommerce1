@@ -20,11 +20,17 @@
 .productsCategoryBlock a{
     text-decoration: none !important;
 }
+
 .categoryCarousel{
     /* margin-bottom: 20px; */
-    margin-top: 0px;
-    margin-bottom: 20px;
+    /*margin-top: 0px;
+    margin-bottom: 20px;*/
+
+    padding-top: 10px;
+    padding-bottom: 30px;
+
 }
+
 .categoryName{
     font-size: 14px;
     color: #fff;
@@ -42,8 +48,8 @@
     text-decoration: none !important;
 }
 .categoryPhoto{
-    display: grid !important;
-    height: 100px;
+    /*display: grid !important;
+    height: 100px;*/
 }
 
 .react-multi-carousel-item{
@@ -67,7 +73,7 @@
     /*/height: 120px;*/
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 100%;
   position: relative;
   border-radius: 12px !important;
 }
@@ -79,7 +85,7 @@
 .NoAvailableImg{
   /* width: 100%; */
   background-image: url("/images/eCommerce/productloader.gif");
-  background-size: contain;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
@@ -130,7 +136,7 @@
 @media (min-width: 1024px) and (max-width: 1280px) {  
   .categoryPhoto{
       /* min-height: 140px; */
-      min-height: 110px;
+      /*min-height: 110px;*/
   }
   .categoryName{
       top: 26px;
@@ -141,7 +147,7 @@
 @media (min-width: 1280px) and (max-width: 1366px) {  
   .categoryPhoto{
       /* min-height: 140px; */
-      min-height: 110px;
+      /*min-height: 110px;*/
   }
   .categoryName{
       top: 24px;
@@ -165,9 +171,6 @@
 }
 
 @media (min-width: 1536px) and (max-width: 1680px) {  
-  .categoryPhoto{
-      min-height: 160px;
-  }
   .categoryName{
       top: 50px;
       font-size: 28px;
@@ -175,9 +178,9 @@
 }
 
 @media (min-width: 1680px) and (max-width: 1920px) {  
-  .categoryPhoto{
+/*  .categoryPhoto{
       min-height: 180px;
-  }
+  }*/
   .categoryName{
       top: 56px;
       font-size: 30px;
@@ -185,14 +188,6 @@
 }
 
 @media (min-width: 1920px){  
-  .categoryPhoto{
-      min-height: 180px;
-      width: 350px;
-  }
-  .categoryName{
-      top: 58px;
-      font-size: 33px;
-  }
   .titleFont1{
       margin-bottom: 40px !important;
   }
@@ -200,6 +195,180 @@
     margin-bottom: 80px!important;
   }
 }
+
+
+
+
+
+
+@media only screen and (min-device-width: 1280px) {
+
+  .categoryName{
+    top: 30px;
+    font-size: 15px;
+  }
+
+  .categoryPhoto {
+    height: 96px;
+  }
+
+  .NoAvailableImg{
+    height: 90px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 93%;
+  }
+
+}  
+
+@media only screen and (min-device-width: 1366px) {
+
+  .categoryName{
+    top: 25px;
+    font-size: 17px;
+  }
+
+  .categoryPhoto {
+    height: 96px;
+  }
+
+  .NoAvailableImg{
+    height: 90px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 93%;
+  }
+
+}  
+
+@media only screen and (min-device-width: 1440px) {
+
+  .categoryName{
+    top: 30px;
+    font-size: 19px;
+  }
+
+  .categoryPhoto {
+    height: 106px;
+  }
+
+  .NoAvailableImg{
+    height: 100px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 93%;
+  }
+
+}  
+
+@media only screen and (min-device-width: 1536px) {
+
+  .categoryName{
+    top: 30px;
+    font-size: 21px;
+  }
+
+  .categoryPhoto {
+    height: 116px;
+  }
+
+  .NoAvailableImg{
+    height: 110px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 93%;
+  }
+
+}  
+
+
+@media only screen and (min-device-width: 1680px) {
+
+  .categoryName{
+    top: 35px;
+    font-size: 23px;
+  }
+
+  .categoryPhoto {
+    height: 126px;
+  }
+
+  .NoAvailableImg{
+    height: 120px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 93%;
+  }
+
+}  
+
+@media only screen and (min-device-width: 1920px) {
+
+  .categoryName{
+    top: 35px;
+    font-size: 25px;
+  }
+
+  .categoryPhoto {
+    height: 126px;
+  }
+
+  .NoAvailableImg{
+    height: 120px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 93%;
+  }
+
+}  
+
+@media only screen and (min-device-width: 2560px) {
+
+  .categoryName{
+    top: 50px;
+    font-size: 25px;
+  }
+
+  .categoryPhoto {
+    height: 156px;
+  }
+
+  .NoAvailableImg{
+    height: 150px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 93%;
+  }
+
+}  
 
 
 

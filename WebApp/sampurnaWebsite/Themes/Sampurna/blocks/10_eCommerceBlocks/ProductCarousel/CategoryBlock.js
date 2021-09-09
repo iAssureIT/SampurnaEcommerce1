@@ -40,10 +40,10 @@ const CategoryBlock = (props)=>{
   const [categoryurl, setCategoryurl] = useState(router.query.categoryurl);
 
   return (
-    <div className={"container-fluid NoPadding categoryCarousel " +Style.categoryCarousel}>
+    <div className={"container-fluid categoryCarousel " +Style.categoryCarousel}>
       <div className="col-12">
-        <div className="col-12 NoPadding">
-          <div className="col-12 NoPadding">
+        <div className="col-12">
+          <div className="col-12">
             <Carousel 
                 className=""
                 swipeable={true}
@@ -78,21 +78,21 @@ const CategoryBlock = (props)=>{
                     var url = "/products/"+props.vendor_ID+"/"+props.vendorlocation_ID +"/"+props.sectionUrl+"/"+categorydata.categoryUrl;
                     
                     return (
-                    <div className={"col-12 productsCategoryBlock "}  key={index}> 
-                          <a href={url} className ={"col-12 " +Style.categoryBlock}>
+                    <div className={"col-12 productsCategoryBlock "}  key={index}>
+                      <div className={"productListCategoryBlock " + Style.productListCategoryBlock}> 
+                          <a href={url} className ={"col-12 " + Style.categoryBlock}>
                             <div className={activeClass + " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " }>
-                                <Image    
+                                <img  
                                   id="prodImg"                                       
                                   src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.png"}
                                   alt="Category" 
-                                  className={"img-responsive " +Style.NoAvailableImg +" " +Style.categoryBlockImg }
-                                  height={90}
-                                  width={90} 
+                                  className={"img-fluid " +Style.NoAvailableImg +" " +Style.categoryBlockImg }
                                   layout={'intrinsic'}
                                 />
                               <div className={"col-12 text-center mt-2 " +Style.categoryName} title={categorydata.category}>{categorydata.category}</div>
                             </div>
                           </a>
+                        </div>  
                     </div>                            
                     );
                   })
