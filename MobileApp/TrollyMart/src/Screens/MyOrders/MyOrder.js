@@ -363,7 +363,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                           <Image
                             source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/order_sepration.png'}}
                             // resizeMode="contain"
-                            style={{width:"100%",marginTop:15}}
+                            style={{height:hp(6),width:"100%",marginTop:15}}
                           />
                         </View>
                         ) 

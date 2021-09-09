@@ -252,8 +252,6 @@ const FormBody = (props) => {
                             defaultCode="AE"
                             name = 'mobile_no'
                             value           = {values.mobile_no}
-                            defaultValue    = {values.mobile_no}
-                            layout="second"
                             onChangeText={(text) => {
                             const checkValid = phoneInput.current?.isValidNumber(text);
                             const callingCode = phoneInput.current?.getCallingCode(text);
