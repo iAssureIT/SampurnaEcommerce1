@@ -33,12 +33,12 @@ exports.user_details = (req, res, next) => {
 };
 
 exports.my_addresses = (req, res, next) => {
-	console.log("req.body",req.body);
+	// console.log("req.body",req.body);
 	var {user_id,latitude,longitude} = req.body;
 	User.findOne({ _id: ObjectID(user_id)},{deliveryAddress:1})
 		.exec()
 		.then(async(user) => {
-			console.log("user",user);
+			// console.log("user",user);
 			for(var i=0; i<user.deliveryAddress.length; i++){
 				var distance = 0;
 				if(latitude && longitude){

@@ -3,7 +3,7 @@ const axios             = require('axios');
 
 
 function send_notification_function(formValues){    
-    console.log("formValues => ", formValues);
+    // console.log("formValues => ", formValues);
     return new Promise((resolve,reject)=>{
         axios.post('http://localhost:'+globalVariable.port+'/api/masternotifications/post/sendNotification', formValues)
         .then((res) => {

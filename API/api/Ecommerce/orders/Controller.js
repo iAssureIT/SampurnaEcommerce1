@@ -18,7 +18,7 @@ var request 				= require('request-promise');
 
 /*========== Insert Orders ==========*/
 exports.insert_orders = (req, res, next) => {
-  	console.log("Inside order post",req.body); 
+  	// console.log("Inside order post",req.body); 
   	if (req.body.cartItems.length > 0) {
 	 	for (k = 0; k < req.body.cartItems.length; k++) {
 			Products.updateOne(

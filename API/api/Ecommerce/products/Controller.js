@@ -1587,7 +1587,7 @@ exports.list_related_products = (req,res,next)=>{
 	}) 
 	.exec()
 	.then(data=>{
-		console.log("data => ",data);
+		// console.log("data => ",data);
 		if (data && data.length > 0) {
 			res.status(200).json(true);       
 		}else{
@@ -2873,7 +2873,7 @@ exports.list_productby_subcategory = (req,res,next)=>{
 // };
 
 exports.search_product = (req,res,next)=>{
-	console.log("req.body => ",req.body);
+	console.log("search_product req.body => ",req.body);
 	// console.log("req body in se// localStorage.setItem("pincode", response.data.pincode);arch ==>",req.body);
 	// console.log("req params in search ==>",req.params);
 	/*

@@ -66,7 +66,7 @@ export default class MyOrders extends Component {
             orderData: response.data,
             loading: false
           }, () => {
-            // console.log("myOrder orderData after setstate=>",this.state.orderData);
+            console.log("myOrder orderData =>",this.state.orderData);
           })
         }
       })
@@ -326,7 +326,7 @@ export default class MyOrders extends Component {
                 <div className={"container-flex col-xl-12 px-0 "+ Style.myOrderBox}>
                   {this.state.orderData && this.state.orderData.length > 0 ?
                     this.state.orderData.map((singleOrder, index) => {
-                      // console.log("singleOrder=",singleOrder);
+                      console.log("singleOrder=",singleOrder);
                       return (
                         <div className={"col-12 col-lg-12 col-md-12 col-xl-11 NoPadding orderIdborder " + Style.orderIdborderNew} key={index}>
                           <div className="col-12  NoPadding orderNowrapper mb-4 " style={{
@@ -340,10 +340,19 @@ export default class MyOrders extends Component {
                                 <div className={"col-12 " + Style.myOrderLeftSideDetails}>
                                   <div className="col-12">{singleOrder.orderStatus==="New"?"New Order":singleOrder.orderStatus}</div>
                                   <div className="col-12">{"Order ID : " + (singleOrder.orderID)}</div>
-                                  <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</span></div>
+                                  <div className="col-12">
+                                    Total Amount  &nbsp;&nbsp;
+                                    <span className={" "+Style.leftSideMyOrderTotalWrapper}>
+                                      {this.state.currency} {singleOrder.paymentDetails.netPayableAmount}
+                                    </span></div>
                                   {this.state.authService !== "guest" &&
                                     <div className="col-12">
-                                      Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</span>
+                                        Credits Points &nbsp;&nbsp;
+                                      <span className={Style.leftSideMyOrderTotalWrapper}>
+                                        <a href="/my-account#v-pills-settings3-tab"> 
+                                          {singleOrder.paymentDetails.creditPointsEarned}
+                                        </a>
+                                      </span> 
                                     </div>
                                   }
                                 </div>

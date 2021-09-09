@@ -164,7 +164,7 @@ export default class OrderDetails extends Component {
         this.setState({
           reviewuserData: response.data
         }, () => {
-          // console.log("reviewuserData=",this.state.reviewuserData);
+          // console.log("reviewuserData => ",this.state.reviewuserData);
         })
       })
       .catch((error) => {
@@ -298,9 +298,19 @@ export default class OrderDetails extends Component {
                           <div className="col-12">{"Order Status : " + (this.state.orderData.orderStatus === "New"?"New Order":this.state.orderData.orderStatus)}</div>
                           <div className="col-12">{"Order ID : " + (this.state.orderData.orderID)}</div>
                           <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.netPayableAmount}</span></div>
-                          <div className="col-12">
-                            Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.creditPointsEarned}{this.state.orderData.paymentDetails.creditPointsValueEarned}</span>
-                          </div>
+                          {this.state.reviewuserData && this.state.reviewuserData.authService !== "guest"
+                            ?
+                              <div className="col-12">
+                                Credits Points &nbsp;&nbsp;
+                                <span className={Style.leftSideMyOrderTotalWrapper}> 
+                                  <a href="/my-account#v-pills-settings3-tab"> 
+                                    {this.state.orderData.paymentDetails.creditPointsEarned}
+                                  </a>
+                                </span>
+                              </div>
+                            : 
+                              null
+                          }
                         </div>
                       </div>
                       <div className={"col-6 " + Style.rightside}>

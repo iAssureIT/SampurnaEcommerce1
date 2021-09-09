@@ -32,7 +32,7 @@ const DriverTracking 		= require('../driverTracking/Model.js')
 
 /*========== Insert Orders ==========*/
 exports.insert_orders = (req, res, next) => {
-	console.log("Inside order post",req.body); 
+	// console.log("Inside order post",req.body); 
 
 	if (req.body.vendorOrders && req.body.vendorOrders.length > 0) {
 		processOrders();
@@ -225,91 +225,112 @@ function getNextSequenceOrderId() {
 
 /*========== Add Credit Points ==========*/
 function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, totalAmount, transactionType, method) {
-	return new Promise((resolve,reject)=>{
-		CreditPoints.findOne({"user_id" : ObjectId(user_id)})
-		.then(async(data)=>{
+	var currDate = new Date();
 
-			// console.log("data vars => ", order_id, " ", user_id, " ", orderDate, " ", purchaseAmount, " ", shippingCharges, " ", totalAmount, " ", transactionType, " ",);
-			var creditPolicyData = await CreditPointsPolicy.findOne();
-			// console.log("creditPolicyData => ",creditPolicyData);
-			var earnedCreditPoints = Math.round(((purchaseAmount / creditPolicyData.purchaseAmount) * creditPolicyData.creditPoint));
-			// console.log("earnedCreditPoints => ",earnedCreditPoints);
-			if(earnedCreditPoints > 0){
-				if (data && data !== null ) { 
-					var totalEarnedPoints = Math.round(data.totalPoints + earnedCreditPoints);
-					// console.log("totalEarnedPoints => ",totalEarnedPoints)
-					CreditPoints.updateOne(
-						{ "_id": ObjectId(data._id)},		
-						{$push: {
-								transactions : {
-									order_id            : order_id,
-									transactionDate     : new Date(),
-									purchaseAmount      : purchaseAmount,
-									shippingCharges     : shippingCharges,
-									totalAmount         : totalAmount,
-									earnedPoints        : (method === "minus" ? "-" : "") + earnedCreditPoints,
-									typeOfTransaction   : transactionType
-								}
-							},
-							$set:{
-								totalPoints : totalEarnedPoints
-							}	
-						})
-						.exec()
-						.then(updateddata => {
-							// console.log("Data => ",updateddata)
-							if (updateddata.nModified === 1) {
-								resolve({
-									"message"	: "Credit Points added successfully in wallet."
+	return new Promise((resolve,reject)=>{
+		User.findOne({_id: ObjectId(user_id)})
+			.then(userDetail => {
+				if(!userDetail.authService || (userDetail.authService && userDetail.authService !== "guest")){					
+					CreditPoints.findOne({"user_id" : ObjectId(user_id)})
+					.then(async(data)=>{
+
+						// console.log("data vars => ", order_id, " ", user_id, " ", orderDate, " ", purchaseAmount, " ", shippingCharges, " ", totalAmount, " ", transactionType, " ",);
+						var creditPolicyData = await CreditPointsPolicy.findOne();
+						var expiryLimitInDays = creditPolicyData.expiryLimitInDays;
+						var expiryDate = moment(currDate, "MM/DD/YYYY").add(expiryLimitInDays, 'days') ;
+
+						// console.log("creditPolicyData => ",creditPolicyData);
+						// var earnedCreditPoints = Math.round(((purchaseAmount / creditPolicyData.purchaseAmount) * creditPolicyData.creditPoint));
+						var earnedCreditPoints = (purchaseAmount / creditPolicyData.purchaseAmount) * creditPolicyData.creditPoint;
+						// console.log("earnedCreditPoints => ",earnedCreditPoints);
+						if(earnedCreditPoints > 0){
+							if (data && data !== null ) { 
+								// var totalEarnedPoints = Math.round(data.totalPoints + earnedCreditPoints);
+								var totalEarnedPoints = data.totalPoints + earnedCreditPoints;
+								// console.log("totalEarnedPoints => ",totalEarnedPoints)
+								CreditPoints.updateOne(
+									{ "_id": ObjectId(data._id)},		
+									{$push: {
+											transactions : {
+												order_id            : order_id,
+												transactionDate     : new Date(),
+												expiryDate     	  : expiryDate,
+												purchaseAmount      : purchaseAmount,
+												shippingCharges     : shippingCharges,
+												totalAmount         : totalAmount,
+												earnedPoints        : (method === "minus" ? "-" : "") + earnedCreditPoints,
+												typeOfTransaction   : transactionType
+											}
+										},
+										$set:{
+											totalPoints : totalEarnedPoints
+										}	
+									})
+									.exec()
+									.then(updateddata => {
+										console.log("credit updateddata => ",updateddata)
+										if (updateddata.nModified === 1) {
+											resolve({
+												"message"	: "Credit Points added successfully in wallet."
+											});
+										} else {
+											resolve({
+												"message": "Oops, something went wrong credit points not added"
+											});
+										}
+									})
+									.catch(err => {
+										console.log(err);
+										reject({
+											error: err
+										});
+									});
+							}else{
+								const creditPoints = new CreditPoints({
+									_id 						: new mongoose.Types.ObjectId(),
+									user_id                     : user_id,
+									totalPoints                 : earnedCreditPoints,
+									transactions 				: {
+																	order_id            : order_id,
+																	transactionDate     : currDate,
+																	expiryDate     	  : expiryDate,
+																	purchaseAmount      : purchaseAmount,
+																	shippingCharges     : shippingCharges,
+																	totalAmount         : totalAmount,
+																	earnedPoints        : earnedCreditPoints,
+																	typeOfTransaction   : transactionType
+									},		
+									createdAt 					: new Date(),
+									createdBy 					: user_id
 								});
-							} else {
-								resolve({
-									"message": "Oops, something went wrong credit points not added"
+					
+								creditPoints.save()
+								.then(async(creditData) => {
+									console.log("saved creditData => ",creditData)	
+									resolve({
+										"message"	: "Credit Points added successfully in wallet."
+									})
+								})
+								.catch(err =>{
+									reject(0)
 								});
-							}
-						})
-						.catch(err => {
-							console.log(err);
-							reject({
-								error: err
-							});
-						});
-				}else{
-					const creditPoints = new CreditPoints({
-						_id 						: new mongoose.Types.ObjectId(),
-						user_id                     : user_id,
-						totalPoints                 : earnedCreditPoints,
-						transactions 				: {
-														order_id            : order_id,
-														transactionDate     : new Date(),
-														purchaseAmount      : purchaseAmount,
-														shippingCharges     : shippingCharges,
-														totalAmount         : totalAmount,
-														earnedPoints        : earnedCreditPoints,
-														typeOfTransaction   : transactionType
-						},		
-						createdAt 					: new Date(),
-						createdBy 					: user_id
-					});
-		
-					creditPoints.save()
-					.then(async(creditData) => {
-						// console.log("creditData => ",creditData)	
-						resolve({
-							"message"	: "Credit Points added successfully in wallet."
-						})
+							}     
+						}else{
+							resolve("No credit points earned")
+						}      
 					})
 					.catch(err =>{
 						reject(0)
 					});
-				}     
-			}else{
-				resolve("No credit points earned")
-			}      
-		})
-		.catch(err =>{
-			reject(0)
-		});
+				}else{
+					resolve({message : "Guest User doesn't get Credit Points!"});
+				}
+
+			})
+			.catch(err =>{
+				reject(0)
+			});
+
 	});
 }
 
@@ -776,7 +797,8 @@ exports.returnProduct = (req, res, next) => {
 	.exec()
 	.then(data => {
 		if (data.nModified == 1) {
-			Orders.findOne({ "_id": ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id, 'vendorOrders.products.product_ID' : req.body.product_id })
+			// Orders.findOne({ "_id": ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id, 'vendorOrders.products.product_ID' : req.body.product_id })
+			Orders.findOne({ "_id": ObjectId(req.body.order_id)})
 			.exec()
 			.then(orderdata => {
 				// console.log("orderdata => ",orderdata);
@@ -1468,22 +1490,30 @@ exports.fetch_order = (req, res, next) => {
 					if(j>=data.vendorOrders.length){
 						var returnData = data;
 						returnData.maxDurationForCancelOrder = maxDurationForCancelOrder;
-						var creditPointsData = await CreditPoints.findOne({
-														user_id 		: ObjectId(returnData.user_ID), 
-														transactions: { 
-															$elemMatch: { 
-																typeOfTransaction : 'Original Order', 
-																order_id : ObjectId(req.params.orderID) 
-															} 
-														}
-													},
-													{'transactions.$' : 1});
+						// var creditPointsData = await CreditPoints.findOne({
+						// 								user_id 		: ObjectId(returnData.user_ID), 
+						// 								transactions: { 
+						// 									$elemMatch: { 
+						// 										typeOfTransaction : 'Original Order', 
+						// 										order_id : ObjectId(req.params.orderID) 
+						// 									} 
+						// 								}
+						// 							},
+						// 							{'transactions.$' : 1});
 						
-						if(creditPointsData && creditPointsData !== null && creditPointsData.transactions && creditPointsData.transactions.length > 0){
+						var creditPointsData = await CreditPoints.aggregate([
+																		{$match : {user_id : ObjectId(returnData.user_ID) },},
+																		{$unwind : "$transactions"},
+																		{$match : {"transactions.order_id" : ObjectId(req.params.orderID)},},
+																		{$group : {_id : "$transactions.order_id", totalCreditPoints : {$sum : "$transactions.earnedPoints"}}}
+																]);
+
+
+						if(creditPointsData && creditPointsData.length > 0 && creditPointsData[0].totalCreditPoints ){
 							var creditPolicyData = await CreditPointsPolicy.findOne();
 		
-							returnData.paymentDetails.creditPointsEarned 		= creditPointsData.transactions[0].earnedPoints;
-							returnData.paymentDetails.creditPointsValueEarned 	= (creditPointsData.transactions[0].earnedPoints * creditPolicyData.creditPointValue).toFixed(2);
+							returnData.paymentDetails.creditPointsEarned 		= creditPointsData[0].totalCreditPoints.toFixed(2);
+							returnData.paymentDetails.creditPointsValueEarned 	= (creditPointsData[0].totalCreditPoints * creditPolicyData.creditPointValue).toFixed(2);
 							
 							res.status(200).json(returnData);
 						}else{
@@ -2072,8 +2102,23 @@ exports.list_order_by_user = (req, res, next) => {
 
 		for(var i=0;i<data.length;i++){
 			// var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(req.params.userID), 'transactions.order_id' : ObjectId(data[i]._id), "transactions.typeOfTransaction" : "Original Order"},{'transactions.$' : 1});
-			var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(req.params.userID)},{transactions: {$elemMatch: {order_id : ObjectId(data[i]._id), typeOfTransaction : "Original Order"}}});
-			console.log("creditPointsData => ",creditPointsData)
+			// var creditPointsData = await CreditPoints.findOne(
+			// 									{user_id : ObjectId(req.params.userID)},
+			// 									{transactions: {$elemMatch: 
+			// 															{order_id : ObjectId(data[i]._id), typeOfTransaction : "Original Order"}
+			// 														}
+			// 									});
+
+
+			var creditPointsData = await CreditPoints.aggregate([
+															{$match : {user_id : ObjectId(req.params.userID) },},
+															{$unwind : "$transactions"},
+															{$match : {"transactions.order_id" : ObjectId(data[i]._id)},},
+															{$group : {_id : "$transactions.order_id", totalCreditPoints : {$sum : "$transactions.earnedPoints"}}}
+													]);
+
+
+			// console.log("creditPointsData => ",creditPointsData)
 			
 			for(var j=0;j<data[i].vendorOrders.length;j++){
 				var vendor = await Entitymaster.findOne({_id:data[i].vendorOrders[j].vendor_id},{companyName:1,_id:0})
@@ -2083,11 +2128,11 @@ exports.list_order_by_user = (req, res, next) => {
 			}
 			if(j >= data[i].vendorOrders.length){
 				data[i].maxDurationForCancelOrder = maxDurationForCancelOrder;
-				if(creditPointsData && creditPointsData !== null && creditPointsData.transactions && creditPointsData.transactions.length > 0){
+				if(creditPointsData && creditPointsData.length > 0 && creditPointsData[0].totalCreditPoints ){
 					var creditPolicyData = await CreditPointsPolicy.findOne();
 
-					data[i].paymentDetails.creditPointsEarned 	= creditPointsData.transactions[0].earnedPoints;
-					data[i].paymentDetails.creditPointsValueEarned 	= (creditPointsData.transactions[0].earnedPoints * creditPolicyData.creditPointValue).toFixed(2);
+					data[i].paymentDetails.creditPointsEarned 		= creditPointsData[0].totalCreditPoints.toFixed(2);
+					data[i].paymentDetails.creditPointsValueEarned 	= (creditPointsData[0].totalCreditPoints * creditPolicyData.creditPointValue).toFixed(2);
 				}else{
 					data[i].paymentDetails.creditPointsEarned 		= 0;
 					data[i].paymentDetails.creditPointsValueEarned 	= 0;

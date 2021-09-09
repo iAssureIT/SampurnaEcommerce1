@@ -241,7 +241,7 @@ exports.filterTemplate = (req,res,next)=>{
 
 /**=========== send messages (inApp notification / email / sms) ===========*/
 exports.send_notifications = (req, res, next) => {
-    console.log("notification body => ", req.body)
+    // console.log("notification body => ", req.body)
     Masternotifications.find({event : req.body.event, status :'active', role : req.body.toUserRole})
     .sort({createdAt : 1})
     .exec()
@@ -701,7 +701,7 @@ function sendInAppNotification(toUserId, email, event, notificationDetails){
 
 /**=========== Function to send Email ===========*/
 function sendEmail(toEmail,subject,content,attachment){
-    console.log('====**INSIDE EMAIL**=====',toEmail, subject, content, attachment)
+    // console.log('====**INSIDE EMAIL**=====',toEmail, subject, content, attachment)
     return new Promise(function (resolve, reject) {
         if(attachment === null || attachment === undefined || attachment === ""){
             var attachment = []
@@ -736,7 +736,7 @@ function sendEmail(toEmail,subject,content,attachment){
             };
 
             let info =  transporter.sendMail(mailOptions, (error, info) => {
-                console.log("Message sent: %s", error, "-", info);
+                // console.log("Message sent: %s", error, "-", info);
                 if(error === null){
                     resolve(true)
                 }else{

@@ -83,7 +83,7 @@ exports.insert_coupon = (req, res, next) => {
     CouponObj
     .save()
     .then(data => {
-        console.log("data => ",data);
+        // console.log("data => ",data);
         res.status(200).json({
             "message": "Coupon is submitted successfully."
         });
@@ -176,7 +176,7 @@ exports.update_coupon = (req, res, next) => {
     )
     .exec()
     .then(data => {
-        console.log("data => ",data);
+        // console.log("data => ",data);
         res.status(200).json({
             "message": "Coupon Updated Successfully."
         });
