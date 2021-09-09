@@ -538,7 +538,7 @@ class IAssureTable extends Component {
 			   } 
 				{this.state.tableObjects.searchApply === true 
 					? 
-				      <div className="col-lg-4  col-md-4  col-xs-12 col-sm-4 marginTop17 pull-right NoPadding">
+				      <div className="col-lg-10  col-md-10  col-xs-12 col-sm-12 marginTop17 pull-right NoPadding">
 			        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
 			        		<div className="input-group">
 						        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 

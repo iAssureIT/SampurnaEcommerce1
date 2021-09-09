@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Switch,Link,location } from 'react-router-dom';
 import axios                from 'axios';
 import $, { data } 					from "jquery";
 import moment 				from "moment";
-import Select               from 'react-select';
 import swal         		from 'sweetalert';
 import IAssureTable           from "../../coreadmin/IAssureTable/IAssureTable.jsx";
 import { CheckBoxSelection, 
@@ -16,7 +15,7 @@ import 'bootstrap/js/modal.js';
 import 'bootstrap/js/tab.js';
 import 'font-awesome/css/font-awesome.min.css';
 
-export default class ProductInventoryList extends Component{
+export default class ProductInventoryLog extends Component{
 	
 	constructor(props) {
 	 super(props);
@@ -45,14 +44,13 @@ export default class ProductInventoryList extends Component{
          },
             tableObjects    : {
                 paginationApply : true,
-                searchApply     : true,
+                searchApply     : false,
                 deleteMethod    : 'delete',
                 apiLink         : '/api/returnedproducts',
             },
             startRange      : 0,
             limitRange      : 10,
             isLoadingData     : false,
-            searchText 			: ""
 		}
 		// this.getReturnedProducts = this.getReturnedProducts.bind(this);
 	}
@@ -148,7 +146,7 @@ export default class ProductInventoryList extends Component{
 		  })
 	}
 
-	/**=========== getCategoryData() ===========*/
+	/**===========  ===========*/
 	getCategoryData(section_id) {
 		axios.get("/api/category/get/filter/categories/"+section_id)
 		.then(response =>{    
@@ -242,12 +240,10 @@ export default class ProductInventoryList extends Component{
 		var formValues = {
          startRange 		: startRange,
          limitRange 		: limitRange,
-         searchText 		: this.state.searchText,
-			vendor 			: this.state.vendor ? this.state.vendor.value : "",
-			section 			: this.state.section ? this.state.section.value : "",
-			category 		: this.state.category ? this.state.category.value : "",
-			subCategory 	: this.state.subCategory ? this.state.subCategory.value : "",
-			status 			: this.state.status ? this.state.status.value : ""
+			vendor 			: this.state.vendor,
+			section 			: this.state.section,
+			category 		: this.state.category,
+			subCategory 	: this.state.subCategory
       }
       console.log("formValues => ",formValues)
 		axios.post("/api/products/get/inventory/list", formValues)
@@ -268,7 +264,7 @@ export default class ProductInventoryList extends Component{
 						"originalPrice"      : a.originalPrice ? a.originalPrice : 0,
 						"discountPercent"    : a.discountPercent ? a.discountPercent : 0 + "%",
 						"discountedPrice"    : a.discountedPrice ? a.discountedPrice : a.originalPrice,
-						"currentQuantity" 	: a.currentQuantity ? "<div class='currentQuantityWrapper'><a href=/product-inventory-list/" + a._id + " title='View Inventory Logs'>	" + a.currentQuantity + "</a></div>" : 0,						
+						"currentQuantity" 	: a.currentQuantity ? "<div class='currentQuantityWrapper'><a href='/product-inventory-list/'" + a._id + "' title='View Inventory Logs'>	" + a.currentQuantity + "</a></div>" : 0,						
 					};
 				// }
             })
@@ -299,29 +295,32 @@ export default class ProductInventoryList extends Component{
 		})
 	}
 
-	/**=========== handleChangeFilters() ===========*/
-	 handleChangeFilters(event){     
-		  var name    = event.name;
-
-		  this.setState({ 
-				[name]  : event
-		  },()=>{
-				if (name === "section") {
-					 this.setState({
-						  category    : null,
-						  subCategory : null
-					 })
-					 this.getCategoryData(this.state[name].value);
+	handleChangeFilter(event){	
+		const name   = event.target.name;
+		const value     = event.target.value;
+		console.log("name => ",name);
+		console.log("value => ",value);
+		this.setState({
+			[name]: event.target.value,
+		},()=>{
+			if(name === "section"){
+				this.getCategoryData(value);
+			}
+			if(name === "category"){
+				var filterCategory = this.state.categoryArray.filter(category => String(category._id) === String(this.state.category));
+				var subCategoryArray = [];
+				if (filterCategory && filterCategory.length > 0 && filterCategory[0].subCategory && filterCategory[0].subCategory.length > 0) {
+					subCategoryArray = filterCategory[0].subCategory;
 				}
-				if (name === "category") {
-					 this.setState({
-						  subCategory : null
-					 })
-					 this.getSubCategoryData(this.state[name].value);
-				}
-				this.getData(0, this.state.limitRange);
-		  });
-	 };
+				this.setState({
+					subCategoryArray : subCategoryArray
+				},()=>{
+					console.log("this.state.subCategoryArray => ",this.state.subCategoryArray);
+				})
+			}
+			this.getData(this.state.startRange, this.state.limitRange);
+		});		
+	}
 			
 	/**=========== render() ===========*/
 	render(){		
@@ -337,56 +336,90 @@ export default class ProductInventoryList extends Component{
 									</div>
 								</div>
 							</div>
-							<div className="searchProductFromList col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTopp NOPadding">                                    
-									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
-										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Section</label>
-										<Select
-											value       = {this.state.section}
-											name        = "section"
-											onChange    = {this.handleChangeFilters.bind(this)}
-											options     = {this.state.sectionArray}
-									  	/>
-									</div>
-									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
-										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Category</label>
-										<Select
-											value       = {this.state.category}
-											name        = "category"
-											onChange    = {this.handleChangeFilters.bind(this)}
-											options     = {this.state.categoryArray}
-									  	/>
-									</div>
-									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
-										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">SubCategory</label>
-										<Select
-										  	value       = {this.state.subCategory}
-										  	name        = "subCategory"
-										  	onChange    = {this.handleChangeFilters.bind(this)}
-										  	options     = {this.state.subCategoryArray}
-									  	/>
-									</div>
-									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
-										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Status</label>
-										<Select
-											value       = {this.state.status}
-											name        = "status"
-											onChange    = {this.handleChangeFilters.bind(this)}
-											options     = {this.state.statusArray}
-									  	/>
-									</div>                              
-							  	</div>
+							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt NoPadding">
+								<div className="searchProductFromList col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTopp NOPadding">
+									
+									{/* {console.log("this.state.preference----",this.state.websiteModel)} */}
+									{/* {this.state.preference === "MarketPlace"  || this.state.websiteModel === "MarketPlace"
+										?  */}
+										<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
+											<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Vendor</label>
+											<select className="form-control selectRole" ref="vendor" name="vendor" id="vendor" 
+												onChange={this.handleChangeFilter.bind(this)}>
+												<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled selected>-- Select --</option>  
+												{
+													this.state.vendorArray && this.state.vendorArray.length > 0 ?
+														this.state.vendorArray.map((data, i)=>{
+															return(                                                                    
+																<option key={i} value={data._id}>{data.companyName}</option>
+																// <option key={i} id={data.entityCode}>{data.entityCode}</option>
+															);
+														})
+													:
+													null
+												}
+												
+											</select>
+										</div>
+										{/* :
+										null 
+									} */}
 
-							  	<div className="searchProductFromList col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTopp NOPadding">
-									<div className="form-group col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-12 col-xs-12">
-									  	<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Vendor</label>
-									  	<Select
-											value       = {this.state.vendor}
-											name        = "vendor"
-											onChange    = {this.handleChangeFilters.bind(this)}
-											options    	= {this.state.vendorArray}
-										/>
-								 	</div>
-								</div> 							                          
+									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
+										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Section</label>
+										<select className="form-control selectRole" ref="section" name="section" id="section" onChange={this.handleChangeFilter.bind(this)}>
+											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled selected>-- Select --</option>  
+											{this.state.sectionArray && this.state.sectionArray.length > 0 
+											?
+												this.state.sectionArray.map((data, i)=>{
+													return(                                                                    
+														<option key={i} value={data._id}>{data.section}</option>
+														// <option key={i} id={data.entityCode}>{data.entityCode}</option>
+													);
+												})
+											:
+												null
+											}											
+										</select>
+									</div>
+									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
+										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Category</label>
+										<select className="form-control selectRole" ref="category" name="category" id="category" 
+											onChange={this.handleChangeFilter.bind(this)}>
+											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled selected>-- Select --</option>  
+											{this.state.categoryArray && this.state.categoryArray.length > 0 
+											?
+												this.state.categoryArray.map((data, i)=>{
+													return(                                                                    
+														<option key={i} value={data._id}>{data.category}</option>
+														// <option key={i} id={data.entityCode}>{data.entityCode}</option>
+													);
+												})
+											:
+												null
+											}											
+										</select>
+									</div>
+									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
+										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">SubCategory</label>
+										<select className="form-control selectRole" ref="subCategory" name="subCategory" id="subCategory" 
+											onChange={this.handleChangeFilter.bind(this)}>
+											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled selected>-- Select --</option>  
+											{this.state.subCategoryArray && this.state.subCategoryArray.length > 0 
+											?
+												this.state.subCategoryArray.map((data, i)=>{
+													return(                                                                    
+														<option key={i} value={data._id}>{data.subCategoryTitle}</option>
+														// <option key={i} id={data.entityCode}>{data.entityCode}</option>
+													);
+												})
+											:
+												null
+											}											
+										</select>
+									</div>								
+								</div>
+							</div>                                     
 							
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<IAssureTable 

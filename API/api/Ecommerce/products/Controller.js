@@ -5268,34 +5268,111 @@ function getDistanceLimit(){
 /*=============== Product inventory List ==============*/
 
 exports.product_inventory_list = (req,res,next)=>{
-	// console.log('req', req.body);
+	console.log('req', req.body);
 	var selector        = {};
 	selector['$and']    = [];
 
-	selector["$and"].push({"status": {$ne : ""}});
+	// selector["$and"].push({"status": {$ne : ""}});
 	/**----------- Find Vendorwise Products ------------ */
 	if(req.body.vendor && req.body.vendor !== '' && req.body.vendor !== undefined){
 		selector["$and"].push({"vendor_ID": ObjectId(req.body.vendor) })
 	}
-	/**----------- Find Vendorwise Products ------------ */
+	/**----------- Find Sectionwise Products ------------ */
 	if(req.body.section && req.body.section !== '' && req.body.section !== undefined){
 		selector["$and"].push({"section_ID": ObjectId(req.body.section) })
 	}
-	/**----------- Find Vendorwise Products ------------ */
+	/**----------- Find Categorywise Products ------------ */
 	if(req.body.category && req.body.category !== '' && req.body.category !== undefined){
 		selector["$and"].push({"category_ID": ObjectId(req.body.category) })
 	}
-	/**----------- Find Vendorwise Products ------------ */
+	/**----------- Find SubCategorywise Products ------------ */
 	if(req.body.subCategory && req.body.subCategory !== '' && req.body.subCategory !== undefined){
 		selector["$and"].push({"subCategory_ID": ObjectId(req.body.subCategory) })
 	}
+	// if(req.body.status !== "" && req.body.status !== undefined){
+	// 	selector["$and"].push( {"status" : req.body.status} );
+	// }else{
+	// 	selector["$and"].push( {"status" : {$ne : ""}} );
+	// }
+	if(req.body.searchText && req.body.searchText !== ""){
+		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
+		selector["$and"].push({ 
+			"$or" : [
+						{ "vendorDetails.companyName" 						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productName" 											: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "brand" 													: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "subCategory"											: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "sectionDetails.section" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.category" 							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "categoryDetails.subCategory.subCategoryTitle": {'$regex' : req.body.searchText , $options: "i" } },
+						{ "productCode"											: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "itemCode"												: {'$regex' : req.body.searchText , $options: "i" } },
+					]
+		})
+	}
+	console.log("selector => ",selector)
 
-	Products.find(selector)
-	.populate('vendor_ID')
-	.sort({ "createdAt": -1 })
-	.exec()
+	Products.aggregate([
+		{ $lookup : {
+				from 				: 'entitymasters',
+				localField 			: 'vendor_ID',
+				foreignField 		: '_id',
+				as 					: 'vendorDetails'
+			}
+		},	
+		{ $lookup : {
+				from 				: 'sections',
+				localField 			: 'section_ID',
+				foreignField 		: '_id',
+				as 					: 'sectionDetails'
+			}
+		},
+		{ $lookup : {
+				from 				: 'categories',
+				localField 			: 'category_ID',
+				foreignField 		: '_id',
+				as 					: 'categoryDetails'
+			}
+		},
+		{ $match : selector },
+		{ $sort: {
+				createdAt : -1
+			}
+		},
+		{$project : 
+			{
+				_id      							: 1,
+				vendor_ID 							: 1,
+				section_ID 							: 1,
+				category_ID 						: 1,
+				subCategory_ID 					: 1,
+				status          					: 1,
+				createdAt       					: 1,
+				"productName"						: 1,
+				"brand"								: 1,
+				"productCode" 						: 1,
+				"itemCode" 							: 1,
+				// "vendorBarcode"						: 1,
+				// "vendorItemcode"					: 1,
+				"originalPrice" 					: 1,
+				"discountPercent" 					: 1,
+				"discountedPrice" 					: 1,
+				// "availableQuantity" 				: 1,
+				// "featured" 							: 1,
+				// "exclusive" 						: 1,
+				"vendorDetails.companyName"	        : 1,
+				"categoryDetails.category"		    : 1,
+				"categoryDetails.subCategory"	    : 1,
+				"sectionDetails.section"		    : 1,
+				"productImage" 						: 1,
+			}
+		}
+	])
 	.then(async(data)=>{
-		var allData = [];
+		var allData 	= [];
+		var dataCount 	= await data.length;
+		data 				= data.slice(parseInt(req.body.startRange), parseInt(req.body.startRange) + parseInt(req.body.limitRange));
+
 		for (var i = 0; i < data.length; i++) {			
 			// processData();
 			// async function processData(){
@@ -5310,7 +5387,7 @@ exports.product_inventory_list = (req,res,next)=>{
 				"_id"                   : data[i]._id,
 				"UPC" 						: data[i].universalProductCode,
 				"vendorName"            : data[i].vendor_ID !== null ? data[i].vendor_ID.companyName : "NA",
-				"productName"           : "<span>"+(data[i].productName)+"<br></span>"+"Product Code: "+data[i].productCode+ "</br>Item Code: "+data[i].itemCode,
+				"productName"           : "<span class='whiteSpaceNormal'><b>"+(data[i].productName)+"</b><br></span>"+"<span class='whiteSpaceNoWrap'>Product Code: "+data[i].productCode+ "</span></br><span class='whiteSpaceNoWrap'>Item Code: "+data[i].itemCode+ "</span></br><span class='whiteSpaceNoWrap'>UPC: "+data[i].universalProductCode + "</span>",
 				"section"               : data[i].section,
 				"category"              : data[i].category,
 				"subCategory"           : data[i].subCategory,
@@ -5322,8 +5399,8 @@ exports.product_inventory_list = (req,res,next)=>{
 		}
 		if(i >= data.length){
 			res.status(200).json({
-				dataCount 	: data.length,
-				data 			: allData.slice(req.body.startRange, req.body.limitRange)
+				dataCount 	: dataCount,
+				data 			: allData
 			});
 		}
 	})

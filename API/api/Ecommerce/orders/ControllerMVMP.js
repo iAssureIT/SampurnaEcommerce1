@@ -2118,6 +2118,7 @@ exports.list_order_by_user = (req, res, next) => {
 													]);
 
 
+
 			// console.log("creditPointsData => ",creditPointsData)
 			
 			for(var j=0;j<data[i].vendorOrders.length;j++){
