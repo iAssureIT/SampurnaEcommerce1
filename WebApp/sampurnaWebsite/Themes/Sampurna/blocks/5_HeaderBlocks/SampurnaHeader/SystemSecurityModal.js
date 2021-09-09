@@ -37,7 +37,14 @@ class header extends React.Component {
             preferencedata : [],
             loggedIn: false,
             userId: '',
-            currentUrl:''
+            currentUrl:'',
+            userName : "userName",
+
+            userData :{
+                email     : "userEmail", 
+                fullName  : "fullName"
+            }
+            
         }; 
     }
     componentDidMount(){  
@@ -70,11 +77,11 @@ class header extends React.Component {
               this.setState({
                 userData : res.data.profile,
                 userName : res.data.profile.firstname,
-                email    : res.data.profile.email,
+                email    : res.data.profile.email?res.data.profile.email:"userEmail",
                 firstname: res.data.profile.firstname.substring(0, 1),
                 lastname : res.data.profile.lastname.substring(0, 1)
               },()=>{
-             console.log("userData==============",this.state.userData);
+            //  console.log("userData==============",this.state.userData);
               })
             }else{
               this.setState({
@@ -141,11 +148,11 @@ class header extends React.Component {
                                     <div className={"row " + Style.signDivWrapper }>
                                         <div  className="col-12">
                                             <span className={Style.userName}>
-                                                {"Hello " + this.state.userName}
+                                                { this.state.userName?"Hello "+this.state.userName:"Hello "+"userName"}
                                             </span>
                                         </div>
                                         <div className={"col-12 " + Style.myAccountTitle}>
-                                            {this.state.email}
+                                            {this.state.email?this.state.email:"userEmail"}
                                             {/* <i className="fa fa-angle-down"></i> */}
                                         </div>
                                     </div>
@@ -175,9 +182,9 @@ class header extends React.Component {
                                                                     {
                                                                         this.state.userData 
                                                                             ? 
-                                                                                this.state.userData.fullName 
+                                                                                this.state.userData.fullName?this.state.userData.fullName:"userName" 
                                                                             :
-                                                                                null
+                                                                                "Username"
                                                                     }
                                                                 </div>
                                                                 <div className={Style.userEmail}>
@@ -186,7 +193,7 @@ class header extends React.Component {
                                                                             ? 
                                                                                 this.state.userData.email?this.state.userData.email:"No email available" 
                                                                             : 
-                                                                                null
+                                                                                "userEmail"
                                                                     }
                                                                 </div>
                                                             </div>

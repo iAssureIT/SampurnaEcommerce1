@@ -52,7 +52,7 @@ class ProductreviewList extends Component {
               {
                 this.state.reviewData && this.state.reviewData.reviewlist.length > 0 ?
                   this.state.reviewData.reviewlist.map((data, index) => {
-                    console.log("data==",this.state.reviewData);
+                    // console.log("data==",this.state.reviewData);
                     var customerName = data.customerName.split(" ");
                     return (
                       <div key={index} className="col-12 mb-2">
@@ -80,9 +80,12 @@ class ProductreviewList extends Component {
                               <div className="col-4">
                                 {data.reviewProductImages.map((imgPath, index) => {
                                   return(
-                                    <div className="col-12 NoPaddding">
-                                      <img className=" ProductPic " src={imgPath ? imgPath : "/images/eCommerce/notavailable.png"} data-toggle="modal" data-target={"#reviewImg_"+data._id+"_" +index} alt="ProductImg" />
-                                      
+                                    <div className="col-12 ">
+                                      <div className="row">
+                                        <div className="col-2">
+                                          <img className=" ProductPic " src={imgPath ? imgPath : "/images/eCommerce/notavailable.png"} height={'50px'} data-toggle="modal" data-target={"#reviewImg_"+data._id+"_" +index} alt="ProductImg" />
+                                        </div>
+                                      </div>
                                       <div className="modal fade feedBackModal" id={"reviewImg_"+data._id+"_" +index} role="dialog" data-backdrop="static" data-keyboard="false">
                                       <div class="modal-dialog modal-dialog-centered ">
                                         <div className="modal-content modalContent " style={{ 'background': '#fff' }}>
@@ -90,7 +93,7 @@ class ProductreviewList extends Component {
                                           <div className="col-12">
                                             <div className="row mt-2">
                                               <div className="col-4 text-left NoPadding mt-2">
-                                                <img src="/images/eCommerce/TrollyLogo.png" height ={40} />
+                                                    <img src="/images/eCommerce/TrollyLogo.png" height ={40} />
                                               </div>
                                               <div className="col-7 text-center">
                                               </div>

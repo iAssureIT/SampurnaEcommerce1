@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import axios                from 'axios';
 import $, { data, event }   from 'jquery';
 import moment               from "moment";
-import Link      from 'next/link';
-import Message from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
-import SmallBanner from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
-import Loader from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-// import ReturnStatus from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
-// import StepWizard from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
-import Style from './index.module.css';
+import Link                 from 'next/link';
+import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
+import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
+import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
+import Style                from './index.module.css';
 
 export default class MyOrders extends Component {
   constructor(props) {
@@ -203,7 +201,7 @@ export default class MyOrders extends Component {
     }
 
     if (formValues) {
-      console.log("formValues=", formValues);
+      // console.log("formValues=", formValues);
       swal({
         title: "Are you sure?",
         text: "Are you sure that you want to cancel this order?",
