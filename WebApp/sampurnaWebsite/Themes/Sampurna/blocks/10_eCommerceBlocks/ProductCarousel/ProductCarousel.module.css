@@ -1134,9 +1134,13 @@
     width: 165px;
     height: 229px;
   }
-  .ImgWrapper{
+  .productCaroselBlock .ImgWrapper{
       height: 145px;
       margin-top: 20px;
+  }
+  .productCaroselBlock .NoAvailableImg{
+    top: 0px;
+    width: 100%;
   }
 
 }
@@ -1266,7 +1270,7 @@
   }
   .productCaroselBlock{
     width: 205px;
-    height: 269px;
+    height: 270px;
   }
   .productCaroselBlock .NoAvailableImg{
     top: 0px;
@@ -1277,10 +1281,10 @@
     margin-top: 40px;
   }
   .titleFont1{
-    margin-bottom: 60px;
+    margin-bottom: 0px;
   }
   .titleFont{
-    margin-bottom: 60px;
+    margin-bottom: 10px;
   }
   .line{
     top: 55px;

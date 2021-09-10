@@ -110,14 +110,14 @@
   }
 @media (min-width: 1920px){
     .BgImg{
-        height: 365px!important;
+        height: 300px!important;
     }
     .bannerContainerEcomm{
         margin-bottom: 10px;
-        height: 385px;
+        height: 320px;
     }
     .swiperContainer{
-        height: 400px!important;
+        height: 335px!important;
     }
     .showDots{
         margin-top: -30px !important;

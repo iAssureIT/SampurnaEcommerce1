@@ -25,29 +25,33 @@
 }
 @media (min-width: 1920px)  {
 	.secondBlockHome{
-		margin-top: 50px;
+		margin-top: 10px;
 	}
 	.thirdBlockHome{
-		margin-bottom: 30px;
+		margin-bottom: 0px;
+		margin-top: 0px;
 	}
 	.fifthBlockHome{
-		margin-top: 30px;
+		margin-top: 20px;
 	}
 	.sixthBlockHome{
-	    margin-bottom: 60px;
-	  }
+	    margin-bottom: 25px;
+	    margin-top: 10px;
+	 }
 	.eightBlockHome{
-		margin-top: 30px;
+		margin-top: 20px;
+		margin-bottom: 0px;
 	}
 	.nineBlockHome{
 		margin-top: 30px;
 	}
 	.tenBlockHome{
-		margin-bottom: 60px;
+		margin-bottom: 30px;
+		margin-top: 10px;
 	}
 	.tewlveBlockHome{
-		margin-top: 50px;
-		margin-bottom: 60px;
+		margin-top: 20px;
+		margin-bottom: 40px;
 	}
 	
 }
