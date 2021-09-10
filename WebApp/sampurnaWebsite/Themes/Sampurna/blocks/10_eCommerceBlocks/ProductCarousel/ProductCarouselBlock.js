@@ -29,12 +29,12 @@ const sortOptions = [
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
-    breakpoint: { max: 3000, min: 1920 },
+    breakpoint: { max: 3000, min: 1440 },
     items: 6,
     slidesToSlide: 1
   },
   desktop: {
-    breakpoint: { max: 1910, min: 1024 },
+    breakpoint: { max: 1439, min: 1024 },
     items: 5,
     slidesToSlide: 1 // optional, default to 1.
   },
@@ -540,6 +540,7 @@ submitCart(event) {
               <div className={"col-12 " +Style.productcomponentheading +" " +Style.textCenter}>                
                 <div className={ "col-12 " +Style.title4}>
                   <div className="">
+                    <h4 className={"col-12 " + Style.newDealTitle}>New deal in</h4>
                     <h1 className={"col-12 title_inner4 lang_trans " +Style.titleFont } data-trans="#blog_1554730795823_title">{this.state.blockTitle} 
                       <span className={"line " +Style.line}></span>
                     </h1>

@@ -11,11 +11,26 @@
     text-decoration: none !important;
 }
 .dealsBlock img{
-    height: 250px;
+    height: 200px;
     width: 100%;
     cursor: pointer;
 }
-@media (min-width: 1920px){
+@media (min-width: 1440px) and (max-width: 1535px) { 
+    .dealsBlock img{
+        height: 220px;
+    }
+}
+@media (min-width: 1536px) and (max-width: 1679px) { 
+    .dealsBlock img{
+        height: 230px;
+    }
+}
+@media (min-width: 1680px) and (max-width: 1919px) { 
+    .dealsBlock img{
+        height: 240px;
+    }
+}
+@media (min-width: 1920px) and (max-width: 2559px) { 
     .dealsBlock img{
         height: 250px;
     }
@@ -23,7 +38,15 @@
         margin-top: 2rem!important;
     }
     .item_Name{
+        font-size: 18px;
+    }
+    .item_Name{
         font-size: 20px;
         margin-top: 15px;
+    }
+}
+@media (min-width: 2560px){
+    .dealsBlock img{
+        height: 270px;
     }
 }

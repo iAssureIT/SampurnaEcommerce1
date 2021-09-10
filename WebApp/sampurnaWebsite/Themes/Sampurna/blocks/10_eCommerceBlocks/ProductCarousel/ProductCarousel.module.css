@@ -12,7 +12,24 @@
   font-family: 'Montserrat-SemiBold';
   src        : url('../../../fonts/Montserrat-SemiBold.ttf');
 }
-
+.newDealTitle{
+  font-size: 22px;
+  font-family: 'Montserrat-ExtraBold';
+}
+.realtivePossion{
+  position: relative;
+}
+.noImgBackImg{
+  width: 50%;
+}
+.imgEffect{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 47px;
+    background: transparent linear-gradient(0deg, #000000 0%, #0B0B0BDD 36%, #54545400 100%) 0% 0% no-repeat padding-box;
+    border-radius: 0px 0px 7px 7px;
+}
 .alertMessage{
     position: fixed;
     z-index: 1000;
@@ -506,6 +523,7 @@
   width: 200px;
   height: 260px;
   border-radius: 15px;
+  box-shadow: -3px 3px 6px #00000059;
 }
 
 .productBlock {
@@ -899,15 +917,16 @@
 .titleFont {
   font-size    : 18px !important;
   text-align   : center !important;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   font-family: 'Montserrat-ExtraBold';
   text-align: left!important;
+
 }
 
 .titleFont1 {
   font-size    : 18px !important;
   text-align   : center !important;
-  margin-bottom: 40px;
+  margin-bottom: 0px;
   font-family: 'Montserrat-ExtraBold';
   text-align: left!important;
 }
@@ -1050,8 +1069,8 @@
   .line {
     position          : absolute;
     height            : 2px;
-    width             : 100%;
-    background-color  : #000;
+    /*width             : 100%;
+*/    background-color  : #000;
     /*background-color: #ff4157;*/
     /*margin          :0 auto;*/
     /*margin-bottom   : 45px;*/
@@ -1061,17 +1080,19 @@
   }
 
   .titleFont {
-    font-size       : 36px !important;
+    font-size       : 35px !important;
     text-align      : left !important;
     /* overflow     : hidden!important; */
     color           : #000 !important;
+  /*  margin-left     : 80px;*/
   }
 
   .titleFont1 {
-    font-size       : 36px !important;
+    font-size       : 35px !important;
     text-align      : left !important;
     /* overflow     : hidden!important; */
     color           : #000 !important;
+    /* margin-left     : 80px;*/
   }
 
   .sortPbWrapper {
@@ -1129,7 +1150,7 @@
     font-size: 50px!important;
   }
   .line{
-        width: 100%;
+       /* width: 100%;*/
       background-color: #000;
           top: 45px;
   }
@@ -1142,10 +1163,7 @@
     height: 229px;
   }
 
-  .productCaroselBlock .ImgWrapper{
-      height: 145px;
-      margin-top: 20px;
-  }
+  
   .productCaroselBlock .NoAvailableImg{
     top: 0px;
     width: 100%;
@@ -1193,7 +1211,7 @@
     font-size: 55px!important;
   }
   .line{
-        width: 100%;
+        /*width: 100%;*/
       background-color: #000;
           top: 50px;
   }
@@ -1248,7 +1266,7 @@
     text-align: left!important;
   }
   .line{
-        width: 100%;
+       /* width: 100%;*/
       background-color: #000;
   }
   .productCaroselBlock{
@@ -1265,9 +1283,11 @@
   }
   .titleFont1{
     margin-bottom: 0px;
+    /*margin-left: 140px;*/
   }
   .titleFont{
     margin-bottom: 10px;
+    /*margin-left: 140px;*/
   }
   .line{
     top: 55px;
@@ -1408,10 +1428,11 @@
   .discounttag{
     width: 71px;
     height: 73px;
-    font-size: 12px;
+    font-size: 11px;
     padding-top: 10px;
+    padding-left: 8px;
     top: -7px;
-    left: 12px;
+    left: 15px;
   }
 
   .offTxt {
@@ -1518,11 +1539,11 @@
   .discounttag{
     width: 71px;
     height: 76px;
-    font-size: 12px;
+    font-size: 11px;
     padding-top: 12px;
-    padding-left: 12px;
-    top: -7px;
-    left: 7px;
+    padding-left: 5px;
+    top: -8px;
+    left: 15px;
   }
 
   .offTxt {
@@ -1631,10 +1652,10 @@
     width: 71px;
     height: 80px;
     padding-top: 11px;
-    padding-left: 15px;
-    font-size: 12px;
-    top: -7px;
-    left: 6px;
+    padding-left: 5px;
+    font-size: 11px;
+    top: -8px;
+    left: 15px;
   }
 
   .offTxt {
@@ -1742,12 +1763,11 @@
   .discounttag{
     width: 71px;
     height: 77px;
-    font-size: 13px;
-    padding-top: 6px;
-    padding-left: 15px;
-    top: -5px;
-    left: 6px;
-  }
+    font-size: 11px;
+    padding-top: 12px;
+    padding-left: 5px;
+    top: -8px;
+    left: 15px;  }
 
   .offTxt {
     font-size: 13px;
@@ -1852,11 +1872,12 @@
   .discounttag{
     width: 76px;
     height: 84px;
-    font-size: 14px;
-    padding-top: 6px !important;
+    font-size: 11px;
+    padding-top: 15px !important;
     margin-top: 0px;
-    top: -4px;
-    left: 5px;
+    top: -8px;
+    left: 15px;
+    padding-left: 3px;
   }
 
   .offTxt {
@@ -2055,4 +2076,72 @@
     margin-bottom: 9px;
   }
 
-}  
+} 
+
+
+@media (min-width: 1440px) and (max-width: 1535px) { 
+    .newDealTitle{
+      font-size: 24px;
+    }
+    .titleFont1,.titleFont{
+      font-size: 45px!important;
+      /*margin-left: 100px;*/
+    }
+    .productCaroselBlock{
+      width: 175px;
+      height: 250px;
+    }
+    .productCaroselBlock .ImgWrapper{
+      height: 150px;
+      margin-top: 40px;
+    }
+}
+@media (min-width: 1536px) and (max-width: 1679px) { 
+    .newDealTitle{
+      font-size: 26px;
+    }
+    .titleFont1,.titleFont{
+      font-size: 50px!important;
+      /*margin-left: 110px;*/
+    }
+    .productCaroselBlock{
+      width: 185px;
+      height: 260px;
+    }
+    .productCaroselBlock .ImgWrapper{
+      height: 155px;
+      margin-top: 40px;
+    }
+}
+@media (min-width: 1680px) and (max-width: 1919px) { 
+    .newDealTitle{
+      font-size: 28px;
+    }
+    .titleFont1,.titleFont{
+      font-size: 55px!important;
+      /*margin-left: 120px;*/
+    }
+    .titleFont1,.titleFont{
+      margin-bottom: 10px;
+    }
+    .productCaroselBlock{
+      width: 195px;
+      height: 265px;
+    }
+    .productCaroselBlock .ImgWrapper{
+      height: 160px;
+      margin-top: 40px;
+    }
+
+} 
+@media (min-width: 1920px) and (max-width: 2559px) { 
+    .newDealTitle{
+      font-size: 30px;
+    }
+}
+@media (min-width: 2560px) {
+    .newDealTitle{
+      font-size: 32px;
+    }
+}
+

@@ -121,6 +121,15 @@
 .locationBTN:hover {
     color: #fff !important;
 }
+.deliveryLocationFormModalWrapper .deliveryLocationCurrentButton{
+    margin-left: 5px;
+}
+.deliveryLocationFormModalWrapper .deliveryLocationSearchWrapper{
+    margin-left: -10px;
+}
+.deliveryLocationFormModalWrapper .deliveryLocationSaveButton{
+    margin-right: 10px;
+}
 .locationBTNafterLogin {
     background-color: #033554;
     color           : #fff;
@@ -621,9 +630,32 @@
     }
 
 }
-@media (min-device-width: 1440px) and (max-device-width: 1679px) {
+@media (min-device-width: 1440px) and (max-device-width: 1535px) {
     .heightGoogleMap {
         height: 700px;
+    }
+     .deliveryLocationFormModalWrapper .deliveryLocationCurrentButton{
+        margin-left: 5px;
+    }
+    .deliveryLocationFormModalWrapper .deliveryLocationSearchWrapper{
+        margin-left: -30px;
+    }
+    .deliveryLocationFormModalWrapper .deliveryLocationSaveButton{
+        margin-right: 30px;
+    }
+}
+@media (min-device-width: 1536px) and (max-device-width: 1679px) {
+    .heightGoogleMap {
+        height: 700px;
+    }
+     .deliveryLocationFormModalWrapper .deliveryLocationCurrentButton{
+        margin-left: 5px;
+    }
+    .deliveryLocationFormModalWrapper .deliveryLocationSearchWrapper{
+        margin-left: -35px;
+    }
+    .deliveryLocationFormModalWrapper .deliveryLocationSaveButton{
+        margin-right: 35px;
     }
 }
 @media (min-width: 1680px) and (max-width: 1919px) {
@@ -641,6 +673,15 @@
     }
     .deliveryLocationSaveButton{
         margin-right: 40px;
+    }
+     .deliveryLocationFormModalWrapper .deliveryLocationCurrentButton{
+        margin-left: 5px;
+    }
+    .deliveryLocationFormModalWrapper .deliveryLocationSearchWrapper{
+        margin-left: -50px;
+    }
+    .deliveryLocationFormModalWrapper .deliveryLocationSaveButton{
+        margin-right: 50px;
     }
 }
 @media (min-width: 1920px) and (max-width: 2559px) {
@@ -679,6 +720,15 @@
     .deliveryLocationSaveButton{
         margin-right: 48px;
     }
+    .deliveryLocationFormModalWrapper .deliveryLocationCurrentButton{
+        margin-left: 0px;
+    }
+    .deliveryLocationFormModalWrapper .deliveryLocationSearchWrapper{
+        margin-left: -50px;
+    }
+    .deliveryLocationFormModalWrapper .deliveryLocationSaveButton{
+        margin-right: 50px;
+    }
 }
 @media (min-width: 2560px) {
     .deliveryLocationCurrentButton{
@@ -715,5 +765,14 @@
     }
     .deliveryLocationSaveButton{
         margin-right: 20px;
+    }
+    .deliveryLocationFormModalWrapper .deliveryLocationCurrentButton{
+        margin-left: 0px;
+    }
+    .deliveryLocationFormModalWrapper .deliveryLocationSearchWrapper{
+        margin-left: -50px;
+    }
+    .deliveryLocationFormModalWrapper .deliveryLocationSaveButton{
+        margin-right: 50px;
     }
 }

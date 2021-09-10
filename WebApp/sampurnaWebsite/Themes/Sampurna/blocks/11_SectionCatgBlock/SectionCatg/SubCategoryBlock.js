@@ -73,6 +73,7 @@ class SubCategoryBlock extends Component {
             <div className="col-12">
               <div className="col-12 productcomponentheading text-center text-lg-left">
               <div className={ "col-12 " +Style.title4}>
+                    <h4 className={"col-12 " + Style.newDealTitle}>New deal in</h4>
                     <h1 className={"col-12 title_inner4 lang_trans " +Style.titleFont1 } data-trans="#title">{this.props.blockTitle} <span className={"line " +Style.line}></span></h1>
                     <span className={"hide "+Style.span} id="title"></span>
 			        	</div>
@@ -115,8 +116,9 @@ class SubCategoryBlock extends Component {
                     <div className="col-12 sectionCategoryBlock subCategoryBlock d-flex justify-content-center "  key={index}> 
                         <a href={url} className ="text-decoration-none secCateblock1 categoryblock"> 
                           <div className="itemImg col-12 ">
-                            <div className="text-decoration-none product photo product-item-photo collage" tabIndex="-1" href={url}>
+                            <div className={"text-decoration-none product photo product-item-photo collage" + Style.realtivePossion} tabIndex="-1" href={url}>
                               <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.png"} alt="ItemImg" className={"subImg " } />
+                              <div className={Style.imgEffect}></div>
                             </div>
                           </div>
                           <div className="col-12 item_Name text-center text-capitalize" title={data.item}>{data.item}</div>
@@ -147,7 +149,7 @@ class SubCategoryBlock extends Component {
                         <a href={url} className ="secCateblock sectionCategoryBlock"> 
                             <div className="productImg col-12 ">
                               <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
-                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.png"} alt="ProductImg" />
+                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.png"} alt="ProductImg" className={ Style.noImgBackImg}/>
                               </a>
                             </div>
                             <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>  

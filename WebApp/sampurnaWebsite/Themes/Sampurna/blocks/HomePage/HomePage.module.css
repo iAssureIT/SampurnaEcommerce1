@@ -1,29 +1,89 @@
 .thirdBlockHome{
-	margin-top: 30px;
+	margin-top: 10px;
 }
 .fourthBlockHome{
-	margin-top: 30px;
+	margin-top: 20px;
 }
 .fifthBlockHome{
-	margin-top: 20px;
+	margin-top: 10px;
 }
 .sixthBlockHome{
-	margin-top: 40px;
-	margin-bottom: 35px;
+	margin-top: 30px;
+	margin-bottom: 20px;
 }
 .eightBlockHome{
-	margin-top: 20px;
-	margin-bottom: 30px;
+	margin-top: 10px;
+	margin-bottom: 20px;
 }
 .tenBlockHome{
 	margin-top: 30px;
-	margin-bottom: 35px;
+	margin-bottom: 20px;
 }
 .tewlveBlockHome{
-	margin-top: 25px;
+	margin-top: 15px;
 	margin-bottom: 40px;
 }
-@media (min-width: 1920px)  {
+@media (min-width: 1440px) and (max-width: 1535px) {  
+	.thirdBlockHome{
+		margin-bottom: 0px;
+		margin-top: 20px;
+	}
+	.fifthBlockHome{
+		margin-top: 10px;
+	}
+	.sixthBlockHome{
+	    margin-bottom: 25px;
+	    margin-top: 30px;
+	 }
+	 .tenBlockHome{
+		margin-bottom: 30px;
+	}
+	.tewlveBlockHome{
+		margin-top: 20px;
+	}
+}
+@media (min-width: 1536px) and (max-width: 1679px) {  
+	.thirdBlockHome{
+		margin-bottom: 0px;
+		margin-top: 20px;
+	}
+	.fifthBlockHome{
+		margin-top: 10px;
+	}
+	.sixthBlockHome{
+	    margin-bottom: 25px;
+	    margin-top: 30px;
+	 }
+	 .tenBlockHome{
+		margin-bottom: 30px;
+	}
+	.tewlveBlockHome{
+		margin-top: 20px;
+	}
+}
+
+@media (min-width: 1680px) and (max-width: 1919px) {  
+	.thirdBlockHome{
+		margin-bottom: 0px;
+		margin-top: 20px;
+	}
+	.fifthBlockHome{
+		margin-top: 10px;
+	}
+	.sixthBlockHome{
+	    margin-bottom: 25px;
+	    margin-top: 30px;
+	 }
+	 .tenBlockHome{
+		margin-bottom: 30px;
+	}
+	.tewlveBlockHome{
+		margin-top: 20px;
+	}
+}
+
+@media (min-width: 1920px) and (max-width: 2569px) {  
+	
 	.secondBlockHome{
 		margin-top: 10px;
 	}

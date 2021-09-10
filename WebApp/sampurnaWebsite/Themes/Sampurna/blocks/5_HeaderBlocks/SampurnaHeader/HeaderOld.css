@@ -969,7 +969,7 @@ li a{
     #locationModal .modal-content{
         height: 900px !important;
         width: 1600px !important;
-        left: -210px;
+        left: 0px;
     }
     #locationModal .modal-content{
         height: 950px !important;

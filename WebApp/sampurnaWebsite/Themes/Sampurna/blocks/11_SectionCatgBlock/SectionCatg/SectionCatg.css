@@ -3,6 +3,7 @@
     margin-top   : 10px;
     margin-bottom: 10px;
 }
+
 .categoryBlockWrapper{
     margin-top: 30px;
 }
@@ -22,19 +23,19 @@
     background-image : url(/images/eCommerce/productloader.gif);
     background-size  : cover;
     background-repeat: no-repeat;
-    box-shadow       : -3px 3px 6px #00000029;
+   /* box-shadow       : -3px 3px 6px #00000029;*/
     border-radius    : 24px;
-    height           : 140px;
-    width            : 160px;
+    height           : 130px;
+    width            : 150px;
 }
 .categoryblock .itemImg img {
     background-image : url(/images/eCommerce/productloader.gif);
     background-size  : cover;
     background-repeat: no-repeat;
-    box-shadow       : -3px 3px 6px #00000029 !important;
+   /* box-shadow       : -3px 3px 6px #00000029 !important;*/
     border-radius    : 7px;
-    width            : 220px;
-    height           : 200px;
+    width            : 200px;
+    height           : 180px;
 }
 
 .titleFont {
@@ -113,7 +114,7 @@
         width: 220px;
     }
 }*/
-@media (min-width: 1440px) and (max-width: 1679px) {  
+@media (min-width: 1440px) and (max-width: 1535px) {  
     /*.secCateblock .itemImg img {
         height: 170px;
         width: 200px;
@@ -122,17 +123,34 @@
           width: 260px;
           height: 240px;
       }*/
+      .secCateblock .itemImg img {
+        height: 140px;
+        width: 160px;
+    }
+    .categoryblock .itemImg img {
+          width: 220px;
+          height: 200px;
+    }
 }
-
+@media (min-width: 1536px) and (max-width: 1679px) {  
+    .secCateblock .itemImg img {
+        height: 160px;
+        width: 180px;
+    }
+    .categoryblock .itemImg img {
+          width: 240px;
+          height: 220px;
+    }
+}
 @media (min-width: 1680px) and (max-width: 1919px) {  
     .secCateblock .itemImg img {
-        height: 190px;
-        width: 220px;
+        height: 180px;
+        width: 200px;
     }
     .categoryblock .itemImg img {
           width: 280px;
           height: 260px;
-      }
+    }
 }
 
 @media (min-width: 1920px) and (max-width: 2559px) {  

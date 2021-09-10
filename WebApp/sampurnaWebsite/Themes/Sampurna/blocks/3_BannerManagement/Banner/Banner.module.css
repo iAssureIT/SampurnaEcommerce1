@@ -1,13 +1,13 @@
 .bannerContainerEcomm{
-    height: 360px;
+    height: 220px;
 }
 .bannerContainerEcomm .item .BgImg{
-    height: 315px;
+    height: 200px;
     width: 100%;
     margin-top: 0px;
 }
 .bannerContainerEcomm .item .blockTitle .FgImg{
-    height: 300px;
+    height: 235px;
     /* width: 40%; */
     /* margin-top: -200px; */
     z-index: 1000;
@@ -56,7 +56,7 @@
     /* width: 100%; */
     /* height: 100%; */
     /* z-index: 0 !important; */
-    height: 330px;
+    height: 235px;
   }
 
   .swiper-slide {
@@ -86,7 +86,7 @@
   .showDots{
     bottom: 0px !important;
     position: relative !important;
-    margin-top: -18px !important;
+    margin-top: -30px !important;
   }
   .titleWrapper{
       margin-top: -400px;
@@ -108,7 +108,22 @@
       background:  transparent !important;
       border: solid 1px #aaa;
   }
-@media (min-width: 1920px){
+@media (min-width: 2560px){
+    .BgImg{
+        height: 330px!important;
+    }
+    .swiperContainer{
+        height: 365px!important;
+    }
+    .bannerContainerEcomm{
+        margin-bottom: 10px;
+        height: 350px;
+    }
+    .showDots{
+        margin-top: -30px !important;
+    }
+}
+@media (min-width: 1920px) and (max-width: 2559px){
     .BgImg{
         height: 300px!important;
     }
@@ -123,6 +138,51 @@
         margin-top: -30px !important;
     }
 
+}
+@media (min-width: 1680px) and (max-width: 1919px){
+    .BgImg{
+        height: 270px!important;
+    }
+    .bannerContainerEcomm{
+        margin-bottom: 10px;
+        height: 290px;
+    }
+    .swiperContainer{
+        height: 305px!important;
+    }
+    .showDots{
+        margin-top: -30px !important;
+    }
+}
+@media (min-width: 1536px) and (max-width: 1679px){
+    .BgImg{
+        height: 240px!important;
+    }
+    .bannerContainerEcomm{
+        margin-bottom: 10px;
+        height: 260px;
+    }
+    .swiperContainer{
+        height: 275px!important;
+    }
+    .showDots{
+        margin-top: -30px !important;
+    }
+}
+@media (min-width: 1440px) and (max-width: 1535px){
+    .BgImg{
+        height: 220px!important;
+    }
+    .bannerContainerEcomm{
+        margin-bottom: 10px;
+        height: 240px;
+    }
+    .swiperContainer{
+        height: 255px!important;
+    }
+    .showDots{
+        margin-top: -30px !important;
+    }
 }
   @media only screen and (max-device-width: 480px) {
     .titleWrapper{
