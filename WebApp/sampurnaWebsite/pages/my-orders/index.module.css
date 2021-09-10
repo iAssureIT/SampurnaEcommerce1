@@ -25,6 +25,10 @@
 }
 
 
+.cursorPointer{
+	cursor: pointer;
+}
+
 .mainTitle {
 	font-size: 32px;
 	margin   : 0px 0px 20px 0px;

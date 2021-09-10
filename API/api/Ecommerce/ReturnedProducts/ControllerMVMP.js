@@ -636,7 +636,8 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 									shippingCharges     : shippingCharges,
 									totalAmount         : totalAmount,
 									earnedPoints        : (method === "minus" ? -1 * earnedCreditPoints  : earnedCreditPoints),
-									typeOfTransaction   : transactionType
+									typeOfTransaction   : transactionType,
+									status              : "active"
 								}
 							},
 							$set:{
@@ -675,7 +676,8 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 														shippingCharges     : shippingCharges,
 														totalAmount         : totalAmount,
 														earnedPoints        : earnedCreditPoints,
-														typeOfTransaction   : transactionType
+														typeOfTransaction   : transactionType,
+													   status              : "active"
 						},		
 						createdAt 					: new Date(),
 						createdBy 					: user_id

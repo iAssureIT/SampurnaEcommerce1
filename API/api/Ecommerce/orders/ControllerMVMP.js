@@ -233,25 +233,14 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 				if(!userDetail.authService || (userDetail.authService && userDetail.authService !== "guest")){					
 					CreditPoints.findOne({"user_id" : ObjectId(user_id)})
 					.then(async(data)=>{
-
-						// console.log("data vars => ", order_id, " ", user_id, " ", orderDate, " ", purchaseAmount, " ", shippingCharges, " ", totalAmount, " ", transactionType, " ",);
 						var creditPolicyData = await CreditPointsPolicy.findOne();
+						console.log("creditPolicyData => ", creditPolicyData);
+						
 						var expiryLimitInDays = creditPolicyData.expiryLimitInDays;
-						var expiryDate = moment(currDate, "MM/DD/YYYY").add(expiryLimitInDays, 'days') ;
 
-						// console.log("creditPolicyData => ",creditPolicyData);
-						// var earnedCreditPoints = Math.round(((purchaseAmount / creditPolicyData.purchaseAmount) * creditPolicyData.creditPoint));
-						var earnedCreditPoints = (purchaseAmount / creditPolicyData.purchaseAmount) * creditPolicyData.creditPoint;
-						// console.log("earnedCreditPoints => ",earnedCreditPoints);
-						if(earnedCreditPoints > 0){
-							if (data && data !== null ) { 
-								// var totalEarnedPoints = Math.round(data.totalPoints + earnedCreditPoints);
-								var totalEarnedPoints = data.totalPoints + earnedCreditPoints;
-								// console.log("totalEarnedPoints => ",totalEarnedPoints)
-								CreditPoints.updateOne(
-									{ "_id": ObjectId(data._id)},		
-									{$push: {
-											transactions : {
+						var earnedCreditPoints = Math.round(((purchaseAmount / creditPolicyData.purchaseAmount) * creditPolicyData.creditPoint));
+						var expiryDate = moment(currDate, "MM/DD/YYYY").add(expiryLimitInDays, 'days') ;
+						var transactions = {
 												order_id            : order_id,
 												transactionDate     : new Date(),
 												expiryDate     	  : expiryDate,
@@ -259,12 +248,23 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 												shippingCharges     : shippingCharges,
 												totalAmount         : totalAmount,
 												earnedPoints        : (method === "minus" ? "-" : "") + earnedCreditPoints,
-												typeOfTransaction   : transactionType
-											}
-										},
-										$set:{
-											totalPoints : totalEarnedPoints
-										}	
+												typeOfTransaction   : transactionType,
+												status 				  : "active"
+											};
+
+						console.log("transactions =", transactions);
+
+						if(earnedCreditPoints > 0){
+							if (data && data !== null ) { 
+								var totalEarnedPoints = data.totalPoints + earnedCreditPoints;
+								CreditPoints.updateOne(
+									{ "_id": ObjectId(data._id)},		
+									{$push:  {
+													transactions : transactions
+												},
+												$set:{
+													totalPoints : totalEarnedPoints
+												}	
 									})
 									.exec()
 									.then(updateddata => {
@@ -298,7 +298,8 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 																	shippingCharges     : shippingCharges,
 																	totalAmount         : totalAmount,
 																	earnedPoints        : earnedCreditPoints,
-																	typeOfTransaction   : transactionType
+																	typeOfTransaction   : transactionType,
+																	status 				  : "active"
 									},		
 									createdAt 					: new Date(),
 									createdBy 					: user_id
@@ -355,7 +356,8 @@ function useCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 									shippingCharges     : shippingCharges,
 									totalAmount         : totalAmount,
 									earnedPoints        : -usedCreditPoints,
-									typeOfTransaction   : transactionType
+									typeOfTransaction   : transactionType,
+									status              : "active"
 								}
 							},
 							$set:{

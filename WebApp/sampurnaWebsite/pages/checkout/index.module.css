@@ -690,10 +690,11 @@
     font-weight   : 600;
 }
 
-.creditColorCheckout {
+.creditColorCheckout, .creditColorCheckout a {
     letter-spacing: 0px;
     color         : #DC1919;
     text-transform: capitalize;
+    text-decoration: none;
 }
 
 
@@ -1401,7 +1402,7 @@
         font-size: 14px;
     }
     .f13N, .AEDColor, .border1::placeholder{
-        font-size: 15px;
+        font-size: 12px;
     }
     .coupanTitle{
         font-size: 15px;

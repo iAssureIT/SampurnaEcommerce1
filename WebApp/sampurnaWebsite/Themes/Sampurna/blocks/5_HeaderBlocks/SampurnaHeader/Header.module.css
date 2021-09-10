@@ -8,9 +8,6 @@
 .searchBarInput::placeholder {
     font-size: 13px!important;
 }
-.headerWrapper header{
-    font-family: 'Montserrat-Regular';
-}
 .headerWrapper{
     margin: 0!important;
     padding: 0!important;

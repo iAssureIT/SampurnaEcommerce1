@@ -1360,7 +1360,17 @@ class Checkout extends Component {
                                                                                 <div className="row mt-4 mb-5 creditWrapper">
                                                                                     {this.state.creditdataTotalPoints > 0 ?
                                                                                         <div className="col-12 ">
-                                                                                            <label className={"col-12 " + Style.f13N}>  <span className={" " + Style.AEDColor}> Store Credit <span className={" "+Style.creditColorCheckout}>{this.state.creditdataValue} {this.state.currency}</span> Available</span></label>
+                                                                                            <label className={"col-12 " + Style.f13N}>  
+                                                                                                <span className={Style.AEDColor}> 
+                                                                                                    Store Credit 
+                                                                                                    <span className={Style.creditColorCheckout}>
+                                                                                                        <a href="/my-account#v-pills-settings3-tab" target="_blank">
+                                                                                                            &nbsp;{this.state.creditdataValue} {this.state.currency}&nbsp;
+                                                                                                        </a>
+                                                                                                    </span> 
+                                                                                                    Available
+                                                                                                </span>
+                                                                                            </label>
                                                                                         </div>
                                                                                         // Credit Points Available [{this.state.creditdataTotalPoints}] Points.
                                                                                         :
@@ -1415,7 +1425,7 @@ class Checkout extends Component {
                                                                                         <span className="deleteCoupon" onClick={this.deleteCoupon.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
                                                                                     }
                                                                                 </span>
-                                                                                <span className="col-6 mb-1">Total Credit Points :</span>
+                                                                                <span className="col-6 mb-1">Total Credit Value:</span>
                                                                                 {/* <span className="col-6 mb-1 textAlignRight">
                                                         <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.creditPointsValueUsed>0? this.state.recentCartData.paymentDetails.creditPointsValueUsed : 0.00}
                                                         {this.state.recentCartData.paymentDetails.creditPointsValueUsed > 0 &&
@@ -1424,7 +1434,9 @@ class Checkout extends Component {
                                                     </span> */}
                                                                                 <span className={"col-6 mb-1 " + Style.checkoutCurrencyWrapper}>
                                                                                     <div className={"col-6 " + Style.finalCurrency}>{this.state.currency}</div>
-                                                                                    <div className={"col-5 " + Style.finalAmount}> {this.state.recentCartData.paymentDetails.creditPointsValueUsed > 0 ? this.state.recentCartData.paymentDetails.creditPointsValueUsed.toFixed(2) : "0.00"}</div>
+                                                                                    <div className={"col-5 " + Style.finalAmount}> 
+                                                                                        {this.state.recentCartData.paymentDetails.creditPointsValueUsed > 0 ? this.state.recentCartData.paymentDetails.creditPointsValueUsed.toFixed(2) : "0.00"}
+                                                                                    </div>
                                                                                     {this.state.recentCartData.paymentDetails.creditPointsValueUsed > 0 &&
                                                                                         <span className={Style.deleteCredit} onClick={this.deleteCredit.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
                                                                                     }

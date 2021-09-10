@@ -568,8 +568,12 @@ class CartProducts extends Component {
                                                                                             <tbody>
                                                                                                 <tr>
                                                                                                     <td className={"col-7 "+ Style.vendorWiseinnerTitle}>Sub Total</td>
-                                                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
-                                                                                                        <div className={Style.currency}><b>{this.state.currency}</b></div>  
+                                                                                                    <td className={"col-2"}>
+                                                                                                        <div className={Style.currency}>
+                                                                                                            <b>{this.state.currency}</b>
+                                                                                                        </div> 
+                                                                                                    </td>
+                                                                                                    <td className={"col-3"}>
                                                                                                         <div className={Style.amount}>
                                                                                                             <b> {
                                                                                                                     vendorWiseCartData.vendor_afterDiscountTotal > 0 
@@ -582,40 +586,57 @@ class CartProducts extends Component {
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td className={"col-7 "+ Style.vendorWiseinnerTitle}>You Saved</td>
-                                                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
-                                                                                                    <div className={Style.currency+" "+Style.savingaMTcOLOR}><b>{this.state.currency}</b></div>
-                                                                                                    <div className={Style.amount+" "+Style.savingaMTcOLOR}>
-                                                                                                        <b> 
-                                                                                                            {vendorWiseCartData.vendor_discountAmount > 0 
-                                                                                                             ? 
-                                                                                                                vendorWiseCartData.vendor_discountAmount < 10
-                                                                                                                ?
-                                                                                                                    "0" + vendorWiseCartData.vendor_discountAmount.toFixed(2) 
-                                                                                                                : 
-                                                                                                                    vendorWiseCartData.vendor_discountAmount.toFixed(2)
-                                                                                                             : 
-                                                                                                                "00.00"
-                                                                                                            }
-                                                                                                        </b>
-                                                                                                    </div>
+                                                                                                    <td className={"col-2"}>
+                                                                                                        <div className={Style.currency+" "+Style.savingaMTcOLOR}>
+                                                                                                            <b>{this.state.currency}</b>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                    <td className={"col-3"}>
+                                                                                                        <div className={Style.amount+" "+Style.savingaMTcOLOR}>
+                                                                                                            <b> 
+                                                                                                                {vendorWiseCartData.vendor_discountAmount > 0 
+                                                                                                                 ? 
+                                                                                                                    vendorWiseCartData.vendor_discountAmount < 10
+                                                                                                                    ?
+                                                                                                                        "0" + vendorWiseCartData.vendor_discountAmount.toFixed(2) 
+                                                                                                                    : 
+                                                                                                                        vendorWiseCartData.vendor_discountAmount.toFixed(2)
+                                                                                                                 : 
+                                                                                                                    "00.00"
+                                                                                                                }
+                                                                                                            </b>
+                                                                                                        </div>
                                                                                                     </td>
                                                                                                 </tr>                                                        
                                                                                                 <tr>
                                                                                                     <td className={"col-7 "+ Style.vendorWiseinnerTitle}>VAT</td>  
-                                                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
-                                                                                                    <div className={Style.currency}><b>{this.state.currency}</b></div> 
-                                                                                                    <div className={Style.amount}><b> {vendorWiseCartData.vendor_taxAmount>0 ? vendorWiseCartData.vendor_taxAmount.toFixed(2) : "00.00"}</b></div>
+                                                                                                    <td className={"col-2"}>
+                                                                                                        <div className={Style.currency}>
+                                                                                                            <b>{this.state.currency}</b>
+                                                                                                        </div> 
+                                                                                                    </td>
+                                                                                                    <td className={"col-3"}>
+                                                                                                        <div className={Style.amount}>
+                                                                                                            <b>{vendorWiseCartData.vendor_taxAmount>0 ? vendorWiseCartData.vendor_taxAmount.toFixed(2) : "00.00"}</b>
+                                                                                                        </div>
                                                                                                     </td>
                                                                                                 </tr>
-                                                                                                <tr >
-                                                                                                    <span className={"col-12 "+ Style.cartTotalLineWrapper}></span>
-                                                                                                    
+                                                                                                <tr>
+                                                                                                    <td colspan="3">
+                                                                                                        <span className={"col-12 "+ Style.cartTotalLineWrapper}></span>
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                <td className="cartTotal"> <b>Totals</b> </td>
-                                                                                                    <td className={"col-5 "+Style.tdCartWrapper}>
-                                                                                                    <div className={Style.currency}><b>{this.state.currency}</b></div> 
-                                                                                                    <div className={Style.amount}><b> {vendorWiseCartData.vendor_netPayableAmount.toFixed(2)}</b></div>
+                                                                                                    <td className="col-7 cartTotal"> <b>Totals</b> </td>
+                                                                                                    <td className={"col-2"}>
+                                                                                                        <div className={Style.currency}>
+                                                                                                            <b>{this.state.currency}</b>
+                                                                                                        </div> 
+                                                                                                    </td>
+                                                                                                    <td className={"col-3"}>
+                                                                                                        <div className={Style.amount}>
+                                                                                                            <b> {vendorWiseCartData.vendor_netPayableAmount.toFixed(2)}</b>
+                                                                                                        </div>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             </tbody>

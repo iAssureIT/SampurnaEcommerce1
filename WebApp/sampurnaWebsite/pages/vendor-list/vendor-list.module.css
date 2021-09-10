@@ -1,28 +1,44 @@
 .vendorlistWrapper{
     margin-top: 50px;
-    background-color: #ff0;
+    width: 86.3%;
+    margin: auto ;
 }
 .vendorCard{
-    height: 116px;
+    width:  29.3%;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    height: 109px;
+    float: left;
+
     box-shadow: 0 0 10px 5px #000 !important;
     border-radius: 3px;
     cursor: pointer;
     background-position: 100%;
     background-size: contain;
     border: none !important;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    width: 95%;
 }
-.vendorLogo{
+.firstElem{
+    margin-left: 0%;
+    margin-right: 3.025%;
+}
+.middleElem{
+    margin-left: 3.025%;
+    margin-right: 3.025%;   
+}
+.lastElem{
+    margin-left: 3.025%;
+    margin-right: 0%;    
+}
+.vendorLogoWrapper{
     background-position: 100%;
-    height: 90px;
-    width: 90px;
-    margin-top: 20px;
-    margin-left: 20px;
+    height: 62px;
+    width: 62px;
+    margin-top: 24px;
+    margin-left: 8.7%;
     border: 1px solid #666;
     border-radius: 100%;
     background-color: #fff;
+    float: left;
 }
 .vendorLogoImg{
     border-radius: 100% !important;
@@ -57,12 +73,13 @@
     /* padding-bottom:15px; */
 }
 .bgHeight{
-    padding-bottom: 100px!important;
+    padding-bottom: 100px ;
     background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url(/images/eCommerce/vendorListBg.jpg)!important;
     background-attachment: static!important;
     background-position: center!important;
     background-repeat: no-repeat!important;
     background-size: cover!important;
+    min-height: 500px;
 }
 .blur{
   background: rgba(255, 255, 255, 0.3); 
@@ -80,7 +97,8 @@
     z-index: 1;
 }
 .vendorlistTitle{
-    font-size: 20px;
+    padding-left:  4.5%;
+    font-size: 30px;
     font-weight: bold;
     margin-top: 40px;
     margin-bottom: 50px;
@@ -121,6 +139,9 @@
     height:125px ;
     overflow: hidden;
     font-weight: bold;
+    float: left;
+    margin-top: 36px;
+    margin-left: 30px;
 }
 .delTime{
     position: absolute;
@@ -159,18 +180,6 @@
 ##############################################################################################################
 */
 @media only screen and (max-device-width: 479px) {
-    .vendorLogo{
-        height: 60px;
-        width: 60px;
-        margin-top: 0px;
-        margin-left: 0px;
-    }
-    .vendorName{
-        font-size: 16px;
-    }
-    .vendorCard{
-        height: 100px;
-    }
     .vendorlistTitle{
         margin-top: 20px;
         margin-bottom: 20px;
@@ -192,11 +201,8 @@
     .deliveryTimeWrapperDesc{
         font-size: 11px;
       }
-    .vendorName{
-        font-size: 10px;
-    }
     .vendorCard{
-        height: 70px;
+        /*height: 70px;*/
     }
 }
 @media (min-width: 640px) and (max-width: 767px) {
@@ -204,35 +210,11 @@
         margin-top: 20px;
         margin-bottom: 20px;
     }
-    .vendorLogo{
-        height: 60px;
-        width: 60px;
-        margin-top: 0px;
-        margin-left: 0px;
-    }
-    .vendorName{
-        font-size: 14px;
-    }
-    .vendorCard{
-        height: 100px;
-    }
 }
 @media (min-width: 768px) and (max-width: 1023px) { 
     .vendorlistTitle{
         margin-top: 20px;
         margin-bottom: 20px;
-    }
-    .vendorLogo{
-        height: 50px;
-        width: 50px;
-        margin-top: 0px;
-        margin-left: 0px;
-    }
-    .vendorName{
-        font-size: 12px;
-    }
-    .vendorCard{
-        height: 90px;
     }
 }
 @media (min-width: 1024px) and (max-width: 1279px) { 
@@ -242,32 +224,10 @@
     .categoryName{
       top: 30px;
     }    
-    .vendorCard{
-        height: 120px;
-        box-shadow: 2px 2px 3px #dddddd;
-        cursor: pointer;
-        background-position: 100%;
-        border: solid 2px #000;
-    }
-    .vendorCard::before {
-        content: "";
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        bottom: 0px;
-        left: 0px;
-        /* filter: blur(8); */
-        background-color: rgba(0,0,0,0.8);
-    }
     .bgGray{
         background-color:#eee;
-        /* padding-bottom:15px; */
     }
     
-    .bgHeight{
-        height: 600px !important;
-        padding-bottom: 25px!important;
-    }
     .vendorList{
         position: absolute;
         top: 5px; 
@@ -278,12 +238,6 @@
     .cardBody{
         color: #fff;
         z-index: 1;
-    }
-    .vendorLogo{
-        height: 70px;
-        width: 70px;
-        margin-top: 0px;
-        margin-left: 0px;
     }
     .vendorlistTitle{
         font-size: 20px;
@@ -298,10 +252,8 @@
         background-color: #3E9D5E!important;
         height: 45px !important; 
         color: #fff !important;  
-        /* position: fixed !important; */
         z-index: 10!important;
-        margin-top: -5px!important;
-       
+        margin-top: -5px!important;       
     }
     .deliveryTimeWrapperDesc{
         position: absolute;
@@ -320,9 +272,6 @@
         color: red!important;
         font-size: 20px;
         font-weight: 900!important;
-    }
-    .vendorName{
-        font-size: 20px;
     }
     .delTime{
         font-size: 15px;
@@ -361,22 +310,6 @@
     .globalAddToCartBtn{
       font-size: 14px !important;
     }
-    .vendorCard{
-        height: 105px;
-        width: 85%;
-        margin-left: 8%;
-    }
-    .vendorLogo{
-        height:65px;
-        width: 65px;
-        margin-left: 5px;
-        margin-top: 0px;
-    }
-    .vendorName{
-        font-size: 20px;
-        height: 80px;
-        margin-top: 0px;
-    }
     .vendorlistTitle{
         font-size: 20px;
         margin-bottom: 30px;
@@ -386,19 +319,6 @@
 @media (min-width: 1440px) and (max-width: 1679px) {  
     .globalAddToCartBtn{
       font-size: 14px !important;
-    }
-    .vendorCard{
-        height: 170px;
-        width: 95%;
-    }
-    .vendorLogo{
-        height: 100px;
-        width: 100px;
-    }
-    .vendorName{
-        font-size: 28px;
-        height: 90px;
-        margin-top: 20px;
     }
     .vendorlistTitle{
         font-size: 28px;
@@ -423,18 +343,6 @@
     .globalAddToCartBtn{
       font-size: 16px !important;
     }
-    .vendorCard{
-        height: 200px;
-    }
-    .vendorLogo{
-        height: 115px;
-        width: 115px;
-    }
-    .vendorName{
-        font-size: 32px;
-        height: 104px;
-        margin-top: 20px;
-    }
     .vendorlistTitle{
         font-size: 28px;
         margin-bottom: 30px;
@@ -456,19 +364,6 @@
 @media (min-width: 1920px) {  
     .globalAddToCartBtn{
       font-size: 18px !important;
-    }
-    .vendorCard{
-        height: 209px;
-    }
-    .vendorLogo{
-        height: 120px;
-        width: 120px;
-        margin-top: 20px;
-        margin-left: 20px;
-    }
-    .vendorName{
-        font-size: 40px;        
-        margin-top: 15px;
     }
     .vendorlistTitle{
         font-size: 30px;

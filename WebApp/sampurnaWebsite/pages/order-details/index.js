@@ -303,10 +303,8 @@ export default class OrderDetails extends Component {
                             ?
                               <div className="col-12">
                                 Credits Points &nbsp;&nbsp;
-                                <span className={Style.leftSideMyOrderTotalWrapper}> 
-                                  <a href="/my-account#v-pills-settings3-tab"> 
+                                <span className={Style.leftSideMyOrderTotalWrapper +" "+Style.cursorPointer} onClick={()=>{this.props.setUrl("/my-account#v-pills-settings3-tab")}}>
                                     {this.state.orderData.paymentDetails.creditPointsEarned}
-                                  </a>
                                 </span>
                               </div>
                             : 

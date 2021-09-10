@@ -108,6 +108,12 @@ class MyAccount extends Component{
         $("#v-pills-settings1").css("display", "none");
         $("#v-pills-messages").css("display", "none");
     }
+
+    setUrl(newUrl){
+        console.log("newUrl => ",newUrl);
+        window.location.href = newUrl;
+        window.location.reload();
+    }
     
     render(){
         let scrollHeight = Math.max(
@@ -294,7 +300,7 @@ class MyAccount extends Component{
                                     
                                     <div className={this.state.url1==="#v-pills-settings-tab"?"tab-pane bg-white  show active":"tab-pane bg-white "} 
                                         id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                                        <MyOrders getOrderId={this.getOrderId.bind(this)}/>
+                                        <MyOrders getOrderId={this.getOrderId.bind(this)} setUrl={this.setUrl.bind(this)} />
                                     </div>
 
                                     <div className={this.state.url1==="#v-pills-settings1-tab"?"tab-pane  bg-white pb-5 show active":"tab-pane   bg-white pb-5"} 
@@ -310,7 +316,7 @@ class MyAccount extends Component{
                                                     : "tab-pane bg-white pb-5"
                                                    } id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings2-tab">
 
-                                        {this.state.order_id !== "" && <OrderDetails order_id={this.state.order_id} />}
+                                        {this.state.order_id !== "" && <OrderDetails order_id={this.state.order_id}  setUrl={this.setUrl.bind(this)}/>}
                                         {/* <MyOrders getOrderId={this.getOrderId.bind(this)}/> */}
                                     </div>
                                     

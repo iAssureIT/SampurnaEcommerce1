@@ -12,7 +12,8 @@ const creditPointsSchema = mongoose.Schema({
 									shippingCharges     : Number,
 									totalAmount         : Number,
 									earnedPoints        : Number,
-									typeOfTransaction   : String
+									typeOfTransaction   : String,
+									status  				  : String
 								}],
 	createdAt                   : Date
 });

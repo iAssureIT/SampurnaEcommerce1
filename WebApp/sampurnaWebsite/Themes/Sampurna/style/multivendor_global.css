@@ -34,7 +34,7 @@
   src        : url("../fonts/Philosopher/Philosopher-Regular.ttf");
 }
 
-@font-face {
+/*@font-face {
   font-family: 'aps_dev_priyanka';
   src        : url("../fonts/aps_dev_priyanka.ttf");
 }
@@ -68,6 +68,8 @@
   font-family: 'aps_dev_priyanka';
   src        : url("../fonts/aps_dev_priyanka.ttf");
 }
+*/
+
 
 :root {
   --globalblocktitlefontsize: 50px;
@@ -140,11 +142,9 @@
 }
 
 body {
-  /*font-family   : 'Montserrat-Medium' !important;*/
-  overflow-x    : hidden !important;
-  /* background : #F8F0F3; */
-  /* font-family: "Philosopher-Regular" !important; */
+  font-family: 'Montserrat' !important;
 }
+
 
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */

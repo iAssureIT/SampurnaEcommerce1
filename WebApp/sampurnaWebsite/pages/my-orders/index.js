@@ -346,10 +346,8 @@ export default class MyOrders extends Component {
                                   {this.state.authService !== "guest" &&
                                     <div className="col-12">
                                         Credits Points &nbsp;&nbsp;
-                                      <span className={Style.leftSideMyOrderTotalWrapper}>
-                                        <a href="/my-account#v-pills-settings3-tab"> 
+                                      <span className={Style.leftSideMyOrderTotalWrapper +" "+ Style.cursorPointer} onClick={()=>{this.props.setUrl("/my-account#v-pills-settings3-tab")}}>
                                           {singleOrder.paymentDetails.creditPointsEarned}
-                                        </a>
                                       </span> 
                                     </div>
                                   }

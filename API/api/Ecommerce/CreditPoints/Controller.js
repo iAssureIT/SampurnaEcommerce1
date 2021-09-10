@@ -31,12 +31,13 @@ exports.get_credit_points = (req, res, next) => {
 													orderID    				: a.order_id.orderID,
 													transactionDate     	: a.transactionDate,
 													expiryDate 				: a.expiryDate,
-													purchaseAmount    	: a.purchaseAmount,
-													shippingCharges     	: a.shippingCharges,
-													totalAmount         	: a.totalAmount,
-													earnedPoints 			: a.earnedPoints,
+													purchaseAmount    	: a.purchaseAmount.toFixed(2),
+													shippingCharges     	: a.shippingCharges.toFixed(2),
+													totalAmount         	: a.totalAmount.toFixed(2),
+													earnedPoints 			: a.earnedPoints.toFixed(2),
 													earnedPointsValue 	: (a.earnedPoints * creditPointValue).toFixed(2),
-													typeOfTransaction 	: a.typeOfTransaction
+													typeOfTransaction 	: a.typeOfTransaction,
+													status               : a.status
 												}
 											}																				
 										}))
