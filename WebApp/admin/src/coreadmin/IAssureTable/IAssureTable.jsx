@@ -447,25 +447,25 @@ class IAssureTable extends Component {
 				this.props.getData(startRange, this.state.limitRange);
 			}
 			if (this.state.searchData === true) {
-				this.tableSearch();
+				// this.tableSearch();
 			}
 		});
 	}
-	tableSearch() {
+	tableSearch(event) {
 		var searchText = this.refs.tableSearch.value;
-		console.log("searchText",searchText.length)
-		if (searchText && searchText.length !== 0) {
-			console.log("in if",searchText && searchText.length !== 0)
+		console.log("searchText",searchText)
+		// if (searchText && searchText.length !== 0) {
+		// 	console.log("in if",searchText && searchText.length !== 0)
 
-			this.setState({
-				"normalData": false,
-				"searchData": true,
-			}, () => {
-				this.props.getSearchText(searchText, this.state.startRange, this.state.limitRange);
-			});
-		} else {
-			this.props.getData(this.state.startRange, this.state.limitRange);
-		}
+		// 	this.setState({
+		// 		"normalData": false,
+		// 		"searchData": true,
+		// 	}, () => {
+				this.props.getSearchText(searchText);
+		// 	});
+		// } else {
+		// 	this.props.getData(this.state.startRange, this.state.limitRange);
+		// }
 	}
 	showNextPaginationButtons() {
 		var beforeDataLength = this.state.dataLength > 0 ? this.state.dataLength : 20;
@@ -639,12 +639,12 @@ class IAssureTable extends Component {
 			<div id="tableComponent" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
 				{
 					this.state.tableObjects.searchApply === true ?
-						<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12 marginTop8 NOpadding pull-right">
+						<div className="col-lg-10 col-md-10 col-sm-12 col-xs-12 marginTop8 NOpadding-right pull-right">
 
 							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding labelform">Search</label>
 							<div className="input-group">
-								<input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" ref="tableSearch" id="tableSearch" name="tableSearch" />
-								<span className="input-group-addon "><i className="fa fa-search"></i></span>
+								<input type="text" className="NOpadding-right form-control" ref="tableSearch" id="tableSearch" name="tableSearch" />
+								<span className="input-group-addon " onClick={this.tableSearch.bind(this)}><i className="fa fa-search"></i></span>
 							</div>
 						</div>
 						:
@@ -675,10 +675,10 @@ class IAssureTable extends Component {
 				} */}
 				{
 					this.state.tableObjects.paginationApply === true ?
-						<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12 NOpadding pagignationDiv">
+						<div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 NOpadding pagignationDiv">
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 								<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop8 NOpadding formLable">Data Per Page</label>
-								<div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 NOpadding  input-group">
+								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding  input-group">
 									<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12 noPadding  form-control">
 										<option value="Not Selected" disabled>Select Limit</option>
 										<option value={10}>10</option>

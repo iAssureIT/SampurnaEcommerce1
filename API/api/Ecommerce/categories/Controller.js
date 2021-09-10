@@ -72,13 +72,13 @@ exports.update_category = (req,res,next)=>{
     async function processData(){
         var categoryRankExist = await Category.findOne({"categoryRank" : req.body.categoryRank})
         // var categoryRankExist = await Category.findOne({_id: { $ne: ObjectId(req.body.category_ID) }, "categoryRank" : req.body.categoryRank})
-        console.log("categoryRankExist =>",categoryRankExist)
+        // console.log("categoryRankExist =>",categoryRankExist)
         if(categoryRankExist && categoryRankExist !== null && String(req.body.category_ID) !== String(categoryRankExist._id)){ 
             res.status(200).json({
                 "message": "Category Rank already exists!"
             });
         }else{
-            console.log("req.body.subCategory => ",req.body.subCategory)
+            // console.log("req.body.subCategory => ",req.body.subCategory)
             if (req.body.subCategory && req.body.subCategory.length > 0) {
                 var subCategories = Array.from(new Set(req.body.subCategory.map(a => a.subCategoryTitle)))
                                      .map(subCategory => {
@@ -87,7 +87,7 @@ exports.update_category = (req,res,next)=>{
             }else{
                 var subCategories = [];
             }
-            console.log("subCategories => ",subCategories)
+            // console.log("subCategories => ",subCategories)
             Category.updateOne(
                 { _id:req.body.category_ID},  
                 {
@@ -426,7 +426,7 @@ exports.fetch_one_category = (req,res,next)=>{
     Category.findOne(selector)
     .exec()
     .then(data=>{
-        console.log("data =>" ,data)
+        // console.log("data =>" ,data)
         if(data !== null){
             res.status(200).json({
                 "_id"                   : data._id,
@@ -603,7 +603,7 @@ exports.update_category_status = (req,res,next)=>{
     )
     .exec()
     .then(async(data)=>{
-        console.log("data => ", data);
+        // console.log("data => ", data);
     //     await Category.update(
     //         { _id : ObjectId(req.body.item_id)},  
     //         { $set : 

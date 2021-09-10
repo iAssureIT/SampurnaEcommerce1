@@ -508,8 +508,8 @@ class BulkUploadComponent extends Component{
 						<div className="col-lg-10 col-md-10 col-sm-12 col-xs-12 bulkEmployeeVerif ">
 							<h5 className="montserrat">Instructions:</h5>
 							<ul className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<li>Please use attached file format for bulkupload into this system.</li>
-								<li>Please do not change the Heading of following file.</li>
+								<li>Please use attached file format for bulk product inventory update into this system.</li>
+								<li>Please do not change the headings of following file.</li>
 								<li>File format must be .xlsx or .xls.</li>
 							</ul>
 						</div>

@@ -644,7 +644,7 @@ body {
   border                       : 1px solid #033554;
   text-transform               : uppercase;
   transition                   : var(--globalTransition) !important;
-  font-size                    : 12px !important;
+  font-size                    : 12px;
   /* border-radius             : var(--globalborderRadious) !important; */
   text-align                   : center;
   padding                      : 10px 15px !important;
@@ -652,7 +652,7 @@ body {
   border-bottom-left-radius    : 15px;
   border-bottom-right-radius   : 15px;
   margin-bottom                : 0px;
-  font-weight                  : 600 !important;
+  font-weight                  : 600;
   /* font-family               :'Montserrat-Regular'; */
   letter-spacing               : 0px;
   color                        : #F9F9F9;
@@ -1024,19 +1024,15 @@ option:focus, option:active{
 }
 
 @media (min-width: 1537px) and (max-width: 1920px) {  
-  .globalAddToCartBtn{
-    font-size: 16px !important;
-  }
+
 }
+
 @media (min-width: 1050px) and (max-width: 1680px) {  
-  .globalAddToCartBtn{
-    font-size: 14px !important;
-  }
+
 }
+
 @media (min-width: 1600px) and (max-width: 2560px) {  
-  .globalAddToCartBtn{
-    font-size: 18px !important;
-  }
+
 }
 
 
@@ -1100,7 +1096,13 @@ option:focus, option:active{
     left: 0px;
   }
 
+}
 
+@media only screen and (min-device-width: 1280px) {
+
+   .globalAddToCartBtn{
+    font-size: 15px;
+  }
 
 }  
 
@@ -1145,7 +1147,9 @@ option:focus, option:active{
     left: 0px;
   }
 
-
+  .globalAddToCartBtn{
+    font-size: 16px;
+  }
 
 }  
 
@@ -1177,15 +1181,21 @@ option:focus, option:active{
     top: 100px;
     left: 0px;
   }
+  
   .react_multiple_carousel__arrow_right_subcatg,
   .react_multiple_carousel__arrow_right_subcatg:hover{
     top: 110px;
     right: 0px;
   }
+  
   .react_multiple_carousel__arrow_left_subcatg,
   .react_multiple_carousel__arrow_left_subcatg:hover{
     top: 110px;
     left: 0px;
+  }
+
+  .globalAddToCartBtn{
+    font-size: 17px;
   }
 
 
@@ -1233,10 +1243,30 @@ option:focus, option:active{
     left: 10px;
   }
 
+  .globalAddToCartBtn{
+    font-size: 18px;
+  }
+
 
 }  
 
 
+@media only screen and (min-device-width: 1680px) {
+
+  .wishListIconColor {
+    height: 25px;
+  }
+
+  .seeMoreBtnWrapper{
+    margin-top: -15px;
+    margin-bottom: 25px;
+  }
+
+  .globalAddToCartBtn{
+    font-size: 19px;
+  }
+
+}
 
 @media only screen and (min-device-width: 1920px) {
  /* .globalCommonBtn {
@@ -1248,7 +1278,7 @@ option:focus, option:active{
   }*/
   
   .wishListIconColor{
-    height: 30px;
+    height: 33px;
   }
   
   .react_multiple_carousel__arrow_right_section,
@@ -1290,16 +1320,33 @@ option:focus, option:active{
     left: 20px;
   }
 
+  .css-yk16xz-control{
+    background-color: #e3e2e2 !important;
+    border-radius: 7px;
+  }
+
+  .css-1wa3eu0-placeholder{
+    color: #222222 !important;
+  }
+
+  .css-6q0nyr-Svg{
+    color: #222222 !important;
+  }
+
+  .seeMoreBtnWrapper{
+    margin-top: -6px;
+    margin-bottom: 18px;
+  }
+
+  .globalAddToCartBtn{
+    font-size: 20px;
+  }
+
 }  
 
 
 @media only screen and (min-device-width: 1921px) {
   
-  /*.addressSaveBtn{
-    padding: 10px 40px 10px 40px;
-    font-size: 16px;
-  }*/
-
   .react_multiple_carousel__arrow_right_catg,
   .react_multiple_carousel__arrow_right_catg:hover{
     top: 150px;
@@ -1326,6 +1373,12 @@ option:focus, option:active{
     font-size: 16px;
     padding-top: 8px;
   }
+
+  .seeMoreBtnWrapper{
+    margin-top: -6px;
+    margin-bottom: 18px;
+  }
+
 }
 
 @media only screen and (min-device-width: 2560px) {

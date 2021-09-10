@@ -211,11 +211,11 @@ class SingleProduct extends Component{
       var categoryUrl = (this.props.data.category?this.props.data.category:"").replace(/\s+/g, '-').toLowerCase();                    
       var subCategoryUrl = (this.props.data.subCategory?this.props.data.subCategory:"-").replace(/\s+/g, '-').toLowerCase();                    
 
-      console.log("Id=",this.props.data._id);
-      console.log("single wishlist=",this.props.recentWishlist);
+      // console.log("Id=",this.props.data._id);
+      // console.log("single wishlist=",this.props.recentWishlist);
      
         var x = this.props.recentWishlist && this.props.recentWishlist.length> 0 ? this.props.recentWishlist.filter((wishlistItem) => wishlistItem._id === this.props.data._id) : [];                              
-        console.log("x==",x);
+        // console.log("x==",x);
         var heartImg = '/images/eCommerce/heartSolid.svg'
         var tooltipMsg = '';
         if (x && x.length > 0) {

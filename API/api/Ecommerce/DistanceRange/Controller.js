@@ -85,14 +85,14 @@ exports.update_distance_range = (req,res,next)=>{
 
 /**=========== get_distance_range =========== */
 exports.get_distance_range = (req, res, next)=>{
-    console.log("req.body => ",req.body);
+    // console.log("req.body => ",req.body);
     DistanceRange.find({})
     .sort({createdAt : -1})
     .skip(req.body.startRange)
     .limit(req.body.limitRange)
     .exec()
     .then(data=>{
-        console.log("data => ",data);
+        // console.log("data => ",data);
         res.status(200).json(data);
     })
     .catch(err =>{
@@ -122,7 +122,7 @@ exports.update_distance_range = (req, res, next)=>{
     )
     .exec()
     .then(data=>{
-        console.log("data => ",data)
+        // console.log("data => ",data)
         if(data.nModified == 1){
             DistanceRange.updateOne(
             { _id:req.body.fieldID},

@@ -74,8 +74,9 @@ const orderSchema = mongoose.Schema({
 												"category"          : String,
 												"subCategory_ID"    : String,
 												"subCategory"       : String,
-												"brand"       			: String,
+												"brand"       		  : String,
 												"productStatus"     : String,
+												"productReturnable" : String,
 												"returnedDate"      : Date,
 												"isReview"          : Boolean
 											}

@@ -123,7 +123,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
           onSubmit={(values,fun) => {
             console.log("initialSchema",schema)
               setBtnLoading(true);
-            var {firstName, lastName,mobileNumber,email_id,current_password,isdCode,mobileChange,emailChange,otp} = values;
+            var {firstName, lastName,mobileNumber,email_id,current_password,isdCode,countryCode,mobileChange,emailChange,otp} = values;
             if(otp!==''){
               var formValues={
                   "user_id"       : user_id,
@@ -158,6 +158,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                 "image"     	      : [],
                 "isdCode"           : isdCode,
                 "mobile"     	      : mobileNumber,
+                "countryCode"       : countryCode,
                 "mobileChange"      : mobileChange,
                 "emailChange"       : emailChange,
                 "currentPassword"   : current_password,
@@ -194,7 +195,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
             email_id          : userDetails && userDetails.email ?userDetails.email:'',
             current_password  : '',
             isdCode           : userDetails && userDetails.isdCode ?userDetails.isdCode:"",
-            countryCode      :  userDetails && userDetails.countryCode ?userDetails.countryCode:"AE",
+            countryCode      :  userDetails && userDetails.countryCode ?userDetails.countryCode:"",
             otp               : ''
           }}
           enableReinitialize
@@ -212,6 +213,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
               updateSchema={updateSchema}
               otpModal={otpModal}
               mobile = {userDetails && userDetails.mobile? userDetails.mobile:''}
+              countryCode = {userDetails && userDetails.countryCode? userDetails.countryCode:''}
               email_id={userDetails && userDetails.email ?userDetails.email:''}
               setModal={setModal}
               {...formProps}
@@ -244,13 +246,14 @@ export const AccountInformation=withCustomerToaster((props)=>{
       otpModal,
       setModal,
       mobile,
+      countryCode,
       email_id
     } = props;
     const [showPassword, togglePassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
     const [formattedValue, setFormattedValue] = useState("");
     const [valid, setValid] = useState(true);
-    const [countryCode, setCountryCode] = useState(false);
+    // const [countryCode, setCountryCode] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
     const [value, setValue] = useState(values.mobileNumber);
     const [showCurrentPassword, toggleCurrentPassword] = useState(false);
@@ -259,9 +262,12 @@ export const AccountInformation=withCustomerToaster((props)=>{
 
 
     const handleMob = ()=>{
+      console.log("Mobile1==========>",values.countryCode);
+      console.log("Mobile2==========>",countryCode);
+
       if(values.mobileNumber === ""){
         setToast({text: "Please fill all mandetory fields", color: colors.warning});
-      }else if(values.mobileNumber === mobile){
+      }else if(values.mobileNumber === mobile && values.countryCode === countryCode){
         setToast({text: "It seems that you didn't change anything", color: colors.warning});
       }else{  
         handleSubmit();
@@ -338,7 +344,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                         <CheckBox
                           title='Change Mobile No'
                           checked={checkedMobNo}
-                          onPress={() => {setCheckedMobNo(!checkedMobNo),setFieldValue('mobileChnage',!checkedEmailId),setCheckedEmailId(false)}}
+                          onPress={() => {setCheckedMobNo(!checkedMobNo),setFieldValue('mobileChange',!checkedEmailId),setCheckedEmailId(false)}}
                         />
                         
                         {checkedMobNo && <View style={{marginHorizontal:10,marginVertical:5}}>
@@ -362,6 +368,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                                 setValue(text);
                                 setFieldValue('mobileNumber',mobileNumber)
                                 setFieldValue('countryCode',countryCode)
+                                setFieldValue('callingCode',callingCode)
                                 setValid(checkValid);
                               }}
                               containerStyle= {styles1.containerStyle}

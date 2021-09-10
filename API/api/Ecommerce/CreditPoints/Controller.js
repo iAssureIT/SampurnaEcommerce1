@@ -26,15 +26,15 @@ exports.get_credit_points = (req, res, next) => {
 										(creditpointsdata.transactions.map((a, i)=>{	
 											if(a.order_id !== null){			
 												return {
-													_id                 : a._id,
-													order_id    		: a.order_id._id,
-													orderID    			: a.order_id.orderID,
-													transactionDate     : a.transactionDate,
-													expiryDate 			: creditPointsPolicy.expiryLimitInDays ? moment(a.transactionDate, "MM/DD/YYYY").add(expiryLimitInDays, 'days') : "",
+													_id                 	: a._id,
+													order_id    			: a.order_id._id,
+													orderID    				: a.order_id.orderID,
+													transactionDate     	: a.transactionDate,
+													expiryDate 				: a.expiryDate,
 													purchaseAmount    	: a.purchaseAmount,
-													shippingCharges     : a.shippingCharges,
-													totalAmount         : a.totalAmount,
-													earnedPoints 		: a.earnedPoints,
+													shippingCharges     	: a.shippingCharges,
+													totalAmount         	: a.totalAmount,
+													earnedPoints 			: a.earnedPoints,
 													earnedPointsValue 	: (a.earnedPoints * creditPointValue).toFixed(2),
 													typeOfTransaction 	: a.typeOfTransaction
 												}

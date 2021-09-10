@@ -7,6 +7,7 @@ const creditPointsSchema = mongoose.Schema({
 	transactions                : [{
 									order_id            : { type: mongoose.Schema.Types.ObjectId, ref: 'orders' },
 									transactionDate     : Date,
+									expiryDate     	  : Date,
 									purchaseAmount      : Number,
 									shippingCharges     : Number,
 									totalAmount         : Number,

@@ -403,11 +403,12 @@
 		opacity       : 1;
 	}
 
-	.leftSideMyOrderTotalWrapper {
+	.leftSideMyOrderTotalWrapper, .leftSideMyOrderTotalWrapper a{
 		font-family   : 'Montserrat-Bold';
 		letter-spacing: 0px;
 		color         : #FFFFFF;
 		opacity       : 1;
+		text-decoration: none;
 	}
 
 	.rightSideDateWrapper {

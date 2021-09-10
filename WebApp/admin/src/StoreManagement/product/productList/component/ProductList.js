@@ -296,10 +296,10 @@ class ProductList extends Component {
 
 		var formValues = {		  	
 			startRange 		: startRange,
-            limitRange 		: limitRange,
-            searchText 		: this.state.searchText,
+         limitRange 		: limitRange,
+         searchText 		: this.state.searchText,
 			vendor 			: this.state.vendor ? this.state.vendor.value : "",
-			section 		: this.state.section ? this.state.section.value : "",
+			section 			: this.state.section ? this.state.section.value : "",
 			category 		: this.state.category ? this.state.category.value : "",
 			subCategory 	: this.state.subCategory ? this.state.subCategory.value : "",
 			status 			: this.state.status ? this.state.status.value : ""

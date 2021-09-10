@@ -18,12 +18,12 @@ exports.insertEntity = (req,res,next)=>{
     insertEntityFunc();
 
     async function insertEntityFunc(){
-        console.log("basic info post => ",req.body);
+        // console.log("basic info post => ",req.body);
         var getnext = await getNextSequence(req.body.entityType)
         // if(req.body.entityType == 'corporate'){var str = "C"+parseInt(getnext)}else if(req.body.entityType == 'vendor'){var str = "V"+parseInt(getnext)}else{var str = 1}
 
         EntityMaster.findOne({  
-            companyName               : req.body.companyName,
+            companyName               : req.body.companyName.trim(),
             // groupName                 : req.body.groupName,
             // companyEmail              : req.body.companyEmail, 
             // companyPhone              : req.body.companyPhone,
@@ -31,7 +31,7 @@ exports.insertEntity = (req,res,next)=>{
         })
         .exec()
         .then(data=>{
-            console.log("Company Name data = ",data);
+            // console.log("Company Name data = ",data);
             if (data) {
                 res.status(200).json({ duplicated : true });
             }else{

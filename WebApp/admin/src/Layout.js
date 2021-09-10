@@ -34,6 +34,7 @@ import TemplateManagement           from './StoreManagement/product/productBulkU
 
 import ProductBulkUpdate            from './StoreManagement/InventoryManagement/ProductBulkUpdate.js';
 import ProductInventoryList         from './StoreManagement/InventoryManagement/ProductInventoryList.js';
+import ProductInventoryLog         from './StoreManagement/InventoryManagement/ProductInventoryLog.js';
 import ProductList                  from './StoreManagement/product/productList/component/ProductList.js';
 import BulkProductImageUpload       from './storeAdmin/bulkimageUpload/BulkProductImageUpload.js'
 import FileWiseProductList          from './StoreManagement/product/fileproductList/component/fileproductList.js';
@@ -212,6 +213,7 @@ class Layout extends Component  {
                                                         <Route path="/product-bulk-update"                              exact strict component={ProductBulkUpdate} />
                                                         <Route path="/product-inventory-update"                         exact strict component={ProductBulkUpdate} />
                                                         <Route path="/product-inventory-list"                         exact strict component={ProductInventoryList} />
+                                                        <Route path="/product-inventory-list/:productID"               exact strict component={ProductInventoryLog} />
 
                                                         {/* Product Management */}
                                                         <Route path="/product-details/:productID"                       exact strict component={ProductDetails} />

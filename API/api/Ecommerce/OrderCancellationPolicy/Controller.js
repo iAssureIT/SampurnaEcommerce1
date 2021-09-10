@@ -61,7 +61,7 @@ exports.get_order_cancel_policy = (req, res, next) => {
     OrderCancellationPolicy.find()
     .exec()
     .then(data=>{
-        console.log("data => ",data);
+        // console.log("data => ",data);
         res.status(200).json(data);
     })
     .catch(err =>{

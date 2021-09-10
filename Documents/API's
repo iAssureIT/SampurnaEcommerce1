@@ -80,6 +80,11 @@ formValues  = {
     "rating"            : 5
 }
 
+5. Delete Customer Review
+
+API         => http://localhost:3368/api/customerReview/delete/:reviewID
+MethodType  => delete
+
 ================================= Cancel Order =========================================
 1. Cancel Order
 

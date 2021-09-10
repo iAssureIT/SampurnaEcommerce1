@@ -276,7 +276,7 @@ class Product extends Component{
                     <div className={"col-12 NoPadding"}>
                       <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
                         <div className={"col-12 NoPadding " +Style.wishlistBtn}>
-                        {data.discountPercent ? <div className={"col-3 pt-1 "  +Style.discounttag}>{Math.floor(data.discountPercent)}%<div className={Style.offTxt}>off</div> </div> : null}
+                        {data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)}%<div className={Style.offTxt}>off</div> </div> : null}
                           {this.props.productSettings.displayWishlist === true?
                               this.state.user_ID && this.state.authService!=="guest"?
                               <button type="submit" id={data._id} title={tooltipMsg} className={"col-3  col-xl-3  pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)} id="loginModal"><img src={heartImg} id={data._id} className={" col-12  wishListIconColor "} /></button>
@@ -319,7 +319,7 @@ class Product extends Component{
                             <div className={"col-12 globalProduct_brand"} title={data.category}>{data.category}</div>
                           :null
                           }
-                          <div className={"col-12 globalProductItemName  " } title={data.productName}>
+                          <div className={"col-12 globalProductItemName " } title={data.productName}>
                             <span className={ Style.ellipsis +" mt-2 " +Style.globalProdName}>{data.productName} &nbsp;
                             </span>
                             <span className={"col-12 mt-2 NoPadding "+Style.sizeUnitName +" " +Style.ellipsis}>{data.size && data.size}&nbsp;{data.unit && data.size && data.unit}</span>

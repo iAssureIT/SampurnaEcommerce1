@@ -4,6 +4,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import Link from 'next/link';
 import S3 from 'react-aws-s3';
+// import S3FileUpload from 'react-s3';
 import StarRatingComponent  from 'react-star-rating-component';
 import swal                 from 'sweetalert';
 import Style                from './index.module.css';
@@ -139,8 +140,8 @@ class ProductsView extends Component {
         var formValues = {
           "review_id": this.state.rating_ID,
           "rating": this.state.rating,
-          "customerReview": $('.feedbackForm textarea').val(),
-          "reviewProductImages": this.state.imgUrl ? reviewProductImages.push(this.state.imgUrl) : "",
+          "customerReview": this.state.customerReview,
+          "reviewProductImages": this.state.imgUrls,
           // "product_id": event.target.getAttribute('productid'),
           // "vendor_id": this.props.vendorWiseOrderData.vendor_id._id,
           // "vendorLocation_id": event.target.getAttribute('vendorlocationid'),
@@ -167,33 +168,34 @@ class ProductsView extends Component {
           })
       } else {
         var reviewProductImages = [];
-        // console.log("img===",this.state.imgUrl);
-        var imgUrl = this.state.imgUrl;
-        if(imgUrl){
-          reviewProductImages.push(imgUrl)
-          // console.log("imgArray===",reviewProductImages);
-        }
+        console.log("img===",this.state.imgUrls);
+        // var imgUrl = this.state.imgUrl;
+        // if(imgUrl){
+        //   reviewProductImages.push(imgUrl)
+        //   // console.log("imgArray===",reviewProductImages);
+        // }
         var formValues = {
           "customer_id": this.props.user_ID,
           "customerName": this.props.orderData.userFullName,
           "order_id": this.props.orderData._id,
           "product_id": event.target.getAttribute('productid'),
           "rating": this.state.rating,
-          "customerReview": $('.feedbackForm textarea').val(),
+          "customerReview": this.state.customerReview,
           "vendor_id": this.props.vendorWiseOrderData.vendor_id._id,
           "vendorLocation_id": event.target.getAttribute('vendorlocationid'),
           "status": "New",
-          "reviewProductImages": reviewProductImages,
+          "reviewProductImages": this.state.imgUrls,
         }
-        // console.log("formValues=", formValues);
+        console.log("formValues=", formValues);
         axios.post("/api/customerReview/post", formValues)
           .then((response) => {
             if (response) {
               swal({ text: response.data.message });
-              $('.feedbackForm textarea').val("");
+              $('.feedbackTextBox').val("");
               this.setState({
                 rating : 1,
                 imgUrl : "",
+                customerReview : ""
               })
             }
             var modal = document.getElementByClass('feedBackModal');
@@ -243,11 +245,15 @@ class ProductsView extends Component {
 }
 uploadImage(event) {
     event.preventDefault();
-    const file = event.currentTarget.files[0];
-
-
-
-    if (file) {
+    var productImages = [];
+    // console.log("files===",event.currentTarget.files);
+    let files = event.currentTarget.files;
+    for(var i=0; i<files.length; i++){
+      let file = files[i];
+      productImages.push(file);
+    }
+    if (productImages) {
+      console.log("productImages==",productImages);
       axios
         .get('/api/projectSettings/get/S3')
         .then((response) => {
@@ -263,19 +269,31 @@ uploadImage(event) {
             this.setState({
               config: config,
             }, () => {
+
               const ReactS3Client = new S3(config);
               if (ReactS3Client) {
+                var imagesPaths =[];
+                for(let j=0;j<productImages.length;j++){
                 ReactS3Client
-                  .uploadFile(file)
+                  .uploadFile(productImages[j])
                   .then(data => {
                     // console.log("fileUpload data=",data);
-                    console.log("fileUpload data=",data.location);
+                    // console.log("fileUpload data=",data.location);
+                    this.state.imgUrls.push(data.location);
+                    // imagesPaths.push(data.location);
+                    console.log("this.state.imgUrls=",this.state.imgUrls);
                     this.setState({
-                      imgUrl: data.location
+                      imgUrl: this.state.imgUrls
                     });
 
                   })
                   .catch(err => console.error("fileUpload data=", err))
+                }
+                this.setState({
+                  imgUrls: imagesPaths
+                },()=>{
+                    console.log("imgUrls===",this.state.imgUrls);
+                });
               }
             });
           }
@@ -287,6 +305,9 @@ uploadImage(event) {
   }
 
   deleteImage(event) {
+    event.preventDefault();
+    var file = event.target.getAttribute('data-imageurl');
+    console.log("value==",file);
     if (file) {
       // console.log("file to be deleted==",event.currentTarget.file);
       axios
@@ -310,8 +331,9 @@ uploadImage(event) {
                   .deleteFile(file)
                   .then(response => {
                     // console.log("img deleted", response);
+                    this.state.imgUrls.pop(file);
                     this.setState({
-                      imgUrl: data.location
+                      imgUrls: this.state.imgUrls
                     });
                   })
                   .catch(err => console.error(err))
@@ -324,99 +346,6 @@ uploadImage(event) {
         .catch(function (error) {
           console.log(error);
         })
-    }
-  }
-
-
-  // uploadImage(event){
-  //   event.preventDefault();
-  //   var returnProductImage = "";
-  //   if (event.currentTarget.files && event.currentTarget.files[0]) {
-  //           var file = event.currentTarget.files[0];
-  //           if (file) {
-  //               var fileName  = file.name; 
-  //               var ext = fileName.split('.').pop();  
-  //               if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="JPG" || ext==="PNG" || ext==="JPEG"){
-  //                   if (file) {
-  //                       var objTitle = { fileInfo :file }
-  //                       returnProductImage = objTitle ;
-
-  //                   }else{          
-  //                       swal("Images not uploaded");  
-  //                   }//file
-  //               }else{ 
-  //                   swal("Allowed images formats are (jpg,png,jpeg)");   
-  //               }//file types
-  //           }//file
-  //       if(event.currentTarget.files){
-  //           this.setState({
-  //             returnProductImage : returnProductImage
-  //           });  
-  //           main().then(formValues=>{
-  //               this.setState({
-  //                 returnProductImage : formValues.returnProductImage
-  //               })
-  //           });
-  //           async function main(){
-  //               var config = await getConfig();
-  //               var s3url = await s3upload(returnProductImage.fileInfo, config, this);
-
-  //               const formValues = {
-  //                 "returnProductImage"    : s3url,
-  //               };
-
-  //               return Promise.resolve(formValues);
-  //           }
-  //           function s3upload(image,configuration){
-  //               return new Promise(function(resolve,reject){
-  //                   S3FileUpload
-  //                   // ReactS3Client
-  //                       .uploadFile(image,configuration)
-  //                       .then((Data)=>{
-  //                           resolve(Data.location);
-  //                       })
-  //                       .catch((error)=>{
-  //                           console.log("Image upload error=",error);
-  //                       })
-  //               })
-  //           }   
-
-  //           function getConfig(){
-  //               return new Promise(function(resolve,reject){
-  //                   axios
-  //                       .get('/api/projectSettings/get/S3')
-  //                       .then((response)=>{
-  //                           const config = {
-  //                               bucketName      : response.data.bucket,
-  //                               dirName         : process.env.ENVIRONMENT,
-  //                               region          : response.data.region,
-  //                               accessKeyId     : response.data.key,
-  //                               secretAccessKey : response.data.secret,
-  //                           }
-  //                           resolve(config);                           
-  //                       })
-  //                       .catch(function(error){
-  //                           console.log(error);
-  //                       })
-
-  //               })
-  //           }        
-  //          }
-  //   }
-  // }
-
-
-  deleteImage(event) {
-    var id = event.target.id;
-    var productImageArray = this.state.productImageArray;
-    if (productImageArray && productImageArray > 0) {
-      productImageArray.splice(productImageArray.findIndex(v => v == id), 1);
-      this.setState({
-        sectionImage: "",
-        productImageArray: productImageArray
-      }, () => {
-        // console.log('subcatgArr', this.state.subcatgArr);
-      });
     }
   }
   getSingleProductReview(event) {
@@ -574,7 +503,7 @@ uploadImage(event) {
   }
 
   render() {
-    console.log("OrderData==",this.props.orderData);
+    // console.log("OrderData==",this.props.orderData);
     return (
       <div className="col-12 productViewMainwrapper">
         <div className="col-12 d-none d-lg-block d-xl-block">
@@ -651,7 +580,7 @@ uploadImage(event) {
                         {this.props.orderStatus === "Delivered" && this.state.authService !== "guest" ?
                           <span className={" " + Style.returnReviewBtnWrapper}>
                             {/* {productdata.productReturnable === "returnable"  && productdata.productStatus? */
-                              console.log("productdata.productReturnable==",productdata.productReturnable)
+                              // console.log("productdata.productReturnable==",productdata.productReturnable)
                             }
                             {productdata.productStatus ?
                                 <div className={"mt-2 " + Style.returnReviewBtn} productId={productdata.product_ID} >{productdata.productStatus}</div>
@@ -730,15 +659,21 @@ uploadImage(event) {
                                     </div>
                                     <div className="col-12 mt-4">
                                     {
-                                        this.state.imgUrl ?
+                                        this.state.imgUrls ?
                                           <div className="col-lg-12 productImgCol">
-                                            <div className={"col-2 NoPadding " + Style.prodImage}>
-                                              <div className="col-12 NoPadding prodImageInner">
-                                                <span className="prodImageCross" title="Delete Image" data-imageurl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
-                                              </div>
-                                              <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail " + Style.reviewImg} style={{ height: '40px' }}></img>
+                                            <div className="row">
+                                              {this.state.imgUrls.map((imgUrl,index)=>{
+                                                  return(
+                                                    <div className={"col-4 " + Style.prodImage}>
+                                                      <div className="col-12 NoPadding prodImageInner">
+                                                        <span className={Style.prodImageCross} title="Delete Image" data-imageurl={imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
+                                                      </div>
+                                                      <img src={imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail " + Style.reviewImg} style={{ height: '40px' }}></img>
+                                                    </div>
+                                                  )
+                                                })
+                                              }
                                             </div>
-                                            <div className="errorMsg">{this.state.errors.reviewImg}</div>
                                           </div>
                                           :
                                           null
@@ -825,19 +760,25 @@ uploadImage(event) {
                                   </div>
                                   <div className="col-12 mt-4">
                                   {
-                                      this.state.imgUrl ?
-                                        <div className="col-lg-12 productImgCol">
-                                          <div className={"col-2 NoPadding " + Style.prodImage}>
-                                            <div className="col-12 NoPadding prodImageInner">
-                                              <span className="prodImageCross" title="Delete Image" data-imageurl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
+                                        this.state.imgUrls ?
+                                          <div className="col-lg-12 productImgCol">
+                                            <div className="row">
+                                              {this.state.imgUrls.map((imgUrl,index)=>{
+                                                  return(
+                                                    <div className={"col-4 " + Style.prodImage}>
+                                                      <div className="col-12 NoPadding prodImageInner">
+                                                        <span className={Style.prodImageCross} title="Delete Image" data-imageurl={imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
+                                                      </div>
+                                                      <img src={imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail " + Style.reviewImg} style={{ height: '40px' }}></img>
+                                                    </div>
+                                                  )
+                                                })
+                                              }
                                             </div>
-                                            <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail " + Style.reviewImg} style={{ height: '40px' }}></img>
                                           </div>
-                                          {/* <div className="errorMsg">{this.state.errors.reviewImg}</div> */}
-                                        </div>
-                                        :
-                                        null
-                                    }
+                                          :
+                                          null
+                                      }
                                   </div>
                                 </div>
                                 
@@ -918,17 +859,6 @@ uploadImage(event) {
                 <th className="textAlignRight pb-1">SubTotal</th>
               </tr>
             </thead>
-            
-            {/* <thead className="d-block d-lg-none d-xl-none">
-              <tr>
-                <th className="font-weight-bold">Product</th>
-                <th className={"d-none d-lg-block " + Style.pnHIdden}>Products Name</th>
-              
-                <th className="textAlignCenter">Quantity</th>
-                <th className="textAlignRight">SubTotal</th>
-              </tr>
-            </thead> */}
-
             <tbody>
               {
                 this.props.vendorWiseOrderData && this.props.vendorWiseOrderData.products.map((productdata, index) => {
@@ -1042,7 +972,7 @@ uploadImage(event) {
                                 <div className="row inputrow">
                                   <label className={"col-12 mt15 text-left "+Style.feedbackLable}>Leave a feedback...</label>
                                   <div className="col-12 ">
-                                    <textarea rows="5" className={"col-12 "+Style.feedbackBox} style={{"resize":"none"}} onChange={this.handleChangeReview.bind(this)} value={this.state.customerReview} name="customerReview" ></textarea>
+                                    <textarea rows="5" className={"col-12 feedbackTextBox "+Style.feedbackBox} style={{"resize":"none"}} onChange={this.handleChangeReview.bind(this)} value={this.state.customerReview} name="customerReview" ></textarea>
                                     <div className={"col-12 text-left NoPadding " + Style.errormsg}>{this.state.errors.customerReview}</div>
                                   </div>
                                 </div>
@@ -1087,7 +1017,6 @@ uploadImage(event) {
                                 <div className="col-12">
                                   <div className="row mt-2">
                                     <div className="col-4 NoPadding text-left mt-2">
-                                      {/*<WebsiteLogo/>*/}
                                       <img src="/images/eCommerce/TrollyLogo.png" height ={40} />
                                     </div>
                                     <div className="col-7 text-center">
@@ -1112,7 +1041,6 @@ uploadImage(event) {
                                     <div className={"col-3 my-auto NoPadding total text-center "+Style.reviewVendorName }> <b>{this.props.vendorWiseOrderData.vendorName}</b></div>
                                   </div>
                                 </div>
-
                                 <form className={"feedbackForm col-lg-10 offset-lg-1 pt-2 " + Style.returnForm}>
                                   <div className={" col-12 mb-2 text-left NoPadding " + Style.errorMsg} >{this.state.returnProductError}</div>
                                   <label className={"col-12 NoPadding text-left "+Style.feedbackLable}> Reasons For return <span className="errorMsg">  </span></label>
@@ -1134,7 +1062,7 @@ uploadImage(event) {
                                   <div className="row inputrow">
                                     <label className={"col-12 text-left "+Style.feedbackLable}>Comment <span className="errorMsg">  </span></label>
                                     <div className="col-12 ">
-                                      <textarea rows="5" className={"col-12 "+Style.feedbackBox} onChange={this.handleChangeReturn.bind(this)} value={this.state.customerReturnComment} name="customerReturnComment"></textarea>
+                                      <textarea rows="5" className={"col-12 returnTextBox "+Style.feedbackBox} onChange={this.handleChangeReturn.bind(this)} value={this.state.customerReturnComment} name="customerReturnComment"></textarea>
                                       <label className="error">{this.state.returnTextError}</label>
                                     </div>
                                   </div>
@@ -1160,27 +1088,6 @@ uploadImage(event) {
                                     }
                                   </div>
                                 </div>
-                                  {/* <div className={"col-12 " + Style.ReturnImg}>
-                                    <div className="row">
-                                      <div className=" col-4 mt-2">                                                        
-                                        <input type="file" onChange={this.uploadImage.bind(this)} title="upload product Image" accept=".jpg,.jpeg,.png" />
-                                      </div>
-                                      {
-                                        this.state.imgUrl ?
-                                          <div className="col-lg-12 productImgCol">
-                                            <div className={"col-2 NoPadding " + Style.prodImage}>
-                                              <div className="col-12 NoPadding prodImageInner">
-                                                <span className="prodImageCross" title="Delete Image" data-imageurl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
-                                              </div>
-                                              <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail " + Style.reviewImg} style={{ height: '40px' }}></img>
-                                            </div>
-                                          </div>
-                                          :
-                                          null
-                                      }
-                                    </div>
-                                  </div> */}
-
                                   <div className={"col-12 NoPadding text-left "}>
                                     <div className={"col-12 NoPadding mt-2 mb-2 text-left" + Style.eCommTitle + " " + Style.paymentMethodTitle +" "+Style.feedbackLable}>Refund to : <span className="required"></span></div>
                                     <div className="form-check mt-2">
@@ -1225,6 +1132,7 @@ uploadImage(event) {
                             </div>
                           </div>
                         </div>
+                      
                       </td>
                     </tr>
                   );

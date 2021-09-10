@@ -370,135 +370,146 @@ exports.user_signup_user_otp = (req, res, next) => {
 						if (role) {
 							User.find({ "username": emailId.toLowerCase() })
 								.exec()
-								.then(user => {
+								.then(async(user) => {
 									if (user.length > 0) {
 										return res.status(200).json({
-											message: 'Email Id already exists.'
+											message: 'This email already used.'
 										});
 									} else {
-										bcrypt.hash(req.body.pwd, 10, (err, hash) => {
-											if (err) {
-												return res.status(500).json({
-													message: "Failed to match the password",
-													error: err
-												});
-											} else {
-												var emailOTP = getRandomInt(1000, 9999);
-												if (emailOTP) {
-													const user = new User({
-														_id: new mongoose.Types.ObjectId(),
-														createdAt: new Date,
-														services: {
-															password: {
-																bcrypt: hash
-
-															},
-														},
-														username: emailId.toLowerCase(),
-														authService : req.body.authService,
-														profile:
-														{
-															firstname: req.body.firstname,
-															lastname: req.body.lastname,
-															fullName: req.body.firstname + ' ' + req.body.lastname,
-															email: emailId.toLowerCase(),
-															companyID: req.body.companyID,
-															pincode: req.body.pincode,
-															companyName: req.body.companyName,
-															mobile: req.body.mobNumber,
-															createdAt: new Date(),
-															otpEmail: emailOTP,
-															countryCode : req.body.countryCode,
-															isdCode : req.body.isdCode,
-															status: req.body.status ? req.body.status : "Inactive",
-															createdBy: req.body.createdBy,
-														},
-														roles: [userRole]
+										var getSameMobileUsers = [];
+										if (req.body.mobNumber) {
+											getSameMobileUsers = await User.find({ "profile.mobile": req.body.mobNumber});
+											console.log("getSameMobileUsers => ",getSameMobileUsers)
+										}
+										if (getSameMobileUsers.length > 0) {
+											return res.status(200).json({
+												message 	: 'This mobile Number already used.'
+											});
+										} else {
+											bcrypt.hash(req.body.pwd, 10, (err, hash) => {
+												if (err) {
+													return res.status(500).json({
+														message: "Failed to match the password",
+														error: err
 													});
-													if (!req.body.firstname) {
-														user.profile.fullName = req.body.fullName;
-													}
-													user.save()
-														.then(async(result) => {
-															if (result && result !== null) {
-																// request({
-																// 	"method": "POST",
-																// 	"url": "http://localhost:" + globalVariable.port + "/send-email",
-																// 	"body": {
-																// 		email: req.body.email,
-																// 		subject: req.body.emailSubject,
-																// 		text: req.body.emailContent + " Your OTP is " + emailOTP,
-																// 	},
-																// 	"json": true,
-																// 	"headers": {
-																// 		"User-Agent": "Test Agent"
-																// 	}
-																// })
-																// .then(source => {
+												} else {
+													var emailOTP = getRandomInt(1000, 9999);
+													if (emailOTP) {
+														const user = new User({
+															_id: new mongoose.Types.ObjectId(),
+															createdAt: new Date,
+															services: {
+																password: {
+																	bcrypt: hash
 
-																	//send Notification, email, sms to customer																	
-																	var userNotificationValues = {
-																		"event"			: "SignUp",
-																		"toUser_id"		: result._id,
-																		"toUserRole"	: userRole,								
-																		"variables" 	: {
-																							"userType" 			: userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
-																							"firstName" 		: result.profile.firstName,
-																							"lastName" 			: result.profile.lastName,
-																							"fullName" 			: result.profile.fullName,
-																							"emailId" 			: result.profile.email,
-																							"mobileNumber"		: result.profile.mobile,
-																							"loginID" 			: result.username,
-																							"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
-																							"OTP" 				: result.otpEmail
-																		}
-																	}
-																	// console.log("userNotificationValues 3 => ",userNotificationValues);
-																	var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
-																	// console.log("send_notification_to_user => ",send_notification_to_user)
-																	
-																	//send Notification, email, sms to admin
-																	var adminNotificationValues = {
-																		"event"			: "SignUp",
-																		// "toUser_id"		: req.body.user_ID,
-																		"toUserRole"	: "admin",								
-																		"variables" 	: {
-																							"userType" 			: userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
-																							"firstName" 		: result.profile.firstName,
-																							"lastName" 			: result.profile.lastName,
-																							"fullName" 			: result.profile.fullName,
-																							"emailId" 			: result.profile.email,
-																							"mobileNumber"		: result.profile.mobile,
-																							"loginID" 			: result.username,
-																							"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
-																		}
-																	}
-																	// console.log("adminNotificationValues 3 => ",adminNotificationValues);
-																	var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
-																	
-																	res.status(200).json({ message: "USER_CREATED", ID: result._id,result })
-																// })
-																// .catch(err => {
-																// 	console.log(err);
-																// 	res.status(500).json({
-																// 		message: "Failed to Send Email",
-																// 		error: err
-																// 	});
-																// });
-															}else {
-																res.status(200).json({ message: "USER_NOT_CREATED" })
-															}
-														})
-														.catch(err => {
-															console.log(err);
-															res.status(500).json({
-																message: "Failed to save User Details",
-																error: err
-															});
+																},
+															},
+															username: emailId.toLowerCase(),
+															authService : req.body.authService,
+															profile:
+															{
+																firstname: req.body.firstname,
+																lastname: req.body.lastname,
+																fullName: req.body.firstname + ' ' + req.body.lastname,
+																email: emailId.toLowerCase(),
+																companyID: req.body.companyID,
+																pincode: req.body.pincode,
+																companyName: req.body.companyName,
+																mobile: req.body.mobNumber,
+																createdAt: new Date(),
+																otpEmail: emailOTP,
+																countryCode : req.body.countryCode,
+																isdCode : req.body.isdCode,
+																status: req.body.status ? req.body.status : "Inactive",
+																createdBy: req.body.createdBy,
+															},
+															roles: [userRole]
 														});
+														if (!req.body.firstname) {
+															user.profile.fullName = req.body.fullName;
+														}
+														user.save()
+															.then(async(result) => {
+																if (result && result !== null) {
+																	// request({
+																	// 	"method": "POST",
+																	// 	"url": "http://localhost:" + globalVariable.port + "/send-email",
+																	// 	"body": {
+																	// 		email: req.body.email,
+																	// 		subject: req.body.emailSubject,
+																	// 		text: req.body.emailContent + " Your OTP is " + emailOTP,
+																	// 	},
+																	// 	"json": true,
+																	// 	"headers": {
+																	// 		"User-Agent": "Test Agent"
+																	// 	}
+																	// })
+																	// .then(source => {
+
+																		//send Notification, email, sms to customer																	
+																		var userNotificationValues = {
+																			"event"			: "SignUp",
+																			"toUser_id"		: result._id,
+																			"toUserRole"	: userRole,								
+																			"variables" 	: {
+																								"userType" 			: userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+																								"firstName" 		: result.profile.firstName,
+																								"lastName" 			: result.profile.lastName,
+																								"fullName" 			: result.profile.fullName,
+																								"emailId" 			: result.profile.email,
+																								"mobileNumber"		: result.profile.mobile,
+																								"loginID" 			: result.username,
+																								"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+																								"OTP" 				: result.otpEmail
+																			}
+																		}
+																		// console.log("userNotificationValues 3 => ",userNotificationValues);
+																		var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+																		// console.log("send_notification_to_user => ",send_notification_to_user)
+																		
+																		//send Notification, email, sms to admin
+																		var adminNotificationValues = {
+																			"event"			: "SignUp",
+																			// "toUser_id"		: req.body.user_ID,
+																			"toUserRole"	: "admin",								
+																			"variables" 	: {
+																								"userType" 			: userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+																								"firstName" 		: result.profile.firstName,
+																								"lastName" 			: result.profile.lastName,
+																								"fullName" 			: result.profile.fullName,
+																								"emailId" 			: result.profile.email,
+																								"mobileNumber"		: result.profile.mobile,
+																								"loginID" 			: result.username,
+																								"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+																			}
+																		}
+																		// console.log("adminNotificationValues 3 => ",adminNotificationValues);
+																		var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+																		
+																		res.status(200).json({ message: "USER_CREATED", ID: result._id,result })
+																	// })
+																	// .catch(err => {
+																	// 	console.log(err);
+																	// 	res.status(500).json({
+																	// 		message: "Failed to Send Email",
+																	// 		error: err
+																	// 	});
+																	// });
+																}else {
+																	res.status(200).json({ message: "USER_NOT_CREATED" })
+																}
+															})
+															.catch(err => {
+																console.log(err);
+																res.status(500).json({
+																	message: "Failed to save User Details",
+																	error: err
+																});
+															});
+													}
 												}
-											}
-										});
+											});
+										}
 									}
 								})
 								.catch(err => {
@@ -535,114 +546,125 @@ exports.user_signup_user_otp = (req, res, next) => {
 						if (role) {
 							User.find({ "username": mobNumber })
 								.exec()
-								.then(user => {
+								.then(async(user) => {
 									if (user.length > 0) {
 										return res.status(200).json({
-											message: 'Mobile number already exists.'
+											message: 'This mobile number already used.'
 										});
 									} else {
-										bcrypt.hash(req.body.pwd, 10, (err, hash) => {
-											if (err) {
-												return res.status(500).json({
-													message: "Failed to match the password",
-													error: err
-												});
-											} else {
-												// var mobileOTP = getRandomInt(1000, 9999);
-												var mobileOTP = 1234;
-												if (mobileOTP) {
-													const user = new User({
-														_id: new mongoose.Types.ObjectId(),
-														createdAt: new Date,
-														services: {
-															password: {
-																bcrypt: hash
-
-															},
-														},
-														username: req.body.mobNumber,
-														authService : req.body.authService,
-														profile:
-														{
-															firstname: req.body.firstname,
-															lastname: req.body.lastname,
-															fullName: req.body.firstname + ' ' + req.body.lastname,
-															email: req.body.email,
-															mobile: req.body.mobNumber,
-															companyID: req.body.companyID,
-															pincode: req.body.pincode,
-															companyName: req.body.companyName,
-															countryCode : req.body.countryCode,
-															isdCode : req.body.isdCode,
-															createdAt: new Date(),
-															otpMobile: mobileOTP,
-															status: req.body.status ? req.body.status : "Inactive",
-															createdBy: req.body.createdBy,
-														},
-														roles: [userRole]
+										var getSameEmailUsers = [];
+										if (req.body.email) {
+											getSameEmailUsers = await User.find({ "profile.email": req.body.email});
+											console.log("getSameEmailUsers => ",getSameEmailUsers)
+										}
+										if (getSameEmailUsers.length > 0) {
+											return res.status(200).json({
+												message 	: 'This email already used.'
+											});
+										} else {
+											bcrypt.hash(req.body.pwd, 10, (err, hash) => {
+												if (err) {
+													return res.status(500).json({
+														message: "Failed to match the password",
+														error: err
 													});
-													if (!req.body.firstname) {
-														user.profile.fullName = req.body.fullName;
-													}
-													user.save()
-														.then(async(result) => {
-															if(result) {
-																//send Notification, email, sms to customer	
-																// console.log("userRole2  => ",userRole);																
-																var userNotificationValues = {
-																	"event"			: "SignUp",
-																	"toUser_id"		: result._id,
-																	"toUserRole"	: userRole,								
-																	"variables" 	: {
-																						"userType" 			: userRole,
-																						"firstName" 		: result.profile.firstname,
-																						"lastName" 			: result.profile.lastname,
-																						"fullName" 			: result.profile.fullName,
-																						"emailId" 			: result.profile.email,
-																						"mobileNumber"		: result.profile.mobile,
-																						"loginID" 			: result.username,
-																						"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
-																						"OTP" 				: result.profile.otpMobile
-																	}
-																}
-															// console.log("userNotificationValues 4 => ",userNotificationValues);
-																var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
-																// console.log("send_notification_to_user => ",send_notification_to_user)
-																
-																//send Notification, email, sms to admin
-																var adminNotificationValues = {
-																	"event"			: "SignUp",
-																	// "toUser_id"		: req.body.user_ID,
-																	"toUserRole"	: "admin",								
-																	"variables" 	: {
-																						"userType" 			: userRole,
-																						"firstName" 		: result.profile.firstname,
-																						"lastName" 			: result.profile.lastname,
-																						"fullName" 			: result.profile.fullName,
-																						"emailId" 			: result.profile.email,
-																						"mobileNumber"		: result.profile.mobile,
-																						"loginID" 			: result.username,
-																						"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
-																	}
-																}
-															// console.log("adminNotificationValues 4 => ",adminNotificationValues);
-																var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+												} else {
+													// var mobileOTP = getRandomInt(1000, 9999);
+													var mobileOTP = 1234;
+													if (mobileOTP) {
+														const user = new User({
+															_id: new mongoose.Types.ObjectId(),
+															createdAt: new Date,
+															services: {
+																password: {
+																	bcrypt: hash
 
-																res.status(200).json({ message: "USER_CREATED", ID: result._id, result:result })
-															}else {
-																res.status(200).json({ message: "USER_NOT_CREATED" })
-															}
-														})
-														.catch(err => {
-															console.log(err);
-															res.status(500).json({
-																message: "Failed to save User Details",
-																error: err
-															});
+																},
+															},
+															username: req.body.mobNumber,
+															authService : req.body.authService,
+															profile:
+															{
+																firstname: req.body.firstname,
+																lastname: req.body.lastname,
+																fullName: req.body.firstname + ' ' + req.body.lastname,
+																email: req.body.email,
+																mobile: req.body.mobNumber,
+																companyID: req.body.companyID,
+																pincode: req.body.pincode,
+																companyName: req.body.companyName,
+																countryCode : req.body.countryCode,
+																isdCode : req.body.isdCode,
+																createdAt: new Date(),
+																otpMobile: mobileOTP,
+																status: req.body.status ? req.body.status : "Inactive",
+																createdBy: req.body.createdBy,
+															},
+															roles: [userRole]
 														});
+														if (!req.body.firstname) {
+															user.profile.fullName = req.body.fullName;
+														}
+														user.save()
+															.then(async(result) => {
+																if(result) {
+																	//send Notification, email, sms to customer	
+																	// console.log("userRole2  => ",userRole);																
+																	var userNotificationValues = {
+																		"event"			: "SignUp",
+																		"toUser_id"		: result._id,
+																		"toUserRole"	: userRole,								
+																		"variables" 	: {
+																							"userType" 			: userRole,
+																							"firstName" 		: result.profile.firstname,
+																							"lastName" 			: result.profile.lastname,
+																							"fullName" 			: result.profile.fullName,
+																							"emailId" 			: result.profile.email,
+																							"mobileNumber"		: result.profile.mobile,
+																							"loginID" 			: result.username,
+																							"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+																							"OTP" 				: result.profile.otpMobile
+																		}
+																	}
+																// console.log("userNotificationValues 4 => ",userNotificationValues);
+																	var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+																	// console.log("send_notification_to_user => ",send_notification_to_user)
+																	
+																	//send Notification, email, sms to admin
+																	var adminNotificationValues = {
+																		"event"			: "SignUp",
+																		// "toUser_id"		: req.body.user_ID,
+																		"toUserRole"	: "admin",								
+																		"variables" 	: {
+																							"userType" 			: userRole,
+																							"firstName" 		: result.profile.firstname,
+																							"lastName" 			: result.profile.lastname,
+																							"fullName" 			: result.profile.fullName,
+																							"emailId" 			: result.profile.email,
+																							"mobileNumber"		: result.profile.mobile,
+																							"loginID" 			: result.username,
+																							"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+																		}
+																	}
+																// console.log("adminNotificationValues 4 => ",adminNotificationValues);
+																	var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+
+																	res.status(200).json({ message: "USER_CREATED", ID: result._id, result:result })
+																}else {
+																	res.status(200).json({ message: "USER_NOT_CREATED" })
+																}
+															})
+															.catch(err => {
+																console.log(err);
+																res.status(500).json({
+																	message: "Failed to save User Details",
+																	error: err
+																});
+															});
+													}
 												}
-											}
-										});
+											});
+										}
 									}
 								})
 								.catch(err => {

@@ -228,8 +228,9 @@ export default class AdminDashboard extends Component{
 						</li>
 
 						{/*Inventory Management*/}
-{/*						<li className="treeview" >
-							<a href="#" onClick={()=>this.openMenu("inventorymanagement")} title="Inventory Management">
+
+						<li className="treeview" >
+							<a href="JavaScript:void(0);" onClick={()=>this.openMenu("inventorymanagement")} title="Inventory Management">
 								<i className="fa fa-tasks" aria-hidden="true"></i>
 								<span className="smsidenames sidebarMenuTitle">Inventory Management</span>
 								<span className="pull-right-container">
@@ -249,7 +250,7 @@ export default class AdminDashboard extends Component{
 								</li>	  	 						
 							</ul>
 						</li>
-*/}
+
 
 
 						{/*Order Management*/}

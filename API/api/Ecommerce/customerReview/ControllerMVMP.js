@@ -548,7 +548,7 @@ exports.delete_review = (req,res,next)=>{
 	 CustomerReview.deleteOne({_id:req.params.reviewID})
 	 .exec()
 	 .then(data=>{
-	console.log("data => ",data)
+	// console.log("data => ",data)
 	 		if (data.deletedCount === 1) {
 	 			res.status(200).json({
 			  		deleted 	: true,

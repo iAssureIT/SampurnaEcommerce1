@@ -470,15 +470,15 @@ class Productreview extends Component{
 																?
 																	"Average"
 																:
-																this.state.rating === 3
+																	this.state.rating === 3
 																?
 																	"Good"
 																:
-																this.state.rating === 4
+																	this.state.rating === 4
 																?
 																	"Very Good"
 																:
-																this.state.rating === 4
+																	this.state.rating === 5
 																?
 																	"Excellent"
 																:

@@ -164,7 +164,7 @@ export default class OrderDetails extends Component {
         this.setState({
           reviewuserData: response.data
         }, () => {
-          // console.log("reviewuserData=",this.state.reviewuserData);
+          // console.log("reviewuserData => ",this.state.reviewuserData);
         })
       })
       .catch((error) => {
@@ -188,15 +188,16 @@ export default class OrderDetails extends Component {
   cancelProductAction(event) {
     event.preventDefault();
     var id = event.target.getAttribute('id');
-    // console.log("id===",id);
+    var vendorid = event.target.getAttribute('vendorid');
+    console.log("id===",vendorid);
 
     var formValues = {
       "order_id": id,
       "userid": this.state.user_ID,
       "type": "vendororder",
-      "vendor_id": '',
+      "vendor_id": vendorid,
     }
-
+    console.log("formvalues=",formValues);
     swal({
       title: "Are you sure?",
       text: "Are you sure that you want to cancelled order?",
@@ -209,7 +210,7 @@ export default class OrderDetails extends Component {
         if (willDelete) {
           axios.patch('/api/orders/cancel/order', formValues)
             .then((response) => {
-              // console.log("cancel order response:",this.state.orderData);
+              console.log("cancel order response:",this.state.orderData);
               // $('.fullpageloader').hide();
               this.getMyOrders();
               const el = document.createElement('div')
@@ -271,7 +272,7 @@ export default class OrderDetails extends Component {
   }
 
   render() {
-    // console.log("this.state.orderData.paymentDetails===",this.state.orderData);
+    console.log("this.state.orderData.paymentDetails===",this.state.orderData);
     // console.log("this.state.orderData.paymentDetails===",this.state.orderData);
     return (
       <div className={"col-12 NoPadding pt-4 " + Style.orderDetailMainWrapper} id="orderDetailMainID" >
@@ -298,9 +299,19 @@ export default class OrderDetails extends Component {
                           <div className="col-12">{"Order Status : " + (this.state.orderData.orderStatus === "New"?"New Order":this.state.orderData.orderStatus)}</div>
                           <div className="col-12">{"Order ID : " + (this.state.orderData.orderID)}</div>
                           <div className="col-12">Total Amount  &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.netPayableAmount}</span></div>
-                          <div className="col-12">
-                            Credits Points &nbsp;&nbsp;<span className={" "+Style.leftSideMyOrderTotalWrapper}>{this.state.currency} {this.state.orderData.paymentDetails.creditPointsEarned}{this.state.orderData.paymentDetails.creditPointsValueEarned}</span>
-                          </div>
+                          {this.state.reviewuserData && this.state.reviewuserData.authService !== "guest"
+                            ?
+                              <div className="col-12">
+                                Credits Points &nbsp;&nbsp;
+                                <span className={Style.leftSideMyOrderTotalWrapper}> 
+                                  <a href="/my-account#v-pills-settings3-tab"> 
+                                    {this.state.orderData.paymentDetails.creditPointsEarned}
+                                  </a>
+                                </span>
+                              </div>
+                            : 
+                              null
+                          }
                         </div>
                       </div>
                       <div className={"col-6 " + Style.rightside}>
@@ -326,7 +337,7 @@ export default class OrderDetails extends Component {
                     {
                       this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?
                         this.state.orderData.vendorOrders.map((vendordata, index) => {
-                          // console.log("vendordata===",vendordata);
+                          console.log("vendordata===",vendordata);
                           var labels = this.state.labelsArray;
                           var index1 = this.state.labels.map(e => e.label).indexOf(vendordata.orderStatus);
                           
@@ -338,11 +349,11 @@ export default class OrderDetails extends Component {
                                     <div className="col-7 NOpadding">
                                       <span className="col-12 orderDetailsVendorName">{vendordata.vendorName}</span> &nbsp;
                                     </div>
-                                    <div className="col-5 pull-right">
-                                      {this.state.orderData.orderStatus !== "Cancelled" &&
+                                    <div className="col-5 pull-right"> 
+                                      {vendordata.orderStatus === "New" &&
                                         this.cancelButton(this.state.orderData.createdAt) &&
                                         <div className="col-12 NoPadding">
-                                          <div className={"col-12 text-right cancelOrderbtn " + Style.cancelBtn} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("hh:mm A")} </div>
+                                          <div className={"col-12 text-right cancelOrderbtn " + Style.cancelBtn} vendorid={vendordata.vendor_id._id} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("hh:mm A")} </div>
                                         </div>
                                       }
                                     </div>
