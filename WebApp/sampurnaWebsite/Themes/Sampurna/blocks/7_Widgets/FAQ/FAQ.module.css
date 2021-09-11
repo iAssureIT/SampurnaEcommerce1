@@ -67,28 +67,22 @@
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 
+@media (max-width: 320px){  
 
-/* [xs] Extra Small Devices [Phone - Portrait, less than 575px] */
-@media (max-width: 575px){
-  /* No media query for "xs'' since this is the default in Bootstrap 4 because it is "Mobile First" */
 }
-
-
-/* [sm] Small Devices [Phone - Landscape, 576px and up] */
-@media (min-width: 576px){
+@media (min-width: 320px) and (max-width: 480px){   
 
 }
 
-
-/* [md] Medium Devices [Tablet - Portrait, 768px and up] */
-@media (min-width: 768px){
+@media (min-width: 480px) and (max-width: 640px){   
 
 }
 
+@media (min-width: 640px) and (max-width: 860px){   
 
-/* [lg] Large Devices [Tablet - Landscape, 992px and up] */
-@media (min-width: 992px){
+}
 
+@media (min-width: 860px) and (max-width: 1280px) {
     .faqImage{
         height: 190px;
         width: 100%;
@@ -99,10 +93,7 @@
     }
 }
 
-
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1200px and up] */
-@media (min-width: 1200px){
-
+@media (min-width: 1280px) and (max-width: 1366px) { 
     .faqImage{
         height: 250px;
         width: 111%;
@@ -125,23 +116,30 @@
     }
 }
 
-
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1366px and up] */
-@media (min-width:1366px){
-
+@media (min-width: 1366px) and (max-width: 1440px) { 
+    
 }
 
-
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
-@media (min-width:1440px){
-
+@media (min-width: 1440px) and (max-width: 1536px) { 
+    
 }
 
-
-/* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
-@media (min-width:1920px){
-
+@media (min-width: 1536px) and (max-width: 1680px) { 
+    
 }
 
+@media (min-width: 1680px) and (max-width: 1920px) { 
+    
+}
+
+@media (min-width: 1920px) and (max-width: 2560px)  {
+    .faqSubTitle{
+        font-size: 25px;
+    }
+}
+
+@media (min-width: 2560px){
+    
+}
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

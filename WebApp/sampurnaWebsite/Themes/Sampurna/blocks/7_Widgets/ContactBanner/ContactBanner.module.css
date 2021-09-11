@@ -26,3 +26,55 @@
    font-size: 18px;
    margin-left: -60px;
 }
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+@media (max-width: 320px){  
+
+}
+@media (min-width: 320px) and (max-width: 480px){   
+
+}
+
+@media (min-width: 480px) and (max-width: 640px){   
+
+}
+
+@media (min-width: 640px) and (max-width: 860px){   
+
+}
+
+@media (min-width: 860px) and (max-width: 1280px) {
+    
+}
+
+@media (min-width: 1280px) and (max-width: 1366px) { 
+    
+}
+
+@media (min-width: 1366px) and (max-width: 1440px) { 
+    
+}
+
+@media (min-width: 1440px) and (max-width: 1536px) { 
+    
+}
+
+@media (min-width: 1536px) and (max-width: 1680px) { 
+    
+}
+
+@media (min-width: 1680px) and (max-width: 1920px) { 
+    
+}
+
+@media (min-width: 1920px) and (max-width: 2560px)  {
+    
+}
+
+@media (min-width: 2560px){
+    
+}
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
