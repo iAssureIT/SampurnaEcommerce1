@@ -33,14 +33,14 @@ export default StyleSheet.create({
     // paddingBottom:15,
     paddingHorizontal:hp(5),
     shadowColor: "#000",
-shadowOffset: {
-	width: -2,
-	height: 2,
-},
-shadowOpacity: 0.25,
-shadowRadius: 3.84,
+    shadowOffset: {
+      width: -2,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
 
-elevation: 5,
+    elevation: 5,
   },
   flx7:{
     flex:0.9

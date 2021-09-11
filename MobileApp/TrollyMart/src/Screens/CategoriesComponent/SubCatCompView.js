@@ -49,6 +49,8 @@ const STAR_IMAGE = require('../../AppDesigns/currentApp/images/star.png')
 
 
 export const SubCatCompView = withCustomerToaster((props)=>{
+  const {navigation,route,setToast} =props;
+  const {productID,currency,vendorLocation_id,index,vendor_id,subCategory,vendor}=route.params;
   console.log("props",props);
   const [countofprod,setCounterProd]        = useState(1);
   const section = props.route.params?.section;
@@ -66,8 +68,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const [tab,selectedTab] = useState(0);
   
 
-  const {navigation,route,setToast} =props;
-  const {productID,currency,vendorLocation_id,index,vendor_id,category,subCategory,vendor}=route.params;
+  const [category,setCategory]= useState(route?.params?.category);
+
   const [sizes,setSizes] = useState([])
   const scroll =useRef()
   console.log("subCategory",subCategory);
@@ -324,10 +326,12 @@ console.log("vendor",vendor);
                   boxHeight         = {hp(4)}
                   // setSubCategory    = {setSubCategory}
                   section           = {productdata.section}
+                  setCategory         = {setCategory}
                   index             = {index}
                   vendorLocation_id = {vendorLocation_id}
                   category          = {category ? category : productdata.category}
                   vendor            = {vendor}
+                  goProductList     = {true}
                 />
                 <SubCategoryList
                   navigation        = {navigation}
@@ -403,24 +407,24 @@ console.log("vendor",vendor);
                       })}
                       </Carousel>
                       {userDetails.authService !== "guest" ?
-                          <TouchableOpacity style={[styles.wishlisthrtproductview]}
-                            onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
-                            <Icon size={hp(2)} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
-                          </TouchableOpacity>
-                          :
-                            null
-                          }
-                          <TouchableOpacity style={[styles.share,{top:userDetails.authService==='guest'?hp(4): hp(8)}]}
-                            onPress={() =>onShare()} > 
-                            <Image
-                            resizeMode="contain"
-                            source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/shareNEW.png'}}
-                            style={{height:hp(2),width:hp(2),alignSelf:'center'}}
-                            />
-                            {/* <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} /> */}
-                          </TouchableOpacity>
-                  </View>                 
-                  :
+                        <TouchableOpacity style={[styles.wishlisthrtproductview]}
+                          onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
+                          <Icon size={hp(2)} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{alignSelf:'center'}}/>
+                        </TouchableOpacity>
+                        :
+                          null
+                        }
+                        <TouchableOpacity style={[styles.share,{top:userDetails.authService==='guest'?hp(4): hp(8)}]}
+                          onPress={() =>onShare()} > 
+                          <Image
+                          resizeMode="contain"
+                          source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/shareNEW.png'}}
+                          style={{height:hp(2),width:hp(2),alignSelf:'center'}}
+                          />
+                          {/* <Icon size={15} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",borderRadius:50}} /> */}
+                        </TouchableOpacity>
+                    </View>                 
+                    :
                     <View style={styles.saleimg}>
                       <ImageBackground
                         source={require("../../AppDesigns/currentApp/images/notavailable.png")}
@@ -452,7 +456,7 @@ console.log("vendor",vendor);
                         source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/star.png'}}
                         style={styles.starimg}
                         resizeMode="contain"
-                      />&nbsp;{productReview.avgRating}<Text>({productReview?.reviewlist?.length})</Text></Text>
+                      />&nbsp;{productReview.avgRating}<Text style={{fontSize:RFPercentage(1.6),fontFamily:"Montserrat-Regular"}}>({productReview?.reviewlist?.length})</Text></Text>
                     </View>
                 </View>
                 
@@ -462,7 +466,7 @@ console.log("vendor",vendor);
                   <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}&nbsp;</Text>
                   {productdata.discountPercent > 0 && <Text style={styles.discountPercent}> {productdata.discountPercent}%</Text>}
                 </View>
-                <View style={{height:hp(7),width:wp(28),marginLeft:wp(7.5)}}>
+                <View style={{height:hp(7),width:wp(30),marginLeft:wp(7.5)}}>
                   <Text style={{color: "#000000",opacity: 0.5,fontSize:RFPercentage(1.7)}}>Size</Text>
                   <Dropdown
                     onChangeText        = {(value) => filterProductSize(value)}

@@ -52,14 +52,14 @@ const FilterModal = (props) => {
 //     setFilterListLocal(filterList);
 //   }, [filterList]);
   useEffect(() => {
-    setCategory(category);
-    if(current_category !== category){
+    // setCategory(category);
+    // if(current_category !== category){
       setFilters({
         subCategory: [],
         brandsArray:[],
         sizeArray:[],
       })
-    }
+    // }
    
   }, [props]);
 

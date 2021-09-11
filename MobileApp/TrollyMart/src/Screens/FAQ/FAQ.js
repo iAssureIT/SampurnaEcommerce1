@@ -5,23 +5,23 @@ import {
   Text,
   View,ge,
 } from 'react-native';
-import {Icon,Image}                  from "react-native-elements";
-import {HeaderBar3}               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}                   from '../../ScreenComponents/Footer/Footer.js';
+import {Icon,Image}             from "react-native-elements";
+import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import {Footer}                 from '../../ScreenComponents/Footer/Footer.js';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {Linking}                from 'react-native'
 import Axios                    from 'axios';
 import { colors,website_url }   from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
-import HTML from 'react-native-render-html';
-import {List, Surface} from 'react-native-paper';
-import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
-import { useSelector }        from 'react-redux';
-import { NetWorkError } from '../../../NetWorkError.js';
+import HTML                     from 'react-native-render-html';
+import {List, Surface}          from 'react-native-paper';
+import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { useSelector }          from 'react-redux';
+import { NetWorkError }         from '../../../NetWorkError.js';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import { RFPercentage }         from 'react-native-responsive-fontsize';
 
 export const FAQ = (props)=>{
     const {navigation}=props;
@@ -92,17 +92,38 @@ export const FAQ = (props)=>{
                                     <Text style={[styles.HeaderText]}>FAQ</Text>
                             </RadialGradient>
                         </View>
-                        <List.Section title="" style={{backgroundColor:"#fff"}} >
+                        <List.Section title="" style={{backgroundColor:"#fff",paddingHorizontal:wp(5),paddingBottom:15}} >
                         {
                             pageBlockes && pageBlockes.length>0?
                                 pageBlockes.map((item,index)=>{
                                     const result = item.Description.replace(/<[^>]+>/g, '');
                                     return(
-                                        <List.Accordion index={(index)} style={[styles.queBox]}  titleNumberOfLines={5} onPress={handlePress} title={item.Title} titleStyle={[CommonStyles.normalText,{fontSize:RFPercentage(2.2),color:"#000000",fontFamily:"Montserrat-SemiBold",}]}>
-                                            <View style={[styles.queAns,{marginHorizontal:wp(6)}]}>
-                                                <Text style={{fontSize:RFPercentage(1.8),color:'#000000',fontFamily:"Montserrat-Regular",textTransform:'capitalize'}}>{result}</Text>
-                                            </View>
-                                        </List.Accordion>
+                                        <View style={{
+                                            marginBottom:15,
+                                            backgroundColor:"#fff",
+                                            ...Platform.select({
+                                                ios:{
+                                                    shadowColor: "#000",
+                                                    shadowOffset: {
+                                                    width: -2,
+                                                    height: 2,
+                                                    },
+                                                    shadowOpacity: 0.25,
+                                                    shadowRadius: 3.84,
+                                                    elevation: 5,
+                                                    backgroundColor:"#0000",
+                                                },
+                                            })
+                                        
+                                        }}>
+                                            <List.Accordion index={(index)} style={[styles.queBox]} 
+                                            theme={{colors: "#fff"}}
+                                            titleNumberOfLines={5} onPress={handlePress} title={item.Title} titleStyle={[CommonStyles.normalText,{fontSize:RFPercentage(2.2),color:"#000000",fontFamily:"Montserrat-SemiBold",}]}>
+                                                <View style={[styles.queAns,{marginHorizontal:wp(3)}]}>
+                                                    <Text style={{fontSize:RFPercentage(1.8),color:'#000000',fontFamily:"Montserrat-Regular",textTransform:'capitalize'}}>{result}</Text>
+                                                </View>
+                                            </List.Accordion>
+                                        </View>    
                                     )
                                 })
                             :

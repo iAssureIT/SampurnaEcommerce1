@@ -19,7 +19,6 @@ import { getList,
 import { getWishList } 		    from '../../redux/wishDetails/actions';
 import { useNavigation }      from '@react-navigation/native';
 import { ActivityIndicator }  from 'react-native-paper';
-import { getSearchResult } 	  from '../../redux/globalSearch/actions';
 import FastImage              from 'react-native-fast-image';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -42,14 +41,13 @@ export const ProductList = withCustomerToaster((props)=>{
   },[props.limit,props.newProducts]);
 
   const store = useSelector(store => ({
-    preferences     : store.storeSettings.preferences,
-    stop_scroll     : store.productList.stop_scroll,
-    stop_scroll_search : store.globalSearch .stop_scroll_search,
-    location        : store.location,
-    userDetails     : store.userDetails
+    preferences         : store.storeSettings.preferences,
+    stop_scroll         : store.productList.stop_scroll,
+    location            : store.location,
+    userDetails         : store.userDetails
   }));
   const {currency}=store.preferences;
-  const {stop_scroll,userDetails,location,stop_scroll_search}=store;
+  const {stop_scroll,userDetails,location}=store;
   const getData=async()=>{
     setProductDetails(props.newProducts);
 
@@ -130,9 +128,7 @@ export const ProductList = withCustomerToaster((props)=>{
   const onEnd=()=>{
     var limitRange =limit + 10;
     setLimit(limitRange);
-    if(type === "Search"){
-      dispatch(getSearchResult(props.searchText,user_id,limitRange,true));
-    }if(type === "vendor_sub_cat"){
+    if(type === "vendor_sub_cat"){
         payload.startRange =limit+1;
         payload.limitRange =limitRange;
         payload.scroll     = true;
@@ -180,9 +176,6 @@ export const ProductList = withCustomerToaster((props)=>{
               dispatch(getCategoryWiseList(payload));
               // dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
             } 
-            if(props.searchText){
-              dispatch(getSearchResult(props.searchText,user_id,limit,true));
-            } 
           }
           setToast({text: response.data.message, color: 'green'});
         })
@@ -218,7 +211,7 @@ export const ProductList = withCustomerToaster((props)=>{
               vendor_id           : item.vendor_id?item.vendor_id:item.vendor_ID,
               category            : props.category,
               subCategory         : subCategory,
-              vendor              : props.vendor
+              vendor              : props.vendor ? props.vendor : {vendorName: item.vendorName}
               });
               getCategoryList(item)
             }
@@ -286,7 +279,7 @@ export const ProductList = withCustomerToaster((props)=>{
                        ?
                        <View style={{height:30}} />
                         :
-                        <View style={{flex:.2,alignSelf:'flex-end'}}>
+                        <View style={{flex:.2,alignSelf:'flex-end',paddingVertical:2}}>
                           <TouchableOpacity 
                           disabled={disabled}
                             onPress={() => vendorLocation_id ?
@@ -300,23 +293,29 @@ export const ProductList = withCustomerToaster((props)=>{
                               :
                               addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
                           }
-                          style={{justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton}}>
+                          style={{justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton,
+                          shadowColor: "#00000059",
+                          shadowOffset: {
+                            width: -2,
+                            height:2,
+                          },
+                          shadowOpacity: 0.25,
+                          shadowRadius: 3.84,
+                          elevation: 5,
+                          }}>
                             <Image
                               resizeMode="contain"
                               source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/addtocarticon@2x.png'}}
-                              style={{height:hp(7),width:hp(7)}}
+                              style={{height:hp(3.5),width:hp(3.5)}}
                             />
-                            {/* <Icon name="plus" type="entypo" size={RFPercentage(3)} color={disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end',fontWeight:"bold"}}/> */}
                           </TouchableOpacity>  
                         </View>}
-                      <Text numberOfLines={2} style={[styles.nameprod]} ellipsizeMode='middle'>{item.productName}</Text>
                     </View>
                      
                   </View>
-                  {/* <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text> */}
-                  {/* }                        */}
                 </View>
                 <View style={[styles.textWrapper, styles.prdet]}>
+                  <Text numberOfLines={2} style={[styles.nameprod]} ellipsizeMode='middle'>{item.productName}</Text>
                   <View style={[styles.flxdir,{justifyContent:'flex-start',alignContent:'flex-start'}]}>
                     <View style={[styles.flxdir]}>
                       <Text style={styles.ogpriceC}>{currency} </Text>
@@ -381,17 +380,10 @@ export const ProductList = withCustomerToaster((props)=>{
         }
           onEndReached={() => {
             console.log("stop_scroll",stop_scroll);
-            console.log("stop_scroll_search",stop_scroll_search);
-            if(!stop_scroll && !stop_scroll_search) {
+            if(!stop_scroll) {
               onEnd();
-                  //Call pagination function
             }
           }}
-          // refreshControl={
-          //   <RefreshControl
-          //     refreshing={refreshing}
-          //     onRefresh={refreshControl}
-          //   />}
           getItemLayout={(data, index) => (
             {length:200, offset: 200 * index, index}
           )}

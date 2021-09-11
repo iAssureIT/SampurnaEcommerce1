@@ -133,6 +133,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
             }
               axios.patch('/api/users/update/verify_user_otp',formValues)
               .then((response) => {
+                console.log("response",response);
                 setBtnLoading(false);
                 if(response.data.messageCode === true){
                   setModal(false);
@@ -167,6 +168,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
               console.log("formValues",formValues);
               axios.patch('/api/users/update/user_profile_details',formValues)
               .then((response) => {
+                console.log("response",response);
                 if(response.data.messageCode){
                   props.setToast({text: response.data.message, color: 'green'});
                   setBtnLoading(false);
@@ -262,9 +264,9 @@ export const AccountInformation=withCustomerToaster((props)=>{
 
 
     const handleMob = ()=>{
-      console.log("Mobile1==========>",values.countryCode);
-      console.log("Mobile2==========>",countryCode);
-
+      console.log("values.mobileNumber",values.mobileNumber);
+      console.log("mobile",mobile);
+      console.log("mobile",values.mobileNumber === mobile);
       if(values.mobileNumber === ""){
         setToast({text: "Please fill all mandetory fields", color: colors.warning});
       }else if(values.mobileNumber === mobile && values.countryCode === countryCode){
@@ -280,6 +282,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
         setToast({text: "It seems that you didn't change anything", color: colors.warning});
       }else{  
         handleSubmit();
+        setFieldValue('mobileChange',true);
       }
      }
 

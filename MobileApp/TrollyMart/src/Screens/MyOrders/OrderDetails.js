@@ -8,7 +8,8 @@ import {
   ActivityIndicator,
   Dimensions,
   Linking,
-  ImageBackground
+  ImageBackground,
+  Platform
 }                       from 'react-native';
 import { Icon, Card,Button,Input,Tooltip,CheckBox } from "react-native-elements";
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -100,6 +101,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [removeReturnImage,setRemoveReturnImage] = useState(false);
   const [removeReviewImage,setRemoveReviewImage] = useState(false);
   const [index,setIndex]=useState(-1);
+  const [review_mendetory,setReviewMandetory] = useState(false);
   const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
   const ref = useRef()
   const store = useSelector(store => ({
@@ -294,6 +296,10 @@ const cancelorderbtn = (id,vendor_id) => {
 
 
   const submitReview=()=>{
+    if(review  === ""){
+      setReviewMandetory(true);
+      return false
+    }
     if(review_id){
       var formValues = {
         "review_id"           : review_id,
@@ -962,9 +968,9 @@ const cancelorderbtn = (id,vendor_id) => {
           coverScreen={false}
           onBackButtonPress={() => setModal(false)}
           hideModalContentWhileAnimating={true}
-          style={{ zIndex: 999,marginHorizontal:0,marginBottom:0, backgroundColor: "#EBEBEB",borderTopLeftRadius: 15,borderTopRightRadius: 15, }}
+          style={{ zIndex: 999,marginHorizontal:0,marginBottom:0,flex:1,paddingTop:Platform.OS ==='ios'? hp(20) : hp(5)}}
           animationOutTiming={500}>
-          <ScrollView contentContainerStyle={{paddingBottom:hp(6.5)}}>
+          <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 30}}>
           <View style={{alignItems:'flex-end',padding:15}}>
               <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Medium",fontSize:RFPercentage(2.5),color:'#000'}]} onPress={()=>setModal(false)}>X</Text>
             </View>
@@ -1019,8 +1025,9 @@ const cancelorderbtn = (id,vendor_id) => {
               <Input
                 label   = "Leave a Feedback."   
                 labelStyle = {styles.labelDrop} 
+                required = {true}
                 // placeholder           = "Leave a review..."
-                onChangeText          = {(text)=>setReview(text)}
+                onChangeText          = {(text)=>{setReview(text);setReviewMandetory(false)}}
                 autoCapitalize        = "none"
                 keyboardType          = "email-address"
                 inputContainerStyle   = {styles.containerStyle}
@@ -1032,6 +1039,8 @@ const cancelorderbtn = (id,vendor_id) => {
                 multiline             = {true}
                 numberOfLines         = {4}
                 value                 = {review}
+                errorMessage={review_mendetory && "This field is required"}
+                errorStyle={{ color: 'red' ,margin:0,fontSize:RFPercentage(1.8),fontFamily:"Montserrat-Regular"}}
               />
               <View style={{flexDirection:'row',justifyContent:"space-between",marginHorizontal:20,top:-10}}>
                  <View style={{flexDirection:"row",marginHorizontal:20,flex:0.9,flexWrap:'wrap'}}>
@@ -1091,9 +1100,9 @@ const cancelorderbtn = (id,vendor_id) => {
           onBackButtonPress={() => setReturnModal(false)}
           coverScreen={false}
           hideModalContentWhileAnimating={true}
-          style={{ zIndex: 999,marginHorizontal:0,marginBottom:0,flex:1,paddingBottom:hp(8),}}
+          style={{ zIndex: 999,marginHorizontal:0,marginBottom:0,paddingTop:Platform.OS==='ios' ?hp(7):hp(0),height:"100%"}}
           animationOutTiming={500}>
-          <ScrollView style={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: 30}}>
+          <ScrollView contentContainerStyle={{ backgroundColor: "#EBEBEB", borderTopLeftRadius: 15,borderTopRightRadius: 15,paddingBottom: Platform.OS==='ios' ?30:hp(10)}}>
             <View style={{alignItems:'flex-end',padding:15}}>
               <Text style={[CommonStyles.errorText,{fontFamily:"Montserrat-Medium",fontSize:RFPercentage(2.5),color:'#000'}]} onPress={()=>setReturnModal(false)}>X</Text>
             </View>
@@ -1306,22 +1315,22 @@ const cancelorderbtn = (id,vendor_id) => {
         <Modal isVisible={modalTerms}
           onBackdropPress={() => setTermsModal(false)}
           onRequestClose={() => setTermsModal(false)}
-          coverScreen={true}
-          hasBackdrop={true}
-          style={{ zIndex: 999 }}
-          deviceHeight={window.height}
-          deviceWidtht={window.width}
-         >
-          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: 30, paddingHorizontal: 10}}>
-          <View style={{flexDirection:'row',height:hp(4),alignItems:'center',justifyContent:'space-between',borderBottomWidth:0.5,borderColor:"#eee",marginTop:5}}>   
+          coverScreen={false}
+          hideModalContentWhileAnimating={true}
+          style={{ zIndex: 999,paddingTop:hp(2),paddingBottom:hp(10),alignSelf:'center'}}
+          animationOutTiming={1}
+          animationInTiming={1}
+          >
+          <View style={{ backgroundColor: "#fff", borderRadius: 10}}>
+            <View style={{borderTopLeftRadius: 10,borderTopRightRadius:10,backgroundColor:'#033554',flexDirection:'row',height:hp(6),alignItems:'center',justifyContent:'space-between',borderBottomWidth:0.5,borderColor:"#eee"}}>   
               <View style={{paddingHorizontal: wp(1.5)}}>
-                <Text style={CommonStyles.label}>Return policy</Text>
+                <Text style={[CommonStyles.label,{color:'#fff',marginLeft:10}]}>Return policy</Text>
               </View>  
-              <TouchableOpacity style={{justifyContent:"flex-end",padding:5,height:hp(4),width:hp(4)}} onPress={()=>setTermsModal(false)}>
-                  <Icon name="close" type="material-community" size={RFPercentage(3)} />
-              </TouchableOpacity> 
-           </View> 
-          <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+              <TouchableOpacity style={{justifyContent:"flex-end",marginRight:10,padding:5,height:hp(4),width:hp(4)}} onPress={()=>setTermsModal(false)}>
+                  <Icon name="close" color="#fff" type="material-community" size={RFPercentage(3)} />
+              </TouchableOpacity>
+           </View>   
+          <ScrollView  keyboardShouldPersistTaps="handled" >
                 {
                     pageBlockes && pageBlockes.length>0?
                         pageBlockes.map((item,index)=>{
@@ -1352,14 +1361,14 @@ const cancelorderbtn = (id,vendor_id) => {
         </Modal>
 
         <Modal isVisible={removeReturnImage}
-        onBackdropPress={() => setRemoveReturnImage(false)}
-        onRequestClose={() => setRemoveReturnImage(false)}
-        onDismiss={() =>  setRemoveReturnImage(false)}
-        coverScreen={true}
-        // transparent
-        // hideModalContentWhileAnimating={true}
-        style={{ paddingHorizontal: '5%', zIndex: 999 }}
-        animationInTiming={1} animationOutTiming={1}>
+          onBackdropPress={() => setRemoveReturnImage(false)}
+          onRequestClose={() => setRemoveReturnImage(false)}
+          onDismiss={() =>  setRemoveReturnImage(false)}
+          coverScreen={true}
+          // transparent
+          // hideModalContentWhileAnimating={true}
+          style={{ paddingHorizontal: '5%', zIndex: 999 }}
+          animationInTiming={1} animationOutTiming={1}>
         <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
           <View style={{ justifyContent: 'center', backgroundColor: "transparent", overflow: 'hidden' }}>
             <Icon size={RFPercentage(7.5)} name='shopping-cart' type='feather' color='#666' style={{}} />

@@ -21,10 +21,8 @@ import {SortModal}            from '../../ScreenComponents/SortModal/SortModal.j
 import Loading                from '../../ScreenComponents/Loading/Loading.js';
 import SearchSuggetion        from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { Dimensions }         from 'react-native';
-import { colors }             from '../../AppDesigns/currentApp/styles/styles';
 import { NetWorkError } from '../../../NetWorkError.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
-import { ScrollView } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -38,10 +36,11 @@ const VendorProducts = (props)=>{
   const [userId,setUserId]=useState('');
   const [showFilters,setShowFilters]= useState(false);
   const [subCategory,setSubCategory]= useState([]);
+  const [category,setCategory]= useState('');
   const {navigation,route,first_category}=props;
   const [showSort, toggleSort] = useState(false);
   const [refreshing,setRefresh]= useState(false)
-  const {vendor,sectionUrl,section,index,vendorLocation_id,category}=route.params;
+  const {vendor,sectionUrl,section,index,vendorLocation_id}=route.params;
   const dispatch = useDispatch();
 
   TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
@@ -51,7 +50,6 @@ const VendorProducts = (props)=>{
     "Brand",
   ];
 
-
   const {productList,brandList,payload,globalSearch} = props;
   const HEADER_HEIGHT = Platform.OS==='ios'?180:hp(21);
   var scrollY = new Animated.Value(0);
@@ -60,15 +58,11 @@ const VendorProducts = (props)=>{
     inputRange:[0,HEADER_HEIGHT],
     outputRange:[0,-hp(11)]
   })
-    // var diffClamp= Animated.diffClamp(scrollY,0,185)
-    // var translateY = diffClamp.interpolate({
-    //   inputRange:[0,185],
-    //   outputRange:[0,-185]
-    // })
-
+  
   useEffect(() => {
     getData();
- },[props,isFocused]);
+    setCategory(props?.route?.params?.category);
+ },[props?.route?.params?.category]);
 
 
 
@@ -101,7 +95,6 @@ const VendorProducts = (props)=>{
           productList.categoryWiseList[i].availableSizes = availableSizes;
         }
       }
-      // console.log("productList.categoryWiseList",productList.categoryWiseList);
       setProductDetails(productList.categoryWiseList);
   }
 
@@ -132,12 +125,9 @@ const VendorProducts = (props)=>{
 
 const onScroll=(e)=>{
   scrollY.setValue(e.nativeEvent.contentOffset.y);
-  // Animated.event([
-  //   {nativeEvent: {contentOffset: {y: scrollY}}},
-  // ])
 }
 
-console.log("subCategory",subCategory)
+console.log("category=========>",category)
 
   return (
     <View style={{flex:1,backgroundColor:"#fff"}}>
@@ -162,7 +152,15 @@ console.log("subCategory",subCategory)
             
           >
            {/* <View style={[styles.block1]}> */}
-             <View style={{elevation:5,backgroundColor:"#fff"}}>
+             <View style={{shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+
+              elevation: 5,backgroundColor:"#fff"}}>
                 <View style={{backgroundColor:"#EEEEEE",marginTop:3,height:hp(2.5)}}>
                     <Text numberOfLines={1} style={[{paddingHorizontal:5,fontSize:RFPercentage(1.6),color:"#333"}]}>{vendor?.vendorName ? vendor?.vendorName : vendor?.companyName}</Text>
                 </View> 
@@ -183,11 +181,11 @@ console.log("subCategory",subCategory)
                 showImage           = {false} 
                 boxHeight           = {hp(3)} 
                 setSubCategory      = {setSubCategory}
+                setCategory         = {setCategory}
                 category            = {category? category : ''}
                 vendorLocation_id   = {vendorLocation_id}
                 vendor              = {vendor}
                 section             = {section}
-                // setCategory = {setCategory}
               />
             </View>
             <View style={{marginTop:2,backgroundColor:"#fff"}}>
@@ -196,7 +194,7 @@ console.log("subCategory",subCategory)
                     <Image
                       resizeMode="contain"
                       source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/filter.png'}}
-                      style={{height:hp(4),width:hp(4)}}
+                      style={{height:hp(3.5),width:hp(3.5)}}
                       />
                   </TouchableOpacity>
                 <TouchableOpacity  style={styles.iconStyle}  onPress={()=>toggleSort(true)}>
@@ -204,7 +202,7 @@ console.log("subCategory",subCategory)
                   <Image
                   resizeMode="contain"
                   source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/sort.png'}}
-                  style={{height:hp(4),width:hp(3)}}
+                  style={{height:hp(3),width:hp(2.5)}}
                   />
                 </TouchableOpacity>
               </View>  

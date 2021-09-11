@@ -95,11 +95,11 @@ export const PrivacyPolicy  = (props)=>{
                 toggle={() => toggle()}
                 openControlPanel={() => openControlPanel()}
             /> */}
-            <View style={[styles.superparent,{paddingBottom:hp(11),backgroundColor:"#fff"}]}>
+            <View style={[styles.superparent,{backgroundColor:"#fff"}]}>
             {store.globalSearch.search ?
               <SearchSuggetion />
                 :
-                <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+                <ScrollView contentContainerStyle={[styles.container,{paddingBottom:hp(10)}]}keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                                 colors={['#ffffff','#03355480']}

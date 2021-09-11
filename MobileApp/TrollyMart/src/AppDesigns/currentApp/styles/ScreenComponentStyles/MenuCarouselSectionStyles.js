@@ -28,7 +28,7 @@ export default StyleSheet.create({
 		// marginBottom: '1%',
 	},
 	categoryContainer: {
-		flexDirection: 'row',
+		// flexDirection: 'row',
 		// marginBottom: '1%',
 	},
 	imageMenuWraper:{	
