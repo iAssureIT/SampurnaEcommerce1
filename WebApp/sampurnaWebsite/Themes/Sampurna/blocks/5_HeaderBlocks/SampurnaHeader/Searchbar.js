@@ -72,7 +72,7 @@ class Searchbar extends React.Component {
 
     getProducts(event){
         event.preventDefault();
-        console.log("inside getProducts - ",this.state.searchText);
+        // console.log("inside getProducts - ",this.state.searchText);
 
         var formValues = {
             "searchstr"         : this.state.searchText,
@@ -86,7 +86,7 @@ class Searchbar extends React.Component {
             axios.post("/api/products/get/search/website",formValues)
             .then((searchProductRes)=>{
                 if(searchProductRes){
-                    console.log("searchProductRes => ",searchProductRes);
+                    // console.log("searchProductRes => ",searchProductRes);
                     store.dispatch(setSearchDetails(searchProductRes)) ;
                     Router.push('/search-product/'+this.state.searchText);
                 }

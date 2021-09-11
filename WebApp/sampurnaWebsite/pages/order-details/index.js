@@ -45,6 +45,7 @@ export default class OrderDetails extends Component {
     // console.log("userDetails===",userDetails);
     this.setState({
       user_ID: userDetails.user_id,
+      authService : userDetails.authService,
       email: userDetails.email,
       fullName: userDetails.firstName + " " + userDetails.lastName,
       currency: currency,
@@ -335,7 +336,7 @@ export default class OrderDetails extends Component {
                     {
                       this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?
                         this.state.orderData.vendorOrders.map((vendordata, index) => {
-                          console.log("vendordata===",vendordata);
+                          // console.log("vendordata===",vendordata);
                           var labels = this.state.labelsArray;
                           var index1 = this.state.labels.map(e => e.label).indexOf(vendordata.orderStatus);
                           
@@ -347,14 +348,18 @@ export default class OrderDetails extends Component {
                                     <div className="col-7 NOpadding">
                                       <span className="col-12 orderDetailsVendorName">{vendordata.vendorName}</span> &nbsp;
                                     </div>
-                                    <div className="col-5 pull-right"> 
-                                      {vendordata.orderStatus === "New" &&
-                                        this.cancelButton(this.state.orderData.createdAt) &&
-                                        <div className="col-12 NoPadding">
-                                          <div className={"col-12 text-right cancelOrderbtn " + Style.cancelBtn} vendorid={vendordata.vendor_id._id} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("hh:mm A")} </div>
-                                        </div>
-                                      }
-                                    </div>
+                                    {this.state.authService !== "guest" ?
+                                      <div className="col-5 bgg pull-right"> 
+                                        {vendordata.orderStatus === "New" &&
+                                          this.cancelButton(this.state.orderData.createdAt) &&
+                                          <div className="col-12 NoPadding">
+                                            <div className={"col-12 text-right cancelOrderbtn " + Style.cancelBtn} vendorid={vendordata.vendor_id._id} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("hh:mm A")} </div>
+                                          </div>
+                                        }
+                                      </div>
+                                    :
+                                        null
+                                    }
                                   </div>
                                 </div>
                               </div>

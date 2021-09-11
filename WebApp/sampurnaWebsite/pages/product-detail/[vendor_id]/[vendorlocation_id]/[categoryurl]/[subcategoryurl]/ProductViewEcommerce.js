@@ -126,7 +126,7 @@ class ProductViewEcommerce extends Component{
 				if(response.data){
 					var sortedProducts = response.data.products.sortBy('size');					
 					var sortedVariants = response.data.variants.sortBy('size');
-
+					// console.log("sortedProducts===",sortedProducts);
 					this.setState({
 						variantProductsList : sortedProducts,
 						variants            : sortedVariants
@@ -166,7 +166,7 @@ class ProductViewEcommerce extends Component{
 	}
 
 	setProductData(productData){
-		// console.log("productData = ",productData );
+		// console.log(" productData = ",productData );
 
 		this.setState({	
 			activeColor   : productData.color ? productData.color:"",		
@@ -176,6 +176,7 @@ class ProductViewEcommerce extends Component{
 			categoryUrl   : productData.category.split(' ').join('-').toLowerCase(),
 			section_ID    : productData.section_ID,
 			category_ID   : productData.category_ID,
+			subCategory_ID: productData.subCategory_ID,
 			subCategoryUrl: productData.subCategory ? productData.subCategory.replace(' ','-').toLowerCase():"",
 			selectedImage : productData.productImage && productData.productImage.lenth > 0 ? productData.productImage[0] : "",
 			quanityLimit  : productData.availableQuantity,
@@ -206,33 +207,44 @@ class ProductViewEcommerce extends Component{
 									break;
 								}
 							}
+
+
+
+							var similarProductsFormvalues = {
+								product_ID        : this.props.productID,
+								vendor_ID         : this.props.vendor_id,
+								vendorLocation_id : this.props.vendorlocation_id,
+								section_ID        : this.state.section_ID,
+								category_ID       : this.state.category_ID,
+								subCategory_ID    : this.state.subCategory_ID,
+								user_ID           : this.state.user_ID
+							}
+		
+							if(similarProductsFormvalues){
+								console.log("similarProductsFormvalues==",similarProductsFormvalues);
+								axios.post("/api/products/get/similar_products", similarProductsFormvalues)
+									.then((similarProductResponse)=>{
+										if(similarProductResponse){
+											console.log("similar data===",similarProductResponse.data);
+											this.setState({
+												newProducts : similarProductResponse.data
+											})
+										}
+									})
+									.catch((error)=>{
+										console.log("error while getting similar product=",error);
+									})
+							}
+
+
+
 						}
 					})
 					.catch((error)=>{
 						console.log("Error while getting subcategory=",error);
 					})
 
-					var similarProductsFormvalues = {
-						product_ID     : this.props.productID,
-						vendor_ID      : this.props.vendor_id,
-						category_ID    : this.state.category_ID,
-						// subCategory_ID : productdata.subCategory_ID,
-						section_ID     : this.state.section_ID,
-						user_ID        : this.state.user_ID
-					}
-					if(similarProductsFormvalues){
-						axios.post("/api/products/get/similar_products", similarProductsFormvalues)
-							.then((similarProductResponse)=>{
-								if(similarProductResponse){
-									this.setState({
-										newProducts : similarProductResponse.data
-									})
-								}
-							})
-							.catch((error)=>{
-								console.log("error while getting similar product=",error);
-							})
-					}
+					
 		})
 	}
 
@@ -519,14 +531,14 @@ class ProductViewEcommerce extends Component{
 
 
 	render(){
-		console.log("this.props.recentWishlistData => ", this.props.recentWishlistData);
+		// console.log("this.props.recentWishlistData => ", this.props.recentWishlistData);
 
 		var x 			= this.props.recentWishlistData && this.props.recentWishlistData.length> 0 
 									? 
 										this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) 
 									: 
 										[];
-		console.log("wishClass x => ", x);
+		// console.log("wishClass x => ", x);
 
 		var wishClass 	= '';
 		var tooltipMsg 	= '';
@@ -594,48 +606,9 @@ class ProductViewEcommerce extends Component{
 										limitRange         = {this.state.limitRange}
 									/>
 								:
-									// <div className="col-12 pt-4"> No SubCategory available</div>
 									null
 							}
 
-							{/* {
-								this.state.brandData && this.state.brandData.length > 0
-								?
-									<div className="panel-group NoPadding">
-										{
-											this.state.brandData.length && this.state.brandData[0].brand!=' '> 0
-											?
-												<div className={" "+style.categoryFilterTitle}>Brand</div>
-											:
-												null
-										}
-										{
-											this.state.brandData && this.state.brandData.length > 0
-											?
-												this.state.brandData.map((brand,index)=>{
-													var i = index+1;
-													if(brand === ""){
-														return true;
-													}else{
-														return(
-															<div className="col-12 noPadding panelCategory paneldefault" key={index}>
-																<div className={"row panel-heading "+style.panelHeading}>
-																	<div className={"NoPadding centreDetailContainerEcommerce "+style.brandInput}>
-																		<input className="" type="checkbox" name="brands[]" className={style.brandFilterInput} onChange={this.getBrandWiseData.bind(this)} value={brand} />
-																	</div>
-																	<span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
-																</div>                              
-															</div>
-														)
-													}
-												})   
-											:
-												null
-										}
-									</div>
-								:
-									''
-							} */}
 						</div>
 
 						<div className={"col-12 col-lg-10 col-xl-10 col-md-10 col-sm-12 col-xs-12  mobileViewNoPadding mt50 " +Style.boxBorderInner}>
@@ -682,7 +655,7 @@ class ProductViewEcommerce extends Component{
 																		<i id={this.state.productData._id} className={this.state.wishlistIcon +" fa-heart" +" heartIcon"}></i>
 																	</div>
 																:
-																	<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={"col-12 "+Style.wishClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
+																	<div id={this.state.productData._id} title={this.state.wishTooltip} className={"col-12 "+Style.wishClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
 																		{/*<i id={this.state.productData._id} className={"fa"+wishClass +"fa-heart"+ wishClass +" heartIcon"}></i>*/}
 																		<i id={this.state.productData._id} className={this.state.wishlistIcon +" fa-heart heartIcon"}></i>
 																	</div>												
