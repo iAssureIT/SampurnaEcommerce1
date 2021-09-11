@@ -157,6 +157,55 @@
     }
 } 
 
+@media only screen and (min-device-width: 480px) {
+
+    .sideBarTabNames{
+        font-size: 12px;
+    }
+
+    .sideBarTabNameAllignment{
+        padding-left: 20px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 25px;
+    }
+
+    .myAccountSideWrapper{
+        margin-top: 0px !important;
+        margin-left: 0px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 6px !important;
+    }
+} 
+
+
+@media only screen and (min-device-width: 768px) {
+
+    .sideBarTabNames{
+        font-size: 12px;
+    }
+
+    .sideBarTabNameAllignment{
+        padding-left: 20px;
+    }
+
+    .myAccountTitleWrapper{
+        font-size: 25px;
+    }
+
+    .myAccountSideWrapper{
+        margin-top: 23px !important;
+        margin-left: -10px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 6px !important;
+    }
+} 
+
 @media only screen and (min-device-width: 1024px) {
 
     .sideBarTabNames{
@@ -270,7 +319,7 @@
     }
 
     .myAccountSideWrapper{
-        margin-top: 29px !important;
+        margin-top: 33px !important;
         margin-left: -10px;
     }
 

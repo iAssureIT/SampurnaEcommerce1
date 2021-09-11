@@ -501,192 +501,194 @@ class EditAccount extends Component{
             $('.updateBasicInfo').show();
         }
         return(
+            
             <section className="pt-4 pl-xl-3 mt-lg-3 pl-lg-2 mt-xl-0">
-            <div className={"font-weight-bold pl-xl-2 pb-xl-3 pb-lg-3 pl-lg-2 pb-md-3 pl-md-3 pb-3 " + Style.editAccountTitle}>My Profile</div>
-            <div className={"col-lg-10 col-12 col-xl-9 col-md-11 accountInformationMainWrapper "+Style.accountInformationMainWrapper}id="accountInformationManiId">
-            <div className="row">
-                <div className={ " col-12 accountDashBoardInnerwrapper ml-lg-2 "+Style.accountDashBoardInnerwrapper}>
-                    <Message messageData={this.state.messageData} />
-                    <div className="row">
-                        <div className={"col-12 " + Style.accountSideSpacing}>
-                            {/* <div className="col-12 "> */}
-                                <form id="editAccount">
-                                        <div className="col-12">
-                                            <div className="row">
-                                                <div className="col-xl-6 col-lg-5 col-sm-5 col-md-5 col-12 mt-4 ">
-                                                    <div className="col-12 mb-2 NoPadding">
-                                                        <label className={"mt15 " + Style.editAccountFont}>First Name <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
-                                                        <br />
-                                                        <div id="firstName" className={"col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding "+Style.editAccInputWrapper}>
-                                                            <input maxLength="25" type="text" name="firstName" ref="firstName" value={this.state.firstName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 px-0 form-control" required/> 
-                                                            <div className="errorMsg mt-1 ">{this.state.errors.firstName}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                <div className={"font-weight-bold pl-xl-2 pb-xl-3 pb-lg-3 pl-lg-2 pb-md-3 pl-md-3 pb-3 " + Style.editAccountTitle}>My Profile</div>
 
-                                                <div className="col-xl-6 col-lg-5 col-sm-5 col-md-5 col-12 mt-4 ">
-                                                    <div className="col-12 mb-2 NoPadding">
-                                                        <label className={"mt15 " + Style.editAccountFont}>Last Name <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
-                                                        <br />
-                                                        <div id="lastName" className={"col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding "+Style.editAccInputWrapper}>
-                                                            <input maxLength="25" type="text" name="lastName" ref="lastName" value={this.state.lastName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 px-0 form-control" required/> 
-                                                            <div className="errorMsg mt-1 ">{this.state.errors.lastName}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {/* <div className="col-12 float-right">
-                                                    <button className="btn globalCommonBtn editAccount col-12  float-right" onClick={this.updateUserBasicInfo.bind(this)}>Submit</button>
-                                                </div> */}
-
-                                            </div>
-                                        </div>
-                                        <div className="col-12 mt-1 px-0">
+                <div className={"col-lg-10 col-12 col-xl-9 col-md-11 accountInformationMainWrapper "+Style.accountInformationMainWrapper}id="accountInformationManiId">
+                <div className="row">
+                    <div className={ " col-12 accountDashBoardInnerwrapper ml-lg-2 "+Style.accountDashBoardInnerwrapper}>
+                        <Message messageData={this.state.messageData} />
+                        <div className="row">
+                            <div className={"col-12 " + Style.accountSideSpacing}>
+                                {/* <div className="col-12 "> */}
+                                    <form id="editAccount">
                                             <div className="col-12">
-                                                <div className={"col-12 mt-2 NoPadding mt15 " + Style.editAccountFont}>
-                                                    <input type="checkbox" id="changeEmail" checked={this.state.changeEmail} onChange={this.changeEmail.bind(this)}/> &nbsp; <span>Change Email</span> 
+                                                <div className="row">
+                                                    <div className="col-xl-6 col-lg-5 col-sm-5 col-md-5 col-12 mt-4 ">
+                                                        <div className="col-12 mb-2 NoPadding">
+                                                            <label className={"mt15 " + Style.editAccountFont}>First Name <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
+                                                            <br />
+                                                            <div id="firstName" className={"col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding "+Style.editAccInputWrapper}>
+                                                                <input maxLength="25" type="text" name="firstName" ref="firstName" value={this.state.firstName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 px-0 form-control" required/> 
+                                                                <div className="errorMsg mt-1 ">{this.state.errors.firstName}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-xl-6 col-lg-5 col-sm-5 col-md-5 col-12 mt-4 ">
+                                                        <div className="col-12 mb-2 NoPadding">
+                                                            <label className={"mt15 " + Style.editAccountFont}>Last Name <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
+                                                            <br />
+                                                            <div id="lastName" className={"col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding "+Style.editAccInputWrapper}>
+                                                                <input maxLength="25" type="text" name="lastName" ref="lastName" value={this.state.lastName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 px-0 form-control" required/> 
+                                                                <div className="errorMsg mt-1 ">{this.state.errors.lastName}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {/* <div className="col-12 float-right">
+                                                        <button className="btn globalCommonBtn editAccount col-12  float-right" onClick={this.updateUserBasicInfo.bind(this)}>Submit</button>
+                                                    </div> */}
+
                                                 </div>
                                             </div>
-                                                
-                                                { this.state.changeEmail === true &&
-                                                    // <div className="col-12">
-                                                        <div className="col-12">
-                                                            <div className="row">
-                                                                <div className="col-xl-6 col-lg-5 col-sm-5 col-md-5 col-12 mb-2">
-                                                                    <label className={"mt15 " + Style.editAccountFont}>Email <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
-                                                                    <br />
-                                                                    <div id="emailId" className={"  "+Style.editAccInputWrapper}>
-                                                                        <input type="email" name="emailId" ref="emailId" value={this.state.emailId} onChange={this.onChange.bind(this)} className="col-12 px-0 form-control" /> 
-                                                                        <div className="errorMsg mt-1 ">{this.state.errors.emailId}</div>
+                                            <div className="col-12 mt-1 px-0">
+                                                <div className="col-12">
+                                                    <div className={"col-12 mt-2 NoPadding mt15 " + Style.editAccountFont}>
+                                                        <input type="checkbox" id="changeEmail" checked={this.state.changeEmail} onChange={this.changeEmail.bind(this)}/> &nbsp; <span>Change Email</span> 
+                                                    </div>
+                                                </div>
+                                                    
+                                                    { this.state.changeEmail === true &&
+                                                        // <div className="col-12">
+                                                            <div className="col-12">
+                                                                <div className="row">
+                                                                    <div className="col-xl-6 col-lg-5 col-sm-5 col-md-5 col-12 mb-2">
+                                                                        <label className={"mt15 " + Style.editAccountFont}>Email <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
+                                                                        <br />
+                                                                        <div id="emailId" className={"  "+Style.editAccInputWrapper}>
+                                                                            <input type="email" name="emailId" ref="emailId" value={this.state.emailId} onChange={this.onChange.bind(this)} className="col-12 px-0 form-control" /> 
+                                                                            <div className="errorMsg mt-1 ">{this.state.errors.emailId}</div>
+                                                                        </div>
+                                                                    </div> 
+                                                                    <div className="col-xl-6 col-lg-5 col-sm-5 col-md-5 col-12 mb-2">
+                                                                        <label className={"mt15 " + Style.editAccountFont}>Current Password <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
+                                                                        <br />
+                                                                        <div id="oldPassword" className={" "+Style.editAccInputWrapper}>
+                                                                            <input type="text" id="currentPassword" type="password" name="currentPassword" ref="currentPassword" value={this.state.currentPassword} onChange={this.onChange.bind(this)} className="col-12 px-0 form-control" /> 
+                                                                            <span className={" showHideEyeDiv "+ Style.emailPwdWrapper} onClick={this.showPassFun2.bind(this)}>
+                                                                                <i className={this.state.showPassword2 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword2}></i>
+                                                                            </span> 
+                                                                            <div className="errorMsg mt-1 ">{this.state.errors.currentPassword}</div>
+                                                                        </div>
+                                                                    </div> 
+                                                                    <div className="col-12 float-right">
+                                                                        <button className={"btn globalCommonBtn editAccount col-12 float-right " + Style.profileSubmitBtn}  onClick={this.updateUserEmail.bind(this)}>Submit</button>
                                                                     </div>
-                                                                </div> 
-                                                                <div className="col-xl-6 col-lg-5 col-sm-5 col-md-5 col-12 mb-2">
+                                                                </div>
+                                                            </div>
+                                                        
+                                                    } 
+                                                    <div className={"col-12 mt-2 " +Style.horizontalLine}></div>
+                                                </div>
+
+                                            <div className="col-12 mt-1 px-0">
+                                                <div className="col-12">
+                                                    <div className={"col-12 mt-2 NoPadding " + Style.editAccountFont}>
+                                                        <input type="checkbox" id="changeMobile" checked={this.state.changeMobile} onChange={this.changeMobile.bind(this)}/> &nbsp; <span>Change Mobile</span> 
+                                                    </div>
+                                                    { this.state.changeMobile === true &&
+                                                        <div className="col-12 ">
+                                                            <div className="row ">
+                                                                <div className="col-xl-5 col-lg-5 col-sm-5 col-md-5  col-12 mb-2 NoPadding">
+                                                                    <label className={"mt15 " + Style.editAccountFont}>Mobile Number<span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
+                                                                    <br />
+                                                                    <PhoneInput
+                                                                        country={'ae'} 
+                                                                        value={this.state.mobNumber}
+                                    
+                                                                        inputProps={{
+                                                                            name: 'mobNumber',
+                                                                            required: true
+                                                                        }}
+                                                                        onChange={mobileNumber => { 
+                                                                            this.setState({ mobileNumber })
+                                                                                this.setState({
+                                                                                    mobNumber : mobileNumber,
+                                                                                },()=>{
+                                                                                    console.log("mobNumber==",this.state.mobNumber);
+                                                                                }); 
+                                                                                let fields = this.state.fields;
+                                                                                fields["mobNumber"] = this.state.mobNumber;
+                                                                                this.setState({
+                                                                                    fields
+                                                                                });
+                                                                        }} />
+                                                                    <div className="col-12 errorMsg mt-1 ">{this.state.errors.mobNumber}</div>
+                                                                </div>
+                                                                <div className="col-12 NoPadding float-right">
+                                                                    <button className={"btn globalCommonBtn editAccount col-12 float-right " + Style.profileSubmitBtn} onClick={this.updateUserMobile.bind(this)}>Submit</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <div className={"col-12 mt-2 " +Style.horizontalLine}></div>
+                                                </div>
+                                            </div>
+
+                                          
+                                            <div className="col-12 NoPadding mb-4">
+                                                <div className="col-12 mb-2 px-0">
+                                                    <div className={"col-12 " + Style.editAccInputWrapper}>
+                                                        <input type="checkbox" id="changePassword" checked={this.state.changePassword} onChange={this.changePassword.bind(this)}/> &nbsp; <span className={Style.editAccountFont}>Change Password</span> 
+                                                    </div>
+                                                    <div id="credentials" className=" mt-2 ">
+                                                        { this.state.changePassword === true &&
+                                                            <div className="col-12">
+                                                            <div className="row ">
+                                                                <div className="col-12 col-lg-3 col-md-3 mx-auto mb-2 NoPadding">
                                                                     <label className={"mt15 " + Style.editAccountFont}>Current Password <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
                                                                     <br />
-                                                                    <div id="oldPassword" className={" "+Style.editAccInputWrapper}>
-                                                                        <input type="text" id="currentPassword" type="password" name="currentPassword" ref="currentPassword" value={this.state.currentPassword} onChange={this.onChange.bind(this)} className="col-12 px-0 form-control" /> 
-                                                                        <span className={" showHideEyeDiv "+ Style.emailPwdWrapper} onClick={this.showPassFun2.bind(this)}>
-                                                                            <i className={this.state.showPassword2 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword2}></i>
+                                                                    <div id="oldPassword" className={"col-12 NoPadding "+Style.editAccInputWrapper}>
+                                                                        <input type="text" id="resetCurrentPassword" type="password" name="resetCurrentPassword" ref="resetCurrentPassword" value={this.state.resetCurrentPassword} onChange={this.onChange.bind(this)} className="col-12 form-control" /> 
+                                                                        <span className={" showHideEyeDiv "+Style.editAccInputWrapperInner} onClick={this.showPassFun3.bind(this)}>
+                                                                            <i className={this.state.showPassword3 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword3}></i>
                                                                         </span> 
                                                                         <div className="errorMsg mt-1 ">{this.state.errors.currentPassword}</div>
                                                                     </div>
                                                                 </div> 
+                                                                <div className="col-12 col-lg-3 col-md-3 mx-auto mb-2 NoPadding">
+                                                                    <label className={"mt15 " + Style.editAccountFont}>New Password <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
+                                                                    <br />
+                                                                    <div id="newPassword" className={"col-12 NoPadding "+Style.editAccInputWrapper}>
+                                                                        <input type="password" id="newPass" name="newPassword" ref="newPassword" value={this.state.newPassword} onChange={this.onChange.bind(this)} className="col-12 form-control newPassword" /> 
+                                                                        <span className={" showHideEyeDiv "+Style.editAccInputWrapperInner} onClick={this.showPassFun1.bind(this)}>
+                                                                            <i className={this.state.showPassword1 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword1}></i>
+                                                                        </span> 
+                                                                        <div className="errorMsg mt-1 ">{this.state.errors.newPassword}</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className=" col-12 col-lg-3 col-md-3 mx-auto mb-2 NoPadding">
+                                                                    <label className={"mt15 col-12 NoPadding " + Style.editAccountFont}>Confirm New Password <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
+                                                                    <br />
+                                                                    <div className={"col-12 NoPadding "+Style.editAccInputWrapper}>
+                                                                        <input type="password" className="loginPwdField col-12 form-control" id="confirmPassword" name="confirmPassword" value={this.state.confirmPassword} ref="confirmPassword" onChange={this.onChange.bind(this)} /> 
+                                                                        <span className={" showHideEyeDiv "+Style.editAccInputWrapperInner} onClick={this.showPassFun.bind(this)}>
+                                                                            <i className={this.state.showPassword ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword}></i>
+                                                                        </span> 
+                                                                        <div className="errorMsg mt-1 ">{this.state.errors.confirmPassword}</div>
+                                                                    </div>
+                                                                </div> 
                                                                 <div className="col-12 float-right">
-                                                                    <button className={"btn globalCommonBtn editAccount col-12 float-right " + Style.profileSubmitBtn}  onClick={this.updateUserEmail.bind(this)}>Submit</button>
+                                                                    <button className={"btn globalCommonBtn editAccount col-12 float-right " + Style.profileSubmitBtn} onClick={this.updateUserPassword.bind(this)}>Submit</button>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    
-                                                } 
-                                                <div className={"col-12 mt-2 " +Style.horizontalLine}></div>
-                                            </div>
-
-                                        <div className="col-12 mt-1 px-0">
-                                            <div className="col-12">
-                                                <div className={"col-12 mt-2 NoPadding " + Style.editAccountFont}>
-                                                    <input type="checkbox" id="changeMobile" checked={this.state.changeMobile} onChange={this.changeMobile.bind(this)}/> &nbsp; <span>Change Mobile</span> 
-                                                </div>
-                                                { this.state.changeMobile === true &&
-                                                    <div className="col-12 ">
-                                                        <div className="row ">
-                                                            <div className="col-xl-5 col-lg-5 col-sm-5 col-md-5  col-12 mb-2 NoPadding">
-                                                                <label className={"mt15 " + Style.editAccountFont}>Mobile Number<span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
-                                                                <br />
-                                                                <PhoneInput
-                                                                    country={'ae'} 
-                                                                    value={this.state.mobNumber}
-                                
-                                                                    inputProps={{
-                                                                        name: 'mobNumber',
-                                                                        required: true
-                                                                    }}
-                                                                    onChange={mobileNumber => { 
-                                                                        this.setState({ mobileNumber })
-                                                                            this.setState({
-                                                                                mobNumber : mobileNumber,
-                                                                            },()=>{
-                                                                                console.log("mobNumber==",this.state.mobNumber);
-                                                                            }); 
-                                                                            let fields = this.state.fields;
-                                                                            fields["mobNumber"] = this.state.mobNumber;
-                                                                            this.setState({
-                                                                                fields
-                                                                            });
-                                                                    }} />
-                                                                <div className="col-12 errorMsg mt-1 ">{this.state.errors.mobNumber}</div>
                                                             </div>
-                                                            <div className="col-12 NoPadding float-right">
-                                                                <button className={"btn globalCommonBtn editAccount col-12 float-right " + Style.profileSubmitBtn} onClick={this.updateUserMobile.bind(this)}>Submit</button>
-                                                            </div>
-                                                        </div>
+                                                        } 
+                                                       
                                                     </div>
-                                                }
-                                                <div className={"col-12 mt-2 " +Style.horizontalLine}></div>
-                                            </div>
-                                        </div>
-
-                                      
-                                        <div className="col-12 NoPadding mb-4">
-                                            <div className="col-12 mb-2 px-0">
-                                                <div className={"col-12 " + Style.editAccInputWrapper}>
-                                                    <input type="checkbox" id="changePassword" checked={this.state.changePassword} onChange={this.changePassword.bind(this)}/> &nbsp; <span className={Style.editAccountFont}>Change Password</span> 
-                                                </div>
-                                                <div id="credentials" className=" mt-2 ">
-                                                    { this.state.changePassword === true &&
-                                                        <div className="col-12">
-                                                        <div className="row ">
-                                                            <div className="col-12 col-lg-3 col-md-3 mx-auto mb-2 NoPadding">
-                                                                <label className={"mt15 " + Style.editAccountFont}>Current Password <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
-                                                                <br />
-                                                                <div id="oldPassword" className={"col-12 NoPadding "+Style.editAccInputWrapper}>
-                                                                    <input type="text" id="resetCurrentPassword" type="password" name="resetCurrentPassword" ref="resetCurrentPassword" value={this.state.resetCurrentPassword} onChange={this.onChange.bind(this)} className="col-12 form-control" /> 
-                                                                    <span className={" showHideEyeDiv "+Style.editAccInputWrapperInner} onClick={this.showPassFun3.bind(this)}>
-                                                                        <i className={this.state.showPassword3 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword3}></i>
-                                                                    </span> 
-                                                                    <div className="errorMsg mt-1 ">{this.state.errors.currentPassword}</div>
-                                                                </div>
-                                                            </div> 
-                                                            <div className="col-12 col-lg-3 col-md-3 mx-auto mb-2 NoPadding">
-                                                                <label className={"mt15 " + Style.editAccountFont}>New Password <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
-                                                                <br />
-                                                                <div id="newPassword" className={"col-12 NoPadding "+Style.editAccInputWrapper}>
-                                                                    <input type="password" id="newPass" name="newPassword" ref="newPassword" value={this.state.newPassword} onChange={this.onChange.bind(this)} className="col-12 form-control newPassword" /> 
-                                                                    <span className={" showHideEyeDiv "+Style.editAccInputWrapperInner} onClick={this.showPassFun1.bind(this)}>
-                                                                        <i className={this.state.showPassword1 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword1}></i>
-                                                                    </span> 
-                                                                    <div className="errorMsg mt-1 ">{this.state.errors.newPassword}</div>
-                                                                </div>
-                                                            </div>
-                                                            <div className=" col-12 col-lg-3 col-md-3 mx-auto mb-2 NoPadding">
-                                                                <label className={"mt15 col-12 NoPadding " + Style.editAccountFont}>Confirm New Password <span className={"asterisk " + Style.asterikSign}> &#42; </span></label>
-                                                                <br />
-                                                                <div className={"col-12 NoPadding "+Style.editAccInputWrapper}>
-                                                                    <input type="password" className="loginPwdField col-12 form-control" id="confirmPassword" name="confirmPassword" value={this.state.confirmPassword} ref="confirmPassword" onChange={this.onChange.bind(this)} /> 
-                                                                    <span className={" showHideEyeDiv "+Style.editAccInputWrapperInner} onClick={this.showPassFun.bind(this)}>
-                                                                        <i className={this.state.showPassword ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword}></i>
-                                                                    </span> 
-                                                                    <div className="errorMsg mt-1 ">{this.state.errors.confirmPassword}</div>
-                                                                </div>
-                                                            </div> 
-                                                            <div className="col-12 float-right">
-                                                                <button className={"btn globalCommonBtn editAccount col-12 float-right " + Style.profileSubmitBtn} onClick={this.updateUserPassword.bind(this)}>Submit</button>
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                    } 
-                                                   
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="col-12 float-right updateBasicInfo">
-                                            <button className={"btn globalCommonBtn editAccount  col-12  float-right " + Style.profileSubmitBtn} onClick={this.updateUserBasicInfo.bind(this)}>Submit</button>
-                                        </div>
-                                </form>
-                            {/* </div> */}
+                                            <div className="col-12 float-right updateBasicInfo">
+                                                <button className={"btn globalCommonBtn editAccount  col-12  float-right " + Style.profileSubmitBtn} onClick={this.updateUserBasicInfo.bind(this)}>Submit</button>
+                                            </div>
+                                    </form>
+                                {/* </div> */}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </section>
         )
     }

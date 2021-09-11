@@ -77,7 +77,9 @@ class Wishlist extends Component {
                    return(
                       <div className="col-12 mb-4" key={index}> 
                           <div className="col-12 areaName mt-lg-1 mt-4 pb-3 pl-lg-0 mt-md-0"><i className="fas fa-map-marker-alt" aria-hidden="true"></i>    &nbsp;&nbsp;{areaWiseWishlist.areaName}</div>
+
                           <div className={"col-12 pt-4 mx-0 px-xl-4 "+Style.wishlistBlockBorder}>
+
                                 {areaWiseWishlist && areaWiseWishlist.products && areaWiseWishlist.products.length > 0
                                 ?
                                   <ProductListView 
