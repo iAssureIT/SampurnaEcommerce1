@@ -17,10 +17,11 @@ class VendorList extends Component {
       
     componentDidMount() {
         $(window).scroll(function() {
-            if ($(this).scrollTop()>148){
+            var topPos = $(this).scrollTop();
+            if (topPos>148){
                 // console.log("$(this).scrollTop()==",$(this).scrollTop());
-                $(".deliveryTimeStrip").css({"position": "fixed",
-                "top": 0});
+                $(".deliveryTimeStrip").css({"position": "relative",
+                "top": topPos});
             }else{
                 // console.log("$(this).scrollTop()==",$(this).scrollTop());
                 $(".deliveryTimeStrip").css({"position": "relative",
