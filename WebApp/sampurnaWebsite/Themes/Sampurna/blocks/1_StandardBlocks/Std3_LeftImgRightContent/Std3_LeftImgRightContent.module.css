@@ -2,7 +2,7 @@
 .stdBlockFGImage{
 	height: 190px;
     border-radius: 19px;
-	margin-top: 30px;
+	/*margin-top: 30px;*/
 }
 .stdBlockDescriptionBlack{
     font-size: 20px;
@@ -15,70 +15,149 @@
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 
-@media (min-device-width: 1200px){
+@media (max-width: 480px){
+    .stdBlockWrapper{
+        height: 450px;
+    }
+    
+    .stdBlockFGImage{
+        height: 150px;
+        margin-left: 0px;
+    }
+    
+    .stdBlockDescriptionBlack{
+        font-size: 20px;
+        margin-top: 30px;
+        /*margin-left: 50px;*/
+        margin-right: 80px;
+        text-align: right;
+        text-align: justify;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 640px){
+    .stdBlockWrapper{
+        height: 480px;
+    }
+    
+    .stdBlockFGImage{
+        height: 300px;
+        margin-left: 0px;
+    }
+    
+    .stdBlockDescriptionBlack{
+        font-size: 20px;
+        margin-top: 30px;
+        /*margin-left: 50px;*/
+        margin-right: 80px;
+        text-align: right;
+        text-align: justify;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 860px){
+    .stdBlockWrapper{
+        height: 500px;
+    }
+    
+    .stdBlockFGImage{
+        height: 360px;
+        margin-left: 0px;
+    }
+    
+    .stdBlockDescriptionBlack{
+        font-size: 20px;
+        margin-top: 30px;
+        /*margin-left: 50px;*/
+        margin-right: 80px;
+        text-align: right;
+        text-align: justify;
+    }
+}
+
+@media (min-width: 860px) and (max-width: 1280px) {
+    .stdBlockWrapper{
+        height: 600px;
+    }
+    
+    .stdBlockFGImage{
+        height: 440px;
+        margin-left: 0px;
+    }
+    
+    .stdBlockDescriptionBlack{
+        font-size: 20px;
+        /*margin-top: 90px;*/
+        /*margin-left: 50px;*/
+        margin-right: 80px;
+        text-align: right;
+        text-align: justify;
+    }
+}
+
+@media (min-width: 1280px) and (max-width: 1366px) { 
 
 	.stdBlockWrapper{
-		height: 430px;
+		height: 500px;
 	}
 	
 	.stdBlockFGImage{
-		height: 300px;
+		height: 380px;
 		margin-left: 0px;
 	}
 	
 	.stdBlockDescriptionBlack{
 		font-size: 20px;
 		margin-top: 90px;
-		margin-left: 50px;
-		margin-right: 80px;
+		margin-left: 150px;
+		/*margin-right: 80px;*/
 		text-align: right;
-		text-align: justify;
 	}
 }
 
 
-@media (min-device-width: 1366px){
+@media (min-width: 1366px) and (max-width: 1440px) { 
 
 	.stdBlockFGImage{
-        height: 309px;
-    }
-
-    .stdBlockDescriptionBlack{
-        font-size: 19px;
-        margin-top: 115px;
-        margin-left: 181px;
-    	margin-right: 58px;
-        text-align: justify;
-    }
-
-    .stdBlockWrapper {
-        margin-bottom: 90px;
-    }
-
-}
-
-
-@media (min-device-width: 1440px){
-
-	.stdBlockFGImage{
-        height: 300px;
+        height: 320px;
     }
 
     .stdBlockDescriptionBlack{
         font-size: 20px;
-        margin-top: 105px;
-        margin-left: 185px;
-    	margin-right: 58px;
-        text-align: justify;
+        /*margin-top: 115px;*/
+        /*margin-left: 181px;*/
+    	/*margin-right: 58px;*/
+        text-align: right;
     }
 
     .stdBlockWrapper {
-        margin-bottom: 23px;
+        margin-bottom: 0px;
     }
 
 }
 
-@media (min-device-width: 1536px){
+
+@media (min-width: 1440px) and (max-width: 1536px) { 
+
+	.stdBlockFGImage{
+        height: 330px;
+    }
+
+    .stdBlockDescriptionBlack{
+        font-size: 20px;
+        margin-top: 80px;
+        margin-left: 150px;
+    	margin-right: 58px;
+        text-align:right;
+    }
+
+    .stdBlockWrapper {
+        margin-bottom: 110px;
+    }
+
+}
+
+@media (min-width: 1536px) and (max-width: 1680px) { 
 
 	.stdBlockFGImage{
         height: 362px;
@@ -88,7 +167,7 @@
     .stdBlockDescriptionBlack{
         font-size: 21px;
         margin-top: 133px;
-        margin-left: 205px;
+        margin-left: 150px;
     	margin-right: 54px;
         text-align: justify;
     }
@@ -99,14 +178,32 @@
 
 }
 
+@media (min-width: 1680px) and (max-width: 1920px) { 
+    .stdBlockFGImage{
+        height: 362px;
+        margin-left: 61px;
+    }
+
+    .stdBlockDescriptionBlack{
+        font-size: 21px;
+        margin-top: 133px;
+        margin-left: 150px;
+        margin-right: 54px;
+        text-align: justify;
+    }
+
+    .stdBlockWrapper {
+        margin-bottom: 120px;
+    }
+}
+
 /*@media (min-device-width: 1640px){
 
 }*/
 
-@media (min-device-width: 1920px){
-
-	.stdBlockFGImage{
-        height: 460px;	
+@media (min-width: 1920px) and (max-width: 2560px)  {
+    .stdBlockFGImage{
+        height: 460px;  
         margin-left: 103px;
     }
 
@@ -114,14 +211,13 @@
         font-size: 22px;
         margin-top: 200px;
         margin-left: 212px;
-        text-align: justify;
+        text-align: right;
     }
 
     .stdBlockWrapper{
-    	height: 430px;
-    	padding-bottom: 520px;
-	}
-
+        height: 430px;
+        padding-bottom: 520px;
+    }
 }
 
 @media (min-device-width: 2560px){
@@ -133,12 +229,12 @@
     .stdBlockDescriptionBlack{
         font-size: 28px;
         margin-top: 210px;
-        margin-left: 233px;
-        text-align: justify;
+        margin-left: 150px;
+        text-align: right;
     }
 
     .stdBlockWrapper{
-    	height: 430px;
+    	height: 480px;
     	padding-bottom: 611px;
 	}
 
