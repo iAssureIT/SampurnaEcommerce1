@@ -321,7 +321,7 @@
     margin-left: -18px;
 }
 .deliveryLocationSaveButton{
-    margin-right: 28px;
+    margin-right: 30px;
 }
 /* =========================Media Query============================================== */
 
@@ -550,12 +550,17 @@
         right   : -25px;
         font-size: 40px !important;
     }
+    .deliveryLocationSaveButton{
+        margin-right: 30px;
+    }
 }
 
 
 /* [xl] Extra Large Devices [Desktop/Laptop (HD), 1536px and up] */
 @media (min-width: 1536px){
-
+    .deliveryLocationSaveButton{
+        margin-right: 30px;
+    }
 }
 
 
@@ -582,7 +587,7 @@
 
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
-@media only screen and (max-device-width: 480px) {
+@media only screen and (max-device-width: 413px) {
     .deliveryLocationORLine1{
         margin-left: 15px;
     }
@@ -593,11 +598,21 @@
         height: 270px;
         margin-top: 100px;
     }
+    .deliveryLocationCurrentButton{
+        margin-left: 0px;
+    }
+    .deliveryLocationSearchWrapper{
+        margin-left: 0px;
+    }
+}
+@media  (min-width: 414px) and (max-width: 639px){
+
 }
 @media (min-width: 640px)and (max-width: 767px){
     .deliveryLocationCurrentButton{
         font-size: 11px;
         margin-top: 15px;
+        margin-left: 10px;
     }
     .heightGoogleMap{
         height: 250px;
@@ -607,28 +622,82 @@
         margin-right: 0px;
 
     }
+    .deliveryLocationSaveButton{
+        margin-right: 5px;
+    }
+    .deliveryLocationSearchWrapper{
+        margin-left: -5px;
+    }
 
 }
-@media (min-width: 768px)and (max-width: 1023px){
+@media (min-width: 768px)and (max-width: 859px){
     .deliveryLocationCurrentButton{
         margin-top: 15px;
+        margin-left: 40px;
     }
     .heightGoogleMap{
         height: 470px;
         margin-top: 100px;
     }
     .deliveryLocationSaveButton{
-        margin-right: 0px;
+        margin-right: 5px;
+    }
+    .deliveryLocationORLine1{
+        margin-left: 20px;
+    }
+    .deliveryLocationSearchWrapper{
+        margin-left: -5px;
     }
 }
-@media (min-width: 1024px)and (max-width: 1200px){
+@media (min-width: 860px)and (max-width: 1023px){
+    .deliveryLocationCurrentButton{
+        margin-top: 15px;
+        margin-left: 30px;
+    }
+    .heightGoogleMap{
+        height: 470px;
+        margin-top: 100px;
+    }
+    .deliveryLocationSaveButton{
+        margin-right: 5px;
+    }
+    .deliveryLocationORLine1{
+        margin-left: 20px;
+    }
+    .deliveryLocationSearchWrapper{
+        margin-left: -5px;
+    }
+}
+@media (min-width: 1024px)and (max-width: 1279px){
     .heightGoogleMap{
         height: 470px;
     }
     .deliveryLocationSaveButton{
         margin-right: 0px;
     }
+    .deliveryLocationCurrentButton{
+        font-size: 12px;
+        margin-left: 65px;
+    }
+    .deliveryLocationSearchWrapper{
+        margin-left: -10px;
+    }
+    .deliveryLocationSaveButton{
+        margin-right: 20px;
+    }
 
+}
+@media (min-width: 1280px)and (max-width: 1300px){
+    .deliveryLocationCurrentButton{
+        font-size: 12px;
+        margin-left: 65px;
+    }
+    .deliveryLocationSearchWrapper{
+        margin-left: -10px;
+    }
+    .deliveryLocationSaveButton{
+        margin-right: 20px;
+    }
 }
 @media (min-device-width: 1440px) and (max-device-width: 1535px) {
     .heightGoogleMap {
@@ -764,7 +833,7 @@
         font-size: 16px;
     }
     .deliveryLocationSaveButton{
-        margin-right: 20px;
+        margin-right: 60px;
     }
     .deliveryLocationFormModalWrapper .deliveryLocationCurrentButton{
         margin-left: 0px;
