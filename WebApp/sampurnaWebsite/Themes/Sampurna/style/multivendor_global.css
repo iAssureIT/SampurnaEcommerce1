@@ -1060,6 +1060,10 @@ option:focus, option:active{
     height: 20px;
   }
 
+  .css-yk16xz-control{
+    background-color: #e3e2e2 !important;
+  }
+
 }  
 
 @media only screen and (min-device-width: 1024px) {
@@ -1104,10 +1108,42 @@ option:focus, option:active{
 
 }
 
+@media only screen and (min-device-width: 320px) {
+
+  .globalAddToCartBtn{
+    font-size: 15px;
+    font-family: "Montserrat-Regular";
+    font-weight: 500;
+  }
+
+  .navbar-light .navbar-toggler{
+    color: #000 !important;
+    font-family: 'Montserrat-Bold';
+  }
+
+}
+
+@media only screen and (min-device-width: 360px) {
+
+
+}
+
+@media only screen and (min-device-width: 375px) {
+
+
+}
+
+@media only screen and (min-device-width: 414px) {
+
+
+}    
+
 @media only screen and (min-device-width: 1280px) {
 
-   .globalAddToCartBtn{
+  .globalAddToCartBtn{
     font-size: 15px;
+    font-family: "Montserrat-Regular";
+    font-weight: 500;
   }
 
 }  
@@ -1328,7 +1364,6 @@ option:focus, option:active{
   }
 
   .css-yk16xz-control{
-    background-color: #e3e2e2 !important;
     border-radius: 7px;
   }
 

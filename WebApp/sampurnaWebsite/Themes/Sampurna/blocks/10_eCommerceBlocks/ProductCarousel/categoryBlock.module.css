@@ -65,7 +65,7 @@
     bottom: 0px;
     left: -1px;
     background-color: rgba(0,0,0,0.4);
-    border-radius: 8px !important;
+    border-radius: 11px !important;
     /*background-color: rgba(0,0,0,1);*/
 }
 
@@ -103,7 +103,7 @@
 /* @media (min-width: 360px) and (max-width: 640px) { */
 @media only screen and (max-width: 480px) {
   .categoryPhoto{
-    min-height: 80px !important;
+    /*min-height: 80px !important;*/
   }
   .categoryName{
     top: 30px;
@@ -115,7 +115,7 @@
 
 @media (min-width: 480px) and (max-width: 768px) {  
   .categoryPhoto{
-      min-height: 170px;
+      /*min-height: 170px;*/
   }
   .categoryName{
       top: 60px;
@@ -198,8 +198,248 @@
 
 
 
+/***********************************************************Media Query written by Sanket***************************************/
+
+@media only screen and (min-device-width: 320px) {
+
+  .categoryName{
+    top: 50px;
+    font-size: 25px;
+  }
+
+  .categoryPhoto {
+    height: 166px;
+  }
+
+  .NoAvailableImg{
+    height: 163px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 100%;
+  }
+
+}
+
+@media only screen and (min-device-width: 360px) {
+
+  .categoryName{
+    top: 50px;
+    font-size: 25px;
+  }
+
+  .categoryPhoto {
+    height: 169px;
+  }
+
+  .NoAvailableImg{
+    height: 163px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 100%;
+  }
+
+}
 
 
+@media only screen and (min-device-width: 375px) {
+
+  .categoryName{
+    top: 50px;
+    font-size: 25px;
+  }
+
+  .categoryPhoto {
+    height: 166px;
+  }
+
+  .NoAvailableImg{
+    height: 163px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 100%;
+  }
+
+}
+
+@media only screen and (min-device-width: 414px) {
+
+  .categoryName{
+    top: 55px;
+    font-size: 25px;
+  }
+
+  .categoryPhoto {
+    height: 166px;
+  }
+
+  .NoAvailableImg{
+    height: 163px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 100%;
+  }
+
+}
+
+@media only screen and (min-device-width: 568px) {
+
+  .categoryName{
+    top: 27px;
+    font-size: 15px;
+  }
+
+  .categoryPhoto {
+    height: 97px;
+  }
+
+  .NoAvailableImg{
+    height: 88px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 100%;
+  }
+
+} 
+
+@media only screen and (min-device-width: 640px) {
+
+  .categoryName{
+    top: 27px;
+    font-size: 15px;
+  }
+
+  .categoryPhoto {
+    height: 97px;
+  }
+
+  .NoAvailableImg{
+    height: 88px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 100%;
+  }
+
+} 
+
+@media only screen and (min-device-width: 667px) {
+
+  .categoryName{
+    top: 25px;
+    font-size: 15px;
+  }
+
+  .categoryPhoto {
+    height: 97px;
+  }
+
+  .NoAvailableImg{
+    height: 88px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 100%;
+  }
+
+} 
+
+@media only screen and (min-device-width: 736px) {
+
+  .categoryName{
+    top: 30px;
+    font-size: 15px;
+  }
+
+  .categoryPhoto {
+    height: 96px;
+  }
+
+  .NoAvailableImg{
+    height: 93px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 100%;
+  }
+
+}   
+
+@media only screen and (min-device-width: 768px) {
+
+  .categoryName{
+    top: 30px;
+    font-size: 15px;
+  }
+
+  .categoryPhoto {
+    height: 96px;
+  }
+
+  .NoAvailableImg{
+    height: 93px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 100%;
+  }
+
+}  
+
+@media only screen and (min-device-width: 1024px) {
+
+  .categoryName{
+    top: 30px;
+    font-size: 15px;
+  }
+
+  .categoryPhoto {
+    height: 96px;
+  }
+
+  .NoAvailableImg{
+    height: 90px;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .productListCategoryBlock{
+    width: 100%;
+  }
+
+}  
 
 @media only screen and (min-device-width: 1280px) {
 
@@ -220,7 +460,7 @@
   }
 
   .productListCategoryBlock{
-    width: 93%;
+    width: 100%;
   }
 
 }  
@@ -228,7 +468,7 @@
 @media only screen and (min-device-width: 1366px) {
 
   .categoryName{
-    top: 25px;
+    top: 28px;
     font-size: 17px;
   }
 
@@ -237,14 +477,14 @@
   }
 
   .NoAvailableImg{
-    height: 90px;
+    height: 91px;
     display: block;
     margin-left: auto !important;
     margin-right: auto !important;
   }
 
   .productListCategoryBlock{
-    width: 93%;
+    width: 100%;
   }
 
 }  
@@ -268,7 +508,7 @@
   }
 
   .productListCategoryBlock{
-    width: 93%;
+    width: 100%;
   }
 
 }  
@@ -276,7 +516,7 @@
 @media only screen and (min-device-width: 1536px) {
 
   .categoryName{
-    top: 30px;
+    top: 34px;
     font-size: 21px;
   }
 
@@ -292,7 +532,7 @@
   }
 
   .productListCategoryBlock{
-    width: 93%;
+    width: 100%;
   }
 
 }  
@@ -301,23 +541,23 @@
 @media only screen and (min-device-width: 1680px) {
 
   .categoryName{
-    top: 35px;
-    font-size: 23px;
+    top: 40px;
+    font-size: 25px;
   }
 
   .categoryPhoto {
-    height: 126px;
+    height: 132px;
   }
 
   .NoAvailableImg{
-    height: 120px;
+    height: 126px;
     display: block;
     margin-left: auto !important;
     margin-right: auto !important;
   }
 
   .productListCategoryBlock{
-    width: 93%;
+    width: 100%;
   }
 
 }  
@@ -325,23 +565,23 @@
 @media only screen and (min-device-width: 1920px) {
 
   .categoryName{
-    top: 35px;
-    font-size: 25px;
+    top: 45px;
+    font-size: 32px;
   }
 
   .categoryPhoto {
-    height: 126px;
+    height: 152px;
   }
 
   .NoAvailableImg{
-    height: 120px;
+    height: 146px;
     display: block;
     margin-left: auto !important;
     margin-right: auto !important;
   }
 
   .productListCategoryBlock{
-    width: 93%;
+    width: 100%;
   }
 
 }  
@@ -349,26 +589,26 @@
 @media only screen and (min-device-width: 2560px) {
 
   .categoryName{
-    top: 50px;
-    font-size: 25px;
+    top: 54px;
+    font-size: 34px;
   }
 
   .categoryPhoto {
-    height: 156px;
+    height: 173px;
   }
 
   .NoAvailableImg{
-    height: 150px;
+    height: 168px;
     display: block;
     margin-left: auto !important;
     margin-right: auto !important;
   }
 
   .productListCategoryBlock{
-    width: 93%;
+    width: 100%;
   }
 
 }  
 
 
-
+/*****************************************************************************************************************************/

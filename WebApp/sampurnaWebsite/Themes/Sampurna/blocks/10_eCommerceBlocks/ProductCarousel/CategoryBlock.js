@@ -40,10 +40,10 @@ const CategoryBlock = (props)=>{
   const [categoryurl, setCategoryurl] = useState(router.query.categoryurl);
 
   return (
-    <div className={"container-fluid categoryCarousel " +Style.categoryCarousel}>
-      <div className="col-12">
-        <div className="col-12">
-          <div className="col-12">
+    <div className={"container-fluid categoryCarousel px-0 px-md-0 px-sm-0 " +Style.categoryCarousel}>
+      <div className="col-12 px-0 px-md-0 px-sm-0">
+        <div className="col-12 px-0 px-sm-0 px-md-0 px-lg-4 px-xl-4">
+          <div className="col-12 px-0 px-sm-0 px-md-0 px-lg-0 px-xl-2">
             <Carousel 
                 className=""
                 swipeable={true}
@@ -78,7 +78,7 @@ const CategoryBlock = (props)=>{
                     var url = "/products/"+props.vendor_ID+"/"+props.vendorlocation_ID +"/"+props.sectionUrl+"/"+categorydata.categoryUrl;
                     
                     return (
-                    <div className={"col-12 productsCategoryBlock px-lg-0 px-xl-2"}  key={index}>
+                    <div className={"col-12 productsCategoryBlock px-3 px-sm-3 px-md-3 px-lg-3 px-xl-4"}  key={index}>
                       <div className={"productListCategoryBlock " + Style.productListCategoryBlock}> 
                           <a href={url} className ={"col-12 " + Style.categoryBlock}>
                             <div className={activeClass + " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " }>

@@ -569,7 +569,7 @@ class ProductListView extends Component {
                     {/* Fitters code */}
                     {this.props.blockSettings.leftSideFilters === true?
                     <div className={"row " +Style.NoPadding +" " +Style.productListWrapper}>  
-                      <div className={"col-xs-12 col-lg-2 col-xl-2 NoPadding  filterWrapper " +Style.filterBlockWrapper}>
+                      <div className={"col-xs-12 col-lg-3 col-xl-2 NoPadding  filterWrapper " +Style.filterBlockWrapper}>
 
                         {this.state.categoryData && this.state.categoryData.length>0?   
                           < CategoryFilters 
@@ -660,7 +660,7 @@ class ProductListView extends Component {
                         :' '
                         }
                     </div>
-                    <div className={"col-lg-10 col-xl-10 col-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
+                    <div className={"col-lg-9 col-xl-10 col-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
                       <div className="col-12">
                         <div className={" " +Style.rightSidefilter}>
                             <div className={"col-12 "}>
