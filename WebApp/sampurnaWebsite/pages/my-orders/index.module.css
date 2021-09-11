@@ -278,13 +278,6 @@
 	}
 }
 
-
-@media only screen and (min-device-width: 768px) {
-	.myOrderMainTitle{
-  		font-size: 18px;
-  	}
-}
-
 @media only screen and (min-device-width: 1024px) {
 	
 	.myOrderMainTitle{

@@ -1308,6 +1308,8 @@ exports.list_product_with_FilterData = (req,res,next)=>{
 						{ "subCategory"						: {'$regex' : req.body.searchText , $options: "i" } },
 						{ "productCode"						: {'$regex' : req.body.searchText , $options: "i" } },
 						{ "itemCode"							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "vendorBarcode"						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "vendorItemcode"					: {'$regex' : req.body.searchText , $options: "i" } },
 					]
 		})
 	}
@@ -1350,31 +1352,31 @@ exports.list_product_with_FilterData = (req,res,next)=>{
 				subCategory							: 1,
 				status          					: 1,
 				createdAt       					: 1,
-				"productName"						: 1,
-				"brand"								: 1,
-				"productCode" 						: 1,
-				"itemCode" 							: 1,
-				// "vendorBarcode"						: 1,
-				// "vendorItemcode"					: 1,
-				"originalPrice" 					: 1,
-				// "discountPercent" 					: 1,
-				// "discountedPrice" 					: 1,
+				productName							: 1,
+				brand									: 1,
+				productCode 						: 1,
+				itemCode 							: 1,
+				vendorBarcode						: 1,
+				vendorItemcode						: 1,
+				originalPrice 						: 1,
+				// "discountPercent" 				: 1,
+				// "discountedPrice" 				: 1,
 				// "availableQuantity" 				: 1,
 				// "featured" 							: 1,
 				// "exclusive" 						: 1,
-				// "vendorDetails.companyName"	        : 1,
-				// "categoryDetails.category"		    : 1,
-				// "categoryDetails.subCategory"	    : 1,
-				"sectionDetails.section"		    : 1,
-				"productImage" 						: 1,
+				"vendorDetails.companyName"	: 1,
+				"categoryDetails.category"		: 1,
+				"categoryDetails.subCategory"	: 1,
+				"sectionDetails.section"		: 1,
+				productImage 						: 1,
 			}
 		}
 	])
 	// .exec()
 	.skip(parseInt(req.body.startRange))
-	.limit(parseInt(req.body.limitRange - req.body.startRange))
+	.limit(parseInt(req.body.limitRange))
 	.then(async(data)=>{
-		var allData = []
+		var allData 	= [];
 		for (var i = 0; i < data.length; i++) {
 				var subCategory = "";
 				if(data[i].categoryDetails && data[i].categoryDetails.length > 0){
@@ -1389,13 +1391,14 @@ exports.list_product_with_FilterData = (req,res,next)=>{
 				}
 				var inventoryData 		= await ProductInventory.findOne({productCode : data[i].productCode, itemCode : data[i].itemCode, vendor_ID : ObjectId(data[i].vendor_ID)},{currentQuantity : 1})
 				var availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 
-				let vendorBarcode =  data[i].vendorBarcode !== undefined && data[i].vendorBarcode!==''  ? "</span><br><span class='whiteSpaceNoWrap'> Vendor Barcode: " + data[i].vendorBarcode + "</span>" : "</span><br><span class='whiteSpaceNoWrap'> Vendor Barcode: " + "NA" + "</span>"
-				let vendorItemcode = data[i].vendorItemcode !== undefined && data[i].vendorItemcode !== '' ? "</span><br><span class='whiteSpaceNoWrap'> Vendor Itemcode: " +  data[i].vendorItemcode + "</span>" : "</span><br><span class='whiteSpaceNoWrap'>Vendor Itemcode: " + "NA" + "</span>"
+				let vendorBarcode 		= data[i].vendorBarcode !== undefined && data[i].vendorBarcode!==''  ? "</span><br><span class='whiteSpaceNoWrap'> Vendor Barcode: " + data[i].vendorBarcode + "</span>" : "</span><br><span class='whiteSpaceNoWrap'> Vendor Barcode: " + "NA" + "</span>"
+				let vendorItemcode 		= data[i].vendorItemcode !== undefined && data[i].vendorItemcode !== '' ? "</span><br><span class='whiteSpaceNoWrap'> Vendor Itemcode: " +  data[i].vendorItemcode + "</span>" : "</span><br><span class='whiteSpaceNoWrap'>Vendor Itemcode: " + "NA" + "</span>"
 				allData.push({
 									"_id"                   : data[i]._id,
-									"productName"           : data[i].productName,
+									"productName"           : "<div><b>"+(data[i].productName)+"</b><br></div>"+"<span class='whiteSpaceNoWrap'> Product Code: "+data[i].productCode+"</span><br><span class='whiteSpaceNoWrap'> Item Code: " + data[i].itemCode + "</span>" 								
+																		+ vendorBarcode +vendorItemcode,
 									"productCode"           : data[i].productCode,
-									"itemCode"				: data[i].itemCode,
+									"itemCode"					: data[i].itemCode,
 									// +"</span><br><span class='whiteSpaceNoWrap'> Item Code: " + data[i].itemCode + "</span>" 								
 																// + vendorBarcode +vendorItemcode, 
 									"vendorName"            : data[i].vendorDetails && data[i].vendorDetails.length > 0 ? data[i].vendorDetails[0].companyName : "-",
@@ -1403,10 +1406,10 @@ exports.list_product_with_FilterData = (req,res,next)=>{
 									"category"              : data[i].categoryDetails && data[i].categoryDetails.length > 0 ? data[i].categoryDetails[0].category : "-",
 									"subCategory"           : subCategory,
 									"brand"           		: data[i].brand,
-									"originalPrice"         : data[i].originalPrice.toFixed(2),
+									"originalPrice"         : "<span class='textAlignRight whiteSpaceNoWrap'> AED " + data[i].originalPrice.toFixed(2) + "</span>",
 									// "discountPercent"       : "<span class='textAlignRight'>" + data[i].discountPercent + "%" + "</span>",
 									// "discountedPrice"       : "<span class='textAlignRight'>" + (data[i].discountedPrice).toFixed(2) + "</span>",
-									// "availableQuantity"     : availableQuantity,
+									"availableQuantity"     : availableQuantity,
 									// "featured"              : data[i].featured,
 									// "exclusive"             : data[i].exclusive,
 									"status"                : data[i].status,
@@ -1417,7 +1420,7 @@ exports.list_product_with_FilterData = (req,res,next)=>{
 		if(i >= data.length){
 			// console.log(allData)
 			res.status(200).json({
-				// dataCount 	: allData.length,
+				// dataCount 	: data.length,
 				data 			: allData
 			});
 		}
@@ -1732,6 +1735,8 @@ exports.list_product_with_limits = (req,res,next)=>{
 						{ "subCategory"					: {'$regex' : req.body.searchText , $options: "i" } },
 						{ "productCode"					: {'$regex' : req.body.searchText , $options: "i" } },
 						{ "itemCode"						: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "vendorItemcode"				: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "vendorBarcode"					: {'$regex' : req.body.searchText , $options: "i" } },
 					]
 		})
 	}
@@ -1902,6 +1907,8 @@ exports.count_all_products = (req,res,next)=>{
 						{ "categoryDetails.subCategory.subCategoryTitle": {'$regex' : req.body.searchText , $options: "i" } },
 						{ "productCode"						: {'$regex' : req.body.searchText , $options: "i" } },
 						{ "itemCode"							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "vendorItemcode"							: {'$regex' : req.body.searchText , $options: "i" } },
+						{ "vendorBarcode"							: {'$regex' : req.body.searchText , $options: "i" } },
 					]
 		})
 	}

@@ -115,6 +115,7 @@
     color: #fff !important;  
     z-index: 10!important;
     margin-top: -1px!important;
+    position: fixed;
 }
 .deliveryTimeWrapperDesc{
     position: absolute;

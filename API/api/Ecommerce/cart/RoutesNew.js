@@ -4,7 +4,7 @@ const checkAuth 	= require('../../coreAdmin/middlerware/check-auth.js');
 
 const cartController = require('./ControllerNew');
 
-router.post('/post', 							cartController.insert_cartid);
+router.post('/post', 							cartController.add_to_cart);
 
 router.get('/get/cartproductlist/:user_ID', 	cartController.list_cart_product);
 

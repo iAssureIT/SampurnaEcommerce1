@@ -1,31 +1,26 @@
 import React,{useEffect,useState,useRef} from 'react';
-import FontAwesome, { SolidIcons, RegularIcons, BrandIcons } from 'react-native-fontawesome';
 import {
   ScrollView,
   Text,
   Image,
-  Input,
   TextInput,
-  Button,
   View,StyleSheet,
   TouchableOpacity,
   Linking,
   KeyboardAvoidingView
 } from 'react-native';
-import {Footer}                 from '../../ScreenComponents/Footer/Footer.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import Axios                    from 'axios';
 import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
 import PhoneInput               from "react-native-phone-number-input";
 import {emailValidator,specialCharacterValidator,mobileValidator}     from '../../config/validators.js';
-import {Formik}             from 'formik';
-import {FormPhoneInput}          from '../../ScreenComponents/PhoneInput/PhoneInput';
-import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
-import {FormInput}          from '../../ScreenComponents/FormInput/FormInput';
-import * as Yup             from 'yup';
+import {Formik}                 from 'formik';
+import {FormButton}             from '../../ScreenComponents/FormButton/FormButton';
+import {FormInput}              from '../../ScreenComponents/FormInput/FormInput';
+import * as Yup                 from 'yup';
 import {setToast, withCustomerToaster} from '../../redux/AppState.js';
-import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import commonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { Dimensions }           from 'react-native';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { useSelector }          from 'react-redux';
@@ -117,8 +112,9 @@ export const SupportSystem = withCustomerToaster((props)=>{
                 .post('/send-email-mobile',formValues2)
                 .then((response)=>{
                     console.log("res=-0-0",response);
-                    setLoading(false)
-                    setFieldValue('mobile_no','')
+                    setLoading(false);
+    phoneInput?.current?.props?.onChangeText('');
+
                     setToast({text:"Thank you for contacting us, we will respond as soon as possible.!",color:"green"})
                     
 				}) 
@@ -128,15 +124,6 @@ export const SupportSystem = withCustomerToaster((props)=>{
 						// swal("Your session is expired! Please login again.","", "error");
 					}
               	})
-		
-            // this.setState({
-            //     name    : "",
-            //     email   : "",
-            //     message : "",
-            //     mobile  : ""
-            // });
-            window.location.reload(false);
-             
             }}          
 
             validationSchema={ValidationSchema}            
@@ -172,11 +159,6 @@ const FormBody = (props) => {
         touched,
         btnLoading,
         setFieldValue,
-        setLoading,
-        navigation,
-        dispatch,
-        companyName,
-        companyEmail,
         companyPhone,
         website_url,
         values,
@@ -213,31 +195,26 @@ const FormBody = (props) => {
                     <View style={{marginBottom:5}}>
                         <FormInput
                             labelName       = "Your Name"
-                            // placeholder     = "Please enter your name..."
                             onChangeText    = {handleChange('name')}
                             required        = {true}
                             name            = "name"
                             errors          = {errors}
                             touched         = {touched}
                             value           = {values.name}
-                            // iconName        = {'user'}
                             iconType        = {'font-awesome'}
                         />
                      </View>   
                      <View style={{marginBottom:5}}>
                         <FormInput
                             labelName       = "Email"
-                            // placeholder     = "Please enter your email..."
                             onChangeText    = {handleChange('email')}
                             required        = {true}
                             name            = "email"
                             errors          = {errors}
                             touched         = {touched}
                             value           = {values.email}
-                            // iconName        = {'email'}
                             iconType        = {'material-community'}
                             autoCapitalize  = "none"
-                            // keyboardType    = "email-address"
                         />
                     </View>    
                     <View style={{marginHorizontal:10,marginBottom:5}}>
@@ -248,10 +225,11 @@ const FormBody = (props) => {
                         </Text>
                         <PhoneInput
                             ref={phoneInput}
-                            defaultValue={value}
                             defaultCode="AE"
                             name = 'mobile_no'
-                            value           = {values.mobile_no}
+                            value  = {values.mobile_no}
+                            // defaultValue    = {values.mobile_no}
+                            layout="second"
                             onChangeText={(text) => {
                             const checkValid = phoneInput.current?.isValidNumber(text);
                             const callingCode = phoneInput.current?.getCallingCode(text);
@@ -306,16 +284,6 @@ const FormBody = (props) => {
                             />
                         </View>
                     </View>
-                    {/* <View
-                        style={styles.button}>
-                        <Icon
-                            name='fontawesome|paper-plane'
-                            size={25}
-                            color='#3b5998'
-                            style={{height:25,width:25}}/>
-                        <Text style={styles.buttonText}>Send</Text>
-                    </View> */}
-                    
                 </View>
                 <View  style={{paddingHorizontal:21}}>
                     <View style={{flexDirection:'row',alignItems:'center'}}>
@@ -392,13 +360,13 @@ const styles1 = StyleSheet.create({
         justifyContent      : 'center',
         backgroundColor     : "#000",
         height              : 20,
-        width              : 20,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 20,
-        elevation: 10,
-        borderRadius :100,
-        marginVertical:15
+        width               : 20,
+        shadowColor         : '#000',
+        shadowOffset        : { width: 0, height: 2 },
+        shadowOpacity       : 0.5,
+        shadowRadius        : 20,
+        elevation           : 10,
+        borderRadius        : 100,
+        marginVertical      : 15
     },
    });

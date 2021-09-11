@@ -104,7 +104,7 @@ const ToastProviderComponent = props => {
           duration: Snackbar.LENGTH_LONG,
           backgroundColor: props.toast?.color,
           fontFamily: 'Montserrat-Regular',
-          numberOfLines:3
+          numberOfLines:3,
         });
       }, 600)
 

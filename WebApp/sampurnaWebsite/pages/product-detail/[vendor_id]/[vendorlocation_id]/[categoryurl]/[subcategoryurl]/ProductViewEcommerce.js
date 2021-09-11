@@ -49,11 +49,12 @@ class ProductViewEcommerce extends Component{
 			"userLatitude"   : "",
 			"startRange"     : 0,
 			"limitRange"     : 28,
-			"tabclick" 		  : false,
+			"tabclick" 		   : false,
 			"clickedSize"    : "",
 			"colorTabClick"  : false,
-			"colorIndex"  	  : 0,
-			wishlistIcon : "far"
+			"colorIndex"  	 : 0,
+			 wishlistIcon 	 : "far",
+       messageData 		 : {},
 		};
 	}
 
@@ -255,7 +256,7 @@ class ProductViewEcommerce extends Component{
 					this.setState({
 						messageData: {},
 					})
-					}, 2000);
+					}, 6000);
 				} else {
 				const formValues = {
 					"user_ID"             : this.state.user_ID,
@@ -278,7 +279,7 @@ class ProductViewEcommerce extends Component{
 							messageData : {
 								"type" : "outpage",
 								"icon" : "fa fa-check-circle",
-								"message" : "&nbsp; "+response.data.message,
+								"message" : response.data.message,
 								"class": "success",
 								"autoDismiss" : true
 							}
@@ -287,7 +288,7 @@ class ProductViewEcommerce extends Component{
 							this.setState({
 								messageData   : {},
 							})
-						}, 3000);
+						}, 6000);
 					})
 					.catch((error) => {
 						console.log('error', error);
@@ -311,7 +312,7 @@ class ProductViewEcommerce extends Component{
 					this.setState({
 						messageData: {},
 					})
-				}, 3000);
+				}, 6000);
 			}
 		}
 	}
@@ -344,7 +345,7 @@ class ProductViewEcommerce extends Component{
 										messageData: {
 											"type" 			: "outpage",
 											"icon"			: "fa fa-check-circle",
-											"message"		: "&nbsp; " + response.data.message,
+											"message"		: response.data.message,
 											"class"			: "success",
 											"autoDismiss" 	: true
 										},
@@ -355,7 +356,7 @@ class ProductViewEcommerce extends Component{
 										messageData: {
 											"type" 			: "outpage",
 											"icon"			: "fa fa-check-circle",
-											"message"		: "&nbsp; " + response.data.message,
+											"message"		: response.data.message,
 											"class"			: "success",
 											"autoDismiss" 	: true
 										},
@@ -367,7 +368,7 @@ class ProductViewEcommerce extends Component{
 									this.setState({
 										messageData: {},
 									})
-								}, 3000);
+								}, 6000);
 							})
 							.catch((error) => {
 								console.log('error', error);
@@ -394,7 +395,7 @@ class ProductViewEcommerce extends Component{
 					this.setState({
 						messageData: {},
 					})
-				}, 3000);
+				}, 6000);
 			}
 		}
 	}
@@ -416,7 +417,7 @@ class ProductViewEcommerce extends Component{
 				this.setState({
 					messageData: {},
 				})
-			}, 5000);
+			}, 6000);
 		}else{
 			// console.log("totalQuanity===",this.state.totalQuanity);
 			this.setState({ totalQuanity: totalQuanity });
@@ -511,8 +512,22 @@ class ProductViewEcommerce extends Component{
 
 	}
 
+  close(event){
+      event.preventDefault();
+      this.setState({ messageData: {} });
+  }
+
+
 	render(){
-		var x 			= this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
+		console.log("this.props.recentWishlistData => ", this.props.recentWishlistData);
+
+		var x 			= this.props.recentWishlistData && this.props.recentWishlistData.length> 0 
+									? 
+										this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) 
+									: 
+										[];
+		console.log("wishClass x => ", x);
+
 		var wishClass 	= '';
 		var tooltipMsg 	= '';
 		if(x && x.length > 0){
@@ -635,8 +650,24 @@ class ProductViewEcommerce extends Component{
 										null
 								}
 								<div className={"col-12 col-xl-6 col-lg-6 col-md-12 col-sm-12 " +Style.topSpace}>
-									<Message messageData={this.state.messageData} />
+									{/*<Message messageData={this.state.messageData} />*/}
 										{/* {console.log("this.state.productData=",this.state.productData)} */}
+
+
+					          <div className="row ml-auto pull-right outpageMessage"
+					              style={this.state.messageData.message ? {display:"block"}: {display: "none"}}>
+					              <div className="alert-group">
+					                  <div className={this.state.messageData.class 
+					                                  ? "alert alert-"+this.state.messageData.class+" alert-dismissable " +Style.alertMessage
+					                                  : "alert alert-dismissable " + Style.alertMessage}>
+					                      <button type="button" className="close" onClick={this.close.bind(this)}>×</button>
+					                      <div className={this.state.messageData.icon? this.state.messageData.icon+" inpagemessage" : "inpagemessage" } >
+					                         &nbsp;&nbsp; {this.state.messageData.message ? this.state.messageData.message : ""}
+					                      </div>
+					                  </div>
+					              </div>
+					          </div>
+
 										{
 											this.state.productData
 											?

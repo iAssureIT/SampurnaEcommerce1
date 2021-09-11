@@ -118,8 +118,8 @@ export default StyleSheet.create({
 		// backgroundColor:"#ff0"
 	},
 	iconStyle:{
-		height:hp(4),
-		width:hp(4),
+		height:hp(3.5),
+		width:hp(3.5),
 		marginRight:10,
 		justifyContent:'center',
 		alignItems:'center',

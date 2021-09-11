@@ -130,7 +130,7 @@ class SubCategoryBlock extends Component {
               </Carousel>
             </div>
             : 
-              <div className="col-12">No Item Available</div>
+              ""
           :
             <div className="row sectionCategoryBlock">                      
               {

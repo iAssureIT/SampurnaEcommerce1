@@ -432,7 +432,6 @@ export default class OrderDetails extends Component {
                                           <span className="currencyColor">{this.state.currency}</span> &nbsp;<span className={" "+Style.savingaMTcOLOR}>{vendordata.vendor_discountAmount > 0 ? vendordata.vendor_discountAmount.toFixed(2) : "00.00"}</span>
                                         </span>
                                       </div>
-                                      
                                     </div>
                                   </div>
                                 </div>

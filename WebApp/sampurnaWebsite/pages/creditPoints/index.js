@@ -53,6 +53,7 @@ class CreditPoints extends Component{
     }
     render(){
         return(
+
             <div className={ "col-lg-10 float-lg-left col-12 NoPadding accountMainWrapper pb-4 mt-4 mt-lg-3 mt-xl-4 " + Style.accountMainWrapper} id="creditPointMainId"> 
               <div className="col-12 mt-4 pt-md-0">
                       <div className={"table-caption mb-1 pb-xl-3 pl-xl-2 pb-lg-3 pb-md-3 pb-3 " + Style.creditPointTitleWrapper}>My Credit Points</div>
@@ -89,9 +90,9 @@ class CreditPoints extends Component{
                                     data &&
                                     <div className={"col-12 mt-4 py-2 " + Style.CreditPointInnerBox}key={index}>
                                         <div className="row">
+
                                         <div className={"col-4 my-auto " + Style.CreditCurrentBalTitle1}>&nbsp;{data.transactionDate ? moment(data.transactionDate).format('MM/DD/YYYY'):null}</div>
                                         <div className="col-4 ">
-                                            
                                             <div className={" "+Style.CreditCurrentBalTitle1}><b>{data.typeOfTransaction}</b></div>
                                             <div className={" "+Style.CreditCurrentBalTitle2}>Order ID - {data.orderID}</div>
                                             <div className={" "+Style.CreditCurrentBalTitle2}>Expiry Date  {moment(data.expiryDate).format('MM/DD/YYYY')}</div>

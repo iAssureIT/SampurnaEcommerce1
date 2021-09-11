@@ -1,4 +1,7 @@
 import React, {useState,useEffect}  from 'react';
+import {
+  useFocusEffect
+ } from '@react-navigation/native'
 import {ScrollView,
         View,
         FlatList, 
@@ -44,17 +47,7 @@ const Dashboard = withCustomerToaster((props)=>{
   const limit                 = 6;
   const [refreshing,setRefreshing] = useState(false);
 
-  const backAction = () => {
-    Alert.alert("", "Are you sure you want to exit app?", [
-      {
-        text: "Cancel",
-        onPress: () => null,
-        style: "cancel"
-      },
-      { text: "YES", onPress: () => BackHandler.exitApp() }
-    ]);
-    return true;
-  };
+  
 
   const store = useSelector(store => ({
     userDetails : store.userDetails,
@@ -67,10 +60,32 @@ const Dashboard = withCustomerToaster((props)=>{
         dispatch(getPreferences());
         dispatch(getS3Details());
         getBlocks();
-        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
-        return () => backHandler.remove();
-       
     },[store.isConnected]);
+
+    useFocusEffect(
+      React.useCallback(() => {
+        const backAction = () => {
+          Alert.alert("", "Are you sure you want to exit app?", [
+            {
+              text: "Cancel",
+              onPress: () => null,
+              style: "cancel"
+            },
+            { text: "YES", onPress: () => BackHandler.exitApp() }
+          ]);
+          return true;
+        };
+    
+        BackHandler.addEventListener(
+          'hardwareBackPress', backAction
+        );
+    
+        return () =>
+          BackHandler.removeEventListener(
+            'hardwareBackPress', backAction
+          );
+      }, [])
+    );
    
 
     console.log("store",store);

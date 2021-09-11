@@ -307,7 +307,7 @@ superparent:{
     color:'#000000',
   },
   totalpriceincartT:{
-    fontSize:RFPercentage(2.4),
+    fontSize:RFPercentage(2.2),
     fontFamily:"Montserrat-Bold", 
     color:'#000000',
   },

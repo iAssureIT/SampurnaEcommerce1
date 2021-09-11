@@ -95,12 +95,12 @@ export const HorizontalProductList =(props)=>{
         <TouchableWithoutFeedback  onPress={()=>{props.addToCart ? navigation.navigate('SubCatCompView',{productID: item._id }) : navigation.navigate("ProductVendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section,product_id:item._id})}}>
           <View style={styles.flx5}>
             <View style={styles.flx1}>
-            {item.discountPercent && item.discountPercent >0?
+            {/* {item.discountPercent && item.discountPercent >0?
                 <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
                       <Text style={{fontSize:RFPercentage(1.8),color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
                       <Text style={{fontSize:RFPercentage(1.5),color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
                   </ImageBackground> :null
-              }   
+              }    */}
               {
                 item.productSmallImage && item.productSmallImage.length > 0 ?
                   <FastImage

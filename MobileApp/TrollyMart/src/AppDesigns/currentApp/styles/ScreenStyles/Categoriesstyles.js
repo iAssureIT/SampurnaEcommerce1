@@ -705,7 +705,7 @@ export default StyleSheet.create({
   },
 
   starAvg:{
-    fontSize:RFPercentage(1.6),
+    fontSize:RFPercentage(2),
     fontFamily:"Montserrat-Medium",
     color:'#000',
   },
@@ -731,8 +731,8 @@ export default StyleSheet.create({
   },
 
   starimg:{
-    height:hp(2),
-    width:hp(2),
+    height:hp(1.8),
+    width:hp(1.8),
   },
 
   date:{

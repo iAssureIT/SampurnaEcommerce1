@@ -11,7 +11,7 @@ export default StyleSheet.create({
     flex:1
   },
   container:{
-    minHeight:window.height-25,
+    // minHeight:window.height-25,
     backgroundColor:"#fff"
   },
   imageMenuWraper:{ 
@@ -661,26 +661,40 @@ export default StyleSheet.create({
     elevation:2
   },
   queBox:{
-    borderRadius:15,
-    marginBottom:hp(2),
-    paddingVertical:0,
-    borderWidth:0.5,
-    marginHorizontal:wp(4),
     backgroundColor:"#fff",
-    elevation:5
+    padding:5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: -2,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderRadius:15,
+   
+    // elevation:5
     // borderColor:"#aaa",
   },
   queAns:{
     minHeight:50,
     paddingHorizontal:10,
     paddingVertical:10,
-    marginTop:-13,
     marginBottom:15,
     borderBottomLeftRadius:9,
     borderBottomRightRadius:9,
     elevation:2,    
     backgroundColor:'#fff',
     borderColor:'#707070',
+    ...Platform.select({
+      ios:{
+        borderWidth:0.5,
+        borderColor:"#ddd"
+      },
+      android : {
+          
+          }
+      })
   },
 
   mailText:{

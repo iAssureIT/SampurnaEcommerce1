@@ -1,9 +1,20 @@
 @font-face {
 	font-family: 'Montserrat-Regular.ttf';
 	src        : url('/WebApp/sampurnaWebsite/Themes/Sampurna/fonts/Montserrat-Regular.ttf');
-}.boxTopBorder{
+}
+
+.boxTopBorder{
 	border-top: 1px solid #eee;
 }
+
+.alertMessage{
+    position: fixed;
+    z-index: 1000;
+    top: 25px !important;
+    right: 42px !important;
+    display: block;
+}
+
 
 .productDetailsWrapper{
 

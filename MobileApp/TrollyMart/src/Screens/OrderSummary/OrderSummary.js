@@ -7,7 +7,6 @@ import {
   Image,
   Alert,ActivityIndicator,
   Linking,
-  Modal,
   StyleSheet,
   KeyboardAvoidingView,
   Platform
@@ -16,9 +15,6 @@ import { Dropdown }             from 'react-native-material-dropdown-v2-fixed';
 import { Button, Icon,Input,Tooltip,CheckBox }   from "react-native-elements";
 import Modal1                    from "react-native-modal";
 import axios                    from "axios";
-import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}                 from '../../ScreenComponents/Footer/Footer.js';
-import Notification             from '../../ScreenComponents/Notification/Notification.js'
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/OrderSummaryStyles.js';
 import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
 import {withCustomerToaster}    from '../../redux/AppState.js';
@@ -26,17 +22,17 @@ import { connect,
   useDispatch,
   useSelector }                 from 'react-redux';
   import commonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-  import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 import { SafeAreaView }         from 'react-native';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import { RadioButton }        from 'react-native-paper';
 import HTML from 'react-native-render-html';
 import {KeyboardAwareScrollView}  from 'react-native-keyboard-aware-scroll-view';
 import { NetWorkError } from '../../../NetWorkError.js';
 import FastImage              from 'react-native-fast-image';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { Shadow } from 'react-native-neomorph-shadows';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import Modal from 'react-native-modal';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{
@@ -287,7 +283,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
     return (
       <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
       { !loading ?
-        <KeyboardAwareScrollView contentContainerStyle={{backgroundColor:"#fff",paddingBottom:hp(5)}}keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid showsVerticalScrollIndicator={false}	>
+        <ScrollView contentContainerStyle={{backgroundColor:"#fff",paddingBottom:hp(5)}}keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid showsVerticalScrollIndicator={false}	>
               <View style={styles.addcmporder}> 
                 <View style={{backgroundColor:"#fff",flexDirection:"row",justifyContent:'space-between',alignItems:'center'}}>
                     <Text style={{fontSize:RFPercentage(2.4),fontFamily:"Montserrat-Regular",color:"#000"}}>Address</Text>
@@ -310,7 +306,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                     <View style={{flex:0.95}}><Text style={styles.addname}>{addDataName}</Text></View>                    
                   </View>
                   <View style={{paddingHorizontal:wp(3.6)}}>
-                    <Text style={[styles.address,{colo:"#666"}]}>{addDataAddType} Address:</Text>
+                    <Text style={[styles.address,{color:"#666"}]}>{addDataAddType} Address:</Text>
                     <Text style={styles.address}>{addDataAddressLine1+", "+addDataAddressLine2}</Text>
                     <View style={styles.mobflx}>
                       <Text style={styles.address}>Mobile:</Text>
@@ -497,7 +493,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                         data                = {getTimes}
                         value               = {shippingTiming}
                         containerStyle      = {styles.ddContainer}
-                        dropdownOffset      = {{ top: 75, left: 20 }}
+                        dropdownOffset      = {{ top: hp(9.5), left: 20 }}
                         itemTextStyle       = {styles.ddItemText}
                         inputContainerStyle = {styles.ddInputContainer}
                         labelHeight         = {RFPercentage(1.5)}
@@ -627,7 +623,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
            
             </View>
           </View>
-        </KeyboardAwareScrollView>
+        </ScrollView>
          :
          <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
            <ActivityIndicator size="large" color={colors.theme} />
@@ -639,7 +635,9 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
           coverScreen={false}
           hideModalContentWhileAnimating={true}
           style={{ zIndex: 999,paddingTop:hp(2),paddingBottom:hp(10),alignSelf:'center'}}
-          animationOutTiming={500}>
+          animationOutTiming={1}
+          animationInTiming={1}
+          >
           <View style={{ backgroundColor: "#fff", borderRadius: 10}}>
             <View style={{borderTopLeftRadius: 10,borderTopRightRadius:10,backgroundColor:'#033554',flexDirection:'row',height:hp(6),alignItems:'center',justifyContent:'space-between',borderBottomWidth:0.5,borderColor:"#eee"}}>   
               <View style={{paddingHorizontal: wp(1.5)}}>
@@ -674,11 +672,14 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
         
       <SafeAreaView style={{flex: 1}}>
       <Modal
-        transparent={true}
+        hasBackdrop={true}
         animationType="slide"
-        onRequestClose={() => setCouponModal(false)}
-        onDismiss={() =>  setCouponModal(false)}
-        visible={couponModal}>
+        backdropColor="transparent"
+        backdropOpacity={0}
+        onBackdropPress={() => setCouponModal(false)}
+        onBackButtonPress={() =>  setCouponModal(false)}
+        style={{padding:0,margin:0}}
+        isVisible={couponModal}>
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => setCouponModal(false)}
@@ -701,10 +702,10 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
               </View> */}
              <View style={styles1.titleContainer}>
                 <TouchableOpacity style={tab ? styles1.tab : styles1.tab1} onPress={()=>selectedTab(true)}>
-                    <Text style={tab ? styles1.tabText : styles1.tabText1}>Coupon Code</Text>
+                  <Text style={tab ? styles1.tabText : styles1.tabText1}>Discount Coupon</Text>
                 </TouchableOpacity> 
                 <TouchableOpacity style={!tab ? styles1.tab : styles1.tab1} onPress={()=>selectedTab(false)}>
-                    <Text style={!tab ? styles1.tabText : styles1.tabText1}>Credit Points <Text style={{color:'#DC1919'}}>{cartData?.totalCreditPoints}</Text></Text>
+                    <Text style={!tab ? styles1.tabText : styles1.tabText1}>Store Credit {currency} <Text style={{color:'#DC1919'}}>{cartData?.totalCreditPoints}</Text></Text>
                 </TouchableOpacity>
              </View>  
             <View style={{height:hp(16),backgroundColor:"#fff",paddingHorizontal:28}}>
@@ -719,18 +720,26 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                     inputContainerStyle   = {styles.containerStyle}
                     containerStyle        = {{paddingHorizontal:0}}
                     placeholderTextColor  = {'#909090'}
-                    inputStyle            = {{fontSize: RFPercentage(2.2),textAlignVertical: "top",fontFamily:"Montserrat-Medium"}}
+                    inputStyle            = {{fontSize: RFPercentage(2.2),textAlignVertical: "top",fontFamily:"Montserrat-Medium",paddingLeft:10}}
                     autoCapitalize        = 'characters'
                     value                 = {couponCode}
                   />
                 </View>  
-                <View style={{flex:.3,elevation:5}}>
+                <View style={{flex:.3,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,}}>
                   <Button 
                     onPress    = {()=>applyCoupen()}
                     title       = {'Apply'}
                     // background  = {true}
                     buttonStyle={{
-                      height:hp(6.5),
+                      height:hp(6),
                       backgroundColor:"#FFFFFF",
                     }}
                     containerStyle={{elevation:5}}
@@ -750,19 +759,26 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
                       inputContainerStyle   = {styles.containerStyle}
                       containerStyle        = {{paddingHorizontal:0}}
                       placeholderTextColor  = {'#909090'}
-                      inputStyle            = {{fontSize: RFPercentage(2.2),textAlignVertical: "top",fontFamily:"Montserrat-Medium"}}
+                      inputStyle            = {{fontSize: RFPercentage(2.2),textAlignVertical: "top",fontFamily:"Montserrat-Medium",paddingLeft:10}}
                       autoCapitalize        = 'characters'
                       value                 = {creditPointsUsed.toString()}
                       keyboardType          = 'numeric'
                     />
                     </View>  
-                    <View style={{flex:.3,elevation:5}}>
+                    <View style={{flex:.3,shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,}}>
                       <Button 
                         onPress    = {()=>redeemPoints()}
                         title       = {'Apply'}
                         // background  = {true}
                         containerStyle={{elevation:5}}
-                        buttonStyle={{height:hp(6.5),backgroundColor:"#FFFFFF"}}
+                        buttonStyle={{height:hp(6),backgroundColor:"#FFFFFF"}}
                         titleStyle={{fontSize:RFPercentage(2.2),color: "#000000",opacity: 0.5,fontFamily:"Montserrat-SemiBold",}}
                       />   
                   </View> 
@@ -918,28 +934,28 @@ const styles1 = StyleSheet.create({
     flex:0.5,
     justifyContent:'center',
     alignItems:'center',
-    height:hp(7.5),
-    backgroundColor:"#E2E2E2",
-    borderTopLeftRadius:11,
-    borderTopRightRadius:11,
+    height:hp(6.5),
+    backgroundColor:"#fff",    
   },
   tab1:{
     flex:0.5,
     justifyContent:'center',
     alignItems:'center',
-    height:hp(7.5),
-    backgroundColor:"#fff",    
+    height:hp(6.5),
+    borderTopLeftRadius:11,
+    borderTopRightRadius:11,
+    backgroundColor:"#E2E2E2",
   },
   tabText:{
     fontFamily:"Montserrat-Bold",
     color: "#000000",
     opacity: 1,
-    fontSize:RFPercentage(2.2),
+    fontSize:RFPercentage(2),
   },
   tabText1:{
     fontFamily:"Montserrat-Regular",
     color: "#000000",
     opacity: 1,
-    fontSize:RFPercentage(2.2),
+    fontSize:RFPercentage(2),
   }
 });

@@ -332,6 +332,8 @@ class ProductListView extends Component {
     
   addtowishlist(event) {
     event.preventDefault();
+    console.log("Inside add to wishlist function");
+    
     if (this.state.user_ID) {
       var id = event.target.id;
          var formValues = {
@@ -356,6 +358,8 @@ class ProductListView extends Component {
               "class": "success",
               "autoDismiss": true
             }
+          },()=>{
+            console.log("state messagedata set => ", this.state.messageData);
           })
           setTimeout(() => {
             this.setState({
@@ -467,13 +471,13 @@ class ProductListView extends Component {
 
   showRatingBlock(event){
     event.preventDefault();
-
   }
   
   close(event){
     event.preventDefault();
     this.setState({ messageData:{} });
   }
+
   render() {
     // console.log("brand ===",this.state.brandData);
     const { effect } = this.state;
@@ -488,6 +492,21 @@ class ProductListView extends Component {
       !this.state.loading ?
       <div className={"col-12 " +Style.NoPadding + " " + Style.productDetailsWrapper}>        
           {/*<Message messageData={this.state.messageData} />*/} 
+
+          <div className="row ml-auto pull-right outpageMessage"
+              style={this.state.messageData.message ? {display:"block"}: {display: "none"}}>
+              <div className="alert-group">
+                  <div className={this.state.messageData.class 
+                                  ? "alert alert-"+this.state.messageData.class+" alert-dismissable " +Style.alertMessage
+                                  : "alert alert-dismissable " + Style.alertMessage}>
+                      <button type="button" className="close" onClick={this.close.bind(this)}>×</button>
+                      <div className={this.state.messageData.icon? this.state.messageData.icon+" inpagemessage" : "inpagemessage" } >
+                         &nbsp;&nbsp; {this.state.messageData.message ? this.state.messageData.message : ""}
+                      </div>
+                  </div>
+              </div>
+          </div>
+
 
           <div className="row ml-auto pull-right outpageMessage"
               style={this.state.messageData.message ? {display:"block"}: {display: "none"}}>

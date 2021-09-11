@@ -61,12 +61,12 @@ class ShoppingVerticals extends Component {
     const responsive = {
       desktop: {
         breakpoint: { max: 3000, min: 1024 },
-        items: 5,
+        items: 1,
         slidesToSlide: 1 // optional, default to 1.
       },
       tablet: {
         breakpoint: { max: 1024, min: 464 },
-        items: 3,
+        items: 1,
         slidesToSlide: 1 // optional, default to 1.
       },
       mobile: {
@@ -82,7 +82,7 @@ class ShoppingVerticals extends Component {
       <div className="col-12">
         <div className="row">          
           <div className="col-12 NoPadding">
-            { Array.isArray(this.state.itemList) && this.state.itemList.length>4?
+            { Array.isArray(this.state.itemList) && this.state.itemList.length>1?
                 <Carousel  
                   className=""
                   swipeable={false}
@@ -95,7 +95,7 @@ class ShoppingVerticals extends Component {
                   autoPlaySpeed={3000}
                   keyBoardControl={true}
                   customTransition="all .20"
-                  transitionDuration={500}                      
+                  transitionDuration={1000}                      
                   removeArrowOnDeviceType={["mobile"]}
                   deviceType={this.props.deviceType}                      
                   itemClass="carousel-item-padding-10-px">
@@ -103,13 +103,12 @@ class ShoppingVerticals extends Component {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                       Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {  
                         return (
-                        <div className="col-12 dealsBlock"  key={index}> 
+                        <div className="col-12 NoPadding dealsBlock"  key={index}> 
                             <div className="productImg col-12 NoPadding">
                               <a className="product photo product-item-photo collage" tabIndex="-1" href={data.dealUrl}>
                                 <img src={data.dealImg ? data.dealImg : "/images/CMSImages/notavailable.png"} alt="dealImg" />
                               </a>
                             </div>
-                            {/* <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div> */}
                         </div>                            
                         );
                       })

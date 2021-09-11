@@ -44,6 +44,7 @@ import DeviceInfo from 'react-native-device-info';
 import {getCartCount}       from '../../../redux/productList/actions';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {USER_LOGOUT}        from '../../../redux/store';
 
 GoogleSignin.configure({
   // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -369,6 +370,7 @@ const window = Dimensions.get('window');
       .then((res) => {
         setLoading(false);
         if(res.data.message === "Login Auth Successful"){
+          dispatch(getCartCount(res.data.ID));
           if(res.data.passwordreset === false  ){
             navigation.navigate('ChangePassword',{user_id:res.data.ID})
           }else{  

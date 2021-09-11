@@ -34,12 +34,12 @@ class HomePage extends React.Component {
 				"noOfItemPerSMRow" : 4,
 				"noOfItemPerXSRow" : 2
 			},
-			superMarketDealSettings : {
+			superMarketDealSettings : { 
 				"blockTitle" : "Lorem Ipsum",
 				"blockApi" : "/api/deals/get/list",
 				"section" : "Supermarket",
-				"category" : "Fruits & Vegetables",
-				"subCategory" : "Seasonal Fruits",
+				"category" : "all",
+				"subCategory" : "all",
 				"showOnlySection" : true,
 				"showOnlyCategory" : false,
 				"showOnlyBrand" : false,
@@ -66,13 +66,13 @@ class HomePage extends React.Component {
 				"noOfItemPerSMRow" : 4,
 				"noOfItemPerXSRow" : 2
 			},
-			saloonGroupSettings : {
+			pharmacyGroupSettings : {
 				"blockApi" : "/api/sections/get/list_by_url",
 				"showCarousel" : true,
 				"displayItemInCarousel" : 6,
 				"totalProducts" : 12,
 				"showTitle" : true,
-				"sectionUrl" : "beauty-saloon",
+				"sectionUrl" : "pharmacy",
 				"categoryUrl" : "all",
 				"subCategoryUrl" : "all",
 				"showOnlySection" : false,
@@ -130,8 +130,8 @@ class HomePage extends React.Component {
 				"blockTitle" : "Flowers For you",
 				"blockApi"   : "/api/deals/get/list",
 				"section"    : "Flowers & Plants",
-				"category"   : "Flowers by occasions",
-				"subCategory": "Valentine",
+				"category"   : "all",
+				"subCategory": "all",
 				"showOnlySection"  : false,
 				"showOnlyCategory" : false,
 				"showOnlyBrand"    : false,
@@ -142,6 +142,17 @@ class HomePage extends React.Component {
 				"blockApi"         : "/api/deals/get/list",
 				"section"          : "Beauty Saloon",
 				"category"         : "Make Up",
+				"subCategory"      : "all",
+				"showOnlySection"  : false,
+				"showOnlyCategory" : false,
+				"showOnlyBrand"    : false,
+				"showOnlySubCategory" : true
+			},
+			pharmacyDealSettings: {
+				"blockTitle"       : "Deals On Beauty Saloon",
+				"blockApi"         : "/api/deals/get/list",
+				"section"          : "Pharmacy",
+				"category"         : "all",
 				"subCategory"      : "all",
 				"showOnlySection"  : false,
 				"showOnlyCategory" : false,
@@ -167,6 +178,20 @@ class HomePage extends React.Component {
 				"section"             : "Flowers & Plants",
 				"category"            : "Flowers By Occasion",
 				"subCategory"         : "Valentine",
+				"totalProducts"       : 6,
+				"showTitle"           : true,
+				"showCarousel"        : true,
+				"leftSideFilters"     : false,
+				"noOfProductPerLGRow" : 2,
+				"noOfProductPerMDRow" : 4,
+				"noOfProductPerSMRow" : 4,
+				"noOfProductPerXSRow" : 2
+			},
+			pharmacyBlockSettings:{
+				"blockApi"            : "/api/products/get/list/lowestprice",
+				"section"             : "Pharmacy",
+				"category"            : "all",
+				"subCategory"         : "all",
 				"totalProducts"       : 6,
 				"showTitle"           : true,
 				"showCarousel"        : true,
@@ -251,15 +276,15 @@ class HomePage extends React.Component {
 							/>
 						</div>
 					</div>
-					<div className={"col-12 " + Style.sixthBlockHome } >
-						<div className="">
+					{/* <div className={"col-12 " + Style.sixthBlockHome } >
+						<div className="row">
 							< DealsBlock 
 								dealSettings = { this.state.flowersDealSettings}
 								blockTitle = {""}
 							/>
 						</div>
-					</div>
-					<div className={"col-12 seventhBlockHome" } >
+					</div> */}
+					{/* <div className={"col-12 seventhBlockHome" } >
 						<div className="row">
 							<SubCategoryBlock 
 									groupSettings =	{this.state.flowersGroupSettings}
@@ -275,23 +300,40 @@ class HomePage extends React.Component {
 								blockTitle      = {"Surprise Your Love One"}
 							/>
 						</div>
+					</div> */}
+					<div className={"col-xl-12 " + Style.tenBlockHome } >
+						<div className="row">
+							< DealsBlock 
+								dealSettings = { this.state.pharmacyDealSettings}
+								blockTitle = {""}
+							/>
+						</div>
 					</div>
 					<div className={"col-xl-12 " + Style.nineBlockHome } >
 						<div className="row">
 							<CategoryBlock 
-									groupSettings =	{this.state.saloonGroupSettings}
-									blockTitle    = {"Beauty Saloon At Your Door Step"}
+									groupSettings =	{this.state.pharmacyGroupSettings}
+									blockTitle    = {"Pharmacy AT Your Door Step"}
 							/>
 						</div>
 					</div>
-					<div className={"col-xl-12 " + Style.tenBlockHome } >
+					<div className={"col-xl-12 " + Style.tewlveBlockHome}>
 						<div className="">
+							<ProductCarouselBlock 
+								blockSettings   = {this.state.pharmacyBlockSettings} 
+								productSettings = {this.state.productSettings}
+								blockTitle      = {"Pharmacy Products"}
+							/>
+						</div>
+					</div>
+					{/* <div className={"col-xl-12 " + Style.tenBlockHome } >
+						<div className="row">
 							< DealsBlock 
 								dealSettings = { this.state.saloonDealSettings}
 								blockTitle = {""}
 							/>
 						</div>
-					</div>
+					</div> */}
 					<div className={"col-xl-12 " + Style.elevenBlockHome } >
 						<div className="row">
 							<SubCategoryBlock 

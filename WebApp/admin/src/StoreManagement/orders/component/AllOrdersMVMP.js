@@ -6,6 +6,7 @@ import IAssureTable           	from "../OrderTable/IAssureTable.jsx";
 import openSocket               from 'socket.io-client';
 import 'jquery-validation';
 import 'bootstrap/js/tab.js';
+import '../css/AdminOrdersList.css';
 
 const  socket = openSocket(process.env.REACT_APP_BASE_URL,{ transports : ['websocket'] ,upgrade: false});
 console.log("socket",socket);

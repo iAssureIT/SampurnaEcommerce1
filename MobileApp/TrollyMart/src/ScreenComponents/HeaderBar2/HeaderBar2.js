@@ -113,7 +113,6 @@ import { RFPercentage } from "react-native-responsive-fontsize";
     dispatch({type : SET_SERACH_LIST,    payload  : []})
     dispatch({type:SET_SEARCH_CALL,payload:false});
     dispatch({type:SET_SEARCH_TEXT,payload:''});
-    dispatch(getSearchResult(searchText,user_id,10,true));
     navigation.navigate('SearchList',{"type":'Search',"limit":10})
     Keyboard.dismiss();
   }
@@ -147,8 +146,8 @@ import { RFPercentage } from "react-native-responsive-fontsize";
             navigation.goBack();
             dispatch({type : SET_SUGGETION_LIST, payload  : []});
             dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
-            dispatch({type : SET_SERACH_LIST,    payload  : []});
             dispatch({type:SET_SEARCH_CALL,payload:false});
+            // dispatch({type : SET_SERACH_LIST,    payload  : []});
             useSearchText('');
             Keyboard.dismiss();
 
@@ -173,6 +172,7 @@ import { RFPercentage } from "react-native-responsive-fontsize";
             inputContainerStyle = {styles.searchInputContainer}
             inputStyle          = {styles.searchInput}
             onChangeText        = {(searchText)=>getKeywords(searchText)}
+            onCancel            = {()=>Keyboard.dismiss()}
             // onFocus             = {()=>dispatch({type:SET_SEARCH_CALL,payload:true})}
             value               = {searchText}
             onSubmitEditing     = {()=>updateSearch()}

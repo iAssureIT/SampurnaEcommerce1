@@ -1,5 +1,5 @@
 import React  from 'react';
-import {StyleSheet}       from 'react-native';
+import {Platform, StyleSheet}       from 'react-native';
 import {Button}           from 'react-native-elements';
 import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle:{
     backgroundColor:"#033554",
-    height:hp(4.5),
+    height:hp(5),
     borderRadius: 8,
     // backgroundColor:colors.theme,
     // borderBottomRightRadius:0
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     borderRadius:4,
   },
   titleStyle:{
-    fontSize:RFPercentage(2.2),
+    fontSize:RFPercentage(2),
     color:colors.white,
     opacity: 1,
     fontFamily:"Montserrat-Regular",

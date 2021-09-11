@@ -326,7 +326,7 @@ export default StyleSheet.create({
 		// height:30,
 	  },
 	  textWrapper:{
-		marginBottom:0
+		marginBottom:0,
 	  },
 	  marginBottom20:{
 		marginBottom: 20

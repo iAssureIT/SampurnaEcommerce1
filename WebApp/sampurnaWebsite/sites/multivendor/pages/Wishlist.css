@@ -125,6 +125,7 @@
 
 
 
+
 @media only screen and (min-device-width: 768px) {
     
     .wishListMainTitle {
@@ -137,7 +138,8 @@
     .wishListMainTitle {
         font-size: 19px;
     }
-}   
+}
+
 
 @media only screen and (min-device-width: 1366px) {
     

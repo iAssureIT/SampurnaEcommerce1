@@ -18,6 +18,7 @@ class Product extends Component{
             newProducts : [],
             wishList    : [],
             blockSettings : [],
+            messageData : {},
         }
     }
 
@@ -53,7 +54,6 @@ class Product extends Component{
               this.props.fetchWishlist();
           }); 
         }
-
     }
 
     addCart(formValues, quantityAdded, availableQuantity) {
@@ -66,12 +66,14 @@ class Product extends Component{
             "class": "success",
             "autoDismiss": true
           }
-        })
+        },()=>{
+            console.log("state messagedata set => ", this.state.messageData);
+          })
         setTimeout(() => {
           this.setState({
             messageData: {},
           })
-        }, 2000);
+        }, 6000);
       } else {
         axios.post('/api/carts/post', formValues)
           .then((response) => {
@@ -79,7 +81,7 @@ class Product extends Component{
               messageData: {
                 "type": "outpage",
                 "icon": "fa fa-check-circle",
-                "message": "&nbsp; " + response.data.message,
+                "message": response.data.message,
                 "class": "success",
                 "autoDismiss": true
               }
@@ -88,7 +90,7 @@ class Product extends Component{
               this.setState({ 
                 messageData: {},
               })
-            }, 2000);
+            }, 6000);
             this.props.fetchCartData();
             this.props.updateCartCount();
   
@@ -102,73 +104,73 @@ class Product extends Component{
     submitCart(event) {
       console.log("lat long",this.props.userLongitude,this.props.userLatitude,this.props.vendorlocation_ID);
       if(this.state.user_ID){
-      var id = event.target.id;
-      var availableQuantity = event.target.getAttribute('availablequantity');
-      var currProId = event.target.getAttribute('currpro');
-      var quantityAdded=0;
-      var formValues ={};
-      if(this.state.websiteModel === "FranchiseModel"){
-        if(selectedSize === size){
-           var quantity = 1;
-           var totalWeight = selectedSize +" "+unit
-           formValues = {
-            "user_ID": this.state.user_ID,
-            "product_ID": event.target.id,
-            "quantity": 1,  
-            "selectedSize" : selectedSize,
-            "size"         : size,
-            "totalWeight"  : totalWeight,  
-            "vendorName" : event.target.getAttribute('vendor_name'),
-            "vendor_ID"  : event.target.getAttribute('vendor_id'),      
+        var id = event.target.id;
+        var availableQuantity = event.target.getAttribute('availablequantity');
+        var currProId = event.target.getAttribute('currpro');
+        var quantityAdded=0;
+        var formValues ={};
+        if(this.state.websiteModel === "FranchiseModel"){
+          if(selectedSize === size){
+             var quantity = 1;
+             var totalWeight = selectedSize +" "+unit
+             formValues = {
+              "user_ID": this.state.user_ID,
+              "product_ID": event.target.id,
+              "quantity": 1,  
+              "selectedSize" : selectedSize,
+              "size"         : size,
+              "totalWeight"  : totalWeight,  
+              "vendorName" : event.target.getAttribute('vendor_name'),
+              "vendor_ID"  : event.target.getAttribute('vendor_id'),      
+            }
+          }else{
+            quantity    = selectedSize/size;
+            totalWeight = size*quantity +" "+unit;
+            formValues = {
+              "user_ID"           : this.state.user_ID,
+              "product_ID"        : event.target.id,
+              "vendor_ID"         : "",
+              "quantity"          : quantity,
+              "selectedSize"      : selectedSize,
+              "size"              : size,
+              "totalWeight"       : totalWeight,
+            }
           }
-        }else{
-          quantity    = selectedSize/size;
-          totalWeight = size*quantity +" "+unit;
+        }else{      
           formValues = {
             "user_ID"           : this.state.user_ID,
             "product_ID"        : event.target.id,
-            "vendor_ID"         : "",
-            "quantity"          : quantity,
-            "selectedSize"      : selectedSize,
-            "size"              : size,
-            "totalWeight"       : totalWeight,
-          }
+            "quantity"          : 1,   
+            "userLatitude"      : this.props.userLatitude,
+            "userLongitude"     : this.props.userLongitude,
+            "vendorLocation_id" : this.props.vendorlocation_ID,
+            "vendorName"        : event.target.getAttribute('vendor_name'),
+            "vendor_ID"         : this.props.vendor_ID,     
+          }   
+          // console.log("formValues=",formValues);   
         }
-      }else{      
-        formValues = {
-          "user_ID"           : this.state.user_ID,
-          "product_ID"        : event.target.id,
-          "quantity"          : 1,   
-          "userLatitude"      : this.props.userLatitude,
-          "userLongitude"     : this.props.userLongitude,
-          "vendorLocation_id" : this.props.vendorlocation_ID,
-          "vendorName"        : event.target.getAttribute('vendor_name'),
-          "vendor_ID"         : this.props.vendor_ID,     
-        }   
-        // console.log("formValues=",formValues);   
-      }
-    this.addCart(formValues, quantityAdded, availableQuantity);
-    }else{
-      if(this.state.showLoginAs === "modal"){
-        $('#loginFormModal').show();       
-        }else{
-        this.setState({
-          messageData: {
-            "type": "outpage",
-            "icon": "fa fa-exclamation-circle",
-            // "message": "Need To Sign In, Please <a href='/login'>Sign In</a> First.",
-            "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",   
-            "class": "danger",
-            "autoDismiss": true
-          }
-        })
-        setTimeout(() => {
+        this.addCart(formValues, quantityAdded, availableQuantity);
+      }else{
+        if(this.state.showLoginAs === "modal"){
+          $('#loginFormModal').show();       
+          }else{
           this.setState({
-            messageData: {},
+            messageData: {
+              "type": "outpage",
+              "icon": "fa fa-exclamation-circle",
+              // "message": "Need To Sign In, Please <a href='/login'>Sign In</a> First.",
+              "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",   
+              "class": "danger",
+              "autoDismiss": true
+            }
           })
-        }, 2000);
-      }//end else
-    }
+          setTimeout(() => {
+            this.setState({
+              messageData: {},
+            })
+          }, 6000);
+        }//end else
+      }
     }
     // getWishlistData() {
     //   axios.get('/api/wishlist/get/wishlistdata/' + this.state.user_ID)    
@@ -209,7 +211,7 @@ class Product extends Component{
               messageData: {
                 "type": "outpage",
                 "icon": "fa fa-check-circle",
-                "message": "&nbsp; " + response.data.message,
+                "message": response.data.message,
                 "class": "success",
                 "autoDismiss": true
               }
@@ -218,7 +220,7 @@ class Product extends Component{
               this.setState({
                 messageData: {},
               })
-            }, 2000);
+            }, 6000);
             // this.props.getWishlistData();
             this.props.fetchWishlist();
           })
@@ -241,10 +243,17 @@ class Product extends Component{
             this.setState({
               messageData: {},
             })
-          }, 2000);
+          }, 6000);
       }
     }
   
+    close(event){
+        event.preventDefault();
+        this.setState({ messageData: {} });
+    }
+
+
+
     render(){
 
       var LGCol = 12/this.props.blockSettings.noOfProductPerLGRow;
@@ -254,7 +263,24 @@ class Product extends Component{
       // console.log("this.props.recentWishlist===",this.props.recentWishlist);
       return (
         <div className="row">
-          <Message messageData={this.state.messageData} /> 
+          {/*<Message messageData={this.state.messageData} /> */}
+
+          <div className="row ml-auto pull-right outpageMessage"
+              style={this.state.messageData.message ? {display:"block"}: {display: "none"}}>
+              <div className="alert-group">
+                  <div className={this.state.messageData.class 
+                                  ? "alert alert-"+this.state.messageData.class+" alert-dismissable " +Style.alertMessage
+                                  : "alert alert-dismissable " + Style.alertMessage}>
+                      <button type="button" className="close" onClick={this.close.bind(this)}>×</button>
+                      <div className={this.state.messageData.icon? this.state.messageData.icon+" inpagemessage" : "inpagemessage" } >
+                         &nbsp;&nbsp; {this.state.messageData.message ? this.state.messageData.message : ""}
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+
            { Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
                 // console.log("data in map  ===> ",data);

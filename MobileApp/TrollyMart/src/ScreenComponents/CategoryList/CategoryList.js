@@ -7,15 +7,13 @@ import {Text,View,
 import styles                               from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
 import Animated                             from "react-native-reanimated";
 import {useDispatch,useSelector }           from 'react-redux';
-import { colors, sizes }                    from '../../AppDesigns/currentApp/styles/styles.js';
 import { getCategoryWiseList }              from '../../redux/productList/actions.js';
 import {
   SET_CATEGORY_WISE_LIST,STOP_SCROLL
 } from '../../redux/productList/types';
-import { Alert } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+import Carousel from 'react-native-snap-carousel';
 
 
 export const CategoryList = (props)=>{
@@ -29,6 +27,8 @@ export const CategoryList = (props)=>{
     payload       : store.productList.searchPayload,
   }));
   const {categoryList,payload}=store;
+
+  console.log("props.category",props.category);
   useEffect(() => {
       if(categoryList && categoryList.length>0){
         if(props.category!==""){
@@ -56,7 +56,7 @@ export const CategoryList = (props)=>{
           props.setSubCategory(subCategoryArray);
         }  
       }
-   },[props.selected,props.index,props.category,categoryList]);
+    },[props.selected,props.index,props.category,categoryList]);
 
   const xOffset = new Animated.Value(0); 
 
@@ -64,7 +64,16 @@ export const CategoryList = (props)=>{
     return (
       <View key={i} style={[styles.mainrightside]}>
        {selected===item.category ? 
-       <TouchableOpacity style={{borderRadius:5,marginTop:showImage === true ? 5 :0,backgroundColor:"#fff"}} onPress={()=>{
+       <TouchableOpacity style={{borderRadius:5,marginTop: 5,backgroundColor:"#fff",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: -2,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+      }} onPress={()=>{
               setSelected(item.category);
               var subCategoryArray = item.subCategory.map((a, i)=>{
                 return {
@@ -72,9 +81,9 @@ export const CategoryList = (props)=>{
                     value :item.categoryUrl+"^"+a.subCategoryUrl,        
                 } 
               })
-              if(props.setSubCategory){
-                props.setSubCategory(subCategoryArray);
-              }
+              if(props.setSubCategory){props.setSubCategory(subCategoryArray)};
+              if(props.setCategory){props.setCategory(item.category)};
+
               payload.categoryUrl     = item.categoryUrl;
               payload.subCategoryUrl  = item.subCategoryUrl ? item.subCategoryUrl : [] ;
               payload.scroll          = false;
@@ -90,14 +99,15 @@ export const CategoryList = (props)=>{
                   payload: false,
                 });
                 dispatch(getCategoryWiseList(payload));
-                  navigation.push('VendorProducts',
-                  {
-                    vendor            : props.vendor,
-                    category          : item.category,
-                    section           : props.section,
-                    index             : props.index,
-                    vendorLocation_id : props.vendorLocation_id,
-                  });
+                if(props.goProductList){
+                  navigation.navigate('VendorProducts',{
+                      vendor            : props.vendor,
+                      category          : item.category,
+                      section           : props.section,
+                      index             : props.index,
+                      vendorLocation_id : props.vendorLocation_id,
+                    });
+                  }
                 }   
             }}>
             {showImage === true? 
@@ -114,16 +124,24 @@ export const CategoryList = (props)=>{
         :
         showImage === true? 
           <View>
-             <TouchableOpacity style={{borderWidth:0.5,borderRadius:5,borderColor:"#033554" }} onPress={()=>{  setSelected(item.category);
+             <TouchableOpacity style={{borderWidth:0.5,borderRadius:5,borderColor:"#033554",
+             shadowColor: "#000",
+             shadowOffset: {
+               width: -2,
+               height: 2,
+             },
+             shadowOpacity: 0.25,
+             shadowRadius: 3.84,
+             elevation: 5,
+             }} onPress={()=>{  setSelected(item.category);
               var subCategoryArray = item.subCategory.map((a, i)=>{
                 return {
                     label :a.subCategoryTitle,        
                     value :item.categoryUrl+"^"+a.subCategoryUrl,        
                 } 
               })
-              if(props.setSubCategory){
-                props.setSubCategory(subCategoryArray);
-              }
+              if(props.setSubCategory){props.setSubCategory(subCategoryArray)};
+              if(props.setCategory){props.setCategory(item.category)};
               payload.categoryUrl     = item.categoryUrl;
               payload.subCategoryUrl  = item.subCategoryUrl ? item.subCategoryUrl : [] ;
               payload.scroll          = false;
@@ -138,14 +156,15 @@ export const CategoryList = (props)=>{
                 payload: false,
               });
               dispatch(getCategoryWiseList(payload));
-                navigation.push('VendorProducts',
-                {
-                  vendor : props.vendor,
-                  category:item.category,
-                  section:props.section,
-                  index:props.index,
-                  vendorLocation_id:props.vendorLocation_id,
-                });
+              if(props.goProductList){
+                navigation.navigate('VendorProducts',{
+                    vendor            : props.vendor,
+                    category          : item.category,
+                    section           : props.section,
+                    index             : props.index,
+                    vendorLocation_id : props.vendorLocation_id,
+                  });
+                }
             }}>
             <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{borderRadius: 5}}>
                 </ImageBackground>
@@ -154,16 +173,17 @@ export const CategoryList = (props)=>{
           </View>  
           :
           <View>
-          <TouchableOpacity style={{borderWidth:0.5,borderRadius:5,borderColor:"#033554"}} onPress={()=>{  setSelected(item.category);
+          <TouchableOpacity style={{borderWidth:0.5,borderRadius:5,borderColor:"#033554",
+          
+        }} onPress={()=>{  setSelected(item.category);
            var subCategoryArray = item.subCategory.map((a, i)=>{
              return {
                  label :a.subCategoryTitle,        
                  value :item.categoryUrl+"^"+a.subCategoryUrl,        
              } 
            })
-           if(props.setSubCategory){
-             props.setSubCategory(subCategoryArray);
-           }
+           if(props.setSubCategory){props.setSubCategory(subCategoryArray)};
+           if(props.setCategory){props.setCategory(item.category)};
            payload.categoryUrl     = item.categoryUrl;
            payload.subCategoryUrl  = item.subCategoryUrl ? item.subCategoryUrl : [] ;
            payload.scroll          = false;
@@ -178,14 +198,15 @@ export const CategoryList = (props)=>{
             payload: false,
           });
            dispatch(getCategoryWiseList(payload));
-             navigation.push('VendorProducts',
-             {
-              vendor : props.vendor,
-               category:item.category,
-               section:props.section,
-               index:props.index,
-               vendorLocation_id:props.vendorLocation_id,
-             });
+           if(props.goProductList){
+            navigation.navigate('VendorProducts',{
+                vendor            : props.vendor,
+                category          : item.category,
+                section           : props.section,
+                index             : props.index,
+                vendorLocation_id : props.vendorLocation_id,
+              });
+            }
          }}>
           <View  style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight,borderColor:"#707070"}]}>
               <Text style={[styles.categoryTitle,{color:item.sectionImage?"#fff":"#707070"}]}>{item.category}</Text>
@@ -217,7 +238,15 @@ export const CategoryList = (props)=>{
               showsHorizontalScrollIndicator={false}
               ref={flatlistRef}
               getItemLayout={getItemLayout}
-          />:[]} 
+          />
+          // <Carousel
+          //     ref={(c) => { this._carousel = c; }}
+          //     data={categoryList}
+          //     renderItem={item => _renderlist(item)}
+          //     sliderWidth={wp(100)}
+          //     itemWidth={wp(33)}
+          //   />
+          :[]} 
         </View>
     </View>
   );

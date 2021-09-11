@@ -352,6 +352,7 @@ exports.change_review_status = (req, res, next) => {
 /*=========== Customer Review List for Particular Product ===========*/
 exports.list_customer_review_for_product = (req,res,next)=>{
 	CustomerReview.find({"product_id" : req.params.product_id, "status": "Published"})
+	.sort({"createdAt" : -1})
 	.exec()
 	.then(data=>{
 		var totalNumOfReviews 	= data.length;

@@ -79,7 +79,7 @@ class IAssureTable extends Component {
 	  this.paginationFunction();
 	}
 	componentWillReceiveProps(nextProps) {
-		console.log("props.tableData = ",nextProps.tableData);
+		// console.log("props.tableData = ",nextProps.tableData);
 		
 		if(this.state.callPage === true){
         	this.paginationFunction();
@@ -124,10 +124,10 @@ class IAssureTable extends Component {
 	delete(event){
 		event.preventDefault();
 		var tableObjects = this.props.tableObjects;
-		console.log("event.target.id = ",event.target)
+		// console.log("event.target.id = ",event.target)
 		let id = event.target.id;
 
-		console.log("id = ",id)
+		// console.log("id = ",id)
 		swalWithBootstrapButtons.fire({
 		  title: 'Are you sure?',
 		  text: "You won't be able to revert this!",
@@ -452,7 +452,7 @@ class IAssureTable extends Component {
 		var startRange = parseInt($(event.target).attr('id').split('|')[1]);
 		// console.log("startRange ==> ",startRange)
 		
-		this.props.getData(startRange, limitRange);
+		this.props.getData(startRange, this.state.limitRange);
 		// console.log("this.props.getData(startRange, limitRange)",this.props)		
 		this.setState({
 			startRange:startRange,
@@ -477,26 +477,27 @@ class IAssureTable extends Component {
 		},()=>{
 			$('li').removeClass('activeCircle');
 			this.paginationFunction();
-			if(this.state.normalData === true){
-				this.props.getData(startRange, this.state.limitRange);
-			}	
-			if(this.state.searchData === true){
-				this.tableSearch();
-			}
+			this.props.getData(this.state.startRange, this.state.limitRange);
+			// if(this.state.normalData === true){
+			// 	this.props.getData(startRange, this.state.limitRange);
+			// }	
+			// if(this.state.searchData === true){
+			// 	this.tableSearch();
+			// }
 		});	
 	}
 	tableSearch(){
     	var searchText = this.refs.tableSearch.value;
-		if(searchText && searchText.length !== 0) {
-			this.setState({
-				"normalData"  : false,
-				"searchData"  : true,
-			},()=>{
-				this.props.getSearchText(searchText, this.state.startRange, this.state.limitRange);
-			});	    	
-	    }else{
-			this.props.getData(this.state.startRange, this.state.limitRange);
-	    }    	 
+		// if(searchText && searchText.length !== 0) {
+		// 	this.setState({
+		// 		"normalData"  : false,
+		// 		"searchData"  : true,
+		// 	},()=>{
+				this.props.getSearchText(searchText);
+			// });	    	
+	  //   }else{
+			// this.props.getData(this.state.startRange, this.state.limitRange);
+	  //   }    	 
     }
     showNextPaginationButtons(){
     	var dataLength = this.state.dataCount;
@@ -716,8 +717,8 @@ class IAssureTable extends Component {
 		var split 			= image.split("/");
 		var smallImageLink  = split.slice(0, split.length - 1).join("/") + "/" + smallImageName;
 		
-		console.log("image 715 => ", image)
-		console.log("smallImageLink 716 => ", smallImageLink)
+		// console.log("image 715 => ", image)
+		// console.log("smallImageLink 716 => ", smallImageLink)
 		
 		var formValues = {
 			product_ID  	: id,
@@ -771,7 +772,7 @@ class IAssureTable extends Component {
     }
     uploadProductImage(event){
         event.preventDefault();
-        console.log("event.currentTarget.files------",event.currentTarget.files);
+        // console.log("event.currentTarget.files------",event.currentTarget.files);
         var productImage = [];
         if (event.currentTarget.files && event.currentTarget.files[0]) {
             for(var i=0; i<event.currentTarget.files.length; i++){
@@ -911,13 +912,10 @@ class IAssureTable extends Component {
 					:
 					null        
 		       	}
-				<div className="col-lg-2 col-md-3 col-sm-6 col-xs-12 text-center NOPadding marginTop17">
-	        		{/* <label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Filtered Products: <span >{this.state.dataCount}</span> </label> */}
-					<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17"> Selected Products : <span >{this.state.allid ? this.state.allid.length : '0'}</span> </label>
-				</div> 
+				
 				{
 		       		this.state.tableObjects.searchApply === true ? 
-			       		<div className="col-lg-8 col-md-6 col-sm-12 col-xs-12 pull-right  NOpadding-right">
+			       		<div className="col-lg-10 col-md-9 col-sm-12 col-xs-12 pull-right  NOpadding-right">
 			        		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search</label>
 			        		<div className="input-group">
 						        <input type="text" onChange={this.tableSearch.bind(this)} className="NOpadding-right form-control" 
@@ -995,7 +993,7 @@ class IAssureTable extends Component {
 											// console.log("value",value)											
 											return(
 												<tr key={i} className="">
-													<td> {i+1} </td>												
+													<td> {this.state.startRange + 1 + i} </td>												
 													{
 														Object.entries(value).map( 
 															([key, value1], i)=> {
@@ -1044,7 +1042,7 @@ class IAssureTable extends Component {
                                                     <td>
                                                     {
                                                         value.productImage.length > 0 ? 
-                                                            <div className="col-lg-12 col-md-12 col-sm-12, col-xs-12 deleteimagewrapper bulkimagebg">  
+                                                            <div className="col-lg-12 col-md-12 col-sm-12, col-xs-12 deleteimagewrapper bulkimagebg webkitDisplayBox">  
                                                                 {  
                                                                     value.productImage.map((imgdata,index)=>{
                                                                         return(

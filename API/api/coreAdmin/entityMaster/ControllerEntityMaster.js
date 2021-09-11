@@ -83,9 +83,9 @@ function getNextSequence(entityType) {
         .then(data=>{
             if (data) { 
                 var seq = data.companyID;
-                console.log("seq 1 => ",seq)
+                // console.log("seq 1 => ",seq)
                 seq = seq+1;
-                console.log("seq 2 => ",seq)
+                // console.log("seq 2 => ",seq)
                 resolve(seq) 
             }else{
                resolve(2)
@@ -100,7 +100,8 @@ function getNextSequence(entityType) {
 
 exports.listEntity = (req,res,next)=>{
     EntityMaster.find({entityType:req.params.entityType, 
-                        profileStatus:"New"
+                        // profileStatus:"New"
+                        profileStatus:{$ne : "inactive"}
                     })
         .sort({createdAt : -1})    
         .exec()
@@ -977,6 +978,36 @@ exports.deleteEntity = (req,res,next)=>{
     });
 };
 
+exports.changeEntityStatus = (req,res,next)=>{
+    console.log("*****************Activate the Entity***************** ")
+    console.log("req.params.entityID => ",req.params.entityID)
+    EntityMaster.update(
+                            { _id : ObjectId(req.params.entityID)},
+                            {$set : { profileStatus : "active"}}
+                        )
+    .then(data=>{
+        console.log("data => ",data)
+        //make all products of this vendor as "Unpublished"
+        Products.update(
+                {"vendor_ID" :req.params.entityID},
+                {$set : {"status" : "Published"}},
+                {multi: true}
+        )
+        .then(updateProduct =>{
+
+            res.status(200).json({ statusChanged : true });
+
+        })
+        .catch(err =>{
+            res.status(500).json({ error: err });
+        });
+
+    })
+    .catch(err =>{
+        res.status(500).json({ error: err });
+    });
+};
+
 
 exports.deleteLocation = (req,res,next)=>{   
     EntityMaster.updateOne(
@@ -1031,7 +1062,7 @@ exports.filterEntities = (req,res,next)=>{
     var selector = {}; 
     selector['$and']=[];
 
-    selector["$and"].push({ profileStatus: "New" })
+    selector["$and"].push({ profileStatus: {$ne : "inactive"} })
     selector["$and"].push({ entityType : { $regex : req.body.entityType,$options: "i"} })
     //selector.entityType = {$regex : req.body.entityType,$options: "i"}  
     if (req.body.stateCode) {
@@ -1209,11 +1240,24 @@ exports.filterInactiveEntities_grid = (req,res,next)=>{
 };
 
 exports.fetchEntities = (req, res, next)=>{
-    // console.log("req.body => ",req.body)
-    EntityMaster.find({entityType : req.body.type, profileStatus:"New"})
+    console.log("req.body => ",req.body)
+    // EntityMaster.find({
+    //     $and:[
+    //         {entityType : req.body.type}, 
+    //         {$or : [
+    //             {profileStatus :"New"},
+    //             {profileStatus :"active"},
+    //             {profileStatus :""}
+    //             ]
+    //         }]
+    //     })
+    EntityMaster.find({
+        entityType :  req.body.type,
+        profileStatus :{ $ne : "inactive"}
+        })
                 .sort({createdAt : -1})
-                .skip(req.body.startRange)
-                .limit(req.body.limitRange)
+                // .skip(req.body.startRange)
+                // .limit(req.body.limitRange)
                 .exec()
                 .then(data=>{
                     // console.log("data => ",data)

@@ -85,6 +85,7 @@ class ProductCarouselView extends Component {
       vendor_ID    : "",
       categoryUrl  : "",
       brandArray   : [],
+      messageData  : {},
     };
   }
 
@@ -158,7 +159,7 @@ addCart(formValues, quantityAdded, availableQuantity) {
       this.setState({
         messageData: {},
       })
-    }, 2000);
+    }, 6000);
   }else{
     axios.post('/api/carts/post', formValues)
       .then((response) => {
@@ -166,7 +167,7 @@ addCart(formValues, quantityAdded, availableQuantity) {
           messageData: {
             "type": "outpage",
             "icon": "fa fa-check-circle",
-            "message": "&nbsp; " + response.data.message,
+            "message": response.data.message,
             "class": "success",
             "autoDismiss": true
           }
@@ -175,7 +176,7 @@ addCart(formValues, quantityAdded, availableQuantity) {
           this.setState({ 
             messageData: {},
           })
-        }, 2000);
+        }, 6000);
         this.props.fetchCartData();
         this.props.updateCartCount();
 
@@ -227,7 +228,7 @@ submitCart(event) {
       this.setState({
         messageData: {},
       })
-    }, 2000);
+    }, 6000);
   }//end else
 }
 }
@@ -255,7 +256,7 @@ addtowishlist(event) {
           messageData: {
             "type": "outpage",
             "icon": "fa fa-check-circle",
-            "message": "&nbsp; " + response.data.message,
+            "message": response.data.message,
             "class": "success",
             "autoDismiss": true
           }
@@ -264,7 +265,7 @@ addtowishlist(event) {
           this.setState({
             messageData: {},
           })
-        }, 2000);
+        }, 6000);
         this.props.getWishlist();
         
       })
@@ -286,16 +287,40 @@ addtowishlist(event) {
         this.setState({
           messageData: {},
         })
-      }, 2000);
+      }, 6000);
   }
 }
+
+  
+close(event){
+  event.preventDefault();
+  this.setState({ messageData: {} });
+}
+
+
+
 
 render() {
       // console.log("ProductCarouselView this.props.newProducts==",this.props)
       // console.log("this.state.authService==",this.state.authService);
     return (
         <div className={"col-12 " }>        
-            <Message messageData={this.state.messageData} />  
+            {/*<Message messageData={this.state.messageData} />  */}
+
+            <div className="row ml-auto pull-right outpageMessage"
+                style={this.state.messageData.message ? {display:"block"}: {display: "none"}}>
+                <div className="alert-group">
+                    <div className={this.state.messageData.class 
+                                    ? "alert alert-"+this.state.messageData.class+" alert-dismissable " +Style.alertMessage
+                                    : "alert alert-dismissable " + Style.alertMessage}>
+                        <button type="button" className="close" onClick={this.close.bind(this)}>×</button>
+                        <div className={this.state.messageData.icon? this.state.messageData.icon+" inpagemessage" : "inpagemessage" } >
+                           &nbsp;&nbsp; {this.state.messageData.message ? this.state.messageData.message : ""}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className="col-12 ">
                 <h5>{this.props.blockTitle && this.props.blockTitle}</h5>
             </div>

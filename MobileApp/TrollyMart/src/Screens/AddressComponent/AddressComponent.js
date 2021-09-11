@@ -35,6 +35,7 @@ import SearchSuggetion              from '../../ScreenComponents/SearchSuggetion
 import { NetWorkError } from '../../../NetWorkError.js';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
   const window = Dimensions.get('window');
@@ -241,8 +242,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
             <SearchSuggetion />
         :
         <View style={[styles.addsuperparent,{marginBottom:Platform.OS==='ios'?60:40,paddingBottom:Platform.OS==='ios'?20:hp(8)}]}>
-          <ScrollView  keyboardShouldPersistTaps='handled' style={styles.formWrapper} keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false}>
-           <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} >
+           <KeyboardAwareScrollView behavior={Platform.OS === "ios" ? "padding" : "height"} keyboardShouldPersistTaps='handled' style={styles.formWrapper} keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false} >
               <View style={{ backgroundColor: '#fff', paddingHorizontal: 15, marginBottom: "5%" }}>
               <View style={{ flex:1,backgroundColor:'#fff',flexDirection: "row",marginLeft:10, justifyContent: 'flex-start',marginBottom:20 }}>
                   <Text style={styles.addressTitle}>My Address</Text>
@@ -505,8 +505,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
                    />
                   </View>
               </View>
-          </KeyboardAvoidingView>
-          </ScrollView>
+          </KeyboardAwareScrollView>
           {/* */}
         </View>}
       </React.Fragment>

@@ -3,6 +3,14 @@
   src: url('../../../fonts/Montserrat-ExtraBold.ttf');
 }
 
+.alertMessage{
+    position: fixed;
+    z-index: 1000;
+    top: 25px !important;
+    right: 42px !important;
+    display: block;
+}
+
 .searchProductWrapper{
   min-height: 500px;
 }
@@ -454,6 +462,7 @@ font-weight: bolder;
   .NoAvailableImg{
     height: 127px;
   }
+
 }
 
 @media only screen and (min-device-width: 1920px) {
