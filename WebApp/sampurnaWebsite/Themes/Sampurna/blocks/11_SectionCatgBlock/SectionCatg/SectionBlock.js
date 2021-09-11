@@ -144,7 +144,7 @@ class SectionBlock extends Component {
               
             </div>
             : 
-              <div className="col-12">No Item Available</div>
+              null
           :
             <div className="row sectionCategoryBlock">                      
               {

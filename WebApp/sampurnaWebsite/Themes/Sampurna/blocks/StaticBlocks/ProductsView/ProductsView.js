@@ -152,10 +152,10 @@ class ProductsView extends Component {
         axios.patch("/api/customerReview/patch/customer/review", formValues)
           .then((response) => {
             swal({ text: response.data.message });
-            $('.feedbackForm textarea').val("");
             this.setState({
               rating : 1,
               imgUrl : "",
+              customerReview : ""
             })
             // swal({ text: response.data.message }).then(function () {
             //   window.location.reload();
@@ -191,7 +191,6 @@ class ProductsView extends Component {
           .then((response) => {
             if (response) {
               swal({ text: response.data.message });
-              $('.feedbackTextBox').val("");
               this.setState({
                 rating : 1,
                 imgUrl : "",
@@ -269,7 +268,7 @@ uploadImage(event) {
             this.setState({
               config: config,
             }, () => {
-
+              console.log("config==",config);
               const ReactS3Client = new S3(config);
               if (ReactS3Client) {
                 var imagesPaths =[];
@@ -307,7 +306,10 @@ uploadImage(event) {
   deleteImage(event) {
     event.preventDefault();
     var file = event.target.getAttribute('data-imageurl');
-    console.log("value==",file);
+    console.log("file path ==",file);
+    var fileArray = file.split('/');
+    file = fileArray[4];
+    console.log("file[3] ==",fileArray[4]);
     if (file) {
       // console.log("file to be deleted==",event.currentTarget.file);
       axios
@@ -322,21 +324,25 @@ uploadImage(event) {
             dirName: 'propertiesImages',
           }
           if (config) {
+            console.log("config==",config);
             this.setState({
               config: config,
             }, () => {
+              console.log("file===",file);
               const ReactS3Client = new S3(config);
               if (ReactS3Client) {
                 ReactS3Client
                   .deleteFile(file)
                   .then(response => {
-                    // console.log("img deleted", response);
+                    console.log("img deleted", response);
                     this.state.imgUrls.pop(file);
                     this.setState({
                       imgUrls: this.state.imgUrls
+                    },()=>{
+                        console.log("ImgUrl==",this.state.imgUrls);
                     });
                   })
-                  .catch(err => console.error(err))
+                  .catch(err => console.error("Error while deleting image from s3",err))
 
                   .catch(err => console.error("fileUpload data=", err))
               }
@@ -605,7 +611,7 @@ uploadImage(event) {
                             <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                               <div className="col-12">
                                 <div className="row mt-2">
-                                  <div className="col-4 text-left NoPadding mt-2">
+                                  <div className="col-4 text-left mt-2">
                                     <img src="/images/eCommerce/TrollyLogo.png" height ={40} />
                                   </div>
                                   <div className="col-7 text-center">
@@ -701,8 +707,7 @@ uploadImage(event) {
                               <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                                 <div className="col-12">
                                   <div className="row mt-2">
-                                    <div className="col-4 text-left NoPadding mt-2">
-                                      {/*<WebsiteLogo/>*/}
+                                    <div className="col-4 text-left mt-2">
                                       <img src="/images/eCommerce/TrollyLogo.png" height ={40} />
                                     </div>
                                     <div className="col-7 text-center">
