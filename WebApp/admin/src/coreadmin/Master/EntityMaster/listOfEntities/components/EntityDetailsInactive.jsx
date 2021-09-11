@@ -108,41 +108,41 @@ class EntityDetailsInactive extends Component {
 	editBasicform(event){
   	this.props.history.push("/"+this.state.entityType+'/basic-details/'+event.currentTarget.getAttribute('data-id'))
   }
-  deleteEntity(event){
+  activateEntity(event){
 		event.preventDefault();
 		var id = event.currentTarget.getAttribute('data-id');
 		// this.setState({deleteID: event.currentTarget.getAttribute('data-id')})
 		// $('#deleteEntityModal').show();
   
   			swalWithBootstrapButtons.fire({
-				  title: 'Are you sure you want to Inactivate this Vendor?',
-				  text: "All Products of this Vendor would be Unpublished!",
+				  title: 'Are you sure you want to Activate this Vendor?',
+				  text: "All Products of this Vendor would be Published!",
 				  icon: 'warning',
 				  showCancelButton: true,
-				  confirmButtonText: 'Yes, Inactivate Vendor!',
+				  confirmButtonText: 'Yes, Activate Vendor!',
 				  cancelButtonText: 'No, Cancel!',
 				  reverseButtons: true
 				}).then((result) => {
 				  if (result.isConfirmed) {
-				  	axios.delete("/api/entitymaster/delete/"+id)
+				  	axios.patch("/api/entitymaster/change/status/"+id)
 				  	.then((response) => {
-						console.log("delete response => ",response.data)
+						console.log("status change response => ",response.data)
 						// this.getData(this.state.startRange, this.state.limitRange);
 						// if(!this.state.redirectToURL){
 						// }else{				
 						// 	this.props.history.push(tableObjects.editUrl);
 						// }
-						if (response.data.deleted) {
+						if (response.data.statusChanged) {
 							swalWithBootstrapButtons.fire(
-						      'Inactivated the Vendor!',
-						      (this.state.entityType === "appCompany" ? "Organizational Settings" :this.state.entityType) + ' has been Inactivated.',
+						      'Activated the Vendor!',
+						      (this.state.entityType === "appCompany" ? "Organizational Settings" :this.state.entityType) + ' has been Activated.',
 						      'success'
 					    )
 						}else{
 							swal.fire({
 						  icon: 'error',
 						  title: 'Oops...',
-						  text: 'Failed to Inactivate this vendor!'
+						  text: 'Failed to Activate this vendor!'
 						})
 						}
 						this.props.getEntities();
@@ -233,14 +233,30 @@ class EntityDetailsInactive extends Component {
 					    		<div className="col-lg-12 col-md-4 col-sm-4 col-xs-4 orgHeadview">
 					    			<label><a target="_blank" title="view company profile" href={"/company-profile/"+this.state.entityInfo._id}>{this.state.entityInfo.companyName}</a></label>&nbsp;&nbsp;<span>( Company ID: <b>{this.state.entityInfo.companyID}</b> )</span>
 					    		</div>
-{/*						    	<div className="col-lg-1 col-md-2 col-sm-2 col-xs-2 editOptionView pull-right noPadding">
-						    		<div id={this.state.entityInfo._id} className=" col-lg-6 noPadding"  title="Edit" data-index data-id={this.state.entityInfo._id} onClick={this.editBasicform.bind(this)}>	
+
+						    	<div className="col-lg-1 col-md-2 col-sm-2 col-xs-2 editOptionView pull-right noPadding">
+						    		{/*<div id={this.state.entityInfo._id} className=" col-lg-6 noPadding"  title="Edit" data-index data-id={this.state.entityInfo._id} onClick={this.editBasicform.bind(this)}>	
 									    <i className="fa fa-pencil "  aria-hidden="true" ></i>
 									  </div>
 									  <div id={this.state.entityInfo._id} className="col-lg-6 noPadding"  title="Inacticate this vendor" data-index data-id={this.state.entityInfo._id} onClick={this.deleteEntity.bind(this)}>	
 									    <i className="fa fa-trash "  aria-hidden="true" ></i>
-									  </div>
-						    	</div>*/}
+									  </div>*/}
+									  <div className=" dropdown col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding">
+										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<i className="fa fa-ellipsis-h pull-right" aria-hidden="true"></i>
+								    		<div className="dropdown-content dropdown-contentEL">
+												<ul className="pdcls ulbtm">
+													<li id={this.state.entityInfo._id} className="vendorActionListItem" title="Activate this vendor" data-index data-id={this.state.entityInfo._id} onClick={this.activateEntity.bind(this)}>
+														<a><i className="fa fa-circle "aria-hidden="true"></i>&nbsp;&nbsp;Activate</a>
+													</li>
+													{/*<li id={this.state.entityInfo._id}  title="Delete" data-index data-id={this.state.entityInfo._id} onClick={this.deleteEntity.bind(this)}>
+														<a><i className="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;Delete</a>
+													</li>*/}
+												</ul>
+											</div>
+										</div>
+									</div>
+						    	</div>
 						    	
 					    		<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 wrapContent">
 					    			<ul className="col-lg-12 col-md-12 col-sm-12 col-xs-12 noPadding listLI">

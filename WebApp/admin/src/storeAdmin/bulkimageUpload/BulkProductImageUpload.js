@@ -29,11 +29,16 @@ class BulkProductImageUpload extends Component{
 					{name : 'status', label : 'Unpublish', value : 'Unpublish'}
 				],
 				tableHeading: {
-					srNo 				: 'Sr no.',
-					productCode		: 'Product Code',
-					itemCode			: 'Item Code',
-					productName		: 'Product Name',
+					srNo 					: 'Sr no.',
+					// productCode			: 'Product Code',
+					// itemCode				: 'Item Code',
+					productName			: 'Product Details',
+					vendorName			: 'Vendor',
+					section				: 'Section',
+					category				: 'Category',
+					subCategory			: 'SubCategory',
 					originalPrice		: 'Original Price',
+					availableQuantity	: 'Available Quantity',
 					images				: 'Images',
 				},
 				tableObjects 			: {
@@ -53,9 +58,9 @@ class BulkProductImageUpload extends Component{
 		var token       = userDetails.token;
 		axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;   
 
-		this.getDataCount();
+		// this.getDataCount();
 		// this.getDatawithlimit(this.state.startRange , this.state.limitRange);
-		this.getDataSection(this.state.startRange , this.state.limitRange);
+		this.getData(this.state.startRange , this.state.limitRange);
 
 
 		axios.get("/api/adminPreference/get")
@@ -92,7 +97,7 @@ class BulkProductImageUpload extends Component{
 	  	}) 
 
 		// this.getCount();
-		this.getDataCount(this.state.startRange, this.state.limitRange);
+		// this.getDataCount(this.state.startRange, this.state.limitRange);
 
 		this.getSectionData();
 		// this.productCountByStatus();
@@ -233,10 +238,11 @@ class BulkProductImageUpload extends Component{
 	 	}      
 	}
 
-	getDataCount(){
-		axios.get('/api/products/get/newcount')
+	getDataCount(formValues){
+		// axios.get('/api/products/get/newcount')
+		axios.post('/api/products/get/all/count',formValues)
 		.then((response)=>{
-			console.log(" data count => ",response.data);
+			// console.log(" data count => ",response.data);
 				this.setState({
 					dataCount : response.data.dataCount
 				})
@@ -295,8 +301,8 @@ class BulkProductImageUpload extends Component{
 		this.setState({
 			searchText : searchText
 		},()=>{
-			console.log("this.state.searchText" ,this.state.searchText)
-			this.getDataSection(0, this.state.limitRange);
+			// console.log("this.state.searchText" ,this.state.searchText)
+			this.getData(0, this.state.limitRange);
 		})
 	}
 
@@ -516,7 +522,7 @@ class BulkProductImageUpload extends Component{
 			axios.patch('/api/products/patch/bulkimages/', formValue)
 			.then((response)=>{
 				// console.log('itemCodeNotExist', this.state.itemCodeNotExist);
-				this.getDataCount();
+				// this.getDataCount();
 				// if(this.state.itemCodeNotExist !== ''){
 				//   swal(response.data.message+" some images not uploaded because item code does not exist");
 				// }else{
@@ -560,8 +566,8 @@ class BulkProductImageUpload extends Component{
 		var split 			= image.split("/");
 		var smallImageLink  = split.slice(0, split.length - 1).join("/") + "/" + smallImageName;
 		
-		console.log("image => ", image)
-		console.log("smallImageLink => ", smallImageLink)
+		// console.log("image => ", image)
+		// console.log("smallImageLink => ", smallImageLink)
 		
 		var formValues = {
 			product_ID  	: id,
@@ -582,7 +588,7 @@ class BulkProductImageUpload extends Component{
 				
 					axios.patch('/api/products/remove/image', formValues)
 					.then((res)=>{
-						this.getDataCount();
+						// this.getDataCount();
 					})
 					.catch((error)=>{
 						console.log('errro', error);
@@ -619,17 +625,17 @@ class BulkProductImageUpload extends Component{
 					   })
 					   this.getSubCategoryData(this.state[name].value);
 				  }
-				  this.getDataSection(0, this.state.limitRange);
+				  this.getData(0, this.state.limitRange);
 			});
 	   };
 	   
-	getDataSection(startRange, limitRange) {
+	getData(startRange, limitRange) {
 		// this.setState({ 
 		// 	messageData 		: {}, 
 		// 	isLoadingData 		: true			
 		// })
 		
-		console.log("startRange = "+startRange+" | limitRange = "+limitRange);
+		// console.log("startRange = "+startRange+" | limitRange = "+limitRange);
 
 		var formValues = {		  	
 			startRange 		: startRange,
@@ -644,6 +650,7 @@ class BulkProductImageUpload extends Component{
 		// this.getCount(formValues);
 		axios.post('/api/products/get/listimgproduct/filter', formValues)
 		.then((response) => {
+			this.getDataCount(formValues);
 			// console.log("reponse for admin 647 list =======",response.data.data);
 		  	// var tableData = response.data.data.map((a, i) => {
 			//   	// console.log("a.vendorName----",a);
@@ -665,11 +672,11 @@ class BulkProductImageUpload extends Component{
 			// 		_id 					: a._id
 			// 	}
 		  	// })
-		 	console.log("response.data.data => ",response.data.data);
+		 	// console.log("response.data.data => ",response.data.data);
 
 		 	this.setState({
-		 		// dataCount 		: response.data.dataCount,
-				 allshopproductimages 			: response.data.data,
+		 		// dataCount 							: response.data.dataCount,
+				allshopproductimages 			: response.data.data,
 			  	// isLoadingData 		: false,
 			  	// unCheckedProducts : false
 		 	})
@@ -1031,7 +1038,7 @@ class BulkProductImageUpload extends Component{
 									// twoLevelHeader 		= {this.state.twoLevelHeader}
 									dataCount 				= {this.state.dataCount}
 									tableData 				= {this.state.allshopproductimages}
-									getData 					= {this.getDataSection.bind(this)}
+									getData 					= {this.getData.bind(this)}
 									tableObjects 			= {this.state.tableObjects}
 									// selectedProducts 		= {this.selectedProducts.bind(this)}
 									getSearchText 			= {this.getSearchText.bind(this)}

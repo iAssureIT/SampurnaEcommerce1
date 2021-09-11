@@ -234,12 +234,27 @@ class EntityDetails extends Component {
 					    			<label><a target="_blank" title="view company profile" href={"/company-profile/"+this.state.entityInfo._id}>{this.state.entityInfo.companyName}</a></label>&nbsp;&nbsp;<span>( Company ID: <b>{this.state.entityInfo.companyID}</b> )</span>
 					    		</div>
 						    	<div className="col-lg-1 col-md-2 col-sm-2 col-xs-2 editOptionView pull-right noPadding">
-						    		<div id={this.state.entityInfo._id} className=" col-lg-6 noPadding"  title="Edit" data-index data-id={this.state.entityInfo._id} onClick={this.editBasicform.bind(this)}>	
+						    		<div id={this.state.entityInfo._id} className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"  title="Edit" data-index data-id={this.state.entityInfo._id} onClick={this.editBasicform.bind(this)}>	
 									    <i className="fa fa-pencil "  aria-hidden="true" ></i>
-									  </div>
-									  <div id={this.state.entityInfo._id} className="col-lg-6 noPadding"  title="Inacticate this vendor" data-index data-id={this.state.entityInfo._id} onClick={this.deleteEntity.bind(this)}>	
+									</div>
+									<div className=" dropdown col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding">
+										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<i className="fa fa-ellipsis-h pull-right" aria-hidden="true"></i>
+								    		<div className="dropdown-content dropdown-contentEL">
+												<ul className="pdcls ulbtm">
+													<li id={this.state.entityInfo._id} className="vendorActionListItem" title="Inactivate this vendor" data-index data-id={this.state.entityInfo._id} onClick={this.deleteEntity.bind(this)}>
+														<a><i className="fa fa-ban "aria-hidden="true"></i>&nbsp;&nbsp;Inactivate</a>
+													</li>
+													{/*<li id={this.state.entityInfo._id}  title="Delete" data-index data-id={this.state.entityInfo._id} onClick={this.deleteEntity.bind(this)}>
+														<a><i className="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;Delete</a>
+													</li>*/}
+												</ul>
+											</div>
+										</div>
+									</div>
+									  {/*<div id={this.state.entityInfo._id} className="col-lg-6 noPadding"  title="Inactivate this vendor" data-index data-id={this.state.entityInfo._id} onClick={this.deleteEntity.bind(this)}>	
 									    <i className="fa fa-trash "  aria-hidden="true" ></i>
-									  </div>
+									  </div>*/}
 						    	</div>
 					    		<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 wrapContent">
 					    			<ul className="col-lg-12 col-md-12 col-sm-12 col-xs-12 noPadding listLI">

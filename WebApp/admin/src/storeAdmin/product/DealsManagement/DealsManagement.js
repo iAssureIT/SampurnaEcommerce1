@@ -449,7 +449,7 @@ class DealsManagement extends React.Component {
 				  "subCategory"         : a.subCategory,
 				  "dealInPercentage"    : a.dealInPercentage,
 				  "updateAllProductPrice" : a.updateAllProductPrice,
-				  "dealImg"             : "<img class="+" img-thumbnail " +"src="+ (a.dealImg ? a.dealImg : "/images/notavailable.jpg") +" />" ,
+				  "dealImg"             : "<div class=textAlignRight> <img class="+" img-thumbnail " +"src="+ (a.dealImg ? a.dealImg : "/images/notavailable.jpg") +" /> </div>" ,
 				  "startdate"           : moment(a.startdate).format("DD/MM/YYYY"),
 				  "enddate"             : moment(a.enddate).format("DD/MM/YYYY"),                            
 				}
@@ -505,7 +505,7 @@ class DealsManagement extends React.Component {
 				  subCategory           : response.data.subCategoryID + "_" + response.data.subCategory,
 				  subCategoryID           : response.data.subCategoryID,
 				  dealInPercentage      : response.data.dealInPercentage,
-				  dealImg            : response.data.dealImg,
+				  dealImg            	: response.data.dealImg,
 				  updateAllProductPrice : response.data.updateAllProductPrice,
 				  startdate             : moment(response.data.startdate).format("YYYY-MM-DD"),
 				  enddate               : moment(response.data.enddate).format("YYYY-MM-DD"),

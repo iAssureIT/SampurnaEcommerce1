@@ -17,7 +17,7 @@ const haversine                 = require('haversine-distance')
 // import axios from 'axios';
 
 /**=========== Add Cart Products ===========*/
-exports.insert_cartid = (req,res,next)=>{
+exports.add_to_cart = (req,res,next)=>{
     // console.log("req.body ===> ",req.body);
     Carts.findOne({"user_ID": req.body.user_ID})
     .exec()
@@ -269,9 +269,6 @@ exports.insert_cartid = (req,res,next)=>{
                 });
             }
         }else{
-            // console.log("When some No cart data available") 
-            // console.log("vendorCartItem => ",vendorCartItem);        
-            
             const cartDetails = new Carts({
                 _id                         : new mongoose.Types.ObjectId(),
                 "user_ID"                   : req.body.user_ID,
@@ -285,14 +282,12 @@ exports.insert_cartid = (req,res,next)=>{
             });
             cartDetails.save()
             .then(saveddata=>{
-                // console.log("saveddata => ",saveddata);
                 res.status(200).json({
                     "message"   : "Product added to cart successfully.",
                     "cartCount" : 1
                 });
             })
             .catch(err =>{
-                // console.log('4',err);
                 res.status(500).json({
                     error: err
                 });
@@ -301,7 +296,6 @@ exports.insert_cartid = (req,res,next)=>{
         }		
 	})
 	.catch(err =>{
-        // console.log('5',err);
 		res.status(500).json({
 			error: err
 		});

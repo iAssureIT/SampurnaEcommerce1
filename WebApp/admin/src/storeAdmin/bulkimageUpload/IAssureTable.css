@@ -135,3 +135,6 @@
     width: 20px;*/
     box-shadow: 0px 1px 1px 1px !important;
 }
+.webkitDisplayBox{
+      display: flex;
+}
