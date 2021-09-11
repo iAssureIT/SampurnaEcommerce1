@@ -302,7 +302,7 @@ class HomePage extends React.Component {
 						</div>
 					</div> */}
 					<div className={"col-xl-12 " + Style.tenBlockHome } >
-						<div className="row">
+						<div className="">
 							< DealsBlock 
 								dealSettings = { this.state.pharmacyDealSettings}
 								blockTitle = {""}
