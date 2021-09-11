@@ -78,7 +78,7 @@ const CategoryBlock = (props)=>{
                     var url = "/products/"+props.vendor_ID+"/"+props.vendorlocation_ID +"/"+props.sectionUrl+"/"+categorydata.categoryUrl;
                     
                     return (
-                    <div className={"col-12 productsCategoryBlock "}  key={index}>
+                    <div className={"col-12 productsCategoryBlock px-lg-0 px-xl-2"}  key={index}>
                       <div className={"productListCategoryBlock " + Style.productListCategoryBlock}> 
                           <a href={url} className ={"col-12 " + Style.categoryBlock}>
                             <div className={activeClass + " col-12 itemImg NoPadding category_"+index +" " +Style.categoryPhoto +" " +Style.itemImg +" " }>
