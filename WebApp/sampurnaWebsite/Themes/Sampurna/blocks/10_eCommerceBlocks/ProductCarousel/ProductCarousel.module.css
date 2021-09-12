@@ -342,6 +342,8 @@
 
 .sizeUnitName {
   font-size: 12px;
+  font-family: "Montserrat-Regular";
+
 }
 
 .NoAvailableImg1 {
@@ -943,7 +945,7 @@
     font-size      : 13px;
     font-weight    : 100;
     margin-top     : -30px;
-    font-family: 'Montserrat-Medium';
+    font-family: 'Montserrat-Regular';
   }
   .panelHeading{
     padding: 18px 0px 12px 30px;
@@ -1044,9 +1046,9 @@
   .chaneVendorBtn{
       padding-right: 0px;
   }
-  .chaneVendorBtn a{
+/*  .chaneVendorBtn a{
     font-size: 13px;
-  }
+  }*/
   .vendorNameWrapper{
     padding-left: 0px;
   }
@@ -1056,12 +1058,14 @@
 }
 
 @media (min-width: 1024px) and (max-width: 1280px){
+  
   .vendorNameWrapper{
     padding-left: 30px;
   }
   .chaneVendorBtn{
     padding-right: 28px;
   }
+
 }
 
 
@@ -1310,6 +1314,11 @@
     font-size: 14px;
   }
 
+  .chaneVendorBtn {
+    font-size: 9px;
+    padding-right: 19px;
+  }
+
   .panelHeading h4 a, .panelHeading span{
     font-size: 12px;
     width: 52%;
@@ -1364,6 +1373,7 @@
 
   .labelCategory {
     font-size : 14px;
+    width: 169px;
     background-color: #eee;
     font-family: "Montserrat-Regular";
   }
@@ -1397,7 +1407,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 63px;
+    margin-right: 128px;
     margin-bottom: 23px;
   }
 
@@ -1427,7 +1437,8 @@
   }
 
   .panelHeading {
-    padding: 5px 0px 0px 43px;
+    padding: 5px 0px 0px 0px;
+    margin-left: -9px;
   }
 
  }
@@ -1440,6 +1451,11 @@
 
   .categoryFilterTitle{
     font-size: 14px;
+  }
+
+  .chaneVendorBtn {
+    font-size: 9px;
+    padding-right: 25px;
   }
 
   .panelHeading h4 a, .panelHeading span{
@@ -1529,7 +1545,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 63px;
+    margin-right: 96px;
     margin-bottom: 23px;
   }
 
@@ -1559,7 +1575,7 @@
   }
 
   .panelHeading {
-    padding: 5px 0px 0px 43px;
+    padding: 5px 0px 0px 0px;
   }
 
  }
@@ -1572,6 +1588,11 @@
 
   .categoryFilterTitle{
     font-size: 14px;
+  }
+
+  .chaneVendorBtn {
+    font-size: 9px;
+    padding-right: 28px;
   }
 
   .panelHeading h4 a, .panelHeading span{
@@ -1661,7 +1682,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 63px;
+    margin-right: 86px;
     margin-bottom: 23px;
   }
 
@@ -1691,7 +1712,8 @@
   }
 
   .panelHeading {
-    padding: 5px 0px 0px 43px;
+    padding: 5px 0px 0px 0px;
+    margin-left: -10px;
   }
 
  }
@@ -1704,6 +1726,11 @@
 
   .categoryFilterTitle{
     font-size: 14px;
+  }
+
+  .chaneVendorBtn {
+    font-size: 9px;
+    padding-right: 35px;
   }
 
   .panelHeading h4 a, .panelHeading span{
@@ -1823,7 +1850,7 @@
   }
 
   .panelHeading {
-    padding: 5px 0px 0px 43px;
+    padding: 5px 0px 0px 0px;
   }
 
  }
@@ -1832,6 +1859,16 @@
 
     .vendorNameWrapper {
       padding-left: 6px;
+    }
+
+    .rightSidefilter {
+      margin-right: 56px;
+      margin-bottom: 23px;
+    }
+
+    .chaneVendorBtn {
+      font-size: 9px;
+      padding-right: 16px;
     }
 
    }
@@ -1847,6 +1884,11 @@
     font-size: 14px;
   }
 
+  .chaneVendorBtn {
+    font-size: 9px;
+    padding-right: 0px;
+  }
+
   .panelHeading h4 a, .panelHeading span{
     font-size: 12px;
     width: 52%;
@@ -1934,7 +1976,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 219px;
+    margin-right: 118px;
     margin-bottom: 23px;
   }
 
@@ -1964,10 +2006,28 @@
   }
 
   .panelHeading {
-    padding: 5px 0px 0px 43px;
+    padding: 5px 0px 0px 0px;
   }
 
   }  
+
+  @media only screen and (min-device-width: 667px) {
+
+    .panelHeading {
+      padding: 5px 0px 0px 0px;
+    }
+
+    .rightSidefilter {
+      margin-right: 127px;
+      margin-bottom: 23px;
+    }
+
+    .chaneVendorBtn {
+      font-size: 9px;
+      padding-right: 16px;
+    }
+
+   } 
 
   @media only screen and (min-device-width: 736px) {
 
@@ -1979,6 +2039,11 @@
     font-size: 14px;
   }
 
+  .chaneVendorBtn {
+    font-size: 9px;
+    padding-right: 1px;
+  }
+
   .panelHeading h4 a, .panelHeading span{
     font-size: 12px;
     width: 52%;
@@ -2066,7 +2131,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 219px;
+    margin-right: 144px;
     margin-bottom: 23px;
   }
 
@@ -2096,7 +2161,7 @@
   }
 
   .panelHeading {
-    padding: 5px 0px 0px 43px;
+    padding: 5px 0px 0px 0px;
   }
 
   }  
@@ -2105,7 +2170,7 @@
 
   .vendorNameWrapper {
     padding-left: 0px;
-}
+  }
 
   .categoryFilterTitle{
     font-size: 14px;
@@ -2228,7 +2293,8 @@
   }
 
   .panelHeading {
-    padding: 5px 0px 0px 43px;
+    padding: 5px 0px 0px 0px;
+    margin-left: -10px;
   }
 
  }
@@ -2251,6 +2317,11 @@
     font-size: 14px;
   }
 
+  .chaneVendorBtn {
+    font-size: 9px;
+    padding-right: 34px;
+  }
+
   .panelHeading h4 a, .panelHeading span{
     font-size: 12px;
     width: 52%;
@@ -2338,7 +2409,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 0px;
+    margin-right: 69px;
     margin-bottom: 23px;
   }
 
@@ -2381,6 +2452,11 @@
 
   .categoryFilterTitle{
     font-size: 14px;
+  }
+
+  .chaneVendorBtn {
+    font-size: 13px;
+    padding-right: 40px;
   }
 
   .panelHeading h4 a, .panelHeading span{
@@ -2427,7 +2503,7 @@
 
   .f14 {
     font-size: 14px;
-    margin-left: -85px;
+    margin-left: -69px;
     color: #222222;
   }
 
@@ -2470,7 +2546,7 @@
   }
 
   .rightSidefilter {
-    margin-right: -6px;
+    margin-right: 0px;
     margin-bottom: 23px;
   }
 
@@ -2500,7 +2576,7 @@
   }
 
   .panelHeading{
-    padding: 15px 0px 7px 24px;
+    padding: 12px 0px 0px 36px;
   }
 
 }  
@@ -2513,6 +2589,11 @@
 
   .categoryFilterTitle{
     font-size: 15px;
+  }
+
+  .chaneVendorBtn {
+    font-size: 13px;    
+    padding-right: 50px;
   }
 
   .panelHeading h4 a, .panelHeading span{
@@ -2546,7 +2627,7 @@
 
   .f14 {
     font-size: 14px;
-    margin-left: -85px;
+    margin-left: -69px;
     color: #222222;
   }
 
@@ -2586,7 +2667,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 10px;
+    margin-right: 4px;
     margin-bottom: 23px;
   }
 
@@ -2615,7 +2696,7 @@
   }
 
   .panelHeading{
-    padding: 16px 0px 7px 24px;
+    padding: 12px 0px 0px 39px;
   }
 
 } 
@@ -2630,8 +2711,13 @@
     font-size: 16px;
   }
 
+  .chaneVendorBtn {    
+    padding-right: 54px;
+  }
+
   .panelHeading h4 a, .panelHeading span{
     font-size: 14px;
+    padding-top: 4px;
   }
 
   .discounttag{
@@ -2661,7 +2747,7 @@
 
   .f14 {
     font-size: 14px;
-    margin-left: -85px;
+    margin-left: -69px;
     color: #222222;
   }
 
@@ -2701,7 +2787,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 11px;
+    margin-right: -5px;
     margin-bottom: 23px;
   }
 
@@ -2730,7 +2816,7 @@
   }
 
   .panelHeading{
-    padding: 16px 0px 7px 24px;
+    padding: 12px 0px 2px 44px;
   }
 
 } 
@@ -2741,12 +2827,14 @@
     font-size: 17px;
   }
 
+  .chaneVendorBtn {    
+    padding-right: 64px;
+  }
+
   .panelHeading h4 a, .panelHeading span{
     font-size: 16px;
     width: 52%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    padding-top: 4px;
   }
 
   .discounttag{
@@ -2816,7 +2904,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 10px;
+    margin-right: -19px;
     margin-bottom: 23px;
   }
 
@@ -2845,7 +2933,7 @@
   }
 
   .panelHeading{
-    padding: 24px 0px 12px 24px;
+    padding: 12px 0px 0px 44px;
   }
 
 }  
@@ -2858,6 +2946,10 @@
 
   .panelHeading h4 a, .panelHeading span{
     font-size: 17px;
+  }
+
+  .chaneVendorBtn {    
+    padding-right: 80px;
   }
 
   .discounttag{
@@ -2887,7 +2979,7 @@
 
   .f14 {
     font-size: 14px;
-    margin-left: -85px;
+    margin-left: -68px;
     color: #222222;
   }
 
@@ -2926,7 +3018,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 16px;
+    margin-right: -35px;
     margin-bottom: 23px;
   }
 
@@ -2955,21 +3047,35 @@
   }
 
   .panelHeading{
-    padding: 24px 0px 12px 12px;
+    padding: 24px 0px 12px 34px;
   }
 
 }
 
 @media only screen and (min-device-width: 1920px) {
 
+  .venderName2{
+    font-size: 15px;
+  }
+
+  .chaneVendorBtn a{
+    margin-top: 5px;
+    font-size: 13px;
+  }
+
+  .chaneVendorBtn {    
+    padding-right: 90px;
+  }
+
   .categoryFilterTitle{
     font-size: 22px;
-    height: 98px;
-    padding-top: 33px;
+    height: 76px;
+    padding-top: 19px;
   }
 
   .panelHeading h4 a, .panelHeading span{
-    font-size: 18px;
+    font-size: 25px;
+    margin-top: -43px;
   }
 
   .discounttag{
@@ -2996,13 +3102,13 @@
 
   .productBlock{
     width: 301px;
-    height: 369px;
+    height: 376px;
     margin: auto;
   }
 
   .f14 {
-    font-size: 14px;
-    margin-left: -74px;
+    font-size: 18px;
+    margin-left: -82px;
     color: #222222;
   }
 
@@ -3037,7 +3143,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 27px;
+    margin-right: -35px;
     margin-bottom: 23px;
   }
 
@@ -3066,7 +3172,7 @@
   }
 
   .panelHeading{
-    padding: 24px 0px 12px 24px;
+    padding: 31px 0px 7px 33px;
   }
 
 }  
@@ -3078,7 +3184,25 @@
   }
 
   .panelHeading h4 a, .panelHeading span{
-    font-size: 19px;
+    font-size: 26px;
+  }
+
+  .chaneVendorBtn {    
+    padding-right: 157px;
+  }
+
+  .chaneVendorBtn a{
+    font-size: 18px;
+  }
+
+  .venderName2 {
+    font-size: 18px;
+   } 
+
+  .categoryFilterTitle{
+    font-size: 22px;
+    height: 86px;
+    padding-top: 26px;
   }
 
   .discounttag{
@@ -3109,7 +3233,7 @@
   }
 
   .f14 {
-    font-size: 15px;
+    font-size: 20px;
     margin-left: -85px;
     color: #222222;
   }
@@ -3120,6 +3244,7 @@
 
   .labelCategory {
     font-size : 15px;
+    width: 230px;
     background-color: #eee;
   }
 
@@ -3149,7 +3274,7 @@
   }
 
   .rightSidefilter {
-    margin-right: 63px;
+    margin-right: -57px;
     margin-bottom: 23px;
   }
 
@@ -3178,7 +3303,7 @@
   }
 
   .panelHeading{
-    padding: 24px 0px 12px 62px;
+    padding: 37px 0px 12px 70px;
   }
 
 }

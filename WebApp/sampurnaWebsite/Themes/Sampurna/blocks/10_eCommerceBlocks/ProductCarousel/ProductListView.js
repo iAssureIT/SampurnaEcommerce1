@@ -544,7 +544,7 @@ class ProductListView extends Component {
                                      {this.state.vendorData? this.state.vendorData.companyName:null}
                                   </span>
                                 </span>
-                                <span className={"col-4 col-lg-3 col-sm-3 col-xl-3 text-right pt-1   "+Style.chaneVendorBtn }> 
+                                <span className={"col-4 col-lg-3 col-sm-3 col-xl-3 text-right pt-2   "+Style.chaneVendorBtn }> 
                                     <Link href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 NoPadding t "+Style.changeVendorWrapper} >Change Vendor</Link>
                                 </span>
                             </div>
