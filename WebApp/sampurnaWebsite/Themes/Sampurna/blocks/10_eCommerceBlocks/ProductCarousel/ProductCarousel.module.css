@@ -2447,7 +2447,7 @@
 @media only screen and (min-device-width: 1280px) {
 
   .vendorNameWrapper{
-    padding-left: 46px;
+    padding-left: 40px;
   }
 
   .categoryFilterTitle{
@@ -2584,7 +2584,7 @@
 @media only screen and (min-device-width: 1366px) {
 
   .vendorNameWrapper{
-    padding-left: 46px;
+    padding-left: 42px;
   }
 
   .categoryFilterTitle{
@@ -2704,7 +2704,7 @@
 @media only screen and (min-device-width: 1440px) {
 
   .vendorNameWrapper{
-    padding-left: 46px;
+    padding-left: 42px;
   }
 
   .categoryFilterTitle{
@@ -2903,6 +2903,10 @@
     margin-bottom: 45px;
   }
 
+  .vendorNameWrapper {
+    padding-left: 41px;
+  }
+
   .rightSidefilter {
     margin-right: -19px;
     margin-bottom: 23px;
@@ -3067,6 +3071,10 @@
     padding-right: 90px;
   }
 
+  .vendorNameWrapper {
+    padding-left: 42px;
+  }
+
   .categoryFilterTitle{
     font-size: 22px;
     height: 76px;
@@ -3188,7 +3196,7 @@
   }
 
   .chaneVendorBtn {    
-    padding-right: 157px;
+    padding-right: 163px;
   }
 
   .chaneVendorBtn a{
