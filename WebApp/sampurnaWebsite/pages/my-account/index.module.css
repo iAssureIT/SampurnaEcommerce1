@@ -305,6 +305,10 @@
         margin-top: 14px;
     }
 
+    .navPillsWrapper a {
+        border-radius: 15px !important;
+    }
+
     .sideBarTabNameAllignment{
         padding-left: 23px;
         margin-top: -4px;
@@ -329,7 +333,11 @@
     }
 
     .sideBarTabNames{
-        font-size: 19px;
+        font-size: 17px;
+    }
+
+    .navPillsWrapper a {
+        border-radius: 15px !important;
     }
 
     .myAccountMainDiv{
