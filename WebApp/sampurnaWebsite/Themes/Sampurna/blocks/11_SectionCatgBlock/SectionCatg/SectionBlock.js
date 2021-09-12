@@ -63,13 +63,13 @@ class SectionBlock extends Component {
         slidesToSlide: 1 // optional, default to 1.
       },
       tablet: {
-        breakpoint: { max: 1024, min: 768 },
+        breakpoint: { max: 1024, min: 667 },
         items: 4,
         slidesToSlide: 1 // optional, default to 1.
       },
       mobile: {
-        breakpoint: { max: 769, min: 366 },
-        items: 1,
+        breakpoint: { max: 666, min: 366 },
+        items: 3,
         slidesToSlide: 1 // optional, default to 1.
       }
     };
@@ -78,7 +78,7 @@ class SectionBlock extends Component {
       <div className={"col-12 " + Style.secssionMargin}>
           {this.props.groupSettings.showTitle?
             <div className="col-12">
-              <div className="col-12 productcomponentheading text-center text-lg-left">
+              <div className="col-12 productcomponentheading text-left">
                 <div className={ "col-12 " +Style.title4}>
                     <h4 className={"col-12 " + Style.newDealTitle}>New deal in</h4>
                     <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont1 } data-trans="#blog_1554730795823_title"><span className={Style.lineBackground}>{this.state.blockTitle}</span> <span className={"line " +Style.line}></span></h1>

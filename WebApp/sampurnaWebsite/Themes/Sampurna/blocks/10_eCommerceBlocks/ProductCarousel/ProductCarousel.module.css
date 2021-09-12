@@ -3338,8 +3338,299 @@
 }
 
 /*********************************************************************************************************************************************/ 
+@media only screen and (max-device-width: 413px) {
+    .secssionMargin {
+        height: 100px;
+    }
+    .mobileNoPadding{
+      padding-left: 0px!important;
+      padding-right: 0px!important;
+    }
+    .newDealTitle{
+      font-size: 14px;
+    }
+    .line{
+      top: 16px;
+      width: 88.7%;
+    }
+    .titleFont1,.titleFont,.title4{
+      font-size: 18px!important;
+      padding-left: 45px;
+    }
+    .productCaroselBlock{
+      width: 82px;
+      height: 120px;
+      border-radius: 8px;
+    }
+    .productCaroselBlock .ImgWrapper{
+      height: 65px;
+    }
+    .productCaroselBlock .NoAvailableImg{
+      height: 60px;
+      padding: 0px!important;
+      top: 0px;
+      width: 100%;
+    }
+    .ellipsis{
+      font-size: 10px;
+    }
+    .globalProdName{
+      height: 20px;
+    }
+    .price{
+      font-size: 7px;
+    }
+    .oldprice{
+      font-size: 6px;
+    }
+    .priceWrapper{
+      padding-top: 0px;
+      margin-bottom: 0px;
+      margin-top: 0px!important;
+    }
+    .discounttag{
+      width: 25px;
+      height: 40px;
+      font-size: 7px;
+      padding-top: 7px;
+      padding-left: 5px;
+      left: 7px;
+    }
+    .imgEffect{
+      height: 20px;
+    }
+   /* .mobilePadding{
+        padding-left: 15px!important;
+        padding-right: 15px!important;
+    }*/
+}
+@media  (min-width: 414px) and (max-width: 639px){
+  .secssionMargin {
+        height: 100px;
+    }
+  .mobileNoPadding{
+      padding-left: 0px!important;
+      padding-right: 0px!important;
+    }
+  .newDealTitle{
+      font-size: 14px;
+    }
+    .line{
+      top: 16px;
+      width: 88.7%;
+    }
+    .titleFont1,.titleFont{
+      font-size: 18px!important;
+      padding-left: 45px;
+    }
+    .productCaroselBlock{
+      width: 85px;
+      height: 140px;
+    }
+    .productCaroselBlock .ImgWrapper{
+      height: 65px;
+    }
+    .productCaroselBlock .NoAvailableImg{
+      height: 60px;
+      padding: 0px!important;
+      top: 0px;
+      width: 100%;
+    }
+    .ellipsis{
+      font-size: 10px;
+    }
+    .globalProdName{
+      height: 20px;
+    }
+    .price{
+      font-size: 7px;
+    }
+    .oldprice{
+      font-size: 6px;
+    }
+    .priceWrapper{
+      padding-top: 0px;
+      margin-bottom: 0px;
+      margin-top: 0px!important;
+    }
+    .discounttag{
+      width: 25px;
+      height: 40px;
+      font-size: 7px;
+      padding-top: 7px;
+      padding-left: 5px;
+    }
+    .imgEffect{
+      height: 20px;
+    }
+  
+}
+@media (min-width: 640px)and (max-width: 767px){
+  .secssionMargin {
+        height: 125px;
+  }
+  .mobileNoPadding{
+      padding-left: 0px!important;
+      padding-right: 0px!important;
+  }
+  .newDealTitle{
+      font-size: 16px;
+    }
+    .titleFont1,.titleFont{
+      font-size: 24px!important;
+      padding-left: 80px;
+    }
+  .line{
+      top: 20px;
+      width: 88.7%;
+    }
+  .mobilePadding{
+        padding-left: 15px!important;
+        padding-right: 15px!important;
+    }
+    .productCaroselBlock{
+      width: 120px;
+      height: 150px;
+    }
+    .productCaroselBlock .ImgWrapper{
+      height: 85px;
+    }
+    .productCaroselBlock .NoAvailableImg{
+      height: 80px;
+      padding: 0px!important;
+      top: 0px;
+      width: 100%;
+    }
+    .ellipsis{
+      font-size: 12px;
+    }
+    .globalProdName{
+      height: 20px;
+    }
+    .price{
+      font-size: 9px;
+    }
+    .oldprice{
+      font-size: 8px;
+    }
+    .priceWrapper{
+      padding-top: 0px;
+      margin-bottom: 0px;
+      margin-top: 0px!important;
+    }
+    .discounttag{
+      width: 30px;
+      height: 45px;
+      font-size: 8px;
+      padding-top: 7px;
+      padding-left: 7px;
+    }
+    .imgEffect{
+      height: 30px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) { 
+  .secssionMargin {
+        height: 180px;
+    }
+  .mobileNoPadding{
+      padding-left: 0px!important;
+      padding-right: 0px!important;
+  }
+  .newDealTitle{
+      font-size: 18px;
+  }
+  .titleFont1,.titleFont{
+      font-size: 26px!important;
+      padding-left: 90px;
+    }
+    .line{
+        top: 22px;
+        width: 90%;
+    }
+    .productCaroselBlock{
+      width: 145px;
+      height: 175px;
+    }
+    .productCaroselBlock .ImgWrapper{
+      height: 110px;
+    }
+    .productCaroselBlock .NoAvailableImg{
+      height: 100px;
+      padding: 0px!important;
+      top: 0px;
+      width: 100%;
+    }
+    .ellipsis{
+      font-size: 13px;
+    }
+    .globalProdName{
+      height: 20px;
+    }
+    .price{
+      font-size: 10px;
+    }
+    .oldprice{
+      font-size: 9px;
+    }
+    .priceWrapper{
+      padding-top: 5px;
+      margin-bottom: 0px;
+      margin-top: 0px!important;
+    }
+    .discounttag{
+      width: 40px;
+      height: 60px;
+      font-size: 9px;
+      padding-top: 13px;
+      padding-left: 7px;
+    }
+    .imgEffect{
+      height: 30px;
+    }
 
-
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .secssionMargin {
+        height: 190px;
+    }
+    .newDealTitle{
+      font-size: 22px;
+    }
+    .titleFont1,.titleFont{
+      font-size: 30px!important;
+      padding-left: 65px;
+    }
+    .productCaroselBlock .ImgWrapper{
+      height: 180px;
+    }
+    .productCaroselBlock .NoAvailableImg{
+      height: 160px;
+      padding: 0px!important;
+      top: 10px;
+      width: 100%;
+    }
+    .ellipsis{
+      font-size: 16px;
+    }
+    .globalProdName{
+      height: 20px;
+    }
+    .price{
+      font-size: 15px;
+    }
+    .oldprice{
+      font-size: 14px;
+    }
+    .priceWrapper{
+      padding-top: 10px;
+      margin-bottom: 0px;
+      margin-top: 0px!important;
+    }
+    .imgEffect{
+      height: 30px;
+    }
+}
 @media (min-width: 1440px) and (max-width: 1535px) { 
     .newDealTitle{
       font-size: 24px;

@@ -56,13 +56,13 @@ class SubCategoryBlock extends Component {
         slidesToSlide: 1 // optional, default to 1.
       },
       tablet: {
-        breakpoint: { max: 1024, min: 768 },
+        breakpoint: { max: 1024, min: 667 },
         items: 4,
         slidesToSlide: 1 // optional, default to 1.
       },
       mobile: {
-        breakpoint: { max: 769, min: 366 },
-        items: 2,
+        breakpoint: { max: 666, min: 366 },
+        items: 3,
         slidesToSlide: 1 // optional, default to 1.
       }
     };
@@ -70,9 +70,9 @@ class SubCategoryBlock extends Component {
   return (
       <div className="col-12">
           {this.props.groupSettings.showTitle?
-            <div className="col-12">
-              <div className="col-12 productcomponentheading text-center text-lg-left">
-              <div className={ "col-12 " +Style.title4}>
+            <div className={"col-12 " + Style.mobileNoPadding}>
+              <div className={"col-12 productcomponentheading text-left " +  Style.mobileNoPadding}>
+              <div className={ "col-12 " +Style.title4 + " " + Style.mobileNoPadding}>
                     <h4 className={"col-12 " + Style.newDealTitle}>New deal in</h4>
                     <h1 className={"col-12 title_inner4 lang_trans " +Style.titleFont1 } data-trans="#title"><span className={Style.lineBackground}>{this.props.blockTitle}</span> <span className={"line " +Style.line}></span></h1>
                     <span className={"hide "+Style.span} id="title"></span>
@@ -82,10 +82,10 @@ class SubCategoryBlock extends Component {
           :
             null
           }  
-          <div className="col-12 rowPadding">
+          <div className={"col-12 rowPadding " + Style.mobilePadding} >
             { this.props.groupSettings.showCarousel === true?
               Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
-              <div className="col-12 ">
+              <div className={"col-12 "+ Style.mobilePadding}>
               <Carousel 
                 className=" sectionCarousel"
                 swipeable={false}
@@ -113,7 +113,7 @@ class SubCategoryBlock extends Component {
                       }
                     }
                     return (
-                    <div className="col-12 sectionCategoryBlock subCategoryBlock d-flex justify-content-center "  key={index}> 
+                    <div className={"col-12 sectionCategoryBlock subCategoryBlock d-flex justify-content-center " + Style.mobilePadding } key={index}> 
                         <a href={url} className ="text-decoration-none secCateblock1 categoryblock"> 
                           <div className="itemImg col-12 ">
                             <div className={"text-decoration-none product photo product-item-photo collage" + Style.realtivePossion} tabIndex="-1" href={url}>

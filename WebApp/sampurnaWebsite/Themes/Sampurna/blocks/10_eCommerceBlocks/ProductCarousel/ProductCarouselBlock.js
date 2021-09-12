@@ -40,12 +40,12 @@ const responsive = {
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    items: 4,
     slidesToSlide: 1 // optional, default to 1.
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1,
+    items: 3,
     slidesToSlide: 1 // optional, default to 1.
   }
 };
@@ -533,12 +533,12 @@ submitCart(event) {
     
     return (
       !this.state.loading ?
-      <div className={"col-12 "}>        
+      <div className={"col-12 " +  Style.mobileNoPadding}>        
           <Message messageData={this.state.messageData} />  
           {this.props.blockSettings.showTitle && this.state.newProducts && this.state.newProducts.length > 0 ?
-            <div className="col-12">
-              <div className={"col-12 " +Style.productcomponentheading +" " +Style.textCenter}>                
-                <div className={ "col-12 " +Style.title4}>
+            <div className={"col-12 "+ Style.mobileNoPadding}>
+              <div className={"col-12 " +Style.productcomponentheading +" " +Style.textCenter + " "+  Style.mobileNoPadding}>                
+                <div className={ "col-12 " +Style.title4 + " " +  Style.mobileNoPadding}>
                   <div className="">
                     <h4 className={"col-12 " + Style.newDealTitle}>New deal in</h4>
                     <h1 className={"col-12 title_inner4 lang_trans " +Style.titleFont } data-trans="#blog_1554730795823_title">
@@ -557,10 +557,10 @@ submitCart(event) {
           : null
           } 
 
-        <div className={"col-12  "}>
-          <div className={"col-12"}>
+        <div className={"col-12  " }>
+          <div className={"col-12 " }>
             {this.state.newProducts && this.state.newProducts.length > 0 ?
-              <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
+              <div id="home" className={"col-12 " +Style.ecommerceTabContent }>
                 <div className={"col-12 mt-50 mb-50 " +Style.carouselWraper}>
                   <div className={"container-flex "}>                    
                     {this.state.ProductsLoading === false ?                     

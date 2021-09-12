@@ -147,12 +147,12 @@ export default class Footer extends Component {
         <div className="footer3 col-12">
             <div className="col-12 footer_bottom">
               <div className="row">
-                  <div className={"col-6 col-sm-3 mx-auto col-xl-3 col-lg-3 col-md-6  " +S.logoTop}>
+                  <div className={"col-6 col-sm-3 mx-auto col-xl-3 col-lg-3  " +S.logoTop}>
                      <img src="/images/eCommerce/TrollyLogo.png" className="col-12 img-fluid" alt="FooterLogo"/>
                   </div>
 
 
-                <div className={"col-12 col-sx-12 col-md-12 col-xl-6 col-lg-6 container " +S.wrapper1}>
+                <div className={"col-12 col-sm-6 col-xl-6 col-lg-6 container " +S.wrapper1}>
                     <div className={"col-12 d-flex justify-content-center "+S.wrapper2}>
                         <div id="socialMediaIcons1"  className="socialMediaIcons" onMouseEnter={this.hover.bind(this)} onMouseLeave={this.notHover.bind(this)}>
                             <Link href="https://www.instagram.com/knockknock_eshop/" passhref={true}>
@@ -165,6 +165,7 @@ export default class Footer extends Component {
                                 }
                                 </a>
                             </Link>
+                            <div className="socialMediaName">Instagram</div>
                         </div>                
                         <div id="socialMediaIcons2" className="socialMediaIcons" onMouseEnter={this.hover.bind(this)} onMouseLeave={this.notHover.bind(this)}>
                             <Link href="https://www.facebook.com/Knock-Knock-103575731986682" passhref={true}>
@@ -177,6 +178,7 @@ export default class Footer extends Component {
                                     }
                                 </a>
                             </Link>
+                            <div className="socialMediaName">Facebook</div>
                         </div>                        
                         <div id="socialMediaIcons3" className="socialMediaIcons" onMouseEnter={this.hover.bind(this)} onMouseLeave={this.notHover.bind(this)}>
                             <Link href="https://www.youtube.com/knockknockeshop" passhref={true}>
@@ -189,6 +191,7 @@ export default class Footer extends Component {
                                     }
                                 </a>
                             </Link>
+                            <div className="socialMediaName">Youtube</div>
                         </div>                                               
                         <div id="socialMediaIcons4" className="socialMediaIcons" onMouseEnter={this.hover.bind(this)} onMouseLeave={this.notHover.bind(this)}>
                             <Link href="https://www.linkedin.com/knockknockeshop" passhref={true}>
@@ -201,6 +204,7 @@ export default class Footer extends Component {
                                     }
                                 </a>
                             </Link>
+                            <div className="socialMediaName">Linkedin</div>
                         </div>
                         <div id="socialMediaIcons5" className="socialMediaIcons" onMouseEnter={this.hover.bind(this)} onMouseLeave={this.notHover.bind(this)}>
                             <Link href="https://twitter.com/knockknockeshop" passhref={true}>
@@ -213,6 +217,7 @@ export default class Footer extends Component {
                                     }
                                 </a>
                             </Link>
+                            <div className="socialMediaName socialMediaName2">Twitter</div>
                         </div>                    
                     </div>
                     <div className={"col-12 d-flex justify-content-center "+S.wrapper3}>
@@ -230,17 +235,17 @@ export default class Footer extends Component {
                     </div>
                 </div>
 
-                <div className={"col-12 col-sm-12 col-xl-3 col-lg-3 col-md-12 text_Center " +S.payDiv}>
-                    <div className={"col-12 col-sm-6 float-left  col-lg-12 col-md-12 md-mt-5  " +S.aboutHeight1}>
+                <div className={"col-12 col-sm-3 col-xl-3 col-lg-3 text_Center " +S.payDiv}>
+                    <div className={"col-12 col-sm-12 float-left  col-lg-12 col-md-12 md-mt-5  " +S.aboutHeight1}>
                         <div className={"col-12  "+S.footerTitleWrapper}>Payment card</div>
-                        <div className={"col-12 col-sm-12 col-lg-12 col-md-12 mt-lg-2 mt-sm-2 mt-4 " }>
+                        <div className={"col-12 col-sm-12 col-lg-12 col-md-12 mt-lg-2 mt-sm-2 mt-4 mobilePayCard"  }>
                             <div className="payCard1 "></div>  
                             <div className="payCard2 "></div>  
                         </div>
                     </div> 
-                    <div className={"col-12 col-sm-6 float-left  col-lg-12 col-md-12 " +S.aboutHeight2}>
+                    <div className={"col-12 col-sm-12 float-left  col-lg-12 col-md-12 " +S.aboutHeight2}>
                         <div className={"col-12 "+S.footerTitleWrapper}>We are in</div>
-                        <div className={"col-12 col-sm-12 col-lg-12 col-md-12 mt-lg-2 mt-sm-2 mt-4" }>
+                        <div className={"col-12 col-sm-12 col-lg-12 col-md-12 mt-lg-2 mt-sm-2 mt-4 mobilePayCard" }>
                             <a className="appleCard col-6" href={"https://www.apple.com/ae/app-store/"} target="_blank" passhref={"true"}>
                                 <div className="row">
                                     <img src= "/images/eCommerce/1.gif" className="appStoreLogo"/>

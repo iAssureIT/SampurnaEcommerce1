@@ -8,7 +8,10 @@
     font-family: 'Montserrat-Medium';
 }
 .crouserDealsWrapper .react-multi-carousel-dot-list{
-    bottom: -20px!important;
+    bottom: 0px!important;
+}
+.crouserDealsWrapper .react-multi-carousel-list{
+    height: 250px!important;
 }
 .crouserDealsWrapper .react-multi-carousel-track{
     overflow: visible!important;
@@ -25,6 +28,68 @@
     height: 200px;
     width: 100%;
     cursor: pointer;
+}
+@media only screen and (max-device-width: 413px) {
+  .item_Name {
+        font-size: 9px;
+        margin-top: 5px;
+    }
+    .crouserDealsWrapper .react-multi-carousel-list {
+        height: 140px!important;
+    }
+    .dealsBlock img{
+        height: 100px;
+    }
+    .mobileNoPadding {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+@media  (min-width: 414px) and (max-width: 639px){
+  .item_Name {
+        font-size: 9px;
+        margin-top: 5px;
+    }
+    .crouserDealsWrapper .react-multi-carousel-list {
+        height: 145px!important;
+    }
+    .dealsBlock img{
+        height: 100px;
+    }
+    .mobileNoPadding {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+}
+@media (min-width: 640px)and (max-width: 767px){
+    .item_Name {
+        font-size: 9px;
+        margin-top: 5px;
+    }
+    .crouserDealsWrapper .react-multi-carousel-list {
+        height: 195px!important;
+    }
+    .dealsBlock img{
+        height: 150px;
+    }
+    .mobileNoPadding {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+}
+@media (min-width: 768px)and (max-width: 1023px){
+    .crouserDealsWrapper .react-multi-carousel-list {
+        height: 220px!important;
+    }
+    .dealsBlock img {
+        height: 170px;
+    }
+    /*.mobileNoPadding {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }*/
 }
 @media (min-width: 1440px) and (max-width: 1535px) { 
     .dealsBlock img{

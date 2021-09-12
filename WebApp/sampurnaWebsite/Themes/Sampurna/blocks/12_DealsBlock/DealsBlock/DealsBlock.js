@@ -6,6 +6,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 var isServer = typeof window!==undefined;
 var user_ID = '';
 if(!isServer){
@@ -79,7 +80,7 @@ class ShoppingVerticals extends Component {
     var XLcol = 12/this.state.itemList.length;
     return (
       this.state.itemList.length>0?
-      <div className="col-12 ">
+      <div className="col-12 mobileNoPadding">
         <div className="row">          
           <div className={"col-12 NoPadding crouserDealsWrapper" }>
             { Array.isArray(this.state.itemList) && this.state.itemList.length>1?
@@ -105,7 +106,7 @@ class ShoppingVerticals extends Component {
                       Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {  
                         return (
                         <div className="  dealsBlock"  key={index}> 
-                            <div className="productImg col-12 ">
+                            <div className={"productImg col-12 mobileNoPadding"}>
                             <div className="col-12 ">
                               <a className="product photo product-item-photo collage" tabIndex="-1" href={data.dealUrl}>
                                 <img src={data.dealImg ? data.dealImg : "/images/CMSImages/notavailable.png"} alt="dealImg" />

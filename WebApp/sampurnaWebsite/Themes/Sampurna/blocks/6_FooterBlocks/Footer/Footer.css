@@ -18,7 +18,24 @@
 .logo-nb img{
   height: 70px;
 }
-
+.socialMediaName{
+  font-size: 10px;
+  opacity: 0;
+  position: absolute;
+  left: -4px;
+  transition: all 0.2s;
+  margin-top: 5px;
+}
+.socialMediaName2{
+  left: 0px;
+}
+.socialMediaIcons:hover{
+  transform: translateY(-15px);
+}
+.socialMediaIcons:hover .socialMediaName{
+  opacity: 1;
+  color: #fff;
+}
 .footer-middle > div i {
     width: 40px;
     height: 40px;
@@ -486,7 +503,8 @@
   text-align: center;
   margin-left: 15px;
   /*background-color: transparent;*/
-  transition: all 1s ease;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
 /*.socialMediaIcons img:hover{
@@ -597,6 +615,72 @@
   }
 
 }
+/*@media (min-width: 640px)and (max-width: 735px){
+  .footerNew {
+    padding-right: 0%!important;
+  }
+  .phoneT {
+    font-size: 12px;
+  }
+
+  .footerNumber {
+    font-size: 11px;
+  }
+  .footerNumberWrapper{
+    display: inline-block;
+    margin-top: 5px;
+  }
+  .textEnd{
+    text-align: left!important;
+    padding-left: 0px!important;
+  }
+  .footer3 , .footer_bottom{
+    min-height: 343px;
+    height: auto;
+  }
+  .footer3Class {
+    position: absolute;
+    bottom: -190px;
+  }
+ 
+  .mobilePayCard{
+    margin-top: 5px!important;
+  }
+}*/
+@media  (min-width: 414px) and (max-width: 639px){
+  .footerNew {
+    padding-right: 0%!important;
+  }
+  .phoneT {
+    font-size: 12px;
+  }
+
+  .footerNumber {
+    font-size: 11px;
+  }
+  .footerNumberWrapper{
+    display: inline-block;
+    margin-top: 5px;
+  }
+  .textEnd{
+    text-align: left!important;
+    padding-left: 0px!important;
+  }
+  .footer3 , .footer_bottom{
+    min-height: 343px;
+    height: auto;
+  }
+  .footer3Class {
+    position: absolute;
+    bottom: -190px;
+  }
+  .payCard1{
+    margin-left: 28%;
+  }
+  .mobilePayCard{
+    margin-top: 5px!important;
+  }
+}
 @media  (max-width: 413px) {
   .footerNew {
     padding-right: 0%!important;
@@ -610,9 +694,11 @@
   }
   .footerNumberWrapper{
     display: inline-block;
+    margin-top: 5px;
   }
   .textEnd{
-    text-align: center!important;
+    text-align: left!important;
+    padding-left: 0px!important;
   }
   .footer3 , .footer_bottom{
     min-height: 343px;
@@ -621,5 +707,11 @@
   .footer3Class {
     position: absolute;
     bottom: -190px;
+  }
+  .payCard1{
+    margin-left: 28%;
+  }
+  .mobilePayCard{
+    margin-top: 5px!important;
   }
 }

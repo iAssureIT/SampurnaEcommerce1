@@ -561,7 +561,7 @@
 .footerTitleWrapper{
   font-size: 14px!important;
   color: #fff!important;
-  position: absolute!important;
+  /*position: absolute!important;*/
 }
 .f9{
   font-size:9px !important;
@@ -603,6 +603,7 @@
   .mt80{
     margin-top:30px;
   }
+
 
  }
 
@@ -716,19 +717,52 @@
     padding-top: 0px;
   }
 }
-@media  (max-width: 413px) {
+/*@media (min-width: 640px)and (max-width: 735px){
   .logoTop{
-    margin-top: 30px;
+    margin-top: 20px;
+  }
+  .logoTop img{
+    height: 40px;
   }
   .wrapper2{
     padding-top: 0px;
   }
+  .wrapper1{
+    height: 45px;
+  }
+  .aboutHeight1{
+    margin-top: 13px!important;
+  }
+}*/
+@media  (max-width: 413px) {
+  .logoTop{
+    margin-top: 20px;
+  }
+  .wrapper2{
+    padding-top: 0px;
+  }
+  .footerTitleWrapper{
+    text-align: center;
+  }
+  /*.aboutClass a{
+    font-size: 10px;
+    padding-right: 3px;
+  }*/
   .wrapper3{
     position: absolute;
     bottom: -130px;
+    margin-left: 0px;
+    left: 0px;
   }
   .aboutHeight1{
     margin-top: -40px!important;
+  }
+  .aboutClass{
+    margin-right: 0px;
+  }
+  .aboutClass a{
+    font-size: 10px;
+    padding-right: 5px;
   }
 
 }
