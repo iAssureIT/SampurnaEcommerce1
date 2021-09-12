@@ -399,7 +399,7 @@ export default class FAQ extends Component{
         return(
             <section className={"col-12 "+S.faqWrapper}>
 				<div className={"col-12 accordion md-accordion "+S.faqRepeatedBlockWrapper} id="accordionEx" role="tablist" aria-multiselectable="true">
-					<div className="col-12 col-xl-10 offset-xl-1 my-5">
+					<div className="col-12 my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6">
 								<div className="col-12">
@@ -634,17 +634,17 @@ export default class FAQ extends Component{
 								</div>
 							</div>
 							<div className="col-12 col-lg-6">
-								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
+								<div className={"col-12 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage1} src={this.state.blocks.repeatedBlocks[0] ? this.state.blocks.repeatedBlocks[0].FGImage1 : ""} alt="" />
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div className="col-12 col-xl-10 offset-xl-1 my-5">
+					<div className="col-12 my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6 mt-lg-3">
-								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
+								<div className={"col-12 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage} src={this.state.blocks.repeatedBlocks[1] ? this.state.blocks.repeatedBlocks[1].FGImage1 : ""} alt="" />
 								</div>
 							</div>	
@@ -828,7 +828,7 @@ export default class FAQ extends Component{
 						</div>
 					</div>
 
-					<div className="col-12 col-xl-10 offset-xl-1 my-5">
+					<div className="col-12 my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6 mt-lg-3">
 								<div className="col-12">
@@ -894,17 +894,17 @@ export default class FAQ extends Component{
 								</div>
 							</div>
 							<div className="col-12 col-lg-6 mt-lg-3">
-								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
+								<div className={"col-12 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage1} src={this.state.blocks.repeatedBlocks[2] ? this.state.blocks.repeatedBlocks[2].FGImage1 : ""} alt="" />
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div className="col-12 col-xl-10 offset-xl-1 my-5">
+					<div className="col-12  my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6 mt-lg-3">
-								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
+								<div className={"col-12 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage} src={this.state.blocks.repeatedBlocks[3] ? this.state.blocks.repeatedBlocks[3].FGImage1 : ""} alt="" />
 								</div>
 							</div>
@@ -1031,7 +1031,7 @@ export default class FAQ extends Component{
 						</div>
 					</div>
 
-					<div className="col-12 col-xl-10 offset-xl-1 my-5">
+					<div className="col-12 my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6 mt-lg-3">
 								<div className="col-12">
@@ -1097,17 +1097,17 @@ export default class FAQ extends Component{
 								</div>
 							</div>
 							<div className="col-12 col-lg-6 mt-lg-3">
-								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
+								<div className={"col-12 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage1} src={this.state.blocks.repeatedBlocks[4] ? this.state.blocks.repeatedBlocks[4].FGImage1 : ""} alt="" />
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div className="col-12 col-xl-10 offset-xl-1 my-5">
+					<div className="col-12 my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6 mt-lg-3">
-								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
+								<div className={"col-12 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage} src={this.state.blocks.repeatedBlocks[5] ? this.state.blocks.repeatedBlocks[5].FGImage1 : ""} alt="" />
 								</div>
 							</div>
@@ -1234,7 +1234,7 @@ export default class FAQ extends Component{
 						</div>
 					</div>
 
-					<div className="col-12 col-xl-10 offset-xl-1 my-5">
+					<div className="col-12 my-5">
 						<div className="row">
 							<div className="col-12 col-lg-6 mt-lg-3">
 								<div className="col-12">
@@ -1300,7 +1300,7 @@ export default class FAQ extends Component{
 								</div>
 							</div>
 							<div className="col-12 col-lg-6 mt-lg-3">
-								<div className={"col-12 col-lg-10 mx-lg-auto "+S.faqImageWrapper}>
+								<div className={"col-12 mx-lg-auto "+S.faqImageWrapper}>
 									<img className={S.faqImage1} src={this.state.blocks.repeatedBlocks[6] ? this.state.blocks.repeatedBlocks[6].FGImage1 : ""} alt="" />
 								</div>
 							</div>

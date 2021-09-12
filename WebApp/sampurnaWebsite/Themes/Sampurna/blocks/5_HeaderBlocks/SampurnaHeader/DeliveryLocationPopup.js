@@ -189,8 +189,14 @@ class DeliveryLocationPopup extends React.Component{
                 );
         });
     }
+    saveLocationOnEnterKey(event){
+        if (event.key === "Enter") {
+            this.saveLocation(event);
+        }
+    }
+        
     saveLocation(event){
-        event.preventDefault();
+        event.preventDefault();        
         if(this.state.address){
             var deliveryLocation = {
                 "address"        : this.state.address,
@@ -357,7 +363,10 @@ class DeliveryLocationPopup extends React.Component{
                                         value                       = {this.state.address}
                                         onChange                    = {this.handleChangePlaces}
                                         onSelect                    = {this.handleSelect}
-                                        highlightFirstSuggestion    = {true}>
+                                        highlightFirstSuggestion    = {true}
+                                        // onKeyPress                  = {this.saveLocationOnEnterKey.bind(this)}
+                                        >
+                                        
 
                                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                             <div className={"col-12 col-lg-10 "+Style.deliveryLocationSearchWrapper}>
@@ -370,7 +379,10 @@ class DeliveryLocationPopup extends React.Component{
                                                             name        : "address",
                                                             required    : true,
                                                             
-                                                        })}
+                                                        })
+                                                        
+                                                    }
+                                                         
                                                     />
                                                         <i className="fas fa-search"></i>
                                                 </div>
@@ -401,7 +413,10 @@ class DeliveryLocationPopup extends React.Component{
                     </div>
                     <div className="col-12 col-lg-11">
                         <div className="row pull-right">
-                            <button type="button" className={"btn mt-3 mt-lg-3 mt-xl-3 "+Style.deliveryLocationSaveButton} onClick={this.saveLocation.bind(this)}>Save and Close</button>
+                            <button type="button" className={"btn mt-3 mt-lg-3 mt-xl-3 "+Style.deliveryLocationSaveButton} 
+                            onClick ={this.saveLocation.bind(this)}
+                            onKeyPress = {this.saveLocation.bind(this)}
+                            >Save and Close</button>
                         </div>
                     </div>
                 </form>

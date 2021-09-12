@@ -7,7 +7,6 @@ import Router                 from 'next/router';
 import { connect }            from 'react-redux';
 import  store                 from '../../../../../redux/store.js';
 import { setSearchDetails }   from '../../../../../redux/actions/index.js'; 
-
 import Style                  from './Header.module.css';
 
 class Searchbar extends React.Component {
@@ -109,7 +108,7 @@ class Searchbar extends React.Component {
             .then((searchResponse)=>{
                 // console.log("searchResponse==",searchResponse);
                 if(searchResponse){
-                    console.log("searchResponse==",searchResponse.data);
+                    // console.log("searchResponse==",searchResponse.data);
                     this.setState({
                         "relatedSearches" : searchResponse.data,
                         "searchText"      : searchText,
@@ -126,7 +125,7 @@ class Searchbar extends React.Component {
                             axios.post("/api/products/get/search/website",formValues)
                             .then((searchProductRes)=>{
                                 if(searchProductRes){
-                                    console.log("searchProductRes===",searchProductRes);
+                                    // console.log("searchProductRes===",searchProductRes);
                                     Router.push('/search-product/'+this.state.searchText);
                                     store.dispatch(setSearchDetails(searchProductRes)) ;
                                 }

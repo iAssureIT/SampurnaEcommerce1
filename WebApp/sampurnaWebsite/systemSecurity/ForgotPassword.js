@@ -63,7 +63,7 @@ class ForgotPassword extends Component{
 		if(this.validateForm()){
 			axios.patch('/api/auth/patch/set_send_otp/' + username) 
                 .then((forgotPassResponse) => {
-                    // console.log("forgotPassResponse.data.ID===",forgotPassResponse);
+                    console.log("forgotPassResponse.data.ID===",forgotPassResponse);
                     swal(forgotPassResponse.data.message);
                     if(forgotPassResponse.data.message === "OTP sent on registered mobile number"){
                         var userDetails = {

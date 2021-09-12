@@ -28,7 +28,7 @@ class SubCategoryBlock extends Component {
           for(var i=0;i<blockApiResponse.data.length;i++){ 
             itemList1.push({
                   "itemImg" : blockApiResponse.data[i].itemImg && blockApiResponse.data[i].itemImg,
-                  "itemUrl" : this.props.groupSettings.showOnlySubCategory === true ?  blockApiResponse.data[i].itemUrl : this.props.groupSettings.section,
+                  "itemUrl" : this.props.groupSettings.sectionUrl,
                   "item"    : blockApiResponse.data[i].itemName,
                 })      
           } 
