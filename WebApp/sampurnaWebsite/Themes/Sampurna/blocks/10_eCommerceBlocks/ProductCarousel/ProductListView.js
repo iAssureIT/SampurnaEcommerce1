@@ -701,7 +701,7 @@ class ProductListView extends Component {
                           {this.state.newProducts.length>=28 &&
                             <div className="col-12 seeMoreBtnWrapper pb-2">
                               <div className="row">
-                                <button className={"btn btn-secondary col-lg-2 col-xl-1 col-sm-2 col-3 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
+                                <button className={"btn btn-secondary col-lg-2 col-xl-1 col-sm-2 col-8 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
                               </div>
                             </div>
                           }
