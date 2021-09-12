@@ -73,10 +73,11 @@ class header extends React.Component {
         axios.get('/api/users/get/id/' +this.state.userId)
           .then((res) => {
             if(res.data){
-            //   console.log("user response===",res.data);  
+              console.log("user response===",res.data);  
               this.setState({
                 userData : res.data.profile,
                 userName : res.data.profile.firstname,
+                fullName : res.data.profile.firstname +" "+res.data.profile.lastname,
                 email    : res.data.profile.email?res.data.profile.email:"userEmail",
                 firstname: res.data.profile.firstname.substring(0, 1),
                 lastname : res.data.profile.lastname.substring(0, 1)
@@ -180,11 +181,8 @@ class header extends React.Component {
                                                             <div className={Style.userDetalisWrapper}> 
                                                                 <div className={Style.userFullName}>
                                                                     {
-                                                                        this.state.userData 
-                                                                            ? 
-                                                                                this.state.userData.fullName?this.state.userData.fullName:"userName" 
-                                                                            :
-                                                                                "Username"
+                                                                        this.state.fullName?this.state.fullName:"userName" 
+                                                                            
                                                                     }
                                                                 </div>
                                                                 <div className={Style.userEmail}>

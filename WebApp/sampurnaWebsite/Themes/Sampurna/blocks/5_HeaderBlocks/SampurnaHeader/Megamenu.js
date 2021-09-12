@@ -19,13 +19,7 @@ constructor(props){
 
 componentDidMount(){
     var url = window.location.href.split('/');
-    // console.log("url===",url);
-    if(url[4]===undefined){
-      this.setState({
-        addToCart :true,
-      })
-    }
-    
+    console.log("url[4]",url[4]);
     axios.get("/api/sections/get/get_megamenu_list")
         .then((response)=>{
         if(response.data){
@@ -35,7 +29,7 @@ componentDidMount(){
         },()=>{
             for(let i=0;i<this.state.categoryData.length;i++){
                 // console.log("url[4]==",url[4]);
-                if(url[4]=== this.state.categoryData[i].sectionUrl){
+                if(url[4] === this.state.categoryData[i].sectionUrl){
                     // console.log("section match==",url[4],this.state.categoryData[i]._id);
                     $('.HeaderSection_'+this.state.categoryData[i]._id).addClass('activeSection');
                 }else if(url[6]=== this.state.categoryData[i].sectionUrl){
@@ -63,8 +57,8 @@ render(){
                             <a className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a>
                         </Link>  */}
                         
-                        <a href={"/vendor-list/"+sectionDetails.sectionUrl} className={sectionDetails._id}>
-                           <span className={Style.listSubTitles}> {sectionDetails.section} </span>
+                        <a href={"/vendor-list/"+sectionDetails.sectionUrl} className={sectionDetails._id +" HeaderSection_"+sectionDetails._id}>
+                           <span className={Style.listSubTitles +" HeaderSection_"+sectionDetails._id}> {sectionDetails.section} </span>
                         </a>
                         
                     </li> 
