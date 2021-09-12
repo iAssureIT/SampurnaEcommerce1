@@ -74,7 +74,7 @@ class SubCategoryBlock extends Component {
               <div className="col-12 productcomponentheading text-center text-lg-left">
               <div className={ "col-12 " +Style.title4}>
                     <h4 className={"col-12 " + Style.newDealTitle}>New deal in</h4>
-                    <h1 className={"col-12 title_inner4 lang_trans " +Style.titleFont1 } data-trans="#title">{this.props.blockTitle} <span className={"line " +Style.line}></span></h1>
+                    <h1 className={"col-12 title_inner4 lang_trans " +Style.titleFont1 } data-trans="#title"><span className={Style.lineBackground}>{this.props.blockTitle}</span> <span className={"line " +Style.line}></span></h1>
                     <span className={"hide "+Style.span} id="title"></span>
 			        	</div>
               </div>

@@ -920,15 +920,23 @@
   margin-bottom: 10px;
   font-family: 'Montserrat-ExtraBold';
   text-align: left!important;
+  padding-left: 100px;
 
 }
-
+/*.titleFont::after{
+  content: "";
+      position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: #000;
+}*/
 .titleFont1 {
   font-size    : 18px !important;
   text-align   : center !important;
   margin-bottom: 0px;
   font-family: 'Montserrat-ExtraBold';
   text-align: left!important;
+  padding-left: 100px;
 }
 
 .f14 {
@@ -1064,13 +1072,12 @@
   }
 }
 
-
-@media (min-width: 1280px) and (max-width: 1366px){
-  .line {
+.line {
+    display: block;
     position          : absolute;
     height            : 2px;
-    /*width             : 100%;
-*/    background-color  : #000;
+    width             : 96.7%;
+    background-color  : #000;
     /*background-color: #ff4157;*/
     /*margin          :0 auto;*/
     /*margin-bottom   : 45px;*/
@@ -1078,7 +1085,14 @@
     top               : 32px;
 
   }
-
+.lineBackground{
+    background-color: #fff;
+    position: relative;
+    z-index: 10;
+  }
+@media (min-width: 1280px) and (max-width: 1366px){
+  
+  
   .titleFont {
     font-size       : 35px !important;
     text-align      : left !important;
@@ -1108,6 +1122,7 @@
   .categoryFilterTitle{
     font-size: 18px;
   }
+
   .panelHeading h4 a, .panelHeading span{
     margin-left    : 35px;
     font-size      : 16px;
@@ -1148,6 +1163,8 @@
        /* width: 100%;*/
       background-color: #000;
           top: 45px;
+          width: 96.9%;
+
   }
   .categoryblock .itemImg img {
       width: 260px;
@@ -1174,6 +1191,7 @@
     font-weight    : 100;
     margin-top     : -36px;
   }
+
   .panelHeading{
     padding: 18px 0px 12px 30px;
   }
@@ -1209,6 +1227,7 @@
         /*width: 100%;*/
       background-color: #000;
           top: 50px;
+        width: 97.4%;
   }
   .categoryblock .itemImg img {
       width: 280px;
@@ -1226,6 +1245,7 @@
     font-size      : 18px;
     margin-top: -36px;
   }
+ 
   .panelHeading{
     padding: 18px 0px 12px 30px;
   }
@@ -1262,6 +1282,7 @@
   }
   .line{
        /* width: 100%;*/
+       width: 96.6%;
       background-color: #000;
   }
   .productCaroselBlock{
@@ -2131,6 +2152,9 @@
       height: 155px;
       margin-top: 40px;
     }
+    .line{
+      width: 97.1%;
+    }
 }
 @media (min-width: 1680px) and (max-width: 1919px) { 
     .newDealTitle{
@@ -2156,6 +2180,9 @@
 @media (min-width: 1920px) and (max-width: 2559px) { 
     .newDealTitle{
       font-size: 30px;
+    }
+    .titleFont1,.titleFont{
+      padding-left: 120px;
     }
 }
 @media (min-width: 2560px) {

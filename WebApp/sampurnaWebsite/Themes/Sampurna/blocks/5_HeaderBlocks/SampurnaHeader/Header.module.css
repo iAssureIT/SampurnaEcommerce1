@@ -325,14 +325,14 @@
 .cartCountWrapper{
     position: absolute;
     color: #fff;
-    top: -14px;
-    right: -6px;
+    top: -11px;
+    right: 3px;
     background-color: #DC1919;
-    height: 18px;
-    width: 18px;
+    height: 14px;
+    width: 14px;
     text-align: center;
     border-radius: 50%;
-    font-size: 13px;
+    font-size: 10px;
 }
 .listDropDownMenu {
     position: absolute;
@@ -480,7 +480,8 @@
             height: 25px;
             width: 25px;
             font-size: 16px;
-            right: -12px;
+            right: 5px;
+            top: -15px;
         }
         .listDropDownMenu{
             width: 360px;
@@ -988,6 +989,9 @@
         .userName{
             font-size: 10px;
         }
+        .signDivWrapper{
+            margin-left: -12px;
+        }
 }
 @media (min-width: 1024px)and (max-width: 1200px){
     .logoImg {
@@ -997,22 +1001,28 @@
         width: 8%;
     }
     .searchWrapper{
-        padding-top: 5px;
+        padding-top: 0px;
+    }
+    .signDivWrapper2{
+        margin-left: 40px;
+    }
+    .cartIconWrapper{
+        margin-top: 6px;
     }
     .signDivWrapper{
-        margin-top: 5px;
+        margin-top: 2px;
     }
     .wishListIconWrapper {
-        margin-top: 7px;
+        margin-top: 5px;
     }
     .cartCountWrapper{
         right: 0px;
     }
     .signInWrapper{
-        margin-top: 5px;
+        margin-top: 1px;
     }
     .cartIcon{
-        margin-top: 6px;
+        margin-top: 2px;
     }
     .allCategories{
         padding-left: 45px;
@@ -1037,11 +1047,14 @@
         height: 38px;
     }
     .searchWrapper{
-        padding-top: 5px;
+        padding-top: 0px;
     }
     .signDivWrapper{
-        margin-top: 9px;
-        margin-left: -15px;
+        margin-top: 5px;
+        margin-left: -45px;
+    }
+    .signDivWrapper2{
+        margin-left: 10px;
     }
     .searchIcon{
         width: 11%;
@@ -1054,10 +1067,10 @@
         right: 0px;
     }
     .signInWrapper{
-        margin-top: 5px;
+        margin-top: 1px;
     }
     .cartIcon{
-        margin-top: 6px;
+        margin-top: 2px;
     }
     .allCategories{
         padding-left: 16px;
@@ -1195,9 +1208,7 @@
     }
 }
 
-
-
-@media (min-width: 640px)and (max-width: 767px){
+@media (min-width: 736px)and (max-width: 767px){
     .changeLocationTitle{
         font-size: 12px;
     }
@@ -1207,6 +1218,46 @@
     .locationSubText{
         font-size: 14px;
     }
+    .wishListIconWrapper{
+        margin-top: 13px;
+        margin-left: 30px;
+    }
+    .cartIconWrapper{
+        margin-top: 14px;
+        margin-left: 0px;
+    }
+    .signDivWrapper{
+        margin-left: 100px;
+    }
+    .changelocationBtn1{
+        margin-top: 2px;
+        width: 88%;
+    }
+}
+@media (min-width: 640px)and (max-width: 735px){
+    .changeLocationTitle{
+        font-size: 12px;
+    }
+    .deliveryAddress{
+        padding-top: 2px;
+    }
+    .locationSubText{
+        font-size: 14px;
+    }
+    .wishListIconWrapper{
+        margin-top: 13px;
+        margin-left: 30px;
+    }
+    .cartIconWrapper{
+        margin-top: 14px;
+        margin-left: 0px;
+    }
+    .signDivWrapper{
+        margin-left: 90px;
+    }
+    .changelocationBtn1{
+        margin-top: 2px;
+    }
 }
 
 @media  (min-width: 414px) and (max-width: 639px){
@@ -1215,8 +1266,15 @@
         padding-right: 0px!important;
     }
     .signDivWrapper{
-        margin-left: 0px;
-        margin-top: 8px;
+        margin-left: 40px;
+        margin-top: 5px;
+    }
+    .userName{
+        font-size: 12px;
+    }
+    .signDivWrapper2{
+        margin-left: 90px;
+        margin-top: 5px;
     }
     .mobileMargin{
         margin-top: -8px;
@@ -1229,10 +1287,11 @@
         height: 35px;
     }
     .signInWrapper{
-        margin-top: 3px;
+        margin-top: 8px;
     }
     .cartIcon{
-        margin-top: 5px;
+        margin-top: 10px;
+        margin-left: 15px;
     }
     .megamenu{
         height: 110px;
@@ -1317,9 +1376,18 @@
     }
     .changelocationBtn1{
         margin-top: 2px;
+        width: 85%;
+    }
+    .cartIconWrapper{
+        margin-top: 10px;
+        margin-left: -2px;
+    }
+    .wishListIconWrapper{
+        margin-top: 9px;
+        margin-left: 25px;
     }
 }
-@media  (max-width: 413px) {
+@media (min-width: 360px) and  (max-width: 413px) {
     .changelocationBtn1{
         margin-top: 2px;
     }
@@ -1422,14 +1490,158 @@
         left: 35px!important;
     }
     .userName{
-        font-size: 9px;
+        font-size: 12px;
 
     }
     .myAccountTitle{
         font-size: 11px;
     }
     .signDivWrapper {
-        margin-left: 10px;
+        margin-left: 15px;
+        margin-top: 5px;
+    }
+    .signDivWrapper2 {
+        margin-left: 60px;
+        margin-top: 5px;
+    }
+    .wishListIconWrapper{
         margin-top: 10px;
+        margin-left: 15px;
+    }
+    .cartIconWrapper{
+        margin-top: 11px;
+        margin-left: 0px;
+    }
+    .changelocationBtn1{
+        width: 86%;
+    }
+}
+@media  (max-width: 359px) {
+    .searchBarInput{
+        margin-left: 20px;
+    }
+    .changelocationBtn1{
+        margin-top: 2px;
+    }
+    .megamenu{
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+    }
+    .mobileMargin{
+        margin-top: -8px;
+    }
+    .headerWrapper{
+        min-height: 137px;
+        height: auto;
+    }
+    .logoImg{
+        height: 35px;
+    }
+    .signInWrapper{
+        margin-top: 10px;
+    }
+    .cartIcon{
+        margin-top: 12px;
+    }
+    .megamenu{
+        height: 110px;
+        padding-left: 0px!important;
+    }
+    .searchWrapper{
+        padding-top: 5px;
+    }
+    
+    .navbarHeader{
+        position: absolute;
+        top: -54px;
+        left: -13px;
+    }
+    .mainMenu{
+        min-height: 100px;
+        height: auto;
+        padding-bottom: 10px;
+        background-color: #ddd;
+    }
+    .allCategories{
+        padding-left: 0px;
+    }
+    .listSubTitles,.mainMenu2{
+        padding-left: 0px;
+    }
+    .locationText{
+        padding-left: 0px;
+    }
+    .deliveryAddress{
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+    }
+    .locationText{
+        font-size: 10px;
+    }
+    .deliveryAddress{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .locationSubText{
+        font-size: 9px; 
+    }
+    .changeLocationTitle{
+        font-size: 10px;
+    }
+    .searchIcon{
+        width: 15%;
+    }
+    .locationHeaderwrapper{
+        height: 27px;
+    }
+    .navbarIcon {
+        border: 1px solid #fff;
+        color: #fff;
+        position: relative;
+    }
+    .navbarIcon2{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    .cartCountWrapper{
+        top: -10px;
+        right: 2px;
+        height: 16px;
+        width: 16px;
+    }
+    .changeLocationIcon i{
+        font-size: 11px;
+    }
+    .DisplayLocationBtn{
+        margin-left: 10px;
+    }
+    .listDropDownMenu{
+        left: 35px!important;
+    }
+    .userName{
+        font-size: 12px;
+
+    }
+    .myAccountTitle{
+        font-size: 11px;
+    }
+    .signDivWrapper {
+        margin-left: 15px;
+        margin-top: 5px;
+    }
+    .signDivWrapper2 {
+        margin-left: 50px;
+        margin-top: 5px;
+    }
+    .wishListIconWrapper{
+        margin-top: 10px;
+        margin-left: 15px;
+    }
+    .cartIconWrapper{
+        margin-top: 11px;
+        margin-left: 0px;
     }
 }

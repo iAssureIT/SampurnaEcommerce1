@@ -81,7 +81,7 @@ class SectionBlock extends Component {
               <div className="col-12 productcomponentheading text-center text-lg-left">
                 <div className={ "col-12 " +Style.title4}>
                     <h4 className={"col-12 " + Style.newDealTitle}>New deal in</h4>
-                    <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont1 } data-trans="#blog_1554730795823_title">{this.state.blockTitle} <span className={"line " +Style.line}></span></h1>
+                    <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont1 } data-trans="#blog_1554730795823_title"><span className={Style.lineBackground}>{this.state.blockTitle}</span> <span className={"line " +Style.line}></span></h1>
                     <span className={"hide "+Style.span} id="blog_1554730795823_title"></span>
 			        	</div>
               </div>

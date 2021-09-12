@@ -541,7 +541,10 @@ submitCart(event) {
                 <div className={ "col-12 " +Style.title4}>
                   <div className="">
                     <h4 className={"col-12 " + Style.newDealTitle}>New deal in</h4>
-                    <h1 className={"col-12 title_inner4 lang_trans " +Style.titleFont } data-trans="#blog_1554730795823_title">{this.state.blockTitle} 
+                    <h1 className={"col-12 title_inner4 lang_trans " +Style.titleFont } data-trans="#blog_1554730795823_title">
+                      <span className={Style.lineBackground}>
+                        {this.state.blockTitle} 
+                      </span>
                       <span className={"line " +Style.line}></span>
                     </h1>
                     <span className={"hide "+Style.span} id="blog_1554730795823_title"></span>

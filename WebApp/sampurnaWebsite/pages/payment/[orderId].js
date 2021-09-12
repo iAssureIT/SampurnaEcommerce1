@@ -76,7 +76,7 @@ class Payment extends Component{
                 								</div>
 												<div className={"mx-4 "+Style.paymentAlertWrapper}>
 													<h6 className={Style.paymentOrderMesseageSubTitle}>Receipt From</h6>
-													<h6 className={"mx-4 font-weight-bold "+Style.paymentOrderMesseageSubTitleValue}>Knock Knock</h6>
+													<h6 className={"mx-4 font-weight-bold "+Style.paymentOrderMesseageSubTitleValue3}>Knock Knock</h6>
 												</div>
 												<div className={"mx-4 mt-4 "+Style.paymentLockWrapper}>
 													<h6>

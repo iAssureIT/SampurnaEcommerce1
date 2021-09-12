@@ -9,6 +9,9 @@
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
 }
+ .backtoMyOrdersDivWrapper img{
+        margin-right: 8px;
+}
 .paymentRightSideWrapper{
     height: auto;
     background-color:#fff;
@@ -22,10 +25,12 @@
     left: 140px;
 }
 .paymentLogoWrapper{
-    height:35px;
+    height:30px;
+    margin-right: 10px;
 }
 .backtoMyOrdersDivWrapper a{
     color: #033554 !important;
+    font-family: 'Montserrat-Medium';
 }
 .paymentAlertWrapper i{
     font-size:40px;
@@ -33,6 +38,7 @@
 }
 .paymentAlertWrapper h6{
     color: #fff;
+
 }
 .paymentLockWrapper i{
     color:#fff;
@@ -45,12 +51,14 @@
     font-size: 15.5px;
     letter-spacing: 0px;
     font-weight: 600;
+    font-family: 'Montserrat-Regular';
 }
 .paymentOrderMesseageSubTitle{
     font-size: 15px;
     letter-spacing: 0px;
     font-weight: 300;
     color: #F9F9F9;
+    font-family: 'Montserrat-Light';
 }
 .paymentOrderMesseageSubTitle1{
     font-size: 15px;
@@ -62,15 +70,23 @@
 .paymentOrderMesseageTitle2{
     font-size: 16px;
     letter-spacing: 0px;
+    font-family: 'Montserrat-Medium';
 }
+
 .paymentOrderMesseageSubValue2{
     font-size: 15px;
+    font-family: 'Montserrat-Bold';
+}
+.paymentOrderMesseageSubTitleValue3{
+    font-size: 15px;
+    font-family: 'Montserrat-SemiBold';
 }
 .paymentOrderMesseageSubTitleValue{
     font-size: 15px;
     letter-spacing: 0px;
     font-weight: 600;
     margin-left: 28px!important;
+    font-family: 'Montserrat-Regular';
 }
 .paymentOrderMesseageSubTitleImg{
     margin-right: 5px;
@@ -134,7 +150,41 @@
 
 /* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
 @media (min-width:1920px){
-
+    .paymentLogoWrapper{
+        height: 42px;
+        margin-top: 20px!important;
+    }
+    .paymentOrderMesseageTitle{
+        font-size: 22px;
+    }
+    .paymentOrderMesseageSubTitle{
+        font-size: 18px;
+    }
+    .paymentOrderMesseageSubTitleValue3{
+        font-size: 18px;
+    }
+    .paymentOrderCurrency{
+        font-size: 14px;
+    }
+    .paymentOrderMesseageSubTitleValue{
+        font-size: 18px;
+    }
+    .paymentOrderMesseageSubTitle1{
+        font-size: 18px;
+    }
+    .paymentOrderMesseageTitle2{
+        font-size: 22px;
+    }
+    .paymentOrderMesseageSubValue2{
+        font-size: 22px;
+    }
+    .backtoMyOrdersDivWrapper a{
+        font-size: 22px;
+    }
+    .backtoMyOrdersDivWrapper img{
+        height: 15px;
+        margin-right: 8px;
+    }
 }
 
 

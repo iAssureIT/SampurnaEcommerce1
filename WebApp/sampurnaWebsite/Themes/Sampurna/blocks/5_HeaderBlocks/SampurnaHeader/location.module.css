@@ -587,7 +587,7 @@
 
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
-@media only screen and (max-device-width: 413px) {
+@media only screen and (max-device-width: 567px) {
     .deliveryLocationORLine1{
         margin-left: 15px;
     }
@@ -600,19 +600,56 @@
     }
     .deliveryLocationCurrentButton{
         margin-left: 0px;
+
     }
     .deliveryLocationSearchWrapper{
         margin-left: 0px;
     }
 }
-@media  (min-width: 414px) and (max-width: 639px){
+@media  (min-width: 568px) and (max-width: 639px){
+    .deliveryLocationORLine1{
+        margin-left: 15px;
+    }
+    .deliveryLocationSaveButton{
+        margin-right: 0px;
+    }
+    .heightGoogleMap{
+        height: 270px;
+        margin-top: 100px;
+    }
+    .deliveryLocationCurrentButton{
+        margin-left: 0px;
 
+    }
+    .deliveryLocationSearchWrapper{
+        margin-left: 0px;
+    }
 }
-@media (min-width: 640px)and (max-width: 767px){
+@media  (min-width: 640px) and (max-width: 666px){
+    .deliveryLocationORLine1{
+        margin-left: 5px;
+    }
+    .deliveryLocationSaveButton{
+        margin-right: 0px;
+    }
+    .heightGoogleMap{
+        height: 270px;
+        margin-top: 100px;
+    }
+    .deliveryLocationCurrentButton{
+        margin-left: 15px;
+        font-size: 11px;
+        margin-top: 15px;
+    }
+    .deliveryLocationSearchWrapper{
+        margin-left: 0px;
+    }
+}
+@media (min-width: 667px)and (max-width: 767px){
     .deliveryLocationCurrentButton{
         font-size: 11px;
         margin-top: 15px;
-        margin-left: 10px;
+        margin-left: 25px;
     }
     .heightGoogleMap{
         height: 250px;
@@ -628,12 +665,15 @@
     .deliveryLocationSearchWrapper{
         margin-left: -5px;
     }
+    .deliveryLocationORLine1{
+        margin-left: 10px;
+    }
 
 }
 @media (min-width: 768px)and (max-width: 859px){
     .deliveryLocationCurrentButton{
         margin-top: 15px;
-        margin-left: 40px;
+        margin-left: 35px;
     }
     .heightGoogleMap{
         height: 470px;

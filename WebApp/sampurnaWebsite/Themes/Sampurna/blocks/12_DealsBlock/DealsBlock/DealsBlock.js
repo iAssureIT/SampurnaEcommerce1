@@ -79,15 +79,16 @@ class ShoppingVerticals extends Component {
     var XLcol = 12/this.state.itemList.length;
     return (
       this.state.itemList.length>0?
-      <div className="col-12">
+      <div className="col-12 ">
         <div className="row">          
-          <div className="col-12 NoPadding">
+          <div className={"col-12 NoPadding crouserDealsWrapper" }>
             { Array.isArray(this.state.itemList) && this.state.itemList.length>1?
                 <Carousel  
                   className=""
                   swipeable={false}
                   draggable={true}
-                  showDots={false}
+                  showDots={true}
+                  arrows ={false}
                   responsive={responsive}
                   ssr={true} // means to render carousel on server-side.
                   infinite={true}
@@ -103,11 +104,13 @@ class ShoppingVerticals extends Component {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                       Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {  
                         return (
-                        <div className="col-12 NoPadding dealsBlock"  key={index}> 
-                            <div className="productImg col-12 NoPadding">
+                        <div className="  dealsBlock"  key={index}> 
+                            <div className="productImg col-12 ">
+                            <div className="col-12 ">
                               <a className="product photo product-item-photo collage" tabIndex="-1" href={data.dealUrl}>
                                 <img src={data.dealImg ? data.dealImg : "/images/CMSImages/notavailable.png"} alt="dealImg" />
                               </a>
+                            </div>
                             </div>
                         </div>                            
                         );
@@ -116,13 +119,15 @@ class ShoppingVerticals extends Component {
                   }
                 </Carousel>                    
                 :
-                <div className="row dealsBlock">                      
+                <div className="col-12 dealsBlock ">   
+                <div className="row">                  
                   {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                       this.state.itemList.map((data, index) => {   
                         // console.log("deals data=",data);                   
                         return (
                           <div className={"col-"+XLcol} key={index}>
+                            <div className="row"> 
                               <div className="col-12 NoPadding">
                                 <div className="productImg col-12 NoPadding">
                                   <a className="product photo product-item-photo collage" tabIndex="-1" href={"/vendor-list/"+data.dealUrl}>
@@ -130,11 +135,13 @@ class ShoppingVerticals extends Component {
                                   </a>
                                 </div>
                               </div>
+                            </div>
                           </div>                            
                         );
                       })
                       : ''
                   }	
+                </div>    
                 </div>    
             } 
           </div>

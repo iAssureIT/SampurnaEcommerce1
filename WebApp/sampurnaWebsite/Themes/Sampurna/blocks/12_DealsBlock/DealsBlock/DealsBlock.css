@@ -7,9 +7,20 @@
     text-transform: uppercase;
     font-family: 'Montserrat-Medium';
 }
+.crouserDealsWrapper .react-multi-carousel-dot-list{
+    bottom: -20px!important;
+}
+.crouserDealsWrapper .react-multi-carousel-track{
+    overflow: visible!important;
+}
+.crouserDealsWrapper .react-multi-carousel-dot button{
+    width: 10px!important;
+    height: 10px!important;
+}
 .item_Name:hover{
     text-decoration: none !important;
 }
+
 .dealsBlock img{
     height: 200px;
     width: 100%;
