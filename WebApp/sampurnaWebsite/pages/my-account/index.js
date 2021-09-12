@@ -249,6 +249,7 @@ class MyAccount extends Component{
                                     <a className="nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onClick={()=>{ $("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
                                         <i className={"fas fa-map-marker-alt mr-xl-3 mr-lg-3 mr-md-2 " + S.sideBarTabNameAllignment}></i>
 
+
                                         <span className={S.sideBarTabNames}>My Addresses</span></a>
                 
                                     <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 active mx-2 ": "nav-link mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 mx-2 "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onClick={()=>{$("#myOrderMainId").css("display", "block");$("#creditPointMainId").css("display", "none");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
@@ -261,6 +262,7 @@ class MyAccount extends Component{
 
                                     <a className={this.state.url1==="#v-pills-settings3-tab"?"nav-link mb-xl-4 mx-2 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 active":"nav-link mx-2 mb-xl-4 py-xl-4 mb-lg-3 py-lg-3 mb-md-3 py-md-2 mb-3 py-3 "} id="v-pills-settings3-tab" data-toggle="pill" href="#v-pills-settings3" role="tab" aria-controls="v-pills-settings3" aria-selected="false" onClick={()=>{ $("#myOrderMainId").css("display", "none");$("#creditPointMainId").css("display", "block");$("#accountInformationManiId").css("display", "none"); $("#WishlistMainId").css("display", "none")}}>
                                     <i className={"fa fa-money-bill mr-xl-3 mr-lg-3 mr-md-2 " + S.sideBarTabNameAllignment}></i>
+
                                     <span className={S.sideBarTabNames}> Credit Points</span></a>*/}
 
 

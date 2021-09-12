@@ -157,6 +157,7 @@
 
 
 
+
 @media only screen and (min-device-width: 320px) {
 
     .creditHeader {
@@ -268,7 +269,7 @@
     }
 
     .CreditCurrentBalTitle2{
-        font-size: 6px;
+        font-size: 9px;
     }
 
     .CreditEarnedBalTitle1{
