@@ -544,7 +544,7 @@ class ProductListView extends Component {
                                      {this.state.vendorData? this.state.vendorData.companyName:null}
                                   </span>
                                 </span>
-                                <span className={"col-4 col-lg-3 col-sm-3 col-xl-3 text-right pt-1   "+Style.chaneVendorBtn }> 
+                                <span className={"col-4 col-lg-3 col-sm-3 col-xl-3 text-right pt-2   "+Style.chaneVendorBtn }> 
                                     <Link href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 NoPadding t "+Style.changeVendorWrapper} >Change Vendor</Link>
                                 </span>
                             </div>
@@ -569,7 +569,7 @@ class ProductListView extends Component {
                     {/* Fitters code */}
                     {this.props.blockSettings.leftSideFilters === true?
                     <div className={"row " +Style.NoPadding +" " +Style.productListWrapper}>  
-                      <div className={"col-xs-12 col-lg-2 col-xl-2 NoPadding  filterWrapper " +Style.filterBlockWrapper}>
+                      <div className={"col-xs-12 col-lg-3 col-xl-2 NoPadding  filterWrapper " +Style.filterBlockWrapper}>
 
                         {this.state.categoryData && this.state.categoryData.length>0?   
                           < CategoryFilters 
@@ -660,7 +660,7 @@ class ProductListView extends Component {
                         :' '
                         }
                     </div>
-                    <div className={"col-lg-10 col-xl-10 col-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
+                    <div className={"col-lg-9 col-xl-10 col-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
                       <div className="col-12">
                         <div className={" " +Style.rightSidefilter}>
                             <div className={"col-12 "}>
@@ -701,7 +701,7 @@ class ProductListView extends Component {
                           {this.state.newProducts.length>=28 &&
                             <div className="col-12 seeMoreBtnWrapper pb-2">
                               <div className="row">
-                                <button className={"btn btn-secondary col-lg-2 col-xl-1 col-sm-2 col-3 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
+                                <button className={"btn btn-secondary col-lg-2 col-xl-1 col-sm-2 col-8 mx-auto pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
                               </div>
                             </div>
                           }

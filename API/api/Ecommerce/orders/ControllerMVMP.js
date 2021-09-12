@@ -741,12 +741,12 @@ exports.list_orders_by_status = (req, res, next) => {
 						{ "orderID" 										: isNaN(req.body.searchText) ? 0 : parseInt(req.body.searchText) },
 						{ "userFullName" 									: {'$regex' : req.body.searchText , $options: "i" } },
 						{ "deliveryAddress.name" 						: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "vendorOrders.vendor_id.companyName" 	: {'$regex' : req.body.searchText , $options: "i" } }
+						{ "vendorOrders.vendor_id.companyName" 	: {'$regex' : req.body.searchText , $options: "i" } } 
 					]
 		})
 	}
 	// console.log("selector",isNaN(req.body.searchText));
-	// console.log("selector",selector.$and[1].$or);
+	// console.log("selector",selector.$and[1].$or[3].vendorOrders);
 	// console.log("selector => ",selector[0])
 	Orders.find(selector)
 	// aggregate([
@@ -762,7 +762,7 @@ exports.list_orders_by_status = (req, res, next) => {
 	// .skip(parseInt(req.body.startRange))
 	// .limit(parseInt(req.body.limitRange))
 	.then(data => {
-		// console.log("data===>>>",data);
+		// console.log("data===>>>",data[0].vendorOrders);
 		console.log("data.length===>>>",data.length);
 
 		res.status(200).json({
@@ -4519,7 +4519,6 @@ exports.delivery_drivers_reports = (req, res, next) => {
 				"vendorOrders.paymentDetails.deliveryPerson_id"		: 1,
 				"vendorOrders.vendor_netPayableAmount"					: 1,
 				"vendorOrders.deliveryStatus"								: 1,
-				"driverDetails.profile.fullName"							: 1,
 				"driverDetails.profile.employeeID"						: 1,
 				"vendorDetails.companyName"								: 1,
 				"createdAt"														: 1,

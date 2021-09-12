@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import $                    from 'jquery'
+import axios                from 'axios';
 import {connect}            from 'react-redux';
 import store                from '../../redux/store.js';
 import {getCartData,getWishlist, updateCartCount}  from '../../redux/actions/index.js';
@@ -12,11 +14,11 @@ class SearchProduct extends Component {
     this.state={
       productSettings       : {          
         displayAssurenceIcon: false,
-        displayBrand        : true,
+        displayBrand        : false,
         displayCategory     : false,
         displayFeature      : "size",
         displayRating       : false,
-        displayVendorName   : true,
+        displayVendorName   : false,
         displaySection      : false,
         displaySubCategory  : false,
         displayWishlist     : true,
@@ -107,23 +109,25 @@ class SearchProduct extends Component {
   
   submitCart(event) {
     if(this.state.user_ID){
-      var id = event.target.id;
+      var id                = event.target.id;
       var availableQuantity = event.target.getAttribute('availablequantity');
-      var currProId = event.target.getAttribute('currpro');
-      var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
-      var productCartData = recentCartData.filter((a) => a.product_ID === id);
-      var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
-      var formValues = {
+      var vendor_ID         = event.target.getAttribute('vendor_ID');
+      var vendorLocation_id = event.target.getAttribute('vendorLocation_id');
+      var currProId         = event.target.getAttribute('currpro');
+      var recentCartData    = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
+      var productCartData   = recentCartData.filter((a) => a.product_ID === id);
+      var quantityAdded     = productCartData.length > 0 ? productCartData[0].quantity : 0;
+      var formValues        = {
         "user_ID"           : this.state.user_ID,
-        "product_ID"        : event.target.id,
+        "product_ID"        : id,
         "quantity"          : 1,   
         "userLatitude"      : this.state.userLatitude,
         "userLongitude"     : this.state.userLongitude,
-        "vendorLocation_id" : this.state.vendorlocation_ID,
+        "vendorLocation_id" : vendorLocation_id,
         "vendorName"        : event.target.getAttribute('vendor_name'),
-        "vendor_ID"         : this.state.vendor_ID,     
+        "vendor_ID"         : vendor_ID,     
       }   
-      // console.log("formValues=",formValues);   
+      console.log("formValues=",formValues);   
   
       this.addCart(formValues, quantityAdded, availableQuantity);
     
@@ -151,6 +155,8 @@ class SearchProduct extends Component {
   
   addtowishlist(event) {
     event.preventDefault();
+    var vendor_ID         = event.target.getAttribute('vendor_ID');
+    var vendorLocation_id = event.target.getAttribute('vendorLocation_id');
     if (this.state.user_ID) {
       var id = event.target.id;
       var formValues = {
@@ -160,8 +166,8 @@ class SearchProduct extends Component {
                                     "long"            : this.state.userLongitude,
                                     "delLocation"     : this.state.delLocation,
                                 },
-        "vendor_id"           : this.state.vendor_ID,
-        "vendorLocation_id"   : this.state.vendorlocation_ID,
+        "vendor_id"           : vendor_ID,
+        "vendorLocation_id"   : vendorLocation_id,
         "product_ID"          : id
     }
       
@@ -207,7 +213,7 @@ class SearchProduct extends Component {
   }
 
   render(){
-    // console.log("this.props.searchData.data==",this.props.searchData.data.length);
+    console.log("this.props.searchData.data==",this.props.searchData.data);
       return (
         <div className="row">
           < Header />
@@ -220,7 +226,7 @@ class SearchProduct extends Component {
                       { 
                         this.props.searchData.data && this.props.searchData.data.map((data, index) => {    
                           var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];
-                          console.log("wishlist===",this.props.recentWishlistData);
+                          // console.log("wishlist===",this.props.recentWishlistData);
                            var tooltipMsg = '';
                            var heartImg = '/images/eCommerce/heart.svg'
                            var tooltipMsg = '';
@@ -245,14 +251,14 @@ class SearchProduct extends Component {
                                               {data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)}%<div className={" "+Style.offTxt}>off</div></div> : null}
                                               {this.state.productSettings.displayWishlist === true?
                                                   this.state.user_ID && this.state.authService!=="guest"?
-                                                    <button type="submit" id={data._id} title={tooltipMsg} className={" abc pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)}><img src={heartImg} id={data._id} className={" col-12  wishListIconColor "} /></button>
+                                                    <button type="submit" id={data._id} vendor_ID= {data.vendor_ID} vendorLocation_id={data.vendorLocation_id} title={tooltipMsg} className={" abc pull-right " +Style.wishIcon } onClick={this.addtowishlist.bind(this)}><img src={heartImg} id={data._id} className={" col-12  wishListIconColor "} /></button>
                                                   :
-                                                    <button type="submit" id={data._id} title={tooltipMsg} className={ " pull-right " +Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><img src={heartImg} id={data._id} className={" col-12  wishListIconColor "} /></button>
+                                                    <button type="submit" id={data._id} vendor_ID= {data.vendor_ID} vendorLocation_id={data.vendorLocation_id} title={tooltipMsg} className={ " pull-right " +Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><img src={heartImg} id={data._id} className={" col-12  wishListIconColor "} /></button>
                                               :null
                                               }                                          
                                           </div>
                                           <div className={Style.ImgWrapper}>
-                                            <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+categoryUrl+"/"+subCategoryUrl+"/"+data._id} className={Style.product_item_photo }>
+                                            <a href={"/product-detail/" +data.vendor_ID+"/"+data.vendorLocation_id+"/"+categoryUrl+"/"+subCategoryUrl+"/"+data._id} className={Style.product_item_photo }>
                                                 <img                                           
                                                   src={Array.isArray(data.productImage) && data.productImage.length > 0 && data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.png"}
                                                   alt="ProductImg" 
@@ -335,15 +341,15 @@ class SearchProduct extends Component {
                                                     <div className={"col-12 " +Style.NoPadding}>
                                                     {this.state.user_ID?
                                                       this.props.distance > this.props.maxDistanceRadius?
-                                                        <button type="submit" vendor_name={data.vendorName} vendor_id={data.vendor_ID} id={data._id} disabled className={"col-12  disableBtn globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                                        <button type="submit" vendor_name={data.vendorName} vendor_ID= {data.vendor_ID} vendorLocation_id={data.vendorLocation_id} id={data._id} disabled className={"col-12  disableBtn globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
                                                             &nbsp;Add To Cart
                                                         </button>
                                                       :
-                                                        <button type="submit" vendor_name={data.vendorName}  vendor_id={data.vendor_ID} id={data._id} className={"col-12  globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                                        <button type="submit" vendor_name={data.vendorName}  vendor_ID= {data.vendor_ID} vendorLocation_id={data.vendorLocation_id} id={data._id} className={"col-12  globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
                                                             &nbsp;Add To Cart
                                                         </button>
                                                     :
-                                                    <button type="submit" id={data._id} vendor_name={data.vendorName} vendor_id={data.vendor_ID} className={"col-12  globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
+                                                    <button type="submit" id={data._id} vendor_name={data.vendorName} vendor_ID= {data.vendor_ID} vendorLocation_id={data.vendorLocation_id} className={"col-12  globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
                                                         &nbsp;Add To Cart
                                                     </button>
                                                     }     

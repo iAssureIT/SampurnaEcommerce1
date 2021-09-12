@@ -981,9 +981,13 @@ class Checkout extends Component {
                                                                     }
                                                                 </div>
                                                             </div>
-                                                            <div className=" mt2">
-                                                                <div className={"btn align-center col-12  " + Style.addBTN1} data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
-                                                            </div>
+                                                            {this.state.authService !=="guest"?
+                                                                <div className=" mt2">
+                                                                    <div className={"btn align-center col-12  " + Style.addBTN1} data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
+                                                                </div>
+                                                            :
+                                                                null
+                                                            }
                                                         </div>
 
                                                         :

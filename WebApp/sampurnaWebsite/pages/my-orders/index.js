@@ -324,7 +324,7 @@ export default class MyOrders extends Component {
                 <div className={"container-flex col-xl-12 px-0 "+ Style.myOrderBox}>
                   {this.state.orderData && this.state.orderData.length > 0 ?
                     this.state.orderData.map((singleOrder, index) => {
-                      console.log("singleOrder=",singleOrder);
+                      // console.log("singleOrder=",singleOrder);
                       return (
                         <div className={"col-12 col-lg-12 col-md-12 col-xl-11 NoPadding orderIdborder " + Style.orderIdborderNew} key={index}>
                           <div className="col-12  NoPadding orderNowrapper mb-4 " style={{
@@ -435,13 +435,15 @@ export default class MyOrders extends Component {
                           }
                           <div className={"col-12 " + Style.vendorRowBottom}>
                             <div className="row">
-                              <div className="col-5 pull-left">
-                                {this.cancelButton(singleOrder.createdAt) && singleOrder.orderStatus === "New" &&
-                                  <div className="col-12 ">
-                                    <div className={"col-12 cancelOrderbtn " + Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("hh:mm:A")} </div>
-                                  </div>
-                                }
-                              </div>
+                              
+                                <div className="col-5 pull-left">
+                                  {this.cancelButton(singleOrder.createdAt) && singleOrder.orderStatus === "New" && this.state.authService !== "guest" &&
+                                    <div className="col-12 ">
+                                      <div className={"col-12 cancelOrderbtn " + Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("hh:mm:A")} </div>
+                                    </div>
+                                  }
+                                </div>
+                              
                               <div className="col-lg-7  pull-right orderBtnWrapper">
                                 <button className="btn col-6 col-sm-4 col-lg-6 col-xl-6 float-right " 
                                         onClick={() => this.props.getOrderId(singleOrder._id)}>

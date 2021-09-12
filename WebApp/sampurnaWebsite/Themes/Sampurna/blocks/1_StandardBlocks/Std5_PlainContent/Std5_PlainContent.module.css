@@ -1,4 +1,86 @@
 .stdBlockDescription{
     font-size: 16px !important;
+    font-family  : 'Montserrat';
 	text-align: justify!important;
 }
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+@media (max-width: 320px){
+	.stdBlockDescription{
+	    font-size: 16px !important;
+		text-align: justify!important;
+	}
+}
+
+@media (min-width: 320px) and (max-width: 480px){
+	.stdBlockDescription{
+	    font-size: 18px !important;
+		text-align: justify!important;
+	}
+}
+
+@media (min-width: 640px) and (max-width: 860px){
+	.stdBlockDescription{
+	    font-size: 19px !important;
+		text-align: justify!important;
+	}
+}
+
+@media (min-width: 860px) and (max-width: 1280px) {
+	.stdBlockDescription{
+	    font-size: 20px !important;
+		text-align: justify!important;
+	}
+}
+
+@media (min-width: 1280px) and (max-width: 1366px) { 
+	.stdBlockDescription{
+	    font-size: 21px !important;
+		text-align: justify!important;
+	}
+}
+
+@media (min-width: 1366px) and (max-width: 1440px) { 
+	.stdBlockDescription{
+	    font-size: 22px !important;
+		text-align: justify!important;
+	}
+}
+
+@media (min-width: 1440px) and (max-width: 1536px) { 
+	.stdBlockDescription{
+	    font-size: 23px !important;
+		text-align: justify!important;
+	}
+}
+
+@media (min-width: 1536px) and (max-width: 1680px) { 
+	.stdBlockDescription{
+	    font-size: 24px !important;
+		text-align: justify!important;
+	}
+}
+
+@media (min-width: 1680px) and (max-width: 1920px) { 
+	.stdBlockDescription{
+	    font-size: 25px !important;
+		text-align: justify!important;
+	}
+}
+
+@media (min-width: 1920px) and (max-width: 2560px)  {
+	.stdBlockDescription{
+	    font-size: 25px !important;
+	    font-family  : 'Montserrat' !important;
+		text-align: justify!important;
+	}
+}
+
+@media (min-width: 2560px){
+	.stdBlockDescription{
+	    font-size: 27px !important;
+		text-align: justify!important;
+	}
+}
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

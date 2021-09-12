@@ -13,17 +13,17 @@ const ProductDetailsEcommerce = (props)=>{
   	const [categoryurl, setCategoryurl] = useState(router.query.categoryurl);
   	const [subCategoryurl, setSubCategoryurl] = useState(router.query.subcategoryurl);
   	const [productId, setProductId] = useState(router.query.productId);
-
+	console.log("vendorlocation_id===",vendorlocation_id);
 	return(
          <div className={"col-12 NoPadding "}>
 			<Header/>
 			<div className="container-flex backColorGray">
 				<ProductViewEcommerce 
-						vendor_id={vendor_id} 
-						vendorlocation_id={vendorlocation_id} 
-						categoryurl={categoryurl} 
-						subCategoryurl={subCategoryurl} 
-						productID={productId} 
+						vendor_id         ={vendor_id} 
+						vendorlocation_id ={vendorlocation_id} 
+						categoryurl       ={categoryurl} 
+						subCategoryurl    ={subCategoryurl} 
+						productID         ={productId} 
 				/>
 			</div>
 			<Footer/>

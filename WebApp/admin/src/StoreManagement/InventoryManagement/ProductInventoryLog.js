@@ -24,6 +24,7 @@ export default class ProductInventoryLog extends Component{
 			sectionArray 		: [],
 			categoryArray 		: [],
 			subCategoryArray 	: [],
+			inventoryData 		: [],
 			vendor 				: "",
 			section 				: "",
 			category 			: "",
@@ -31,16 +32,17 @@ export default class ProductInventoryLog extends Component{
 			tableHeading    	: {
             // "productCode"     : "Product Code",
             // "itemCode"        : "Item Code",
-            "vendorName"      : 'Vendor Name',
-				"productName"     : "Product Name",
+            // "vendorName"      : 'Vendor Name',
+				// "productName"     : "Product Name",
 				// "UPC" 				: "UPC",
-            "section"        	: 'Section',
-            "category"        : 'Category',
-            "subCategory"     : 'SubCategory',
-            "originalPrice"   : 'Original Price',
-            "discountPercent" : 'Discount Percent',
-            "discountedPrice" : 'Discounted Price',
-            "currentQuantity" : 'currentQuantity'
+            "quntityAdded"        : 'Quantity Added',
+            "updatedOn"        	: 'Updated On',
+            "originalPrice"   	: 'Original Price',
+            "originalPrice"   	: 'Original Price',
+            "discountPercent" 	: 'Discount Percent',
+            "discountedPrice" 	: 'Discounted Price',
+            "fileName"     		: 'File Name',
+            "method" 				: 'Update Type'
          },
             tableObjects    : {
                 paginationApply : true,
@@ -336,13 +338,13 @@ export default class ProductInventoryLog extends Component{
 									</div>
 								</div>
 							</div>
-							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt NoPadding">
+							{/*<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt NoPadding">
 								<div className="searchProductFromList col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTopp NOPadding">
 									
 									{/* {console.log("this.state.preference----",this.state.websiteModel)} */}
 									{/* {this.state.preference === "MarketPlace"  || this.state.websiteModel === "MarketPlace"
 										?  */}
-										<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
+										{/*<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
 											<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Vendor</label>
 											<select className="form-control selectRole" ref="vendor" name="vendor" id="vendor" 
 												onChange={this.handleChangeFilter.bind(this)}>
@@ -360,12 +362,12 @@ export default class ProductInventoryLog extends Component{
 												}
 												
 											</select>
-										</div>
+										</div>*/}
 										{/* :
 										null 
 									} */}
 
-									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
+									{/*<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
 										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Section</label>
 										<select className="form-control selectRole" ref="section" name="section" id="section" onChange={this.handleChangeFilter.bind(this)}>
 											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled selected>-- Select --</option>  
@@ -419,14 +421,14 @@ export default class ProductInventoryLog extends Component{
 										</select>
 									</div>								
 								</div>
-							</div>                                     
+							</div>  */}                                   
 							
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<IAssureTable 
 									tableHeading    = {this.state.tableHeading}
 									twoLevelHeader  = {this.state.twoLevelHeader} 
 									dataCount       = {this.state.dataCount}
-									tableData       = {this.state.tableData}
+									tableData       = {this.state.inventoryData}
 									getData         = {this.getData.bind(this)}
 									tableObjects    = {this.state.tableObjects}
 									getSearchText   = {this.getSearchText.bind(this)}
