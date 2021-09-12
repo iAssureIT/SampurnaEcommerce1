@@ -624,12 +624,12 @@ function getAdminPreferences(){
 
 /**=========== checkDuplicateVendors() ===========*/
 function checkDuplicateVendors(user_ID){
-    console.log("duplicate vendors user_ID => ",user_ID)
+    // console.log("duplicate vendors user_ID => ",user_ID)
     return new Promise(function(resolve,reject){
         Carts.findOne({user_ID:ObjectId(user_ID)})
         .exec()
         .then(async(cartdata)=>{
-            console.log("cartdata => ",cartdata)
+            // console.log("cartdata => ",cartdata)
             if (cartdata !== null ) {
                 var newVendorOrders     = [];
                 var vendorOrders        = cartdata.vendorOrders;
@@ -683,9 +683,9 @@ function checkDuplicateVendors(user_ID){
                         }
                     }
                     if (j >= newVendorOrders.length) {
-                        console.log("newVendorOrders => ",newVendorOrders)
-                        console.log("order_numberOfProducts => ",order_numberOfProducts)
-                        console.log("order_quantityOfProducts => ",order_quantityOfProducts)
+                        // console.log("newVendorOrders => ",newVendorOrders)
+                        // console.log("order_numberOfProducts => ",order_numberOfProducts)
+                        // console.log("order_quantityOfProducts => ",order_quantityOfProducts)
                         Carts.updateOne(
                             { "user_ID" : ObjectId(user_ID)},
                             {$set : 

@@ -18,20 +18,21 @@ class AllOrdersList extends Component{
 			"tableHeading"     	: {
 				orderNumber             : "Order Number",
 				orderDate             	: "Order Date",
-				customer    			: "Customer",
+				customer    				: "Customer",
 				totalPrice         		: "Total Price",
-				// vendors 				: "Vendors",
-				vendorName  			: "Vendor Name",
-				vendorPrice 			: "Vendor Price",
-				vendorStatus 			: "Vendor Status",
-				changeVendorStatus 	    : "Change Vendor Status"
+				shippingCharges         : "Shipping Charges",
+				// vendors 					: "Vendors",
+				vendorName  				: "Vendor Name",
+				vendorPrice 				: "Vendor Price",
+				vendorStatus 				: "Vendor Status",
+				changeVendorStatus 	   : "Change Vendor Status"
 			},
 			"twoLevelHeader"    : {
 				apply 			: true,
 				firstHeaderData : [
 					{
 						heading 		: 'Order Details',
-						mergedColoums 	: 4,
+						mergedColoums 	: 5,
 						// mergedRows 		: 1
 					},
 					{
@@ -246,7 +247,7 @@ class AllOrdersList extends Component{
 		// .then((response)=>{
 		socket.emit('adminOrtderListValues',formValues);
 		socket.on("adminBookingList", (response)=>{
-		// console.log('order tableData', response.data);		               
+		console.log('order tableData', response.data);		               
 		  	// var tableData = response.map((a, i)=>{
 			var tableData = response.data.map((a, i)=>{			
 				return{ 
@@ -256,6 +257,7 @@ class AllOrdersList extends Component{
 					orderDate      : '<div class=textFloatLeft><div class=textNoWrap>' + moment(a.createdAt).format("MMMM Do YYYY") + '</div><div>' + moment(a.createdAt).format('h:mm a')+ '</div></div>',
 					customer     	: '<div><b>'+ (a.userFullName && a.userFullName !== "undefined undefined" && a.userFullName !== "undefined" && a.userFullName !== "" && a.userFullName !== null ? a.userFullName : (a.deliveryAddress.name && a.deliveryAddress.name !== "undefined" && a.deliveryAddress.name !== null ? a.deliveryAddress.name : "Guest User"))  +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
 					totalPrice  	: '<div class=textNoWrap>'+ this.state.currency + " " + a.paymentDetails.netPayableAmount + '</div>',					
+					shippingCharges : '<div class=textNoWrap>'+ this.state.currency + " " + a.paymentDetails.shippingCharges + '</div>',					
 					vendors   		: a.vendorOrders && a.vendorOrders.length > 0
 										?
 											a.vendorOrders.map((vendorOrder, index)=>{

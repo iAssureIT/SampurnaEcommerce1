@@ -741,12 +741,12 @@ exports.list_orders_by_status = (req, res, next) => {
 						{ "orderID" 										: isNaN(req.body.searchText) ? 0 : parseInt(req.body.searchText) },
 						{ "userFullName" 									: {'$regex' : req.body.searchText , $options: "i" } },
 						{ "deliveryAddress.name" 						: {'$regex' : req.body.searchText , $options: "i" } },
-						{ "vendorOrders" : {$elemMatch : {"vendor_id.companyName" : {'$regex' : req.body.searchText , $options: "i" } }} }
+						{ "vendorOrders.vendor_id.companyName" 	: {'$regex' : req.body.searchText , $options: "i" } } 
 					]
 		})
 	}
 	// console.log("selector",isNaN(req.body.searchText));
-	console.log("selector",selector.$and[1].$or[3].vendorOrders);
+	// console.log("selector",selector.$and[1].$or[3].vendorOrders);
 	// console.log("selector => ",selector[0])
 	Orders.find(selector)
 	// aggregate([

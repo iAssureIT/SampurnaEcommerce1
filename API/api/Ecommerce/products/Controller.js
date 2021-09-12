@@ -5299,7 +5299,7 @@ exports.product_inventory_list = (req,res,next)=>{
 	// if(req.body.status !== "" && req.body.status !== undefined){
 	// 	selector["$and"].push( {"status" : req.body.status} );
 	// }else{
-	// 	selector["$and"].push( {"status" : {$ne : ""}} );
+		selector["$and"].push( {"status" : {$ne : ""}} );
 	// }
 	if(req.body.searchText && req.body.searchText !== ""){
 		// selector["$or"].push({ "$vendorDetails.companyName" : {'$regex' : req.body.searchText , $options: "i" } });
@@ -5359,19 +5359,19 @@ exports.product_inventory_list = (req,res,next)=>{
 				"brand"								: 1,
 				"productCode" 						: 1,
 				"itemCode" 							: 1,
-				// "vendorBarcode"						: 1,
-				// "vendorItemcode"					: 1,
+				"vendorBarcode"					: 1,
+				"vendorItemcode"					: 1,
 				"originalPrice" 					: 1,
-				"discountPercent" 					: 1,
-				"discountedPrice" 					: 1,
-				// "availableQuantity" 				: 1,
-				// "featured" 							: 1,
-				// "exclusive" 						: 1,
-				"vendorDetails.companyName"	        : 1,
-				"categoryDetails.category"		    : 1,
-				"categoryDetails.subCategory"	    : 1,
-				"sectionDetails.section"		    : 1,
-				"productImage" 						: 1,
+				"discountPercent" 				: 1,
+				"discountedPrice" 				: 1,
+				"availableQuantity" 				: 1,
+				"universalProductCode" 			: 1,
+				// "exclusive" 					: 1,
+				"vendorDetails.companyName"	: 1,
+				"categoryDetails.category"		: 1,
+				"categoryDetails.subCategory"	: 1,
+				"sectionDetails.section"		: 1,
+				"productImage" 					: 1,
 			}
 		}
 	])
@@ -5392,12 +5392,20 @@ exports.product_inventory_list = (req,res,next)=>{
 
 			allData.push({
 				"_id"                   : data[i]._id,
-				"UPC" 						: data[i].universalProductCode,
-				"vendorName"            : data[i].vendor_ID !== null ? data[i].vendor_ID.companyName : "NA",
+				"vendorName"            : data[i].vendorDetails && data[i].vendorDetails.length > 0 ? data[i].vendorDetails[0].companyName : "NA",
 				"productName"           : "<span class='whiteSpaceNormal'><b>"+(data[i].productName)+"</b><br></span>"+"<span class='whiteSpaceNoWrap'>Product Code: "+data[i].productCode+ "</span></br><span class='whiteSpaceNoWrap'>Item Code: "+data[i].itemCode+ "</span></br><span class='whiteSpaceNoWrap'>UPC: "+data[i].universalProductCode + "</span>",
-				"section"               : data[i].section,
-				"category"              : data[i].category,
-				"subCategory"           : data[i].subCategory,
+				"section"               : data[i].sectionDetails && data[i].sectionDetails.length > 0 ? data[i].sectionDetails[0].section : "",
+				"category"              : data[i].categoryDetails && data[i].categoryDetails.length > 0 ? data[i].categoryDetails[0].category : "",
+				"subCategory"           : data[i].subCategory_ID && data[i].subCategory_ID !== undefined 
+													?
+														data[i].categoryDetails && data[i].categoryDetails.length > 0 && data[i].categoryDetails[0].subCategory && data[i].categoryDetails[0].subCategory.length > 0
+														?
+															data[i].categoryDetails[0].subCategory.filter(obj => String(obj._id) === String(data[i].subCategory_ID))
+  																												.map(obj => obj.subCategoryTitle)
+  														:
+  															""
+  													:
+  														"",
 				"originalPrice"         : "<span class='textAlignRight'>"+"<i class='fa fa-"+data[i].currency+"'></i>&nbsp;"+data[i].originalPrice+"</span>",
 				"discountPercent"       : "<span class='textAlignRight'>"+data[i].discountPercent+"%"+"</span>",
 				"discountedPrice"       : "<span class='textAlignRight'>"+"<i class='fa fa-"+data[i].currency+"'></i>&nbsp;"+data[i].discountedPrice+"</span>",
