@@ -58,12 +58,12 @@ exports.add_to_cart = (req,res,next)=>{
                     "message": errMsg,
                 });
             }else{
-                console.log("When Cart data is available")  
+                // console.log("When Cart data is available")  
                 Carts.findOne({"user_ID": req.body.user_ID, 'vendorOrders.vendor_id' : req.body.vendor_ID})
                 .exec()
                 .then(productDataForVendor =>{
                     if(productDataForVendor !== null){ 
-                        console.log("When some Products are already added for same vendor")  
+                        // console.log("When some Products are already added for same vendor")  
                         // var filteredVendorProducts = productDataForVendor.vendorOrders.filter(function(vendor){
                         //     return String(vendor.vendor_id) === String(req.body.vendor_ID);
                         // });
@@ -76,7 +76,7 @@ exports.add_to_cart = (req,res,next)=>{
                             // console.log(" filteredProduct => ",filteredProduct)
 
                             if(productData !== null){
-                                console.log("When same Product is already Available")  
+                                // console.log("When same Product is already Available")  
                                 // console.log("condition => ",(filteredVendorProducts && filteredVendorProducts.length > 0))
                                 if (filteredVendorProducts && filteredVendorProducts.length > 0) {
                                     // console.log("filteredVendorProducts=> ",filteredVendorProducts)
@@ -124,7 +124,7 @@ exports.add_to_cart = (req,res,next)=>{
                                             // console.log("updateone => ",updateone)
                                         })
                                         .catch(err =>{
-                                            console.log('1',err);
+                                            // console.log('1',err);
                                             res.status(500).json({
                                                 error: err
                                             });
@@ -139,13 +139,13 @@ exports.add_to_cart = (req,res,next)=>{
                                     }
                                 })
                                 .catch(err =>{
-                                    console.log('1',err);
+                                    // console.log('1',err);
                                     res.status(500).json({
                                         error: err
                                     });
                                 });
                             }else{       
-                                console.log("When same Product Not Available")
+                                // console.log("When same Product Not Available")
                                 if (filteredVendorProducts && filteredVendorProducts.length > 0) {
                                     // console.log("filteredVendorProducts=> ",filteredVendorProducts)
                                     // console.log("filteredVendorProducts[0].vendor_quantityOfProducts =>",filteredVendorProducts[0].vendor_quantityOfProducts)
@@ -366,22 +366,53 @@ exports.list_cart_product = (req,res,next)=>{
                             // console.log("vendor_shippingCharges => i => ",i,", ",vendor_shippingCharges);
                         }                    
                         
-                        for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
-                            // console.log("data.vendorOrders[i].cartItems[j] => ",data.vendorOrders[i].cartItems[j])
-                            if (data.vendorOrders[i].cartItems[j].product_ID !== null) {
-                                var inventoryData             	= await ProductInventory.findOne({productCode : data.vendorOrders[i].cartItems[j].product_ID.productCode, itemCode : data.vendorOrders[i].cartItems[j].product_ID.itemCode, vendor_ID : ObjectId(data.vendorOrders[i].cartItems[j].product_ID.vendor_ID)},{currentQuantity : 1});
-            				    // console.log("inventoryData => ",inventoryData);
-                                
-                                data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0;                      
-                                vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
-                                if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
-                                    vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
-                                }
 
-                                vendor_afterDiscountTotal+=(vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
-                                if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
-                                    vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
-                                } 
+                    for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
+                        // console.log("data.vendorOrders[i].cartItems[j] => ",data.vendorOrders[i].cartItems[j])
+                        if (data.vendorOrders[i].cartItems[j].product_ID !== null) {
+                            var inventoryData             	= await ProductInventory.findOne({productCode : data.vendorOrders[i].cartItems[j].product_ID.productCode, itemCode : data.vendorOrders[i].cartItems[j].product_ID.itemCode, vendor_ID : ObjectId(data.vendorOrders[i].cartItems[j].product_ID.vendor_ID)},{currentQuantity : 1});
+        				    // console.log("inventoryData => ",inventoryData);
+                            
+                            data.vendorOrders[i].cartItems[j].product_ID.availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0;                      
+                            vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
+                            if(vendorOrders[i].cartItems[j].product_ID.discountPercent !== 0){
+                                vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
+                            }
+
+                            
+                            //======= Product Price without Tax =====
+                            var discountedPrice = data.vendorOrders[i].cartItems[j].product_ID.discountedPrice ;
+                            var quantity = vendorOrders[i].cartItems[j].quantity;
+
+                            //======  TAX Calculation =============
+                            var taxRate = vendorOrders[i].cartItems[j].product_ID.taxRate; 
+
+                            if(vendorOrders[i].cartItems[j].product_ID.taxInclude){
+                                var inclusiveTaxRate = 1 - (1/(1+ (taxRate/100) )) ;
+                                // console.log("inclusiveTaxRate = ",inclusiveTaxRate);
+
+                                var taxAmount = (
+                                                    vendorOrders[i].cartItems[j].product_ID.discountedPrice *
+                                                    inclusiveTaxRate *
+                                                    vendorOrders[i].cartItems[j].quantity
+                                                );
+                                discountedPrice = (discountedPrice * quantity)  - taxAmount; 
+                                vendor_taxAmount += taxAmount ;
+                                // console.log("disc price incl Tax = " + vendorOrders[i].cartItems[j].product_ID.discountedPrice +" | 1 discountedPrice = "+discountedPrice+" | taxRate = "+taxRate+" | taxAmount = "+taxAmount);
+                            }else{
+                                var taxAmount = (
+                                                        vendorOrders[i].cartItems[j].product_ID.discountedPrice *
+                                                        (taxRate/100)  *
+                                                        vendorOrders[i].cartItems[j].quantity
+                                                    );
+                                vendor_taxAmount += taxAmount ;                                
+                                discountedPrice = discountedPrice * quantity ;
+                                // console.log("1 vendorOrders[i].cartItems[j].quantity = ",vendorOrders[i].cartItems[j].quantity);
+                                // console.log("disc price incl Tax = "+vendorOrders[i].cartItems[j].product_ID.discountedPrice +" | 2 discountedPrice = "+discountedPrice+" | taxRate = "+taxRate+" | taxAmount = "+taxAmount);
+                            }
+
+                            vendor_afterDiscountTotal += discountedPrice;
+                            // console.log("vendor_afterDiscountTotal = ",vendor_afterDiscountTotal);
 
                                 data.vendorOrders[i].cartItems[j].product_ID.isWish = false;
                                 if(wish.length > 0){
@@ -1178,11 +1209,39 @@ exports.apply_coupon = (req,res,next)=>{
                         vendor_discountAmount += ((data.vendorOrders[i].cartItems[j].product_ID.originalPrice - data.vendorOrders[i].cartItems[j].product_ID.discountedPrice) * vendorOrders[i].cartItems[j].quantity);
                     }
                     
-                    vendor_afterDiscountTotal += (vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
-                    if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
-                        vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
-                    }    
+
+                    //======= Product Price without Tax =====
+                    var discountedPrice = data.vendorOrders[i].cartItems[j].product_ID.discountedPrice ;
+                    var quantity = vendorOrders[i].cartItems[j].quantity;
+
+                    //======  TAX Calculation =============
+                    var taxRate = vendorOrders[i].cartItems[j].product_ID.taxRate; 
+                    var inclusiveTaxRate = 1 - (1/(1+ (taxRate/100) )) ;
+
+
+
+                    if(vendorOrders[i].cartItems[j].product_ID.taxInclude){
+                        var inclusiveTaxRate = 1 - (1/(1+ (taxRate/100) )) ;
+                        var taxAmount = (
+                                            vendorOrders[i].cartItems[j].product_ID.discountedPrice *
+                                            inclusiveTaxRate *
+                                            vendorOrders[i].cartItems[j].quantity
+                                        );
+                        discountedPrice = (discountedPrice * quantity)  - taxAmount; 
+                        vendor_taxAmount += taxAmount ;
+                    }else{
+                        var taxAmount = (
+                                                vendorOrders[i].cartItems[j].product_ID.discountedPrice *
+                                                (taxRate/100)  *
+                                                vendorOrders[i].cartItems[j].quantity
+                                            );
+                        vendor_taxAmount += taxAmount ;                                
+                        discountedPrice = discountedPrice * quantity ;
+                    }
+
+                    vendor_afterDiscountTotal += discountedPrice;
                 }
+
                 if(j>=vendorOrders[i].cartItems.length){
                     data.vendorOrders[i].vendor_beforeDiscountTotal = (vendor_beforeDiscountTotal).toFixed(2);
                     data.vendorOrders[i].vendor_afterDiscountTotal  = (vendor_afterDiscountTotal).toFixed(2);
@@ -1407,10 +1466,39 @@ exports.apply_credit_points = (req,res,next)=>{
                     if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
                         vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
                     }
-                    vendor_afterDiscountTotal+=(vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
-                    if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
-                        vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
-                    }    
+                    
+
+                    //======= Product Price without Tax =====
+                    var discountedPrice = data.vendorOrders[i].cartItems[j].product_ID.discountedPrice ;
+                    var quantity = vendorOrders[i].cartItems[j].quantity;
+
+                    //======  TAX Calculation =============
+                    var taxRate = vendorOrders[i].cartItems[j].product_ID.taxRate; 
+                    var inclusiveTaxRate = 1 - (1/(1+ (taxRate/100) )) ;
+
+                    if(vendorOrders[i].cartItems[j].product_ID.taxInclude){
+                        var inclusiveTaxRate = 1 - (1/(1+ (taxRate/100) )) ;
+                        var taxAmount = (
+                                            vendorOrders[i].cartItems[j].product_ID.discountedPrice *
+                                            inclusiveTaxRate *
+                                            vendorOrders[i].cartItems[j].quantity
+                                        );
+                        discountedPrice = (discountedPrice * quantity)  - taxAmount; 
+                        vendor_taxAmount += taxAmount ;
+                    }else{
+                        var taxAmount = (
+                                                vendorOrders[i].cartItems[j].product_ID.discountedPrice *
+                                                (taxRate/100)  *
+                                                vendorOrders[i].cartItems[j].quantity
+                                            );
+                        vendor_taxAmount += taxAmount ;                                
+                        discountedPrice = discountedPrice * quantity ;
+                    }
+
+                    vendor_afterDiscountTotal += discountedPrice;
+
+
+
                     data.vendorOrders[i].cartItems[j].product_ID.isWish = false;
                     if(wish.length > 0){
                         for(var k=0; k<wish.length; k++){

@@ -16,17 +16,19 @@ class VendorList extends Component {
       }
       
     componentDidMount() {
-        $(window).scroll(function() {
-            var topPos = $(this).scrollTop();
-            if (topPos>148){
-                // console.log("$(this).scrollTop()==",$(this).scrollTop());
-                $(".deliveryTimeStrip").css({"position": "relative",
-                "top": topPos});
-            }else{
-                // console.log("$(this).scrollTop()==",$(this).scrollTop());
-                $(".deliveryTimeStrip").css({"position": "relative",
-                "top": 0});
+        var deliveryTimeBar = document.getElementById("deliveryTimeBar");
+        const barTop = deliveryTimeBar.getBoundingClientRect().top;
+
+        window.onscroll = (function() {
+            var sticky = deliveryTimeBar.getBoundingClientRect();
+
+            if (window.scrollY >= 232) {
+                var barTop = window.scrollY - 232 ;
+                deliveryTimeBar.style.top = barTop+"px";
+            } else {
+                deliveryTimeBar.style.top = 0;
             }
+
         });
         
         var url = window.location.href.split('/');
@@ -100,7 +102,7 @@ class VendorList extends Component {
                 <div className={"col-12 NoPadding " +Style.bgHeight} style={{ height: this.state.bgImgHeight }}>                      
                     <div className={Style.blur} style={{ height: this.state.bgImgHeight }}>                      
                         <div className={"col-12 NoPadding "+Style.vendorList} >
-                            <div  className={"col-12 myDiv h-100 bg-success deliveryTimeStrip "+Style.deliveryTimeWrapper}>
+                            <div id="deliveryTimeBar" className={Style.deliveryTimeWrapper}>
                                 <div className="col-12 text-center">
                                     <p className={"col-12 "+Style.deliveryTimeWrapperDesc}>
                                         Delivery time&nbsp;

@@ -368,10 +368,15 @@ exports.user_signup_user_otp = (req, res, next) => {
 					.exec()
 					.then(role => {
 						if (role) {
-							User.find({ "username": emailId.toLowerCase() })
-								.exec()
+							User.find({ "username": emailId.toLowerCase(), 
+											$or : [
+												{authService: { $exists: false }},
+												{authService: ""}
+											]
+								})
 								.then(async(user) => {
 									if (user.length > 0) {
+										console.log("user found => ",user);
 										return res.status(200).json({
 											message: 'This email already used.'
 										});
@@ -532,7 +537,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 					});
 			}
 		} else {
-			res.status(200).json({ message: "Email, pwd and role are mandatory" });
+			res.status(200).json({ message: "Email is mandatory!" });
 		}
 	}else if(username==="MOBILE"){
 		if(req.body.mobNumber && req.body.pwd && req.body.role) {
@@ -544,8 +549,13 @@ exports.user_signup_user_otp = (req, res, next) => {
 					.exec()
 					.then(role => {
 						if (role) {
-							User.find({ "username": mobNumber })
-								.exec()
+							// User.find({ "username": mobNumber })
+							User.find({ "username": mobNumber, 
+											$or : [
+												{authService: { $exists: false }},
+												{authService: ""}
+											]
+								})
 								.then(async(user) => {
 									if (user.length > 0) {
 										return res.status(200).json({
@@ -554,8 +564,13 @@ exports.user_signup_user_otp = (req, res, next) => {
 									} else {
 										var getSameEmailUsers = [];
 										if (req.body.email) {
-											getSameEmailUsers = await User.find({ "profile.email": req.body.email});
-											console.log("getSameEmailUsers => ",getSameEmailUsers)
+											getSameEmailUsers = await User.find({ "profile.email": req.body.email, 
+																					$or : [
+																						{authService: { $exists: false }},
+																						{authService: ""}
+																					]
+																				});
+											 console.log("getSameEmailUsers => ",getSameEmailUsers)
 										}
 										if (getSameEmailUsers.length > 0) {
 											return res.status(200).json({
@@ -687,7 +702,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 					});
 			}
 		} else {
-			res.status(200).json({ message: "Email, pwd and role are mandatory" });
+			res.status(200).json({ message: "Mobile Number is mandatory!" });
 		}
 	}		
 };
@@ -2751,25 +2766,25 @@ exports.set_send_otp = (req, res, next) => {
 	// console.log("req body => ",req.params);
 	
 	User.findOne(
-		{$or:
-			[
+		{$or: [
 				{ "profile.mobile" : req.params.username },
 				{ $and : [
 						{"profile.email"  :  req.params.username},
-						{"profile.email"  :  { $ne : '' }}
+						{"profile.email"  :  { $ne : '' } },
+				 		{$or : [{authService: { $exists: false }}, {authService: ""} ]}
 					]
 				}
-			]
+			],
 		}
 	)
-	.then(user => {
+	.then(user => {		
 		if(user !== null){
 			if (user.authService !== "" && user.authService !== undefined) {
 				res.status(200).json({ 
 					message : "You are not allowed to change your password. Because you are login through " + user.authService
 				});
 			} else {
-					console.log("status", user.profile.status);
+				// console.log("forgot pwd user => ", user);
 	 			if ((user.profile.status).toLowerCase() === "active" || (user.profile.status).toLowerCase() === "unverified") {
 	 				// var otpMobile = getRandomInt(1000, 9999);
 					 var otpMobile = 1234;
@@ -2798,20 +2813,23 @@ exports.set_send_otp = (req, res, next) => {
 									OTP 					: otpMobile
 								}
 							}
-							// console.log("notification formvalues => ",userNotificationValues)
-							var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
-							res.status(200).json({ 
-								message 	: req.params.username.includes("@") ? "OTP sent on your registered email Id" : "OTP sent on your registered mobile number", 
-								ID 		: user._id,
-								profile 	: user.profile 
-							})
-						// } else {
-						// 	res.status(200).json({ 
-						// 		message : "Failed to send OTP", 
-						// 		ID 		: user._id,
-						// 		profile : user.profile 
-						// 	})
-						// }
+							var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+							
+							console.log("notification send_notification_to_user => ",send_notification_to_user);
+							
+							if(send_notification_to_user === 'No event available for this event'){
+								res.status(200).json({ 
+									message : "Failed to send OTP to your " + req.params.username.includes("@") ? "registered email Id" : "registered mobile number",
+									ID 		: user._id,
+									profile : user.profile 
+								})
+							}else{								
+								res.status(200).json({ 
+									message 	: req.params.username.includes("@") ? "OTP sent on your registered email Id" : "OTP sent on your registered mobile number", 
+									ID 			: user._id,
+									profile 	: user.profile 
+								})
+							}
 					})
 					.catch(err => {
 						res.status(500).json({

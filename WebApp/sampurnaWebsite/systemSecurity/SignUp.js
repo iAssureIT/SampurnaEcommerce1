@@ -361,7 +361,9 @@ class SignUp extends Component{
 						<span className="mt-2">
 							<input className="mt-2" type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} />
 						</span>&nbsp;&nbsp;
-						<span className={S.systemSecurityTermsNConditionText} data-toggle="modal" data-target="#termsNconditionsmodal">Terms & Conditions*</span>
+						<span className={S.systemSecurityTermsNConditionText} data-toggle="modal" data-target="#termsNconditionsmodal">
+							<a href="/terms-and-conditions" target="_blank"> Terms & Conditions* </a>
+						</span>
 						<div className="errorMsg mt-1">{this.state.errors.termsNconditions}</div>
 					</div>
 					{
