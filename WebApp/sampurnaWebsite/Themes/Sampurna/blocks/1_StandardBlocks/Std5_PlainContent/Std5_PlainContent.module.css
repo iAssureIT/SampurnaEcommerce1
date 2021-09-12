@@ -66,6 +66,9 @@
 	    font-size: 25px !important;
 		text-align: justify!important;
 	}
+	.stdBlockContentWrapper{
+		padding-left: 87px;
+	}
 }
 
 @media (min-width: 1920px) and (max-width: 2560px)  {
@@ -74,12 +77,19 @@
 	    font-family  : 'Montserrat' !important;
 		text-align: justify!important;
 	}
+	.stdBlockContentWrapper{
+		padding-left: 87px;
+	}
 }
 
 @media (min-width: 2560px){
 	.stdBlockDescription{
 	    font-size: 27px !important;
 		text-align: justify!important;
+	}
+
+	.stdBlockContentWrapper{
+		padding-left: 87px;
 	}
 }
 

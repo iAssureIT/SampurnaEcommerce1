@@ -6,6 +6,17 @@
   font-family:'Montserrat-SemiBold';
   src: url('../../../fonts/Montserrat-SemiBold.ttf');
 }
+@font-face {
+  font-family  : 'Montserrat-Light';
+  font-style   : normal;
+  src          : url("../../../fonts/Montserrat-Light.ttf");
+}
+
+
+.contactUsPhoneNumber{
+  font-family  : 'Montserrat-Light';
+	color: #fff;
+}
 
 .contactUsTrollyMainWrapper{
 	min-height: 1337px;
@@ -43,6 +54,7 @@
 	background-color: #033554;
 	opacity: 1;
 	border-radius: 4px;
+	padding-bottom: 70px;
 }
 .contactusFormInputInsideWrapper{
 	border: none;
@@ -54,7 +66,7 @@
 .contactusFormInputWrapper{
 	color:#033554;
 	font-size: 14px;
-	font-family:'Montserrat-Thin';
+	font-family  : 'Montserrat-Light';
 }
 .getInTouchBtnWrapper{
 	height: 32px;
@@ -67,7 +79,6 @@
 	outline: none;
 	border: none;
 	color: #fff;
-	font-size: 14px;
 	margin-top: 20px;
 }
 .error{
@@ -79,11 +90,11 @@
 .getInTouchSubTitle{
 	color: #fff;
 	font-family: "Montserrat-SemiBold";
-	font-size: 18px;
+	/*font-size: 25px;*/
 }
 .phoneFontAwesomeWrapper, .phoneFontAwesomeWrapper label{
 	color: #fff;
-	font-family:'Montserrat-Thin';
+	font-family  : 'Montserrat-Light';
 	font-size: 13px;
 	cursor: pointer;
 }
@@ -152,7 +163,7 @@
 }
 
 .contactUsPhoneIcon, .contactUsMailIcon{
-	height: 15px;
+	height: 12px;
 }
 
 /*.contactUscontent{
@@ -166,136 +177,91 @@
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
 
-@media (max-width: 320px){  
-
-}
-@media (min-width: 320px) and (max-width: 480px){   
-
-}
-
-@media (min-width: 480px) and (max-width: 640px){   
-
-}
-
-@media (min-width: 640px) and (max-width: 860px){   
-
-}
-
-@media (min-width: 860px) and (max-width: 1280px) {
-    
-}
-
-@media (min-width: 1280px) and (max-width: 1366px) { 
-    
-}
-
-@media (min-width: 1366px) and (max-width: 1440px) { 
-    
-}
-
-@media (min-width: 1440px) and (max-width: 1536px) { 
-    
-}
-
-@media (min-width: 1536px) and (max-width: 1680px) { 
-    
-}
-
-@media (min-width: 1680px) and (max-width: 1920px) { 
-    
-}
-
-@media (min-width: 1920px) and (max-width: 2560px)  {
-    
-}
-
-@media (min-width: 2560px){
-    
-}
-
-/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
-
-
-
-
-
-/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
-
-@media (max-width: 480px){
-  /* No media query for "xs'' since this is the default in Bootstrap 4 because it is "Mobile First" */
-	.contactUsTrollyBreadcumWrapper{
+@media (max-width: 320px){	
+		.contactUsTrollyBreadcumWrapper{
 		height: 100px;
 		background-size: cover;
 	}
 
+	.getInTouchSubTitle{
+				font-size: 18px;
+				opacity: 0.6;
+			}
+
+			.contactUsPhoneIcon, .contactUsMailIcon{
+				height: 20px;
+			}
+
 	.contactusFormWrapperMain{
 		margin-top: 101px;
 	}
-
 }
-
-
-/* [xs] Extra Small Devices [Phone - Portrait, less than 575px] */
-@media (max-width: 575px){
-  /* No media query for "xs'' since this is the default in Bootstrap 4 because it is "Mobile First" */
-}
-
-
-/* [sm] Small Devices [Phone - Landscape, 576px and up] */
-@media (min-width: 576px){
-
-
-
-}
-
-@media (min-width: 567px){
-
-	.contactUsTrollyBreadcumWrapper{
-		height: 150px;
-    	background-size: 100% 120%;
-	}
-
-	.contactusFormWrapperMain{
-		margin-top: 150px;
-	}
-
-	.contactUsTrollyMainWrapper{
-		min-height: 1325px;
-	}
-
-}
-
-
-/* [md] Medium Devices [Tablet - Portrait, 768px and up] */
-@media (min-width: 768px){
-	.contactUsTrollyBreadcumWrapper{
-		height: 200px;
+@media (min-width: 320px) and (max-width: 480px){	
+		.contactUsTrollyBreadcumWrapper{
+		height: 100px;
 		background-size: cover;
 	}
 
+	.getInTouchSubTitle{
+				font-size: 20px;
+				opacity: 0.6;
+			}
+
 	.contactusFormWrapperMain{
-		margin-top: 150px;
+		margin-top: 101px;
 	}
-
-	.contactUsTrollyMainWrapper{
-		min-height: 1267px;
-	}
-
-	.contactusFormWrapperRightSide{
-		height: 448px;
-	}
-
-	.phoneFontAwesomeWrapper label{
-		font-size: 15px;
-	}
-
 }
 
+@media (min-width: 480px) and (max-width: 640px){	
+		.contactUsTrollyBreadcumWrapper{
+			height: 150px;
+	    	background-size: 100% 120%;
+		}
 
-/* [lg] Large Devices [Tablet - Landscape, 992px and up] */
-@media (min-width: 992px){
+		.getInTouchSubTitle{
+				font-size: 22px;
+				opacity: 0.6;
+			}
 
-	.contactUsTrollyMainWrapper{
+		.contactusFormWrapperMain{
+			margin-top: 150px;
+		}
+
+		.contactUsTrollyMainWrapper{
+			min-height: 1325px;
+		}
+}
+
+@media (min-width: 640px) and (max-width: 860px){	
+		.contactUsTrollyBreadcumWrapper{
+			height: 200px;
+			background-size: cover;
+		}
+
+		.contactusFormWrapperMain{
+			margin-top: 150px;
+		}
+
+		.contactUsTrollyMainWrapper{
+			min-height: 1267px;
+		}
+
+		.getInTouchSubTitle{
+				font-size: 24px;
+				opacity: 0.6;
+			}
+
+		.contactusFormWrapperRightSide{
+			height: 448px;
+		}
+
+		.phoneFontAwesomeWrapper label{
+			font-size: 15px;
+		}
+}
+
+@media (min-width: 860px) and (max-width: 1280px) {
+		.contactUsTrollyMainWrapper{
 		min-height: 749px;
 	}
 	.contactUsTrollyBreadcumWrapper{
@@ -335,7 +301,7 @@
 		margin-top: 0px;
 	}
 	.getInTouchSubTitle{
-		font-size: 18px;
+		font-size: 24px;
 	}
 	.phoneFontAwesomeWrapper label{
 		font-size: 14px;
@@ -389,91 +355,128 @@
 	}
 }
 
-
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1200px and up] */
-@media (min-width: 1200px){
-
-	.emailWrapperContactUs{
-		margin-left: 13px;
-	}
-}
-
-
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1366px and up] */
-@media (min-width:1366px){
-
-	.contactUsTrollyMainWrapper{
-		min-height: 740px;
-	}
-
-	.contactusFormWrapperRightSide{
-		min-height: 530px;
-	}
-
-	.emailWrapperContactUsOne{
-		margin-left: 40px;
-		margin-top: -22px;
-	}
-
-	.emailWrapperContactUsTwo{
-		margin-left: 27px;
-	}
-
-	.contactAddress{
+@media (min-width: 1280px) and (max-width: 1366px) { 
+		.emailWrapperContactUs{
 		margin-left: 13px;
 	}
 
-	.contactUsPhoneNumber{
-		padding-left: 35px;
-		margin-top: -21px;
-	}
-
+	.getInTouchSubTitle{
+				font-size: 26px;
+				opacity: 0.6;
+			}
 }
 
+@media (min-width: 1366px) and (max-width: 1440px) { 
+		.contactUsTrollyMainWrapper{
+			min-height: 740px;
+		}
 
-/* [xl] Extra Large Devices [Desktop/Laptop (HD), 1440px and up] */
-@media (min-width:1440px){
+		.contactusFormWrapperRightSide{
+			min-height: 530px;
+		}
 
-	.contactUsTrollyBreadcumWrapper{
-		height: 300px;
-    	background-size: 112% 167%;
-	}
+		.emailWrapperContactUsOne{
+			margin-left: 40px;
+			margin-top: -22px;
+		}
 
-	.contactusFormWrapperMain{
-		margin-top: 227px;
-	}
+		.getInTouchSubTitle{
+				font-size: 26px;
+				opacity: 0.6;
+			}
 
-	.contactusFormWrapperLeftSide{
-		min-height: 530px
-	}
+		.emailWrapperContactUsTwo{
+			margin-left: 27px;
+		}
 
-	.contactUsTrollyMainWrapper{
-		min-height: 798px;
-	}
+		.contactAddress{
+			margin-left: 13px;
+		}
 
-	.emailWrapperContactUsOne{
-		margin-left: 40px;
-		margin-top: -22px;
-	}
-
-	.emailWrapperContactUsTwo{
-		margin-left: 27px;
-	}
-
-	.contactAddress{
-		margin-left: 13px;
-	}
-
-	.contactUsPhoneNumber{
-		padding-left: 35px;
-		margin-top: -21px;
-	}
+		.contactUsPhoneNumber{
+			padding-left: 35px;
+			margin-top: -21px;
+		}
 }
 
-@media (min-width:1536px){
+@media (min-width: 1440px) and (max-width: 1536px) { 
+		.contactUsTrollyMainWrapper{
+			min-height: 740px;
+		}
 
-	.contactUsTrollyBreadcumWrapper{
-		height: 250px;
+		.contactusFormWrapperRightSide{
+			min-height: 530px;
+		}
+
+		.emailWrapperContactUsOne{
+			margin-left: 40px;
+			margin-top: -22px;
+		}
+
+		.getInTouchSubTitle{
+				font-size: 28px;
+				opacity: 0.6;
+			}
+
+		.emailWrapperContactUsTwo{
+			margin-left: 27px;
+		}
+
+		.contactAddress{
+			margin-left: 13px;
+		}
+
+		.contactUsPhoneNumber{
+			padding-left: 35px;
+			margin-top: -21px;
+		}
+}
+
+@media (min-width: 1536px) and (max-width: 1680px) { 
+		.contactUsTrollyBreadcumWrapper{
+			height: 300px;
+	    	background-size: 112% 167%;
+		}
+
+		.contactusFormWrapperMain{
+			margin-top: 227px;
+		}
+
+		.contactusFormWrapperLeftSide{
+			min-height: 530px
+		}
+
+		.contactUsTrollyMainWrapper{
+			min-height: 798px;
+		}
+
+		.emailWrapperContactUsOne{
+			margin-left: 40px;
+			margin-top: -22px;
+		}
+
+		.getInTouchSubTitle{
+				font-size: 28px;
+				opacity: 0.6;
+			}
+
+		.emailWrapperContactUsTwo{
+			margin-left: 27px;
+		}
+
+		.contactAddress{
+			margin-left: 13px;
+		}
+
+		.contactUsPhoneNumber{
+			padding-left: 35px;
+			margin-top: -21px;
+		}
+}
+
+@media (min-width: 1680px) and (max-width: 1920px) { 
+		.contactUsTrollyBreadcumWrapper{
+		height: 428px;
 		background-size: cover;
 	}
 
@@ -494,12 +497,12 @@
 	}
 
 	.contactusFormWrapperMain{
-		margin-top: 200px;
+		margin-top: 300px;
 	}
 
 	.emailWrapperContactUsOne{
 		margin-left: 40px;
-		margin-top: -21px;
+		margin-top: -40px;
 	}
 
 	.emailWrapperContactUsTwo{
@@ -515,12 +518,23 @@
 	}
 
 	.phoneFontAwesomeWrapper{
-		font-size: 12px;
+		font-size: 25px;
 	}
 	
 	.contactUsPhoneNumber{
 		padding-left: 36px;
-		margin-top: -19px;
+		margin-top: -35px;
+		font-size: 25px;	
+	}
+
+	.contactUsPhoneIcon, .contactUsMailIcon{
+		height: 15px;
+		width: 15px;
+	}
+
+	.getInTouchSubTitle{
+		font-size: 30px;
+		opacity: 0.6;
 	}
 
 	.emailWrapperContactUs{
@@ -534,14 +548,10 @@
 	.contactusFormWrapperRightSide{
 		min-height: 488px;
 	}
-
 }
 
-
-/* [xxl] Extra Large Devices [Desktop/Laptop (FHD), 1920px and up] */
-@media (min-width:1920px){
-
-	.contactUsTrollyBreadcumWrapper{
+@media (min-width: 1920px) and (max-width: 2560px)  {
+		.contactUsTrollyBreadcumWrapper{
 		height: 328px;
 		background-size: cover;
 		background-position-y: -123px;
@@ -556,7 +566,7 @@
 	}
 
 	.getInTouchSubTitle{
-		font-size: 60px;
+		font-size: 32px;
 		opacity: 0.6;
 	}
 
@@ -572,7 +582,7 @@
 	    height: 40px;
 	    width: 120px;
 	    margin-top: 20px;
-	    font-size: 16px;
+	    font-size: 20px !important;
 	    border-bottom-left-radius: 29px;
 	    border-bottom-right-radius: 0px;
 	    border-top-left-radius: 29px;
@@ -604,7 +614,13 @@
 	.contactUsPhoneNumber{
 		padding-left: 37px;
 		margin-top: -28px;
+		font-size: 25px;
 		padding-bottom: 6px;
+	}
+
+	.contactUsPhoneIcon, .contactUsMailIcon{
+		height: 15px;
+		width: 15px;
 	}
 
 	.contactusFormWrapperRightSide{
@@ -613,11 +629,8 @@
 
 }
 
-
-
-@media (min-width:2560px){
-
-	.contactUsTrollyBreadcumWrapper{
+@media (min-width: 2560px){
+		.contactUsTrollyBreadcumWrapper{
 		height: 400px;
 		background-position: center;
 		background-size: 100% 180%;
@@ -633,7 +646,7 @@
 	}
 
 	.getInTouchSubTitle{
-		font-size: 26px;
+		font-size: 32px;
 	}
 
 	.contactusFormWrapperLeftSide{
@@ -647,7 +660,7 @@
 	.getInTouchBtnWrapper{
 	    height: 50px;
 	    width: 150px;
-	    font-size: 17px;
+	    font-size: 21px;
 	    margin-top: 10px;
 	    border-bottom-left-radius: 29px;
 	    border-bottom-right-radius: 0px;
@@ -689,6 +702,5 @@
 	    font-size: 20px;
 	}
 }
-
 
 /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
