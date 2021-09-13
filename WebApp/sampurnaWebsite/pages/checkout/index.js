@@ -899,7 +899,7 @@ class Checkout extends Component {
                         }
                         {/* =======================================mb respnsve END=================== */}
 
-                        <div className={"col-10 NoPadding offset-1 d-none d-lg-block d-xl-block " + Style.cartTitle}>Order Summary</div>
+                        <div className={"col-12 d-none d-lg-block d-xl-block " + Style.cartTitle}>Order Summary</div>
                         {/* <Loader type="fullpageloader" /> */}
                         {this.props.loading ?
                             <Loader type="fullpageloader" />

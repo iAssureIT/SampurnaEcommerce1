@@ -361,24 +361,24 @@ class CartProducts extends Component {
                     </div>
                 </div>
 
-                <div className="col-12  ">
-                    <div className="col-12  pl-0">
-                        <div className="col-12 cartHeight">
+                <div className={"col-12  " + Style.noMobilePadding}>
+                    <div className={"col-12  pl-0 " + Style.noMobilePadding}>
+                        <div className={"col-12 cartHeight " + Style.noMobilePadding}>
                             <Loader type="fullpageloader" />
                             <div className="row">                                    
                                     <Message messageData={this.state.messageData} />
                                     {
                                         this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length > 0 ?
-                                            <div className="col-12 pr-0 " style={{ "marginBottom": "20px" }}>
+                                            <div className={"col-12 pr-0 " + Style.noMobilePadding} style={{ "marginBottom": "20px" }}>
                                                 <div className="col-12">
-                                                    <div className="col-12 col-xl-12 col-md-12 table-responsive cartProduct">
+                                                    <div className={"col-12 col-xl-12 col-md-12 table-responsive cartProduct " + Style.noMobilePadding}>
                                                         <div className="table">
-                                                            <div className="col-12">
+                                                            <div className={"col-12 "  + Style.noMobilePadding}>
                                                                 {
                                                                     this.props.recentCartData.vendorOrders.length > 0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData, index) => {
                                                                         return (
                                                                             <div className={"row " + Style.singleRow} key={index}>
-                                                                                <div className={"col-10 offset-1 "+Style.vendorTitle}>
+                                                                                <div className={"col-lg-10 offset-lg-1 "+Style.vendorTitle}>
                                                                                     {vendorWiseCartData.vendor_id.companyName}
                                                                                 </div>
 
@@ -399,9 +399,9 @@ class CartProducts extends Component {
                                                                                     }
                                                                                     <div className={"col-12 col-xl-9 " + Style.singleVendorBox}>
                                                                                         <div className="row ">
-                                                                                            <div className={"col-6 "+Style.tableHeading}>Product</div>
-                                                                                            <div className={"col-3 "+Style.tableHeading}>Quantity</div>
-                                                                                            <div className={"col-3 "+Style.tableHeading}>Total Price</div>
+                                                                                            <div className={"col-5  col-md-6 "+Style.tableHeading}>Product</div>
+                                                                                            <div className={"col-3 col-md-3 "+Style.tableHeading}>Quantity</div>
+                                                                                            <div className={"col-4 col-md-3 "+Style.tableHeading}>Total Price</div>
                                                                                         </div>
 
                                                                                         <div className={"col-12 " + Style.cardHeadingWrapper}></div>
@@ -413,14 +413,14 @@ class CartProducts extends Component {
                                                                                                 <div key={index}>
                                                                                                     <div className="col-12 mt-4">
                                                                                                         <div className={"row mb-4"}>
-                                                                                                            <div className="col-6 col-sm-6 col-md-6 col-lg-2 col-xl-2 pl-0">
+                                                                                                            <div className="col-2 col-md-2 col-lg-2 col-xl-2 pl-0">
                                                                                                                 <div className="row">
                                                                                                                     <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/" + vendorWiseCartData.vendorLocation_id + "/"+categoryUrl+"/"+subCategoryUrl+"/" + vendorData.product_ID._id}>
                                                                                                                         <img className={"img mt-1 col-12 "+Style.cartProductImg} src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.png"} alt="ProductImg" />
                                                                                                                     </a>
                                                                                                                 </div>
                                                                                                             </div>
-                                                                                                            <div className={"col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 cartProductDetail my-3 "+ Style.productDetails}>
+                                                                                                            <div className={"col-3 col-md-4 col-lg-4 col-xl-4 cartProductDetail my-3 "+ Style.productDetails}>
                                                                                                                 <div className="row">
                                                                                                                     {
                                                                                                                         vendorData.product_ID.brand
@@ -464,11 +464,11 @@ class CartProducts extends Component {
                                                                                                                     </div> */}
                                                                                                                 </div>
                                                                                                             </div>
-                                                                                                            <div className="nowrap col-12 col-sm- col-sx-12 col-md-4 col-lg-3 col-xl-2 mb-3 pr-0 ">
+                                                                                                            <div className="nowrap col-3 col-md-2 col-lg-3 col-xl-2 mb-3 pr-0 ">
                                                                                                                 {
                                                                                                                     vendorData.product_ID.availableQuantity > 0 
                                                                                                                     ?
-                                                                                                                        <div className={"my-3 pt-1 text-left mx-2 "+Style.quantityWrapper}>
+                                                                                                                        <div className={"my-3 pt-1 text-left mx-2 "+ Style.quantityWrapper}>
                                                                                                                             <span className=" pr-2 fa fa-minus cartPrice cursor-pointer" id={vendorData.product_ID._id} vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity}
                                                                                                                                 onClick={this.cartquantitydecrease.bind(this)}></span>&nbsp;
                                                                                                                             <span className="">{this.state['quantityAdded|' + vendorData._id] ? this.state['quantityAdded|' + vendorData._id] : vendorData.quantity}</span>&nbsp;
@@ -483,7 +483,7 @@ class CartProducts extends Component {
                                                                                                                         <span className="sold textAlignCenter">SOLD OUT</span>
                                                                                                                 }
                                                                                                             </div>
-                                                                                                            <div className="nowrap col-6 col-sm-12 col-sx-12 col-md-4 col-lg-2 col-xl-3 my-3 text-right pl-0 pr-0">
+                                                                                                            <div className="nowrap col-2 col-md-3 col-lg-2 col-xl-3 my-3 text-right pl-0 pr-0">
                                                                                                                 {
                                                                                                                     vendorData.product_ID.availableQuantity > 0 ?                                                                                                                        
                                                                                                                         <div className="col-12 pl-0 pr-0">
@@ -515,37 +515,38 @@ class CartProducts extends Component {
                                                                                                                         <span>-</span>
                                                                                                                 }
                                                                                                             </div>
-                                                                                                            <div className="col-6 col-sm-12 col-xs-12 col-md-4 col-lg-1 col-xl-1 text-center my-3 ">
+                                                                                                            <div className={"col-1 col-md-1 col-lg-1 col-xl-1 text-center my-0 " + Style.iconsDiv}>
                                                                                                                 {vendorData.product_ID.isWish===true?
                                                                                                                     // <span className={"fa fa-heart "+Style.cartWishlistRed}
+
                                                                                                                     <img  src="/images/eCommerce/heartSolid.svg"
-                                                                                                                          className="cursor-pointer"
+                                                                                                                          className={"cursor-pointer "+ Style.cartHeartIcon}
                                                                                                                           id={vendorData.product_ID._id}
                                                                                                                           vendorid={vendorWiseCartData.vendor_id._id} 
                                                                                                                           vendorLocation_id={vendorWiseCartData.vendorLocation_id} 
                                                                                                                           onClick={this.addtowishlist.bind(this)}
-                                                                                                                          style={{ width: "15px" }}
+                                                                                                                          // style={{ width: "15px" }}
                                                                                                                     />
                                                                                                                 :
                                                                                                                     // <span className={"far fa-heart "+Style.cartWishlist}
                                                                                                                     <img  src="/images/eCommerce/blackHeart.svg"
-                                                                                                                          className="cursor-pointer"
+                                                                                                                          className={"cursor-pointer " + Style.cartHeartIcon}
                                                                                                                           id={vendorData.product_ID._id} 
                                                                                                                           vendorid={vendorWiseCartData.vendor_id._id} 
                                                                                                                           vendorLocation_id={vendorWiseCartData.vendorLocation_id} 
                                                                                                                           onClick={this.addtowishlist.bind(this)} 
-                                                                                                                          style={{width: "15px" }}
+                                                                                                                          // style={{width: "15px" }}
                                                                                                                     />
                                                                                                                     
                                                                                                                 }
-                                                                                                                <br/><br/>
+                                                                                                                
                                                                                                                 {/* <span className={"fa fa-trash "+Style.trashIcon}  */}
                                                                                                                 <img  src="/images/eCommerce/trash.svg"
-                                                                                                                      className="cursor-pointer"
+                                                                                                                      className={"cursor-pointer " + Style.cartDeleteIcon }
                                                                                                                       id={vendorData._id} 
                                                                                                                       vendorid={vendorWiseCartData.vendor_id._id} 
                                                                                                                       onClick={this.Removefromcart.bind(this)}
-                                                                                                                      style={{ width: "15px" }}
+                                                                                                                      // style={{ width: "15px" }}
                                                                                                                 />
                                                                                                             </div>
                                                                                                         </div>
@@ -567,13 +568,13 @@ class CartProducts extends Component {
                                                                                         <table className="table table-responsive summaryTable">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td className={"col-7 "+ Style.vendorWiseinnerTitle}>Sub Total</td>
-                                                                                                    <td className={"col-2"}>
+                                                                                                    <td className={"col-8 col-lg-7 "+ Style.vendorWiseinnerTitle}>Sub Total</td>
+                                                                                                    <td className={"col-2 col-lg-2 "}>
                                                                                                         <div className={Style.currency}>
                                                                                                             <b>{this.state.currency}</b>
                                                                                                         </div> 
                                                                                                     </td>
-                                                                                                    <td className={"col-3"}>
+                                                                                                    <td className={"col-2 col-lg-3"}>
                                                                                                         <div className={Style.amount}>
                                                                                                             <b> {
                                                                                                                     vendorWiseCartData.vendor_afterDiscountTotal > 0 
@@ -626,7 +627,7 @@ class CartProducts extends Component {
                                                                                                         <span className={"col-12 "+ Style.cartTotalLineWrapper}></span>
                                                                                                     </td>
                                                                                                 </tr>
-                                                                                                <tr>
+                                                                                                <tr className={Style.cartTotalIpad}>
                                                                                                     <td className="col-7 cartTotal"> <b>Totals</b> </td>
                                                                                                     <td className={"col-2"}>
                                                                                                         <div className={Style.currency}>
@@ -650,13 +651,13 @@ class CartProducts extends Component {
                                                                 }
                                                             </div>
 
-                                                            <div className="col-12 CouponCode">
+                                                            <div className={"col-12 CouponCode " }>
                                                                 <div className="row ">
                                                                     <div className="col-12 col-sm-12 col-sx-12 col-md-12 col-lg-8 col-xl-8  mt-1 mb-3 text-center">
 
                                                                     </div>
-                                                                    <div className="col-12 col-sm-8 mx-auto col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-4 col-xl-4 NoPadding">
-                                                                        <div className={"col-12  " + Style.cartSummary1}>
+                                                                    <div className={"col-12 mx-auto   offset-lg-1 col-lg-4 col-xl-4 NoPadding " + Style.noMobilePadding}>
+                                                                        <div className={"col-12  " + Style.cartSummary1 + " " + Style.noMobilePadding}>
                                                                             <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                                                 <div className="row">
                                                                                     <div className={"col-8 " + Style.cartInnerTitleWrapper}>Total Amount</div>
@@ -734,10 +735,10 @@ class CartProducts extends Component {
                                                                             </div>
                                                                             <div className="col-12 pull-right">
                                                                                 <div className="row">
-                                                                                    <div className={"col-7 " + Style.cartInnerTitleWrapperOfGrandTotal}>
+                                                                                    <div className={"col-8 col-lg-7 " + Style.cartInnerTitleWrapperOfGrandTotal}>
                                                                                         Grand Total
                                                                                     </div>
-                                                                                    <div className={"col-5 " + Style.cartInnerCurrencyWrapper1}>
+                                                                                    <div className={"col-4 col-lg-5 " + Style.cartInnerCurrencyWrapper1}>
                                                                                         <div className={Style.summeryTotCurrency}>{this.state.currency}</div>
                                                                                         <div className={Style.summeryTotAmount}>{this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount.toFixed(2) : "0.00"}</div>
                                                                                     </div>
@@ -750,14 +751,14 @@ class CartProducts extends Component {
                                                                                     this.props.recentCartData.cartBtnDisabled 
                                                                                     ?
                                                                                         <div className="col-12 NoPadding">
-                                                                                            <button onClick={this.proceedToCheckout.bind(this)} className={"col-12 btn  blockcartCheckout disableBtn " + Style.checkoutBtn} disabled>
+                                                                                            <button onClick={this.proceedToCheckout.bind(this)} className={"btn  blockcartCheckout disableBtn " + Style.checkoutBtn} disabled>
                                                                                                 PROCEED TO CHECKOUT
                                                                                             </button>
                                                                                         </div>
                                                                                     :
 
                                                                                         <div className="col-12 NoPadding">
-                                                                                            <button className={"col-12 btn checkoutBtn blockcartCheckout " + Style.checkoutBtn}
+                                                                                            <button className={" btn checkoutBtn blockcartCheckout " + Style.checkoutBtn}
                                                                                                 onClick={this.proceedToCheckout.bind(this)}>
                                                                                                 Proceed to Checkout
                                                                                             </button>

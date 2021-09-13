@@ -18,7 +18,7 @@ class Cart extends Component{
             <Header/>
             <div className={"col-12 "+Style.cartWrapper}>
                 <div className="row">                    
-                    <div className={"col-lg-10 offset-lg-1 NoPadding " +Style.cartTitle}>Shopping Cart</div>
+                    <div className={"col-12  " +Style.cartTitle}>Shopping Cart</div>
                     <CartProducts />                    
                 </div>
               </div>
