@@ -129,6 +129,10 @@
     .wishListMainTitle {
         font-size: 18px;
     }
+
+    .areaName {
+        font-size: 15px;
+    }
 } 
 
 @media only screen and (min-device-width: 1024px) {
@@ -136,35 +140,72 @@
     .wishListMainTitle {
         font-size: 19px;
     }
+
+    .areaName {
+        font-size: 16px;
+    }
 }
 
+@media only screen and (min-device-width: 1280px) {
+    
+    .wishListMainTitle {
+        font-size: 24px;
+    }
+
+    .areaName {
+        font-size: 16px;
+    }
+}   
 
 @media only screen and (min-device-width: 1366px) {
     
     .wishListMainTitle {
-        font-size: 20px;
+        font-size: 27px;
+    }
+
+    .areaName {
+        font-size: 17px;
     }
 }   
-
 
 @media only screen and (min-device-width: 1440px) {
     
     .wishListMainTitle {
-        font-size: 21px;
+        font-size: 30px;
+    }
+
+    .areaName {
+        font-size: 18px;
     }
 }   
 
 @media only screen and (min-device-width: 1536px) {
     
     .wishListMainTitle {
-        font-size: 22px;
+        font-size: 31px;
     }
-}    
+
+    .areaName {
+        font-size: 19px;
+    }
+}
+
+@media only screen and (min-device-width: 1680px) {
+    
+    .wishListMainTitle {
+        font-size: 32px;
+    }
+
+
+    .areaName {
+        font-size: 20px;
+    }
+}     
 
 @media only screen and (min-device-width: 1920px) {
     
     .wishListMainTitle {
-        font-size: 25px;
+        font-size: 37px;
     }
 
     .areaName {

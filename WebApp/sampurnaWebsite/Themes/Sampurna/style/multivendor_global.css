@@ -1161,7 +1161,7 @@ option:focus, option:active{
 @media only screen and (min-device-width: 1280px) {
 
   .globalAddToCartBtn{
-    font-size: 15px;
+    font-size: 14px;
     font-family: "Montserrat-Regular";
     font-weight: 500;
   }
@@ -1210,7 +1210,7 @@ option:focus, option:active{
   }
 
   .globalAddToCartBtn{
-    font-size: 16px;
+    font-size: 15px;
   }
 
 }  
@@ -1257,7 +1257,7 @@ option:focus, option:active{
   }
 
   .globalAddToCartBtn{
-    font-size: 17px;
+    font-size: 16px;
   }
 
 
@@ -1307,7 +1307,7 @@ option:focus, option:active{
   }
 
   .globalAddToCartBtn{
-    font-size: 18px;
+    font-size: 17px;
   }
 
 
@@ -1326,7 +1326,7 @@ option:focus, option:active{
   }
 
   .globalAddToCartBtn{
-    font-size: 19px;
+    font-size: 18px;
   }
 
 }
