@@ -377,13 +377,13 @@ font-weight: bolder;
     font-size: 9px;
   }
 
-  .discounttag {
+/*  .discounttag {
     font-size: 8px;
     margin-top: -5px;
     padding-left: 16px;
     padding-top: 8px;
     margin-left: 12px; 
-  }
+  }*/
 
   .NoAvailableImg{
     height: 75px;
@@ -394,85 +394,12 @@ font-weight: bolder;
 
 @media only screen and (min-device-width: 1024px) {
 
-  .discounttag {
-    padding-left: 15px;
-  }
-
-  .wishIcon{ 
-    /* left: 134px; */
-    left: 126px;
-    top: 5px;
-  }
-
-  .ImgWrapper {
-    height: 129px;
-  }
-
-  .NoAvailableImg{
-    height: 100px;
-  }
-
-}  
-
-
-@media only screen and (min-device-width: 1366px) {
-
-  .wishIcon{ 
-    left: 140px;
-    top: 4px;
-  }
-
-  .ImgWrapper{
-    height: 150px;
-  }
-
-  .NoAvailableImg{
-    height: 122px;
-  }
-}
-
-
-@media only screen and (min-device-width: 1440px) {
-
-  .wishIcon{ 
-    left: 133px;
-    top: 9px;
-  }
-
-  .ImgWrapper{
-    height: 150px;
-  }
-
-  .NoAvailableImg{
-    height: 119px;
-  }
-}
-
-
-
-@media only screen and (min-device-width: 1536px) {
-
-  .wishIcon{ 
-    left: 148px;
-  }
-
-  .ImgWrapper{
-    height: 158px;
-  }
-
-  .NoAvailableImg{
-    height: 127px;
-  }
-
-}
-
-@media only screen and (min-device-width: 1920px) {
   .globalAddToCartBtn {
-      font-size: 13px;
+    font-size: 13px;
   }
 
-   .ellipsis{
-      font-size: 17px;
+  .ellipsis{
+    font-size: 17px;
   }
 
   .sizeUnitName{
@@ -484,22 +411,325 @@ font-weight: bolder;
   }
 
   .wishIcon{ 
-    position: absolute;
-    left: 213px;
-    top: 12px;
-    border: transparent;
-    
-    z-index: 1;
-    background: transparent;
-    font-weight: 700;
+    left: 78px;
+    top: 8px;
   }
 
+  .discounttag{
+    width: 38px;
+    height: 56px;
+    font-size: 10px;
+    padding-top: 9px;
+    top: -7px;
+    left: 17px;
+    padding-left: 7px;
+  }
+
+  .offTxt {
+    font-size: 10px;
+  }
+  
+  .ImgWrapper{
+    height: 121px;
+    margin-top: 40px;
+  }
+
+  .NoAvailableImg{
+    height: 94px;
+  }
+
+  .productBlock {
+      height: 286px;
+  }
+
+   .productWrapper{
+      margin-bottom: 37px !important;
+  }
+
+}  
+
+
+@media only screen and (min-device-width: 1366px) {
+
+  .globalAddToCartBtn {
+    font-size: 13px;
+  }
+
+  .ellipsis{
+    font-size: 17px;
+  }
+
+  .sizeUnitName{
+    font-size: 14px;
+  }
+
+  .price{
+    font-size: 16px;
+  }
+
+  .wishIcon{ 
+    left: 96px;
+    top: 8px;
+  }
+
+  .discounttag{
+    width: 70px;
+    height: 70px;
+    font-size: 12px;
+    padding-top: 9px;
+    top: -7px;
+    left: 13px;
+    padding-left: 7px;
+  }
+
+  .offTxt {
+    font-size: 12px;
+  }
+  
+  .ImgWrapper{
+    height: 137px;
+    margin-top: 40px;
+  }
+
+  .NoAvailableImg{
+    height: 107px;
+  }
+
+  .productBlock {
+      height: 305px;
+  }
+
+   .productWrapper{
+      margin-bottom: 37px !important;
+  }
+
+}
+
+
+@media only screen and (min-device-width: 1440px) {
+
+  .globalAddToCartBtn {
+    font-size: 13px;
+  }
+
+  .ellipsis{
+    font-size: 17px;
+  }
+
+  .sizeUnitName{
+    font-size: 14px;
+  }
+
+  .price{
+    font-size: 16px;
+  }
+
+  .wishIcon{ 
+    left: 96px;
+    top: 8px;
+  }
+
+  .discounttag{
+    width: 70px;
+    height: 70px;
+    font-size: 12px;
+    padding-top: 9px;
+    top: -7px;
+    left: 13px;
+    padding-left: 7px;
+  }
+
+  .offTxt {
+    font-size: 12px;
+  }
+  
+  .ImgWrapper{
+    height: 137px;
+    margin-top: 40px;
+  }
+
+  .NoAvailableImg{
+    height: 107px;
+  }
+
+  .productBlock {
+      height: 305px;
+  }
+
+   .productWrapper{
+      margin-bottom: 37px !important;
+  }
+
+}
+
+
+
+@media only screen and (min-device-width: 1536px) {
+
+  .globalAddToCartBtn {
+    font-size: 13px;
+  }
+
+  .ellipsis{
+    font-size: 17px;
+  }
+
+  .sizeUnitName{
+    font-size: 14px;
+  }
+
+  .price{
+    font-size: 16px;
+  }
+
+  .wishIcon{ 
+    left: 115px;
+    top: 8px;
+  }
+
+  .discounttag{
+    width: 70px;
+    height: 70px;
+    font-size: 12px;
+    padding-top: 9px;
+    top: -7px;
+    left: 13px;
+    padding-left: 7px;
+  }
+
+  .offTxt {
+    font-size: 12px;
+  }
+  
+  .ImgWrapper{
+    height: 153px;
+    margin-top: 40px;
+  }
+
+  .NoAvailableImg{
+    height: 126px;
+  }
+
+  .productBlock {
+      height: 323px;
+  }
+
+   .productWrapper{
+      margin-bottom: 37px !important;
+  }
+
+}
+
+
+@media only screen and (min-device-width: 1680px) {
+  
+  .globalAddToCartBtn {
+    font-size: 13px;
+  }
+
+  .ellipsis{
+    font-size: 17px;
+  }
+
+  .sizeUnitName{
+    font-size: 14px;
+  }
+
+  .price{
+    font-size: 16px;
+  }
+
+  .wishIcon{ 
+    left: 135px;
+    top: 12px;
+  }
+
+  .discounttag{
+    width: 70px;
+    height: 70px;
+    font-size: 12px;
+    padding-top: 9px;
+    top: -7px;
+    left: 8px;
+    padding-left: 13px;
+  }
+
+  .offTxt {
+    font-size: 12px;
+  }
+  
+  .ImgWrapper{
+    height: 170px;
+    margin-top: 30px;
+  }
+
+  .NoAvailableImg{
+    height: 140px;
+  }
+
+  .productBlock {
+      height: 332px;
+  }
+
+   .productWrapper{
+      margin-bottom: 37px !important;
+  }
+
+}
+
+
+@media only screen and (min-device-width: 1920px) {
+  
+  .globalAddToCartBtn {
+    font-size: 13px;
+  }
+
+  .ellipsis{
+    font-size: 17px;
+  }
+
+  .sizeUnitName{
+    font-size: 14px;
+  }
+
+  .price{
+    font-size: 16px;
+  }
+
+  .wishIcon{ 
+    left: 172px;
+    top: 12px;
+  }
+
+  .discounttag{
+    width: 70px;
+    height: 70px;
+    font-size: 12px;
+    padding-top: 8px;
+    top: -7px;
+    left: 6px;
+    padding-left: 13px;
+  }
+
+  .offTxt {
+    font-size: 12px;
+  }
+  
   .ImgWrapper{
     height: 200px;
+    margin-top: 25px;
   }
 
   .NoAvailableImg{
     height: 165px;
+  }
+
+  .productBlock {
+      height: 359px;
+  }
+
+   .productWrapper{
+      margin-bottom: 37px !important;
   }
 
 }
@@ -507,17 +737,56 @@ font-weight: bolder;
 
 @media only screen and (min-device-width: 2560px) {
 
-  .wishIcon{ 
-    left: 339px;
-    top: 12px;
-  }  
+  .globalAddToCartBtn {
+    font-size: 13px;
+  }
 
+  .ellipsis{
+    font-size: 17px;
+  }
+
+  .sizeUnitName{
+    font-size: 14px;
+  }
+
+  .price{
+    font-size: 16px;
+  }
+
+  .wishIcon{ 
+    left: 292px;
+    top: 12px;
+  }
+
+  .discounttag{
+    width: 80px;
+    height: 90px;
+    font-size: 13px;
+    padding-top: 8px;
+    top: -7px;
+    left: 3px;
+    padding-left: 13px;
+  }
+
+  .offTxt {
+    font-size: 13px;
+  }
+  
   .ImgWrapper{
-    height: 234px;
+    height: 200px;
+    margin-top: 25px;
   }
 
   .NoAvailableImg{
-    height: 200px;
+    height: 165px;
+  }
+
+  .productBlock {
+      height: 359px;
+  }
+
+   .productWrapper{
+      margin-bottom: 37px !important;
   }
 
 }  

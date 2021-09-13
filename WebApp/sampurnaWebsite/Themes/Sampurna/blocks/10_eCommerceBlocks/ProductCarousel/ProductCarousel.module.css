@@ -2561,6 +2561,15 @@
     padding: 12px 0px 0px 36px;
   }
 
+
+
+
+
+
+  .wishlistBlockBorder {
+    padding: 30px 20px 0px 20px !important;
+  }
+
 }  
 
 @media only screen and (min-device-width: 1366px) {
@@ -2681,6 +2690,13 @@
     padding: 12px 0px 0px 39px;
   }
 
+
+
+
+  .wishlistBlockBorder {
+    padding: 30px 20px 0px 20px !important;
+  }
+
 } 
 
 @media only screen and (min-device-width: 1440px) {
@@ -2799,6 +2815,13 @@
 
   .panelHeading{
     padding: 12px 0px 2px 44px;
+  }
+
+
+
+
+  .wishlistBlockBorder {
+    padding: 30px 30px 0px 30px !important;
   }
 
 } 
@@ -2922,6 +2945,14 @@
     padding: 12px 0px 0px 44px;
   }
 
+
+
+
+
+  .wishlistBlockBorder {
+    padding: 30px 30px 0px 30px !important;
+  }
+
 }  
 
 @media only screen and (min-device-width: 1680px) {
@@ -3034,6 +3065,15 @@
 
   .panelHeading{
     padding: 24px 0px 12px 34px;
+  }
+
+
+
+
+
+
+  .wishlistBlockBorder {
+    padding: 30px 40px 0px 40px !important;
   }
 
 }
@@ -3165,6 +3205,15 @@
     padding: 31px 0px 7px 33px;
   }
 
+
+
+
+
+
+  .wishlistBlockBorder {
+    padding: 30px 50px 0px 50px !important;
+  }
+
 }  
 
 @media only screen and (min-device-width: 2560px) {
@@ -3294,6 +3343,10 @@
 
   .panelHeading{
     padding: 37px 0px 12px 70px;
+  }
+
+  .wishlistBlockBorder {
+    padding: 30px 50px 0px 50px !important;
   }
 
 }

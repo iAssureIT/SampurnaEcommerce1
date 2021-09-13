@@ -68,7 +68,7 @@ class Wishlist extends Component {
             <div className={"col-12 NoPadding"}>
               <div className="col-12 table-caption">
                   <div className="col-12 pl-lg-0 pl-md-0">
-                    <span className="table-caption wishListMainTitle pb-xl-3 pl-xl-2 pb-md-2 pb-lg-2 pb-3"> My Wishlist</span>
+                    <span className="table-caption wishListMainTitle pb-xl-3 pl-xl-0 pb-md-2 pb-lg-2 pb-3"> My Wishlist</span>
                   </div>
               </div>
               {
@@ -76,9 +76,9 @@ class Wishlist extends Component {
                 this.props.recentWishlistData.map((areaWiseWishlist, index) => {  
                    return(
                       <div className="col-12 mb-4" key={index}> 
-                          <div className="col-12 areaName mt-lg-1 mt-4 pb-3 pl-lg-0 mt-md-0"><i className="fas fa-map-marker-alt" aria-hidden="true"></i>    &nbsp;&nbsp;{areaWiseWishlist.areaName}</div>
+                          <div className="col-12 areaName mt-lg-1 mt-4 pb-3 pb-xl-2 pl-lg-0 mt-md-0"><i className="fas fa-map-marker-alt" aria-hidden="true"></i>    &nbsp;&nbsp;{areaWiseWishlist.areaName}</div>
 
-                          <div className={"col-12 pt-4 mx-0 px-xl-4 "+Style.wishlistBlockBorder}>
+                          <div className={"col-12 pt-4 "+Style.wishlistBlockBorder}>
 
                                 {areaWiseWishlist && areaWiseWishlist.products && areaWiseWishlist.products.length > 0
                                 ?

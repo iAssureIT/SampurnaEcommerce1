@@ -233,8 +233,8 @@ class SingleProduct extends Component{
         <div className="col-12">
           <div className="row">
             {/* <Message messageData={this.state.messageData} />  */}
-            <div className={" col-12  NoPadding " +Style.mobileViewPadding +" "+Style.productWrapper} > 
-                <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
+            <div className={" col-12 " +Style.mobileViewPadding +" "+Style.productWrapper} > 
+                <div className={"col-12 " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                 <div className={"col-12 NoPadding"}>
                     <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
                     <div className={"col-12 NoPadding " +Style.wishlistBtn}>
