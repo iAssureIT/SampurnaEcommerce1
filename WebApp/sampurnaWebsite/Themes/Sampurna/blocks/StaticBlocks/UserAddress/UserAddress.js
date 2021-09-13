@@ -32,11 +32,16 @@ class UserAddress extends Component {
         // Return null to indicate no change to state.
         return null;
       }
-    
+      static getDerivedStateFromProps(props, state) {
+        return {addressId: props.addressId };
+        this.getUserDetails();
+      }
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.addressId !== prevProps.addressId) {
+        if (this.props.addressId !== prevProps.addressId){
             this.getUserDetails();
+            console.log("inside componentDidUpdate");
         }
+        // this.getUserDetails();
     }
     
     componentDidMount(){  
@@ -66,7 +71,7 @@ class UserAddress extends Component {
         axios.get("/api/ecommusers/" +this.state.user_ID)
             .then((response) => {
             if(response){
-                console.log("user response ",response);
+                // console.log("user response ",response);
                 if(this.state.addressId){
                     var deliveryAddress = response.data.deliveryAddress.filter((a) => String(a._id) === String(this.state.addressId));
                     if(deliveryAddress){

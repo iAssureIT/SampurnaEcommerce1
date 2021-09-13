@@ -254,6 +254,7 @@
   background-color: #CBCBCB;
   color           : #000;
   border-radius   : 6px;
+  font-family: "Montserrat-SemiBold";
   outline         : none !important;
   box-shadow      : none;
   border          : none !important;
@@ -618,7 +619,7 @@
   overflow     : hidden;
   display      : block;
   font-size    : 14px;
-  font-family: 'Montserrat-Regular';
+  font-family: 'Montserrat-Medium';
 }
 
 .wishIcon {
@@ -1438,7 +1439,7 @@
 
   .pcButtonwrapper {
     font-size: 14px;
-    font-family: "Montserrat-Medium";
+    font-family: "Montserrat-SemiBold";
     padding: 6px;
     height: 34px;
   }
@@ -1503,7 +1504,6 @@
     padding-left: 12px;
     top: -7px;
     left: 3px;
-    font-family: "Montserrat-Medium";
   }
 
   .offTxt {
@@ -1534,7 +1534,6 @@
   .labelCategory {
     font-size : 14px;
     background-color: #eee;
-    font-family: "Montserrat-Regular";
   }
 
   .ellipsis {
@@ -1549,12 +1548,10 @@
 
   .oldprice {
     font-size: 11px;
-    font-family: "Montserrat-SemiBold";
   }
 
   .price{
     font-size: 11px;
-    font-family: "Montserrat-ExtraBold";
   }
 
   .productBlock .ImgWrapper{
@@ -1576,7 +1573,6 @@
 
   .pcButtonwrapper {
     font-size: 14px;
-    font-family: "Montserrat-Medium";
     padding: 6px;
     height: 34px;
   }
@@ -1640,7 +1636,6 @@
     padding-left: 12px;
     top: -7px;
     left: 3px;
-    font-family: "Montserrat-Medium";
   }
 
   .offTxt {
@@ -1671,7 +1666,6 @@
   .labelCategory {
     font-size : 14px;
     background-color: #eee;
-    font-family: "Montserrat-Regular";
   }
 
   .ellipsis {
@@ -1686,12 +1680,10 @@
 
   .oldprice {
     font-size: 11px;
-    font-family: "Montserrat-SemiBold";
   }
 
   .price{
     font-size: 11px;
-    font-family: "Montserrat-ExtraBold";
   }
 
   .productBlock .ImgWrapper{
@@ -1713,7 +1705,6 @@
 
   .pcButtonwrapper {
     font-size: 14px;
-    font-family: "Montserrat-Medium";
     padding: 6px;
     height: 34px;
   }
@@ -1778,7 +1769,6 @@
     padding-left: 12px;
     top: -7px;
     left: 2px;
-    font-family: "Montserrat-Medium";
   }
 
   .offTxt {
@@ -1809,7 +1799,6 @@
   .labelCategory {
     font-size : 14px;
     background-color: #eee;
-    font-family: "Montserrat-Regular";
   }
 
   .ellipsis {
@@ -1824,12 +1813,10 @@
 
   .oldprice {
     font-size: 11px;
-    font-family: "Montserrat-SemiBold";
   }
 
   .price{
     font-size: 11px;
-    font-family: "Montserrat-ExtraBold";
   }
 
   .productBlock .ImgWrapper{
@@ -1851,7 +1838,6 @@
 
   .pcButtonwrapper {
     font-size: 14px;
-    font-family: "Montserrat-Medium";
     padding: 6px;
     height: 34px;
   }
@@ -1934,7 +1920,6 @@
     padding-left: 12px;
     top: -7px;
     left: 13px;
-    font-family: "Montserrat-Medium";
   }
 
   .offTxt {
@@ -1965,7 +1950,6 @@
   .labelCategory {
     font-size : 14px;
     background-color: #eee;
-    font-family: "Montserrat-Regular";
   }
 
   .ellipsis {
@@ -1980,12 +1964,10 @@
 
   .oldprice {
     font-size: 11px;
-    font-family: "Montserrat-SemiBold";
   }
 
   .price{
     font-size: 11px;
-    font-family: "Montserrat-ExtraBold";
   }
 
   .productBlock .ImgWrapper{
@@ -2007,7 +1989,6 @@
 
   .pcButtonwrapper {
     font-size: 14px;
-    font-family: "Montserrat-Medium";
     padding: 6px;
     height: 34px;
   }
@@ -2089,7 +2070,6 @@
     padding-left: 12px;
     top: -7px;
     left: 13px;
-    font-family: "Montserrat-Medium";
   }
 
   .offTxt {
@@ -2120,7 +2100,6 @@
   .labelCategory {
     font-size : 14px;
     background-color: #eee;
-    font-family: "Montserrat-Regular";
   }
 
   .ellipsis {
@@ -2135,12 +2114,10 @@
 
   .oldprice {
     font-size: 11px;
-    font-family: "Montserrat-SemiBold";
   }
 
   .price{
     font-size: 11px;
-    font-family: "Montserrat-ExtraBold";
   }
 
   .productBlock .ImgWrapper{
@@ -2162,7 +2139,6 @@
 
   .pcButtonwrapper {
     font-size: 14px;
-    font-family: "Montserrat-Medium";
     padding: 6px;
     height: 34px;
   }
@@ -2221,7 +2197,6 @@
     padding-left: 12px;
     top: -7px;
     left: 13px;
-    font-family: "Montserrat-Medium";
   }
 
   .offTxt {
@@ -2252,7 +2227,6 @@
   .labelCategory {
     font-size : 14px;
     background-color: #eee;
-    font-family: "Montserrat-Regular";
   }
 
   .ellipsis {
@@ -2267,12 +2241,10 @@
 
   .oldprice {
     font-size: 11px;
-    font-family: "Montserrat-SemiBold";
   }
 
   .price{
     font-size: 11px;
-    font-family: "Montserrat-ExtraBold";
   }
 
   .productBlock .ImgWrapper{
@@ -2294,7 +2266,6 @@
 
   .pcButtonwrapper {
     font-size: 14px;
-    font-family: "Montserrat-Medium";
     padding: 6px;
     height: 34px;
   }
@@ -2367,7 +2338,6 @@
     padding-left: 12px;
     top: -7px;
     left: 13px;
-    font-family: "Montserrat-Medium";
   }
 
   .offTxt {
@@ -2398,7 +2368,6 @@
   .labelCategory {
     font-size : 14px;
     background-color: #eee;
-    font-family: "Montserrat-Regular";
   }
 
   .ellipsis {
@@ -2413,12 +2382,10 @@
 
   .oldprice {
     font-size: 11px;
-    font-family: "Montserrat-SemiBold";
   }
 
   .price{
     font-size: 11px;
-    font-family: "Montserrat-ExtraBold";
   }
 
   .productBlock .ImgWrapper{
@@ -2440,7 +2407,6 @@
 
   .pcButtonwrapper {
     font-size: 14px;
-    font-family: "Montserrat-Medium";
     padding: 6px;
     height: 34px;
   }
@@ -2504,7 +2470,6 @@
     padding-left: 12px;
     top: -7px;
     left: 13px;
-    font-family: "Montserrat-Medium";
   }
 
   .offTxt {
@@ -2535,7 +2500,6 @@
   .labelCategory {
     font-size : 14px;
     background-color: #eee;
-    font-family: "Montserrat-Regular";
   }
 
   .ellipsis {
@@ -2550,12 +2514,10 @@
 
   .oldprice {
     font-size: 11px;
-    font-family: "Montserrat-SemiBold";
   }
 
   .price{
     font-size: 11px;
-    font-family: "Montserrat-ExtraBold";
   }
 
   .productBlock .ImgWrapper{
@@ -2577,7 +2539,6 @@
 
   .pcButtonwrapper {
     font-size: 14px;
-    font-family: "Montserrat-Medium";
     padding: 6px;
     height: 34px;
   }
@@ -3131,7 +3092,7 @@
 
   .productBlock{
     width: 301px;
-    height: 376px;
+    height: 396px;
     margin: auto;
   }
 
@@ -3187,7 +3148,7 @@
   }
 
   .productBlock .ImgWrapper{
-    height: 171px;
+    height: 191px;
     margin-top: 60px;
   }
 

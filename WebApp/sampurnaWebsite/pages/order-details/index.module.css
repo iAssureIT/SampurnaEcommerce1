@@ -346,7 +346,12 @@
 	position: relative;
 	z-index: 1;
 }
-
+.progressStep{
+	color: #CE6E2E !important;
+}
+.progressLastStep{
+	color:  #3E9D5E !important;
+}
 .actRound{
 	background-color: #CE6E2E ;
 }

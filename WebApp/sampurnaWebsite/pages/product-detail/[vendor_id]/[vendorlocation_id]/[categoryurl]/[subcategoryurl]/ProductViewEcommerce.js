@@ -117,7 +117,7 @@ class ProductViewEcommerce extends Component{
 				})
 
 
-				console.log("userID => ",this.state.user_ID);
+				// console.log("userID => ",this.state.user_ID);
 	}
 
 	getProductDetails(url,formvalues){
@@ -221,11 +221,11 @@ class ProductViewEcommerce extends Component{
 							}
 		
 							if(similarProductsFormvalues){
-								console.log("similarProductsFormvalues==",similarProductsFormvalues);
+								// console.log("similarProductsFormvalues==",similarProductsFormvalues);
 								axios.post("/api/products/get/similar_products", similarProductsFormvalues)
 									.then((similarProductResponse)=>{
 										if(similarProductResponse){
-											console.log("similar data===",similarProductResponse.data);
+											// console.log("similar data===",similarProductResponse.data);
 											this.setState({
 												newProducts : similarProductResponse.data
 											})
@@ -420,7 +420,7 @@ class ProductViewEcommerce extends Component{
 				messageData: {
 					"type"			: "inpage",
 					"icon"			: "fa fa-check-circle",
-					"message"		: "Last "+this.state.quanityLimit+" items taken by you",
+					"message"		: "Last "+availableQuantity+" items taken by you",
 					"class"			: "warning",
 					"autoDismiss"	: true
 				}
@@ -430,6 +430,7 @@ class ProductViewEcommerce extends Component{
 					messageData: {},
 				})
 			}, 6000);
+
 		}else{
 			// console.log("totalQuanity===",this.state.totalQuanity);
 			this.setState({ totalQuanity: totalQuanity });
@@ -531,7 +532,7 @@ class ProductViewEcommerce extends Component{
 
 
 	render(){
-		// console.log("this.props.recentWishlistData => ", this.props.recentWishlistData);
+		console.log("productdata => ", this.state.productData);
 
 		var x 			= this.props.recentWishlistData && this.props.recentWishlistData.length> 0 
 									? 

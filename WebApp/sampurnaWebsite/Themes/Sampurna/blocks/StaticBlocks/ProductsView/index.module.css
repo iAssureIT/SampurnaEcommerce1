@@ -22,6 +22,9 @@
     z-index: 1000;
     cursor: pointer;
 }
+.oldPrice{
+	text-decoration: line-through;
+}
 .pnHIdden {
 	color: #fff !important;
 }

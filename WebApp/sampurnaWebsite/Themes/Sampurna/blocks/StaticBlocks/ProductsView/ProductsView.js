@@ -19,6 +19,11 @@ class ProductsView extends Component {
       "user_ID": '',
       "paymentRefundSource": "source",
       "config": {},
+      "customerReturnComment" : "",
+      "reasonForReturn": "",
+      "imgUrls" : [],
+      "isChecked" : false,
+      "checkReturnPolicy": false,
       "returnProductImages": [],
       "returnProductError": '',
       fields: {},
@@ -480,11 +485,12 @@ uploadImage(event) {
       "reasonForReturn": this.state.reasonForReturn,
       "customerComment": this.state.customerReturnComment,
       "refund": this.state.paymentRefundSource,
-      "returnProductImages": this.state.returnProductImages.push(this.state.imgUrl),
+      "returnProductImages": this.state.imgUrls,
       "checkReturnPolicy"  : this.state.isChecked,
     }
-    if (formValues && this.state.reasonForReturn && this.state.customerReturnComment!=="" && this.state.paymentRefundSource && this.state.returnProductImages) {
-      console.log("formValues=",formValues);
+    console.log("formValues=",formValues);
+    if (this.state.reasonForReturn!=="" && this.state.reasonForReturn!=="-- Select reason --" && this.state.customerReturnComment!=="" && this.state.isChecked !== false && this.state.paymentRefundSource !=="" && this.state.imgUrls.length>=1) {
+      
       axios.patch("/api/orders/patch/returnproduct", formValues)
         .then((response) => {
           if (response.data) {
@@ -493,7 +499,7 @@ uploadImage(event) {
               "submitBtn" : "enabled",
             })
             swal({ text: response.data.message }).then(function () {
-              window.location.reload();
+              // window.location.reload();
             });
           }
         })
@@ -564,10 +570,16 @@ uploadImage(event) {
                         </a>
                       </td>
                       <td className="textAlignLeft ">
-                            {
-                              <span className="productPrize textAlignRight">{this.props.currency}&nbsp;{productdata.discountedPrice.toFixed(2)}</span>
+                              <span className={"productPrize textAlignRight "}>{this.props.currency}&nbsp;
+                                {productdata.originalPrice !== productdata.discountedPrice ? 
+                                  <span className={Style.oldPrice}>{productdata.originalPrice.toFixed(2)}</span>
+                                :
+                                  null
+                                }
+                                </span>&nbsp;
+                              <span className="productPrize textAlignRight">&nbsp;{productdata.discountedPrice.toFixed(2)}</span>
                                     
-                            }
+                            
                         </td>
                       <td className="textAlignCenter">
                         {

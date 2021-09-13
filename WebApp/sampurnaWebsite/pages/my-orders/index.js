@@ -64,7 +64,7 @@ export default class MyOrders extends Component {
             orderData: response.data,
             loading: false
           }, () => {
-            console.log("myOrder orderData =>",this.state.orderData);
+            // console.log("myOrder orderData =>",this.state.orderData);
           })
         }
       })
@@ -83,6 +83,7 @@ export default class MyOrders extends Component {
         console.log('error', error);
       })
   }
+  
   showFeedbackForm() {
     $('#feedbackFormDiv').show();
   }
@@ -413,10 +414,13 @@ export default class MyOrders extends Component {
                                           <span className={"  orderStatusBadge badge  NoPadding " + Style.orderStatusBadge1}><span className={"col-12 "+Style.statusTextWrapper}> Processing </span></span>
                                         }
                                         {vendordata.orderStatus === "On the Way" &&
-                                          <span className={"  orderStatusBadge orderStatusBadgeOnTheWay badge badge-primary NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
+                                          <span>
+                                            <span className={"  orderStatusBadge orderStatusBadgeOnTheWay badge badge-primary NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>&nbsp;&nbsp;
+                                            <a href={"/order-tracking/"+singleOrder._id} target="_blank"><img classname={Style.trackingImg} src="/images/eCommerce/Path.svg"></img></a>
+                                          </span>
                                         }
                                         {vendordata.orderStatus === "Ready to Dispatch" &&
-                                          <span className={"  orderStatusBadge orderStatusBadgeOnTheWay badge badge-primary  NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge + " " + Style.ontheWayBadge}>On the Way</span>
+                                          <span className={"  orderStatusBadge orderStatusBadgeOnTheWay badge badge-secondary  NoPadding " + Style.orderStatusBadge1 + " " + Style.customeBadge2 + " " + Style.ontheWayBadge}>Ready To Dispatch</span>
                                         }
                                         {vendordata.orderStatus === "Delivered" &&
                                           <span className={"  orderStatusBadge badge badge-success NoPadding " + Style.orderStatusBadge }><span className={"col-12 "+Style.statusTextWrapper}>{vendordata.orderStatus}</span></span>
