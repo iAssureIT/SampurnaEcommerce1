@@ -214,7 +214,7 @@ export default class ContactUsTrollyMart extends Component{
 							</div>
 							<div className={"col-12 col-lg-5 mt-5 mt-lg-0 contactusFormWrapperRightSide "+S.contactusFormWrapperRightSide}>
 								<div className="col-12">
-									<h3 className={"pt-lg-5 mt-lg-5 mt-xl-1 mt-4 pt-3 getInTouchSubTitle "+S.getInTouchSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h3>
+									<h3 className={" mt-xl-1 mt-4 pt-3 getInTouchSubTitle "+S.getInTouchSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h3>
 								</div>
 								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}>{/*<i className={"fa fa-phone"}></i>*/}<img src="/images/eCommerce/phone-call.png" className={S.contactUsPhoneIcon} alt="phone image not found" />&nbsp;&nbsp;&nbsp;
 									<div className={S.contactUsPhoneNumber}>+971 45911186</div>
@@ -238,7 +238,7 @@ export default class ContactUsTrollyMart extends Component{
 										<a href="https://www.facebook.com/Knock-Knock-103575731986682" target="_blank">{/*<i className="fab fa-facebook-f"></i>*/}<img src="/images/eCommerce/MaskGroup1.png" className={S.socialMediaFooterIcons} alt="facebook image not found" /></a>
 										<a href="https://www.youtube.com/knockknockeshop" target="_blank">{/*<i className="fab fa-youtube" target="_blank"></i>*/}<img src="/images/eCommerce/MaskGroup6.png" className={S.socialMediaFooterIcons} alt="youtube image not found" /></a>
 										<a href="https://www.linkedin.com/knockknockeshop" target="_blank">{/*<i className="fab fa-linkedin"></i>*/}<img src="/images/eCommerce/MaskGroup3.png" className={S.socialMediaFooterIcons} alt="linkedin image not found" /></a>
-										<a href="https://twitter.com/knockknockeshop" target="_blank">{/*<i className="fab fa-twitter"></i>*/}<img src="/images/eCommerce/MaskGroup1.png" className={S.socialMediaFooterIcons} alt="twitter image not found" /></a>
+										<a href="https://twitter.com/knockknockeshop" target="_blank">{/*<i className="fab fa-twitter"></i>*/}<img src="/images/eCommerce/footerIcon5.png" className={S.socialMediaFooterIcons} alt="twitter image not found" /></a>
 									</div>
 								</div>
 								{/*<div className={"col-12 "+S.contactUscontent}>
