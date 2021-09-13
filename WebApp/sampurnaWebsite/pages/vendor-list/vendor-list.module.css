@@ -185,10 +185,7 @@
 ##############################################################################################################
 */
 @media only screen and (max-device-width: 479px) {
-    .vendorlistTitle{
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
+
     .deliveryTimeWrapperDesc{
         font-size: 11px;
         position: relative;
@@ -200,6 +197,45 @@
     .deliveryTimeWrapperDesc1{
         font-size: 16px;
     }
+
+    .vendorlistTitle{
+        margin-top: 60px;
+        margin-bottom: 20px;
+    }
+
+    .vendorCard{
+        width:  96%;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        height: 109px;
+        float: left;
+
+        box-shadow: 0 0 10px 5px #000 !important;
+        border-radius: 3px;
+        cursor: pointer;
+        background-position: 100%;
+        background-size: contain;
+        border: none !important;
+    }
+
+    .firstElem{
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+    .middleElem{
+        margin-left: 3%;
+        margin-right: 3%;   
+    }
+    .lastElem{
+        margin-left: 3%;
+        margin-right: 3%;    
+    }
+
+    .vendorlistWrapper{
+        margin-top: 50px;
+        width: 90%;
+        margin: auto ;
+    }
 }
 
 @media (min-width: 480px) and (max-width: 639px) {
@@ -209,17 +245,124 @@
     .vendorCard{
         /*height: 70px;*/
     }
+
+    .vendorlistTitle{
+        margin-top: 60px;
+        margin-bottom: 20px;
+    }
+
+    .vendorCard{
+        width:  94%;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        height: 109px;
+        float: left;
+
+        box-shadow: 0 0 10px 5px #000 !important;
+        border-radius: 3px;
+        cursor: pointer;
+        background-position: 100%;
+        background-size: contain;
+        border: none !important;
+    }
+
+    .firstElem{
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+    .middleElem{
+        margin-left: 3%;
+        margin-right: 3%;   
+    }
+    .lastElem{
+        margin-left: 3%;
+        margin-right: 3%;    
+    }
+
+    .vendorlistWrapper{
+        margin-top: 50px;
+        width: 90%;
+        margin: auto ;
+    }
 }
 @media (min-width: 640px) and (max-width: 767px) {
     .vendorlistTitle{
-        margin-top: 20px;
+        margin-top: 70px;
         margin-bottom: 20px;
+    }
+
+    .vendorCard{
+        width:  44%;
+        margin-top: 35px;
+        margin-bottom: 35px;
+        height: 109px;
+        float: left;
+
+        box-shadow: 0 0 10px 5px #000 !important;
+        border-radius: 3px;
+        cursor: pointer;
+        background-position: 100%;
+        background-size: contain;
+        border: none !important;
+    }
+
+    .firstElem{
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+    .middleElem{
+        margin-left: 3%;
+        margin-right: 3%;   
+    }
+    .lastElem{
+        margin-left: 3%;
+        margin-right: 3%;    
+    }
+
+    .vendorlistWrapper{
+        margin-top: 50px;
+        width: 90%;
+        margin: auto ;
     }
 }
 @media (min-width: 768px) and (max-width: 1023px) { 
     .vendorlistTitle{
         margin-top: 20px;
         margin-bottom: 20px;
+    }
+
+    .vendorCard{
+        width:  44%;
+        margin-top: 35px;
+        margin-bottom: 35px;
+        height: 109px;
+        float: left;
+
+        box-shadow: 0 0 10px 5px #000 !important;
+        border-radius: 3px;
+        cursor: pointer;
+        background-position: 100%;
+        background-size: contain;
+        border: none !important;
+    }
+
+    .firstElem{
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+    .middleElem{
+        margin-left: 3%;
+        margin-right: 3%;   
+    }
+    .lastElem{
+        margin-left: 3%;
+        margin-right: 3%;    
+    }
+
+    .vendorlistWrapper{
+        margin-top: 50px;
+        width: 90%;
+        margin: auto ;
     }
 }
 @media (min-width: 1024px) and (max-width: 1279px) { 

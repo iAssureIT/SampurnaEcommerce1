@@ -499,7 +499,7 @@ body .contactusFormInputInsideWrapper{
 		}
 }
 
-@media (min-width: 860px) and (max-width: 1279px) {
+@media (min-width: 860px) and (max-width: 1270px) {
 		.contactUsTrollyMainWrapper{
 			min-height: 1450px;
 		}
@@ -623,7 +623,7 @@ body .contactusFormInputInsideWrapper{
 	}
 }
 
-@media (min-width: 1280px) and (max-width: 1366px) { 
+@media (min-width: 1281px) and (max-width: 1366px) { 
 
 	.contactUsTrollyBreadcumWrapper{
 			height: 270px;

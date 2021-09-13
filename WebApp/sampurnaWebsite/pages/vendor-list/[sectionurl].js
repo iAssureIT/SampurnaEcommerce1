@@ -99,8 +99,8 @@ class VendorList extends Component {
                 <div className="row">
                 <Header /> 
 
-                <div className={"col-12 NoPadding " +Style.bgHeight} style={{ height: this.state.bgImgHeight }}>                      
-                    <div className={Style.blur} style={{ height: this.state.bgImgHeight }}>                      
+                <div className={"col-12 NoPadding " +Style.bgHeight} style={{ minHeight: this.state.bgImgHeight }}>                      
+                    <div className={Style.blur} style={{minHeight: this.state.bgImgHeight }}>                      
                         <div className={"col-12 NoPadding "+Style.vendorList} >
                             <div id="deliveryTimeBar" className={Style.deliveryTimeWrapper}>
                                 <div className="col-12 text-center">
