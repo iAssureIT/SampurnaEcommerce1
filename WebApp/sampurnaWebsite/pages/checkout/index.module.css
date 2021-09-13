@@ -2,7 +2,9 @@
     font-family: 'Montserrat-Black';
     src        : url('../../Themes/Sampurna/fonts/Montserrat-Black.ttf');
 }
-
+.currencyColorPadding{
+    padding-right: 20px!important;
+}
 .checkoutWrapper {
     min-height: 600px;
 }
@@ -52,6 +54,7 @@
     height: 15px;
     width: 15px;
     margin-right: 5px;
+    top: 6px;
 }
 
 .tableWrapper input[type='radio']:after {
@@ -116,9 +119,12 @@
 }
 
 .infoCircle {
+    position: absolute;
     color      : #ccc;
     cursor     : pointer !important;
     margin-left: -15px !important;
+    top: 3px;
+    right: 25px;
 }
 
 .paymentMethod {
@@ -361,7 +367,7 @@
 }
 
 .border3 {
-    border-radius: 6px 0px 0px 6px !important;
+    border-radius: 6px 6px 6px 6px !important;
     height       : 25px;
     border-color : #429F61;
     font-weight: 300;
@@ -589,7 +595,7 @@
 
 .cartTitle {
     font-size     : 36px;
-    margin-left   : 41px;
+   /* margin-left   : 41px;*/
     margin-top    : 15px;
     font-family   : 'Montserrat-Bold';
     color         : #000000;
@@ -718,7 +724,7 @@
 .acceptTerms {
     height: 20px;
     width: 20px;
-    margin-top: -8px;
+    margin-top: -12px;
 }
 .termConditionErrorMsg{
     font-size: 10px;
@@ -735,9 +741,37 @@
     float: left;
 }
 
-
+@media (min-width: 320px) and (max-width: 480px) {
+    .f11N{
+        font-size: 7px ! important;
+    }
+    .currencyColor{
+        padding-right: 5px;
+    }
+    /*.table{
+        border: 1px solid #ccc;
+    }*/
+    .cartTitle{
+        font-size: 25px;
+        padding-left: 15px!important;
+    }
+    .noMobilePadding{
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+    }
+    .grandTotalBlockMobile{
+        text-align: right;
+    }
+    .acceptTerms{
+        margin-top: -17px;
+    }
+    .selectTypeWrapper{
+        margin-top: 0px!important;
+    }
+}
 
 @media (min-width: 640px) {
+   
     .modalLogoWrapper {
         position   : absolute;
         height     : 25px;
@@ -842,7 +876,7 @@
     }
     .cartTitle {
         font-size     : 30px;
-        margin-left   : 6%;
+     /*   margin-left   : 6%;*/
     }    
     .tableWrapper{
         width: 96%;
@@ -1000,7 +1034,7 @@
     }
     .cartTitle {
         font-size     : 30px;
-        margin-left   : 6%;
+    /*    margin-left   : 6%;*/
     }    
     .tableWrapper{
         width: 96%;
@@ -1134,7 +1168,7 @@
     }
 }
 
-@media (min-width: 1200px) and (max-width: 1366px) {
+@media (min-width: 1200px) and (max-width: 1365px) {
     .grandTotalMargin{
         right: -5%;
     }
@@ -1155,7 +1189,8 @@
     }
     .cartTitle {
         font-size     : 36px;
-        margin-left   : 7%;
+        padding-left: 75px;
+       /* margin-left   : 7%;*/
     }    
     .tableWrapper{
         width: 96%;
@@ -1286,7 +1321,7 @@
     }
 }
 
-@media (min-width: 1366px) and (max-width: 1440px) {
+@media (min-width: 1366px) and (max-width: 1439px) {
     .grandTotalMargin{
         right: -5%;
     }
@@ -1295,19 +1330,22 @@
     }
     .f161 {
         font-size: 18px;
+            right: -5%;
     }
     .f13NTerms {
         margin-left: -9px !important;
     }
     .checkoutCurrencyWrapper {
-        right: -3% !important;
+        right: -8% !important;
     }
     .checkoutCurrencyWrapper2 {
         right: -5% !important;
     }
     .cartTitle {
         font-size     : 40px;
-        margin-left   : 4%;
+        padding-left: 75px;
+        /*margin-left   : 4%;*/
+        padding-left: 70px;
     }    
     .tableWrapper{
         width: 96%;
@@ -1325,6 +1363,7 @@
     .codRadio {
         height: 22px;
         width: 22px;
+        top: 7px;
     }
     .tableWrapper input[type='radio']:after {
         height: 25px;
@@ -1408,7 +1447,7 @@
         font-size: 15px;
     }
     .border1, .border2{
-        height: 58px;
+        height: 35px;
         font-size: 15px;
     }
     .f13N1{
@@ -1438,7 +1477,7 @@
     }
 }
 
-@media (min-width: 1440px) and (max-width: 1536px) {
+@media (min-width: 1440px) and (max-width: 1535px) {
     .grandTotalMargin{
         right: -5%;
     }
@@ -1447,19 +1486,21 @@
     }
     .f161 {
         font-size: 21px;
+            right: -3%;
     }
     .f13NTerms {
         margin-left: -9px !important;
     }
     .checkoutCurrencyWrapper {
-        right: -3% !important;
+        right: -7% !important;
     }
     .checkoutCurrencyWrapper2 {
         right: -5% !important;
     }
     .cartTitle {
         font-size     : 45px;
-        margin-left   : 4%;
+        padding-left: 75px;
+        /*margin-left   : 4%;*/
     }    
     .tableWrapper{
         width: 96%;
@@ -1588,9 +1629,11 @@
     .listColor{
         font-size: 14px;
     }
+
+
 }
 
-@media (min-width: 1536px) and (max-width: 1680px) {
+@media (min-width: 1536px) and (max-width: 1679px) {
     .grandTotalMargin{
         right: -5%;
     }
@@ -1600,19 +1643,21 @@
     }
     .f161 {
         font-size: 24px;
+            right: -3%;
     }
     .f13NTerms {
         margin-left: -9px !important;
     }
     .checkoutCurrencyWrapper {
-        right: -3% !important;
+        right: -7% !important;
     }
     .checkoutCurrencyWrapper2 {
         right: -5% !important;
     }
     .cartTitle {
         font-size     : 60px;
-        margin-left   : 4%;
+        padding-left: 75px;
+        /*margin-left   : 4%;*/
     }    
     .tableWrapper{
         width: 96%;
@@ -1741,10 +1786,13 @@
     .listColor{
         font-size: 15px;
     }
+    .infoCircle{
+        top: 4px;
+    }
 
 }
 
-@media (min-width: 1680px) and (max-width: 1920px) {
+@media (min-width: 1680px) and (max-width: 1919px) {
     .grandTotalMargin{
         right: -5%;
     }
@@ -1754,19 +1802,21 @@
     }
     .f161 {
         font-size: 26px;
+            right: -4%;
     }
     .f13NTerms {
         margin-left: -9px !important;
     }
     .checkoutCurrencyWrapper {
-        right: -3% !important;
+        right: -7% !important;
     }
     .checkoutCurrencyWrapper2 {
         right: -5% !important;
     }
     .cartTitle {
         font-size     : 60px;
-        margin-left   : 4%;
+        padding-left: 75px;
+        /*margin-left   : 4%;*/
     }    
     .tableWrapper{
         width: 96%;
@@ -1895,6 +1945,9 @@
     .listColor{
         font-size: 15px;
     }
+    .infoCircle{
+        top: 5px;
+    }
 
 }
 
@@ -1908,19 +1961,21 @@
     }
     .f161 {
         font-size: 30px;
+            right: -6%;
     }
     .f13NTerms {
         margin-left: -9px !important;
     }
     .checkoutCurrencyWrapper {
-        right: -3% !important;
+        right: -7% !important;
     }
     .checkoutCurrencyWrapper2 {
         right: -5% !important;
     }
     .cartTitle {
         font-size     : 65px;
-        margin-left   : 4%;
+        /*margin-left   : 4%;*/
+        padding-left: 80px;
     }    
     .tableWrapper{
         width: 96%;
@@ -2048,6 +2103,9 @@
     }
     .listColor{
         font-size: 15px;
+    }
+    .infoCircle{
+        top: 6px;
     }
 
 }

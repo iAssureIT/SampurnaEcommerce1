@@ -649,6 +649,9 @@
     margin: auto;
 
 }
+.formcontrol12{
+    height: 40px;
+}
 .modalMainWrapper .formcontrol12:focus {
     /*width: auto;*/
     margin-left: 0px;
