@@ -83,6 +83,7 @@ export default class MyOrders extends Component {
         console.log('error', error);
       })
   }
+  
   showFeedbackForm() {
     $('#feedbackFormDiv').show();
   }

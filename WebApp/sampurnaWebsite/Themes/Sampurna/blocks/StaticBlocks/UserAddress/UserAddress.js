@@ -32,11 +32,16 @@ class UserAddress extends Component {
         // Return null to indicate no change to state.
         return null;
       }
-    
+      static getDerivedStateFromProps(props, state) {
+        return {addressId: props.addressId };
+        this.getUserDetails();
+      }
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.addressId !== prevProps.addressId) {
+        if (this.props.addressId !== prevProps.addressId){
             this.getUserDetails();
+            console.log("inside componentDidUpdate");
         }
+        // this.getUserDetails();
     }
     
     componentDidMount(){  

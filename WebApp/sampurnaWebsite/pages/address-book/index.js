@@ -22,12 +22,14 @@ class AddressBook extends Component{
         $(window).scrollTop(0);
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+        console.log("Address Id===",this.state.addressId);
         if(userDetails){
             if(userDetails.user_id){
 				this.setState({
 					user_ID :  userDetails.user_id,
 					userLongitude : userDetails.userLatitude,
 					userLongitude : userDetails.userLongitude,
+                    // addressId     : "",
 				},()=>{
                     this.getUserData();
                     // this.getUserAddresses();
@@ -137,10 +139,11 @@ class AddressBook extends Component{
     }
 
     getAddressId(event){
+        event.preventDefault();
         this.setState({
             addressId : event.target.id
         },()=>{
-            // console.log("addressId===",this.state.addressId);
+            console.log("addressId===",this.state.addressId);
         })
     }
     render(){
@@ -281,8 +284,6 @@ class AddressBook extends Component{
                 </div>
             </div>
          </div>
-        
-       
         )
     }
 }

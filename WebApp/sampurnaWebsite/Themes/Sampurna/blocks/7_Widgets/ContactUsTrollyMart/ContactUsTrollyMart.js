@@ -4,6 +4,7 @@ import $						from 'jquery';
 import jQuery					from 'jquery';
 import Swal						from 'sweetalert2';
 import S						from './ContactUsTrollyMart.module.css';
+import swal from 'sweetalert';
 
 export default class ContactUsTrollyMart extends Component{
 
@@ -45,15 +46,15 @@ export default class ContactUsTrollyMart extends Component{
 			errors["name"] = "This field is required.";
 		}
 
-		if (typeof fields["name"] !== "undefined") {
-		  var pattern = new RegExp(/^[a-z]([-']?[a-z]+)*/)
-		  if (!pattern.test(fields["name"])) {
-			formIsValid = false;
-			errors["name"] = "Name should only contain letters.";
-		  }else{
-			errors["name"] = "";
-		  }
-		}
+		// if (typeof fields["name"] !== "undefined") {
+		//   var pattern = new RegExp(/^[a-z]([-']?[a-z]+)*/)
+		//   if (!pattern.test(fields["name"])) {
+		// 	formIsValid = false;
+		// 	errors["name"] = "Name should only contain letters.";
+		//   }else{
+		// 	errors["name"] = "";
+		//   }
+		// }
 		
 		if (!fields["message"]) {
 			formIsValid = false;
@@ -141,8 +142,9 @@ export default class ContactUsTrollyMart extends Component{
 	Submit(event){
 	    event.preventDefault();
 	    var adminEmail = this.state.blockEmail;
+		// console.log("adminEmail===",adminEmail);
 			if(this.validateForm()){
-			const formValues2 = {
+			const formValues = {
 				"email" 	: adminEmail,
 				"text"		: "",
 				"mail"		: 'Dear Admin, <br/>'+
@@ -153,23 +155,24 @@ export default class ContactUsTrollyMart extends Component{
 								"<pre> " + this.state.message + "</pre>" + 
 								"<br/><br/> ============================ " + 
 								"<br/><br/> This is a system generated email! " ,
-			};
-
-				Swal.fire({
-					position: 'center',
-					icon: 'success',
-					title: 'Great!!',
-					text: 'Thank you for contacting us!!',
-					footer: 'We will get back to you shortly!!',
-					showConfirmButton: false,
+			};      
+            axios
+                .post('/send-email-mobile',formValues)
+				.then((contactMailRes)=>{
+					// console.log("response==",contactMailRes);
+					swal('Thank you for contacting us!! We will get back to you shortly!!');
+					this.setState({
+						name    : "",
+						email   : "",
+						message : "",
+						mobile  : ""
+					});
+				})
+				.catch((err)=>{
+					console.log("error while sending email==",err);
 				})
 
-			this.setState({
-				name    : "",
-				email   : "",
-				message : "",
-				mobile  : ""
-			});
+				
 		}
 	}
 
