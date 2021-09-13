@@ -66,7 +66,7 @@ class UserAddress extends Component {
         axios.get("/api/ecommusers/" +this.state.user_ID)
             .then((response) => {
             if(response){
-                console.log("user response ",response);
+                // console.log("user response ",response);
                 if(this.state.addressId){
                     var deliveryAddress = response.data.deliveryAddress.filter((a) => String(a._id) === String(this.state.addressId));
                     if(deliveryAddress){

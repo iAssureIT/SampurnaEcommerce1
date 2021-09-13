@@ -65,7 +65,12 @@
 .customeBadge {
 	background: #CE6E2E !important;
 }
-
+.customeBadge2{
+	background: #666 !important;
+}
+.trackingImg{
+	margin-left: 10px;
+}
 .orderStatusBadge {
 	height        : 26px;
 	background    : #3E9D5E 0% 0% no-repeat padding-box;

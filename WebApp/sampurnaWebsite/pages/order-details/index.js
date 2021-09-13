@@ -8,11 +8,6 @@ import Style from './index.module.css';
 import openSocket from 'socket.io-client';
 import getConfig from 'next/config';
 
-// import $ from 'jquery';
-// import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
-// import StepWizard from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
-// import OrderStatusWizard from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/OrderStatusWizard.js';
-
 const { publicRuntimeConfig } = getConfig();
 const socket = openSocket(publicRuntimeConfig.API_BASE_URL, { transports: ['websocket'], upgrade: false });
 
@@ -117,7 +112,7 @@ export default class OrderDetails extends Component {
   // }
 
   getMyOrders() {
-    console.log("this.props.order_id=",this.props.order_id);
+    // console.log("this.props.order_id=",this.props.order_id);
     socket.emit('room', this.props.order_id);
     socket.emit('signle_order', this.props.order_id);
     socket.on('getSingleOrder', (response) => {
@@ -190,7 +185,7 @@ export default class OrderDetails extends Component {
     event.preventDefault();
     var id = event.target.getAttribute('id');
     var vendorid = event.target.getAttribute('vendorid');
-    console.log("id===",vendorid);
+    // console.log("id===",vendorid);
 
     var formValues = {
       "order_id": id,
@@ -211,7 +206,7 @@ export default class OrderDetails extends Component {
         if (willDelete) {
           axios.patch('/api/orders/cancel/order', formValues)
             .then((response) => {
-              console.log("cancel order response:",this.state.orderData);
+              // console.log("cancel order response:",this.state.orderData);
               // $('.fullpageloader').hide();
               this.getMyOrders();
               const el = document.createElement('div')
@@ -368,14 +363,17 @@ export default class OrderDetails extends Component {
                                   <div className="row">
                                     {
                                       this.state.labels.map((step,index)=>{
+                                        var stepBarText = "";
                                         if(index === 0){
                                           var barCls = Style.firstStepBar;
+                                          // var stepBarText = Style.progressStep;
                                         }else{
                                           var barCls = Style.stepBar;
                                         }
 
                                         if(index === this.state.labels.length -1){
                                           var barCls = Style.lastStepBar;
+                                          // var stepBarText = Style.progressLastStep;
                                         }
 
                                         if(index1 === index){
@@ -398,7 +396,11 @@ export default class OrderDetails extends Component {
                                             <div className={doneCls+" "+actCls+" "+Style.stepRound}>
                                               <div className={Style.indicatorNum}> {doneCls==="" ? index + 1 : null} </div>
                                             </div>
-                                            <div className={"col-12 "+Style.progressStep}> {step.label} </div>
+                                            {step.label !== "On the Way"?
+                                              <div className={"col-12 "+stepBarText}> {step.label} </div>
+                                            :
+                                              <div className={"col-12 "+stepBarText}> {step.label} <a href={"/order-tracking/"+this.state.orderData._id} target="_blank"><img classname={Style.trackingImg} src="/images/eCommerce/Path.svg"></img></a></div>
+                                            }
                                           </div>
                                         )
                                       })
