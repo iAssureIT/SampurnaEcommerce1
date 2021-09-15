@@ -38,11 +38,11 @@ class header extends React.Component {
             loggedIn: false,
             userId: '',
             currentUrl:'',
-            userName : "userName",
+            userName : "",
 
             userData :{
-                email     : "userEmail", 
-                fullName  : "fullName"
+                email     : "", 
+                fullName  : ""
             }
             
         }; 
@@ -73,12 +73,12 @@ class header extends React.Component {
         axios.get('/api/users/get/id/' +this.state.userId)
           .then((res) => {
             if(res.data){
-              console.log("user response===",res.data);  
+            //   console.log("user response===",res.data);  
               this.setState({
                 userData : res.data.profile,
                 userName : res.data.profile.firstname,
                 fullName : res.data.profile.firstname +" "+res.data.profile.lastname,
-                email    : res.data.profile.email?res.data.profile.email:"userEmail",
+                email    : res.data.profile.email?res.data.profile.email:null,
                 firstname: res.data.profile.firstname.substring(0, 1),
                 lastname : res.data.profile.lastname.substring(0, 1)
               },()=>{
@@ -153,7 +153,7 @@ class header extends React.Component {
                                             </span>
                                         </div>
                                         <div className={"col-12 " + Style.myAccountTitle}>
-                                            {this.state.email?this.state.email:"userEmail"}
+                                            {this.state.email?this.state.email:"My Account"}
                                             {/* <i className="fa fa-angle-down"></i> */}
                                         </div>
                                     </div>

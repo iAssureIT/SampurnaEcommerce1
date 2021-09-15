@@ -95,15 +95,11 @@ class Wishlist extends Component {
                    )
                  })
                  :
-                 <div className="col-12  textAlignCenter"> 
-                    {/*<div className=" alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Items In Wishlist</div>*/}
-
+                 <div className="col-5 mt-2 mx-auto textAlignCenter"> 
                         <img                                           
                           src={"/images/eCommerce/EmptyWishlist.png"}
                           alt="ProductImg" 
                           className={"col-12 img-fluid "}
-                          /*height={"300px"} */
-                          
                           layout={'intrinsic'}
                         />
                  </div>

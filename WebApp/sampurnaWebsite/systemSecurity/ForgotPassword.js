@@ -65,7 +65,7 @@ class ForgotPassword extends Component{
                 .then((forgotPassResponse) => {
                     console.log("forgotPassResponse.data.ID===",forgotPassResponse);
                     swal(forgotPassResponse.data.message);
-                    if(forgotPassResponse.data.message === "OTP sent on registered mobile number"){
+                    if(forgotPassResponse.data.message === "OTP sent on registered mobile number" || forgotPassResponse.data.message === "OTP sent on your registered email Id" ){
                         var userDetails = {
 							userId : forgotPassResponse.data.ID,
 						}
