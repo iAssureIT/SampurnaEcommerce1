@@ -33,7 +33,8 @@ export const ProductList = withCustomerToaster((props)=>{
   const [packsizes,setPacksizes]            = useState('');
   const [user_id,setUserId]                 = useState('');
   const [limit,setLimit]                    = useState(props.limit);
-  const [disabled,setDisabled]=useState(false)
+  const [disabled,setDisabled]=useState(false);
+  const [prodLoading,setProdLoading] = useState(false);
 
   useEffect(() => {
     getData();
@@ -101,9 +102,11 @@ export const ProductList = withCustomerToaster((props)=>{
         "vendorLocation_id" : vendorLocation_id,
       }
       console.log("formValues",formValues);
+      setProdLoading(true)
       axios
         .post('/api/carts/post', formValues)
         .then((response) => {
+          setProdLoading(false)
           dispatch(getCartCount(user_id));
           if(response.data.message === "Product added to cart successfully."){
             setToast({text: response.data.message, color: 'green'});
@@ -112,6 +115,7 @@ export const ProductList = withCustomerToaster((props)=>{
           }
         })
         .catch((error) => {
+          setProdLoading(false)
           setToast({text: 'Product is already in cart.', color: colors.warning});
         })
     }else{
@@ -158,8 +162,10 @@ export const ProductList = withCustomerToaster((props)=>{
         "vendor_id"          : vendor_id,
         "vendorLocation_id"  : vendorLocation_id,
       }
+      setProdLoading(true)
       axios.post('/api/wishlist/post', wishValues)
         .then((response) => {
+          setProdLoading(false)
           if(type){
             productsDetails[index].isWish =!productsDetails[index].isWish;
             if(type === 'wishlist'){
@@ -181,6 +187,7 @@ export const ProductList = withCustomerToaster((props)=>{
         })
         .catch((error) => {
           console.log('error', error);
+          setProdLoading(false)
         })
     }else{
       navigation.navigate('Auth');
@@ -294,14 +301,14 @@ export const ProductList = withCustomerToaster((props)=>{
                               addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
                           }
                           style={{justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton,
-                          shadowColor: "#00000059",
-                          shadowOffset: {
-                            width: -2,
-                            height:2,
-                          },
-                          shadowOpacity: 0.25,
-                          shadowRadius: 3.84,
-                          elevation: 5,
+                          // shadowColor: "#00000059",
+                          // shadowOffset: {
+                          //   width: -2,
+                          //   height:2,
+                          // },
+                          // shadowOpacity: 0.25,
+                          // shadowRadius: 3.84,
+                          // elevation: 5,
                           }}>
                             <Image
                               resizeMode="contain"

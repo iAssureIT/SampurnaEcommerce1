@@ -140,7 +140,7 @@ export const HorizontalProductList =(props)=>{
                         <Image
                           resizeMode="contain"
                           source = {{uri:'https://prodtrollymart.s3.us-east-2.amazonaws.com/icons/mobile/addtocarticon@2x.png'}}
-                          style={{height:hp(7),width:hp(7)}}
+                          style={{height:hp(3.5),width:hp(3.5)}}
                         />
                       {/* <Icon name="plus" type="material-community" size={RFPercentage(3)} color={colors.cartButton} iconStyle={{alignSelf:'flex-end'}}/> */}
                     </TouchableOpacity>  

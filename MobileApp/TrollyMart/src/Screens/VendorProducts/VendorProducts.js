@@ -175,7 +175,7 @@ console.log("category=========>",category)
                   />
                 </View>  
             </View>         
-            <View style={{height:hp(4),marginTop:2}}>
+            <View style={{height:hp(5),marginTop:2}}>
               <CategoryList 
                 navigation          = {navigation}  
                 showImage           = {false} 

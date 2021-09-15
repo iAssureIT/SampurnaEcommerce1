@@ -203,7 +203,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                 </View>
               <View style={styles.formWrapper}>
                 {loading?
-                <Loading/>
+                 <Loading/>
                 :
                   myorders ?
                     myorders.length > 0 ?

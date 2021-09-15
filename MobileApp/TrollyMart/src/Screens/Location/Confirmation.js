@@ -66,6 +66,7 @@ export const Confirmation = withCustomerToaster((props)=>{
   },[props]); 
 
 
+
   const getAddressList=()=>{
       var formValues = {
         "user_id"       : store?.userDetails?.user_id,

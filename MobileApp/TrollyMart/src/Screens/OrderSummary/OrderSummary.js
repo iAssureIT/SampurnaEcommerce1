@@ -487,7 +487,7 @@ import Modal from 'react-native-modal';
                   <View style={[styles.inputWrapper]}>
                     <View style={styles.inputTextWrapper}>
                       <Dropdown
-                      underlineColorAndroid ='transparent'
+                        underlineColorAndroid ='transparent'
                         placeholder         = {"Select Time"}
                         onChangeText        = {(value) => handleTypeChange(value)}
                         data                = {getTimes}
@@ -705,7 +705,7 @@ import Modal from 'react-native-modal';
                   <Text style={tab ? styles1.tabText : styles1.tabText1}>Discount Coupon</Text>
                 </TouchableOpacity> 
                 <TouchableOpacity style={!tab ? styles1.tab : styles1.tab1} onPress={()=>selectedTab(false)}>
-                    <Text style={!tab ? styles1.tabText : styles1.tabText1}>Store Credit {currency} <Text style={{color:'#DC1919'}}>{cartData?.totalCreditPoints}</Text></Text>
+                    <Text style={!tab ? styles1.tabText : styles1.tabText1}>Store Credit {currency} <Text style={{color:'#DC1919'}}>{cartData?.totalCreditPoints?.toFixed(2)}</Text></Text>
                 </TouchableOpacity>
              </View>  
             <View style={{height:hp(16),backgroundColor:"#fff",paddingHorizontal:28}}>
@@ -950,12 +950,12 @@ const styles1 = StyleSheet.create({
     fontFamily:"Montserrat-Bold",
     color: "#000000",
     opacity: 1,
-    fontSize:RFPercentage(2),
+    fontSize:RFPercentage(1.8),
   },
   tabText1:{
     fontFamily:"Montserrat-Regular",
     color: "#000000",
     opacity: 1,
-    fontSize:RFPercentage(2),
+    fontSize:RFPercentage(1.8),
   }
 });

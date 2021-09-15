@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {Input, Button, Icon, colors} from 'react-native-elements';
 import {
@@ -8,10 +8,12 @@ import {
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 export const FormInput = props => {
-  const {errors, touched, name} = props;
+
+  const {errors, touched, name, inputRef} = props;
   return (
     <Input
       placeholderTextColor={'#bbb'}
+      ref = {inputRef}
       errorMessage={touched[name] && errors[name] ? errors[name] : ''}
       label={
         <Text style={{fontFamily:'Montserrat-Medium',color:'#000', fontSize: RFPercentage(1.8)}}>

@@ -301,7 +301,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     );
 }
 
-console.log("vendor",vendor);
+console.log("productdata",productdata);
 
     return (
       <View style={{backgroundColor:"#fff",flex:1}}>
@@ -351,6 +351,7 @@ console.log("vendor",vendor);
                     <Counter start={1} min={1}
                       minusIcon={minusIcon} 
                       plusIcon={plusIcon} 
+                      max={productdata.availableQuantity}
                       buttonStyle={{
                         borderColor: colors.cartButton,
                         borderWidth: 1,

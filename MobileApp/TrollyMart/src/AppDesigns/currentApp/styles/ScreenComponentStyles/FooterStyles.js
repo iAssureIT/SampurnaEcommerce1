@@ -11,7 +11,7 @@ export default StyleSheet.create({
         width: '100%',
         position: 'absolute',
         bottom: 0,
-        height: 100,
+        height: hp(13),
       },
       android: {
         width: '100%',

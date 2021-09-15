@@ -5,6 +5,7 @@ import {
   ScrollView,
   ImageBackground,
   TouchableOpacity,
+  Image
 } from "react-native";
 
 import axios                      from "axios";
@@ -29,6 +30,7 @@ import SplashScreen from 'react-native-splash-screen';
     const [location,setLocation]  = useState(null);
     const [loading,setLoading]  = useState(true);
     const [isConncted,setConnected]= useState(true);
+    const [splashScreen,splashScreenHide]= useState(true);
     const [isPreConncted,setPrevConnected]= useState(true);
     const dispatch 		            = useDispatch();
 
@@ -46,7 +48,9 @@ import SplashScreen from 'react-native-splash-screen';
     useEffect(() => {
       NetInfo.addEventListener(handleConnectivityChange);
       _bootstrapAsync();
-    
+      setTimeout(() => {
+        splashScreenHide(false);
+      }, 4000)
       // if(!isPreConncted){
       //   codePush.restartApp();
       // }
@@ -73,6 +77,16 @@ import SplashScreen from 'react-native-splash-screen';
       }
     };
     return (
+      splashScreen?
+        <View style={{flex:1}}>
+         <ImageBackground 
+           source = {require('../../AppDesigns/currentApp/images/splash.gif')}
+           style    = {{height:"100%",width:"100%"}}
+         >
+           <Text style={{color:"#fff",alignSelf:"flex-end",padding:15}} onPress={()=>splashScreenHide(false)}>Skip</Text>
+        </ImageBackground> 
+        </View>  
+      :
         loading?
           <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
             <ActivityIndicator/>

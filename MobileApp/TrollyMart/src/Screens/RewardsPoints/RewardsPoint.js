@@ -85,7 +85,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                      <Text style={[styles.headerText1]}>Total Points </Text> 
                     </View> 
                     <View style={{flex:0.5}}>
-                      <Text style={[styles.headerText1,{fontFamily:"Montserrat-Bold",alignSelf:"flex-end"}]}>{creditPoints.totalPoints ? creditPoints.totalPoints : 0} Points</Text>                    
+                      <Text style={[styles.headerText1,{fontFamily:"Montserrat-Bold",alignSelf:"flex-end"}]}>{creditPoints.totalPoints ? creditPoints?.totalPoints?.toFixed(2) : 0} Points</Text>                    
                       </View>
                   </View>
                   <View style={{flexDirection:'row',flex:1}}>
@@ -113,7 +113,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                                 <Text style={[styles.accusermob,{fontSize:RFPercentage(1.7)}]}>{moment(item.expiryDate).format('DD/MM/YYYY')} Expiry</Text>
                               </View>  
                               <View style={{flex:.2,justifyContent:'center'}}>
-                                <Text style={[styles.accusermob,{alignSelf:"flex-end",color:Math.sign(item.earnedPoints) === 1 ? colors.success:colors.danger,fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Medium"}]}>{Math.sign(item.earnedPoints) === 1 && <Text>+</Text>}{item.earnedPoints}</Text>
+                                <Text style={[styles.accusermob,{alignSelf:"flex-end",color:Math.sign(item?.earnedPoints) === 1 ? colors.success:colors.danger,fontSize:RFPercentage(2.2),fontFamily:"Montserrat-Medium"}]}>{Math.sign(item?.earnedPoints) === 1 && <Text>+</Text>}{Math.sign(item?.earnedPoints).toFixed(2)}</Text>
                                 </View>   
                             </View>
                             <View style={{borderWidth:0.3,width:280,borderColor:"#ddd",marginTop:hp(2),alignSelf:'center'}} />

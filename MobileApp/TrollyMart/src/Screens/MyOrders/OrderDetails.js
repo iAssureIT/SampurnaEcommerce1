@@ -543,7 +543,14 @@ const cancelorderbtn = (id,vendor_id) => {
                   vendor.vendor_shippingChargesAfterDiscount !== vendor.vendor_shippingCharges &&
                     <Text style={[CommonStyles.text,{color:"#fff",textDecorationLine:'line-through'}]}>{vendor.vendor_shippingCharges}</Text>
                 }</View>
-                <View style={{flex:.2}}><Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingChargesAfterDiscount} {currency}</Text></View>
+                
+                  <View style={{flex:.2}}>
+                  {vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ==='Cancelled' ?
+                    <Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end",textDecorationLine:'line-through',textDecorationColor:"#E88686"}]}>{vendor.vendor_shippingChargesAfterDiscount} {currency}</Text>
+                    :
+                    <Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingChargesAfterDiscount} {currency}</Text>
+                  }
+                  </View>
               </View>  
           </View> 
         )

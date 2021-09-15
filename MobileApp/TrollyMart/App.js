@@ -106,7 +106,7 @@ const ToastProviderComponent = props => {
           fontFamily: 'Montserrat-Regular',
           numberOfLines:3,
         });
-      }, 600)
+      }, 1000)
 
     }
   }, [props]);

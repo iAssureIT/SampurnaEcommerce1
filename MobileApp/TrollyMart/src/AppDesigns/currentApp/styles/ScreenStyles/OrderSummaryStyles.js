@@ -542,15 +542,16 @@ superparent:{
       alignItems:'center',
     },
     inputWrapper : {
-     flex:0.5,
-     height:hp(4),
-      // marginLeft:10,
+      flex:0.5,
+      height:hp(3),
+      marginRight:wp(5),
       // borderColor:'#666',
       // borderColor:colors.theme,
       // borderWidth:1,
       // borderColor:'#707070',
       flexDirection:'row',
       borderRadius: 5,
+      
       shadowColor: "#000",
       shadowOffset: {
         width: -2,
@@ -560,7 +561,8 @@ superparent:{
       shadowRadius: 3.84,
       elevation: 5,
     },
-      formInputView: {
+    
+    formInputView: {
       width:'100%',
     },
   
@@ -652,7 +654,7 @@ superparent:{
       fontFamily:"Montserrat-Regular",
       backgroundColor:"#fff",
       height:hp(3.5),
-      width:'90%',
+      // width:'90%',
       fontSize:RFPercentage(1.5),
       borderWidth:1,
       borderColor:'#707070',

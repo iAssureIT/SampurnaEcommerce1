@@ -80,6 +80,7 @@ export const Location = withCustomerToaster((props)=>{
     const getCurrentPosition = ()=>{
         request(Platform.OS ==='android' ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
         .then(result => {
+            console.log("result",result);
           switch (result) {
             case RESULTS.UNAVAILABLE:
               console.log('This feature is not available (on this device / in this context)');

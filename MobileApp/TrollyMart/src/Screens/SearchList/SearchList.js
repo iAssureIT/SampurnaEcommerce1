@@ -204,7 +204,7 @@ export const SearchList  = withCustomerToaster((props)=>{
                        
                     </View>
                   </View>
-                  <View style={[productStyles.productStyles, styles.prdet]}>
+                  <View style={[productStyles.textWrapper, productStyles.prdet]}>
                     <Text numberOfLines={2} style={[productStyles.nameprod]} ellipsizeMode='middle'>{item.productName}</Text>
                     <View style={[productStyles.flxdir,{justifyContent:'flex-start',alignContent:'flex-start'}]}>
                       <View style={[productStyles.flxdir]}>
@@ -236,7 +236,7 @@ export const SearchList  = withCustomerToaster((props)=>{
               <View style={styles.formWrapper}>
                 <View style={{marginTop:hp(2),marginBottom:hp(8)}}>
                 {
-                    globalSearch.searchList.length ===0 ?
+                    globalSearch.searchList.length ===0  && globalSearch.loading?
                     <Loading />
                     :
                      globalSearch.searchList && globalSearch.searchList.length > 0 ?

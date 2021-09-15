@@ -9,7 +9,8 @@ import {
   Dimensions,
   StyleSheet,
   Platform,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Keyboard
 } from 'react-native';
 import { Dropdown }                 from 'react-native-material-dropdown-v2-fixed';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -208,14 +209,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
       const [value, setValue] = useState("");
       const [valid, setValid] = useState(false);
       const phoneInput = useRef(null);
+      const inputRef = useRef(null);
+      const inputName = useRef(null);
       const ref = useRef();
       const [selection,setSelection] = useState({start:0,end:0});
+      console.log("phoneInput",phoneInput);
       ref.current?.setAddressText(values.fromaddress);
-      // var mobileNumber = values.mobileNumber.split(" ");
-      // if(mobileNumber && mobileNumber.length >0){
-      //   var countryCode = mobileNumber[0].trim('+');
-      //   var number      = mobileNumber[1];
-      // }
       var ShippingType = [{ value: 'Home', }, { value: 'Office', }];
       const pincodeexistsornot=(pincode,formatted_address,area,city,state,country,latlong)=>{
         axios.get("/api/allowablepincode/checkpincode/" + pincode)
@@ -249,17 +248,14 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
               </View>
               <FormInput
                 labelName       = "Full Name"
-                labelFontSize = {18}
-                // placeholder     = "Contact Person Name"
+                labelFontSize   = {18}
+                inputRef        = {inputName}
                 onChangeText    = {handleChange('contactperson')}
                 required        = {true}
                 name            = "contactperson"
                 errors          = {errors}
                 touched         = {touched}
                 keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
-                // style           = {styles.inputText} 
-                // iconName        = {'user-circle-o'}
-                // iconType        = {'font-awesome'}
                 autoCapitalize  = "none"
                 value           = {values.contactperson}
               />
@@ -291,22 +287,17 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
                 </View>   
                 <FormInput
                     labelName       = "House No/Street Name"
-                    // placeholder     = "Please Enter Address..."
                     onChangeText    = {handleChange('addressLine1')}
                     required        = {true}
                     name            = "addressLine1"
                     errors          = {errors}
                     touched         = {touched}
                     keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
-                    // iconName        = {'user-circle-o'}
-                    // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
                     value           = {values.addressLine1}  
-                    // disabled        = {deliveuuuuuuuuuyyry}       
                   />
                   <FormInput
                     labelName       = "Area"
-                    // placeholder     = "Area"
                     onChangeText    = {handleChange('fromarea')}
                     required        = {false}
                     name            = "fromarea"
@@ -314,8 +305,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
                     touched         = {touched}
                     editable        = {false}
                     keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
-                    // iconName        = {'user-circle-o'}
-                    // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
 
                     value           = {values.fromarea}  
@@ -340,8 +329,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
                     listViewDisplayed         = {false}    // true/false/undefined
                     fetchDetails              = {true}
                     keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
-                    // onChangeText              = {(from)}
-                    // value                     = {from}
                     enablePoweredByContainer  = {false}
                     currentLocation           = {false} // Will add a 'Current location' button at the top of the predefined places list
                     currentLocationLabel      = "Current location"
@@ -413,7 +400,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
                 <FormInput
                     labelName       = "City"
-                    // placeholder     = "City"
                     onChangeText    = {handleChange('fromcity')}
                     required        = {false}
                     value           = {values.fromcity}
@@ -426,46 +412,27 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
                     autoCapitalize  = "none"
                     disabled        = {delivery}  
                   />
-                   {/* <FormInput
-                    labelName       = "Emirate"
-                    // placeholder     = "Emirate"
-                    onChangeText    = {handleChange('fromstate')}
-                    required        = {true}
-                    value           = {values.fromstate}
-                    name            = "fromstate"
-                    errors          = {errors}
-                    touched         = {touched}
-                    // iconName        = {'user-circle-o'}
-                    // iconType        = {'font-awesome'}
-                    autoCapitalize  = "none"
-                    disabled        = {delivery}  
-                  /> */}
                    <FormInput
                     labelName       = "Country"
-                    // placeholder     = "Country"
                     onChangeText    = {handleChange('fromcountry')}
                     required        = {true}
                     value           = {values.fromcountry}
                     name            = "fromcountry"
                     errors          = {errors}
                     touched         = {touched}
-                    keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
-                    // iconName        = {'user-circle-o'}
-                    // iconType        = {'font-awesome'}
+                    keyboardType    = {Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
                     autoCapitalize  = "none"
                     disabled        = {delivery}  
                   />
                   <FormInput
                     labelName       = "Zip/Postal Code"
-                    // placeholder     = "Postal Code"
+                    inputRef        = {inputRef}
                     onChangeText    = {handleChange('fromPincode')}
                     required        = {false}
                     name            = "fromPincode"
                     errors          = {errors}
                     touched         = {touched}
-                    keyboardType={Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
-                    // iconName        = {'user-circle-o'}
-                    // iconType        = {'font-awesome'}
+                    keyboardType    = {Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'}
                     autoCapitalize  = "none"
                   />
                 </View>
@@ -474,14 +441,13 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
                     <Text>Address type</Text>                    
                 </Text>
                   <Dropdown
-                    // label               = 'Type of Address'
+                    onFocus={()=>{inputRef?.current?.blur(),inputName?.current?.blur()}}
                     fontSize            = {RFPercentage(1.8)}
                     placeholder         = {"-- Select Address Type --"}                    
                     containerStyle      = {styles.ddContainer}
                     dropdownOffset      = {{ top: 88, left: 0 }}
                     itemTextStyle       = {styles.ddItemText}
                     inputContainerStyle = {styles.ddInputContainer}
-                    // labelHeight         = {10}
                     tintColor           = {colors.button}
                     labelFontSize       = {14}
                     baseColor           = {'#666'} 
@@ -489,10 +455,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
                     style               = {styles.ddStyle}
                     data                = {ShippingType}
                     dropdownMargins     = {{min:3, max:8}}
-                    // value               = {values.addresstype}
                     underlineColorAndroid ='transparent'
-                    // onChangeText={(addresstype) => { this.setState({ addresstype }) }}
-                    onChangeText={handleChange('addresstype')}
+                    onChangeText={()=>{handleChange('addresstype')}}
                   />
                  </View>
                  <View style={{marginHorizontal:30,}}>

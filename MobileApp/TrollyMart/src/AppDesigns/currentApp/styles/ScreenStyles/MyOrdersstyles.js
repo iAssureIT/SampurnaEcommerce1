@@ -11,7 +11,7 @@ export default StyleSheet.create({
     flex:1
   },
   container:{
-    // minHeight:window.height-25,
+    minHeight:window.height-25,
     backgroundColor:"#fff"
   },
   imageMenuWraper:{ 
@@ -19,7 +19,7 @@ export default StyleSheet.create({
   },
   formWrapper:{
     flex:1,
-    marginBottom:hp(6.5)
+    marginBottom:hp(6.5),
   },
   categoryTitle:{
    color:'#333',textAlign:'center',marginTop:5,marginBottom:10,fontSize:13,fontFamily:"Montserrat-Regular",flexWrap: 'wrap' 
@@ -333,20 +333,20 @@ export default StyleSheet.create({
   ordervwbtn:{
     flex:0.48,
     borderRadius:3,
-    shadowColor: '#fff',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 5,
+    // shadowColor: '#fff',
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.2,
+    // shadowRadius: 2,
+    // elevation: 5,
     paddingLeft:15
   },
   cancelvwbtn:{
     flex:0.48,
     borderRadius:3,
-    shadowColor: '#fff',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    elevation: 5,
+    // shadowColor: '#fff',
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.2,
+    // elevation: 5,
     paddingRight:15
   },
   vendorStatus:{
@@ -396,9 +396,9 @@ export default StyleSheet.create({
   },
 
   ordercancelled:{
-    color: 'red',
+    color: '#E88686',
     fontFamily:"Montserrat-SemiBold",
-    fontSize:14,
+    fontSize:RFPercentage(2),
     justifyContent : "center",
     alignSelf:"flex-end",
     paddingRight:5

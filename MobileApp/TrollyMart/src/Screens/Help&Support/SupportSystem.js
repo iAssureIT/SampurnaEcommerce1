@@ -235,10 +235,10 @@ const FormBody = (props) => {
                             const callingCode = phoneInput.current?.getCallingCode(text);
                             const countryCode = phoneInput.current?.getCountryCode(text);
                             var mobileNumber = text;
-                            setValue(text);
-                            setFieldValue('mobile_no',mobileNumber)
-                            setFieldValue('countryCode',countryCode)
-                            setValid(checkValid);
+                                setValue(text);
+                                setFieldValue('mobile_no',mobileNumber)
+                                setFieldValue('countryCode',countryCode)
+                                setValid(checkValid);
                             }}
                             clearButtonMode='always'
                             containerStyle= {styles1.containerStyle}

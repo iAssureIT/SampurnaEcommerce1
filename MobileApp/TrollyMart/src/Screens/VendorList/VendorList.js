@@ -100,7 +100,7 @@ export const VendorList = withCustomerToaster((props)=>{
             "vendor_ID"         : vendor.vendor_ID,
             "sectionUrl"        : sectionUrl,
             "startRange"        : 0,
-            "limitRange"        : 8,
+            "limitRange"        : 10,
         } 
         dispatch(getCategoryWiseList(payload));
         navigation.push('VendorProducts',{vendor:vendor,sectionUrl:sectionUrl,section:section,index:index,vendorLocation_id:vendor.vendorLocation_id});
@@ -221,7 +221,7 @@ export const VendorList = withCustomerToaster((props)=>{
                             <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:26,color:"#033554",opacity: 1}}>Coming Soon to you!</Text>
                             <View style={{justifyContent:'center',alignItems:'center'}}>
                                 <Text style={{fontFamily:"Montserrat-Medium",fontSize:14,color:"#000"}}>We are expanding to your area very soon</Text>
-                                <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Italic",fontSize:10}]}>stay tuned</Text>
+                                <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Regular",fontSize:10}]}>stay tuned</Text>
                             </View>
                         </View>
                         {/* <View style={{height:70,backgroundColor:"#ff0"}}>

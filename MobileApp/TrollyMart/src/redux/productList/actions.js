@@ -119,7 +119,7 @@ export const getCategoryWiseList = (payload) => {
         console.log("payload",payload);
             axios.post("/api/products/get/list/lowestprice",payload)
             .then((response)=>{
-                // console.log("getCategoryWiseList",response);
+                console.log("getCategoryWiseList",response);
                 if(payload.scroll && payload.scroll === true){
                     var newList = store.productList.categoryWiseList.concat(response.data);
                     dispatch({
@@ -142,7 +142,7 @@ export const getCategoryWiseList = (payload) => {
                     type: SET_LOADING,
                     payload: false,
                 });
-                if(response.data < 10){
+                if(response.data.length < 10){
                     dispatch({
                         type: STOP_SCROLL,
                         payload: true,

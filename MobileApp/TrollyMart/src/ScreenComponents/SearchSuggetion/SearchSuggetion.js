@@ -12,7 +12,7 @@ import styles                       from '../../AppDesigns/currentApp/styles/Scr
 import Loading                      from '../Loading/Loading.js';
 import {withCustomerToaster}        from '../../redux/AppState.js';
 import { SET_SEARCH_CALL,
-        SET_SEARCH_TEXT } 	        from '../../redux/globalSearch/types';
+        SET_SEARCH_TEXT,SET_SERACH_LIST } 	        from '../../redux/globalSearch/types';
 import { getSearchResult } 	        from '../../redux/globalSearch/actions';
 import {ProductList}                from'../../ScreenComponents/ProductList/ProductList.js';
 import { useNavigation }      from '@react-navigation/native';
@@ -33,6 +33,7 @@ const SearchSuggetion = withCustomerToaster((props)=>{
             <TouchableOpacity onPress={()=>{
                 dispatch({type:SET_SEARCH_CALL,payload:false});
                 dispatch({type:SET_SEARCH_TEXT,payload:''});
+                dispatch({type : SET_SERACH_LIST,    payload  : []})
                 dispatch(getSearchResult(item,user_id,10,true));
                 navigation.navigate('SearchList',{"type":'Search',"limit":10})
                 Keyboard.dismiss();
