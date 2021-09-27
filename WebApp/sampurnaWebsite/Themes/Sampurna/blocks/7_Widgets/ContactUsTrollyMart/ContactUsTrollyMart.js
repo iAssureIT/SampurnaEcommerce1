@@ -241,9 +241,6 @@ export default class ContactUsTrollyMart extends Component{
 										<a href="https://twitter.com/knockknockeshop" target="_blank">{/*<i className="fab fa-twitter"></i>*/}<img src="/images/eCommerce/footerIcon5.png" className={S.socialMediaFooterIcons} alt="twitter image not found" /></a>
 									</div>
 								</div>
-								{/*<div className={"col-12 "+S.contactUscontent}>
-										Head Office: Unit 201, Level – 1, Gate Avenue – South Zone DIFC, Dubai – UAE Branch Address: Palace Tower 1 Office Building, Office No:1405, S.P Oasis Street, Dubai Silicon Oasis, Dubai – UAE Email ID: info@trollymart.ae support@knock-knockeshop.com Phone Number: +971 45911186
-								</div>*/}
 								<div className="col-12">
 									<img className={S.contactUsRightLogo} src="/images/eCommerce/HalfFace.svg" alt=""></img>
 								</div>
