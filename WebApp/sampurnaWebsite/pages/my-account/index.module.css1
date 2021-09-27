@@ -1,0 +1,9 @@
+
+.navPillsWrapper a{
+    background-color: #e9e9e9;
+    color:black;
+    border-radius: 10px !important;
+}
+
+
+

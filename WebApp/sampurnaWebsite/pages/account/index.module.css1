@@ -1,0 +1,10 @@
+.accUserDetails h6{
+    font-size: 14px !important;
+}
+
+.accUserDetails p{
+    font-size: 14px !important;
+}
+
+
+

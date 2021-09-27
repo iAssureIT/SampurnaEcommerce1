@@ -1,0 +1,706 @@
+@font-face {
+  font-family:'Montserrat-Thin';
+  src: url('../../../fonts/Montserrat-Thin.ttf');
+}
+@font-face {
+  font-family:'Montserrat-SemiBold';
+  src: url('../../../fonts/Montserrat-SemiBold.ttf');
+}
+@font-face {
+  font-family  : 'Montserrat-Light';
+  font-style   : normal;
+  src          : url("../../../fonts/Montserrat-Light.ttf");
+}
+
+
+.contactUsPhoneNumber{
+  font-family  : 'Montserrat-Light';
+	color: #fff;
+}
+
+.contactUsTrollyMainWrapper{
+	min-height: 1337px;
+}
+.contactUsTrollyBreadcumWrapper{
+	height: 300px;
+	background-size: 170% 100%;
+}
+.getInTouchBtnMainWrapper{
+	margin-left: 13px;
+}
+.contactAddress{
+	display: block;
+}
+.contactusFormWrapperMain{
+	min-height: 970px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	position: absolute;
+	margin-top: 300px;
+	border-radius: 4px;
+}
+.contactusFormWrapperLeftSide{
+	/*height: 550px;*/
+	/*min-height: 550px;*/
+	background-color: #fff;
+	border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
+}
+.emailWrapperContactUs{
+	margin-top: -25px;
+	margin-left: 13px;
+}
+.contactusFormWrapperRightSide{
+	min-height: 476px;
+	background-color: #033554;
+	opacity: 1;
+	border-radius: 4px;
+	padding-bottom: 70px;
+}
+.contactusFormInputInsideWrapper{
+	border: none;
+	border-bottom: 1px solid #bbb;
+	border-radius: 0px;
+	box-shadow: none;
+	background-color: transparent;
+}
+.contactusFormInputWrapper{
+	color:#033554;
+	font-size: 14px;
+	font-family  : 'Montserrat-Light';
+}
+.getInTouchBtnWrapper{
+	height: 32px;
+	width: 82px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 0px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background-color: #033554;
+	outline: none;
+	border: none;
+	color: #fff;
+	margin-top: 20px;
+}
+.error{
+	color: red;
+}
+.getInTouchBtnWrapper:hover{
+	color: #fff;
+}
+.getInTouchSubTitle{
+	color: #fff;
+	font-family: "Montserrat-SemiBold";
+	/*font-size: 25px;*/
+}
+.phoneFontAwesomeWrapper, .phoneFontAwesomeWrapper label{
+	color: #fff;
+	font-family  : 'Montserrat-Light';
+	font-size: 13px;
+	cursor: pointer;
+}
+.hero{
+	height: 35px;
+	background: #033554;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+.social_links{
+	display: flex;
+	margin-left: -8px;
+	cursor: pointer;
+}
+.social_links a{
+	width: 28px;
+	height: 28px;
+	text-align: center;
+	text-decoration: none;
+	color: #033554;
+	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
+	margin: 0 5px;
+	border: 1px solid #c0ccd4;
+	background-color: #c0ccd4;
+	border-radius: 50%;
+	position: relative;
+	overflow: hidden;
+	transition: transform 0.5s;
+	font-size: 14px;
+	cursor: pointer;
+}
+.social_links a .fab{
+	margin-top: 7px;
+	text-align:center;
+	line-height: 80px;
+	position: relative;
+	z-index: 10;
+	transition: color 0.5s;
+	color: black;
+}
+.social_links i{
+	margin-top: 6px;
+}
+.contactUsTrollyMainWrapper input[type='number']::-webkit-inner-spin-button, 
+.contactUsTrollyMainWrapper input[type='number']::-webkit-outer-spin-button{
+	-webkit-appearance: none;    
+	appearance: none;
+	margin: 0;  
+}
+.contactUsTrollyMainWrapper input[type='number'], 
+.contactUsTrollyMainWrapper input[type='number']:hover,
+.contactUsTrollyMainWrapper input[type='number']:focus{
+	-moz-appearance: textfield;
+}
+.contactUsRightLogo{
+	display: none;
+}
+
+.socialMediaFooterIcons{
+	height: 20px;
+}
+
+.getInTouchIcon{
+	height: 12px;
+}
+
+.contactUsPhoneIcon, .contactUsMailIcon{
+	height: 12px;
+}
+
+/*.contactUscontent{
+	font-size: 13px;
+	color: #FFF;
+	margin-top: 80px;
+	font-family: 'Montserrat-Thin';
+	text-align: justify;
+}*/
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+@media (max-width: 320px){	
+		.contactUsTrollyBreadcumWrapper{
+		height: 100px;
+		background-size: cover;
+	}
+
+	.getInTouchSubTitle{
+				font-size: 18px;
+				opacity: 0.6;
+			}
+
+			.contactUsPhoneIcon, .contactUsMailIcon{
+				height: 20px;
+			}
+
+	.contactusFormWrapperMain{
+		margin-top: 101px;
+	}
+}
+@media (min-width: 320px) and (max-width: 480px){	
+		.contactUsTrollyBreadcumWrapper{
+		height: 100px;
+		background-size: cover;
+	}
+
+	.getInTouchSubTitle{
+				font-size: 20px;
+				opacity: 0.6;
+			}
+
+	.contactusFormWrapperMain{
+		margin-top: 101px;
+	}
+}
+
+@media (min-width: 480px) and (max-width: 640px){	
+		.contactUsTrollyBreadcumWrapper{
+			height: 150px;
+	    	background-size: 100% 120%;
+		}
+
+		.getInTouchSubTitle{
+				font-size: 22px;
+				opacity: 0.6;
+			}
+
+		.contactusFormWrapperMain{
+			margin-top: 150px;
+		}
+
+		.contactUsTrollyMainWrapper{
+			min-height: 1325px;
+		}
+}
+
+@media (min-width: 640px) and (max-width: 860px){	
+		.contactUsTrollyBreadcumWrapper{
+			height: 200px;
+			background-size: cover;
+		}
+
+		.contactusFormWrapperMain{
+			margin-top: 150px;
+		}
+
+		.contactUsTrollyMainWrapper{
+			min-height: 1267px;
+		}
+
+		.getInTouchSubTitle{
+				font-size: 24px;
+				opacity: 0.6;
+			}
+
+		.contactusFormWrapperRightSide{
+			height: 448px;
+		}
+
+		.phoneFontAwesomeWrapper label{
+			font-size: 15px;
+		}
+}
+
+@media (min-width: 860px) and (max-width: 1280px) {
+		.contactUsTrollyMainWrapper{
+		min-height: 749px;
+	}
+	.contactUsTrollyBreadcumWrapper{
+		height: 231px;
+    	background-size: 100% 182%;
+    	background-position-y: -85px;
+    	background-repeat: no-repeat;
+	}
+	.getInTouchBtnMainWrapper{
+		margin-left: 13px;
+	}
+	.contactusFormWrapperLeftSide{
+		/*min-height: 450px;*/
+		height: auto;
+		border-bottom-left-radius: 4px;
+		border-top-left-radius: 4px;
+	}
+	.contactusFormWrapperRightSide{
+		min-height: 450px;
+		height: auto;
+		border-bottom-right-radius: 10px;
+		border-top-right-radius: 10px;
+	}
+	.contactusFormWrapperMain{
+		min-height: 450px;
+		height: auto;
+		/*margin-top: 227px;*/
+		margin-top: 163px;
+	}
+	.contactusFormInputWrapper{
+		font-size: 14px;
+	}
+	.getInTouchBtnWrapper{
+		height: 32px;
+		width: 82px;
+		font-size: 14px;
+		margin-top: 0px;
+	}
+	.getInTouchSubTitle{
+		font-size: 24px;
+	}
+	.phoneFontAwesomeWrapper label{
+		font-size: 14px;
+	}
+	.phoneFontAwesomeWrapper{
+		font-size: 14px;
+	}
+	.hero{
+		/*height: 35px;*/
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+	}
+	.social_links{
+		display: flex;
+		margin-left: -8px;
+	}
+	.social_links a{
+		width: 28px;
+		height: 28px;
+		text-align: center;
+		margin: 0 5px;
+		font-size: 14px;
+	}
+	.social_links a .fab{
+		margin-top: 7px;
+		text-align:center;
+		line-height: 80px;
+	}
+	.social_links i{
+		margin-top: 6px;
+	}
+	.contactUsTrollyMainWrapper input[type='number']::-webkit-inner-spin-button, 
+	.contactUsTrollyMainWrapper input[type='number']::-webkit-outer-spin-button{
+		-webkit-appearance: none;    
+		appearance: none;
+		margin: 0;  
+	}
+	.contactUsTrollyMainWrapper input[type='number'], 
+	.contactUsTrollyMainWrapper input[type='number']:hover,
+	.contactUsTrollyMainWrapper input[type='number']:focus{
+		-moz-appearance: textfield;
+	}
+	.contactUsRightLogo{
+		width: 40%;
+		margin-top: 80px;
+		margin-left: 220px;
+	}
+	.emailWrapperContactUs{
+		margin-left: 27px;
+	}
+}
+
+@media (min-width: 1280px) and (max-width: 1366px) { 
+		.emailWrapperContactUs{
+		margin-left: 13px;
+	}
+
+	.getInTouchSubTitle{
+				font-size: 26px;
+				opacity: 0.6;
+			}
+}
+
+@media (min-width: 1366px) and (max-width: 1440px) { 
+		.contactUsTrollyMainWrapper{
+			min-height: 740px;
+		}
+
+		.contactusFormWrapperRightSide{
+			min-height: 530px;
+		}
+
+		.emailWrapperContactUsOne{
+			margin-left: 40px;
+			margin-top: -22px;
+		}
+
+		.getInTouchSubTitle{
+				font-size: 26px;
+				opacity: 0.6;
+			}
+
+		.emailWrapperContactUsTwo{
+			margin-left: 27px;
+		}
+
+		.contactAddress{
+			margin-left: 13px;
+		}
+
+		.contactUsPhoneNumber{
+			padding-left: 35px;
+			margin-top: -21px;
+		}
+}
+
+@media (min-width: 1440px) and (max-width: 1536px) { 
+		.contactUsTrollyMainWrapper{
+			min-height: 740px;
+		}
+
+		.contactusFormWrapperRightSide{
+			min-height: 530px;
+		}
+
+		.emailWrapperContactUsOne{
+			margin-left: 40px;
+			margin-top: -22px;
+		}
+
+		.getInTouchSubTitle{
+				font-size: 28px;
+				opacity: 0.6;
+			}
+
+		.emailWrapperContactUsTwo{
+			margin-left: 27px;
+		}
+
+		.contactAddress{
+			margin-left: 13px;
+		}
+
+		.contactUsPhoneNumber{
+			padding-left: 35px;
+			margin-top: -21px;
+		}
+}
+
+@media (min-width: 1536px) and (max-width: 1680px) { 
+		.contactUsTrollyBreadcumWrapper{
+			height: 300px;
+	    	background-size: 112% 167%;
+		}
+
+		.contactusFormWrapperMain{
+			margin-top: 227px;
+		}
+
+		.contactusFormWrapperLeftSide{
+			min-height: 530px
+		}
+
+		.contactUsTrollyMainWrapper{
+			min-height: 798px;
+		}
+
+		.emailWrapperContactUsOne{
+			margin-left: 40px;
+			margin-top: -22px;
+		}
+
+		.getInTouchSubTitle{
+				font-size: 28px;
+				opacity: 0.6;
+			}
+
+		.emailWrapperContactUsTwo{
+			margin-left: 27px;
+		}
+
+		.contactAddress{
+			margin-left: 13px;
+		}
+
+		.contactUsPhoneNumber{
+			padding-left: 35px;
+			margin-top: -21px;
+		}
+}
+
+@media (min-width: 1680px) and (max-width: 1920px) { 
+		.contactUsTrollyBreadcumWrapper{
+		height: 428px;
+		background-size: cover;
+	}
+
+	.contactUsTrollyMainWrapper{
+		min-height: 730px;
+	}
+
+	.contactusFormInputWrapper{
+		font-size: 23px;
+	}
+
+	.contactusFormInputInsideWrapper{
+		margin-top: -10px;
+	}
+
+	.contactusFormWrapperLeftSide{
+		min-height: 483px;
+	}
+
+	.contactusFormWrapperMain{
+		margin-top: 300px;
+	}
+
+	.emailWrapperContactUsOne{
+		margin-left: 40px;
+		margin-top: -40px;
+	}
+
+	.emailWrapperContactUsTwo{
+		margin-left: 26px;
+		/*padding-top: 5px;*/
+	}
+
+	.social_links a {
+	    width: 30px;
+	    height: 30px;
+	    padding: 3px 0px 0px 0px;
+	    font-size: 16px;
+	}
+
+	.phoneFontAwesomeWrapper{
+		font-size: 25px;
+	}
+	
+	.contactUsPhoneNumber{
+		padding-left: 36px;
+		margin-top: -35px;
+		font-size: 25px;	
+	}
+
+	.contactUsPhoneIcon, .contactUsMailIcon{
+		height: 15px;
+		width: 15px;
+	}
+
+	.getInTouchSubTitle{
+		font-size: 30px;
+		opacity: 0.6;
+	}
+
+	.emailWrapperContactUs{
+		margin-left: 14px;
+	}
+
+	.ContactUsTrollyMart_social_links{
+		margin-left: 0px;
+	}
+
+	.contactusFormWrapperRightSide{
+		min-height: 488px;
+	}
+}
+
+@media (min-width: 1920px) and (max-width: 2560px)  {
+		.contactUsTrollyBreadcumWrapper{
+		height: 328px;
+		background-size: cover;
+		background-position-y: -123px;
+	}
+
+	.contactusFormWrapperMain{
+		margin-top: 150px;
+	}
+
+	.contactUsTrollyMainWrapper{
+		min-height: 859px;
+	}
+
+	.getInTouchSubTitle{
+		font-size: 32px;
+		opacity: 0.6;
+	}
+
+	.contactusFormWrapperLeftSide{
+		min-height: 610px;
+	}
+
+	.contactusFormInputWrapper{
+		font-size: 18px;
+	}
+
+	.getInTouchBtnWrapper{
+	    height: 40px;
+	    width: 120px;
+	    margin-top: 20px;
+	    font-size: 20px !important;
+	    border-bottom-left-radius: 29px;
+	    border-bottom-right-radius: 0px;
+	    border-top-left-radius: 29px;
+	    border-top-right-radius: 25px;
+	    font-family: 'Montserrat-thin' !important;
+	}
+
+	.emailWrapperContactUsOne{
+		margin-left: 40px;
+		margin-top: -30px;
+	}
+
+	.emailWrapperContactUsTwo{
+		margin-left: 27px;
+		/*padding-top: 5px;*/
+	}
+
+	.social_links a {
+	    width: 37px;
+	    height: 37px;
+	    padding: 4px 0px 0px 0px;
+	    font-size: 20px;
+	}
+
+	.phoneFontAwesomeWrapper{
+		font-size: 18px;
+	}
+
+	.contactUsPhoneNumber{
+		padding-left: 37px;
+		margin-top: -28px;
+		font-size: 25px;
+		padding-bottom: 6px;
+	}
+
+	.contactUsPhoneIcon, .contactUsMailIcon{
+		height: 15px;
+		width: 15px;
+	}
+
+	.contactusFormWrapperRightSide{
+		padding-left: 33px;
+	}
+
+}
+
+@media (min-width: 2560px){
+		.contactUsTrollyBreadcumWrapper{
+		height: 400px;
+		background-position: center;
+		background-size: 100% 180%;
+	}
+
+	.contactusFormWrapperMain{
+		margin-top: 279px;
+	}
+
+	.contactUsTrollyMainWrapper{
+		min-height: 899px;
+		padding-bottom: 540px;
+	}
+
+	.getInTouchSubTitle{
+		font-size: 32px;
+	}
+
+	.contactusFormWrapperLeftSide{
+		/*min-height: 648px*/
+	}
+
+	.contactusFormInputWrapper{
+		font-size: 21px;
+	}
+
+	.getInTouchBtnWrapper{
+	    height: 50px;
+	    width: 150px;
+	    font-size: 21px;
+	    margin-top: 10px;
+	    border-bottom-left-radius: 29px;
+	    border-bottom-right-radius: 0px;
+	    border-top-left-radius: 29px;
+	    border-top-right-radius: 25px;
+	}
+
+	.phoneFontAwesomeWrapper{
+		font-size: 18px;
+	}
+
+	.contactUsPhoneNumber{
+		padding-left: 35px;
+	}
+
+	.emailWrapperContactUs {
+	    margin-top: -28px;
+	}
+
+	.emailWrapperContactUsOne{
+		padding-left: 8px;
+		margin-top: -32px;
+	}
+
+	.emailWrapperContactUsTwo{
+		padding-left: 25px;
+		padding-top: 5px;
+	}
+
+	.contactAddress{
+    	padding-left: 25px;
+    	margin-top: -6px;
+	}
+
+	.social_links a {
+	    width: 40px;
+	    height: 40px;
+	    padding: 5px 0px 0px 0px;
+	    font-size: 20px;
+	}
+}
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
