@@ -18,26 +18,13 @@
 	color: #fff;
 }
 
-.getInTouchIcon{
-		height: 20px;
-		width: 20px;
-	}
-
-
-.contactUsPhoneIcon, .contactUsMailIcon{
-		height: 17px;
-		width: 17px;
-	}
-
 .contactUsTrollyMainWrapper{
 	min-height: 1337px;
 }
 .contactUsTrollyBreadcumWrapper{
-			height: 300px;
-			background-size: 100% 182%;
-    	background-position-y: -85px;
-    	background-repeat: no-repeat;
-		}
+	height: 300px;
+	background-size: 170% 100%;
+}
 .getInTouchBtnMainWrapper{
 	margin-left: 13px;
 }
@@ -45,8 +32,7 @@
 	display: block;
 }
 .contactusFormWrapperMain{
-	/*min-height: 970px;*/
-	/*margin-bottom: 50px;*/
+	min-height: 970px;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 	position: absolute;
 	margin-top: 300px;
@@ -56,8 +42,8 @@
 	/*height: 550px;*/
 	/*min-height: 550px;*/
 	background-color: #fff;
-	border-bottom-left-radius: 6px;
-	border-top-left-radius: 6px;
+	border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
 }
 .emailWrapperContactUs{
 	margin-top: -25px;
@@ -75,12 +61,7 @@
 	border-bottom: 1px solid #bbb;
 	border-radius: 0px;
 	box-shadow: none;
-	font-size: 16px;
 	background-color: transparent;
-}
-
-body .contactusFormInputInsideWrapper{
-	font-size: 20px;
 }
 .contactusFormInputWrapper{
 	color:#033554;
@@ -98,7 +79,6 @@ body .contactusFormInputInsideWrapper{
 	outline: none;
 	border: none;
 	color: #fff;
-	font-size: 20px;
 	margin-top: 20px;
 }
 .error{
@@ -127,17 +107,17 @@ body .contactusFormInputInsideWrapper{
 }
 .social_links{
 	display: flex;
-	margin-left: 30px;
+	margin-left: -8px;
 	cursor: pointer;
 }
 .social_links a{
-	width: 40px;
-	height: 40px;
+	width: 28px;
+	height: 28px;
 	text-align: center;
 	text-decoration: none;
 	color: #033554;
 	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
-	margin-right: 17px;
+	margin: 0 5px;
 	border: 1px solid #c0ccd4;
 	background-color: #c0ccd4;
 	border-radius: 50%;
@@ -175,15 +155,14 @@ body .contactusFormInputInsideWrapper{
 }
 
 .socialMediaFooterIcons{
-	height: 108%;
-	width: 108%;
-	background-size: cover;
-	background-color: #033554;
-	margin-top: -3px;
-  margin-left: -2px;
+	height: 20px;
 }
 
 .getInTouchIcon{
+	height: 12px;
+}
+
+.contactUsPhoneIcon, .contactUsMailIcon{
 	height: 12px;
 }
 
@@ -200,143 +179,33 @@ body .contactusFormInputInsideWrapper{
 
 @media (max-width: 320px){	
 		.contactUsTrollyBreadcumWrapper{
-			height: 150px;
-			background-size: 100% 188%;
-    	background-position-y: -85px;
-    	background-repeat: no-repeat;
-		}
+		height: 100px;
+		background-size: cover;
+	}
 
 	.getInTouchSubTitle{
-				font-size: 20px;
+				font-size: 18px;
+				opacity: 0.6;
 			}
 
-			.emailWrapperContactUsOne{
-			margin-left: 40px;
-			margin-top: -22px;
-			font-size: 18px;
-		}
-
-		.emailWrapperContactUsTwo{
-			margin-left: 27px;
-			font-size: 18px;
-		}
-
-			.contactAddress{
-    	padding-left: 30px;
-    	margin-top: -6px;
-    	font-size: 18px;
-	}
-
-	.contactusFormWrapperLeftSide{
-		/*min-height: 450px;*/
-		padding: 0px 30px;
-		height: auto;
-		border-top-right-radius: 6px;
-		border-top-left-radius: 6px;
-	}
-	.contactusFormWrapperRightSide{
-		min-height: 450px;
-		height: auto;
-		border-bottom-right-radius: 6px;
-		border-bottom-left-radius: 6px;
-	}
-
-		.contactusFormInputWrapper{
-		font-size: 18px;
-	}
-
-	.getInTouchBtnWrapper{
-		height: 53px;
-		width: 137px;
-		font-family  : 'Montserrat-Light';
-		margin-top: 30px;
-	}
-
-	.contactUsPhoneNumber{
-			padding-left: 35px;
-			margin-top: -21px;
-			font-size: 18px;
-		}
-
-	.emailWrapperContactUs {
-	    margin-top: -28px;
-	    font-size: 18px;
-	}
+			.contactUsPhoneIcon, .contactUsMailIcon{
+				height: 20px;
+			}
 
 	.contactusFormWrapperMain{
 		margin-top: 101px;
 	}
-
-	.contactUsTrollyMainWrapper{
-			min-height: 1472px;
-		}
 }
 @media (min-width: 320px) and (max-width: 480px){	
 		.contactUsTrollyBreadcumWrapper{
-			height: 150px;
-			background-size: 100% 198%;
-    	background-position-y: -85px;
-    	background-repeat: no-repeat;
-		}
-
-		.contactUsTrollyMainWrapper{
-			min-height: 1418px;
-		}
+		height: 100px;
+		background-size: cover;
+	}
 
 	.getInTouchSubTitle{
 				font-size: 20px;
+				opacity: 0.6;
 			}
-
-			.emailWrapperContactUsOne{
-			margin-left: 40px;
-			margin-top: -22px;
-			font-size: 18px;
-		}
-
-		.emailWrapperContactUsTwo{
-			margin-left: 27px;
-			font-size: 18px;
-		}
-
-			.contactAddress{
-    	padding-left: 30px;
-    	margin-top: -6px;
-    	font-size: 18px;
-	}
-
-	.getInTouchBtnWrapper{
-		height: 53px;
-		width: 137px;
-		font-family  : 'Montserrat-Light';
-		margin-top: 30px;
-	}
-
-	.contactusFormWrapperLeftSide{
-		/*min-height: 450px;*/
-		padding: 0px 30px;
-		height: auto;
-		border-radius: 0px;
-	}
-	.contactusFormWrapperRightSide{
-		min-height: 450px;
-		height: auto;
-		border-radius: 0px;
-	}
-
-		.contactusFormInputWrapper{
-		font-size: 18px;
-	}
-
-	.contactUsPhoneNumber{
-			padding-left: 35px;
-			margin-top: -21px;
-			font-size: 18px;
-		}
-
-	.emailWrapperContactUs {
-	    margin-top: -28px;
-	    font-size: 18px;
-	}
 
 	.contactusFormWrapperMain{
 		margin-top: 101px;
@@ -346,83 +215,27 @@ body .contactusFormInputInsideWrapper{
 @media (min-width: 480px) and (max-width: 640px){	
 		.contactUsTrollyBreadcumWrapper{
 			height: 150px;
-			background-size: 100% 208%;
-    	background-position-y: -85px;
-    	background-repeat: no-repeat;
+	    	background-size: 100% 120%;
 		}
 
 		.getInTouchSubTitle{
-				font-size: 21px;
+				font-size: 22px;
+				opacity: 0.6;
 			}
 
-			.emailWrapperContactUsOne{
-			margin-left: 40px;
-			margin-top: -22px;
-			font-size: 20px;
-		}
-
-		.emailWrapperContactUsTwo{
-			margin-left: 27px;
-			font-size: 20px;
-		}
-
 		.contactusFormWrapperMain{
-			margin-top: 120px;
+			margin-top: 150px;
 		}
-
-		.contactAddress{
-    	padding-left: 30px;
-    	margin-top: -6px;
-    	font-size: 20px;
-	}
-
-	.getInTouchBtnWrapper{
-		height: 53px;
-		width: 137px;
-		font-family  : 'Montserrat-Light';
-		margin-top: 30px;
-	}
-
-		.contactusFormInputWrapper{
-		font-size: 20px;
-	}
-
-	.contactUsPhoneNumber{
-			padding-left: 35px;
-			margin-top: -21px;
-			font-size: 20px;
-		}
-
-		.contactusFormWrapperLeftSide{
-		/*min-height: 450px;*/
-		padding: 0px 30px;
-		height: auto;
-		border-top-right-radius: 6px;
-		border-top-left-radius: 6px;
-	}
-	.contactusFormWrapperRightSide{
-		min-height: 450px;
-		height: auto;
-		border-bottom-right-radius: 6px;
-		border-bottom-left-radius: 6px;
-	}
-
-	.emailWrapperContactUs {
-	    margin-top: -28px;
-	    font-size: 20px;
-	}
 
 		.contactUsTrollyMainWrapper{
-			min-height: 1428px;
+			min-height: 1325px;
 		}
 }
 
 @media (min-width: 640px) and (max-width: 860px){	
 		.contactUsTrollyBreadcumWrapper{
 			height: 200px;
-			background-size: 100% 182%;
-    	background-position-y: -85px;
-    	background-repeat: no-repeat;
+			background-size: cover;
 		}
 
 		.contactusFormWrapperMain{
@@ -430,65 +243,13 @@ body .contactusFormInputInsideWrapper{
 		}
 
 		.contactUsTrollyMainWrapper{
-			min-height: 1467px;
-		}
-
-		.emailWrapperContactUsOne{
-			margin-left: 40px;
-			margin-top: -22px;
-			font-size: 21px;
-		}
-
-		.emailWrapperContactUsTwo{
-			margin-left: 27px;
-			font-size: 21px;
+			min-height: 1267px;
 		}
 
 		.getInTouchSubTitle{
-				font-size: 22px;
+				font-size: 24px;
+				opacity: 0.6;
 			}
-
-			.contactAddress{
-    	padding-left: 30px;
-    	margin-top: -6px;
-    	font-size: 21px;
-	}
-
-		.contactusFormInputWrapper{
-		font-size: 21px;
-	}
-
-	.getInTouchBtnWrapper{
-		height: 53px;
-		width: 137px;
-		font-family  : 'Montserrat-Light';
-		margin-top: 30px;
-	}
-
-	.contactusFormWrapperLeftSide{
-		/*min-height: 450px;*/
-		padding: 0px 30px;
-		height: auto;
-		border-top-right-radius: 6px;
-		border-top-left-radius: 6px;
-	}
-	.contactusFormWrapperRightSide{
-		min-height: 550px;
-		height: auto;
-		border-bottom-right-radius: 6px;
-		border-bottom-left-radius: 6px;
-	}
-
-	.contactUsPhoneNumber{
-			padding-left: 35px;
-			margin-top: -21px;
-			font-size: 21px;
-		}
-
-	.emailWrapperContactUs {
-	    margin-top: -28px;
-	    font-size: 21px;
-	}
 
 		.contactusFormWrapperRightSide{
 			height: 448px;
@@ -499,10 +260,14 @@ body .contactusFormInputInsideWrapper{
 		}
 }
 
+<<<<<<< HEAD
 @media (min-width: 860px) and (max-width: 1270px) {
+=======
+@media (min-width: 860px) and (max-width: 1280px) {
+>>>>>>> parent of 55789440... Website Contact Us Changes
 		.contactUsTrollyMainWrapper{
-			min-height: 1450px;
-		}
+		min-height: 749px;
+	}
 	.contactUsTrollyBreadcumWrapper{
 		height: 231px;
     	background-size: 100% 182%;
@@ -514,16 +279,15 @@ body .contactusFormInputInsideWrapper{
 	}
 	.contactusFormWrapperLeftSide{
 		/*min-height: 450px;*/
-		padding: 0px 30px;
 		height: auto;
-		border-top-right-radius: 6px;
-		border-top-left-radius: 6px;
+		border-bottom-left-radius: 4px;
+		border-top-left-radius: 4px;
 	}
 	.contactusFormWrapperRightSide{
 		min-height: 450px;
 		height: auto;
-		border-bottom-right-radius: 6px;
-		border-bottom-left-radius: 6px;
+		border-bottom-right-radius: 10px;
+		border-top-right-radius: 10px;
 	}
 	.contactusFormWrapperMain{
 		min-height: 450px;
@@ -531,33 +295,14 @@ body .contactusFormInputInsideWrapper{
 		/*margin-top: 227px;*/
 		margin-top: 163px;
 	}
-	.contactAddress{
-    	padding-left: 15px;
-    	margin-top: -6px;
-    	font-size: 21px;
+	.contactusFormInputWrapper{
+		font-size: 14px;
 	}
-
-	.emailWrapperContactUsOne{
-			margin-left: 40px;
-			margin-top: -22px;
-			font-size: 21px;
-		}
-
-		.emailWrapperContactUsTwo{
-			margin-left: 27px;
-			font-size: 21px;
-		}
-
-		.contactusFormInputWrapper{
-		font-size: 21px;
-	}
-
 	.getInTouchBtnWrapper{
-		height: 53px;
-		width: 137px;
-		font-size: 20px;
-		font-family  : 'Montserrat-Light';
-		margin-top: 50px;
+		height: 32px;
+		width: 82px;
+		font-size: 14px;
+		margin-top: 0px;
 	}
 	.getInTouchSubTitle{
 		font-size: 24px;
@@ -576,11 +321,11 @@ body .contactusFormInputInsideWrapper{
 	}
 	.social_links{
 		display: flex;
-		margin-left: 40px;
+		margin-left: -8px;
 	}
 	.social_links a{
-		width: 30px;
-		height: 30px;
+		width: 28px;
+		height: 28px;
 		text-align: center;
 		margin: 0 5px;
 		font-size: 14px;
@@ -609,20 +354,12 @@ body .contactusFormInputInsideWrapper{
 		margin-top: 80px;
 		margin-left: 220px;
 	}
-
-	.contactUsPhoneNumber{
-			padding-left: 35px;
-			margin-top: -21px;
-			font-size: 21px;
-		}
-
-	.emailWrapperContactUs {
-	    margin-top: -28px;
-	    margin-left: 27px;
-	    font-size: 21px;
+	.emailWrapperContactUs{
+		margin-left: 27px;
 	}
 }
 
+<<<<<<< HEAD
 @media (min-width: 1281px) and (max-width: 1366px) { 
 
 	.contactUsTrollyBreadcumWrapper{
@@ -636,57 +373,22 @@ body .contactusFormInputInsideWrapper{
 			min-height: 1015px;
 		}
 
+=======
+@media (min-width: 1280px) and (max-width: 1366px) { 
+>>>>>>> parent of 55789440... Website Contact Us Changes
 		.emailWrapperContactUs{
 		margin-left: 13px;
 	}
 
-	.emailWrapperContactUsOne{
-			margin-left: 40px;
-			margin-top: -22px;
-			font-size: 22px;
-		}
-
-		.getInTouchSubTitle{
+	.getInTouchSubTitle{
 				font-size: 26px;
+				opacity: 0.6;
 			}
-
-		.emailWrapperContactUsTwo{
-			margin-left: 27px;
-			font-size: 22px;
-		}
-
-			.contactAddress{
-    	padding-left: 30px;
-    	margin-top: -6px;
-    	font-size: 22px;
-	}
-
-		.contactusFormInputWrapper{
-		font-size: 22px;
-	}
-
-	.contactUsPhoneNumber{
-			padding-left: 35px;
-			margin-top: -21px;
-			font-size: 22px;
-		}
-
-	.emailWrapperContactUs {
-	    margin-top: -28px;
-	    font-size: 22px;
-	}
 }
 
 @media (min-width: 1366px) and (max-width: 1440px) { 
-		.contactUsTrollyBreadcumWrapper{
-			height: 270px;
-			background-size: 100% 182%;
-    	background-position-y: -85px;
-    	background-repeat: no-repeat;
-		}
-
 		.contactUsTrollyMainWrapper{
-			min-height: 1020px;
+			min-height: 740px;
 		}
 
 		.contactusFormWrapperRightSide{
@@ -696,66 +398,30 @@ body .contactusFormInputInsideWrapper{
 		.emailWrapperContactUsOne{
 			margin-left: 40px;
 			margin-top: -22px;
-			font-size: 22px;
 		}
 
 		.getInTouchSubTitle{
 				font-size: 26px;
+				opacity: 0.6;
 			}
 
 		.emailWrapperContactUsTwo{
 			margin-left: 27px;
-			font-size: 22px;
 		}
 
 		.contactAddress{
-    	padding-left: 30px;
-    	margin-top: -6px;
-    	font-size: 22px;
-	}
-
-		.contactusFormInputWrapper{
-		font-size: 22px;
-	}
-
-	.getInTouchBtnWrapper{
-		height: 53px;
-		width: 137px;
-		font-size: 20px;
-		font-family  : 'Montserrat-Light';
-		margin-top: 20px;
-	}
-
-	.contactusFormWrapperMain{
-			margin-top: 210px;
+			margin-left: 13px;
 		}
 
 		.contactUsPhoneNumber{
 			padding-left: 35px;
 			margin-top: -21px;
-			font-size: 22px;
 		}
-
-	.emailWrapperContactUs {
-	    margin-top: -28px;
-	    font-size: 22px;
-	}
 }
 
 @media (min-width: 1440px) and (max-width: 1536px) { 
-		.contactUsTrollyBreadcumWrapper{
-			height: 300px;
-			background-size: 100% 182%;
-    	background-position-y: -85px;
-    	background-repeat: no-repeat;
-		}
-
-		.contactusFormWrapperMain{
-			margin-top: 245px;
-		}
-
 		.contactUsTrollyMainWrapper{
-			min-height: 1000px;
+			min-height: 740px;
 		}
 
 		.contactusFormWrapperRightSide{
@@ -764,61 +430,36 @@ body .contactusFormInputInsideWrapper{
 
 		.emailWrapperContactUsOne{
 			margin-left: 40px;
-			margin-top: -30px;
-			font-size: 22px;
+			margin-top: -22px;
 		}
 
 		.getInTouchSubTitle{
 				font-size: 28px;
+				opacity: 0.6;
 			}
 
 		.emailWrapperContactUsTwo{
 			margin-left: 27px;
-			font-size: 22px;
 		}
 
-		.getInTouchBtnWrapper{
-		height: 53px;
-		width: 137px;
-		font-size: 20px;
-		font-family  : 'Montserrat-Light';
-		margin-top: 30px;
-	}
-
 		.contactAddress{
-    	padding-left: 30px;
-    	margin-top: -6px;
-    	font-size: 22px;
-	}
-
-		.contactusFormInputWrapper{
-			font-size: 22px;
+			margin-left: 13px;
 		}
 
 		.contactUsPhoneNumber{
 			padding-left: 35px;
-			margin-top: -27px;
-			font-size: 22px;
+			margin-top: -21px;
 		}
-
-	.emailWrapperContactUs {
-	    margin-top: -28px;
-	    font-size: 22px;
-	}
-
-
 }
 
 @media (min-width: 1536px) and (max-width: 1680px) { 
 		.contactUsTrollyBreadcumWrapper{
 			height: 300px;
-			background-size: 100% 182%;
-    	background-position-y: -85px;
-    	background-repeat: no-repeat;
+	    	background-size: 112% 167%;
 		}
 
 		.contactusFormWrapperMain{
-			margin-top: 237px;
+			margin-top: 227px;
 		}
 
 		.contactusFormWrapperLeftSide{
@@ -826,64 +467,41 @@ body .contactusFormInputInsideWrapper{
 		}
 
 		.contactUsTrollyMainWrapper{
-			min-height: 1010px;
+			min-height: 798px;
 		}
 
 		.emailWrapperContactUsOne{
 			margin-left: 40px;
-			margin-top: -30px;
-			font-size: 23px;
+			margin-top: -22px;
 		}
 
 		.getInTouchSubTitle{
 				font-size: 28px;
+				opacity: 0.6;
 			}
-
-			.getInTouchBtnWrapper{
-		height: 53px;
-		width: 137px;
-		font-size: 20px;
-		font-family  : 'Montserrat-Light';
-		margin-top: 30px;
-	}
 
 		.emailWrapperContactUsTwo{
 			margin-left: 27px;
-			font-size: 23px;
-		}
-
-		.contactusFormInputWrapper{
-			font-size: 23px;
 		}
 
 		.contactAddress{
-    	padding-left: 30px;
-    	margin-top: -6px;
-    	font-size: 23px;
-	}
+			margin-left: 13px;
+		}
 
 		.contactUsPhoneNumber{
 			padding-left: 35px;
-			margin-top: -27px;
-			font-size: 23px;
+			margin-top: -21px;
 		}
-
-	.emailWrapperContactUs {
-	    margin-top: -28px;
-	    font-size: 23px;
-	}
 }
 
 @media (min-width: 1680px) and (max-width: 1920px) { 
 		.contactUsTrollyBreadcumWrapper{
-			height: 328px;
-			background-size: 100% 182%;
-    	background-position-y: -85px;
-    	background-repeat: no-repeat;
-		}
+		height: 428px;
+		background-size: cover;
+	}
 
 	.contactUsTrollyMainWrapper{
-		min-height: 1100px;
+		min-height: 730px;
 	}
 
 	.contactusFormInputWrapper{
@@ -899,25 +517,22 @@ body .contactusFormInputInsideWrapper{
 	}
 
 	.contactusFormWrapperMain{
-		margin-top: 275px;
+		margin-top: 300px;
 	}
 
 	.emailWrapperContactUsOne{
 		margin-left: 40px;
 		margin-top: -40px;
-		font-size: 25px;
 	}
 
 	.emailWrapperContactUsTwo{
 		margin-left: 26px;
-		font-size: 25px;
 		/*padding-top: 5px;*/
 	}
 
 	.social_links a {
-	    width: 45px;
-	    height: 47px;
-	    margin-right: 17px;
+	    width: 30px;
+	    height: 30px;
 	    padding: 3px 0px 0px 0px;
 	    font-size: 16px;
 	}
@@ -937,30 +552,13 @@ body .contactusFormInputInsideWrapper{
 		width: 15px;
 	}
 
-	.getInTouchBtnWrapper{
-		height: 53px;
-		width: 137px;
-		font-size: 20px;
-		font-family  : 'Montserrat-Light';
-		margin-top: 0px;
-	}
 	.getInTouchSubTitle{
 		font-size: 30px;
-	}
-
-	.getInTouchIcon{
-		height: 18px;
-		width: 20px;
+		opacity: 0.6;
 	}
 
 	.emailWrapperContactUs{
 		margin-left: 14px;
-	}
-
-	.contactAddress{
-    	padding-left: 30px;
-    	margin-top: -6px;
-    	font-size: 25px;
 	}
 
 	.ContactUsTrollyMart_social_links{
@@ -974,22 +572,22 @@ body .contactusFormInputInsideWrapper{
 
 @media (min-width: 1920px) and (max-width: 2560px)  {
 		.contactUsTrollyBreadcumWrapper{
-			height: 328px;
-			background-size: 100% 182%;
-    	background-position-y: -85px;
-    	background-repeat: no-repeat;
-		}
+		height: 328px;
+		background-size: cover;
+		background-position-y: -123px;
+	}
 
 	.contactusFormWrapperMain{
-		margin-top: 270px;
+		margin-top: 150px;
 	}
 
 	.contactUsTrollyMainWrapper{
-		min-height: 950px;
+		min-height: 859px;
 	}
 
 	.getInTouchSubTitle{
-		font-size: 30px;
+		font-size: 32px;
+		opacity: 0.6;
 	}
 
 	.contactusFormWrapperLeftSide{
@@ -997,29 +595,28 @@ body .contactusFormInputInsideWrapper{
 	}
 
 	.contactusFormInputWrapper{
-		font-size: 24px;
+		font-size: 18px;
 	}
 
 	.getInTouchBtnWrapper{
-		height: 53px;
-		width: 137px;
-		font-size: 20px;
-		font-family  : 'Montserrat-Light';
-		margin-top: 0px;
-	}
-
-	.getInTouchIcon{
-		height: 18px;
-		width: 20px;
+	    height: 40px;
+	    width: 120px;
+	    margin-top: 20px;
+	    font-size: 20px !important;
+	    border-bottom-left-radius: 29px;
+	    border-bottom-right-radius: 0px;
+	    border-top-left-radius: 29px;
+	    border-top-right-radius: 25px;
+	    font-family: 'Montserrat-thin' !important;
 	}
 
 	.emailWrapperContactUsOne{
 		margin-left: 40px;
 		margin-top: -30px;
-		font-size: 25px;	}
+	}
 
 	.emailWrapperContactUsTwo{
-		margin-left: 27px;font-size: 25px;
+		margin-left: 27px;
 		/*padding-top: 5px;*/
 	}
 
@@ -1046,33 +643,26 @@ body .contactusFormInputInsideWrapper{
 		width: 15px;
 	}
 
-	.contactAddress{
-    	padding-left: 30px;
-    	margin-top: -6px;
-    	font-size: 25px;
-	}
-
 	.contactusFormWrapperRightSide{
 		padding-left: 33px;
-		padding-top: 30px;
 	}
 
 }
 
 @media (min-width: 2560px){
 		.contactUsTrollyBreadcumWrapper{
-			height: 330px;
-			background-size: 100% 170%;
-    	background-position-y: -85px;
-    	background-repeat: no-repeat;
-		}
+		height: 400px;
+		background-position: center;
+		background-size: 100% 180%;
+	}
 
 	.contactusFormWrapperMain{
-		margin-top: 260px;
+		margin-top: 279px;
 	}
 
 	.contactUsTrollyMainWrapper{
-		min-height: 930px;
+		min-height: 899px;
+		padding-bottom: 540px;
 	}
 
 	.getInTouchSubTitle{
@@ -1080,34 +670,30 @@ body .contactusFormInputInsideWrapper{
 	}
 
 	.contactusFormWrapperLeftSide{
-		min-height: 580px
+		/*min-height: 648px*/
 	}
 
 	.contactusFormInputWrapper{
-		font-size: 25px;
+		font-size: 21px;
 	}
 
 	.getInTouchBtnWrapper{
-		height: 53px;
-		width: 137px;
-		font-size: 20px;
-		font-family  : 'Montserrat-Light';
-		margin-top: 0px;
-	}
-
-	.getInTouchIcon{
-		height: 18px;
-		width: 20px;
+	    height: 50px;
+	    width: 150px;
+	    font-size: 21px;
+	    margin-top: 10px;
+	    border-bottom-left-radius: 29px;
+	    border-bottom-right-radius: 0px;
+	    border-top-left-radius: 29px;
+	    border-top-right-radius: 25px;
 	}
 
 	.phoneFontAwesomeWrapper{
-		font-size: 26px;
+		font-size: 18px;
 	}
 
 	.contactUsPhoneNumber{
-		padding-left: 36px;
-		margin-top: -35px;
-		font-size: 25px;	
+		padding-left: 35px;
 	}
 
 	.emailWrapperContactUs {
@@ -1115,30 +701,18 @@ body .contactusFormInputInsideWrapper{
 	}
 
 	.emailWrapperContactUsOne{
-		padding-left: 40px;
-		margin-top: -40px;
-		font-size: 25px;
+		padding-left: 8px;
+		margin-top: -32px;
 	}
 
 	.emailWrapperContactUsTwo{
-		padding-left: 40px;
+		padding-left: 25px;
 		padding-top: 5px;
-		font-size: 25px;
 	}
 
 	.contactAddress{
-    	padding-left: 30px;
+    	padding-left: 25px;
     	margin-top: -6px;
-	}
-
-	.contactUsPhoneIcon, .contactUsMailIcon{
-		height: 20px;
-		width: 20px;
-	}
-
-	.contactusFormWrapperRightSide{
-		padding-left: 33px;
-		padding-top: 30px;
 	}
 
 	.social_links a {
