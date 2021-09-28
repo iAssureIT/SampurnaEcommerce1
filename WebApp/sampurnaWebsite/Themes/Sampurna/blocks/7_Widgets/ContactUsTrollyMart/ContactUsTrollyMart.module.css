@@ -260,11 +260,7 @@
 		}
 }
 
-<<<<<<< HEAD
-@media (min-width: 860px) and (max-width: 1270px) {
-=======
 @media (min-width: 860px) and (max-width: 1280px) {
->>>>>>> parent of 55789440... Website Contact Us Changes
 		.contactUsTrollyMainWrapper{
 		min-height: 749px;
 	}
@@ -359,7 +355,6 @@
 	}
 }
 
-<<<<<<< HEAD
 @media (min-width: 1281px) and (max-width: 1366px) { 
 
 	.contactUsTrollyBreadcumWrapper{
@@ -373,9 +368,6 @@
 			min-height: 1015px;
 		}
 
-=======
-@media (min-width: 1280px) and (max-width: 1366px) { 
->>>>>>> parent of 55789440... Website Contact Us Changes
 		.emailWrapperContactUs{
 		margin-left: 13px;
 	}

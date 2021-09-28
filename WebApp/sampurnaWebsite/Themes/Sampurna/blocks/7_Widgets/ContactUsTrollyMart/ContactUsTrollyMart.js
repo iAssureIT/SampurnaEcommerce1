@@ -223,7 +223,7 @@ export default class ContactUsTrollyMart extends Component{
 
 									<div className={S.emailWrapperContactUsOne}>support@knock-knockeshop.com</div>
 									<div className={ "col-12 " +S.emailWrapperContactUsTwo}>info@trollymart.ae</div>
-									
+									<div className={ "col-12 " +S.emailWrapperContactUsTwo}>TrollyMart Portal Limited</div>
 								</div>
 								<div className={"col-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}>{/*<i className={"fa fa-address-card"}></i>*/}{/*<img src="/images/eCommerce/01-home.png" alt="mail image not found" />*/}
 									<div className={S.emailWrapperContactUs}>
